@@ -1,0 +1,12 @@
+{
+	"files": [
+		"./dist/**/*.{css,html,htm,js}"
+	],
+	"reloadDebounce": 500,
+	"server": {
+		"baseDir": "dist"
+	},
+	"watchOptions": {
+		"ignored": ["./**/*", "!./dist/**/*"]
+	}
+}

@@ -1,0 +1,19 @@
+mixin head(title)
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0")
+		title= title
+
+		script(defer src="/js/script.all.min.js")
+		link(rel="stylesheet" href="/css/style.all.min.css")
+
+		block
+
+mixin modalWindow(modal)
+	.modal-window
+		if modal == 'sendMoney'
+			.modal-box
+				h1 3333
+		if modal == 'sendMoneyPrivate'
+			.modal-box
+				h1 3333wwwwww
