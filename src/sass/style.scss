@@ -227,7 +227,59 @@ input {
           }
         }
         &.asset-portfolio {
+          .card-title {
+            margin-bottom: 30px;
+          }
+          .full-box {
+            position: absolute;
+            top: 68px;
+            left: 30px;
+            right: 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            bottom: 20px;
 
+            .full-box-item {
+              &.coin {
+                padding-left: 70px;
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+
+                .coin-data {
+                  display: flex;
+
+                  & > * {
+                    margin: auto 0;
+                  }
+                  .figure {
+                    height: 30px;
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                  }
+                  .amount {
+                    color: #333333;
+                    font-family: "Roboto-Regular";
+                    font-size: 24px;
+                    line-height: 60px;
+                  }
+                  .coin-name {
+                    color: #777777;
+                    font-family: "Roboto-Regular";
+                    font-size: 12px;
+                    line-height: 14px;
+                    margin: auto auto 18px 30px;
+                  }
+                }
+                .more {
+                  height: 30px;
+                }
+              }
+            }
+          }
         }
         &.decentralized-marketplace {
 
@@ -240,6 +292,13 @@ input {
         }
         &.apollo-news {
 
+        }
+        .full-box {
+          position: absolute;
+          top: 38px;
+          left: 30px;
+          right: 30px;
+          bottom: 20px;
         }
       }
     }
