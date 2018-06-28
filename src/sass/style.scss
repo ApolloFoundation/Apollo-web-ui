@@ -181,7 +181,66 @@ input {
         //}
       }
       .card {
+        &.transactions {
+          .transactions-dashboard {
+            position: absolute;
+            top: 38px;
+            left: 30px;
+            right: 30px;
+            bottom: 20px;
 
+            .transaction-item {
+              height: 25%;
+              display: flex;
+              box-sizing: border-box;
+              border-bottom: 1px solid #E5E5E5;
+
+              .transaction-box {
+                margin: auto 0;
+                position: relative;
+                width: 100%;
+
+                .transaction-date {
+                  color: #BBBBBB;
+                  font-family: "Roboto-Regular";
+                  font-size: 12px;
+                  line-height: 14px;
+                }
+                .transaction-rs {
+                  color: #777777;
+                  font-family: "Roboto-Regular";
+                  font-size: 12px;
+                  line-height: 14px;
+                  margin-top: 8px;
+                }
+                .transaction-amount {
+                  color: #333333;
+                  font-family: "Roboto-Regular";
+                  font-size: 16px;
+                  line-height: 14px;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                }
+              }
+            }
+          }
+        }
+        &.asset-portfolio {
+
+        }
+        &.decentralized-marketplace {
+
+        }
+        &.send-apollo {
+
+        }
+        &.active-polls {
+
+        }
+        &.apollo-news {
+
+        }
       }
     }
   }
