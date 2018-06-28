@@ -169,4 +169,27 @@ a {
     right: 30px;
     bottom: 20px;
   }
+  .btn-box {
+
+  }
+  .btn {
+    position: absolute;
+
+    &.absolute {
+
+    }
+    &.btn-simple {
+      color: #BBBBBB;
+      font-family: "Roboto-Regular";
+      font-size: 12px;
+      line-height: 14px;
+      bottom: 10px;
+      padding: 0;
+
+    }
+    &.btn-right {
+      left: 30px;
+    }
+
+  }
 }

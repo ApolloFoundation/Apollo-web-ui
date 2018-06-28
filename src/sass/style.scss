@@ -232,7 +232,7 @@ input {
           }
           .full-box {
             position: absolute;
-            top: 68px;
+            top: 58px;
             left: 30px;
             right: 30px;
             display: flex;
@@ -282,7 +282,43 @@ input {
           }
         }
         &.decentralized-marketplace {
+          .full-box {
+            position: absolute;
+            top: 58px;
+            left: 30px;
+            right: 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            bottom: 20px;
+            padding-bottom: 50px;
 
+            .full-box-item {
+              display: flex;
+              margin: auto 0;
+
+              & * > {
+                margin: 0 auto;
+              }
+              .marketplace-box {
+                width: 50%;
+
+                .digit {
+                  color: #333333;
+                  font-family: "Roboto-Regular";
+                  font-size: 36px;
+                  line-height: 60px;
+                }
+                .subtitle {
+                  color: #777777;
+                  font-family: "Roboto-Regular";
+                  font-size: 12px;
+                  line-height: 14px;
+                  width: 1px;
+                }
+              }
+            }
+          }
         }
         &.send-apollo {
 
