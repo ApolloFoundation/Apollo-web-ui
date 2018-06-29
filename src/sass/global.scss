@@ -211,6 +211,9 @@ a {
     flex-direction: column;
     justify-content: space-between;
 
+    &.block {
+      display: block;
+    }
     &.offset {
       padding: 20px 0px 14px;
     }
