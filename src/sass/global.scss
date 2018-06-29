@@ -67,6 +67,41 @@ a {
   outline: none;
 }
 
+.form-group {
+  display: table;
+
+  &.offset {
+    height: 100%;
+    padding: 20px 0 0px;
+    width: 100%;
+  }
+}
+
+.input-group {
+  display: table-row;
+
+  &.lighten {
+    input {
+      background-color: #fff;
+    }
+  }
+  &.middle {
+    & > * {
+      vertical-align: middle;
+    }
+  }
+  label {
+    display: table-cell;
+    color: #777777;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 14px;
+    padding-right: 20px;
+  }
+  input {
+    display: table-cell;
+  }
+}
 
 // components
 
@@ -82,7 +117,6 @@ a {
   &.card-tall {
     height: calc(66.666% - 30px);
   }
-
   &.header {
     padding: 50px 30px;
 
@@ -138,6 +172,10 @@ a {
 
     }
   }
+
+  //input , input[type="number"] {
+  //  padding: 4px 20px;
+  //}
   .card-title {
     color: #333333;
     font-family: "Roboto-Regular";
@@ -168,12 +206,25 @@ a {
     left: 30px;
     right: 30px;
     bottom: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &.offset {
+      padding: 20px 0px 14px;
+    }
   }
   .btn-box {
 
   }
   .btn {
     position: absolute;
+    background-color: #666666;
+    color: #fff;
+    padding: 11px 17px 11px 9px;
+    border-top-left-radius:    3px;
+    border-bottom-right-radius: 3px;
 
     &.absolute {
 
@@ -185,11 +236,37 @@ a {
       line-height: 14px;
       bottom: 10px;
       padding: 0;
-
+      background: transparent;
     }
     &.btn-right {
-      left: 30px;
+      right: 0;
+      bottom: 0;
     }
+  }
+  .form-group {
+    padding: 30px 0 25px;
+  }
+  .input-group {
+    display: table-row;
 
+    input, input[type="number"] {
+      padding: 8px 20px;
+    }
+    &.lighten {
+      input {
+        background-color: #fff;
+      }
+    }
+    label {
+      display: table-cell;
+      color: #777777;
+      font-family: "Roboto-Regular";
+      font-size: 12px;
+      line-height: 14px;
+      padding-right: 20px;
+    }
+    input {
+      display: table-cell;
+    }
   }
 }
