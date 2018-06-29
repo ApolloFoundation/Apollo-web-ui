@@ -153,6 +153,7 @@ input[type="number"] {
         .user-box {
           width: 230px;
           display: flex;
+          justify-content: flex-end;
 
           & > * {
             margin: auto 0;
