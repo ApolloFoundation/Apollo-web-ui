@@ -5,6 +5,8 @@
 .btn {
   display: inline-block;
   padding: 10px 11px;
+  cursor: pointer;
+  user-select: none;
 }
 
 input {
@@ -178,6 +180,7 @@ input[type="number"] {
       left: 0;
       right: 0;
       display: flex;
+      flex-wrap: wrap;
       min-height: 800px;
       overflow-y: scroll;
 
@@ -360,6 +363,74 @@ input[type="number"] {
           left: 30px;
           right: 30px;
           bottom: 20px;
+        }
+      }
+
+      // my transactions page
+
+      &.my-transactions {
+        .transactions-filters {
+          height: 120px;
+          padding-left: 40px;
+
+          .top-bar {
+            .btn.filter {
+
+            }
+          }
+        }
+        .transaction-table {
+          height: calc(100% - 120px);
+
+          .transaction-table-body {
+            table {
+              tbody {
+                tr {
+                  td {
+
+                    &.blue-link-text {
+                      a {
+                        color: #00C8FF;
+                        font-family: "Roboto-Regular";
+                        font-size: 14px;
+                        line-height: 16px;
+                      }
+                    }
+                    &.date {
+
+                    }
+                    &.type {
+
+                    }
+                    &.amount {
+
+                    }
+                    &.fee {
+
+                    }
+                    &.account {
+
+                    }
+                    &.phasing {
+
+                    }
+                    &.height {
+
+                    }
+                    &.confirmations {
+
+                    }
+                  }
+                }
+              }
+            }
+            .btn-box {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+            }
+          }
         }
       }
     }

@@ -105,6 +105,43 @@ a {
 
 // components
 
+
+// btn
+.btn {
+  position: absolute;
+  background-color: #666666;
+  color: #fff;
+  user-select: none;
+
+  &.absolute {
+
+  }
+  &.btn-simple {
+    color: #BBBBBB;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 14px;
+    bottom: 10px;
+    padding: 0;
+    background: transparent;
+  }
+  &.btn-right {
+    right: 0;
+    bottom: 0;
+    padding: 11px 17px 11px 9px;
+    border-top-left-radius:    3px;
+    border-bottom-right-radius: 3px;
+  }
+  &.btn-left {
+    left: 0;
+    bottom: 0;
+    padding: 11px 9px 11px 17px;
+    border-top-right-radius:   3px;
+    border-bottom-left-radius: 3px;
+  }
+}
+
+// card
 .card {
   height: calc(33.33% - 30px);
   border-radius: 3px;
@@ -221,31 +258,7 @@ a {
   .btn-box {
 
   }
-  .btn {
-    position: absolute;
-    background-color: #666666;
-    color: #fff;
-    padding: 11px 17px 11px 9px;
-    border-top-left-radius:    3px;
-    border-bottom-right-radius: 3px;
 
-    &.absolute {
-
-    }
-    &.btn-simple {
-      color: #BBBBBB;
-      font-family: "Roboto-Regular";
-      font-size: 12px;
-      line-height: 14px;
-      bottom: 10px;
-      padding: 0;
-      background: transparent;
-    }
-    &.btn-right {
-      right: 0;
-      bottom: 0;
-    }
-  }
   .form-group {
     padding: 30px 0 25px;
   }
