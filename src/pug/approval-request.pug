@@ -116,10 +116,10 @@ html(lang="en")
 							.col-md-6
 								.page-title-box
 									.page-title-box
-										p.title My transactions
+										p.title Approval requests (account)
 										.breadcrumbs
 											a Apollo Wallet /
-											strong: a My transactions
+											strong: a Approval requests (account)
 							.col-md-6
 								.user-search-box
 									.search-bar
@@ -129,37 +129,5 @@ html(lang="en")
 											a Viktoria Apollo
 										.user-avatar(style="background-image: url(../img/man.svg)")
 				.page-body.container-fluid
-					.my-transactions
-						.transactions-filters
-							.top-bar
-								.btn.filter All
-							.bottom-bar
-								.btn.filter All types
-
-						.transaction-table
-							.transaction-table-body
-								table
-									thead
-										tr
-											td Date
-											td Type
-											td.align-right Amount
-											td.align-right Fee
-											td Account
-											td.align-right Phasing
-											td.align-right Height
-											td.align-right Confirmations
-									tbody
-										for i in [1,2,3,4,5,6,7,8,9,10, 11, 12,13, 14, 15]
-											tr
-												td.blue-link-text: a 6/13/2018 11:34:03
-												td
-												td.align-right 10 455
-												td.align-right 1
-												td.blue-link-text: a APL-B3WF-N86S-QQ96-95PJP -> You
-												td.align-right
-												td.align-right.blue-link-text: a 152526
-												td.align-right: a 213
-								.btn-box
-									a.btn.btn-left  Previous
-									a.btn.btn-right Next
+					.approval-request.white-space
+						.alert No current approval requests.

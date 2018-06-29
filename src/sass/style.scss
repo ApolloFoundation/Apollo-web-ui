@@ -103,10 +103,9 @@ input[type="number"] {
 .site-content {
   position: fixed;
   top: 0;
-  bottom: 0;
+  bottom: 15px;
   left: 220px;
   right: 0;
-  background-color: #F5F5F5;
 
   .page-content {
 
@@ -181,7 +180,6 @@ input[type="number"] {
       right: 0;
       display: flex;
       flex-wrap: wrap;
-      min-height: 800px;
       overflow-y: scroll;
 
       .row {
@@ -366,9 +364,16 @@ input[type="number"] {
         }
       }
 
-      // my transactions page
+      // dashboard page
+      & > div {
+        min-height: 800px;
+        width: 100%;
+      }
 
-      &.my-transactions {
+      // my transactions page
+      .my-transactions {
+        width: 100%;
+
         .transactions-filters {
           height: 120px;
           padding-left: 40px;
@@ -381,6 +386,7 @@ input[type="number"] {
         }
         .transaction-table {
           height: calc(100% - 120px);
+          min-height: 560px;
 
           .transaction-table-body {
             table {
@@ -431,6 +437,19 @@ input[type="number"] {
               right: 0;
             }
           }
+        }
+      }
+      .approval-request {
+        padding: 35px;
+        background-color: #fff;
+        min-height: auto;
+        overflow: auto;
+
+        .alert {
+          color: #333333;
+          font-family: "Roboto-Regular";
+          font-size: 14px;
+          line-height: 16px;
         }
       }
     }

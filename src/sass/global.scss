@@ -58,6 +58,10 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   font-family: "Roboto-Regular";
 }
 
+html, body {
+  background-color: #F5F5F5;
+}
+
 a {
   cursor: pointer;
   display: inline-block;
