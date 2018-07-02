@@ -143,20 +143,27 @@ a {
     border-top-right-radius:   3px;
     border-bottom-left-radius: 3px;
   }
+  &.primary {
+    padding: 6px;
+    background: #666666;
+    color: #fff;
+    border-radius: 6px;
+    margin-top: 15px;
+  }
 }
 
 // card
 .card {
-  height: calc(33.33% - 30px);
+  height: calc(33.33% - 15px);
   border-radius: 3px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   background-color: #FFFFFF;
   position: relative;
   z-index: 3;
   padding: 20px 30px;
 
   &.card-tall {
-    height: calc(66.666% - 30px);
+    height: calc(66.666% - 15px);
   }
   &.header {
     padding: 50px 30px;
@@ -289,4 +296,8 @@ a {
       display: table-cell;
     }
   }
+}
+
+.page-body {
+
 }

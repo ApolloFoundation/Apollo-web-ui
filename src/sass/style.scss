@@ -125,6 +125,8 @@ input[type="number"] {
             font-size: 36px;
             font-weight: 300;
             line-height: 60px;
+            display: inline-block;
+            margin-right: 15px;
           }
           .breadcrumbs {
             position: absolute;
@@ -181,10 +183,17 @@ input[type="number"] {
       display: flex;
       flex-wrap: wrap;
       overflow-y: scroll;
+      padding: 0 7.5px;
 
       .row {
         width: 100%;
-        margin-left: 0;
+        margin: 0;
+
+        & > * {
+          padding: 0 7.5px;
+
+        }
+        //margin-left: 0;
 
         //.col-md-3 {
         //  padding: 0 10px;
@@ -370,6 +379,7 @@ input[type="number"] {
         width: 100%;
       }
 
+
       // my transactions page
       .my-transactions {
         width: 100%;
@@ -451,6 +461,10 @@ input[type="number"] {
           font-size: 14px;
           line-height: 16px;
         }
+      }
+      .account-ledger {
+        display: flex;
+        flex-direction: column;
       }
     }
   }

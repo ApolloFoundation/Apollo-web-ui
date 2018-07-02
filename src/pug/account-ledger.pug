@@ -15,10 +15,11 @@ html(lang="en")
 							.col-md-6
 								.page-title-box
 									.page-title-box
-										p.title My transactions
+										h1.title Account ledger
+										a.btn.primary Show private transactions
 										.breadcrumbs
 											a Apollo Wallet /
-											strong: a My transactions
+											strong: a Account ledger
 							.col-md-6
 								.user-search-box
 									.search-bar
@@ -28,37 +29,35 @@ html(lang="en")
 											a Viktoria Apollo
 										.user-avatar(style="background-image: url(../img/man.svg)")
 				.page-body.container-fluid
-					.my-transactions
-						.transactions-filters
-							.top-bar
-								.btn.filter All
-							.bottom-bar
-								.btn.filter All types
+					.account-ledger
+						.info-box.info
+							p Only ledger entries created during the last 30000 blocks are displayed.
 
 						.transaction-table
 							.transaction-table-body
 								table
 									thead
 										tr
-											td Date
+											td Entry
 											td Type
-											td.align-right Amount
-											td.align-right Fee
-											td Account
-											td.align-right Phasing
-											td.align-right Height
-											td.align-right Confirmations
+											td.align-right Change
+											td Balance
+											td Holding
+											td.align-right Change
+											td.align-right Balance
 									tbody
 										for i in [1,2,3,4,5,6,7,8,9,10, 11, 12,13, 14, 15]
 											tr
 												td.blue-link-text: a 6/13/2018 11:34:03
 												td
-												td.align-right 10 455
-												td.align-right 1
-												td.blue-link-text: a APL-B3WF-N86S-QQ96-95PJP -> You
-												td.align-right
-												td.align-right.blue-link-text: a 152526
-												td.align-right: a 213
+													| Transaction Fee
+													a(): span(class="info")
+												td.align-right -1.0
+												td 7,460.0
+												td: a
+												td.align-right: a
+												td.align-right: a
+
 								.btn-box
 									a.btn.btn-left  Previous
 									a.btn.btn-right Next
