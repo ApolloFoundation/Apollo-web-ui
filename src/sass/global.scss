@@ -109,6 +109,18 @@ a {
 
 // components
 
+.btn-box {
+  &.inline {
+    display: inline-block;
+    position: static !important;
+    margin-right: -15px;
+
+    & > * {
+      display: inline;
+      margin-right: 15px;
+    }
+  }
+}
 
 // btn
 .btn {
@@ -277,9 +289,6 @@ a {
     &.offset {
       padding: 20px 0px 14px;
     }
-  }
-  .btn-box {
-
   }
   .form-group {
     padding: 30px 0 25px;

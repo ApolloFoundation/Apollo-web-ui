@@ -1,0 +1,58 @@
+include includes/mixins
+
+doctype html
+html(lang="en")
+	+head('APL')
+	body(data-content-area="1400px")
+		//+modalWindow('sendMoney')
+		//+modalWindow('sendMoneyPrivate')
+		+menuBar()
+		.site-content
+			.page-content
+				.page-header
+					.container-fluid
+						.row
+							.col-md-6
+								.page-title-box
+									.page-title-box
+										h1.title Account properties
+										.btn-box.inline
+											a.btn.primary Incoming
+											a.btn.primary Outgoing
+											a.btn.primary Set
+										.breadcrumbs
+											a Apollo Wallet /
+											strong: a Account properties
+							.col-md-6
+								.user-search-box
+									.search-bar
+										input(type="text")
+									.user-box
+										.user-name
+											a Viktoria Apollo
+										.user-avatar(style="background-image: url(../img/man.svg)")
+				.page-body.container-fluid
+					.funding-monitors
+						.transaction-table
+							.transaction-table-body
+								table
+									thead
+										tr
+											td Setter
+											td Property
+											td Value
+											td.align-right Actions
+									tbody
+										for i in [1,2,3]
+											tr
+												td.blue-link-text: a You
+												td example
+												td test
+												td.align-right
+													.btn-box.inline
+														a.btn.primary.blue Content
+														a.btn.primary Blacklist
+
+								//.btn-box
+								//	a.btn.btn-left  Previous
+								//	a.btn.btn-right Next
