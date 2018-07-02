@@ -480,6 +480,14 @@ input[type="number"] {
         }
         //margin: 0 -7.5px;
       }
+      .scheduled-transactions {
+        display: flex;
+        flex-direction: column;
+
+        .approval-request {
+          height: 100%;
+        }
+      }
     }
   }
 }
