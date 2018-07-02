@@ -467,6 +467,19 @@ input[type="number"] {
         flex-direction: column;
         padding: 0 7.5px;
       }
+      .blocks {
+        padding: 0 7.5px;
+
+        .row {
+          width: auto;
+          margin-left: -7.5px;
+          margin-right: -7.5px;
+        }
+        .transaction-table-body {
+          //
+        }
+        //margin: 0 -7.5px;
+      }
     }
   }
 }

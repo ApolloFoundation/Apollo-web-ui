@@ -15,11 +15,11 @@ html(lang="en")
 							.col-md-6
 								.page-title-box
 									.page-title-box
-										h1.title Account ledger
+										h1.title Blocks
 										a.btn.primary Show private transactions
 										.breadcrumbs
 											a Apollo Wallet /
-											strong: a Account ledger
+											strong: a Blocks
 							.col-md-6
 								.user-search-box
 									.search-bar
@@ -29,34 +29,49 @@ html(lang="en")
 											a Viktoria Apollo
 										.user-avatar(style="background-image: url(../img/man.svg)")
 				.page-body.container-fluid
-					.account-ledger
-						.info-box.info
-							p Only ledger entries created during the last 30000 blocks are displayed.
+					.blocks
+						.row
+							.col-md-3
+								.card.header.ballance.single
+									.card-title Available Balance
+									.amount 37,000,000
+							.col-md-3
+								.card.header.assets.single
+									.card-title Available Balance
+									.amount 37,000,000
+							.col-md-3
+								.card.header.currencies.single
+									.card-title Available Balance
+									.amount 37,000,000
+							.col-md-3
+								.card.header.coins.single
+									.card-title Available Balance
+									.amount 37,000,000
 
 						.transaction-table
 							.transaction-table-body
 								table
 									thead
 										tr
-											td Entry
-											td Type
-											td.align-right Change
-											td Balance
-											td Holding
-											td.align-right Change
-											td.align-right Balance
+											td Height
+											td.align-right Date
+											td.align-right Amount
+											td.align-right Fee
+											td.align-right # TX
+											td Generator
+											td.align-right Payload
+											td.align-right Base Target
 									tbody
 										for i in [1,2,3,4,5,6,7,8,9,10, 11, 12,13, 14, 15]
 											tr
-												td.blue-link-text: a 6/13/2018 11:34:03
-												td
-													| Transaction Fee
-													a(): span(class="info")
-												td.align-right -1.0
-												td 7,460.0
-												td: a
-												td.align-right: a
-												td.align-right: a
+												td.blue-link-text: a 145 804
+												td.align-right: a 6/13/2018 11:34:03
+												td.align-right 0
+												td.align-right 0
+												td.align-right: a 1
+												td.blue-link-text: a APL-N6J9-T9AA-RKEB-G9NDM
+												td.align-right: a 216 B
+												td.align-right: a 4281 %
 
 								.btn-box
 									a.btn.btn-left  Previous

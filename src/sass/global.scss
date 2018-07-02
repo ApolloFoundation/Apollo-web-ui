@@ -203,6 +203,10 @@ a {
 
     }
   }
+  &.single {
+    min-height: 217px;
+    height: auto;
+  }
   &.dashboard {
     .card-title {
 
