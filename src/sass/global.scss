@@ -149,6 +149,11 @@ a {
     color: #fff;
     border-radius: 6px;
     margin-top: 15px;
+    position: static;
+  }
+  &.blue {
+    background: #00C8FF;
+    color: #fff;
   }
 }
 
@@ -276,7 +281,6 @@ a {
   .btn-box {
 
   }
-
   .form-group {
     padding: 30px 0 25px;
   }

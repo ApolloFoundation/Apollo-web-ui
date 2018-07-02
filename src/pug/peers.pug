@@ -1,0 +1,80 @@
+include includes/mixins
+
+doctype html
+html(lang="en")
+	+head('APL')
+	body(data-content-area="1400px")
+		//+modalWindow('sendMoney')
+		//+modalWindow('sendMoneyPrivate')
+		+menuBar()
+		.site-content
+			.page-content
+				.page-header
+					.container-fluid
+						.row
+							.col-md-6
+								.page-title-box
+									.page-title-box
+										h1.title Peers
+										a.btn.primary Add peer
+										.breadcrumbs
+											a Apollo Wallet /
+											strong: a Peers
+							.col-md-6
+								.user-search-box
+									.search-bar
+										input(type="text")
+									.user-box
+										.user-name
+											a Viktoria Apollo
+										.user-avatar(style="background-image: url(../img/man.svg)")
+				.page-body.container-fluid
+					.peers
+						.row
+							.col-md-3
+								.card.header.ballance.single
+									.card-title Uploaded Volume
+									.amount 30 MB
+							.col-md-3
+								.card.header.assets.single
+									.card-title Downloaded Volume
+									.amount 42 MB
+							.col-md-3
+								.card.header.currencies.single
+									.card-title Connected Peers
+									.amount 9
+							.col-md-3
+								.card.header.coins.single
+									.card-title Up-to-date Peers
+									.amount 9/9
+
+						.transaction-table
+							.transaction-table-body
+								table
+									thead
+										tr
+											td Address
+											td.align-right Weight
+											td.align-right Downloaded
+											td.align-right Uploaded
+											td.align-right Application
+											td Platform
+											td.align-right Services
+											td.align-right Actions
+									tbody
+										for i in [1,2,3,4,5,6,7,8,9,10, 11, 12,13, 14, 15]
+											tr
+												td.blue-link-text: a 18.216.96.216
+												td.align-right -6
+												td.align-right 5 MB
+												td.align-right 4 MB
+												td.align-right 4 MB
+												td.blue-link-text prod-node-1
+												td.align-right AI, CS
+												td.align-right
+													a.btn.primary.blue Content
+													a.btn.primary Blacklist
+
+								.btn-box
+									a.btn.btn-left  Previous
+									a.btn.btn-right Next

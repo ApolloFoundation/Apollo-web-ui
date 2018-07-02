@@ -489,6 +489,15 @@ input[type="number"] {
           height: 100%;
         }
       }
+      .peers {
+        .transaction-table {
+          td {
+            .btn {
+              margin: 0 0 0 15px;
+            }
+          }
+        }
+      }
     }
   }
 }
