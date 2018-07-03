@@ -1,0 +1,57 @@
+include includes/mixins
+
+doctype html
+html(lang="en")
+	+head('APL')
+	body(data-content-area="1400px")
+		//+modalWindow('sendMoney')
+		//+modalWindow('sendMoneyPrivate')
+		+menuBar()
+		.site-content
+			.page-content
+				.page-header
+					.container-fluid
+						.row
+							.col-md-6
+								.page-title-box
+									.page-title-box
+										h1.title Aliases
+										.breadcrumbs
+											a Apollo Wallet /
+											strong: a Aliases
+							.col-md-6
+								.user-search-box
+									.search-bar
+										input(type="text")
+									.user-box
+										.user-name
+											a Viktoria Apollo
+										.user-avatar(style="background-image: url(../img/man.svg)")
+				.page-body.container-fluid
+					.blocks
+
+						.transaction-table
+							.transaction-table-body
+								table
+									thead
+										tr
+											td Aliases
+											td URI
+											td Status
+											td.align-right Actions
+									tbody
+										for i in [1,2,3]
+											tr
+												td Alias_name_1
+												td.blue-link-text: a http://
+												td Registered
+												td.align-right
+													.btn-box.inline
+														a.btn.primary.blue Edit
+														a.btn.primary.blue Transfer
+														a.btn.primary.blue Sell
+														a.btn.primary Delete
+
+								//.btn-box
+								//	a.btn.btn-left  Previous
+								//	a.btn.btn-right Next
