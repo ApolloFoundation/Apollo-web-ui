@@ -1,0 +1,33 @@
+include includes/mixins
+
+doctype html
+html(lang="en")
+	+head('APL')
+	body(data-content-area="1400px")
+		//+modalWindow('sendMoney')
+		//+modalWindow('sendMoneyPrivate')
+		+menuBar()
+		.site-content
+			.page-content
+				.page-header
+					.container-fluid
+						.row
+							.col-md-6
+								.page-title-box
+									.page-title-box
+										p.title Trade history
+										.breadcrumbs
+											a Apollo Wallet /
+											strong: a Trade history
+							.col-md-6
+								.user-search-box
+									.search-bar
+										input(type="text")
+									.user-box
+										.user-name
+											a Viktoria Apollo
+										.user-avatar(style="background-image: url(../img/man.svg)")
+				.page-body.container-fluid
+					.scheduled-transactions
+						.approval-request.white-space
+							.alert No trade history available.
