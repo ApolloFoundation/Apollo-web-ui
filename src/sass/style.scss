@@ -515,6 +515,11 @@ input[type="number"] {
           height: 100%;
         }
       }
+      .account-settings {
+        .row {
+          position: relative;
+        }
+      }
     }
   }
 }

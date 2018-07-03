@@ -79,11 +79,62 @@ span {
 
 .form-group {
   display: table;
+  padding: 35px;
+  box-sizing: border-box;
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  height: calc(100% - 15px);
 
   &.offset {
     height: 100%;
     padding: 20px 0 0px;
-    width: 100%;
+  }
+  &.compensate-margin {
+    margin: 0 -7.5px;
+    margin-bottom: 15px;
+
+  }
+  .form-title {
+    padding-bottom: 20px;
+
+    p {
+      color: #333333;
+      font-family: "Roboto-Regular";
+      font-size: 24px;
+      line-height: 18px;
+    }
+    .form-sub-title {
+      margin-top: 10px;
+    }
+  }
+  .form-sub-title {
+    color: #BBBBBB;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 19px;
+    margin-top: -15px;
+  }
+  .input-group {
+      display: block;
+      padding-top: 25px;
+
+      .form-sub-title {
+        padding-left: 15px;
+      }
+      input {
+        padding-left:  15px;
+        padding-right: 15px;
+      }
+  }
+  .form-exit {
+
+  }
+  .form-tabulator {
+
+  }
+  .btn-box {
+
   }
 }
 
@@ -124,6 +175,22 @@ span {
     & > * {
       display: inline;
       margin-right: 15px;
+    }
+  }
+  &.more-padding {
+    margin-right: -15px;
+
+    & > * {
+      display: inline;
+      margin-right: 15px;
+    }
+  }
+  &.absolute {
+    position: absolute;
+
+    &.right-conner {
+      bottom: 0;
+      right: 0;
     }
   }
 }
@@ -168,6 +235,10 @@ span {
     border-radius: 6px;
     margin-top: 15px;
     position: static;
+
+    &.bigger {
+      padding: 11px 10px 9px 10px;
+    }
   }
   &.blue {
     background: #00C8FF;
