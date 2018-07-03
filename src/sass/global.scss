@@ -71,6 +71,12 @@ a {
   outline: none;
 }
 
+span {
+  &.blue {
+    color: #00C8FF;
+  }
+}
+
 .form-group {
   display: table;
 
