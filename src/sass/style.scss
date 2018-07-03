@@ -504,6 +504,17 @@ input[type="number"] {
           }
         }
       }
+      .open-orders {
+        padding: 0;
+
+        .approval-request {
+          height: 100%;
+        }
+        .row {
+          padding: 0;
+          height: 100%;
+        }
+      }
     }
   }
 }
