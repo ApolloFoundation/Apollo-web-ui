@@ -193,6 +193,13 @@ span {
       right: 0;
     }
   }
+  &.align-buttons-inside {
+    & > * {
+      display: inline-block;
+      position: relative;
+      border-radius: 0;
+    }
+  }
 }
 
 // btn
@@ -243,6 +250,15 @@ span {
   &.blue {
     background: #00C8FF;
     color: #fff;
+  }
+
+  &.round-top-left {
+    border-radius: 0;
+    border-top-left-radius: 6px;
+  }
+  &.round-bottom-right {
+    border-radius: 0;
+    border-bottom-right-radius: 6px;
   }
 }
 

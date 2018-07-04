@@ -13,7 +13,32 @@ mixin modalWindow(modal)
 	.modal-window
 		if modal == 'sendMoney'
 			.modal-box
-				h1 3333
+				.modal-form
+					.form-group
+						.form-title
+							p General
+						.input-group
+							.row
+								.col-md-4
+									label Language
+								.col-md-8
+									input(type="select")
+						.input-group
+							.row
+								.col-md-4
+									label Regional format
+								.col-md-8
+									input(type="select")
+						.input-group
+							.row
+								.col-md-4
+									label Use 24 hour format
+								.col-md-8
+									input(type="select")
+				.btn-box.align-buttons-inside.absolute.right-conner
+					a.btn.btn-left.round-top-left(data-close-modal)  Cancel
+					a.btn.btn-right.blue.round-bottom-right Submit
+
 		if modal == 'sendMoneyPrivate'
 			.modal-box
 				h1 3333wwwwww
