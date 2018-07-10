@@ -1,10 +1,12 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Redirect } from 'react-router-dom'
+
+// pages components
 import Home from '../home'
 import About from '../about'
+import Dashboard from "../dashboard";
 
 import style from  './App.css';
-
 console.log(style);
 
 const App = () => (
@@ -20,7 +22,10 @@ const App = () => (
 					<h1>dddd</h1>
 				</div>
 			</div>
-			<Route exact path="/" component={Home} />
+			<Route exact path="/">
+				<Redirect to="/dashboard"></Redirect>
+			</Route>
+			<Route exact path="/dashboard" component={Dashboard}></Route>
 			<Route exact path="/about-us" component={About} />
 		</main>
 	</div>
