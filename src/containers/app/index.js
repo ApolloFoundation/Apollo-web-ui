@@ -1,10 +1,14 @@
 import React from 'react';
 import { Route, Link, Redirect } from 'react-router-dom'
 
+// components
+import SideBar from '../components/sidebar'
+
 // pages components
-import Home from '../home'
-import About from '../about'
-import Dashboard from "../dashboard";
+import Home from '../account/home'
+import About from '../account/about'
+import Ledger from '../account/ledger'
+import Dashboard from "../account/dashboard";
 
 import style from  './App.css';
 console.log(style);
@@ -14,14 +18,17 @@ const App = () => (
 		<header>
 			<Link to="/">Home</Link>
 			<Link to="/about-us">About</Link>
+            <SideBar/>
 		</header>
 		
 		<main className="site-content">
-			<Route exact path="/" render={<Redirect to="/dashboard"/>}>
-
+			<Route exact path="/">
+                <Redirect to="/dashboard"/>
 			</Route>
-			<Route exact path="/dashboard" component={Dashboard}></Route>
-			<Route exact path="/about-us" component={About} />
+			<Route exact path="/dashboard"    component={Dashboard}/>
+			<Route exact path="/transactions" component={Dashboard}/>
+			<Route exact path="/ledger"       component={Ledger}/>
+			<Route exact path="/about-us"     component={About} />
 		</main>
 	</div>
 );

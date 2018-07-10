@@ -8,7 +8,7 @@ import {
 	decrement,
 	decrementAsync,
 	makreReq
-} from '../../modules/counter'
+} from '../../../modules/counter'
 
 
 
