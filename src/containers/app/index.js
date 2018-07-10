@@ -16,14 +16,9 @@ const App = () => (
 			<Link to="/about-us">About</Link>
 		</header>
 		
-		<main>
-			<div className="site-content">
-				<div className="container">
-					<h1>dddd</h1>
-				</div>
-			</div>
-			<Route exact path="/">
-				<Redirect to="/dashboard"></Redirect>
+		<main className="site-content">
+			<Route exact path="/" render={<Redirect to="/dashboard"/>}>
+
 			</Route>
 			<Route exact path="/dashboard" component={Dashboard}></Route>
 			<Route exact path="/about-us" component={About} />
