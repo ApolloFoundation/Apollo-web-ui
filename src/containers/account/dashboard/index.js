@@ -1,41 +1,13 @@
 import React from 'react';
+import SiteHeader from '../../components/site-header'
 
 class Dashboard extends React.Component {
     render () {
         return (
             <div className="page-content">
-                <div className="page-header">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="page-title-box">
-                                    <div className="page-title-box">
-                                        <p className="title">Dashboard</p>
-                                        <div className="breadcrumbs">
-                                            <a>Apollo Wallet /</a>
-                                            <strong>
-                                                <a>Dashboard</a>
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="user-search-box">
-                                    <div className="search-bar">
-                                        <input type="text"/>
-                                    </div>
-                                    <div className="user-box">
-                                        <div className="user-name"><a>Viktoria Apollo</a>
-                                        </div>
-                                        <div className="user-avatar">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <SiteHeader
+                    pageTitle={'Account ledger'}
+                />
                 <div className="page-body container-fluid">
                     <div className="row">
                         <div className="col-md-3">
