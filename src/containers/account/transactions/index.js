@@ -1,7 +1,15 @@
 import React from 'react';
-import SiteHeader from '../../components/site-header'
+import SiteHeader from  '../../components/site-header'
+import Transaction from './transaction'
 
 class Transactions extends React.Component {
+    constructor(props) {
+        super(props);
+
+
+        // TODO migrate to action
+        this.arr = new Array(15).fill(1);
+    }
     render () {
         return (
             <div className="page-content">
@@ -35,216 +43,26 @@ class Transactions extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td></td>
-                                        <td className="align-right">10 455</td>
-                                        <td className="align-right">1</td>
-                                        <td className="blue-link-text"><a>APL-B3WF-N86S-QQ96-95PJP -> You</a>
-                                        </td>
-                                        <td className="align-right"></td>
-                                        <td className="align-right blue-link-text"><a>152526</a>
-                                        </td>
-                                        <td className="align-right"><a>213</a>
-                                        </td>
-                                    </tr>
+                                        {
+                                            this.arr.map((el, index) => {
+
+                                                const transaction = {
+                                                    date: '6/13/2018 11:34:03',
+                                                    amount: '10 455',
+                                                    account: 'APL-B3WF-N86S-QQ96-95PJP -> You',
+                                                    phasing: '',
+                                                    height: '152526',
+                                                    confirmations: '213'
+                                                };
+
+                                                return (
+                                                    <Transaction
+                                                        transaction = {transaction}
+                                                    />
+                                                )
+                                            })
+                                        }
+
                                     </tbody>
                                 </table>
                                 <div className="btn-box"><a className="btn btn-left"> Previous</a><a

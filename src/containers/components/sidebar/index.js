@@ -13,16 +13,11 @@ class Sidebar extends React.Component {
                         <li><a>Dashboard</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><Link to="/dashboard" >Dashboard</Link></li>
+                                    <li><Link to="/ledger">Account ledger</Link></li>
+                                    <li><Link to="/account-properties">Account properties</Link></li>
+                                    <li><Link to="/transactions">My transactions</Link></li>
+                                    <li><Link to="/approval-request">Approval requests</Link></li>
                                 </ul>
                             </div>
                         </li>
