@@ -5,40 +5,9 @@ class AccountProperties extends React.Component {
     render () {
         return (
             <div className="page-content">
-                <div className="page-header">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="page-title-box">
-                                    <div className="page-title-box">
-                                        <h1 className="title">Account properties</h1>
-                                        <div className="btn-box inline"><a className="btn primary">Incoming</a><a
-                                            className="btn primary">Outgoing</a><a className="btn primary">Set</a>
-                                        </div>
-                                        <div className="breadcrumbs"><a>Apollo Wallet /</a><strong><a>Account
-                                            properties</a></strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="user-search-box">
-                                    <div className="search-bar">
-                                        <input type="text"/>
-                                    </div>
-                                    <div className="user-box">
-                                        <div className="user-name"><a>Viktoria Apollo</a>
-                                        </div>
-                                        <div className="user-avatar"
-                                             style={{
-                                                 backgroundImage: 'url(../img/man.svg)'
-                                             }}></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <SiteHeader
+                    pageTitle={'Account properties'}
+                />
                 <div className="page-body container-fluid">
                     <div className="funding-monitors">
                         <div className="transaction-table">
