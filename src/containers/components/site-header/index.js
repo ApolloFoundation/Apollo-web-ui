@@ -1,4 +1,5 @@
 import React from "react";
+import './SiteHeader.css';
 
 class SiteHeader extends React.Component {
     constructor(props) {
