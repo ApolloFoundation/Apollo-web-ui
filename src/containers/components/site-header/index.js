@@ -34,9 +34,20 @@ class SiteHeader extends React.Component {
                             <div className="user-search-box">
                                 <div className="search-bar">
                                     <input type="text"/>
+                                    <div className="user-account-actions">
+                                        <a className="user-account-rs">
+                                            APL-P7FK-7FAQ-U632-E2EN6
+                                        </a>
+                                        <a className="user-account-action"><i className="zmdi zmdi-balance-wallet"></i></a>
+                                        <a className="user-account-action"><i className="zmdi zmdi-settings"></i></a>
+                                        <a className="user-account-action"><i className="zmdi zmdi-help"></i></a>
+                                        <a className="user-account-action"><i className="zmdi zmdi-search"></i></a>
+                                    </div>
                                 </div>
                                 <div className="user-box">
-                                    <div className="user-name"><a>Viktoria Apollo</a>
+                                    <div className="user-name">
+                                        <i className="zmdi zmdi-chevron-down"></i>
+                                        <a>Viktoria Apollo</a>
                                     </div>
                                     <div className="user-avatar"></div>
                                 </div>

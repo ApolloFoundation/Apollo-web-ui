@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Sidebar.css';
 
 class Sidebar extends React.Component {
     render() {
@@ -10,7 +11,10 @@ class Sidebar extends React.Component {
                 </div>
                 <nav>
                     <ul>
-                        <li><a>Dashboard</a>
+                        <li>
+                            <i className="zmdi zmdi-view-dashboard left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Dashboard</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><Link to="/dashboard" >Dashboard</Link></li>
@@ -21,7 +25,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Asset system</a>
+                        <li>
+                            <i className="zmdi zmdi-case left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Asset system</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
@@ -37,7 +44,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Currency system</a>
+                        <li>
+                            <i className="zmdi zmdi-money left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Currency system</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
@@ -53,7 +63,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Voting system</a>
+                        <li>
+                            <i className="zmdi zmdi-star left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Voting system</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
@@ -69,7 +82,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Data storage</a>
+                        <li>
+                            <i className="zmdi zmdi-dns left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Data storage</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
@@ -85,7 +101,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Marketplace</a>
+                        <li>
+                            <i className="zmdi zmdi-label left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Marketplace</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
@@ -101,7 +120,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Coin shuffling</a>
+                        <li>
+                            <i className="zmdi zmdi-circle-o left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Coin shuffling</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
@@ -118,7 +140,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Messages</a>
+                        <li>
+                            <i className="zmdi zmdi-comments left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Messages</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
@@ -134,7 +159,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Aliases</a>
+                        <li>
+                            <i className="zmdi zmdi-accounts left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Aliases</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
@@ -150,7 +178,10 @@ class Sidebar extends React.Component {
                                 </ul>
                             </div>
                         </li>
-                        <li><a>Plugins</a>
+                        <li>
+                            <i className="zmdi zmdi-input-power left"></i>
+                            <i className="zmdi zmdi-chevron-right right"></i>
+                            <a>Plugins</a>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Dashboard</a>
