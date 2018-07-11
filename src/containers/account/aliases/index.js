@@ -74,3 +74,5 @@ class Aliases extends React.Component {
         );
     }
 }
+
+export default Aliases;
