@@ -5,7 +5,10 @@ class Ledger extends React.Component {
     render() {
         return (
             <div className="page-content">
-                <SiteHeader/>
+                <SiteHeader
+                    pageTitle={'Account ledger'}
+                    showPrivateTransactions={'ledger'}
+                />
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
                         <div className="info-box info">

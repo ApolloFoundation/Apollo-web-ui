@@ -6,7 +6,7 @@ class Dashboard extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Account ledger'}
+                    pageTitle={'Dashboard'}
                 />
                 <div className="page-body container-fluid">
                     <div className="row">

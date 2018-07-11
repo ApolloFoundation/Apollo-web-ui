@@ -41,22 +41,22 @@ const App = () => (
 			<Route exact path="/">
                 <Redirect  to="/dashboard"/>
 			</Route>
-            <Route exact path="/dashboard"          component={Dashboard}/>
+            <Route exact path="/dashboard"              component={Dashboard}/>
 
-			<Route exact path="/transactions"       component={Transactions}/>
-            <Route exact path="/ledger"             component={Ledger}/>
-            <Route exact path="/blocks"             component={Blocks}/>
+			<Route exact path="/transactions"           component={Transactions}/>
+            <Route exact path="/ledger"                 component={Ledger}/>
+            <Route exact path="/blocks"                 component={Blocks}/>
 
-            <Route exact path="/account-properties" component={AccountProperties}/>
-			<Route exact path="/approval-request"   component={ApprovalRequest}/>
-			<Route exact path="/asset-exchange"     component={AssetExchange}/>
-			<Route exact path="/aliases"            component={Aliases}/>
-			<Route exact path="/delete-history"     component={DeleteHistory}/>
-			<Route exact path="/funding-monitors"   component={FundingMonitors}/>
-			<Route exact path="/my-assets"          component={MyAssets}/>
-			<Route exact path="/open-orders"        component={OpenOrders}/>
-			<Route exact path="/peers"              component={Peers}/>
-			<Route exact path="/plugins"            component={Plugins}/>
+            <Route exact path="/account-properties"     component={AccountProperties}/>
+			<Route exact path="/approval-request"       component={ApprovalRequest}/>
+			<Route exact path="/asset-exchange"         component={AssetExchange}/>
+			<Route exact path="/aliases"                component={Aliases}/>
+			<Route exact path="/delete-history"         component={DeleteHistory}/>
+			<Route exact path="/funding-monitors"       component={FundingMonitors}/>
+			<Route exact path="/my-assets"              component={MyAssets}/>
+			<Route exact path="/open-orders"            component={OpenOrders}/>
+			<Route exact path="/peers"                  component={Peers}/>
+			<Route exact path="/plugins"                component={Plugins}/>
 			<Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
 			<Route exact path="/settings"               component={Settings}/>
 			<Route exact path="/trade-history"          component={TradeHistory}/>

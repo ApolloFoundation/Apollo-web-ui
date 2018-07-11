@@ -6,7 +6,8 @@ class Transactions extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Asset exchange'}
+                    pageTitle={'Transactions'}
+                    showPrivateTransactions={'transactions'}
                 />
                 <div className="page-body container-fluid">
                     <div className="my-transactions">
