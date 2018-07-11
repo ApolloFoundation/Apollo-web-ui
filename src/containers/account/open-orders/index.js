@@ -6,7 +6,7 @@ class OpenOrders extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Asset exchange'}
+                    pageTitle={'Open orders'}
                 />
                 <div className="page-body container-fluid">
                     <div className="open-orders">
