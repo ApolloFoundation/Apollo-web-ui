@@ -508,20 +508,25 @@ input[type="number"] {
       flex-direction: column;
       bottom: 20px; }
       .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin {
-        padding-left: 70px;
+        padding-left: 55px;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between; }
         .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data {
-          display: flex; }
+          display: flex;
+          position: relative; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data > * {
             margin: auto 0; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .figure {
-            height: 30px;
+            height: 40px;
+            width: 40px;
             position: absolute;
-            left: 0;
+            left: -55px;
             top: 50%;
             transform: translateY(-50%); }
+            .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .figure canvas {
+              height: 100%;
+              width: 100%; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .amount {
             color: #333333;
             font-family: "Roboto-Regular";

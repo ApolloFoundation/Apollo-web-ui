@@ -265,23 +265,30 @@ input[type="number"] {
 
             .full-box-item {
               &.coin {
-                padding-left: 70px;
+                padding-left: 55px;
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: space-between;
 
                 .coin-data {
                   display: flex;
+                  position: relative;
 
                   & > * {
                     margin: auto 0;
                   }
                   .figure {
-                    height: 30px;
+                    height: 40px;
+                    width:  40px;
                     position: absolute;
-                    left: 0;
+                    left: -55px;
                     top: 50%;
                     transform: translateY(-50%);
+
+                    canvas {
+                      height: 100%;
+                      width: 100%;
+                    }
                   }
                   .amount {
                     color: #333333;

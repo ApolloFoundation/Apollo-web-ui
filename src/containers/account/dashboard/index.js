@@ -1,5 +1,6 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
+import CircleFigure from './circle-figure'
 
 class Dashboard extends React.Component {
     render () {
@@ -59,7 +60,10 @@ class Dashboard extends React.Component {
                                 <div className="full-box">
                                     <div className="full-box-item coin">
                                         <div className="coin-data">
-                                            <div className="figure"></div>
+                                            <CircleFigure
+                                                percentage={90}
+                                                type={'Bitcoin'}
+                                            />
                                             <div className="amount">81%</div>
                                             <div className="coin-name">Bitcoin</div>
                                         </div>
@@ -67,7 +71,10 @@ class Dashboard extends React.Component {
                                     </div>
                                     <div className="full-box-item coin">
                                         <div className="coin-data">
-                                            <div className="figure"></div>
+                                            <CircleFigure
+                                                percentage={15}
+                                                type={'Creed'}
+                                            />
                                             <div className="amount">81%</div>
                                             <div className="coin-name">Bitcoin</div>
                                         </div>
@@ -75,7 +82,10 @@ class Dashboard extends React.Component {
                                     </div>
                                     <div className="full-box-item coin">
                                         <div className="coin-data">
-                                            <div className="figure"></div>
+                                            <CircleFigure
+                                                percentage={10}
+                                                type={'MarioCoin'}
+                                            />
                                             <div className="amount">81%</div>
                                             <div className="coin-name">Bitcoin</div>
                                         </div>
