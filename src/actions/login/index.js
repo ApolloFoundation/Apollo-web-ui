@@ -14,6 +14,7 @@ export function getAccountDataAction(requestParams) {
                 console.log(res.data);
                 if (!res.data.errorCode) {
                     dispatch(login(res.data));
+                    return;
                 }
                 console.log('err: ',res.data.errorCode);
             })
