@@ -12,7 +12,10 @@ export function getAccountDataAction(requestParams) {
         })
             .then((res) => {
                 console.log(res.data);
-                dispatch(login(res.data));
+                if (!res.data.errorCode) {
+                    dispatch(login(res.data));
+                }
+                console.log('err: ',res.data.errorCode);
             })
             .catch(function(err){
                 console.log(err)

@@ -1,6 +1,6 @@
 import { getAccountDataAction } from '../actions/login/index';
 
-export const LOAD_ACCOUNT = 'account/LOAD_ACCOUNT';
+export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
 
 const initialState = {
 	account: null,
@@ -17,7 +17,7 @@ const initialState = {
 export default (state = initialState, action) => {
 	switch (action.type) {
         case LOAD_ACCOUNT:
-            const serverRes = action.reqParams;
+            const serverRes = action.payload;
             return {
                 ...state,
                 ...serverRes
@@ -33,7 +33,7 @@ export const login = (reqParams) => {
 	return dispatch => {
         dispatch({
 			type: LOAD_ACCOUNT,
-            reqParams: reqParams
+            payload: reqParams
 		});
 
 	}
