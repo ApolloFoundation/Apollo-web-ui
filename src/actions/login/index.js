@@ -5,7 +5,10 @@ import { writeToLocalStorage, readFromLocalStorage } from "../localStorage";
 
 export function getAccountDataAction(requestParams) {
     return dispatch => {
-        makeLoginReq(dispatch, requestParams);
+        makeLoginReq(dispatch, requestParams)
+            .then(() => {
+                document.location.href = '/dashboard';
+            })
     };
 }
 
@@ -13,11 +16,11 @@ export function isLoggedIn() {
     return dispatch => {
         let account = JSON.parse(readFromLocalStorage('APLUserRS'));
 
-        console.log(account);
-
-        makeLoginReq(dispatch, {
-            account: account
-        });
+        if (account) {
+            makeLoginReq(dispatch, {
+                account: account
+            });
+        }
     };
 }
 
@@ -33,10 +36,10 @@ function makeLoginReq(dispatch, requestParams) {
             if (!res.data.errorCode) {
                 writeToLocalStorage('APLUserRS', res.data.accountRS);
                 dispatch(login(res.data));
-                // document.location.href = '/dashboard';
-                return;
+
+            } else {
+                console.log('err: ',res.data.errorCode);
             }
-            console.log('err: ',res.data.errorCode);
         })
         .catch(function(err){
             console.log(err)

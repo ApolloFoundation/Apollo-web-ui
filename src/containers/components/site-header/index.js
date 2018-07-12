@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import './SiteHeader.css';
 import classNames from 'classnames';
 
@@ -68,7 +69,7 @@ class SiteHeader extends React.Component {
                                     <input type="text" onMouseOver={this.setSearchStateToActive}/>
                                     <div className="user-account-actions">
                                         <a className="user-account-rs">
-                                            APL-P7FK-7FAQ-U632-E2EN6
+                                            { this.props.accountRS }
                                         </a>
                                         <a className="user-account-action"><i className="zmdi zmdi-balance-wallet"></i></a>
                                         <a className="user-account-action"><i className="zmdi zmdi-settings"></i></a>
@@ -79,7 +80,7 @@ class SiteHeader extends React.Component {
                                 <div className="user-box">
                                     <div className="user-name">
                                         <i className="zmdi zmdi-chevron-down"></i>
-                                        <a>Viktoria Apollo</a>
+                                        <a>{ this.props.name }</a>
                                     </div>
                                     <div className="user-avatar"></div>
                                 </div>
@@ -92,4 +93,9 @@ class SiteHeader extends React.Component {
     }
 }
 
-export default SiteHeader;
+const mapStateToProps = state => ({
+        accountRS: state.account.accountRS,
+        name: state.account.name,
+});
+
+export default connect(mapStateToProps)(SiteHeader);

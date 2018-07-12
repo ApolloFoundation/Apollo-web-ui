@@ -1,8 +1,13 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
 import CircleFigure from './circle-figure'
-
+import { connect } from 'react-redux';
 class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
+
+        console.log(this.props);
+    }
     render () {
         return (
             <div className="page-content">
@@ -14,7 +19,7 @@ class Dashboard extends React.Component {
                         <div className="col-md-3">
                             <div className="card header ballance">
                                 <div className="card-title">Available Balance</div>
-                                <div className="amount">37,000,000</div>
+                                <div className="amount">{ (this.props.balanceATM / 100000000).toFixed(2)}</div>
                             </div>
                             <div className="card card-tall transactions">
                                 <div className="card-title">Transactions</div>
@@ -168,4 +173,16 @@ class Dashboard extends React.Component {
 }
 
 
-export default Dashboard;
+const mapStateToProps = state => ({
+    account: state.account.account,
+    accountRS: state.account.accountRS,
+    balanceATM: state.account.balanceATM,
+    description: state.account.description,
+    forgedBalanceATM: state.account.forgedBalanceATM,
+    name: state.account.name,
+    publicKey: state.account.publicKey,
+    requestProcessingTime: state.account.requestProcessingTime,
+    unconfirmedBalanceATM: state.account.unconfirmedBalanceATM
+});
+
+export default connect(mapStateToProps)(Dashboard);
