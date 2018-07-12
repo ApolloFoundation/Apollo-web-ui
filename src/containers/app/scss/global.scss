@@ -21,6 +21,10 @@ a {
   display: inline-block;
 }
 
+button {
+  border: 0;
+}
+
 * {
   outline: none;
 }
@@ -48,6 +52,9 @@ span {
     margin: 0 -7.5px;
     margin-bottom: 15px;
 
+  }
+  &.offset-bottom {
+    padding-bottom: 75px;
   }
   .form-title {
     padding-bottom: 20px;

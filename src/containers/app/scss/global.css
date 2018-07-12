@@ -16,6 +16,9 @@ a {
   cursor: pointer;
   display: inline-block; }
 
+button {
+  border: 0; }
+
 * {
   outline: none; }
 
@@ -36,6 +39,8 @@ span.blue {
   .form-group.compensate-margin {
     margin: 0 -7.5px;
     margin-bottom: 15px; }
+  .form-group.offset-bottom {
+    padding-bottom: 75px; }
   .form-group .form-title {
     padding-bottom: 20px; }
     .form-group .form-title p {
