@@ -6,6 +6,7 @@ import SideBar from '../components/sidebar'
 
 // pages components
 import Dashboard from "../account/dashboard";
+import Login     from "../account/login";
 
 import Transactions from '../account/transactions'
 import Ledger       from '../account/ledger'
@@ -39,8 +40,9 @@ const App = () => (
 		
 		<main className="site-content">
 			<Route exact path="/">
-                <Redirect  to="/dashboard"/>
+                <Redirect  to="/login"/>
 			</Route>
+            <Route exact path="/login"                  component={Login}/>
             <Route exact path="/dashboard"              component={Dashboard}/>
 
 			<Route exact path="/transactions"           component={Transactions}/>
