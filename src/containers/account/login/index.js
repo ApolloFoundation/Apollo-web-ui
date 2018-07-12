@@ -26,11 +26,6 @@ class Login extends React.Component {
     }
 
     render() {
-        console.log(this.props.account.account);
-        if (this.props.account.account) {
-            return <Redirect to='/dashboard'/>
-        }
-
         return (
             <div className="page-content">
                 <div className="page-body container-fluid">
