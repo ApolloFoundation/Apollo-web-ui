@@ -17,22 +17,11 @@ const initialState = {
 export default (state = initialState, action) => {
 	switch (action.type) {
         case LOAD_ACCOUNT:
-            let loadedAccountData = Promise.resolve(getAccountDataAction(action.reqParams));
-            loadedAccountData
-                .then((data) => {
-                    console.log(data);
-                });
-
-            console.log(loadedAccountData);
-            // account:               res.data.account,
-            // accountRS:             res.data.accountRS,
-            // balanceATM:            res.data.balanceATM,
-            // description:           res.data.description,
-            // forgedBalanceATM:      res.data.forgedBalanceATM,
-            // name:                  res.data.name,
-            // publicKey:             res.data.publicKey,
-            // requestProcessingTime: res.data.requestProcessingTime,
-            // unconfirmedBalanceATM: res.data.unconfirmedBalanceATM
+            const serverRes = action.reqParams;
+            return {
+                ...state,
+                ...serverRes
+            };
 
 		default:
 			return state
@@ -42,7 +31,7 @@ export default (state = initialState, action) => {
 
 export const login = (reqParams) => {
 	return dispatch => {
-		dispatch({
+        dispatch({
 			type: LOAD_ACCOUNT,
             reqParams: reqParams
 		});

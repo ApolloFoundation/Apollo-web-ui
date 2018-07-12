@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import './Login.css'
 import account from "../../../modules/account";
-import { login } from '../../../modules/account';
+import { getAccountDataAction } from '../../../actions/login';
 
 class Login extends React.Component {
     constructor(props) {
@@ -60,8 +60,7 @@ const mapStateToProps = state =>  ({
 
 const mapDipatchToProps = dispatch => {
     return {
-        getAccountAction: (requestParams) => dispatch(login(requestParams)),
-
+        getAccountAction: (requestParams) => dispatch(getAccountDataAction(requestParams)),
     };
 };
 
