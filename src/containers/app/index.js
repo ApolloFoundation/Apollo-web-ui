@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Route, Link, Redirect } from 'react-router-dom'
 
 // components
@@ -30,12 +31,13 @@ import TransferHistory       from '../account/transfer-history'
 import style from  './App.css';
 console.log(style);
 
-const App = () => (
+const App = (props) => (
 	<div>
 		<header>
-			<Link to="/">Home</Link>
-			<Link to="/about-us">About</Link>
-            <SideBar/>
+			{
+				props.account &&
+                <SideBar/>
+			}
 		</header>
 		
 		<main className="site-content">
@@ -67,4 +69,8 @@ const App = () => (
 	</div>
 );
 
-export default App;
+const mapStateToProps = state => ({
+	account: state.account.account
+});
+
+export default connect(mapStateToProps)(App);

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Redirect } from  'react-router-dom';
 
 import React from 'react';
 import './Login.css'
@@ -15,17 +16,21 @@ class Login extends React.Component {
     }
 
     enterAccount() {
-        console.log('action');
-        console.log(this.refs.accountRS.value);
-
         this.props.getAccountAction({
             account: this.refs.accountRS.value
         });
+
+
 
         console.log(this.props);
     }
 
     render() {
+        console.log(this.props.account.account);
+        if (this.props.account.account) {
+            return <Redirect to='/dashboard'/>
+        }
+
         return (
             <div className="page-content">
                 <div className="page-body container-fluid">
@@ -33,7 +38,6 @@ class Login extends React.Component {
                         <div className="form-group offset-bottom">
                             <div className="form-title">
                                 <p>Welcome to apollo</p>
-                                {this.props.account.account}
                             </div>
                             <div className="input-group">
                                 <div className="row">
