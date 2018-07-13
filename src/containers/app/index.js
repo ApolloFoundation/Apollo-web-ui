@@ -1,35 +1,34 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { isLoggedIn } from '../../actions/login';
-import PrivateRouter from  './private-router'
+import {connect} from 'react-redux';
+import {Route, Switch} from 'react-router-dom';
+import {isLoggedIn} from '../../actions/login';
 // components
 import SideBar from '../components/sidebar'
-
 // pages components
 import Dashboard from "../account/dashboard";
-import Login     from "../account/login";
+import Login from "../account/login";
 
 import Transactions from '../account/transactions'
-import Ledger       from '../account/ledger'
-import Blocks       from '../account/blocks'
+import Ledger from '../account/ledger'
+import Blocks from '../account/blocks'
 
 import AccountProperties from '../account/account-properties'
-import ApprovalRequest   from '../account/approval-request'
-import AssetExchange     from '../account/asset-exchange'
-import Aliases           from '../account/aliases'
-import DeleteHistory     from '../account/delete-history'
-import FundingMonitors   from '../account/funding-monitors'
-import MyAssets          from '../account/my-assets'
-import OpenOrders        from '../account/open-orders'
-import Peers             from '../account/peers'
-import Plugins               from '../account/plugins'
+import ApprovalRequest from '../account/approval-request'
+import AssetExchange from '../account/asset-exchange'
+import Aliases from '../account/aliases'
+import DeleteHistory from '../account/delete-history'
+import FundingMonitors from '../account/funding-monitors'
+import MyAssets from '../account/my-assets'
+import OpenOrders from '../account/open-orders'
+import Peers from '../account/peers'
+import Plugins from '../account/plugins'
 import ScheduledTransactions from '../account/scheduled-transactions'
-import Settings              from '../account/settings'
-import TradeHistory          from '../account/trade-history'
-import TransferHistory       from '../account/transfer-history'
+import Settings from '../account/settings'
+import TradeHistory from '../account/trade-history'
+import TransferHistory from '../account/transfer-history'
 
-import style from  './App.css';
+import style from './App.css';
+
 console.log(style);
 
 class App extends React.Component {
@@ -42,8 +41,7 @@ class App extends React.Component {
         this.setState({...newState});
     }
 
-    render () {
-
+    render() {
         return (
             <div>
                 <header>
@@ -55,36 +53,33 @@ class App extends React.Component {
 
                 <main className="site-content">
                     <Switch>
-                        {
-                            this.props.account
+                        {this.props.account}
 
-                        }
+                        <Route exact path="/login" component={Login}/>
 
+                        {!this.props.loading &&
+                        <div>
+                            <Route exact path="/dashboard" component={Dashboard}/>
 
-                        <Route exact path="/login"                  component={Login}/>
+                            <Route exact path="/transactions" component={Transactions}/>
+                            <Route exact path="/ledger" component={Ledger}/>
+                            <Route exact path="/blocks" component={Blocks}/>
 
-
-                        <PrivateRouter exact path="/dashboard"              component={Dashboard}/>
-
-
-                        <Route exact path="/transactions"           component={Transactions}/>
-                        <Route exact path="/ledger"                 component={Ledger}/>
-                        <Route exact path="/blocks"                 component={Blocks}/>
-
-                        <Route exact path="/account-properties"     component={AccountProperties}/>
-                        <Route exact path="/approval-request"       component={ApprovalRequest}/>
-                        <Route exact path="/asset-exchange"         component={AssetExchange}/>
-                        <Route exact path="/aliases"                component={Aliases}/>
-                        <Route exact path="/delete-history"         component={DeleteHistory}/>
-                        <Route exact path="/funding-monitors"       component={FundingMonitors}/>
-                        <Route exact path="/my-assets"              component={MyAssets}/>
-                        <Route exact path="/open-orders"            component={OpenOrders}/>
-                        <Route exact path="/peers"                  component={Peers}/>
-                        <Route exact path="/plugins"                component={Plugins}/>
-                        <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
-                        <Route exact path="/settings"               component={Settings}/>
-                        <Route exact path="/trade-history"          component={TradeHistory}/>
-                        <Route exact path="/transfer-history"       component={TransferHistory}/>
+                            <Route exact path="/account-properties" component={AccountProperties}/>
+                            <Route exact path="/approval-request" component={ApprovalRequest}/>
+                            <Route exact path="/asset-exchange" component={AssetExchange}/>
+                            <Route exact path="/aliases" component={Aliases}/>
+                            <Route exact path="/delete-history" component={DeleteHistory}/>
+                            <Route exact path="/funding-monitors" component={FundingMonitors}/>
+                            <Route exact path="/my-assets" component={MyAssets}/>
+                            <Route exact path="/open-orders" component={OpenOrders}/>
+                            <Route exact path="/peers" component={Peers}/>
+                            <Route exact path="/plugins" component={Plugins}/>
+                            <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
+                            <Route exact path="/settings" component={Settings}/>
+                            <Route exact path="/trade-history" component={TradeHistory}/>
+                            <Route exact path="/transfer-history" component={TransferHistory}/>
+                        </div>}
                     </Switch>
                 </main>
             </div>
@@ -94,7 +89,8 @@ class App extends React.Component {
 
 
 const mapStateToProps = state => ({
-    account: state.account.account
+    account: state.account.account,
+    loading: state.account.loading
 });
 
 const mapDispatchToProps = dispatch => ({

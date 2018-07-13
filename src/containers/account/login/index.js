@@ -20,8 +20,6 @@ class Login extends React.Component {
             account: this.refs.accountRS.value
         });
 
-
-
         console.log(this.props);
     }
 
