@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { isLoggedIn } from '../../actions/login';
-
+import PrivateRouter from  './private-router'
 // components
 import SideBar from '../components/sidebar'
 
@@ -37,7 +37,13 @@ class App extends React.Component {
         this.props.isLoggedIn()
     }
 
+    componentWillReceiveProps(newState) {
+        console.log(newState);
+        this.setState({...newState});
+    }
+
     render () {
+
         return (
             <div>
                 <header>
@@ -49,8 +55,17 @@ class App extends React.Component {
 
                 <main className="site-content">
                     <Switch>
+                        {
+                            this.props.account
+
+                        }
+
+
                         <Route exact path="/login"                  component={Login}/>
-                        <Route exact path="/dashboard"              component={Dashboard}/>
+
+
+                        <PrivateRouter exact path="/dashboard"              component={Dashboard}/>
+
 
                         <Route exact path="/transactions"           component={Transactions}/>
                         <Route exact path="/ledger"                 component={Ledger}/>
