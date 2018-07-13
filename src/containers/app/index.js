@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Link, Redirect, Switch, Router } from 'react-router-dom'
+import { Route,
+         // Link,
+         // Redirect,
+         // Switch,
+         // Router
+    } from 'react-router-dom'
 import { isLoggedIn } from '../../actions/login';
 
 // components
