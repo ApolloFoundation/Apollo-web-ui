@@ -6,9 +6,6 @@ class Transaction extends React.Component {
         super(props);
     }
 
-
-
-
     render () {
         return (
             <tr key={uuid()}>

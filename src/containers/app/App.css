@@ -281,6 +281,13 @@ span.blue {
       bottom: 0;
       left: 0;
       right: 0; }
+      .transaction-table .transaction-table-body .btn-box .btn.disabled {
+        display: none; }
+    .transaction-table .transaction-table-body .pagination-nav {
+      position: absolute;
+      bottom: 13px;
+      left: 50%;
+      transform: translateX(-50%); }
 
 .transactions-filters {
   display: flex;

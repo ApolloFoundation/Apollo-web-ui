@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import { getTransactionsAction } from "../../../actions/transactions";
@@ -9,8 +10,10 @@ class Transactions extends React.Component {
         super(props);
 
         this.getTransactions = this.getTransactions.bind(this);
+        this.onPaginate      = this.onPaginate.bind(this);
 
         this.state = {
+            page: 1,
             firstIndex: 0,
             lastIndex: 14,
             transactions: []
@@ -31,6 +34,23 @@ class Transactions extends React.Component {
         this.setState({
             ...newState
         }, () => {
+            this.getTransactions({
+                account: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            })
+        });
+    }
+
+    onPaginate (page) {
+        console.log(page);
+        this.setState({
+            page: page,
+            account: this.props.account,
+            firstIndex: page * 15 - 15,
+            lastIndex:  page * 15 - 1
+        }, () => {
+            console.log(this.state);
             this.getTransactions({
                 account: this.props.account,
                 firstIndex: this.state.firstIndex,
@@ -97,8 +117,27 @@ class Transactions extends React.Component {
                                     </tbody>
                                 </table>
                                 <div className="btn-box">
-                                    <a className="btn btn-left"> Previous</a>
-                                    <a className="btn btn-right">Next</a>
+                                    <a
+                                       className={classNames({
+                                           'btn' : true,
+                                           'btn-left' : true,
+                                           'disabled' : this.state.page <= 1
+                                       })}
+                                       onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                    > Previous</a>
+                                    <div className='pagination-nav'>
+                                        <span>{this.state.firstIndex + 1}</span>
+                                        <span>&hellip;</span>
+                                        <span>{this.state.lastIndex + 1}</span>
+                                    </div>
+                                    <a
+                                       onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                       className={classNames({
+                                           'btn' : true,
+                                           'btn-right' : true,
+                                           'disabled' : this.state.transactions.length < 15
+                                       })}
+                                    >Next</a>
                                 </div>
                             </div>
                         </div>
