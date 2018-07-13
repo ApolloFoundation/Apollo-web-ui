@@ -7,7 +7,7 @@ export function getAccountDataAction(requestParams) {
     return dispatch => {
         makeLoginReq(dispatch, requestParams)
             .then(() => {
-                document.location.href = '/dashboard';
+                // document.location.href = '/dashboard';
             })
     };
 }

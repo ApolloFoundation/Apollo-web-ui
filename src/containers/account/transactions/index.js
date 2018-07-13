@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import { getTransactionsAction } from "../../../actions/transactions";
