@@ -1,0 +1,310 @@
+.btn {
+  display: inline-block;
+  padding: 10px 11px;
+  cursor: pointer;
+  user-select: none; }
+
+input {
+  width: 100%;
+  border: 1px solid #E5E5E5;
+  background-color: #F5F5F5;
+  border-radius: 3px;
+  padding: 12px 20px; }
+
+input[type="number"] {
+  width: 100%;
+  border: 1px solid #E5E5E5;
+  background-color: #F5F5F5;
+  border-radius: 3px;
+  padding: 12px 20px; }
+
+.menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  background-color: #333333;
+  box-shadow: 0 0 40px 11px rgba(0, 0, 0, 0.6);
+  z-index: 2; }
+  .menu-bar .site-logo {
+    height: 100px; }
+  .menu-bar nav ul li {
+    position: relative; }
+    .menu-bar nav ul li:hover a {
+      color: #777; }
+    .menu-bar nav ul li:hover .dropdown-menu {
+      display: block; }
+    .menu-bar nav ul li a {
+      color: #777777;
+      padding: 25px 40px;
+      display: block; }
+      .menu-bar nav ul li a:hover {
+        color: #fff; }
+    .menu-bar nav ul li .dropdown-menu {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      position: absolute;
+      left: 100%;
+      top: -13px;
+      min-width: 220px;
+      background-color: #333333;
+      box-shadow: 0 0 40px 11px rgba(0, 0, 0, 0.6);
+      display: none;
+      padding: 15px 0; }
+      .menu-bar nav ul li .dropdown-menu ul li {
+        display: block;
+        margin: 0;
+        padding: 0; }
+        .menu-bar nav ul li .dropdown-menu ul li:last-child a {
+          margin: 0; }
+        .menu-bar nav ul li .dropdown-menu ul li a {
+          padding: 20px 40px; }
+
+.site-content {
+  position: fixed;
+  top: 0;
+  bottom: 15px;
+  left: 220px;
+  right: 0; }
+  .site-content .page-content .page-header {
+    padding: 30px 40px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between; }
+    .site-content .page-content .page-header .page-title-box .page-title-box {
+      position: relative; }
+      .site-content .page-content .page-header .page-title-box .page-title-box > * {
+        vertical-align: middle; }
+      .site-content .page-content .page-header .page-title-box .page-title-box .title {
+        color: #333333;
+        font-family: "Roboto-Light";
+        font-size: 36px;
+        font-weight: 300;
+        line-height: 60px;
+        display: inline-block;
+        margin-right: 15px; }
+      .site-content .page-content .page-header .page-title-box .page-title-box .breadcrumbs {
+        position: absolute;
+        top: calc(100% + -2px);
+        left: 3px; }
+        .site-content .page-content .page-header .page-title-box .page-title-box .breadcrumbs a {
+          color: #BBBBBB; }
+        .site-content .page-content .page-header .page-title-box .page-title-box .breadcrumbs strong a {
+          font-family: "Roboto-Bold"; }
+    .site-content .page-content .page-header .user-search-box {
+      display: flex; }
+      .site-content .page-content .page-header .user-search-box > * {
+        margin: auto; }
+      .site-content .page-content .page-header .user-search-box .search-bar {
+        width: calc(100% - 230px); }
+      .site-content .page-content .page-header .user-search-box .user-box {
+        width: 230px;
+        display: flex;
+        justify-content: flex-end; }
+        .site-content .page-content .page-header .user-search-box .user-box > * {
+          margin: auto 0;
+          display: flex; }
+        .site-content .page-content .page-header .user-search-box .user-box .user-avatar {
+          height: 50px;
+          width: 50px;
+          border-radius: 100%;
+          margin-left: 30px; }
+  .site-content .page-content .page-body {
+    position: absolute;
+    top: 120px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    padding: 0 7.5px; }
+    .site-content .page-content .page-body .row {
+      width: 100%;
+      margin: 0;
+      flex-direction: row; }
+      .site-content .page-content .page-body .row > * {
+        padding: 0 7.5px; }
+    .site-content .page-content .page-body .card.transactions .transactions-dashboard {
+      position: absolute;
+      top: 38px;
+      left: 30px;
+      right: 30px;
+      bottom: 20px; }
+      .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
+        height: 25%;
+        display: flex;
+        box-sizing: border-box;
+        border-bottom: 1px solid #E5E5E5; }
+        .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box {
+          margin: auto 0;
+          position: relative;
+          width: 100%; }
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-date {
+            color: #BBBBBB;
+            font-family: "Roboto-Regular";
+            font-size: 12px;
+            line-height: 14px; }
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-rs {
+            color: #777777;
+            font-family: "Roboto-Regular";
+            font-size: 12px;
+            line-height: 14px;
+            margin-top: 8px; }
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-amount {
+            color: #333333;
+            font-family: "Roboto-Regular";
+            font-size: 16px;
+            line-height: 14px;
+            position: absolute;
+            top: 0;
+            right: 0; }
+    .site-content .page-content .page-body .card.asset-portfolio .card-title {
+      margin-bottom: 30px; }
+    .site-content .page-content .page-body .card.asset-portfolio .full-box {
+      position: absolute;
+      top: 58px;
+      left: 30px;
+      right: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      bottom: 20px; }
+      .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin {
+        padding-left: 70px;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between; }
+        .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data {
+          display: flex; }
+          .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data > * {
+            margin: auto 0; }
+          .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .figure {
+            height: 30px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%); }
+          .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .amount {
+            color: #333333;
+            font-family: "Roboto-Regular";
+            font-size: 24px;
+            line-height: 60px; }
+          .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .coin-name {
+            color: #777777;
+            font-family: "Roboto-Regular";
+            font-size: 12px;
+            line-height: 14px;
+            margin: auto auto 18px 30px; }
+        .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .more {
+          height: 30px; }
+    .site-content .page-content .page-body .card.decentralized-marketplace .full-box {
+      position: absolute;
+      top: 58px;
+      left: 30px;
+      right: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      bottom: 20px;
+      padding-bottom: 50px; }
+      .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item {
+        display: flex;
+        margin: auto 0; }
+        .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item * > {
+          margin: 0 auto; }
+        .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item .marketplace-box {
+          width: 50%; }
+          .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item .marketplace-box .digit {
+            color: #333333;
+            font-family: "Roboto-Regular";
+            font-size: 36px;
+            line-height: 60px; }
+          .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item .marketplace-box .subtitle {
+            color: #777777;
+            font-family: "Roboto-Regular";
+            font-size: 12px;
+            line-height: 14px;
+            width: 1px; }
+    .site-content .page-content .page-body .card.active-polls .full-box {
+      margin-top: 30px; }
+      .site-content .page-content .page-body .card.active-polls .full-box p {
+        color: #777777;
+        font-family: "Roboto-Regular";
+        font-size: 12px;
+        line-height: 14px;
+        margin-bottom: 30px; }
+    .site-content .page-content .page-body .card.apollo-news .card-news-content {
+      margin-top: 30px;
+      color: #777777;
+      font-family: "Roboto-Regular";
+      font-size: 12px;
+      line-height: 18px; }
+    .site-content .page-content .page-body .card .full-box {
+      position: absolute;
+      top: 38px;
+      left: 30px;
+      right: 30px;
+      bottom: 20px; }
+    .site-content .page-content .page-body > div {
+      min-height: 800px;
+      width: 100%;
+      padding: 0 7.5px;
+      display: flex;
+      flex-direction: column; }
+    .site-content .page-content .page-body .my-transactions {
+      width: 100%; }
+      .site-content .page-content .page-body .my-transactions .transactions-filters {
+        height: 120px;
+        padding-left: 40px; }
+      .site-content .page-content .page-body .my-transactions .transaction-table {
+        height: calc(100% - 120px);
+        min-height: 560px; }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
+          color: #00C8FF;
+          font-family: "Roboto-Regular";
+          font-size: 14px;
+          line-height: 16px; }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body .btn-box {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0; }
+    .site-content .page-content .page-body .approval-request {
+      padding: 35px;
+      background-color: #fff;
+      min-height: auto;
+      overflow: auto; }
+      .site-content .page-content .page-body .approval-request .alert {
+        color: #333333;
+        font-family: "Roboto-Regular";
+        font-size: 14px;
+        line-height: 16px; }
+    .site-content .page-content .page-body .account-ledger {
+      display: flex;
+      flex-direction: column;
+      padding: 0 7.5px; }
+    .site-content .page-content .page-body .blocks {
+      padding: 0 7.5px; }
+      .site-content .page-content .page-body .blocks .row {
+        width: auto;
+        margin-left: -7.5px;
+        margin-right: -7.5px; }
+    .site-content .page-content .page-body .scheduled-transactions {
+      display: flex;
+      flex-direction: column; }
+      .site-content .page-content .page-body .scheduled-transactions .approval-request {
+        height: 100%; }
+    .site-content .page-content .page-body .peers .transaction-table td .btn {
+      margin: 0 0 0 15px; }
+    .site-content .page-content .page-body .open-orders {
+      padding: 0; }
+      .site-content .page-content .page-body .open-orders .approval-request {
+        height: 100%; }
+      .site-content .page-content .page-body .open-orders .row {
+        padding: 0;
+        height: 100%; }
+    .site-content .page-content .page-body .account-settings .row {
+      position: relative; }

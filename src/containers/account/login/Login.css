@@ -1,0 +1,20 @@
+.login {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #F5F5F5;
+  z-index: 100; }
+  .login .form-group {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    height: auto; }
+    .login .form-group .input-group label {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column; }

@@ -1,0 +1,268 @@
+@font-face {
+  font-family: "Roboto-Black";
+  src: url("../fonts/Roboto-Black.ttf"); }
+
+@font-face {
+  font-family: "Roboto-BlackItalic";
+  src: url("../fonts/Roboto-BlackItalic.ttf"); }
+
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("../fonts/Roboto-Bold.ttf"); }
+
+@font-face {
+  font-family: "Roboto-BoldItalic";
+  src: url("../fonts/Roboto-BoldItalic.ttf"); }
+
+@font-face {
+  font-family: "Roboto-Italic";
+  src: url("../fonts/Roboto-Italic.ttf"); }
+
+@font-face {
+  font-family: "Roboto-Light";
+  src: url("../fonts/Roboto-Light.ttf"); }
+
+@font-face {
+  font-family: "Roboto-LightItalic";
+  src: url("../fonts/Roboto-LightItalic.ttf"); }
+
+@font-face {
+  font-family: "Roboto-Medium";
+  src: url("../fonts/Roboto-Medium.ttf"); }
+
+@font-face {
+  font-family: "Roboto-MediumItalic";
+  src: url("../fonts/Roboto-MediumItalic.ttf"); }
+
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url("../fonts/Roboto-Regular.ttf"); }
+
+@font-face {
+  font-family: "Roboto-Thin";
+  src: url("../fonts/Roboto-Thin.ttf"); }
+
+@font-face {
+  font-family: "Roboto-ThinItalic";
+  src: url("../fonts/Roboto-ThinItalic.ttf"); }
+
+html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: normal;
+  text-decoration: none;
+  list-style: none;
+  color: #101010;
+  font-family: "Roboto-Regular"; }
+
+html, body {
+  background-color: #F5F5F5; }
+
+a {
+  cursor: pointer;
+  display: inline-block; }
+
+* {
+  outline: none; }
+
+span.blue {
+  color: #00C8FF; }
+
+.form-group {
+  display: table;
+  padding: 35px;
+  box-sizing: border-box;
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  height: calc(100% - 15px); }
+  .form-group.offset {
+    height: 100%;
+    padding: 20px 0 0px; }
+  .form-group.compensate-margin {
+    margin: 0 -7.5px;
+    margin-bottom: 15px; }
+  .form-group .form-title {
+    padding-bottom: 20px; }
+    .form-group .form-title p {
+      color: #333333;
+      font-family: "Roboto-Regular";
+      font-size: 24px;
+      line-height: 18px; }
+    .form-group .form-title .form-sub-title {
+      margin-top: 10px; }
+  .form-group .form-sub-title {
+    color: #BBBBBB;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 19px;
+    margin-top: -15px; }
+  .form-group .input-group {
+    display: block;
+    padding-top: 25px; }
+    .form-group .input-group .form-sub-title {
+      padding-left: 15px; }
+    .form-group .input-group input {
+      padding-left: 15px;
+      padding-right: 15px; }
+
+.input-group {
+  display: table-row; }
+  .input-group.lighten input {
+    background-color: #fff; }
+  .input-group.middle > * {
+    vertical-align: middle; }
+  .input-group label {
+    display: table-cell;
+    color: #777777;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 14px;
+    padding-right: 20px; }
+  .input-group input {
+    display: table-cell; }
+
+.btn-box.inline {
+  display: inline-block;
+  position: static !important;
+  margin-right: -15px; }
+  .btn-box.inline > * {
+    display: inline;
+    margin-right: 15px; }
+
+.btn-box.more-padding {
+  margin-right: -15px; }
+  .btn-box.more-padding > * {
+    display: inline;
+    margin-right: 15px; }
+
+.btn-box.absolute {
+  position: absolute; }
+  .btn-box.absolute.right-conner {
+    bottom: 0;
+    right: 0; }
+
+.btn-box.align-buttons-inside > * {
+  display: inline-block;
+  position: relative;
+  border-radius: 0; }
+
+.btn {
+  position: absolute;
+  background-color: #666666;
+  color: #fff;
+  user-select: none; }
+  .btn.btn-simple {
+    color: #BBBBBB;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 14px;
+    bottom: 10px;
+    padding: 0;
+    background: transparent; }
+  .btn.btn-right {
+    right: 0;
+    bottom: 0;
+    padding: 11px 17px 11px 9px;
+    border-top-left-radius: 3px;
+    border-bottom-right-radius: 3px; }
+  .btn.btn-left {
+    left: 0;
+    bottom: 0;
+    padding: 11px 9px 11px 17px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px; }
+  .btn.primary {
+    padding: 6px;
+    background: #666666;
+    color: #fff;
+    border-radius: 6px;
+    margin-top: 15px;
+    position: static; }
+    .btn.primary.bigger {
+      padding: 11px 10px 9px 10px; }
+  .btn.blue {
+    background: #00C8FF;
+    color: #fff; }
+  .btn.round-top-left {
+    border-radius: 0;
+    border-top-left-radius: 6px; }
+  .btn.round-bottom-right {
+    border-radius: 0;
+    border-bottom-right-radius: 6px; }
+
+.card {
+  height: calc(33.33% - 15px);
+  border-radius: 3px;
+  margin-bottom: 15px;
+  background-color: #FFFFFF;
+  position: relative;
+  z-index: 3;
+  padding: 20px 30px; }
+  .card.card-tall {
+    height: calc(66.666% - 15px); }
+  .card.header {
+    padding: 50px 30px; }
+    .card.header.ballance {
+      background: linear-gradient(315deg, #0019E1 0%, #0050FF 100%); }
+    .card.header.assets {
+      background: linear-gradient(315deg, #008CDC 0%, #00C8FF 100%); }
+    .card.header.currencies {
+      background: linear-gradient(315deg, #00788C 0%, #00A0B4 100%); }
+    .card.header.coins {
+      background: linear-gradient(315deg, #008C46 0%, #00B45A 100%); }
+    .card.header .card-title {
+      font-family: "Roboto-Regular";
+      font-size: 16px;
+      line-height: 18px;
+      color: #fff; }
+    .card.header .amount {
+      color: #FFFFFF;
+      font-family: "Roboto-Regular";
+      font-size: 36px;
+      line-height: 60px; }
+  .card.single {
+    min-height: 217px;
+    height: auto; }
+  .card .card-title {
+    color: #333333;
+    font-family: "Roboto-Regular";
+    font-size: 16px;
+    line-height: 18px; }
+  .card .card-title-date {
+    color: #FFFFFF;
+    font-family: "Roboto-Regular";
+    font-size: 24px;
+    margin-top: 19px; }
+  .card .full-box {
+    position: absolute;
+    top: 38px;
+    left: 30px;
+    right: 30px;
+    bottom: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between; }
+    .card .full-box.block {
+      display: block; }
+    .card .full-box.offset {
+      padding: 20px 0px 14px; }
+  .card .form-group {
+    padding: 30px 0 25px; }
+  .card .input-group {
+    display: table-row; }
+    .card .input-group input, .card .input-group input[type="number"] {
+      padding: 8px 20px; }
+    .card .input-group.lighten input {
+      background-color: #fff; }
+    .card .input-group label {
+      display: table-cell;
+      color: #777777;
+      font-family: "Roboto-Regular";
+      font-size: 12px;
+      line-height: 14px;
+      padding-right: 20px; }
+    .card .input-group input {
+      display: table-cell; }
