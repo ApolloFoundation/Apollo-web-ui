@@ -1,7 +1,59 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
+import {connect} from 'react-redux';
+import {getBlocksAction} from "../../../actions/blocks";
+import Block from './block';
+
+import './Blocks.css';
+import classNames from "classnames";
+
 
 class Blocks extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.getBlocks = this.getBlocks.bind(this);
+
+        this.state = {
+            page: 1,
+            firstIndex: 0,
+            lastIndex: 14,
+            blocks: []
+        };
+    }
+
+    componentWillMount() {
+        this.getBlocks({
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+    }
+
+    async getBlocks(requestParams) {
+        const ledger = await this.props.getBlocksAction(requestParams);
+        this.setState({
+            ...this.props,
+            blocks: ledger.blocks
+        });
+    }
+
+    onPaginate (page) {
+        this.setState({
+            page: page,
+            account: this.props.account,
+            firstIndex: page * 15 - 15,
+            lastIndex:  page * 15 - 1
+        }, () => {
+            this.getBlocks({
+                account: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            })
+        });
+    }
+
+
     render () {
         return (
             <div className="page-content">
@@ -52,250 +104,37 @@ class Blocks extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>145 804</a>
-                                        </td>
-                                        <td className="align-right"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right">0</td>
-                                        <td className="align-right"><a>1</a>
-                                        </td>
-                                        <td className="blue-link-text"><a>APL-N6J9-T9AA-RKEB-G9NDM</a>
-                                        </td>
-                                        <td className="align-right"><a>216 B</a>
-                                        </td>
-                                        <td className="align-right"><a>4281 %</a>
-                                        </td>
-                                    </tr>
+                                        {
+                                            this.state.blocks.map((el, index) => {
+                                                return (
+                                                    <Block block={el}/>
+                                                );
+                                            })
+                                        }
                                     </tbody>
                                 </table>
-                                <div className="btn-box"><a className="btn btn-left"> Previous</a><a
-                                    className="btn btn-right">Next</a>
+                                <div className="btn-box">
+                                    <a
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-left' : true,
+                                            'disabled' : this.state.page <= 1
+                                        })}
+                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                    > Previous</a>
+                                    <div className='pagination-nav'>
+                                        <span>{this.state.firstIndex + 1}</span>
+                                        <span>&hellip;</span>
+                                        <span>{this.state.lastIndex + 1}</span>
+                                    </div>
+                                    <a
+                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-right' : true,
+                                            'disabled' : this.state.blocks.length < 15
+                                        })}
+                                    >Next</a>
                                 </div>
                             </div>
                         </div>
@@ -306,4 +145,13 @@ class Blocks extends React.Component {
     }
 }
 
-export default Blocks;
+const mapStateToProps = state => ({
+    account: state.account.account
+});
+
+const mapDispatchToProps = dispatch => ({
+    getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams))
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Blocks);
