@@ -62,7 +62,7 @@ class App extends React.Component {
                         <div>
                             {/*<Route exact path="/" component={Dashboard}/>*/}
                             <Route exact path="/dashboard" component={Dashboard}/>
-                            <Redirect from='/' to='/dashboard'/>
+                            {/*<Redirect from='/' to='/dashboard'/>*/}
 
                             <Route exact path="/transactions" component={Transactions}/>
                             <Route exact path="/ledger" component={Ledger}/>

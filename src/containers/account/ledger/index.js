@@ -1,7 +1,55 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
+import {getAccountLedgerAction} from "../../../actions/ledger";
+import Entry from './entry';
+import classNames from "classnames";
 
 class Ledger extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.getAccountLedger = this.getAccountLedger.bind(this);
+
+        this.state = {
+            page: 1,
+            firstIndex: 0,
+            lastIndex: 14,
+            ledger: []
+        };
+    }
+
+    componentWillMount() {
+        this.getAccountLedger({
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+    }
+
+    async getAccountLedger(requestParams) {
+        const ledger = await this.props.getAccountLedgerAction(requestParams);
+        this.setState({
+            ...this.props,
+            ledger: ledger.entries
+        });
+    }
+
+    onPaginate (page) {
+        this.setState({
+            page: page,
+            account: this.props.account,
+            firstIndex: page * 15 - 15,
+            lastIndex:  page * 15 - 1
+        }, () => {
+            this.getAccountLedger({
+                account: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            })
+        });
+    }
+
     render() {
         return (
             <div className="page-content">
@@ -29,265 +77,37 @@ class Ledger extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="blue-link-text"><a>6/13/2018 11:34:03</a>
-                                        </td>
-                                        <td>Transaction Fee<a><span className="info"></span></a>
-                                        </td>
-                                        <td className="align-right">-1.0</td>
-                                        <td>7,460.0</td>
-                                        <td>
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                        <td className="align-right">
-                                            <a></a>
-                                        </td>
-                                    </tr>
+                                        {
+                                            this.state.ledger.map((el, index) => {
+                                                return (
+                                                    <Entry entry={el}/>
+                                                );
+                                            })
+                                        }
                                     </tbody>
                                 </table>
-                                <div className="btn-box"><a className="btn btn-left"> Previous</a><a
-                                    className="btn btn-right">Next</a>
+                                <div className="btn-box">
+                                    <a
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-left' : true,
+                                            'disabled' : this.state.page <= 1
+                                        })}
+                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                    > Previous</a>
+                                    <div className='pagination-nav'>
+                                        <span>{this.state.firstIndex + 1}</span>
+                                        <span>&hellip;</span>
+                                        <span>{this.state.lastIndex + 1}</span>
+                                    </div>
+                                    <a
+                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-right' : true,
+                                            'disabled' : this.state.ledger.length < 15
+                                        })}
+                                    >Next</a>
                                 </div>
                             </div>
                         </div>
@@ -298,4 +118,12 @@ class Ledger extends React.Component {
     }
 }
 
-export default Ledger;
+const mpaStateToProps = state => ({
+   account: state.account.account
+});
+
+const mapDispatchToProps = dispatch => ({
+   getAccountLedgerAction: (requestParams) => dispatch(getAccountLedgerAction(requestParams))
+});
+
+export default connect(mpaStateToProps, mapDispatchToProps)(Ledger);
