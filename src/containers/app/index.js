@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
+import {render} from 'react-dom';
 import {isLoggedIn} from '../../actions/login';
 // components
 import SideBar from '../components/sidebar'
@@ -59,7 +60,9 @@ class App extends React.Component {
 
                         {!this.props.loading &&
                         <div>
+                            {/*<Route exact path="/" component={Dashboard}/>*/}
                             <Route exact path="/dashboard" component={Dashboard}/>
+                            <Redirect from='/' to='/dashboard'/>
 
                             <Route exact path="/transactions" component={Transactions}/>
                             <Route exact path="/ledger" component={Ledger}/>
