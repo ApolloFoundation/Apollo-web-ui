@@ -6,6 +6,7 @@ import {isLoggedIn} from '../../actions/login';
 import {setPageEvents} from '../../modules/account' ;
 // components
 import SideBar from '../components/sidebar'
+import ModalWindow from '../modals'
 // pages components
 import Dashboard from "../account/dashboard";
 import Login from "../account/login";
@@ -51,6 +52,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <ModalWindow/>
                 <header>
                     {
                         this.props.account &&

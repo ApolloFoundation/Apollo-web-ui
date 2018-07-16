@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import './SiteHeader.css';
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
+import {setMopalType} from "../../../modules/modals";
+import PrivateTransactions from "../../modals/private-transaction";
 
 class SiteHeader extends React.Component {
     constructor(props) {
@@ -40,10 +42,10 @@ class SiteHeader extends React.Component {
     handleModal(e) {
         const siteContent = document.querySelector('.site-content');
         console.log(siteContent);
+
         if (Object.values(siteContent.classList).indexOf('overflow-content') !== -1) {
             if (!e.target.closest('.user-account-action .settings-bar')) {
                 this.props.setPageEvents(false);
-
             }
         } else {
             this.props.setPageEvents(true);
@@ -61,8 +63,11 @@ class SiteHeader extends React.Component {
                                     <h1 className="title">{this.props.pageTitle}</h1>
                                     {
                                         this.props.showPrivateTransactions &&
-                                        <a className="btn primary">Show private transactions</a>
-
+                                        <a
+                                            className="btn primary" onClick={this.props.setMopalType.bind(this, 'PrivateTransactions')}
+                                        >
+                                            Show private transactions
+                                        </a>
                                     }
                                     <div className="breadcrumbs">
                                         <a>Apollo Wallet /</a>
@@ -157,13 +162,15 @@ class SiteHeader extends React.Component {
 }
 
 const mapStateToProps = state => ({
-        accountRS: state.account.accountRS,
-        name: state.account.name,
+    accountRS: state.account.accountRS,
+    name: state.account.name,
+    moalTtype: state.modals.openedModalType
 });
 
 const mapDispatchToProps = dispatch => ({
-    setPageEvents : (prevent) => dispatch(setPageEvents(prevent))
-})
+    setPageEvents : (prevent) => dispatch(setPageEvents(prevent)),
+    setMopalType : (prevent) => dispatch(setMopalType(prevent))
+});
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(SiteHeader);
