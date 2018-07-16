@@ -27,26 +27,13 @@
         }
       }
       .page-body {
+        //overflow: hidden;
+
         &:after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          z-index: 3;
-          background: rgba(0,0,0,0.6);
           opacity: 1;
           visibility: visible;
           transition: all 0.3s ease-in-out;
         }
-      }
-    }
-    .page-body {
-      &:after {
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease-in-out;
       }
     }
   }

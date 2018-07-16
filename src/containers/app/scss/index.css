@@ -382,6 +382,18 @@ input[type="number"] {
     flex-wrap: wrap;
     overflow-y: scroll;
     padding: 0 7.5px; }
+    .site-content .page-content .page-body:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: -15px;
+      left: 0;
+      right: 0;
+      z-index: 4;
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out; }
     .site-content .page-content .page-body .row {
       width: 100%;
       margin: 0;
