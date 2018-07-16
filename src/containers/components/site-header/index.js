@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import './SiteHeader.css';
+import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
 
 class SiteHeader extends React.Component {
@@ -33,6 +34,10 @@ class SiteHeader extends React.Component {
                 searching: false
             });
         }, 2000);
+    }
+
+    handleModal() {
+
     }
 
     render() {
@@ -72,7 +77,51 @@ class SiteHeader extends React.Component {
                                             { this.props.accountRS }
                                         </a>
                                         <a className="user-account-action"><i className="zmdi zmdi-balance-wallet"></i></a>
-                                        <a className="user-account-action"><i className="zmdi zmdi-settings"></i></a>
+                                        <a className="user-account-action" onClick={this.props.setPageEvents.bind(this, true)}>
+                                            <i className="zmdi zmdi-settings"></i>
+                                            <div className="settings-bar">
+                                                <div className="options-col">
+                                                    <ul>
+                                                        <li>                                                    <a className="option">Blocks</a>
+                                                        </li>
+                                                        <li>                                                    <a className="option">Peers</a>
+                                                        </li>
+                                                        <li>                                                    <a className="option">Generators</a>
+                                                        </li>
+                                                        <li>                                                    <a className="option">Scheduled transactions</a>
+                                                        </li>
+                                                        <li>                                                    <a className="option">Monitors</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div className="options-col">
+                                                    <ul>
+                                                        <li><a className="option">Generate token</a></li>
+                                                        <li><a className="option">Generate hallmark</a></li>
+                                                        <li><a className="option">Calculate hash</a></li>
+                                                        <li><a className="option">Transaction operations</a></li>
+                                                    </ul>
+
+                                                </div>
+                                                <div className="options-col">
+                                                    <ul>
+                                                        <li><a className="option">Refresh search index</a></li>
+                                                        <li><a className="option">API console</a></li>
+                                                        <li><a className="option">Database shell</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div className="options-col">
+                                                    <ul>
+                                                        <li>                                                    <a className="option">Plugins</a>
+                                                        </li>
+                                                        <li>                                                    <a className="option">Account settings</a>
+                                                        </li>
+                                                        <li>                                                    <a className="option">Device settings</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </a>
                                         <a className="user-account-action"><i className="zmdi zmdi-help"></i></a>
                                         <a className="user-account-action" onClick={this.setSearchStateToActive}><i className="zmdi zmdi-search"></i></a>
                                     </div>
@@ -98,4 +147,9 @@ const mapStateToProps = state => ({
         name: state.account.name,
 });
 
-export default connect(mapStateToProps)(SiteHeader);
+const mapDispatchToProps = dispatch => ({
+    setPageEvents : (prevent) => dispatch(setPageEvents(prevent))
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SiteHeader);

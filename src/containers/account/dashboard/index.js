@@ -2,11 +2,10 @@ import React from 'react';
 import SiteHeader from '../../components/site-header'
 import CircleFigure from './circle-figure'
 import { connect } from 'react-redux';
+
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-
-        console.log(this.props);
     }
     render () {
         return (

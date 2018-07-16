@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Route, Switch, Redirect} from 'react-router-dom';
-import {render} from 'react-dom';
+import classNames from 'classnames';
 import {isLoggedIn} from '../../actions/login';
+import {setPageEvents} from '../../modules/account' ;
 // components
 import SideBar from '../components/sidebar'
 // pages components
@@ -34,12 +35,17 @@ console.log(style);
 
 class App extends React.Component {
     componentDidMount() {
-        this.props.isLoggedIn()
+        this.props.isLoggedIn();
+        this.handleModal = this.handleModal.bind(this);
     }
 
     componentWillReceiveProps(newState) {
         console.log(newState);
         this.setState({...newState});
+    }
+
+    handleModal(e, param) {
+        this.props.setPageEvents(param, e.target);
     }
 
     render() {
@@ -52,7 +58,13 @@ class App extends React.Component {
                     }
                 </header>
 
-                <main className="site-content">
+                <main ref="siteContent"
+                    className={classNames({
+                       'site-content': true,
+                       'overflow-content': this.props.blockPageBody
+                    })}
+                    onClick={(e) => this.handleModal(e, false)}
+                >
                     <Switch>
                         {this.props.account}
 
@@ -60,9 +72,7 @@ class App extends React.Component {
 
                         {!this.props.loading &&
                         <div>
-                            {/*<Route exact path="/" component={Dashboard}/>*/}
                             <Route exact path="/dashboard" component={Dashboard}/>
-                            {/*<Redirect from='/' to='/dashboard'/>*/}
 
                             <Route exact path="/transactions" component={Transactions}/>
                             <Route exact path="/ledger" component={Ledger}/>
@@ -93,11 +103,13 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
-    loading: state.account.loading
+    loading: state.account.loading,
+    blockPageBody: state.account.blockPageBody
 });
 
 const mapDispatchToProps = dispatch => ({
-    isLoggedIn: () => dispatch(isLoggedIn())
+    isLoggedIn: () => dispatch(isLoggedIn()),
+    setPageEvents: () => dispatch(setPageEvents())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
