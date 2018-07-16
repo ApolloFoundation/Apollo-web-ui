@@ -83,6 +83,7 @@ export const endLoad = () => {
 * */
 export const setPageEvents = (prevent) => {
     return dispatch => {
+        console.log(prevent);
         dispatch({
             type: CHANGE_PAGE_BODY_EVENTS,
             payload: prevent

@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './SiteHeader.css';
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
@@ -36,12 +37,20 @@ class SiteHeader extends React.Component {
         }, 2000);
     }
 
-    handleModal() {
+    handleModal(e) {
+        const siteContent = document.querySelector('.site-content');
+        console.log(siteContent);
+        if (Object.values(siteContent.classList).indexOf('overflow-content') !== -1) {
+            if (!e.target.closest('.user-account-action .settings-bar')) {
+                this.props.setPageEvents(false);
 
+            }
+        } else {
+            this.props.setPageEvents(true);
+        }
     }
 
     render() {
-
         return (
             <div className="page-header">
                 <div className="container-fluid">
@@ -77,20 +86,25 @@ class SiteHeader extends React.Component {
                                             { this.props.accountRS }
                                         </a>
                                         <a className="user-account-action"><i className="zmdi zmdi-balance-wallet"></i></a>
-                                        <a className="user-account-action" onClick={this.props.setPageEvents.bind(this, true)}>
+                                        <a className="user-account-action" onClick={(e) => this.handleModal(e)}>
                                             <i className="zmdi zmdi-settings"></i>
                                             <div className="settings-bar">
                                                 <div className="options-col">
                                                     <ul>
-                                                        <li>                                                    <a className="option">Blocks</a>
+                                                        <li>
+                                                            <Link className="option" to="/blocks">Blocks</Link>
                                                         </li>
-                                                        <li>                                                    <a className="option">Peers</a>
+                                                        <li>
+                                                            <Link className="option" to="/peers">Peers</Link>
                                                         </li>
-                                                        <li>                                                    <a className="option">Generators</a>
+                                                        <li>
+                                                            <Link className="option" to="/generators">Generators</Link>
                                                         </li>
-                                                        <li>                                                    <a className="option">Scheduled transactions</a>
+                                                        <li>
+                                                            <Link className="option" to="/scheduled-transactions">Scheduled transactions</Link>
                                                         </li>
-                                                        <li>                                                    <a className="option">Monitors</a>
+                                                        <li>
+                                                            <Link className="option" to="/monitors">monitors</Link>
                                                         </li>
                                                     </ul>
                                                 </div>

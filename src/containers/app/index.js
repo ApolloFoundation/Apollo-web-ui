@@ -45,7 +45,7 @@ class App extends React.Component {
     }
 
     handleModal(e, param) {
-        this.props.setPageEvents(param, e.target);
+        // this.props.setPageEvents(param, e.target);
     }
 
     render() {
