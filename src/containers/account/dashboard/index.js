@@ -4,9 +4,6 @@ import CircleFigure from './circle-figure'
 import { connect } from 'react-redux';
 
 class Dashboard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render () {
         return (
             <div className="page-content">
