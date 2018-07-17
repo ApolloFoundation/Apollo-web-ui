@@ -27,6 +27,19 @@ button {
 span.blue {
   color: #00C8FF; }
 
+input[type="checkbox"] {
+  height: 16px;
+  width: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  border: 1px solid #E5E5E5;
+  background-color: #F5F5F5;
+  border-radius: 3px; }
+  input[type="checkbox"]:checked {
+    background: #00C8FF; }
+
 .form-group {
   display: table;
   padding: 35px;
@@ -61,11 +74,46 @@ span.blue {
   .form-group .input-group {
     display: block;
     padding-top: 25px; }
+    .form-group .input-group.align-middle > * {
+      vertical-align: middle; }
+    .form-group .input-group.align-middle label {
+      padding-left: 20px; }
     .form-group .input-group .form-sub-title {
       padding-left: 15px; }
     .form-group .input-group input {
       padding-left: 15px;
       padding-right: 15px; }
+  .form-group .form-tabulator {
+    position: relative;
+    margin: 55px -35px -70px -35px;
+    background-color: #F5F5F5;
+    padding: 18px 35px 70px 35px;
+    display: none; }
+    .form-group .form-tabulator.active {
+      display: block; }
+    .form-group .form-tabulator .form-tab-nav-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      position: absolute;
+      bottom: 100%;
+      right: 35px;
+      left: 35px; }
+      .form-group .form-tabulator .form-tab-nav-box .form-tab {
+        display: flex;
+        width: 54px;
+        height: 32px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px; }
+        .form-group .form-tabulator .form-tab-nav-box .form-tab.active {
+          background-color: #F5F5F5; }
+        .form-group .form-tabulator .form-tab-nav-box .form-tab .zmdi {
+          margin: auto; }
+    .form-group .form-tabulator .form-sub-actions {
+      display: block; }
+      .form-group .form-tabulator .form-sub-actions .form-group {
+        background-color: transparent;
+        padding: 0; }
 
 .input-group {
   display: table-row; }
@@ -102,6 +150,13 @@ span.blue {
   .btn-box.absolute.right-conner {
     bottom: 0;
     right: 0; }
+  .btn-box.absolute.left-conner {
+    bottom: 0;
+    left: 0; }
+  .btn-box.absolute.bottom {
+    bottom: 0;
+    right: 0;
+    left: 0; }
 
 .btn-box.align-buttons-inside > * {
   display: inline-block;
@@ -145,12 +200,16 @@ span.blue {
   .btn.blue {
     background: #00C8FF;
     color: #fff; }
-  .btn.round-top-left {
-    border-radius: 0;
-    border-top-left-radius: 6px; }
-  .btn.round-bottom-right {
-    border-radius: 0;
-    border-bottom-right-radius: 6px; }
+  .btn.round {
+    border-radius: 0; }
+    .btn.round.round-top-left {
+      border-top-left-radius: 6px; }
+    .btn.round.round-bottom-right {
+      border-bottom-right-radius: 6px; }
+    .btn.round.round-bottom-left {
+      border-bottom-left-radius: 6px; }
+    .btn.round.round-top-right {
+      border-top-right-radius: 6px; }
 
 .card {
   height: calc(33.33% - 15px);
@@ -340,7 +399,10 @@ span.blue {
     top: 50%;
     left: 50%;
     transform: translate(-50%, calc(-50% - 50px));
-    transition: all 0.3s ease-in-out; }
+    transition: all 0.3s ease-in-out;
+    max-width: 500px; }
+    .modal-window .modal-box.wide {
+      max-width: 700px; }
     .modal-window .modal-box .modal-form {
       min-width: 500px; }
       .modal-window .modal-box .modal-form .form-group {

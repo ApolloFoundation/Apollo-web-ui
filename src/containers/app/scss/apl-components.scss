@@ -186,7 +186,11 @@
     left: 50%;
     transform: translate(-50%, calc(-50% - 50px));
     transition: all 0.3s ease-in-out;
+    max-width: 500px;
 
+    &.wide {
+      max-width: 700px;
+    }
     .modal-form {
       min-width: 500px;
 

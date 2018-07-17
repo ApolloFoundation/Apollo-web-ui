@@ -111,7 +111,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, calc(-50% - 50px));
-    transition: all 0.3s ease-in-out; }
+    transition: all 0.3s ease-in-out;
+    max-width: 500px; }
+    .modal-window .modal-box.wide {
+      max-width: 700px; }
     .modal-window .modal-box .modal-form {
       min-width: 500px; }
       .modal-window .modal-box .modal-form .form-group {

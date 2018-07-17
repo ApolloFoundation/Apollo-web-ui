@@ -6,8 +6,6 @@ class PrivateTransactions extends React.Component {
     constructor(props) {
         super(props);
 
-        this.el = document.getElementById("#root");
-
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 

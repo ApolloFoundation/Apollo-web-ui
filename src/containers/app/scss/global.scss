@@ -35,6 +35,22 @@ span {
   }
 }
 
+input[type="checkbox"] {
+  height: 16px;
+  width: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  border: 1px solid #E5E5E5;	
+  background-color: #F5F5F5;
+  border-radius: 3px;
+
+  &:checked {
+    background: #00C8FF;
+  }
+}
+
 .form-group {
   display: table;
   padding: 35px;
@@ -76,10 +92,19 @@ span {
     line-height: 19px;
     margin-top: -15px;
   }
+
   .input-group {
       display: block;
       padding-top: 25px;
 
+      &.align-middle {
+        & > * {
+          vertical-align: middle;
+        }
+        label {
+          padding-left: 20px;
+        }
+      }
       .form-sub-title {
         padding-left: 15px;
       }
@@ -91,8 +116,50 @@ span {
   .form-exit {
 
   }
-  .form-tabulator {
 
+  .form-tabulator {
+    position: relative;
+    margin: 55px -35px -70px -35px;
+    background-color: #F5F5F5;
+    padding: 18px 35px 70px 35px;
+    display: none;
+
+    &.active {
+      display: block;
+    }
+    .form-tab-nav-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      position: absolute;
+      bottom: 100%;
+      right: 35px;
+      left: 35px;
+
+      .form-tab {
+        display: flex;
+        width: 54px;
+        height: 32px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+
+        &.active {
+          background-color: #F5F5F5;
+        }
+        .zmdi {
+          margin: auto;
+        }
+      }
+    }
+
+    .form-sub-actions {
+      display: block;
+
+      .form-group {
+        background-color: transparent;
+        padding: 0;
+      }
+    }
   }
   .btn-box {
 
@@ -152,6 +219,15 @@ span {
     &.right-conner {
       bottom: 0;
       right: 0;
+    }
+    &.left-conner {
+      bottom: 0;
+      left: 0;
+    }
+    &.bottom {
+      bottom: 0;
+      right: 0;
+      left: 0;
     }
   }
   &.align-buttons-inside {
@@ -213,13 +289,22 @@ span {
     color: #fff;
   }
 
-  &.round-top-left {
+
+  &.round {
     border-radius: 0;
-    border-top-left-radius: 6px;
-  }
-  &.round-bottom-right {
-    border-radius: 0;
-    border-bottom-right-radius: 6px;
+
+    &.round-top-left {
+      border-top-left-radius: 6px;
+    }
+    &.round-bottom-right {
+      border-bottom-right-radius: 6px;
+    }
+    &.round-bottom-left {
+      border-bottom-left-radius: 6px;
+    }
+    &.round-top-right {
+      border-top-right-radius: 6px;
+    }
   }
 }
 

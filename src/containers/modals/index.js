@@ -2,7 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setMopalType} from '../../modules/modals';
 import classNames from 'classnames';
+
+// Modals
 import PrivateTransactions from "./private-transaction";
+import SendApollo from "./send-apollo";
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -13,12 +16,6 @@ class ModalWindow extends React.Component {
         }
 
         this.handleModal = this.handleModal.bind(this);
-    }
-
-    componentWillMount() {
-    }
-
-    componentWillReceiveProps(newState) {
     }
 
     handleModal(e) {
@@ -47,6 +44,7 @@ class ModalWindow extends React.Component {
                 })}
             >
                 { this.props.openedModalType === 'PrivateTransactions' && <PrivateTransactions/>}
+                { this.props.openedModalType === 'SendApollo' && <SendApollo/>}
             </div>
         );
     }
