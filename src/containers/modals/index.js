@@ -16,17 +16,13 @@ class ModalWindow extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.props);
     }
 
     componentWillReceiveProps(newState) {
-        console.log(newState);
     }
 
     handleModal(e) {
-        console.log(e.target.closest('.modal-window .modal-box'));
         const modalWindow = document.querySelector('.modal-window');
-        console.log(modalWindow);
         if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
 
             if (!e.target.closest('.modal-window .modal-box')) {
@@ -35,7 +31,6 @@ class ModalWindow extends React.Component {
                     this.props.setMopalType(null);
 
                 }, 300);
-                console.log(this.openedModalType);
             }
 
         } else {

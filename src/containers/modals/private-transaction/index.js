@@ -1,14 +1,31 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {setModalData} from '../../../modules/modals';
 
 class PrivateTransactions extends React.Component {
     constructor(props) {
         super(props);
+
+        this.el = document.getElementById("#root");
+
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+
+    handleFormSubmit(e) {
+        e.preventDefault();
+
+        const data = {
+            passphrase: this.refs.passphrase.value
+        };
+
+        this.props.setModalData(data);
+        console.log(data);
     }
 
     render() {
         return (
             <div className="modal-box">
-                <div className="modal-form">
+                <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
                     <div className="form-group">
                         <div className="form-title">
                             <p>Show private transactions</p>
@@ -19,16 +36,24 @@ class PrivateTransactions extends React.Component {
                                     <label>Passphrase</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'accountRS'} type="text" name={'accountRS'}/>
+                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
                                 </div>
                             </div>
                         </div>
-                        <button className="btn btn-right">Enter</button>
+                        <button type="submit" className="btn btn-right">Enter</button>
                     </div>
-                </div>
+                </form>
             </div>
         );
     }
 }
 
-export default PrivateTransactions;
+const mapStateToProps = state => ({
+    modalData: state.modals.modalData
+});
+
+const mapDispatchToProps = dispatch => ({
+    setModalData: (data) => dispatch(setModalData(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PrivateTransactions);

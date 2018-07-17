@@ -3,7 +3,6 @@ import config from '../../config';
 
 export function getAccountLedgerAction(requestParams) {
     return dispatch => {
-        console.log(requestParams);
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: 'getAccountLedger',

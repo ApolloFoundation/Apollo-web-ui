@@ -26,8 +26,6 @@ class SiteHeader extends React.Component {
             ...this.state,
             searching: true
         });
-
-        console.log(this.state.searching);
     }
 
     resetSearchStateToActive() {
@@ -41,7 +39,6 @@ class SiteHeader extends React.Component {
 
     handleModal(e) {
         const siteContent = document.querySelector('.site-content');
-        console.log(siteContent);
 
         if (Object.values(siteContent.classList).indexOf('overflow-content') !== -1) {
             if (!e.target.closest('.user-account-action .settings-bar')) {

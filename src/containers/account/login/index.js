@@ -10,8 +10,6 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props);
-
         this.enterAccount = this.enterAccount.bind(this);
     }
 
@@ -19,8 +17,6 @@ class Login extends React.Component {
         this.props.getAccountAction({
             account: this.refs.accountRS.value
         });
-
-        console.log(this.props);
     }
 
     render() {

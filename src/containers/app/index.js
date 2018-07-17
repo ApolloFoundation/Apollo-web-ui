@@ -4,9 +4,11 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import classNames from 'classnames';
 import {isLoggedIn} from '../../actions/login';
 import {setPageEvents} from '../../modules/account' ;
+
 // components
 import SideBar from '../components/sidebar'
 import ModalWindow from '../modals'
+
 // pages components
 import Dashboard from "../account/dashboard";
 import Login from "../account/login";
@@ -32,12 +34,12 @@ import TransferHistory from '../account/transfer-history'
 
 import style from './App.css';
 
-console.log(style);
-
 class App extends React.Component {
     componentDidMount() {
         this.props.isLoggedIn();
         this.handleModal = this.handleModal.bind(this);
+
+        console.log(this.props);
     }
 
     componentWillReceiveProps(newState) {
@@ -114,4 +116,4 @@ const mapDispatchToProps = dispatch => ({
     setPageEvents: () => dispatch(setPageEvents())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)
