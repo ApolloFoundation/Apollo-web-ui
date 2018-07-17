@@ -24,8 +24,8 @@ class Transactions extends React.Component {
     componentDidMount() {
         this.getTransactions({
             account: this.props.account,
-            firstIndex: this.props.firstIndex,
-            lastIndex: this.props.lastIndex
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         })
     }
 
@@ -39,6 +39,7 @@ class Transactions extends React.Component {
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
             };
+            console.log(this.props.passphrase);
 
             if (this.props.passphrase) {
                 reqParams.passPhrase = this.props.passphrase

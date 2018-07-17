@@ -31,7 +31,6 @@ export const setMopalType = (reqParams) => {
     return dispatch => {
         if (reqParams) {
             document.querySelector('.modal-window').classList.add('active');
-
         }
 
         dispatch({
@@ -43,18 +42,23 @@ export const setMopalType = (reqParams) => {
 
 export const setModalData = (data) => {
     return dispatch => {
+        console.log(data);
 
-        document.querySelector('.modal-window').classList.remove('active');
-        setTimeout(()=> {
+        if (!data) {
+            document.querySelector('.modal-window').classList.remove('active');
+            setTimeout(() => {
+                dispatch({
+                    type: SET_MODAL_TYPE,
+                    payload: null
+                });
+
+            }, 300);
+        } else {
+            document.querySelector('.modal-window').classList.remove('active');
             dispatch({
-                type: SET_MODAL_TYPE,
-                payload: null
-            });
-
-        }, 300);
-        dispatch({
-            type: SET_MODAL_DATA,
-            payload: data
-        })
+                type: SET_MODAL_DATA,
+                payload: data
+            })
+        }
     }
 }
