@@ -35,6 +35,10 @@ span {
   }
 }
 
+.flex {
+  display: flex;
+}
+
 input[type="checkbox"] {
   height: 16px;
   width: 16px;
@@ -48,6 +52,21 @@ input[type="checkbox"] {
 
   &:checked {
     background: #00C8FF;
+  }
+}
+
+.info-box {
+
+  &.simple {
+    background: transparent;
+
+    p {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  p {
+    color: #000;
   }
 }
 
@@ -92,31 +111,31 @@ input[type="checkbox"] {
     line-height: 19px;
     margin-top: -15px;
   }
-
-  .input-group {
-      display: block;
-      padding-top: 25px;
-
-      &.align-middle {
-        & > * {
-          vertical-align: middle;
-        }
-        label {
-          padding-left: 20px;
-        }
-      }
-      .form-sub-title {
-        padding-left: 15px;
-      }
-      input {
-        padding-left:  15px;
-        padding-right: 15px;
-      }
-  }
   .form-exit {
 
   }
+  .input-group {
+    display: block;
+    padding-top: 25px;
 
+    &.align-middle {
+      & > * {
+        vertical-align: middle;
+      }
+      label {
+        padding-left: 20px;
+      }
+    }
+    .form-sub-title {
+      padding-left: 15px;
+    }
+    input {
+      padding-left:  15px;
+      padding-right: 15px;
+    }
+  }
+
+  // needed for modal windows
   .form-tabulator {
     position: relative;
     margin: 55px -35px -70px -35px;
@@ -151,7 +170,6 @@ input[type="checkbox"] {
         }
       }
     }
-
     .form-sub-actions {
       display: block;
 
@@ -160,9 +178,6 @@ input[type="checkbox"] {
         padding: 0;
       }
     }
-  }
-  .btn-box {
-
   }
 }
 
@@ -245,6 +260,7 @@ input[type="checkbox"] {
   background-color: #666666;
   color: #fff;
   user-select: none;
+  border-radius: 3px;
 
   &.absolute {
 
@@ -321,6 +337,12 @@ input[type="checkbox"] {
   &.card-tall {
     height: calc(66.666% - 15px);
   }
+  &.card-tiny {
+    height: calc(25% - 15px);
+  }
+  &.card-medium {
+    height: calc(50% - 15px);
+  }
   &.header {
     padding: 50px 30px;
 
@@ -336,11 +358,28 @@ input[type="checkbox"] {
     &.coins {
       background: linear-gradient(315deg, #008C46 0%, #00B45A 100%);
     }
+    &.medium-padding {
+      padding: 35px 22.5px;
+    }
     .card-title {
       font-family: "Roboto-Regular";
       font-size: 16px;
       line-height: 18px;
       color: #fff;
+
+      &.big {
+        font-size: 42px;
+        line-height: 42px;
+      }
+      &.align-middle {
+        margin: auto 0;
+      }
+      &.bold {
+        font-weight: bold;
+      }
+    }
+    .asset-account-description {
+      width: 100%;
     }
     .amount {
       //margin-top: 20px;
@@ -381,9 +420,6 @@ input[type="checkbox"] {
     }
   }
 
-  //input , input[type="number"] {
-  //  padding: 4px 20px;
-  //}
   .card-title {
     color: #333333;
     font-family: "Roboto-Regular";
@@ -422,11 +458,30 @@ input[type="checkbox"] {
     flex-direction: column;
     justify-content: space-between;
 
+    &.full {
+      top:    35px !important;
+      right:  35px !important;
+      bottom: 35px !important;
+      left:   35px !important;
+    }
     &.block {
       display: block;
     }
     &.offset {
       padding: 20px 0px 14px;
+    }
+
+    .full-box-item {
+      .box {
+        display: flex;
+        justify-content: space-around;
+      }
+      .card-title {
+        width: 200px;
+      }
+      .description {
+        width: 100%;
+      }
     }
   }
   .form-group {
