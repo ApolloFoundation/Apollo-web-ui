@@ -20,6 +20,14 @@ class Aliases extends React.Component {
         this.onPaginate = this.onPaginate.bind(this);
     }
 
+    componentDidMount() {
+        this.getAliases({
+            account:    this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex:  this.state.lastIndex,
+        });
+    }
+
     componentWillReceiveProps(newState) {
         this.setState({...newState},() => {
             this.getAliases({
@@ -33,10 +41,12 @@ class Aliases extends React.Component {
     async getAliases(reqParams){
         const aliases = await this.props.getAliasesAction(reqParams);
 
-        this.setState({
-            ...this.props,
-            aliases: aliases.aliases
-        });
+        if (aliases) {
+            this.setState({
+                ...this.props,
+                aliases: aliases.aliases
+            });
+        }
     }
 
     onPaginate (page) {
