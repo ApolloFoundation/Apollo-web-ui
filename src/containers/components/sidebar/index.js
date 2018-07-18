@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css';
+import AssetExchange from "../../account/asset-exchange";
 
 class Sidebar extends React.Component {
     render() {
@@ -31,11 +32,14 @@ class Sidebar extends React.Component {
                             <a>Asset system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
-                                    <li><a>Approval requests</a></li>
+                                    <li><Link to="/asset-exchange">Asset exchange</Link></li>
+                                    <li><Link to="/trade-history">Trade history</Link></li>
+                                    <li><Link to="/transfer-history">Transfer history</Link></li>
+                                    <li><Link to="/delete-history">Delete history</Link></li>
+                                    <li><Link to="/my-assets">My Assets</Link></li>
+                                    <li><Link to="/open-orders">Open orders</Link></li>
+                                    <li><Link to="approval-request">Approval request</Link></li>
+                                    <li><a>Issue Assets</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -45,11 +49,11 @@ class Sidebar extends React.Component {
                             <a>Currency system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
+                                    <li><a>Currencies</a></li>
+                                    <li><a>Exchange hstory</a></li>
+                                    <li><a>Transfer history</a></li>
                                     <li><a>Approval requests</a></li>
+                                    <li><a>Issue Currencies</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -59,11 +63,11 @@ class Sidebar extends React.Component {
                             <a>Voting system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
-                                    <li><a>Approval requests</a></li>
+                                    <li><a>Active pools</a></li>
+                                    <li><a>Followed pools</a></li>
+                                    <li><a>My votes</a></li>
+                                    <li><a>My pools</a></li>
+                                    <li><a>Create pool</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -73,11 +77,8 @@ class Sidebar extends React.Component {
                             <a>Data storage</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
-                                    <li><a>Approval requests</a></li>
+                                    <li><a>Search</a></li>
+                                    <li><a>File upload</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -87,11 +88,11 @@ class Sidebar extends React.Component {
                             <a>Marketplace</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
-                                    <li><a>Approval requests</a></li>
+                                    <li><a>Purchased Products</a></li>
+                                    <li><a>My Products For Sales</a></li>
+                                    <li><a>My Pending Orders</a></li>
+                                    <li><a>My completed orders</a></li>
+                                    <li><a>List products for sales</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -101,11 +102,9 @@ class Sidebar extends React.Component {
                             <a>Coin shuffling</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
-                                    <li><a>Approval requests</a></li>
+                                    <li><a>Active Shuffling</a></li>
+                                    <li><a>My shuffling</a></li>
+                                    <li><a>Create shuffling</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -115,41 +114,17 @@ class Sidebar extends React.Component {
                             <a>Messages</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
-                                    <li><a>Approval requests</a></li>
+                                    <li><a>Chat</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li>
                             <i className="zmdi zmdi-accounts left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Aliases</a>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
-                                    <li><a>Approval requests</a></li>
-                                </ul>
-                            </div>
+                            <Link to="/my-assets">Aliases</Link>
                         </li>
                         <li>
                             <i className="zmdi zmdi-input-power left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Plugins</a>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><a>Dashboard</a></li>
-                                    <li><a>Account ledger</a></li>
-                                    <li><a>Account properties</a></li>
-                                    <li><a>My transactions</a></li>
-                                    <li><a>Approval requests</a></li>
-                                </ul>
-                            </div>
+                            <Link to="/plugins">Plugins</Link>
                         </li>
                     </ul>
                 </nav>
