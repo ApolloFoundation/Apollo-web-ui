@@ -31,16 +31,11 @@ class Sidebar extends React.Component {
                             <a>Asset system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -50,16 +45,11 @@ class Sidebar extends React.Component {
                             <a>Currency system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -69,16 +59,11 @@ class Sidebar extends React.Component {
                             <a>Voting system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -88,16 +73,11 @@ class Sidebar extends React.Component {
                             <a>Data storage</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -107,16 +87,11 @@ class Sidebar extends React.Component {
                             <a>Marketplace</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -126,17 +101,11 @@ class Sidebar extends React.Component {
                             <a>Coin shuffling</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions
-                                        <li><a>Approval requests</a>
-                                        </li>
-                                    </a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -146,16 +115,11 @@ class Sidebar extends React.Component {
                             <a>Messages</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -165,16 +129,11 @@ class Sidebar extends React.Component {
                             <a>Aliases</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -184,16 +143,11 @@ class Sidebar extends React.Component {
                             <a>Plugins</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Dashboard</a>
-                                    </li>
-                                    <li><a>Account ledger</a>
-                                    </li>
-                                    <li><a>Account properties</a>
-                                    </li>
-                                    <li><a>My transactions</a>
-                                    </li>
-                                    <li><a>Approval requests</a>
-                                    </li>
+                                    <li><a>Dashboard</a></li>
+                                    <li><a>Account ledger</a></li>
+                                    <li><a>Account properties</a></li>
+                                    <li><a>My transactions</a></li>
+                                    <li><a>Approval requests</a></li>
                                 </ul>
                             </div>
                         </li>

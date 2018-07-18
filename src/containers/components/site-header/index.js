@@ -93,21 +93,11 @@ class SiteHeader extends React.Component {
                                             <div className="settings-bar">
                                                 <div className="options-col">
                                                     <ul>
-                                                        <li>
-                                                            <Link className="option" to="/blocks">Blocks</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className="option" to="/peers">Peers</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className="option" to="/generators">Generators</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className="option" to="/scheduled-transactions">Scheduled transactions</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link className="option" to="/monitors">monitors</Link>
-                                                        </li>
+                                                        <li><Link className="option" to="/blocks">Blocks</Link></li>
+                                                        <li><Link className="option" to="/peers">Peers</Link></li>
+                                                        <li><Link className="option" to="/generators">Generators</Link></li>
+                                                        <li><Link className="option" to="/scheduled-transactions">Scheduled transactions</Link></li>
+                                                        <li><Link className="option" to="/monitors">monitors</Link></li>
                                                     </ul>
                                                 </div>
                                                 <div className="options-col">
@@ -128,12 +118,9 @@ class SiteHeader extends React.Component {
                                                 </div>
                                                 <div className="options-col">
                                                     <ul>
-                                                        <li>                                                    <a className="option">Plugins</a>
-                                                        </li>
-                                                        <li>                                                    <a className="option">Account settings</a>
-                                                        </li>
-                                                        <li>                                                    <a className="option">Device settings</a>
-                                                        </li>
+                                                        <li><a className="option">Plugins</a></li>
+                                                        <li><a className="option">Account settings</a></li>
+                                                        <li><a className="option">Device settings</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
