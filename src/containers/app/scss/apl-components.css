@@ -85,9 +85,14 @@
   margin-bottom: 15px; }
   .info-box.info {
     background: #666666; }
+  .info-box.simple {
+    background: transparent; }
+    .info-box.simple p {
+      padding-left: 0;
+      padding-right: 0; }
   .info-box p {
     padding: 18px 34px;
-    color: #fff; }
+    color: #000; }
 
 .modal-window {
   position: fixed;
