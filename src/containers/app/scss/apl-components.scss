@@ -154,7 +154,6 @@
   }
 }
 
-// modal window
 .modal-window {
   position: fixed;
   top: 0;
@@ -166,13 +165,18 @@
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s ease-in-out;
+  overflow: scroll;
+  display: flex;
 
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
   &.active {
     visibility: visible;
     opacity: 1;
 
     .modal-box {
-      transform: translate(-50%, -50%);
+      transform: translateY(0);
 
       .modal-form {
 
@@ -180,13 +184,16 @@
     }
   }
   .modal-box {
+    transform: translateY(-50px);
+    margin: auto;
     display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, calc(-50% - 50px));
     transition: all 0.3s ease-in-out;
+    max-width: 500px;
+    position: relative;
 
+    &.wide {
+      max-width: 700px;
+    }
     .modal-form {
       min-width: 500px;
 

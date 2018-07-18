@@ -3,6 +3,7 @@ import { getAccountDataAction } from '../actions/login/index';
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
 export const START_LOAD = 'START_LOAD';
 export const END_LOAD = 'END_LOAD';
+export const CHANGE_PAGE_BODY_EVENTS = 'CHANGE_PAGE_BODY_EVENTS';
 
 const initialState = {
 	account: null,
@@ -15,6 +16,7 @@ const initialState = {
     requestProcessingTime: null,
     unconfirmedBalanceATM: null,
     loading: true,
+    blockPageBody: false
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +36,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false
+            };
+        case CHANGE_PAGE_BODY_EVENTS:
+            return {
+                ...state,
+                blockPageBody: action.payload
             };
 
 		default:
@@ -68,6 +75,17 @@ export const endLoad = () => {
 			type: END_LOAD,
             payload: null
 		});
-
 	}
+};
+
+/*
+* @prevent -> boolean  |
+* */
+export const setPageEvents = (prevent) => {
+    return dispatch => {
+        dispatch({
+            type: CHANGE_PAGE_BODY_EVENTS,
+            payload: prevent
+        })
+    }
 };

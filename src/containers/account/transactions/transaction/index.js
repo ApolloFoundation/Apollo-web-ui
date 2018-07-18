@@ -22,16 +22,20 @@ class Transaction extends React.Component {
                         'Poll creation'
                     }
                     {
-                        'version.OrdinaryPayment' in this.props.transaction.attachment &&
-                        'Ordinary payment'
-                    }
-                    {
                         this.props.transaction.attachment['version.AccountInfo'] &&
                         'Account info'
                     }
                     {
                         this.props.transaction.attachment['version.VoteCasting'] &&
                         'Vote casting'
+                    }
+                    {
+                        'version.OrdinaryPayment' in this.props.transaction.attachment &&
+                        'Ordinary payment'
+                    }
+                    {
+                        'version.PrivatePayment' in this.props.transaction.attachment &&
+                        'Private payment'
                     }
                 </td>
                 <td className="align-right">

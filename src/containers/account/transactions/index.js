@@ -24,46 +24,54 @@ class Transactions extends React.Component {
     componentDidMount() {
         this.getTransactions({
             account: this.props.account,
-            firstIndex: this.props.firstIndex,
-            lastIndex: this.props.lastIndex
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         })
     }
 
     componentWillReceiveProps(newState) {
         console.log(newState);
-
         this.setState({
             ...newState
         }, () => {
-            this.getTransactions({
+            let reqParams = {
                 account: this.props.account,
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
-            })
+            };
+            console.log(this.props.passphrase);
+
+            if (this.props.passphrase) {
+                reqParams.passPhrase = this.props.passphrase
+            }
+
+            this.getTransactions(reqParams)
         });
     }
 
     onPaginate (page) {
-        console.log(page);
-        this.setState({
+        let reqParams = {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1
-        }, () => {
-            console.log(this.state);
-            this.getTransactions({
-                account: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            })
+        };
+
+        if (this.props.passphrase) {
+            reqParams.secretPhrase = this.props.passphrase
+        }
+
+        console.log(reqParams);
+
+        this.setState(reqParams
+            , () => {
+            this.getTransactions(reqParams)
         });
     }
 
     async getTransactions (requestParams){
         const transactions = await this.props.getTransactionsAction(requestParams);
         if (transactions) {
-            console.log(transactions.transactions);
             this.setState({
                 ...this.props,
                 transactions: transactions.transactions
@@ -91,7 +99,7 @@ class Transactions extends React.Component {
                         <div className="transaction-table">
                             <div className="transaction-table-body">
                                 <table>
-                                    <thead>
+                                    <thead key={uuid()}>
                                     <tr>
                                         <td>Date</td>
                                         <td>Type</td>
@@ -103,7 +111,7 @@ class Transactions extends React.Component {
                                         <td className="align-right">Confirmations</td>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody key={uuid()}>
                                         {
                                             this.state.transactions &&
                                             this.state.transactions.map((el, index) => {
@@ -150,12 +158,13 @@ class Transactions extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    account: state.account.account
-})
+    account: state.account.account,
+    passphrase: state.modals.modalData.passphrase
+});
 
 const initMapDispatchToProps = dispatch => ({
     getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams))
-})
+});
 
 export default connect(
     mapStateToProps,

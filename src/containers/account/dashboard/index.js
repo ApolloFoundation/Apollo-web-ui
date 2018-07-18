@@ -2,12 +2,9 @@ import React from 'react';
 import SiteHeader from '../../components/site-header'
 import CircleFigure from './circle-figure'
 import { connect } from 'react-redux';
-class Dashboard extends React.Component {
-    constructor(props) {
-        super(props);
+import {setMopalType} from '../../../modules/modals';
 
-        console.log(this.props);
-    }
+class Dashboard extends React.Component {
     render () {
         return (
             <div className="page-content">
@@ -138,7 +135,7 @@ class Dashboard extends React.Component {
                                     </div>
                                 </div>
                                 <a className="btn btn-left btn-simple">Private APL</a>
-                                <div className="btn btn-right" data-modal="sendMoney">Send</div>
+                                <button className="btn btn-right" data-modal="sendMoney" onClick={this.props.setMopalType.bind(this, 'SendApollo')}>Send</button>
                             </div>
                             <div className="card active-polls">
                                 <div className="card-title">Active Polls</div>
@@ -185,4 +182,8 @@ const mapStateToProps = state => ({
     unconfirmedBalanceATM: state.account.unconfirmedBalanceATM
 });
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = dispatch => ({
+    setMopalType: (type) => dispatch(setMopalType(type))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

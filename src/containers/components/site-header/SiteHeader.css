@@ -26,8 +26,7 @@
   .page-header .user-search-box {
     display: flex;
     margin: 0 -15px;
-    height: 51px;
-    overflow: hidden; }
+    height: 51px; }
     .page-header .user-search-box > * {
       margin: auto; }
     .page-header .user-search-box .search-bar {
@@ -51,10 +50,42 @@
           font-size: 12px;
           line-height: 14px; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-action {
+          position: relative;
           color: #333333;
           font-size: 18px;
           line-height: 30px;
           margin-left: 40px; }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
+            position: absolute;
+            z-index: 5;
+            top: calc(100% + 47px);
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background: #fff;
+            padding: 35px 0;
+            box-sizing: border-box;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+            width: 760px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.3s ease-in-out; }
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
+              width: 100%;
+              border-right: 1px solid #E6E6E6; }
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col:last-child {
+                border: 0; }
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li:last-child a {
+                margin-bottom: 0; }
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
+                color: #333333;
+                font-family: "Roboto-Regular";
+                font-size: 12px;
+                line-height: 14px;
+                padding: 0 35px;
+                margin-bottom: 20px; }
     .page-header .user-search-box .user-box {
       width: 230px;
       display: flex;

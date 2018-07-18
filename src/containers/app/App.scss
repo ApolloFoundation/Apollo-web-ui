@@ -4,7 +4,40 @@
   .container {
     h1 {
       color: #f00;
-      color: #f00;
     }
+  }
+}
+
+.site-content {
+  &.overflow-content {
+    .page-content {
+      .page-header {
+        .user-search-box {
+          .search-bar {
+            .user-account-actions {
+              .user-account-action {
+                .settings-bar {
+                  transform: none;
+                  opacity: 1;
+                  visibility: visible;
+                }
+              }
+            }
+          }
+        }
+      }
+      .page-body {
+        //overflow: hidden;
+
+        &:after {
+          opacity: 1;
+          visibility: visible;
+          transition: all 0.3s ease-in-out;
+        }
+      }
+    }
+  }
+  .page-body {
+    z-index: -1;
   }
 }

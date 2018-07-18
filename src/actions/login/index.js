@@ -37,13 +37,11 @@ function makeLoginReq(dispatch, requestParams) {
         }
     })
         .then((res) => {
-            console.log(res.data);
             if (!res.data.errorCode) {
                 dispatch(endLoad());
                 writeToLocalStorage('APLUserRS', res.data.accountRS);
                 dispatch(login(res.data));
             } else {
-                console.log('err: ',res.data.errorCode);
                 document.location = '/login';
             }
         })

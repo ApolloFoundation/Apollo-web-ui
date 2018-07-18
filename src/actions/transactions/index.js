@@ -3,10 +3,12 @@ import config from '../../config';
 
 export function getTransactionsAction(requestParams) {
     return dispatch => {
+        const requestType = (requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
         console.log(requestParams);
+
         return axios.get(config.api.serverUrl, {
             params : {
-                requestType: 'getBlockchainTransactions',
+                requestType: requestType,
                 ...requestParams
             }
         })
