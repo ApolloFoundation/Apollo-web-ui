@@ -31,6 +31,8 @@ import ScheduledTransactions from '../account/scheduled-transactions'
 import Settings from '../account/settings'
 import TradeHistory from '../account/trade-history'
 import TransferHistory from '../account/transfer-history'
+import Currencies from '../account/currencies'
+import MyCurrencies from '../account/my-shuffling'
 
 import style from './App.css';
 
@@ -82,6 +84,8 @@ class App extends React.Component {
                             <Route exact path="/ledger" component={Ledger}/>
                             <Route exact path="/blocks" component={Blocks}/>
 
+                            <Route exact path="/currencies" component={Currencies}/>
+                            <Route exact path="/my-shuffling" component={MyCurrencies}/>
                             <Route exact path="/account-properties" component={AccountProperties}/>
                             <Route exact path="/approval-request" component={ApprovalRequest}/>
                             <Route exact path="/asset-exchange" component={AssetExchange}/>

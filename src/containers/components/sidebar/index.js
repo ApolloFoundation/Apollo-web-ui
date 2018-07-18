@@ -49,10 +49,10 @@ class Sidebar extends React.Component {
                             <a>Currency system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Currencies</a></li>
-                                    <li><a>Exchange hstory</a></li>
-                                    <li><a>Transfer history</a></li>
-                                    <li><a>Approval requests</a></li>
+                                    <li><Link to="/currencies">Currencies</Link></li>
+                                    <li><Link to="/my-shuffling">Exchange hstory</Link></li>
+                                    <li><Link to="/transfer-history">Transfer history</Link></li>
+                                    <li><Link to="/trade-history">Approval requests</Link></li>
                                     <li><a>Issue Currencies</a></li>
                                 </ul>
                             </div>
