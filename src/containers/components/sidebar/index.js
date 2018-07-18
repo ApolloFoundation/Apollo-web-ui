@@ -120,7 +120,7 @@ class Sidebar extends React.Component {
                         </li>
                         <li>
                             <i className="zmdi zmdi-accounts left"></i>
-                            <Link to="/my-assets">Aliases</Link>
+                            <Link to="/aliases">Aliases</Link>
                         </li>
                         <li>
                             <i className="zmdi zmdi-input-power left"></i>
