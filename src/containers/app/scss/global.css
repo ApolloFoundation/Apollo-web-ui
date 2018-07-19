@@ -50,6 +50,9 @@ input[type="checkbox"] {
 .info-box p {
   color: #000; }
 
+.no-padding {
+  padding: 0 !important; }
+
 .form-group {
   display: table;
   padding: 35px;
@@ -222,20 +225,31 @@ input[type="checkbox"] {
     .btn.round.round-top-right {
       border-top-right-radius: 6px; }
 
+.input-block {
+  width: 300px; }
+
 .card {
   height: calc(33.33% - 15px);
+  min-height: 255px;
   border-radius: 3px;
   margin-bottom: 15px;
   background-color: #FFFFFF;
   position: relative;
   z-index: 3;
   padding: 20px 30px; }
+  .card.card-flexible {
+    min-height: auto;
+    height: auto;
+    max-height: 800px; }
   .card.card-tall {
-    height: calc(66.666% - 15px); }
+    height: calc(66.666% - 15px);
+    min-height: 520px; }
   .card.card-tiny {
-    height: calc(25% - 15px); }
+    height: calc(25% - 15px);
+    min-height: 185px; }
   .card.card-medium {
-    height: calc(50% - 15px); }
+    height: calc(50% - 15px);
+    min-height: 385px; }
   .card.header {
     padding: 50px 30px; }
     .card.header.ballance {

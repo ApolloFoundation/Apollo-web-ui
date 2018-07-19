@@ -92,32 +92,6 @@ class Aliases extends React.Component {
                                                 )
                                             })
                                         }
-                                    <tr>
-                                        <td>Alias_name_1</td>
-                                        <td className="blue-link-text"><a>http://</a>
-                                        </td>
-                                        <td>Registered</td>
-                                        <td className="align-right">
-                                            <div className="btn-box inline"><a className="btn primary blue">Edit</a><a
-                                                className="btn primary blue">Transfer</a><a
-                                                className="btn primary blue">Sell</a><a
-                                                className="btn primary">Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alias_name_1</td>
-                                        <td className="blue-link-text"><a>http://</a>
-                                        </td>
-                                        <td>Registered</td>
-                                        <td className="align-right">
-                                            <div className="btn-box inline"><a className="btn primary blue">Edit</a><a
-                                                className="btn primary blue">Transfer</a><a
-                                                className="btn primary blue">Sell</a><a
-                                                className="btn primary">Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
                                     </tbody>
                                 </table>
                                 <div className="btn-box">

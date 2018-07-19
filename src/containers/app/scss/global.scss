@@ -70,6 +70,10 @@ input[type="checkbox"] {
   }
 }
 
+.no-padding {
+  padding: 0 !important;
+}
+
 .form-group {
   display: table;
   padding: 35px;
@@ -323,10 +327,14 @@ input[type="checkbox"] {
     }
   }
 }
+.input-block {
+  width: 300px;
+}
 
 // card
 .card {
   height: calc(33.33% - 15px);
+  min-height: 255px;
   border-radius: 3px;
   margin-bottom: 15px;
   background-color: #FFFFFF;
@@ -334,14 +342,22 @@ input[type="checkbox"] {
   z-index: 3;
   padding: 20px 30px;
 
+  &.card-flexible {
+    min-height: auto;
+    height: auto;
+    max-height: 800px;
+  }
   &.card-tall {
     height: calc(66.666% - 15px);
+    min-height: 520px;
   }
   &.card-tiny {
     height: calc(25% - 15px);
+    min-height: 185px;
   }
   &.card-medium {
     height: calc(50% - 15px);
+    min-height: 385px;
   }
   &.header {
     padding: 50px 30px;
