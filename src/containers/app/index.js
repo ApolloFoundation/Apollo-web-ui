@@ -18,6 +18,7 @@ import Ledger from '../account/ledger'
 import Blocks from '../account/blocks'
 
 import ExchangeBooth from '../account/exchange-booth'
+import Marketplace from '../account/marketplace'
 import ActivePools from '../account/active-pools'
 import AccountProperties from '../account/account-properties'
 import ApprovalRequest from '../account/approval-request'
@@ -87,6 +88,7 @@ class App extends React.Component {
                             <Route exact path="/blocks" component={Blocks}/>
 
                             <Route exact path="/currencies" component={Currencies}/>
+                            <Route exact path="/marketplace" component={Marketplace}/>
                             <Route exact path="/active-pools" component={ActivePools}/>
                             <Route exact path="/exchange-booth" component={ExchangeBooth}/>
                             <Route exact path="/my-shuffling" component={MyCurrencies}/>

@@ -1,0 +1,126 @@
+.form-group {
+  &.marketplace {
+    padding: 35px 0 !important;
+  }
+}
+
+.card {
+  .full-box {
+    .full-box-item {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+
+      & > * {
+        width: auto !important;
+      }
+      .align-right {
+        font-size: 24px;
+      }
+    }
+  }
+  .input-group {
+    display: table !important;
+    width: 100% !important;
+    margin-bottom: 15px;
+
+    & > * {
+      display: table-cell;
+    }
+    input {
+
+    }
+    .input-icon {
+      width: 32px;
+
+      i {
+        margin: auto;
+      }
+    }
+    &.search {
+      i {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      input {
+        border-right: 0;
+      }
+      .input-icon {
+        border: 1px solid #E5E5E5;
+        background: #E5E5E5;
+        font-size: 18px;
+        vertical-align: middle;
+        text-align: center;
+      }
+    }
+  }
+  &.product-box {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../../../assets/blur-buildings-busy-861102.jpg);
+  }
+  &.marketplace {
+    padding: 0;
+    border-radius: 3px;
+
+    &.filters {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+    .search-bar {
+
+    }
+    .filters-bar {
+      height: 100%;
+      margin-top: -15px;
+
+      .btn {
+        margin-top: 15px;
+        margin-right: 15px;
+      }
+    }
+    .card-avatar {
+      height: 120px;
+      width: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url(../../../assets/blur-buildings-busy-861102.jpg);
+    }
+    .price-box {
+      padding: 15px;
+      height: 85px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .price-amount {
+        & > * {
+          margin: 0 0 0 0;
+          display: inline-block;
+          vertical-align: bottom;
+        }
+
+        .amount {
+          font-weight: 500;
+          font-size: 24px;
+
+        }
+        .currency {
+          font-size: 12px;
+          margin-bottom: 3px;
+          margin-left: 4px;
+        }
+      }
+      .user {
+        width: 100%;
+        color: #777777;
+        font-size: 12px;
+        margin-top: 15px;
+      }
+    }
+  }
+}
