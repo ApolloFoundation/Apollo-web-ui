@@ -67,10 +67,14 @@ input[type="checkbox"] {
   .form-group.compensate-margin {
     margin: 0 -7.5px;
     margin-bottom: 15px; }
+  .form-group.height-auto {
+    height: auto; }
   .form-group.offset-bottom {
     padding-bottom: 75px; }
   .form-group .form-title {
     padding-bottom: 20px; }
+    .form-group .form-title.padding-left p {
+      padding-left: 35px; }
     .form-group .form-title p {
       color: #333333;
       font-family: "Roboto-Regular";
@@ -337,3 +341,7 @@ input[type="checkbox"] {
       padding-right: 20px; }
     .card .input-group input {
       display: table-cell; }
+
+.page-body.white-space {
+  background-color: #fff;
+  border-radius: 3px; }

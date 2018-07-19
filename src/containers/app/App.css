@@ -69,10 +69,14 @@ input[type="checkbox"] {
   .form-group.compensate-margin {
     margin: 0 -7.5px;
     margin-bottom: 15px; }
+  .form-group.height-auto {
+    height: auto; }
   .form-group.offset-bottom {
     padding-bottom: 75px; }
   .form-group .form-title {
     padding-bottom: 20px; }
+    .form-group .form-title.padding-left p {
+      padding-left: 35px; }
     .form-group .form-title p {
       color: #333333;
       font-family: "Roboto-Regular";
@@ -340,12 +344,17 @@ input[type="checkbox"] {
     .card .input-group input {
       display: table-cell; }
 
+.page-body.white-space {
+  background-color: #fff;
+  border-radius: 3px; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
   min-height: 560px; }
   .transaction-table.no-min-height {
-    min-height: auto; }
+    min-height: auto;
+    height: auto; }
   .transaction-table .transaction-table-body {
     padding: 40px 35px;
     width: 100%;
@@ -353,6 +362,8 @@ input[type="checkbox"] {
     border-radius: 3px;
     position: relative;
     min-height: 100%; }
+    .transaction-table .transaction-table-body.offset-bottom {
+      padding-bottom: 75px; }
     .transaction-table .transaction-table-body.padding-only-top {
       padding: 35px 0 0 0; }
     .transaction-table .transaction-table-body table {

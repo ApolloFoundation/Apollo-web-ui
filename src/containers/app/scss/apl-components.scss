@@ -7,9 +7,14 @@
 
   &.no-min-height {
     min-height: auto;
+    height: auto;
   }
 
   .transaction-table-body {
+
+    &.offset-bottom {
+      padding-bottom: 75px;
+    }
     &.padding-only-top {
       padding: 35px 0 0 0;
     }

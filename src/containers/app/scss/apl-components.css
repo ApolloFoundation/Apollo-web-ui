@@ -3,7 +3,8 @@
   width: 100%;
   min-height: 560px; }
   .transaction-table.no-min-height {
-    min-height: auto; }
+    min-height: auto;
+    height: auto; }
   .transaction-table .transaction-table-body {
     padding: 40px 35px;
     width: 100%;
@@ -11,6 +12,8 @@
     border-radius: 3px;
     position: relative;
     min-height: 100%; }
+    .transaction-table .transaction-table-body.offset-bottom {
+      padding-bottom: 75px; }
     .transaction-table .transaction-table-body.padding-only-top {
       padding: 35px 0 0 0; }
     .transaction-table .transaction-table-body table {
