@@ -70,6 +70,50 @@
       flex-wrap: nowrap;
       justify-content: space-between;
     }
+    &.tall-card {
+      .card-avatar {
+        height: 182px;
+      }
+      .price-box {
+        height: 153px;
+
+        .amount {
+          font-size: 36px;
+        }
+        .currency {
+          color: #333333;
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
+      .cargo-description {
+        .cargo-title {
+
+        }
+        .cargo-description {
+          color: #BBBBBB;
+          font-size: 12px;
+        }
+      }
+      .cargo-owner-box {
+        .cargo-owner {
+          display: block;
+
+          span {
+            color: #00C8FF;
+            font-size: 12px;
+          }
+          .btn {
+            display: inline;
+            margin-left: 15px;
+          }
+        }
+        .publishing-date {
+          color: #BBBBBB;
+          font-size: 12px;
+        }
+      }
+    }
     .search-bar {
 
     }

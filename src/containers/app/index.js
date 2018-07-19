@@ -18,6 +18,7 @@ import Ledger from '../account/ledger'
 import Blocks from '../account/blocks'
 
 import ExchangeBooth from '../account/exchange-booth'
+import ResentMarketplaceListing from '../account/marketplace/recent-listing'
 import Marketplace from '../account/marketplace'
 import ActivePools from '../account/active-pools'
 import AccountProperties from '../account/account-properties'
@@ -87,6 +88,7 @@ class App extends React.Component {
                             <Route exact path="/ledger" component={Ledger}/>
                             <Route exact path="/blocks" component={Blocks}/>
 
+                            <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
                             <Route exact path="/currencies" component={Currencies}/>
                             <Route exact path="/marketplace" component={Marketplace}/>
                             <Route exact path="/active-pools" component={ActivePools}/>
