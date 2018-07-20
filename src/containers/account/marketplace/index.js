@@ -19,7 +19,6 @@ class Marketplace extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Marketplace'}
-                    showPrivateTransactions={'ledger'}
                 />
                 <div className="page-body container-fluid">
                     <div className="marketplace">

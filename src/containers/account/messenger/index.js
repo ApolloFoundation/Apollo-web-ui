@@ -16,7 +16,6 @@ class Messenger extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Messenger'}
-                    showPrivateTransactions={'ledger'}
                 />
                 <div className="page-body container-fluid flexible-height overflow-hidden">
                     <div className="messenger">

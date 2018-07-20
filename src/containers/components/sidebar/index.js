@@ -46,11 +46,12 @@ class Sidebar extends React.Component {
                         <li>
                             <i className="zmdi zmdi-money left"></i>
                             <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Currency system</a>
+                            <Link to="/currencies">Currency system</Link>
                             <div className="dropdown-menu">
                                 <ul>
+                                    <li><Link to="/exchange-booth">Exchange booth</Link></li>
                                     <li><Link to="/currencies">Currencies</Link></li>
-                                    <li><Link to="/my-shuffling">Exchange hstory</Link></li>
+                                    <li><Link to="/my-shuffling">Exchange history</Link></li>
                                     <li><Link to="/transfer-history">Transfer history</Link></li>
                                     <li><Link to="/trade-history">Approval requests</Link></li>
                                     <li><a>Issue Currencies</a></li>
@@ -63,7 +64,7 @@ class Sidebar extends React.Component {
                             <a>Voting system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Active pools</a></li>
+                                    <li><Link to="/active-pools">Active pools</Link></li>
                                     <li><a>Followed pools</a></li>
                                     <li><a>My votes</a></li>
                                     <li><a>My pools</a></li>
@@ -85,7 +86,7 @@ class Sidebar extends React.Component {
                         <li>
                             <i className="zmdi zmdi-label left"></i>
                             <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Marketplace</a>
+                            <Link to='/marketplace'>Marketplace</Link>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Purchased Products</a></li>
@@ -111,7 +112,7 @@ class Sidebar extends React.Component {
                         <li>
                             <i className="zmdi zmdi-comments left"></i>
                             <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Messages</a>
+                            <Link to='/messenger'>Messages</Link>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a>Chat</a></li>

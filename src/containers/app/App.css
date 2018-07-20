@@ -46,7 +46,9 @@ input[type="checkbox"] {
 
 textarea {
   border: 1px solid #E5E5E5;
-  background: #fff; }
+  background: #fff;
+  border-radius: 6px;
+  resize: none; }
 
 .info-box.simple {
   background: transparent; }

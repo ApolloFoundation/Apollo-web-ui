@@ -53,7 +53,6 @@
               background: #E5E5E5;
               float: left;
 
-
               &:after {
                 display: none !important;
               }
@@ -114,6 +113,7 @@
             line-height: 1.6;
             font-size: 14px;
             position: relative;
+            border-radius: 6px;
 
             &:after {
               content: '';
