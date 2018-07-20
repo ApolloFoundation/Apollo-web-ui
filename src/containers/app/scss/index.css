@@ -339,13 +339,15 @@ textarea {
       display: block; }
     .card .full-box.offset {
       padding: 20px 0px 14px; }
-    .card .full-box .full-box-item .box {
-      display: flex;
-      justify-content: space-around; }
-    .card .full-box .full-box-item .card-title {
-      width: 200px; }
-    .card .full-box .full-box-item .description {
-      width: 100%; }
+    .card .full-box .full-box-item {
+      flex-wrap: wrap; }
+      .card .full-box .full-box-item .box {
+        display: flex;
+        justify-content: space-around; }
+      .card .full-box .full-box-item .card-title {
+        width: 200px; }
+      .card .full-box .full-box-item .description {
+        width: 100%; }
   .card .form-group {
     padding: 30px 0 25px; }
   .card .input-group {
@@ -544,8 +546,7 @@ input[type="number"] {
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
-    padding: 0 7.5px;
-    height: 100%; }
+    padding: 0 7.5px; }
     .site-content .page-content .page-body.flexible-height {
       height: auto; }
     .site-content .page-content .page-body.overflow-hidden {

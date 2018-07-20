@@ -33,8 +33,7 @@ input[type="number"] {
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
-    padding: 0 7.5px;
-    height: 100%; }
+    padding: 0 7.5px; }
     .site-content .page-content .page-body.flexible-height {
       height: auto; }
     .site-content .page-content .page-body.overflow-hidden {

@@ -523,6 +523,8 @@ textarea {
     }
 
     .full-box-item {
+      flex-wrap: wrap;
+
       .box {
         display: flex;
         justify-content: space-around;
