@@ -34,7 +34,7 @@ class SiteHeader extends React.Component {
                 ...this.state,
                 searching: false
             });
-        }, 2000);
+        }, 4000);
     }
 
     handleModal(e) {
@@ -76,13 +76,23 @@ class SiteHeader extends React.Component {
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <div className="user-search-box">
+                            <div className={classNames({
+                                "user-search-box" : true,
+                                "searching" : this.state.searching
+                            })}>
                                 {/*TODO : fix site header search animation*/}
-                                <div onMouseOut={this.resetSearchStateToActive} className={classNames({
-                                    'search-bar' : true,
-                                    'searching' : this.state.searching
-                                })}>
-                                    <input type="text" onMouseOver={this.setSearchStateToActive}/>
+                                <div
+                                    className={classNames({
+                                        'search-bar' : true,
+                                    })}
+                                >
+                                    <input
+                                        onMouseOut={this.resetSearchStateToActive}
+                                        onMouseDown={this.setSearchStateToActive}
+                                        onMouseOver={this.setSearchStateToActive}
+                                        className={"searching-window"}
+                                        type="text"
+                                    />
                                     <div className="user-account-actions">
                                         <a className="user-account-rs">
                                             { this.props.accountRS }
@@ -126,7 +136,7 @@ class SiteHeader extends React.Component {
                                             </div>
                                         </a>
                                         <a className="user-account-action"><i className="zmdi zmdi-help"></i></a>
-                                        <a className="user-account-action" onClick={this.setSearchStateToActive}><i className="zmdi zmdi-search"></i></a>
+                                        <a className="user-account-action search-button" onClick={this.setSearchStateToActive}><i className="zmdi zmdi-search"></i></a>
                                     </div>
                                 </div>
                                 <div className="user-box">

@@ -29,16 +29,26 @@
     height: 51px; }
     .page-header .user-search-box > * {
       margin: auto; }
+    .page-header .user-search-box.searching .search-bar .searching-window {
+      visibility: visible;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1); }
     .page-header .user-search-box .search-bar {
       width: calc(100% - 230px);
       transition: all 0.2s ease-in-out;
-      transform: translateY(-54px); }
-      .page-header .user-search-box .search-bar.searching {
-        transform: translateY(5px); }
-        .page-header .user-search-box .search-bar.searching input {
-          height: 41px; }
+      position: relative; }
+      .page-header .user-search-box .search-bar .searching-window {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease-in-out; }
+      .page-header .user-search-box .search-bar.searching input {
+        height: 41px; }
       .page-header .user-search-box .search-bar .user-account-actions {
-        margin-top: 20px;
         height: 41px;
         display: flex;
         justify-content: flex-end; }
@@ -48,13 +58,20 @@
           color: #BBBBBB;
           font-family: "Roboto-Regular";
           font-size: 12px;
-          line-height: 14px; }
+          line-height: 14px;
+          margin-right: 20px; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-action {
           position: relative;
           color: #333333;
           font-size: 18px;
           line-height: 30px;
-          margin-left: 40px; }
+          margin-right: 40px; }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action:not(.search-button) {
+            z-index: -1; }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action:last-child {
+            margin-right: 15px; }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action.search-button {
+            z-index: 2 !important; }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
             position: absolute;
             z-index: 5;

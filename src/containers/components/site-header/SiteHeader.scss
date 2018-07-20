@@ -44,20 +44,39 @@
     & > * {
       margin: auto;
     }
+
+    &.searching {
+      .search-bar {
+        .searching-window {
+          visibility: visible;
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+    }
     .search-bar {
       width: calc(100% - 230px);
       transition: all 0.2s ease-in-out;
-      transform: translateY(-54px);
+      position: relative;
 
+      .searching-window {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+      }
       &.searching {
-        transform: translateY(5px);
+
 
         input {
           height: 41px;
         }
       }
       .user-account-actions {
-        margin-top: 20px;
         height: 41px;
         display: flex;
         justify-content: flex-end;
@@ -70,14 +89,24 @@
           font-family: "Roboto-Regular";
           font-size: 12px;
           line-height: 14px;
+          margin-right: 20px;
         }
         .user-account-action {
           position: relative;
           color: #333333;
           font-size: 18px;
           line-height: 30px;
-          margin-left: 40px;
+          margin-right: 40px;
 
+          &:not(.search-button) {
+            z-index: -1;
+          }
+          &:last-child {
+            margin-right: 15px;
+          }
+          &.search-button {
+            z-index: 2 !important;
+          }
           .settings-bar {
             position: absolute;
             z-index: 5;
