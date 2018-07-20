@@ -49,10 +49,16 @@ input[type="checkbox"] {
   border: 1px solid #E5E5E5;	
   background-color: #F5F5F5;
   border-radius: 3px;
+  padding: 0;
 
   &:checked {
     background: #00C8FF;
   }
+}
+
+textarea {
+  border: 1px solid #E5E5E5;
+  background: #fff;
 }
 
 .info-box {
@@ -366,6 +372,10 @@ input[type="checkbox"] {
     min-height: auto;
     height: auto;
     max-height: 800px;
+  }
+  &.card-full-screen {
+    height: 100%;
+    min-height: auto !important;
   }
   &.fll-height {
     height: calc(100% - 15px);

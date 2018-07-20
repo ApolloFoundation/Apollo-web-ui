@@ -33,7 +33,12 @@ input[type="number"] {
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
-    padding: 0 7.5px; }
+    padding: 0 7.5px;
+    height: 100%; }
+    .site-content .page-content .page-body.flexible-height {
+      height: auto; }
+    .site-content .page-content .page-body.overflow-hidden {
+      overflow: hidden; }
     .site-content .page-content .page-body:after {
       content: '';
       position: absolute;

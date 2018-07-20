@@ -1,0 +1,203 @@
+.messenger {
+  min-height: auto !important;
+  height: 100%;
+  margin-bottom: 15px;
+  overflow: hidden;
+
+  & > * {
+    height: 100%;
+  }
+  .left-bar , .right-bar {
+    height: 100%;
+  }
+
+  .chat-item {
+    background: #fff;
+    padding: 0 35px;
+    margin-bottom: -1px;
+
+    .chat-box-item {
+      padding: 20px 0;
+      border-bottom: 1px solid #E5E5E5;
+
+      .chat-box-rs {
+        color: #333333;
+        font-size: 14px;
+      }
+      .chat-date {
+        color: #BBBBBB;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .right-bar {
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .chatting-box {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        height: 100%;
+
+        .message-box {
+          display: block;
+          margin-bottom: 0;
+
+          &.incoming {
+
+            .message {
+              background: #E5E5E5;
+              float: left;
+
+
+              &:after {
+                display: none !important;
+              }
+              p {
+                &:before {
+                  background: #E5E5E5;
+                }
+              }
+            }
+          }
+          &.outgoing {
+
+            .message {
+              background: #00C8FF;
+              float: right;
+
+              &:after {
+                background: #00C8FF;
+              }
+              p {
+                color: #fff;
+
+                &:before {
+                  display: none !important;
+                }
+                &:after {
+                  background: #00C8FF;
+                }
+              }
+            }
+          }
+          &.encrypted {
+            .message {
+
+              background: #666666;
+
+              &:before {
+                background: #666666 !important;
+              }
+              &:after {
+                background: #666666 !important;
+              }
+              p {
+                &:before {
+                  background: #666666 !important;
+                }
+                &:after {
+                  background: #666666 !important;
+                }
+              }
+            }
+          }
+          .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            max-width: 480px;
+            color: #333333;
+            line-height: 1.6;
+            font-size: 14px;
+            position: relative;
+
+            &:after {
+              content: '';
+              display: block;
+              position: absolute;
+              bottom: 0;
+              left: 100%;
+              background-color: #666666;
+              height: 20px;
+              width: 20px;
+              transform: rotateZ(0deg) translate(-12px, 5px) rotateY(40deg) rotateX(59deg);
+            }
+            :before {
+              content: '';
+              display: block;
+              position: absolute;
+              bottom: 0;
+              right: 100%;
+              background-color: #666666;
+              height: 20px;
+              width: 20px;
+              transform: rotateZ(-45deg) translate(5px, 12px) rotateY(40deg) rotateX(59deg);
+            }
+          }
+        }
+      }
+      .compose-message-box {
+        height: auto;
+
+        .top-bar {
+          width: 100%;
+
+          textarea {
+            width: 100%;
+            max-width: 100%;
+            min-width: 100%;
+            padding: 15px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+          }
+        }
+        .bottom-bar {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          padding-top: 15px;
+
+          .input-group {
+            margin: auto;
+            height: 100%;
+
+            & > * {
+              display: table-cell;
+              vertical-align: middle;
+            }
+            .encrypt-message-checkbox {
+              input {
+                padding: 8px;
+                display: inline-block;
+                margin:  0 15px 0 0;
+              }
+            }
+            input {
+              height: 15px !important;
+              width: 15px !important;
+            }
+            label {
+              white-space: pre;
+              padding-right: 0;
+            }
+          }
+          input {
+            width: 100%;
+            margin-left: 15px;
+            padding: 9px 20px;
+          }
+          .btn {
+            position: relative;
+            margin-left: 15px;
+            white-space: pre;
+          }
+        }
+      }
+    }
+  }
+}

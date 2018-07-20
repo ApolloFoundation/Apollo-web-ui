@@ -37,9 +37,14 @@ input[type="checkbox"] {
   display: block;
   border: 1px solid #E5E5E5;
   background-color: #F5F5F5;
-  border-radius: 3px; }
+  border-radius: 3px;
+  padding: 0; }
   input[type="checkbox"]:checked {
     background: #00C8FF; }
+
+textarea {
+  border: 1px solid #E5E5E5;
+  background: #fff; }
 
 .info-box.simple {
   background: transparent; }
@@ -253,6 +258,9 @@ input[type="checkbox"] {
     min-height: auto;
     height: auto;
     max-height: 800px; }
+  .card.card-full-screen {
+    height: 100%;
+    min-height: auto !important; }
   .card.fll-height {
     height: calc(100% - 15px); }
   .card.card-tall {

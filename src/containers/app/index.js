@@ -18,6 +18,7 @@ import Ledger from '../account/ledger'
 import Blocks from '../account/blocks'
 
 import ExchangeBooth from '../account/exchange-booth'
+import Messenger from '../account/messenger'
 import ResentMarketplaceListing from '../account/marketplace/recent-listing'
 import Marketplace from '../account/marketplace'
 import ActivePools from '../account/active-pools'
@@ -70,8 +71,7 @@ class App extends React.Component {
 
                 <main ref="siteContent"
                     className={classNames({
-                       'site-content': true,
-                       'overflow-content': this.props.blockPageBody
+                       'site-content': true
                     })}
                     onClick={(e) => this.handleModal(e, false)}
                 >
@@ -88,6 +88,7 @@ class App extends React.Component {
                             <Route exact path="/ledger" component={Ledger}/>
                             <Route exact path="/blocks" component={Blocks}/>
 
+                            <Route exact path="/messenger" component={Messenger}/>
                             <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
                             <Route exact path="/currencies" component={Currencies}/>
                             <Route exact path="/marketplace" component={Marketplace}/>

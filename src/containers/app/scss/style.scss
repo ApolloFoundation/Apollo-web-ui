@@ -43,7 +43,14 @@ input[type="number"] {
       flex-wrap: wrap;
       overflow-y: scroll;
       padding: 0 7.5px;
+      height: 100%;
 
+      &.flexible-height {
+        height: auto;
+      }
+      &.overflow-hidden {
+        overflow: hidden;
+      }
       &:after {
         content: '';
         position: absolute;
