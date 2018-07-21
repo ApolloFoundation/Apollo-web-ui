@@ -84,6 +84,7 @@ class App extends React.Component {
                         {!this.props.loading &&
                         <div>
                             <Route exact path="/dashboard" component={Dashboard}/>
+                            <Route exact path="/" component={Dashboard}/>
 
                             <Route exact path="/transactions" component={Transactions}/>
                             <Route exact path="/ledger" component={Ledger}/>

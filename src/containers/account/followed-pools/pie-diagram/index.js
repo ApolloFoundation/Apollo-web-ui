@@ -113,11 +113,15 @@ class Slice extends React.Component {
     render() {
         return (
             <g overflow="hidden">
+                <linearGradient id='grad'>
+                    <stop stop-color='black'/>
+                    <stop offset='100%' stop-color='magenta'/>
+                </linearGradient>
                 <path
                     d={this.state.path}
                     fill={this.props.fill}
-                    stroke={this.props.stroke}
-                    strokeWidth={this.props.strokeWidth ? this.props.strokeWidth : 3}
+                    stroke='white'
+                    strokeWidth={10}
                 />
                 {this.props.showLabel && this.props.percentValue > 5 ?
                     <text x={this.state.x} y={this.state.y} fill="#fff" textAnchor="middle">
