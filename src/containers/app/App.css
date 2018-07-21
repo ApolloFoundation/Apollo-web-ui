@@ -40,9 +40,22 @@ input[type="checkbox"] {
   border: 1px solid #E5E5E5;
   background-color: #F5F5F5;
   border-radius: 3px;
-  padding: 0; }
-  input[type="checkbox"]:checked {
-    background: #00C8FF; }
+  padding: 0;
+  position: relative; }
+  input[type="checkbox"]:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    background-image: url(../../assets/checked.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: none; }
+  input[type="checkbox"]:checked:after {
+    display: block; }
 
 textarea {
   border: 1px solid #E5E5E5;
