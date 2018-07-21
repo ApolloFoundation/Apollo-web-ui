@@ -534,9 +534,12 @@ input[type="number"] {
 .site-content {
   position: fixed;
   top: 0;
-  bottom: 15px;
+  bottom: 0;
   left: 220px;
   right: 0; }
+  .site-content.hide-page-body .page-content .page-body:after {
+    visibility: visible;
+    opacity: 1; }
   .site-content .page-content .page-body {
     position: absolute;
     top: 120px;
@@ -553,10 +556,10 @@ input[type="number"] {
       overflow: hidden; }
     .site-content .page-content .page-body:after {
       content: '';
-      position: absolute;
-      top: 0;
-      bottom: -15px;
-      left: 0;
+      position: fixed;
+      top: 120px;
+      bottom: 0;
+      left: 220px;
       right: 0;
       z-index: 4;
       background: rgba(0, 0, 0, 0.6);

@@ -12,11 +12,19 @@ class FollowedVotes extends React.Component {
         super(props);
 
         this.state =  {
-            data: [5, 12, 8, 3, 10]
+            data: [5, 4]
         }
     }
     render() {
-        const colors = ['#43A19E', '#7B43A1', '#F2317A', '#FF9824', '#58CF6C'];
+        const colors = [
+            {
+                startColorGradient: '#008CDC',
+                stopColorGradient : '#00C8FF'
+            }, {
+                startColorGradient: '#0019E1',
+                stopColorGradient : '#0050FF'
+            }
+        ];
 
         return (
             <div className="page-content">
@@ -96,7 +104,13 @@ class FollowedVotes extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-5">
+                                        <div
+                                            className="col-md-5"
+                                            style={{
+                                                transform: 'rotate(90deg)',
+                                                transition: 'all 0.3s ease-in-out'
+                                            }}
+                                        >
                                             <Pie
                                                 data={ this.state.data }
                                                 radius={ 150 }

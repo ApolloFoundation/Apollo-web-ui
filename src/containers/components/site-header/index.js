@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './SiteHeader.css';
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
-import {setMopalType} from "../../../modules/modals";
+import {setMopalType, setBodyModalType} from "../../../modules/modals";
 import PrivateTransactions from "../../modals/private-transaction";
 
 class SiteHeader extends React.Component {
@@ -37,15 +37,12 @@ class SiteHeader extends React.Component {
         }, 4000);
     }
 
-    handleModal(e) {
-        const siteContent = document.querySelector('.site-content');
+    setBodyModalType(bodyModalType) {
+        if (this.props.bodyModalType) {
+            this.props.setBodyModalType(null);
 
-        if (Object.values(siteContent.classList).indexOf('overflow-content') !== -1) {
-            if (!e.target.closest('.user-account-action .settings-bar')) {
-                this.props.setPageEvents(false);
-            }
         } else {
-            this.props.setPageEvents(true);
+            this.props.setBodyModalType(bodyModalType);
         }
     }
 
@@ -97,10 +94,18 @@ class SiteHeader extends React.Component {
                                         <a className="user-account-rs">
                                             { this.props.accountRS }
                                         </a>
-                                        <a className="user-account-action"><i className="zmdi zmdi-balance-wallet"></i></a>
-                                        <a className="user-account-action" onClick={(e) => this.handleModal(e)}>
-                                            <i className="zmdi zmdi-settings"></i>
-                                            <div className="settings-bar">
+                                        <a className="user-account-action">
+                                            <i className="zmdi zmdi-balance-wallet" />
+                                        </a>
+                                        <a
+                                            className="user-account-action"
+                                            onClick={this.setBodyModalType.bind(this, 'SETTINGS_BODY_MODAL')}
+                                        >
+                                            <i className="zmdi zmdi-settings" />
+                                            <div className={classNames({
+                                                "settings-bar": true,
+                                                "active": this.props.bodyModalType === 'SETTINGS_BODY_MODAL'
+                                            })}>
                                                 <div className="options-col">
                                                     <ul>
                                                         <li><Link className="option" to="/blocks">Blocks</Link></li>
@@ -135,16 +140,20 @@ class SiteHeader extends React.Component {
                                                 </div>
                                             </div>
                                         </a>
-                                        <a className="user-account-action"><i className="zmdi zmdi-help"></i></a>
-                                        <a className="user-account-action search-button" onClick={this.setSearchStateToActive}><i className="zmdi zmdi-search"></i></a>
+                                        <a className="user-account-action">
+                                            <i className="zmdi zmdi-help" />
+                                        </a>
+                                        <a className="user-account-action search-button" onClick={this.setSearchStateToActive}>
+                                            <i className="zmdi zmdi-search" />
+                                        </a>
                                     </div>
                                 </div>
                                 <div className="user-box">
                                     <div className="user-name">
-                                        <i className="zmdi zmdi-chevron-down"></i>
+                                        <i className="zmdi zmdi-chevron-down" />
                                         <a>{ this.props.name }</a>
                                     </div>
-                                    <div className="user-avatar"></div>
+                                    <div className="user-avatar" />
                                 </div>
                             </div>
                         </div>
@@ -158,12 +167,14 @@ class SiteHeader extends React.Component {
 const mapStateToProps = state => ({
     accountRS: state.account.accountRS,
     name: state.account.name,
-    moalTtype: state.modals.openedModalType
+    moalTtype: state.modals.modalType,
+    bodyModalType: state.modals.bodyModalType
 });
 
 const mapDispatchToProps = dispatch => ({
     setPageEvents : (prevent) => dispatch(setPageEvents(prevent)),
-    setMopalType : (prevent) => dispatch(setMopalType(prevent))
+    setMopalType : (prevent) => dispatch(setMopalType(prevent)),
+    setBodyModalType : (prevent) => dispatch(setBodyModalType(prevent))
 });
 
 

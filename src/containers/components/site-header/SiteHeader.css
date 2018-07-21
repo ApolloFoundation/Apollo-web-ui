@@ -29,6 +29,8 @@
     height: 51px; }
     .page-header .user-search-box > * {
       margin: auto; }
+    .page-header .user-search-box.searching .search-bar .user-account-actions .user-account-action {
+      z-index: -1; }
     .page-header .user-search-box.searching .search-bar .searching-window {
       visibility: visible;
       opacity: 1;
@@ -66,15 +68,12 @@
           font-size: 18px;
           line-height: 30px;
           margin-right: 40px; }
-          .page-header .user-search-box .search-bar .user-account-actions .user-account-action:not(.search-button) {
-            z-index: -1; }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action:last-child {
             margin-right: 15px; }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action.search-button {
-            z-index: 2 !important; }
+            z-index: 5 !important; }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
             position: absolute;
-            z-index: 5;
             top: calc(100% + 47px);
             right: 0;
             display: flex;
@@ -88,7 +87,12 @@
             visibility: hidden;
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.3s ease-in-out; }
+            transition: all 0.3s ease-in-out;
+            z-index: 4; }
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
+              opacity: 1;
+              transform: none;
+              visibility: visible; }
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
               width: 100%;
               border-right: 1px solid #E6E6E6; }

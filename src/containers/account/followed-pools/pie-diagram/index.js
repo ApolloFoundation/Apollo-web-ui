@@ -1,4 +1,5 @@
 import React from "react";
+import uuid from 'uuid';
 
 class Pie extends React.Component{
 
@@ -15,9 +16,15 @@ class Pie extends React.Component{
         sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
         startAngle = 0;
 
-
+        console.log(this.props);
         return (
-            <svg width={ diameter } height={ diameter } viewBox={ '0 0 ' + diameter + ' ' + diameter } xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <svg
+                width={ diameter }
+                height={ diameter }
+                viewBox={ '0 0 ' + diameter + ' ' + diameter }
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+            >
                 { this.props.data.map(function (slice, sliceIndex) {
                     var angle, nextAngle, percent;
 
@@ -26,6 +33,9 @@ class Pie extends React.Component{
                     percent = (slice / sum) * 100;
                     startAngle += angle;
 
+                    {
+                        console.log(self.props)
+                    }
                     return <Slice
                         key={ sliceIndex }
                         value={ slice }
@@ -36,10 +46,11 @@ class Pie extends React.Component{
                         radius={ radius }
                         hole={ radius - hole }
                         trueHole={ hole }
-                        showLabel= { labels }
-                        fill={ colors[sliceIndex % colorsLength] }
+                        showLabel='label'
                         stroke={ self.props.stroke }
                         strokeWidth={ self.props.strokeWidth }
+                        startColorGradient={self.props.colors[sliceIndex].startColorGradient}
+                        stopColorGradient={self.props.colors[sliceIndex].stopColorGradient}
                     />
                 }) }
 
@@ -111,15 +122,17 @@ class Slice extends React.Component {
     }
 
     render() {
+        const id = uuid();
+        console.log(this.props);
         return (
             <g overflow="hidden">
-                <linearGradient id='grad'>
-                    <stop stop-color='black'/>
-                    <stop offset='100%' stop-color='magenta'/>
+                <linearGradient id={id}>
+                    <stop stop-color={this.props.startColorGradient}/>
+                    <stop offset='100%' stop-color={this.props.stopColorGradient}/>
                 </linearGradient>
                 <path
                     d={this.state.path}
-                    fill={this.props.fill}
+                    fill={'url(#' + id.toString() + ')'}
                     stroke='white'
                     strokeWidth={10}
                 />

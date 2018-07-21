@@ -4,6 +4,7 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import classNames from 'classnames';
 import {isLoggedIn} from '../../actions/login';
 import {setPageEvents} from '../../modules/account' ;
+import {setBodyModalType} from '../../modules/modals' ;
 
 // components
 import SideBar from '../components/sidebar'
@@ -55,8 +56,10 @@ class App extends React.Component {
         this.setState({...newState});
     }
 
-    handleModal(e, param) {
-        // this.props.setPageEvents(param, e.target);
+    handleModal() {
+        if (this.state.bodyModalType) {
+            this.props.setBodyModalType(null);
+        }
     }
 
     render() {
@@ -72,9 +75,10 @@ class App extends React.Component {
 
                 <main ref="siteContent"
                     className={classNames({
-                       'site-content': true
+                       'site-content': true,
+                        'hide-page-body': this.props.bodyModalType
                     })}
-                    onClick={(e) => this.handleModal(e, false)}
+                    onClick={this.handleModal}
                 >
                     <Switch>
                         {this.props.account}
@@ -124,12 +128,18 @@ class App extends React.Component {
 const mapStateToProps = state => ({
     account: state.account.account,
     loading: state.account.loading,
-    blockPageBody: state.account.blockPageBody
+    blockPageBody: state.account.blockPageBody,
+
+    // modals
+    bodyModalType: state.modals.bodyModalType
 });
 
 const mapDispatchToProps = dispatch => ({
     isLoggedIn: () => dispatch(isLoggedIn()),
-    setPageEvents: () => dispatch(setPageEvents())
+    setPageEvents: () => dispatch(setPageEvents()),
+
+    //modals
+    setBodyModalType: () => dispatch(setBodyModalType())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
