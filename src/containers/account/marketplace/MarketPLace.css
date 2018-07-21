@@ -1,0 +1,107 @@
+.form-group.marketplace {
+  padding: 35px 0 !important; }
+
+.card .full-box .full-box-item {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between; }
+  .card .full-box .full-box-item > * {
+    width: auto !important; }
+  .card .full-box .full-box-item .align-right {
+    font-size: 24px; }
+
+.card .input-group {
+  display: table !important;
+  width: 100%;
+  margin-bottom: 15px; }
+  .card .input-group > * {
+    display: table-cell; }
+  .card .input-group .input-icon {
+    width: 32px; }
+    .card .input-group .input-icon i {
+      margin: auto; }
+  .card .input-group.search i {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0; }
+  .card .input-group.search input {
+    border-right: 0; }
+  .card .input-group.search .input-icon {
+    border: 1px solid #E5E5E5;
+    background: #E5E5E5;
+    font-size: 18px;
+    vertical-align: middle;
+    text-align: center; }
+
+.card.product-box {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(../../../assets/blur-buildings-busy-861102.jpg); }
+
+.card.marketplace {
+  padding: 0;
+  border-radius: 3px; }
+  .card.marketplace.filters {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between; }
+  .card.marketplace.tall-card .card-avatar {
+    height: 182px; }
+  .card.marketplace.tall-card .price-box {
+    height: 153px; }
+    .card.marketplace.tall-card .price-box .amount {
+      font-size: 36px; }
+    .card.marketplace.tall-card .price-box .currency {
+      color: #333333;
+      font-size: 18px;
+      font-weight: 500; }
+  .card.marketplace.tall-card .cargo-description .cargo-description {
+    color: #BBBBBB;
+    font-size: 12px; }
+  .card.marketplace.tall-card .cargo-owner-box .cargo-owner {
+    display: block; }
+    .card.marketplace.tall-card .cargo-owner-box .cargo-owner span {
+      color: #00C8FF;
+      font-size: 12px; }
+    .card.marketplace.tall-card .cargo-owner-box .cargo-owner .btn {
+      display: inline;
+      margin-left: 15px; }
+  .card.marketplace.tall-card .cargo-owner-box .publishing-date {
+    color: #BBBBBB;
+    font-size: 12px; }
+  .card.marketplace .filters-bar {
+    height: 100%;
+    margin-top: -15px; }
+    .card.marketplace .filters-bar .btn {
+      margin-top: 15px;
+      margin-right: 15px; }
+  .card.marketplace .card-avatar {
+    height: 120px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../../../assets/blur-buildings-busy-861102.jpg); }
+  .card.marketplace .price-box {
+    padding: 15px;
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .card.marketplace .price-box .price-amount > * {
+      margin: 0 0 0 0;
+      display: inline-block;
+      vertical-align: bottom; }
+    .card.marketplace .price-box .price-amount .amount {
+      font-weight: 500;
+      font-size: 24px; }
+    .card.marketplace .price-box .price-amount .currency {
+      font-size: 12px;
+      margin-bottom: 3px;
+      margin-left: 4px; }
+    .card.marketplace .price-box .user {
+      width: 100%;
+      color: #777777;
+      font-size: 12px;
+      margin-top: 15px; }

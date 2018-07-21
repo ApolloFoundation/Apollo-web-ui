@@ -1,0 +1,50 @@
+.form-group .account-bar .information {
+  display: block; }
+  .form-group .account-bar .information > * {
+    display: inline-block; }
+  .form-group .account-bar .information .title {
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px; }
+  .form-group .account-bar .information .content {
+    color: #00C8FF;
+    font-size: 14px; }
+
+.form-group .description-bar {
+  padding-top: 20px;
+  padding-bottom: 35px; }
+  .form-group .description-bar p {
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.6;
+    width: 100%; }
+
+.form-group .btn {
+  position: static; }
+
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  transform-origin: 50% 50%;
+  animation: scale .6s;
+  margin: 10px; }
+  svg text {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bolder;
+    font-size: 12px; }
+
+@keyframes scale {
+  from {
+    transform: scale(0.5); }
+  to {
+    transform: scale(1); } }
+
+.pagination-nav {
+  position: absolute;
+  bottom: 13px;
+  left: 50%;
+  transform: translateX(-50%); }
+
+.disabled {
+  opacity: 0.4; }

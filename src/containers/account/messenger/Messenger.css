@@ -1,0 +1,131 @@
+.messenger {
+  min-height: auto !important;
+  height: 100%;
+  margin-bottom: 15px; }
+  .messenger > * {
+    height: 100%; }
+  .messenger .left-bar, .messenger .right-bar {
+    height: 100%; }
+  .messenger .chat-item {
+    background: #fff;
+    padding: 0 35px;
+    margin-bottom: -1px; }
+    .messenger .chat-item .chat-box-item {
+      padding: 20px 0;
+      border-bottom: 1px solid #E5E5E5; }
+      .messenger .chat-item .chat-box-item .chat-box-rs {
+        color: #333333;
+        font-size: 14px; }
+      .messenger .chat-item .chat-box-item .chat-date {
+        color: #BBBBBB;
+        font-size: 12px; }
+  .messenger .right-bar .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .messenger .right-bar .card .chatting-box {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: flex-start;
+      height: 100%; }
+      .messenger .right-bar .card .chatting-box .message-box {
+        display: block;
+        margin-bottom: 0; }
+        .messenger .right-bar .card .chatting-box .message-box.incoming .message {
+          background: #E5E5E5;
+          float: left; }
+          .messenger .right-bar .card .chatting-box .message-box.incoming .message:after {
+            display: none !important; }
+          .messenger .right-bar .card .chatting-box .message-box.incoming .message p:before {
+            background: #E5E5E5; }
+        .messenger .right-bar .card .chatting-box .message-box.outgoing .message {
+          background: #00C8FF;
+          float: right; }
+          .messenger .right-bar .card .chatting-box .message-box.outgoing .message:after {
+            background: #00C8FF; }
+          .messenger .right-bar .card .chatting-box .message-box.outgoing .message p {
+            color: #fff; }
+            .messenger .right-bar .card .chatting-box .message-box.outgoing .message p:before {
+              display: none !important; }
+            .messenger .right-bar .card .chatting-box .message-box.outgoing .message p:after {
+              background: #00C8FF; }
+        .messenger .right-bar .card .chatting-box .message-box.encrypted .message {
+          background: #666666; }
+          .messenger .right-bar .card .chatting-box .message-box.encrypted .message:before {
+            background: #666666 !important; }
+          .messenger .right-bar .card .chatting-box .message-box.encrypted .message:after {
+            background: #666666 !important; }
+          .messenger .right-bar .card .chatting-box .message-box.encrypted .message p:before {
+            background: #666666 !important; }
+          .messenger .right-bar .card .chatting-box .message-box.encrypted .message p:after {
+            background: #666666 !important; }
+        .messenger .right-bar .card .chatting-box .message-box .message {
+          margin-bottom: 15px;
+          padding: 10px;
+          max-width: 480px;
+          color: #333333;
+          line-height: 1.6;
+          font-size: 14px;
+          position: relative;
+          border-radius: 6px; }
+          .messenger .right-bar .card .chatting-box .message-box .message:after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 100%;
+            background-color: #666666;
+            height: 20px;
+            width: 20px;
+            transform: rotateZ(0deg) translate(-12px, 5px) rotateY(40deg) rotateX(59deg); }
+          .messenger .right-bar .card .chatting-box .message-box .message :before {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            right: 100%;
+            background-color: #666666;
+            height: 20px;
+            width: 20px;
+            transform: rotateZ(-45deg) translate(5px, 12px) rotateY(40deg) rotateX(59deg); }
+    .messenger .right-bar .card .compose-message-box {
+      height: auto; }
+      .messenger .right-bar .card .compose-message-box .top-bar {
+        width: 100%; }
+        .messenger .right-bar .card .compose-message-box .top-bar textarea {
+          width: 100%;
+          max-width: 100%;
+          min-width: 100%;
+          padding: 15px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box; }
+      .messenger .right-bar .card .compose-message-box .bottom-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-top: 15px; }
+        .messenger .right-bar .card .compose-message-box .bottom-bar .input-group {
+          margin: auto;
+          height: 100%; }
+          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group > * {
+            display: table-cell;
+            vertical-align: middle; }
+          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group .encrypt-message-checkbox input {
+            padding: 8px;
+            display: inline-block;
+            margin: 0 15px 0 0; }
+          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group input {
+            height: 15px !important;
+            width: 15px !important; }
+          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group label {
+            white-space: pre;
+            padding-right: 0; }
+        .messenger .right-bar .card .compose-message-box .bottom-bar input {
+          width: 100%;
+          margin-left: 15px;
+          padding: 9px 20px; }
+        .messenger .right-bar .card .compose-message-box .bottom-bar .btn {
+          position: relative;
+          margin-left: 15px;
+          white-space: pre; }
