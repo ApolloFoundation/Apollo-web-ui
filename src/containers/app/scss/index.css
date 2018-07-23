@@ -72,6 +72,9 @@ textarea {
 .info-box p {
   color: #000; }
 
+.no-margin {
+  margin: 0; }
+
 .no-padding {
   padding: 0 !important; }
 

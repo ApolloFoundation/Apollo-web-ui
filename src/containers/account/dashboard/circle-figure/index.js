@@ -21,6 +21,9 @@ class CircleFigure extends React.Component {
                         text: { fill: '#f88', fontSize: '16px' },
                     }}
                     className={this.props.type}
+                    style={{
+                        margin: 0
+                    }}
                     strokeWidth={14}
                 />
             </div>

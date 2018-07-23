@@ -2,11 +2,11 @@
 text {
   display: none; }
 
-svg.Bitcoin .CircularProgressbar-path {
-  stroke: #0050FF !important; }
-
-svg.Creed .CircularProgressbar-path {
-  stroke: #00C8FF !important; }
-
-svg.MarioCoin .CircularProgressbar-path {
-  stroke: #00A0B4 !important; }
+svg {
+  margin: 0 !important; }
+  svg.Bitcoin .CircularProgressbar-path {
+    stroke: #0050FF !important; }
+  svg.Creed .CircularProgressbar-path {
+    stroke: #00C8FF !important; }
+  svg.MarioCoin .CircularProgressbar-path {
+    stroke: #00A0B4 !important; }
