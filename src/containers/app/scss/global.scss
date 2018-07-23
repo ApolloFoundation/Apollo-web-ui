@@ -49,7 +49,7 @@ input[type="checkbox"] {
   border: 1px solid #E5E5E5;	
   background-color: #F5F5F5;
   border-radius: 3px;
-  padding: 0;
+  padding: 0 !important;
   position: relative;
 
   &:after {
@@ -162,9 +162,19 @@ textarea {
 
   }
   .input-group {
-    display: block;
-    padding-top: 25px;
 
+    &.offset-top {
+      padding-top: 25px;
+    }
+    &.offset-bottom {
+      padding-bottom: 25px;
+    }
+    &.display-block {
+      display: block;
+    }
+    &.tabled {
+      display: table;
+    }
     &.align-middle {
       & > * {
         vertical-align: middle;

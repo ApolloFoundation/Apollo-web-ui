@@ -6,6 +6,7 @@ import classNames from 'classnames';
 // Modals
 import PrivateTransactions from "./private-transaction";
 import SendApollo from "./send-apollo";
+import Issue from "./issue"
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -40,11 +41,13 @@ class ModalWindow extends React.Component {
             <div
                 onClick={(e) => this.handleModal(e)}
                 className={classNames({
-                    "modal-window" : true
+                    "modal-window" : true,
+                    "active": this.props.openedModalType
                 })}
             >
                 { this.props.openedModalType === 'PrivateTransactions' && <PrivateTransactions/>}
                 { this.props.openedModalType === 'SendApollo' && <SendApollo/>}
+                { this.props.openedModalType === 'ISSUE' && <Issue /> }
             </div>
         );
     }

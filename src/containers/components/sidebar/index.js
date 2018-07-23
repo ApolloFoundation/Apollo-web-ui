@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
 import './Sidebar.css';
 import AssetExchange from "../../account/asset-exchange";
+import {setMopalType} from "../../../modules/modals";
 
 class Sidebar extends React.Component {
     render() {
@@ -39,7 +41,9 @@ class Sidebar extends React.Component {
                                     <li><Link to="/my-assets">My Assets</Link></li>
                                     <li><Link to="/open-orders">Open orders</Link></li>
                                     <li><Link to="approval-request">Approval request</Link></li>
-                                    <li><a>Issue Assets</a></li>
+                                    <li>
+                                        <a onClick={this.props.setMopalType.bind(this, 'ISSUE')}>Issue Assets</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -134,4 +138,15 @@ class Sidebar extends React.Component {
     }
 }
 
-export default Sidebar;
+const mapStateToProps = state => ({
+    modalType : state.modals.modalType
+});
+
+const mapDispatchToProps = dispatch => ({
+    setMopalType: (modalType) => dispatch(setMopalType(modalType))
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Sidebar);

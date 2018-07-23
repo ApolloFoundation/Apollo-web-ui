@@ -56,7 +56,7 @@ class SendApollo extends React.Component {
                         <div className="form-title">
                             <p>Send Apollo</p>
                         </div>
-                        <div className="input-group">
+                        <div className="input-group offset-top display-block">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Recipient</label>
@@ -66,7 +66,7 @@ class SendApollo extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group">
+                        <div className="input-group offset-top display-block">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Recipient</label>
@@ -76,7 +76,7 @@ class SendApollo extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group">
+                        <div className="input-group offset-top display-block">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Fee</label>
@@ -86,7 +86,7 @@ class SendApollo extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group">
+                        <div className="input-group offset-top display-block">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Passphrase</label>
@@ -193,11 +193,11 @@ class SendApollo extends React.Component {
                                         <div className="col-md-9">
                                             <div className="form-sub-actions">
                                                 <div className="form-group">
-                                                    <div className="input-group align-middle">
+                                                    <div className="input-group align-middle display-block offset-top">
                                                         <input type="checkbox"/>
                                                         <label>Do not broadcast</label>
                                                     </div>
-                                                    <div className="input-group align-middle">
+                                                    <div className="input-group align-middle display-block offset-top">
                                                         <input type="checkbox"/>
                                                         <label>Add note to self?</label>
                                                     </div>

@@ -11,7 +11,6 @@
     font-size: 24px; }
 
 .card .input-group {
-  display: table !important;
   width: 100%;
   margin-bottom: 15px; }
   .card .input-group > * {

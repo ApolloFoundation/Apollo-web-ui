@@ -6,7 +6,7 @@ export const SET_MODAL_DATA = 'SET_MODAL_DATA';
 export const SET_BODY_MODAL_DATA = 'SET_BODY_MODAL_DATA';
 
 const initialState = {
-    modalType: null,
+    modalType: 'ISSUE',
     bodyModalType: null,
     modalData: {}
 };

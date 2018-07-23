@@ -38,7 +38,7 @@ input[type="checkbox"] {
   border: 1px solid #E5E5E5;
   background-color: #F5F5F5;
   border-radius: 3px;
-  padding: 0;
+  padding: 0 !important;
   position: relative; }
   input[type="checkbox"]:after {
     content: '';
@@ -114,18 +114,23 @@ textarea {
     font-size: 12px;
     line-height: 19px;
     margin-top: -15px; }
-  .form-group .input-group {
-    display: block;
+  .form-group .input-group.offset-top {
     padding-top: 25px; }
-    .form-group .input-group.align-middle > * {
-      vertical-align: middle; }
-    .form-group .input-group.align-middle label {
-      padding-left: 20px; }
-    .form-group .input-group .form-sub-title {
-      padding-left: 15px; }
-    .form-group .input-group input {
-      padding-left: 15px;
-      padding-right: 15px; }
+  .form-group .input-group.offset-bottom {
+    padding-bottom: 25px; }
+  .form-group .input-group.display-block {
+    display: block; }
+  .form-group .input-group.tabled {
+    display: table; }
+  .form-group .input-group.align-middle > * {
+    vertical-align: middle; }
+  .form-group .input-group.align-middle label {
+    padding-left: 20px; }
+  .form-group .input-group .form-sub-title {
+    padding-left: 15px; }
+  .form-group .input-group input {
+    padding-left: 15px;
+    padding-right: 15px; }
   .form-group .form-tabulator {
     position: relative;
     margin: 55px -35px -70px -35px;

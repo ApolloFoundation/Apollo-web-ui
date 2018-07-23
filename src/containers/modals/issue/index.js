@@ -1,0 +1,107 @@
+import React from 'react';
+import {connect} from 'react-redux';
+import {setModalData} from '../../../modules/modals';
+
+class Issue extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+
+    handleFormSubmit(e) {
+        e.preventDefault();
+
+        const data = {
+            passphrase: this.refs.passphrase.value
+        };
+
+        this.props.setModalData(data);
+        console.log(data);
+    }
+
+    render() {
+        return (
+            <div className="modal-box">
+                <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
+                    <div className="form-group">
+                        <div className="form-title">
+                            <p>Show private transactions</p>
+                        </div>
+                        <div className="input-group display-block">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <label>Asset name</label>
+                                </div>
+                                <div className="col-md-9">
+                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-group display-block">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <label>Description</label>
+                                </div>
+                                <div className="col-md-9">
+                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-group display-block">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <label>Quantity</label>
+                                </div>
+                                <div className="col-md-9">
+                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-group display-block">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <label>Decimals</label>
+                                </div>
+                                <div className="col-md-9">
+                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-group display-block">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <label>Fee</label>
+                                </div>
+                                <div className="col-md-9">
+                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-group display-block">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <label>Passphrase</label>
+                                </div>
+                                <div className="col-md-9">
+                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-right">Enter</button>
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = state => ({
+    modalData: state.modals.modalData
+});
+
+const mapDispatchToProps = dispatch => ({
+    setModalData: (data) => dispatch(setModalData(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Issue);
