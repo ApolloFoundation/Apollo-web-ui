@@ -57,8 +57,10 @@ class App extends React.Component {
     }
 
     handleModal() {
-        if (this.state.bodyModalType) {
-            this.props.setBodyModalType(null);
+        if (this) {
+            if (this.state.bodyModalType) {
+                this.props.setBodyModalType(null);
+            }
         }
     }
 
