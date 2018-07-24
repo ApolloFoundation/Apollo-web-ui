@@ -565,9 +565,9 @@ input[type="number"] {
     top: 120px;
     display: flex;
     flex-wrap: wrap;
-    overflow-y: scroll;
     padding: 0 7.5px;
-    z-index: 0; }
+    z-index: 0;
+    padding-bottom: 15px; }
     .site-content .page-content .page-body.flexible-height {
       height: auto; }
     .site-content .page-content .page-body.overflow-hidden {
