@@ -1,6 +1,7 @@
 import CryptoJS from 'crypto-js';
 import jsbn from 'jsbn';
 import AplAddress from './util/apladres';
+import convertString from 'convert-string';
 
 const BigInteger = jsbn.BigInteger;
 
@@ -151,7 +152,7 @@ function stringToHexString(str) {
      return this.byteArrayToHexString(this.stringToByteArray(str));
 }
 function hexStringToString(hex) {
-     return this.byteArrayToString(this.hexStringToByteArray(hex));
+     return byteArrayToString(hexStringToByteArray(hex));
 }
 function hexStringToInt8ByteArray(str) {
      var bytes = [];
@@ -218,17 +219,17 @@ function wordArrayToByteArray(wordArray) {
      return wordArrayToByteArrayImpl(wordArray, true);
 }
 function byteArrayToString(bytes, opt_startIndex, length) {
-     if (length == 0) {
+    if (length == 0) {
          return "";
-     }
+    }
 
-     if (opt_startIndex && length) {
+    if (opt_startIndex && length) {
          var index = this.checkBytesToIntInput(bytes, parseInt(length, 10), parseInt(opt_startIndex, 10));
 
          bytes = bytes.slice(opt_startIndex, opt_startIndex + length);
-     }
+    }
 
-     return decodeURIComponent(escape(String.fromCharCode.apply(null, bytes)));
+    return String.fromCharCode.apply(null, bytes);
  }
 function byteArrayToShortArray(byteArray) {
      var shortArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -402,6 +403,8 @@ export default {
     hexStringToByteArray: hexStringToByteArray,
     byteArrayToBigInteger: byteArrayToBigInteger,
     stringToHexString: stringToHexString,
-    convertNumericToRSAccountFormat : convertNumericToRSAccountFormat
+    convertNumericToRSAccountFormat : convertNumericToRSAccountFormat,
+    wordArrayToByteArray: wordArrayToByteArray,
+    hexStringToString: hexStringToString
 
 }

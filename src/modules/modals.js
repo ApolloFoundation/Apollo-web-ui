@@ -56,6 +56,8 @@ export const setMopalType = (reqParams) => {
 
 export const setModalCallback = (modalCallback) => {
     return dispatch => {
+        console.log('+++++++++++++++++++++++++++++++++');
+        console.log(modalCallback);
         dispatch({
             type: SET_MODAL_CALLBACK,
             payload: modalCallback
@@ -75,7 +77,7 @@ export const setBodyModalType = (reqParams) => {
 export const setModalData = (data) => {
     return (dispatch, getState) => {
         const { modals } = getState();
-        console.log(data);
+        console.log(getState());
 
         if (!data) {
             document.querySelector('.modal-window').classList.remove('active');
@@ -88,6 +90,7 @@ export const setModalData = (data) => {
             }, 300);
         } else {
             document.querySelector('.modal-window').classList.remove('active');
+            console.log(data);
             if (modals.modalCallback) modals.modalCallback(data);
         }
     }

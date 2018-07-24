@@ -242,6 +242,8 @@ textarea {
     padding: 11px 9px 11px 17px;
     border-top-right-radius: 3px;
     border-bottom-left-radius: 3px; }
+  .btn.static {
+    position: static; }
   .btn.primary {
     padding: 6px;
     background: #666666;

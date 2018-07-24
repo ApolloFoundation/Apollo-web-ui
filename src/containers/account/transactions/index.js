@@ -6,6 +6,9 @@ import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import { getTransactionsAction } from "../../../actions/transactions";
 import { setModalCallback } from "../../../modules/modals";
+import curve25519 from "../../../helpers/crypto/curve25519";
+import converters from "../../../helpers/converters";
+import crypto from "../../../helpers/crypto/crypto";
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -45,10 +48,18 @@ class Transactions extends React.Component {
             lastIndex: this.state.lastIndex
         };
 
-        if (data && data.passphrase) {
-            this.setState({passphrase: data.passphrase});
-            console.log(data.passphrase);
-            reqParams.passPhrase = data.passphrase;
+        if (data && data.publicKey) {
+            console.log(data);
+
+            this.setState({publicKey: data.publicKey});
+            console.log(data.publicKey);
+            this.setState({
+                ...this.props,
+                publicKey:  data.publicKey,
+                privateKey: data.privateKey
+            });
+
+            reqParams.publicKey = data.publicKey;
         }
 
         this.getTransactions(reqParams);
@@ -62,8 +73,8 @@ class Transactions extends React.Component {
             lastIndex:  page * 15 - 1
         };
 
-        if (this.state.passphrase) {
-            reqParams.secretPhrase = this.state.passphrase
+        if (this.state.publicKey) {
+            reqParams.publicKey = this.state.publicKey
         }
 
         console.log(reqParams);
@@ -76,10 +87,28 @@ class Transactions extends React.Component {
     async getTransactions (requestParams){
         const transactions = await this.props.getTransactionsAction(requestParams);
         if (transactions) {
-            this.setState({
-                ...this.props,
-                transactions: transactions.transactions
-            });
+            if (transactions.serverPublicKey) {
+
+                // const serverPublicKey = crypto.getSharedSecretJava(converters.hexStringToByteArray(transactions.serverPublicKey))
+                const privateKey      = converters.hexStringToByteArray(this.state.privateKey);
+
+                const sharedKey = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(
+                    privateKey,
+                    converters.hexStringToByteArray(transactions.serverPublicKey)
+                )));
+
+                this.setState({
+                    ...this.props,
+                    transactions: transactions.transactions,
+                    serverPublicKey: transactions.serverPublicKey,
+                    sharedKey : sharedKey
+                });
+            } else {
+                this.setState({
+                    ...this.props,
+                    transactions: transactions.transactions
+                });
+            }
         }
     }
 
@@ -123,6 +152,9 @@ class Transactions extends React.Component {
                                                 return (
                                                     <Transaction
                                                         transaction = {el}
+                                                        publicKey= {this.state.serverPublicKey}
+                                                        privateKey={this.state.privateKey}
+                                                        sharedKey= {this.state.sharedKey}
                                                     />
                                                 )
                                             })

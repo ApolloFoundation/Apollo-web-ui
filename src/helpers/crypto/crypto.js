@@ -1,11 +1,10 @@
 import CryptoJS from 'crypto-js';
 import converters from '../converters';
 import account from '../../modules/modals';
+import curve25519 from './curve25519';
 import jsbn from "jsbn";
+import pako from 'pako'
 const BigInteger = jsbn.BigInteger;
-
-console.log(account);
-
 
 function simpleHash(b1, b2) {
     var sha256 = CryptoJS.algo.SHA256.create();
@@ -55,8 +54,113 @@ function validatePassphrase(passphrase, accountRs) {
     return accountRs === getAccountId(passphrase, true);
 };
 
+function getSharedSecretJava(key1, key2) {
+    var sharedKey;
+
+    var result =  curve25519.generateSharedKey(sharedKey, key1, key2);
+    var result = new Uint8Array(result);
+
+    var sha256 = CryptoJS.algo.SHA256.create();
+    sha256.update(converters.byteArrayToWordArray(result));
+
+    var hash = sha256.finalize();
+    hash = converters.wordArrayToByteArrayImpl(hash, false);
+
+    hash = new Int8Array(hash);
+
+    return hash;
+};
+
+function decryptData(data, options) {
+    // if (!options.sharedKey) {
+    //     options.sharedKey = NRS.getSharedSecretJava(options.privateKey, options.publicKey);
+    //
+    //     var sharedKey =  NRS.getSharedSecretJava(options.privateKey, options.publicKey);
+    //
+    //     var options = {};
+    //     options.sharedKey = sharedKey;
+    // }
+
+    if (typeof(options.sharedKey) === 'string') {
+        options.sharedKey = converters.hexStringToByteArray(options.sharedKey);
+    }
+
+    options.sharedKey = new Uint8Array(options.sharedKey);
+
+    data = converters.hexStringToByteArray(data);
+
+    var result = aesDecrypt(data, options);
+
+    var binData = new Uint8Array(result.decrypted);
+    options.isCompressed = false;
+    options.isText = false;
+
+
+    if (!(options.isCompressed === false)) {
+        binData = pako.inflate(binData);
+    }
+    var message;
+    if (!(options.isText === false)) {
+        message = converters.byteArrayToString(binData);
+    } else {
+        message = converters.byteArrayToHexString(binData);
+    }
+
+    return { message: message, sharedKey: converters.byteArrayToHexString(result.sharedKey) };
+}
+
+function aesDecrypt(ivCiphertext, options) {
+    if (ivCiphertext.length < 16 || ivCiphertext.length % 16 != 0) {
+        throw {
+            name: "invalid ciphertext"
+        };
+    }
+
+    var iv = converters.byteArrayToWordArray(ivCiphertext.slice(0, 16));
+    var ciphertext = converters.byteArrayToWordArray(ivCiphertext.slice(16));
+
+    // shared key is use for two different purposes here
+    // (1) if nonce exists, shared key represents the shared secret between the private and public keys
+    // (2) if nonce does not exists, shared key is the specific key needed for decryption already xored
+    // with the nonce and hashed
+    var sharedKey;
+    if (!options.sharedKey) {
+        // sharedKey = getSharedSecret(options.privateKey, options.publicKey);
+        return;
+    } else {
+        sharedKey = options.sharedKey.slice(0); //clone
+    }
+
+    var key;
+    if (options.nonce) {
+        for (var i = 0; i < 32; i++) {
+            sharedKey[i] ^= options.nonce[i];
+        }
+        key = CryptoJS.SHA256(converters.byteArrayToWordArray(sharedKey));
+    } else {
+        key = converters.byteArrayToWordArray(sharedKey);
+    }
+
+    var encrypted = CryptoJS.lib.CipherParams.create({
+        ciphertext: ciphertext,
+        iv: iv,
+        key: key
+    });
+
+    var decrypted = CryptoJS.AES.decrypt(encrypted, key, {
+        iv: iv
+    });
+
+    return {
+        decrypted: converters.wordArrayToByteArray(decrypted),
+        sharedKey: converters.wordArrayToByteArray(key)
+    };
+}
+
 export default {
-    getPrivateKey: getPrivateKey
+    getPrivateKey: getPrivateKey,
+    getSharedSecretJava: getSharedSecretJava,
+    decryptData : decryptData
 }
 
 
