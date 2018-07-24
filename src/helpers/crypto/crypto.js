@@ -44,8 +44,10 @@ function getAccountIdFromPublicKey(publicKey, isRsFormat) {
     }
 };
 
+
+// example
 function getAccountId(secretPhrase, isRsFormat) {
-    return getAccountIdFromPublicKey(NRS.getPublicKey(converters.stringToHexString(secretPhrase)), isRsFormat);
+    return getAccountIdFromPublicKey(store.account.publicKey, isRsFormat);
 };
 
 function validatePassphrase(passphrase, accountRs) {

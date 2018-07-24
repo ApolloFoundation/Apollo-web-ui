@@ -1,5 +1,7 @@
 import CryptoJS from 'crypto-js';
 import jsbn from 'jsbn';
+import AplAddress from './util/apladres';
+
 const BigInteger = jsbn.BigInteger;
 
 var charToNibble = {};
@@ -398,6 +400,7 @@ export default {
     hexStringToInt8ByteArray : hexStringToInt8ByteArray,
     hexStringToByteArray: hexStringToByteArray,
     byteArrayToBigInteger: byteArrayToBigInteger,
-    stringToHexString: stringToHexString
+    stringToHexString: stringToHexString,
+    convertNumericToRSAccountFormat : convertNumericToRSAccountFormat
 
 }
