@@ -1,4 +1,5 @@
 import utils from './utils';
+const DEFAULT_PREFIX = "APL-";
 
 function AplAddress() {
     var codeword = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -251,9 +252,7 @@ function AplAddress() {
         return true;
     } //__________________________
 
-    this.toString = function() {
-        var out = utils.getAccountMask();
-
+    this.toString = function(out = DEFAULT_PREFIX) {
         for (var i = 0; i < 17; i++) {
             out += alphabet[codeword[cwmap[i]]];
 
