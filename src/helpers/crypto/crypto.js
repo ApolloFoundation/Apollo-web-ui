@@ -1,6 +1,11 @@
 import CryptoJS from 'crypto-js';
 import converters from '../converters';
-console.log(converters);
+import account from '../../modules/modals';
+import jsbn from "jsbn";
+const BigInteger = jsbn.BigInteger;
+
+console.log(account);
+
 
 function simpleHash(b1, b2) {
     var sha256 = CryptoJS.algo.SHA256.create();
@@ -22,6 +27,29 @@ function curve25519_clamp(curve) {
 function getPrivateKey(secretPhrase) {
     var bytes = simpleHash(converters.stringToByteArray(secretPhrase));
     return converters.shortArrayToHexString(curve25519_clamp(converters.byteArrayToShortArray(bytes)));
+}
+
+function getAccountIdFromPublicKey(publicKey, isRsFormat) {
+
+    var hex = converters.hexStringToByteArray(publicKey);
+    var account = simpleHash(hex);
+    account = converters.byteArrayToHexString(account);
+    var slice = (converters.hexStringToByteArray(account)).slice(0, 8);
+    var accountId = converters.byteArrayToBigInteger(slice).toString();
+    console.log(converters.byteArrayToBigInteger(slice));
+    if (isRsFormat) {
+        return converters.convertNumericToRSAccountFormat(accountId);
+    } else {
+        return accountId;
+    }
+};
+
+function getAccountId(secretPhrase, isRsFormat) {
+    return getAccountIdFromPublicKey(NRS.getPublicKey(converters.stringToHexString(secretPhrase)), isRsFormat);
+};
+
+function validatePassphrase(passphrase, accountRs) {
+    return accountRs === getAccountId(passphrase, true);
 };
 
 export default {

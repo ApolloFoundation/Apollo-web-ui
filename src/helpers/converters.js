@@ -1,4 +1,6 @@
 import CryptoJS from 'crypto-js';
+import jsbn from 'jsbn';
+const BigInteger = jsbn.BigInteger;
 
 var charToNibble = {};
 var nibbleToChar = [];
@@ -28,7 +30,6 @@ function stringToByteArray (str) {
 
     return bytes;
 };
-
 function wordArrayToByteArrayImpl (wordArray, isFirstByteHasSign) {
     var len = wordArray.words.length;
     if (len == 0) {
@@ -59,7 +60,6 @@ function wordArrayToByteArrayImpl (wordArray, isFirstByteHasSign) {
     }
     return byteArray;
 };
-
 function byteArrayToWordArray(byteArray) {
     var i = 0,
         offset = 0,
@@ -86,7 +86,6 @@ function byteArrayToWordArray(byteArray) {
 
     return wordArray;
 }
-
 function byteArrayToHexString(bytes) {
     let str = '';
     for (var i = 0; i < bytes.length; ++i) {
@@ -347,8 +346,47 @@ function byteArrayToWordArrayEx(u8arr) {
     }
     return CryptoJS.lib.WordArray.create(words, len);
 }
+function byteArrayToBigInteger(bytes, opt_startIndex) {
+    var index = checkBytesToIntInput(bytes, 8, opt_startIndex);
 
+    var value = new BigInteger("0", 10);
 
+    var temp1, temp2;
+
+    for (var i = 7; i >= 0; i--) {
+        temp1 = value.multiply(new BigInteger("256", 10));
+        temp2 = temp1.add(new BigInteger(bytes[opt_startIndex + i].toString(10), 10));
+        value = temp2;
+    }
+
+    return value;
+}
+
+function isRsAccount(account) {
+    return isRsAccountImpl(account, NRS.constants.ACCOUNT_RS_MATCH ? NRS.constants.ACCOUNT_RS_MATCH : NRS.getRsAccountRegex("APL"));
+}
+
+function isRsAccountImpl(account, regex) {
+    return regex.test(account);
+}
+
+function convertNumericToRSAccountFormat(account) {
+    if (isRsAccount(account)) {
+        return String(account).escapeHTML();
+    } else {
+        var address = new AplAddress();
+
+        if (address.set(account)) {
+            return address.toString().escapeHTML();
+        } else {
+            return "";
+        }
+    }
+}
+
+function convertNumericToRSAccountFormat(account) {
+    return convertNumericToRSAccountFormat(account);
+};
 
 export default {
     stringToByteArray: stringToByteArray,
@@ -358,6 +396,8 @@ export default {
     shortArrayToHexString: shortArrayToHexString,
     byteArrayToShortArray: byteArrayToShortArray,
     hexStringToInt8ByteArray : hexStringToInt8ByteArray,
+    hexStringToByteArray: hexStringToByteArray,
+    byteArrayToBigInteger: byteArrayToBigInteger,
     stringToHexString: stringToHexString
 
 }
