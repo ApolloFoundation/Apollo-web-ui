@@ -365,7 +365,8 @@ function byteArrayToBigInteger(bytes, opt_startIndex) {
 }
 
 function isRsAccount(account) {
-    return isRsAccountImpl(account, NRS.constants.ACCOUNT_RS_MATCH ? NRS.constants.ACCOUNT_RS_MATCH : NRS.getRsAccountRegex("APL"));
+    // return isRsAccountImpl(account, NRS.constants.ACCOUNT_RS_MATCH ? NRS.constants.ACCOUNT_RS_MATCH : NRS.getRsAccountRegex("APL"));
+    return;
 }
 
 function isRsAccountImpl(account, regex) {

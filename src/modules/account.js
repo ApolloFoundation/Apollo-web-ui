@@ -1,11 +1,13 @@
 import { getAccountDataAction } from '../actions/login/index';
 
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
+export const SET_CONSTANTS = 'SET_CONSTANTS';
 export const START_LOAD = 'START_LOAD';
 export const END_LOAD = 'END_LOAD';
 export const CHANGE_PAGE_BODY_EVENTS = 'CHANGE_PAGE_BODY_EVENTS';
 
 const initialState = {
+    constants: null,
 	account: null,
     accountRS: null,
     balanceATM: null,
@@ -27,6 +29,12 @@ export default (state = initialState, action) => {
                 ...state,
                 ...serverRes
             };
+        case SET_CONSTANTS:
+            return {
+                ...state,
+                constants: action.payload
+            };
+
         case START_LOAD:
             return {
                 ...state,
@@ -57,6 +65,16 @@ export const login = (reqParams) => {
 		});
 
 	}
+};
+
+export const loadConstants = (constants) => {
+    return dispatch => {
+        dispatch({
+            type: SET_CONSTANTS,
+            payload: constants
+        });
+
+    }
 };
 
 export const startLoad = () => {

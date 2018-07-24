@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import classNames from 'classnames';
-import {isLoggedIn} from '../../actions/login';
-import {setPageEvents} from '../../modules/account' ;
+import {isLoggedIn, getConstantsAction} from '../../actions/login';
+import {setPageEvents, loadConstants} from '../../modules/account' ;
 import {setBodyModalType} from '../../modules/modals' ;
 
 // components
@@ -49,13 +49,13 @@ import crypto from '../../helpers/crypto/crypto';
 class App extends React.Component {
     componentDidMount() {
         this.props.isLoggedIn();
+        this.props.getConstantsAction();
         this.handleModal = this.handleModal.bind(this);
         // console.log(crypto.simpleHash(converters.stringToByteArray('test1')));
         // console.log(converters.byteArrayToHexString(simpleHash(converters.stringToByteArray('test1'))));
         console.log(crypto.getPrivateKey('test1'));
 
 
-        console.log(this.props);
     }
 
     componentWillReceiveProps(newState) {
@@ -138,6 +138,7 @@ const mapStateToProps = state => ({
     account: state.account.account,
     loading: state.account.loading,
     blockPageBody: state.account.blockPageBody,
+    constants: state.account.constants,
 
     // modals
     bodyModalType: state.modals.bodyModalType
@@ -146,6 +147,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     isLoggedIn: () => dispatch(isLoggedIn()),
     setPageEvents: () => dispatch(setPageEvents()),
+    getConstantsAction: () => dispatch(getConstantsAction()),
 
     //modals
     setBodyModalType: () => dispatch(setBodyModalType())

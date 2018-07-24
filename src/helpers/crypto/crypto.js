@@ -47,7 +47,8 @@ function getAccountIdFromPublicKey(publicKey, isRsFormat) {
 
 // example
 function getAccountId(secretPhrase, isRsFormat) {
-    return getAccountIdFromPublicKey(store.account.publicKey, isRsFormat);
+    // return getAccountIdFromPublicKey(store.account.publicKey, isRsFormat);
+    return;
 };
 
 function validatePassphrase(passphrase, accountRs) {

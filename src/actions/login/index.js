@@ -1,6 +1,6 @@
 import  axios from "axios/index";
 import config from "../../config";
-import { login, startLoad, endLoad } from '../../modules/account';
+import { login, loadConstants, startLoad, endLoad } from '../../modules/account';
 import { writeToLocalStorage, readFromLocalStorage } from "../localStorage";
 
 export function getAccountDataAction(requestParams) {
@@ -49,3 +49,23 @@ function makeLoginReq(dispatch, requestParams) {
             console.log(err)
         });
 }
+
+export function getConstantsAction() {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getConstants',
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    dispatch(loadConstants(res.data))
+                } else {
+                }
+            })
+            .catch(function(err){
+                console.log(err)
+            });
+    };
+}
+
