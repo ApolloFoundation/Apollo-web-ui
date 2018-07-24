@@ -42,11 +42,18 @@ import Currencies from '../account/currencies'
 import MyCurrencies from '../account/my-shuffling'
 
 import style from './App.css';
+import converters from "../../helpers/converters";
+import crypto from '../../helpers/crypto/crypto';
+
 
 class App extends React.Component {
     componentDidMount() {
         this.props.isLoggedIn();
         this.handleModal = this.handleModal.bind(this);
+        // console.log(crypto.simpleHash(converters.stringToByteArray('test1')));
+        // console.log(converters.byteArrayToHexString(simpleHash(converters.stringToByteArray('test1'))));
+        console.log(crypto.getPrivateKey('test1'));
+
 
         console.log(this.props);
     }
@@ -57,8 +64,10 @@ class App extends React.Component {
     }
 
     handleModal() {
-        if (this.state.bodyModalType) {
-            this.props.setBodyModalType(null);
+        if (this) {
+            if (this.state.bodyModalType) {
+                this.props.setBodyModalType(null);
+            }
         }
     }
 
