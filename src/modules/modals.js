@@ -72,8 +72,9 @@ export const setBodyModalType = (reqParams) => {
     }
 };
 
-export const setModalData = (data, callback) => {
-    return dispatch => {
+export const setModalData = (data) => {
+    return (dispatch, getState) => {
+        const { modals } = getState();
         console.log(data);
 
         if (!data) {
@@ -87,7 +88,7 @@ export const setModalData = (data, callback) => {
             }, 300);
         } else {
             document.querySelector('.modal-window').classList.remove('active');
-            if (callback) callback(data);
+            if (modals.modalCallback) modals.modalCallback(data);
         }
     }
 };
