@@ -4,15 +4,22 @@ import config from '../config'
 export const SET_MODAL_TYPE = 'SET_MODAL_TYPE';
 export const SET_MODAL_DATA = 'SET_MODAL_DATA';
 export const SET_BODY_MODAL_DATA = 'SET_BODY_MODAL_DATA';
+export const SET_MODAL_CALLBACK = 'SET_MODAL_CALLBACK';
 
 const initialState = {
     modalType: null,
     bodyModalType: null,
-    modalData: {}
+    modalData: {},
+    modalCallback: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SET_MODAL_CALLBACK:
+            return {
+                ...state,
+                modalCallback: action.payload
+            };
         case SET_MODAL_TYPE:
             return {
                 ...state,
@@ -47,6 +54,15 @@ export const setMopalType = (reqParams) => {
     }
 };
 
+export const setModalCallback = (modalCallback) => {
+    return dispatch => {
+        dispatch({
+            type: SET_MODAL_CALLBACK,
+            payload: modalCallback
+        });
+    }
+};
+
 export const setBodyModalType = (reqParams) => {
     return dispatch => {
         dispatch({
@@ -57,7 +73,8 @@ export const setBodyModalType = (reqParams) => {
 };
 
 export const setModalData = (data) => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        const { modals } = getState();
         console.log(data);
 
         if (!data) {
@@ -71,10 +88,7 @@ export const setModalData = (data) => {
             }, 300);
         } else {
             document.querySelector('.modal-window').classList.remove('active');
-            dispatch({
-                type: SET_MODAL_DATA,
-                payload: data
-            })
+            if (modals.modalCallback) modals.modalCallback(data);
         }
     }
-}
+};

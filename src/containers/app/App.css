@@ -553,24 +553,19 @@ input[type="number"] {
   padding: 12px 20px; }
 
 .site-content {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 220px;
-  right: 0; }
+  position: relative;
+  margin-left: 220px; }
   .site-content.hide-page-body .page-content .page-body:after {
     visibility: visible;
     opacity: 1; }
   .site-content .page-content .page-body {
-    position: absolute;
+    position: relative;
     top: 120px;
-    bottom: 0;
-    left: 0;
-    right: 0;
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
-    padding: 0 7.5px; }
+    padding: 0 7.5px;
+    z-index: 0; }
     .site-content .page-content .page-body.flexible-height {
       height: auto; }
     .site-content .page-content .page-body.overflow-hidden {

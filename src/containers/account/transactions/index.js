@@ -5,13 +5,15 @@ import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import { getTransactionsAction } from "../../../actions/transactions";
+import { setModalCallback } from "../../../modules/modals";
 
 class Transactions extends React.Component {
     constructor(props) {
         super(props);
 
         this.getTransactions = this.getTransactions.bind(this);
-        this.onPaginate      = this.onPaginate.bind(this);
+        this.onPaginate  = this.onPaginate.bind(this);
+        this.getPrivateTransactions = this.getPrivateTransactions.bind(this);
 
         this.state = {
             page: 1,
@@ -26,28 +28,31 @@ class Transactions extends React.Component {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
-        })
+        });
+        this.props.setModalCallbackAction(this.getPrivateTransactions);
     }
 
     componentWillReceiveProps(newState) {
-        console.log(newState);
-        this.setState({
-            ...newState
-        }, () => {
-            let reqParams = {
-                account: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            };
-            console.log(this.props.passphrase);
-
-            if (this.props.passphrase) {
-                reqParams.passPhrase = this.props.passphrase
-            }
-
-            this.getTransactions(reqParams)
+        this.setState({ ...newState }, () => {
+            this.getPrivateTransactions();
         });
     }
+
+    getPrivateTransactions = (data) => {
+        let reqParams = {
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        };
+
+        if (data && data.passphrase) {
+            this.setState({passphrase: data.passphrase});
+            console.log(data.passphrase);
+            reqParams.passPhrase = data.passphrase;
+        }
+
+        this.getTransactions(reqParams);
+    };
 
     onPaginate (page) {
         let reqParams = {
@@ -57,14 +62,13 @@ class Transactions extends React.Component {
             lastIndex:  page * 15 - 1
         };
 
-        if (this.props.passphrase) {
-            reqParams.secretPhrase = this.props.passphrase
+        if (this.state.passphrase) {
+            reqParams.secretPhrase = this.state.passphrase
         }
 
         console.log(reqParams);
 
-        this.setState(reqParams
-            , () => {
+        this.setState(reqParams, () => {
             this.getTransactions(reqParams)
         });
     }
@@ -159,11 +163,11 @@ class Transactions extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
-    passphrase: state.modals.modalData.passphrase
 });
 
 const initMapDispatchToProps = dispatch => ({
-    getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams))
+    getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
+    setModalCallbackAction: (callback) => dispatch(setModalCallback(callback))
 });
 
 export default connect(

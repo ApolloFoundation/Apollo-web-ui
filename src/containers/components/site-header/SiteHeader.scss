@@ -1,8 +1,12 @@
 .page-header {
-  padding: 30px 40px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
+  position: fixed;
+  z-index: 1;
+  background-color: #F5F5F5;
+  padding: 30px 40px 30px 40px;
+  width: calc(100% - 220px);
 
   .page-title-box {
     .page-title-box {

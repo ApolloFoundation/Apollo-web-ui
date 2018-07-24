@@ -46,12 +46,8 @@ class PrivateTransactions extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
-
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PrivateTransactions);
+export default connect(null, mapDispatchToProps)(PrivateTransactions);
