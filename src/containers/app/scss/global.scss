@@ -349,6 +349,9 @@ textarea {
     border-top-right-radius:   3px;
     border-bottom-left-radius: 3px;
   }
+  &.static {
+    position: static;
+  }
   &.primary {
     padding: 6px;
     background: #666666;
