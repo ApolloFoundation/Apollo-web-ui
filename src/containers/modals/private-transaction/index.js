@@ -16,7 +16,7 @@ class PrivateTransactions extends React.Component {
             passphrase: this.refs.passphrase.value
         };
 
-        this.props.setModalData(data);
+        this.props.setModalData(data, this.props.modalCallback);
         console.log(data);
     }
 
@@ -47,11 +47,11 @@ class PrivateTransactions extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalCallback: state.modals.modalCallback
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data, callback) => dispatch(setModalData(data, callback))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrivateTransactions);
