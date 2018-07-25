@@ -3,6 +3,7 @@ import jsbn from 'jsbn';
 import AplAddress from './util/apladres';
 import convertString from 'convert-string';
 
+const ACCOUNT_REGEX_STR = "^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}";
 const BigInteger = jsbn.BigInteger;
 
 var charToNibble = {};
@@ -152,7 +153,7 @@ function stringToHexString(str) {
      return this.byteArrayToHexString(this.stringToByteArray(str));
 }
 function hexStringToString(hex) {
-     return byteArrayToString(hexStringToByteArray(hex));
+     return this.byteArrayToString(this.hexStringToByteArray(hex));
 }
 function hexStringToInt8ByteArray(str) {
      var bytes = [];
@@ -219,17 +220,17 @@ function wordArrayToByteArray(wordArray) {
      return wordArrayToByteArrayImpl(wordArray, true);
 }
 function byteArrayToString(bytes, opt_startIndex, length) {
-    if (length == 0) {
+     if (length == 0) {
          return "";
-    }
+     }
 
-    if (opt_startIndex && length) {
+     if (opt_startIndex && length) {
          var index = this.checkBytesToIntInput(bytes, parseInt(length, 10), parseInt(opt_startIndex, 10));
 
          bytes = bytes.slice(opt_startIndex, opt_startIndex + length);
-    }
+     }
 
-    return String.fromCharCode.apply(null, bytes);
+     return decodeURIComponent(escape(String.fromCharCode.apply(null, bytes)));
  }
 function byteArrayToShortArray(byteArray) {
      var shortArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -349,7 +350,7 @@ function byteArrayToWordArrayEx(u8arr) {
     }
     return CryptoJS.lib.WordArray.create(words, len);
 }
-function byteArrayToBigInteger(bytes, opt_startIndex) {
+function byteArrayToBigInteger(bytes, opt_startIndex = 0) {
     var index = checkBytesToIntInput(bytes, 8, opt_startIndex);
 
     var value = new BigInteger("0", 10);
@@ -365,32 +366,45 @@ function byteArrayToBigInteger(bytes, opt_startIndex) {
     return value;
 }
 
-function isRsAccount(account) {
+function isRsAccount(accountId) {
+    return (dispatch, getStore) => {
+        const { account } = getStore();
+        console.log('-------------isRsAccount-------------', accountId, account.constants.accountPrefix);
+        return isRsAccountImpl(accountId, getRsAccountRegex(account.constants.accountPrefix));
+    };
     // return isRsAccountImpl(account, NRS.constants.ACCOUNT_RS_MATCH ? NRS.constants.ACCOUNT_RS_MATCH : NRS.getRsAccountRegex("APL"));
-    return;
 }
 
-function isRsAccountImpl(account, regex) {
-    return regex.test(account);
+function getRsAccountRegex(accountPrefix, withoutSeparator) {
+    if (withoutSeparator) {
+        return new RegExp("^" + accountPrefix + "-[A-Z0-9]{17}", "i");
+    }
+    return new RegExp(ACCOUNT_REGEX_STR, "i");
+};
+
+function isRsAccountImpl(accountId, regex) {
+    regex = new RegExp(regex);
+    console.log('-------------isRsAccountImpl-------------', regex, accountId, regex.test(accountId))
+    return regex.test(accountId);
 }
 
-function convertNumericToRSAccountFormat(account) {
-    if (isRsAccount(account)) {
-        return String(account).escapeHTML();
-    } else {
-        var address = new AplAddress();
-
-        if (address.set(account)) {
-            return address.toString().escapeHTML();
+function convertNumericToRSAccountFormat(accountId) {
+    return (dispatch) => {
+        const checkRsAccount = dispatch(isRsAccount(accountId));
+        if (checkRsAccount) {
+            return accountId;
         } else {
-            return "";
+            var address = new AplAddress();
+
+            if (address.set(accountId)) {
+                console.log('0000000000000', address.toString())
+                return address.toString();
+            } else {
+                return "";
+            }
         }
     }
 }
-
-function convertNumericToRSAccountFormat(account) {
-    return convertNumericToRSAccountFormat(account);
-};
 
 export default {
     stringToByteArray: stringToByteArray,

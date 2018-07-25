@@ -18,7 +18,7 @@ const initialState = {
     requestProcessingTime: null,
     unconfirmedBalanceATM: null,
     loading: true,
-    blockPageBody: false
+    blockPageBody: false,
 };
 
 export default (state = initialState, action) => {
@@ -105,5 +105,12 @@ export const setPageEvents = (prevent) => {
             type: CHANGE_PAGE_BODY_EVENTS,
             payload: prevent
         })
+    }
+};
+
+export const getState = () => {
+    return (dispatch, getStore) => {
+        const { account } = getStore();
+        return account
     }
 };

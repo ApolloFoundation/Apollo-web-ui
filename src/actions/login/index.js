@@ -2,6 +2,7 @@ import  axios from "axios/index";
 import config from "../../config";
 import { login, loadConstants, startLoad, endLoad } from '../../modules/account';
 import { writeToLocalStorage, readFromLocalStorage } from "../localStorage";
+import crypto from "../../helpers/crypto/crypto";
 
 export function getAccountDataAction(requestParams) {
     return dispatch => {
@@ -57,9 +58,11 @@ export function getConstantsAction() {
                 requestType: 'getConstants',
             }
         })
-            .then((res) => {
+            .then(async (res) => {
                 if (!res.data.errorCode) {
-                    dispatch(loadConstants(res.data))
+                    await dispatch(loadConstants(res.data));
+                    dispatch(crypto.validatePassphrase('test1'));
+                    dispatch(crypto.validatePassphrase('test2'));
                 } else {
                 }
             })

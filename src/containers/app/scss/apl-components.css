@@ -94,8 +94,14 @@
 .info-box {
   border-radius: 3px;
   margin-bottom: 15px; }
+  .info-box.mt {
+    margin-top: 25px; }
   .info-box.info {
     background: #666666; }
+  .info-box.danger {
+    background-color: #e74c3c; }
+    .info-box.danger p {
+      color: #fff; }
   .info-box.simple {
     background: transparent; }
     .info-box.simple p {
