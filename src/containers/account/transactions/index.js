@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
-import { getTransactionsAction } from "../../../actions/transactions";
-import { setModalCallback } from "../../../modules/modals";
+import { getTransactionsAction, getTransactionAction } from "../../../actions/transactions";
+import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
@@ -15,8 +15,10 @@ class Transactions extends React.Component {
         super(props);
 
         this.getTransactions = this.getTransactions.bind(this);
+        this.getTransaction = this.getTransaction.bind(this);
         this.onPaginate  = this.onPaginate.bind(this);
         this.getPrivateTransactions = this.getPrivateTransactions.bind(this);
+        this.setTransactionInfo = this.setTransactionInfo.bind(this);
 
         this.state = {
             page: 1,
@@ -49,10 +51,7 @@ class Transactions extends React.Component {
         };
 
         if (data && data.publicKey) {
-            console.log(data);
 
-            this.setState({publicKey: data.publicKey});
-            console.log(data.publicKey);
             this.setState({
                 ...this.props,
                 publicKey:  data.publicKey,
@@ -112,6 +111,23 @@ class Transactions extends React.Component {
         }
     }
 
+    async getTransaction (requestParams) {
+        console.log(requestParams);
+        const transaction = await this.props.getTransactionAction(requestParams);
+
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+        }
+    }
+
+    setTransactionInfo(modalType, data) {
+        this.getTransaction({
+            account: this.props.account,
+            transaction: data
+        });
+    }
+
+
     render () {
         return (
             <div className="page-content">
@@ -155,6 +171,7 @@ class Transactions extends React.Component {
                                                         publicKey= {this.state.serverPublicKey}
                                                         privateKey={this.state.privateKey}
                                                         sharedKey= {this.state.sharedKey}
+                                                        setTransactionInfo={this.setTransactionInfo}
                                                     />
                                                 )
                                             })
@@ -195,11 +212,16 @@ class Transactions extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
+
+    // modals
+    modalData: state.modals.modalData
 });
 
 const initMapDispatchToProps = dispatch => ({
     getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
-    setModalCallbackAction: (callback) => dispatch(setModalCallback(callback))
+    setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
+    getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
 export default connect(

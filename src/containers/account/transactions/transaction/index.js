@@ -35,11 +35,12 @@ class Transaction extends React.Component {
     }
 
     render () {
+        console.log(this.state.transaction.transaction);
         if (!this.state.transaction.encryptedTransaction) {
             return (
                 <tr key={uuid()}>
                     <td className="blue-link-text">
-                        <a>{this.state.transaction.blockTimestamp}</a>
+                        <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.state.transaction.blockTimestamp}</a>
                     </td>
                     <td>
                         {
@@ -70,7 +71,10 @@ class Transaction extends React.Component {
                             this.state.transaction.attachment['version.CriticalUpdate'] &&
                             'CRITICAL UPDATE'
                         }
-
+                        {
+                            'version.TaggedDataUpload' in this.state.transaction.attachment &&
+                            'TAGGED DATA UPLOAD'
+                        }
                         {
                             'version.OrdinaryPayment' in this.state.transaction.attachment &&
                             'ORDINARY PAYMENT'

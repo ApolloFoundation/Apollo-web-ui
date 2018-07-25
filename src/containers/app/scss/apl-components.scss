@@ -17,6 +17,9 @@
     &.padding-only-top {
       padding: 35px 0 0 0;
     }
+    &.transparent {
+      background-color: transparent;
+    }
     padding: 40px 35px;
     width: 100%;
     background-color: #FFFFFF;
@@ -211,6 +214,9 @@
     .modal-box {
       transform: translateY(0);
 
+      &.wide {
+        width: 750px;
+      }
       .modal-form {
 
       }

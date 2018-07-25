@@ -102,6 +102,10 @@ textarea {
   padding: 0 !important;
 }
 
+.pre {
+  white-space: pre;
+}
+
 .form-group {
   display: table;
   padding: 35px;
@@ -216,6 +220,16 @@ textarea {
       right: 35px;
       left: 35px;
 
+      &.justify-left {
+        justify-content: flex-start;
+
+        .form-tab {
+          margin-right: 15px;
+          width: auto;
+          padding: 0 15px;
+        }
+      }
+
       .form-tab {
         display: flex;
         width: 54px;
@@ -226,9 +240,16 @@ textarea {
         &.active {
           background-color: #F5F5F5;
         }
-        .zmdi {
+        & > * {
           margin: auto;
         }
+      }
+    }
+    .tab-body {
+      display: none;
+
+      &.active {
+        display: block;
       }
     }
     .form-sub-actions {
@@ -312,6 +333,17 @@ textarea {
       position: relative;
       border-radius: 0;
     }
+  }
+}
+
+.flexible-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  & > * {
+    margin-top: 15px;
+    margin-right: 15px;
   }
 }
 

@@ -74,7 +74,20 @@ export const setBodyModalType = (reqParams) => {
     }
 };
 
-export const setModalData = (data) => {
+export const setBodyModalParamsAction = (type, data) => {
+    return dispatch => {
+        dispatch({
+            type: SET_MODAL_TYPE,
+            payload: type
+        });
+        dispatch({
+            type: SET_MODAL_DATA,
+            payload: data
+        });
+    }
+};
+
+export const setModalData = (data, callback, params) => {
     return (dispatch, getState) => {
         const { modals } = getState();
         console.log(getState());
@@ -91,6 +104,10 @@ export const setModalData = (data) => {
         } else {
             document.querySelector('.modal-window').classList.remove('active');
             console.log(data);
+            if (callback) {
+                callback(params);
+                return;
+            }
             if (modals.modalCallback) modals.modalCallback(data);
         }
     }

@@ -21,10 +21,6 @@ class PrivateTransactions extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-    componentDidMount() {
-        console.log(curve25519);
-    }
-
     async validatePassphrase(passphrase) {
         return await this.props.validatePassphrase(passphrase);
     }

@@ -2,7 +2,7 @@ const config = {};
 
 // API Gateway
 config.api = {
-    serverUrl: 'https://apolloface-reactdev.firstbridge.work:6876/apl?',
+    serverUrl: 'http://51.15.69.39:6876/apl?',
 };
 
 module.exports = config;
