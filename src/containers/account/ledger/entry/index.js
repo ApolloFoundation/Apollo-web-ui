@@ -1,36 +1,68 @@
 import React from 'react';
 import uuid from 'uuid';
+import crypto from "../../../../helpers/crypto/crypto";
+import converters from "../../../../helpers/converters";
 
 class Entry extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            entry: this.props.entry
+        }
     }
 
+    componentWillMount() {
+        if (this.props.entry.encryptedLedgerEntry) {
+            var options = {
+                publicKey  :  converters.hexStringToByteArray(this.props.publicKey),
+                privateKey :  converters.hexStringToByteArray(this.props.privateKey),
+            };
 
+            options.sharedKey = this.props.sharedKey;
+
+            var decrypted =  crypto.decryptData(this.props.entry.encryptedLedgerEntry, options);
+            decrypted = decrypted.message;
+
+            decrypted = converters.hexStringToString(decrypted);
+            decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
+            decrypted = JSON.parse(decrypted);
+
+            this.setState({
+                entry: decrypted
+            })
+        }
+    }
 
     render () {
-        return (
-            <tr>
-                <td className="blue-link-text">
-                    <a>{this.props.entry.timestamp}</a>
-                </td>
-                <td>
-                    {this.props.entry.eventType}
-                    <a><span className="info"></span></a>
-                </td>
-                <td className="align-right">-{this.props.entry.change / 100000000}</td>
-                <td>{(this.props.entry.balance / 100000000).toFixed(2)}</td>
-                <td>
-                    <a></a>
-                </td>
-                <td className="align-right">
-                    <a></a>
-                </td>
-                <td className="align-right">
-                    <a></a>
-                </td>
-            </tr>
-        );
+        if (!this.state.entry.encryptedLedgerEntry) {
+            return (
+                <tr key={uuid()}>
+                    <td className="blue-link-text">
+                        <a>{this.state.entry.timestamp}</a>
+                    </td>
+                    <td>
+                        {this.state.entry.eventType}
+                        <a><span className="info"></span></a>
+                    </td>
+                    <td className="align-right">-{this.state.entry.change / 100000000}</td>
+                    <td>{(this.state.entry.balance / 100000000).toFixed(2)}</td>
+                    <td>
+                        <a></a>
+                    </td>
+                    <td className="align-right">
+                        <a></a>
+                    </td>
+                    <td className="align-right">
+                        <a></a>
+                    </td>
+                </tr>
+            );
+        } else {
+            return (
+                <tr>encrypted</tr>
+            )
+        }
     }
 }
 

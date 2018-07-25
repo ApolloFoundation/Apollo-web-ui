@@ -3,9 +3,10 @@ import config from '../../config';
 
 export function getAccountLedgerAction(requestParams) {
     return dispatch => {
+        const requestType = (requestParams.publicKey) ? 'getPrivateAccountLedger' : 'getAccountLedger';
         return axios.get(config.api.serverUrl, {
             params : {
-                requestType: 'getAccountLedger',
+                requestType: requestType,
                 ...requestParams
             }
         })

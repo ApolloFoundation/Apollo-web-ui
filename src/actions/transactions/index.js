@@ -3,7 +3,6 @@ import config from '../../config';
 
 export function getTransactionsAction(requestParams) {
     return dispatch => {
-        console.log(requestParams);
         const requestType = (requestParams.publicKey) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
         console.log(requestParams);
 
