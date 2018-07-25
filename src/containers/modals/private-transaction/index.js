@@ -7,9 +7,16 @@ import {setModalData} from '../../../modules/modals';
 import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
 
+import InfoBox from '../../components/info-box';
+
+
 class PrivateTransactions extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            passphraseStatus: false
+        }
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
@@ -18,10 +25,28 @@ class PrivateTransactions extends React.Component {
         console.log(curve25519);
     }
 
-    handleFormSubmit(params) {
-        // validate passphrase
+    async validatePassphrase(passphrase) {
+        return await this.props.validatePassphrase(passphrase);
+    }
 
+    async handleFormSubmit(params) {
         let passphrase = params.passphrase;
+
+        const isPassed = await this.validatePassphrase(passphrase);
+        if (!isPassed) {
+            this.setState({
+                ...this.props,
+                passphraseStatus: true
+            })
+            return;
+        } else {
+            this.setState({
+                ...this.props,
+                passphraseStatus: false
+            }, () => {
+
+            })
+        }
 
         const privateKey = crypto.getPrivateKey(passphrase);
         const publicKey  = this.props.publicKey;
@@ -33,19 +58,12 @@ class PrivateTransactions extends React.Component {
             converters.hexStringToByteArray(this.props.publicKey)
         );
 
-        console.log(converters.hexStringToByteArray(crypto.getPrivateKey(passphrase)));
-        console.log(converters.hexStringToByteArray(this.props.publicKey));
-
         sharedKey = new Uint8Array(sharedKey);
-        console.log('sharedKey: ', converters.byteArrayToHexString(sharedKey));
-
 
         const data = {
             publicKey: publicKey,
             privateKey: privateKey
         };
-
-        console.log(data);
 
         this.props.setModalData(data);
     }
@@ -73,6 +91,14 @@ class PrivateTransactions extends React.Component {
                                     </div>
                                 </div>
                             </div>
+
+                            {
+                                this.state.passphraseStatus &&
+                                <InfoBox danger mt>
+                                    Incorect passphrase.
+                                </InfoBox>
+                            }
+
                             <button type="submit" className="btn btn-right">Enter</button>
                         </div>
                     </form>
@@ -87,7 +113,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrivateTransactions);

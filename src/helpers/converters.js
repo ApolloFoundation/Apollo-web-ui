@@ -153,7 +153,7 @@ function stringToHexString(str) {
      return this.byteArrayToHexString(this.stringToByteArray(str));
 }
 function hexStringToString(hex) {
-     return this.byteArrayToString(this.hexStringToByteArray(hex));
+     return byteArrayToString(hexStringToByteArray(hex));
 }
 function hexStringToInt8ByteArray(str) {
      var bytes = [];

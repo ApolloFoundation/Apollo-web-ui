@@ -87,13 +87,20 @@ function getAccountId(secretPhrase, isRsFormat) {
     }
 };
 
-function validatePassphrase(passphrase, accountRs) {
-    return async (dispatch, getStore) => {
+const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(async function(resolve, reject) {
+
+        console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;');
+        const accountRS = getStore().account.accountRS;
+
+        console.log(accountRS);
         const isAccount = await dispatch(getAccountId(passphrase, true));
-        console.log('-------------validatePassphrase-------------', passphrase, isAccount);
-        return accountRs === isAccount;
-    }
-};
+        console.log('accountRs: ', accountRS);
+        console.log('isAccount: ', isAccount);
+        resolve(accountRS === isAccount);
+    });
+
+
+
 
 function getSharedSecretJava(key1, key2) {
     var sharedKey;
