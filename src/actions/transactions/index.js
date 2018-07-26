@@ -74,3 +74,31 @@ export function sendTransactionAction(requestParams) {
 
     }
 }
+export function sendPrivateTransaction(requestParams) {
+    return (dispatch) => {
+        console.log(requestParams);
+
+        requestParams = {
+            ...requestParams,
+            requestType: 'sendMoneyPrivate',
+            deadline: '1440',
+            amountATM: requestParams.amountATM * 100000000,
+            feeATM: requestParams.feeATM * 100000000,
+        };
+
+        console.log(requestParams);
+
+
+        return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
+                .then((res) => {
+                    if (!res.data.errorCode) {
+                        return res.data;
+                    }
+                    return;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+
+    }
+}

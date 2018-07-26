@@ -134,8 +134,8 @@ class Dashboard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <a className="btn btn-left btn-simple">Private APL</a>
-                                <button className="btn btn-right" data-modal="sendMoney" onClick={this.props.setMopalType.bind(this, 'SendApollo')}>Send</button>
+                                <a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')} className="btn btn-left btn-simple">Private APL</a>
+                                <button className="btn btn-right" data-modal="sendMoney" onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}>Send</button>
                             </div>
                             <div className="card active-polls">
                                 <div className="card-title">Active Polls</div>
