@@ -38,7 +38,18 @@ class Transactions extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
-        this.setState({ ...newState }, () => {
+        console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;');
+        console.log(this.state);
+        console.log(newState);
+
+        this.setState({
+            ...newState,
+            publicKey: this.state.publicKey,
+            privateKey: this.state.privateKey,
+            sharedKey: this.state.sharedKey
+        }, () => {
+            console.log(this.state);
+
             this.getPrivateTransactions();
         });
     }
