@@ -39,7 +39,7 @@ class Entry extends React.Component {
             return (
                 <tr key={uuid()}>
                     <td className="blue-link-text">
-                        <a>{this.state.entry.timestamp}</a>
+                        <a onClick={this.props.setLedgerEntryInfo.bind(this, 'INFO_LEDGER_TRANSACTION', this.state.entry.ledgerId)}>{this.state.entry.timestamp}</a>
                     </td>
                     <td>
                         {this.state.entry.eventType}

@@ -25,7 +25,7 @@ export function getLedgerEntryAction(requestParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
             params : {
-                requestType: 'getTransaction',
+                requestType: 'getAccountLedgerEntry',
                 ...requestParams
             }
         })

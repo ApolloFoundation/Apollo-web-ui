@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Entry from './entry'
-import { getAccountLedgerAction } from "../../../actions/ledger";
+import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
@@ -16,6 +16,7 @@ class Ledger extends React.Component {
 
         this.getAccountLedger = this.getAccountLedger.bind(this);
         this.getPrivateEntries = this.getPrivateEntries.bind(this);
+        this.getLedgerEntry = this.getLedgerEntry.bind(this);
 
 
         this.state = {
@@ -113,17 +114,23 @@ class Ledger extends React.Component {
         }
     }
 
-    async getLedger (requestParams) {
-        console.log(requestParams);
-        const transaction = await this.props.getTransactionAction(requestParams);
+    async getLedgerEntry (modaltype, ledgerId) {
 
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_LEDGER_DATE', transaction)
+        const requestParams = {
+            ledgerId: ledgerId
+        };
+
+        console.log(requestParams);
+        const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
+
+        if (ledgerEntry) {
+            this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry)
         }
     }
 
-    setTransactionInfo(modalType, data) {
-        this.getLedger({
+    setLedgerEntryInfo(modalType, data) {
+        console.log(this);
+        this.getLedgerEntry({
             account: this.props.account,
             transaction: data
         });
@@ -165,7 +172,7 @@ class Ledger extends React.Component {
                                                     publicKey= {this.state.serverPublicKey}
                                                     privateKey={this.state.privateKey}
                                                     sharedKey= {this.state.sharedKey}
-                                                    setTransactionInfo={this.setTransactionInfo}
+                                                    setLedgerEntryInfo={this.getLedgerEntry}
                                                 />
                                             );
                                         })
@@ -214,8 +221,8 @@ const mapStateToProps = state => ({
 const initMapDispatchToProps = dispatch => ({
     getAccountLedgerAction: (requestParams) => dispatch(getAccountLedgerAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
-    // getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
-    // setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    getLedgerEntryAction: (reqParams) => dispatch(getLedgerEntryAction(reqParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
 export default connect(

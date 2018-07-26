@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
 
-class InfoTransactions extends React.Component {
+class InfoLedgerTransaction extends React.Component {
     constructor(props) {
         super(props);
 
@@ -240,4 +240,4 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoTransactions);
+export default connect(mapStateToProps, mapDispatchToProps)(InfoLedgerTransaction);
