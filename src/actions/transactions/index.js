@@ -1,5 +1,9 @@
 import axios from 'axios/index';
 import config from '../../config';
+import queryString from 'query-string';
+
+axios.defaults.headers.common['Access-Control-Request-Headers'] = null;
+axios.defaults.headers.common['Access-Control-Request-Method'] = null;
 
 export function getTransactionsAction(requestParams) {
     return dispatch => {
@@ -39,5 +43,39 @@ export function getTransactionAction(requestParams) {
             .catch(() => {
 
             })
+    }
+}
+
+export function sendTransactionAction(requestParams) {
+    return (dispatch) => {
+        console.log(requestParams);
+
+        requestParams = {
+            requestType: 'sendMoney',
+
+            deadline: '1440',
+            ...requestParams
+        };
+        console.log(requestParams);
+
+        requestParams = {
+            ...requestParams,
+            amountATM: requestParams.amountATM * 100000000,
+            feeATM: requestParams.feeATM * 100000000
+        };
+        console.log(requestParams);
+
+
+        return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
+                .then((res) => {
+                    if (!res.data.errorCode) {
+                        return res.data;
+                    }
+                    return;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+
     }
 }

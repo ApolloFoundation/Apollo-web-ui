@@ -76,6 +76,9 @@ textarea {
 .no-padding {
   padding: 0 !important; }
 
+.pre {
+  white-space: pre; }
+
 .form-group {
   display: table;
   padding: 35px;
@@ -136,7 +139,7 @@ textarea {
     padding-right: 15px; }
   .form-group .form-tabulator {
     position: relative;
-    margin: 55px -35px -70px -35px;
+    margin: 55px -35px -69px -35px;
     background-color: #F5F5F5;
     padding: 18px 35px 70px 35px;
     display: none; }
@@ -150,6 +153,12 @@ textarea {
       bottom: 100%;
       right: 35px;
       left: 35px; }
+      .form-group .form-tabulator .form-tab-nav-box.justify-left {
+        justify-content: flex-start; }
+        .form-group .form-tabulator .form-tab-nav-box.justify-left .form-tab {
+          margin-right: 15px;
+          width: auto;
+          padding: 0 15px; }
       .form-group .form-tabulator .form-tab-nav-box .form-tab {
         display: flex;
         width: 54px;
@@ -158,8 +167,12 @@ textarea {
         border-top-right-radius: 6px; }
         .form-group .form-tabulator .form-tab-nav-box .form-tab.active {
           background-color: #F5F5F5; }
-        .form-group .form-tabulator .form-tab-nav-box .form-tab .zmdi {
+        .form-group .form-tabulator .form-tab-nav-box .form-tab > * {
           margin: auto; }
+    .form-group .form-tabulator .tab-body {
+      display: none; }
+      .form-group .form-tabulator .tab-body.active {
+        display: block; }
     .form-group .form-tabulator .form-sub-actions {
       display: block; }
       .form-group .form-tabulator .form-sub-actions .form-group {
@@ -213,6 +226,15 @@ textarea {
   display: inline-block;
   position: relative;
   border-radius: 0; }
+
+.flexible-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap; }
+  .flexible-grid > * {
+    margin-top: 15px;
+    margin-right: 15px; }
 
 .btn {
   position: absolute;
