@@ -5,12 +5,15 @@ export const SET_MODAL_TYPE = 'SET_MODAL_TYPE';
 export const SET_MODAL_DATA = 'SET_MODAL_DATA';
 export const SET_BODY_MODAL_DATA = 'SET_BODY_MODAL_DATA';
 export const SET_MODAL_CALLBACK = 'SET_MODAL_CALLBACK';
+export const SET_ALERT_DATA = 'SET_ALERT_DATA';
 
 const initialState = {
     modalType: null,
     bodyModalType: null,
     modalData: {},
-    modalCallback: null
+    modalCallback: null,
+    alertStatus: null,
+    alertMessage: null,
 };
 
 export default (state = initialState, action) => {
@@ -35,6 +38,13 @@ export default (state = initialState, action) => {
                 ...state,
                 bodyModalType: action.payload
             };
+
+        case SET_ALERT_DATA:
+            return {
+                ...state,
+                alertStatus: action.payload.status,
+                alertMessage: action.payload.message
+            }
 
         default:
             return state
@@ -110,5 +120,29 @@ export const setModalData = (data, callback, params) => {
             }
             if (modals.modalCallback) modals.modalCallback(data);
         }
+    }
+};
+
+export const setAlert = (status, message) => {
+    return dispatch => {
+        console.log(status);
+        console.log(message);
+        dispatch({
+            type: SET_ALERT_DATA,
+            payload: {
+                status: status,
+                message: message
+            }
+        });
+
+        setTimeout(() => {
+            dispatch({
+                type: SET_ALERT_DATA,
+                payload: {
+                    status: null,
+                    message: message
+                }
+            })
+        }, 4000)
     }
 };

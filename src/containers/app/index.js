@@ -9,6 +9,7 @@ import {setBodyModalType} from '../../modules/modals' ;
 // components
 import SideBar from '../components/sidebar'
 import ModalWindow from '../modals'
+import AlertBox from '../components/alert-box'
 
 // pages components
 import Dashboard from "../account/dashboard";
@@ -75,6 +76,7 @@ class App extends React.Component {
         return (
             <div>
                 <ModalWindow/>
+                <AlertBox/>
                 <header>
                     {
                         this.props.account &&

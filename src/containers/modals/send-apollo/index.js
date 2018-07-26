@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 
 import classNames from 'classnames';
@@ -21,17 +21,71 @@ class SendApollo extends React.Component {
             advancedState: false,
 
             // submitting
-            passphraseStatus: false
+            passphraseStatus: false,
+            recipientStatus: false,
+            amountStatus: false,
+            feeStatus: false
         }
 
         this.handleTabChange = this.handleTabChange.bind(this);
         this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
-    handleFormSubmit(values) {
-        console.log(values);
+    async handleFormSubmit(values) {
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+
+        if (!values.recipient) {
+            this.setState({
+                ...this.props,
+                recipientStatus: true
+            })
+            return;
+        } else {
+            this.setState({
+                ...this.props,
+                recipientStatus: false
+            })
+        }
+        if (!values.amountATM) {
+            this.setState({
+                ...this.props,
+                amountStatus: true
+            })
+            return;
+        } else {
+            this.setState({
+                ...this.props,
+                amountStatus: false
+            })
+        }
+        if (!values.feeATM) {
+            this.setState({
+                ...this.props,
+                feeStatus: true
+            })
+            return;
+        } else {
+            this.setState({
+                ...this.props,
+                feeStatus: false
+            })
+        }
+        if (!isPassphrase) {
+            this.setState({
+                ...this.props,
+                passphraseStatus: true
+            })
+            return;
+        } else {
+            this.setState({
+                ...this.props,
+                passphraseStatus: false
+            })
+        }
 
         this.props.sendTransaction(values);
+        this.props.setBodyModalParamsAction(null, {});
+        this.props.setAlert('success', 'Transaction has been submitted!');
     }
 
     handleTabChange(tab) {
@@ -43,6 +97,7 @@ class SendApollo extends React.Component {
 
     handleAdvancedState() {
         console.log(this.state.advancedState);
+
         if (this.state.advancedState) {
             this.setState({
                 ...this.props,
@@ -109,9 +164,30 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <InfoBox danger mt>
-                                    Incorrect passphrase.
-                                </InfoBox>
+                                {
+                                    this.state.passphraseStatus &&
+                                    <InfoBox danger mt>
+                                        Incorrect passphrase.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.recipientStatus &&
+                                    <InfoBox danger mt>
+                                        Incorrect recipient.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.amountStatus &&
+                                    <InfoBox danger mt>
+                                        Missing amount.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.feeStatus &&
+                                    <InfoBox danger mt>
+                                        Missing fee.
+                                    </InfoBox>
+                                }
                                 <div
                                     className={classNames({
                                         'form-tabulator': true,
@@ -236,12 +312,12 @@ class SendApollo extends React.Component {
 
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute left-conner">
-                                    <button
+                                    <a
                                         onClick={this.handleAdvancedState}
                                         className="btn btn-right round round-bottom-left round-top-right"
                                     >
                                         Advanced
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </form>
@@ -259,7 +335,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    setAlert: (status, message) => dispatch(setAlert(status, message)),
     setModalData: (data) => dispatch(setModalData(data)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
 });

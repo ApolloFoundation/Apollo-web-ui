@@ -81,6 +81,13 @@ textarea {
 
 .info-box {
 
+  &.success {
+    background-color: #2ecc71;
+    
+    p {
+      color: #fff;
+    }
+  }
   &.simple {
     background: transparent;
 

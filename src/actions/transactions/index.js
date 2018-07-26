@@ -51,18 +51,13 @@ export function sendTransactionAction(requestParams) {
         console.log(requestParams);
 
         requestParams = {
-            requestType: 'sendMoney',
-
-            deadline: '1440',
-            ...requestParams
-        };
-        console.log(requestParams);
-
-        requestParams = {
             ...requestParams,
+            requestType: 'sendMoney',
+            deadline: '1440',
             amountATM: requestParams.amountATM * 100000000,
-            feeATM: requestParams.feeATM * 100000000
+            feeATM: requestParams.feeATM * 100000000,
         };
+
         console.log(requestParams);
 
 

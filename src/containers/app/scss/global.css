@@ -61,6 +61,11 @@ textarea {
   border-radius: 6px;
   resize: none; }
 
+.info-box.success {
+  background-color: #2ecc71; }
+  .info-box.success p {
+    color: #fff; }
+
 .info-box.simple {
   background: transparent; }
   .info-box.simple p {
