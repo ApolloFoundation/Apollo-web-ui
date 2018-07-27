@@ -2,9 +2,6 @@ import axios from 'axios/index';
 import config from '../../config';
 import queryString from 'query-string';
 
-axios.defaults.headers.common['Access-Control-Request-Headers'] = null;
-axios.defaults.headers.common['Access-Control-Request-Method'] = null;
-
 export function getTransactionsAction(requestParams) {
     return dispatch => {
         const requestType = (requestParams.publicKey) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
