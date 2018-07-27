@@ -25,6 +25,8 @@ export function getBlockAction(requestParams) {
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: 'getBlock',
+                includeTransactions: true,
+                includeExecutedPhased: true,
                 ...requestParams
             }
         })

@@ -20,6 +20,9 @@
     &.transparent {
       background-color: transparent;
     }
+    &.padding-vertical-padding {
+      padding: 40px 0;
+    }
     padding: 40px 35px;
     width: 100%;
     background-color: #FFFFFF;
@@ -77,6 +80,10 @@
                 font-size: 14px;
                 line-height: 16px;
               }
+            }
+            &.word-brake {
+              word-break: break-all;
+              word-wrap: break-word;
             }
             &.align-right {
               text-align: right;
@@ -214,9 +221,6 @@
     .modal-box {
       transform: translateY(0);
 
-      &.wide {
-        width: 750px;
-      }
       .modal-form {
 
       }
@@ -227,13 +231,17 @@
     margin: auto;
     display: block;
     transition: all 0.3s ease-in-out;
-    max-width: 500px;
     position: relative;
     overflow: hidden;
     border-radius: 6px;
+    width: 100% !important;
+    max-width: 500px;
 
     &.wide {
-      max-width: 700px;
+      max-width: 750px !important;
+    }
+    &.x-wide {
+      max-width: 1000px !important;
     }
     .modal-form {
       min-width: 500px;

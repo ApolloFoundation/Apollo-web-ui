@@ -35,77 +35,150 @@ class Transaction extends React.Component {
     }
 
     render () {
-        if (!this.state.transaction.encryptedTransaction) {
-            return (
-                <tr key={uuid()}>
-                    <td className="blue-link-text">
-                        <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.state.transaction.blockTimestamp}</a>
-                    </td>
-                    <td>
-                        {
-                            this.state.transaction.attachment['version.AliasAssignment'] &&
-                            'Alias assignment'
-                        }
-                        {
-                            this.state.transaction.attachment['version.PollCreation'] &&
-                            'Poll creation'
-                        }
-                        {
-                            this.state.transaction.attachment['version.AccountInfo'] &&
-                            'Account info'
-                        }
-                        {
-                            this.state.transaction.attachment['version.VoteCasting'] &&
-                            'Vote casting'
-                        }
-                        {
-                            this.state.transaction.attachment['version.PrunablePlainMessage'] &&
-                            'MARKETPLACE LISTING'
-                        }
-                        {
-                            this.state.transaction.attachment['version.CurrencyIssuance'] &&
-                            'ISSUE CURRENCY'
-                        }
-                        {
-                            this.state.transaction.attachment['version.CriticalUpdate'] &&
-                            'CRITICAL UPDATE'
-                        }
-                        {
-                            'version.TaggedDataUpload' in this.state.transaction.attachment &&
-                            'TAGGED DATA UPLOAD'
-                        }
-                        {
-                            'version.OrdinaryPayment' in this.state.transaction.attachment &&
-                            'ORDINARY PAYMENT'
-                        }
-                        {
-                            'version.PrivatePayment' in this.state.transaction.attachment &&
-                            'PRIVATE PAYMENT'
-                        }
-                    </td>
-                    <td className="align-right">
-                        {this.state.transaction.amountATM / 100000000}
-                    </td>
-                    <td className="align-right">
-                        {this.state.transaction.feeATM / 100000000}
-                    </td>
-                    <td className="blue-link-text">
-                        <a>{this.state.transaction.senderRS + ' -> ' + this.props.transaction.recipientRS}</a>
-                    </td>
-                    <td className="align-right">
-                    </td>
-                    <td className="align-right blue-link-text">
-                        <a>{this.state.transaction.height}</a>
-                    </td>
-                    <td className="align-right">
-                        <a>{this.state.transaction.confirmations}</a>
-                    </td>
-                </tr>
-            );
+        if (this.props.block) {
+            if (!this.state.transaction.encryptedTransaction) {
+                return (
+                    <tr key={uuid()}>
+                        <td className="blue-link-text">
+                            {this.props.index}
+                        </td>
+                        <td className="blue-link-text">
+                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.state.transaction.blockTimestamp}</a>
+                        </td>
+                        <td>
+                            {
+                                this.state.transaction.attachment['version.AliasAssignment'] &&
+                                'Alias assignment'
+                            }
+                            {
+                                this.state.transaction.attachment['version.PollCreation'] &&
+                                'Poll creation'
+                            }
+                            {
+                                this.state.transaction.attachment['version.AccountInfo'] &&
+                                'Account info'
+                            }
+                            {
+                                this.state.transaction.attachment['version.VoteCasting'] &&
+                                'Vote casting'
+                            }
+                            {
+                                this.state.transaction.attachment['version.PrunablePlainMessage'] &&
+                                'MARKETPLACE LISTING'
+                            }
+                            {
+                                this.state.transaction.attachment['version.CurrencyIssuance'] &&
+                                'ISSUE CURRENCY'
+                            }
+                            {
+                                this.state.transaction.attachment['version.CriticalUpdate'] &&
+                                'CRITICAL UPDATE'
+                            }
+                            {
+                                'version.TaggedDataUpload' in this.state.transaction.attachment &&
+                                'TAGGED DATA UPLOAD'
+                            }
+                            {
+                                'version.OrdinaryPayment' in this.state.transaction.attachment &&
+                                'ORDINARY PAYMENT'
+                            }
+                            {
+                                'version.PrivatePayment' in this.state.transaction.attachment &&
+                                'PRIVATE PAYMENT'
+                            }
+                        </td>
+                        <td className="align-right">
+                            {this.state.transaction.amountATM / 100000000}
+                        </td>
+                        <td className="align-right">
+                            {this.state.transaction.feeATM / 100000000}
+                        </td>
+                        <td className="blue-link-text">
+                            <a>{this.state.transaction.senderRS}</a>
+                        </td>
+                        <td className="align-right">
+                            <a>{this.props.transaction.recipientRS}</a>
+                        </td>
+                    </tr>
+                );
+            } else {
+                return (
+                    <tr key={uuid()}>ecrypted</tr>
+                )
+            }
         } else {
-            return (
-                <tr key={uuid()}>ecrypted</tr>
-            )
+            if (!this.state.transaction.encryptedTransaction) {
+                return (
+                    <tr key={uuid()}>
+                        <td className="blue-link-text">
+                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.state.transaction.blockTimestamp}</a>
+                        </td>
+                        <td>
+                            {
+                                this.state.transaction.attachment['version.AliasAssignment'] &&
+                                'Alias assignment'
+                            }
+                            {
+                                this.state.transaction.attachment['version.PollCreation'] &&
+                                'Poll creation'
+                            }
+                            {
+                                this.state.transaction.attachment['version.AccountInfo'] &&
+                                'Account info'
+                            }
+                            {
+                                this.state.transaction.attachment['version.VoteCasting'] &&
+                                'Vote casting'
+                            }
+                            {
+                                this.state.transaction.attachment['version.PrunablePlainMessage'] &&
+                                'MARKETPLACE LISTING'
+                            }
+                            {
+                                this.state.transaction.attachment['version.CurrencyIssuance'] &&
+                                'ISSUE CURRENCY'
+                            }
+                            {
+                                this.state.transaction.attachment['version.CriticalUpdate'] &&
+                                'CRITICAL UPDATE'
+                            }
+                            {
+                                'version.TaggedDataUpload' in this.state.transaction.attachment &&
+                                'TAGGED DATA UPLOAD'
+                            }
+                            {
+                                'version.OrdinaryPayment' in this.state.transaction.attachment &&
+                                'ORDINARY PAYMENT'
+                            }
+                            {
+                                'version.PrivatePayment' in this.state.transaction.attachment &&
+                                'PRIVATE PAYMENT'
+                            }
+                        </td>
+                        <td className="align-right">
+                            {this.state.transaction.amountATM / 100000000}
+                        </td>
+                        <td className="align-right">
+                            {this.state.transaction.feeATM / 100000000}
+                        </td>
+                        <td className="blue-link-text">
+                            <a>{this.state.transaction.senderRS + ' -> ' + this.props.transaction.recipientRS}</a>
+                        </td>
+                        <td className="align-right">
+                        </td>
+                        <td className="align-right blue-link-text">
+                            <a>{this.state.transaction.height}</a>
+                        </td>
+                        <td className="align-right">
+                            <a>{this.state.transaction.confirmations}</a>
+                        </td>
+                    </tr>
+                );
+            } else {
+                return (
+                    <tr key={uuid()}>ecrypted</tr>
+                )
+            }
         }
     }
 }

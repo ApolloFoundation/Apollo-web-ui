@@ -18,6 +18,8 @@
       padding: 35px 0 0 0; }
     .transaction-table .transaction-table-body.transparent {
       background-color: transparent; }
+    .transaction-table .transaction-table-body.padding-vertical-padding {
+      padding: 40px 0; }
     .transaction-table .transaction-table-body table {
       width: 100%;
       border-collapse: collapse; }
@@ -49,6 +51,9 @@
             font-family: "Roboto-Regular";
             font-size: 14px;
             line-height: 16px; }
+          .transaction-table .transaction-table-body table tbody tr td.word-brake {
+            word-break: break-all;
+            word-wrap: break-word; }
           .transaction-table .transaction-table-body table tbody tr td.align-right {
             text-align: right;
             padding: 0 15px 0 0; }
@@ -133,19 +138,20 @@
     opacity: 1; }
     .modal-window.active .modal-box {
       transform: translateY(0); }
-      .modal-window.active .modal-box.wide {
-        width: 750px; }
   .modal-window .modal-box {
     transform: translateY(-50px);
     margin: auto;
     display: block;
     transition: all 0.3s ease-in-out;
-    max-width: 500px;
     position: relative;
     overflow: hidden;
-    border-radius: 6px; }
+    border-radius: 6px;
+    width: 100% !important;
+    max-width: 500px; }
     .modal-window .modal-box.wide {
-      max-width: 700px; }
+      max-width: 750px !important; }
+    .modal-window .modal-box.x-wide {
+      max-width: 1000px !important; }
     .modal-window .modal-box .modal-form {
       min-width: 500px; }
       .modal-window .modal-box .modal-form .form-group {

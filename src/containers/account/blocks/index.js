@@ -1,7 +1,8 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
 import {connect} from 'react-redux';
-import {getBlocksAction} from "../../../actions/blocks";
+import {getBlocksAction, getBlockAction} from "../../../actions/blocks";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 import Block from './block';
 
 import './Blocks.css';
@@ -13,6 +14,7 @@ class Blocks extends React.Component {
         super(props);
 
         this.getBlocks = this.getBlocks.bind(this);
+        this.getBlock  = this.getBlock.bind(this);
 
         this.state = {
             page: 1,
@@ -38,6 +40,18 @@ class Blocks extends React.Component {
         });
     }
 
+    async getBlock(type, blockHeight) {
+        const requestParams = {
+            height: blockHeight
+        };
+
+        const block = await this.props.getBlockAction(requestParams);
+
+        if (block) {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+        }
+    }
+
     onPaginate (page) {
         this.setState({
             page: page,
@@ -52,7 +66,6 @@ class Blocks extends React.Component {
             })
         });
     }
-
 
     render () {
         return (
@@ -107,7 +120,10 @@ class Blocks extends React.Component {
                                         {
                                             this.state.blocks.map((el, index) => {
                                                 return (
-                                                    <Block block={el}/>
+                                                    <Block
+                                                        block={el}
+                                                        setBlockInfo={this.getBlock}
+                                                    />
                                                 );
                                             })
                                         }
@@ -150,7 +166,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams))
+    getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams)),
+    getBlockAction  : (requestParams) => dispatch(getBlockAction(requestParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 
 })
 
