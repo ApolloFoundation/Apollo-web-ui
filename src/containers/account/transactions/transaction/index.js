@@ -35,7 +35,6 @@ class Transaction extends React.Component {
     }
 
     render () {
-        console.log(this.state.transaction.transaction);
         if (!this.state.transaction.encryptedTransaction) {
             return (
                 <tr key={uuid()}>

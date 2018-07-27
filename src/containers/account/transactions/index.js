@@ -38,31 +38,29 @@ class Transactions extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
-        console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;');
-        console.log(this.state);
-        console.log(newState);
-
         this.setState({
             ...newState,
-            publicKey: this.state.publicKey,
+            publicKey:  this.state.publicKey,
             privateKey: this.state.privateKey,
-            sharedKey: this.state.sharedKey
+            sharedKey:  this.state.sharedKey
         }, () => {
             console.log(this.state);
 
-            this.getPrivateTransactions();
+            this.getPrivateTransactions({
+                PublicKey: this.state.publicKey
+            });
         });
     }
 
     getPrivateTransactions = (data) => {
         let reqParams = {
-            account: this.props.account,
+            account:    this.props.account,
             firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
+            lastIndex:  this.state.lastIndex
         };
 
         if (data && data.publicKey) {
-
+            console.log(this.state);
             this.setState({
                 ...this.props,
                 publicKey:  data.publicKey,
@@ -71,14 +69,17 @@ class Transactions extends React.Component {
 
             reqParams.publicKey = data.publicKey;
         }
+        if (data && data.PublicKey) {
+            reqParams.publicKey = data.PublicKey;
+        }
 
         this.getTransactions(reqParams);
     };
 
     onPaginate (page) {
         let reqParams = {
-            page: page,
-            account: this.props.account,
+            account:    this.props.account,
+            page:       page,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1
         };
@@ -86,8 +87,6 @@ class Transactions extends React.Component {
         if (this.state.publicKey) {
             reqParams.publicKey = this.state.publicKey
         }
-
-        console.log(reqParams);
 
         this.setState(reqParams, () => {
             this.getTransactions(reqParams)
@@ -98,11 +97,8 @@ class Transactions extends React.Component {
         const transactions = await this.props.getTransactionsAction(requestParams);
         if (transactions) {
             if (transactions.serverPublicKey) {
-
-                // const serverPublicKey = crypto.getSharedSecretJava(converters.hexStringToByteArray(transactions.serverPublicKey))
-                const privateKey      = converters.hexStringToByteArray(this.state.privateKey);
-
-                const sharedKey = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(
+                const privateKey = converters.hexStringToByteArray(this.state.privateKey);
+                const sharedKey  = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(
                     privateKey,
                     converters.hexStringToByteArray(transactions.serverPublicKey)
                 )));
@@ -129,6 +125,7 @@ class Transactions extends React.Component {
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
         }
+        console.log(this.props);
     }
 
     setTransactionInfo(modalType, data) {
@@ -225,7 +222,8 @@ const mapStateToProps = state => ({
     account: state.account.account,
 
     // modals
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    modalType: state.modals.modalType
 });
 
 const initMapDispatchToProps = dispatch => ({

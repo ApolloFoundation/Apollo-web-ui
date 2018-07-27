@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
 import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setModalData, setMopalType, setBodyModalParamsAction} from '../../../modules/modals';
 
 import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
@@ -62,6 +62,7 @@ class PrivateTransactions extends React.Component {
         };
 
         this.props.setModalData(data);
+        this.props.setBodyModalParamsAction(null, null);
     }
 
     render() {
@@ -110,6 +111,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
+    setMopalType: (passphrase) => dispatch(setMopalType(passphrase)),
+    setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
 });
 

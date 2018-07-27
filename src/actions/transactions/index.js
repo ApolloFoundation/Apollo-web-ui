@@ -8,8 +8,6 @@ axios.defaults.headers.common['Access-Control-Request-Method'] = null;
 export function getTransactionsAction(requestParams) {
     return dispatch => {
         const requestType = (requestParams.publicKey) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
-        console.log(requestParams);
-
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: requestType,
@@ -48,8 +46,6 @@ export function getTransactionAction(requestParams) {
 
 export function sendTransactionAction(requestParams) {
     return (dispatch) => {
-        console.log(requestParams);
-
         requestParams = {
             ...requestParams,
             requestType: 'sendMoney',
@@ -58,9 +54,6 @@ export function sendTransactionAction(requestParams) {
             feeATM: requestParams.feeATM * 100000000,
         };
 
-        console.log(requestParams);
-
-
         return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
                 .then((res) => {
                     if (!res.data.errorCode) {
@@ -71,13 +64,11 @@ export function sendTransactionAction(requestParams) {
                 .catch((err) => {
                     console.log(err);
                 })
-
     }
 }
+
 export function sendPrivateTransaction(requestParams) {
     return (dispatch) => {
-        console.log(requestParams);
-
         requestParams = {
             ...requestParams,
             requestType: 'sendMoneyPrivate',
@@ -86,9 +77,6 @@ export function sendPrivateTransaction(requestParams) {
             feeATM: requestParams.feeATM * 100000000,
         };
 
-        console.log(requestParams);
-
-
         return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
                 .then((res) => {
                     if (!res.data.errorCode) {
@@ -99,6 +87,5 @@ export function sendPrivateTransaction(requestParams) {
                 .catch((err) => {
                     console.log(err);
                 })
-
     }
 }

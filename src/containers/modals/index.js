@@ -22,27 +22,23 @@ class ModalWindow extends React.Component {
         this.handleModal = this.handleModal.bind(this);
     }
 
-
-    handleModal(e, eventClose) {
+    handleModal(e) {
         const modalWindow = document.querySelector('.modal-window');
+
+
+        console.log(modalWindow);
+
         if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
-            if (e.target && !e.target.closest('.modal-window .modal-box')) {
+
+            if (!e.target.closest('.modal-window .modal-box')) {
                 modalWindow.classList.remove('active');
                 setTimeout(() => {
                     this.props.setMopalType(null);
 
                 }, 300);
             }
-        }
 
-        if (eventClose) {
-            modalWindow.classList.remove('active');
-            setTimeout(() => {
-                this.props.setMopalType(null);
-
-            }, 300);
-        }
-        else {
+        } else {
             modalWindow.classList.add('active');
         }
     }
@@ -53,22 +49,22 @@ class ModalWindow extends React.Component {
                 onClick={(e) => this.handleModal(e)}
                 className={classNames({
                     "modal-window" : true,
-                    "active": this.props.openedModalType
+                    "active": this.props.modalType
                 })}
             >
-                {this.props.openedModalType === 'INFO_TRANSACTION'        && <InfoTransaction        handleCloseModal={this.handleModal}/>}
-                {this.props.openedModalType === 'INFO_LEDGER_TRANSACTION' && <InfoLedgerTransaction  handleCloseModal={this.handleModal}/>}
-                {this.props.openedModalType === 'PrivateTransactions'     && <PrivateTransactions    handleCloseModal={this.handleModal}/>}
-                {this.props.openedModalType === 'SEND_APOLLO'             && <SendApollo             handleCloseModal={this.handleModal}/>}
-                {this.props.openedModalType === 'SEND_APOLLO_PRIVATE'     && <SendApolloPrivate      handleCloseModal={this.handleModal}/>}
-                {this.props.openedModalType === 'ISSUE'                   && <Issue                  handleCloseModal={this.handleModal}/>}
+                {this.props.modalType === 'INFO_TRANSACTION'        && <InfoTransaction       />}
+                {this.props.modalType === 'INFO_LEDGER_TRANSACTION' && <InfoLedgerTransaction />}
+                {this.props.modalType === 'PrivateTransactions'     && <PrivateTransactions   />}
+                {this.props.modalType === 'SEND_APOLLO'             && <SendApollo            />}
+                {this.props.modalType === 'SEND_APOLLO_PRIVATE'     && <SendApolloPrivate     />}
+                {this.props.modalType === 'ISSUE'                   && <Issue                 />}
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    openedModalType: state.modals.modalType
+    modalType: state.modals.modalType
 });
 
 const mapDispatchToProps = dispatch => ({
