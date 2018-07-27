@@ -89,7 +89,7 @@ class InfoTransactions extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <a  onClick={this.props.handleCloseModal.bind(this, 'close')} type="submit" className="btn btn-right">Close</a>
+                        <a type="submit" className="btn btn-right">Close</a>
 
                     </form>
                 }

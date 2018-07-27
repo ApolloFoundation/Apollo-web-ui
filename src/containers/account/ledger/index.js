@@ -37,8 +37,16 @@ class Ledger extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
-        this.setState({ ...newState }, () => {
+        this.setState({
+            ...newState,
+            publicKey:  this.state.publicKey,
+            privateKey: this.state.privateKey,
+            sharedKey:  this.state.sharedKey
+        }, () => {
+            console.log(this.state);
+
             this.getAccountLedger({
+                PublicKey: this.state.publicKey,
                 account: this.props.account,
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
@@ -62,6 +70,9 @@ class Ledger extends React.Component {
             });
 
             reqParams.publicKey = data.publicKey;
+        }
+        if (data && data.PublicKey) {
+            reqParams.publicKey = data.PublicKey;
         }
 
         this.getAccountLedger(reqParams);
@@ -87,6 +98,12 @@ class Ledger extends React.Component {
     }
 
     async getAccountLedger(requestParams) {
+
+        if (requestParams.PublicKey) {
+            requestParams.publicKey = requestParams.PublicKey
+            delete requestParams.PublicKey;
+        }
+
         const ledger = await this.props.getAccountLedgerAction(requestParams);
         if (ledger) {
             if (ledger.serverPublicKey) {
