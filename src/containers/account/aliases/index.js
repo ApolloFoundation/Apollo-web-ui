@@ -4,6 +4,8 @@ import {getAliasesAction} from "../../../actions/aliases";
 import SiteHeader from '../../components/site-header'
 import Alias from "./alias";
 import classNames from "classnames";
+import {getTransactionAction, getTransactionsAction} from "../../../actions/transactions";
+import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modals";
 
 class Aliases extends React.Component {
     constructor(props) {
@@ -64,6 +66,22 @@ class Aliases extends React.Component {
         });
     }
 
+    editAlias = () => {
+        this.props.setBodyModalParamsAction('EDIT_ALIAS', {});
+    };
+
+    sellAlias = () => {
+        this.props.setBodyModalParamsAction('SELL_ALIAS', {});
+    };
+
+    transferAlias = () => {
+        this.props.setBodyModalParamsAction('TRANSFER_ALIAS', {});
+    };
+
+    deleteAlias = () => {
+        this.props.setBodyModalParamsAction('DELETE_ALIAS', {});
+    };
+
     render () {
         return (
             <div className="page-content">
@@ -88,7 +106,13 @@ class Aliases extends React.Component {
                                             this.state.aliases &&
                                             this.state.aliases.map((el, index) => {
                                                 return (
-                                                    <Alias {...el}/>
+                                                    <Alias
+                                                        editAlias={this.editAlias}
+                                                        sellAlias={this.sellAlias}
+                                                        transferAlias={this.transferAlias}
+                                                        deleteAlias={this.deleteAlias}
+                                                        {...el}
+                                                    />
                                                 )
                                             })
                                         }
@@ -131,9 +155,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams))
+    getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
-
 
 export default connect(
     mapStateToProps,

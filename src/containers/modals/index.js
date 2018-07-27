@@ -12,6 +12,16 @@ import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
 
+
+// Aliases
+import EditAlias     from './aliases/edit-alias';
+import SellAlias     from './aliases/sell-alias';
+import TransferAlias from './aliases/transfer-alias';
+import DeleteAlias   from './aliases/delete-alias';
+
+
+
+
 class ModalWindow extends React.Component {
     constructor(props) {
         super(props);
@@ -55,11 +65,20 @@ class ModalWindow extends React.Component {
             >
                 {this.props.modalType === 'INFO_TRANSACTION'        && <InfoTransaction       />}
                 {this.props.modalType === 'INFO_LEDGER_TRANSACTION' && <InfoLedgerTransaction />}
-                {this.props.modalType === 'INFO_BLOCK'              && <InfoBlock />}
+                {this.props.modalType === 'INFO_BLOCK'              && <InfoBlock             />}
                 {this.props.modalType === 'PrivateTransactions'     && <PrivateTransactions   />}
                 {this.props.modalType === 'SEND_APOLLO'             && <SendApollo            />}
                 {this.props.modalType === 'SEND_APOLLO_PRIVATE'     && <SendApolloPrivate     />}
                 {this.props.modalType === 'ISSUE'                   && <Issue                 />}
+
+
+                {/*aliases */}
+                {this.props.modalType === 'EDIT_ALIAS'              && <EditAlias             />}
+                {this.props.modalType === 'SELL_ALIAS'              && <SellAlias             />}
+                {this.props.modalType === 'TRANSFER_ALIAS'          && <TransferAlias         />}
+                {this.props.modalType === 'DELETE_ALIAS'            && <DeleteAlias           />}
+
+
             </div>
         );
     }
