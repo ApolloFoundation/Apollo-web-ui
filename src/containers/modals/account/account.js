@@ -320,6 +320,91 @@ class InfoAccount extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 3
+                                })}>
+                                    <div className="transaction-table no-min-height">
+                                        <div className="transaction-table-body transparent">
+                                            <table>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Previous Block Hash:</td>
+                                                    <td className="word-brake">{this.props.modalData.previousBlockHash}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Payload Length:</td>
+                                                    <td className="word-brake">{this.props.modalData.payloadLength}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total Fee ATM:</td>
+                                                    <td className="word-brake">{this.props.modalData.totalFeeATM / 100000000}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Generation Signature:</td>
+                                                    <td className="word-brake">{this.props.modalData.generationSignature}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Executed Phased Transactions:</td>
+                                                    <td className="word-brake">{this.props.modalData.fullHash}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Generator Public Key:</td>
+                                                    <td className="word-brake">{this.props.modalData.generatorPublicKey}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Base Target:</td>
+                                                    <td className="word-brake">{this.props.modalData.baseTarget}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Payload Hash:</td>
+                                                    <td className="word-brake">{this.props.modalData.payloadHash}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Number of Transactions:</td>
+                                                    <td className="word-brake">{this.props.modalData.numberOfTransactions}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Block Signature:</td>
+                                                    <td className="word-brake">{this.props.modalData.blockSignature}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Version:</td>
+                                                    <td className="word-brake">{this.props.modalData.version}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total Amount ATM:</td>
+                                                    <td className="word-brake">{this.props.modalData.totalFeeATM / 100000000}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cumulative Difficulty:</td>
+                                                    <td className="word-brake">{this.props.modalData.cumulativeDifficulty}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Block:</td>
+                                                    <td className="word-brake">{this.props.modalData.block}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Height:</td>
+                                                    <td className="word-brake">{this.props.modalData.height}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Timestamp:</td>
+                                                    <td className="word-brake">{this.props.modalData.timesamp}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Generator:</td>
+                                                    <td className="word-brake">{this.props.modalData.generator}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Previous Block:</td>
+                                                    <td className="word-brake">{this.props.modalData.previousBlock}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <button type="submit" className="btn btn-right">Enter</button>
