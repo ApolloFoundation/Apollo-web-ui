@@ -369,7 +369,6 @@ function byteArrayToBigInteger(bytes, opt_startIndex = 0) {
 function isRsAccount(accountId) {
     return (dispatch, getStore) => {
         const { account } = getStore();
-        console.log('-------------isRsAccount-------------', accountId, account.constants.accountPrefix);
         return isRsAccountImpl(accountId, getRsAccountRegex(account.constants.accountPrefix));
     };
     // return isRsAccountImpl(account, NRS.constants.ACCOUNT_RS_MATCH ? NRS.constants.ACCOUNT_RS_MATCH : NRS.getRsAccountRegex("APL"));
@@ -384,7 +383,6 @@ function getRsAccountRegex(accountPrefix, withoutSeparator) {
 
 function isRsAccountImpl(accountId, regex) {
     regex = new RegExp(regex);
-    console.log('-------------isRsAccountImpl-------------', regex, accountId, regex.test(accountId))
     return regex.test(accountId);
 }
 
@@ -397,7 +395,6 @@ function convertNumericToRSAccountFormat(accountId) {
             var address = new AplAddress();
 
             if (address.set(accountId)) {
-                console.log('0000000000000', address.toString())
                 return address.toString();
             } else {
                 return "";

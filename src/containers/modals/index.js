@@ -13,6 +13,10 @@ import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
 
 
+// Account
+import InfoAccount from './account/account';
+
+
 // Aliases
 import EditAlias     from './aliases/edit-alias';
 import SellAlias     from './aliases/sell-alias';
@@ -35,9 +39,6 @@ class ModalWindow extends React.Component {
 
     handleModal(e) {
         const modalWindow = document.querySelector('.modal-window');
-
-
-        console.log(modalWindow);
 
         if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
 
@@ -70,6 +71,10 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SEND_APOLLO'             && <SendApollo            />}
                 {this.props.modalType === 'SEND_APOLLO_PRIVATE'     && <SendApolloPrivate     />}
                 {this.props.modalType === 'ISSUE'                   && <Issue                 />}
+
+
+                {/*Account*/}
+                {this.props.modalType === 'INFO_ACCOUNT'            && <InfoAccount           />}
 
 
                 {/*aliases */}

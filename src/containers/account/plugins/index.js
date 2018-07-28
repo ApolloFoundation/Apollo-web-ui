@@ -22,7 +22,6 @@ class Plugins extends React.Component {
 
     async getPlugins (reqParams) {
         const plugins = await this.props.getPluginsAction(reqParams);
-        console.log(plugins);
         this.setState({
             ...this.props,
             plugins : plugins

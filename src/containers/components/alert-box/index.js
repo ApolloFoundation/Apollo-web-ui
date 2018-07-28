@@ -11,7 +11,7 @@ const AlertBox = (props) => (
             <div
                 className={classNames({
                     'info-box': true,
-                    'success': props.alertStatus == 'success'
+                    'success': props.alertStatus === 'success'
                 })}>
                 <p>
                     {props.alertMessage}

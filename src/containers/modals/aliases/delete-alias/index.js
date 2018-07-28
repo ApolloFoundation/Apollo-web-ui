@@ -92,8 +92,6 @@ class DeleteAlias extends React.Component {
     }
 
     handleAdvancedState() {
-        console.log(this.state.advancedState);
-
         if (this.state.advancedState) {
             this.setState({
                 ...this.props,

@@ -43,8 +43,6 @@ class Ledger extends React.Component {
             privateKey: this.state.privateKey,
             sharedKey:  this.state.sharedKey
         }, () => {
-            console.log(this.state);
-
             this.getAccountLedger({
                 PublicKey: this.state.publicKey,
                 account: this.props.account,
@@ -89,8 +87,6 @@ class Ledger extends React.Component {
         if (this.state.publicKey) {
             reqParams.publicKey = this.state.publicKey
         }
-
-        console.log(reqParams);
 
         this.setState(reqParams, () => {
             this.getAccountLedger(reqParams)
@@ -137,7 +133,6 @@ class Ledger extends React.Component {
             ledgerId: ledgerId
         };
 
-        console.log(requestParams);
         const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
 
         if (ledgerEntry) {
@@ -146,7 +141,6 @@ class Ledger extends React.Component {
     }
 
     setLedgerEntryInfo(modalType, data) {
-        console.log(this);
         this.getLedgerEntry({
             account: this.props.account,
             transaction: data

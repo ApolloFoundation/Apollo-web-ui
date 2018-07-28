@@ -1,21 +1,31 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getTransactionAction} from '../../../actions/transactions/';
 import {setModalData, setBodyModalParamsAction} from '../../../modules/modals';
 import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
 import uuid from "uuid";
+import {getAccountAction} from "../../../actions/account";
+import Entry from '../../account/ledger/entry';
 
-class InfoBlock extends React.Component {
+class InfoAccount extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeTab: 0
+            activeTab: 0,
+            transactions: null,
+            account_ledger: null,
+            assets: null,
+            trades: null,
+            currencies: null,
+            goods: null,
+            aliases: null,
         };
 
         this.handleTab      = this.handleTab.bind(this);
-        this.getTransaction = this.getTransaction.bind(this);
+        // this.getTransaction = this.getTransaction.bind(this);
+        this.getAcccount    = this.getAcccount.bind(this);
+
     }
 
     handleTab(e, index) {
@@ -27,16 +37,61 @@ class InfoBlock extends React.Component {
         })
     }
 
-    async getTransaction (modalType, transactionId) {
-        const transaction = await this.props.getTransactionAction({
-            transaction: transactionId
-        });
+    componentDidMount() {
+        console.log(this.props.modalData);
+
+        this.getAcccount({
+            account:    this.props.modalData,
+            firstIndex: 0,
+            lastIndex:  99
+        })
+    }
+
+    componentWillReceiveProps() {
+        console.log(this.props.modalData);
+
+        this.getAcccount({
+            account:    this.props.modalData,
+            firstIndex: 0,
+            lastIndex:  99
+        })
+    }
+
+    // requets
+    async getAcccount (requestParams){
+        if (this.props.modalData) {
+            const accountData = this.props.getAccountAction(requestParams);
+
+            this.setState({
+                ...this.props,
+                transactions:   await accountData['TRANSACTIONS'],
+                account_ledger: await accountData['ACCOUNT_LEDGER'],
+                assets:         await accountData['ASSETS'],
+                trades:         await accountData['TRADES'],
+                currencies:     await accountData['CURRENCIES'],
+                goods:          await accountData['GOODS'],
+                aliases:        await accountData['ALIASES'],
+            }, () => {
+                console.log('--------------------------------------');
+                console.log(this.state);
+            });
+        }
+    }
+
+    async getTransaction (requestParams) {
+        const transaction = await this.props.getTransactionAction(requestParams);
 
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
         }
     }
 
+    setTransactionInfo(modalType, data) {
+        this.getTransaction({
+            account: this.props.account,
+            transaction: data
+        });
+    }
 
     // TODO: migrate timesamp, migrate account to RS
 
@@ -48,7 +103,7 @@ class InfoBlock extends React.Component {
                     <form className="modal-form">
                         <div className="form-group">
                             <div className="form-title">
-                                <p>Block {this.props.modalData.block} ({this.props.modalData.height})</p>
+                                <p>Account</p>
                             </div>
 
                             <div className="form-tabulator active">
@@ -63,13 +118,43 @@ class InfoBlock extends React.Component {
                                         "form-tab": true,
                                         "active": this.state.activeTab === 1
                                     })}>
-                                        <span className="pre">Executed phased transactions</span>
+                                        <span className="pre">Ledger</span>
                                     </a>
                                     <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
                                         "form-tab": true,
                                         "active": this.state.activeTab === 2
                                     })}>
-                                        <span className="pre">Block details</span>
+                                        <span className="pre">Assets</span>
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 2
+                                    })}>
+                                        <span className="pre">Trade history</span>
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 2
+                                    })}>
+                                        <span className="pre">Currencies</span>
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 2
+                                    })}>
+                                        <span className="pre">Marketplace</span>
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 2
+                                    })}>
+                                        <span className="pre">Aliases</span>
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 2
+                                    })}>
+                                        <span className="pre">Actions</span>
                                     </a>
 
                                 </div>
@@ -82,20 +167,20 @@ class InfoBlock extends React.Component {
                                         <div className="transaction-table-body transparent padding-vertical-padding">
                                             <table>
                                                 <thead key={uuid()}>
-                                                    <tr>
-                                                        <td>Index</td>
-                                                        <td>Date</td>
-                                                        <td>Type</td>
-                                                        <td className="align-right">Amount</td>
-                                                        <td className="align-right">Fee</td>
-                                                        <td>From</td>
-                                                        <td>To</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td>Index</td>
+                                                    <td>Date</td>
+                                                    <td>Type</td>
+                                                    <td className="align-right">Amount</td>
+                                                    <td className="align-right">Fee</td>
+                                                    <td>From</td>
+                                                    <td>To</td>
+                                                </tr>
                                                 </thead>
                                                 <tbody key={uuid()}>
                                                 {
-                                                    this.props.modalData.transactions &&
-                                                    this.props.modalData.transactions.map((el, index) => {
+                                                    this.state.transactions &&
+                                                    this.state.transactions.transactions.map((el, index) => {
 
                                                         return (
                                                             <Transaction
@@ -116,7 +201,39 @@ class InfoBlock extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 1
                                 })}>
-                                    <p>No executed phased transactions in this block.</p>
+                                    <div className="transaction-table no-min-height">
+                                        <div className="transaction-table-body transparent padding-vertical-padding">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <td>Entry</td>
+                                                    <td>Type</td>
+                                                    <td className="align-right">Change</td>
+                                                    <td>Balance</td>
+                                                    <td>Holding</td>
+                                                    <td className="align-right">Change</td>
+                                                    <td className="align-right">Balance</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody key={uuid()}>
+                                                {
+                                                    this.state.account_ledger &&
+                                                    this.state.account_ledger.entries.map((el, index) => {
+                                                        return (
+                                                            <Entry
+                                                                entry={el}
+                                                                publicKey= {this.state.serverPublicKey}
+                                                                privateKey={this.state.privateKey}
+                                                                sharedKey= {this.state.sharedKey}
+                                                                setLedgerEntryInfo={this.getLedgerEntry}
+                                                            />
+                                                        );
+                                                    })
+                                                }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className={classNames({
                                     "tab-body": true,
@@ -150,10 +267,6 @@ class InfoBlock extends React.Component {
                                                         <td>Generator Public Key:</td>
                                                         <td className="word-brake">{this.props.modalData.generatorPublicKey}</td>
                                                     </tr>
-                                                    {/*<tr>*/}
-                                                        {/*<td>Full Hash:</td>*/}
-                                                        {/*<td>{this.props.modalData.fullHash}</td>*/}
-                                                    {/*</tr>*/}
                                                     <tr>
                                                         <td>Base Target:</td>
                                                         <td className="word-brake">{this.props.modalData.baseTarget}</td>
@@ -202,10 +315,6 @@ class InfoBlock extends React.Component {
                                                         <td>Previous Block:</td>
                                                         <td className="word-brake">{this.props.modalData.previousBlock}</td>
                                                     </tr>
-                                                    {/*<tr>*/}
-                                                        {/*<td>Block Generating Time:</td>*/}
-                                                        {/*<td>{this.props.modalData.fullHash}</td>*/}
-                                                    {/*</tr>*/}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -227,9 +336,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    getTransactionAction: (data) => dispatch(getTransactionAction(data)),
+    setModalData: (data) => setModalData(data),
+    // getTransactionAction: (data) => dispatch(getTransactionAction(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+
+    // getAccountData
+    getAccountAction:  (requestParams) => dispatch(getAccountAction(requestParams)),
+
+
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoBlock);
+export default connect(mapStateToProps, mapDispatchToProps)(InfoAccount);

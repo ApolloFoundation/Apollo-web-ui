@@ -23,10 +23,6 @@ class InfoTransactions extends React.Component {
         })
     }
 
-    componentDidMount() {
-        console.log(this.props.modalData);
-    }
-
     // TODO: migrate timesamp, migrate account to RS
 
     render() {

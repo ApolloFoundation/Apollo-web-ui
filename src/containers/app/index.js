@@ -52,15 +52,10 @@ class App extends React.Component {
         this.props.isLoggedIn();
         this.props.getConstantsAction();
         this.handleModal = this.handleModal.bind(this);
-        // console.log(crypto.simpleHash(converters.stringToByteArray('test1')));
-        // console.log(converters.byteArrayToHexString(simpleHash(converters.stringToByteArray('test1'))));
-        console.log(crypto.getPrivateKey('test1'));
-
 
     }
 
     componentWillReceiveProps(newState) {
-        console.log(newState);
         this.setState({...newState});
     }
 

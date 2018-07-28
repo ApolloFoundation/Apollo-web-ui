@@ -2,6 +2,8 @@ import React from 'react';
 import uuid from 'uuid';
 import crypto from '../../../../helpers/crypto/crypto'
 import converters from '../../../../helpers/converters';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {connect} from 'react-redux'
 
 class Transaction extends React.Component {
     constructor(props) {
@@ -39,13 +41,13 @@ class Transaction extends React.Component {
             if (!this.state.transaction.encryptedTransaction) {
                 return (
                     <tr key={uuid()}>
-                        <td className="blue-link-text">
+                        <td  key={uuid()} className="blue-link-text">
                             {this.props.index}
                         </td>
-                        <td className="blue-link-text">
+                        <td  key={uuid()} className="blue-link-text">
                             <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.state.transaction.blockTimestamp}</a>
                         </td>
-                        <td>
+                        <td  key={uuid()}>
                             {
                                 this.state.transaction.attachment['version.AliasAssignment'] &&
                                 'Alias assignment'
@@ -87,16 +89,16 @@ class Transaction extends React.Component {
                                 'PRIVATE PAYMENT'
                             }
                         </td>
-                        <td className="align-right">
+                        <td  key={uuid()} className="align-right">
                             {this.state.transaction.amountATM / 100000000}
                         </td>
-                        <td className="align-right">
+                        <td  key={uuid()} className="align-right">
                             {this.state.transaction.feeATM / 100000000}
                         </td>
-                        <td className="blue-link-text">
+                        <td  key={uuid()} className="blue-link-text">
                             <a>{this.state.transaction.senderRS}</a>
                         </td>
-                        <td className="align-right">
+                        <td  key={uuid()} className="align-right">
                             <a>{this.props.transaction.recipientRS}</a>
                         </td>
                     </tr>
@@ -162,7 +164,7 @@ class Transaction extends React.Component {
                             {this.state.transaction.feeATM / 100000000}
                         </td>
                         <td className="blue-link-text">
-                            <a>{this.state.transaction.senderRS + ' -> ' + this.props.transaction.recipientRS}</a>
+                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.sender)}>{this.state.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.sender)}>{this.props.transaction.recipientRS}</a>
                         </td>
                         <td className="align-right">
                         </td>
@@ -183,4 +185,8 @@ class Transaction extends React.Component {
     }
 }
 
-export default Transaction;
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+});
+
+export default connect(null, mapDispatchToProps)(Transaction);

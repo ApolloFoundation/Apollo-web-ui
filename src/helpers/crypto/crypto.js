@@ -8,8 +8,6 @@ import axios from 'axios';
 import config from '../../config';
 const BigInteger = jsbn.BigInteger;
 
-console.log(account);
-
 
 function simpleHash(b1, b2) {
     let sha256 = CryptoJS.algo.SHA256.create();
@@ -40,7 +38,6 @@ function getAccountIdFromPublicKey(publicKey, isRsFormat) {
     account = converters.byteArrayToHexString(account);
     var slice = (converters.hexStringToByteArray(account)).slice(0, 8);
     var accountId = converters.byteArrayToBigInteger(slice).toString();
-    console.log(converters.byteArrayToBigInteger(slice));
     if (isRsFormat) {
         return converters.convertNumericToRSAccountFormat(accountId);
     } else {
@@ -82,20 +79,15 @@ function getAccountId(secretPhrase, isRsFormat) {
     return async (dispatch, getStore) => {
         // const store = getStore();
         const publicKey = await getPublicKey(converters.stringToHexString(secretPhrase));
-        console.log(publicKey);
         return await dispatch(getAccountIdFromPublicKey(publicKey, isRsFormat));
     }
 };
 
 const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(async function(resolve, reject) {
 
-        console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;');
         const accountRS = getStore().account.accountRS;
 
-        console.log(accountRS);
         const isAccount = await dispatch(getAccountId(passphrase, true));
-        console.log('accountRs: ', accountRS);
-        console.log('isAccount: ', isAccount);
         resolve(accountRS === isAccount);
     });
 

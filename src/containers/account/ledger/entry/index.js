@@ -2,6 +2,8 @@ import React from 'react';
 import uuid from 'uuid';
 import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {connect} from 'react-redux';
 
 class Entry extends React.Component {
     constructor(props) {
@@ -39,7 +41,7 @@ class Entry extends React.Component {
             return (
                 <tr key={uuid()}>
                     <td className="blue-link-text">
-                        <a onClick={this.props.setLedgerEntryInfo.bind(this, 'INFO_LEDGER_TRANSACTION', this.state.entry.ledgerId)}>{this.state.entry.timestamp}</a>
+                        <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_LEDGER_TRANSACTION', this.state.entry.ledgerId)}>{this.state.entry.timestamp}</a>
                     </td>
                     <td>
                         {this.state.entry.eventType}
@@ -66,4 +68,8 @@ class Entry extends React.Component {
     }
 }
 
-export default Entry;
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+});
+
+export default connect(null, mapDispatchToProps)(Entry);

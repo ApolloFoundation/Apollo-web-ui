@@ -97,7 +97,7 @@ class SiteHeader extends React.Component {
                                         <a className="user-account-action">
                                             <i className="zmdi zmdi-balance-wallet" />
                                         </a>
-                                        <a
+                                        <button
                                             className="user-account-action"
                                             onClick={this.setBodyModalType.bind(this, 'SETTINGS_BODY_MODAL')}
                                         >
@@ -139,7 +139,7 @@ class SiteHeader extends React.Component {
                                                     </ul>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </button>
                                         <a className="user-account-action">
                                             <i className="zmdi zmdi-help" />
                                         </a>

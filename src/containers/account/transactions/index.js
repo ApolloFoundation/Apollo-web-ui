@@ -44,8 +44,6 @@ class Transactions extends React.Component {
             privateKey: this.state.privateKey,
             sharedKey:  this.state.sharedKey
         }, () => {
-            console.log(this.state);
-
             this.getPrivateTransactions({
                 PublicKey: this.state.publicKey
             });
@@ -60,7 +58,6 @@ class Transactions extends React.Component {
         };
 
         if (data && data.publicKey) {
-            console.log(this.state);
             this.setState({
                 ...this.props,
                 publicKey:  data.publicKey,
@@ -119,13 +116,11 @@ class Transactions extends React.Component {
     }
 
     async getTransaction (requestParams) {
-        console.log(requestParams);
         const transaction = await this.props.getTransactionAction(requestParams);
 
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
         }
-        console.log(this.props);
     }
 
     setTransactionInfo(modalType, data) {

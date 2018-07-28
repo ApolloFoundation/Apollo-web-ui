@@ -17,7 +17,6 @@ class Issue extends React.Component {
         };
 
         this.props.setModalData(data);
-        console.log(data);
     }
 
     render() {

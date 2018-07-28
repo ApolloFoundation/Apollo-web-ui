@@ -16,7 +16,6 @@ class Pie extends React.Component{
         sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
         startAngle = 0;
 
-        console.log(this.props);
         return (
             <svg
                 width={ diameter }
@@ -33,9 +32,6 @@ class Pie extends React.Component{
                     percent = (slice / sum) * 100;
                     startAngle += angle;
 
-                    {
-                        console.log(self.props)
-                    }
                     return <Slice
                         key={ sliceIndex }
                         value={ slice }
@@ -123,7 +119,6 @@ class Slice extends React.Component {
 
     render() {
         const id = uuid();
-        console.log(this.props);
         return (
             <g overflow="hidden">
                 <linearGradient id={id}>
