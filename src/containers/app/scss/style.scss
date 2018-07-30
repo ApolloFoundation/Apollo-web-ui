@@ -9,6 +9,10 @@
   user-select: none;
 }
 
+button {
+  background-color: transparent;
+}
+
 input {
   width: 100%;
   border: 1px solid #E5E5E5;
@@ -42,12 +46,10 @@ input[type="number"] {
   .page-content {
     .page-body {
       position: relative;
-      top: 120px;
       display: flex;
       flex-wrap: wrap;
-      padding: 0 7.5px;
+      padding: 120px 7.5px 15px;
       z-index: 0;
-      padding-bottom: 15px;
 
       &.flexible-height {
         height: auto;

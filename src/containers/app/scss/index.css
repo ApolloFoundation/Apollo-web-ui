@@ -14,6 +14,23 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 html, body {
   background-color: #F5F5F5; }
 
+html {
+  height: 100%; }
+  html body {
+    height: 100%; }
+    html body #root {
+      height: 100%; }
+      html body #root > div {
+        height: 100%; }
+        html body #root > div .site-content {
+          height: 100%; }
+          html body #root > div .site-content > div {
+            height: 100%; }
+            html body #root > div .site-content > div .page-content {
+              height: 100%; }
+              html body #root > div .site-content > div .page-content .page-body {
+                height: 100%; }
+
 a {
   cursor: pointer;
   display: inline-block; }
@@ -585,6 +602,9 @@ textarea {
   cursor: pointer;
   user-select: none; }
 
+button {
+  background-color: transparent; }
+
 input {
   width: 100%;
   border: 1px solid #E5E5E5;
@@ -607,12 +627,10 @@ input[type="number"] {
     opacity: 1; }
   .site-content .page-content .page-body {
     position: relative;
-    top: 120px;
     display: flex;
     flex-wrap: wrap;
-    padding: 0 7.5px;
-    z-index: 0;
-    padding-bottom: 15px; }
+    padding: 120px 7.5px 15px;
+    z-index: 0; }
     .site-content .page-content .page-body.flexible-height {
       height: auto; }
     .site-content .page-content .page-body.overflow-hidden {

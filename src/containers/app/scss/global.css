@@ -12,6 +12,23 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 html, body {
   background-color: #F5F5F5; }
 
+html {
+  height: 100%; }
+  html body {
+    height: 100%; }
+    html body #root {
+      height: 100%; }
+      html body #root > div {
+        height: 100%; }
+        html body #root > div .site-content {
+          height: 100%; }
+          html body #root > div .site-content > div {
+            height: 100%; }
+            html body #root > div .site-content > div .page-content {
+              height: 100%; }
+              html body #root > div .site-content > div .page-content .page-body {
+                height: 100%; }
+
 a {
   cursor: pointer;
   display: inline-block; }

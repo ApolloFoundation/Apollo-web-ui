@@ -16,6 +16,39 @@ html, body {
   background-color: #F5F5F5;
 }
 
+html {
+  height: 100%;
+
+  body {
+    height: 100%;
+
+    #root {
+      height: 100%;
+
+      & > div {
+        height: 100%;
+
+        .site-content {
+          height: 100%;
+
+          & > div {
+            height: 100%;
+
+            .page-content {
+              height: 100%;
+
+              .page-body {
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
 a {
   cursor: pointer;
   display: inline-block;
