@@ -1,5 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import uuid from 'uuid';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+});
 
 class Block extends React.Component {
     constructor(props) {
@@ -8,7 +14,7 @@ class Block extends React.Component {
 
     render () {
         return (
-            <tr>
+            <tr key={uuid}>
                 <td className="blue-link-text">
                     <a onClick={this.props.setBlockInfo.bind(this, 'INFO_BLOCK', this.props.block.height)}>{this.props.block.height}</a>
                 </td>
@@ -19,7 +25,8 @@ class Block extends React.Component {
                 <td className="align-right">{this.props.block.totalFeeATM}</td>
                 <td className="align-right"><a>1</a>
                 </td>
-                <td className="blue-link-text"><a>{this.props.block.generatorRS}</a>
+                <td className="blue-link-text">
+                    <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.block.generator)}>{this.props.block.generatorRS}</a>
                 </td>
                 <td className="align-right"><a>{this.props.block.payloadLength} B</a>
                 </td>
@@ -30,4 +37,4 @@ class Block extends React.Component {
     }
 }
 
-export default Block;
+export default connect(null, mapDispatchToProps)(Block);

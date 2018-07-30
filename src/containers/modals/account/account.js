@@ -5,7 +5,9 @@ import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
 import uuid from "uuid";
 import {getAccountAction} from "../../../actions/account";
+import {getTransactionAction} from "../../../actions/transactions";
 import Entry from '../../account/ledger/entry';
+
 
 class InfoAccount extends React.Component {
     constructor(props) {
@@ -79,6 +81,7 @@ class InfoAccount extends React.Component {
     }
 
     async getTransaction (requestParams) {
+        console.log(this.props);
         const transaction = await this.props.getTransactionAction(requestParams);
 
         if (transaction) {
@@ -422,7 +425,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => setModalData(data),
-    // getTransactionAction: (data) => dispatch(getTransactionAction(data)),
+    getTransactionAction: (data) => dispatch(getTransactionAction(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 
     // getAccountData
