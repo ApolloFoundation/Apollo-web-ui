@@ -28,7 +28,30 @@ export function getTransferHistory(reqParams) {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getAssetTransfers',
-                includeAssetInf: true,
+                includeAssetInfo: true,
+                random: 0.004660718106320294,
+                ...reqParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data;
+                }
+                console.log('Error: ', res.data.errorCode);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }
+}
+
+export function getTradesHistoryAction(reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getTrades',
+                includeAssetInfo: true,
                 random: 0.004660718106320294,
                 ...reqParams
             }
