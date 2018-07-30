@@ -10,7 +10,7 @@ class Sidebar extends React.Component {
         return (
             <div className="menu-bar">
                 <div className="site-logo">
-                    <img/>
+                    <img src="./apollo-logo.svg"/>
                 </div>
                 <nav>
                     <ul>

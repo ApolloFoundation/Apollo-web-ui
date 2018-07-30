@@ -210,7 +210,6 @@ textarea {
 
   }
   .input-group {
-
     &.offset-top {
       padding-top: 25px;
     }
@@ -306,6 +305,9 @@ textarea {
 .input-group {
   display: table-row;
 
+  .row {
+    display: flex !important;
+  }
   &.lighten {
     input {
       background-color: #fff;
@@ -629,6 +631,7 @@ textarea {
 
     .full-box-item {
       flex-wrap: wrap;
+      flex-direction: column;
 
       .box {
         display: flex;

@@ -205,6 +205,8 @@ textarea {
 
 .input-group {
   display: table-row; }
+  .input-group .row {
+    display: flex !important; }
   .input-group.lighten input {
     background-color: #fff; }
   .input-group.middle > * {
@@ -407,7 +409,8 @@ textarea {
     .card .full-box.offset {
       padding: 20px 0px 14px; }
     .card .full-box .full-box-item {
-      flex-wrap: wrap; }
+      flex-wrap: wrap;
+      flex-direction: column; }
       .card .full-box .full-box-item .box {
         display: flex;
         justify-content: space-around; }

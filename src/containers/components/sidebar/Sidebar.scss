@@ -10,9 +10,12 @@
 
   .site-logo {
     height: 100px;
+    display: flex;
 
     img {
-
+      margin: auto;
+      height: 32px;
+      width: 32px;
     }
   }
   nav {

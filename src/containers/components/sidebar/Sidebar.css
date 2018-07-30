@@ -8,7 +8,12 @@
   box-shadow: 0 0 40px 11px rgba(0, 0, 0, 0.6);
   z-index: 2; }
   .menu-bar .site-logo {
-    height: 100px; }
+    height: 100px;
+    display: flex; }
+    .menu-bar .site-logo img {
+      margin: auto;
+      height: 32px;
+      width: 32px; }
   .menu-bar nav ul li {
     position: relative; }
     .menu-bar nav ul li .zmdi {
