@@ -34,6 +34,10 @@ function makeLoginReq(dispatch, requestParams) {
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getAccount',
+            includeAssets: true,
+            includeCurrencies: true,
+            includeLessors: true,
+            includeEffectiveBalance: true,
             ...requestParams
         }
     })

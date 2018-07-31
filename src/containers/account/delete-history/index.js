@@ -6,7 +6,7 @@ class DeleteHistory extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Asset exchange'}
+                    pageTitle={'Delete History'}
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">

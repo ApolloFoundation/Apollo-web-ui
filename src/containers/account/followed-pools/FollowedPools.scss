@@ -36,11 +36,13 @@
 }
 
 svg {
-  display: inline-block;
+  //display: inline-block;
   vertical-align: middle;
   transform-origin: 50% 50%;
   animation: scale .6s;
   margin: 10px;
+  display: block;
+  float: right;
 
   text {
     font-family: Helvetica, Arial, sans-serif;
@@ -62,5 +64,9 @@ svg {
 }
 
 .disabled {
-  opacity: 0.4;
+  display: none !important;
+}
+
+.displayedText {
+  display: block !important;
 }

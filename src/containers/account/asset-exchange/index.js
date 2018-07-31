@@ -1,211 +1,263 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
+import {getAssetAction} from "../../../actions/assets";
+import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
+
+const mapStateToProps = state => ({
+   amountATM: state.account.amountATM
+});
+
+const mapDispatchToProps = dispatch => ({
+    getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams))
+});
 
 class AssetExchange extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.getAsset = this.getAsset.bind(this);
+    }
+
+    state = {
+        asset: null
+    };
+
+    componentDidMount() {
+        console.log(this.props.match.params.asset);
+        this.getAsset(this.props.match.params.asset);
+
+    }
+
+    async getAsset(assetID) {
+        const asset = await this.props.getAssetAction({asset: assetID});
+
+        if (asset) {
+            this.setState({
+                ...this.props,
+                asset: asset,
+            })
+        }
+        console.log(asset);
+    }
+
+    handleSellFormSubmit = () => {
+
+    };
+
+    handleBuyFormSubmit = (values) => {
+        console.log(values);
+    };
+
     render () {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Asset exchange'}
                 />
-                <div className="page-body container-fluid">
+                {
+                    this.state.asset &&
+                    <div className="page-body container-fluid">
 
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="card header ballance card-tiny medium-padding">
-                                <div className="container">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="card-title big">KKT</div>
-                                        </div>
-                                        <div className="col-md-6 flex">
-                                            <div className="card-title align-middle">Krusty Krab Tokens (KKT)</div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="card header ballance card-tiny medium-padding">
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="card-title big">{this.state.asset.name}</div>
+                                            </div>
+                                            <div className="col-md-6 flex">
+                                                <div className="card-title align-middle">{this.state.asset.description}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="card ballance card-medium medium-padding">
-                                <div className="form-group">
-                                    <div className="form-title">
-                                        <p>Buy KKT</p>
-                                        <div className="form-sub-title">
-                                            balance: <strong>8,686 NXT</strong>
+                                <div className="card ballance card-medium medium-padding">
+                                    <Form
+                                        onSubmit={(values) => this.handleBuyFormSubmit(values)}
+                                        render={({ submitForm, values, addValue, removeValue }) => (
+                                            <form className="form-group" onSubmit={submitForm}>
+                                                <div className="form-title">
+                                                    <p>Buy {this.state.asset.name}</p>
+                                                    <div className="form-sub-title">
+                                                        balance: <strong>{this.props.amountATM} ATM</strong>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Quantity</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Text field="quantityATM" placeholder='Quantity' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Price</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Text field="PriceATM" placeholder='Price' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Total</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Text field="totalATM" placeholder='Total' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Fee</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Text field="feeATM" placeholder='Fee' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label></label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <button className="btn blue">Buy (NXT > {this.state.asset.name})</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        )}
+                                    />
+                                </div>
+                                <div className="card ballance card-tiny medium-padding">
+                                    <div className="form-group">
+                                        <div className="form-title">
+                                            <p>Offers to sell {this.state.asset.name}</p>
                                         </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label>Quantity</label>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <input type="select"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label>Price</label>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <input type="select"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label>Total</label>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <input type="select"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label>Fee</label>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <input type="select"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label></label>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <button className="btn blue">Buy (NXT > KKT)</button>
-                                            </div>
+                                        <div className="info-box simple">
+                                            <p>No buy offersfor this aaset.</p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="card ballance card-tiny medium-padding">
-                                <div className="form-group">
-                                    <div className="form-title">
-                                        <p>Offers to sell KKT</p>
-                                    </div>
-                                    <div className="info-box simple">
-                                        <p>No buy offersfor this aaset.</p>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </div>
-                        <div className="col-md-6">
-                            <div className="card header assets card-tiny medium-padding">
-                                <div className="full-box full">
-                                    <div className="full-box-item">
-                                        <div className='box'>
-                                            <div className="card-title bold">Account:</div>
-                                            <div className="card-title description">APL-NVY4-HNR6-2T9C-7GBNW</div>
-                                        </div>
-                                        <div className='box'>
-                                            <div className="card-title bold">Asset ID:</div>
-                                            <div className="card-title description">15278477198234166574</div>
-                                        </div>
-                                    </div>
-                                    <div className="full-box-item">
-                                        <div className='box'>
-                                            <div className="card-title bold">Quantity:</div>
-                                            <div className="card-title description">1,000</div>
-                                        </div>
-                                        <div className='box'>
-                                            <div className="card-title bold">Asset decimals:</div>
-                                            <div className="card-title description">2</div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                            <div className="card assets card-medium medium-padding">
-                                <div className="form-group">
-                                    <div className="form-title">
-                                        <p>Sell KKT</p>
-                                        <div className="form-sub-title">
-                                            balance: <strong>8,686 NXT</strong>
-                                        </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label>Quantity</label>
+                            <div className="col-md-6">
+                                <div className="card header assets card-tiny medium-padding">
+                                    <div className="full-box full">
+                                        <div className="full-box-item">
+                                            <div className='box'>
+                                                <div className="card-title bold">Account:</div>
+                                                <div className="card-title description">{this.state.asset.accountRS}</div>
                                             </div>
-                                            <div className="col-md-7">
-                                                <input type="select"/>
+                                            <div className='box'>
+                                                <div className="card-title bold">Asset ID:</div>
+                                                <div className="card-title description">{this.state.asset.account}</div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label>Price</label>
+                                        <div className="full-box-item">
+                                            <div className='box'>
+                                                <div className="card-title bold">Quantity:</div>
+                                                <div className="card-title description">{this.state.asset.quantityATU}</div>
                                             </div>
-                                            <div className="col-md-7">
-                                                <input type="select"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label>Total</label>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <input type="select"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label>Fee</label>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <input type="select"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <label></label>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <button className="btn blue">Sell (KKT > NXT)</button>
+                                            <div className='box'>
+                                                <div className="card-title bold">{this.state.asset.decimals}</div>
+                                                <div className="card-title description">2</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="card assets card-tiny medium-padding">
-                                <div className="form-group">
-                                    <div className="form-title">
-                                        <p>Offers to buy KKT</p>
-                                    </div>
-                                    <div className="info-box simple">
-                                        <p>No buy offersfor this aaset.</p>
+                                <div className="card assets card-medium medium-padding">
+                                    <Form
+                                        onSubmit={(values) => this.handleSellFormSubmit(values)}
+                                        render={({ submitForm, values, addValue, removeValue }) => (
+                                            <form className="form-group" onSubmit={submitForm}>
+                                                <div className="form-title">
+                                                    <p>Sell {this.state.asset.name}</p>
+                                                    <div className="form-sub-title">
+                                                        balance: <strong>{this.props.amountATM} ATM</strong>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Quantity</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Text field="quantityATM" placeholder='Quantity' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Price</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Text field="PriceATM" placeholder='Price' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Total</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Text field="totalATM" placeholder='Total' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Fee</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Text field="feeATM" placeholder='Fee' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label></label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <button className="btn blue">Sell ({this.state.asset.name} > NXT)</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        )}
+                                    />
+                                </div>
+                                <div className="card assets card-tiny medium-padding">
+                                    <div className="form-group">
+                                        <div className="form-title">
+                                            <p>Offers to buy {this.state.asset.name}</p>
+                                        </div>
+                                        <div className="info-box simple">
+                                            <p>No buy offersfor this aaset.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    {/*<div className="scheduled-transactions">*/}
-                        {/*<div className="approval-request white-space">*/}
-                            {/*<div className="alert">You don`t have any asst in your bookmark list yet. Click on "Add*/}
-                                {/*asset" to add asset.*/}
-                            {/*</div>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                </div>
+                }
             </div>
         );
     }
 }
 
-export default AssetExchange;
+export default connect(mapStateToProps, mapDispatchToProps)(AssetExchange);

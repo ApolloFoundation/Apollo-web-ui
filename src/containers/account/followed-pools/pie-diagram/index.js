@@ -16,6 +16,7 @@ class Pie extends React.Component{
         sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
         startAngle = 0;
 
+        console.log(this.props);
         return (
             <svg
                 width={ diameter }
@@ -24,7 +25,7 @@ class Pie extends React.Component{
                 xmlns="http://www.w3.org/2000/svg"
                 version="1.1"
             >
-                { this.props.data.map(function (slice, sliceIndex) {
+                { this.props.data.map((slice, sliceIndex) => {
                     var angle, nextAngle, percent;
 
                     nextAngle = startAngle;
@@ -33,6 +34,7 @@ class Pie extends React.Component{
                     startAngle += angle;
 
                     return <Slice
+                        vote={this.props.votes[sliceIndex]}
                         key={ sliceIndex }
                         value={ slice }
                         percent={ self.props.percent }
@@ -80,7 +82,6 @@ class Slice extends React.Component {
     }
 
     draw(s) {
-
         var p = this.props, path = [], a, b, c, self = this, step;
 
         step = p.angle / (37.5 / 2);
@@ -118,12 +119,14 @@ class Slice extends React.Component {
     }
 
     render() {
+        console.log(this.props);
+
         const id = uuid();
         return (
             <g overflow="hidden">
                 <linearGradient id={id}>
-                    <stop stop-color={this.props.startColorGradient}/>
-                    <stop offset='100%' stop-color={this.props.stopColorGradient}/>
+                    <stop stopColor={this.props.startColorGradient}/>
+                    <stop offset='100%' stopColor={this.props.stopColorGradient}/>
                 </linearGradient>
                 <path
                     d={this.state.path}
@@ -132,9 +135,15 @@ class Slice extends React.Component {
                     strokeWidth={10}
                 />
                 {this.props.showLabel && this.props.percentValue > 5 ?
-                    <text x={this.state.x} y={this.state.y} fill="#fff" textAnchor="middle">
-                        {this.props.percent ? this.props.percentValue + '%' : this.props.value}
-                    </text>
+                    [
+                        <text className="displayedText" x={this.state.x} y={this.state.y} fill="#fff" textAnchor="middle">
+                            {this.props.vote}
+                        </text>,
+                        <text className="displayedText" x={this.state.x} y={this.state.y} fill="#fff" textAnchor="middle">
+                            {this.props.percent ? this.props.percentValue + '%' : this.props.value}
+                        </text>
+                    ]
+
                     : null}
             </g>
         );

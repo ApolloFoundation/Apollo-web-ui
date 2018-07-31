@@ -98,7 +98,7 @@ class TradeHistory extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Transfer History'}
+                    pageTitle={'Trade History'}
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">

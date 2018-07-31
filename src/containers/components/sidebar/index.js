@@ -34,7 +34,6 @@ class Sidebar extends React.Component {
                             <a>Asset system</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><Link to="/asset-exchange">Asset exchange</Link></li>
                                     <li><Link to="/trade-history">Trade history</Link></li>
                                     <li><Link to="/transfer-history">Transfer history</Link></li>
                                     <li><Link to="/delete-history">Delete history</Link></li>

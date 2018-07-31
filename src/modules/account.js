@@ -10,6 +10,7 @@ const initialState = {
     constants: null,
 	account: null,
     accountRS: null,
+    assetBalances: null,
     balanceATM: null,
     description: null,
     forgedBalanceATM: null,

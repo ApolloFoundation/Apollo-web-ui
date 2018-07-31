@@ -21,11 +21,12 @@
     width: 100%; }
 
 svg {
-  display: inline-block;
   vertical-align: middle;
   transform-origin: 50% 50%;
   animation: scale .6s;
-  margin: 10px; }
+  margin: 10px;
+  display: block;
+  float: right; }
   svg text {
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bolder;
@@ -44,4 +45,7 @@ svg {
   transform: translateX(-50%); }
 
 .disabled {
-  opacity: 0.4; }
+  display: none !important; }
+
+.displayedText {
+  display: block !important; }

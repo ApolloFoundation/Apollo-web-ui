@@ -4,6 +4,7 @@ import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class TradeHistoryItem extends React.Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class TradeHistoryItem extends React.Component {
             return (
                 <tr key={uuid()}>
                     <td className="blue-link-text">
-                        <a onClick={this.props.setTransaction.bind(this, this.state.transfer.name)}>{this.state.transfer.name}</a>
+                        <Link to={'/asset-exchange/' + this.state.transfer.asset}>{this.state.transfer.name}</Link>
                     </td>
                     <td>
                         {this.state.transfer.timestamp}

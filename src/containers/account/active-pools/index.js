@@ -2,50 +2,109 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getAliasesAction} from "../../../actions/aliases";
 import SiteHeader from '../../components/site-header'
-import classNames from "classnames";
+import {getPoolsAction} from '../../../actions/pools';
+import PoolItem from './pool-item';
+import uuid from "uuid";
+import {getTransactionAction} from "../../../actions/transactions";
+import {setBodyModalParamsAction} from "../../../modules/modals";
+import {Link} from 'react-router-dom';
+
+const mapStateToProps = state => ({
+    account: state.account.account
+});
+
+const mapDispatchToProps = dispatch => ({
+    getPoolsAction: (reqParams) => dispatch(getPoolsAction(reqParams)),
+    getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
+    getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+});
+
 
 class ActivePools extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            aliases: [],
             firstIndex: 0,
             lastIndex: 14,
-            page: 1
+            page: 1,
+            activePools: null,
+            finishedPools: null
         };
 
+        this.getActivePools   = this.getActivePools.bind(this);
+        this.getFinishedPools = this.getFinishedPools.bind(this);
+        this.getTransaction   = this.getTransaction.bind(this);
     }
 
     componentDidMount() {
-        this.getAliases({
-            account:    this.props.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex:  this.state.lastIndex,
+        this.getActivePools({
+            firstIndex: 0,
+            lastIndex:  2,
         });
+        this.getFinishedPools({
+            firstIndex: 0,
+            lastIndex:  9,
+        });
+
     }
 
     componentWillReceiveProps(newState) {
-        this.setState({...newState},() => {
-            this.getAliases({
-                account:    this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex:  this.state.lastIndex,
-            });
+        this.getActivePools({
+            firstIndex: 0,
+            lastIndex:  2,
+        });
+        this.getFinishedPools({
+            firstIndex: 0,
+            lastIndex:  9,
         });
     }
 
-    async getAliases(reqParams){
-        const aliases = await this.props.getAliasesAction(reqParams);
+    async getActivePools(reqParams){
+        reqParams = {
+            ...reqParams,
+            includeFinished: false,
+        };
 
-        if (aliases) {
+        const activePools = await this.props.getPoolsAction(reqParams);
+
+        if (activePools) {
             this.setState({
                 ...this.props,
-                aliases: aliases.aliases
+                activePools: activePools.polls
             });
         }
     }
 
+    async getFinishedPools(reqParams){
+        reqParams = {
+            ...reqParams,
+            finishedOnly: true
+        };
+
+        const finishedPools = await this.props.getPoolsAction(reqParams);
+
+        if (finishedPools) {
+            this.setState({
+                ...this.props,
+                finishedPools: finishedPools.polls
+            });
+        }
+    }
+
+    async getTransaction(data) {
+        const reqParams = {
+            transaction: data,
+            account: this.props.account
+        };
+
+        const transaction = await this.props.getTransactionAction(reqParams);
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+        }
+
+    }
 
     render () {
         return (
@@ -68,31 +127,19 @@ class ActivePools extends React.Component {
                                         <td className="align-right">Actions</td>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className="blue-link-text">
-                                                <a>Lambo or Pay off Mortgage</a>
-                                            </td>
-                                            <td className={""}>
-                                                Lambo/Rari or Pay off Mortgage
-                                            </td>
-                                            <td className={""}>
-                                                <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                            </td>
-                                            <td className={""}>
-                                                6/30/2018  23:18:09
-                                            </td>
-                                            <td className={""}>
-                                                3,989
-                                            </td>
-                                            <td className={"align-right"}>
-                                                <div className="btn-box inline">
-                                                    <a className="btn primary blue">Vote</a>
-                                                    <a className="btn primary blue">Follow</a>
-                                                    <a className="btn primary blue">View</a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <tbody  key={uuid()}>
+                                        {
+                                            this.state.activePools &&
+                                            this.state.activePools.map((el, index) => {
+                                                return (
+                                                    <PoolItem
+                                                        {...el}
+                                                        activePools
+                                                        getTransaction={this.getTransaction}
+                                                    />
+                                                );
+                                            })
+                                        }
                                     </tbody>
                                 </table>
 
@@ -116,253 +163,22 @@ class ActivePools extends React.Component {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="blue-link-text">
-                                                    <a>Lambo or Pay off Mortgage</a>
-                                                </td>
-                                                <td className={""}>
-                                                    Lambo/Rari or Pay off Mortgage
-                                                </td>
-                                                <td className={""}>
-                                                    <a>APL-KUM3-5N3W-FZRJ-GSZX9</a>
-                                                </td>
-                                                <td className={""}>
-                                                    6/30/2018  23:18:09
-                                                </td>
-                                                <td className={""}>
-                                                    3,989
-                                                </td>
-                                                <td className={"align-right"}>
-                                                    <div className="btn-box inline">
-                                                        <a className="btn primary blue">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
+                                            {
+                                                this.state.finishedPools &&
+                                                this.state.finishedPools.map((el, index) => {
+                                                    return (
+                                                        <PoolItem
+                                                            {...el}
+                                                            activePools
+                                                            getTransaction={this.getTransaction}
+                                                        />
+                                                    );
+                                                })
+                                            }
                                         </tbody>
                                     </table>
                                     <div className="btn-box">
-                                        <a className="btn btn-right blue" >View more</a>
+                                        <Link to="/finished-pools" className="btn btn-right blue" >View more</Link>
                                     </div>
                                 </div>
                             </div>
@@ -373,15 +189,6 @@ class ActivePools extends React.Component {
         );
     }
 }
-
-const mapStateToProps = state => ({
-    account: state.account.account
-});
-
-const mapDispatchToProps = dispatch => ({
-    getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams))
-});
-
 
 export default connect(
     mapStateToProps,

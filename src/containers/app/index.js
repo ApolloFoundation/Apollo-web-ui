@@ -41,6 +41,7 @@ import TradeHistory from '../account/trade-history'
 import TransferHistory from '../account/transfer-history'
 import Currencies from '../account/currencies'
 import MyCurrencies from '../account/my-shuffling'
+import FinishedPools from '../account/finished-pools'
 
 import style from './App.css';
 import converters from "../../helpers/converters";
@@ -100,8 +101,8 @@ class App extends React.Component {
                             <Route exact path="/ledger" component={Ledger}/>
                             <Route exact path="/blocks" component={Blocks}/>
 
+                            <Route path="/followed-pools/:poll" component={FollowedPools}/>
                             <Route exact path="/messenger" component={Messenger}/>
-                            <Route exact path="/followed-pools" component={FollowedPools}/>
                             <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
                             <Route exact path="/currencies" component={Currencies}/>
                             <Route exact path="/marketplace" component={Marketplace}/>
@@ -110,7 +111,7 @@ class App extends React.Component {
                             <Route exact path="/my-shuffling" component={MyCurrencies}/>
                             <Route exact path="/account-properties" component={AccountProperties}/>
                             <Route exact path="/approval-request" component={ApprovalRequest}/>
-                            <Route exact path="/asset-exchange" component={AssetExchange}/>
+                            <Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
                             <Route exact path="/aliases" component={Aliases}/>
                             <Route exact path="/delete-history" component={DeleteHistory}/>
                             <Route exact path="/funding-monitors" component={FundingMonitors}/>
@@ -122,6 +123,7 @@ class App extends React.Component {
                             <Route exact path="/settings" component={Settings}/>
                             <Route exact path="/trade-history" component={TradeHistory}/>
                             <Route exact path="/transfer-history" component={TransferHistory}/>
+                            <Route exact path="/finished-pools" component={FinishedPools}/>
                         </div>}
                     </Switch>
                 </main>
