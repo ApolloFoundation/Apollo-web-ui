@@ -81,3 +81,45 @@ export function getPollVotesAction (reqParams) {
     }
 }
 
+export function getMyVotesAction (reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl , {
+            params: {
+                requestType: 'getBlockchainTransactions',
+                ...reqParams,
+                subtype: 3,
+                type: 1,
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorMessage) {
+                    return res.data;
+                }
+                return res.data.errorMessage
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+}
+
+export function getVoteAction (reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl , {
+            params: {
+                requestType: 'getPoll',
+                ...reqParams,
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorMessage) {
+                    return res.data;
+                }
+                return res.data.errorMessage
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+}
+

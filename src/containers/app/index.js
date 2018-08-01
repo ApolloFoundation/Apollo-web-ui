@@ -42,6 +42,7 @@ import TransferHistory from '../account/transfer-history'
 import Currencies from '../account/currencies'
 import MyCurrencies from '../account/my-shuffling'
 import FinishedPools from '../account/finished-pools'
+import MyVotes from '../account/my-votes'
 
 import style from './App.css';
 import converters from "../../helpers/converters";
@@ -102,6 +103,7 @@ class App extends React.Component {
                             <Route exact path="/blocks" component={Blocks}/>
 
                             <Route path="/followed-pools/:poll" component={FollowedPools}/>
+                            <Route exact path="/my-votes" component={MyVotes}/>
                             <Route exact path="/messenger" component={Messenger}/>
                             <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
                             <Route exact path="/currencies" component={Currencies}/>

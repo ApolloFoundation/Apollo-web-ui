@@ -69,7 +69,7 @@ class Sidebar extends React.Component {
                                 <ul>
                                     <li><Link to="/active-pools">Active pools</Link></li>
                                     <li><a>Followed pools</a></li>
-                                    <li><a>My votes</a></li>
+                                    <li><Link to="/my-votes">My votes</Link></li>
                                     <li><a>My pools</a></li>
                                     <li><a>Create pool</a></li>
                                 </ul>
