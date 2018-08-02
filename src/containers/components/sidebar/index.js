@@ -81,7 +81,7 @@ class Sidebar extends React.Component {
                             <a>Data storage</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Search</a></li>
+                                    <li><Link to="/data-storage">Search</Link></li>
                                     <li><a>File upload</a></li>
                                 </ul>
                             </div>

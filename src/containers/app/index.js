@@ -44,6 +44,7 @@ import MyCurrencies from '../account/my-shuffling'
 import FinishedPools from '../account/finished-pools'
 import MyVotes from '../account/my-votes'
 import MyPolls from '../account/my-polls'
+import DataStorage from "../account/datastorage";
 
 import style from './App.css';
 import converters from "../../helpers/converters";
@@ -128,6 +129,7 @@ class App extends React.Component {
                             <Route exact path="/trade-history" component={TradeHistory}/>
                             <Route exact path="/transfer-history" component={TransferHistory}/>
                             <Route exact path="/finished-pools" component={FinishedPools}/>
+                            <Route exact path="/data-storage" component={DataStorage}/>
                         </div>}
                     </Switch>
                 </main>

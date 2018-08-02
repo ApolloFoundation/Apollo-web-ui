@@ -4,6 +4,24 @@ import CircleFigure from './circle-figure'
 import { connect } from 'react-redux';
 import {setMopalType} from '../../../modules/modals';
 
+
+const mapStateToProps = state => ({
+    account: state.account.account,
+    accountRS: state.account.accountRS,
+    balanceATM: state.account.balanceATM,
+    description: state.account.description,
+    forgedBalanceATM: state.account.forgedBalanceATM,
+    name: state.account.name,
+    publicKey: state.account.publicKey,
+    requestProcessingTime: state.account.requestProcessingTime,
+    unconfirmedBalanceATM: state.account.unconfirmedBalanceATM
+});
+
+const mapDispatchToProps = dispatch => ({
+    setMopalType: (type) => dispatch(setMopalType(type))
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Dashboard extends React.Component {
     render () {
         return (
@@ -170,20 +188,4 @@ class Dashboard extends React.Component {
 }
 
 
-const mapStateToProps = state => ({
-    account: state.account.account,
-    accountRS: state.account.accountRS,
-    balanceATM: state.account.balanceATM,
-    description: state.account.description,
-    forgedBalanceATM: state.account.forgedBalanceATM,
-    name: state.account.name,
-    publicKey: state.account.publicKey,
-    requestProcessingTime: state.account.requestProcessingTime,
-    unconfirmedBalanceATM: state.account.unconfirmedBalanceATM
-});
-
-const mapDispatchToProps = dispatch => ({
-    setMopalType: (type) => dispatch(setMopalType(type))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default Dashboard;
