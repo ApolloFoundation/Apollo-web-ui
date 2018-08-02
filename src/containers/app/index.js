@@ -112,7 +112,7 @@ class App extends React.Component {
                             <Route exact path="/currencies" component={Currencies}/>
                             <Route exact path="/marketplace" component={Marketplace}/>
                             <Route exact path="/active-pools" component={ActivePools}/>
-                            <Route exact path="/exchange-booth" component={ExchangeBooth}/>
+                            <Route path="/exchange-booth/:currency" component={ExchangeBooth}/>
                             <Route exact path="/my-shuffling" component={MyCurrencies}/>
                             <Route exact path="/account-properties" component={AccountProperties}/>
                             <Route exact path="/approval-request" component={ApprovalRequest}/>

@@ -52,7 +52,6 @@ class Sidebar extends React.Component {
                             <Link to="/currencies">Currency system</Link>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><Link to="/exchange-booth">Exchange booth</Link></li>
                                     <li><Link to="/currencies">Currencies</Link></li>
                                     <li><Link to="/my-shuffling">Exchange history</Link></li>
                                     <li><Link to="/transfer-history">Transfer history</Link></li>

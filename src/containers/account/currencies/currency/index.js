@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Currency = (props) => (
     <tr>
@@ -9,11 +10,11 @@ const Currency = (props) => (
         </td>
         <td>{props.name}</td>
         <td className="blue-link-text"><a>{props.aliasURI}</a></td>
-        <td className="align-right">{props.currentSupply}</td>
-        <td className="align-right">{props.maxSupply}</td>
+        <td className="align-right">{props.currentSupply / 100000000}</td>
+        <td className="align-right">{props.maxSupply / 100000000}</td>
         <td className="align-right">
             <div className="btn-box inline">
-                <a className="btn primary blue">Exchange</a>
+                <Link to={"/exchange-booth/" + props.code} className="btn primary blue">Exchange</Link>
                 <a className="btn primary blue">Reserve</a>
             </div>
         </td>
