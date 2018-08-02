@@ -37,7 +37,7 @@ class Pie extends React.Component{
                         vote={this.props.votes[sliceIndex]}
                         key={ sliceIndex }
                         value={ slice }
-                        percent={ self.props.percent }
+                        percent={ true }
                         percentValue={ percent.toFixed(1) }
                         startAngle={ nextAngle }
                         angle={ angle }
@@ -132,17 +132,12 @@ class Slice extends React.Component {
                     d={this.state.path}
                     fill={'url(#' + id.toString() + ')'}
                     stroke='white'
-                    strokeWidth={10}
+                    strokeWidth={3}
                 />
                 {this.props.showLabel && this.props.percentValue > 5 ?
-                    [
-                        <text className="displayedText" x={this.state.x} y={this.state.y} fill="#fff" textAnchor="middle">
-                            {this.props.vote}
-                        </text>,
-                        <text className="displayedText" x={this.state.x} y={this.state.y} fill="#fff" textAnchor="middle">
-                            {this.props.percent ? this.props.percentValue + '%' : this.props.value}
-                        </text>
-                    ]
+                    <text className="displayedText" x={this.state.x} y={this.state.y} fill="#fff" textAnchor="middle">
+                        {this.props.percent ? this.props.percentValue + '%' : this.props.value}
+                    </text>
 
                     : null}
             </g>

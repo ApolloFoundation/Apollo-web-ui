@@ -48,4 +48,5 @@ svg {
   display: none !important; }
 
 .displayedText {
-  display: block !important; }
+  display: block !important;
+  text-shadow: 1px 1px 3px #000; }

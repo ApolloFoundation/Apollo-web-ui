@@ -126,6 +126,9 @@ class FollowedVotes extends React.Component {
             }, {
                 startColorGradient: '#00788C',
                 stopColorGradient : '#00A0B4'
+            }, {
+                startColorGradient: '#008C46',
+                stopColorGradient : '#00B45A'
             }
         ];
 
@@ -247,6 +250,7 @@ class FollowedVotes extends React.Component {
                                                                     <table>
                                                                         <thead>
                                                                             <tr>
+                                                                                <td>Label</td>
                                                                                 <td>Voter</td>
                                                                                 <td className="align-right">Result</td>
                                                                                 <td className="align-right">Weight</td>
@@ -255,8 +259,10 @@ class FollowedVotes extends React.Component {
                                                                         <tbody>
                                                                             {
                                                                                 this.state.pollResults.options.map((el, index) => {
+                                                                                    console.log(colors[index]);
                                                                                     return (
                                                                                         <tr>
+                                                                                            <td><div className="color-box" style={{background: 'linear-gradient(' + colors[index].startColorGradient + ', ' + colors[index].stopColorGradient + ')'}}/></td>
                                                                                             <td>{el}</td>
                                                                                             <td className="align-right">{this.state.pollResults.results[index].result}</td>
                                                                                             <td className="align-right">{this.state.pollResults.results[index].weight}</td>
