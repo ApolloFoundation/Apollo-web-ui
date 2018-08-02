@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
+import config from '../../../../config';
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
@@ -22,6 +23,7 @@ const DataStorageItem  = props => (
                 <a
                     onClick={() => props.editAlias}
                     className="btn primary blue"
+                    href={config.api.serverUrl + "requestType=downloadTaggedData&transaction=" + props.transaction + "&retrieve=true"}
                 >
                     Download
                 </a>
