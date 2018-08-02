@@ -24,6 +24,7 @@ export function getTransactionsAction(requestParams) {
 
 export function getTransactionAction(requestParams) {
     return dispatch => {
+        console.log(requestParams);
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: 'getTransaction',
@@ -32,6 +33,7 @@ export function getTransactionAction(requestParams) {
         })
             .then((res) => {
                 if (!res.data.errorCode) {
+                    console.log(res.data);
                     return res.data
                 }
             })

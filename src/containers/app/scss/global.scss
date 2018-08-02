@@ -305,9 +305,6 @@ textarea {
 .input-group {
   display: table-row;
 
-  .row {
-    display: flex !important;
-  }
   &.lighten {
     input {
       background-color: #fff;
@@ -317,6 +314,33 @@ textarea {
     & > * {
       vertical-align: middle;
     }
+  }
+  &.search {
+    i {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    input {
+      border-right: 0;
+    }
+    .input-icon {
+      border: 1px solid #E5E5E5;
+      background: #E5E5E5;
+      font-size: 18px;
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+  .input-icon {
+    width: 32px;
+    display: table-cell;
+
+    i {
+      margin: auto;
+    }
+  }
+  .row {
+    display: flex !important;
   }
   label {
     display: table-cell;
@@ -441,6 +465,10 @@ textarea {
   &.blue {
     background: #00C8FF;
     color: #fff;
+  }
+  &.gray-lighten  {
+    background: #E5E5E5;
+    color: black;
   }
   &.round {
     border-radius: 0;

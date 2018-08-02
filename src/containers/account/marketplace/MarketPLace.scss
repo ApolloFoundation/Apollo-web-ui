@@ -26,32 +26,6 @@
     & > * {
       display: table-cell;
     }
-    input {
-
-    }
-    .input-icon {
-      width: 32px;
-
-      i {
-        margin: auto;
-      }
-    }
-    &.search {
-      i {
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-      input {
-        border-right: 0;
-      }
-      .input-icon {
-        border: 1px solid #E5E5E5;
-        background: #E5E5E5;
-        font-size: 18px;
-        vertical-align: middle;
-        text-align: center;
-      }
-    }
   }
   &.product-box {
     background-position: center;

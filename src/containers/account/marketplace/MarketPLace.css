@@ -15,21 +15,6 @@
   margin-bottom: 15px; }
   .card .input-group > * {
     display: table-cell; }
-  .card .input-group .input-icon {
-    width: 32px; }
-    .card .input-group .input-icon i {
-      margin: auto; }
-  .card .input-group.search i {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0; }
-  .card .input-group.search input {
-    border-right: 0; }
-  .card .input-group.search .input-icon {
-    border: 1px solid #E5E5E5;
-    background: #E5E5E5;
-    font-size: 18px;
-    vertical-align: middle;
-    text-align: center; }
 
 .card.product-box {
   background-position: center;

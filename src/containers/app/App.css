@@ -205,12 +205,28 @@ textarea {
 
 .input-group {
   display: table-row; }
-  .input-group .row {
-    display: flex !important; }
   .input-group.lighten input {
     background-color: #fff; }
   .input-group.middle > * {
     vertical-align: middle; }
+  .input-group.search i {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0; }
+  .input-group.search input {
+    border-right: 0; }
+  .input-group.search .input-icon {
+    border: 1px solid #E5E5E5;
+    background: #E5E5E5;
+    font-size: 18px;
+    vertical-align: middle;
+    text-align: center; }
+  .input-group .input-icon {
+    width: 32px;
+    display: table-cell; }
+    .input-group .input-icon i {
+      margin: auto; }
+  .input-group .row {
+    display: flex !important; }
   .input-group label {
     display: table-cell;
     color: #777777;
@@ -302,6 +318,9 @@ textarea {
   .btn.blue {
     background: #00C8FF;
     color: #fff; }
+  .btn.gray-lighten {
+    background: #E5E5E5;
+    color: black; }
   .btn.round {
     border-radius: 0; }
     .btn.round.round-top-left {
