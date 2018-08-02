@@ -476,8 +476,7 @@ textarea {
     width: 100%;
     background-color: #FFFFFF;
     border-radius: 3px;
-    position: relative;
-    min-height: 100%; }
+    position: relative; }
     .transaction-table .transaction-table-body.offset-bottom {
       padding-bottom: 75px; }
     .transaction-table .transaction-table-body.padding-only-top {
