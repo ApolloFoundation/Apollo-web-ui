@@ -105,8 +105,9 @@ class Sidebar extends React.Component {
                             <a>Coin shuffling</a>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Active Shuffling</a></li>
-                                    <li><a>My shuffling</a></li>
+                                    <li><Link to="/active-shuffling">Active Shuffling</Link></li>
+                                    <li><Link to="/finished-shuffling">Finished Shuffling</Link></li>
+                                    <li><Link to="/my-shuffling">My shuffling</Link></li>
                                     <li><a>Create shuffling</a></li>
                                 </ul>
                             </div>

@@ -56,7 +56,7 @@ class MyShufling extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Currency system / My shuffling'}
+                    pageTitle={'My shuffling'}
                 />
                 <div className="page-body container-fluid">
                     <div className="approval-request white-space">

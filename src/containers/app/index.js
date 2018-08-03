@@ -45,6 +45,8 @@ import FinishedPools from '../account/finished-pools'
 import MyVotes from '../account/my-votes'
 import MyPolls from '../account/my-polls'
 import DataStorage from "../account/datastorage";
+import ActiveShufflings   from "../account/active-shufflings";
+import FinishedShufflings from "../account/finished-shufflings";
 
 import style from './App.css';
 import converters from "../../helpers/converters";
@@ -112,6 +114,7 @@ class App extends React.Component {
                             <Route exact path="/currencies" component={Currencies}/>
                             <Route exact path="/marketplace" component={Marketplace}/>
                             <Route exact path="/active-pools" component={ActivePools}/>
+                            <Route exact path="/active-shuffling" component={ActiveShufflings}/>
                             <Route path="/exchange-booth/:currency" component={ExchangeBooth}/>
                             <Route exact path="/my-shuffling" component={MyCurrencies}/>
                             <Route exact path="/account-properties" component={AccountProperties}/>
@@ -130,6 +133,7 @@ class App extends React.Component {
                             <Route exact path="/transfer-history" component={TransferHistory}/>
                             <Route exact path="/finished-pools" component={FinishedPools}/>
                             <Route exact path="/data-storage" component={DataStorage}/>
+                            <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                         </div>}
                     </Switch>
                 </main>
