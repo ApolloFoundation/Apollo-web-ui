@@ -43,7 +43,6 @@ class Currencies extends React.Component {
         });
     }
 
-
     onPaginate = (page) => {
         this.setState({
             page: page,

@@ -13,8 +13,21 @@
   .chat-item {
     background: #fff;
     padding: 0 35px;
-    margin-bottom: -1px;
+    
+    &.active {
+      background-color: #666666;
+      
+      .chat-box-item {
+        border-bottom: 1px solid #666;
 
+        .chat-box-rs {
+          color: #fff;
+        }
+        .chat-date {
+          color: #fff;
+        }
+      }
+    }
     .chat-box-item {
       padding: 20px 0;
       border-bottom: 1px solid #E5E5E5;

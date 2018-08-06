@@ -8,8 +8,15 @@
     height: 100%; }
   .messenger .chat-item {
     background: #fff;
-    padding: 0 35px;
-    margin-bottom: -1px; }
+    padding: 0 35px; }
+    .messenger .chat-item.active {
+      background-color: #666666; }
+      .messenger .chat-item.active .chat-box-item {
+        border-bottom: 1px solid #666; }
+        .messenger .chat-item.active .chat-box-item .chat-box-rs {
+          color: #fff; }
+        .messenger .chat-item.active .chat-box-item .chat-date {
+          color: #fff; }
     .messenger .chat-item .chat-box-item {
       padding: 20px 0;
       border-bottom: 1px solid #E5E5E5; }

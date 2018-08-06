@@ -349,6 +349,8 @@ textarea {
   position: relative;
   z-index: 3;
   padding: 20px 30px; }
+  .card.scroll {
+    overflow-y: scroll; }
   .card.transparent {
     background: transparent; }
   .card.card-flexible {

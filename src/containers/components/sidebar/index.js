@@ -115,10 +115,10 @@ class Sidebar extends React.Component {
                         <li>
                             <i className="zmdi zmdi-comments left"></i>
                             <i className="zmdi zmdi-chevron-right right"></i>
-                            <Link to='/messenger'>Messages</Link>
+                            <Link to='/my-messages' >Messages</Link>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a>Chat</a></li>
+                                    <li><Link to="/messenger">Chat</Link></li>
                                 </ul>
                             </div>
                         </li>

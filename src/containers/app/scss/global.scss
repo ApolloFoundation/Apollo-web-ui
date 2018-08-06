@@ -508,6 +508,9 @@ textarea {
   z-index: 3;
   padding: 20px 30px;
 
+  &.scroll {
+    overflow-y: scroll;
+  }
   &.transparent {
     background: transparent;
   }

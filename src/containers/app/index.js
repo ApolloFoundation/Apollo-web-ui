@@ -47,6 +47,7 @@ import MyPolls from '../account/my-polls'
 import DataStorage from "../account/datastorage";
 import ActiveShufflings   from "../account/active-shufflings";
 import FinishedShufflings from "../account/finished-shufflings";
+import MyMessages from "../account/my-messages";
 
 import style from './App.css';
 import converters from "../../helpers/converters";
@@ -134,6 +135,7 @@ class App extends React.Component {
                             <Route exact path="/finished-pools" component={FinishedPools}/>
                             <Route exact path="/data-storage" component={DataStorage}/>
                             <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
+                            <Route exact path="/my-messages" component={MyMessages}/>
                         </div>}
                     </Switch>
                 </main>
