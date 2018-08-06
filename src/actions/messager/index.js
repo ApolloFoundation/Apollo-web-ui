@@ -14,6 +14,24 @@ export function getMessages (reqParams) {
             }
         })
             .then((res) => {
+                if(!res.data.errorCode) {
+                    return res.data
+                }
+            })
+    }
+}
+
+export function getChats (reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getBlockchainTransactions',
+                type: 1,
+                subtype: 0,
+                ...reqParams
+            }
+        })
+            .then((res) => {
                 if(!res.data.errorMessage) {
                     return dispatch(getMessengerChats(res.data.transactions));
                 }

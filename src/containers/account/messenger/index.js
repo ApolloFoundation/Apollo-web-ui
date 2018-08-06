@@ -2,7 +2,7 @@ import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
 import classNames from "classnames";
-import {getMessages, getMessage} from "../../../actions/messager";
+import {getChats, getMessage} from "../../../actions/messager";
 
 import './Messenger.css';
 
@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+    getChats: (reqParams) => dispatch(getChats(reqParams)),
     getMessage: (transaction) => dispatch(getMessage(transaction)),
 });
 
@@ -29,20 +29,20 @@ class Messenger extends React.Component {
 
     componentDidMount () {
         if (this.props.account) {
-            this.getMessages({
+            this.getChats({
                 account: this.props.account,
             });
         }
     };
 
     componentWillReceiveProps(newState) {
-        this.getMessages({
+        this.getChats({
             account: this.props.account,
         });
     }
 
-    getMessages = async (reqParams) => {
-        const chats = await this.props.getMessages(reqParams);
+    getChats = async (reqParams) => {
+        const chats = await this.props.getChats(reqParams);
 
         if (chats) {
             this.setState({
