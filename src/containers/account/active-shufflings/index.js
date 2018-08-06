@@ -33,7 +33,6 @@ class ActiveShufflings extends React.Component {
     getActiveShfflings   = async (reqParams) => {
         const activeShuffling =  await this.props.getActiveShfflings(reqParams);
 
-        console.log(activeShuffling);
         if (activeShuffling) {
             this.setState({
                 ...this.state,

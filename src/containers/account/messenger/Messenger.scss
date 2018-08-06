@@ -54,13 +54,17 @@
         flex-direction: column-reverse;
         justify-content: flex-start;
         height: 100%;
+        overflow-y: scroll;
+        padding: 0 30px;
 
         .message-box {
           display: block;
           margin-bottom: 0;
 
+          &:last-child {
+            padding-top: 20px;
+          }
           &.incoming {
-
             .message {
               background: #E5E5E5;
               float: left;
@@ -76,7 +80,6 @@
             }
           }
           &.outgoing {
-
             .message {
               background: #00C8FF;
               float: right;
@@ -84,28 +87,34 @@
               &:after {
                 background: #00C8FF;
               }
+
+              &:before {
+                display: none !important;
+              }
+              &:after {
+                background: #00C8FF;
+              }
               p {
                 color: #fff;
-
-                &:before {
-                  display: none !important;
-                }
-                &:after {
-                  background: #00C8FF;
-                }
               }
             }
           }
           &.encrypted {
+            &.incoming, &.outgoing {
+              .message {
+                & * {
+                  color: black !important;
+                }
+              }
+            }
             .message {
-
-              background: #666666;
+              background: #E5E5E5;
 
               &:before {
-                background: #666666 !important;
+                background: #E5E5E5 !important;
               }
               &:after {
-                background: #666666 !important;
+                background: #E5E5E5 !important;
               }
               p {
                 &:before {
@@ -127,6 +136,17 @@
             position: relative;
             border-radius: 6px;
 
+
+            p {
+              & > * {
+                vertical-align:  middle;
+              }
+              a.action {
+                i {
+                  font-size: 18px;
+                }
+              }
+            }
             &:after {
               content: '';
               display: block;
@@ -138,13 +158,13 @@
               width: 20px;
               transform: rotateZ(0deg) translate(-12px, 5px) rotateY(40deg) rotateX(59deg);
             }
-            :before {
+            &:before {
               content: '';
               display: block;
               position: absolute;
               bottom: 0;
               right: 100%;
-              background-color: #666666;
+              background-color: #E5E5E5;
               height: 20px;
               width: 20px;
               transform: rotateZ(-45deg) translate(5px, 12px) rotateY(40deg) rotateX(59deg);
@@ -154,6 +174,7 @@
       }
       .compose-message-box {
         height: auto;
+        padding: 0 30px 20px 30px ;
 
         .top-bar {
           width: 100%;

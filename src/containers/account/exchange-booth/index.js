@@ -26,7 +26,6 @@ class ExchangeBooth extends React.Component {
         const currency = await this.props.getCurrencyAction(reqParams);
 
         if (currency) {
-            console.log(currency);
 
             this.setState({
                 ...this.state,

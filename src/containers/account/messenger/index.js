@@ -2,7 +2,7 @@ import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
 import classNames from "classnames";
-import {getMessages} from "../../../actions/messager";
+import {getMessages, getMessage} from "../../../actions/messager";
 
 import './Messenger.css';
 
@@ -11,7 +11,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMessages: (reqParams) => dispatch(getMessages(reqParams))
+    getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+    getMessage: (transaction) => dispatch(getMessage(transaction)),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -21,28 +22,22 @@ class Messenger extends React.Component {
     };
 
     state = {
-        page: 1,
-        firstIndex: 0,
-        lastIndex: 14,
         chats: null,
         selectedChat: null,
         chatHistory: null
     };
 
     componentDidMount () {
-        this.getMessages({
-            account: this.props.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
-        });
+        if (this.props.account) {
+            this.getMessages({
+                account: this.props.account,
+            });
+        }
     };
 
     componentWillReceiveProps(newState) {
-        console.log(this.props.account);
         this.getMessages({
             account: this.props.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
         });
     }
 
@@ -52,19 +47,26 @@ class Messenger extends React.Component {
         if (chats) {
             this.setState({
                 ...this.state,
-                chats: chats.transactions
+                chats: chats,
             });
         }
     };
 
     handleChatSelect = (index) => {
+
         this.setState({
             ...this.state,
-            selectedChat: index
+            selectedChat: index,
+            chatHistory: this.state.chats[index].messages
         })
     };
 
     render (){
+        if (this.state.chatHistory) {
+            this.state.chatHistory.map((el, index) => {
+                this.props.getMessage(el)
+            })
+        }
         return (
             <div className="page-content">
                 <SiteHeader
@@ -89,7 +91,7 @@ class Messenger extends React.Component {
                                                     >
                                                         <div className="chat-box-item">
                                                             <div className="chat-box-rs">
-                                                                {el.senderRS}
+                                                                {el.accountRS}
                                                             </div>
                                                             <div className="chat-date">
                                                                 {el.timestamp}
@@ -106,40 +108,41 @@ class Messenger extends React.Component {
                             <div className="col-md-8">
                                 <div className="right-bar">
                                     {
-                                        this.state.chatHistory && this.state.selectedChat &&
-                                        <div className="card card-full-screen">
+                                        this.state.chatHistory &&
+                                        <div className="card card-full-screen no-padding">
                                             <div className="chatting-box">
 
-                                                <div className="message-box outgoing">
-                                                    <div className="message">
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                                {
+                                                    this.state.chatHistory.map((el, index) => {
+                                                        const message = this.props.getMessage(el);
 
-                                                <div className="message-box outgoing encrypted">
-                                                    <div className="message">
-                                                        <p>Message is encrypted.</p>
-                                                    </div>
-                                                </div>
-
-                                                <div className="message-box incoming encrypted">
-                                                    <div className="message">
-                                                        <p>Message is encrypted.</p>
-                                                    </div>
-                                                </div>
-                                                <div className="message-box incoming">
-                                                    <div className="message">
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                <div className="date-separator">
-
-                                                </div>
+                                                        return (
+                                                            <div className={classNames({
+                                                                'message-box': true,
+                                                                'encrypted' : message.format === 'encrypted',
+                                                                'outgoing': this.props.account === el.sender,
+                                                                'incoming': this.props.account !== el.sender,
+                                                            })}>
+                                                                <div className="message">
+                                                                    <p>
+                                                                        {
+                                                                            message.message
+                                                                        }
+                                                                        {
+                                                                            message.format === 'encrypted' &&
+                                                                                [
+                                                                                    <a className='action'>
+                                                                                        < i className="zmdi zmdi-lock-open" />
+                                                                                    </a>,
+                                                                                    <span className="message-text">&nbsp;&nbsp;Message is encrypted</span>
+                                                                                ]
+                                                                        }
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })
+                                                }
 
                                             </div>
                                             <div className="compose-message-box">

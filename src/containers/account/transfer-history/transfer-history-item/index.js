@@ -15,8 +15,6 @@ class TransferHistoryItem extends React.Component {
     }
 
     render () {
-        console.log(this.props);
-
         if (this.state.transfer) {
             return (
                 <tr key={uuid()}>

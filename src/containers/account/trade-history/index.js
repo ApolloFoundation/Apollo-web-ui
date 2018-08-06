@@ -45,8 +45,6 @@ class TradeHistory extends React.Component {
     }
 
     componentWillReceiveProps() {
-
-        console.log(this.props.accountRS);
         this.getTradesHistory({
             account: this.props.accountRS,
             firstIndex: this.state.firstIndex,
@@ -70,8 +68,6 @@ class TradeHistory extends React.Component {
 
     async getTradesHistory(requestParams) {
         const trades = await this.props.getTradesHistoryAction(requestParams);
-
-        console.log(requestParams);
 
         if (trades) {
             this.setState({

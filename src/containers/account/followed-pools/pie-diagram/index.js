@@ -16,7 +16,6 @@ class Pie extends React.Component{
         sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
         startAngle = 0;
 
-        console.log(this.props);
         return (
             <svg
                 width={ diameter }
@@ -119,8 +118,6 @@ class Slice extends React.Component {
     }
 
     render() {
-        console.log(this.props);
-
         const id = uuid();
         return (
             <g overflow="hidden">

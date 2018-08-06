@@ -92,8 +92,6 @@ const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(a
     });
 
 
-
-
 function getSharedSecretJava(key1, key2) {
     var sharedKey;
 
@@ -197,11 +195,68 @@ function aesDecrypt(ivCiphertext, options) {
     };
 }
 
+function tryToDecryptMessage(message) {
+    // if (_decryptedTransactions && _decryptedTransactions[message.transaction]) {
+    //     if (_decryptedTransactions[message.transaction].encryptedMessage) {
+    //         return _decryptedTransactions[message.transaction].encryptedMessage; // cache is saved differently by the info modal vs the messages table
+    //     }
+    // }
+    return (dispatch, getState) => {
+        const account = getState().account;
+        try {
+            if (!message.attachment.encryptedMessage.data) {
+                return console.log('empty message');
+            } else {
+                var decoded = decryptNote(message.attachment.encryptedMessage.data, {
+                    "nonce": message.attachment.encryptedMessage.nonce,
+                    "account": account.account,
+                    "isText": message.attachment.encryptedMessage.isText,
+                    "isCompressed": message.attachment.encryptedMessage.isCompressed
+                });
+            }
+            return decoded;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+};
+
+function decryptNote(message, options, secretPhrase) {
+
+    try {
+        if (!options.sharedKey) {
+            if (!options.privateKey) {
+                if (secretPhrase) {
+                    options.privateKey = converters.hexStringToByteArray(getPrivateKey(secretPhrase));
+                }
+            }
+
+            if (!options.publicKey) {
+                options.publicKey = converters.hexStringToByteArray(getPublicKey(options.account, true));
+            }
+        }
+        if (options.nonce) {
+            options.nonce = converters.hexStringToByteArray(options.nonce);
+        }
+
+        return decryptData(converters.hexStringToByteArray(message), options);
+    } catch (err) {
+        if (err.errorCode && err.errorCode < 3) {
+            throw err;
+        } else {
+            console.log(err.message);
+        }
+    }
+};
+
+
 export default {
     getSharedSecretJava,
     decryptData,
     getPrivateKey,
     validatePassphrase,
+    tryToDecryptMessage
 }
 
 

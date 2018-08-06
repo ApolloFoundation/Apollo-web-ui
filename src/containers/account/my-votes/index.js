@@ -52,13 +52,7 @@ class MyVotes extends React.Component {
     }
 
     async getMyVotes(reqParams){
-        console.log(reqParams);
-
         const myVotes = await this.props.getMyVotesAction(reqParams);
-
-        console.log(myVotes.transactions);
-
-
 
         if (myVotes && myVotes.transactions) {
 
@@ -71,16 +65,12 @@ class MyVotes extends React.Component {
                     this.setState({
                         ...this.props,
                         myVotes: data
-                    }, () => {
-                        console.log(this.state)
                     });
                 })
         }
     }
 
     async getVote(reqParams){
-        console.log(reqParams);
-
         const poll = await this.props.getVoteAction(reqParams);
 
         if (poll) {

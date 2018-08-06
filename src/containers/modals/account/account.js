@@ -40,7 +40,6 @@ class InfoAccount extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.modalData);
 
         this.getAcccount({
             account:    this.props.modalData,
@@ -50,7 +49,6 @@ class InfoAccount extends React.Component {
     }
 
     componentWillReceiveProps() {
-        console.log(this.props.modalData);
 
         this.getAcccount({
             account:    this.props.modalData,
@@ -73,15 +71,11 @@ class InfoAccount extends React.Component {
                 currencies:     await accountData['CURRENCIES'],
                 goods:          await accountData['GOODS'],
                 aliases:        await accountData['ALIASES'],
-            }, () => {
-                console.log('--------------------------------------');
-                console.log(this.state);
             });
         }
     }
 
     async getTransaction (requestParams) {
-        console.log(this.props);
         const transaction = await this.props.getTransactionAction(requestParams);
 
         if (transaction) {

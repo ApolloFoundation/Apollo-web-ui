@@ -53,7 +53,6 @@ class MyAssets extends React.Component {
     }
 
     async getAssets() {
-        console.log(this.props.assetBalances);
         if (this.props.assetBalances) {
             let assets = this.props.assetBalances.map(async (el, index) => {
                 return this.props.getAssetAction({
@@ -62,7 +61,6 @@ class MyAssets extends React.Component {
             });
             Promise.all(assets)
                 .then((data) => {
-                    console.log(data);
 
                     this.setState({
                         ...this.props,

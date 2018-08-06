@@ -47,14 +47,10 @@ class MyMessages extends React.Component {
     getMessages = async (reqParams) => {
         const messages = await this.props.getMessages(reqParams);
 
-        console.log(messages);
         if (messages && this.props.account) {
-            console.log(messages);
             this.setState({
                 ...this.state,
                 messages: messages.transactions
-            }, () => {
-                console.log(this.state);
             })
         }
     };

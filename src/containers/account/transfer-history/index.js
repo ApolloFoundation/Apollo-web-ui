@@ -46,7 +46,6 @@ class ScheduledTransactions extends React.Component {
 
     componentWillReceiveProps() {
 
-        console.log(this.props.accountRS);
         this.getAssets({
             account: this.props.accountRS,
             firstIndex: this.state.firstIndex,
@@ -70,8 +69,6 @@ class ScheduledTransactions extends React.Component {
 
     async getAssets(requestParams) {
         const transfers = await this.props.getTransferHistory(requestParams);
-
-        console.log(requestParams);
 
         if (transfers) {
             this.setState({

@@ -403,19 +403,48 @@ function convertNumericToRSAccountFormat(accountId) {
     }
 }
 
-export default {
-    stringToByteArray: stringToByteArray,
-    wordArrayToByteArrayImpl: wordArrayToByteArrayImpl,
-    byteArrayToWordArray: byteArrayToWordArray,
-    byteArrayToHexString: byteArrayToHexString,
-    shortArrayToHexString: shortArrayToHexString,
-    byteArrayToShortArray: byteArrayToShortArray,
-    hexStringToInt8ByteArray : hexStringToInt8ByteArray,
-    hexStringToByteArray: hexStringToByteArray,
-    byteArrayToBigInteger: byteArrayToBigInteger,
-    stringToHexString: stringToHexString,
-    convertNumericToRSAccountFormat : convertNumericToRSAccountFormat,
-    wordArrayToByteArray: wordArrayToByteArray,
-    hexStringToString: hexStringToString
+function convertFromHex16(hex) {
+    var j;
+    var hexes = hex.match(/.{1,4}/g) || [];
+    var back = "";
+    for (j = 0; j < hexes.length; j++) {
+        back += String.fromCharCode(parseInt(hexes[j], 16));
+    }
 
+    return back;
+};
+
+function addEllipsis(str, length) {
+    if (!str || str == "" || str.length <= length) {
+        return str;
+    }
+    return str.substring(0, length) + "...";
+};
+
+function convertFromHex8(hex) {
+    var hexStr = hex.toString(); //force conversion
+    var str = '';
+    for (var i = 0; i < hexStr.length; i += 2) {
+        str += String.fromCharCode(parseInt(hexStr.substr(i, 2), 16));
+    }
+    return str;
+};
+
+export default {
+    stringToByteArray,
+    wordArrayToByteArrayImpl,
+    byteArrayToWordArray,
+    byteArrayToHexString,
+    shortArrayToHexString,
+    byteArrayToShortArray,
+    hexStringToInt8ByteArray,
+    hexStringToByteArray,
+    byteArrayToBigInteger,
+    stringToHexString,
+    convertNumericToRSAccountFormat,
+    wordArrayToByteArray,
+    hexStringToString,
+    convertFromHex16,
+    addEllipsis,
+    convertFromHex8
 }

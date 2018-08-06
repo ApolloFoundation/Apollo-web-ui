@@ -62,8 +62,6 @@ class FollowedVotes extends React.Component {
             this.setState({
                 ...this.state,
                 poll: poll
-            }, () => {
-                console.log(this.state);
             });
         }
     }
@@ -81,8 +79,6 @@ class FollowedVotes extends React.Component {
                 ...this.state,
                 votes: votes.votes,
                 allVotesNumber: allVotesNumber.votes.length
-            }, () => {
-                console.log(this.state);
             });
         }
     }
@@ -94,8 +90,6 @@ class FollowedVotes extends React.Component {
             this.setState({
                 ...this.state,
                 pollResults: pollResults
-            }, () => {
-                console.log(this.state);
             });
         }
     }
@@ -259,7 +253,7 @@ class FollowedVotes extends React.Component {
                                                                         <tbody>
                                                                             {
                                                                                 this.state.pollResults.options.map((el, index) => {
-                                                                                    console.log(colors[index]);
+
                                                                                     return (
                                                                                         <tr>
                                                                                             <td><div className="color-box" style={{background: 'linear-gradient(' + colors[index].startColorGradient + ', ' + colors[index].stopColorGradient + ')'}}/></td>

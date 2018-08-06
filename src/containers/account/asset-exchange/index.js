@@ -24,9 +24,7 @@ class AssetExchange extends React.Component {
     };
 
     componentDidMount() {
-        console.log(this.props.match.params.asset);
         this.getAsset(this.props.match.params.asset);
-
     }
 
     async getAsset(assetID) {
@@ -38,7 +36,6 @@ class AssetExchange extends React.Component {
                 asset: asset,
             })
         }
-        console.log(asset);
     }
 
     handleSellFormSubmit = () => {

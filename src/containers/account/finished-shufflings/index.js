@@ -41,8 +41,6 @@ class FinishedShufflings extends React.Component {
     getFinishedShfflings   = async (reqParams) => {
         const finishedShufflings =  await this.props.getFinishedShfflings(reqParams);
 
-        console.log(finishedShufflings);
-
         if (finishedShufflings) {
             this.setState({
                 ...this.state,
