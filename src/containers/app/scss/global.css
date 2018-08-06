@@ -149,7 +149,7 @@ textarea {
   .form-group .input-group.display-block {
     display: block; }
   .form-group .input-group.tabled {
-    display: table; }
+    display: table !important; }
   .form-group .input-group.align-middle > * {
     vertical-align: middle; }
   .form-group .input-group.align-middle label {
@@ -203,6 +203,8 @@ textarea {
 
 .input-group {
   display: table-row; }
+  .input-group.tabled {
+    display: table !important; }
   .input-group.lighten input {
     background-color: #fff; }
   .input-group.middle > * {
@@ -355,6 +357,8 @@ textarea {
     min-height: auto;
     height: auto;
     max-height: 800px; }
+  .card.full-height {
+    height: 100%; }
   .card.card-full-screen {
     height: 100%;
     min-height: auto !important; }

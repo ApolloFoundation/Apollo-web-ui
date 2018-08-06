@@ -7,23 +7,29 @@ const MarketplaceItem = (props) => (
         'marketplace': true,
         'card-flexible': true,
         'market': true,
+        'full-height': props.fullHeight,
         'tall-card': props.tall
     })}>
         {
             !props.tall &&
                 [
-                    <div className="card-avatar" ></div>
+                    <div
+                        className="card-avatar"
+                        style={{
+                            backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                        }}
+                    />
                     ,
                     <div className="price-box">
                         <div className='price-amount'>
                             <div className="amount">
-                                200
+                                {props.priceATM / 100000000}
                             </div>
                             <div className="currency">
                                 APL
                             </div>
                         </div>
-                        <div className="user">LittleRocketMan</div>
+                        <div className="user">{props.name}</div>
                     </div>
                 ]
 
@@ -31,12 +37,17 @@ const MarketplaceItem = (props) => (
         {
             props.tall &&
             [
-                <div className="card-avatar" ></div>
+                <div
+                    className="card-avatar"
+                    style={{
+                        backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                    }}
+                />
                 ,
                 <div className="price-box">
                     <div className='price-amount'>
                         <div className="amount">
-                            200
+                            {props.priceATM / 100000000}
                         </div>
                         <div className="currency">
                             APL
@@ -44,16 +55,14 @@ const MarketplaceItem = (props) => (
                     </div>
                     <div className="cargo-description">
                         <div className="cargo-title">
-                            LittleRocketMan
+                            {props.name}
                         </div>
-                        <div className="cargo-description">
-                            1315373125663124546
-                        </div>
+                        <div className="cargo-description" dangerouslySetInnerHTML={{__html: props.description.length < 100 ? props.description : props.description.slice(0, 100) + '&hellip;'}} />
                     </div>
                     <div className="cargo-owner-box">
                         <div className="cargo-owner">
                             <span>
-                                APL-KUM3-5N3W-FZRJ-GSZX9
+                                {props.sellerRS}
                             </span>
 
                             <a className="btn primary blue">

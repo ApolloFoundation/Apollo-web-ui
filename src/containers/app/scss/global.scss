@@ -220,7 +220,7 @@ textarea {
       display: block;
     }
     &.tabled {
-      display: table;
+      display: table !important;
     }
     &.align-middle {
       & > * {
@@ -305,6 +305,9 @@ textarea {
 .input-group {
   display: table-row;
 
+  &.tabled {
+    display: table !important;
+  }
   &.lighten {
     input {
       background-color: #fff;
@@ -518,6 +521,9 @@ textarea {
     min-height: auto;
     height: auto;
     max-height: 800px;
+  }
+  &.full-height {
+    height: 100%;
   }
   &.card-full-screen {
     height: 100%;
