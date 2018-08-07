@@ -151,19 +151,19 @@ class Marketplace extends React.Component {
                             <div className="col-md-3">
                                 <div className="card fll-height header ballance">
                                     <div className="full-box full">
-                                        <div className="full-box-item">
+                                        <div className="full-box-item direction-row">
                                             <span className="card-title align-left">Purchased products</span>
                                             <span className="card-title align-right">{this.state.getDGSPurchasesCount}</span>
                                         </div>
-                                        <div className="full-box-item">
+                                        <div className="full-box-item direction-row">
                                             <p className="card-title align-left">Products available</p>
                                             <p className="card-title align-right">{this.state.getDGSGoodsCount}</p>
                                         </div>
-                                        <div className="full-box-item">
+                                        <div className="full-box-item direction-row">
                                             <p className="card-title align-left">Total purchases</p>
                                             <p className="card-title align-right">{this.state.getDGSPurchaseCount}</p>
                                         </div>
-                                        <div className="full-box-item">
+                                        <div className="full-box-item direction-row">
                                             <p className="card-title  align-left">Total tags</p>
                                             <p className="card-title  align-right">{this.state.getDGSTagCount}</p>
                                         </div>

@@ -439,6 +439,8 @@ textarea {
     .card .full-box .full-box-item {
       flex-wrap: wrap;
       flex-direction: column; }
+      .card .full-box .full-box-item.direction-row {
+        flex-direction: row; }
       .card .full-box .full-box-item .box {
         display: flex;
         justify-content: space-around; }

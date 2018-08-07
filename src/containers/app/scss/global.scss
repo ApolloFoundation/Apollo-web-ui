@@ -676,6 +676,9 @@ textarea {
       flex-wrap: wrap;
       flex-direction: column;
 
+      &.direction-row {
+        flex-direction: row;
+      }
       .box {
         display: flex;
         justify-content: space-around;
