@@ -425,7 +425,20 @@ textarea {
   border-radius: 3px;
 
   &.absolute {
+    position: absolute;
+  }
+  &.icon-button {
+    border: 1px solid #101010;
+    padding: 3px 8px !important;
 
+    i {
+      padding-top: 1px;
+      font-size: 20px;
+      color: #000;
+    }
+  }
+  &.transparent {
+    background-color: transparent !important;
   }
   &.btn-simple {
     color: #BBBBBB;

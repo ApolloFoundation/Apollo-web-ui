@@ -286,6 +286,17 @@ textarea {
   color: #fff;
   user-select: none;
   border-radius: 3px; }
+  .btn.absolute {
+    position: absolute; }
+  .btn.icon-button {
+    border: 1px solid #101010;
+    padding: 3px 8px !important; }
+    .btn.icon-button i {
+      padding-top: 1px;
+      font-size: 20px;
+      color: #000; }
+  .btn.transparent {
+    background-color: transparent !important; }
   .btn.btn-simple {
     color: #BBBBBB;
     font-family: "Roboto-Regular";

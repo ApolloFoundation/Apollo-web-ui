@@ -37,6 +37,25 @@
     padding: 0;
     border-radius: 3px;
 
+    &.card-fluid {
+      padding: 35px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+
+      .left-bar {
+        display: flex;
+      }
+      .card-avatar {
+        height: 100px;
+        width: 150px;
+        border-radius: 6px;
+        margin: auto 0;
+      }
+      .price-box {
+        height: auto;
+      }
+    }
     &.filters {
       display: flex;
       flex-direction: column;
@@ -88,7 +107,9 @@
       }
     }
     .search-bar {
-
+      .row {
+        margin: 0 -7.5px !important;
+      }
     }
     .filters-bar {
       height: 100%;

@@ -57,11 +57,16 @@ class SiteHeader extends React.Component {
                                     <h1 className="title">{this.props.pageTitle}</h1>
                                     {
                                         this.props.showPrivateTransactions &&
+                                        !this.props.children &&
                                         <a
                                             className="btn primary" onClick={this.props.setMopalType.bind(this, 'PrivateTransactions')}
                                         >
                                             Show private transactions
                                         </a>
+                                    }
+                                    {
+                                        this.props.children &&
+                                        this.props.children
                                     }
                                     <div className="breadcrumbs">
                                         <a>Apollo Wallet /</a>

@@ -48,6 +48,7 @@ import DataStorage from "../account/datastorage";
 import ActiveShufflings   from "../account/active-shufflings";
 import FinishedShufflings from "../account/finished-shufflings";
 import MyMessages from "../account/my-messages";
+import MarketplaceSearch from "../account/marketplace-search";
 
 import style from './App.css';
 import converters from "../../helpers/converters";
@@ -113,7 +114,8 @@ class App extends React.Component {
                             <Route exact path="/messenger" component={Messenger}/>
                             <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
                             <Route exact path="/currencies" component={Currencies}/>
-                            <Route exact path="/marketplace" component={Marketplace}/>
+                            <Route exact path="/marketplace/" component={Marketplace}/>
+                            <Route exact path="/marketplace/:tag" component={MarketplaceSearch}/>
                             <Route exact path="/active-pools" component={ActivePools}/>
                             <Route exact path="/active-shuffling" component={ActiveShufflings}/>
                             <Route path="/exchange-booth/:currency" component={ExchangeBooth}/>

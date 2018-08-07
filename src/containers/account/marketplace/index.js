@@ -31,7 +31,9 @@ class Marketplace extends React.Component {
         super(props);
 
         this.state = {
-            market: []
+            market: [],
+            page: 1,
+            isShowMore: false
         };
     }
 
@@ -134,6 +136,48 @@ class Marketplace extends React.Component {
             })
         }
     };
+
+    showMoreController = () => {
+        this.setState({
+            ...this.state,
+            isShowMore: !this.state.isShowMore
+        }, () => {
+            if (this.state.isShowMore){
+                this.setState({
+                    page: 1,
+                    firstIndex: 0,
+                    lastIndex: 31
+                })
+                this.getDGSTags({
+                    firstIndex: 0,
+                    lastIndex: 31
+                })
+            } else {
+                this.setState({
+                    page: 1,
+                    firstIndex: 0,
+                    lastIndex: 9
+                })
+                this.getDGSTags({
+                    firstIndex: 0,
+                    lastIndex: 9
+                })
+            }
+        });
+    };
+
+    onPaginate = (page) => {
+        let reqParams = {
+            page: page,
+            firstIndex: page * 32 - 32,
+            lastIndex:  page * 32 - 1
+        };
+
+        this.setState({...this.state,...reqParams}, () => {
+            this.getDGSTags(reqParams)
+        });
+    }
+
     render () {
         return (
             <div className="page-content">
@@ -143,7 +187,10 @@ class Marketplace extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="marketplace">
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className={classNames({
+                                'col-md-6' : !this.state.isShowMore,
+                                'col-md-3' : this.state.isShowMore
+                            })}>
                                 <div className="card fll-height marketplace product-box">
 
                                 </div>
@@ -170,19 +217,34 @@ class Marketplace extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className={classNames({
+                                'col-md-3' : !this.state.isShowMore,
+                                'col-md-6' : this.state.isShowMore
+                            })}>
                                 <div className="card  marketplace filters transparent">
                                     <div className="search-bar">
-                                        <div className="input-group search tabled">
-                                            <input type="text"/>
-                                            <div className="input-icon">
-                                                <i className="zmdi zmdi-search"></i>
+                                        <div className="row">
+                                            <div className={classNames({
+                                                'col-md-12' : !this.state.isShowMore,
+                                                'col-md-6' : this.state.isShowMore
+                                            })}>
+                                                <div className="input-group search tabled">
+                                                    <input type="text"/>
+                                                    <div className="input-icon">
+                                                        <i className="zmdi zmdi-search"></i>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="input-group search tabled">
-                                            <input type="text"/>
-                                            <div className="input-icon">
-                                                <i className="zmdi zmdi-search"></i>
+                                            <div className={classNames({
+                                                'col-md-12' : !this.state.isShowMore,
+                                                'col-md-6' : this.state.isShowMore
+                                            })}>
+                                                <div className="input-group search tabled">
+                                                    <input type="text"/>
+                                                    <div className="input-icon">
+                                                        <i className="zmdi zmdi-search"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -191,12 +253,37 @@ class Marketplace extends React.Component {
                                             this.state.getDGSTags &&
                                             this.state.getDGSTags.map((el, index) => {
                                                 return (
-                                                    <div className="btn primary">{el.tag}&nbsp;[{el.totalCount}]</div>
+                                                    <Link to={'/marketplace/' + el.tag} className="btn primary">{el.tag}&nbsp;[{el.totalCount}]</Link>
                                                 );
                                             })
                                         }
-                                        <a className="btn primary blue">View more</a>
-
+                                        <a onClick={this.showMoreController} className="btn primary blue" dangerouslySetInnerHTML={{__html: this.state.isShowMore ? 'View less' : 'View more'}}/>
+                                        {
+                                            this.state.getDGSTags && this.state.isShowMore &&
+                                            <div className="btn-box">
+                                                <a
+                                                    className={classNames({
+                                                        'btn' : true,
+                                                        'btn-left' : true,
+                                                        'disabled' : this.state.page <= 1
+                                                    })}
+                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                                > Previous</a>
+                                                <div className='pagination-nav'>
+                                                    <span>{this.state.firstIndex + 1}</span>
+                                                    <span>&hellip;</span>
+                                                    <span>{this.state.lastIndex + 1}</span>
+                                                </div>
+                                                <a
+                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                    className={classNames({
+                                                        'btn' : true,
+                                                        'btn-right' : true,
+                                                        'disabled' : this.state.getDGSTags.length < 32
+                                                    })}
+                                                >Next</a>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>

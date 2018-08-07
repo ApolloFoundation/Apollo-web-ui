@@ -25,6 +25,20 @@
 .card.marketplace {
   padding: 0;
   border-radius: 3px; }
+  .card.marketplace.card-fluid {
+    padding: 35px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row; }
+    .card.marketplace.card-fluid .left-bar {
+      display: flex; }
+    .card.marketplace.card-fluid .card-avatar {
+      height: 100px;
+      width: 150px;
+      border-radius: 6px;
+      margin: auto 0; }
+    .card.marketplace.card-fluid .price-box {
+      height: auto; }
   .card.marketplace.filters {
     display: flex;
     flex-direction: column;
@@ -54,6 +68,8 @@
   .card.marketplace.tall-card .cargo-owner-box .publishing-date {
     color: #BBBBBB;
     font-size: 12px; }
+  .card.marketplace .search-bar .row {
+    margin: 0 -7.5px !important; }
   .card.marketplace .filters-bar {
     height: 100%;
     margin-top: -15px; }
