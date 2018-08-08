@@ -51,6 +51,7 @@
         width: 150px;
         border-radius: 6px;
         margin: auto 0;
+        cursor: pointer;
       }
       .price-box {
         height: auto;
@@ -127,6 +128,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-image: url(../../../assets/no-photo.svg);
+      cursor: pointer;
     }
     .price-box {
       padding: 15px;

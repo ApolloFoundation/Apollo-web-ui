@@ -36,7 +36,8 @@
       height: 100px;
       width: 150px;
       border-radius: 6px;
-      margin: auto 0; }
+      margin: auto 0;
+      cursor: pointer; }
     .card.marketplace.card-fluid .price-box {
       height: auto; }
   .card.marketplace.filters {
@@ -82,7 +83,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url(../../../assets/no-photo.svg); }
+    background-image: url(../../../assets/no-photo.svg);
+    cursor: pointer; }
   .card.marketplace .price-box {
     padding: 15px;
     height: 85px;

@@ -24,7 +24,8 @@ import TransferAlias from './aliases/transfer-alias';
 import DeleteAlias   from './aliases/delete-alias';
 
 
-
+// Marketplace
+import MarketplaceImage from './marketplace/mraketplace-image-view';
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -77,11 +78,16 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'INFO_ACCOUNT'            && <InfoAccount           />}
 
 
-                {/*aliases */}
+                {/*Aliases */}
                 {this.props.modalType === 'EDIT_ALIAS'              && <EditAlias             />}
                 {this.props.modalType === 'SELL_ALIAS'              && <SellAlias             />}
                 {this.props.modalType === 'TRANSFER_ALIAS'          && <TransferAlias         />}
                 {this.props.modalType === 'DELETE_ALIAS'            && <DeleteAlias           />}
+
+                {/*Marketplace*/}
+                {this.props.modalType === 'MARKETPLACE_IMAGE'       && <MarketplaceImage      />}
+
+
 
 
             </div>

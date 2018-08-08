@@ -111,6 +111,19 @@ textarea {
   background: #fff;
   border-radius: 6px;
   height: calc(100% - 15px); }
+  .form-group .exit {
+    position: absolute;
+    top: 35px;
+    right: 35px; }
+    .form-group .exit i {
+      font-size: 20px; }
+  .form-group .marketplace-image {
+    height: 400px;
+    margin: 0 -35px -70px;
+    background-color: #ccc;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center; }
   .form-group.transparent {
     background: transparent; }
   .form-group.offset {

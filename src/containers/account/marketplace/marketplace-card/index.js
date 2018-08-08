@@ -1,5 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {connect} from 'react-redux';
+
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+});
 
 const MarketplaceItem = (props) => (
     <div className={classNames({
@@ -15,6 +21,7 @@ const MarketplaceItem = (props) => (
             !props.tall && !props.fluid &&
                 [
                     <div
+                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
                         className="card-avatar"
                         style={{
                             backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
@@ -39,6 +46,7 @@ const MarketplaceItem = (props) => (
             props.tall &&
             [
                 <div
+                    onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
                     className="card-avatar"
                     style={{
                         backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
@@ -82,6 +90,7 @@ const MarketplaceItem = (props) => (
             [
                 <div className='left-bar'>
                     <div
+                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
                         className="card-avatar"
                         style={{
                             backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
@@ -130,4 +139,4 @@ const MarketplaceItem = (props) => (
     </div>
 );
 
-export default MarketplaceItem;
+export default connect(null, mapDispatchToProps)(MarketplaceItem);
