@@ -26,6 +26,7 @@ import DeleteAlias   from './aliases/delete-alias';
 
 // Marketplace
 import MarketplaceImage from './marketplace/mraketplace-image-view';
+import MarketplaceProductDetails from './marketplace/marketplace-product-details';
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -65,27 +66,28 @@ class ModalWindow extends React.Component {
                     "active": this.props.modalType
                 })}
             >
-                {this.props.modalType === 'INFO_TRANSACTION'        && <InfoTransaction       />}
-                {this.props.modalType === 'INFO_LEDGER_TRANSACTION' && <InfoLedgerTransaction />}
-                {this.props.modalType === 'INFO_BLOCK'              && <InfoBlock             />}
-                {this.props.modalType === 'PrivateTransactions'     && <PrivateTransactions   />}
-                {this.props.modalType === 'SEND_APOLLO'             && <SendApollo            />}
-                {this.props.modalType === 'SEND_APOLLO_PRIVATE'     && <SendApolloPrivate     />}
-                {this.props.modalType === 'ISSUE'                   && <Issue                 />}
+                {this.props.modalType === 'INFO_TRANSACTION'         && <InfoTransaction         />}
+                {this.props.modalType === 'INFO_LEDGER_TRANSACTION'  && <InfoLedgerTransaction   />}
+                {this.props.modalType === 'INFO_BLOCK'               && <InfoBlock               />}
+                {this.props.modalType === 'PrivateTransactions'      && <PrivateTransactions     />}
+                {this.props.modalType === 'SEND_APOLLO'              && <SendApollo              />}
+                {this.props.modalType === 'SEND_APOLLO_PRIVATE'      && <SendApolloPrivate       />}
+                {this.props.modalType === 'ISSUE'                    && <Issue                   />}
 
 
                 {/*Account*/}
-                {this.props.modalType === 'INFO_ACCOUNT'            && <InfoAccount           />}
+                {this.props.modalType === 'INFO_ACCOUNT'             && <InfoAccount             />}
 
 
                 {/*Aliases */}
-                {this.props.modalType === 'EDIT_ALIAS'              && <EditAlias             />}
-                {this.props.modalType === 'SELL_ALIAS'              && <SellAlias             />}
-                {this.props.modalType === 'TRANSFER_ALIAS'          && <TransferAlias         />}
-                {this.props.modalType === 'DELETE_ALIAS'            && <DeleteAlias           />}
+                {this.props.modalType === 'EDIT_ALIAS'               && <EditAlias                />}
+                {this.props.modalType === 'SELL_ALIAS'               && <SellAlias                />}
+                {this.props.modalType === 'TRANSFER_ALIAS'           && <TransferAlias            />}
+                {this.props.modalType === 'DELETE_ALIAS'             && <DeleteAlias              />}
 
                 {/*Marketplace*/}
-                {this.props.modalType === 'MARKETPLACE_IMAGE'       && <MarketplaceImage      />}
+                {this.props.modalType === 'MARKETPLACE_IMAGE'        && <MarketplaceImage          />}
+                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS' && <MarketplaceProductDetails />}
 
 
 

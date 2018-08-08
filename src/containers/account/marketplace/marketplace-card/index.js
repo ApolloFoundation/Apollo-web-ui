@@ -37,7 +37,12 @@ const MarketplaceItem = (props) => (
                                 APL
                             </div>
                         </div>
-                        <div className="user">{props.name}</div>
+                        <div
+                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
+                            className="user"
+                        >
+                            {props.name}
+                        </div>
                     </div>
                 ]
 
@@ -63,7 +68,10 @@ const MarketplaceItem = (props) => (
                         </div>
                     </div>
                     <div className="cargo-description">
-                        <div className="cargo-title">
+                        <div
+                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
+                            className="cargo-title"
+                        >
                             {props.name}
                         </div>
                         <div className="cargo-description" dangerouslySetInnerHTML={{__html: props.description.length < 100 ? props.description : props.description.slice(0, 100) + '&hellip;'}} />
@@ -112,7 +120,10 @@ const MarketplaceItem = (props) => (
                         </div>
                     </div>
                     <div className="cargo-description">
-                        <div className="cargo-title">
+                        <div
+                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
+                            className="cargo-title"
+                        >
                             {props.name}
                         </div>
                         <div className="cargo-description" dangerouslySetInnerHTML={{__html: props.description.length < 100 ? props.description : props.description.slice(0, 100) + '&hellip;'}} />

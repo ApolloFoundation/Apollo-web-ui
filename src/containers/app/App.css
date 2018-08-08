@@ -103,6 +103,17 @@ textarea {
 .pre {
   white-space: pre; }
 
+.info-table {
+  display: table; }
+  .info-table .t-row {
+    display: table-row; }
+    .info-table .t-row .t-cell {
+      display: table-cell;
+      padding-bottom: 15px; }
+      .info-table .t-row .t-cell span {
+        padding-right: 15px;
+        font-size: 15px; }
+
 .form-group {
   display: table;
   padding: 35px;
@@ -124,6 +135,29 @@ textarea {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center; }
+  .form-group.devided {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between; }
+    .form-group.devided .left-bar {
+      width: 50%;
+      margin: -35px 0 -70px -35px; }
+      .form-group.devided .left-bar .top-bar .marketplace-image {
+        margin: 0; }
+      .form-group.devided .left-bar .bottom-bar .description {
+        padding: 35px;
+        line-height: 1.6; }
+    .form-group.devided .right-bar {
+      width: 50%; }
+      .form-group.devided .right-bar .price {
+        padding-top: 35px;
+        padding-bottom: 30px;
+        color: #333333;
+        font-size: 36px;
+        line-height: 18px; }
+      .form-group.devided .right-bar .info-table {
+        padding-bottom: 30px; }
   .form-group.transparent {
     background: transparent; }
   .form-group.offset {
@@ -645,6 +679,9 @@ textarea {
     opacity: 1; }
     .modal-window.active .modal-box {
       transform: translateY(0); }
+      .modal-window.active .modal-box .modal-form .left-bar {
+        max-height: 700px;
+        overflow-y: scroll; }
   .modal-window .modal-box {
     transform: translateY(-50px);
     margin: auto;
