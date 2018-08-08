@@ -98,11 +98,13 @@ class SiteHeader extends React.Component {
                                     <div className="user-account-actions">
                                         <a
                                             className="user-account-rs"
-                                            onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
                                         >
                                             { this.props.accountRS }
                                         </a>
-                                        <a className="user-account-action">
+                                        <a
+                                            className="user-account-action"
+                                            onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+                                        >
                                             <i className="zmdi zmdi-balance-wallet" />
                                         </a>
                                         <button
