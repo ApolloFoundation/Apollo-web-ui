@@ -96,7 +96,10 @@ class SiteHeader extends React.Component {
                                         type="text"
                                     />
                                     <div className="user-account-actions">
-                                        <a className="user-account-rs">
+                                        <a
+                                            className="user-account-rs"
+                                            onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+                                        >
                                             { this.props.accountRS }
                                         </a>
                                         <a className="user-account-action">
