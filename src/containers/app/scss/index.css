@@ -104,7 +104,12 @@ textarea {
   white-space: pre; }
 
 .info-table {
-  display: table; }
+  display: table;
+  max-width: 400px; }
+  .info-table.dlock .t-row {
+    display: block; }
+    .info-table.dlock .t-row .t-cell {
+      display: block; }
   .info-table .t-row {
     display: table-row; }
     .info-table .t-row .t-cell {
@@ -135,6 +140,10 @@ textarea {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center; }
+    .form-group .marketplace-image.no-image {
+      background-size: 30% !important;
+      background-image: url(../../assets/no-photo.svg) !important;
+      background-color: #eee !important; }
   .form-group.devided {
     display: flex;
     flex-direction: row;

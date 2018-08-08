@@ -148,7 +148,17 @@ textarea {
 
 .info-table {
   display: table;
+  max-width: 400px;
 
+  &.dlock {
+    .t-row {
+      display: block;
+
+      .t-cell {
+        display: block;
+      }
+    }
+  }
   .t-row {
     display: table-row;
 
@@ -189,6 +199,12 @@ textarea {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+
+    &.no-image {
+      background-size: 30% !important;
+      background-image: url(../../assets/no-photo.svg) !important;
+      background-color: #eee !important;
+    }
   }
   &.devided {
     display: flex;
