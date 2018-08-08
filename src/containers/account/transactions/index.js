@@ -24,6 +24,8 @@ class Transactions extends React.Component {
             lastIndex: 14,
             type: null,
             subtype: null,
+            isUnconfirmed: false,
+            isAll: false,
             transactions: []
         };
     }
@@ -33,7 +35,9 @@ class Transactions extends React.Component {
             type: this.state.type,
             account: this.props.account,
             firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
+            lastIndex: this.state.lastIndex,
+            requestType: this.state.requestType
+
         });
         this.props.setModalCallbackAction(this.getPrivateTransactions);
     }
@@ -56,7 +60,9 @@ class Transactions extends React.Component {
             type: this.state.type,
             account:    this.props.account,
             firstIndex: this.state.firstIndex,
-            lastIndex:  this.state.lastIndex
+            lastIndex:  this.state.lastIndex,
+            requestType: this.state.requestType
+
         };
 
         if (data && data.publicKey) {
@@ -81,7 +87,8 @@ class Transactions extends React.Component {
             account:    this.props.account,
             page:       page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15 - 1,
+            requestType: this.state.requestType
         };
 
         if (this.state.publicKey) {
@@ -89,34 +96,73 @@ class Transactions extends React.Component {
         }
 
         this.setState(reqParams, () => {
-            this.getTransactions(reqParams)
+            this.getTransactions(reqParams, this.state.isUnconfirmed, this.state.isAll)
         });
+    };
+
+    async getTransactions (requestParams, isUnconfirmed, all){
+        let params = requestParams;
+        delete params.requestType;
+
+
+        if (!((!!isUnconfirmed) || this.state.isUnconfirmed)) {
+            const transactions = await this.props.getTransactionsAction(params);
+
+            if (transactions) {
+                if (transactions.serverPublicKey) {
+                    const privateKey = converters.hexStringToByteArray(this.state.privateKey);
+                    const sharedKey  = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(
+                        privateKey,
+                        converters.hexStringToByteArray(transactions.serverPublicKey)
+                    )));
+
+
+                    this.setState({
+                        ...this.props,
+                        transactions: transactions.transactions,
+                        serverPublicKey: transactions.serverPublicKey,
+                        sharedKey : sharedKey,
+                        isUnconfirmed: false
+                    });
+                } else {
+                    this.setState({
+                        ...this.props,
+                        transactions: transactions.transactions,
+                        isUnconfirmed: false
+                    });
+                }
+            }
+        } else {
+            params.requestType = this.state.requestType;
+            this.getUnconfirmedTransactionsTransactions(params, all)
+        }
     }
 
-    async getTransactions (requestParams){
-        const transactions = await this.props.getTransactionsAction(requestParams);
-        if (transactions) {
-            if (transactions.serverPublicKey) {
-                const privateKey = converters.hexStringToByteArray(this.state.privateKey);
-                const sharedKey  = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(
-                    privateKey,
-                    converters.hexStringToByteArray(transactions.serverPublicKey)
-                )));
+    getUnconfirmedTransactionsTransactions  = async (requestParams, all) => {
+        var params = requestParams;
+        if (all) {
+            delete params.account;
+        }
+        const unconfirmedTransactions = await this.props.getTransactionsAction(params);
 
+        if (unconfirmedTransactions) {
+            if (all) {
                 this.setState({
                     ...this.props,
-                    transactions: transactions.transactions,
-                    serverPublicKey: transactions.serverPublicKey,
-                    sharedKey : sharedKey
+                    isAll: true,
+                    isUnconfirmed: true,
+                    transactions: unconfirmedTransactions.unconfirmedTransactions,
                 });
             } else {
                 this.setState({
                     ...this.props,
-                    transactions: transactions.transactions
+                    isAll: false,
+                    isUnconfirmed: true,
+                    transactions: unconfirmedTransactions.unconfirmedTransactions
                 });
             }
         }
-    }
+    };
 
     getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
@@ -133,25 +179,25 @@ class Transactions extends React.Component {
         });
     }
 
-    handleTransactinonFilters = (type, subtype) => {
+    handleTransactinonFilters = (type, subtype, requestType, all) => {
         this.setState({
             ...this.state,
             type: type,
             subtype: subtype,
             page:       1,
             firstIndex: 0,
-            lastIndex:  14
+            lastIndex:  14,
+            requestType: requestType
         }, () => {
             this.getTransactions({
                 type: this.state.type,
                 account:    this.props.account,
-                page:       1,
                 firstIndex: 0,
-                lastIndex:  14
-            });
+                lastIndex:  14,
+                requestType: requestType
+            }, requestType, all);
         });
     };
-
 
     render () {
         return (
@@ -168,7 +214,7 @@ class Transactions extends React.Component {
                                     className={classNames({
                                         "btn" : true,
                                         "filter" : true,
-                                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype
+                                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isUnconfirmed
                                     })}
                                     onClick={() => this.handleTransactinonFilters(null, null)}
                                 >All</div>
@@ -280,6 +326,36 @@ class Transactions extends React.Component {
                                 >
                                     <i className="zmdi zmdi-help" />
                                 </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "filter" : true,
+                                        "active": this.state.isUnconfirmed && !this.state.isAll
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(null, null, 'getUnconfirmedTransactions', false)}
+                                >
+                                    Unconfirmed (account)
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "filter" : true,
+                                        "active": false
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(null, null)}
+                                >
+                                    Phasing
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "filter" : true,
+                                        "active": this.state.isUnconfirmed && this.state.isAll
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(null, null, 'getUnconfirmedTransactions', true)}
+                                >
+                                    All Unconfirmed
+                                </div>
 
                             </div>
                             <div className="bottom-bar">
@@ -287,7 +363,7 @@ class Transactions extends React.Component {
                                     className={classNames({
                                         "btn" : true,
                                         "filter" : true,
-                                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype
+                                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isUnconfirmed
                                     })}
                                     onClick={() => this.handleTransactinonFilters(null, null)}
                                 >
@@ -328,29 +404,32 @@ class Transactions extends React.Component {
                                         }
                                     </tbody>
                                 </table>
-                                <div className="btn-box">
-                                    <a
-                                       className={classNames({
-                                           'btn' : true,
-                                           'btn-left' : true,
-                                           'disabled' : this.state.page <= 1
-                                       })}
-                                       onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
+                                {
+                                    this.state.transactions &&
+                                    <div className="btn-box">
+                                        <a
+                                            className={classNames({
+                                                'btn' : true,
+                                                'btn-left' : true,
+                                                'disabled' : this.state.page <= 1
+                                            })}
+                                            onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                        > Previous</a>
+                                        <div className='pagination-nav'>
+                                            <span>{this.state.firstIndex + 1}</span>
+                                            <span>&hellip;</span>
+                                            <span>{this.state.lastIndex + 1}</span>
+                                        </div>
+                                        <a
+                                            onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                            className={classNames({
+                                                'btn' : true,
+                                                'btn-right' : true,
+                                                'disabled' : this.state.transactions.length < 15
+                                            })}
+                                        >Next</a>
                                     </div>
-                                    <a
-                                       onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                       className={classNames({
-                                           'btn' : true,
-                                           'btn-right' : true,
-                                           'disabled' : this.state.transactions.length < 15
-                                       })}
-                                    >Next</a>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>

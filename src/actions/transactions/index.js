@@ -5,6 +5,17 @@ import queryString from 'query-string';
 export function getTransactionsAction(requestParams) {
     return dispatch => {
         const requestType = (requestParams.publicKey) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
+
+        let params = requestParams;
+
+        if (!params.requestType) {
+            delete params.requestType;
+        }
+
+        console.log({
+            requestType: requestType,
+            ...params
+        });
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: requestType,
