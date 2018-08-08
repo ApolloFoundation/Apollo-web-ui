@@ -267,6 +267,12 @@ textarea {
   .form-title {
     padding-bottom: 20px;
 
+    &.inline {
+      & > * {
+        vertical-align: middle;
+        display: inline-block;
+      }
+    }
     &.padding-left {
       p {
         padding-left: 35px;

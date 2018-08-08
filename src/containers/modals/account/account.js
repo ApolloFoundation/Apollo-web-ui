@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import uuid from "uuid";
 import {getAccountAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
+import {switchAccountAction} from "../../../actions/account";
 import Entry from '../../account/ledger/entry';
 
 
@@ -22,12 +23,12 @@ class InfoAccount extends React.Component {
             currencies: null,
             goods: null,
             aliases: null,
+            account: null,
         };
 
         this.handleTab      = this.handleTab.bind(this);
         // this.getTransaction = this.getTransaction.bind(this);
         this.getAcccount    = this.getAcccount.bind(this);
-
     }
 
     handleTab(e, index) {
@@ -71,6 +72,9 @@ class InfoAccount extends React.Component {
                 currencies:     await accountData['CURRENCIES'],
                 goods:          await accountData['GOODS'],
                 aliases:        await accountData['ALIASES'],
+                account:        await accountData['ACCOUNT'],
+            }, () => {
+                console.log(this.state);
             });
         }
     }
@@ -99,8 +103,26 @@ class InfoAccount extends React.Component {
                     this.props.modalData &&
                     <form className="modal-form">
                         <div className="form-group">
-                            <div className="form-title">
-                                <p>Account</p>
+                            <div className="form-title inline">
+                                {
+                                    this.state.account &&
+
+                                    [
+                                        <p>Info {this.state.account.accountRS} Account</p>
+                                    ,
+                                        this.props.modalData !== this.props.account &&
+                                        <a
+                                           onClick={() => this.props.switchAccountAction(this.state.account.accountRS)}
+                                            className="btn primary static"
+                                           style={{
+                                               margin: '0 0 0 30px'
+                                           }}
+                                        >
+                                            Switch Account
+                                        </a>
+                                    ]
+                                }
+
                             </div>
 
                             <div className="form-tabulator active">
@@ -414,7 +436,8 @@ class InfoAccount extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -424,6 +447,7 @@ const mapDispatchToProps = dispatch => ({
 
     // getAccountData
     getAccountAction:  (requestParams) => dispatch(getAccountAction(requestParams)),
+    switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
 
 
 });
