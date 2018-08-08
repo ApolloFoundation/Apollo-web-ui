@@ -192,6 +192,10 @@ input[type="number"] {
       .site-content .page-content .page-body .my-transactions .transactions-filters {
         height: 120px;
         padding-left: 40px; }
+        .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar {
+          display: flex; }
+          .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar .btn {
+            margin-right: 15px; }
       .site-content .page-content .page-body .my-transactions .transaction-table {
         height: calc(100% - 120px);
         min-height: 560px; }

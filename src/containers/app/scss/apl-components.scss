@@ -133,7 +133,9 @@
     padding: 0px 0 23px 36px;
   }
   .top-bar {
-
+    & > {
+      margin-right: 15px;
+    }
   }
   .bottom-bar {
 
@@ -145,13 +147,17 @@
       padding: 6px 8px;
       display: inline;
       border-radius: 3px;
-      border: 1px solid #333333;
       background-color: #F5F5F5;
       color: #333333;
       font-family: "Roboto-Bold";
       font-size: 12px;
       font-weight: bold;
       line-height: 14px;
+
+      &.active {
+        border: 1px solid #333333;
+
+      }
     }
   }
 }

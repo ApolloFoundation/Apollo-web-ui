@@ -15,8 +15,6 @@ class Transactions extends React.Component {
         super(props);
 
         this.getTransactions = this.getTransactions.bind(this);
-        this.getTransaction = this.getTransaction.bind(this);
-        this.onPaginate  = this.onPaginate.bind(this);
         this.getPrivateTransactions = this.getPrivateTransactions.bind(this);
         this.setTransactionInfo = this.setTransactionInfo.bind(this);
 
@@ -24,12 +22,15 @@ class Transactions extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 14,
+            type: null,
+            subtype: null,
             transactions: []
         };
     }
 
     componentDidMount() {
         this.getTransactions({
+            type: this.state.type,
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
@@ -52,6 +53,7 @@ class Transactions extends React.Component {
 
     getPrivateTransactions = (data) => {
         let reqParams = {
+            type: this.state.type,
             account:    this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex:  this.state.lastIndex
@@ -73,8 +75,9 @@ class Transactions extends React.Component {
         this.getTransactions(reqParams);
     };
 
-    onPaginate (page) {
+    onPaginate = (page) => {
         let reqParams = {
+            type: this.state.type,
             account:    this.props.account,
             page:       page,
             firstIndex: page * 15 - 15,
@@ -115,13 +118,13 @@ class Transactions extends React.Component {
         }
     }
 
-    async getTransaction (requestParams) {
+    getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
 
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
         }
-    }
+    };
 
     setTransactionInfo(modalType, data) {
         this.getTransaction({
@@ -129,6 +132,25 @@ class Transactions extends React.Component {
             transaction: data
         });
     }
+
+    handleTransactinonFilters = (type, subtype) => {
+        this.setState({
+            ...this.state,
+            type: type,
+            subtype: subtype,
+            page:       1,
+            firstIndex: 0,
+            lastIndex:  14
+        }, () => {
+            this.getTransactions({
+                type: this.state.type,
+                account:    this.props.account,
+                page:       1,
+                firstIndex: 0,
+                lastIndex:  14
+            });
+        });
+    };
 
 
     render () {
@@ -142,10 +164,135 @@ class Transactions extends React.Component {
                     <div className="my-transactions">
                         <div className="transactions-filters">
                             <div className="top-bar">
-                                <div className="btn filter">All</div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "filter" : true,
+                                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(null, null)}
+                                >All</div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 0 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(0, null)}
+                                >
+                                    <i className="zmdi zmdi-card" />
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 1 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(1, null)}
+                                >
+                                    <i className="zmdi zmdi-email" />
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 2 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(2, null)}
+                                >
+                                    <i className="zmdi zmdi-equalizer" />
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 3 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(3, null)}
+                                >
+                                    <i className="zmdi zmdi-shopping-cart" />
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 4 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(4, null)}
+                                >
+                                    <i className="zmdi zmdi-lock" />
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 5 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(5, null)}
+                                >
+                                    <i className="zmdi zmdi-balance" />
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 6 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(6, null)}
+                                >
+                                    <i className="zmdi zmdi-cloud" />
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 7 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(7, null)}
+                                >
+                                    <i className="zmdi zmdi zmdi-shuffle" />
+                                </div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "icon-button" : true,
+                                        "filters" : true,
+                                        "transparent" : true,
+                                        "active": this.state.type === 8 && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(8, null)}
+                                >
+                                    <i className="zmdi zmdi-help" />
+                                </div>
+
                             </div>
                             <div className="bottom-bar">
-                                <div className="btn filter">All types</div>
+                                <div
+                                    className={classNames({
+                                        "btn" : true,
+                                        "filter" : true,
+                                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype
+                                    })}
+                                    onClick={() => this.handleTransactinonFilters(null, null)}
+                                >
+                                    All types
+                                </div>
                             </div>
                         </div>
                         <div className="transaction-table">

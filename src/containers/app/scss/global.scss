@@ -423,6 +423,7 @@ textarea {
   color: #fff;
   user-select: none;
   border-radius: 3px;
+  box-sizing: border-box;
 
   &.absolute {
     position: absolute;
@@ -436,6 +437,17 @@ textarea {
       font-size: 20px;
       color: #000;
     }
+  }
+  &.filters {
+    border: 1px solid transparent;
+
+    &.active {
+      border: 1px solid #101010;
+
+    }
+  }
+  .no-border {
+    border: 0;
   }
   &.transparent {
     background-color: transparent !important;

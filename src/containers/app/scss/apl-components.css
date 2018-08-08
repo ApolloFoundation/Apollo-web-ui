@@ -83,19 +83,22 @@
     padding-left: 36px; }
   .transactions-filters.align-for-inputs {
     padding: 0px 0 23px 36px; }
+  .transactions-filters .top-bar > {
+    margin-right: 15px; }
   .transactions-filters .btn {
     position: static; }
     .transactions-filters .btn.filter {
       padding: 6px 8px;
       display: inline;
       border-radius: 3px;
-      border: 1px solid #333333;
       background-color: #F5F5F5;
       color: #333333;
       font-family: "Roboto-Bold";
       font-size: 12px;
       font-weight: bold;
       line-height: 14px; }
+      .transactions-filters .btn.filter.active {
+        border: 1px solid #333333; }
 
 .info-box {
   border-radius: 3px;

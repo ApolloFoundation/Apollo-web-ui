@@ -285,7 +285,8 @@ textarea {
   background-color: #666666;
   color: #fff;
   user-select: none;
-  border-radius: 3px; }
+  border-radius: 3px;
+  box-sizing: border-box; }
   .btn.absolute {
     position: absolute; }
   .btn.icon-button {
@@ -295,6 +296,12 @@ textarea {
       padding-top: 1px;
       font-size: 20px;
       color: #000; }
+  .btn.filters {
+    border: 1px solid transparent; }
+    .btn.filters.active {
+      border: 1px solid #101010; }
+  .btn .no-border {
+    border: 0; }
   .btn.transparent {
     background-color: transparent !important; }
   .btn.btn-simple {
@@ -568,19 +575,22 @@ textarea {
     padding-left: 36px; }
   .transactions-filters.align-for-inputs {
     padding: 0px 0 23px 36px; }
+  .transactions-filters .top-bar > {
+    margin-right: 15px; }
   .transactions-filters .btn {
     position: static; }
     .transactions-filters .btn.filter {
       padding: 6px 8px;
       display: inline;
       border-radius: 3px;
-      border: 1px solid #333333;
       background-color: #F5F5F5;
       color: #333333;
       font-family: "Roboto-Bold";
       font-size: 12px;
       font-weight: bold;
       line-height: 14px; }
+      .transactions-filters .btn.filter.active {
+        border: 1px solid #333333; }
 
 .info-box {
   border-radius: 3px;
@@ -835,6 +845,10 @@ input[type="number"] {
       .site-content .page-content .page-body .my-transactions .transactions-filters {
         height: 120px;
         padding-left: 40px; }
+        .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar {
+          display: flex; }
+          .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar .btn {
+            margin-right: 15px; }
       .site-content .page-content .page-body .my-transactions .transaction-table {
         height: calc(100% - 120px);
         min-height: 560px; }

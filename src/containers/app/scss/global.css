@@ -283,7 +283,8 @@ textarea {
   background-color: #666666;
   color: #fff;
   user-select: none;
-  border-radius: 3px; }
+  border-radius: 3px;
+  box-sizing: border-box; }
   .btn.absolute {
     position: absolute; }
   .btn.icon-button {
@@ -293,6 +294,12 @@ textarea {
       padding-top: 1px;
       font-size: 20px;
       color: #000; }
+  .btn.filters {
+    border: 1px solid transparent; }
+    .btn.filters.active {
+      border: 1px solid #101010; }
+  .btn .no-border {
+    border: 0; }
   .btn.transparent {
     background-color: transparent !important; }
   .btn.btn-simple {

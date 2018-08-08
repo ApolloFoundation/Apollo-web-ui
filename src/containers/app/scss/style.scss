@@ -286,8 +286,10 @@ input[type="number"] {
           padding-left: 40px;
 
           .top-bar {
-            .btn.filter {
+            display: flex;
 
+            .btn {
+              margin-right: 15px;
             }
           }
         }
