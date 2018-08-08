@@ -140,6 +140,9 @@
     opacity: 1; }
     .modal-window.active .modal-box {
       transform: translateY(0); }
+      .modal-window.active .modal-box .modal-form .left-bar {
+        max-height: 700px;
+        overflow-y: scroll; }
   .modal-window .modal-box {
     transform: translateY(-50px);
     margin: auto;

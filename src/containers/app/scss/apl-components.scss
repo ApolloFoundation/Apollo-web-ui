@@ -225,7 +225,14 @@
       transform: translateY(0);
 
       .modal-form {
+        .left-bar {
+          max-height: 700px;
+          overflow-y: scroll;
 
+          .top-bar {
+
+          }
+        }
       }
     }
   }

@@ -146,6 +146,34 @@ textarea {
   white-space: pre;
 }
 
+.info-table {
+  display: table;
+  max-width: 400px;
+
+  &.dlock {
+    .t-row {
+      display: block;
+
+      .t-cell {
+        display: block;
+      }
+    }
+  }
+  .t-row {
+    display: table-row;
+
+    .t-cell {
+      display: table-cell;
+      padding-bottom: 15px;
+
+      span {
+        padding-right: 15px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
 .form-group {
   display: table;
   padding: 35px;
@@ -155,6 +183,66 @@ textarea {
   border-radius: 6px;
   height: calc(100% - 15px);
 
+  .exit {
+    position: absolute;
+    top: 35px;
+    right: 35px;
+
+    i {
+      font-size: 20px;
+    }
+  }
+  .marketplace-image {
+    height: 400px;
+    margin: 0 -35px -70px;
+    background-color: #ccc;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    &.no-image {
+      background-size: 30% !important;
+      background-image: url(../../assets/no-photo.svg) !important;
+      background-color: #eee !important;
+    }
+  }
+  &.devided {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    .left-bar {
+      width: 50%;
+      margin: -35px 0 -70px -35px;
+
+      .top-bar {
+        .marketplace-image {
+          margin: 0;
+        }
+      }
+      .bottom-bar {
+        .description {
+          padding: 35px;
+          line-height: 1.6;
+        }
+      }
+    }
+    .right-bar {
+      width: 50%;
+
+      .price {
+        padding-top: 35px;
+        padding-bottom: 30px;
+        color: #333333;
+        font-size: 36px;
+        line-height: 18px;
+      }
+      .info-table {
+        padding-bottom: 30px;
+      }
+    }
+  }
   &.transparent {
     background: transparent;
   }
@@ -198,6 +286,12 @@ textarea {
     .form-sub-title {
       margin-top: 10px;
     }
+  }
+  .left-bar {
+
+  }
+  .right-bar {
+
   }
   .form-sub-title {
     color: #BBBBBB;
