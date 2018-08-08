@@ -3,6 +3,7 @@ import SiteHeader from '../../components/site-header'
 import CircleFigure from './circle-figure'
 import { connect } from 'react-redux';
 import {setMopalType} from '../../../modules/modals';
+import classNames from "classnames";
 
 
 const mapStateToProps = state => ({
@@ -28,7 +29,19 @@ class Dashboard extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Dashboard'}
-                />
+                >
+                    <div
+                        className={classNames({
+                            "btn" : true,
+                            "icon-button" : true,
+                            "filters" : true,
+                            "primary" : true,
+                            "transparent" : true,
+                        })}
+                    >
+                        <i className="zmdi zmdi-chevron-down" />
+                    </div>
+                </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="row">
                         <div className="col-md-3">
