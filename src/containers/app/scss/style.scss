@@ -94,6 +94,11 @@ input[type="number"] {
             right: 30px;
             bottom: 20px;
 
+            &.scroll {
+              overflow-y: scroll;
+              margin-right: -30px;
+              padding-right: 20px;
+            }
             .transaction-item {
               height: 25%;
               display: flex;
@@ -177,14 +182,13 @@ input[type="number"] {
                     color: #333333;
                     font-family: "Roboto-Regular";
                     font-size: 24px;
-                    line-height: 60px;
                   }
                   .coin-name {
                     color: #777777;
                     font-family: "Roboto-Regular";
                     font-size: 12px;
                     line-height: 14px;
-                    margin: auto auto 18px 30px;
+                    margin: auto auto auto 30px;
                   }
                 }
                 .more {

@@ -4,6 +4,14 @@ import CircleFigure from './circle-figure'
 import { connect } from 'react-redux';
 import {setMopalType} from '../../../modules/modals';
 import classNames from "classnames";
+import Transaction from './transaction';
+
+import {getTransactionsAction} from "../../../actions/transactions";
+import {getAccountCurrenciesAction} from "../../../actions/currencies";
+import {getDGSGoodsCountAction, getDGSPurchaseCountAction, getDGSPurchasesAction, getDGSPendingPurchases} from "../../../actions/marketplace";
+import {getAccountAssetsAction} from '../../../actions/assets'
+import {getAliasesCountAction} from '../../../actions/aliases'
+import {getMessages} from "../../../actions/messager";
 
 
 const mapStateToProps = state => ({
@@ -51,35 +59,15 @@ class Dashboard extends React.Component {
                             </div>
                             <div className="card card-tall transactions">
                                 <div className="card-title">Transactions</div>
-                                <div className="transactions-dashboard">
-                                    <div className="transaction-item">
-                                        <div className="transaction-box">
-                                            <div className="transaction-date">15:00, 12 dec 2018</div>
-                                            <div className="transaction-rs">APL-NZKH-MZRE-2CTT-98NPW</div>
-                                            <div className="transaction-amount">75,000</div>
-                                        </div>
-                                    </div>
-                                    <div className="transaction-item">
-                                        <div className="transaction-box">
-                                            <div className="transaction-date">15:00, 12 dec 2018</div>
-                                            <div className="transaction-rs">APL-NZKH-MZRE-2CTT-98NPW</div>
-                                            <div className="transaction-amount">75,000</div>
-                                        </div>
-                                    </div>
-                                    <div className="transaction-item">
-                                        <div className="transaction-box">
-                                            <div className="transaction-date">15:00, 12 dec 2018</div>
-                                            <div className="transaction-rs">APL-NZKH-MZRE-2CTT-98NPW</div>
-                                            <div className="transaction-amount">75,000</div>
-                                        </div>
-                                    </div>
-                                    <div className="transaction-item">
-                                        <div className="transaction-box">
-                                            <div className="transaction-date">15:00, 12 dec 2018</div>
-                                            <div className="transaction-rs">APL-NZKH-MZRE-2CTT-98NPW</div>
-                                            <div className="transaction-amount">75,000</div>
-                                        </div>
-                                    </div>
+                                <div className="transactions-dashboard scroll">
+                                    {
+                                        this.state.transactions &&
+                                        this.state.transactions.map((el, index) => {
+                                            return (
+                                                <Transaction {...el}/>
+                                            );
+                                        })
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -91,39 +79,24 @@ class Dashboard extends React.Component {
                             <div className="card asset-portfolio">
                                 <div className="card-title">Asset Portfolio</div>
                                 <div className="full-box">
-                                    <div className="full-box-item coin">
-                                        <div className="coin-data">
-                                            <CircleFigure
-                                                percentage={90}
-                                                type={'Bitcoin'}
-                                            />
-                                            <div className="amount">81%</div>
-                                            <div className="coin-name">Bitcoin</div>
-                                        </div>
-                                        <div className="more"></div>
-                                    </div>
-                                    <div className="full-box-item coin">
-                                        <div className="coin-data">
-                                            <CircleFigure
-                                                percentage={15}
-                                                type={'Creed'}
-                                            />
-                                            <div className="amount">81%</div>
-                                            <div className="coin-name">Bitcoin</div>
-                                        </div>
-                                        <div className="more"></div>
-                                    </div>
-                                    <div className="full-box-item coin">
-                                        <div className="coin-data">
-                                            <CircleFigure
-                                                percentage={10}
-                                                type={'MarioCoin'}
-                                            />
-                                            <div className="amount">81%</div>
-                                            <div className="coin-name">Bitcoin</div>
-                                        </div>
-                                        <div className="more"></div>
-                                    </div>
+                                    {
+                                        this.state.assetData &&
+                                        this.state.assetData.map((el, index) => {
+                                            return (
+                                                <div className="full-box-item coin">
+                                                    <div className="coin-data">
+                                                        <CircleFigure
+                                                            percentage={ (el.quantityATU / Math.pow(10, el.decimals)) / (this.state.assetsValue) * 100}
+                                                            type={el.quantityATU}
+                                                        />
+                                                        <div className="amount">{(el.quantityATU / Math.pow(10, el.decimals)) / (this.state.assetsValue) * 100}%</div>
+                                                        <div className="coin-name">el.quantityATU</div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    }
+
                                 </div>
                             </div>
                             <div className="card decentralized-marketplace">
@@ -131,11 +104,11 @@ class Dashboard extends React.Component {
                                 <div className="full-box">
                                     <div className="full-box-item">
                                         <div className="marketplace-box">
-                                            <div className="digit">5</div>
+                                            <div className="digit">{this.state.numberOfGoods}</div>
                                             <div className="subtitle">Purchased products</div>
                                         </div>
                                         <div className="marketplace-box">
-                                            <div className="digit">1/2</div>
+                                            <div className="digit">{this.state.pendingGoods}/{this.state.completedGoods}</div>
                                             <div className="subtitle">Sales</div>
                                         </div>
                                     </div>

@@ -61,6 +61,10 @@ input[type="number"] {
       left: 30px;
       right: 30px;
       bottom: 20px; }
+      .site-content .page-content .page-body .card.transactions .transactions-dashboard.scroll {
+        overflow-y: scroll;
+        margin-right: -30px;
+        padding-right: 20px; }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
         height: 25%;
         display: flex;
@@ -123,14 +127,13 @@ input[type="number"] {
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .amount {
             color: #333333;
             font-family: "Roboto-Regular";
-            font-size: 24px;
-            line-height: 60px; }
+            font-size: 24px; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .coin-name {
             color: #777777;
             font-family: "Roboto-Regular";
             font-size: 12px;
             line-height: 14px;
-            margin: auto auto 18px 30px; }
+            margin: auto auto auto 30px; }
         .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .more {
           height: 30px; }
     .site-content .page-content .page-body .card.decentralized-marketplace .full-box {

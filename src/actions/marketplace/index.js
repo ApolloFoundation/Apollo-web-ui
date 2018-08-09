@@ -167,5 +167,26 @@ export function searchDGSGoodsAction(reqParams) {
     }
 }
 
+export function getDGSPendingPurchases(reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getDGSPendingPurchases',
+                ...reqParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data;
+                }
+                console.log('Error: ', res.data.errorCode);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+}
+
+
 
 
