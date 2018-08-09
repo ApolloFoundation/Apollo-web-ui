@@ -2,9 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
+import {formatTimestamp} from "../../../../helpers/util/time";
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
 const MarketplaceItem = (props) => (
@@ -93,7 +95,7 @@ const MarketplaceItem = (props) => (
                             </a>
                         </div>
                         <div className="publishing-date">
-                            7/6/2018 2:45:27
+                            {props.formatTimestamp(props.timestamp)}
                         </div>
                     </div>
                 </div>
@@ -161,7 +163,7 @@ const MarketplaceItem = (props) => (
                     <div className="cargo-owner-box">
 
                         <div className="publishing-date">
-                            7/6/2018 2:45:27
+                            {props.formatTimestamp(props.timestamp)}
                         </div>
                     </div>
                 </div>

@@ -8,16 +8,20 @@ import App from './containers/app'
 
 // import './index.css'
 
+import { I18nextProvider } from 'react-i18next';
+
 const target = document.querySelector('#root');
 
 render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/" component={App} />
-                </Switch>
-            </BrowserRouter>
+            <I18nextProvider>
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/" component={App} />
+                    </Switch>
+                </BrowserRouter>
+            </I18nextProvider>
         </ConnectedRouter>
     </Provider>,
     target

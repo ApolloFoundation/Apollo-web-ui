@@ -4,7 +4,15 @@ import crypto from '../../../../helpers/crypto/crypto'
 import converters from '../../../../helpers/converters';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
+import {formatTimestamp} from "../../../../helpers/util/time";
 
+
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime))
+});
+
+@connect(null, mapDispatchToProps)
 class Transaction extends React.Component {
     constructor(props) {
         super(props);
@@ -113,7 +121,9 @@ class Transaction extends React.Component {
                 return (
                     <tr key={uuid()}>
                         <td className="blue-link-text">
-                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.state.transaction.blockTimestamp}</a>
+                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>
+                                {this.props.formatTimestamp(this.state.transaction.blockTimestamp)}
+                            </a>
                         </td>
                         <td>
                             {
@@ -185,8 +195,4 @@ class Transaction extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
-});
-
-export default connect(null, mapDispatchToProps)(Transaction);
+export default Transaction;

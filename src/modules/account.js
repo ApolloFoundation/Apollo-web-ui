@@ -5,9 +5,13 @@ export const SET_CONSTANTS = 'SET_CONSTANTS';
 export const START_LOAD = 'START_LOAD';
 export const END_LOAD = 'END_LOAD';
 export const CHANGE_PAGE_BODY_EVENTS = 'CHANGE_PAGE_BODY_EVENTS';
+export const SET_SETTINGS = 'SET_SETTINGS';
 
 const initialState = {
+    settings: null,
     constants: null,
+
+
 	account: null,
     accountRS: null,
     assetBalances: null,
@@ -51,6 +55,11 @@ export default (state = initialState, action) => {
                 ...state,
                 blockPageBody: action.payload
             };
+        case SET_SETTINGS:
+            return {
+                ...state,
+                settings: action.payload
+            };
 
 		default:
 			return state
@@ -77,6 +86,17 @@ export const loadConstants = (constants) => {
 
     }
 };
+
+export const setSetings = (settings) => {
+    return dispatch => {
+        dispatch({
+            type: SET_SETTINGS,
+            payload: settings
+        });
+
+    }
+};
+
 
 export const startLoad = () => {
 	return dispatch => {

@@ -2,9 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import uuid from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {formatTimestamp} from "../../../../helpers/util/time";
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 class Block extends React.Component {
@@ -19,7 +21,7 @@ class Block extends React.Component {
                     <a onClick={this.props.setBlockInfo.bind(this, 'INFO_BLOCK', this.props.block.height)}>{this.props.block.height}</a>
                 </td>
                 <td className="align-right">
-                    <a>{this.props.block.timestamp}</a>
+                    <a>{this.props.formatTimestamp(this.props.block.timestamp)}</a>
                 </td>
                 <td className="align-right">{this.props.block.totalAmountATM}</td>
                 <td className="align-right">{this.props.block.totalFeeATM}</td>
