@@ -23,15 +23,135 @@ const mapStateToProps = state => ({
     name: state.account.name,
     publicKey: state.account.publicKey,
     requestProcessingTime: state.account.requestProcessingTime,
-    unconfirmedBalanceATM: state.account.unconfirmedBalanceATM
+    unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
 });
 
 const mapDispatchToProps = dispatch => ({
-    setMopalType: (type) => dispatch(setMopalType(type))
+    getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+    setMopalType: (type) => dispatch(setMopalType(type)),
+    getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
+    getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
+    getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
+    getAccountAssetsAction: (requestParams) => dispatch(getAccountAssetsAction(requestParams)),
+    getAliasesCountAction: (requestParams) => dispatch(getAliasesCountAction(requestParams)),
+    getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
+    getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
+    getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    state = {
+        assetsValue: null,
+        aliassesValue: null,
+        transactions: null,
+        firstIndex: 0,
+        lastIndex: 14,
+    };
+
+    componentWillReceiveProps(newState) {
+        console.log(newState);
+        if (newState.account) {
+            this.initDashboard({account: newState.account})
+        }
+    }
+
+    componentWillMount() {
+        if (this.props.account) {
+            this.initDashboard({account: this.props.account})
+        }
+    }
+
+    initDashboard = (reqParams) => {
+        this.getAccountAsset(reqParams);
+        this.getAliasesCount(reqParams);
+        this.getCurrenciesCount(reqParams);
+        this.getMessagesCount(reqParams);
+        this.getGoods({...reqParams, seller: this.props.account});
+        this.getTransactions({
+            ...reqParams,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+
+    }
+
+    getAccountAsset = async (requsetParams) => {
+        const accountAssets = await this.props.getAccountAssetsAction(requsetParams);
+
+        if (accountAssets) {
+            this.setState({
+                assetData: accountAssets.accountAssets,
+                assetsValue: parseInt(accountAssets.accountAssets.map((el) => {if(el.decimals) {return el.quantityATU / Math.pow(10, el.decimals)} else {return el.quantityATU}}).reduce((a, b) => a + b, 0)),
+                assetsCount: accountAssets.accountAssets.length
+            }, () => {
+                console.log(this.state);
+            })
+        }
+    };
+
+    getAliasesCount = async (requsetParams) => {
+        const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
+
+        if (aliasesCount) {
+            this.setState({
+                aliassesValue: aliasesCount.numberOfAliases
+            })
+        }
+    };
+
+    getCurrenciesCount = async (requsetParams) => {
+        const currencies = await this.props.getAccountCurrenciesAction(requsetParams);
+
+        if (currencies) {
+            console.log(currencies);
+
+            this.setState({
+                currenciesValue: (currencies.accountCurrencies && currencies.accountCurrencies.length && parseInt(currencies.accountCurrencies.map((el) => {return el.utils}).reduce((a, b) => a + b, 0))) || parseInt(0),
+                currenciesCount: currencies.accountCurrencies.length
+            })
+        }
+    };
+
+    getMessagesCount = async (reqParams) => {
+        const messages = await this.props.getMessages(reqParams);
+
+        if (messages) {
+            this.setState({
+                messages: messages.transactions.length
+            })
+        }
+    };
+
+    getTransactions = async (reqParams) => {
+        const transactions = await this.props.getTransactionsAction(reqParams);
+
+        if (transactions) {
+            this.setState({
+                transactions: transactions.transactions
+            })
+        }
+    };
+
+    getGoods = async (reqParams) => {
+        const purchased = await this.props.getDGSPurchaseCountAction(reqParams);
+        const pendingGoods = await this.props.getDGSPendingPurchases(reqParams);
+        const completedPurchased = await this.props.getDGSPurchaseCountAction(reqParams);
+
+        if (purchased && completedPurchased && pendingGoods) {
+            this.setState({
+                numberOfGoods: purchased.numberOfPurchases,
+                completedGoods: completedPurchased.numberOfPurchases,
+                pendingGoods: pendingGoods.purchases.length,
+            })
+        }
+
+    };
+
     render () {
         return (
             <div className="page-content">
@@ -53,7 +173,7 @@ class Dashboard extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="row">
                         <div className="col-md-3">
-                            <div className="card header ballance">
+                            <div className="card header ballance chart-sprite position-1">
                                 <div className="card-title">Available Balance</div>
                                 <div className="amount">{ (this.props.balanceATM / 100000000).toFixed(2)}</div>
                             </div>
@@ -72,9 +192,15 @@ class Dashboard extends React.Component {
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card header assets">
+                            <div className="card header assets chart-sprite position-2">
                                 <div className="card-title">Assets Value</div>
-                                <div className="amount">37,000,000</div>
+                                <div className="amount">
+                                    {this.state.assetsValue}
+
+                                    <div className="owned">
+                                        {this.state.assetsCount}
+                                    </div>
+                                </div>
                             </div>
                             <div className="card asset-portfolio">
                                 <div className="card-title">Asset Portfolio</div>
@@ -117,8 +243,15 @@ class Dashboard extends React.Component {
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card header currencies">
+                            <div className="card header currencies chart-sprite position-3">
                                 <div className="card-title">Currencies Value</div>
+                                <div className="amount">
+                                    {this.state.currenciesValue / 100000000}
+
+                                    <div className="owned">
+                                        {this.state.currenciesCount}
+                                    </div>
+                                </div>
                             </div>
                             <div className="card send-apollo">
                                 <div className="card-title">Send Apollo</div>
@@ -151,8 +284,45 @@ class Dashboard extends React.Component {
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card header coins">
-
+                            <div className="card header coins flex chart-sprite position-4">
+                                <div className="general-info">
+                                    <div className="top-left">
+                                        <div className="top-bar">
+                                            {this.state.messages}
+                                        </div>
+                                        <div className="bottom-bar">
+                                            Secure
+                                            messages
+                                        </div>
+                                    </div>
+                                    <div className="top-right">
+                                        <div className="top-bar">
+                                            11
+                                        </div>
+                                        <div className="bottom-bar">
+                                            Coin
+                                            shuffling
+                                        </div>
+                                    </div>
+                                    <div className="bottom-left">
+                                        <div className="top-bar">
+                                            1
+                                        </div>
+                                        <div className="bottom-bar">
+                                            Secure
+                                            aliases
+                                        </div>
+                                    </div>
+                                    <div className="bottom-right">
+                                        <div className="top-bar">
+                                            22
+                                        </div>
+                                        <div className="bottom-bar">
+                                            Data
+                                            storage
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div className="card card-tall apollo-news">
                                 <div className="card-title">Apollo News</div>
