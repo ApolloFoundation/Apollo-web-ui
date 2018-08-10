@@ -69,7 +69,6 @@ export function getTradesHistoryAction(reqParams) {
     }
 }
 
-
 export function getAssetAction(reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
@@ -96,5 +95,51 @@ export function getAssetAction(reqParams) {
 
     }
 }
+
+export function getAccountAssetCountAction(reqParams) {
+    return (dispatch, getState) => {
+
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAccountAssetCount',
+                ...reqParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data;
+                }
+                console.log('Error: ', res.data.errorCode);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }
+}
+
+export function getAccountAssetsAction(reqParams) {
+    return (dispatch, getState) => {
+
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAccountAssets',
+                includeAssetInfo: true,
+                ...reqParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data;
+                }
+                console.log('Error: ', res.data.errorCode);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }
+}
+
 
 
