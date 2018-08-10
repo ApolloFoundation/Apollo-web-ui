@@ -50,6 +50,17 @@ export function getPrunableMessageAction(reqParams) {
     }
 }
 
+export function getPrunableMessagesAction(reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getPrunableMessages',
+                ...reqParams
+            }
+        })
+    }
+}
+
 export function getMessengerChats(transactions) {
     return (dispatch, getState) => {
         const account = getState().account;
@@ -161,7 +172,6 @@ export function getMessage(message) {
         return decoded;
     }
 }
-
 
 const isTextMessage = function(transaction) {
     return transaction.goodsIsText || transaction.attachment.messageIsText ||

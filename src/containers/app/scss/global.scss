@@ -112,6 +112,48 @@ textarea {
   resize: none;
 }
 
+.chart-sprite {
+  position: relative;
+
+  &.position-1 {
+    &:after {
+      background-position: 0% 100%;
+    }
+  }
+
+  &.position-2 {
+    &:after {
+      background-position: 33.33% 100%;
+    }
+  }
+
+  &.position-3 {
+    &:after {
+      background-position: 66.66% 100%;
+    }
+  }
+
+  &.position-4 {
+    &:after {
+      background-position: 100% 100%;
+    }
+  }
+
+  &:after {
+    background-image: url(../../assets/chart.png);
+    background-size: 400% 50%;
+    background-repeat: no-repeat;
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+}
+
 .info-box {
 
   &.success {
@@ -615,6 +657,7 @@ textarea {
     }
   }
 }
+
 .input-block {
   width: 300px;
 }
@@ -713,9 +756,28 @@ textarea {
       font-family: "Roboto-Regular";
       font-size: 36px;
       line-height: 60px;
-    }
-    .owned {
+      padding-right: 50px;
+      position: relative;
 
+      .owned {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #FFFFFF;
+        font-size: 24px;
+        line-height: 1.6;
+
+        &:after {
+          content: 'Owned';
+          position: absolute;
+          bottom: -10px;
+          right: 0;
+          opacity: 0.7;
+          color: #FFFFFF;
+          font-size: 12px;
+          line-height: 14px;
+        }
+      }
     }
     .rs {
 
@@ -746,6 +808,56 @@ textarea {
     }
   }
 
+  .general-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+
+    & > * {
+      height: 50%;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+
+      .top-bar {
+        color: #FFFFFF;
+        font-size: 24px;
+        padding-bottom:7px;
+      }
+      .bottom-bar {
+        width: 1px;
+        color: #FFFFFF;
+        font-size: 12px;
+      }
+    }
+    .top-left {
+      border-bottom: 1px solid #fff;
+      border-right: 1px solid #fff;
+      margin-right: -0.5px;
+      margin-bottom: -0.5px;
+      justify-content: flex-start;
+    }
+    .top-right {
+      margin-right: -0.5px;
+      margin-bottom: -0.5px;
+      padding-left: 15px;
+      justify-content: flex-start;
+    }
+    .bottom-left {
+      margin-left: -0.5px;
+      margin-top: -0.5px;
+      justify-content: flex-end;
+    }
+    .bottom-right {
+      border-top: 1px solid #fff;
+      border-left: 1px solid #fff;
+      margin-left: -0.5px;
+      margin-top: -0.5px;
+      padding-left: 15px;
+      justify-content: flex-end;
+    }
+  }
   .card-title {
     color: #333333;
     font-family: "Roboto-Regular";
