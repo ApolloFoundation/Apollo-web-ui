@@ -79,7 +79,7 @@ input[type="checkbox"] {
   -moz-appearance: none;
   appearance: none;
   display: block;
-  border: 1px solid #E5E5E5;	
+  border: 1px solid #E5E5E5;
   background-color: #F5F5F5;
   border-radius: 3px;
   padding: 0 !important;
@@ -110,6 +110,38 @@ textarea {
   background: #fff;
   border-radius: 6px;
   resize: none;
+}
+
+@keyframes notification-animation {
+  0% {
+
+  }
+  10% {
+
+  }
+  100% {
+
+  }
+}
+
+[data-notification] {
+  &:after {
+    content: attr(data-notification);
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    color: #333;
+    font-family: 'Roboto-Bold';
+    font-size: 11px;
+    height: 21px;
+    width: 21px;
+    line-height: 18px;
+    text-align: center;
+    background-color: #00C8FF;
+    border-radius: 100%;
+    border: 3px solid #333;
+  }
+
 }
 
 .chart-sprite {
@@ -158,7 +190,7 @@ textarea {
 
   &.success {
     background-color: #2ecc71;
-    
+
     p {
       color: #fff;
     }

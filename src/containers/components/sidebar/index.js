@@ -1,149 +1,216 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavNavLink, NavLink } from 'react-router-dom';
 import {connect} from 'react-redux';
 import './Sidebar.css';
 import AssetExchange from "../../account/asset-exchange";
 import {setMopalType} from "../../../modules/modals";
+import classNames from 'classnames'
 
-class Sidebar extends React.Component {
-    render() {
-        return (
-            <div className="menu-bar">
-                <div className="site-logo">
-                    <img src="./apollo-logo.svg"/>
-                </div>
-                <nav>
-                    <ul>
-                        <li>
-                            <i className="zmdi zmdi-view-dashboard left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Dashboard</a>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><Link to="/dashboard" >Dashboard</Link></li>
-                                    <li><Link to="/ledger">Account ledger</Link></li>
-                                    <li><Link to="/account-properties">Account properties</Link></li>
-                                    <li><Link to="/transactions">My transactions</Link></li>
-                                    <li><Link to="/approval-request">Approval requests</Link></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-case left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Asset system</a>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><Link to="/trade-history">Trade history</Link></li>
-                                    <li><Link to="/transfer-history">Transfer history</Link></li>
-                                    <li><Link to="/delete-history">Delete history</Link></li>
-                                    <li><Link to="/my-assets">My Assets</Link></li>
-                                    <li><Link to="/open-orders">Open orders</Link></li>
-                                    <li><Link to="approval-request">Approval request</Link></li>
-                                    <li>
-                                        <a onClick={this.props.setMopalType.bind(this, 'ISSUE')}>Issue Assets</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-money left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <Link to="/currencies">Currency system</Link>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><Link to="/currencies">Currencies</Link></li>
-                                    <li><Link to="/my-shuffling">Exchange history</Link></li>
-                                    <li><Link to="/transfer-history">Transfer history</Link></li>
-                                    <li><Link to="/trade-history">Approval requests</Link></li>
-                                    <li><a>Issue Currencies</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-star left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Voting system</a>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><Link to="/active-pools">Active pools</Link></li>
-                                    <li><a>Followed pools</a></li>
-                                    <li><Link to="/my-votes">My votes</Link></li>
-                                    <li><Link to="/my-polls">My pools</Link></li>
-                                    <li><a>Create pool</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-dns left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Data storage</a>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><Link to="/data-storage">Search</Link></li>
-                                    <li><a>File upload</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-label left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <Link to='/marketplace'>Marketplace</Link>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><a>Purchased Products</a></li>
-                                    <li><a>My Products For Sales</a></li>
-                                    <li><a>My Pending Orders</a></li>
-                                    <li><a>My completed orders</a></li>
-                                    <li><a>List products for sales</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-circle-o left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <a>Coin shuffling</a>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><Link to="/active-shuffling">Active Shuffling</Link></li>
-                                    <li><Link to="/finished-shuffling">Finished Shuffling</Link></li>
-                                    <li><Link to="/my-shuffling">My shuffling</Link></li>
-                                    <li><a>Create shuffling</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-comments left"></i>
-                            <i className="zmdi zmdi-chevron-right right"></i>
-                            <Link to='/my-messages' >Messages</Link>
-                            <div className="dropdown-menu">
-                                <ul>
-                                    <li><Link to="/messenger">Chat</Link></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-accounts left"></i>
-                            <Link to="/aliases">Aliases</Link>
-                        </li>
-                        <li>
-                            <i className="zmdi zmdi-input-power left"></i>
-                            <Link to="/plugins">Plugins</Link>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        );
-    }
-}
 
 const mapStateToProps = state => ({
-    modalType : state.modals.modalType
+    modalType : state.modals.modalType,
+    notifications: state.account.notifications
 });
 
 const mapDispatchToProps = dispatch => ({
     setMopalType: (modalType) => dispatch(setMopalType(modalType))
-})
+});
+
+class Sidebar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    state = {
+        isHover: false
+    };
+
+    handleMenuMouseOver = () => {
+        this.setState({
+            isHover: true
+        });
+    };
+
+    handleMenuMouseOut = () => {
+        this.setState({
+            isHover: false
+        });
+    };
+
+    render() {
+        return (
+            <div
+                className={classNames({
+                    "menu-bar": true,
+                    "hover" : this.state.isHover
+                })}
+            >
+                <div className="menu-bar-container">
+                    <div
+                        onMouseOver={this.handleMenuMouseOver}
+                        onMouseOut={this.handleMenuMouseOut}
+                        className="site-logo"
+                    >
+                        <img src="./apollo-logo.svg"/>
+                    </div>
+                    <nav
+                        onMouseOver={this.handleMenuMouseOver}
+                        onMouseOut={this.handleMenuMouseOut}
+                    >
+                        <ul>
+                            <li>
+
+                                <NavLink to="/dashboard">
+                                    Dashboard
+                                    <i className="zmdi zmdi-view-dashboard left" />
+                                    <i className="zmdi zmdi-chevron-right right" />
+                                </NavLink>
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><NavLink exact={true} activeClassName="active" to="/dashboard" >Dashboard</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/ledger">Account ledger</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/account-properties">Account properties</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/transactions">My transactions</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/approval-request">Approval requests</NavLink></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+
+                                <NavLink  exact={true} activeClassName="active" to="/my-assets">
+                                    Asset system
+                                    <i className="zmdi zmdi-case left" />
+                                    <i className="zmdi zmdi-chevron-right right" />
+                                </NavLink>
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><NavLink exact={true} activeClassName="active" to="/trade-history">Trade history</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/transfer-history">Transfer history</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/delete-history">Delete history</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/my-assets">My Assets</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/open-orders">Open orders</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="approval-request">Approval request</NavLink></li>
+                                        <li>
+                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE')}>Issue Assets</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <NavLink to="/currencies">
+                                    Currency system
+                                    <i className="zmdi zmdi-money left" />
+                                    <i className="zmdi zmdi-chevron-right right" />
+                                </NavLink>
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><NavLink to="/currencies">Currencies</NavLink></li>
+                                        <li><NavLink to="/my-shuffling">Exchange history</NavLink></li>
+                                        <li><NavLink to="/transfer-history">Transfer history</NavLink></li>
+                                        <li><NavLink to="/trade-history">Approval requests</NavLink></li>
+                                        <li><a>Issue Currencies</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <NavLink exact={true} activeClassName="active" to="/active-pools">
+                                    Voting system
+                                    <i className="zmdi zmdi-star left" />
+                                    <i className="zmdi zmdi-chevron-right right" />
+                                </NavLink>
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><NavLink to="/active-pools">Active pools</NavLink></li>
+                                        <li><a>Followed pools</a></li>
+                                        <li><NavLink to="/my-votes">My votes</NavLink></li>
+                                        <li><NavLink to="/my-polls">My pools</NavLink></li>
+                                        <li><a>Create pool</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <NavLink exact={true} activeClassName="active"  to="/data-storage">
+                                    Data storage
+                                    <i className="zmdi zmdi-dns left" />
+                                    <i className="zmdi zmdi-chevron-right right" />
+                                </NavLink>
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><NavLink to="/data-storage">Search</NavLink></li>
+                                        <li><a>File upload</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <NavLink exact={true} activeClassName="active"  to='/marketplace'>
+                                    Marketplace
+                                    <i className="zmdi zmdi-label left" />
+                                    <i className="zmdi zmdi-chevron-right right" />
+                                </NavLink>
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><a>Purchased Products</a></li>
+                                        <li><a>My Products For Sales</a></li>
+                                        <li><a>My Pending Orders</a></li>
+                                        <li><a>My completed orders</a></li>
+                                        <li><a>List products for sales</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <NavLink exact={true} activeClassName="active"  to="/active-shuffling">
+                                    Coin shuffling
+                                    <i className="zmdi zmdi-circle-o left" />
+                                    <i className="zmdi zmdi-chevron-right right" />
+                                </NavLink>
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><NavLink to="/active-shuffling">Active Shuffling</NavLink></li>
+                                        <li><NavLink to="/finished-shuffling">Finished Shuffling</NavLink></li>
+                                        <li><NavLink to="/my-shuffling">My shuffling</NavLink></li>
+                                        <li><a>Create shuffling</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <NavLink exact={true} activeClassName="active"  to='/my-messages'>
+                                    Messages
+                                    {
+                                        this.props.notifications && this.props.notifications[1].notificationCount  === 0 &&
+                                        <i className="zmdi zmdi-comments left" />
+                                    }
+                                    {
+                                        this.props.notifications && this.props.notifications[1].notificationCount > 0 &&
+                                        <i className="zmdi zmdi-comments left" data-notification={this.props.notifications[1].notificationCount} />
+                                    }
+
+                                    <i className="zmdi zmdi-chevron-right right" />
+                                </NavLink>
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><NavLink exact={true} activeClassName="active"  to="/messenger">Chat</NavLink></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <NavLink exact={true} activeClassName="active"  to="/aliases">
+                                    Aliases
+                                    <i className="zmdi zmdi-accounts left" />
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink exact={true} activeClassName="active"  to="/plugins">
+                                    Plugins
+                                    <i className="zmdi zmdi-input-power left" />
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        );
+    }
+}
 
 export default connect(
     mapStateToProps,
