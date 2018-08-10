@@ -6,6 +6,7 @@ export const START_LOAD = 'START_LOAD';
 export const END_LOAD = 'END_LOAD';
 export const CHANGE_PAGE_BODY_EVENTS = 'CHANGE_PAGE_BODY_EVENTS';
 export const SET_SETTINGS = 'SET_SETTINGS';
+export const UPDATE_NOTIFICATIONS = 'UPDATE_NOTIFICATIONS';
 
 const initialState = {
     settings: null,
@@ -61,6 +62,14 @@ export default (state = initialState, action) => {
                 settings: action.payload
             };
 
+        case UPDATE_NOTIFICATIONS:
+            return {
+                ...state,
+                notifications: action.payload
+            };
+
+
+
 		default:
 			return state
 	}
@@ -97,6 +106,15 @@ export const setSetings = (settings) => {
     }
 };
 
+export const updateStoreNotifications = (notifications) => {
+    return dispatch => {
+        dispatch({
+            type: UPDATE_NOTIFICATIONS,
+            payload: notifications
+        });
+
+    }
+};
 
 export const startLoad = () => {
 	return dispatch => {

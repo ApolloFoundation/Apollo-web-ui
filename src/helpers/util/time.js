@@ -12,20 +12,14 @@ export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {
         var date;
         if (typeof timestamp == "object") {
 
-            console.log(1);
             date = timestamp;
         } else if (isAbsoluteTime) {
-            console.log(2);
 
             date = new Date(timestamp);
         } else {
-            console.log(3);
 
             date = new Date(dispatch(fromEpochTime(timestamp)));
         }
-
-        console.log(timestamp);
-        console.log(date);
 
         if (!isNaN(date) && typeof(date.getFullYear) == 'function') {
             var d = date.getDate();
@@ -34,8 +28,6 @@ export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {
             var MM = M < 10 ? '0' + M : M;
             var yyyy = date.getFullYear();
             var yy = String(yyyy).substring(2);
-
-            console.log(locale.dateFormat);
 
             var res = locale.dateFormat
                 .replace(/dd/g, dd)
@@ -70,12 +62,10 @@ export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {
                     res += " " + (originalHours >= 12 ? "PM" : "AM");
                 }
             }
-            console.log(res);
 
             return res;
         } else {
 
-            console.log(date);
             return date.toLocaleString();
         }
     }
