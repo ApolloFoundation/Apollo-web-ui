@@ -135,5 +135,42 @@
         }
       }
     }
+    .collapse-button {
+      color: #777777;
+      background-color: #333;
+      padding: 25px 40px 25px 60px;
+      display: block;
+      position: relative;
+      padding-top: 100px;
+
+      &.active {
+        color: #fff;
+
+        .zmdi {
+          &.left {
+            color: #00C8FF;
+          }
+        }
+      }
+
+      .zmdi {
+        font-size: 26px;
+        position: absolute;
+        color: #777777;
+        top: 70%;
+        transform: translateY(-50%);
+
+        &.left {
+          left: 40px;
+        }
+        &.right {
+          right: 20px;
+          font-size: 18px;
+        }
+      }
+      &:hover {
+        color: #fff;
+      }
+    }
   }
 }

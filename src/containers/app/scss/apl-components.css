@@ -1,11 +1,13 @@
 .transaction-table {
   height: 100%;
   width: 100%;
-  min-height: 560px; }
+  min-height: 560px;
+  overflow-x: scroll; }
   .transaction-table.no-min-height {
     min-height: auto;
     height: auto; }
   .transaction-table .transaction-table-body {
+    min-width: 900px;
     padding: 40px 35px;
     width: 100%;
     background-color: #FFFFFF;

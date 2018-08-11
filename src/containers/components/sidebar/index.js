@@ -22,7 +22,8 @@ class Sidebar extends React.Component {
     }
 
     state = {
-        isHover: false
+        isHover: false,
+        isMenuCollapsed: false
     };
 
     handleMenuMouseOver = () => {
@@ -37,12 +38,20 @@ class Sidebar extends React.Component {
         });
     };
 
+    handleMenuCollapse = () => {
+        this.setState({
+            ...this.state,
+            isMenuCollapsed: !this.state.isMenuCollapsed
+        })
+    };
+
     render() {
         return (
             <div
                 className={classNames({
                     "menu-bar": true,
-                    "hover" : this.state.isHover
+                    "collapsed": this.state.isMenuCollapsed,
+                    "hover": this.state.isHover
                 })}
             >
                 <div className="menu-bar-container">
@@ -206,6 +215,15 @@ class Sidebar extends React.Component {
                             </li>
                         </ul>
                     </nav>
+                    <a
+                        className={classNames({
+                            "collapse-button": true,
+                            "active": this.state.isMenuCollapsed
+                        })}
+                       onClick={this.handleMenuCollapse}
+                    >
+                        <i className="zmdi zmdi-chevron-right left" />
+                    </a>
                 </div>
             </div>
         );

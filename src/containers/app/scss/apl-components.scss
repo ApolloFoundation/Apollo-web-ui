@@ -4,6 +4,7 @@
   height: 100%;
   width: 100%;
   min-height: 560px;
+  overflow-x: scroll;
 
   &.no-min-height {
     min-height: auto;
@@ -11,6 +12,8 @@
   }
 
   .transaction-table-body {
+    min-width: 900px;
+
     &.offset-bottom {
       padding-bottom: 75px;
     }

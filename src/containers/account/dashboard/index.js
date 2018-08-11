@@ -172,7 +172,7 @@ class Dashboard extends React.Component {
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="row">
-                        <div className="col-md-3">
+                        <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="card header ballance chart-sprite position-1">
                                 <div className="card-title">Available Balance</div>
                                 <div className="amount">{ (this.props.balanceATM / 100000000).toFixed(2)}</div>
@@ -191,7 +191,7 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="card header assets chart-sprite position-2">
                                 <div className="card-title">Assets Value</div>
                                 <div className="amount">
@@ -242,7 +242,7 @@ class Dashboard extends React.Component {
                                 <a className="btn btn-left btn-simple">Marketplace</a>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="card header currencies chart-sprite position-3">
                                 <div className="card-title">Currencies Value</div>
                                 <div className="amount">
@@ -283,7 +283,7 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="card header coins flex chart-sprite position-4">
                                 <div className="general-info">
                                     <div className="top-left">
