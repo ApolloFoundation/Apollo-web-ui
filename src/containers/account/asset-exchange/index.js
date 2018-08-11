@@ -57,7 +57,7 @@ class AssetExchange extends React.Component {
                     <div className="page-body container-fluid">
 
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-sm-12 col-md-6">
                                 <div className="card header ballance card-tiny medium-padding">
                                     <div className="container">
                                         <div className="row">

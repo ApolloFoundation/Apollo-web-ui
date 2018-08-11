@@ -76,25 +76,25 @@ class Blocks extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="blocks">
                         <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-md-6 col-lg-3">
                                 <div className="card header ballance single">
                                     <div className="card-title">Available Balance</div>
                                     <div className="amount">37,000,000</div>
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-6 col-lg-3">
                                 <div className="card header assets single">
                                     <div className="card-title">Available Balance</div>
                                     <div className="amount">37,000,000</div>
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="card header currencies single">
                                     <div className="card-title">Available Balance</div>
                                     <div className="amount">37,000,000</div>
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-6 col-lg-3">
                                 <div className="card header coins single">
                                     <div className="card-title">Available Balance</div>
                                     <div className="amount">37,000,000</div>

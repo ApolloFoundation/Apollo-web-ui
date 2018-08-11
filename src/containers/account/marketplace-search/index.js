@@ -108,8 +108,8 @@ class MarketplaceSearch extends React.Component {
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
                                         <div className={classNames({
-                                            'col-md-3' : this.state.isGrid,
-                                            'col-md-12': !this.state.isGrid,
+                                            'col-md-6 col-lg-3 col-xl-2' : this.state.isGrid,
+                                            'col-xs-12': !this.state.isGrid,
                                         })}>
                                             <MarketplaceItem
                                                 tall={this.state.isGrid}

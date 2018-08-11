@@ -1068,11 +1068,40 @@ input[type="number"] {
     .site-content .page-content .page-body .account-settings .row {
       position: relative; }
 
+@media (max-width: 1550px) {
+  .page-header {
+    left: 220px;
+    right: 0;
+    width: calc(100% - 220px); }
+    .page-header .user-search-box {
+      justify-content: flex-end; }
+      .page-header .user-search-box .search-bar {
+        width: calc(100% - 7.5px);
+        margin: auto; }
+        .page-header .user-search-box .search-bar .user-account-actions .user-account-rs {
+          display: none; }
+        .page-header .user-search-box .search-bar .user-account-rs {
+          display: none; }
+        .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
+          height: 300px;
+          overflow-y: scroll;
+          width: 300px;
+          display: block; }
+      .page-header .user-search-box .user-box {
+        width: auto;
+        margin: 0; }
+        .page-header .user-search-box .user-box .user-name {
+          display: none; } }
+
 @media (max-width: 1000px) {
   .site-content {
     margin-left: 95px; }
     .site-content .page-content .page-header {
-      width: 100%; }
+      left: 100px;
+      right: 0;
+      width: calc(100% - 100px); }
+    .site-content .page-content .page-body:after {
+      left: 100px; }
   .menu-bar {
     min-width: 135px; }
     .menu-bar.collapsed {

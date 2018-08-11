@@ -52,7 +52,7 @@ class Peers extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="peers">
                         <div className="row" style={{height: '100%'}}>
-                            <div className="col-md-3">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="card header ballance single">
                                     <div className="card-title">Uploaded Volume</div>
                                     {
@@ -61,7 +61,7 @@ class Peers extends React.Component {
                                     }
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="card header assets single">
                                     <div className="card-title">Downloaded Volume</div>
                                     {
@@ -70,7 +70,7 @@ class Peers extends React.Component {
                                     }
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="card header currencies single">
                                     <div className="card-title">Connected Peers</div>
                                     {
@@ -79,7 +79,7 @@ class Peers extends React.Component {
                                     }
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="card header coins single">
                                     <div className="card-title">Up-to-date Peers</div>
                                     {

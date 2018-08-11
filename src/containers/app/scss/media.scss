@@ -1,13 +1,60 @@
+@media (max-width: 1550px) {
+  .page-header {
+    left: 220px;
+    right: 0;
+    width: calc(100% - 220px);
+
+    .user-search-box {
+      justify-content: flex-end;
+
+      .search-bar {
+        width: calc(100% - 7.5px);
+        margin: auto  ;
+
+        .user-account-actions {
+          .user-account-rs {
+            display: none;
+          }
+        }
+        .user-account-rs {
+          display: none;
+        }
+        .user-account-actions {
+          .user-account-action {
+            .settings-bar {
+              height: 300px;
+              overflow-y: scroll;
+              width: 300px;
+              display: block;
+            }
+          }
+        }
+      }
+      .user-box {
+        width: auto;
+        margin: 0;
+
+        .user-name {
+          display: none;
+        }
+      }
+    }
+  }
+}
 @media(max-width: 1000px) {
   .site-content {
     margin-left: 95px;
 
     .page-content {
       .page-header {
-        width: 100%;
+        left: 100px;
+        right: 0;
+        width: calc(100% - 100px);
       }
       .page-body {
-
+        &:after {
+          left: 100px;
+        }
       }
     }
   }
