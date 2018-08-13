@@ -161,12 +161,84 @@ class SiteHeader extends React.Component {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="user-box">
-                                    <div className="user-name">
+                                <div
+                                    onClick={this.setBodyModalType.bind(this, 'ACCOUNT_BODY_MODAL')}
+                                    className="user-box"
+                                >
+                                    <div
+                                        className="user-name"
+                                    >
                                         <i className="zmdi zmdi-chevron-down" />
                                         <a>{ this.props.name }</a>
+
                                     </div>
                                     <div className="user-avatar" />
+                                    <div className={classNames({
+                                        "settings-bar": true,
+                                        "active": this.props.bodyModalType === 'ACCOUNT_BODY_MODAL',
+                                        "no-padding": true
+                                    })}>
+                                        <div className="form-group">
+                                            <div className="form-title">
+                                                <p>Current account</p>
+                                            </div>
+                                            <div className="form-sub-title">
+                                                Not verified profile
+                                            </div>
+                                            <div className="form-body">
+                                                <div className="input-section">
+                                                    <div className="row">
+                                                        <div className="col-xc-12 col-md-6">
+                                                            <a
+                                                                className="btn static blue block"
+                                                            >
+                                                                Set account info
+                                                            </a>
+                                                        </div>
+                                                        <div className="col-xc-12 col-md-6">
+                                                            <a
+                                                                className="btn static block"
+                                                            >
+                                                                Switch account
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-section">
+                                                    <div className="image-button">
+                                                        <i className="zmdi zmdi-account" />
+                                                        <label>Details</label>
+                                                    </div>
+                                                    <div className="image-button">
+                                                        <i className="zmdi zmdi-comments" />
+                                                        <label>Messages</label>
+                                                    </div>
+
+                                                </div>
+                                                <div className="input-section">
+                                                    <div className="image-button">
+                                                        <i className="zmdi zmdi-settings" />
+                                                        <label>Settings</label>
+                                                    </div>
+
+                                                </div>
+                                                <div className="input-section">
+                                                    <div className="image-button">
+                                                        <i className="zmdi zmdi-power" />
+                                                        <label>Logout</label>
+                                                    </div>
+                                                    <div className="image-button">
+                                                        <i className="zmdi zmdi-power" />
+                                                        <label>Logout and stop forging</label>
+                                                    </div>
+                                                    <div className="image-button">
+                                                        <i className="zmdi zmdi-close-circle" />
+                                                        <label>Logout and clear user data</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

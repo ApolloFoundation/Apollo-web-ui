@@ -342,6 +342,44 @@ textarea {
   &.no-padding-bottom {
     padding-bottom: 0 !important;
   }
+  .form-body {
+    .input-section {
+      padding-top: 35px;
+      padding-bottom: 35px;
+      border-bottom: 1px solid #E6E6E6;
+
+      &:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+    }
+    .image-button {
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+      .zmdi {
+        font-size: 18px;
+        color: #333333;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+      label {
+        font-size: 13px;
+        color: #333333;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+    .row {
+      margin: 0 -5px;
+      & > * {
+        padding: 0 5px;
+      }
+    }
+  }
   .exit {
     position: absolute;
     top: 35px;
@@ -737,6 +775,11 @@ textarea {
     &.round-top-right {
       border-top-right-radius: 6px;
     }
+  }
+  &.block {
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 }
 

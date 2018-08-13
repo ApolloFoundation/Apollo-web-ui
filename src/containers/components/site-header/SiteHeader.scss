@@ -171,6 +171,7 @@
       width: 230px;
       display: flex;
       justify-content: flex-end;
+      cursor: pointer;
 
       & > * {
         margin: auto 0;
@@ -192,6 +193,38 @@
         border-radius: 100%;
         margin-left: 30px;
         border: 1px solid #eee;
+      }
+      .settings-bar {
+        position: absolute;
+        top: calc(100% + 30px);
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        padding: 35px 0;
+        box-sizing: border-box;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+        width: 320px;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.3s ease-in-out;
+        z-index: 4;
+
+        &.active {
+          opacity: 1;
+          transform: none;
+          visibility: visible;
+        }
+        .options-col {
+          width: 100%;
+          border-right: 1px solid #E6E6E6;
+
+          &:last-child {
+            border: 0;
+          }
+        }
       }
     }
   }

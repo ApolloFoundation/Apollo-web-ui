@@ -225,6 +225,32 @@ textarea {
     padding-bottom: 75px; }
   .form-group.no-padding-bottom {
     padding-bottom: 0 !important; }
+  .form-group .form-body .input-section {
+    padding-top: 35px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid #E6E6E6; }
+    .form-group .form-body .input-section:last-child {
+      padding-bottom: 0;
+      border-bottom: 0; }
+  .form-group .form-body .image-button {
+    margin-bottom: 10px; }
+    .form-group .form-body .image-button:last-child {
+      margin-bottom: 0px; }
+    .form-group .form-body .image-button .zmdi {
+      font-size: 18px;
+      color: #333333;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px; }
+    .form-group .form-body .image-button label {
+      font-size: 13px;
+      color: #333333;
+      display: inline-block;
+      vertical-align: middle; }
+  .form-group .form-body .row {
+    margin: 0 -5px; }
+    .form-group .form-body .row > * {
+      padding: 0 5px; }
   .form-group .exit {
     position: absolute;
     top: 35px;
@@ -487,6 +513,10 @@ textarea {
       border-bottom-left-radius: 6px; }
     .btn.round.round-top-right {
       border-top-right-radius: 6px; }
+  .btn.block {
+    display: block;
+    width: 100%;
+    text-align: center; }
 
 .input-block {
   width: 300px; }
