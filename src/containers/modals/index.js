@@ -17,6 +17,10 @@ import InfoBlock from './info-block';
 import InfoAccount from './account/account';
 import ApolloAbout from './about';
 
+// Assets
+import TransferAsset from './assets/transfer-asset';
+import DeleteShares from './assets/delete-shares';
+
 // Aliases
 import EditAlias     from './aliases/edit-alias';
 import SellAlias     from './aliases/sell-alias';
@@ -74,7 +78,9 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SEND_APOLLO_PRIVATE'      && <SendApolloPrivate         />}
 
 
-                {/* Issues */}
+                {/* Assets */}
+                {this.props.modalType === 'TRANSFER_ASSET'           && <TransferAsset             />}
+                {this.props.modalType === 'DELETE_SHARES'            && <DeleteShares              />}
                 {this.props.modalType === 'ISSUE_ASSET'              && <IssueAsset                />}
 
 

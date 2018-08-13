@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'uuid';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {setBodyModalParamsAction, setMopalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -32,11 +32,13 @@ class MyAssetItem extends React.Component {
                     <td className="align-right">
                         <div className="btn-box inline">
                             <a
+                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', null)}
                                 className="btn primary blue"
                             >
                                 Transfer
                             </a>
                             <a
+                                onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', null)}
                                 className="btn primary blue"
                             >
                                 Delete Shares
@@ -54,7 +56,8 @@ class MyAssetItem extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setMopalType: (type) => dispatch(setMopalType(type))
 });
 
 export default connect(null, mapDispatchToProps)(MyAssetItem);
