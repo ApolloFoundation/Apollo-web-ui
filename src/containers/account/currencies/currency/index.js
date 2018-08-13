@@ -1,5 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+
+})
 
 const Currency = (props) => (
     <tr>
@@ -15,10 +22,10 @@ const Currency = (props) => (
         <td className="align-right">
             <div className="btn-box inline">
                 <Link to={"/exchange-booth/" + props.code} className="btn primary blue">Exchange</Link>
-                <a className="btn primary blue">Reserve</a>
+                <a onClick={() => props.setBodyModalParamsAction('RESERVE_CURRENCY', null)} className="btn primary blue">Reserve</a>
             </div>
         </td>
     </tr>
 );
 
-export default Currency;
+export default connect(null, mapDispatchToProps)(Currency);
