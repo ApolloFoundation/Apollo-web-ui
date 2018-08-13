@@ -232,6 +232,10 @@
           max-height: 700px;
           overflow-y: scroll;
 
+          &.overflow-visible {
+            overflow: visible;
+            max-height: auto;
+          }
           .top-bar {
 
           }

@@ -15,7 +15,7 @@ import InfoBlock from './info-block';
 
 // Account
 import InfoAccount from './account/account';
-
+import ApolloAbout from './about';
 
 // Aliases
 import EditAlias     from './aliases/edit-alias';
@@ -66,34 +66,36 @@ class ModalWindow extends React.Component {
                     "active": this.props.modalType
                 })}
             >
-                {this.props.modalType === 'INFO_TRANSACTION'         && <InfoTransaction         />}
-                {this.props.modalType === 'INFO_LEDGER_TRANSACTION'  && <InfoLedgerTransaction   />}
-                {this.props.modalType === 'INFO_BLOCK'               && <InfoBlock               />}
-                {this.props.modalType === 'PrivateTransactions'      && <PrivateTransactions     />}
-                {this.props.modalType === 'SEND_APOLLO'              && <SendApollo              />}
-                {this.props.modalType === 'SEND_APOLLO_PRIVATE'      && <SendApolloPrivate       />}
+                {this.props.modalType === 'INFO_TRANSACTION'         && <InfoTransaction           />}
+                {this.props.modalType === 'INFO_LEDGER_TRANSACTION'  && <InfoLedgerTransaction     />}
+                {this.props.modalType === 'INFO_BLOCK'               && <InfoBlock                 />}
+                {this.props.modalType === 'PrivateTransactions'      && <PrivateTransactions       />}
+                {this.props.modalType === 'SEND_APOLLO'              && <SendApollo                />}
+                {this.props.modalType === 'SEND_APOLLO_PRIVATE'      && <SendApolloPrivate         />}
 
 
                 {/* Issues */}
-                {this.props.modalType === 'ISSUE_ASSET'              && <IssueAsset              />}
+                {this.props.modalType === 'ISSUE_ASSET'              && <IssueAsset                />}
 
 
                 {/*Account*/}
-                {this.props.modalType === 'INFO_ACCOUNT'             && <InfoAccount             />}
+                {this.props.modalType === 'INFO_ACCOUNT'             && <InfoAccount               />}
 
 
                 {/*Aliases */}
-                {this.props.modalType === 'EDIT_ALIAS'               && <EditAlias                />}
-                {this.props.modalType === 'SELL_ALIAS'               && <SellAlias                />}
-                {this.props.modalType === 'TRANSFER_ALIAS'           && <TransferAlias            />}
-                {this.props.modalType === 'DELETE_ALIAS'             && <DeleteAlias              />}
+                {this.props.modalType === 'EDIT_ALIAS'               && <EditAlias                 />}
+                {this.props.modalType === 'SELL_ALIAS'               && <SellAlias                 />}
+                {this.props.modalType === 'TRANSFER_ALIAS'           && <TransferAlias             />}
+                {this.props.modalType === 'DELETE_ALIAS'             && <DeleteAlias               />}
 
                 {/*Marketplace*/}
                 {this.props.modalType === 'MARKETPLACE_IMAGE'        && <MarketplaceImage          />}
+
+
                 {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS' && <MarketplaceProductDetails />}
 
 
-
+                {this.props.modalType === 'GENERAL_INFO'             && <ApolloAbout />}
 
             </div>
         );

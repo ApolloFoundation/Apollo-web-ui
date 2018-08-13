@@ -150,7 +150,10 @@ class SiteHeader extends React.Component {
                                                 </div>
                                             </div>
                                         </button>
-                                        <a className="user-account-action">
+                                        <a
+                                            onClick={() =>  this.props.setMopalType('GENERAL_INFO')}
+                                            className="user-account-action"
+                                        >
                                             <i className="zmdi zmdi-help" />
                                         </a>
                                         <a className="user-account-action search-button" onClick={this.setSearchStateToActive}>

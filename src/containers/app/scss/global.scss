@@ -294,6 +294,33 @@ textarea {
       }
     }
   }
+  &.about {
+    .left-bar {
+      width: 200px;
+      margin: 0;
+    }
+    .right-bar {
+      width: calc(100% - 160px);
+
+      .description {
+        color: #333333;
+        font-size: 14px;
+        line-height: 1.6;
+        padding-top: 48px;
+
+        p {
+          margin-top: 30px;
+          font-size: 14px;
+
+          a {
+            color: #00C8FF;
+            font-weight: normal;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
   &.transparent {
     background: transparent;
   }
@@ -325,7 +352,6 @@ textarea {
     }
   }
   .marketplace-image {
-    height: 400px;
     margin: 0 -35px -70px;
     background-color: #ccc;
     background-repeat: no-repeat;
@@ -337,6 +363,13 @@ textarea {
       background-image: url(../../assets/no-photo.svg) !important;
       background-color: #eee !important;
     }
+  }
+  .about-image {
+    height: 155px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+    background-image: url(../../assets/brand-logo.png) !important;
   }
   .form-title {
     padding-bottom: 20px;

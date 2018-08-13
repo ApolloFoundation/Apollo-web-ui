@@ -145,6 +145,9 @@
       .modal-window.active .modal-box .modal-form .left-bar {
         max-height: 700px;
         overflow-y: scroll; }
+        .modal-window.active .modal-box .modal-form .left-bar.overflow-visible {
+          overflow: visible;
+          max-height: auto; }
   .modal-window .modal-box {
     transform: translateY(-50px);
     margin: auto;

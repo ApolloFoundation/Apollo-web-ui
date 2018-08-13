@@ -192,6 +192,23 @@ textarea {
         line-height: 18px; }
       .form-group.devided .right-bar .info-table {
         padding-bottom: 30px; }
+  .form-group.about .left-bar {
+    width: 200px;
+    margin: 0; }
+  .form-group.about .right-bar {
+    width: calc(100% - 160px); }
+    .form-group.about .right-bar .description {
+      color: #333333;
+      font-size: 14px;
+      line-height: 1.6;
+      padding-top: 48px; }
+      .form-group.about .right-bar .description p {
+        margin-top: 30px;
+        font-size: 14px; }
+        .form-group.about .right-bar .description p a {
+          color: #00C8FF;
+          font-weight: normal;
+          font-size: 14px; }
   .form-group.transparent {
     background: transparent; }
   .form-group.offset {
@@ -213,7 +230,6 @@ textarea {
     .form-group .exit i {
       font-size: 20px; }
   .form-group .marketplace-image {
-    height: 400px;
     margin: 0 -35px -70px;
     background-color: #ccc;
     background-repeat: no-repeat;
@@ -223,6 +239,12 @@ textarea {
       background-size: 30% !important;
       background-image: url(../../assets/no-photo.svg) !important;
       background-color: #eee !important; }
+  .form-group .about-image {
+    height: 155px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+    background-image: url(../../assets/brand-logo.png) !important; }
   .form-group .form-title {
     padding-bottom: 20px; }
     .form-group .form-title.inline > * {
