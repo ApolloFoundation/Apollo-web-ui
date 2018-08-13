@@ -137,7 +137,7 @@ textarea {
   color: #000; }
 
 .no-margin {
-  margin: 0; }
+  margin: 0 !important; }
 
 .no-padding {
   padding: 0 !important; }
@@ -169,23 +169,6 @@ textarea {
   background: #fff;
   border-radius: 6px;
   height: calc(100% - 15px); }
-  .form-group .exit {
-    position: absolute;
-    top: 35px;
-    right: 35px; }
-    .form-group .exit i {
-      font-size: 20px; }
-  .form-group .marketplace-image {
-    height: 400px;
-    margin: 0 -35px -70px;
-    background-color: #ccc;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center; }
-    .form-group .marketplace-image.no-image {
-      background-size: 30% !important;
-      background-image: url(../../assets/no-photo.svg) !important;
-      background-color: #eee !important; }
   .form-group.devided {
     display: flex;
     flex-direction: row;
@@ -223,6 +206,23 @@ textarea {
     padding-bottom: 75px; }
   .form-group.no-padding-bottom {
     padding-bottom: 0 !important; }
+  .form-group .exit {
+    position: absolute;
+    top: 35px;
+    right: 35px; }
+    .form-group .exit i {
+      font-size: 20px; }
+  .form-group .marketplace-image {
+    height: 400px;
+    margin: 0 -35px -70px;
+    background-color: #ccc;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center; }
+    .form-group .marketplace-image.no-image {
+      background-size: 30% !important;
+      background-image: url(../../assets/no-photo.svg) !important;
+      background-color: #eee !important; }
   .form-group .form-title {
     padding-bottom: 20px; }
     .form-group .form-title.inline > * {
@@ -245,6 +245,16 @@ textarea {
     font-size: 12px;
     line-height: 19px;
     margin-top: -15px; }
+    .form-group .form-sub-title.align-padding-bottom {
+      padding-bottom: 15px; }
+    .form-group .form-sub-title.align-margin-top {
+      margin-top: 5px; }
+    .form-group .form-sub-title.align-right {
+      text-align: right; }
+  .form-group .input-group:last-child {
+    padding-bottom: 0 !important; }
+  .form-group .input-group.block {
+    display: block; }
   .form-group .input-group.offset-top {
     padding-top: 25px; }
   .form-group .input-group.offset-bottom {
@@ -387,7 +397,8 @@ textarea {
   color: #fff;
   user-select: none;
   border-radius: 3px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  z-index: 1; }
   .btn.absolute {
     position: absolute; }
   .btn.icon-button {

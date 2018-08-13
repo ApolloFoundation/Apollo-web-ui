@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
-
+import AdvancedSettings from '../../components/advanced-transaction-settings'
 import classNames from 'classnames';
 import crypto from  '../../../helpers/crypto/crypto';
 
@@ -27,7 +27,6 @@ class SendApollo extends React.Component {
             feeStatus: false
         }
 
-        this.handleTabChange = this.handleTabChange.bind(this);
         this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
@@ -86,13 +85,6 @@ class SendApollo extends React.Component {
         this.props.sendTransaction(values);
         this.props.setBodyModalParamsAction(null, {});
         this.props.setAlert('success', 'Transaction has been submitted!');
-    }
-
-    handleTabChange(tab) {
-        this.setState({
-            ...this.props,
-            activeTab: tab
-        })
     }
 
     handleAdvancedState() {
@@ -186,118 +178,9 @@ class SendApollo extends React.Component {
                                         Missing fee.
                                     </InfoBox>
                                 }
-                                <div
-                                    className={classNames({
-                                        'form-tabulator': true,
-                                        'active': this.state.advancedState
-                                    })}
-                                >
-                                    <div className="form-tab-nav-box">
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 0)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 0
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-close-circle'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 1)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 1
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
 
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 2)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 2
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-accounts-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 3)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 3
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-money-box'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 4)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 4
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
+                                <AdvancedSettings advancedState={this.state.advancedState}/>
 
-                                    </div>
-                                    <div className="form-tab">
-                                        <div className="input-group">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Referenced transaction hash</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                                </div>
-                                                <div className="col-md-3">
-
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <div className="form-sub-actions">
-                                                        <div className="form-group">
-                                                            <div className="input-group align-middle display-block offset-top">
-                                                                <input type="checkbox"/>
-                                                                <label>Do not broadcast</label>
-                                                            </div>
-                                                            <div className="input-group align-middle display-block offset-top">
-                                                                <input type="checkbox"/>
-                                                                <label>Add note to self?</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner">
                                     <button className="btn btn-right round round-top-left">Cancel</button>
                                     <button

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import PrivateTransactions from "./private-transaction";
 import SendApollo from "./send-apollo";
 import SendApolloPrivate from "./send-apollo-private";
-import Issue from "./issue"
+import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
@@ -72,7 +72,10 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'PrivateTransactions'      && <PrivateTransactions     />}
                 {this.props.modalType === 'SEND_APOLLO'              && <SendApollo              />}
                 {this.props.modalType === 'SEND_APOLLO_PRIVATE'      && <SendApolloPrivate       />}
-                {this.props.modalType === 'ISSUE'                    && <Issue                   />}
+
+
+                {/* Issues */}
+                {this.props.modalType === 'ISSUE_ASSET'              && <IssueAsset              />}
 
 
                 {/*Account*/}

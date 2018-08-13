@@ -100,7 +100,7 @@ class Sidebar extends React.Component {
                                         <li><NavLink exact={true} activeClassName="active" to="/open-orders">Open orders</NavLink></li>
                                         <li><NavLink exact={true} activeClassName="active" to="approval-request">Approval request</NavLink></li>
                                         <li>
-                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE')}>Issue Assets</a>
+                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue Assets</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -117,7 +117,9 @@ class Sidebar extends React.Component {
                                         <li><NavLink to="/my-shuffling">Exchange history</NavLink></li>
                                         <li><NavLink to="/transfer-history">Transfer history</NavLink></li>
                                         <li><NavLink to="/trade-history">Approval requests</NavLink></li>
-                                        <li><a>Issue Currencies</a></li>
+                                        <li>
+                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue Currencies</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -133,7 +135,9 @@ class Sidebar extends React.Component {
                                         <li><a>Followed pools</a></li>
                                         <li><NavLink to="/my-votes">My votes</NavLink></li>
                                         <li><NavLink to="/my-polls">My pools</NavLink></li>
-                                        <li><a>Create pool</a></li>
+                                        <li>
+                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}>Create poll</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -146,7 +150,9 @@ class Sidebar extends React.Component {
                                 <div className="dropdown-menu">
                                     <ul>
                                         <li><NavLink to="/data-storage">Search</NavLink></li>
-                                        <li><a>File upload</a></li>
+                                        <li>
+                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File upload</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -177,7 +183,9 @@ class Sidebar extends React.Component {
                                         <li><NavLink to="/active-shuffling">Active Shuffling</NavLink></li>
                                         <li><NavLink to="/finished-shuffling">Finished Shuffling</NavLink></li>
                                         <li><NavLink to="/my-shuffling">My shuffling</NavLink></li>
-                                        <li><a>Create shuffling</a></li>
+                                        <li>
+                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create shuffling</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
