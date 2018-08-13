@@ -2,6 +2,7 @@ import React from 'react';
 import SiteHeader from '../../components/site-header'
 import CircleFigure from './circle-figure'
 import { connect } from 'react-redux';
+import {Link} from "react-router-dom";
 import {setMopalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
@@ -157,19 +158,8 @@ class Dashboard extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Dashboard'}
-                >
-                    <div
-                        className={classNames({
-                            "btn" : true,
-                            "icon-button" : true,
-                            "filters" : true,
-                            "primary" : true,
-                            "transparent" : true,
-                        })}
-                    >
-                        <i className="zmdi zmdi-chevron-down" />
-                    </div>
-                </SiteHeader>
+                    dashboardPage
+                />
                 <div className="page-body container-fluid">
                     <div className="row">
                         <div className="col-sm-12 col-md-6 col-lg-3">
@@ -239,7 +229,7 @@ class Dashboard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <a className="btn btn-left btn-simple">Marketplace</a>
+                                <Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">

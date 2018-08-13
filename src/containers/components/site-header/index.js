@@ -68,6 +68,61 @@ class SiteHeader extends React.Component {
                                         this.props.children &&
                                         this.props.children
                                     }
+                                    {
+                                        this.props.dashboardPage &&
+                                        <div
+                                            onClick={this.setBodyModalType.bind(this, 'FORGING_BODY_MODAL')}
+                                            className={classNames({
+                                                "btn" : true,
+                                                "icon-button" : true,
+                                                "filters" : true,
+                                                "primary" : true,
+                                                "transparent" : true,
+                                                "open-settings" : true
+                                            })}
+                                        >
+                                            <i className="zmdi zmdi-chevron-down" />
+                                            <div className={classNames({
+                                                "settings-bar": true,
+                                                "active": this.props.bodyModalType === "FORGING_BODY_MODAL",
+                                                "no-padding": true
+                                            })}>
+                                                <div className="form-group">
+                                                    <div className="form-body">
+                                                        <div className="input-section">
+                                                            <div className="image-button">
+                                                                <i className="zmdi zmdi-account" />
+                                                                <label>Connected</label>
+                                                            </div>
+                                                            <a
+                                                                to="/messenger"
+                                                                className="image-button"
+                                                            >
+                                                                <i className="zmdi zmdi-comments" />
+                                                                <label>Not forging</label>
+                                                            </a>
+                                                            <a
+                                                                to="/messenger"
+                                                                className="image-button"
+                                                            >
+                                                                <i className="zmdi" />
+                                                                <label>Not forging</label>
+                                                            </a>
+                                                            <a
+                                                                to="/messenger"
+                                                                className="image-button"
+                                                            >
+                                                                <i className="zmdi" />
+                                                                <label>Not forging</label>
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
                                     <div className="breadcrumbs">
                                         <a>Apollo Wallet /</a>
                                         <strong>
@@ -144,7 +199,7 @@ class SiteHeader extends React.Component {
                                                 <div className="options-col">
                                                     <ul>
                                                         <li><a className="option">Plugins</a></li>
-                                                        <li><a className="option">Account settings</a></li>
+                                                        <li><Link to="/settings" className="option">Account settings</Link></li>
                                                         <li><a className="option">Device settings</a></li>
                                                     </ul>
                                                 </div>
@@ -209,17 +264,23 @@ class SiteHeader extends React.Component {
                                                         <i className="zmdi zmdi-account" />
                                                         <label>Details</label>
                                                     </div>
-                                                    <div className="image-button">
+                                                    <Link
+                                                        to="/messenger"
+                                                        className="image-button"
+                                                    >
                                                         <i className="zmdi zmdi-comments" />
                                                         <label>Messages</label>
-                                                    </div>
+                                                    </Link>
 
                                                 </div>
                                                 <div className="input-section">
-                                                    <div className="image-button">
+                                                    <Link
+                                                        to="/settings"
+                                                        className="image-button"
+                                                    >
                                                         <i className="zmdi zmdi-settings" />
                                                         <label>Settings</label>
-                                                    </div>
+                                                    </Link>
 
                                                 </div>
                                                 <div className="input-section">

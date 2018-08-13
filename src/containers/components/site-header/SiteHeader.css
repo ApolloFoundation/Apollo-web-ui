@@ -9,6 +9,38 @@
   width: calc(100% - 220px); }
   .page-header .page-title-box .page-title-box {
     position: relative; }
+    .page-header .page-title-box .page-title-box .open-settings .settings-bar {
+      position: absolute;
+      top: calc(100% + 47px);
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+      background: #fff;
+      padding: 35px 0;
+      box-sizing: border-box;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
+      width: 170px;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.3s ease-in-out;
+      z-index: 4; }
+      .page-header .page-title-box .page-title-box .open-settings .settings-bar.active {
+        opacity: 1;
+        transform: none;
+        visibility: visible; }
+      .page-header .page-title-box .page-title-box .open-settings .settings-bar .form-group {
+        padding: 35px 25px; }
+      .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section {
+        padding: 0; }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section i {
+          width: 20px; }
+      .page-header .page-title-box .page-title-box .open-settings .settings-bar .options-col {
+        width: 100%;
+        border-right: 1px solid #E6E6E6; }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar .options-col:last-child {
+          border: 0; }
     .page-header .page-title-box .page-title-box > * {
       vertical-align: middle; }
     .page-header .page-title-box .page-title-box .title {
@@ -28,7 +60,12 @@
       .page-header .page-title-box .page-title-box .breadcrumbs strong a {
         font-family: "Roboto-Bold"; }
   .page-header .page-title-box .btn {
-    margin-top: 0; }
+    margin-top: 0;
+    position: relative; }
+    .page-header .page-title-box .btn .settings-bar {
+      position: absolute;
+      left: 0;
+      top: calc(100% - 40px); }
   .page-header .user-search-box {
     display: flex;
     margin: 0 -15px;

@@ -12,6 +12,51 @@
     .page-title-box {
       position: relative;
 
+      .open-settings {
+        .settings-bar {
+          position: absolute;
+          top: calc(100% + 47px);
+          right: 0;
+          display: flex;
+          justify-content: space-around;
+          background: #fff;
+          padding: 35px 0;
+          box-sizing: border-box;
+          border-bottom-right-radius: 6px;
+          border-bottom-left-radius: 6px;
+          width: 170px;
+          visibility: hidden;
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 0.3s ease-in-out;
+          z-index: 4;
+
+          &.active {
+            opacity: 1;
+            transform: none;
+            visibility: visible;
+          }
+          .form-group {
+            padding: 35px 25px;
+          }
+          .input-section {
+            padding: 0;
+
+            i {
+              width: 20px;
+
+            }
+          }
+          .options-col {
+            width: 100%;
+            border-right: 1px solid #E6E6E6;
+
+            &:last-child {
+              border: 0;
+            }
+          }
+        }
+      }
       & > * {
         vertical-align: middle;
       }
@@ -39,6 +84,13 @@
     }
     .btn {
       margin-top: 0;
+      position: relative;
+
+      .settings-bar {
+        position: absolute;
+        left: 0;
+        top: calc(100% - 40px);
+      }
     }
   }
   .user-search-box {
