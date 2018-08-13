@@ -110,6 +110,7 @@ class FollowedVotes extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         const colors = [
             {
                 startColorGradient: '#008CDC',
@@ -200,7 +201,10 @@ class FollowedVotes extends React.Component {
                                                         <div className="description-bar">
                                                             <p>{this.state.poll.description}</p>
                                                         </div>
-                                                        <div className="btn btn-primary static blue">Vote in poll</div>
+                                                        {
+                                                            !this.state.poll.finished &&
+                                                            <div className="btn btn-primary static blue">Vote in poll</div>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>

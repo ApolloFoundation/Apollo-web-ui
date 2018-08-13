@@ -248,3 +248,5 @@ input[type="number"] {
         height: 100%; }
     .site-content .page-content .page-body .account-settings .row {
       position: relative; }
+    .site-content .page-content .page-body .messenger {
+      height: calc(100vh - 135px); }

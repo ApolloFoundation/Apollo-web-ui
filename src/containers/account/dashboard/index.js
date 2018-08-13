@@ -158,6 +158,7 @@ class Dashboard extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Dashboard'}
+                    dashboardPage
                 />
                 <div className="page-body container-fluid">
                     <div className="row">

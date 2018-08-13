@@ -416,6 +416,9 @@ input[type="number"] {
           position: relative;
         }
       }
+      .messenger {
+        height: calc(100vh - 135px);
+      }
     }
   }
 }
