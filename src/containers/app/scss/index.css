@@ -76,12 +76,18 @@ input[type="checkbox"] {
 
 textarea {
   border: 1px solid #E5E5E5;
-  background: #fff;
   border-radius: 6px;
-  resize: none; }
+  resize: none;
+  background-color: #F5F5F5;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-size: 13px;
+  font-family: "Roboto-Regular"; }
 
 input {
-  padding: 10px 20px; }
+  padding: 10px 20px;
+  font-size: 13px;
+  font-family: "Roboto-Regular"; }
 
 @keyframes notification-animation {
   0% { }
@@ -320,6 +326,8 @@ input {
     vertical-align: middle; }
   .form-group .input-group.align-middle label {
     padding-left: 20px; }
+  .form-group .input-group .input-wrapper {
+    width: 100%; }
   .form-group .input-group .form-sub-title {
     padding-left: 15px; }
   .form-group .input-group input {
@@ -381,6 +389,8 @@ input {
     display: flex; }
     .input-group .row > * > * {
       margin: auto 0; }
+  .input-group textarea {
+    width: 100%; }
   .input-group.search input, .input-group.user input {
     border-right: 0;
     display: block;

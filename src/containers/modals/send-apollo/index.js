@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import crypto from  '../../../helpers/crypto/crypto';
 import InputMask from 'react-input-mask';
 
-import {Form, Text} from 'react-form';
+import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
 
 class SendApollo extends React.Component {
@@ -132,10 +132,6 @@ class SendApollo extends React.Component {
         return (
             <div className="modal-box">
                 <Form
-                    onChange={(values) => {
-                        values.feeATM = 666;
-                        console.log(values.feeATM);
-                    }}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                          submitForm, values, addValue, removeValue, setValue, getFormState
@@ -156,7 +152,7 @@ class SendApollo extends React.Component {
                                                     {(inputProps) => {
                                                         console.log(inputProps);
                                                         return (
-                                                            <Text  {...inputProps} field="recipient" placeholder="Amount" />
+                                                            <Text  {...inputProps} field="recipient" placeholder="Recipient" />
                                                         );
                                                     }}
                                                 </InputMask>
@@ -173,10 +169,53 @@ class SendApollo extends React.Component {
                                             <label>Amount</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field="amountATM" placeholder="Amount" />
+                                            <div className="input-wrapper">
+                                                <Text field="amountATM" placeholder="Amount" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="input-group offset-top display-block inline">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                        </div>
+                                        <div className="col-md-9">
+                                            <div className="input-wrapper">
+                                                <div className="form-sub-actions">
+                                                    <div
+                                                        className="input-group align-middle display-block offset-bottom"
+                                                    >
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isMessage"/>
+                                                            <label>Add note to self?</label>
+                                                        </div>
+                                                        <a
+                                                            onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}
+                                                            className="no-margin btn static blue"
+                                                        >
+                                                            Private transaction?
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {
+                                    getFormState().values.isMessage &&
+                                    <div className="input-group offset-top display-block inline">
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                            </div>
+                                            <div className="col-md-9">
+                                                <div className="input-wrapper">
+                                                    <TextArea placeholder="Message" field="message" cols="30" rows="10" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
                                 <div className="input-group offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">

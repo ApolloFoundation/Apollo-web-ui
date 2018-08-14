@@ -107,13 +107,19 @@ input[type="checkbox"] {
 
 textarea {
   border: 1px solid #E5E5E5;
-  background: #fff;
   border-radius: 6px;
   resize: none;
+  background-color: #F5F5F5;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-size: 13px;
+  font-family: "Roboto-Regular";
 }
 
 input {
   padding: 10px 20px;
+  font-size: 13px;
+  font-family: "Roboto-Regular";
 }
 
 @keyframes notification-animation {
@@ -495,6 +501,9 @@ input {
         padding-left: 20px;
       }
     }
+    .input-wrapper {
+      width: 100%;
+    }
     .form-sub-title {
       padding-left: 15px;
     }
@@ -596,6 +605,9 @@ input {
         margin: auto 0;
       }
     }
+  }
+  textarea {
+    width: 100%;
   }
   &.search, &.user {
     i {

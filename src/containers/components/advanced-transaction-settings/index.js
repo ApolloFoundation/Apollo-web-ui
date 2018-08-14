@@ -187,9 +187,11 @@ class AdvancedSettings extends React.Component {
                                     <label>Finish height</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-title align-right align-margin-top">
-                                        2018/06/19 09:32 am
+                                    <div className="input-wrapper">
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-title align-right align-margin-top">
+                                            2018/06/19 09:32 am
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -252,17 +254,20 @@ class AdvancedSettings extends React.Component {
                                     <label>Finish height</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div
-                                                className="input-group align-middle display-block offset-bottom offset-top"
-                                            >
-                                                <a
-                                                    className="no-margin btn static blue"
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div
+                                                    className="input-group align-middle display-block offset-bottom offset-top"
                                                 >
-                                                    Add account
-                                                </a>
+                                                    <a
+                                                        className="no-margin btn static blue"
+                                                    >
+                                                        Add account
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -295,16 +300,19 @@ class AdvancedSettings extends React.Component {
                                     <label>Referenced transaction hash</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div className="input-group align-middle display-block offset-bottom offset-top">
-                                                <input type="checkbox"/>
-                                                <label>Do not broadcast</label>
-                                            </div>
-                                            <div className="input-group align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Add note to self?</label>
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div className="input-group align-middle display-block offset-bottom offset-top">
+                                                    <input type="checkbox"/>
+                                                    <label>Do not broadcast</label>
+                                                </div>
+                                                <div className="input-group align-middle display-block offset-bottom">
+                                                    <input type="checkbox"/>
+                                                    <label>Add note to self?</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -336,17 +344,20 @@ class AdvancedSettings extends React.Component {
                                     <label>Finish height</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div
-                                                className="input-group align-middle display-block offset-bottom offset-top"
-                                            >
-                                                <a
-                                                    className="no-margin btn static blue"
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div
+                                                    className="input-group align-middle display-block offset-bottom offset-top"
                                                 >
-                                                    Add account
-                                                </a>
+                                                    <a
+                                                        className="no-margin btn static blue"
+                                                    >
+                                                        Add account
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -379,16 +390,19 @@ class AdvancedSettings extends React.Component {
                                     <label>Referenced transaction hash</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div className="input-group align-middle display-block offset-bottom offset-top">
-                                                <input type="checkbox"/>
-                                                <label>Do not broadcast</label>
-                                            </div>
-                                            <div className="input-group align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Add note to self?</label>
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div className="input-group align-middle display-block offset-bottom offset-top">
+                                                    <input type="checkbox"/>
+                                                    <label>Do not broadcast</label>
+                                                </div>
+                                                <div className="input-group align-middle display-block offset-bottom">
+                                                    <input type="checkbox"/>
+                                                    <label>Add note to self?</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -420,9 +434,12 @@ class AdvancedSettings extends React.Component {
                                     <label>Finish height</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-title align-right align-margin-top">
-                                        2018/06/19 09:32 am
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-title align-right align-margin-top">
+                                            2018/06/19 09:32 am
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -443,17 +460,20 @@ class AdvancedSettings extends React.Component {
                                     <label>Accounts (whitelist)</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div
-                                                className="input-group align-middle display-block offset-bottom offset-top"
-                                            >
-                                                <a
-                                                    className="no-margin btn static blue"
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div
+                                                    className="input-group align-middle display-block offset-bottom offset-top"
                                                 >
-                                                    Add account
-                                                </a>
+                                                    <a
+                                                        className="no-margin btn static blue"
+                                                    >
+                                                        Add account
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -476,16 +496,19 @@ class AdvancedSettings extends React.Component {
                                     <label>Referenced transaction hash</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div className="input-group align-middle display-block offset-bottom offset-top">
-                                                <input type="checkbox"/>
-                                                <label>Do not broadcast</label>
-                                            </div>
-                                            <div className="input-group align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Add note to self?</label>
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div className="input-group align-middle display-block offset-bottom offset-top">
+                                                    <input type="checkbox"/>
+                                                    <label>Do not broadcast</label>
+                                                </div>
+                                                <div className="input-group align-middle display-block offset-bottom">
+                                                    <input type="checkbox"/>
+                                                    <label>Add note to self?</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -517,9 +540,12 @@ class AdvancedSettings extends React.Component {
                                     <label>Finish height</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-title align-right align-margin-top">
-                                        2018/06/19 09:32 am
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-title align-right align-margin-top">
+                                            2018/06/19 09:32 am
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -540,17 +566,20 @@ class AdvancedSettings extends React.Component {
                                     <label>Accounts (whitelist)</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div
-                                                className="input-group align-middle display-block offset-bottom offset-top"
-                                            >
-                                                <a
-                                                    className="no-margin btn static blue"
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div
+                                                    className="input-group align-middle display-block offset-bottom offset-top"
                                                 >
-                                                    Add account
-                                                </a>
+                                                    <a
+                                                        className="no-margin btn static blue"
+                                                    >
+                                                        Add account
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -573,16 +602,19 @@ class AdvancedSettings extends React.Component {
                                     <label>Referenced transaction hash</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div className="input-group align-middle display-block offset-bottom offset-top">
-                                                <input type="checkbox"/>
-                                                <label>Do not broadcast</label>
-                                            </div>
-                                            <div className="input-group align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Add note to self?</label>
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div className="input-group align-middle display-block offset-bottom offset-top">
+                                                    <input type="checkbox"/>
+                                                    <label>Do not broadcast</label>
+                                                </div>
+                                                <div className="input-group align-middle display-block offset-bottom">
+                                                    <input type="checkbox"/>
+                                                    <label>Add note to self?</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -604,9 +636,12 @@ class AdvancedSettings extends React.Component {
                                     <label>Finish height</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-title align-right align-margin-top">
-                                        2018/06/19 09:32 am
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-title align-right align-margin-top">
+                                            2018/06/19 09:32 am
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -627,16 +662,19 @@ class AdvancedSettings extends React.Component {
                                     <label>Referenced transaction hash</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div className="input-group align-middle display-block offset-bottom offset-top">
-                                                <input type="checkbox"/>
-                                                <label>Do not broadcast</label>
-                                            </div>
-                                            <div className="input-group align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Add note to self?</label>
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div className="input-group align-middle display-block offset-bottom offset-top">
+                                                    <input type="checkbox"/>
+                                                    <label>Do not broadcast</label>
+                                                </div>
+                                                <div className="input-group align-middle display-block offset-bottom">
+                                                    <input type="checkbox"/>
+                                                    <label>Add note to self?</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -658,9 +696,12 @@ class AdvancedSettings extends React.Component {
                                     <label>Finish height</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-title align-right align-margin-top">
-                                        2018/06/19 09:32 am
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-title align-right align-margin-top">
+                                            2018/06/19 09:32 am
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -691,16 +732,19 @@ class AdvancedSettings extends React.Component {
                                     <label>Referenced transaction hash</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                    <div className="form-sub-actions">
-                                        <div className="form-group no-padding-bottom">
-                                            <div className="input-group align-middle display-block offset-bottom offset-top">
-                                                <input type="checkbox"/>
-                                                <label>Do not broadcast</label>
-                                            </div>
-                                            <div className="input-group align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Add note to self?</label>
+                                    <div className="input-wrapper">
+
+                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                        <div className="form-sub-actions">
+                                            <div className="form-group no-padding-bottom">
+                                                <div className="input-group align-middle display-block offset-bottom offset-top">
+                                                    <input type="checkbox"/>
+                                                    <label>Do not broadcast</label>
+                                                </div>
+                                                <div className="input-group align-middle display-block offset-bottom">
+                                                    <input type="checkbox"/>
+                                                    <label>Add note to self?</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
