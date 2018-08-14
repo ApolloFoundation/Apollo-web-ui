@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
+import {calculateFeeAction} from "../../../actions/forms";
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import classNames from 'classnames';
 import crypto from  '../../../helpers/crypto/crypto';
-
+import InputMask from 'react-input-mask';
 
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
@@ -101,30 +102,72 @@ class SendApollo extends React.Component {
         }
     }
 
+    handleChange = (event) => {
+        if (event.target) {
+            var value = event.target.value;
+            var newState = {
+                mask: 'APL-****-****-****-*****',
+                value: value.toUpperCase()
+            };
+            console.log(newState);
+
+            if (/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(value)) {
+                newState.value = 'APL-****-****-****-*****';
+            }
+            this.setState(newState);
+        }
+    };
+
+    calculateFee = () => {
+        console.log(2222);
+
+
+        this.setState({
+            ...this.state,
+            feeATM: 1
+        })
+    };
+
     render() {
         return (
             <div className="modal-box">
                 <Form
+                    onChange={(values) => {
+                        values.feeATM = 666;
+                        console.log(values.feeATM);
+                    }}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                         submitForm
+                         submitForm, values, addValue, removeValue, setValue, getFormState
                     }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
                                 <div className="form-title">
                                     <p>Send Apollo</p>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group offset-top display-block inline user">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Recipient</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field="recipient" placeholder="Recipient" />
+                                            <div className="iconned-input-field">
+                                                <InputMask mask='APL-****-****-****-*****' value={this.state.value}  onChange={(e) => {if (e.target) setValue('recipient', e.target.value)}}>
+                                                    {(inputProps) => {
+                                                        console.log(inputProps);
+                                                        return (
+                                                            <Text  {...inputProps} field="recipient" placeholder="Amount" />
+                                                        );
+                                                    }}
+                                                </InputMask>
+
+                                                <div className="input-icon"><i className="zmdi zmdi-account" /></div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Amount</label>
@@ -134,17 +177,36 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Fee</label>
+                                            <label style={{paddingRight: 7}}>Fee</label>
+                                            <span
+                                                onClick={async () => {
+                                                        const formState = getFormState();
+                                                        const fee = await this.props.calculateFeeAction({
+                                                            recipient: formState.values.recipient,
+                                                            amountATM: formState.values.amountATM,
+                                                            publicKey: this.props.publicKey,
+                                                            feeATM: 0
+                                                        });
+
+                                                        if (fee) {
+                                                            setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
+                                                        }
+                                                    }
+                                                }
+                                                style={{paddingRight: 0}}
+                                                className="calculate-fee"
+                                            >
+                                                Calculate</span>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field="feeATM" placeholder="Amount" />
+                                            <Text field="feeATM" value={this.state.feeATM} placeholder="Amount" />
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>
@@ -212,7 +274,9 @@ class SendApollo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    account: state.account.account,
+    publicKey: state.account.publicKey
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -220,7 +284,8 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApollo);

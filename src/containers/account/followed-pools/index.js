@@ -130,7 +130,7 @@ class FollowedVotes extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Followed messages'}
+                    pageTitle={'Followed polls'}
                 />
                 {
                     this.state.poll &&

@@ -112,6 +112,10 @@ textarea {
   resize: none;
 }
 
+input {
+  padding: 10px 20px;
+}
+
 @keyframes notification-animation {
   0% {
 
@@ -579,13 +583,29 @@ textarea {
       vertical-align: middle;
     }
   }
-  &.search {
+  &.inline {
+    label {
+      display: inline-block;
+    }
+  }
+  .row {
+    & > * {
+      display: flex;
+
+      & > * {
+        margin: auto 0;
+      }
+    }
+  }
+  &.search, &.user {
     i {
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
+
     }
     input {
       border-right: 0;
+      display: block;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
     }
     .input-icon {
       border: 1px solid #E5E5E5;
@@ -593,7 +613,32 @@ textarea {
       font-size: 18px;
       vertical-align: middle;
       text-align: center;
+      cursor: pointer;
+      display: flex;
+      border-radius: 3px;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
     }
+    .iconned-input-field {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-around;
+
+      i {
+        margin: auto;
+        padding-bottom: 3px;
+      }
+    }
+  }
+  .calculate-fee {
+    display: inline-block;
+    color: #00C8FF;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 14px;
+    padding-right: 20px;
+    cursor: pointer;
   }
   .input-icon {
     width: 32px;

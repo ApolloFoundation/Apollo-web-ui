@@ -102,14 +102,16 @@ class DataStorage extends React.Component {
                                     <div className="search-bar">
                                         <span>
                                             <div className="input-group search">
-                                                <input type="text"/>
-                                                <div
-                                                    className="input-icon"
-                                                    style={{
-                                                        width: 41
-                                                    }}
-                                                >
-                                                    <i className="zmdi zmdi-search"></i>
+                                                <div className="iconned-input-field">
+                                                    <input type="text"/>
+                                                    <div
+                                                        className="input-icon"
+                                                        style={{
+                                                            width: 41
+                                                        }}
+                                                    >
+                                                        <i className="zmdi zmdi-search" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </span>
@@ -117,14 +119,16 @@ class DataStorage extends React.Component {
                                             marginLeft: 20
                                         }}>
                                             <div className="input-group search">
-                                                <input type="text"/>
-                                                <div
-                                                    className="input-icon"
-                                                    style={{
-                                                        width: 41
-                                                    }}
-                                                >
-                                                    <i className="zmdi zmdi-search"></i>
+                                                <div className="iconned-input-field">
+                                                    <input type="text"/>
+                                                    <div
+                                                        className="input-icon"
+                                                        style={{
+                                                            width: 41
+                                                        }}
+                                                    >
+                                                        <i className="zmdi zmdi-search" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </span>

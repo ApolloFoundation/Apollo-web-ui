@@ -78,6 +78,9 @@ textarea {
   border-radius: 6px;
   resize: none; }
 
+input {
+  padding: 10px 20px; }
+
 @keyframes notification-animation {
   0% { }
   10% { }
@@ -370,17 +373,44 @@ textarea {
     background-color: #fff; }
   .input-group.middle > * {
     vertical-align: middle; }
-  .input-group.search i {
+  .input-group.inline label {
+    display: inline-block; }
+  .input-group .row > * {
+    display: flex; }
+    .input-group .row > * > * {
+      margin: auto 0; }
+  .input-group.search input, .input-group.user input {
+    border-right: 0;
+    display: block;
     border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0; }
-  .input-group.search input {
-    border-right: 0; }
-  .input-group.search .input-icon {
+    border-top-right-radius: 0; }
+  .input-group.search .input-icon, .input-group.user .input-icon {
     border: 1px solid #E5E5E5;
     background: #E5E5E5;
     font-size: 18px;
     vertical-align: middle;
-    text-align: center; }
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    border-radius: 3px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0; }
+  .input-group.search .iconned-input-field, .input-group.user .iconned-input-field {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around; }
+    .input-group.search .iconned-input-field i, .input-group.user .iconned-input-field i {
+      margin: auto;
+      padding-bottom: 3px; }
+  .input-group .calculate-fee {
+    display: inline-block;
+    color: #00C8FF;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 14px;
+    padding-right: 20px;
+    cursor: pointer; }
   .input-group .input-icon {
     width: 32px;
     display: table-cell; }
