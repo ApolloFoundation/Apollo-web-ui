@@ -25,6 +25,9 @@ import DeleteShares from './assets/delete-shares';
 import ReserveCurrency from './currencies/reserve-currency'
 import IssueCurrency from './currencies/issue-currency';
 
+// Voting system
+import CreatePoll from './voting-system/create-poll';
+
 // Aliases
 import EditAlias     from './aliases/edit-alias';
 import SellAlias     from './aliases/sell-alias';
@@ -88,8 +91,14 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'RESERVE_CURRENCY'         && <ReserveCurrency           />}
                 {this.props.modalType === 'ISSUE_ASSET'              && <IssueAsset                />}
 
+
                 {/* Currency */}
                 {this.props.modalType === 'ISSUE_CURRENCIES'         && <IssueCurrency             />}
+
+
+                {/* Voting */}
+                {this.props.modalType === 'ISSUE_POLL'               && <CreatePoll                />}
+
 
                 {/*Account*/}
                 {this.props.modalType === 'INFO_ACCOUNT'             && <InfoAccount               />}
