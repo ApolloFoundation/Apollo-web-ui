@@ -28,6 +28,9 @@ import IssueCurrency from './currencies/issue-currency';
 // Voting system
 import CreatePoll from './voting-system/create-poll';
 
+// Voting system
+import UploadFile from './data-storage/uppload-file';
+
 // Aliases
 import EditAlias     from './aliases/edit-alias';
 import SellAlias     from './aliases/sell-alias';
@@ -98,6 +101,10 @@ class ModalWindow extends React.Component {
 
                 {/* Voting */}
                 {this.props.modalType === 'ISSUE_POLL'               && <CreatePoll                />}
+
+
+                {/* Data Storage */}
+                {this.props.modalType === 'ISSUE_FILE_UPLOAD'        && <UploadFile                />}
 
 
                 {/*Account*/}
