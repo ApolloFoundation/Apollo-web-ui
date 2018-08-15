@@ -28,8 +28,11 @@ import IssueCurrency from './currencies/issue-currency';
 // Voting system
 import CreatePoll from './voting-system/create-poll';
 
-// Voting system
+// Data storage
 import UploadFile from './data-storage/uppload-file';
+
+// Data storage
+import CreateShuffling from './coin-shuffling/create-shuffling';
 
 // Aliases
 import EditAlias     from './aliases/edit-alias';
@@ -109,6 +112,10 @@ class ModalWindow extends React.Component {
 
                 {/*Account*/}
                 {this.props.modalType === 'INFO_ACCOUNT'             && <InfoAccount               />}
+
+
+                {/* Shuffling */}
+                {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'   && <CreateShuffling           />}
 
 
                 {/*Aliases */}

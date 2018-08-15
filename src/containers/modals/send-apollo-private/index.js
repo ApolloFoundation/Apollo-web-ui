@@ -231,7 +231,6 @@ class SendApolloPrivate extends React.Component {
                                     >
                                         Send
                                     </button>
-
                                 </div>
                             </div>
                         </form>
