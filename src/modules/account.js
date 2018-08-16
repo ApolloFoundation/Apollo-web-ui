@@ -7,12 +7,13 @@ export const END_LOAD = 'END_LOAD';
 export const CHANGE_PAGE_BODY_EVENTS = 'CHANGE_PAGE_BODY_EVENTS';
 export const SET_SETTINGS = 'SET_SETTINGS';
 export const UPDATE_NOTIFICATIONS = 'UPDATE_NOTIFICATIONS';
+export const SET_PASSPHRASE = 'SET_PASSPHRASE';
 
 const initialState = {
     settings: null,
     constants: null,
 
-
+    passPhrase: null,
 	account: null,
     accountRS: null,
     assetBalances: null,
@@ -66,6 +67,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 notifications: action.payload
+            };
+
+        case SET_PASSPHRASE:
+            return {
+                ...state,
+                passPhrase: action.payload
             };
 
 
@@ -135,6 +142,9 @@ export const endLoad = () => {
 	}
 };
 
+
+
+
 /*
 * @prevent -> boolean  |
 * */
@@ -144,6 +154,15 @@ export const setPageEvents = (prevent) => {
             type: CHANGE_PAGE_BODY_EVENTS,
             payload: prevent
         })
+    }
+};
+
+export const setAccountPassphrase = (passPhrase) => {
+    return dispatch => {
+        dispatch({
+            type: SET_PASSPHRASE,
+            payload: passPhrase
+        });
     }
 };
 

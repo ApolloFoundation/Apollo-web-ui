@@ -2,6 +2,7 @@ import CryptoJS from 'crypto-js';
 import jsbn from 'jsbn';
 import AplAddress from './util/apladres';
 import convertString from 'convert-string';
+import {login} from "../modules/account";
 
 const ACCOUNT_REGEX_STR = "^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}";
 const BigInteger = jsbn.BigInteger;
@@ -39,6 +40,10 @@ function wordArrayToByteArrayImpl (wordArray, isFirstByteHasSign) {
     if (len == 0) {
         return new Array(0);
     }
+    if (wordArray.sigBytes < 0) {
+        wordArray.sigBytes = wordArray.sigBytes*-1
+    }
+
     var byteArray = new Array(wordArray.sigBytes);
     var offset = 0,
         word, i;
@@ -125,6 +130,7 @@ function hexStringToByteArray(str) {
      var bytes = [];
      var i = 0;
      if (0 !== str.length % 2) {
+         console.log(str);
          bytes.push(charToNibble[str.charAt(0)]);
          ++i;
      }
@@ -217,7 +223,7 @@ function byteArrayToWordArray(byteArray) {
  }
  // assumes wordArray is Big-Endian
 function wordArrayToByteArray(wordArray) {
-     return wordArrayToByteArrayImpl(wordArray, true);
+    return wordArrayToByteArrayImpl(wordArray, true);
 }
 function byteArrayToString(bytes, opt_startIndex, length) {
      if (length == 0) {
@@ -268,6 +274,17 @@ function shortArrayToHexString(ary) {
          res += nibbleToChar[(ary[i] >> 4) & 0x0f] + nibbleToChar[ary[i] & 0x0f] + nibbleToChar[(ary[i] >> 12) & 0x0f] + nibbleToChar[(ary[i] >> 8) & 0x0f];
      }
      return res;
+}
+
+function shortArrayToByteArray(shortArray) {
+    var byteArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var i;
+    for (i = 0; i < 16; i++) {
+        byteArray[2 * i] = shortArray[i] & 0xff;
+        byteArray[2 * i + 1] = shortArray[i] >> 8;
+    }
+
+    return byteArray;
 }
  /**
   * Produces an array of the specified number of bytes to represent the integer
@@ -414,6 +431,25 @@ function convertFromHex16(hex) {
     return back;
 };
 
+
+function byteArrayToString(bytes, opt_startIndex, length) {
+    if (length == 0) {
+        return "";
+    }
+
+    if (opt_startIndex && length) {
+        var index = this.checkBytesToIntInput(bytes, parseInt(length, 10), parseInt(opt_startIndex, 10));
+
+        bytes = bytes.slice(opt_startIndex, opt_startIndex + length);
+    }
+
+    let result = String.fromCharCode.apply(null, bytes);
+    result = escape(result);
+    result = decodeURIComponent(result)
+
+    return result;
+}
+
 function addEllipsis(str, length) {
     if (!str || str == "" || str.length <= length) {
         return str;
@@ -446,5 +482,7 @@ export default {
     hexStringToString,
     convertFromHex16,
     addEllipsis,
-    convertFromHex8
+    convertFromHex8,
+    byteArrayToString,
+    shortArrayToByteArray
 }

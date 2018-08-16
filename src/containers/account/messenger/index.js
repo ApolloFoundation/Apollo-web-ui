@@ -3,7 +3,7 @@ import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
 import classNames from "classnames";
 import {getChats, getMessage} from "../../../actions/messager";
-
+import {setBodyModalParamsAction} from "../../../modules/modals";
 import './Messenger.css';
 
 const mapStateToProps = state => ({
@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getChats: (reqParams) => dispatch(getChats(reqParams)),
     getMessage: (transaction) => dispatch(getMessage(transaction)),
+    c: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
 @connect(mapStateToProps, mapDispatchToProps)

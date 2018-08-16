@@ -31,7 +31,7 @@ import CreatePoll from './voting-system/create-poll';
 // Data storage
 import UploadFile from './data-storage/uppload-file';
 
-// Data storage
+// Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling';
 
 // Aliases
@@ -40,10 +40,12 @@ import SellAlias     from './aliases/sell-alias';
 import TransferAlias from './aliases/transfer-alias';
 import DeleteAlias   from './aliases/delete-alias';
 
-
 // Marketplace
 import MarketplaceImage from './marketplace/mraketplace-image-view';
 import MarketplaceProductDetails from './marketplace/marketplace-product-details';
+
+// Marketplace
+import DecryptMessage from './messenger/decrypt-messages';
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -127,6 +129,8 @@ class ModalWindow extends React.Component {
                 {/*Marketplace*/}
                 {this.props.modalType === 'MARKETPLACE_IMAGE'        && <MarketplaceImage          />}
 
+                {/*Messages*/}
+                {this.props.modalType === 'DECRYPT_MESSAGES'         && <DecryptMessage            />}
 
                 {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS' && <MarketplaceProductDetails />}
 

@@ -3,9 +3,12 @@ import converters from '../converters';
 import account from '../../modules/modals';
 import curve25519 from './curve25519';
 import jsbn from "jsbn";
+import inflate from 'pako/lib/inflate'
 import pako from 'pako'
 import axios from 'axios';
 import config from '../../config';
+import curve25519_ from './curve25519_'
+
 const BigInteger = jsbn.BigInteger;
 
 
@@ -46,6 +49,9 @@ function getAccountIdFromPublicKey(publicKey, isRsFormat) {
 };
 
 async function getPublicKey(id, isAccountId) {
+
+    console.log(id);
+    console.log(isAccountId);
     if (isAccountId) {
         let publicKey = "";
         return axios.get(config.api.serverUrl, {
@@ -55,6 +61,7 @@ async function getPublicKey(id, isAccountId) {
             }
         })
             .then((res) => {
+                console.log(res.data);
                 if (!res.data.publicKey) {
                     // throw $.t("error_no_public_key");
                 } else {
@@ -109,6 +116,94 @@ function getSharedSecretJava(key1, key2) {
     return hash;
 };
 
+function aesDecryptMessage(ivCiphertext, options) {
+    if (ivCiphertext.length < 16 || ivCiphertext.length % 16 != 0) {
+        throw {
+            name: "invalid ciphertext"
+        };
+    }
+
+    var iv = converters.byteArrayToWordArray(ivCiphertext.slice(0, 16));
+    var ciphertext = converters.byteArrayToWordArray(ivCiphertext.slice(16));
+
+    // shared key is use for two different purposes here
+    // (1) if nonce exists, shared key represents the shared secret between the private and public keys
+    // (2) if nonce does not exists, shared key is the specific key needed for decryption already xored
+    // with the nonce and hashed
+    var sharedKey;
+    if (!options.sharedKey) {
+        sharedKey = getSharedSecret(options.privateKey, options.publicKey);
+    } else {
+        sharedKey = options.sharedKey.slice(0); //clone
+    }
+
+    var key;
+    if (options.nonce) {
+        for (var i = 0; i < 32; i++) {
+            sharedKey[i] ^= options.nonce[i];
+        }
+        key = CryptoJS.SHA256(converters.byteArrayToWordArray(sharedKey));
+    } else {
+        key = converters.byteArrayToWordArray(sharedKey);
+    }
+
+    var encrypted = CryptoJS.lib.CipherParams.create({
+        ciphertext: ciphertext,
+        iv: iv,
+        key: key
+    });
+
+    var decrypted = CryptoJS.AES.decrypt(encrypted, key, {
+        iv: iv
+    });
+
+    return {
+        decrypted: converters.wordArrayToByteArray(decrypted),
+        sharedKey: converters.wordArrayToByteArray(key)
+    };
+}
+
+function getSharedSecret(key1, key2) {
+    console.log('key1: ', key1)
+    console.log('key2: ', key2)
+    return converters.shortArrayToByteArray(curve25519_(converters.byteArrayToShortArray(key1), converters.byteArrayToShortArray(key2), null));
+}
+
+function decryptMessage(data, options) {
+    if (!options.sharedKey) {
+        options.sharedKey = getSharedSecret(options.privateKey, options.publicKey);
+    }
+
+    data = converters.hexStringToByteArray(data)
+    console.log(data);
+
+    console.log(options);
+
+    var result = aesDecryptMessage(data, options);
+    var binData = new Uint8Array(result.decrypted);
+    console.log(binData);
+
+    if (!(options.isCompressed === false)){
+        binData = pako.deflate(binData);
+        binData = pako.inflate(binData);
+        console.log(binData);
+    }
+
+
+    console.log(binData);
+
+    var message;
+
+    if (!(options.isText === false)) {
+        message = converters.byteArrayToString(binData);
+    } else {
+        message = converters.byteArrayToHexString(binData);
+    }
+    console.log(message);
+
+    return { message: message, sharedKey: converters.byteArrayToHexString(result.sharedKey) };
+}
+
 function decryptData(data, options) {
     // if (!options.sharedKey) {
     //     options.sharedKey = NRS.getSharedSecretJava(options.privateKey, options.publicKey);
@@ -135,7 +230,7 @@ function decryptData(data, options) {
 
 
     if (!(options.isCompressed === false)) {
-        binData = pako.inflate(binData);
+        binData = inflate(binData);
     }
     var message;
     if (!(options.isText === false)) {
@@ -189,13 +284,17 @@ function aesDecrypt(ivCiphertext, options) {
         iv: iv
     });
 
+    console.log({
+        decrypted: converters.wordArrayToByteArray(decrypted)
+    });
+
     return {
         decrypted: converters.wordArrayToByteArray(decrypted),
         sharedKey: converters.wordArrayToByteArray(key)
     };
 }
 
-function tryToDecryptMessage(message) {
+function tryToDecryptMessage(message, options) {
     // if (_decryptedTransactions && _decryptedTransactions[message.transaction]) {
     //     if (_decryptedTransactions[message.transaction].encryptedMessage) {
     //         return _decryptedTransactions[message.transaction].encryptedMessage; // cache is saved differently by the info modal vs the messages table
@@ -207,11 +306,12 @@ function tryToDecryptMessage(message) {
             if (!message.attachment.encryptedMessage.data) {
                 return console.log('empty message');
             } else {
-                var decoded = decryptNote(message.attachment.encryptedMessage.data, {
+                var decoded = decryptMessage(message.attachment.encryptedMessage.data, {
                     "nonce": message.attachment.encryptedMessage.nonce,
                     "account": account.account,
                     "isText": message.attachment.encryptedMessage.isText,
-                    "isCompressed": message.attachment.encryptedMessage.isCompressed
+                    "isCompressed": message.attachment.encryptedMessage.isCompressed,
+                    "sharedKey": options.sharedKey
                 });
             }
             return decoded;
@@ -253,10 +353,13 @@ function decryptNote(message, options, secretPhrase) {
 
 export default {
     getSharedSecretJava,
+    getSharedSecret,
     decryptData,
+    decryptMessage,
     getPrivateKey,
+    getPublicKey,
     validatePassphrase,
-    tryToDecryptMessage
+    tryToDecryptMessage,
 }
 
 
