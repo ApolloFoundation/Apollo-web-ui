@@ -198,9 +198,9 @@ class SiteHeader extends React.Component {
                                                 </div>
                                                 <div className="options-col">
                                                     <ul>
-                                                        <li><a className="option">Plugins</a></li>
+                                                        <li><Link to="/plugins" className="option">Plugins</Link></li>
                                                         <li><Link to="/settings" className="option">Account settings</Link></li>
-                                                        <li><a className="option">Device settings</a></li>
+                                                        <li><a onClick={() => this.props.setBodyModalParamsAction('DEVICE_SETTINGS')} className="option">Device settings</a></li>
                                                     </ul>
                                                 </div>
                                             </div>

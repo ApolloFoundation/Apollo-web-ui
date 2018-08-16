@@ -22,6 +22,7 @@ import TokenGenerationValidation from './account/token-generation-validation';
 import GenerateHallmark from './account/generate-halmark';
 import HashCalculation from './account/hash-calculation';
 import TransactionOperations from './account/transactions-operations';
+import DeviceSettings from './account/device-settings';
 import ApolloAbout from './about';
 
 // Assets
@@ -127,6 +128,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation />}
                 {this.props.modalType === 'CALCULATE_CACHE'             && <HashCalculation           />}
                 {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     />}
+                {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            />}
                 {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          />}
 
 
