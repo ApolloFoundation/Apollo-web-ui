@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import {isLoggedIn, getConstantsAction} from '../../actions/login';
 import {setPageEvents, loadConstants} from '../../modules/account' ;
 import {setBodyModalType} from '../../modules/modals' ;
-
+import PageLoader from '../components/page-loader/page-loader'
 // components
 import SideBar from '../components/sidebar'
 import ModalWindow from '../modals'
@@ -60,7 +60,13 @@ class App extends React.Component {
         this.props.isLoggedIn();
         this.props.getConstantsAction();
         this.handleModal = this.handleModal.bind(this);
+        this.setState({
+            isMounted: true
+        })
+    }
 
+    state = {
+        isMounted: false
     }
 
     componentWillReceiveProps(newState) {
@@ -80,6 +86,10 @@ class App extends React.Component {
             <div>
                 <ModalWindow/>
                 <AlertBox/>
+                {
+                    !this.props.account &&
+                    <PageLoader />
+                }
                 <header>
                     {
                         this.props.account &&
