@@ -91,13 +91,9 @@ class DecryptMessage extends React.Component {
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
                                                 <div className="form-sub-actions">
-                                                    <div
-                                                        className="input-group align-middle display-block offset-bottom"
-                                                    >
-                                                        <div className="input-group align-middle display-block offset-bottom">
-                                                            <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isMessage"/>
-                                                            <label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>
-                                                        </div>
+                                                    <div className="input-group align-middle display-block offset-bottom offset-top">
+                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isMessage"/>
+                                                        <label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>
                                                     </div>
                                                 </div>
                                             </div>

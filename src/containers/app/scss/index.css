@@ -310,7 +310,7 @@ input {
       margin-top: 5px; }
     .form-group .form-sub-title.align-right {
       text-align: right; }
-  .form-group .input-group:last-child {
+  .form-group .input-group:last-child:not(:first-child) {
     padding-bottom: 0 !important; }
   .form-group .input-group.block {
     display: block; }

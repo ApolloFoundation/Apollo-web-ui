@@ -475,7 +475,7 @@ input {
 
   }
   .input-group {
-    &:last-child {
+    &:last-child:not(:first-child) {
       padding-bottom: 0 !important;
     }
     &.block {
