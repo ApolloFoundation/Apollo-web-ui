@@ -340,6 +340,12 @@ input {
     background-color: #F5F5F5;
     padding: 18px 35px 70px 35px;
     display: none; }
+    .form-group .form-tabulator.white {
+      background-color: white; }
+      .form-group .form-tabulator.white .form-tab-nav-box .form-tab {
+        background-color: #F5F5F5; }
+        .form-group .form-tabulator.white .form-tab-nav-box .form-tab.active {
+          background-color: #fff; }
     .form-group .form-tabulator.active {
       display: block; }
     .form-group .form-tabulator .form-tab-nav-box {

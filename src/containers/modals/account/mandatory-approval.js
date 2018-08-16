@@ -1,0 +1,299 @@
+import React from 'react';
+import {connect} from 'react-redux';
+import {setModalData} from '../../../modules/modals';
+import classNames from 'classnames';
+import AdvancedSettings from '../../components/advanced-transaction-settings'
+
+class MandatoryApproval extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeTab: 0,
+            advancedState: false
+
+        };
+
+        this.handleTab = this.handleTab.bind(this);
+    }
+
+    handleAdvancedState = () => {
+        if (this.state.advancedState) {
+            this.setState({
+                ...this.props,
+                advancedState: false
+            })
+        } else {
+            this.setState({
+                ...this.props,
+                advancedState: true
+            })
+        }
+    }
+
+    handleTab(e, index) {
+        e.preventDefault();
+
+        this.setState({
+            ...this.props,
+            activeTab: index
+        })
+    }
+
+    render() {
+        return (
+            <div className="modal-box">
+                    <form className="modal-form">
+                        <div className="form-group">
+                            <div className="form-title">
+                                <p>Mandatory Approval</p>
+                                <div className="form-sub-title">
+                                    All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.
+                                </div>
+                            </div>
+
+                            <div className="form-tabulator active">
+                                <div className="form-tab-nav-box justify-left">
+                                    <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 0
+                                    })}>
+                                        <i className="zmdi zmdi-close-circle" />
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 1
+                                    })}>
+                                        <i className="zmdi zmdi-accounts" />
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 2
+                                    })}>
+                                        <i className="zmdi zmdi-money-box" />
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 3)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 3
+                                    })}>
+                                        <i className="zmdi zmdi-chart" />
+                                    </a>
+                                    <a
+                                        onClick={(e) => this.handleTab(e, 4)}
+                                        className={classNames({
+                                            "form-tab": true,
+                                            "active": this.state.activeTab === 4
+                                        })}
+                                    >
+                                        <i className="zmdi zmdi-balance" />
+                                    </a>
+                                </div>
+
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 0
+                                })}>
+                                    <div className="input-group block">
+                                        <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
+
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <label>Referenced transaction hash</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                            </div>
+                                            <div className="col-md-3">
+
+                                            </div>
+                                            <div className="col-md-9">
+                                                <div className="form-sub-actions">
+                                                    <div className="form-group no-padding-bottom">
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Do not broadcast</label>
+                                                        </div>
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Add note to self?</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 1
+                                })}>
+                                    <div className="input-group block">
+                                        <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <label>Referenced transaction hash</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                            </div>
+                                            <div className="col-md-3">
+
+                                            </div>
+                                            <div className="col-md-9">
+                                                <div className="form-sub-actions">
+                                                    <div className="form-group no-padding-bottom">
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Do not broadcast</label>
+                                                        </div>
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Add note to self?</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 2
+                                })}>
+                                    <div className="input-group block">
+                                        <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
+
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <label>Referenced transaction hash</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                            </div>
+                                            <div className="col-md-3">
+
+                                            </div>
+                                            <div className="col-md-9">
+                                                <div className="form-sub-actions">
+                                                    <div className="form-group no-padding-bottom">
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Do not broadcast</label>
+                                                        </div>
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Add note to self?</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 3
+                                })}>
+                                    <div className="input-group block">
+                                        <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
+
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <label>Referenced transaction hash</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                            </div>
+                                            <div className="col-md-3">
+
+                                            </div>
+                                            <div className="col-md-9">
+                                                <div className="form-sub-actions">
+                                                    <div className="form-group no-padding-bottom">
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Do not broadcast</label>
+                                                        </div>
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Add note to self?</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 4
+                                })}>
+                                    <div className="input-group block">
+                                        <div className="row">
+                                            <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
+
+                                            <div className="col-md-3">
+                                                <label>Referenced transaction hash</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                            </div>
+                                            <div className="col-md-3">
+
+                                            </div>
+                                            <div className="col-md-9">
+                                                <div className="form-sub-actions">
+                                                    <div className="form-group no-padding-bottom">
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Do not broadcast</label>
+                                                        </div>
+                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                            <input type="checkbox"/>
+                                                            <label>Add note to self?</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <AdvancedSettings advancedState={this.state.advancedState} white/>
+                        </div>
+
+                        <div className="btn-box align-buttons-inside absolute right-conner">
+                            <button className="btn btn-right round round-top-left">Cancel</button>
+                            <button
+                                type="submit"
+                                name={'closeModal'}
+                                className="btn btn-right blue round round-bottom-right"
+                            >
+                                Send
+                            </button>
+
+                        </div>
+                        <div className="btn-box align-buttons-inside absolute left-conner">
+                            <a
+                                onClick={this.handleAdvancedState}
+                                className="btn btn-right round round-bottom-left round-top-right"
+                            >
+                                Advanced
+                            </a>
+                        </div>
+
+                    </form>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = state => ({
+    modalData: state.modals.modalData
+});
+
+const mapDispatchToProps = dispatch => ({
+    setModalData: (data) => dispatch(setModalData(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MandatoryApproval);

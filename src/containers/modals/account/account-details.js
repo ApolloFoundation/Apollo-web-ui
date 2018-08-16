@@ -190,7 +190,12 @@ class AccountDetails extends React.Component {
                                 })}>
                                     <div className="transaction-table no-min-height">
                                         <div className="transaction-table-body transparent padding-vertical-padding">
-                                            <a data-blue-link-text>Setup Mandatory Approval.</a>
+                                            <a
+                                                onClick={() => this.props.setBodyModalParamsAction('MANDATORY_APPROVAL')}
+                                                data-blue-link-text
+                                            >
+                                                Setup Mandatory Approval.
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

@@ -24,7 +24,8 @@ class AdvancedSettings extends React.Component {
             <div
                 className={classNames({
                     'form-tabulator': true,
-                    'active': this.props.advancedState
+                    'active': this.props.advancedState,
+                    'white': this.props.white
                 })}
             >
                 <div className="form-tab-nav-box">

@@ -525,6 +525,19 @@ input {
     padding: 18px 35px 70px 35px;
     display: none;
 
+    &.white {
+      background-color: white;
+
+      .form-tab-nav-box {
+        .form-tab {
+          background-color: #F5F5F5;
+
+          &.active {
+            background-color: #fff;
+          }
+        }
+      }
+    }
     &.active {
       display: block;
     }
