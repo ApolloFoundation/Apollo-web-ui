@@ -192,8 +192,8 @@ class SiteHeader extends React.Component {
                                                 <div className="options-col">
                                                     <ul>
                                                         <li><a className="option">Refresh search index</a></li>
-                                                        <li><a className="option">API console</a></li>
-                                                        <li><a className="option">Database shell</a></li>
+                                                        <li><a href="https://apollowallet.org/test" className="option">API console</a></li>
+                                                        <li><a href="https://apollowallet.org/dbshell" className="option">Database shell</a></li>
                                                     </ul>
                                                 </div>
                                                 <div className="options-col">
