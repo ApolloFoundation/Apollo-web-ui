@@ -184,8 +184,8 @@ class SiteHeader extends React.Component {
                                                     <ul>
                                                         <li><a onClick={() => this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION')} className="option">Generate token</a></li>
                                                         <li><a onClick={() => this.props.setBodyModalParamsAction('GENERATE_HALLMARK')} className="option">Generate hallmark</a></li>
-                                                        <li><a className="option">Calculate hash</a></li>
-                                                        <li><a className="option">Transaction operations</a></li>
+                                                        <li><a onClick={() => this.props.setBodyModalParamsAction('CALCULATE_CACHE')} className="option">Calculate hash</a></li>
+                                                        <li><a onClick={() => this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS')} className="option">Transaction operations</a></li>
                                                     </ul>
 
                                                 </div>

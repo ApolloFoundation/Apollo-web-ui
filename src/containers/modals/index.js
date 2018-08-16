@@ -20,6 +20,8 @@ import AccountDetails from './account/account-details';
 import LeaseBalance from './account/lease-balance';
 import TokenGenerationValidation from './account/token-generation-validation';
 import GenerateHallmark from './account/generate-halmark';
+import HashCalculation from './account/hash-calculation';
+import TransactionOperations from './account/transactions-operations';
 import ApolloAbout from './about';
 
 // Assets
@@ -123,6 +125,8 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            />}
                 {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              />}
                 {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation />}
+                {this.props.modalType === 'CALCULATE_CACHE'             && <HashCalculation           />}
+                {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     />}
                 {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          />}
 
 
