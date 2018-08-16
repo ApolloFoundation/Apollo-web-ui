@@ -260,10 +260,16 @@ class SiteHeader extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="input-section">
-                                                    <div className="image-button">
+                                                    <a
+                                                        style={{
+                                                            display: 'block'
+                                                        }}
+                                                        onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.account)}
+                                                        className="image-button"
+                                                    >
                                                         <i className="zmdi zmdi-account" />
                                                         <label>Details</label>
-                                                    </div>
+                                                    </a>
                                                     <Link
                                                         to="/messenger"
                                                         className="image-button"
@@ -311,6 +317,7 @@ class SiteHeader extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    account: state.account.account,
     accountRS: state.account.accountRS,
     name: state.account.name,
     moalTtype: state.modals.modalType,
