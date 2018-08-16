@@ -5,7 +5,14 @@ import './SiteHeader.css';
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
 import {setMopalType, setBodyModalType, setBodyModalParamsAction} from "../../../modules/modals";
+import {logOutAction} from "../../../actions/login";
+import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
+
+import {setModalData} from "../../../modules/modals";
+import {getAccountInfoAction} from "../../../actions/account";
+import {getTransactionAction} from "../../../actions/transactions";
+import {getBlockAction} from "../../../actions/blocks";
 
 class SiteHeader extends React.Component {
     constructor(props) {
@@ -45,6 +52,25 @@ class SiteHeader extends React.Component {
             this.props.setBodyModalType(bodyModalType);
         }
     }
+
+    handleSearchind = async (values) => {
+        const transaction = await this.props.getTransactionAction({transaction: values.value});
+        const block = await this.props.getBlockAction({block: values.value});
+        const account = await this.props.getAccountInfoAction({account: values.value});
+
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+        }
+
+        if (block) {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+        }
+
+        if (account) {
+            this.props.setModalData(account.account);
+            this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account)
+        }
+    };
 
     render() {
         return (
@@ -143,13 +169,24 @@ class SiteHeader extends React.Component {
                                         'search-bar' : true,
                                     })}
                                 >
-                                    <input
-                                        onMouseOut={this.resetSearchStateToActive}
-                                        onMouseDown={this.setSearchStateToActive}
-                                        onMouseOver={this.setSearchStateToActive}
-                                        className={"searching-window"}
-                                        type="text"
+                                    <Form
+                                        onSubmit={values => this.handleSearchind(values)}
+                                        render={({ submitForm, values, addValue, removeValue }) => (
+                                            <form onSubmit={submitForm}>
+                                                <Text
+                                                    field={'value'}
+                                                    onMouseOut={this.resetSearchStateToActive}
+                                                    onMouseDown={this.setSearchStateToActive}
+                                                    onMouseOver={this.setSearchStateToActive}
+                                                    className={"searching-window"}
+                                                    type="text"
+                                                    placeholder="Enter Transaction/Account/Block ID"
+                                                />
+                                            </form>
+                                        )}
                                     />
+
+
                                     <div className="user-account-actions">
                                         <a
                                             className="user-account-rs"
@@ -290,7 +327,9 @@ class SiteHeader extends React.Component {
 
                                                 </div>
                                                 <div className="input-section">
-                                                    <div className="image-button">
+                                                    <div
+                                                        onClick={() => logOutAction('simpleLogOut')}
+                                                        className="image-button">
                                                         <i className="zmdi zmdi-power" />
                                                         <label>Logout</label>
                                                     </div>
@@ -328,6 +367,10 @@ const mapDispatchToProps = dispatch => ({
     setPageEvents : (prevent) => dispatch(setPageEvents(prevent)),
     setMopalType : (prevent) => dispatch(setMopalType(prevent)),
     setBodyModalType : (prevent) => dispatch(setBodyModalType(prevent)),
+    getAccountInfoAction : (reqParams) => dispatch(getAccountInfoAction(reqParams)),
+    getTransactionAction : (reqParams) => dispatch(getTransactionAction(reqParams)),
+    getBlockAction : (reqParams) => dispatch(getBlockAction(reqParams)),
+    setModalData : (reqParams) => dispatch(setModalData(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 

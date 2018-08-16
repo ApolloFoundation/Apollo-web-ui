@@ -229,9 +229,11 @@ class Marketplace extends React.Component {
                                                 'col-md-6' : this.state.isShowMore
                                             })}>
                                                 <div className="input-group search tabled">
-                                                    <input type="text"/>
-                                                    <div className="input-icon">
-                                                        <i className="zmdi zmdi-search"></i>
+                                                    <div className="iconned-input-field">
+                                                        <input type="text"/>
+                                                        <div className="input-icon">
+                                                            <i className="zmdi zmdi-search"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,9 +242,11 @@ class Marketplace extends React.Component {
                                                 'col-md-6' : this.state.isShowMore
                                             })}>
                                                 <div className="input-group search tabled">
-                                                    <input type="text"/>
-                                                    <div className="input-icon">
-                                                        <i className="zmdi zmdi-search"></i>
+                                                    <div className="iconned-input-field">
+                                                        <input type="text"/>
+                                                        <div className="input-icon">
+                                                            <i className="zmdi zmdi-search"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

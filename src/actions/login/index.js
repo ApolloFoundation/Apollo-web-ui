@@ -4,7 +4,7 @@ import crypto from "../../helpers/crypto/crypto";
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
 import { login, loadConstants, startLoad, endLoad } from '../../modules/account';
-import { writeToLocalStorage, readFromLocalStorage } from "../localStorage";
+import { writeToLocalStorage, readFromLocalStorage, deleteFromLocalStorage } from "../localStorage";
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
 
@@ -59,6 +59,11 @@ function makeLoginReq(dispatch, requestParams) {
         .catch(function(err){
             console.log(err)
         });
+}
+
+export function logOutAction() {
+    deleteFromLocalStorage('APLUserRS');
+    document.location = '/';
 }
 
 export function getConstantsAction() {

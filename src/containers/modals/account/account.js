@@ -41,7 +41,7 @@ class InfoAccount extends React.Component {
     }
 
     componentDidMount() {
-
+        console.log(this.props.modalData);
         this.getAcccount({
             account:    this.props.modalData,
             firstIndex: 0,
@@ -50,7 +50,7 @@ class InfoAccount extends React.Component {
     }
 
     componentWillReceiveProps() {
-
+        console.log(this.props.modalData);
         this.getAcccount({
             account:    this.props.modalData,
             firstIndex: 0,
