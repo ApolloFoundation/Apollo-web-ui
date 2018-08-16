@@ -182,7 +182,7 @@ class SiteHeader extends React.Component {
                                                 </div>
                                                 <div className="options-col">
                                                     <ul>
-                                                        <li><a className="option">Generate token</a></li>
+                                                        <li><a onClick={() => this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION')} className="option">Generate token</a></li>
                                                         <li><a className="option">Generate hallmark</a></li>
                                                         <li><a className="option">Calculate hash</a></li>
                                                         <li><a className="option">Transaction operations</a></li>

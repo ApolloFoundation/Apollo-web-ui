@@ -397,7 +397,7 @@ input {
   .input-group .row > * {
     display: flex; }
     .input-group .row > * > * {
-      margin: auto 0; }
+      padding-top: 10px; }
   .input-group textarea {
     width: 100%; }
   .input-group.search input, .input-group.user input {

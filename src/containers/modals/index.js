@@ -18,6 +18,7 @@ import InfoAccount from './account/account';
 import MandatoryApproval from './account/mandatory-approval';
 import AccountDetails from './account/account-details';
 import LeaseBalance from './account/lease-balance';
+import TokenGenerationValidation from './account/token-generation-validation';
 import ApolloAbout from './about';
 
 // Assets
@@ -88,60 +89,61 @@ class ModalWindow extends React.Component {
                     "active": this.props.modalType
                 })}
             >
-                {this.props.modalType === 'INFO_TRANSACTION'         && <InfoTransaction           />}
-                {this.props.modalType === 'INFO_LEDGER_TRANSACTION'  && <InfoLedgerTransaction     />}
-                {this.props.modalType === 'INFO_BLOCK'               && <InfoBlock                 />}
-                {this.props.modalType === 'PrivateTransactions'      && <PrivateTransactions       />}
-                {this.props.modalType === 'SEND_APOLLO'              && <SendApollo                />}
-                {this.props.modalType === 'SEND_APOLLO_PRIVATE'      && <SendApolloPrivate         />}
+                {this.props.modalType === 'INFO_TRANSACTION'            && <InfoTransaction           />}
+                {this.props.modalType === 'INFO_LEDGER_TRANSACTION'     && <InfoLedgerTransaction     />}
+                {this.props.modalType === 'INFO_BLOCK'                  && <InfoBlock                 />}
+                {this.props.modalType === 'PrivateTransactions'         && <PrivateTransactions       />}
+                {this.props.modalType === 'SEND_APOLLO'                 && <SendApollo                />}
+                {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         />}
 
 
                 {/* Assets */}
-                {this.props.modalType === 'TRANSFER_ASSET'           && <TransferAsset             />}
-                {this.props.modalType === 'DELETE_SHARES'            && <DeleteShares              />}
-                {this.props.modalType === 'RESERVE_CURRENCY'         && <ReserveCurrency           />}
-                {this.props.modalType === 'ISSUE_ASSET'              && <IssueAsset                />}
+                {this.props.modalType === 'TRANSFER_ASSET'              && <TransferAsset             />}
+                {this.props.modalType === 'DELETE_SHARES'               && <DeleteShares              />}
+                {this.props.modalType === 'RESERVE_CURRENCY'            && <ReserveCurrency           />}
+                {this.props.modalType === 'ISSUE_ASSET'                 && <IssueAsset                />}
 
 
                 {/* Currency */}
-                {this.props.modalType === 'ISSUE_CURRENCIES'         && <IssueCurrency             />}
+                {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             />}
 
 
                 {/* Voting */}
-                {this.props.modalType === 'ISSUE_POLL'               && <CreatePoll                />}
+                {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                />}
 
 
                 {/* Data Storage */}
-                {this.props.modalType === 'ISSUE_FILE_UPLOAD'        && <UploadFile                />}
+                {this.props.modalType === 'ISSUE_FILE_UPLOAD'           && <UploadFile                />}
 
 
                 {/*Account*/}
-                {this.props.modalType === 'INFO_ACCOUNT'             && <InfoAccount               />}
-                {this.props.modalType === 'MANDATORY_APPROVAL'       && <MandatoryApproval         />}
-                {this.props.modalType === 'ACCOUNT_DETAILS'          && <AccountDetails            />}
-                {this.props.modalType === 'LEASE_BALANCE'            && <LeaseBalance              />}
+                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               />}
+                {this.props.modalType === 'MANDATORY_APPROVAL'          && <MandatoryApproval         />}
+                {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            />}
+                {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              />}
+                {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation />}
 
 
                 {/* Shuffling */}
-                {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'   && <CreateShuffling           />}
+                {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           />}
 
 
                 {/*Aliases */}
-                {this.props.modalType === 'EDIT_ALIAS'               && <EditAlias                 />}
-                {this.props.modalType === 'SELL_ALIAS'               && <SellAlias                 />}
-                {this.props.modalType === 'TRANSFER_ALIAS'           && <TransferAlias             />}
-                {this.props.modalType === 'DELETE_ALIAS'             && <DeleteAlias               />}
+                {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 />}
+                {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 />}
+                {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             />}
+                {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               />}
 
                 {/*Marketplace*/}
-                {this.props.modalType === 'MARKETPLACE_IMAGE'        && <MarketplaceImage          />}
+                {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          />}
 
                 {/*Messages*/}
-                {this.props.modalType === 'DECRYPT_MESSAGES'         && <DecryptMessage            />}
+                {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            />}
 
-                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS' && <MarketplaceProductDetails />}
+                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails />}
 
 
-                {this.props.modalType === 'GENERAL_INFO'             && <ApolloAbout               />}
+                {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               />}
 
             </div>
         );
