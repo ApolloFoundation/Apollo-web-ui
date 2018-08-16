@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './SiteHeader.css';
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
-import {setMopalType, setBodyModalType} from "../../../modules/modals";
+import {setMopalType, setBodyModalType, setBodyModalParamsAction} from "../../../modules/modals";
 import PrivateTransactions from "../../modals/private-transaction";
 
 class SiteHeader extends React.Component {
@@ -106,14 +106,14 @@ class SiteHeader extends React.Component {
                                                                 className="image-button"
                                                             >
                                                                 <i className="zmdi" />
-                                                                <label>Not forging</label>
+                                                                <label>Height: 666</label>
                                                             </a>
                                                             <a
-                                                                to="/messenger"
+                                                                onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
                                                                 className="image-button"
                                                             >
                                                                 <i className="zmdi" />
-                                                                <label>Not forging</label>
+                                                                <label>Apollo: 777</label>
                                                             </a>
 
                                                         </div>
@@ -320,7 +320,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setPageEvents : (prevent) => dispatch(setPageEvents(prevent)),
     setMopalType : (prevent) => dispatch(setMopalType(prevent)),
-    setBodyModalType : (prevent) => dispatch(setBodyModalType(prevent))
+    setBodyModalType : (prevent) => dispatch(setBodyModalType(prevent)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
 

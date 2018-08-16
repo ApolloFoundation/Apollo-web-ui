@@ -130,15 +130,18 @@ export function updateNotifications () {
                     if (transactions.transactions && transactions.transactions.length) {
                         for (var i=0; i<transactions.transactions.length; i++) {
                             var t = transactions.transactions[i];
-                            var subTypeDict = notifications[t.type]["subTypes"][t.subtype];
-                            if (t.recipientRS && t.recipientRS === account && subTypeDict["receiverPage"]) {
-                                if (!subTypeDict["lastKnownTransaction"] || subTypeDict["lastKnownTransaction"].timestamp < t.timestamp) {
-                                    subTypeDict["lastKnownTransaction"] = t;
-                                }
+                            var subTypeDict = notifications[t.type];
+                            if (subTypeDict) {
+                                subTypeDict = subTypeDict["subTypes"][t.subtype];
+                                if (t.recipientRS && t.recipientRS === account && subTypeDict["receiverPage"]) {
+                                    if (!subTypeDict["lastKnownTransaction"] || subTypeDict["lastKnownTransaction"].timestamp < t.timestamp) {
+                                        subTypeDict["lastKnownTransaction"] = t;
+                                    }
 
-                                if (t.timestamp < subTypeDict["notificationTS"].time) {
-                                    notifications[t.type]["notificationCount"] += 1;
-                                    subTypeDict["notificationCount"] += 1;
+                                    if (t.timestamp < subTypeDict["notificationTS"].time) {
+                                        notifications[t.type]["notificationCount"] += 1;
+                                        subTypeDict["notificationCount"] += 1;
+                                    }
                                 }
                             }
                         }

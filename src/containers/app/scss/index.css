@@ -89,6 +89,9 @@ input {
   font-size: 13px;
   font-family: "Roboto-Regular"; }
 
+[data-blue-link-text] {
+  color: #00C8FF; }
+
 @keyframes notification-animation {
   0% { }
   10% { }
@@ -763,7 +766,6 @@ input {
     min-height: auto;
     height: auto; }
   .transaction-table .transaction-table-body {
-    min-width: 900px;
     padding: 40px 35px;
     width: 100%;
     background-color: #FFFFFF;
@@ -797,6 +799,8 @@ input {
             padding: 0 15px 20px 0; }
           .transaction-table .transaction-table-body table thead tr td:last-child {
             padding-right: 0; }
+      .transaction-table .transaction-table-body table tbody.with-padding tr td {
+        padding: 15px 0 15px 15px; }
       .transaction-table .transaction-table-body table tbody tr {
         height: 6.66%; }
         .transaction-table .transaction-table-body table tbody tr td {
@@ -811,11 +815,14 @@ input {
           .transaction-table .transaction-table-body table tbody tr td.word-brake {
             word-break: break-all;
             word-wrap: break-word; }
+          .transaction-table .transaction-table-body table tbody tr td.no-brake {
+            white-space: pre; }
           .transaction-table .transaction-table-body table tbody tr td.align-right {
             text-align: right;
             padding: 0 15px 0 0; }
           .transaction-table .transaction-table-body table tbody tr td:first-child {
-            padding-left: 0; }
+            padding-left: 0;
+            font-family: "Roboto-Black"; }
           .transaction-table .transaction-table-body table tbody tr td:last-child {
             padding-right: 0; }
     .transaction-table .transaction-table-body .btn-box {
