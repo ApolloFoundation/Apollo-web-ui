@@ -19,6 +19,7 @@ import MandatoryApproval from './account/mandatory-approval';
 import AccountDetails from './account/account-details';
 import LeaseBalance from './account/lease-balance';
 import TokenGenerationValidation from './account/token-generation-validation';
+import GenerateHallmark from './account/generate-halmark';
 import ApolloAbout from './about';
 
 // Assets
@@ -122,6 +123,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            />}
                 {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              />}
                 {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation />}
+                {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          />}
 
 
                 {/* Shuffling */}
