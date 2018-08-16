@@ -16,6 +16,7 @@ import InfoBlock from './info-block';
 // Account
 import InfoAccount from './account/account';
 import AccountDetails from './account/account-details';
+import LeaseBalance from './account/lease-balance';
 import ApolloAbout from './about';
 
 // Assets
@@ -116,6 +117,7 @@ class ModalWindow extends React.Component {
                 {/*Account*/}
                 {this.props.modalType === 'INFO_ACCOUNT'             && <InfoAccount               />}
                 {this.props.modalType === 'ACCOUNT_DETAILS'          && <AccountDetails            />}
+                {this.props.modalType === 'LEASE_BALANCE'            && <LeaseBalance              />}
 
 
                 {/* Shuffling */}

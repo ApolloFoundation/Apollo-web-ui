@@ -175,7 +175,12 @@ class AccountDetails extends React.Component {
                                     <div className="transaction-table no-min-height">
                                         <div className="transaction-table-body transparent padding-vertical-padding">
                                             <p>Your account effective balance is not leased out.</p>
-                                            <a data-blue-link-text>Lease your balance to another account.</a>
+                                            <a
+                                                onClick={() => this.props.setBodyModalParamsAction('LEASE_BALANCE')}
+                                                data-blue-link-text
+                                            >
+                                                Lease your balance to another account.
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

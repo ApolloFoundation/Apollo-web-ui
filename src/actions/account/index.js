@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../../config';
+import queryString from 'query-string';
 
 import {getTransactionsAction}   from '../../actions/transactions/';
 import {getAccountLedgerAction}  from '../../actions/ledger/';
@@ -60,3 +61,22 @@ export function logOutAction(account) {
     }
 }
 
+export function sendLeaseBalance(reqParams) {
+    return (dispatch) => {
+        reqParams = {
+            requestType: 'sendMoneyPrivate',
+            ...reqParams,
+        };
+
+        return axios.post(config.api.serverUrl + queryString.stringify(reqParams))
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data;
+                }
+                return;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+}
