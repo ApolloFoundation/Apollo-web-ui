@@ -3,6 +3,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import converters from '../../../../helpers/converters'
 import crypto from '../../../../helpers/crypto/crypto'
+import {formatTimestamp} from "../../../../helpers/util/time";
 
 const mapStateToProps = state => ({
     account: state.account
@@ -10,7 +11,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    tryToDecryptMessage: (data, options) => dispatch(crypto.tryToDecryptMessage(data, options))
+    tryToDecryptMessage: (data, options) => dispatch(crypto.tryToDecryptMessage(data, options)),
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 });
 
 class MessageItem extends React.Component {
@@ -55,7 +57,7 @@ class MessageItem extends React.Component {
     render (){
         return (
             <tr>
-                <td className="blue-link-text">{this.props.timestamp}</td>
+                <td className="blue-link-text">{this.props.formatTimestamp(this.props.timestamp)}</td>
                 <td className="blue-link-text">
                     <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.sender)}>{this.props.senderRS}</a>
                 </td>

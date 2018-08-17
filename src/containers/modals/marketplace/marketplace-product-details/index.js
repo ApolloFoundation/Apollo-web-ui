@@ -4,6 +4,7 @@ import {setModalData} from '../../../../modules/modals';
 import  {getDGSGoodAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
+import {formatTimestamp} from '../../../../helpers/util/time'
 
 import { Form, Text } from 'react-form';
 import InfoBox from '../../../components/info-box';
@@ -16,6 +17,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     getDGSGoodAction: (requestParams) => dispatch(getDGSGoodAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -93,7 +95,7 @@ class MarketplaceProductDetails extends React.Component {
                                 <div className="info-table">
                                     <div className="t-row">
                                         <div className="t-cell"><span>Date:</span></div>
-                                        <div className="t-cell">{this.state.goods.timestamp}</div>
+                                        <div className="t-cell">{this.props.formatTimestamp(this.state.goods.timestamp)}</div>
                                     </div>
                                     <div className="t-row">
                                         <div className="t-cell"><span>Seller:</span></div>
