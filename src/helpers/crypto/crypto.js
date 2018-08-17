@@ -184,7 +184,8 @@ function decryptMessage(data, options) {
     console.log(binData);
 
     if (!(options.isCompressed === false)){
-        binData = pako.deflate(binData);
+        console.log(binData);
+
         binData = pako.inflate(binData);
         console.log(binData);
     }

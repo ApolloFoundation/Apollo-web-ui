@@ -66,6 +66,7 @@ class MarketplaceImage extends React.Component {
                             </div>
                             <div
                                 style={{
+                                    height: 400,
                                     backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
                                 }}
                                 className={classNames({

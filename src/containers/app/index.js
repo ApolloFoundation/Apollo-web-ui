@@ -86,10 +86,6 @@ class App extends React.Component {
             <div>
                 <ModalWindow/>
                 <AlertBox/>
-                {
-                    !this.props.account &&
-                    <PageLoader />
-                }
                 <header>
                     {
                         this.props.account &&
@@ -152,7 +148,6 @@ class App extends React.Component {
                                 ,<Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 ,<Route exact path="/my-messages" component={MyMessages}/>
                             ]
-
                         }
                     </Switch>
                 </main>
