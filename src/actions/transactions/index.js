@@ -97,3 +97,9 @@ export function sendPrivateTransaction(requestParams) {
                 })
     }
 }
+
+export function formatTransactionType(str){
+    str = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2');
+    str = str.toLowerCase(); //add space between camelCase text
+    return (str).toUpperCase();
+}
