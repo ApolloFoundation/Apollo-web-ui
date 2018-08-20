@@ -425,6 +425,11 @@ input[type="number"] {
           & > * {
             height: calc(50% - 19px);
           }
+          &.fluid-row {
+            & > * {
+              height: auto !important;
+            }
+          }
         }
       }
     }

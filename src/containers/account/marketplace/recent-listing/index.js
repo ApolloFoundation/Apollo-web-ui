@@ -96,6 +96,7 @@ class ResentMarketplaceListing extends React.Component {
                         <div
                             className={classNames({
                                 'row': true,
+                                'fluid-row': !this.state.isGrid
                             })}
                             style={{
                                 position: 'relative',
