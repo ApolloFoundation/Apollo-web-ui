@@ -781,6 +781,8 @@ input {
 // components
 
 .btn-box {
+  width: 100%;
+
   &.inline {
     display: inline-block;
     position: static !important;
@@ -790,6 +792,13 @@ input {
       display: inline;
       margin-right: 15px;
     }
+  }
+  &.relative {
+    position: relative;
+    height: 38px;
+  }
+  &.padding-bottom {
+    padding-bottom: 15px;
   }
   &.more-padding {
     margin-right: -15px;
@@ -821,6 +830,11 @@ input {
       display: inline-block;
       position: relative;
       border-radius: 0;
+    }
+  }
+  .btn {
+    &.disabled {
+      display: none;
     }
   }
 }

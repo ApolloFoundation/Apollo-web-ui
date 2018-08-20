@@ -515,37 +515,43 @@ input {
   .input-group input {
     display: table-cell; }
 
-.btn-box.inline {
-  display: inline-block;
-  position: static !important;
-  margin-right: -15px; }
-  .btn-box.inline > * {
-    display: inline;
-    margin-right: 15px; }
-
-.btn-box.more-padding {
-  margin-right: -15px; }
-  .btn-box.more-padding > * {
-    display: inline;
-    margin-right: 15px; }
-
-.btn-box.absolute {
-  position: absolute; }
-  .btn-box.absolute.right-conner {
-    bottom: 0;
-    right: 0; }
-  .btn-box.absolute.left-conner {
-    bottom: 0;
-    left: 0; }
-  .btn-box.absolute.bottom {
-    bottom: 0;
-    right: 0;
-    left: 0; }
-
-.btn-box.align-buttons-inside > * {
-  display: inline-block;
-  position: relative;
-  border-radius: 0; }
+.btn-box {
+  width: 100%; }
+  .btn-box.inline {
+    display: inline-block;
+    position: static !important;
+    margin-right: -15px; }
+    .btn-box.inline > * {
+      display: inline;
+      margin-right: 15px; }
+  .btn-box.relative {
+    position: relative;
+    height: 38px; }
+  .btn-box.padding-bottom {
+    padding-bottom: 15px; }
+  .btn-box.more-padding {
+    margin-right: -15px; }
+    .btn-box.more-padding > * {
+      display: inline;
+      margin-right: 15px; }
+  .btn-box.absolute {
+    position: absolute; }
+    .btn-box.absolute.right-conner {
+      bottom: 0;
+      right: 0; }
+    .btn-box.absolute.left-conner {
+      bottom: 0;
+      left: 0; }
+    .btn-box.absolute.bottom {
+      bottom: 0;
+      right: 0;
+      left: 0; }
+  .btn-box.align-buttons-inside > * {
+    display: inline-block;
+    position: relative;
+    border-radius: 0; }
+  .btn-box .btn.disabled {
+    display: none; }
 
 .flexible-grid {
   display: flex;

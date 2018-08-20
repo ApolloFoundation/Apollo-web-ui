@@ -66,13 +66,6 @@
             font-family: "Roboto-Black"; }
           .transaction-table .transaction-table-body table tbody tr td:last-child {
             padding-right: 0; }
-    .transaction-table .transaction-table-body .btn-box {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0; }
-      .transaction-table .transaction-table-body .btn-box .btn.disabled {
-        display: none; }
     .transaction-table .transaction-table-body .pagination-nav {
       position: absolute;
       bottom: 13px;

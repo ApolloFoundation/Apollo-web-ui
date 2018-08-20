@@ -92,16 +92,14 @@ class ResentMarketplaceListing extends React.Component {
                 <div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
                     <div
                         className="marketplace"
-                        style={{
-                            marginBottom: 15
-                        }}
                     >
                         <div
-                            className="row"
+                            className={classNames({
+                                'row': true,
+                            })}
                             style={{
                                 position: 'relative',
                                 height: "100%",
-                                paddingBottom: 35
                             }}
                         >
                             {
@@ -123,13 +121,22 @@ class ResentMarketplaceListing extends React.Component {
                                     );
                                 })
                             }
-                            <div className="btn-box">
+                            <div
+                                className="btn-box relative padding-bottom"
+                                style={{
+                                    position: "relative",
+                                    height: 37
+                                }}
+                            >
                                 <a
                                     className={classNames({
                                         'btn' : true,
                                         'btn-left' : true,
                                         'disabled' : this.state.page <= 1
                                     })}
+                                    style={{
+                                        left: 7.5
+                                    }}
                                     onClick={this.onPaginate.bind(this, this.state.page - 1)}
                                 > Previous</a>
                                 <div className='pagination-nav'>
@@ -144,6 +151,9 @@ class ResentMarketplaceListing extends React.Component {
                                         'btn-right' : true,
                                         'disabled' : this.state.getDGSGoods < 8
                                     })}
+                                    style={{
+                                        right: 7.5
+                                    }}
                                 >Next</a>
                             </div>
                         </div>

@@ -38,12 +38,19 @@
     border-radius: 3px;
     height: calc(100% - 15px);
 
+    .row {
+      &.fluid-row {
+        & > * {
+          height: auto !important;
+        }
+      }
+    }
     &.card-fluid {
       padding: 35px;
       display: flex;
       justify-content: space-between;
       flex-direction: row;
-
+      min
       .left-bar {
         display: flex;
 

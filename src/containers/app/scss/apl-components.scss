@@ -110,18 +110,6 @@
         }
       }
     }
-    .btn-box {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      
-      .btn {
-        &.disabled {
-          display: none;
-        }
-      }
-    }
     .pagination-nav {
       position: absolute;
       bottom: 13px;
