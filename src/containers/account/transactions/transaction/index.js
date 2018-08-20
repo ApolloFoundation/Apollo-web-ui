@@ -5,14 +5,18 @@ import converters from '../../../../helpers/converters';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
+import {formatTransactionType} from "../../../../actions/transactions";
 
+const mapStateToProps = state => ({
+    constants: state.account.constants
+});
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime))
 });
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class Transaction extends React.Component {
     constructor(props) {
         super(props);
@@ -45,6 +49,7 @@ class Transaction extends React.Component {
     }
 
     render () {
+        console.log(this.props);
         if (this.props.block) {
             if (!this.state.transaction.encryptedTransaction) {
                 return (
@@ -56,46 +61,7 @@ class Transaction extends React.Component {
                             <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.state.transaction.blockTimestamp}</a>
                         </td>
                         <td  key={uuid()}>
-                            {
-                                this.state.transaction.attachment['version.AliasAssignment'] &&
-                                'Alias assignment'
-                            }
-                            {
-                                this.state.transaction.attachment['version.PollCreation'] &&
-                                'Poll creation'
-                            }
-                            {
-                                this.state.transaction.attachment['version.AccountInfo'] &&
-                                'Account info'
-                            }
-                            {
-                                this.state.transaction.attachment['version.VoteCasting'] &&
-                                'Vote casting'
-                            }
-                            {
-                                this.state.transaction.attachment['version.PrunablePlainMessage'] &&
-                                'MARKETPLACE LISTING'
-                            }
-                            {
-                                this.state.transaction.attachment['version.CurrencyIssuance'] &&
-                                'ISSUE CURRENCY'
-                            }
-                            {
-                                this.state.transaction.attachment['version.CriticalUpdate'] &&
-                                'CRITICAL UPDATE'
-                            }
-                            {
-                                'version.TaggedDataUpload' in this.state.transaction.attachment &&
-                                'TAGGED DATA UPLOAD'
-                            }
-                            {
-                                'version.OrdinaryPayment' in this.state.transaction.attachment &&
-                                'ORDINARY PAYMENT'
-                            }
-                            {
-                                'version.PrivatePayment' in this.state.transaction.attachment &&
-                                'PRIVATE PAYMENT'
-                            }
+                            {formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}
                         </td>
                         <td  key={uuid()} className="align-right">
                             {this.state.transaction.amountATM / 100000000}
@@ -126,46 +92,7 @@ class Transaction extends React.Component {
                             </a>
                         </td>
                         <td>
-                            {
-                                this.state.transaction.attachment['version.AliasAssignment'] &&
-                                'Alias assignment'
-                            }
-                            {
-                                this.state.transaction.attachment['version.PollCreation'] &&
-                                'Poll creation'
-                            }
-                            {
-                                this.state.transaction.attachment['version.AccountInfo'] &&
-                                'Account info'
-                            }
-                            {
-                                this.state.transaction.attachment['version.VoteCasting'] &&
-                                'Vote casting'
-                            }
-                            {
-                                this.state.transaction.attachment['version.PrunablePlainMessage'] &&
-                                'MARKETPLACE LISTING'
-                            }
-                            {
-                                this.state.transaction.attachment['version.CurrencyIssuance'] &&
-                                'ISSUE CURRENCY'
-                            }
-                            {
-                                this.state.transaction.attachment['version.CriticalUpdate'] &&
-                                'CRITICAL UPDATE'
-                            }
-                            {
-                                'version.TaggedDataUpload' in this.state.transaction.attachment &&
-                                'TAGGED DATA UPLOAD'
-                            }
-                            {
-                                'version.OrdinaryPayment' in this.state.transaction.attachment &&
-                                'ORDINARY PAYMENT'
-                            }
-                            {
-                                'version.PrivatePayment' in this.state.transaction.attachment &&
-                                'PRIVATE PAYMENT'
-                            }
+                            {formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}
                         </td>
                         <td className="align-right">
                             {this.state.transaction.amountATM / 100000000}
