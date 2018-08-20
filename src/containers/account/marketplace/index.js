@@ -182,7 +182,7 @@ class Marketplace extends React.Component {
         this.setState({...this.state,...reqParams}, () => {
             this.getDGSTags(reqParams)
         });
-    }
+    };
 
     render () {
         return (
@@ -236,9 +236,9 @@ class Marketplace extends React.Component {
                                             })}>
                                                 <div className="input-group search tabled">
                                                     <div className="iconned-input-field">
-                                                        <input type="text"/>
+                                                        <input type="text" placeholder="Seller`s Account ID"/>
                                                         <div className="input-icon">
-                                                            <i className="zmdi zmdi-search"></i>
+                                                            <i className="zmdi zmdi-search" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -249,9 +249,9 @@ class Marketplace extends React.Component {
                                             })}>
                                                 <div className="input-group search tabled">
                                                     <div className="iconned-input-field">
-                                                        <input type="text"/>
+                                                        <input type="text" placeholder="Title, description or Tag"/>
                                                         <div className="input-icon">
-                                                            <i className="zmdi zmdi-search"></i>
+                                                            <i className="zmdi zmdi-search" />
                                                         </div>
                                                     </div>
                                                 </div>
