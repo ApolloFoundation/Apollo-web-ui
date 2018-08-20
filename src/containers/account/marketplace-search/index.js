@@ -24,16 +24,37 @@ class MarketplaceSearch extends React.Component {
             firstIndex: 0,
             lastIndex: 7,
             tag: this.props.match.params.tag,
-            isGrid: true
+            isGrid: true,
+
         };
+
+
+        console.log(/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(this.props.match.params.tag));
+
     }
 
     componentWillMount() {
+        this.loadAccount(this.props.match.params.tag);
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.loadAccount(newProps.match.params.tag);
+    }
+
+    loadAccount = (tag) => {
+        const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(tag) ?
+            {
+                seller : tag,
+                requestType: 'getDGSGoods'
+            } : {
+                tag : tag
+            };
+
         this.getDGSGoods({
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
             completed: true,
-            tag: this.state.tag
+            ...searchingBy
         })
     }
 
@@ -50,9 +71,18 @@ class MarketplaceSearch extends React.Component {
     };
 
     onPaginate = (page) => {
+        const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(this.props.match.params.tag) ?
+            {
+                seller : this.state.tag,
+                requestType: 'getDGSGoods'
+            } : {
+                tag : this.state.tag
+            }
+
         let reqParams = {
             page: page,
             tag: this.state.tag,
+            ...searchingBy,
             firstIndex: page * 8 - 8,
             lastIndex:  page * 8 - 1
         };
@@ -128,7 +158,6 @@ class MarketplaceSearch extends React.Component {
                                                 fluid={!this.state.isGrid}
                                                 index={index}
                                                 {...el}
-                                                this={this}
                                             />
                                         </div>
                                     );
