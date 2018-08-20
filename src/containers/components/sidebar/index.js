@@ -71,7 +71,15 @@ class Sidebar extends React.Component {
 
                                 <NavLink to="/dashboard">
                                     Dashboard
-                                    <i className="zmdi zmdi-view-dashboard left" />
+                                    {
+                                        this.props.notifications && this.props.notifications[1].notificationCount  === 0 &&
+                                        <i className="zmdi zmdi-view-dashboard left" />
+                                    }
+                                    {
+                                        this.props.notifications && this.props.notifications[1].notificationCount > 0 &&
+                                        <i className="zmdi zmdi-view-dashboard left" data-notification={this.props.notifications[0].notificationCount} />
+                                    }
+
                                     <i className="zmdi zmdi-chevron-right right" />
                                 </NavLink>
                                 <div className="dropdown-menu">
