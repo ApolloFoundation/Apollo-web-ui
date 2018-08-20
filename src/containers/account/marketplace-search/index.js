@@ -100,21 +100,35 @@ class MarketplaceSearch extends React.Component {
                         }
                     </a>
                 </SiteHeader>
-                <div className="page-body container-fluid">
-                    <div className="marketplace">
-                        <div className="row" style={{position: 'relative', paddingBottom: 35}}>
+                <div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
+                    <div
+                        className="marketplace"
+                        style={{
+                            marginBottom: 15
+                        }}
+                    >
+                        <div
+                            className="row"
+                            style={{
+                                position: 'relative',
+                                height: "100%",
+                                paddingBottom: 35
+                            }}
+                        >
                             {
                                 this.state.getDGSGoods &&
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
                                         <div className={classNames({
-                                            'col-md-6 col-lg-3 col-xl-2' : this.state.isGrid,
-                                            'col-xs-12': !this.state.isGrid,
+                                            'col-md-6 col-lg-3' : this.state.isGrid,
+                                            'col-xs-12 col-sm-12 col-md-12 col-lg-12': !this.state.isGrid,
                                         })}>
                                             <MarketplaceItem
                                                 tall={this.state.isGrid}
                                                 fluid={!this.state.isGrid}
+                                                index={index}
                                                 {...el}
+                                                this={this}
                                             />
                                         </div>
                                     );

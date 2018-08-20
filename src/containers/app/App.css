@@ -91,7 +91,8 @@ input {
   font-family: "Roboto-Regular"; }
 
 [data-blue-link-text] {
-  color: #00C8FF; }
+  color: #00C8FF;
+  cursor: pointer; }
 
 ::-webkit-scrollbar {
   width: 10px; }
@@ -259,7 +260,8 @@ input {
       width: 50%;
       margin: -35px 0 -70px -35px; }
       .form-group.devided .left-bar .top-bar .marketplace-image {
-        margin: 0; }
+        margin: 0;
+        height: 400px; }
       .form-group.devided .left-bar .bottom-bar .description {
         padding: 35px;
         line-height: 1.6; }

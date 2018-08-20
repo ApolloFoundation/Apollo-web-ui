@@ -123,6 +123,7 @@ input {
 
 [data-blue-link-text] {
   color: #00C8FF;
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {
@@ -367,6 +368,7 @@ input {
       .top-bar {
         .marketplace-image {
           margin: 0;
+          height: 400px;
         }
       }
       .bottom-bar {

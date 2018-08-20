@@ -21,7 +21,8 @@ class ResentMarketplaceListing extends React.Component {
             market: [],
             page: 1,
             firstIndex: 0,
-            lastIndex: 7
+            lastIndex: 7,
+            isGrid: true
         };
     }
 
@@ -60,25 +61,63 @@ class ResentMarketplaceListing extends React.Component {
         });
     }
 
+    handleGrid = () => {
+        this.setState({
+            ...this.state,
+            isGrid: !this.state.isGrid
+        })
+    };
 
     render () {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Recent listing'}
-                    showPrivateTransactions={'ledger'}
-                />
-                <div className="page-body container-fluid">
-                    <div className="marketplace">
-                        <div className="row" style={{position: 'relative', paddingBottom: 35}}>
+                >
+                    <a
+                        className="btn primary transparent icon-button"
+                        style={{marginLeft: 15}}
+                        onClick={this.handleGrid}
+                    >
+                        {
+                            this.state.isGrid &&
+                            <i className="zmdi zmdi-view-module" />
+                        }
+                        {
+                            !this.state.isGrid &&
+                            <i className="zmdi zmdi-view-list" />
+                        }
+                    </a>
+                </SiteHeader>
+                <div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
+                    <div
+                        className="marketplace"
+                        style={{
+                            marginBottom: 15
+                        }}
+                    >
+                        <div
+                            className="row"
+                            style={{
+                                position: 'relative',
+                                height: "100%",
+                                paddingBottom: 35
+                            }}
+                        >
                             {
                                 this.state.getDGSGoods &&
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
-                                        <div className="col-md-3">
+                                        <div className={classNames({
+                                            'col-md-6 col-lg-3' : this.state.isGrid,
+                                            'col-xs-12 col-sm-12 col-md-12 col-lg-12': !this.state.isGrid,
+                                        })}>
                                             <MarketplaceItem
-                                                tall
+                                                tall={this.state.isGrid}
+                                                fluid={!this.state.isGrid}
+                                                index={index}
                                                 {...el}
+                                                this={this}
                                             />
                                         </div>
                                     );

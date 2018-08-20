@@ -10,15 +10,19 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const MarketplaceItem = (props) => (
-    <div className={classNames({
-        'card': true,
-        'marketplace': true,
-        'card-flexible': true,
-        'market': true,
-        'full-height': props.fullHeight,
-        'tall-card': props.tall,
-        'card-fluid': props.fluid,
-    })}>
+    <div
+        className={classNames({
+            'card': true,
+            'marketplace': true,
+            'market': true,
+            'full-height': props.fullHeight,
+            'tall-card': props.tall,
+            'card-fluid': props.fluid,
+            "is-last-row": (props.index >= 4 && window.innerWidth > 1000) || (props.index > 2 && window.innerWidth > 720 && window.innerWidth < 1000)
+        })}
+        data-index={props.index}
+        data-sceen-size={window.innerWidth}
+    >
         {
             !props.tall && !props.fluid &&
                 [
@@ -86,7 +90,10 @@ const MarketplaceItem = (props) => (
                     </div>
                     <div className="cargo-owner-box">
                         <div className="cargo-owner">
-                            <span>
+                            <span
+                                data-blue-link-text
+                                onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}
+                            >
                                 {props.sellerRS}
                             </span>
 
@@ -145,7 +152,10 @@ const MarketplaceItem = (props) => (
                             <div className="t-cell"><span>Seller:</span></div>
                             <div className="t-cell">
                                 <div className="cargo-owner">
-                                    <span>
+                                    <span
+                                        data-blue-link-text
+                                        onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}
+                                    >
                                         {props.sellerRS}
                                     </span>
                                     <a className="btn primary blue">

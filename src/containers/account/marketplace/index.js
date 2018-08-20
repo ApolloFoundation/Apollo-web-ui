@@ -237,9 +237,9 @@ class Marketplace extends React.Component {
                                                 <div className="input-group search tabled">
                                                     <div className="iconned-input-field">
                                                         <input type="text" placeholder="Seller`s Account ID"/>
-                                                        <div className="input-icon">
+                                                        <button className="input-icon">
                                                             <i className="zmdi zmdi-search" />
-                                                        </div>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -250,9 +250,9 @@ class Marketplace extends React.Component {
                                                 <div className="input-group search tabled">
                                                     <div className="iconned-input-field">
                                                         <input type="text" placeholder="Title, description or Tag"/>
-                                                        <div className="input-icon">
+                                                        <button  className="input-icon">
                                                             <i className="zmdi zmdi-search" />
-                                                        </div>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
