@@ -173,6 +173,12 @@ class Marketplace extends React.Component {
             lastIndex:  page * 32 - 1
         };
 
+        console.log(this.refs.filtersBar.childNodes[0].clientHeight);
+        console.log((this.refs.filtersBar.childNodes[0].offsetHeight + 15) * 4);
+        console.log(this.refs.filtersBar.clientHeight - (37 + 15));
+
+        console.log(this.refs.filtersBar.clientHeight - (this.refs.btnBox.clientHeight)  < (this.refs.filtersBar.childNodes[0].offsetHeight + 15) * 4);
+
         this.setState({...this.state,...reqParams}, () => {
             this.getDGSTags(reqParams)
         });
@@ -252,7 +258,7 @@ class Marketplace extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="filters-bar">
+                                    <div className="filters-bar" ref={'filtersBar'}>
                                         {
                                             this.state.getDGSTags &&
                                             this.state.getDGSTags.map((el, index) => {
@@ -264,7 +270,15 @@ class Marketplace extends React.Component {
                                         <a onClick={this.showMoreController} className="btn primary blue" dangerouslySetInnerHTML={{__html: this.state.isShowMore ? 'View less' : 'View more'}}/>
                                         {
                                             this.state.getDGSTags && this.state.isShowMore &&
-                                            <div className="btn-box">
+                                            <div
+                                                ref={'btnBox'}
+                                                className="btn-box"
+                                                style={{
+                                                    overflow: 'auto',
+                                                    height: 52,
+                                                    position: 'relative'
+                                                }}
+                                            >
                                                 <a
                                                     className={classNames({
                                                         'btn' : true,

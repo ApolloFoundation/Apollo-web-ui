@@ -160,7 +160,7 @@ class Dashboard extends React.Component {
                     pageTitle={'Dashboard'}
                     dashboardPage
                 />
-                <div className="page-body container-fluid">
+                <div className="page-body container-fluid full-screen-block">
                     <div className="row">
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="card header ballance chart-sprite position-1">
