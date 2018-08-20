@@ -227,6 +227,7 @@
   transition: all 0.3s ease-in-out;
   overflow: scroll;
   display: flex;
+  margin-bottom: -15px;
 
   &::-webkit-scrollbar {
     width: 1px;
@@ -236,7 +237,7 @@
     opacity: 1;
 
     .modal-box {
-      transform: translateY(0);
+      transform: translateY(15px);
 
       .modal-form {
         .left-bar {
@@ -255,7 +256,7 @@
     }
   }
   .modal-box {
-    transform: translateY(-50px);
+    transform: translateY(-65px);
     margin: auto;
     display: block;
     transition: all 0.3s ease-in-out;

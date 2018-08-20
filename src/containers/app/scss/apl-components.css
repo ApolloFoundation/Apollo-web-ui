@@ -138,14 +138,15 @@
   opacity: 0;
   transition: all 0.3s ease-in-out;
   overflow: scroll;
-  display: flex; }
+  display: flex;
+  margin-bottom: -15px; }
   .modal-window::-webkit-scrollbar {
     width: 1px; }
   .modal-window.active {
     visibility: visible;
     opacity: 1; }
     .modal-window.active .modal-box {
-      transform: translateY(0); }
+      transform: translateY(15px); }
       .modal-window.active .modal-box .modal-form .left-bar {
         max-height: 700px;
         overflow-y: scroll; }
@@ -153,7 +154,7 @@
           overflow: visible;
           max-height: auto; }
   .modal-window .modal-box {
-    transform: translateY(-50px);
+    transform: translateY(-65px);
     margin: auto;
     display: block;
     transition: all 0.3s ease-in-out;
