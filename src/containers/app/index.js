@@ -73,13 +73,18 @@ class App extends React.Component {
         this.setState({...newState});
     }
 
-    handleModal() {
-        if (this) {
-            if (this.state.bodyModalType) {
-                this.props.setBodyModalType(null);
+    handleModal = (e) => {
+        const parents = e.target.closest('.settings-bar') || null;
+
+        if (!parents) {
+            if (this) {
+
+                if (this.state.bodyModalType) {
+                    this.props.setBodyModalType(null);
+                }
             }
         }
-    }
+    };
 
     render() {
         return (
@@ -101,7 +106,7 @@ class App extends React.Component {
                        'site-content': true,
                         'hide-page-body': this.props.bodyModalType
                     })}
-                    onClick={this.handleModal}
+                    onClick={(e) => this.handleModal(e)}
                 >
                     <Switch>
                         {this.props.account}

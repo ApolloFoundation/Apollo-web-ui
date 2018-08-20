@@ -46,7 +46,7 @@ class SiteHeader extends React.Component {
 
     setBodyModalType(bodyModalType) {
         if (this.props.bodyModalType) {
-            this.props.setBodyModalType(null);
+            // this.props.setBodyModalType(null);
 
         } else {
             this.props.setBodyModalType(bodyModalType);
