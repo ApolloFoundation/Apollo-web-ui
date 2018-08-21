@@ -739,42 +739,27 @@ input {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: stretch;
     width: 100%; }
-    .card .general-info > * {
-      height: 50%;
-      width: 50%;
-      display: flex;
-      flex-direction: column; }
-      .card .general-info > * .top-bar {
-        color: #FFFFFF;
-        font-size: 24px;
-        padding-bottom: 7px; }
-      .card .general-info > * .bottom-bar {
-        width: 1px;
-        color: #FFFFFF;
-        font-size: 12px; }
-    .card .general-info .top-left {
-      border-bottom: 1px solid #fff;
-      border-right: 1px solid #fff;
-      margin-right: -0.5px;
-      margin-bottom: -0.5px;
-      justify-content: flex-start; }
-    .card .general-info .top-right {
-      margin-right: -0.5px;
-      margin-bottom: -0.5px;
-      padding-left: 15px;
-      justify-content: flex-start; }
-    .card .general-info .bottom-left {
-      margin-left: -0.5px;
-      margin-top: -0.5px;
-      justify-content: flex-end; }
-    .card .general-info .bottom-right {
-      border-top: 1px solid #fff;
-      border-left: 1px solid #fff;
-      margin-left: -0.5px;
-      margin-top: -0.5px;
-      padding-left: 15px;
-      justify-content: flex-end; }
+  .card .general-info-item {
+    width: 50%;
+    color: #FFFFFF;
+    border-top: 1px solid #fff;
+    border-right: 1px solid #fff;
+    padding: 8px 8px 4px 0; }
+    .card .general-info-item:nth-of-type(1), .card .general-info-item:nth-of-type(2) {
+      border-top: none; }
+    .card .general-info-item:nth-of-type(2n) {
+      border-right: none;
+      padding-left: 15px; }
+    .card .general-info-item .top-bar {
+      color: #FFFFFF;
+      font-size: 24px;
+      padding-bottom: 7px; }
+    .card .general-info-item .bottom-bar {
+      width: 60px;
+      color: #FFFFFF;
+      font-size: 12px; }
   .card .card-title {
     color: #333333;
     font-family: "Roboto-Regular";
@@ -837,6 +822,15 @@ input {
 .page-body.white-space {
   background-color: #fff;
   border-radius: 3px; }
+
+.page-body-item {
+  min-width: 25%; }
+  @media screen and (max-width: 1230px) {
+    .page-body-item {
+      min-width: 50%; } }
+  @media screen and (max-width: 768px) {
+    .page-body-item {
+      min-width: 100%; } }
 
 .transaction-table {
   height: 100%;

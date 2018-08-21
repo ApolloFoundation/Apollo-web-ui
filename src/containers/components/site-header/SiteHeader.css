@@ -169,7 +169,8 @@
         width: 50px;
         border-radius: 100%;
         margin-left: 30px;
-        border: 1px solid #eee; }
+        border: 1px solid #eee;
+        background-color: #eeeeee; }
       .page-header .user-search-box .user-box .settings-bar {
         position: absolute;
         top: calc(100% + 30px);

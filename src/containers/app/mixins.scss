@@ -1,0 +1,39 @@
+@mixin breakpoint($breakpoint){
+	@media screen and (max-width: $breakpoint) {
+		@content
+	}
+}
+@mixin breakpoint-min($breakpoint) {
+	@media screen and (min-width: $breakpoint) {
+		@content
+	}
+}
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content
+	}
+	&::-moz-placeholder {
+		@content
+	}
+	&:-moz-placeholder {
+		@content
+	}
+	&:-ms-input-placeholder {
+		@content
+	}
+}
+
+@mixin clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@mixin align-img-center{
+	background-position: center center;
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
