@@ -1,5 +1,6 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
+import ChatItem from  './chat-item/index';
 import {connect} from 'react-redux';
 import classNames from "classnames";
 import {getChats, getMessage} from "../../../actions/messager";
@@ -118,29 +119,12 @@ class Messenger extends React.Component {
                                                         const message = this.props.getMessage(el);
 
                                                         return (
-                                                            <div className={classNames({
-                                                                'message-box': true,
-                                                                'encrypted' : message.format === 'encrypted',
-                                                                'outgoing': this.props.account === el.sender,
-                                                                'incoming': this.props.account !== el.sender,
-                                                            })}>
-                                                                <div className="message">
-                                                                    <p>
-                                                                        {
-                                                                            message.message
-                                                                        }
-                                                                        {
-                                                                            message.format === 'encrypted' &&
-                                                                                [
-                                                                                    <a className='action'>
-                                                                                        < i className="zmdi zmdi-lock-open" />
-                                                                                    </a>,
-                                                                                    <span className="message-text">&nbsp;&nbsp;Message is encrypted</span>
-                                                                                ]
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                            </div>
+                                                            <ChatItem
+                                                                {...this.props}
+                                                                {...el}
+                                                                message={message}
+                                                                messageFormat={message.format}
+                                                            />
                                                         );
                                                     })
                                                 }
