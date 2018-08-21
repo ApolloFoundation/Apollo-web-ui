@@ -283,11 +283,16 @@ class SendApollo extends React.Component {
                                 <AdvancedSettings advancedState={this.state.advancedState}/>
 
                                 <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button className="btn btn-right round round-top-left">Cancel</button>
+                                    <button
+                                        className="btn btn-right round round-top-left absolute"
+                                        style={{right: 57}}
+                                    >
+                                        Cancel
+                                    </button>
                                     <button
                                         type="submit"
                                         name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
+                                        className="btn btn-right blue round round-bottom-right absolute"
                                     >
                                         Send
                                     </button>
@@ -296,7 +301,8 @@ class SendApollo extends React.Component {
                                 <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
-                                        className="btn btn-right round round-bottom-left round-top-right"
+                                        className="btn btn-right round round-bottom-left round-top-right absolute"
+                                        style={{left : 0, right: 'auto'}}
                                     >
                                         Advanced
                                     </a>

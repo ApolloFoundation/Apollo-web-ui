@@ -214,7 +214,7 @@ class SiteHeader extends React.Component {
                                                         <li><Link className="option" to="/peers">Peers</Link></li>
                                                         <li><Link className="option" to="/generators">Generators</Link></li>
                                                         <li><Link className="option" to="/scheduled-transactions">Scheduled transactions</Link></li>
-                                                        <li><Link className="option" to="/monitors">monitors</Link></li>
+                                                        <li><Link className="option" to="/funding-monitors">monitors</Link></li>
                                                     </ul>
                                                 </div>
                                                 <div className="options-col">
