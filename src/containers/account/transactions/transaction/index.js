@@ -6,6 +6,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {formatTransactionType} from "../../../../actions/transactions";
+import {getBlockAction} from "../../../../actions/blocks";
 
 const mapStateToProps = state => ({
     constants: state.account.constants
@@ -13,6 +14,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    getBlockAction: (data) => dispatch(getBlockAction(data)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime))
 });
 
@@ -45,6 +47,18 @@ class Transaction extends React.Component {
             this.setState({
                 transaction: decrypted
             })
+        }
+    }
+
+    async getBlock(type, blockHeight) {
+        const requestParams = {
+            height: blockHeight
+        };
+
+        const block = await this.props.getBlockAction(requestParams);
+
+        if (block) {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
         }
     }
 
@@ -105,7 +119,7 @@ class Transaction extends React.Component {
                         <td className="align-right">
                         </td>
                         <td className="align-right blue-link-text">
-                            <a>{this.state.transaction.height}</a>
+                            <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', this.state.transaction.height)}>{this.state.transaction.height}</a>
                         </td>
                         <td className="align-right">
                             <a>{this.state.transaction.confirmations}</a>
