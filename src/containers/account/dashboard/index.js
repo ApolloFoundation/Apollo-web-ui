@@ -157,11 +157,79 @@ class Dashboard extends React.Component {
                 />
                 <div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
                     <div className="row">
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="card header ballance chart-sprite position-1">
-                                <div className="card-title">Available Balance</div>
-                                <div className="amount">{ (this.props.balanceATM / 100000000).toFixed(2)}</div>
-                            </div>
+	                    <div className="page-body-item col">
+		                    <div className="card header ballance chart-sprite position-1">
+			                    <div className="card-title">Available Balance</div>
+			                    <div className="amount">{ (this.props.balanceATM / 100000000).toFixed(2)}</div>
+		                    </div>
+	                    </div>
+	                    <div className="page-body-item col">
+		                    <div className="card header assets chart-sprite position-2">
+			                    <div className="card-title">Assets Value</div>
+			                    <div className="amount">
+				                    {this.state.assetsValue}
+
+				                    <div className="owned">
+					                    {this.state.assetsCount}
+				                    </div>
+			                    </div>
+		                    </div>
+	                    </div>
+	                    <div className="page-body-item col">
+		                    <div className="card header currencies chart-sprite position-3">
+			                    <div className="card-title">Currencies Value</div>
+			                    <div className="amount">
+				                    {this.state.currenciesValue / 100000000}
+
+				                    <div className="owned">
+					                    {this.state.currenciesCount}
+				                    </div>
+			                    </div>
+		                    </div>
+	                    </div>
+	                    <div className="page-body-item col">
+		                    <div className="card header coins flex chart-sprite position-4">
+			                    <div className="general-info">
+				                    <div className="general-info-item top-left">
+					                    <div className="top-bar">
+						                    {this.state.messages}
+					                    </div>
+					                    <div className="bottom-bar">
+						                    Secure
+						                    messages
+					                    </div>
+				                    </div>
+				                    <div className="general-info-item top-right">
+					                    <div className="top-bar">
+						                    11
+					                    </div>
+					                    <div className="bottom-bar">
+						                    Coin
+						                    shuffling
+					                    </div>
+				                    </div>
+				                    <div className="general-info-item bottom-left">
+					                    <div className="top-bar">
+						                    1
+					                    </div>
+					                    <div className="bottom-bar">
+						                    Secure
+						                    aliases
+					                    </div>
+				                    </div>
+				                    <div className="general-info-item bottom-right">
+					                    <div className="top-bar">
+						                    22
+					                    </div>
+					                    <div className="bottom-bar">
+						                    Data
+						                    storage
+					                    </div>
+				                    </div>
+			                    </div>
+		                    </div>
+	                    </div>
+                        <div className="page-body-item col">
                             <div className="card card-tall transactions">
                                 <div className="card-title">Transactions</div>
                                 <div className="transactions-dashboard scroll">
@@ -176,17 +244,7 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="card header assets chart-sprite position-2">
-                                <div className="card-title">Assets Value</div>
-                                <div className="amount">
-                                    {this.state.assetsValue}
-
-                                    <div className="owned">
-                                        {this.state.assetsCount}
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="page-body-item col">
                             <div className="card asset-portfolio">
                                 <div className="card-title">Asset Portfolio</div>
                                 <div className="full-box">
@@ -227,17 +285,7 @@ class Dashboard extends React.Component {
                                 <Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="card header currencies chart-sprite position-3">
-                                <div className="card-title">Currencies Value</div>
-                                <div className="amount">
-                                    {this.state.currenciesValue / 100000000}
-
-                                    <div className="owned">
-                                        {this.state.currenciesCount}
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="page-body-item col">
                             <div className="card send-apollo">
                                 <div className="card-title">Send Apollo</div>
                                 <div className="full-box">
@@ -268,47 +316,7 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="card header coins flex chart-sprite position-4">
-                                <div className="general-info">
-                                    <div className="top-left">
-                                        <div className="top-bar">
-                                            {this.state.messages}
-                                        </div>
-                                        <div className="bottom-bar">
-                                            Secure
-                                            messages
-                                        </div>
-                                    </div>
-                                    <div className="top-right">
-                                        <div className="top-bar">
-                                            11
-                                        </div>
-                                        <div className="bottom-bar">
-                                            Coin
-                                            shuffling
-                                        </div>
-                                    </div>
-                                    <div className="bottom-left">
-                                        <div className="top-bar">
-                                            1
-                                        </div>
-                                        <div className="bottom-bar">
-                                            Secure
-                                            aliases
-                                        </div>
-                                    </div>
-                                    <div className="bottom-right">
-                                        <div className="top-bar">
-                                            22
-                                        </div>
-                                        <div className="bottom-bar">
-                                            Data
-                                            storage
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="page-body-item col">
                             <div className="card card-tall apollo-news">
                                 <div className="card-title">Apollo News</div>
                                 <div className="card-news-content">Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -321,6 +329,7 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
