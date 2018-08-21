@@ -71,7 +71,15 @@ class Sidebar extends React.Component {
 
                                 <NavLink to="/dashboard">
                                     Dashboard
-                                    <i className="zmdi zmdi-view-dashboard left" />
+                                    {
+                                        this.props.notifications && this.props.notifications[1].notificationCount  === 0 &&
+                                        <i className="zmdi zmdi-view-dashboard left" />
+                                    }
+                                    {
+                                        this.props.notifications && this.props.notifications[1].notificationCount > 0 &&
+                                        <i className="zmdi zmdi-view-dashboard left" data-notification={this.props.notifications[0].notificationCount} />
+                                    }
+
                                     <i className="zmdi zmdi-chevron-right right" />
                                 </NavLink>
                                 <div className="dropdown-menu">
@@ -165,10 +173,10 @@ class Sidebar extends React.Component {
                                 <div className="dropdown-menu">
                                     <ul>
                                         <li><a>Purchased Products</a></li>
-                                        <li><a>My Products For Sales</a></li>
-                                        <li><a>My Pending Orders</a></li>
-                                        <li><a>My completed orders</a></li>
-                                        <li><a>List products for sales</a></li>
+                                        <li><NavLink to='/my-products-for-sale'>My Products For Sales</NavLink></li>
+                                        <li><NavLink to='/my-panding-orders'>My Pending Orders</NavLink></li>
+                                        <li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
+                                        <li><a onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List Product For Sale</a></li>
                                     </ul>
                                 </div>
                             </li>

@@ -116,7 +116,6 @@ class ResentMarketplaceListing extends React.Component {
                                                 fluid={!this.state.isGrid}
                                                 index={index}
                                                 {...el}
-                                                this={this}
                                             />
                                         </div>
                                     );

@@ -24,6 +24,9 @@ import FollowedPools from '../account/followed-pools'
 import Messenger from '../account/messenger'
 import ResentMarketplaceListing from '../account/marketplace/recent-listing'
 import Marketplace from '../account/marketplace'
+import MyProductsForSale from '../account/my-products-for-sale'
+import MyPandingOrders from '../account/my-panding-orders'
+import MyCompletedOrders from '../account/my-completed-orders'
 import ActivePools from '../account/active-pools'
 import AccountProperties from '../account/account-properties'
 import ApprovalRequest from '../account/approval-request'
@@ -129,6 +132,9 @@ class App extends React.Component {
                                 ,<Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
                                 ,<Route exact path="/currencies" component={Currencies}/>
                                 ,<Route exact path="/marketplace/" component={Marketplace}/>
+                                ,<Route exact path="/my-products-for-sale" component={MyProductsForSale}/>
+                                ,<Route exact path="/my-panding-orders" component={MyPandingOrders}/>
+                                ,<Route exact path="/my-completed-orders" component={MyCompletedOrders}/>
                                 ,<Route exact path="/marketplace/:tag" component={MarketplaceSearch}/>
                                 ,<Route exact path="/active-pools" component={ActivePools}/>
                                 ,<Route exact path="/active-shuffling" component={ActiveShufflings}/>
