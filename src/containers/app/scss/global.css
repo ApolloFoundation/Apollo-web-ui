@@ -819,3 +819,12 @@ input {
 .page-body.white-space {
   background-color: #fff;
   border-radius: 3px; }
+
+.page-body-item {
+  min-width: 25%; }
+  @media (max-width: 1230px) {
+    .page-body-item {
+      min-width: 50%; } }
+  @media (max-width: 768px) {
+    .page-body-item {
+      min-width: 100%; } }

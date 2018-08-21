@@ -825,10 +825,10 @@ input {
 
 .page-body-item {
   min-width: 25%; }
-  @media screen and (max-width: 1230px) {
+  @media (max-width: 1230px) {
     .page-body-item {
       min-width: 50%; } }
-  @media screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     .page-body-item {
       min-width: 100%; } }
 
