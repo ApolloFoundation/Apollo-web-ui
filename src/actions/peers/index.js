@@ -25,8 +25,6 @@ export function getPeersInfoAction() {
 
             const peers = await dispatch(getPeersAction());
 
-            console.log(peers);
-
             if (peers && peers.peers) {
                 return {
                     volumeDownloaded: peers.peers.map((el) => { return el.downloadedVolume}).reduce((a, b) => a + b, 0),

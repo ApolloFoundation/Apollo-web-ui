@@ -9,10 +9,6 @@ function generateQRCode(target, qrCodeData, minType, cellSize) {
             qr.addData(qrCodeData);
             qr.make();
             var img = qr.createImgTag(cellSize);
-            console.log("Encoded QR code of type " + type);
-            if (target) {
-                console.log(target);
-            }
             return img;
         } catch (e) {
             type++;

@@ -24,16 +24,9 @@ class AccountDetails extends React.Component {
     }
 
     componentDidMount() {
-        console.log('..............');
-        console.log(this.props);
         this.getAccountInfo();
     }
 
-    componentWillReceiveProps (newState) {
-        console.log('..............');
-        console.log(newState);
-
-    }
 
     handleTab = (e, index) => {
         e.preventDefault();
@@ -47,14 +40,10 @@ class AccountDetails extends React.Component {
     getAccountInfo = async () => {
         const account = await this.props.getAccountInfoAction({account: this.props.account});
 
-        console.log(account);
-
         if (account) {
             this.setState({
                 ...this.state,
                 account: account
-            }, () => {
-                console.log(this.state.account);
             })
         }
     };

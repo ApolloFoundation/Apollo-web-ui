@@ -370,6 +370,7 @@ class Marketplace extends React.Component {
                                                     <div className="col-md-2">
                                                         <MarketplaceItem
                                                             fullHeight
+                                                            relative={true}
                                                             {...el}
                                                         />
                                                     </div>

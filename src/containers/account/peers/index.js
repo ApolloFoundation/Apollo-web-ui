@@ -34,8 +34,6 @@ class Peers extends React.Component {
     getPeers = async (reqParams) => {
         const peers = await this.props.getPeersAction(reqParams);
 
-        console.log(peers);
-
         if (peers) {
             this.setState({
                 peers: peers.peers

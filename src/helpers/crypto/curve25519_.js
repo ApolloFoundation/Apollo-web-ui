@@ -783,9 +783,6 @@ function curve25519_(f, c, s) {
 }
 
 function curve25519_java(f, c, s) {
-
-    console.log(c);
-
     var j, a, x_1, q, fb, counter = 0;
     var t =     new Array(16), t1 = new Array(16), t2 = new Array(16), t3 = new Array(16), t4 = new Array(16);
     var sb =    new Int8Array(32);
@@ -798,14 +795,6 @@ function curve25519_java(f, c, s) {
     a = [ x_1, curve25519_one() ];
 
     var n = 255;
-
-    console.log();
-    console.log();
-    console.log();
-    console.log();
-    console.log();
-    console.log();
-    console.log();
 
     /**********************************************************************
      * BloodyRookie:                                                      *

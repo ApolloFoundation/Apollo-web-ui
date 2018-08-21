@@ -57,9 +57,6 @@ export function storageSelect(table, query, callback) {
         // }
         var items = dispatch(getAccountJSONItem(table));
 
-        console.log('::::::::::::::::::::::::::::::::::::::::');
-        console.log(items);
-
         if (!items) {
             if (callback) {
                 callback("No items to select", []);

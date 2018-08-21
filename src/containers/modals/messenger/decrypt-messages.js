@@ -57,9 +57,22 @@ class DecryptMessage extends React.Component {
         }
 
         this.props.setAccountPassphrase(passphrase);
+        this.closeModal();
 
         // this.props.setBodyModalParamsAction(null, null);
     }
+
+    closeModal = () => {
+        const modalWindow = document.querySelector('.modal-window');
+
+        if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
+            modalWindow.classList.remove('active');
+            setTimeout(() => {
+                this.props.setMopalType(null);
+
+            }, 300);
+        }
+    };
 
     render() {
         return (

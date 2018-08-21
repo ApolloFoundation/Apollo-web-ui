@@ -49,9 +49,6 @@ function getAccountIdFromPublicKey(publicKey, isRsFormat) {
 };
 
 async function getPublicKey(id, isAccountId) {
-
-    console.log(id);
-    console.log(isAccountId);
     if (isAccountId) {
         let publicKey = "";
         return axios.get(config.api.serverUrl, {
@@ -61,7 +58,6 @@ async function getPublicKey(id, isAccountId) {
             }
         })
             .then((res) => {
-                console.log(res.data);
                 if (!res.data.publicKey) {
                     // throw $.t("error_no_public_key");
                 } else {
@@ -164,8 +160,6 @@ function aesDecryptMessage(ivCiphertext, options) {
 }
 
 function getSharedSecret(key1, key2) {
-    console.log('key1: ', key1)
-    console.log('key2: ', key2)
     return converters.shortArrayToByteArray(curve25519_(converters.byteArrayToShortArray(key1), converters.byteArrayToShortArray(key2), null));
 }
 
@@ -175,23 +169,17 @@ function decryptMessage(data, options) {
     }
 
     data = converters.hexStringToByteArray(data)
-    console.log(data);
 
-    console.log(options);
+    if (typeof options.nonce === 'string') {
+        options.nonce = converters.hexStringToByteArray(options.nonce);
+    }
 
     var result = aesDecryptMessage(data, options);
     var binData = new Uint8Array(result.decrypted);
-    console.log(binData);
 
     if (!(options.isCompressed === false)){
-        console.log(binData);
-
         binData = pako.inflate(binData);
-        console.log(binData);
     }
-
-
-    console.log(binData);
 
     var message;
 
@@ -200,7 +188,6 @@ function decryptMessage(data, options) {
     } else {
         message = converters.byteArrayToHexString(binData);
     }
-    console.log(message);
 
     return { message: message, sharedKey: converters.byteArrayToHexString(result.sharedKey) };
 }
@@ -228,7 +215,6 @@ function decryptData(data, options) {
     var binData = new Uint8Array(result.decrypted);
     options.isCompressed = false;
     options.isText = false;
-
 
     if (!(options.isCompressed === false)) {
         binData = inflate(binData);
@@ -283,10 +269,6 @@ function aesDecrypt(ivCiphertext, options) {
 
     var decrypted = CryptoJS.AES.decrypt(encrypted, key, {
         iv: iv
-    });
-
-    console.log({
-        decrypted: converters.wordArrayToByteArray(decrypted)
     });
 
     return {

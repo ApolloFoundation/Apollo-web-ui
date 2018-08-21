@@ -12,10 +12,6 @@ export function getTransactionsAction(requestParams) {
             delete params.requestType;
         }
 
-        console.log({
-            requestType: requestType,
-            ...params
-        });
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: requestType,

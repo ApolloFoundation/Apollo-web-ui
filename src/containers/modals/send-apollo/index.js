@@ -109,7 +109,6 @@ class SendApollo extends React.Component {
                 mask: 'APL-****-****-****-*****',
                 value: value.toUpperCase()
             };
-            console.log(newState);
 
             if (/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(value)) {
                 newState.value = 'APL-****-****-****-*****';
@@ -119,8 +118,6 @@ class SendApollo extends React.Component {
     };
 
     calculateFee = () => {
-        console.log(2222);
-
 
         this.setState({
             ...this.state,
@@ -150,7 +147,6 @@ class SendApollo extends React.Component {
                                             <div className="iconned-input-field">
                                                 <InputMask mask='APL-****-****-****-*****' value={this.state.value}  onChange={(e) => {if (e.target) setValue('recipient', e.target.value)}}>
                                                     {(inputProps) => {
-                                                        console.log(inputProps);
                                                         return (
                                                             <Text  {...inputProps} field="recipient" placeholder="Recipient" />
                                                         );

@@ -1,3 +1,18 @@
+
+.site-content .page-content .page-body .marketplace {
+  .row {
+    & > * {
+      margin-bottom: 15px;
+      &.active {
+        z-index: 4;
+      }
+      &:hover {
+        z-index: 4;
+      }
+    }
+  }
+}
+
 .form-group {
   &.marketplace {
     padding: 35px 0 !important;
@@ -27,6 +42,9 @@
       display: table-cell;
     }
   }
+  &.relative {
+    position: relative !important;
+  }
   &.product-box {
     background-position: center;
     background-repeat: no-repeat;
@@ -36,13 +54,48 @@
   &.marketplace {
     padding: 0;
     border-radius: 3px;
-    height: calc(100% - 15px);
+    //height: calc(100% - 15px);
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: 0;
+    bottom: 0px;
+    left: 7.5px;
+    right: 7.5px;
 
+    &.hovered {
+      &.active {
+        z-index: 4;
+      }
+      &:hover {
+        margin: 0 -10px;
+        box-shadow: 1px 1px 20px black;
+        top: 0;
+        bottom: -100px;
+        height: 500px;
+
+        .price-box {
+          .tags {
+            max-height: 100px;
+          }
+        }
+
+      }
+      &.is-last-row {
+        top: auto;
+        bottom: 0px;
+        margin-bottom: 0;
+
+        &:hover {
+        }
+      }
+    }
     &.card-fluid {
       padding: 35px;
       display: flex;
       justify-content: space-between;
       flex-direction: row;
+      position: static;
 
       .left-bar {
         display: flex;
@@ -58,6 +111,7 @@
           .cargo-title {
             color: #333333;
             font-size: 24px;
+            padding-top: 15px;
           }
           .cargo-id {
             padding: 10px 0 20px;
@@ -108,6 +162,15 @@
           font-size: 18px;
           font-weight: 500;
         }
+        .tags {
+          max-height: 0px;
+          overflow: hidden;
+          transition: all 0.3s ease-in-out;
+
+          &.active {
+            max-height: 100px;
+          }
+        }
       }
       .cargo-description {
         .cargo-title {
@@ -116,9 +179,12 @@
         .cargo-description {
           color: #BBBBBB;
           font-size: 12px;
+          padding-top: 15px;
         }
       }
       .cargo-owner-box {
+        padding-top: 15px;
+
         .cargo-owner {
           display: block;
 

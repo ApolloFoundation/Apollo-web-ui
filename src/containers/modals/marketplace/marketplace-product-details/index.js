@@ -30,8 +30,6 @@ class MarketplaceProductDetails extends React.Component {
             goods: null
         };
 
-
-        console.log(this.props.modalData);
     }
 
     componentDidMount() {
@@ -43,14 +41,9 @@ class MarketplaceProductDetails extends React.Component {
             goods: value
         });
 
-
         if (productData) {
-            console.log(productData);
-
             this.setState({
                 goods: productData
-            }, () => {
-                console.log(this.state);
             })
         }
     };

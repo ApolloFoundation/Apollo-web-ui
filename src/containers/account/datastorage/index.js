@@ -40,16 +40,11 @@ class DataStorage extends React.Component {
     componentWillReceiveProps(newState) {
         this.getAllTaggedData();
         this.getDataTags();
-
-        console.log(newState);
     }
 
     getAllTaggedData = async (reqParams) => {
         const allTaggedData = await this.props.getAllTaggedDataAction(reqParams);
-        console.log(allTaggedData);
-
         if (allTaggedData) {
-            console.log(allTaggedData);
             this.setState({
                 ...this.state,
                 taggedData: allTaggedData.data
@@ -59,10 +54,7 @@ class DataStorage extends React.Component {
 
     getDataTags = async (reqParams) => {
         const allTaggedData = await this.props.getDataTagsAction(reqParams);
-        console.log(allTaggedData);
-
         if (allTaggedData) {
-            console.log(allTaggedData);
             this.setState({
                 ...this.state,
                 dataTags: allTaggedData.tags
@@ -76,10 +68,7 @@ class DataStorage extends React.Component {
             account: this.props.account
         };
 
-
         const transaction = await this.props.getTransactionAction(reqParams);
-
-        console.log(transaction);
 
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);

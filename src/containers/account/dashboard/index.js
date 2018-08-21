@@ -55,7 +55,6 @@ class Dashboard extends React.Component {
     };
 
     componentWillReceiveProps(newState) {
-        console.log(newState);
         if (newState.account) {
             this.initDashboard({account: newState.account})
         }
@@ -89,8 +88,6 @@ class Dashboard extends React.Component {
                 assetData: accountAssets.accountAssets,
                 assetsValue: parseInt(accountAssets.accountAssets.map((el) => {if(el.decimals) {return el.quantityATU / Math.pow(10, el.decimals)} else {return el.quantityATU}}).reduce((a, b) => a + b, 0)),
                 assetsCount: accountAssets.accountAssets.length
-            }, () => {
-                console.log(this.state);
             })
         }
     };
@@ -109,8 +106,6 @@ class Dashboard extends React.Component {
         const currencies = await this.props.getAccountCurrenciesAction(requsetParams);
 
         if (currencies) {
-            console.log(currencies);
-
             this.setState({
                 currenciesValue: (currencies.accountCurrencies && currencies.accountCurrencies.length && parseInt(currencies.accountCurrencies.map((el) => {return el.utils}).reduce((a, b) => a + b, 0))) || parseInt(0),
                 currenciesCount: currencies.accountCurrencies.length

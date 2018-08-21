@@ -38,7 +38,6 @@ class ResentMarketplaceListing extends React.Component {
         const getDGSGoods = await this.props.getDGSGoodsAction(reqParams);
 
         if (getDGSGoods) {
-            console.log(getDGSGoods.goods);
             this.setState({
                 ...this.state,
                 getDGSGoods: getDGSGoods.goods
@@ -66,6 +65,25 @@ class ResentMarketplaceListing extends React.Component {
             ...this.state,
             isGrid: !this.state.isGrid
         })
+    };
+
+    handleCardMouseOver = (e) =>  {
+        // console.log(e.nativeEvent.target.offsetParent);
+        console.log(e.currentTarget);
+        // console.log(e.target.firstChild);
+        //
+        e.currentTarget.classList.add('active')
+    };
+    handleCardMouseOut = (e) =>  {
+        const selected = Object.values(document.querySelectorAll('.site-content .page-content .page-body .marketplace .row > *.active'));
+
+        const event = e;
+        selected.map((el, index) => {
+            setTimeout(() => {
+                el.classList.remove('active')
+            },300)
+        });
+
     };
 
     render () {
@@ -107,13 +125,18 @@ class ResentMarketplaceListing extends React.Component {
                                 this.state.getDGSGoods &&
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
-                                        <div className={classNames({
-                                            'col-md-6 col-lg-3' : this.state.isGrid,
-                                            'col-xs-12 col-sm-12 col-md-12 col-lg-12': !this.state.isGrid,
-                                        })}>
+                                        <div
+                                            onMouseOver={this.handleCardMouseOver}
+                                            onMouseOut={this.handleCardMouseOut}
+                                            className={classNames({
+                                                'col-md-6 col-lg-3' : this.state.isGrid,
+                                                'col-xs-12 col-sm-12 col-md-12 col-lg-12': !this.state.isGrid,
+                                            })}
+                                        >
                                             <MarketplaceItem
                                                 tall={this.state.isGrid}
                                                 fluid={!this.state.isGrid}
+                                                isHovered
                                                 index={index}
                                                 {...el}
                                             />

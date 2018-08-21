@@ -17,6 +17,8 @@ const MarketplaceItem = (props, history) => (
             'card': true,
             'marketplace': true,
             'market': true,
+            'hovered': props.isHovered,
+            'relative': props.relative,
             'full-height': props.fullHeight,
             'tall-card': props.tall,
             'card-fluid': props.fluid,
@@ -108,6 +110,13 @@ const MarketplaceItem = (props, history) => (
                         <div className="publishing-date">
                             {props.formatTimestamp(props.timestamp)}
                         </div>
+                    </div>
+                    <div
+                        className={classNames({
+                            'tags': true,
+                        })}
+                    >
+                        tags: {props.parsedTags.map((el, index) => {return <a style={{marginLeft: 15}} className="btn static primary">{el}</a>})}
                     </div>
                 </div>
             ]

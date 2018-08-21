@@ -153,8 +153,6 @@ export function updateNotifications () {
                     }
                 }
 
-                console.log(notifications);
-
                 dispatch(updateStoreNotifications(notifications))
             }
         }

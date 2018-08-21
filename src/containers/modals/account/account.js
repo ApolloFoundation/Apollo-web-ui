@@ -41,7 +41,6 @@ class InfoAccount extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.modalData);
         this.getAcccount({
             account:    this.props.modalData,
             firstIndex: 0,
@@ -50,7 +49,6 @@ class InfoAccount extends React.Component {
     }
 
     componentWillReceiveProps() {
-        console.log(this.props.modalData);
         this.getAcccount({
             account:    this.props.modalData,
             firstIndex: 0,
@@ -73,8 +71,6 @@ class InfoAccount extends React.Component {
                 goods:          await accountData['GOODS'],
                 aliases:        await accountData['ALIASES'],
                 account:        await accountData['ACCOUNT'],
-            }, () => {
-                console.log(this.state);
             });
         }
     }

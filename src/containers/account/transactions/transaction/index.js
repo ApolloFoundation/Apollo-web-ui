@@ -49,7 +49,6 @@ class Transaction extends React.Component {
     }
 
     render () {
-        console.log(this.props);
         if (this.props.block) {
             if (!this.state.transaction.encryptedTransaction) {
                 return (

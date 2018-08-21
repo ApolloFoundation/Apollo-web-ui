@@ -132,7 +132,6 @@ class SendApolloPrivate extends React.Component {
                                             <div className="iconned-input-field">
                                                 <InputMask mask='APL-****-****-****-*****' value={this.state.value}  onChange={(e) => {if (e.target) setValue('recipient', e.target.value)}}>
                                                     {(inputProps) => {
-                                                        console.log(inputProps);
                                                         return (
                                                             <Text  {...inputProps} field="recipient" placeholder="Recipient" />
                                                         );

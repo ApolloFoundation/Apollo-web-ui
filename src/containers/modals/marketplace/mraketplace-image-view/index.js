@@ -28,8 +28,6 @@ class MarketplaceImage extends React.Component {
             goods: null
         };
 
-
-        console.log(this.props.modalData);
     }
 
     componentDidMount() {
@@ -43,12 +41,9 @@ class MarketplaceImage extends React.Component {
 
 
         if (productData) {
-            console.log(productData);
 
             this.setState({
                 goods: productData
-            }, () => {
-                console.log(this.state);
             })
         }
     };

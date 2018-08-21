@@ -14,14 +14,6 @@ const mapDispatchToProps = dispatch => ({
 
 const Transaction = (props) => (
     <div className="transaction-item">
-        {
-            console.log(props.constants.transactionTypes)
-        }
-        {
-            console.log(props)
-        }{
-            console.log(formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name))
-        }
         <div className="transaction-box">
             <div className="transaction-date">{props.formatTimestamp(props.timestamp)}</div>
             <div className="transaction-rs">{props.senderRS}</div>

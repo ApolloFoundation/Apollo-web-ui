@@ -1,3 +1,10 @@
+.site-content .page-content .page-body .marketplace .row > * {
+  margin-bottom: 15px; }
+  .site-content .page-content .page-body .marketplace .row > *.active {
+    z-index: 4; }
+  .site-content .page-content .page-body .marketplace .row > *:hover {
+    z-index: 4; }
+
 .form-group.marketplace {
   padding: 35px 0 !important; }
 
@@ -16,6 +23,9 @@
   .card .input-group > * {
     display: table-cell; }
 
+.card.relative {
+  position: relative !important; }
+
 .card.product-box {
   background-position: center;
   background-repeat: no-repeat;
@@ -25,12 +35,33 @@
 .card.marketplace {
   padding: 0;
   border-radius: 3px;
-  height: calc(100% - 15px); }
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  bottom: 0px;
+  left: 7.5px;
+  right: 7.5px; }
+  .card.marketplace.hovered.active {
+    z-index: 4; }
+  .card.marketplace.hovered:hover {
+    margin: 0 -10px;
+    box-shadow: 1px 1px 20px black;
+    top: 0;
+    bottom: -100px;
+    height: 500px; }
+    .card.marketplace.hovered:hover .price-box .tags {
+      max-height: 100px; }
+  .card.marketplace.hovered.is-last-row {
+    top: auto;
+    bottom: 0px;
+    margin-bottom: 0; }
   .card.marketplace.card-fluid {
     padding: 35px;
     display: flex;
     justify-content: space-between;
-    flex-direction: row; }
+    flex-direction: row;
+    position: static; }
     .card.marketplace.card-fluid .left-bar {
       display: flex; }
       .card.marketplace.card-fluid .left-bar .description {
@@ -41,7 +72,8 @@
         padding-left: 30px; }
         .card.marketplace.card-fluid .left-bar .cargo-major-details .cargo-title {
           color: #333333;
-          font-size: 24px; }
+          font-size: 24px;
+          padding-top: 15px; }
         .card.marketplace.card-fluid .left-bar .cargo-major-details .cargo-id {
           padding: 10px 0 20px;
           color: #BBBBBB;
@@ -76,20 +108,29 @@
       color: #333333;
       font-size: 18px;
       font-weight: 500; }
+    .card.marketplace.tall-card .price-box .tags {
+      max-height: 0px;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out; }
+      .card.marketplace.tall-card .price-box .tags.active {
+        max-height: 100px; }
   .card.marketplace.tall-card .cargo-description .cargo-description {
     color: #BBBBBB;
-    font-size: 12px; }
-  .card.marketplace.tall-card .cargo-owner-box .cargo-owner {
-    display: block; }
-    .card.marketplace.tall-card .cargo-owner-box .cargo-owner span {
-      color: #00C8FF;
+    font-size: 12px;
+    padding-top: 15px; }
+  .card.marketplace.tall-card .cargo-owner-box {
+    padding-top: 15px; }
+    .card.marketplace.tall-card .cargo-owner-box .cargo-owner {
+      display: block; }
+      .card.marketplace.tall-card .cargo-owner-box .cargo-owner span {
+        color: #00C8FF;
+        font-size: 12px; }
+      .card.marketplace.tall-card .cargo-owner-box .cargo-owner .btn {
+        display: inline;
+        margin-left: 15px; }
+    .card.marketplace.tall-card .cargo-owner-box .publishing-date {
+      color: #BBBBBB;
       font-size: 12px; }
-    .card.marketplace.tall-card .cargo-owner-box .cargo-owner .btn {
-      display: inline;
-      margin-left: 15px; }
-  .card.marketplace.tall-card .cargo-owner-box .publishing-date {
-    color: #BBBBBB;
-    font-size: 12px; }
   .card.marketplace .search-bar .row {
     margin: 0 -7.5px !important; }
   .card.marketplace .filters-bar {

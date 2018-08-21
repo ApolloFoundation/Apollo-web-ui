@@ -130,7 +130,6 @@ function hexStringToByteArray(str) {
      var bytes = [];
      var i = 0;
      if (0 !== str.length % 2) {
-         console.log(str);
          bytes.push(charToNibble[str.charAt(0)]);
          ++i;
      }

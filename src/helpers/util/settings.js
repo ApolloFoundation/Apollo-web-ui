@@ -36,8 +36,6 @@ export function getSettings(isAccountSpecific) {
     return (dispatch, getState) => {
         const {account} = getState();
 
-        console.log(account);
-
         if (!account.account) {
             dispatch({
                 type: 'SET_SETTINGS',
@@ -92,7 +90,6 @@ export function getSettings(isAccountSpecific) {
                             if (setting.search("password") >= 0) {
                                 value = new Array(value.length + 1).join('*');
                             }
-                            console.log(setting + " = " + value + " [" + status + "]");
                         }
                         // NRS.applySettings();
                         callback(null);
@@ -104,7 +101,6 @@ export function getSettings(isAccountSpecific) {
                             continue;
                         }
                         var color = account.settings[schema + "_color"];
-                        console.log(color);
                     }
                     callback(null);
                 }
