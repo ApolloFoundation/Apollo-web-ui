@@ -4,6 +4,8 @@ import MarketplaceItem from './marketplace-card';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import classNames from "classnames";
+import InputMask from 'react-input-mask';
+import {Form, Text} from 'react-form';
 import {getDGSGoodsAction,
         getDGSTagCountAction,
         getDGSPurchaseCountAction,
@@ -117,7 +119,6 @@ class Marketplace extends React.Component {
         const getDGSGoods = await this.props.getDGSGoodsAction(reqParams);
 
         if (getDGSGoods) {
-            console.log(getDGSGoods.goods);
             this.setState({
                 ...this.state,
                 getDGSGoods: getDGSGoods.goods
@@ -129,7 +130,6 @@ class Marketplace extends React.Component {
         const getDGSTags = await this.props.getDGSTagsAction(reqParams);
 
         if (getDGSTags) {
-            console.log(getDGSTags);
             this.setState({
                 ...this.state,
                 getDGSTags: getDGSTags.tags
@@ -173,15 +173,36 @@ class Marketplace extends React.Component {
             lastIndex:  page * 32 - 1
         };
 
-        console.log(this.refs.filtersBar.childNodes[0].clientHeight);
-        console.log((this.refs.filtersBar.childNodes[0].offsetHeight + 15) * 4);
-        console.log(this.refs.filtersBar.clientHeight - (37 + 15));
-
-        console.log(this.refs.filtersBar.clientHeight - (this.refs.btnBox.clientHeight)  < (this.refs.filtersBar.childNodes[0].offsetHeight + 15) * 4);
-
         this.setState({...this.state,...reqParams}, () => {
             this.getDGSTags(reqParams)
         });
+    };
+
+    handleChange = (event) => {
+        if (event.target) {
+            var value = event.target.value;
+            var newState = {
+                mask: 'APL-****-****-****-*****',
+                value: value.toUpperCase()
+            };
+
+            if (/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(value)) {
+                newState.value = 'APL-****-****-****-*****';
+            }
+            this.setState(newState);
+        }
+    };
+
+    handleSearchByTag = (values) => {
+        if (values.tag) {
+            this.props.history.push('/marketplace/' + values.tag)
+        }
+    };
+
+    handleSearchByAccount = (values) => {
+        if (values) {
+            this.props.history.push('/marketplace/' + values.seller)
+        }
     };
 
     render () {
@@ -235,12 +256,29 @@ class Marketplace extends React.Component {
                                                 'col-md-6' : this.state.isShowMore
                                             })}>
                                                 <div className="input-group search tabled">
-                                                    <div className="iconned-input-field">
-                                                        <input type="text" placeholder="Seller`s Account ID"/>
-                                                        <button className="input-icon">
-                                                            <i className="zmdi zmdi-search" />
-                                                        </button>
-                                                    </div>
+                                                    <Form
+                                                        onSubmit={(values) => this.handleSearchByAccount(values)}
+                                                        render={({
+                                                                     submitForm, values, addValue, removeValue, setValue, getFormState
+                                                                 }) => (
+                                                                    <form
+                                                                        className="iconned-input-field"
+                                                                        onSubmit={submitForm}
+                                                                    >
+                                                                        <InputMask mask='APL-****-****-****-*****' value={this.state.value}  onChange={(e) => {if (e.target) setValue('recipient', e.target.value)}}>
+                                                                            {(inputProps) => {
+                                                                                return (
+                                                                                    <Text  {...inputProps} field="seller" placeholder="Seller`s Account ID" />
+                                                                                );
+                                                                            }}
+                                                                        </InputMask>
+                                                                        <button className="input-icon">
+                                                                            <i className="zmdi zmdi-search" />
+                                                                        </button>
+                                                                    </form>
+                                                                )}
+                                                    />
+
                                                 </div>
                                             </div>
                                             <div className={classNames({
@@ -248,12 +286,23 @@ class Marketplace extends React.Component {
                                                 'col-md-6' : this.state.isShowMore
                                             })}>
                                                 <div className="input-group search tabled">
-                                                    <div className="iconned-input-field">
-                                                        <input type="text" placeholder="Title, description or Tag"/>
-                                                        <button  className="input-icon">
-                                                            <i className="zmdi zmdi-search" />
-                                                        </button>
-                                                    </div>
+                                                    <Form
+                                                        onSubmit={(values) => this.handleSearchByTag(values)}
+                                                        render={({
+                                                                     submitForm, values, addValue, removeValue, setValue, getFormState
+                                                                 }) => (
+                                                                    <form
+                                                                        className="iconned-input-field"
+                                                                        onSubmit={submitForm}
+                                                                    >
+                                                                        <Text field="tag" placeholder="Title, description or Tag" />
+
+                                                                        <button className="input-icon">
+                                                                            <i className="zmdi zmdi-search" />
+                                                                        </button>
+                                                                    </form>
+                                                                )}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>

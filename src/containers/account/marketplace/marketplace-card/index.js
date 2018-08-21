@@ -1,15 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
+import {Link} from 'react-router-dom'
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
+import uuid from 'uuid';
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
-const MarketplaceItem = (props) => (
+const MarketplaceItem = (props, history) => (
     <div
         className={classNames({
             'card': true,
@@ -20,6 +22,7 @@ const MarketplaceItem = (props) => (
             'card-fluid': props.fluid,
             "is-last-row": (props.index >= 4 && window.innerWidth > 1000) || (props.index > 2 && window.innerWidth > 720 && window.innerWidth < 1000)
         })}
+        key={uuid()}
         data-index={props.index}
         data-sceen-size={window.innerWidth}
     >
@@ -96,10 +99,11 @@ const MarketplaceItem = (props) => (
                             >
                                 {props.sellerRS}
                             </span>
-
-                            <a className="btn primary blue">
+                            <Link to={'/marketplace/' + props.sellerRS}
+                                  className="btn primary blue"
+                            >
                                 Store
-                            </a>
+                            </Link>
                         </div>
                         <div className="publishing-date">
                             {props.formatTimestamp(props.timestamp)}
@@ -158,9 +162,11 @@ const MarketplaceItem = (props) => (
                                     >
                                         {props.sellerRS}
                                     </span>
-                                    <a className="btn primary blue">
+                                    <Link to={'/marketplace/' + props.sellerRS}
+                                        className="btn primary blue"
+                                    >
                                         Store
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

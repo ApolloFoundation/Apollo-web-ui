@@ -746,7 +746,7 @@ input {
     color: #FFFFFF;
     border-top: 1px solid #fff;
     border-right: 1px solid #fff;
-    padding: 8px 8px 4px 0; }
+    padding: 8px 8px 8px 0; }
     .card .general-info-item:nth-of-type(1), .card .general-info-item:nth-of-type(2) {
       border-top: none; }
     .card .general-info-item:nth-of-type(2n) {
@@ -822,6 +822,49 @@ input {
 .page-body.white-space {
   background-color: #fff;
   border-radius: 3px; }
+
+.page-body-top {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 33.33%;
+  min-height: 270px;
+  padding: 0 7.5px; }
+  @media (max-width: 1230px) {
+    .page-body-top {
+      height: auto;
+      min-height: 213px; } }
+
+.page-body-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 66.66%;
+  min-height: 270px;
+  padding: 0 7.5px; }
+  @media (max-width: 1230px) {
+    .page-body-bottom {
+      height: auto;
+      min-height: 213px; } }
+
+.page-body-item {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0 7.5px;
+  min-width: 25%;
+  height: 100%;
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%; }
+  @media (max-width: 1230px) {
+    .page-body-item {
+      min-width: 50%;
+      height: auto; } }
+  @media (max-width: 768px) {
+    .page-body-item {
+      min-width: 100%; } }
+  .page-body-item .card {
+    height: calc(100% - 15px); }
 
 .transaction-table {
   height: 100%;
@@ -1182,12 +1225,6 @@ input[type="number"] {
       left: 30px;
       right: 30px;
       bottom: 20px; }
-    .site-content .page-content .page-body > div {
-      min-height: 800px;
-      width: 100%;
-      padding: 0 7.5px;
-      display: flex;
-      flex-direction: column; }
     .site-content .page-content .page-body .my-transactions {
       width: 100%; }
       .site-content .page-content .page-body .my-transactions .transactions-filters {

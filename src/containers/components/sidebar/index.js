@@ -173,10 +173,10 @@ class Sidebar extends React.Component {
                                 <div className="dropdown-menu">
                                     <ul>
                                         <li><a>Purchased Products</a></li>
-                                        <li><a>My Products For Sales</a></li>
-                                        <li><a>My Pending Orders</a></li>
-                                        <li><a>My completed orders</a></li>
-                                        <li><a>List products for sales</a></li>
+                                        <li><NavLink to='/my-products-for-sale'>My Products For Sales</NavLink></li>
+                                        <li><NavLink to='/my-panding-orders'>My Pending Orders</NavLink></li>
+                                        <li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
+                                        <li><a onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List Product For Sale</a></li>
                                     </ul>
                                 </div>
                             </li>
