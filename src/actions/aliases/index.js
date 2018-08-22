@@ -45,3 +45,38 @@ export function getAliasesCountAction(requestParams) {
     }
 }
 
+export function buyAliasAction(requestParams) {
+    return dispatch => {
+        return fetch(config.api.serverUrl + "requestType=buyAlias", {
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+    }
+}
+
+export function deleteAliasAction(requestParams) {
+    return dispatch => {
+        return fetch(config.api.serverUrl + "requestType=deleteAlias", {
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+    }
+}
+
+export function sellAliasAction(requestParams) {
+    return dispatch => {
+        return fetch(config.api.serverUrl + "requestType=buyAlias", {
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+    }
+}
+
+export function setAliasAction(requestParams) {
+    return dispatch => {
+        return fetch(config.api.serverUrl + "requestType=buyAlias", {
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+    }
+}

@@ -111,7 +111,7 @@ class IssueAsset extends React.Component {
                                             <label>Asset name</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Asset name" type="text"/>
+                                            <Text placeholder="Asset name" field="name" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +121,7 @@ class IssueAsset extends React.Component {
                                             <label>Description</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <TextArea placeholder="Description" field="message" cols="30" rows="10" />
+                                            <TextArea placeholder="Description" field="description" cols="30" rows="10" />
                                         </div>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@ class IssueAsset extends React.Component {
                                             <label>Quantity</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Quantity" type="text"/>
+                                            <Text placeholder="Quantity" field="quantityATU" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@ class IssueAsset extends React.Component {
                                             <label>Decimals</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <input placeholder="Decimals" type="text"/>
+                                            <Text placeholder="Decimals" field="decimals" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@ class IssueAsset extends React.Component {
                                             <label>Fee</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Fee" type="text"/>
+                                            <Text placeholder="Fee" field="feeATM" type="text"/>
                                         </div>
                                     </div>
                                 </div>

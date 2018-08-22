@@ -159,3 +159,22 @@ export function sellAssetAction(requestParams) {
     }
 }
 
+export function issueAssetAction(requestParams) {
+    return dispatch => {
+        return fetch(config.api.serverUrl + "requestType=issueAsset", {
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+    }
+}
+
+export function transferAssetAction(requestParams) {
+    return dispatch => {
+        return fetch(config.api.serverUrl + "requestType=transferAsset", {
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+    }
+}
+
+
