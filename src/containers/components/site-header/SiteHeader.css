@@ -70,6 +70,9 @@
     display: flex;
     margin: 0 -15px;
     height: 51px; }
+    @media (max-width: 767px) {
+      .page-header .user-search-box {
+        display: none; } }
     .page-header .user-search-box > * {
       margin: auto; }
     .page-header .user-search-box.searching .search-bar .user-account-actions .user-account-action {
