@@ -198,9 +198,14 @@ input[type="number"] {
                     line-height: 14px;
                     margin: auto auto auto 30px;
                   }
-                }
-                .more {
-                  height: 30px;
+                  .more {
+                    height: 30px;
+
+                    i {
+                      color: #BBBBBB;
+                      font-size: 30px;
+                    }
+                  }
                 }
               }
             }

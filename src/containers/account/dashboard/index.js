@@ -7,6 +7,8 @@ import {setMopalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
 
+import {formatTimestamp} from "../../../helpers/util/time";
+import {getBlockAction} from "../../../actions/blocks";
 import {getTransactionsAction} from "../../../actions/transactions";
 import {getAccountCurrenciesAction} from "../../../actions/currencies";
 import {getDGSGoodsCountAction, getDGSPurchaseCountAction, getDGSPurchasesAction, getDGSPendingPurchases} from "../../../actions/marketplace";
@@ -30,6 +32,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getMessages: (reqParams) => dispatch(getMessages(reqParams)),
     setMopalType: (type) => dispatch(setMopalType(type)),
+    formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
+    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
     getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
     getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
@@ -55,12 +59,14 @@ class Dashboard extends React.Component {
     };
 
     componentWillReceiveProps(newState) {
+    	this.getBlock();
         if (newState.account) {
             this.initDashboard({account: newState.account})
         }
     }
 
     componentWillMount() {
+        this.getBlock();
         if (this.props.account) {
             this.initDashboard({account: this.props.account})
         }
@@ -78,7 +84,7 @@ class Dashboard extends React.Component {
             lastIndex: this.state.lastIndex
         });
 
-    }
+    };
 
     getAccountAsset = async (requsetParams) => {
         const accountAssets = await this.props.getAccountAssetsAction(requsetParams);
@@ -133,6 +139,18 @@ class Dashboard extends React.Component {
         }
     };
 
+    getBlock = async (reqParams) => {
+        const block = await this.props.getBlockAction(reqParams);
+
+        console.log(block);
+
+        if (block) {
+            this.setState({
+                block: block
+            })
+        }
+    };
+
     getGoods = async (reqParams) => {
         const purchased = await this.props.getDGSPurchaseCountAction(reqParams);
         const pendingGoods = await this.props.getDGSPendingPurchases(reqParams);
@@ -160,14 +178,30 @@ class Dashboard extends React.Component {
 		                    <div className="page-body-item ">
 			                    <div className="card header ballance chart-sprite position-1">
 				                    <div className="card-title">Available Balance</div>
-				                    <div className="amount">{ (this.props.balanceATM / 100000000).toFixed(2)}</div>
+				                    <div className="amount">
+										{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')}
+                                        <div className="owned">
+                                            APL
+                                        </div>
+				                    </div>
+									<div className="account-sub-titles">
+										{this.props.accountRS}
+									</div>
+
+									{
+                                        this.state.block &&
+                                        <div className="account-sub-titles">
+                                            Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
+                                        </div>
+									}
+
 			                    </div>
 		                    </div>
 		                    <div className="page-body-item ">
 			                    <div className="card header assets chart-sprite position-2">
 				                    <div className="card-title">Assets Value</div>
 				                    <div className="amount">
-					                    {this.state.assetsValue}
+                                        {Math.round(this.state.assetsValue).toLocaleString('en')}
 
 					                    <div className="owned">
 						                    {this.state.assetsCount}
@@ -179,8 +213,7 @@ class Dashboard extends React.Component {
 			                    <div className="card header currencies chart-sprite position-3">
 				                    <div className="card-title">Currencies Value</div>
 				                    <div className="amount">
-					                    {this.state.currenciesValue / 100000000}
-
+					                    {Math.round(this.state.currenciesValue / 100000000).toLocaleString('en')}
 					                    <div className="owned">
 						                    {this.state.currenciesCount}
 					                    </div>
@@ -261,7 +294,12 @@ class Dashboard extends React.Component {
 											                   type={el.quantityATU}
 										                   />
 										                   <div className="amount">{(el.quantityATU / Math.pow(10, el.decimals)) / (this.state.assetsValue) * 100}%</div>
-										                   <div className="coin-name">el.quantityATU</div>
+										                   <div className="coin-name">{el.name}</div>
+                                                           <Link
+															   to={'/asset-exchange/' + el.asset}
+															   className="more">
+															   <i className="zmdi zmdi-more" />
+														   </Link>
 									                   </div>
 								                   </div>
 							                   );
@@ -285,7 +323,15 @@ class Dashboard extends React.Component {
 					                   </div>
 				                   </div>
 				                   <Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
-			                   </div>
+                                   <button
+									   className="btn btn-right gray round round-bottom-right round-top-left absolute"
+									   data-modal="sendMoney"
+									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+								   >
+									   Buy/sell&nbsp;
+                                       <i className="arrow zmdi zmdi-chevron-right" />
+								   </button>
+							   </div>
 		                   </div>
 		                   <div className="page-body-item ">
 			                   <div className="card send-apollo">
@@ -307,7 +353,14 @@ class Dashboard extends React.Component {
 					                   </div>
 				                   </div>
 				                   <a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')} className="btn btn-left btn-simple">Private APL</a>
-				                   <button className="btn btn-right" data-modal="sendMoney" onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}>Send</button>
+				                   <button
+									   className="btn btn-right gray round round-bottom-right round-top-left absolute"
+									   data-modal="sendMoney"
+									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+								   >
+									   Send&nbsp;
+                                       <i className="arrow zmdi zmdi-chevron-right" />
+								   </button>
 			                   </div>
 			                   <div className="card active-polls">
 				                   <div className="card-title">Active Polls</div>
@@ -316,7 +369,15 @@ class Dashboard extends React.Component {
 					                   <p>What features should be implemented in apollo platform?</p>
 					                   <p>Apollo to have future USD/Fiat Pairs on Exchange?</p>
 				                   </div>
-			                   </div>
+                                   <button
+									   className="btn btn-right gray round round-bottom-right round-top-left absolute "
+									   data-modal="sendMoney"
+									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+								   >
+                                       Create poll&nbsp;
+                                       <i className="arrow zmdi zmdi-chevron-right" />
+								   </button>
+							   </div>
 		                   </div>
 		                   <div className="page-body-item ">
 			                   <div className="card card-tall apollo-news">
@@ -329,8 +390,24 @@ class Dashboard extends React.Component {
 					                   nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
 					                   officia deserunt mollit anim id est laborum.
 				                   </div>
-			                   </div>
-		                   </div>
+                                   <button
+									   className="btn btn-left gray round round-top-right round-bottom-left absolute "
+									   data-modal="sendMoney"
+									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+								   >
+                                       <i className="arrow zmdi zmdi-chevron-left" />&nbsp;
+                                       Previous
+								   </button>
+                                   <button
+									   className="btn btn-right gray round round-bottom-right round-top-left absolute "
+									   data-modal="sendMoney"
+									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+								   >
+									   Create poll&nbsp;
+                                       <i className="arrow zmdi zmdi-chevron-right" />
+								   </button>
+							   </div>
+						   </div>
 	                   </div>
                 </div>
             </div>

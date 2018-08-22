@@ -858,7 +858,8 @@ input {
 	border-radius: 3px;
 	box-sizing: border-box;
 	z-index: 1;
-	
+	padding: 11px 11px 11px 9px;
+
 	&.absolute {
 		position: absolute;
 	}
@@ -877,7 +878,6 @@ input {
 		
 		&.active {
 			border: 1px solid #101010;
-			
 		}
 	}
 	.no-border {
@@ -894,23 +894,25 @@ input {
 		bottom: 10px;
 		padding: 0;
 		background: transparent;
+		margin: 0 0 12px 30px;
 	}
 	&.btn-right {
 		right: 0;
 		bottom: 0;
-		padding: 11px 17px 11px 9px;
 		border-top-left-radius: 3px;
 		border-bottom-right-radius: 3px;
 	}
 	&.btn-left {
 		left: 0;
 		bottom: 0;
-		padding: 11px 9px 11px 17px;
 		border-top-right-radius: 3px;
 		border-bottom-left-radius: 3px;
 	}
 	&.static {
 		position: static;
+	}
+	&.gray {
+		background: #666666;
 	}
 	&.primary {
 		padding: 6px;
@@ -953,6 +955,9 @@ input {
 		width: 100%;
 		text-align: center;
 	}
+	.arrow {
+		transform: translateY(1px);
+	}
 }
 
 .input-block {
@@ -969,7 +974,7 @@ input {
 .card {
 	height: calc(33.33% - 15px);
 	min-height: 255px;
-	border-radius: 3px;
+	border-radius: 6px;
 	margin-bottom: 15px;
 	background-color: #FFFFFF;
 	position: relative;
@@ -1076,11 +1081,9 @@ input {
 				}
 			}
 		}
-		.rs {
-		
-		}
-		.blocks {
-		
+		.account-sub-titles {
+			margin-bottom: 15px;
+			color: #fff;
 		}
 	}
 	&.single {

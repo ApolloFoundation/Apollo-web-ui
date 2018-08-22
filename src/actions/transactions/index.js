@@ -1,4 +1,5 @@
 import axios from 'axios/index';
+// import fetch from 'fetch';
 import config from '../../config';
 import queryString from 'query-string';
 
@@ -58,16 +59,29 @@ export function sendTransactionAction(requestParams) {
             feeATM: requestParams.feeATM * 100000000,
         };
 
-        return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
-                .then((res) => {
-                    if (!res.data.errorCode) {
-                        return res.data;
-                    }
-                    return;
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+        fetch(config.api.serverUrl + "requestType=sendMoney",{
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+
+            .then((res) => {
+                console.log(res);
+                if (!res.data.errorCode) {
+                    return res.data;
+                }
+                return;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        // axios.post(config.api.serverUrl , {
+        //     params : {
+        //         requestType: 'sendMoney'
+        //     },
+        //     body: {
+        //         ...requestParams
+        //     }
+        // })
     }
 }
 
@@ -80,6 +94,8 @@ export function sendPrivateTransaction(requestParams) {
             amountATM: requestParams.amountATM * 100000000,
             feeATM: requestParams.feeATM * 100000000,
         };
+
+
 
         return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
                 .then((res) => {
