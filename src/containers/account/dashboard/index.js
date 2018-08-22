@@ -326,7 +326,6 @@ class Dashboard extends React.Component {
                                    <button
 									   className="btn btn-right gray round round-bottom-right round-top-left absolute"
 									   data-modal="sendMoney"
-									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
 								   >
 									   Buy/sell&nbsp;
                                        <i className="arrow zmdi zmdi-chevron-right" />
@@ -372,7 +371,7 @@ class Dashboard extends React.Component {
                                    <button
 									   className="btn btn-right gray round round-bottom-right round-top-left absolute "
 									   data-modal="sendMoney"
-									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+									   onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}
 								   >
                                        Create poll&nbsp;
                                        <i className="arrow zmdi zmdi-chevron-right" />
@@ -393,7 +392,7 @@ class Dashboard extends React.Component {
                                    <button
 									   className="btn btn-left gray round round-top-right round-bottom-left absolute "
 									   data-modal="sendMoney"
-									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+
 								   >
                                        <i className="arrow zmdi zmdi-chevron-left" />&nbsp;
                                        Previous
@@ -401,7 +400,7 @@ class Dashboard extends React.Component {
                                    <button
 									   className="btn btn-right gray round round-bottom-right round-top-left absolute "
 									   data-modal="sendMoney"
-									   onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+
 								   >
 									   Create poll&nbsp;
                                        <i className="arrow zmdi zmdi-chevron-right" />
