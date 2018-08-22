@@ -27,6 +27,7 @@ const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
     requestProcessingTime: state.account.requestProcessingTime,
     unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
+	assets: state.account.assetBalances
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -286,23 +287,26 @@ class Dashboard extends React.Component {
 					                   {
 						                   this.state.assetData &&
 						                   this.state.assetData.map((el, index) => {
-							                   return (
-								                   <div className="full-box-item coin">
-									                   <div className="coin-data">
-										                   <CircleFigure
-											                   percentage={ (el.quantityATU / Math.pow(10, el.decimals)) / (this.state.assetsValue) * 100}
-											                   type={el.quantityATU}
-										                   />
-										                   <div className="amount">{(el.quantityATU / Math.pow(10, el.decimals)) / (this.state.assetsValue) * 100}%</div>
-										                   <div className="coin-name">{el.name}</div>
-                                                           <Link
-															   to={'/asset-exchange/' + el.asset}
-															   className="more">
-															   <i className="zmdi zmdi-more" />
-														   </Link>
-									                   </div>
-								                   </div>
-							                   );
+							                   if (index < 3) {
+                                                   console.log();
+                                                   return (
+                                                       <div className="full-box-item coin">
+                                                           <div className="coin-data">
+                                                               <CircleFigure
+                                                                   percentage={ (el.quantityATU) / this.props.assets.map((el, index) => {return parseInt(el.balanceATU)}).reduce((a, b) => a + b, 0) * 100}
+                                                                   type={el.quantityATU}
+                                                               />
+                                                               <div className="amount">{((el.quantityATU) / this.props.assets.map((el, index) => {return parseInt(el.balanceATU)}).reduce((a, b) => a + b, 0) * 100).toFixed(2)}%</div>
+                                                               <div className="coin-name">{el.name}</div>
+                                                               <Link
+                                                                   to={'/asset-exchange/' + el.asset}
+                                                                   className="more">
+                                                                   <i className="zmdi zmdi-more" />
+                                                               </Link>
+                                                           </div>
+                                                       </div>
+                                                   );
+											   }
 						                   })
 					                   }
 

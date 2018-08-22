@@ -5,6 +5,21 @@ import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
+import {issueAssetAction} from "../../../actions/assets";
+import {setBodyModalParamsAction} from "../../../modules/modals";
+import {setAlert} from "../../../modules/modals";
+
+const mapStateToProps = state => ({
+    modalData: state.modals.modalData,
+});
+
+const mapDispatchToProps = dispatch => ({
+    setModalData: (data) => dispatch(setModalData(data)),
+    issueAssetAction: (reqParams) => dispatch(issueAssetAction(reqParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setAlert: (type, message) => dispatch(setAlert(type, message)),
+    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase))
+});
 
 class IssueAsset extends React.Component {
     constructor(props) {
@@ -26,42 +41,6 @@ class IssueAsset extends React.Component {
     handleFormSubmit = async(values) => {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            })
-        }
-        if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            })
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            })
-        }
         if (!isPassphrase) {
             this.setState({
                 ...this.props,
@@ -75,7 +54,7 @@ class IssueAsset extends React.Component {
             })
         }
 
-        this.props.sendTransaction(values);
+        this.props.issueAssetAction(values);
         this.props.setBodyModalParamsAction(null, {});
         this.props.setAlert('success', 'Transaction has been submitted!');
     };
@@ -161,7 +140,7 @@ class IssueAsset extends React.Component {
                                             <label>Passphrase</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Passphrase" field={''} type="text"/>
+                                            <Text placeholder="Passphrase" field={'secretPhrase'} type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -220,14 +199,5 @@ class IssueAsset extends React.Component {
         );
     }
 }
-
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
-
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase))
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssueAsset);

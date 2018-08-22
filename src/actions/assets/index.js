@@ -161,18 +161,28 @@ export function sellAssetAction(requestParams) {
 
 export function issueAssetAction(requestParams) {
     return dispatch => {
+
         return fetch(config.api.serverUrl + "requestType=issueAsset", {
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            headers: {
+                "Content-Type": "contentType:application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: "name=Test2Test&description=Test&decimals=0&deadline=1440&phased=false&phasingLinkedFullHash=&phasingHashedSecret=&phasingHashedSecretAlgorithm=2&publicKey=ffbc7ba2e4c43be03f8a7f020d0651f582ad1901c254eebb4ec2ecb73148e50d&quantityATU=100&feeATM=100000000000&ecBlockId=11255812614937856744&ecBlockHeight=0"
         })
     }
 }
 
 export function transferAssetAction(requestParams) {
     return dispatch => {
+
+        const formData  = new FormData(requestParams);
+
         return fetch(config.api.serverUrl + "requestType=transferAsset", {
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            headers: {
+                "Content-Type": "contentType:application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: requestParams
         })
     }
 }

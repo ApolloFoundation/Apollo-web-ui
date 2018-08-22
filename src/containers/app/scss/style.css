@@ -109,7 +109,7 @@ input[type="number"] {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      bottom: 20px; }
+      bottom: 40px; }
       .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin {
         padding-left: 55px;
         display: flex;
