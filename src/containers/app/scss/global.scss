@@ -1300,6 +1300,10 @@ input {
 	}
 }
 
+.page-body-top-bottom-container {
+	display: block !important;
+}
+
 .page-body-bottom {
 	display: flex;
 	flex-wrap: wrap;
@@ -1332,6 +1336,10 @@ input {
 	
 	.card {
 		//margin: 15px;
+		min-height: 253px;
 		height: calc(100% - 15px);
+		&.card-tall {
+			min-height: 520px;
+		}
 	}
 }

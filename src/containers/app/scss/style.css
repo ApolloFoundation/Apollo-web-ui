@@ -192,6 +192,12 @@ input[type="number"] {
       left: 30px;
       right: 30px;
       bottom: 20px; }
+    .site-content .page-content .page-body > div {
+      min-height: 800px;
+      width: 100%;
+      padding: 0 7.5px;
+      display: flex;
+      flex-direction: column; }
     .site-content .page-content .page-body .my-transactions {
       width: 100%; }
       .site-content .page-content .page-body .my-transactions .transactions-filters {
