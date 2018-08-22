@@ -314,6 +314,10 @@ input {
     margin-bottom: 10px; }
     .form-group .form-body .image-button:last-child {
       margin-bottom: 0px; }
+    .form-group .form-body .image-button.success > * {
+      color: #2ecc71 !important; }
+    .form-group .form-body .image-button.danger > * {
+      color: #e74c3c !important; }
     .form-group .form-body .image-button .zmdi {
       font-size: 18px;
       color: #333333;
@@ -524,6 +528,10 @@ input {
     .btn-box.inline > * {
       display: inline;
       margin-right: 15px; }
+  .btn-box.success > * {
+    color: #2ecc71; }
+  .btn-box.danger > * {
+    color: #e74c3c; }
   .btn-box.relative {
     position: relative;
     height: 38px; }
@@ -569,7 +577,37 @@ input {
   user-select: none;
   border-radius: 3px;
   box-sizing: border-box;
-  z-index: 1; }
+  z-index: 1;
+  padding: 11px 11px 11px 9px; }
+  .btn, .btn > * {
+    transition: all 0.3s ease-in-out; }
+  .btn.underscore.general .settings-bar {
+    top: calc(100% + 45.6px) !important; }
+  .btn.underscore.general:after {
+    top: calc(100% + 43.5px); }
+  .btn.underscore.settings .settings-bar {
+    top: calc(100% + 49.6px) !important; }
+  .btn.underscore.settings:after {
+    top: calc(100% + 47px); }
+  .btn.underscore.account:after {
+    top: calc(100% + 49px); }
+  .btn.underscore.active.account:after {
+    width: 25px !important; }
+  .btn.underscore.active:after {
+    width: 100%; }
+  .btn.underscore:after {
+    content: '';
+    position: absolute;
+    top: calc(100% + 47px);
+    z-index: 4;
+    left: 0;
+    width: 0%;
+    right: 0px;
+    height: 3px;
+    background-color: #00C8FF;
+    transition: all 0.3s ease-in-out; }
+  .btn.revert-content .to-revert {
+    transform: rotateX(-180deg); }
   .btn.absolute {
     position: absolute; }
   .btn.icon-button {
@@ -594,21 +632,22 @@ input {
     line-height: 14px;
     bottom: 10px;
     padding: 0;
-    background: transparent; }
+    background: transparent;
+    margin: 0 0 12px 30px; }
   .btn.btn-right {
     right: 0;
     bottom: 0;
-    padding: 11px 17px 11px 9px;
     border-top-left-radius: 3px;
     border-bottom-right-radius: 3px; }
   .btn.btn-left {
     left: 0;
     bottom: 0;
-    padding: 11px 9px 11px 17px;
     border-top-right-radius: 3px;
     border-bottom-left-radius: 3px; }
   .btn.static {
     position: static; }
+  .btn.gray {
+    background: #666666; }
   .btn.primary {
     padding: 6px;
     background: #666666;
@@ -638,6 +677,8 @@ input {
     display: block;
     width: 100%;
     text-align: center; }
+  .btn .arrow {
+    transform: translateY(1px); }
 
 .input-block {
   width: 300px; }
@@ -650,7 +691,7 @@ input {
 .card {
   height: calc(33.33% - 15px);
   min-height: 255px;
-  border-radius: 3px;
+  border-radius: 6px;
   margin-bottom: 15px;
   background-color: #FFFFFF;
   position: relative;
@@ -729,6 +770,9 @@ input {
           color: #FFFFFF;
           font-size: 12px;
           line-height: 14px; }
+    .card.header .account-sub-titles {
+      margin-bottom: 15px;
+      color: #fff; }
   .card.single {
     min-height: 217px;
     height: auto; }

@@ -44,6 +44,14 @@ class SiteHeader extends React.Component {
         }, 4000);
     }
 
+    componentWillReceiveProps() {
+        this.getBlock()
+    }
+
+    componentDidMount() {
+        this.getBlock()
+    }
+
     setBodyModalType(bodyModalType) {
         if (this.props.bodyModalType) {
             // this.props.setBodyModalType(null);
@@ -69,6 +77,18 @@ class SiteHeader extends React.Component {
         if (account) {
             this.props.setModalData(account.account);
             this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account)
+        }
+    };
+
+    getBlock = async () => {
+        const block = await this.props.getBlockAction();
+
+        console.log(block);
+
+        if (block) {
+            this.setState({
+                block: block
+            })
         }
     };
 
@@ -99,15 +119,19 @@ class SiteHeader extends React.Component {
                                         <div
                                             onClick={this.setBodyModalType.bind(this, 'FORGING_BODY_MODAL')}
                                             className={classNames({
+                                                "underscore": true,
+                                                "general": true,
                                                 "btn" : true,
                                                 "icon-button" : true,
                                                 "filters" : true,
                                                 "primary" : true,
+                                                "active": this.props.bodyModalType === "FORGING_BODY_MODAL",
+                                                "revert-content": this.props.bodyModalType === "FORGING_BODY_MODAL",
                                                 "transparent" : true,
                                                 "open-settings" : true
                                             })}
                                         >
-                                            <i className="zmdi zmdi-chevron-down" />
+                                            <i className="to-revert zmdi zmdi-chevron-down" />
                                             <div className={classNames({
                                                 "settings-bar": true,
                                                 "active": this.props.bodyModalType === "FORGING_BODY_MODAL",
@@ -116,15 +140,15 @@ class SiteHeader extends React.Component {
                                                 <div className="form-group">
                                                     <div className="form-body">
                                                         <div className="input-section">
-                                                            <div className="image-button">
-                                                                <i className="zmdi zmdi-account" />
+                                                            <div className="image-button success">
+                                                                <i className="zmdi zmdi-check-circle" />
                                                                 <label>Connected</label>
                                                             </div>
                                                             <a
                                                                 to="/messenger"
-                                                                className="image-button"
+                                                                className="image-button  danger"
                                                             >
-                                                                <i className="zmdi zmdi-comments" />
+                                                                <i className="zmdi zmdi-close-circle" />
                                                                 <label>Not forging</label>
                                                             </a>
                                                             <a
@@ -132,14 +156,20 @@ class SiteHeader extends React.Component {
                                                                 className="image-button"
                                                             >
                                                                 <i className="zmdi" />
-                                                                <label>Height: 666</label>
+                                                                {
+                                                                    this.state.block &&
+                                                                    <label>Height: {this.state.block.height}</label>
+                                                                }
                                                             </a>
                                                             <a
                                                                 onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
                                                                 className="image-button"
                                                             >
                                                                 <i className="zmdi" />
-                                                                <label>Apollo: 777</label>
+                                                                {
+                                                                    this.props.forgedBalanceATM &&
+                                                                    <label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
+                                                                }
                                                             </a>
 
                                                         </div>
@@ -200,7 +230,20 @@ class SiteHeader extends React.Component {
                                             <i className="zmdi zmdi-balance-wallet" />
                                         </a>
                                         <button
-                                            className="user-account-action"
+                                            style={{height: 32}}
+                                            className={classNames({
+                                                "underscore": true,
+                                                "settings": true,
+                                                "btn" : true,
+                                                "icon-button" : true,
+                                                "filters" : true,
+                                                "primary" : true,
+                                                "active": this.props.bodyModalType === "SETTINGS_BODY_MODAL",
+                                                "transparent" : true,
+                                                "open-settings" : true,
+                                                "icon-button " : true,
+                                                "user-account-action": true
+                                            })}
                                             onClick={this.setBodyModalType.bind(this, 'SETTINGS_BODY_MODAL')}
                                         >
                                             <i className="zmdi zmdi-settings" />
@@ -260,7 +303,29 @@ class SiteHeader extends React.Component {
                                     <div
                                         className="user-name"
                                     >
-                                        <i className="zmdi zmdi-chevron-down" />
+                                        <a
+                                            style={{
+                                                height: 25,
+                                                width: 25,
+                                                margin: "0 15px 0 0"
+                                            }}
+                                            className={classNames({
+                                            "underscore": true,
+                                            "account": true,
+                                            "btn" : true,
+                                            "icon-button" : true,
+                                            "filters" : true,
+                                            "primary" : true,
+                                            "active": this.props.bodyModalType === "ACCOUNT_BODY_MODAL",
+                                            "revert-content ": this.props.bodyModalType === "ACCOUNT_BODY_MODAL",
+                                            "transparent" : true,
+                                            "open-settings" : true,
+                                            "icon-button " : true,
+                                            "user-account-action": true
+                                        })}
+                                        >
+                                            <i className="to-revert zmdi zmdi-chevron-down" />
+                                        </a>
                                         <a>{ this.props.name }</a>
 
                                     </div>
@@ -359,6 +424,7 @@ const mapStateToProps = state => ({
     account: state.account.account,
     accountRS: state.account.accountRS,
     name: state.account.name,
+    forgedBalanceATM: state.account.forgedBalanceATM,
     moalTtype: state.modals.modalType,
     bodyModalType: state.modals.bodyModalType
 });

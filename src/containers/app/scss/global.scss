@@ -457,6 +457,16 @@ input {
 			&:last-child {
 				margin-bottom: 0px;
 			}
+			&.success {
+				& > * {
+					color: #2ecc71 !important;
+				}
+			}
+			&.danger {
+				& > * {
+					color: #e74c3c !important;
+				}
+			}
 			.zmdi {
 				font-size: 18px;
 				color: #333333;
@@ -792,6 +802,16 @@ input {
 			margin-right: 15px;
 		}
 	}
+	&.success {
+		& > * {
+			color: #2ecc71;
+		}
+	}
+	&.danger {
+		& > * {
+			color: #e74c3c
+		}
+	}
 	&.relative {
 		position: relative;
 		height: 38px;
@@ -860,6 +880,60 @@ input {
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
 
+	& , & > * {
+		transition: all 0.3s ease-in-out;
+	}
+	&.underscore {
+		&.general {
+			.settings-bar {
+				top: calc(100% + 45.6px) !important;
+			}
+			&:after {
+				top: calc(100% + 43.5px);
+			}
+		}
+		&.settings {
+			.settings-bar {
+				top: calc(100% + 49.6px) !important;
+			}
+			&:after {
+				top: calc(100% + 47px);
+			}
+		}
+		&.account {
+			&:after {
+				top: calc(100% + 49px);
+			}
+		}
+		&.active {
+			&.account {
+				&:after {
+					width: 25px !important;
+				}
+			}
+			&:after {
+				width: 100%;
+			}
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: calc(100% + 47px);
+			z-index: 4;
+			left: 0;
+			width: 0%;
+			right: 0px;
+			height: 3px;
+			background-color: #00C8FF;
+			transition: all 0.3s ease-in-out;
+		}
+	}
+	&.revert-content {
+		.to-revert {
+			transform: rotateX(-180deg);
+		}
+	}
 	&.absolute {
 		position: absolute;
 	}
