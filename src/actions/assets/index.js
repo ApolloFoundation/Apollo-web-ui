@@ -141,5 +141,21 @@ export function getAccountAssetsAction(reqParams) {
     }
 }
 
+export function buyAssetAction(requestParams) {
+    return dispatch => {
+        return fetch(config.api.serverUrl + "requestType=placeBidOrder", {
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+    }
+}
 
+export function sellAssetAction(requestParams) {
+    return dispatch => {
+        return fetch(config.api.serverUrl + "requestType=placeAskOrder", {
+            method: 'POST',
+            body: JSON.stringify(requestParams)
+        })
+    }
+}
 

@@ -88,6 +88,8 @@
                   color: #fff;
 
                   .zmdi {
+                    height: auto !important;
+
                     &.left {
                       color: #00C8FF;
                     }
@@ -100,6 +102,7 @@
                   color: #777777;
                   top: 50%;
                   transform: translateY(-50%);
+                  height: auto !important;
 
                   &.left {
                     left: 40px;
@@ -168,6 +171,7 @@
             color: #777777;
             top: 70%;
             transform: translateY(-50%);
+            height: auto !important;
 
             &.left {
               left: 40px;

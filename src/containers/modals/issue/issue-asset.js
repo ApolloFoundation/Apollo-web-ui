@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
+import {Form, Text, TextArea, Number} from 'react-form';
+import crypto from '../../../helpers/crypto/crypto';
 
 class IssueAsset extends React.Component {
     constructor(props) {
@@ -95,119 +97,125 @@ class IssueAsset extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
-                    <div className="form-group">
-                        <div className="form-title">
-                            <p>Issue Asset</p>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Asset name</label>
+                <Form
+                    onSubmit={(values) => this.handleFormSubmit(values)}
+                    render={({ submitForm, values, addValue, removeValue }) => (
+                        <form className="modal-form" onSubmit={submitForm}>
+                            <div className="form-group">
+                                <div className="form-title">
+                                    <p>Issue Asset</p>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Asset name</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text placeholder="Asset name" type="text"/>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Description</label>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Description</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <TextArea placeholder="Description" field="message" cols="30" rows="10" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Quantity</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text placeholder="Quantity" type="text"/>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Quantity</label>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Decimals</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <input placeholder="Decimals" type="text"/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Fee</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text placeholder="Fee" type="text"/>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Decimals</label>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Passphrase</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text placeholder="Passphrase" field={''} type="text"/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Fee</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Passphrase</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="btn-box align-buttons-inside absolute right-conner">
-                            <button className="btn btn-right round round-top-left">Cancel</button>
-                            <button
-                                type="submit"
-                                name={'closeModal'}
-                                className="btn btn-right blue round round-bottom-right"
-                            >
-                                Send
-                            </button>
+                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                    <button className="btn btn-right round round-top-left">Cancel</button>
+                                    <button
+                                        type="submit"
+                                        name={'closeModal'}
+                                        className="btn btn-right blue round round-bottom-right"
+                                    >
+                                        Send
+                                    </button>
 
-                        </div>
+                                </div>
 
-                        {
-                            this.state.passphraseStatus &&
-                            <InfoBox danger mt>
-                                Incorrect passphrase.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.recipientStatus &&
-                            <InfoBox danger mt>
-                                Incorrect recipient.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.amountStatus &&
-                            <InfoBox danger mt>
-                                Missing amount.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.feeStatus &&
-                            <InfoBox danger mt>
-                                Missing fee.
-                            </InfoBox>
-                        }
+                                {
+                                    this.state.passphraseStatus &&
+                                    <InfoBox danger mt>
+                                        Incorrect passphrase.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.recipientStatus &&
+                                    <InfoBox danger mt>
+                                        Incorrect recipient.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.amountStatus &&
+                                    <InfoBox danger mt>
+                                        Missing amount.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.feeStatus &&
+                                    <InfoBox danger mt>
+                                        Missing fee.
+                                    </InfoBox>
+                                }
 
-                        <AdvancedSettings advancedState={this.state.advancedState}/>
-                        <div className="btn-box align-buttons-inside absolute left-conner">
-                            <a
-                                onClick={this.handleAdvancedState}
-                                className="btn btn-right round round-bottom-left round-top-right"
-                            >
-                                Advanced
-                            </a>
-                        </div>
-                    </div>
-                </form>
+                                <AdvancedSettings advancedState={this.state.advancedState}/>
+                                <div className="btn-box align-buttons-inside absolute left-conner">
+                                    <a
+                                        onClick={this.handleAdvancedState}
+                                        className="btn btn-right round round-bottom-left round-top-right"
+                                    >
+                                        Advanced
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    )}
+                />
+
             </div>
         );
     }
@@ -218,7 +226,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssueAsset);

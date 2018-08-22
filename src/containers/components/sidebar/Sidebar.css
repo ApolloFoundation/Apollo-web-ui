@@ -55,7 +55,8 @@
             position: absolute;
             color: #777777;
             top: 50%;
-            transform: translateY(-50%); }
+            transform: translateY(-50%);
+            height: auto !important; }
             .menu-bar .menu-bar-container nav ul li a .zmdi.left {
               left: 40px; }
             .menu-bar .menu-bar-container nav ul li a .zmdi.right {
