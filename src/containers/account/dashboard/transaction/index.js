@@ -15,9 +15,9 @@ const mapDispatchToProps = dispatch => ({
 const Transaction = (props) => (
     <div className="transaction-item">
         <div className="transaction-box">
-            <div className="transaction-date">{props.formatTimestamp(props.timestamp)}</div>
+            <div className="transaction-date"><div className="date">{props.formatTimestamp(props.timestamp)}</div> <div className="transaction-amount">{props.amountATM / 100000000}</div></div>
             <div className="transaction-rs">{props.senderRS}</div>
-            <div className="transaction-amount">{props.amountATM / 100000000}</div>
+
         </div>
     </div>
 );

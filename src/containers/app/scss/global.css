@@ -876,6 +876,9 @@ input {
       height: auto;
       min-height: 213px; } }
 
+.page-body-top-bottom-container {
+  display: block !important; }
+
 .page-body-bottom {
   display: flex;
   flex-wrap: wrap;
@@ -905,4 +908,7 @@ input {
     .page-body-item {
       min-width: 100%; } }
   .page-body-item .card {
+    min-height: 253px;
     height: calc(100% - 15px); }
+    .page-body-item .card.card-tall {
+      min-height: 520px; }

@@ -119,6 +119,9 @@ input[type="number"] {
                 width: 100%;
 
                 .transaction-date {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
                   color: #BBBBBB;
                   font-family: "Roboto-Regular";
                   font-size: 12px;
@@ -136,9 +139,7 @@ input[type="number"] {
                   font-family: "Roboto-Regular";
                   font-size: 16px;
                   line-height: 14px;
-                  position: absolute;
-                  top: 0;
-                  right: 0;
+                  margin-left: 6px;
                 }
               }
             }
@@ -168,6 +169,7 @@ input[type="number"] {
 
                 .coin-data {
                   display: flex;
+                  flex-wrap: wrap;
                   position: relative;
 
                   & > * {
@@ -190,13 +192,13 @@ input[type="number"] {
                     color: #333333;
                     font-family: "Roboto-Regular";
                     font-size: 24px;
+                    margin-right: 30px;
                   }
                   .coin-name {
                     color: #777777;
                     font-family: "Roboto-Regular";
                     font-size: 12px;
                     line-height: 14px;
-                    margin: auto auto auto 30px;
                   }
                   .more {
                     height: 30px;
@@ -285,13 +287,13 @@ input[type="number"] {
       }
 
       // dashboard page
-      //& > div {
-      //  min-height: 800px;
-      //  width: 100%;
-      //  padding: 0 7.5px;
-      //  display: flex;
-      //  flex-direction: column;
-      //}
+      & > div {
+        min-height: 800px;
+        width: 100%;
+        padding: 0 7.5px;
+        display: flex;
+        flex-direction: column;
+      }
 
       // my transactions page
       .my-transactions {
