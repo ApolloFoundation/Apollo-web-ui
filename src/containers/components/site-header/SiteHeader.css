@@ -7,11 +7,16 @@
   background-color: #F5F5F5;
   padding: 30px 40px 30px 40px;
   width: calc(100% - 220px); }
+  @media (max-width: 760px) {
+    .page-header {
+      position: static;
+      width: 100% !important;
+      padding: 20px 15px 20px; } }
   .page-header .page-title-box .page-title-box {
     position: relative; }
     .page-header .page-title-box .page-title-box .open-settings .settings-bar {
       position: absolute;
-      top: calc(100% + 45px);
+      top: calc(100% + 47px);
       right: 0;
       display: flex;
       justify-content: space-around;
@@ -55,6 +60,10 @@
       position: absolute;
       top: calc(100% + -2px);
       left: 3px; }
+      @media (max-width: 760px) {
+        .page-header .page-title-box .page-title-box .breadcrumbs {
+          position: static;
+          display: block; } }
       .page-header .page-title-box .page-title-box .breadcrumbs a {
         color: #BBBBBB; }
       .page-header .page-title-box .page-title-box .breadcrumbs strong a {
@@ -70,9 +79,15 @@
     display: flex;
     margin: 0 -15px;
     height: 51px; }
-    @media (max-width: 767px) {
+    @media (max-width: 760px) {
       .page-header .user-search-box {
-        display: none; } }
+        position: fixed;
+        z-index: 4;
+        height: 50px;
+        top: 0px;
+        left: 0;
+        right: 0;
+        padding: 0 90px; } }
     .page-header .user-search-box > * {
       margin: auto; }
     .page-header .user-search-box.searching .search-bar .user-account-actions .user-account-action {
@@ -114,10 +129,22 @@
           font-size: 18px;
           line-height: 30px;
           margin-right: 40px; }
+          @media (max-width: 760px) {
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action {
+              color: #ffffff; } }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action:last-child {
             margin-right: 15px; }
+          @media (max-width: 760px) {
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action--help {
+              display: none; } }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action.search-button {
             z-index: 5 !important; }
+            @media (max-width: 760px) {
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action.search-button {
+                display: none; } }
+          @media (max-width: 760px) {
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action.settings {
+              margin-right: 0; } }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
             position: absolute;
             top: calc(100% + 47px);
@@ -161,15 +188,12 @@
       .page-header .user-search-box .user-box > * {
         margin: auto 0;
         display: flex; }
-      .page-header .user-search-box .user-box .user-name {
-        position: relative; }
-        .page-header .user-search-box .user-box .user-name > * {
-          display: inline-block;
-          vertical-align: bottom;
-          margin: auto 0; }
-        .page-header .user-search-box .user-box .user-name i {
-          font-size: 16px;
-          margin-right: 15px; }
+      .page-header .user-search-box .user-box .user-name > * {
+        display: inline-block;
+        vertical-align: bottom; }
+      .page-header .user-search-box .user-box .user-name i {
+        font-size: 16px;
+        margin-right: 15px; }
       .page-header .user-search-box .user-box .user-avatar {
         height: 50px;
         width: 50px;
@@ -177,6 +201,10 @@
         margin-left: 30px;
         border: 1px solid #eee;
         background-color: #eeeeee; }
+        @media (max-width: 760px) {
+          .page-header .user-search-box .user-box .user-avatar {
+            width: 24px;
+            height: 24px; } }
       .page-header .user-search-box .user-box .settings-bar {
         position: absolute;
         top: calc(100% + 30px);
@@ -203,3 +231,6 @@
           border-right: 1px solid #E6E6E6; }
           .page-header .user-search-box .user-box .settings-bar .options-col:last-child {
             border: 0; }
+
+.zmdi-balance-wallet {
+  margin-top: 9px; }

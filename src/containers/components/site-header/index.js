@@ -287,7 +287,7 @@ class SiteHeader extends React.Component {
                                         </button>
                                         <a
                                             onClick={() =>  this.props.setMopalType('GENERAL_INFO')}
-                                            className="user-account-action"
+                                            className="user-account-action user-account-action--help"
                                         >
                                             <i className="zmdi zmdi-help" />
                                         </a>
