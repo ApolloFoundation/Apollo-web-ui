@@ -95,6 +95,7 @@ class Dashboard extends React.Component {
     getAccountAsset = async (requsetParams) => {
         const accountAssets = await this.props.getAccountAssetsAction(requsetParams);
 
+        console.log(accountAssets);
         if (accountAssets) {
             this.setState({
                 assetData: accountAssets.accountAssets,
@@ -184,32 +185,53 @@ class Dashboard extends React.Component {
 						<div className="page-body-top">
 							<div className="page-body-item ">
 								<div className="card header ballance chart-sprite position-1">
-									<div className="card-title">Available Balance</div>
-									<div className="amount">{(this.props.balanceATM / 100000000).toFixed(2)}</div>
+                                    <div className="card-title">Available Balance</div>
+                                    <div className="amount">
+                                        {Math.round(this.props.balanceATM / 100000000).toLocaleString('en')}
+                                        <div className="owned">
+                                            APL
+                                        </div>
+                                    </div>
+                                    <div className="account-sub-titles">
+                                        {this.props.accountRS}
+                                    </div>
+
+                                    {
+                                        this.state.block &&
+                                        <div className="account-sub-titles">
+                                            Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
+                                        </div>
+                                    }
+                                    <button
+                                        className="btn btn-right gray round round-bottom-right round-top-left absolute"
+                                        data-modal="sendMoney"
+                                    >
+                                        Buy/sell&nbsp;
+                                        <i className="arrow zmdi zmdi-chevron-right" />
+                                    </button>
 								</div>
 							</div>
 							<div className="page-body-item ">
 								<div className="card header assets chart-sprite position-2">
 									<div className="card-title">Assets Value</div>
-									<div className="amount">
-										{this.state.assetsValue}
+                                    <div className="amount">
+                                        {Math.round(this.state.assetsValue).toLocaleString('en')}
 
-										<div className="owned">
-											{this.state.assetsCount}
-										</div>
-									</div>
+                                        <div className="owned">
+                                            {this.state.assetsCount}
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 							<div className="page-body-item ">
 								<div className="card header currencies chart-sprite position-3">
 									<div className="card-title">Currencies Value</div>
-									<div className="amount">
-										{this.state.currenciesValue / 100000000}
-
-										<div className="owned">
-											{this.state.currenciesCount}
-										</div>
-									</div>
+                                    <div className="amount">
+                                        {Math.round(this.state.currenciesValue / 100000000).toLocaleString('en')}
+                                        <div className="owned">
+                                            {this.state.currenciesCount}
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -275,26 +297,32 @@ class Dashboard extends React.Component {
 								<div className="card asset-portfolio">
 									<div className="card-title">Asset Portfolio</div>
 									<div className="full-box">
-										{
-											this.state.assetData &&
-											this.state.assetData.map((el, index) => {
-												return (
-													<div className="full-box-item coin">
-														<div className="coin-data">
-															<CircleFigure
-																percentage={(el.quantityATU / Math.pow(10, el.decimals)) / (this.state.assetsValue) * 100}
-																type={el.quantityATU}
-															/>
-															<div
-																className="amount">{(el.quantityATU / Math.pow(10, el.decimals)) / (this.state.assetsValue) * 100}%
-															</div>
-															<div className="coin-name">el.quantityATU</div>
-														</div>
-													</div>
-												);
-											})
-										}
-
+                                        {
+                                            this.state.assetData &&
+                                            this.state.assetData.map((el, index) => {
+                                                if (index < 3) {
+                                                    console.log();
+                                                    return (
+                                                        <div className="full-box-item coin">
+                                                            <div className="coin-data">
+                                                                <CircleFigure
+                                                                    percentage={ (el.quantityATU) / this.props.assets.map((el, index) => {return parseInt(el.balanceATU)}).reduce((a, b) => a + b, 0) * 100}
+                                                                    type={el.quantityATU}
+                                                                />
+                                                                <div className="amount">{Math.round((el.quantityATU) / this.props.assets.map((el, index) => {return parseInt(el.balanceATU)}).reduce((a, b) => a + b, 0) * 100)}%</div>
+                                                                <div className="coin-name">{el.name}</div>
+                                                                <Link
+                                                                    to={'/asset-exchange/' + el.asset}
+                                                                    className="more"
+																>
+                                                                    <i className="zmdi zmdi-more" />
+                                                                </Link>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }
+                                            })
+                                        }
 									</div>
 								</div>
 								<div className="card decentralized-marketplace">
@@ -313,6 +341,13 @@ class Dashboard extends React.Component {
 										</div>
 									</div>
 									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
+                                    <button
+                                        className="btn btn-right gray round round-bottom-right round-top-left absolute"
+                                        data-modal="sendMoney"
+                                    >
+                                        Buy/sell&nbsp;
+                                        <i className="arrow zmdi zmdi-chevron-right" />
+                                    </button>
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -334,11 +369,20 @@ class Dashboard extends React.Component {
 											</div>
 										</div>
 									</div>
-									<a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')}
-									   className="btn btn-left btn-simple">Private APL</a>
-									<button className="btn btn-right" data-modal="sendMoney"
-									        onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}>Send
-									</button>
+                                    <a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')} className="btn btn-left btn-simple">Private APL</a>
+                                    <button
+                                        className="btn btn-right gray round round-bottom-right round-top-left absolute"
+                                        data-modal="sendMoney"
+                                        onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+                                    >
+                                        Send&nbsp;
+                                        <i className="arrow zmdi zmdi-chevron-right" />
+                                    </button>
+									{/*<a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')}*/}
+									   {/*className="btn btn-left btn-simple">Private APL</a>*/}
+									{/*<button className="btn btn-right" data-modal="sendMoney"*/}
+									        {/*onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}>Send*/}
+									{/*</button>*/}
 								</div>
 								<div className="card active-polls">
 									<div className="card-title">Active Polls</div>
@@ -347,6 +391,14 @@ class Dashboard extends React.Component {
 										<p>What features should be implemented in apollo platform?</p>
 										<p>Apollo to have future USD/Fiat Pairs on Exchange?</p>
 									</div>
+                                    <button
+                                        className="btn btn-right gray round round-bottom-right round-top-left absolute "
+                                        data-modal="sendMoney"
+                                        onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}
+                                    >
+                                        Create poll&nbsp;
+                                        <i className="arrow zmdi zmdi-chevron-right" />
+                                    </button>
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -364,6 +416,22 @@ class Dashboard extends React.Component {
 										qui
 										officia deserunt mollit anim id est laborum.
 									</div>
+                                    <button
+                                        className="btn btn-left gray round round-top-right round-bottom-left absolute "
+                                        data-modal="sendMoney"
+
+                                    >
+                                        <i className="arrow zmdi zmdi-chevron-left" />&nbsp;
+                                        Previous
+                                    </button>
+                                    <button
+                                        className="btn btn-right gray round round-bottom-right round-top-left absolute "
+                                        data-modal="sendMoney"
+
+                                    >
+                                        Create poll&nbsp;
+                                        <i className="arrow zmdi zmdi-chevron-right" />
+                                    </button>
 								</div>
 							</div>
 						</div>
