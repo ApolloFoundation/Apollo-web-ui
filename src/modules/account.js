@@ -8,11 +8,11 @@ export const CHANGE_PAGE_BODY_EVENTS = 'CHANGE_PAGE_BODY_EVENTS';
 export const SET_SETTINGS = 'SET_SETTINGS';
 export const UPDATE_NOTIFICATIONS = 'UPDATE_NOTIFICATIONS';
 export const SET_PASSPHRASE = 'SET_PASSPHRASE';
+export const LOAD_BLOCKCHAIN_STATUS = 'LOAD_BLOCKCHAIN_STATUS';
 
 const initialState = {
     settings: null,
     constants: null,
-
     passPhrase: null,
 	account: null,
     accountRS: null,
@@ -26,6 +26,17 @@ const initialState = {
     unconfirmedBalanceATM: null,
     loading: true,
     blockPageBody: false,
+    mobileSettings: {
+        is_check_remember_me: false,
+        is_store_remembered_passphrase: (window["cordova"] !== undefined), // too early to use feature detection
+        is_simulate_app: false,
+        is_testnet: false,
+        remote_node_address: "",
+        remote_node_port: 7876,
+        is_remote_node_ssl: false,
+        validators_count: 3,
+        bootstrap_nodes_count: 5
+    }
 };
 
 export default (state = initialState, action) => {
@@ -73,6 +84,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 passPhrase: action.payload
+            };
+        case LOAD_BLOCKCHAIN_STATUS:
+            return {
+                ...state,
+                blockchainStatus: action.payload
             };
 
 
@@ -141,8 +157,6 @@ export const endLoad = () => {
 		});
 	}
 };
-
-
 
 
 /*

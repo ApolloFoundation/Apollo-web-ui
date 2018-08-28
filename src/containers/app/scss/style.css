@@ -110,7 +110,7 @@ input[type="number"] {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      bottom: 20px; }
+      bottom: 40px; }
       .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin {
         padding-left: 55px;
         display: flex;
@@ -142,8 +142,11 @@ input[type="number"] {
             font-family: "Roboto-Regular";
             font-size: 12px;
             line-height: 14px; }
-        .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .more {
-          height: 30px; }
+          .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .more {
+            height: 30px; }
+            .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .more i {
+              color: #BBBBBB;
+              font-size: 30px; }
     .site-content .page-content .page-body .card.decentralized-marketplace .full-box {
       position: absolute;
       top: 58px;

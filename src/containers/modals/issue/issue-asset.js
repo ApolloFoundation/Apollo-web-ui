@@ -8,6 +8,7 @@ import crypto from '../../../helpers/crypto/crypto';
 import {issueAssetAction} from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
+import submitForm from "../../../helpers/forms/forms";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -15,6 +16,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     issueAssetAction: (reqParams) => dispatch(issueAssetAction(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
@@ -35,26 +37,33 @@ class IssueAsset extends React.Component {
             amountStatus: false,
             feeStatus: false
         }
-
     }
 
     handleFormSubmit = async(values) => {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
-        }
 
-        this.props.issueAssetAction(values);
+        // if (!isPassphrase) {
+        //     this.setState({
+        //         ...this.props,
+        //         passphraseStatus: true
+        //     });
+        //     return;
+        // } else {
+        //     this.setState({
+        //         ...this.props,
+        //         passphraseStatus: false
+        //     });
+        // }
+
+
+
+        // Todo: finish form validating
+        const validateFormData = this.props.submitForm(null, null, values, 'issueAsset');
+
+        console.log(validateFormData);
+
+        // this.props.issueAssetAction(values);
         this.props.setBodyModalParamsAction(null, {});
         this.props.setAlert('success', 'Transaction has been submitted!');
     };

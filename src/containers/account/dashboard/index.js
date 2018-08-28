@@ -32,7 +32,8 @@ const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
     requestProcessingTime: state.account.requestProcessingTime,
     unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
-	assets: state.account.assetBalances
+	assets: state.account.assetBalances,
+    blockchainStatus: state.account.blockchainStatus
 });
 
 const mapDispatchToProps = dispatch => ({
