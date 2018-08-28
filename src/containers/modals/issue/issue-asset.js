@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number} from 'react-form';
@@ -59,13 +62,22 @@ class IssueAsset extends React.Component {
 
 
         // Todo: finish form validating
-        const validateFormData = this.props.submitForm(null, null, values, 'issueAsset');
+        this.props.submitForm(null, null, values, 'issueAsset')
+            .done((res) => {
+                console.log('---------------');
+                console.log(res);
 
-        console.log(validateFormData);
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.issueAssetAction(values);
+                    this.props.setBodyModalParamsAction(null, {});
 
-        // this.props.issueAssetAction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+                    NotificationManager.success('Asset has been submitted!', null, 5000);
+
+                    // this.props.setAlert('success', 'Transaction has been submitted!');
+                }
+            })
     };
 
     handleAdvancedState = () => {
@@ -119,7 +131,7 @@ class IssueAsset extends React.Component {
                                             <label>Quantity</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Quantity" field="quantityATU" type="text"/>
+                                            <Text placeholder="Quantity" field="quantityATU" type="number"/>
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +141,7 @@ class IssueAsset extends React.Component {
                                             <label>Decimals</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Decimals" field="decimals" type="text"/>
+                                            <Text placeholder="Decimals" field="decimals" type="number" min={0} max={8}/>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +170,7 @@ class IssueAsset extends React.Component {
                                     <button
                                         type="submit"
                                         name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
+                                        className="btn absolute btn-right blue round-top-left round-bottom-right"
                                     >
                                         Send
                                     </button>

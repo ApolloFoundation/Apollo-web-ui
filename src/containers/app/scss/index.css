@@ -1,6 +1,7 @@
 @import url(~bootstrap/dist/css/bootstrap-grid.min.css);
 @import url(~material-design-iconic-font/dist/css/material-design-iconic-font.min.css);
 @import url(~loaders.css/loaders.min.css);
+@import url(~react-notifications/lib/notifications.css);
 @import url(~roboto-fontface/css/roboto/roboto-fontface.css);
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   margin: 0;
@@ -74,6 +75,12 @@ input[type="checkbox"] {
     display: none; }
   input[type="checkbox"]:checked:after {
     display: block; }
+
+input[type="number"] {
+  position: relative; }
+
+.notification-message .title {
+  color: white; }
 
 textarea {
   border: 1px solid #E5E5E5;
@@ -1079,9 +1086,11 @@ input {
     .modal-window .modal-box.x-wide {
       max-width: 1000px !important; }
     .modal-window .modal-box .modal-form {
-      min-width: 500px; }
+      min-width: 500px;
+      margin-bottom: 20px; }
       .modal-window .modal-box .modal-form .form-group {
-        padding-bottom: 69px; }
+        padding-bottom: 69px;
+        position: relative; }
 
 .btn {
   display: inline-block;

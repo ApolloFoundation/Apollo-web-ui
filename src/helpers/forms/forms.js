@@ -545,7 +545,7 @@ function submitForm($modal, $btn, data, requestType) {
                     data.encryptedMessageNonce = converters.byteArrayToHexString(encrypted.nonce);
                     delete data.encryptionKeys;
 
-                    sendRequest(requestType, data, function (response) {
+                    return sendRequest(requestType, data, function (response) {
                         formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
                             originalRequestType, formErrorFunction, errorMessage);
                     })
@@ -560,13 +560,13 @@ function submitForm($modal, $btn, data, requestType) {
         } else {
             if (requestType === 'sendMoneyPrivate') {
                 data.deadline = '1440';
-                sendRequest(requestType, data, function (response) {
+                return sendRequest(requestType, data, function (response) {
                     formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
                         originalRequestType, formErrorFunction, errorMessage);
                 });
             } else {
 
-                dispatch(
+                return dispatch(
                     sendRequest(requestType, data, function (response) {
                     formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
                         originalRequestType, formErrorFunction, errorMessage);

@@ -5,7 +5,8 @@ import classNames from 'classnames';
 import {isLoggedIn, getConstantsAction} from '../../actions/login';
 import {setPageEvents, loadConstants} from '../../modules/account' ;
 import {setBodyModalType} from '../../modules/modals' ;
-import PageLoader from '../components/page-loader/page-loader'
+import PageLoader from '../components/page-loader/page-loader';
+import {NotificationContainer} from 'react-notifications';
 // components
 import SideBar from '../components/sidebar'
 import ModalWindow from '../modals'
@@ -92,6 +93,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <NotificationContainer/>
                 <ModalWindow/>
                 <AlertBox/>
                 <header>

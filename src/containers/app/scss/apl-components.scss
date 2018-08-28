@@ -262,9 +262,11 @@
     }
     .modal-form {
       min-width: 500px;
+      margin-bottom: 20px;
 
       .form-group {
         padding-bottom: 69px;
+        position: relative;
       }
     }
   }
