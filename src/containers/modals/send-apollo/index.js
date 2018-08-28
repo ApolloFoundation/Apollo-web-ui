@@ -3,13 +3,15 @@ import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
-import AdvancedSettings from '../../components/advanced-transaction-settings'
+import AdvancedSettings from '../../components/advanced-transaction-settings';
 import classNames from 'classnames';
 import crypto from  '../../../helpers/crypto/crypto';
 import InputMask from 'react-input-mask';
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
+import {NotificationManager} from "react-notifications";
+import submitForm from "../../../helpers/forms/forms";
 
 class SendApollo extends React.Component {
     constructor(props) {
@@ -34,58 +36,19 @@ class SendApollo extends React.Component {
     async handleFormSubmit(values) {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            })
-        }
-        if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            })
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            })
-        }
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
-        }
+        this.props.submitForm(null, null, values, 'sendMoney')
+            .done((res) => {
+                console.log('---------------');
+                console.log(res);
 
-        this.props.sendTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.setBodyModalParamsAction(null, {});
+
+                    NotificationManager.success('Transaction has been submitted!', null, 5000);
+                }
+            });
     }
 
     handleAdvancedState() {
@@ -322,6 +285,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setAlert: (status, message) => dispatch(setAlert(status, message)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),

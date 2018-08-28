@@ -266,130 +266,130 @@ function submitForm($modal, $btn, data, requestType) {
         //     }
         // }
 
-        if (data.recipient) {
-            data.recipient = $.trim(data.recipient);
-            if (util.isNumericAccount(data.recipient)) {
-                $form.find(".error_message").html($.t("error_numeric_ids_not_allowed")).show();
-                if (formErrorFunction) {
-                    formErrorFunction(false, data);
-                }
-                unlockForm($modal, $btn);
-                return;
-            } else if (!util.isRsAccount(data.recipient)) {
-                var convertedAccountId = data.converted_account_id;
-                if (!convertedAccountId || (!util.isNumericAccount(convertedAccountId) && !util.isRsAccount(convertedAccountId))) {
-                    $form.find(".error_message").html($.t("error_account_id")).show();
-                    if (formErrorFunction) {
-                        formErrorFunction(false, data);
-                    }
-                    unlockForm($modal, $btn);
-                    return;
-                } else {
-                    data.recipient = convertedAccountId;
-                    data["_extra"] = {
-                        "convertedAccount": true
-                    };
-                }
-            }
-        }
+        // if (data.recipient) {
+        //     data.recipient = $.trim(data.recipient);
+        //     if (util.isNumericAccount(data.recipient)) {
+        //         // $form.find(".error_message").html($.t("error_numeric_ids_not_allowed")).show();
+        //         if (formErrorFunction) {
+        //             formErrorFunction(false, data);
+        //         }
+        //         unlockForm($modal, $btn);
+        //         return;
+        //     } else if (!util.isRsAccount(data.recipient)) {
+        //         var convertedAccountId = data.converted_account_id;
+        //         if (!convertedAccountId || (!util.isNumericAccount(convertedAccountId) && !util.isRsAccount(convertedAccountId))) {
+        //             $form.find(".error_message").html($.t("error_account_id")).show();
+        //             if (formErrorFunction) {
+        //                 formErrorFunction(false, data);
+        //             }
+        //             unlockForm($modal, $btn);
+        //             return;
+        //         } else {
+        //             data.recipient = convertedAccountId;
+        //             data["_extra"] = {
+        //                 "convertedAccount": true
+        //             };
+        //         }
+        //     }
+        // }
 
-        if (requestType === "sendMoney" || requestType === "transferAsset") {
-            var merchantInfo = $modal.find("input[name=merchant_info]").val();
-            if (merchantInfo) {
-                var result = merchantInfo.match(/#merchant:(.*)#/i);
-
-                if (result && result[1]) {
-                    merchantInfo = $.trim(result[1]);
-
-                    if (!data.add_message || !data.message) {
-                        $form.find(".error_message").html($.t("info_merchant_message_required")).show();
-                        if (formErrorFunction) {
-                            formErrorFunction(false, data);
-                        }
-                        unlockForm($modal, $btn);
-                        return;
-                    }
-
-                    if (merchantInfo === "numeric") {
-                        merchantInfo = "[0-9]+";
-                    } else if (merchantInfo === "alphanumeric") {
-                        merchantInfo = "[a-zA-Z0-9]+";
-                    }
-
-                    var regexParts = merchantInfo.match(/^\/(.*?)\/(.*)$/);
-
-                    if (!regexParts) {
-                        regexParts = ["", merchantInfo, ""];
-                    }
-
-                    var strippedRegex = regexParts[1].replace(/^[\^\(]*/, "").replace(/[\$\)]*$/, "");
-
-                    if (regexParts[1].charAt(0) != "^") {
-                        regexParts[1] = "^" + regexParts[1];
-                    }
-
-                    if (regexParts[1].slice(-1) != "$") {
-                        regexParts[1] = regexParts[1] + "$";
-                    }
-                    var regexp;
-                    if (regexParts[2].indexOf("i") !== -1) {
-                        regexp = new RegExp(regexParts[1], "i");
-                    } else {
-                        regexp = new RegExp(regexParts[1]);
-                    }
-
-                    if (!regexp.test(data.message)) {
-                        var regexType;
-                        errorMessage = "";
-                        var lengthRequirement = strippedRegex.match(/\{(.*)\}/);
-
-                        if (lengthRequirement) {
-                            strippedRegex = strippedRegex.replace(lengthRequirement[0], "+");
-                        }
-
-                        if (strippedRegex == "[0-9]+") {
-                            regexType = "numeric";
-                        } else if (strippedRegex == "[a-z0-9]+" || strippedRegex.toLowerCase() == "[a-za-z0-9]+" || strippedRegex == "[a-z0-9]+") {
-                            regexType = "alphanumeric";
-                        } else {
-                            regexType = "custom";
-                        }
-
-                        if (lengthRequirement) {
-                            if (lengthRequirement[1].indexOf(",") != -1) {
-                                lengthRequirement = lengthRequirement[1].split(",");
-                                var minLength = parseInt(lengthRequirement[0], 10);
-                                if (lengthRequirement[1]) {
-                                    var maxLength = parseInt(lengthRequirement[1], 10);
-                                    errorMessage = $.t("error_merchant_message_" + regexType + "_range_length", {
-                                        "minLength": minLength,
-                                        "maxLength": maxLength
-                                    });
-                                } else {
-                                    errorMessage = $.t("error_merchant_message_" + regexType + "_min_length", {
-                                        "minLength": minLength
-                                    });
-                                }
-                            } else {
-                                var requiredLength = parseInt(lengthRequirement[1], 10);
-                                errorMessage = $.t("error_merchant_message_" + regexType + "_length", {
-                                    "length": requiredLength
-                                });
-                            }
-                        } else {
-                            errorMessage = $.t("error_merchant_message_" + regexType);
-                        }
-
-                        $form.find(".error_message").html(errorMessage).show();
-                        if (formErrorFunction) {
-                            formErrorFunction(false, data);
-                        }
-                        unlockForm($modal, $btn);
-                        return;
-                    }
-                }
-            }
-        }
+        // if (requestType === "sendMoney" || requestType === "transferAsset") {
+        //     var merchantInfo = $modal.find("input[name=merchant_info]").val();
+        //     if (merchantInfo) {
+        //         var result = merchantInfo.match(/#merchant:(.*)#/i);
+        //
+        //         if (result && result[1]) {
+        //             merchantInfo = $.trim(result[1]);
+        //
+        //             if (!data.add_message || !data.message) {
+        //                 $form.find(".error_message").html($.t("info_merchant_message_required")).show();
+        //                 if (formErrorFunction) {
+        //                     formErrorFunction(false, data);
+        //                 }
+        //                 unlockForm($modal, $btn);
+        //                 return;
+        //             }
+        //
+        //             if (merchantInfo === "numeric") {
+        //                 merchantInfo = "[0-9]+";
+        //             } else if (merchantInfo === "alphanumeric") {
+        //                 merchantInfo = "[a-zA-Z0-9]+";
+        //             }
+        //
+        //             var regexParts = merchantInfo.match(/^\/(.*?)\/(.*)$/);
+        //
+        //             if (!regexParts) {
+        //                 regexParts = ["", merchantInfo, ""];
+        //             }
+        //
+        //             var strippedRegex = regexParts[1].replace(/^[\^\(]*/, "").replace(/[\$\)]*$/, "");
+        //
+        //             if (regexParts[1].charAt(0) != "^") {
+        //                 regexParts[1] = "^" + regexParts[1];
+        //             }
+        //
+        //             if (regexParts[1].slice(-1) != "$") {
+        //                 regexParts[1] = regexParts[1] + "$";
+        //             }
+        //             var regexp;
+        //             if (regexParts[2].indexOf("i") !== -1) {
+        //                 regexp = new RegExp(regexParts[1], "i");
+        //             } else {
+        //                 regexp = new RegExp(regexParts[1]);
+        //             }
+        //
+        //             if (!regexp.test(data.message)) {
+        //                 var regexType;
+        //                 errorMessage = "";
+        //                 var lengthRequirement = strippedRegex.match(/\{(.*)\}/);
+        //
+        //                 if (lengthRequirement) {
+        //                     strippedRegex = strippedRegex.replace(lengthRequirement[0], "+");
+        //                 }
+        //
+        //                 if (strippedRegex == "[0-9]+") {
+        //                     regexType = "numeric";
+        //                 } else if (strippedRegex == "[a-z0-9]+" || strippedRegex.toLowerCase() == "[a-za-z0-9]+" || strippedRegex == "[a-z0-9]+") {
+        //                     regexType = "alphanumeric";
+        //                 } else {
+        //                     regexType = "custom";
+        //                 }
+        //
+        //                 if (lengthRequirement) {
+        //                     if (lengthRequirement[1].indexOf(",") != -1) {
+        //                         lengthRequirement = lengthRequirement[1].split(",");
+        //                         var minLength = parseInt(lengthRequirement[0], 10);
+        //                         if (lengthRequirement[1]) {
+        //                             var maxLength = parseInt(lengthRequirement[1], 10);
+        //                             errorMessage = $.t("error_merchant_message_" + regexType + "_range_length", {
+        //                                 "minLength": minLength,
+        //                                 "maxLength": maxLength
+        //                             });
+        //                         } else {
+        //                             errorMessage = $.t("error_merchant_message_" + regexType + "_min_length", {
+        //                                 "minLength": minLength
+        //                             });
+        //                         }
+        //                     } else {
+        //                         var requiredLength = parseInt(lengthRequirement[1], 10);
+        //                         errorMessage = $.t("error_merchant_message_" + regexType + "_length", {
+        //                             "length": requiredLength
+        //                         });
+        //                     }
+        //                 } else {
+        //                     errorMessage = $.t("error_merchant_message_" + regexType);
+        //                 }
+        //
+        //                 $form.find(".error_message").html(errorMessage).show();
+        //                 if (formErrorFunction) {
+        //                     formErrorFunction(false, data);
+        //                 }
+        //                 unlockForm($modal, $btn);
+        //                 return;
+        //             }
+        //         }
+        //     }
+        // }
 
         // try {
         //     data = addMessageData(data, requestType);
@@ -408,6 +408,10 @@ function submitForm($modal, $btn, data, requestType) {
 
         if (data.feeATM) {
             data.feeATM = data.feeATM + '00000000'
+        }
+
+        if (data.amountATM) {
+            data.amountATM = data.amountATM + '00000000'
         }
 
         // if (data.deadline) {
@@ -517,6 +521,9 @@ function submitForm($modal, $btn, data, requestType) {
         //     });
         // }
 
+        console.log(requestType);
+        console.log(data);
+
         if (data.doNotBroadcast || data.calculateFee) {
             data.broadcast = "false";
 
@@ -565,6 +572,8 @@ function submitForm($modal, $btn, data, requestType) {
                         originalRequestType, formErrorFunction, errorMessage);
                 });
             } else {
+
+
 
                 return dispatch(
                     sendRequest(requestType, data, function (response) {
