@@ -51,6 +51,7 @@ import DeleteAlias   from './aliases/delete-alias';
 // Marketplace
 import MarketplaceImage from './marketplace/mraketplace-image-view';
 import MarketplaceProductDetails from './marketplace/marketplace-product-details';
+import ListProductForSale from './marketplace/list-product-for-sale';
 
 // Marketplace
 import DecryptMessage from './messenger/decrypt-messages';
@@ -130,6 +131,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     />}
                 {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            />}
                 {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          />}
+                {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               />}
 
 
                 {/* Shuffling */}
@@ -144,15 +146,12 @@ class ModalWindow extends React.Component {
 
                 {/*Marketplace*/}
                 {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          />}
+                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails />}
+                {this.props.modalType === 'LIST_PRODUCT_FOR_SALE'       && <ListProductForSale        />}
+
 
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            />}
-
-                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails />}
-
-
-                {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               />}
-
             </div>
         );
     }
