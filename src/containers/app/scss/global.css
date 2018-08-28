@@ -72,6 +72,12 @@ input[type="checkbox"] {
   input[type="checkbox"]:checked:after {
     display: block; }
 
+input[type="number"] {
+  position: relative; }
+
+.notification-message .title {
+  color: white; }
+
 textarea {
   border: 1px solid #E5E5E5;
   border-radius: 6px;

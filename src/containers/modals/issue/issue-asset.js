@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number} from 'react-form';
@@ -8,6 +11,7 @@ import crypto from '../../../helpers/crypto/crypto';
 import {issueAssetAction} from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
+import submitForm from "../../../helpers/forms/forms";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -15,6 +19,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     issueAssetAction: (reqParams) => dispatch(issueAssetAction(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
@@ -35,28 +40,44 @@ class IssueAsset extends React.Component {
             amountStatus: false,
             feeStatus: false
         }
-
     }
 
     handleFormSubmit = async(values) => {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
-        }
 
-        this.props.issueAssetAction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+        // if (!isPassphrase) {
+        //     this.setState({
+        //         ...this.props,
+        //         passphraseStatus: true
+        //     });
+        //     return;
+        // } else {
+        //     this.setState({
+        //         ...this.props,
+        //         passphraseStatus: false
+        //     });
+        // }
+
+
+
+        // Todo: finish form validating
+        this.props.submitForm(null, null, values, 'issueAsset')
+            .done((res) => {
+                console.log('---------------');
+                console.log(res);
+
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.issueAssetAction(values);
+                    this.props.setBodyModalParamsAction(null, {});
+
+                    NotificationManager.success('Asset has been submitted!', null, 5000);
+
+                    // this.props.setAlert('success', 'Transaction has been submitted!');
+                }
+            })
     };
 
     handleAdvancedState = () => {
@@ -110,7 +131,7 @@ class IssueAsset extends React.Component {
                                             <label>Quantity</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Quantity" field="quantityATU" type="text"/>
+                                            <Text placeholder="Quantity" field="quantityATU" type="number"/>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +141,7 @@ class IssueAsset extends React.Component {
                                             <label>Decimals</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Decimals" field="decimals" type="text"/>
+                                            <Text placeholder="Decimals" field="decimals" type="number" min={0} max={8}/>
                                         </div>
                                     </div>
                                 </div>
@@ -149,7 +170,7 @@ class IssueAsset extends React.Component {
                                     <button
                                         type="submit"
                                         name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
+                                        className="btn absolute btn-right blue round-top-left round-bottom-right"
                                     >
                                         Send
                                     </button>

@@ -1,19 +1,23 @@
 import  axios from "axios/index";
 import config from "../../config";
 import crypto from "../../helpers/crypto/crypto";
+import {NotificationManager} from 'react-notifications';
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
-import { login, loadConstants, startLoad, endLoad } from '../../modules/account';
+import {login, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS} from '../../modules/account';
 import { writeToLocalStorage, readFromLocalStorage, deleteFromLocalStorage } from "../localStorage";
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
 
 export function getAccountDataAction(requestParams) {
-    return dispatch => {
-        makeLoginReq(dispatch, requestParams)
-            .then(() => {
-                document.location.href = '/dashboard';
-            })
+    return async dispatch => {
+        const loginStatus = (await makeLoginReq(dispatch, requestParams));
+
+        if (loginStatus.errorCode) {
+            NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
+        } else {
+            document.location = '/dashboard';
+        }
     };
 }
 
@@ -52,8 +56,10 @@ function makeLoginReq(dispatch, requestParams) {
                 dispatch(updateNotifications())(res.data.accountRS);
 
                 dispatch(login(res.data));
+
+                return res.data;
             } else {
-                document.location = '/login';
+                return res.data;
             }
         })
         .catch(function(err){
@@ -76,8 +82,7 @@ export function getConstantsAction() {
             .then(async (res) => {
                 if (!res.data.errorCode) {
                     await dispatch(loadConstants(res.data));
-                    dispatch(crypto.validatePassphrase('test1'));
-                    dispatch(crypto.validatePassphrase('test2'));
+                    await dispatch(loadBlockchainStatus());
                 } else {
                 }
             })
@@ -85,6 +90,28 @@ export function getConstantsAction() {
                 console.log(err)
             });
     };
+}
+
+export function loadBlockchainStatus() {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getBlockchainStatus'
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    console.log(res.data);
+                    dispatch({
+                        type: "LOAD_BLOCKCHAIN_STATUS",
+                        payload: res.data
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
 }
 
 export function getTime () {
