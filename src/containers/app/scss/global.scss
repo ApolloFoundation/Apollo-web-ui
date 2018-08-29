@@ -642,6 +642,7 @@ input {
 		background-color: #F5F5F5;
 		padding: 18px 35px 70px 35px;
 		display: none;
+		border-radius: 0 0 6px 6px;
 		
 		&.white {
 			background-color: white;
@@ -690,6 +691,7 @@ input {
 				}
 				& > * {
 					margin: auto;
+					font-size: 16px;
 				}
 			}
 		}
@@ -842,7 +844,13 @@ input {
 
 .btn-box {
 	width: 100%;
-	
+
+	&.align-right {
+		text-align: right;
+	}
+	&.align-left {
+		text-align: left;
+	}
 	&.inline {
 		display: inline-block;
 		position: static !important;
