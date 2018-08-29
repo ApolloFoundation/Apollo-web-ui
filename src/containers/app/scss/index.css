@@ -82,6 +82,10 @@ input[type="number"] {
 .notification-message .title {
   color: white; }
 
+.word-brake {
+  word-wrap: break-word;
+  word-break: break-all; }
+
 textarea {
   border: 1px solid #E5E5E5;
   border-radius: 6px;
@@ -221,6 +225,12 @@ input {
     margin: auto;
     height: 32px;
     width: 32px; }
+
+.token {
+  color: white; }
+
+.info-box.blue-info {
+  background-color: #00C8FF; }
 
 .info-box.success {
   background-color: #2ecc71; }
@@ -679,15 +689,13 @@ input {
     background: transparent;
     margin: 0 0 12px 30px; }
   .btn.btn-right {
+    float: right;
     right: 0;
-    bottom: 0;
-    border-top-left-radius: 3px;
-    border-bottom-right-radius: 3px; }
+    bottom: 0; }
   .btn.btn-left {
+    float: left;
     left: 0;
-    bottom: 0;
-    border-top-right-radius: 3px;
-    border-bottom-left-radius: 3px; }
+    bottom: 0; }
   .btn.static {
     position: static; }
   .btn.gray {

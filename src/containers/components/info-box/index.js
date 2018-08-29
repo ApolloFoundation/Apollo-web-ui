@@ -6,6 +6,7 @@ const InfoBox = (props) => (
         className={classNames({
             'info-box': true,
             'danger': props.danger,
+            'blue-info': props.info,
             'mt': props.mt
         })}>
         <p>

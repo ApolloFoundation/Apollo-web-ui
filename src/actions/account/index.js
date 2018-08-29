@@ -11,6 +11,7 @@ import {getAllCurrenciesAction}  from '../../actions/currencies';
 import {getDGSGoodsAction}       from '../../actions/marketplace';
 
 import {writeToLocalStorage} from "../localStorage";
+import {NotificationManager} from "react-notifications";
 
 export function getAccountAction(reqParams) {
     return dispatch => {
@@ -74,6 +75,28 @@ export function sendLeaseBalance(reqParams) {
                     return res.data;
                 }
                 return;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+}
+
+export function validateTokenAction(reqParams) {
+    return (dispatch) => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'decodeToken',
+                ...reqParams,
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data;
+                } else {
+                    NotificationManager.error(res.data.errorDescription, 'Error', 5000)
+                    return;
+                }
             })
             .catch((err) => {
                 console.log(err);

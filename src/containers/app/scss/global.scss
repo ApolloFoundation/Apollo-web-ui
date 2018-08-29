@@ -113,6 +113,11 @@ input[type="number"] {
 	}
 }
 
+.word-brake {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
 textarea {
 	border: 1px solid #E5E5E5;
 	border-radius: 6px;
@@ -307,8 +312,14 @@ input {
 	}
 }
 
+.token {
+	color: white;
+}
+
 .info-box {
-	
+	&.blue-info {
+		background-color: #00C8FF;
+	}
 	&.success {
 		background-color: #2ecc71;
 		
@@ -1030,16 +1041,14 @@ input {
 		margin: 0 0 12px 30px;
 	}
 	&.btn-right {
+		float: right;
 		right: 0;
 		bottom: 0;
-		border-top-left-radius: 3px;
-		border-bottom-right-radius: 3px;
 	}
 	&.btn-left {
+		float: left;
 		left: 0;
 		bottom: 0;
-		border-top-right-radius: 3px;
-		border-bottom-left-radius: 3px;
 	}
 	&.static {
 		position: static;
