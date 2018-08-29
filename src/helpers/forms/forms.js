@@ -184,6 +184,10 @@ function submitForm($modal, $btn, data, requestType) {
             data.amountATM = data.amountATM + '00000000'
         }
 
+        if (data.priceATM) {
+            data.priceATM = data.priceATM + '00000000'
+        }
+
         console.log(requestType);
         console.log(data);
 
@@ -633,6 +637,8 @@ function sendRequest(requestType, data, callback, options) {
     return (dispatch, getState) => {
         const account = getState().account;
 
+        console.log(data);
+
         if (!options) {
             options = {};
         }
@@ -934,6 +940,8 @@ function processAjaxRequest(requestType, data, callback, options) {
 
         const {account} = getState();
 
+        console.log(data)
+
         var extra = null;
         if (data["_extra"]) {
             extra = data["_extra"];
@@ -1000,19 +1008,23 @@ function processAjaxRequest(requestType, data, callback, options) {
         var processData;
         var formData = null;
 
-        var config = getFileUploadConfig(requestType, data);
-        if (config && $(config.selector)[0] && $(config.selector)[0].files[0]) {
+        var config = dispatch(getFileUploadConfig(requestType, data));
+        console.log(data.messageFile);
+
+        if (config) {
             // inspired by http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
             contentType = false;
             processData = false;
             formData = new FormData();
             var file;
+            // var tempFiel = Object.assign(data.messageFile);
             if (data.messageFile) {
                 file = data.messageFile;
+                console.log(config);
                 delete data.messageFile;
                 delete data.encrypt_message;
             } else {
-                file = $(config.selector)[0].files[0];
+                file = $("#file")[0].files[0];
             }
             if (!file && requestType == "uploadTaggedData") {
                 callback({
@@ -1032,7 +1044,12 @@ function processAjaxRequest(requestType, data, callback, options) {
                 return;
             }
             httpMethod = "POST";
+            console.log(file);
             formData.append(config.requestParam, file);
+
+            console.log(file);
+
+            console.log(formData);
 
             for (var key in data) {
                 if (!data.hasOwnProperty(key)) {
@@ -1059,6 +1076,23 @@ function processAjaxRequest(requestType, data, callback, options) {
         }
 
         url += "requestType=" + requestType;
+
+        console.log({
+            url: url,
+            crossDomain: true,
+            dataType: "json",
+            type: 'POST',
+            timeout: (options.timeout === undefined ? 30000 : options.timeout),
+            async: (options.isAsync === undefined ? true : options.isAsync),
+            currentPage: currentPage,
+            currentSubPage: currentSubPage,
+            shouldRetry: null,
+            traditional: true,
+            data: (formData != null ? formData : data),
+            contentType: contentType,
+            processData: processData
+        });
+
         return $.ajax({
             url: url,
             crossDomain: true,
@@ -1147,6 +1181,8 @@ function processAjaxRequest(requestType, data, callback, options) {
 function getFileUploadConfig(requestType, data) {
     return (dispatch, getState) => {
 
+        console.log(requestType)
+        console.log(data)
         const {account} = getState();
 
         var config = {};
@@ -1160,7 +1196,7 @@ function getFileUploadConfig(requestType, data) {
             config.selector = "#dgs_listing_image";
             config.requestParam = "messageFile";
             config.errorDescription = "error_image_too_big";
-            config.maxSize = account.constants.MAX_PRUNABLE_MESSAGE_LENGTH;
+            config.maxSize = account.constants.maxPrunableMessageLength;
             return config;
         } else if (requestType === "sendMessage") {
             config.selector = "#upload_file_message";
@@ -1170,7 +1206,7 @@ function getFileUploadConfig(requestType, data) {
                 config.requestParam = "messageFile";
             }
             config.errorDescription = "error_message_too_big";
-            config.maxSize = account.constants.MAX_PRUNABLE_MESSAGE_LENGTH;
+            config.maxSize = account.constants.maxPrunableMessageLength;
             return config;
         }
         return null;

@@ -42,12 +42,14 @@ class ListProductForSale extends React.Component {
 
     handleFormSubmit = async(values) => {
         // Todo: finish form validating
-        this.props.submitForm(null, null, values, 'issueAsset')
+
+        console.log(values);
+
+        this.props.submitForm(null, null, values, 'dgsListing')
             .done((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {
-                    this.props.issueAssetAction(values);
                     this.props.setBodyModalParamsAction(null, {});
 
                     NotificationManager.success('Asset has been submitted!', null, 5000);
@@ -92,7 +94,7 @@ class ListProductForSale extends React.Component {
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue }) => (
+                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
                                 <div className="form-title">
@@ -104,7 +106,7 @@ class ListProductForSale extends React.Component {
                                             <label>Name</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Asset name" field="name" type="text"/>
+                                            <Text placeholder="Name" field="name" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +126,7 @@ class ListProductForSale extends React.Component {
                                             <label>Tags</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Tags (categories)" field="quantityATU" type="number"/>
+                                            <Text placeholder="Tags (categories)" field="tags" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +136,7 @@ class ListProductForSale extends React.Component {
                                             <label>Price</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Decimals" field="decimals" type="number" min={0} max={8}/>
+                                            <Text placeholder="Price" field="priceATM" type="number" />
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +146,7 @@ class ListProductForSale extends React.Component {
                                             <label>Quantity</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Fee" field="feeATM" type="text"/>
+                                            <Text placeholder="Quantity" field="quantity" type="number"/>
                                         </div>
                                     </div>
                                 </div>
@@ -157,8 +159,34 @@ class ListProductForSale extends React.Component {
                                             <div className="iconned-input-field">
                                                 <div className="input-group search">
                                                     <div className="iconned-input-field">
+                                                        <Text field="messageFile" type="hidden" />
                                                         <div className="input-icon text"><i className="">Browse&hellip;</i></div>
-                                                        <input name="recipient" type="file" placeholder="Recipient" onChange={this._handleImageChange}/>
+                                                        <input
+                                                            id="file"
+                                                            type="file"
+                                                            placeholder="Recipient"
+                                                            onChange={(e) => {
+                                                                console.log(e);
+                                                                e.preventDefault();
+
+                                                                let reader = new FileReader();
+                                                                let file = e.target.files[0];
+
+                                                                reader.onloadend = () => {
+                                                                    this.setState({
+                                                                        ...this.state,
+                                                                        file: file,
+                                                                        imagePreviewUrl: reader.result
+                                                                    });
+                                                                };
+
+                                                                setValue("messageIsText", false);
+                                                                setValue("messageIsPrunable", true);
+
+                                                                reader.readAsDataURL(file);
+
+                                                            }}
+                                                        />
                                                     </div>
                                                 </div>
 
@@ -182,6 +210,16 @@ class ListProductForSale extends React.Component {
                                                 this.state.imagePreviewUrl &&
                                                 <img className="preview-image" src={this.state.imagePreviewUrl} alt=""/>
                                             }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Fee</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text placeholder="Minimum fee" field={'feeATM'} type="number"/>
                                         </div>
                                     </div>
                                 </div>
