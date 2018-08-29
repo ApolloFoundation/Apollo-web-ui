@@ -4,6 +4,7 @@ import {setModalData} from '../../../../modules/modals';
 import  {getDGSGoodAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
+import config from '../../../../config'
 
 import { Form, Text } from 'react-form';
 import InfoBox from '../../../components/info-box';
@@ -62,7 +63,7 @@ class MarketplaceImage extends React.Component {
                             <div
                                 style={{
                                     height: 400,
-                                    backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
+                                    backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
                                 }}
                                 className={classNames({
                                     "marketplace-image": true,

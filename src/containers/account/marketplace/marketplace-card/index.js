@@ -5,6 +5,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import uuid from 'uuid';
+import config from '../../../../config'
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
@@ -38,7 +39,7 @@ const MarketplaceItem = (props, history) => (
                             "no-image": !props.hasImage
                         })}
                         style={{
-                            backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
                         }}
                     />
                     ,
@@ -71,7 +72,7 @@ const MarketplaceItem = (props, history) => (
                         "no-image": !props.hasImage
                     })}
                     style={{
-                        backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                        backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
                     }}
                 />
                 ,
@@ -132,7 +133,7 @@ const MarketplaceItem = (props, history) => (
                             "no-image": !props.hasImage
                         })}
                         style={{
-                            backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
                         }}
                     />
                     <div className='cargo-major-details'>

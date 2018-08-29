@@ -4,6 +4,8 @@ import {setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import {Form, Text, TextArea} from 'react-form'
+import converters from "../../../helpers/converters";
+import crypto from "../../../helpers/crypto/crypto";
 
 class TokenGenerationValidation extends React.Component {
     constructor(props) {
@@ -24,6 +26,25 @@ class TokenGenerationValidation extends React.Component {
             activeTab: index
         })
     }
+
+    handleFormSubmit = async (values) => {
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+
+        if (!isPassphrase) {
+            this.setState({
+                ...this.props,
+                passphraseStatus: true
+            })
+            return;
+        } else {
+            this.setState({
+                ...this.props,
+                passphraseStatus: false
+            })
+        }
+
+        console.log(await this.props.generateToken(values.data, values.secretPhrase));
+    };
 
     render() {
         return (
@@ -77,7 +98,7 @@ class TokenGenerationValidation extends React.Component {
                                                     <label>Passphrase</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                    <Text type="text" field={'secretPhrase'} placeholder="passphrase"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +126,7 @@ class TokenGenerationValidation extends React.Component {
                                                     <label>Passphrase</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                    <Text type="text" field={'secretPhrase'} placeholder="passphrase"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -140,7 +161,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    generateToken: (message, secretPhrase) => dispatch(converters.generateToken(message, secretPhrase)),
+    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase))
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TokenGenerationValidation);

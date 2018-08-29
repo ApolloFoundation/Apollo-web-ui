@@ -5,6 +5,7 @@ import  {getDGSGoodAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
+import config from '../../../../config';
 
 import { Form, Text } from 'react-form';
 import InfoBox from '../../../components/info-box';
@@ -63,7 +64,7 @@ class MarketplaceProductDetails extends React.Component {
                                 <div className="top-bar">
                                     <div
                                         style={{
-                                            backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
+                                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
                                         }}
                                         className={classNames({
                                             "marketplace-image": true,
