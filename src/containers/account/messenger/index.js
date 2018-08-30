@@ -134,7 +134,10 @@ class Messenger extends React.Component {
                                                 <div className="top-bar">
                                                     <textarea name=""rows="4" placeholder={'Message'}/>
                                                 </div>
-                                                <div className="bottom-bar">
+                                                <div
+                                                    className="bottom-bar"
+                                                    style={{height: 51}}
+                                                >
                                                     <div className="encrypt-message-box">
                                                         <div className="input-group">
                                                             <div className="encrypt-message-checkbox">
