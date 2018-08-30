@@ -89,14 +89,13 @@ function getAccountId(secretPhrase, isRsFormat) {
 
 
 function getAccountIdAsync(secretPhrase, isRsFormat) {
-    return (dispatch, getStore) => {
+    console.log(secretPhrase);
 
-        async () => {
-            // const store = getStore();
+    return async (dispatch, getStore) => {
+        console.log(secretPhrase);
+        const publicKey = await getPublicKey(converters.stringToHexString(secretPhrase));
 
-            const publicKey = await getPublicKey(converters.stringToHexString(secretPhrase));
-            return await dispatch(getAccountIdFromPublicKey(publicKey, isRsFormat));
-        }
+        return getAccountIdFromPublicKey(publicKey, true);
     }
 };
 

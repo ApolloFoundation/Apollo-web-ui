@@ -474,6 +474,8 @@ input {
         border-top-right-radius: 6px; }
         .form-group .form-tabulator .form-tab-nav-box .form-tab.active {
           background-color: #F5F5F5; }
+        .form-group .form-tabulator .form-tab-nav-box .form-tab p {
+          font-size: 13px !important; }
         .form-group .form-tabulator .form-tab-nav-box .form-tab > * {
           margin: auto;
           font-size: 16px; }

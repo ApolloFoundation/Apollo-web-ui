@@ -4,7 +4,7 @@ import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
-import {login, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS} from '../../modules/account';
+import {login, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PASSPHRASE} from '../../modules/account';
 import { writeToLocalStorage, readFromLocalStorage, deleteFromLocalStorage } from "../localStorage";
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
@@ -20,6 +20,29 @@ export function getAccountDataAction(requestParams) {
         }
     };
 }
+
+export function getAccountDataBySecretPhrasseAction(requestParams) {
+    return async dispatch => {
+
+        console.log(requestParams);
+        const accountRS = await (dispatch(crypto.getAccountIdAsync(requestParams.secretPhrase)));
+        
+        dispatch({
+            type: 'SET_PASSPHRASE',
+            payload: requestParams.secretPhrase
+        });
+
+        const loginStatus = (await makeLoginReq(dispatch, {account: dispatch(accountRS)}));
+
+        if (loginStatus.errorCode) {
+            NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
+        } else {
+            document.location = '/dashboard';
+        }
+    };
+}
+
+
 
 export function isLoggedIn() {
     return dispatch => {
