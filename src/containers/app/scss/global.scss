@@ -319,6 +319,10 @@ input {
 .info-box {
 	&.blue-info {
 		background-color: #00C8FF;
+
+		p {
+			color: #fff;
+		}
 	}
 	&.success {
 		background-color: #2ecc71;

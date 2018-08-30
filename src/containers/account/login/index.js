@@ -5,6 +5,7 @@ import React from 'react';
 import './Login.css'
 import account from "../../../modules/account";
 import { getAccountDataAction, getAccountDataBySecretPhrasseAction } from '../../../actions/login';
+import {setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import {Form, Text} from "react-form";
 
@@ -80,7 +81,7 @@ class Login extends React.Component {
                                                 <div className="input-group block offset-bottom offset-top">
                                                     <div className="row">
                                                         <div className="col-md-3">
-                                                            <label>Host</label>
+                                                            <label>Account RS</label>
                                                         </div>
                                                         <div className="col-md-9">
                                                             <Text rows={5} type="text" field={'accountRS'} placeholder="Account RS"/>
@@ -88,7 +89,12 @@ class Login extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner">
-                                                    <button className="btn btn-left round round-bottom-left round-top-right">Create account</button>
+                                                    <a
+                                                        className="btn btn-left round round-bottom-left round-top-right"
+                                                        onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
+                                                    >
+                                                        Create account
+                                                    </a>
                                                     <button
                                                         type="submit"
                                                         name={'closeModal'}
@@ -116,7 +122,7 @@ class Login extends React.Component {
 
                                                     <div className="row">
                                                         <div className="col-md-3">
-                                                            <label>Host</label>
+                                                            <label>Secret Phrase</label>
                                                         </div>
                                                         <div className="col-md-9">
                                                             <Text rows={5} type="text" field={'secretPhrase'} placeholder="Secret Phrase"/>
@@ -124,7 +130,12 @@ class Login extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner">
-                                                    <button className="btn btn-left round round-bottom-left round-top-right">Create account</button>
+                                                    <a
+                                                        className="btn btn-left round round-bottom-left round-top-right"
+                                                        onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
+                                                    >
+                                                        Create account
+                                                    </a>
                                                     <button
                                                         type="submit"
                                                         name={'closeModal'}
@@ -155,6 +166,7 @@ const mapDipatchToProps = dispatch => {
     return {
         getAccountAction: (requestParams) => dispatch(getAccountDataAction(requestParams)),
         getAccountDataBySecretPhrasseAction: (requestParams) => dispatch(getAccountDataBySecretPhrasseAction(requestParams)),
+        setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
     };
 };
 

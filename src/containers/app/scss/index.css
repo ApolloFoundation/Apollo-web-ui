@@ -231,6 +231,8 @@ input {
 
 .info-box.blue-info {
   background-color: #00C8FF; }
+  .info-box.blue-info p {
+    color: #fff; }
 
 .info-box.success {
   background-color: #2ecc71; }
@@ -1075,6 +1077,8 @@ input {
     margin-top: 25px; }
   .info-box.info {
     background: #666666; }
+    .info-box.info p {
+      color: #fff; }
   .info-box.danger {
     background-color: #e74c3c; }
     .info-box.danger p {

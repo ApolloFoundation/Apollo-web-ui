@@ -15,6 +15,7 @@ import InfoBlock from './info-block';
 
 // Account
 import InfoAccount from './account/account';
+import CreateUser from './account/create-account';
 import MandatoryApproval from './account/mandatory-approval';
 import AccountDetails from './account/account-details';
 import LeaseBalance from './account/lease-balance';
@@ -132,6 +133,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            />}
                 {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          />}
                 {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               />}
+                {this.props.modalType === 'CREATE_USER'                 && <CreateUser             />}
 
 
                 {/* Shuffling */}

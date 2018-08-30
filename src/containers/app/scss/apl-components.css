@@ -106,6 +106,8 @@
     margin-top: 25px; }
   .info-box.info {
     background: #666666; }
+    .info-box.info p {
+      color: #fff; }
   .info-box.danger {
     background-color: #e74c3c; }
     .info-box.danger p {

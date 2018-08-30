@@ -227,6 +227,8 @@ input {
 
 .info-box.blue-info {
   background-color: #00C8FF; }
+  .info-box.blue-info p {
+    color: #fff; }
 
 .info-box.success {
   background-color: #2ecc71; }

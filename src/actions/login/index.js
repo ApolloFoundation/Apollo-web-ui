@@ -13,9 +13,13 @@ export function getAccountDataAction(requestParams) {
     return async dispatch => {
         const loginStatus = (await makeLoginReq(dispatch, requestParams));
 
-        if (loginStatus.errorCode) {
+        console.log(loginStatus);
+
+
+        if (loginStatus.errorCode && !loginStatus.account) {
             NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
         } else {
+            console.log(2);
             document.location = '/dashboard';
         }
     };
@@ -34,7 +38,9 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
         const loginStatus = (await makeLoginReq(dispatch, {account: dispatch(accountRS)}));
 
-        if (loginStatus.errorCode) {
+        console.log(loginStatus);
+
+        if (loginStatus.errorCode && !loginStatus.account) {
             NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
         } else {
             document.location = '/dashboard';
@@ -47,6 +53,8 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 export function isLoggedIn() {
     return dispatch => {
         let account = JSON.parse(readFromLocalStorage('APLUserRS'));
+
+        console.log(account);
 
         if (account) {
             makeLoginReq(dispatch, {
@@ -61,7 +69,7 @@ export function isLoggedIn() {
 
 function makeLoginReq(dispatch, requestParams) {
     dispatch(startLoad());
-
+    console.log(requestParams);
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getAccount',
@@ -73,7 +81,8 @@ function makeLoginReq(dispatch, requestParams) {
         }
     })
         .then((res) => {
-            if (!res.data.errorCode) {
+            console.log(res.data);
+            if (res.data.account) {
                 dispatch(endLoad());
                 writeToLocalStorage('APLUserRS', res.data.accountRS);
                 dispatch(updateNotifications())(res.data.accountRS);

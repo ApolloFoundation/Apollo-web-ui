@@ -10,6 +10,8 @@ import axios from 'axios';
 import config from '../../config';
 import curve25519_ from './curve25519_'
 
+import {words} from './random-words'
+
 const BigInteger = jsbn.BigInteger;
 
 
@@ -107,6 +109,29 @@ const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(a
         resolve(accountRS === isAccount);
     });
 
+function generatePassPhrase () {
+    var bits = 128;
+    var random = new Uint32Array(bits / 32);
+    crypto.getRandomValues(random);
+    var n = words.length;
+    var	phraseWords = [];
+    var	x, w1, w2, w3;
+
+    console.log(random);
+
+    for (var i=0; i < random.length; i++) {
+        x = random[i];
+        w1 = x % n;
+        w2 = (((x / n) >> 0) + w1) % n;
+        w3 = (((((x / n) >> 0) / n) >> 0) + w2) % n;
+
+        phraseWords.push(words[w1]);
+        phraseWords.push(words[w2]);
+        phraseWords.push(words[w3]);
+    }
+
+    return (phraseWords);
+}
 
 function getSharedSecretJava(key1, key2) {
     var sharedKey;
@@ -501,7 +526,8 @@ export default {
     getEncryptionKeys,
     generatePublicKey,
     getAccountId,
-    getAccountIdAsync
+    getAccountIdAsync,
+    generatePassPhrase,
 }
 
 
