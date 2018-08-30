@@ -52,7 +52,7 @@ class ListProductForSale extends React.Component {
                 } else {
                     this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Asset has been submitted!', null, 5000);
+                    NotificationManager.success('Product has been listed!', null, 5000);
                 }
             })
     };
@@ -159,7 +159,6 @@ class ListProductForSale extends React.Component {
                                             <div className="iconned-input-field">
                                                 <div className="input-group search">
                                                     <div className="iconned-input-field">
-                                                        <Text field="messageFile" type="hidden" />
                                                         <div className="input-icon text"><i className="">Browse&hellip;</i></div>
                                                         <input
                                                             id="file"

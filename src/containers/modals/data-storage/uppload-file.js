@@ -1,8 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
+import {Form, Text, TextArea} from 'react-form';
+
+import submitForm from '../../../helpers/forms/forms';
+import {NotificationManager} from "react-notifications";
 
 class UploadFile extends React.Component {
     constructor(props) {
@@ -22,60 +26,19 @@ class UploadFile extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        // const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            });
-        }
-        if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            });
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            });
-        }
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            });
-        }
 
-        this.props.sendTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+        this.props.submitForm(null, null, values, 'uploadTaggedData')
+            .done((res) => {
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.setBodyModalParamsAction(null, {});
+
+                    NotificationManager.success('File has been submitted!', null, 5000);
+                }
+            })
     };
 
     handleAdvancedState = () => {
@@ -95,119 +58,173 @@ class UploadFile extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
-                    <div className="form-group">
-                        <div className="form-title">
-                            <p>Upload file</p>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Asset name</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                <Form
+                    onSubmit={(values) => this.handleFormSubmit(values)}
+                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                    <form className="modal-form" onSubmit={submitForm}>
+                        <div className="form-group">
+                            <div className="form-title">
+                                <p>Upload file</p>
+                            </div>
+                            <div className="input-group display-block offset-bottom">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <label>Name</label>
+                                    </div>
+                                    <div className="col-md-9">
+                                        <Text placeholder={'Name'} type="text" field={'name'}/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Description</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Quantity</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                            <div className="input-group display-block offset-bottom">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <label>Description</label>
+                                    </div>
+                                    <div className="col-md-9">
+                                        <TextArea placeholder="Description" field="description" cols="30" rows="10" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Decimals</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Fee</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                            <div className="input-group display-block offset-bottom">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <label>Tags</label>
+                                    </div>
+                                    <div className="col-md-9">
+                                        <Text placeholder={'Tags'} type="text" field={'tags'}/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Passphrase</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                            <div className="input-group display-block offset-bottom">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <label>Channel</label>
+                                    </div>
+                                    <div className="col-md-9">
+                                        <Text placeholder={'Channel'} type="text" field={'channel'}/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="btn-box align-buttons-inside absolute right-conner">
-                            <button className="btn btn-right round round-top-left">Cancel</button>
-                            <button
-                                type="submit"
-                                name={'closeModal'}
-                                className="btn btn-right blue round round-bottom-right"
-                            >
-                                Send
-                            </button>
+                            <div className="input-group display-block offset-bottom">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <label>File</label>
+                                    </div>
+                                    <div className="col-md-9">
+                                        <div className="iconned-input-field">
+                                            <div className="input-group search">
+                                                <div className="iconned-input-field">
+                                                    <div className="input-icon text"><i className="">Browse&hellip;</i></div>
+                                                    <input
+                                                        id="file"
+                                                        type="file"
+                                                        placeholder="Recipient"
+                                                        onChange={(e) => {
+                                                            console.log(e);
+                                                            e.preventDefault();
+
+                                                            let reader = new FileReader();
+                                                            let file = e.target.files[0];
+
+                                                            reader.onloadend = () => {
+                                                                this.setState({
+                                                                    ...this.state,
+                                                                    file: file,
+                                                                    imagePreviewUrl: reader.result
+                                                                });
+                                                            };
+
+                                                            setValue("messageIsText", false);
+                                                            setValue("messageIsPrunable", true);
+
+                                                            reader.readAsDataURL(file);
+
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="input-group display-block offset-bottom">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <label>Fee</label>
+                                    </div>
+                                    <div className="col-md-9">
+                                        <Text placeholder={'Fee'} type="text" field={'feeATM'}/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="input-group display-block offset-bottom">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <label>Passphrase</label>
+                                    </div>
+                                    <div className="col-md-9">
+                                        <Text placeholder={'Passphrase'} type="text" field={'secretPhrase'}/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                <button
+                                    className="btn round round-top-left"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    name={'closeModal'}
+                                    className="btn btn-right blue round round-bottom-right"
+                                >
+                                    Upload
+                                </button>
+
+                            </div>
+                            <div className="btn-box align-buttons-inside absolute left-conner">
+                                <a
+                                    onClick={this.handleAdvancedState}
+                                    className="btn btn-left round round-bottom-left round-top-right"
+                                >
+                                    Advanced
+                                </a>
+                            </div>
+
+
+                            {
+                                this.state.passphraseStatus &&
+                                <InfoBox danger mt>
+                                    Incorrect passphrase.
+                                </InfoBox>
+                            }
+                            {
+                                this.state.recipientStatus &&
+                                <InfoBox danger mt>
+                                    Incorrect recipient.
+                                </InfoBox>
+                            }
+                            {
+                                this.state.amountStatus &&
+                                <InfoBox danger mt>
+                                    Missing amount.
+                                </InfoBox>
+                            }
+                            {
+                                this.state.feeStatus &&
+                                <InfoBox danger mt>
+                                    Missing fee.
+                                </InfoBox>
+                            }
+
+                            <AdvancedSettings advancedState={this.state.advancedState}/>
 
                         </div>
-
-                        {
-                            this.state.passphraseStatus &&
-                            <InfoBox danger mt>
-                                Incorrect passphrase.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.recipientStatus &&
-                            <InfoBox danger mt>
-                                Incorrect recipient.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.amountStatus &&
-                            <InfoBox danger mt>
-                                Missing amount.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.feeStatus &&
-                            <InfoBox danger mt>
-                                Missing fee.
-                            </InfoBox>
-                        }
-
-                        <AdvancedSettings advancedState={this.state.advancedState}/>
-                        <div className="btn-box align-buttons-inside absolute left-conner">
-                            <a
-                                onClick={this.handleAdvancedState}
-                                className="btn btn-right round round-bottom-left round-top-right"
-                            >
-                                Advanced
-                            </a>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                    )}
+                />
             </div>
         );
     }
@@ -218,7 +235,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadFile);

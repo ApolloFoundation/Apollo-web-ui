@@ -153,7 +153,7 @@ class TokenGenerationValidation extends React.Component {
                                                 type="submit"
                                                 name={'closeModal'}
                                                 className="btn btn-right blue round round-bottom-right"
-                                            >s
+                                            >
                                                 Generate
                                             </button>
                                             <button className="btn btn-right round round-top-left">Cancel</button>
