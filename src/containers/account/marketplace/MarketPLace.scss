@@ -3,6 +3,10 @@
   .row {
     & > * {
       margin-bottom: 15px;
+
+      &.col-md-12, &.col-lg-12 {
+        height: auto !important;
+      }
       &.active {
         z-index: 4;
       }
@@ -63,33 +67,36 @@
     left: 7.5px;
     right: 7.5px;
 
-    &.hovered {
-      &.active {
-        z-index: 4;
-      }
-      &:hover {
-        margin: 0 -10px;
-        box-shadow: 1px 1px 20px black;
-        top: 0;
-        bottom: -100px;
-        height: 500px;
-
-        .price-box {
-          .tags {
-            max-height: 100px;
-          }
+    &:not(.card-fluid) {
+      &.hovered {
+        &.active {
+          z-index: 4;
         }
-
-      }
-      &.is-last-row {
-        top: auto;
-        bottom: 0px;
-        margin-bottom: 0;
-
         &:hover {
+          margin: 0 -10px;
+          box-shadow: 1px 1px 20px black;
+          top: 0;
+          bottom: -100px;
+          height: 500px;
+
+          .price-box {
+            .tags {
+              max-height: 100px;
+            }
+          }
+
+        }
+        &.is-last-row {
+          top: auto;
+          bottom: 0px;
+          margin-bottom: 0;
+
+          &:hover {
+          }
         }
       }
     }
+
     &.card-fluid {
       padding: 35px;
       display: flex;

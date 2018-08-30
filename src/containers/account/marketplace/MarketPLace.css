@@ -1,5 +1,7 @@
 .site-content .page-content .page-body .marketplace .row > * {
   margin-bottom: 15px; }
+  .site-content .page-content .page-body .marketplace .row > *.col-md-12, .site-content .page-content .page-body .marketplace .row > *.col-lg-12 {
+    height: auto !important; }
   .site-content .page-content .page-body .marketplace .row > *.active {
     z-index: 4; }
   .site-content .page-content .page-body .marketplace .row > *:hover {
@@ -42,17 +44,17 @@
   bottom: 0px;
   left: 7.5px;
   right: 7.5px; }
-  .card.marketplace.hovered.active {
+  .card.marketplace:not(.card-fluid).hovered.active {
     z-index: 4; }
-  .card.marketplace.hovered:hover {
+  .card.marketplace:not(.card-fluid).hovered:hover {
     margin: 0 -10px;
     box-shadow: 1px 1px 20px black;
     top: 0;
     bottom: -100px;
     height: 500px; }
-    .card.marketplace.hovered:hover .price-box .tags {
+    .card.marketplace:not(.card-fluid).hovered:hover .price-box .tags {
       max-height: 100px; }
-  .card.marketplace.hovered.is-last-row {
+  .card.marketplace:not(.card-fluid).hovered.is-last-row {
     top: auto;
     bottom: 0px;
     margin-bottom: 0; }
