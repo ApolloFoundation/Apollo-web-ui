@@ -6,6 +6,10 @@ import classNames from "classnames";
 import {getChats, getMessage} from "../../../actions/messager";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import './Messenger.css';
+import {Form, Text, TextArea, Checkbox} from 'react-form';
+import {NotificationManager} from "react-notifications";
+import submitForm from "../../../helpers/forms/forms";
+
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -14,7 +18,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getChats: (reqParams) => dispatch(getChats(reqParams)),
     getMessage: (transaction) => dispatch(getMessage(transaction)),
-    c: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -61,6 +66,48 @@ class Messenger extends React.Component {
             selectedChat: index,
             chatHistory: this.state.chats[index].messages
         })
+    };
+
+    handleSendMessageFormSubmit = async (values) => {
+
+        console.log({
+            ...values,
+            recipient: this.state.chats[this.state.selectedChat].account,
+            feeATM: values.messageToEncrypt ? 2 :1,
+            messageToEncryptIsText: values.messageToEncrypt ? 2 :1,
+            encryptedMessageIsPrunable: values.messageToEncrypt ? 2 :1,
+            encrypt_message: values.messageToEncrypt ? 2 :1
+        });
+
+        // recipient: 14423669713677089029
+        // deadline: 1440
+        // encrypt_message: true
+        // encryptedMessageData: bc985f3bdc571d9504e8221bf43c311f57c09eea2bd2e7959e150220cff47992f7d3115364d200ceecd48715374aa00b
+        // encryptedMessageNonce: 43e2e35cd6ada65c497c35e8c7057c8b62ed579177df82b00de533de25605514
+        // messageToEncryptIsText: true
+        // encryptedMessageIsPrunable: true
+        // feeATM: 100000000
+        // publicKey: bf0ced0472d8ba3df9e21808e98e61b34404aad737e2bae1778cebc698b40f37
+        // ecBlockId: 18338875302302929178
+        // ecBlockHeight: 0
+
+        this.props.submitForm(null, null, {
+            ...values,
+            recipient: this.state.chats[this.state.selectedChat].account,
+            feeATM: values.messageToEncrypt ? 2 :1
+        }, 'sendMessage')
+            .done((res) => {
+                console.log('---------------');
+                console.log(res);
+
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.setBodyModalParamsAction(null, {});
+
+                    NotificationManager.success('Transaction has been submitted!', null, 5000);
+                }
+            });
     };
 
     render (){
@@ -130,26 +177,33 @@ class Messenger extends React.Component {
                                                 }
 
                                             </div>
-                                            <div className="compose-message-box">
-                                                <div className="top-bar">
-                                                    <textarea name=""rows="4" placeholder={'Message'}/>
-                                                </div>
-                                                <div
-                                                    className="bottom-bar"
-                                                    style={{height: 51}}
-                                                >
-                                                    <div className="encrypt-message-box">
-                                                        <div className="input-group">
-                                                            <div className="encrypt-message-checkbox">
-                                                                <input type="checkbox"/>
-                                                            </div>
-                                                            <label>Encrypt message</label>
+                                            <Form
+                                                onSubmit={(values) => this.handleSendMessageFormSubmit(values)}
+                                                render={({
+                                                             submitForm, values, addValue, removeValue, setValue, getFormState
+                                                         }) => (
+                                                    <form className="compose-message-box" onSubmit={submitForm}>
+                                                        <div className="top-bar">
+                                                            <TextArea field={'message'} rows="4" placeholder={'Message'}/>
                                                         </div>
-                                                    </div>
-                                                    <input className={'passphrase'} type="text"/>
-                                                    <a className="btn blue btn-primary">Send Message</a>
-                                                </div>
-                                            </div>
+                                                        <div
+                                                            className="bottom-bar"
+                                                            style={{height: 51}}
+                                                        >
+                                                            <div className="encrypt-message-box">
+                                                                <div className="input-group">
+                                                                    <div className="encrypt-message-checkbox">
+                                                                        <Checkbox field={'messageToEncrypt'} type="checkbox"/>
+                                                                    </div>
+                                                                    <label>Encrypt message</label>
+                                                                </div>
+                                                            </div>
+                                                            <Text field={'secretPhrase'} className={'Secret Phrase'} type="text"/>
+                                                            <button type="submit" className="btn blue btn-primary">Send Message</button>
+                                                        </div>
+                                                    </form>
+                                                )}
+                                            />
                                         </div>
                                     }
                                 </div>

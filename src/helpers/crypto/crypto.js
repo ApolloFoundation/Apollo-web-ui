@@ -189,10 +189,15 @@ function decryptMessage(data, options) {
     }
 
     var result = aesDecryptMessage(data, options);
-    var binData = new Uint8Array(result.decrypted);
+    console.log(result);
 
+    var binData = new Uint8Array(result.decrypted);
     if (!(options.isCompressed === false)){
+        console.log(data);
+        console.log(options);
         binData = pako.inflate(binData);
+        console.log('3---%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+
     }
 
     var message;

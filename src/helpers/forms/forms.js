@@ -1024,7 +1024,11 @@ function processAjaxRequest(requestType, data, callback, options) {
                 delete data.messageFile;
                 delete data.encrypt_message;
             } else {
-                file = $("#file")[0].files[0];
+                try {
+                    file = $("#file")[0].files[0];
+                } catch(e) {
+                    console.log(e);
+                }
             }
             if (!file && requestType == "uploadTaggedData") {
                 callback({
