@@ -107,6 +107,11 @@ input[type="number"] {
 	position: relative;
 }
 
+input[type="radio"] {
+	width: auto;
+	display: inline-block !important;
+}
+
 .notification-message {
 	.title {
 		color: white;

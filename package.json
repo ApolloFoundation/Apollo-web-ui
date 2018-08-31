@@ -53,6 +53,7 @@
     "react-bootstrap-select": "^0.14.0",
     "react-bus": "^1.0.2",
     "react-circular-progressbar": "^1.0.0",
+    "react-custom-select": "0.0.3",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.4.1",
     "react-form": "^3.5.6",
