@@ -203,7 +203,12 @@ class FollowedVotes extends React.Component {
                                                         </div>
                                                         {
                                                             !this.state.poll.finished &&
-                                                            <div className="btn btn-primary static blue">Vote in poll</div>
+                                                            <a
+                                                                onClick={() => this.props.setBodyModalParamsAction('CAST_VOTE', this.state.poll.poll)}
+                                                                className="btn btn-primary static blue"
+                                                            >
+                                                                Vote in poll
+                                                            </a>
                                                         }
                                                     </div>
                                                 </div>

@@ -93,7 +93,7 @@ class CreatePoll extends React.Component {
                 } else {
                     this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Transaction has been submitted!', null, 5000);
+                    NotificationManager.success('Your vote has been created!', null, 5000);
                 }
             });
     };
@@ -234,7 +234,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                             <div className="col-md-9">
                                                 <div style={{width: '100%'}}>
-                                                    <Text placeholder="" field="description" type='number' />
+                                                    <Text placeholder="" field="minBalanceATUf" type='number' />
                                                 </div>
                                             </div>
                                         </div>

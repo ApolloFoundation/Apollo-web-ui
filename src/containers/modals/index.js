@@ -36,6 +36,7 @@ import IssueCurrency from './currencies/issue-currency';
 
 // Voting system
 import CreatePoll from './voting-system/create-poll';
+import CastVote from './voting-system/cast-vote';
 
 // Data storage
 import UploadFile from './data-storage/uppload-file';
@@ -116,6 +117,7 @@ class ModalWindow extends React.Component {
 
                 {/* Voting */}
                 {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                />}
+                {this.props.modalType === 'CAST_VOTE'                   && <CastVote                  />}
 
 
                 {/* Data Storage */}
