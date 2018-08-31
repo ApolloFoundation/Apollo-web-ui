@@ -7,6 +7,7 @@ import account from "../../../modules/account";
 import { getAccountDataAction, getAccountDataBySecretPhrasseAction } from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
+import AccountRS from '../../components/account-rs';
 import {Form, Text} from "react-form";
 
 class Login extends React.Component {
@@ -70,7 +71,7 @@ class Login extends React.Component {
                                     <Form
                                         onSubmit={(values) => this.enterAccount(values)}
                                         render={({
-                                                     submitForm
+                                                     submitForm, setValue
                                                  }) => (
                                             <form
                                                 onSubmit={submitForm}
@@ -84,7 +85,11 @@ class Login extends React.Component {
                                                             <label>Account RS</label>
                                                         </div>
                                                         <div className="col-md-9">
-                                                            <Text rows={5} type="text" field={'accountRS'} placeholder="Account RS"/>
+                                                            <AccountRS
+                                                                value={''}
+                                                                field={'accountRS'}
+                                                                setValue={setValue}
+                                                            />
                                                         </div>
                                                     </div>
                                                 </div>

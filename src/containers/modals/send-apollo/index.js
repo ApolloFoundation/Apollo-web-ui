@@ -7,6 +7,7 @@ import AdvancedSettings from '../../components/advanced-transaction-settings';
 import classNames from 'classnames';
 import crypto from  '../../../helpers/crypto/crypto';
 import InputMask from 'react-input-mask';
+import AccountRS from '../../components/account-rs';
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
@@ -108,13 +109,11 @@ class SendApollo extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="iconned-input-field">
-                                                <InputMask mask='APL-****-****-****-*****' value={this.state.value}  onChange={(e) => {if (e.target) setValue('recipient', e.target.value)}}>
-                                                    {(inputProps) => {
-                                                        return (
-                                                            <Text  {...inputProps} field="recipient" placeholder="Recipient" />
-                                                        );
-                                                    }}
-                                                </InputMask>
+                                                <AccountRS
+                                                    value={''}
+                                                    field={'recipient'}
+                                                    setValue={setValue}
+                                                />
 
                                                 <div className="input-icon"><i className="zmdi zmdi-account" /></div>
                                             </div>
