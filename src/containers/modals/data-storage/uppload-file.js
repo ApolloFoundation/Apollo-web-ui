@@ -121,7 +121,6 @@ class UploadFile extends React.Component {
                                                         type="file"
                                                         placeholder="Recipient"
                                                         onChange={(e) => {
-                                                            console.log(e);
                                                             e.preventDefault();
 
                                                             let reader = new FileReader();

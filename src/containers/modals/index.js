@@ -49,6 +49,7 @@ import EditAlias     from './aliases/edit-alias';
 import SellAlias     from './aliases/sell-alias';
 import TransferAlias from './aliases/transfer-alias';
 import DeleteAlias   from './aliases/delete-alias';
+import AddAlias   from './aliases/add-alias';
 
 // Marketplace
 import MarketplaceImage from './marketplace/mraketplace-image-view';
@@ -135,7 +136,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            />}
                 {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          />}
                 {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               />}
-                {this.props.modalType === 'CREATE_USER'                 && <CreateUser             />}
+                {this.props.modalType === 'CREATE_USER'                 && <CreateUser                />}
 
 
                 {/* Shuffling */}
@@ -147,6 +148,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 />}
                 {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             />}
                 {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               />}
+                {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  />}
 
                 {/*Marketplace*/}
                 {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          />}

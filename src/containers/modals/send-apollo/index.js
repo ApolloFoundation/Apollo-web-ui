@@ -39,9 +39,6 @@ class SendApollo extends React.Component {
 
         this.props.submitForm(null, null, values, 'sendMoney')
             .done((res) => {
-                console.log('---------------');
-                console.log(res);
-
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {

@@ -9,8 +9,6 @@ import submitForm from "../../../helpers/forms/forms";
 import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 
-console.log(CustomSelect);
-
 class CreatePoll extends React.Component {
     constructor(props) {
         super(props);
@@ -57,8 +55,6 @@ class CreatePoll extends React.Component {
 
     setFinishHeight = async (setValue) => {
         const block = await this.props.getBlockAction();
-
-        console.log(block);
 
         if (block) {
             this.setState({

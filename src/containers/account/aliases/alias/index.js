@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 const Alias = (props) => (
     <tr>
@@ -8,24 +10,24 @@ const Alias = (props) => (
         <td className="align-right">
             <div className="btn-box inline">
                 <a
-                    onClick={props.editAlias}
+                    onClick={() => props.setBodyModalParamsAction('EDIT_ALIAS', props.alias)}
                     className="btn primary blue"
                 >
                     Edit
                 </a>
                 <a
                     className="btn primary blue"
-                    onClick={props.transferAlias}
+                    onClick={() => props.setBodyModalParamsAction('TRANSFER_ALIAS', props.alias)}
                 >
                     Transfer</a>
                 <a
                     className="btn primary blue"
-                    onClick={props.sellAlias}
+                    onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
                 >
                     Sell</a>
                 <a
                     className="btn primary"
-                    onClick={props.deleteAlias}
+                    onClick={() => props.setBodyModalParamsAction('DELETE_ALIAS', props.alias)}
                 >
                     Delete</a>
             </div>
@@ -33,4 +35,12 @@ const Alias = (props) => (
     </tr>
 );
 
-export default Alias;
+const mapStateToProps = () => {
+
+};
+
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+});
+
+export default connect(null, mapDispatchToProps)(Alias);

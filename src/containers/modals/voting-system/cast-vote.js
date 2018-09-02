@@ -10,8 +10,6 @@ import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import {getPoolAction} from "../../../actions/pools";
 
-console.log(CustomSelect);
-
 class CastPoll extends React.Component {
     constructor(props) {
         super(props);
@@ -38,8 +36,6 @@ class CastPoll extends React.Component {
         const poll = await this.props.getPoolAction({
             poll: this.props.modalData
         });
-
-        console.log(poll);
 
         if (poll && !poll.errorCode) {
             let votes = {};
@@ -89,8 +85,6 @@ class CastPoll extends React.Component {
             ...values,
             ...votes,
         };
-
-        console.log(values);
 
         this.props.submitForm(null, null, values, 'castVote')
             .done((res) => {

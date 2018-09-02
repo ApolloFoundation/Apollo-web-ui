@@ -28,9 +28,6 @@ class IssueCurrency extends React.Component {
         // Todo: finish form validating
         this.props.submitForm(null, null, values, 'issueCurrency')
             .done((res) => {
-                console.log('---------------');
-                console.log(res);
-
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {

@@ -13,13 +13,9 @@ export function getAccountDataAction(requestParams) {
     return async dispatch => {
         const loginStatus = (await makeLoginReq(dispatch, requestParams));
 
-        console.log(loginStatus);
-
-
         if (loginStatus.errorCode && !loginStatus.account) {
             NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
         } else {
-            console.log(2);
             document.location = '/dashboard';
         }
     };
@@ -28,7 +24,6 @@ export function getAccountDataAction(requestParams) {
 export function getAccountDataBySecretPhrasseAction(requestParams) {
     return async dispatch => {
 
-        console.log(requestParams);
         const accountRS = await (dispatch(crypto.getAccountIdAsync(requestParams.secretPhrase)));
         
         dispatch({
@@ -37,8 +32,6 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
         });
 
         const loginStatus = (await makeLoginReq(dispatch, {account: dispatch(accountRS)}));
-
-        console.log(loginStatus);
 
         if (loginStatus.errorCode && !loginStatus.account) {
             NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
@@ -54,8 +47,6 @@ export function isLoggedIn() {
     return dispatch => {
         let account = JSON.parse(readFromLocalStorage('APLUserRS'));
 
-        console.log(account);
-
         if (account) {
             makeLoginReq(dispatch, {
                 account: account
@@ -69,7 +60,6 @@ export function isLoggedIn() {
 
 function makeLoginReq(dispatch, requestParams) {
     dispatch(startLoad());
-    console.log(requestParams);
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getAccount',
@@ -81,7 +71,6 @@ function makeLoginReq(dispatch, requestParams) {
         }
     })
         .then((res) => {
-            console.log(res.data);
             if (res.data.account) {
                 dispatch(endLoad());
                 writeToLocalStorage('APLUserRS', res.data.accountRS);

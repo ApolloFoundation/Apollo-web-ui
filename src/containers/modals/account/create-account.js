@@ -45,8 +45,6 @@ class CreateUser extends React.Component {
 
     handleFormSubmit = (values) => {
         // Todo: finish form validating
-        console.log(values.secretPhrase);
-        console.log(this.state.generatedPassphrase);
         if (values.secretPhrase === this.state.generatedPassphrase) {
             this.props.getAccountDataAction({
                 account: this.state.generatedAccount
@@ -78,9 +76,6 @@ class CreateUser extends React.Component {
             ...this.state,
             generatedPassphrase : generatedPassphrase.join(' '),
             generatedAccount : generatedAccount
-        }, () => {
-            console.log(this.state.generatedPassphrase);
-            console.log(this.state.generatedAccount);
         })
     };
 

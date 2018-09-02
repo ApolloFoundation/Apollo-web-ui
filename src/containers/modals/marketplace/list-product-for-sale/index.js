@@ -43,8 +43,6 @@ class ListProductForSale extends React.Component {
     handleFormSubmit = async(values) => {
         // Todo: finish form validating
 
-        console.log(values);
-
         this.props.submitForm(null, null, values, 'dgsListing')
             .done((res) => {
                 if (res.errorCode) {
@@ -72,7 +70,6 @@ class ListProductForSale extends React.Component {
     };
 
     _handleImageChange = (e) => {
-        console.log(e);
         e.preventDefault();
 
         let reader = new FileReader();
@@ -165,7 +162,6 @@ class ListProductForSale extends React.Component {
                                                             type="file"
                                                             placeholder="Recipient"
                                                             onChange={(e) => {
-                                                                console.log(e);
                                                                 e.preventDefault();
 
                                                                 let reader = new FileReader();
