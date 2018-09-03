@@ -264,8 +264,6 @@ input[type="number"] {
       position: relative; }
     .site-content .page-content .page-body .messenger {
       height: calc(100vh - 135px); }
-    .site-content .page-content .page-body .marketplace .row > * {
-      height: calc(50% - 49px); }
     .site-content .page-content .page-body .marketplace .row.fluid-row > * {
       height: auto !important; }
 

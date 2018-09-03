@@ -13,8 +13,8 @@
 .site-content .page-content .page-body .marketplace {
 	.row {
 		& > * {
-			margin-bottom: 15px;
-			
+			//margin-bottom: 15px;
+			//padding: 0 7.5px;
 			&.col-md-12, &.col-lg-12 {
 				height: auto !important;
 			}
@@ -38,14 +38,20 @@
 	position: relative;
 	z-index: 0;
 	padding: 0 !important;
+	height: calc(50% - 34px) !important;
 	transition-delay: 0.1s;
 	width: calc(25% - 15px);
-	margin: 0 7.5px;
+	margin: 0 7.5px 15px;
 	&:nth-of-type(-n + 4) {
 		transition-delay: 0.3s;
 		//&:hover {
 		//	z-index: 2;
 		//}
+	}
+	.marketplace.card {
+		width: 100%;
+		min-height: 100%;
+		bottom: auto;
 	}
 	&:hover {
 		z-index: 1;
@@ -96,18 +102,18 @@
 	}
 	&.marketplace {
 		padding: 0;
-		width: 100%;
+		//width: 100%;
 		border-radius: 3px;
 		//height: calc(100% - 15px);
 		height: auto;
-		min-height: 100%;
+		//min-height: 100%;
 		max-height: 100%;
 		transition: all 0.3s ease-in-out;
 		position: absolute;
 		top: 0;
-		//bottom: 0px;
-		//left: 7.5px;
-		//right: 7.5px;
+		bottom: 0;
+		left: 7.5px;
+		right: 7.5px;
 		overflow: hidden;
 		&:not(.card-fluid) {
 			&.hovered {

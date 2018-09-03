@@ -438,7 +438,7 @@ input[type="number"] {
       .marketplace {
         .row {
           & > * {
-            height: calc(50% - 49px);
+            //height: calc(50% - 19px);
           }
           &.fluid-row {
             & > * {
