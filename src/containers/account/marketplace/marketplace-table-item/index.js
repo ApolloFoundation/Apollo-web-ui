@@ -14,7 +14,7 @@ const MarketplaceTableItem = (props) => (
         <td className="align-right">
             <div className="btn-box inline">
                 <a
-                    onClick={props.editAlias}
+                    onClick={() => props.setBodyModalParamsAction('CHANGE_PRICE', props.goods)}
                     className="btn primary blue"
                 >
                     Change Price
