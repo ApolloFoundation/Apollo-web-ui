@@ -110,7 +110,6 @@ class FollowedVotes extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         const colors = [
             {
                 startColorGradient: '#008CDC',

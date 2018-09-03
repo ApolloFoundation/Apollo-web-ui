@@ -130,7 +130,7 @@ class Login extends React.Component {
                                                             <label>Secret Phrase</label>
                                                         </div>
                                                         <div className="col-md-9">
-                                                            <Text rows={5} type="text" field={'secretPhrase'} placeholder="Secret Phrase"/>
+                                                            <Text  type={'password'} field={'secretPhrase'} placeholder="Secret Phrase"/>
                                                         </div>
                                                     </div>
                                                 </div>

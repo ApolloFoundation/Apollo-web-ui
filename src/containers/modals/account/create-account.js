@@ -89,6 +89,8 @@ class CreateUser extends React.Component {
                             {
                                 !this.state.isValidating &&
                                 <div className="form-group">
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                                     <div className="form-title">
                                         <p>Create Your Wallet</p>
                                     </div>
@@ -188,7 +190,7 @@ class CreateUser extends React.Component {
                                                 <label>Secret Phrase</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <TextArea rows={5} type="text" field={'secretPhrase'} placeholder="Secret Phrase"/>
+                                                <TextArea rows={5}  type={'password'} field={'secretPhrase'} placeholder="Secret Phrase" />
                                             </div>
                                         </div>
                                     </div>

@@ -23,32 +23,32 @@ import {getMessages} from "../../../actions/messager";
 
 
 const mapStateToProps = state => ({
-    account: state.account.account,
-    accountRS: state.account.accountRS,
-    balanceATM: state.account.balanceATM,
-    description: state.account.description,
-    forgedBalanceATM: state.account.forgedBalanceATM,
-    name: state.account.name,
-    publicKey: state.account.publicKey,
-    requestProcessingTime: state.account.requestProcessingTime,
-    unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
+	account: state.account.account,
+	accountRS: state.account.accountRS,
+	balanceATM: state.account.balanceATM,
+	description: state.account.description,
+	forgedBalanceATM: state.account.forgedBalanceATM,
+	name: state.account.name,
+	publicKey: state.account.publicKey,
+	requestProcessingTime: state.account.requestProcessingTime,
+	unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
 	assets: state.account.assetBalances,
-    blockchainStatus: state.account.blockchainStatus
+	blockchainStatus: state.account.blockchainStatus
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMessages: (reqParams) => dispatch(getMessages(reqParams)),
-    setMopalType: (type) => dispatch(setMopalType(type)),
-    formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
-    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
-    getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
-    getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
-    getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
-    getAccountAssetsAction: (requestParams) => dispatch(getAccountAssetsAction(requestParams)),
-    getAliasesCountAction: (requestParams) => dispatch(getAliasesCountAction(requestParams)),
-    getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
-    getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
-    getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
+	getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+	setMopalType: (type) => dispatch(setMopalType(type)),
+	formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
+	getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
+	getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
+	getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
+	getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
+	getAccountAssetsAction: (requestParams) => dispatch(getAccountAssetsAction(requestParams)),
+	getAliasesCountAction: (requestParams) => dispatch(getAliasesCountAction(requestParams)),
+	getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
+	getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
+	getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -65,114 +65,119 @@ class Dashboard extends React.Component {
 		lastIndex: 14,
 	};
 
-    componentWillReceiveProps(newState) {
-    	this.getBlock();
-        if (newState.account) {
-            this.initDashboard({account: newState.account})
-        }
-    }
+	componentWillReceiveProps(newState) {
+		this.getBlock();
+		if (newState.account) {
+			this.initDashboard({account: newState.account})
+		}
+	}
 
-    componentWillMount() {
-        this.getBlock();
-        if (this.props.account) {
-            this.initDashboard({account: this.props.account})
-        }
-    }
+	componentWillMount() {
+		this.getBlock();
+		if (this.props.account) {
+			this.initDashboard({account: this.props.account})
+		}
+	}
 
-    initDashboard = (reqParams) => {
-        this.getAccountAsset(reqParams);
-        this.getAliasesCount(reqParams);
-        this.getCurrenciesCount(reqParams);
-        this.getMessagesCount(reqParams);
-        this.getGoods({...reqParams, seller: this.props.account});
-        this.getTransactions({
-            ...reqParams,
-            firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
-        });
+	initDashboard = (reqParams) => {
+		this.getAccountAsset(reqParams);
+		this.getAliasesCount(reqParams);
+		this.getCurrenciesCount(reqParams);
+		this.getMessagesCount(reqParams);
+		this.getGoods({...reqParams, seller: this.props.account});
+		this.getTransactions({
+			...reqParams,
+			firstIndex: this.state.firstIndex,
+			lastIndex: this.state.lastIndex
+		});
 
-    };
+	};
 
-    getAccountAsset = async (requsetParams) => {
-        const accountAssets = await this.props.getAccountAssetsAction(requsetParams);
+	getAccountAsset = async (requsetParams) => {
+		const accountAssets = await this.props.getAccountAssetsAction(requsetParams);
 
-        console.log(accountAssets);
         if (accountAssets) {
             this.setState({
                 assetData: accountAssets.accountAssets,
-                assetsValue: parseInt(accountAssets.accountAssets.map((el) => {if(el.decimals) {return el.quantityATU / Math.pow(10, el.decimals)} else {return el.quantityATU}}).reduce((a, b) => a + b, 0)),
+                assetsValue: parseInt(accountAssets.accountAssets
+					.map((el) => {
+						if(el.decimals) {
+                    		return parseInt(el.quantityATU / Math.pow(10, el.decimals))
+						} else {
+                            return parseInt(el.quantityATU)
+						}
+					}).reduce((a, b) => a + b, 0)),
                 assetsCount: accountAssets.accountAssets.length
             })
         }
     };
 
-    getAliasesCount = async (requsetParams) => {
-        const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
+	getAliasesCount = async (requsetParams) => {
+		const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
 
-        if (aliasesCount) {
-            this.setState({
-                aliassesValue: aliasesCount.numberOfAliases
-            })
-        }
-    };
+		if (aliasesCount) {
+			this.setState({
+				aliassesValue: aliasesCount.numberOfAliases
+			})
+		}
+	};
 
-    getCurrenciesCount = async (requsetParams) => {
-        const currencies = await this.props.getAccountCurrenciesAction(requsetParams);
+	getCurrenciesCount = async (requsetParams) => {
+		const currencies = await this.props.getAccountCurrenciesAction(requsetParams);
 
-        if (currencies) {
-            this.setState({
-                currenciesValue: (currencies.accountCurrencies && currencies.accountCurrencies.length && parseInt(currencies.accountCurrencies.map((el) => {return el.utils}).reduce((a, b) => a + b, 0))) || parseInt(0),
-                currenciesCount: currencies.accountCurrencies.length
-            })
-        }
-    };
+		if (currencies) {
+			this.setState({
+				currenciesValue: (currencies.accountCurrencies && currencies.accountCurrencies.length && parseInt(currencies.accountCurrencies.map((el) => {
+					return el.utils
+				}).reduce((a, b) => a + b, 0))) || parseInt(0),
+				currenciesCount: currencies.accountCurrencies.length
+			})
+		}
+	};
 
-    getMessagesCount = async (reqParams) => {
-        const messages = await this.props.getMessages(reqParams);
+	getMessagesCount = async (reqParams) => {
+		const messages = await this.props.getMessages(reqParams);
 
-        if (messages) {
-            this.setState({
-                messages: messages.transactions.length
-            })
-        }
-    };
+		if (messages) {
+			this.setState({
+				messages: messages.transactions.length
+			})
+		}
+	};
 
-    getTransactions = async (reqParams) => {
-        const transactions = await this.props.getTransactionsAction(reqParams);
+	getTransactions = async (reqParams) => {
+		const transactions = await this.props.getTransactionsAction(reqParams);
 
-        if (transactions) {
-            this.setState({
-                transactions: transactions.transactions
-            })
-        }
-    };
+		if (transactions) {
+			this.setState({
+				transactions: transactions.transactions
+			})
+		}
+	};
 
-    getBlock = async (reqParams) => {
-        const block = await this.props.getBlockAction(reqParams);
+	getBlock = async (reqParams) => {
+		const block = await this.props.getBlockAction(reqParams);
+		if (block) {
+			this.setState({
+				block: block
+			})
+		}
+	};
 
-        console.log(block);
+	getGoods = async (reqParams) => {
+		const purchased = await this.props.getDGSPurchaseCountAction(reqParams);
+		const pendingGoods = await this.props.getDGSPendingPurchases(reqParams);
+		const completedPurchased = await this.props.getDGSPurchaseCountAction(reqParams);
 
-        if (block) {
-            this.setState({
-                block: block
-            })
-        }
-    };
+		if (purchased && completedPurchased && pendingGoods) {
+			this.setState({
+				numberOfGoods: purchased.numberOfPurchases,
+				completedGoods: completedPurchased.numberOfPurchases,
+				pendingGoods: pendingGoods.purchases.length,
+			})
+		}
 
-    getGoods = async (reqParams) => {
-        const purchased = await this.props.getDGSPurchaseCountAction(reqParams);
-        const pendingGoods = await this.props.getDGSPendingPurchases(reqParams);
-        const completedPurchased = await this.props.getDGSPurchaseCountAction(reqParams);
-
-        if (purchased && completedPurchased && pendingGoods) {
-            this.setState({
-                numberOfGoods: purchased.numberOfPurchases,
-                completedGoods: completedPurchased.numberOfPurchases,
-                pendingGoods: pendingGoods.purchases.length,
-            })
-        }
-
-    };
+	};
 
 	render() {
 		return (
@@ -186,53 +191,62 @@ class Dashboard extends React.Component {
 						<div className="page-body-top">
 							<div className="page-body-item ">
 								<div className="card header ballance chart-sprite position-1">
-                                    <div className="card-title">Available Balance</div>
-                                    <div className="amount">
-                                        {Math.round(this.props.balanceATM / 100000000).toLocaleString('en')}
-                                        <div className="owned">
-                                            APL
-                                        </div>
-                                    </div>
-                                    <div className="account-sub-titles">
-                                        {this.props.accountRS}
-                                    </div>
+									<div className="card-title">Available Balance</div>
+									<div className="amount">
+										{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')}
+										<div className="owned">
+											APL <span>Owned</span>
+										</div>
+									</div>
+									<div className="account-sub-titles">
+										{this.props.accountRS}
+									</div>
 
-                                    {
-                                        this.state.block &&
-                                        <div className="account-sub-titles">
-                                            Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
-                                        </div>
-                                    }
-                                    <button
-                                        className="btn btn-right gray round round-bottom-right round-top-left absolute"
-                                        data-modal="sendMoney"
-                                    >
-                                        Buy/sell&nbsp;
-                                        <i className="arrow zmdi zmdi-chevron-right" />
-                                    </button>
+									{
+										this.state.block &&
+										<div className="account-sub-titles">
+											Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
+										</div>
+									}
+									<button
+										className="btn btn-right gray round round-bottom-right round-top-left absolute"
+										data-modal="sendMoney"
+									>
+										Buy/sell&nbsp;
+										<i className="arrow zmdi zmdi-chevron-right"/>
+									</button>
 								</div>
 							</div>
 							<div className="page-body-item ">
 								<div className="card header assets chart-sprite position-2">
 									<div className="card-title">Assets Value</div>
-                                    <div className="amount">
-                                        {Math.round(this.state.assetsValue).toLocaleString('en')}
-
-                                        <div className="owned">
-                                            {this.state.assetsCount}
-                                        </div>
-                                    </div>
+									<div className="amount">
+										<div className="text">
+											{Math.round(this.state.assetsValue).toLocaleString('en')}
+										</div>
+										{
+											Math.round(this.state.assetsValue) > 100000000000 &&
+											<div className="amount-tooltip">
+												<div className="amount-tooltip-text">
+													{Math.round(this.state.assetsValue).toLocaleString('en')}
+												</div>
+											</div>
+										}
+										<div className="owned">
+											{this.state.assetsCount} <span>Owned</span>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div className="page-body-item ">
 								<div className="card header currencies chart-sprite position-3">
 									<div className="card-title">Currencies Value</div>
-                                    <div className="amount">
-                                        {Math.round(this.state.currenciesValue / 100000000).toLocaleString('en')}
-                                        <div className="owned">
-                                            {this.state.currenciesCount}
-                                        </div>
-                                    </div>
+									<div className="amount">
+										{Math.round(this.state.currenciesValue / 100000000).toLocaleString('en')}
+										<div className="owned">
+											{this.state.currenciesCount} <span>Owned</span>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -298,33 +312,38 @@ class Dashboard extends React.Component {
 								<div className="card asset-portfolio">
 									<div className="card-title">Asset Portfolio</div>
 									<div className="full-box">
-                                        {
-                                            this.state.assetData &&
-                                            this.state.assetData.map((el, index) => {
-                                                if (index < 3) {
-                                                    console.log();
-                                                    return (
-                                                        <div className="full-box-item coin">
-                                                            <div className="coin-data">
-                                                                <CircleFigure
+										{
+											this.state.assetData &&
+											this.state.assetData.map((el, index) => {
+												if (index < 3) {
+													return (
+														<div className="full-box-item coin">
+															<div className="coin-data">
+																<CircleFigure
 																	index={index}
-                                                                    percentage={ (el.quantityATU) / this.props.assets.map((el, index) => {return parseInt(el.balanceATU)}).reduce((a, b) => a + b, 0) * 100}
-                                                                    type={el.quantityATU}
-                                                                />
-                                                                <div className="amount">{Math.round((el.quantityATU) / this.props.assets.map((el, index) => {return parseInt(el.balanceATU)}).reduce((a, b) => a + b, 0) * 100)}%</div>
-                                                                <div className="coin-name">{el.name}</div>
-                                                                <Link
-                                                                    to={'/asset-exchange/' + el.asset}
-                                                                    className="more"
+																	percentage={(el.quantityATU) / this.props.assets.map((el, index) => {
+																		return parseInt(el.balanceATU)
+																	}).reduce((a, b) => a + b, 0) * 100}
+																	type={el.quantityATU}
+																/>
+																<div
+																	className="amount">{Math.round((el.quantityATU) / this.props.assets.map((el, index) => {
+																	return parseInt(el.balanceATU)
+																}).reduce((a, b) => a + b, 0) * 100)}%
+																</div>
+																<div className="coin-name">{el.name}</div>
+																<Link
+																	to={'/asset-exchange/' + el.asset}
+																	className="more"
 																>
-                                                                    <i className="zmdi zmdi-more" />
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                }
-                                            })
-                                        }
+																	<i className="zmdi zmdi-more"/>
+																</Link>
+															</div>
+														</div>
+													);
+												}
+											})
+										}
 									</div>
 								</div>
 								<div className="card decentralized-marketplace">
@@ -343,13 +362,13 @@ class Dashboard extends React.Component {
 										</div>
 									</div>
 									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
-                                    <button
-                                        className="btn btn-right gray round round-bottom-right round-top-left absolute"
-                                        data-modal="sendMoney"
-                                    >
-                                        Buy/sell&nbsp;
-                                        <i className="arrow zmdi zmdi-chevron-right" />
-                                    </button>
+									<button
+										className="btn btn-right gray round round-bottom-right round-top-left absolute"
+										data-modal="sendMoney"
+									>
+										Buy/sell&nbsp;
+										<i className="arrow zmdi zmdi-chevron-right"/>
+									</button>
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -371,19 +390,20 @@ class Dashboard extends React.Component {
 											</div>
 										</div>
 									</div>
-                                    <a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')} className="btn btn-left btn-simple">Private APL</a>
-                                    <button
-                                        className="btn btn-right gray round round-bottom-right round-top-left absolute"
-                                        data-modal="sendMoney"
-                                        onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
-                                    >
-                                        Send&nbsp;
-                                        <i className="arrow zmdi zmdi-chevron-right" />
-                                    </button>
+									<a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')}
+									   className="btn btn-left btn-simple">Private APL</a>
+									<button
+										className="btn btn-right gray round round-bottom-right round-top-left absolute"
+										data-modal="sendMoney"
+										onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+									>
+										Send&nbsp;
+										<i className="arrow zmdi zmdi-chevron-right"/>
+									</button>
 									{/*<a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')}*/}
-									   {/*className="btn btn-left btn-simple">Private APL</a>*/}
+									{/*className="btn btn-left btn-simple">Private APL</a>*/}
 									{/*<button className="btn btn-right" data-modal="sendMoney"*/}
-									        {/*onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}>Send*/}
+									{/*onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}>Send*/}
 									{/*</button>*/}
 								</div>
 								<div className="card active-polls">
@@ -393,14 +413,14 @@ class Dashboard extends React.Component {
 										<p>What features should be implemented in apollo platform?</p>
 										<p>Apollo to have future USD/Fiat Pairs on Exchange?</p>
 									</div>
-                                    <button
-                                        className="btn btn-right gray round round-bottom-right round-top-left absolute "
-                                        data-modal="sendMoney"
-                                        onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}
-                                    >
-                                        Create poll&nbsp;
-                                        <i className="arrow zmdi zmdi-chevron-right" />
-                                    </button>
+									<button
+										className="btn btn-right gray round round-bottom-right round-top-left absolute "
+										data-modal="sendMoney"
+										onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}
+									>
+										Create poll&nbsp;
+										<i className="arrow zmdi zmdi-chevron-right"/>
+									</button>
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -418,22 +438,22 @@ class Dashboard extends React.Component {
 										qui
 										officia deserunt mollit anim id est laborum.
 									</div>
-                                    <button
-                                        className="btn btn-left gray round round-top-right round-bottom-left absolute "
-                                        data-modal="sendMoney"
+									<button
+										className="btn btn-left gray round round-top-right round-bottom-left absolute "
+										data-modal="sendMoney"
 
-                                    >
-                                        <i className="arrow zmdi zmdi-chevron-left" />&nbsp;
-                                        Previous
-                                    </button>
-                                    <button
-                                        className="btn btn-right gray round round-bottom-right round-top-left absolute "
-                                        data-modal="sendMoney"
+									>
+										<i className="arrow zmdi zmdi-chevron-left"/>&nbsp;
+										Previous
+									</button>
+									<button
+										className="btn btn-right gray round round-bottom-right round-top-left absolute "
+										data-modal="sendMoney"
 
-                                    >
-                                        Create poll&nbsp;
-                                        <i className="arrow zmdi zmdi-chevron-right" />
-                                    </button>
+									>
+										Create poll&nbsp;
+										<i className="arrow zmdi zmdi-chevron-right"/>
+									</button>
 								</div>
 							</div>
 						</div>

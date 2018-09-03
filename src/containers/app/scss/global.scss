@@ -138,6 +138,10 @@ input {
 	padding: 10px 20px;
 	font-size: 13px;
 	font-family: "Roboto-Regular";
+	
+	&.not-active {
+		pointer-events: none;
+	}
 }
 
 [data-blue-link-text] {
@@ -202,7 +206,7 @@ input {
 	border-radius: 6px;
 	background-color: #E5E5E5;
 	display: flex;
-
+	
 	i {
 		margin: auto;
 		font-size: 50px;
@@ -324,7 +328,7 @@ input {
 .info-box {
 	&.blue-info {
 		background-color: #00C8FF;
-
+		
 		p {
 			color: #fff;
 		}
@@ -788,15 +792,15 @@ input {
 			cursor: pointer;
 			display: flex;
 			border-radius: 3px;
-
+			
 			&.text {
 				width: auto;
-
+				
 				i {
 					font-style: normal;
 					font-size: 11px;
 					padding: 0 10px;
-
+					
 				}
 			}
 		}
@@ -845,7 +849,7 @@ input {
 	.input-icon {
 		width: 32px;
 		display: table-cell;
-
+		
 		i {
 			margin: auto;
 		}
@@ -870,7 +874,7 @@ input {
 
 .btn-box {
 	width: 100%;
-
+	
 	&.align-right {
 		text-align: right;
 	}
@@ -964,8 +968,8 @@ input {
 	box-sizing: border-box;
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
-
-	& , & > * {
+	
+	&, & > * {
 		transition: all 0.3s ease-in-out;
 	}
 	&.underscore {
@@ -1000,7 +1004,7 @@ input {
 				width: 100%;
 			}
 		}
-
+		
 		&:after {
 			content: '';
 			position: absolute;
@@ -1220,22 +1224,98 @@ input {
 			line-height: 1;
 			padding-right: 50px;
 			position: relative;
-			word-break: break-word;
-			margin: 10px 0;
+			margin: 15px 0;
+			@media (max-width: 1850px) {
+				font-size: 30px;
+			}
+			@media (max-width: 1660px) {
+				font-size: 24px;
+			}
+			.text {
+				overflow: hidden;
+				width: 100%;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				@media (max-width: 760px) {
+					white-space: normal;
+					word-break: break-all;
+				}
+				&:hover{
+					@media (min-width: 760px) {
+						& + .amount-tooltip {
+							opacity: 1;
+							top: calc(100% + 10px);
+							visibility: visible;
+						}
+					}
+				}
+			}
+			
+			.amount-tooltip {
+				opacity: 0;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				z-index: 2;
+				font-size: 0.7em;
+				padding: 10px;
+				transition: 0.3s;
+				word-break: break-all;
+				visibility: hidden;
+				.amount-tooltip-text{
+					position: relative;
+					z-index: 2;
+				}
+				&:before {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background-color: #cccccc;
+					z-index: 1;
+					border-radius: 5px;
+					box-shadow: 0px 0px 6px 1px rgba(#cccccc, 1);
+				}
+				&:after {
+					content: '';
+					position: absolute;
+					top: -5px;
+					left: 50%;
+					transform: translate(-50%, 0) rotate(45deg);
+					width: 10px;
+					height: 10px;
+					background-color: #cccccc;
+					z-index: 0;
+					box-shadow: 0px 0px 6px 1px rgba(#cccccc, 1);
+				}
+			}
 			
 			.owned {
 				position: absolute;
-				top: 0;
+				top: 50%;
+				transform: translate(0, -50%);
 				right: 0;
 				color: #FFFFFF;
-				font-size: 24px;
-				line-height: 1.6;
+				//font-size: 24px;
+				font-size: 0.7em;
+				line-height: 1.2;
 				min-width: 38px;
-				&:after {
-					content: 'Owned';
-					position: absolute;
-					bottom: -10px;
-					right: 0;
+				//&:after {
+				//	content: 'Owned';
+				//	position: absolute;
+				//	bottom: -10px;
+				//	right: 0;
+				//	opacity: 0.7;
+				//	color: #FFFFFF;
+				//	font-size: 12px;
+				//	line-height: 14px;
+				//}
+				span {
+					margin-top: 2px;
+					display: block;
 					opacity: 0.7;
 					color: #FFFFFF;
 					font-size: 12px;

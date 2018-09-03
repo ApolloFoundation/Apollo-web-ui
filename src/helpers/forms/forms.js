@@ -699,7 +699,7 @@ function sendRequest(requestType, data, callback, options) {
         } catch (err) {
             callback({
                 "errorCode": 1,
-                "errorDescription": err + " (" + $.t(field) + ")"
+                "errorDescription": err + " (" + field + ")"
             });
             return;
         }
