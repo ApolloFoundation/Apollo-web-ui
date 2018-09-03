@@ -188,8 +188,9 @@ function submitForm($modal, $btn, data, requestType) {
             data.priceATM = data.priceATM + '00000000'
         }
 
-        console.log(requestType);
-        console.log(data);
+        if (data.deliveryDeadlineTimestamp) {
+            data.deliveryDeadlineTimestamp = String(toEpochTime() + 60 * 60 * data.deliveryDeadlineTimestamp);
+        }
 
         if (data.doNotBroadcast || data.calculateFee) {
             data.broadcast = "false";
@@ -252,6 +253,13 @@ function submitForm($modal, $btn, data, requestType) {
 
         }
     }
+};
+
+function toEpochTime(currentTime) {
+    if (currentTime == undefined) {
+        currentTime = new Date();
+    }
+    return Math.floor((currentTime - 1385294400000) / 1000);
 };
 
 function getSuccessMessage(requestType) {

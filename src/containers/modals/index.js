@@ -56,6 +56,7 @@ import AddAlias   from './aliases/add-alias';
 import MarketplaceImage from './marketplace/mraketplace-image-view';
 import MarketplaceProductDetails from './marketplace/marketplace-product-details';
 import ListProductForSale from './marketplace/list-product-for-sale';
+import MarketplacePurchase from './marketplace/marketplace-purchase/';
 
 // Marketplace
 import DecryptMessage from './messenger/decrypt-messages';
@@ -203,6 +204,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          closeModal={this.closeModal}/>}
                 {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails closeModal={this.closeModal}/>}
                 {this.props.modalType === 'LIST_PRODUCT_FOR_SALE'       && <ListProductForSale        closeModal={this.closeModal}/>}
+                {this.props.modalType === 'MARKETPLACE_PURCHASE'        && <MarketplacePurchase       closeModal={this.closeModal}/>}
 
 
                 {/*Messages*/}
