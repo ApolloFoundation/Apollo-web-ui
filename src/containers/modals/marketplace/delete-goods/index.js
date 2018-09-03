@@ -165,6 +165,7 @@ class MarketplaceDelete extends React.Component {
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a
+                                                        onClick={() => this.props.closeModal()}
                                                         className="btn round round-top-left"
                                                     >
                                                         Cancel
