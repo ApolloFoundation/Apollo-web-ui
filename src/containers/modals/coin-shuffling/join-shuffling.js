@@ -8,8 +8,13 @@ import {Form, Text} from 'react-form';
 import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
+import {getShufflingAction} from "../../../actions/shuffling/";
 
-class CreateShuffling extends React.Component {
+import store from '../../../store'
+import crypto from "../../../helpers/crypto/crypto";
+
+
+class JoinShuffling extends React.Component {
     constructor(props) {
         super(props);
 
@@ -30,17 +35,21 @@ class CreateShuffling extends React.Component {
 
         values = {
             ...values,
-            registrationPeriod: 1439
+            shufflingFullHash: this.state.shuffling.shufflingFullHash,
+            registrationPeriod: 1439,
+            recipientPublicKey: await crypto.getPublicKey(values.recipientSecretPhrase, false)
         };
 
-        this.props.submitForm(null, null, values, 'shufflingCreate')
+        console.log(values);
+
+        this.props.submitForm(null, null, values, 'startShuffler')
             .done((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {
                     this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Shuffling Created!', null, 5000);
+                    NotificationManager.success('Shuffling Started!', null, 5000);
                 }
             })
 
@@ -49,8 +58,27 @@ class CreateShuffling extends React.Component {
         // this.props.setAlert('success', 'Transaction has been submitted!');
     };
 
+    getShuffling = async () => {
+        const shuffling = await this.props.getShufflingAction({
+            shuffling: this.props.modalData
+        });
+
+        if (shuffling) {
+            this.setState({
+                shuffling
+            });
+        }
+    };
+
+
     componentDidMount = () => {
         this.setRegisterUntil();
+        this.getShuffling();
+
+        NotificationManager.warning('Your passphrase will be sent to the server!', 'Warning', 30000);
+        NotificationManager.warning('Use a strong recipient passphrase and do not forget it !', 'Warning', 30000);
+        NotificationManager.info('After creating or joining a shuffling, you must keep your node online and your shuffler running, leaving enough funds in your account to cover the shuffling fees, until the shuffling completes! If you don\'t and miss your turn, you will be fined.', 'Attention', 30000);
+
     };
 
     handleAdvancedState = () => {
@@ -77,58 +105,40 @@ class CreateShuffling extends React.Component {
         }
     };
 
+    setAccount = async (getFormState, setValue) => {
+        const passphrase = getFormState().values.recipientSecretPhrase;
+
+        const generatedAccount = store.dispatch(await this.props.getAccountIdAsync(passphrase));
+
+        console.log(generatedAccount);
+
+        setValue('generatedAccount', generatedAccount);
+    };
+
     render() {
         return (
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, setValue
+                                 submitForm, setValue, getFormState
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
-                                    <p>Create shuffling</p>
+                                    <p>Start shuffling</p>
                                 </div>
                                 <div className="input-group display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Asset name</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <CustomSelect
-                                                field={'holdingType'}
-                                                setValue={setValue}
-                                                options={[
-                                                    { value: '0',     label: 'Apollo' },
-                                                    { value: '1', label: 'Asset' },
-                                                    { value: '2', label: 'Currency' },
-                                                ]}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Amount</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field={'shufflingAmountAPL'} defaultValue={0} type="number" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Register Until</label>
+                                            <label>Shuffling Id</label>
                                         </div>
                                         <div className="col-md-9">
                                             {
-                                                this.state.block &&
-                                                <Text defaultValue={this.state.block.height} field={'finishHeight'} type="number" step={10000}/>
+                                                this.state.shuffling &&
+                                                <p>{this.state.shuffling.shuffling}</p>
                                             }
                                         </div>
                                     </div>
@@ -136,20 +146,24 @@ class CreateShuffling extends React.Component {
                                 <div className="input-group display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Participant Count</label>
+                                            <label>Recipient Passphrase</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field={'participantCount'} placeholder={'Participant Count'} type="text"/>
+                                            <Text
+                                                field={'recipientSecretPhrase'}
+                                                type="password"
+                                                onKeyUp={() => this.setAccount(getFormState, setValue)}
+                                            />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="input-group display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Fee</label>
+                                            <label>Recipient Account</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field={'feeAPL'} placeholder={'Amount'} type="text"/>
+                                            <Text className={'not-active'} field={'generatedAccount'} type="text" readonly/>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +173,7 @@ class CreateShuffling extends React.Component {
                                             <label>Passphrase</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder={'Secret phrase'} type={'password'} field={'secretPhrase'}/>
+                                            <Text placeholder={'Secret phrase'} type="text" field={'secretPhrase'}/>
                                         </div>
                                     </div>
                                 </div>
@@ -175,18 +189,9 @@ class CreateShuffling extends React.Component {
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
-                                        Create Shuffling
+                                        Start Shuffling
                                     </button>
 
-                                </div>
-                                <div className="btn-box align-buttons-inside absolute left-conner">
-                                    <a
-                                        onClick={this.handleAdvancedState}
-                                        className="btn btn-right round round-bottom-left round-top-right absolute"
-                                        style={{left : 0, right: 'auto'}}
-                                    >
-                                        Advanced
-                                    </a>
                                 </div>
                             </div>
                         </form>
@@ -206,6 +211,8 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    getAccountIdAsync: (passPhrase) => dispatch(crypto.getAccountIdAsync(passPhrase)),
+    getShufflingAction: (reqParams) => dispatch(getShufflingAction(reqParams))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateShuffling);
+export default connect(mapStateToProps, mapDispatchToProps)(JoinShuffling);

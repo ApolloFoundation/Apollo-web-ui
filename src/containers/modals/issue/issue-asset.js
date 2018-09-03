@@ -99,6 +99,8 @@ class IssueAsset extends React.Component {
                     render={({ submitForm, values, addValue, removeValue }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
+                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                                 <div className="form-title">
                                     <p>Issue Asset</p>
                                 </div>

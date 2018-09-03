@@ -122,7 +122,6 @@ export function loadBlockchainStatus() {
         })
             .then((res) => {
                 if (!res.data.errorCode) {
-                    console.log(res.data);
                     dispatch({
                         type: "LOAD_BLOCKCHAIN_STATUS",
                         payload: res.data

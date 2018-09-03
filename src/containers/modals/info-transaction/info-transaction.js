@@ -30,6 +30,8 @@ class InfoLedgerTransaction extends React.Component {
                     this.props.modalData &&
                     <form className="modal-form">
                         <div className="form-group">
+                            <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                             <div className="form-title">
                                 <p>Transaction</p>
                             </div>

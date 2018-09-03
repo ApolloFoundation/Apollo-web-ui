@@ -118,20 +118,20 @@ const MarketplaceItem = (props, history) => (
                             'tags': true,
                         })}
                     >
-                        tags: {props.parsedTags.map((el, index) => {return <a style={{marginLeft: 15}} className="btn static primary">{el}</a>})}
+                        tags: {props.parsedTags.map((el, index) => {return <Link to={'/marketplace/' + el} style={{marginLeft: 15}} className="btn static primary">{el}</Link>})}
                     </div>
-	                <div className="tags-block">
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
-	                </div>
+	                {/*<div className="tags-block">*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
+	                {/*</div>*/}
                 </div>
             ]
         }

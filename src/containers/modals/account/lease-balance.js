@@ -118,6 +118,8 @@ class LeaseBalance extends React.Component {
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
+                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                                 <div className="form-title">
                                     <p>Lease your balance</p>
                                 </div>
@@ -235,7 +237,7 @@ class LeaseBalance extends React.Component {
                                             <label>Passphrase</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field="secretPhrase" placeholder="secretPhrase" />
+                                            <Text field="secretPhrase" placeholder="secretPhrase" type={'password'}/>
                                         </div>
                                     </div>
                                 </div>

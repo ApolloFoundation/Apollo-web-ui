@@ -36,3 +36,36 @@ export function getFinishedShfflings(reqParams) {
             })
     }
 }
+
+export function getShufflingAction(reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                'requestType': 'getShuffling',
+                ...reqParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data
+                }
+            })
+    }
+}
+
+export function getAccountShufflingsAction(reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                'requestType': 'getAccountShufflings',
+                ...reqParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data
+                }
+            })
+    }
+}
+

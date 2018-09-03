@@ -132,6 +132,8 @@ class CreatePoll extends React.Component {
                                 onSubmit={submitForm}
                             >
                                 <div className="form-group">
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                                     <div className="form-title">
                                         <p>Create Poll</p>
                                     </div>
@@ -338,7 +340,7 @@ class CreatePoll extends React.Component {
                                                 <label>Passphrase</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text placeholder={'Secret phrase'} type="text" field={'secretPhrase'}/>
+                                                <Text placeholder={'Secret phrase'} type={'password'} field={'secretPhrase'}/>
                                             </div>
                                         </div>
                                     </div>

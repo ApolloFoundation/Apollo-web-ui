@@ -70,15 +70,6 @@ class Messenger extends React.Component {
 
     handleSendMessageFormSubmit = async (values) => {
 
-        console.log({
-            ...values,
-            recipient: this.state.chats[this.state.selectedChat].account,
-            feeATM: values.messageToEncrypt ? 2 :1,
-            messageToEncryptIsText: values.messageToEncrypt ? 2 :1,
-            encryptedMessageIsPrunable: values.messageToEncrypt ? 2 :1,
-            encrypt_message: values.messageToEncrypt ? 2 :1
-        });
-
         // recipient: 14423669713677089029
         // deadline: 1440
         // encrypt_message: true
@@ -97,9 +88,6 @@ class Messenger extends React.Component {
             feeATM: values.messageToEncrypt ? 2 :1
         }, 'sendMessage')
             .done((res) => {
-                console.log('---------------');
-                console.log(res);
-
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {

@@ -97,6 +97,8 @@ class TransferAsset extends React.Component {
             <div className="modal-box">
                 <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
                     <div className="form-group">
+                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                         <div className="form-title">
                             <p>Transfer Asset</p>
                         </div>
