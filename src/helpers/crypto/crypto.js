@@ -91,10 +91,7 @@ function getAccountId(secretPhrase, isRsFormat) {
 
 
 function getAccountIdAsync(secretPhrase, isRsFormat) {
-    console.log(secretPhrase);
-
     return async (dispatch, getStore) => {
-        console.log(secretPhrase);
         const publicKey = await getPublicKey(converters.stringToHexString(secretPhrase));
 
         return getAccountIdFromPublicKey(publicKey, true);
@@ -116,8 +113,6 @@ function generatePassPhrase () {
     var n = words.length;
     var	phraseWords = [];
     var	x, w1, w2, w3;
-
-    console.log(random);
 
     for (var i=0; i < random.length; i++) {
         x = random[i];
@@ -213,15 +208,10 @@ function decryptMessage(data, options) {
     }
 
     var result = aesDecryptMessage(data, options);
-    console.log(result);
 
     var binData = new Uint8Array(result.decrypted);
     if (!(options.isCompressed === false)){
-        console.log(data);
-        console.log(options);
         binData = pako.inflate(binData);
-        console.log('3---%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-
     }
 
     var message;

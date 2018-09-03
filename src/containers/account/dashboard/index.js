@@ -96,26 +96,19 @@ class Dashboard extends React.Component {
     getAccountAsset = async (requsetParams) => {
         const accountAssets = await this.props.getAccountAssetsAction(requsetParams);
 
-        console.log(accountAssets);
         if (accountAssets) {
             this.setState({
                 assetData: accountAssets.accountAssets,
                 assetsValue: parseInt(accountAssets.accountAssets
 					.map((el) => {
 						if(el.decimals) {
-                    		console.log(1);
-                    		console.log(el.quantityATU / Math.pow(10, el.decimals));
                     		return parseInt(el.quantityATU / Math.pow(10, el.decimals))
 						} else {
-                            console.log(1);
-
                             return parseInt(el.quantityATU)
 						}
 					}).reduce((a, b) => a + b, 0)),
                 assetsCount: accountAssets.accountAssets.length
-            }, () => {
-            	console.log(this.state.assetsValue / 100000000);
-			})
+            })
         }
     };
 
@@ -162,9 +155,6 @@ class Dashboard extends React.Component {
 
     getBlock = async (reqParams) => {
         const block = await this.props.getBlockAction(reqParams);
-
-        console.log(block);
-
         if (block) {
             this.setState({
                 block: block
@@ -315,7 +305,6 @@ class Dashboard extends React.Component {
                                             this.state.assetData &&
                                             this.state.assetData.map((el, index) => {
                                                 if (index < 3) {
-                                                    console.log();
                                                     return (
                                                         <div className="full-box-item coin">
                                                             <div className="coin-data">

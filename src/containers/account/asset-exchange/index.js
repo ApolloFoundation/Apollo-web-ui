@@ -57,10 +57,7 @@ class AssetExchange extends React.Component {
     }
 
     handleBuyFormSubmit = async (values) => {
-        console.log(values);
-
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        console.log(isPassphrase);
         if (!values.quantityATU) {
             this.setState({
                 ...this.props,
@@ -110,23 +107,14 @@ class AssetExchange extends React.Component {
             })
         }
 
-
-
-        console.log(this.state.asset);
-        console.log(await crypto.getPublicKey(values.secretPhrase));
-
         values.publicKey = await crypto.getPublicKey(values.secretPhrase);
         values.asset = this.state.asset.asset;
         values.deadline = '1440';
         values.asset_order_type = 'placeAskOrder';
         values.phasingHashedSecretAlgorithm = '2';
-
-        console.log(values);
-        console.log(this.state.asset.decimals);
         values.priceATM =    values.priceATM  * Math.pow(10, 6);
         values.quantityATU = values.quantityATU  * Math.pow(10, this.state.asset.decimals);
         values.feeATM =      values.feeATM  * Math.pow(10, 8);
-        console.log(values);
 
         delete values.secretPhrase;
         this.props.buyAssetAction(values);
