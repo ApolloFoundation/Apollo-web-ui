@@ -130,7 +130,7 @@ class DeleteAlias extends React.Component {
                                                 <label>Passphrase</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text field="secretPhrase" placeholder="secretPhrase" />
+                                                <Text field="secretPhrase" placeholder="secretPhrase"  type={'password'}/>
                                             </div>
                                         </div>
                                     </div>

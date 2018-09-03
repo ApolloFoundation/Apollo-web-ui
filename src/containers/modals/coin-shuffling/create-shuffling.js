@@ -157,7 +157,7 @@ class CreateShuffling extends React.Component {
                                             <label>Passphrase</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder={'Secret phrase'} type="text" field={'secretPhrase'}/>
+                                            <Text placeholder={'Secret phrase'} type={'password'} field={'secretPhrase'}/>
                                         </div>
                                     </div>
                                 </div>

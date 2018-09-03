@@ -272,7 +272,7 @@ class AssetExchange extends React.Component {
                                                                     <label>Pass phrase</label>
                                                                 </div>
                                                                 <div className="col-md-7">
-                                                                    <Text field="secretPhrase" placeholder='Secret phrase' />
+                                                                    <Text field="secretPhrase" placeholder='Secret phrase'  type={'password'}/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -409,7 +409,7 @@ class AssetExchange extends React.Component {
                                                                     <label>Pass phrase</label>
                                                                 </div>
                                                                 <div className="col-md-7">
-                                                                    <Text field="secretPhrase" placeholder='Secret phrase' />
+                                                                    <Text field="secretPhrase" placeholder='Secret phrase'  type={'password'}/>
                                                                 </div>
                                                             </div>
                                                         </div>
