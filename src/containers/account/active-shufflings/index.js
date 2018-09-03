@@ -5,6 +5,7 @@ import classNames from "classnames";
 import SiteHeader from "../../components/site-header";
 import ShufflingItem from './shuffling-item';
 import {getActiveShfflings} from '../../../actions/shuffling';
+import {NotificationManager} from "react-notifications";
 const mapStateToPropms = state => ({
     account: state.account.account
 });
@@ -24,6 +25,7 @@ class ActiveShufflings extends React.Component {
     }
 
     componentDidMount() {
+        NotificationManager.info('After creating or joining a shuffling, you must keep your node online and your shuffler running, leaving enough funds in your account to cover the shuffling fees, until the shuffling completes! If you don\'t and miss your turn, you will be fined.', null, 1000000);
         this.getActiveShfflings({
             firstIndex: 0,
             lastIndex: 14
