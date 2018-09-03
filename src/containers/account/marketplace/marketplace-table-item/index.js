@@ -20,8 +20,8 @@ const MarketplaceTableItem = (props) => (
                     Change Price
                 </a>
                 <a
+                    onClick={() => props.setBodyModalParamsAction('CHANGE_QUANTITY', props.goods)}
                     className="btn primary blue"
-                    onClick={props.transferAlias}
                 >
                     Change QTY
                 </a>
