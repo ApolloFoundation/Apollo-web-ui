@@ -75,6 +75,21 @@
       position: absolute;
       left: 0;
       top: calc(100% - 40px); }
+  .page-header .logo {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 5; }
+    @media (max-width: 760px) {
+      .page-header .logo {
+        display: inline-flex; } }
+    .page-header .logo img {
+      height: 32px;
+      width: 32px; }
   .page-header .user-search-box {
     display: flex;
     margin: 0 -15px;
@@ -84,10 +99,13 @@
         position: fixed;
         z-index: 4;
         height: 50px;
-        top: 0px;
+        top: 0;
         left: 0;
         right: 0;
-        padding: 0 90px; } }
+        padding: 0 90px;
+        margin: 0;
+        width: 100%;
+        background-color: #333333; } }
     .page-header .user-search-box > * {
       margin: auto; }
     .page-header .user-search-box.searching .search-bar .user-account-actions .user-account-action {
@@ -203,6 +221,8 @@
         background-color: #eeeeee; }
         @media (max-width: 760px) {
           .page-header .user-search-box .user-box .user-avatar {
+            position: relative;
+            z-index: 2;
             width: 24px;
             height: 24px; } }
       .page-header .user-search-box .user-box .settings-bar {
@@ -435,3 +455,72 @@
           border-right: 1px solid #E6E6E6; }
           .zmdi-balance-wallet .user-search-box .user-box .settings-bar .options-col:last-child {
             border: 0; }
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  left: auto;
+  right: 0;
+  top: 50px;
+  bottom: 0;
+  background-color: #333333;
+  width: 100%;
+  padding: 20px;
+  overflow: auto;
+  max-height: 100%; }
+  @media (max-width: 760px) {
+    .mobile-nav {
+      display: block; } }
+
+.mobile-nav-item {
+  position: relative;
+  display: block;
+  margin-bottom: 25px;
+  cursor: pointer; }
+  .mobile-nav-item.active .item-dropdown {
+    max-height: 500px;
+    opacity: 1; }
+  .mobile-nav-item:last-child {
+    margin-bottom: 0; }
+  .mobile-nav-item .zmdi {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 20px;
+    height: auto;
+    color: #787878; }
+    .mobile-nav-item .zmdi:before {
+      font-size: 27px; }
+    .mobile-nav-item .zmdi.zmdi-view-dashboard {
+      margin-top: -1.5px; }
+  .mobile-nav-item .text {
+    position: relative;
+    display: flex;
+    font-size: 14px;
+    color: #787878;
+    padding: 0 40px; }
+    .mobile-nav-item .text.active {
+      color: #ffffff; }
+  .mobile-nav-item .arrow {
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    margin-top: -2px;
+    transform: translate(0, -50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    border: 1px solid;
+    border-color: transparent #fff #fff transparent;
+    border-radius: 2px; }
+  .mobile-nav-item .item-dropdown {
+    display: block;
+    transition: 0.3s;
+    overflow: hidden; }
+    .mobile-nav-item .item-dropdown a {
+      display: block;
+      padding: 0 40px;
+      color: #787878;
+      margin-top: 20px; }
+      .mobile-nav-item .item-dropdown a.active {
+        color: #ffffff; }

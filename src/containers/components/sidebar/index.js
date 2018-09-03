@@ -62,9 +62,7 @@ class Sidebar extends React.Component {
                     >
                         <img src="./apollo-logo.svg"/>
                     </div>
-	                <div className="burger-mobile">
-		                <div className="line" />
-	                </div>
+
                     <nav
                         className={"header-nav"}
                         onMouseOver={this.handleMenuMouseOver}

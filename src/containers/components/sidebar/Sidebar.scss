@@ -8,12 +8,14 @@
 	min-width: 260px;
 	overflow-y: scroll;
 	@media (max-width: 760px) {
-		right: 0;
-		width: 100%;
-		bottom: auto;
-		background-color: #333333;
-		height: 50px;
-		padding: 10px 30px;
+		//left: auto;
+		//right: 0;
+		//top: 0;
+		//bottom: 0;
+		//padding-top: 60px;
+		//background-color: #333333;
+		//width: 100%;
+		display: none !important;
 	}
 	
 	&.hover {
@@ -25,11 +27,14 @@
 	
 	.header-nav {
 		@media (max-width: 760px) {
-			position: fixed;
-			left: 0;
-			top: 100px;
-			left: -100%;
-			opacity: 0;
+			width: 100% !important;
+			height: 100%;
+			min-height: auto !important;
+			//position: fixed;
+			//left: 0;
+			//top: 100px;
+			//left: -100%;
+			//opacity: 0;
 			//h100%
 		}
 	}
@@ -67,8 +72,7 @@
 			width: 220px;
 			background-color: #333333;
 			@media (max-width: 760px) {
-				width: auto !important;
-				height: 100% !important;
+				display: none !important;
 			}
 			
 			img {
@@ -106,6 +110,10 @@
 						padding: 25px 40px 25px 75px;
 						display: block;
 						position: relative;
+						
+						@media (max-width: 760px) {
+							font-size: 14px !important;
+						}
 						
 						&.active {
 							color: #fff;
@@ -149,6 +157,10 @@
 						box-shadow: 0 0 40px 11px rgba(0, 0, 0, 0.6);
 						display: none;
 						padding: 15px 0;
+						@media (max-width: 760px) {
+							left: auto;
+							right: 100%;
+						}
 						
 						ul {
 							li {
