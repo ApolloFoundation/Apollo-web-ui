@@ -151,7 +151,7 @@ class MarketplaceSearch extends React.Component {
                         }
                     </a>
                 </SiteHeader>
-                <div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
+                <div className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
                     <div
                         className="marketplace"
                         style={{
@@ -171,11 +171,9 @@ class MarketplaceSearch extends React.Component {
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
                                         <div
-                                            onMouseOver={this.handleCardMouseOver}
-                                            onMouseOut={this.handleCardMouseOut}
                                             className={classNames({
-                                            'col-md-6 col-lg-3' : this.state.isGrid,
-                                            'col-xs-12 col-sm-12 col-md-12 col-lg-12': !this.state.isGrid,
+                                                'marketplace-item' : this.state.isGrid,
+                                                'col-xs-12 col-sm-12 col-md-12 col-lg-12': !this.state.isGrid,
                                         })}>
                                             <MarketplaceItem
                                                 tall={this.state.isGrid}

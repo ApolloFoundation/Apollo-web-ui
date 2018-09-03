@@ -126,8 +126,6 @@ class ResentMarketplaceListing extends React.Component {
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
                                         <div
-                                            // onMouseOver={this.handleCardMouseOver}
-                                            // onMouseOut={this.handleCardMouseOut}
                                             className={classNames({
                                                 'marketplace-item' : this.state.isGrid,
                                                 'col-xs-12 col-sm-12 col-md-12 col-lg-12 marketplace-item': !this.state.isGrid,
