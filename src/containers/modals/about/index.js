@@ -23,10 +23,6 @@ class AboutApollo extends React.Component {
         };
     }
 
-    componentDidMount() {
-
-    }
-
     render() {
         return (
             <div className="modal-box wide">

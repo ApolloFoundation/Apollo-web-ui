@@ -73,10 +73,18 @@ class ModalWindow extends React.Component {
 
     handleModal(e) {
         const modalWindow = document.querySelector('.modal-window');
+        const modalBox = document.querySelectorAll('.modal-box');
 
         if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
 
             if (!e.target.closest('.modal-window .modal-box')) {
+                Object.values(modalBox).map((el, index) => {
+                    setTimeout(() => {
+                        el.classList.remove('active');
+                    }, 1);
+
+
+                });
                 modalWindow.classList.remove('active');
                 setTimeout(() => {
                     this.props.setMopalType(null);
@@ -89,10 +97,38 @@ class ModalWindow extends React.Component {
         }
     }
 
-    closeModal = () => {
-        const modalWindow = document.querySelector('.modal-window');
+    componentDidUpdate() {
+        if (this.refs.modalWindow.childNodes.length) {
+            setTimeout(() => {
+                document.querySelector('.modal-box').classList.add('active')
+            }, 1)
+        }
+    }
 
-        document.querySelector('.modal-window').classList.remove('active');
+    closeModal = () => {
+        const modalWindow = document.querySelectorAll('.modal-window');
+        const modalBox = document.querySelectorAll('.modal-box');
+
+        console.log(modalWindow);
+
+        Object.values(modalWindow).map((el, index) => {
+            setTimeout(() => {
+                el.classList.remove('active');
+            }, 1);
+
+
+        });
+
+        Object.values(modalBox).map((el, index) => {
+            setTimeout(() => {
+                el.classList.remove('active');
+            }, 1);
+
+
+        });
+
+
+        // document.querySelector('.modal-window').classList.remove('active');
 
         setTimeout(() => {
             this.props.setMopalType(null);
@@ -107,6 +143,7 @@ class ModalWindow extends React.Component {
                     "modal-window" : true,
                     "active": this.props.modalType
                 })}
+                ref={'modalWindow'}
             >
                 {this.props.modalType === 'INFO_TRANSACTION'            && <InfoTransaction           closeModal={this.closeModal}/>}
                 {this.props.modalType === 'INFO_LEDGER_TRANSACTION'     && <InfoLedgerTransaction     closeModal={this.closeModal}/>}
@@ -137,7 +174,7 @@ class ModalWindow extends React.Component {
 
 
                 {/*Account*/}
-                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setMopalType} closeModal={this.closeModal}/>}
                 {this.props.modalType === 'MANDATORY_APPROVAL'          && <MandatoryApproval         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            closeModal={this.closeModal}/>}
                 {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              closeModal={this.closeModal}/>}
