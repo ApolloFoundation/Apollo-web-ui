@@ -138,6 +138,10 @@ input {
 	padding: 10px 20px;
 	font-size: 13px;
 	font-family: "Roboto-Regular";
+
+	&.not-active {
+		pointer-events: none;
+	}
 }
 
 [data-blue-link-text] {

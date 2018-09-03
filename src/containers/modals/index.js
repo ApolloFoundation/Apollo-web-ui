@@ -43,6 +43,7 @@ import UploadFile from './data-storage/uppload-file';
 
 // Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling';
+import JoinShuffling from './coin-shuffling/join-shuffling';
 
 // Aliases
 import EditAlias     from './aliases/edit-alias';
@@ -141,6 +142,7 @@ class ModalWindow extends React.Component {
 
                 {/* Shuffling */}
                 {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           />}
+                {this.props.modalType === 'START_SHUFFLING'             && <JoinShuffling             />}
 
 
                 {/*Aliases */}
