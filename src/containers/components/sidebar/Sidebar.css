@@ -7,10 +7,25 @@
   z-index: 2;
   min-width: 260px;
   overflow-y: scroll; }
+  @media (max-width: 760px) {
+    .menu-bar {
+      right: 0;
+      width: 100%;
+      bottom: auto;
+      background-color: #333333;
+      height: 50px;
+      padding: 10px 30px; } }
   .menu-bar.hover {
     right: 0; }
   .menu-bar::-webkit-scrollbar {
     width: 0; }
+  @media (max-width: 760px) {
+    .menu-bar .header-nav {
+      position: fixed;
+      left: 0;
+      top: 100px;
+      left: -100%;
+      opacity: 0; } }
   .menu-bar .menu-bar-container {
     position: absolute;
     top: 0;
@@ -20,11 +35,23 @@
     z-index: 2;
     max-width: 235px;
     box-shadow: 0 0 40px 11px rgba(0, 0, 0, 0.6); }
+    @media (max-width: 760px) {
+      .menu-bar .menu-bar-container {
+        width: 100%;
+        position: static;
+        box-shadow: none;
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap; } }
     .menu-bar .menu-bar-container .site-logo {
       height: 100px;
       display: flex;
       width: 220px;
       background-color: #333333; }
+      @media (max-width: 760px) {
+        .menu-bar .menu-bar-container .site-logo {
+          width: auto !important;
+          height: 100% !important; } }
       .menu-bar .menu-bar-container .site-logo img {
         margin: auto;
         height: 32px;
@@ -95,6 +122,9 @@
       display: block;
       position: relative;
       padding-top: 100px; }
+      @media (max-width: 760px) {
+        .menu-bar .menu-bar-container .collapse-button {
+          display: none !important; } }
       .menu-bar .menu-bar-container .collapse-button.active {
         color: #fff; }
         .menu-bar .menu-bar-container .collapse-button.active .zmdi.left {

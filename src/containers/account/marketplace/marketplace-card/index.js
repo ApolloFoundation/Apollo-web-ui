@@ -59,6 +59,7 @@ const MarketplaceItem = (props, history) => (
                             {props.name}
                         </div>
                     </div>
+
                 ]
 
         }
@@ -119,6 +120,18 @@ const MarketplaceItem = (props, history) => (
                     >
                         tags: {props.parsedTags.map((el, index) => {return <a style={{marginLeft: 15}} className="btn static primary">{el}</a>})}
                     </div>
+	                <div className="tags-block">
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+	                </div>
                 </div>
             ]
         }

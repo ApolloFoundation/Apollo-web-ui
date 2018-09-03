@@ -357,6 +357,9 @@ input {
       display: inline-block;
       vertical-align: middle;
       margin-right: 10px; }
+      @media (max-width: 760px) {
+        .form-group .form-body .image-button .zmdi {
+          color: #ffffff; } }
     .form-group .form-body .image-button label {
       font-size: 13px;
       color: #333333;
@@ -675,6 +678,9 @@ input {
       padding-top: 1px;
       font-size: 20px;
       color: #000; }
+      @media (max-width: 760px) {
+        .btn.icon-button i {
+          color: #ffffff !important; } }
   .btn.filters {
     border: 1px solid transparent; }
     .btn.filters.active {

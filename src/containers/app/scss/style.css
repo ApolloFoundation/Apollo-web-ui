@@ -24,6 +24,10 @@ input[type="number"] {
 .site-content {
   position: relative;
   margin-left: 220px; }
+  @media (max-width: 760px) {
+    .site-content {
+      margin-left: 0 !important;
+      padding-top: 50px; } }
   .site-content.hide-page-body .page-content .page-body:after {
     visibility: visible;
     opacity: 1; }
@@ -33,12 +37,14 @@ input[type="number"] {
     flex-wrap: wrap;
     padding: 120px 7.5px 15px;
     z-index: 0; }
+    @media (max-width: 760px) {
+      .site-content .page-content .page-body {
+        padding-top: 0; } }
     .site-content .page-content .page-body.full-screen-block {
       height: 100%;
       padding-bottom: 0; }
     .site-content .page-content .page-body.no-padding-on-the-sides {
-      padding-left: 0;
-      padding-right: 0; }
+      padding-left: 0; }
     .site-content .page-content .page-body.flexible-height {
       height: auto; }
     .site-content .page-content .page-body.overflow-hidden {
@@ -198,7 +204,7 @@ input[type="number"] {
       right: 30px;
       bottom: 20px; }
     .site-content .page-content .page-body > div {
-      min-height: 800px;
+      min-height: 750px;
       width: 100%;
       padding: 0 7.5px;
       display: flex;
@@ -259,6 +265,38 @@ input[type="number"] {
     .site-content .page-content .page-body .messenger {
       height: calc(100vh - 135px); }
     .site-content .page-content .page-body .marketplace .row > * {
-      height: calc(50% - 19px); }
+      height: calc(50% - 49px); }
     .site-content .page-content .page-body .marketplace .row.fluid-row > * {
       height: auto !important; }
+
+.burger-mobile {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 14px;
+  width: 20px;
+  position: absolute;
+  transform: translate(0, -50%);
+  top: 50%;
+  right: 20px;
+  z-index: 2; }
+  @media (max-width: 760px) {
+    .burger-mobile {
+      display: flex; } }
+  .burger-mobile:before, .burger-mobile:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    left: 0;
+    right: 0;
+    background-color: #fff; }
+  .burger-mobile:before {
+    top: 0; }
+  .burger-mobile:after {
+    bottom: 0; }
+
+.line {
+  width: 100%;
+  height: 3px;
+  background-color: #fff; }

@@ -517,6 +517,9 @@ input {
 				display: inline-block;
 				vertical-align: middle;
 				margin-right: 10px;
+				@media (max-width: 760px) {
+					color: #ffffff;
+				}
 			}
 			label {
 				font-size: 13px;
@@ -1027,6 +1030,9 @@ input {
 			padding-top: 1px;
 			font-size: 20px;
 			color: #000;
+			@media (max-width: 760px) {
+				color: #ffffff !important;
+			}
 		}
 	}
 	&.filters {

@@ -32,6 +32,10 @@ input[type="number"] {
 .site-content {
   position: relative;
   margin-left: 220px;
+  @media (max-width: 760px) {
+    margin-left: 0 !important;
+    padding-top: 50px;
+  }
 
   &.hide-page-body {
     .page-content {
@@ -50,6 +54,9 @@ input[type="number"] {
       flex-wrap: wrap;
       padding: 120px 7.5px 15px;
       z-index: 0;
+      @media(max-width: 760px) {
+        padding-top: 0;
+      }
 
       &.full-screen-block {
         height: 100%;
@@ -57,7 +64,6 @@ input[type="number"] {
       }
       &.no-padding-on-the-sides {
         padding-left: 0;
-        padding-right: 0;
       }
       &.flexible-height {
         height: auto;
@@ -290,7 +296,7 @@ input[type="number"] {
 
       // dashboard page
       & > div {
-        min-height: 800px;
+        min-height: 750px;
         width: 100%;
         padding: 0 7.5px;
         display: flex;
@@ -432,7 +438,7 @@ input[type="number"] {
       .marketplace {
         .row {
           & > * {
-            height: calc(50% - 19px);
+            height: calc(50% - 49px);
           }
           &.fluid-row {
             & > * {
@@ -443,4 +449,42 @@ input[type="number"] {
       }
     }
   }
+}
+
+
+.burger-mobile{
+	display: none;
+	align-items: center;
+	justify-content: center;
+	height: 14px;
+	width: 20px;
+	position: absolute;
+	transform: translate(0, -50%);
+	top: 50%;
+	right: 20px;
+	z-index: 2;
+	@media (max-width: 760px) {
+		display: flex;
+	}
+	&:before,
+	&:after{
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 3px;
+		left: 0;
+		right: 0;
+		background-color: #fff;
+	}
+	&:before {
+		top: 0;
+	}
+	&:after {
+		bottom: 0;
+	}
+}
+.line {
+	width: 100%;
+	height: 3px;
+	background-color: #fff;
 }

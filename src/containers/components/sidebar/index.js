@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavNavLink, NavLink } from 'react-router-dom';
+import { NavNavLink, NavLink, Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import './Sidebar.css';
 import AssetExchange from "../../account/asset-exchange";
@@ -62,7 +62,11 @@ class Sidebar extends React.Component {
                     >
                         <img src="./apollo-logo.svg"/>
                     </div>
+	                <div className="burger-mobile">
+		                <div className="line" />
+	                </div>
                     <nav
+                        className={"header-nav"}
                         onMouseOver={this.handleMenuMouseOver}
                         onMouseOut={this.handleMenuMouseOut}
                     >
