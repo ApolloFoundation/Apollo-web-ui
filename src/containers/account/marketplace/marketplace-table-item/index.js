@@ -26,8 +26,8 @@ const MarketplaceTableItem = (props) => (
                     Change QTY
                 </a>
                 <a
+                    onClick={() => props.setBodyModalParamsAction('DELETE_GOODS', props.goods)}
                     className="btn primary"
-                    onClick={props.deleteAlias}
                 >
                     Delete
                 </a>

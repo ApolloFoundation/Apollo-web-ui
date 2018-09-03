@@ -29,7 +29,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class MarketplaceChangePrice extends React.Component {
+class MarketplaceDelete extends React.Component {
     constructor(props) {
         super(props);
 
@@ -65,22 +65,23 @@ class MarketplaceChangePrice extends React.Component {
 
         values = {
             ...values,
-            priceATM: parseInt(values.priceATM),
+            deltaQuantity: (values.quantity - this.state.goods.quantity),
             goods: this.state.goods.goods,
             recipient: this.props.account,
             publicKey: publicKey
         };
 
-        console.log(values);
+        console.log(this.state.goods.quantity);
+        console.log(values.quantity);
 
-        this.props.submitForm(null, null, values, 'dgsPriceChange')
+        this.props.submitForm(null, null, values, 'dgsDelisting')
             .done((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {
                     this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('The marketplace item\'s price has been changed successfully!', null, 5000);
+                    NotificationManager.success('The marketplace item has been deleted successfully!', null, 5000);
                 }
             });
     }
@@ -143,32 +144,6 @@ class MarketplaceChangePrice extends React.Component {
                                                     <div className="input-group display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
-                                                                <label>Current price</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                {
-                                                                    this.state.goods &&
-                                                                    <p>{(this.state.goods.priceATM / 100000000).toLocaleString('en')} APL</p>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="input-group display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>New price</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                {
-                                                                    this.state.goods &&
-                                                                    <Text defaultValue={this.state.goods.priceATM / 100000000} type="number" field="priceATM" placeholder="Currency Name" min={1}/>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="input-group display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
                                                                 <label>Fee</label>
                                                             </div>
                                                             <div className="col-md-9">
@@ -189,17 +164,17 @@ class MarketplaceChangePrice extends React.Component {
                                                     <AdvancedSettings advancedState={this.state.advancedState}/>
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                                    <button
+                                                    <a
                                                         className="btn round round-top-left"
                                                     >
                                                         Cancel
-                                                    </button>
+                                                    </a>
                                                     <button
                                                         type="submit"
                                                         name={'closeModal'}
                                                         className="btn btn-right blue round round-bottom-right"
                                                     >
-                                                        Change price
+                                                        Delete
                                                     </button>
 
                                                 </div>
@@ -227,4 +202,4 @@ class MarketplaceChangePrice extends React.Component {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceChangePrice);
+export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceDelete);

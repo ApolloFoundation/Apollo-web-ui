@@ -59,6 +59,7 @@ import ListProductForSale from './marketplace/list-product-for-sale';
 import MarketplacePurchase from './marketplace/marketplace-purchase/';
 import MarketplaceChangePrice from './marketplace/change-price/';
 import MarketplaceChangeQuantity from './marketplace/change-quantity/';
+import MarketplaceDelete from './marketplace/delete-goods/';
 
 // Marketplace
 import DecryptMessage from './messenger/decrypt-messages';
@@ -210,6 +211,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'MARKETPLACE_PURCHASE'        && <MarketplacePurchase       closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CHANGE_PRICE'                && <MarketplaceChangePrice    closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CHANGE_QUANTITY'             && <MarketplaceChangeQuantity closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.closeModal}/>}
 
 
                 {/*Messages*/}
