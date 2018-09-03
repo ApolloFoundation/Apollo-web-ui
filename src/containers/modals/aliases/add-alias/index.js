@@ -91,7 +91,7 @@ class AddAlias extends React.Component {
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
                                 <div className="form-title">
-                                    <p>Update Alias</p>
+                                    <p>Add Alias</p>
                                 </div>
                                 <div className="input-group offset-top display-block">
                                     <div className="row">
