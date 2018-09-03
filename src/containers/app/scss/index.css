@@ -817,16 +817,19 @@ input {
       color: #FFFFFF;
       font-family: "Roboto-Regular";
       font-size: 36px;
-      line-height: 60px;
+      line-height: 1;
       padding-right: 50px;
-      position: relative; }
+      position: relative;
+      word-break: break-word;
+      margin: 10px 0; }
       .card.header .amount .owned {
         position: absolute;
         top: 0;
         right: 0;
         color: #FFFFFF;
         font-size: 24px;
-        line-height: 1.6; }
+        line-height: 1.6;
+        min-width: 38px; }
         .card.header .amount .owned:after {
           content: 'Owned';
           position: absolute;
