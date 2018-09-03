@@ -89,6 +89,8 @@ class CreateUser extends React.Component {
                             {
                                 !this.state.isValidating &&
                                 <div className="form-group">
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                                     <div className="form-title">
                                         <p>Create Your Wallet</p>
                                     </div>

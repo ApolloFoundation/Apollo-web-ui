@@ -47,6 +47,8 @@ class InfoBlock extends React.Component {
                     this.props.modalData &&
                     <form className="modal-form">
                         <div className="form-group">
+                            <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                             <div className="form-title">
                                 <p>Block {this.props.modalData.block} ({this.props.modalData.height})</p>
                             </div>

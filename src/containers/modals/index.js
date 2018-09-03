@@ -66,7 +66,7 @@ class ModalWindow extends React.Component {
 
         this.state = {
 
-        }
+        };
 
         this.handleModal = this.handleModal.bind(this);
     }
@@ -89,6 +89,16 @@ class ModalWindow extends React.Component {
         }
     }
 
+    closeModal = () => {
+        const modalWindow = document.querySelector('.modal-window');
+
+        document.querySelector('.modal-window').classList.remove('active');
+
+        setTimeout(() => {
+            this.props.setMopalType(null);
+        }, 300);
+    };
+
     render() {
         return (
             <div
@@ -98,68 +108,68 @@ class ModalWindow extends React.Component {
                     "active": this.props.modalType
                 })}
             >
-                {this.props.modalType === 'INFO_TRANSACTION'            && <InfoTransaction           />}
-                {this.props.modalType === 'INFO_LEDGER_TRANSACTION'     && <InfoLedgerTransaction     />}
-                {this.props.modalType === 'INFO_BLOCK'                  && <InfoBlock                 />}
-                {this.props.modalType === 'PrivateTransactions'         && <PrivateTransactions       />}
-                {this.props.modalType === 'SEND_APOLLO'                 && <SendApollo                />}
-                {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         />}
+                {this.props.modalType === 'INFO_TRANSACTION'            && <InfoTransaction           closeModal={this.closeModal}/>}
+                {this.props.modalType === 'INFO_LEDGER_TRANSACTION'     && <InfoLedgerTransaction     closeModal={this.closeModal}/>}
+                {this.props.modalType === 'INFO_BLOCK'                  && <InfoBlock                 closeModal={this.closeModal}/>}
+                {this.props.modalType === 'PrivateTransactions'         && <PrivateTransactions       closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SEND_APOLLO'                 && <SendApollo                closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         closeModal={this.closeModal}/>}
 
 
                 {/* Assets */}
-                {this.props.modalType === 'TRANSFER_ASSET'              && <TransferAsset             />}
-                {this.props.modalType === 'DELETE_SHARES'               && <DeleteShares              />}
-                {this.props.modalType === 'RESERVE_CURRENCY'            && <ReserveCurrency           />}
-                {this.props.modalType === 'ISSUE_ASSET'                 && <IssueAsset                />}
+                {this.props.modalType === 'TRANSFER_ASSET'              && <TransferAsset             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DELETE_SHARES'               && <DeleteShares              closeModal={this.closeModal}/>}
+                {this.props.modalType === 'RESERVE_CURRENCY'            && <ReserveCurrency           closeModal={this.closeModal}/>}
+                {this.props.modalType === 'ISSUE_ASSET'                 && <IssueAsset                closeModal={this.closeModal}/>}
 
 
                 {/* Currency */}
-                {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             />}
+                {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             closeModal={this.closeModal}/>}
 
 
                 {/* Voting */}
-                {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                />}
-                {this.props.modalType === 'CAST_VOTE'                   && <CastVote                  />}
+                {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CAST_VOTE'                   && <CastVote                  closeModal={this.closeModal}/>}
 
 
                 {/* Data Storage */}
-                {this.props.modalType === 'ISSUE_FILE_UPLOAD'           && <UploadFile                />}
+                {this.props.modalType === 'ISSUE_FILE_UPLOAD'           && <UploadFile                closeModal={this.closeModal}/>}
 
 
                 {/*Account*/}
-                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               />}
-                {this.props.modalType === 'MANDATORY_APPROVAL'          && <MandatoryApproval         />}
-                {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            />}
-                {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              />}
-                {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation />}
-                {this.props.modalType === 'CALCULATE_CACHE'             && <HashCalculation           />}
-                {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     />}
-                {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            />}
-                {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          />}
-                {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               />}
-                {this.props.modalType === 'CREATE_USER'                 && <CreateUser                />}
+                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'MANDATORY_APPROVAL'          && <MandatoryApproval         closeModal={this.closeModal}/>}
+                {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            closeModal={this.closeModal}/>}
+                {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              closeModal={this.closeModal}/>}
+                {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CALCULATE_CACHE'             && <HashCalculation           closeModal={this.closeModal}/>}
+                {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            closeModal={this.closeModal}/>}
+                {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          closeModal={this.closeModal}/>}
+                {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CREATE_USER'                 && <CreateUser                closeModal={this.closeModal}/>}
 
 
                 {/* Shuffling */}
-                {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           />}
-                {this.props.modalType === 'START_SHUFFLING'             && <JoinShuffling             />}
+                {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.closeModal}/>}
+                {this.props.modalType === 'START_SHUFFLING'             && <JoinShuffling             closeModal={this.closeModal}/>}
 
 
                 {/*Aliases */}
-                {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 />}
-                {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 />}
-                {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             />}
-                {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               />}
-                {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  />}
+                {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 closeModal={this.closeModal}/>}
+                {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={this.closeModal}/>}
 
                 {/*Marketplace*/}
-                {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          />}
-                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails />}
-                {this.props.modalType === 'LIST_PRODUCT_FOR_SALE'       && <ListProductForSale        />}
+                {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          closeModal={this.closeModal}/>}
+                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails closeModal={this.closeModal}/>}
+                {this.props.modalType === 'LIST_PRODUCT_FOR_SALE'       && <ListProductForSale        closeModal={this.closeModal}/>}
 
 
                 {/*Messages*/}
-                {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            />}
+                {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal}/>}
             </div>
         );
     }
