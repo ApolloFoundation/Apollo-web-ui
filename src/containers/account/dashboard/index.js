@@ -307,6 +307,7 @@ class Dashboard extends React.Component {
                                                         <div className="full-box-item coin">
                                                             <div className="coin-data">
                                                                 <CircleFigure
+																	index={index}
                                                                     percentage={ (el.quantityATU) / this.props.assets.map((el, index) => {return parseInt(el.balanceATU)}).reduce((a, b) => a + b, 0) * 100}
                                                                     type={el.quantityATU}
                                                                 />
