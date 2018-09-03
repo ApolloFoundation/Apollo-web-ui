@@ -433,7 +433,7 @@ class Dashboard extends React.Component {
                                         data-modal="sendMoney"
 
                                     >
-                                        Create poll&nbsp;
+                                        Next&nbsp;
                                         <i className="arrow zmdi zmdi-chevron-right" />
                                     </button>
 								</div>
