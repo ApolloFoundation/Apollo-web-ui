@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import CustomSelect from '../../components/select/'
 import {Form, Text} from 'react-form';
 import {getBlockAction} from "../../../actions/blocks";
+import {NotificationManager} from "react-notifications";
+import submitForm from "../../../helpers/forms/forms";
 
 class CreateShuffling extends React.Component {
     constructor(props) {
@@ -26,6 +28,21 @@ class CreateShuffling extends React.Component {
 
     handleFormSubmit = async(values) => {
 
+        values = {
+            ...values,
+            registrationPeriod: 1439
+        };
+
+        this.props.submitForm(null, null, values, 'shufflingCreate')
+            .done((res) => {
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.setBodyModalParamsAction(null, {});
+
+                    NotificationManager.success('Shuffling Created!', null, 5000);
+                }
+            })
 
         // this.props.sendTransaction(values);
         // this.props.setBodyModalParamsAction(null, {});
@@ -68,7 +85,7 @@ class CreateShuffling extends React.Component {
                     render={({
                                  submitForm, setValue
                              }) => (
-                        <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
+                        <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
                                 <div className="form-title">
                                     <p>Create shuffling</p>
@@ -117,6 +134,16 @@ class CreateShuffling extends React.Component {
                                 <div className="input-group display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
+                                            <label>Participant Count</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text field={'participantCount'} placeholder={'Participant Count'} type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
                                             <label>Fee</label>
                                         </div>
                                         <div className="col-md-9">
@@ -134,48 +161,27 @@ class CreateShuffling extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button className="btn btn-right round round-top-left">Cancel</button>
+                                <AdvancedSettings advancedState={this.state.advancedState}/>
+                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                    <button
+                                        className="btn round round-top-left"
+                                    >
+                                        Cancel
+                                    </button>
                                     <button
                                         type="submit"
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
-                                        Send
+                                        Create Shuffling
                                     </button>
 
                                 </div>
-
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect passphrase.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.recipientStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect recipient.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.amountStatus &&
-                                    <InfoBox danger mt>
-                                        Missing amount.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.feeStatus &&
-                                    <InfoBox danger mt>
-                                        Missing fee.
-                                    </InfoBox>
-                                }
-
-                                <AdvancedSettings advancedState={this.state.advancedState}/>
                                 <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
-                                        className="btn btn-right round round-bottom-left round-top-right"
+                                        className="btn btn-right round round-bottom-left round-top-right absolute"
+                                        style={{left : 0, right: 'auto'}}
                                     >
                                         Advanced
                                     </a>
@@ -194,8 +200,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setModalData: (data) => dispatch(setModalData(data)),
-    getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams))
+    getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateShuffling);

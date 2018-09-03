@@ -7,6 +7,7 @@ import classNames from "classnames";
 import {getTransactionAction, getTransactionsAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modals";
 import {submitForm} from  '../../../helpers/forms/forms';
+import {NotificationManager} from "react-notifications";
 
 
 class Aliases extends React.Component {
