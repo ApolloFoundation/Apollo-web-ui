@@ -5,6 +5,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import uuid from 'uuid';
+import config from '../../../../config'
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
@@ -38,7 +39,7 @@ const MarketplaceItem = (props, history) => (
                             "no-image": !props.hasImage
                         })}
                         style={{
-                            backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
                         }}
                     />
                     ,
@@ -58,6 +59,7 @@ const MarketplaceItem = (props, history) => (
                             {props.name}
                         </div>
                     </div>
+
                 ]
 
         }
@@ -71,7 +73,7 @@ const MarketplaceItem = (props, history) => (
                         "no-image": !props.hasImage
                     })}
                     style={{
-                        backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                        backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
                     }}
                 />
                 ,
@@ -118,6 +120,18 @@ const MarketplaceItem = (props, history) => (
                     >
                         tags: {props.parsedTags.map((el, index) => {return <a style={{marginLeft: 15}} className="btn static primary">{el}</a>})}
                     </div>
+	                <div className="tags-block">
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+		                fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds
+	                </div>
                 </div>
             ]
         }
@@ -132,7 +146,7 @@ const MarketplaceItem = (props, history) => (
                             "no-image": !props.hasImage
                         })}
                         style={{
-                            backgroundImage: 'url(https://apollowallet.org/apl?requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
                         }}
                     />
                     <div className='cargo-major-details'>

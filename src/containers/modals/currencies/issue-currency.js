@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
+import {NotificationManager} from "react-notifications";
+import submitForm from "../../../helpers/forms/forms";
+import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 
 class IssueCurrency extends React.Component {
     constructor(props) {
@@ -22,60 +25,18 @@ class IssueCurrency extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        // Todo: finish form validating
+        this.props.submitForm(null, null, values, 'issueCurrency')
+            .done((res) => {
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.setBodyModalParamsAction(null, {});
 
-        if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            });
-        }
-        if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            });
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            });
-        }
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            });
-        }
+                    NotificationManager.success('Asset has been submitted!', null, 5000);
 
-        this.props.sendTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+                }
+            })
     };
 
     handleAdvancedState = () => {
@@ -95,119 +56,156 @@ class IssueCurrency extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
-                    <div className="form-group">
-                        <div className="form-title">
-                            <p>Issue Currency</p>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Asset name</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Description</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Quantity</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Decimals</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Fee</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Passphrase</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="btn-box align-buttons-inside absolute right-conner">
-                            <button className="btn btn-right round round-top-left">Cancel</button>
-                            <button
-                                type="submit"
-                                name={'closeModal'}
-                                className="btn btn-right blue round round-bottom-right"
-                            >
-                                Send
-                            </button>
+                <Form
+                    onSubmit={(values) => this.handleFormSubmit(values)}
+                    render={({ submitForm, values, addValue, removeValue }) => (
 
-                        </div>
+                        <form className="modal-form" onSubmit={submitForm}>
+                            <div className="form-group">
+                                <div className="form-title">
+                                    <p>Issue Currency</p>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Currency Name</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text type="text" field="name" placeholder="Currency Name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Currency Code</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text type="text" field='code' placeholder="Currency Code"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Description</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <TextArea placeholder="Description" field="description" cols="30" rows="10" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Type</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <div className="form-sub-actions">
+                                                <div
+                                                    className="form-group no-padding-bottom no-padding-top"
+                                                    style={{paddingTop: 0}}
+                                                >
+                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                        <Checkbox type="checkbox"/>
+                                                        <label>Exchangeable</label>
+                                                    </div>
+                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                        <Checkbox type="checkbox"/>
+                                                        <label>Controllable</label>
+                                                    </div>
+                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                        <Checkbox type="checkbox"/>
+                                                        <label>Reservable</label>
+                                                    </div>
+                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                        <Checkbox type="checkbox"/>
+                                                        <label>Claimable</label>
+                                                    </div>
+                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                        <Checkbox type="checkbox"/>
+                                                        <label>Mintable</label>
+                                                    </div>
+                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                        <Checkbox type="checkbox"/>
+                                                        <label>Non-Shuffleable</label>
+                                                    </div>
 
-                        {
-                            this.state.passphraseStatus &&
-                            <InfoBox danger mt>
-                                Incorrect passphrase.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.recipientStatus &&
-                            <InfoBox danger mt>
-                                Incorrect recipient.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.amountStatus &&
-                            <InfoBox danger mt>
-                                Missing amount.
-                            </InfoBox>
-                        }
-                        {
-                            this.state.feeStatus &&
-                            <InfoBox danger mt>
-                                Missing fee.
-                            </InfoBox>
-                        }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Fee</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text type="text" field='feeATM' placeholder="Fee" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Passphrase</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text type="password" field='secretPhrase' placeholder="Passphrase" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                    <button className="btn btn-right round round-top-left">Cancel</button>
+                                    <button
+                                        type="submit"
+                                        name={'closeModal'}
+                                        className="btn btn-right blue round round-bottom-right"
+                                    >
+                                        Send
+                                    </button>
 
-                        <AdvancedSettings advancedState={this.state.advancedState}/>
-                        <div className="btn-box align-buttons-inside absolute left-conner">
-                            <a
-                                onClick={this.handleAdvancedState}
-                                className="btn btn-right round round-bottom-left round-top-right"
-                            >
-                                Advanced
-                            </a>
-                        </div>
-                    </div>
-                </form>
+                                </div>
+
+                                {
+                                    this.state.passphraseStatus &&
+                                    <InfoBox danger mt>
+                                        Incorrect passphrase.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.recipientStatus &&
+                                    <InfoBox danger mt>
+                                        Incorrect recipient.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.amountStatus &&
+                                    <InfoBox danger mt>
+                                        Missing amount.
+                                    </InfoBox>
+                                }
+                                {
+                                    this.state.feeStatus &&
+                                    <InfoBox danger mt>
+                                        Missing fee.
+                                    </InfoBox>
+                                }
+
+                                <AdvancedSettings advancedState={this.state.advancedState}/>
+                                <div className="btn-box align-buttons-inside absolute left-conner">
+                                    <a
+                                        onClick={this.handleAdvancedState}
+                                        className="btn btn-right round round-bottom-left round-top-right"
+                                    >
+                                        Advanced
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    )}
+                />
             </div>
         );
     }
@@ -218,7 +216,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssueCurrency);

@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js';
 import converters from '../converters';
+import AplAddress from '../util/apladres';
 import account from '../../modules/modals';
 import curve25519 from './curve25519';
 import jsbn from "jsbn";
@@ -8,6 +9,8 @@ import pako from 'pako'
 import axios from 'axios';
 import config from '../../config';
 import curve25519_ from './curve25519_'
+
+import {words} from './random-words'
 
 const BigInteger = jsbn.BigInteger;
 
@@ -86,6 +89,18 @@ function getAccountId(secretPhrase, isRsFormat) {
     }
 };
 
+
+function getAccountIdAsync(secretPhrase, isRsFormat) {
+    console.log(secretPhrase);
+
+    return async (dispatch, getStore) => {
+        console.log(secretPhrase);
+        const publicKey = await getPublicKey(converters.stringToHexString(secretPhrase));
+
+        return getAccountIdFromPublicKey(publicKey, true);
+    }
+};
+
 const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(async function(resolve, reject) {
 
         const accountRS = getStore().account.accountRS;
@@ -94,6 +109,29 @@ const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(a
         resolve(accountRS === isAccount);
     });
 
+function generatePassPhrase () {
+    var bits = 128;
+    var random = new Uint32Array(bits / 32);
+    crypto.getRandomValues(random);
+    var n = words.length;
+    var	phraseWords = [];
+    var	x, w1, w2, w3;
+
+    console.log(random);
+
+    for (var i=0; i < random.length; i++) {
+        x = random[i];
+        w1 = x % n;
+        w2 = (((x / n) >> 0) + w1) % n;
+        w3 = (((((x / n) >> 0) / n) >> 0) + w2) % n;
+
+        phraseWords.push(words[w1]);
+        phraseWords.push(words[w2]);
+        phraseWords.push(words[w3]);
+    }
+
+    return (phraseWords);
+}
 
 function getSharedSecretJava(key1, key2) {
     var sharedKey;
@@ -175,10 +213,15 @@ function decryptMessage(data, options) {
     }
 
     var result = aesDecryptMessage(data, options);
-    var binData = new Uint8Array(result.decrypted);
+    console.log(result);
 
+    var binData = new Uint8Array(result.decrypted);
     if (!(options.isCompressed === false)){
+        console.log(data);
+        console.log(options);
         binData = pako.inflate(binData);
+        console.log('3---%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+
     }
 
     var message;
@@ -333,6 +376,141 @@ function decryptNote(message, options, secretPhrase) {
     }
 };
 
+function aesEncrypt(plaintext, options) {
+    var ivBytes = getRandomBytes(16);
+
+    // CryptoJS likes WordArray parameters
+    var text = converters.byteArrayToWordArray(plaintext);
+    var sharedKey;
+    if (!options.sharedKey) {
+        sharedKey = getSharedSecret(options.privateKey, options.publicKey);
+    } else {
+        sharedKey = options.sharedKey.slice(0); //clone
+    }
+    for (var i = 0; i < 32; i++) {
+        sharedKey[i] ^= options.nonce[i];
+    }
+    var key = CryptoJS.SHA256(converters.byteArrayToWordArray(sharedKey));
+    var encrypted = CryptoJS.AES.encrypt(text, key, {
+        iv: converters.byteArrayToWordArray(ivBytes)
+    });
+    var ivOut = converters.wordArrayToByteArray(encrypted.iv);
+    var ciphertextOut = converters.wordArrayToByteArray(encrypted.ciphertext);
+    return ivOut.concat(ciphertextOut);
+}
+
+function encryptFile(file, options, callback) {
+    var r;
+    try {
+        r = new FileReader();
+    } catch(e) {
+        // throw $.t("encrypted_file_upload_not_supported");
+    }
+    r.onload = function (e) {
+        var bytes = e.target.result;
+        options.isText = false;
+        var encrypted = encryptData(bytes, options);
+        var blobData = Uint8Array.from(encrypted.data);
+        var blob = new Blob([ blobData ], { type: "application/octet-stream" });
+        callback({ file: blob, nonce: encrypted.nonce });
+    };
+    r.readAsArrayBuffer(file);
+};
+
+function encryptData(plaintext, options) {
+    options.nonce = getRandomBytes(32);
+    if (!options.sharedKey) {
+        options.sharedKey = getSharedSecret(options.privateKey, options.publicKey);
+    }
+    var compressedPlaintext = pako.gzip(new Uint8Array(plaintext));
+    var data = aesEncrypt(compressedPlaintext, options);
+    return {
+        "nonce": options.nonce,
+        "data": data
+    };
+};
+
+function getRandomBytes(length) {
+    if (!window.crypto && !window.msCrypto && !crypto) {
+        // throw {
+        //     "errorCode": -1,
+        //     "message": $.t("error_encryption_browser_support")
+        // };
+    }
+    var bytes = new Uint8Array(length);
+    if (window.crypto) {
+        //noinspection JSUnresolvedFunction
+        window.crypto.getRandomValues(bytes);
+    } else if (window.msCrypto) {
+        //noinspection JSUnresolvedFunction
+        window.msCrypto.getRandomValues(bytes);
+    } else {
+        bytes = crypto.randomBytes(length);
+    }
+    return bytes;
+}
+
+function getEncryptionKeys(options, secretPhrase){
+    if (!options.sharedKey) {
+        if (!options.privateKey) {
+            if (!secretPhrase) {
+                // Todo: remembering of password
+                // if (NRS.rememberPassword) {
+                //     // secretPhrase = _password;
+                // } else {
+                //     throw {
+                //         "message": $.t("error_encryption_passphrase_required"),
+                //         "errorCode": 1
+                //     };
+                // }
+            }
+
+            options.privateKey = converters.hexStringToByteArray(getPrivateKey(secretPhrase));
+        }
+
+        if (!options.publicKey) {
+            if (!options.account) {
+                throw {
+                    "message": 'error_account_id_not_specified',
+                    "errorCode": 2
+                };
+            }
+
+            try {
+                options.publicKey = converters.hexStringToByteArray(getPublicKey(options.account, true));
+            } catch (err) {
+                var aplAddress = new AplAddress();
+
+                if (!aplAddress.set(options.account)) {
+                    throw {
+                        "message": 'error_invalid_account_id',
+                        "errorCode": 3
+                    };
+                } else {
+                    throw {
+                        "message": 'error_public_key_not_specified',
+                        "errorCode": 4
+                    };
+                }
+            }
+        } else if (typeof options.publicKey == "string") {
+            options.publicKey = converters.hexStringToByteArray(options.publicKey);
+        }
+    }
+    return options;
+};
+
+function generatePublicKey (secretPhrase) {
+    // if (!secretPhrase) {
+    //     if (NRS.rememberPassword) {
+    //         secretPhrase = _password;
+    //     } else {
+    //         throw { message: $.t("error_generate_public_key_no_password") };
+    //     }
+    // }
+
+    return getPublicKey(converters.stringToHexString(secretPhrase));
+};
 
 export default {
     getSharedSecretJava,
@@ -343,6 +521,13 @@ export default {
     getPublicKey,
     validatePassphrase,
     tryToDecryptMessage,
+    encryptFile,
+    encryptData,
+    getEncryptionKeys,
+    generatePublicKey,
+    getAccountId,
+    getAccountIdAsync,
+    generatePassPhrase,
 }
 
 

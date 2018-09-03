@@ -45,6 +45,27 @@ export function getAliasesCountAction(requestParams) {
     }
 }
 
+export function getAliasAction(requestParams) {
+    return (dispatch, getState) => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAlias',
+                ...requestParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data;
+                }
+                console.log('Error: ', res.data.errorCode);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }
+}
+
 export function buyAliasAction(requestParams) {
     return dispatch => {
         return fetch(config.api.serverUrl + "requestType=buyAlias", {

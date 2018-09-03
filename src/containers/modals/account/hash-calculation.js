@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
+import converters from '../../../helpers/converters';
 import classNames from 'classnames';
 
 import { Form, Text, TextArea, Checkbox } from 'react-form';
@@ -30,42 +31,6 @@ class HashCalculation extends React.Component {
     async handleFormSubmit(values) {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            })
-        }
-        if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            })
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            })
-        }
         if (!isPassphrase) {
             this.setState({
                 ...this.props,
@@ -79,9 +44,7 @@ class HashCalculation extends React.Component {
             })
         }
 
-        this.props.sendTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+        this.props.generateToken(values.message, values.secretPhrase);
     }
 
     handleTabChange(tab) {

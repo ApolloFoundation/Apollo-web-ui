@@ -3,13 +3,16 @@ import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
-import AdvancedSettings from '../../components/advanced-transaction-settings'
+import AdvancedSettings from '../../components/advanced-transaction-settings';
 import classNames from 'classnames';
 import crypto from  '../../../helpers/crypto/crypto';
 import InputMask from 'react-input-mask';
+import AccountRS from '../../components/account-rs';
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
+import {NotificationManager} from "react-notifications";
+import submitForm from "../../../helpers/forms/forms";
 
 class SendApollo extends React.Component {
     constructor(props) {
@@ -34,58 +37,16 @@ class SendApollo extends React.Component {
     async handleFormSubmit(values) {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            })
-        }
-        if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            })
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            })
-        }
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
-        }
+        this.props.submitForm(null, null, values, 'sendMoney')
+            .done((res) => {
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.setBodyModalParamsAction(null, {});
 
-        this.props.sendTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+                    NotificationManager.success('Transaction has been submitted!', null, 5000);
+                }
+            });
     }
 
     handleAdvancedState() {
@@ -145,13 +106,11 @@ class SendApollo extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="iconned-input-field">
-                                                <InputMask mask='APL-****-****-****-*****' value={this.state.value}  onChange={(e) => {if (e.target) setValue('recipient', e.target.value)}}>
-                                                    {(inputProps) => {
-                                                        return (
-                                                            <Text  {...inputProps} field="recipient" placeholder="Recipient" />
-                                                        );
-                                                    }}
-                                                </InputMask>
+                                                <AccountRS
+                                                    value={''}
+                                                    field={'recipient'}
+                                                    setValue={setValue}
+                                                />
 
                                                 <div className="input-icon"><i className="zmdi zmdi-account" /></div>
                                             </div>
@@ -278,17 +237,16 @@ class SendApollo extends React.Component {
 
                                 <AdvancedSettings advancedState={this.state.advancedState}/>
 
-                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <button
-                                        className="btn btn-right round round-top-left absolute"
-                                        style={{right: 57}}
+                                        className="btn round round-top-left"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="submit"
                                         name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right absolute"
+                                        className="btn btn-right blue round round-bottom-right"
                                     >
                                         Send
                                     </button>
@@ -322,6 +280,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setAlert: (status, message) => dispatch(setAlert(status, message)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),

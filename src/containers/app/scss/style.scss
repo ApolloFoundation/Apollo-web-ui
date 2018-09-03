@@ -199,6 +199,7 @@ input[type="number"] {
                     font-family: "Roboto-Regular";
                     font-size: 24px;
                     margin-right: 30px;
+                    min-width: 70px;
                   }
                   .coin-name {
                     color: #777777;
@@ -208,6 +209,7 @@ input[type="number"] {
                   }
                   .more {
                     height: 30px;
+                    margin: auto 0 auto auto;
 
                     i {
                       color: #BBBBBB;
@@ -294,7 +296,7 @@ input[type="number"] {
 
       // dashboard page
       & > div {
-        min-height: 800px;
+        min-height: 750px;
         width: 100%;
         padding: 0 7.5px;
         display: flex;
@@ -436,7 +438,7 @@ input[type="number"] {
       .marketplace {
         .row {
           & > * {
-            height: calc(50% - 19px);
+            height: calc(50% - 49px);
           }
           &.fluid-row {
             & > * {

@@ -1,6 +1,7 @@
 @import url(~bootstrap/dist/css/bootstrap-grid.min.css);
 @import url(~material-design-iconic-font/dist/css/material-design-iconic-font.min.css);
 @import url(~loaders.css/loaders.min.css);
+@import url(~react-notifications/lib/notifications.css);
 @import url(~roboto-fontface/css/roboto/roboto-fontface.css);
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   margin: 0;
@@ -75,6 +76,20 @@ input[type="checkbox"] {
   input[type="checkbox"]:checked:after {
     display: block; }
 
+input[type="number"] {
+  position: relative; }
+
+input[type="radio"] {
+  width: auto;
+  display: inline-block !important; }
+
+.notification-message .title {
+  color: white; }
+
+.word-brake {
+  word-wrap: break-word;
+  word-break: break-all; }
+
 textarea {
   border: 1px solid #E5E5E5;
   border-radius: 6px;
@@ -129,6 +144,17 @@ input {
   background-color: #00C8FF;
   border-radius: 100%;
   border: 3px solid #333; }
+
+.no-image {
+  height: 100px;
+  width: 150px;
+  border-radius: 6px;
+  background-color: #E5E5E5;
+  display: flex; }
+  .no-image i {
+    margin: auto;
+    font-size: 50px;
+    color: #fff; }
 
 .page-loader {
   position: fixed;
@@ -203,6 +229,14 @@ input {
     margin: auto;
     height: 32px;
     width: 32px; }
+
+.token {
+  color: white; }
+
+.info-box.blue-info {
+  background-color: #00C8FF; }
+  .info-box.blue-info p {
+    color: #fff; }
 
 .info-box.success {
   background-color: #2ecc71; }
@@ -417,7 +451,8 @@ input {
     margin: 55px -35px -69px -35px;
     background-color: #F5F5F5;
     padding: 18px 35px 70px 35px;
-    display: none; }
+    display: none;
+    border-radius: 0 0 6px 6px; }
     .form-group .form-tabulator.white {
       background-color: white; }
       .form-group .form-tabulator.white .form-tab-nav-box .form-tab {
@@ -448,8 +483,11 @@ input {
         border-top-right-radius: 6px; }
         .form-group .form-tabulator .form-tab-nav-box .form-tab.active {
           background-color: #F5F5F5; }
+        .form-group .form-tabulator .form-tab-nav-box .form-tab p {
+          font-size: 13px !important; }
         .form-group .form-tabulator .form-tab-nav-box .form-tab > * {
-          margin: auto; }
+          margin: auto;
+          font-size: 16px; }
     .form-group .form-tabulator .tab-body {
       display: none; }
       .form-group .form-tabulator .tab-body.active {
@@ -477,10 +515,7 @@ input {
   .input-group textarea {
     width: 100%; }
   .input-group.search input, .input-group.user input {
-    border-right: 0;
-    display: block;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0; }
+    display: block; }
   .input-group.search .input-icon, .input-group.user .input-icon {
     border: 1px solid #E5E5E5;
     background: #E5E5E5;
@@ -489,9 +524,13 @@ input {
     text-align: center;
     cursor: pointer;
     display: flex;
-    border-radius: 3px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0; }
+    border-radius: 3px; }
+    .input-group.search .input-icon.text, .input-group.user .input-icon.text {
+      width: auto; }
+      .input-group.search .input-icon.text i, .input-group.user .input-icon.text i {
+        font-style: normal;
+        font-size: 11px;
+        padding: 0 10px; }
   .input-group.search .iconned-input-field, .input-group.user .iconned-input-field {
     display: flex;
     width: 100%;
@@ -500,6 +539,22 @@ input {
     .input-group.search .iconned-input-field i, .input-group.user .iconned-input-field i {
       margin: auto;
       padding-bottom: 3px; }
+    .input-group.search .iconned-input-field *:nth-child(2), .input-group.user .iconned-input-field *:nth-child(2) {
+      border-left: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important; }
+    .input-group.search .iconned-input-field *:nth-child(1), .input-group.user .iconned-input-field *:nth-child(1) {
+      border-bottom-right-radius: 0 !important;
+      border-top-right-radius: 0 !important; }
+  .input-group .preview-image {
+    padding: 0;
+    width: 150px;
+    height: 100px;
+    border-radius: 6px;
+    border: 1px solid #E5E5E5;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; }
   .input-group .calculate-fee {
     display: inline-block;
     color: #00C8FF;
@@ -527,6 +582,10 @@ input {
 
 .btn-box {
   width: 100%; }
+  .btn-box.align-right {
+    text-align: right; }
+  .btn-box.align-left {
+    text-align: left; }
   .btn-box.inline {
     display: inline-block;
     position: static !important;
@@ -644,15 +703,13 @@ input {
     background: transparent;
     margin: 0 0 12px 30px; }
   .btn.btn-right {
+    float: right;
     right: 0;
-    bottom: 0;
-    border-top-left-radius: 3px;
-    border-bottom-right-radius: 3px; }
+    bottom: 0; }
   .btn.btn-left {
+    float: left;
     left: 0;
-    bottom: 0;
-    border-top-right-radius: 3px;
-    border-bottom-left-radius: 3px; }
+    bottom: 0; }
   .btn.static {
     position: static; }
   .btn.gray {
@@ -1030,6 +1087,8 @@ input {
     margin-top: 25px; }
   .info-box.info {
     background: #666666; }
+    .info-box.info p {
+      color: #fff; }
   .info-box.danger {
     background-color: #e74c3c; }
     .info-box.danger p {
@@ -1085,9 +1144,11 @@ input {
     .modal-window .modal-box.x-wide {
       max-width: 1000px !important; }
     .modal-window .modal-box .modal-form {
-      min-width: 500px; }
+      min-width: 500px;
+      margin-bottom: 20px; }
       .modal-window .modal-box .modal-form .form-group {
-        padding-bottom: 69px; }
+        padding-bottom: 69px;
+        position: relative; }
 
 .btn {
   display: inline-block;
@@ -1233,14 +1294,16 @@ input[type="number"] {
             color: #333333;
             font-family: "Roboto-Regular";
             font-size: 24px;
-            margin-right: 30px; }
+            margin-right: 30px;
+            min-width: 70px; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .coin-name {
             color: #777777;
             font-family: "Roboto-Regular";
             font-size: 12px;
             line-height: 14px; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .more {
-            height: 30px; }
+            height: 30px;
+            margin: auto 0 auto auto; }
             .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .more i {
               color: #BBBBBB;
               font-size: 30px; }
@@ -1293,7 +1356,7 @@ input[type="number"] {
       right: 30px;
       bottom: 20px; }
     .site-content .page-content .page-body > div {
-      min-height: 800px;
+      min-height: 750px;
       width: 100%;
       padding: 0 7.5px;
       display: flex;
@@ -1354,7 +1417,7 @@ input[type="number"] {
     .site-content .page-content .page-body .messenger {
       height: calc(100vh - 135px); }
     .site-content .page-content .page-body .marketplace .row > * {
-      height: calc(50% - 19px); }
+      height: calc(50% - 49px); }
     .site-content .page-content .page-body .marketplace .row.fluid-row > * {
       height: auto !important; }
 

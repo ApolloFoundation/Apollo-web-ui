@@ -1,6 +1,8 @@
 import CryptoJS from 'crypto-js';
 import jsbn from 'jsbn';
 import AplAddress from './util/apladres';
+import curve25519 from './crypto/curve25519';
+import crypto from './crypto/crypto';
 import convertString from 'convert-string';
 import {login} from "../modules/account";
 
@@ -155,7 +157,7 @@ function hexStringToInt8ByteArray(str) {
      return bytes;
 }
 function stringToHexString(str) {
-     return this.byteArrayToHexString(this.stringToByteArray(str));
+    return byteArrayToHexString(stringToByteArray(str));
 }
 function hexStringToString(hex) {
      return byteArrayToString(hexStringToByteArray(hex));
@@ -186,6 +188,16 @@ function checkBytesToIntInput(bytes, numBytes, opt_startIndex) {
      }
      return startIndex;
 }
+
+function byteArrayToBigIntegerHash(byteArray) {
+    var value = new BigInteger("0", 10);
+    for (var i = byteArray.length - 1; i >= 0; i--) {
+        value = value.multiply(new BigInteger("256", 10)).add(new BigInteger(byteArray[i].toString(10), 10));
+    }
+    return value;
+}
+
+
 function byteArrayToSignedShort(bytes, opt_startIndex) {
      var index = this.checkBytesToIntInput(bytes, 2, opt_startIndex);
      var value = bytes[index];
@@ -465,6 +477,108 @@ function convertFromHex8(hex) {
     return str;
 };
 
+function  getUtf8Bytes(str) {
+    //noinspection JSDeprecatedSymbols
+    var utf8 = unescape(encodeURIComponent(str));
+    var arr = [];
+    for (var i = 0; i < utf8.length; i++) {
+        arr[i] = utf8.charCodeAt(i);
+    }
+    return arr;
+};
+
+function toEpochTime(currentTime) {
+    if (currentTime == undefined) {
+        currentTime = new Date();
+    }
+    // if (1385294400000 == 0) {
+    //     throw "undefined epoch beginning";
+    // }
+    return Math.floor((currentTime - 1385294400000) / 1000);
+};
+
+function simpleHash(b1, b2) {
+    var sha256 = CryptoJS.algo.SHA256.create();
+    sha256.update(byteArrayToWordArray(b1));
+    if (b2) {
+        sha256.update(byteArrayToWordArray(b2));
+    }
+    var hash = sha256.finalize();
+    return wordArrayToByteArrayImpl(hash, false);
+}
+
+function signBytes(message, secretPhrase) {
+    // if (!secretPhrase) {
+    //     if (NRS.rememberPassword) {
+    //         secretPhrase = _password;
+    //     } else {
+    //         throw {
+    //             "message": $.t("error_signing_passphrase_required"),
+    //             "errorCode": 1
+    //         };
+    //     }
+    // }
+    var messageBytes = hexStringToByteArray(message);
+    var secretPhraseBytes = hexStringToByteArray(secretPhrase);
+
+    var digest = simpleHash(secretPhraseBytes);
+    var s = curve25519.keygen(digest).s;
+    var m = simpleHash(messageBytes);
+    var x = simpleHash(m, s);
+    var y = curve25519.keygen(x).p;
+    var h = simpleHash(m, y);
+    var v = curve25519.sign(h, x, s);
+    return byteArrayToHexString(v.concat(h));
+};
+
+function generateToken(message, secretPhrase) {
+    return async () => {
+        var messageBytes = getUtf8Bytes(message);
+        var pubKeyBytes = hexStringToByteArray(await crypto.getPublicKey(stringToHexString(secretPhrase)));
+        var token = pubKeyBytes;
+
+        var tsb = [];
+        var ts = toEpochTime();
+        tsb[0] = ts & 0xFF;
+        tsb[1] = (ts >> 8) & 0xFF;
+        tsb[2] = (ts >> 16) & 0xFF;
+        tsb[3] = (ts >> 24) & 0xFF;
+
+        messageBytes = messageBytes.concat(pubKeyBytes, tsb);
+        token = token.concat(tsb, hexStringToByteArray(
+            signBytes(byteArrayToHexString(messageBytes),
+                secretPhrase !== undefined ? stringToHexString(secretPhrase) : undefined)));
+
+        var buf = "";
+        for (var ptr = 0; ptr < 100; ptr += 5) {
+            var nbr = [];
+            nbr[0] = token[ptr] & 0xFF;
+            nbr[1] = token[ptr+1] & 0xFF;
+            nbr[2] = token[ptr+2] & 0xFF;
+            nbr[3] = token[ptr+3] & 0xFF;
+            nbr[4] = token[ptr+4] & 0xFF;
+            var number = byteArrayToBigIntegerHash(nbr);
+            if (number < 32) {
+                buf += "0000000";
+            } else if (number < 1024) {
+                buf += "000000";
+            } else if (number < 32768) {
+                buf += "00000";
+            } else if (number < 1048576) {
+                buf += "0000";
+            } else if (number < 33554432) {
+                buf += "000";
+            } else if (number < 1073741824) {
+                buf += "00";
+            } else if (number < 34359738368) {
+                buf += "0";
+            }
+            buf +=number.toString(32);
+        }
+        return buf;
+    }
+};
+
 export default {
     stringToByteArray,
     wordArrayToByteArrayImpl,
@@ -483,5 +597,6 @@ export default {
     addEllipsis,
     convertFromHex8,
     byteArrayToString,
-    shortArrayToByteArray
+    shortArrayToByteArray,
+    generateToken
 }

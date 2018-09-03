@@ -106,6 +106,8 @@
     margin-top: 25px; }
   .info-box.info {
     background: #666666; }
+    .info-box.info p {
+      color: #fff; }
   .info-box.danger {
     background-color: #e74c3c; }
     .info-box.danger p {
@@ -161,6 +163,8 @@
     .modal-window .modal-box.x-wide {
       max-width: 1000px !important; }
     .modal-window .modal-box .modal-form {
-      min-width: 500px; }
+      min-width: 500px;
+      margin-bottom: 20px; }
       .modal-window .modal-box .modal-form .form-group {
-        padding-bottom: 69px; }
+        padding-bottom: 69px;
+        position: relative; }

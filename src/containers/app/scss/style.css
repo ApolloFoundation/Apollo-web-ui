@@ -142,14 +142,16 @@ input[type="number"] {
             color: #333333;
             font-family: "Roboto-Regular";
             font-size: 24px;
-            margin-right: 30px; }
+            margin-right: 30px;
+            min-width: 70px; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .coin-name {
             color: #777777;
             font-family: "Roboto-Regular";
             font-size: 12px;
             line-height: 14px; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .more {
-            height: 30px; }
+            height: 30px;
+            margin: auto 0 auto auto; }
             .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .more i {
               color: #BBBBBB;
               font-size: 30px; }
@@ -202,7 +204,7 @@ input[type="number"] {
       right: 30px;
       bottom: 20px; }
     .site-content .page-content .page-body > div {
-      min-height: 800px;
+      min-height: 750px;
       width: 100%;
       padding: 0 7.5px;
       display: flex;
@@ -263,7 +265,7 @@ input[type="number"] {
     .site-content .page-content .page-body .messenger {
       height: calc(100vh - 135px); }
     .site-content .page-content .page-body .marketplace .row > * {
-      height: calc(50% - 19px); }
+      height: calc(50% - 49px); }
     .site-content .page-content .page-body .marketplace .row.fluid-row > * {
       height: auto !important; }
 

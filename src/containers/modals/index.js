@@ -15,6 +15,7 @@ import InfoBlock from './info-block';
 
 // Account
 import InfoAccount from './account/account';
+import CreateUser from './account/create-account';
 import MandatoryApproval from './account/mandatory-approval';
 import AccountDetails from './account/account-details';
 import LeaseBalance from './account/lease-balance';
@@ -35,6 +36,7 @@ import IssueCurrency from './currencies/issue-currency';
 
 // Voting system
 import CreatePoll from './voting-system/create-poll';
+import CastVote from './voting-system/cast-vote';
 
 // Data storage
 import UploadFile from './data-storage/uppload-file';
@@ -47,10 +49,12 @@ import EditAlias     from './aliases/edit-alias';
 import SellAlias     from './aliases/sell-alias';
 import TransferAlias from './aliases/transfer-alias';
 import DeleteAlias   from './aliases/delete-alias';
+import AddAlias   from './aliases/add-alias';
 
 // Marketplace
 import MarketplaceImage from './marketplace/mraketplace-image-view';
 import MarketplaceProductDetails from './marketplace/marketplace-product-details';
+import ListProductForSale from './marketplace/list-product-for-sale';
 
 // Marketplace
 import DecryptMessage from './messenger/decrypt-messages';
@@ -114,6 +118,7 @@ class ModalWindow extends React.Component {
 
                 {/* Voting */}
                 {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                />}
+                {this.props.modalType === 'CAST_VOTE'                   && <CastVote                  />}
 
 
                 {/* Data Storage */}
@@ -130,6 +135,8 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     />}
                 {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            />}
                 {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          />}
+                {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               />}
+                {this.props.modalType === 'CREATE_USER'                 && <CreateUser                />}
 
 
                 {/* Shuffling */}
@@ -141,18 +148,16 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 />}
                 {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             />}
                 {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               />}
+                {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  />}
 
                 {/*Marketplace*/}
                 {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          />}
+                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails />}
+                {this.props.modalType === 'LIST_PRODUCT_FOR_SALE'       && <ListProductForSale        />}
+
 
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            />}
-
-                {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails />}
-
-
-                {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               />}
-
             </div>
         );
     }

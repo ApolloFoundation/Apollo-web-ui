@@ -1,10 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
 import classNames from 'classnames';
 
 import { Form, Text } from 'react-form';
 import InfoBox from '../../../components/info-box';
+import {getAliasAction} from "../../../../actions/aliases";
+import submitForm from "../../../../helpers/forms/forms";
+import {NotificationManager} from "react-notifications";
 
 class SellAlias extends React.Component {
     constructor(props) {
@@ -20,69 +23,50 @@ class SellAlias extends React.Component {
             passphraseStatus: false,
             recipientStatus: false,
             amountStatus: false,
-            feeStatus: false
-        }
+            feeStatus: false,
+        };
 
         this.handleTabChange = this.handleTabChange.bind(this);
         this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
+    componentDidMount = () => {
+        this.getAlias();
+    };
+
     async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            })
-        }
-        if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            })
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            })
-        }
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
-        }
+        values = {
+            ...values,
+            aliasName: this.state.alias.aliasName,
 
-        this.props.sendTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+        };
+
+        this.props.submitForm(null, null, values, 'sellAlias')
+            .done((res) => {
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
+                } else {
+                    this.props.setBodyModalParamsAction(null, {});
+
+                    NotificationManager.success('Product has been listed!', null, 5000);
+                }
+            })
+
+        // this.props.sendTransaction(values);
+        // this.props.setBodyModalParamsAction(null, {});
+        // this.props.setAlert('success', 'Transaction has been submitted!');
     }
+
+    getAlias = async () => {
+        const alias = await this.props.getAliasAction({alias: this.props.modalData});
+
+        if (alias) {
+            this.setState({
+                alias
+            });
+        }
+    };
 
     handleTabChange(tab) {
         this.setState({
@@ -105,230 +89,197 @@ class SellAlias extends React.Component {
         }
     }
 
+    handleTab = (e, index) => {
+        e.preventDefault();
+
+        this.setState({
+            ...this.props,
+            activeTab: index
+        })
+    };
+
     render() {
         return (
             <div className="modal-box">
-                <Form
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm
-                             }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
-                                <div className="form-title">
-                                    <p>Sell Alias</p>
+                <div className="modal-form">
+                    {
+                        this.state.alias &&
+                        <div className="form-group">
+                            <div className="form-title">
+                                <p>Sell alias</p>
+                            </div>
+                            <div
+                                // style={{margin: '55px -35px -35px -35px'}}
+                                className="form-tabulator active"
+                            >
+                                <div className="form-tab-nav-box justify-left">
+                                    <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 0
+                                    })}>
+                                        <p>Sell alias to Specific Account</p>
+                                    </a>
+                                    <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
+                                        "form-tab": true,
+                                        "active": this.state.activeTab === 1
+                                    })}>
+                                        <p>Sell to Anyone</p>
+                                    </a>
                                 </div>
-                                <div className="input-group offset-top display-block">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Type</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="recipient" placeholder="Recipient" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group offset-top display-block">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Alias</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="aliasName" placeholder="Alias" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group offset-top display-block">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Account ID</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="feeATM" placeholder="Amount" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group offset-top display-block">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Fee</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="feeATM" placeholder="Amount" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group offset-top display-block">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="secretPhrase" placeholder="secretPhrase" />
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect passphrase.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.recipientStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect recipient.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.amountStatus &&
-                                    <InfoBox danger mt>
-                                        Missing amount.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.feeStatus &&
-                                    <InfoBox danger mt>
-                                        Missing fee.
-                                    </InfoBox>
-                                }
-                                <div
-                                    className={classNames({
-                                        'form-tabulator': true,
-                                        'active': this.state.advancedState
-                                    })}
-                                >
-                                    <div className="form-tab-nav-box">
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 0)}
+                                <Form
+                                    onSubmit={(values) => this.handleFormSubmit(values)}
+                                    render={({
+                                                 submitForm, setValue
+                                             }) => (
+                                        <form
+                                            onSubmit={submitForm}
                                             className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 0
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-close-circle'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 1)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 1
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 2)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 2
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-accounts-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 3)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 3
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-money-box'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 4)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 4
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-
-                                    </div>
-                                    <div className="form-tab">
-                                        <div className="input-group">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Referenced transaction hash</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                                </div>
-                                                <div className="col-md-3">
-
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <div className="form-sub-actions">
-                                                        <div className="form-group">
-                                                            <div className="input-group align-middle display-block offset-top">
-                                                                <input type="checkbox"/>
-                                                                <label>Do not broadcast</label>
-                                                            </div>
-                                                            <div className="input-group align-middle display-block offset-top">
-                                                                <input type="checkbox"/>
-                                                                <label>Add note to self?</label>
-                                                            </div>
-                                                        </div>
+                                                "tab-body": true,
+                                                "active": this.state.activeTab === 0
+                                            })}>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Alias</label>
+                                                    </div>
+                                                    <div className="col-md  -9">
+                                                        <p>{this.state.alias.aliasName}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button className="btn btn-right round round-top-left">Cancel</button>
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Send
-                                    </button>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Recipient</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text defaultValue={this.state.alias.accountRS} field="recipient" placeholder="Amount" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Price</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text field="priceAPL" placeholder="Amount" type={'number'}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Fee</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text field="feeATM" placeholder="Amount" type={'number'}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Passphrase</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text field="secretPhrase" placeholder="secretPhrase" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="btn-box align-buttons-inside absolute right-conner">
+                                                <a
+                                                    className="btn btn-left round round-bottom-left round-top-right"
+                                                    // onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
+                                                >
+                                                    Create account
+                                                </a>
+                                                <button
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right round-top-left"
+                                                >
+                                                    Enter
+                                                </button>
 
-                                </div>
-                                <div className="btn-box align-buttons-inside absolute left-conner">
-                                    <a
-                                        onClick={this.handleAdvancedState}
-                                        className="btn btn-right round round-bottom-left round-top-right"
-                                    >
-                                        Advanced
-                                    </a>
-                                </div>
+                                            </div>
+                                        </form>
+                                    )}
+                                />
+                                <Form
+                                    onSubmit={(values) => this.handleFormSubmit(values)}
+                                    render={({
+                                                 submitForm
+                                             }) => (
+                                        <form
+                                            onSubmit={submitForm}
+                                            className={classNames({
+                                                "tab-body": true,
+                                                "active": this.state.activeTab === 1
+                                            })}>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Alias</label>
+                                                    </div>
+                                                    <div className="col-md  -9">
+                                                        <p>{this.state.alias.aliasName}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Price</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text field="priceAPL" placeholder="Amount" type={'number'}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Fee</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text field="feeATM" placeholder="Amount" type={'number'}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group offset-top display-block">
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Passphrase</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text field="secretPhrase" placeholder="secretPhrase" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="btn-box align-buttons-inside absolute right-conner">
+                                                <a
+                                                    className="btn btn-left round round-bottom-left round-top-right"
+                                                    // onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
+                                                >
+                                                    Create account
+                                                </a>
+                                                <button
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right round-top-left"
+                                                >
+                                                    Enter
+                                                </button>
+
+                                            </div>
+                                        </form>
+                                    )}
+                                />
                             </div>
-                        </form>
-                    )}
-                >
-
-                </Form>
+                        </div>
+                    }
+                </div>
             </div>
         );
     }
@@ -339,7 +290,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SellAlias);

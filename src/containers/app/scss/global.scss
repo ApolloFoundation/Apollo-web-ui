@@ -103,6 +103,26 @@ input[type="checkbox"] {
 	}
 }
 
+input[type="number"] {
+	position: relative;
+}
+
+input[type="radio"] {
+	width: auto;
+	display: inline-block !important;
+}
+
+.notification-message {
+	.title {
+		color: white;
+	}
+}
+
+.word-brake {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
 textarea {
 	border: 1px solid #E5E5E5;
 	border-radius: 6px;
@@ -174,6 +194,20 @@ input {
 		border: 3px solid #333;
 	}
 	
+}
+
+.no-image {
+	height: 100px;
+	width: 150px;
+	border-radius: 6px;
+	background-color: #E5E5E5;
+	display: flex;
+
+	i {
+		margin: auto;
+		font-size: 50px;
+		color: #fff;
+	}
 }
 
 .page-loader {
@@ -283,8 +317,18 @@ input {
 	}
 }
 
+.token {
+	color: white;
+}
+
 .info-box {
-	
+	&.blue-info {
+		background-color: #00C8FF;
+
+		p {
+			color: #fff;
+		}
+	}
 	&.success {
 		background-color: #2ecc71;
 		
@@ -621,6 +665,7 @@ input {
 		background-color: #F5F5F5;
 		padding: 18px 35px 70px 35px;
 		display: none;
+		border-radius: 0 0 6px 6px;
 		
 		&.white {
 			background-color: white;
@@ -667,8 +712,12 @@ input {
 				&.active {
 					background-color: #F5F5F5;
 				}
+				p {
+					font-size: 13px !important;
+				}
 				& > * {
 					margin: auto;
+					font-size: 16px;
 				}
 			}
 		}
@@ -728,10 +777,7 @@ input {
 		
 		}
 		input {
-			border-right: 0;
 			display: block;
-			border-bottom-right-radius: 0;
-			border-top-right-radius: 0;
 		}
 		.input-icon {
 			border: 1px solid #E5E5E5;
@@ -742,8 +788,17 @@ input {
 			cursor: pointer;
 			display: flex;
 			border-radius: 3px;
-			border-bottom-left-radius: 0;
-			border-top-left-radius: 0;
+
+			&.text {
+				width: auto;
+
+				i {
+					font-style: normal;
+					font-size: 11px;
+					padding: 0 10px;
+
+				}
+			}
 		}
 		.iconned-input-field {
 			display: flex;
@@ -755,7 +810,28 @@ input {
 				margin: auto;
 				padding-bottom: 3px;
 			}
+			& * {
+				&:nth-child(2) {
+					border-left: 0 !important;
+					border-bottom-left-radius: 0 !important;
+					border-top-left-radius: 0 !important;
+				}
+				&:nth-child(1) {
+					border-bottom-right-radius: 0 !important;
+					border-top-right-radius: 0 !important;
+				}
+			}
 		}
+	}
+	.preview-image {
+		padding: 0;
+		width: 150px;
+		height: 100px;
+		border-radius: 6px;
+		border: 1px solid #E5E5E5;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
 	}
 	.calculate-fee {
 		display: inline-block;
@@ -769,7 +845,7 @@ input {
 	.input-icon {
 		width: 32px;
 		display: table-cell;
-		
+
 		i {
 			margin: auto;
 		}
@@ -794,7 +870,13 @@ input {
 
 .btn-box {
 	width: 100%;
-	
+
+	&.align-right {
+		text-align: right;
+	}
+	&.align-left {
+		text-align: left;
+	}
 	&.inline {
 		display: inline-block;
 		position: static !important;
@@ -977,16 +1059,14 @@ input {
 		margin: 0 0 12px 30px;
 	}
 	&.btn-right {
+		float: right;
 		right: 0;
 		bottom: 0;
-		border-top-left-radius: 3px;
-		border-bottom-right-radius: 3px;
 	}
 	&.btn-left {
+		float: left;
 		left: 0;
 		bottom: 0;
-		border-top-right-radius: 3px;
-		border-bottom-left-radius: 3px;
 	}
 	&.static {
 		position: static;

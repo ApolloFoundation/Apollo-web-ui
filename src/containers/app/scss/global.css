@@ -72,6 +72,20 @@ input[type="checkbox"] {
   input[type="checkbox"]:checked:after {
     display: block; }
 
+input[type="number"] {
+  position: relative; }
+
+input[type="radio"] {
+  width: auto;
+  display: inline-block !important; }
+
+.notification-message .title {
+  color: white; }
+
+.word-brake {
+  word-wrap: break-word;
+  word-break: break-all; }
+
 textarea {
   border: 1px solid #E5E5E5;
   border-radius: 6px;
@@ -126,6 +140,17 @@ input {
   background-color: #00C8FF;
   border-radius: 100%;
   border: 3px solid #333; }
+
+.no-image {
+  height: 100px;
+  width: 150px;
+  border-radius: 6px;
+  background-color: #E5E5E5;
+  display: flex; }
+  .no-image i {
+    margin: auto;
+    font-size: 50px;
+    color: #fff; }
 
 .page-loader {
   position: fixed;
@@ -200,6 +225,14 @@ input {
     margin: auto;
     height: 32px;
     width: 32px; }
+
+.token {
+  color: white; }
+
+.info-box.blue-info {
+  background-color: #00C8FF; }
+  .info-box.blue-info p {
+    color: #fff; }
 
 .info-box.success {
   background-color: #2ecc71; }
@@ -414,7 +447,8 @@ input {
     margin: 55px -35px -69px -35px;
     background-color: #F5F5F5;
     padding: 18px 35px 70px 35px;
-    display: none; }
+    display: none;
+    border-radius: 0 0 6px 6px; }
     .form-group .form-tabulator.white {
       background-color: white; }
       .form-group .form-tabulator.white .form-tab-nav-box .form-tab {
@@ -445,8 +479,11 @@ input {
         border-top-right-radius: 6px; }
         .form-group .form-tabulator .form-tab-nav-box .form-tab.active {
           background-color: #F5F5F5; }
+        .form-group .form-tabulator .form-tab-nav-box .form-tab p {
+          font-size: 13px !important; }
         .form-group .form-tabulator .form-tab-nav-box .form-tab > * {
-          margin: auto; }
+          margin: auto;
+          font-size: 16px; }
     .form-group .form-tabulator .tab-body {
       display: none; }
       .form-group .form-tabulator .tab-body.active {
@@ -474,10 +511,7 @@ input {
   .input-group textarea {
     width: 100%; }
   .input-group.search input, .input-group.user input {
-    border-right: 0;
-    display: block;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0; }
+    display: block; }
   .input-group.search .input-icon, .input-group.user .input-icon {
     border: 1px solid #E5E5E5;
     background: #E5E5E5;
@@ -486,9 +520,13 @@ input {
     text-align: center;
     cursor: pointer;
     display: flex;
-    border-radius: 3px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0; }
+    border-radius: 3px; }
+    .input-group.search .input-icon.text, .input-group.user .input-icon.text {
+      width: auto; }
+      .input-group.search .input-icon.text i, .input-group.user .input-icon.text i {
+        font-style: normal;
+        font-size: 11px;
+        padding: 0 10px; }
   .input-group.search .iconned-input-field, .input-group.user .iconned-input-field {
     display: flex;
     width: 100%;
@@ -497,6 +535,22 @@ input {
     .input-group.search .iconned-input-field i, .input-group.user .iconned-input-field i {
       margin: auto;
       padding-bottom: 3px; }
+    .input-group.search .iconned-input-field *:nth-child(2), .input-group.user .iconned-input-field *:nth-child(2) {
+      border-left: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important; }
+    .input-group.search .iconned-input-field *:nth-child(1), .input-group.user .iconned-input-field *:nth-child(1) {
+      border-bottom-right-radius: 0 !important;
+      border-top-right-radius: 0 !important; }
+  .input-group .preview-image {
+    padding: 0;
+    width: 150px;
+    height: 100px;
+    border-radius: 6px;
+    border: 1px solid #E5E5E5;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; }
   .input-group .calculate-fee {
     display: inline-block;
     color: #00C8FF;
@@ -524,6 +578,10 @@ input {
 
 .btn-box {
   width: 100%; }
+  .btn-box.align-right {
+    text-align: right; }
+  .btn-box.align-left {
+    text-align: left; }
   .btn-box.inline {
     display: inline-block;
     position: static !important;
@@ -641,15 +699,13 @@ input {
     background: transparent;
     margin: 0 0 12px 30px; }
   .btn.btn-right {
+    float: right;
     right: 0;
-    bottom: 0;
-    border-top-left-radius: 3px;
-    border-bottom-right-radius: 3px; }
+    bottom: 0; }
   .btn.btn-left {
+    float: left;
     left: 0;
-    bottom: 0;
-    border-top-right-radius: 3px;
-    border-bottom-left-radius: 3px; }
+    bottom: 0; }
   .btn.static {
     position: static; }
   .btn.gray {

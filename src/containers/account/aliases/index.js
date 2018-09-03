@@ -6,6 +6,8 @@ import Alias from "./alias";
 import classNames from "classnames";
 import {getTransactionAction, getTransactionsAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modals";
+import {submitForm} from  '../../../helpers/forms/forms';
+
 
 class Aliases extends React.Component {
     constructor(props) {
@@ -66,6 +68,10 @@ class Aliases extends React.Component {
         });
     }
 
+    addAlias = () => {
+        this.props.setBodyModalParamsAction('ADD_ALIAS', {});
+    };
+
     editAlias = () => {
         this.props.setBodyModalParamsAction('EDIT_ALIAS', {});
     };
@@ -87,7 +93,15 @@ class Aliases extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Aliases'}
-                />
+                >
+                    <a
+                        className="btn primary"
+                        style={{marginLeft: 15}}
+                        onClick={() => this.props.setBodyModalParamsAction('ADD_ALIAS', {})}
+                    >
+                        Add alias
+                    </a>
+                </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="blocks">
                         <div className="transaction-table">
@@ -156,7 +170,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    // submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
 export default connect(
