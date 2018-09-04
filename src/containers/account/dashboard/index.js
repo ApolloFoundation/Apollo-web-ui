@@ -410,16 +410,16 @@ class Dashboard extends React.Component {
 									<div className="full-box">
 										<div className="form-group offset">
 											<div className="input-group lighten">
-												<label>Wallet</label>
-												<input ref={'recipient'} type="text"/>
+												<label>Recipient</label>
+												<input placeholder={'Account RS'} ref={'recipient'} type="text"/>
 											</div>
 											<div className="input-group lighten">
 												<label>Amount</label>
-												<input  ref={'amountATM'} type={'number'}/>
+												<input placeholder={'Amount'} ref={'amountATM'} type={'number'}/>
 											</div>
 											<div className="input-group lighten">
-												<label>Send to</label>
-												<input ref={'feeATM'}/>
+												<label>Fee</label>
+												<input placeholder={'Amount'} ref={'feeATM'}/>
 											</div>
 										</div>
 									</div>
