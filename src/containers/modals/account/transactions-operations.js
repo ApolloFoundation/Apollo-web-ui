@@ -3,7 +3,10 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
-import {Form, Text, TextArea} from 'react-form'
+import {Checkbox, Form, Text, TextArea} from 'react-form'
+import {NotificationManager} from "react-notifications";
+import crypto from "../../../helpers/crypto/crypto";
+import submitForm from "../../../helpers/forms/forms";
 
 class TransactionOperations extends React.Component {
     constructor(props) {
@@ -25,6 +28,89 @@ class TransactionOperations extends React.Component {
         })
     }
 
+    handleFormSubmit = async values => {
+        switch (this.state.activeTab) {
+            case 0:
+                if (!values.signPassphrase) {
+                    NotificationManager.error("Passphrase is required", "Error", 5000);
+                    break;
+                }
+                if (!await this.props.validatePassphrase(values.signPassphrase)) {
+                    NotificationManager.error("Passphrase not valid", "Error", 5000);
+                    break;
+                }
+                const toSend = {
+                    unsignedTransactionBytes: values.signBytes,
+                    unsignedTransactionJSON: values.signJson,
+                    validate: values.signValidate,
+                    publicKey: this.props.publicKey,
+                    feeATM: 0,
+                    ecBlockId: 11255812614937856744,
+                    ecBlockHeight: 0
+                };
+                this.props.submitForm(null, null, toSend, "signTransaction")
+                    .done(res => {
+                        if (res.errorCode) {
+                            NotificationManager.error(res.errorDescription, "Error", 5000)
+                        } else {
+                            NotificationManager.success("Transaction signed!", null, 5000);
+                        }
+                    });
+                break;
+            case 1://broadcast
+                const toSendBroadcast = {
+                    transactionBytes: values.broadcastBytes,
+                    transactionJSON: values.broadcastJson,
+                    feeATM: 0,
+                    publicKey: this.props.publicKey,
+                    ecBlockId: 11255812614937856744,
+                    ecBlockHeight: 0
+                };
+                this.props.submitForm(null, null, toSendBroadcast, "broadcastTransaction")
+                    .done(res => {
+                        if (res.errorCode) {
+                            NotificationManager.error(res.errorDescription, "Error", 5000)
+                        } else {
+                            NotificationManager.success("Transaction broadcasted!", null, 5000);
+                        }
+                    });
+                break;
+            case 2:
+                const toSendParse = {
+                    transactionBytes: values.parseBytes,
+                    transactionJSON: values.parseJson,
+                    feeATM: 0,
+                    random: Math.random()
+                };
+                this.props.submitForm(null, null, toSendParse, "parseTransaction")
+                    .done(res => {
+                        if (res.errorCode) {
+                            NotificationManager.error(res.errorDescription, "Error", 5000)
+                        } else {
+                            NotificationManager.success("Transaction parsed!", null, 5000);
+                        }
+                    });
+                break;
+            case 3:
+                const toSendCalculate = {
+                    unsignedTransactionBytes: values.calculateBytes,
+                    unsignedTransactionJSON: values.calculateJson,
+                    signatureHash: values.calculateHash,
+                    feeATM: 0,
+                    random: Math.random()
+                };
+                this.props.submitForm(null, null, toSendCalculate, "calculateFullHash")
+                    .done(res => {
+                        if (res.errorCode) {
+                            NotificationManager.error(res.errorDescription, "Error", 5000)
+                        } else {
+                            NotificationManager.success("Hash calculated", null, 5000);
+                        }
+                    });
+                break;
+        }
+    };
+
     render() {
         return (
             <div className="modal-box wide">
@@ -35,7 +121,8 @@ class TransactionOperations extends React.Component {
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                <a onClick={() => this.props.closeModal()} className="exit"><i
+                                    className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
                                     <p>Transaction Operations</p>
@@ -77,10 +164,11 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Host</label>
+                                                    <label>Unsigned Transaction Bytes</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text rows={5} type="text" field={'data'} placeholder="Website or text"/>
+                                                    <TextArea rows={5} type="textarea" field={'signBytes'}
+                                                              placeholder="Unsigned Transaction Bytes"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -88,10 +176,11 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Weight</label>
+                                                    <label>Unsigned Transaction JSON</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                    <TextArea rows={5} field={'signJson'}
+                                                              placeholder="Unsigned Transaction JSON"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,10 +188,11 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Date</label>
+                                                    <label>Validate</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                    <Checkbox style={{display: 'inline-block'}} type="checkbox"
+                                                              field="signValidate"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -113,7 +203,7 @@ class TransactionOperations extends React.Component {
                                                     <label>Passphrase</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                    <Text type="password" field={'signPassphrase'}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,10 +217,11 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Hallmark</label>
+                                                    <label>Transaction Bytes</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <TextArea rows={5} type="text" field={'data'} placeholder="Website or text"/>
+                                                    <TextArea rows={5} type="text" field={'broadcastBytes'}
+                                                              placeholder="Signed Transaction Bytes"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -138,82 +229,29 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Account</label>
+                                                    <label>Signed Transaction JSON</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text rows={5} type="text" field={'data'} placeholder="Website or text"/>
+                                                    <Text rows={5} type="text" field={'broadcastJson'}
+                                                          placeholder="Signed Transaction JSON"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Host</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Port</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Weight</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Date</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Valid</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
                                     <div className={classNames({
                                         "tab-body": true,
                                         "active": this.state.activeTab === 2
                                     })}>
+
                                         <div className="input-group block offset-bottom offset-top">
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Host</label>
+                                                    <label>Transaction Bytes</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text rows={5} type="text" field={'data'} placeholder="Website or text"/>
+                                                    <TextArea rows={5} type="text" field={'parseBytes'}
+                                                              placeholder="Transaction Bytes"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,32 +259,11 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Weight</label>
+                                                    <label>Transaction JSON</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Date</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Passphrase</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                    <Text rows={5} type="text" field={'parseJson'}
+                                                          placeholder="Transaction JSON"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -260,10 +277,11 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Host</label>
+                                                    <label>Unsigned Transaction Bytes</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text rows={5} type="text" field={'data'} placeholder="Website or text"/>
+                                                    <TextArea rows={5} type="text" field={'calculateBytes'}
+                                                              placeholder="Unsigned Transaction Bytes"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -271,10 +289,11 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Weight</label>
+                                                    <label>Unsigned Transaction JSON</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                    <TextArea rows={5} type="text" field={'calculateJson'}
+                                                              placeholder="Unsigned Transaction JSON"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,31 +301,21 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Date</label>
+                                                    <label>Signature Hash</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                    <TextArea rows={1} type="text" field={'calculateHash'}
+                                                              placeholder="Signature Hash"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Passphrase</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
 
                             <div className="btn-box align-buttons-inside absolute right-conner">
-                                <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
+                                <a onClick={() => this.props.closeModal()}
+                                   className="btn btn-right round round-top-left">Cancel</a>
                                 <button
                                     type="submit"
                                     name={'closeModal'}
@@ -327,11 +336,16 @@ class TransactionOperations extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    publicKey: state.account.publicKey
+
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionOperations);
