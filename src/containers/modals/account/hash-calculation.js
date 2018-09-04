@@ -8,6 +8,7 @@ import {Form, Text, TextArea, Checkbox, Select} from 'react-form';
 import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+import CustomSelect from '../../components/select'
 
 class HashCalculation extends React.Component {
     constructor(props) {
@@ -95,7 +96,7 @@ class HashCalculation extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm
+                                 submitForm,setValue
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group">
@@ -127,11 +128,17 @@ class HashCalculation extends React.Component {
                                 </div>
                                 <div className="input-group offset-top display-block">
                                     <div className="row">
-                                        <div className="col-md-3">
-                                            <Select field="alg" options={this.hashOptions}/>
+                                        <div className="col-md-3"/>
+                                        <div className="input-group align-middle display-block offset-bottom">
+                                            <CustomSelect
+                                                field={'alg'}
+                                                setValue={setValue}
+                                                options={this.hashOptions}
+                                            />
                                         </div>
                                     </div>
                                 </div>
+
 
                                 {
                                     this.state.passphraseStatus &&
