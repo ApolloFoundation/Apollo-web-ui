@@ -191,8 +191,6 @@ class DeviceSettings extends React.Component {
 
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
-                                        <a onClick={() => this.props.closeModal()}
-                                           className="btn btn-right round round-top-left">Cancel</a>
                                         <button
                                             type="submit"
                                             name={'closeModal'}
@@ -200,7 +198,10 @@ class DeviceSettings extends React.Component {
                                         >
                                             Send
                                         </button>
-
+                                        <a onClick={() => this.props.closeModal()}
+                                           className="btn btn-right round round-top-left">
+                                            Cancel
+                                        </a>
                                     </div>
                                 </div>
                             </form>
