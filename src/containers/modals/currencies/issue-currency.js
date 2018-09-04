@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {NotificationManager} from "react-notifications";
@@ -26,6 +26,50 @@ class IssueCurrency extends React.Component {
 
     handleFormSubmit = async(values) => {
         // Todo: finish form validating
+
+
+        let type;
+
+        switch(values) {
+            case(values.type1):
+                type = 1;
+                delete values.type1;
+                return;
+            case(values.type2):
+                type = 2;
+                delete values.type2;
+                return;
+            case(values.type3):
+                type = 3;
+                delete values.type3;
+                return;
+            case(values.type4):
+                type = 4;
+                delete values.type4;
+                return;
+            case(values.type5):
+                type = 5;
+                delete values.type5;
+                return;
+            case(values.type6):
+                type = 6;
+                delete values.type6;
+                return;
+
+            default:
+                type = 1;
+                delete values.type1;
+        }
+
+        values = {
+            ...values,
+            type: type
+
+        };
+
+        console.log(values);
+
+
         this.props.submitForm(null, null, values, 'issueCurrency')
             .done((res) => {
                 if (res.errorCode) {
@@ -109,32 +153,62 @@ class IssueCurrency extends React.Component {
                                                     style={{paddingTop: 0}}
                                                 >
                                                     <div className="input-group align-middle display-block offset-bottom">
-                                                        <Checkbox type="checkbox"/>
+                                                        <Checkbox field={'type1'}/>
                                                         <label>Exchangeable</label>
                                                     </div>
                                                     <div className="input-group align-middle display-block offset-bottom">
-                                                        <Checkbox type="checkbox"/>
+                                                        <Checkbox field={'type2'}/>
                                                         <label>Controllable</label>
                                                     </div>
                                                     <div className="input-group align-middle display-block offset-bottom">
-                                                        <Checkbox type="checkbox"/>
+                                                        <Checkbox field={'type3'}/>
                                                         <label>Reservable</label>
                                                     </div>
                                                     <div className="input-group align-middle display-block offset-bottom">
-                                                        <Checkbox type="checkbox"/>
+                                                        <Checkbox field={'type4'}/>
                                                         <label>Claimable</label>
                                                     </div>
                                                     <div className="input-group align-middle display-block offset-bottom">
-                                                        <Checkbox type="checkbox"/>
+                                                        <Checkbox field={'type5'}/>
                                                         <label>Mintable</label>
                                                     </div>
                                                     <div className="input-group align-middle display-block offset-bottom">
-                                                        <Checkbox type="checkbox"/>
+                                                        <Checkbox field={'type6'}/>
                                                         <label>Non-Shuffleable</label>
                                                     </div>
 
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Initial Supply</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text type="number" field='initialSupply' placeholder="Currency Code"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Total Supply</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text type="number" field='maxSupply' placeholder="Currency Code"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Decimals</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text type="number" field='decimals' placeholder="Currency Code"/>
                                         </div>
                                     </div>
                                 </div>
@@ -220,7 +294,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
-
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssueCurrency);
