@@ -5,6 +5,7 @@
   width: 100%;
   min-height: 560px;
   overflow-x: scroll;
+  background-color: #FFFFFF;
 
   &.no-min-height {
     min-height: auto;
@@ -13,7 +14,11 @@
 
   .transaction-table-body {
     //min-width: 900px;
-
+    padding: 40px 35px;
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    position: relative;
     &.offset-bottom {
       padding-bottom: 75px;
     }
@@ -26,11 +31,7 @@
     &.padding-vertical-padding {
       padding: 40px 0;
     }
-    padding: 40px 35px;
-    width: 100%;
-    background-color: #FFFFFF;
-    border-radius: 3px;
-    position: relative;
+    
 
     table {
       width: 100%;

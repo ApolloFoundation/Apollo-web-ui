@@ -69,9 +69,16 @@
 				font-family: "Roboto-Light";
 				font-size: 36px;
 				font-weight: 300;
-				line-height: 60px;
+				line-height: 1.2;
 				display: inline-block;
 				margin-right: 15px;
+				@media (max-width: 1024px) {
+					font-size: 30px;
+				}
+				@media (max-width: 760px) {
+					font-size: 26px;
+					
+				}
 			}
 			.breadcrumbs {
 				position: absolute;
@@ -137,7 +144,11 @@
 		& > * {
 			margin: auto;
 		}
-		
+		.search-bar .zmdi {
+			@media (max-width: 760px) {
+				color: #ffffff !important;
+			}
+		}
 		&.searching {
 			.search-bar {
 				.user-account-actions {
@@ -478,11 +489,7 @@
 				height: 41px;
 				display: flex;
 				justify-content: flex-end;
-				.zmdi{
-					@media (max-width: 760px) {
-						color: #ffffff !important;
-					}
-				}
+				
 				& > * {
 					margin: auto 0;
 				}
@@ -627,7 +634,7 @@
 	}
 }
 
-.close-menu-btn{
+.close-menu-btn {
 	background-color: #666666;
 	font-size: 12px;
 	color: #ffffff;
@@ -638,7 +645,7 @@
 	display: inline-block;
 	cursor: pointer;
 	transition: 0.2s;
-	&:hover{
+	&:hover {
 		background-color: #4d4d4d;
 		
 	}
@@ -663,7 +670,7 @@
 	@media (max-width: 760px) {
 		display: block;
 	}
-	&:after{
+	&:after {
 		content: '';
 		background-color: #333333;
 		position: fixed;
@@ -683,7 +690,7 @@
 		}
 	}
 	
-	.btn-block{
+	.btn-block {
 		text-align: center;
 	}
 }
@@ -693,14 +700,13 @@
 	display: block;
 	margin-bottom: 25px;
 	cursor: pointer;
-	&.active {
-		.item-dropdown {
-			max-height: 500px;
-			opacity: 1;
+	&.active{
+		.text{
+			color: #ffffff;
 		}
-	}
-	&:last-child {
-		margin-bottom: 0;
+		.zmdi {
+			color: #00c8ff;
+		}
 	}
 	.zmdi {
 		position: absolute;
@@ -723,28 +729,35 @@
 		font-size: 14px;
 		color: #787878;
 		padding: 0 40px;
+		&[aria-selected="true"] {
+			.arrow {
+				border-color: #fff transparent transparent #fff;
+			}
+		}
 		&.active {
 			color: #ffffff;
+			.zmdi {
+				color: #00c8ff;
+			}
 		}
+		
 	}
 	.arrow {
 		position: absolute;
 		right: 1px;
 		top: 50%;
-		margin-top: -2px;
+		margin-top: -1px;
 		transform: translate(0, -50%) rotate(45deg);
 		width: 8px;
 		height: 8px;
 		border: 1px solid;
 		border-color: transparent #fff #fff transparent;
 		border-radius: 2px;
+		transition: 0.2s;
 	}
 	.item-dropdown {
 		display: block;
-		//max-height: 0;
-		//opacity: 0;
-		transition: 0.3s;
-		overflow: hidden;
+		
 		a {
 			display: block;
 			padding: 0 40px;
@@ -807,5 +820,21 @@
 		height: 3px;
 		transition: 0.2s;
 		background-color: #fff;
+	}
+}
+
+.accordion__item,
+.accordion {
+	border: none !important
+}
+
+.accordion__body {
+	padding: 0 !important;
+	display: block !important;
+	max-height: 900px;
+	overflow: hidden;
+	transition: 0.2s;
+	&--hidden {
+		max-height: 0;
 	}
 }

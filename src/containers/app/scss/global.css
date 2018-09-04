@@ -596,6 +596,9 @@ input {
     .btn-box.inline > * {
       display: inline;
       margin-right: 15px; }
+      @media (max-width: 1100px) {
+        .btn-box.inline > * {
+          margin-right: 30px; } }
   .btn-box.success > * {
     color: #2ecc71; }
   .btn-box.danger > * {
@@ -1037,3 +1040,9 @@ input {
     height: calc(100% - 15px); }
     .page-body-item .card.card-tall {
       min-height: 520px; }
+
+table tr > td {
+  white-space: nowrap; }
+
+table td .btn, table th .btn {
+  white-space: nowrap; }

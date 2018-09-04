@@ -15,41 +15,43 @@ import {getAccountInfoAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {getBlockAction} from "../../../actions/blocks";
 
+import {
+	Accordion,
+	AccordionItem,
+	AccordionItemTitle,
+	AccordionItemBody,
+} from 'react-accessible-accordion';
+
+// Demo styles, see 'Styles' section below for some notes on use.
+import 'react-accessible-accordion/dist/fancy-example.css';
+
 class SiteHeader extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			searching: false,
-			menuShow: false
+			menuShow: false,
 		};
 
 		this.setSearchStateToActive = this.setSearchStateToActive.bind(this);
 		this.resetSearchStateToActive = this.resetSearchStateToActive.bind(this);
-		this.showItemDropdown = this.showItemDropdown.bind(this);
 		this.showMenu = this.showMenu.bind(this);
 		this.closeMenu = this.closeMenu.bind(this);
 		this.searchInterval;
 	}
+
 	showMenu() {
 		this.setState({menuShow: !this.state.menuShow});
 	}
+
 	closeMenu() {
 		this.setState({menuShow: false});
 	}
-	showItemDropdown(a) {
-		document.getElementsByClassName(".mobile-nav-item .text");
-		console.log(a.target.classList);
-	}
+
 
 	getNavLinkClass = (path) => {
-		console.log(path);
-		console.log(window.location.pathname);
-
-		path.map((item) => {
-			console.log(item);
-			return window.location.pathname === item ? 'active' : '';
-		});
+		return path.some(i => window.location.pathname === i) ? 'active' : '';
 	};
 
 	setSearchStateToActive() {
@@ -221,131 +223,175 @@ class SiteHeader extends React.Component {
 							})}>
 								{/*TODO : fix site header search animation*/}
 								<a className="logo" href={"/"}><img src="./apollo-logo.svg"/></a>
-								<div className={`burger-mobile ${this.state.menuShow ? "menu-open" : ""}`} onClick={this.showMenu}>
+								<div className={`burger-mobile ${this.state.menuShow ? "menu-open" : ""}`}
+								     onClick={this.showMenu}>
 									<div className="line"/>
 								</div>
 								<div className={`mobile-nav ${this.state.menuShow ? "show" : ""}`}>
-									<div className={`mobile-nav-item`}>
-										<p className={`text ${this.getNavLinkClass(["/dashboard", "/ledger"])}`} onClick={this.showItemDropdown}>
-											<i className="zmdi zmdi-view-dashboard"/>Dashboard<span className="arrow"/>
-										</p>
-										<div className="item-dropdown">
-											<NavLink exact={true} activeClassName="active"
-											         to="/dashboard">Dashboard</NavLink>
-											<NavLink exact={true} activeClassName="active" to="/ledger">Account
-												ledger</NavLink>
-											<NavLink exact={true} activeClassName="active" to="/account-properties">Account
-												properties</NavLink>
-											<NavLink exact={true} activeClassName="active" to="/transactions">My
-												transactions</NavLink>
-											<NavLink exact={true} activeClassName="active" to="/approval-request">Approval
-												requests</NavLink>
-										</div>
-									</div>
-									<div className={"mobile-nav-item"}>
-										<p className="text">
-											<i className="zmdi zmdi-case"/>Asset system<span className="arrow"/>
-										</p>
-										<div className="item-dropdown">
-											<NavLink exact={true} activeClassName="active" to="/trade-history">Trade
-												history</NavLink>
-											<NavLink exact={true} activeClassName="active" to="/transfer-history">Transfer
-												history</NavLink>
-											<NavLink exact={true} activeClassName="active" to="/delete-history">Delete
-												history</NavLink>
-											<NavLink exact={true} activeClassName="active" to="/my-assets">My
-												Assets</NavLink>
-											<NavLink exact={true} activeClassName="active" to="/open-orders">Open
-												orders</NavLink>
-											<NavLink exact={true} activeClassName="active" to="approval-request">Approval
-												request</NavLink>
+									<Accordion>
+										<AccordionItem>
+											<div className={`mobile-nav-item`}>
+												<AccordionItemTitle
+													className={`text ${this.getNavLinkClass(["/dashboard",
+														"/ledger",
+														"/account-properties",
+														"/transactions",
+														"/approval-request"])
+														}`}>
+													<i className="zmdi zmdi-view-dashboard"/>Dashboard<span
+													className="arrow"/>
+												</AccordionItemTitle>
 
-											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue
-												Assets</a>
+												<AccordionItemBody>
+													<div className="item-dropdown">
+														<NavLink exact={true} activeClassName="active"
+														         to="/dashboard">Dashboard</NavLink>
+														<NavLink exact={true} activeClassName="active" to="/ledger">Account
+															ledger</NavLink>
+														<NavLink exact={true} activeClassName="active"
+														         to="/account-properties">Account
+															properties</NavLink>
+														<NavLink exact={true} activeClassName="active"
+														         to="/transactions">My
+															transactions</NavLink>
+														<NavLink exact={true} activeClassName="active"
+														         to="/approval-request">Approval
+															requests</NavLink>
+													</div>
+												</AccordionItemBody>
+											</div>
 
-										</div>
-									</div>
-									<div className={"mobile-nav-item"}>
-										<p className="text">
-											<i className="zmdi zmdi-money"/>Currency system<span className="arrow"/>
-										</p>
-										<div className="item-dropdown">
-											<NavLink to="/currencies">Currencies</NavLink>
-											<NavLink to="/my-shuffling">Exchange history</NavLink>
-											<NavLink to="/transfer-history">Transfer history</NavLink>
-											<NavLink to="/trade-history">Approval requests</NavLink>
+										</AccordionItem>
+										<AccordionItem>
+											<div className={"mobile-nav-item"}>
+												<AccordionItemTitle
+													className={`text ${this.getNavLinkClass(["/currencies",
+														"/my-shuffling",
+														"/transfer-history",
+														"/trade-history"])}`}>
+													<i className="zmdi zmdi-money"/>Currency system<span
+													className="arrow"/>
+												</AccordionItemTitle>
+												<AccordionItemBody>
+													<div className="item-dropdown">
+														<NavLink to="/currencies">Currencies</NavLink>
+														<NavLink to="/my-shuffling">Exchange history</NavLink>
+														<NavLink to="/transfer-history">Transfer history</NavLink>
+														<NavLink to="/trade-history">Approval requests</NavLink>
 
-											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
-												Currencies</a>
+														<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
+															Currencies</a>
 
-										</div>
-									</div>
-									<div className={"mobile-nav-item"}>
-										<p className="text">
-											<i className="zmdi zmdi-star"/>Voting system
-											<span className="arrow"/>
-										</p>
-										<div className="item-dropdown">
-											<NavLink to="/active-pools">Active pools</NavLink>
-											<a>Followed pools</a>
-											<NavLink to="/my-votes">My votes</NavLink>
-											<NavLink to="/my-polls">My pools</NavLink>
+													</div>
+												</AccordionItemBody>
+											</div>
 
-											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}>Create
-												poll</a>
+										</AccordionItem>
+										<AccordionItem>
+											<div className={"mobile-nav-item"}>
+												<AccordionItemTitle
+													className={`text ${this.getNavLinkClass(["/active-pools",
+														"/my-votes",
+														"/my-polls"])}`}>
+													<i className="zmdi zmdi-star"/>Voting system
+													<span className="arrow"/>
+												</AccordionItemTitle>
+												<AccordionItemBody>
+													<div className="item-dropdown">
+														<NavLink to="/active-pools">Active pools</NavLink>
+														<a>Followed pools</a>
+														<NavLink to="/my-votes">My votes</NavLink>
+														<NavLink to="/my-polls">My pools</NavLink>
 
-										</div>
-									</div>
-									<div className={"mobile-nav-item"}>
-										<p className="text">
-											<i className="zmdi zmdi-dns"/>Data storage<span className="arrow"/>
-										</p>
-										<div className="item-dropdown">
-											<NavLink to="/data-storage">Search</NavLink>
+														<a onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}>Create
+															poll</a>
 
-											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File
-												upload</a>
+													</div>
+												</AccordionItemBody>
+											</div>
 
-										</div>
-									</div>
-									<div className={"mobile-nav-item"}>
-										<p className="text">
-											<i className="zmdi zmdi-label"/>Marketplace<span className="arrow"/>
-										</p>
-										<div className="item-dropdown">
-											<a>Purchased Products</a>
-											<NavLink to='/my-products-for-sale'>My Products For Sales</NavLink>
-											<NavLink to='/my-panding-orders'>My Pending Orders</NavLink>
-											<NavLink to='/my-completed-orders'>My completed orders</NavLink>
-											<a
-												onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
-												Product For Sale</a>
-										</div>
-									</div>
-									<div className={"mobile-nav-item"}>
-										<p className="text">
-											<i className="zmdi zmdi-circle-o"/>Coin shuffling
-											<span className="arrow"/>
-										</p>
-										<div className="item-dropdown">
-											<NavLink to="/active-shuffling">Active Shuffling</NavLink>
-											<NavLink to="/finished-shuffling">Finished Shuffling</NavLink>
-											<NavLink to="/my-shuffling">My shuffling</NavLink>
+										</AccordionItem>
+										<AccordionItem>
+											<div className={"mobile-nav-item"}>
+												<AccordionItemTitle
+													className={`text ${this.getNavLinkClass(["/data-storage"])}`}>
+													<i className="zmdi zmdi-dns"/>Data storage<span className="arrow"/>
+												</AccordionItemTitle>
+												<AccordionItemBody>
+													<div className="item-dropdown">
+														<NavLink to="/data-storage">Search</NavLink>
 
-											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create
-												shuffling</a>
+														<a onClick={this.props.setMopalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File
+															upload</a>
 
-										</div>
-									</div>
-									<div className={"mobile-nav-item"}>
-										<p className="text">
-											<i className="zmdi zmdi-comments"/>Messages<span className="arrow"/>
-										</p>
-										<div className="item-dropdown">
-											<NavLink exact={true} activeClassName="active"
-											         to="/messenger">Chat</NavLink>
-										</div>
-									</div>
+													</div>
+												</AccordionItemBody>
+											</div>
+
+										</AccordionItem>
+										<AccordionItem>
+											<div className={"mobile-nav-item"}>
+												<AccordionItemTitle
+													className={`text ${this.getNavLinkClass(["/my-products-for-sale",
+														"/my-panding-orders",
+														"/my-completed-orders"])}`}>
+													<i className="zmdi zmdi-label"/>Marketplace<span className="arrow"/>
+												</AccordionItemTitle>
+												<AccordionItemBody>
+													<div className="item-dropdown">
+														<a>Purchased Products</a>
+														<NavLink to="/my-products-for-sale">My Products For
+															Sales</NavLink>
+														<NavLink to="/my-panding-orders">My Pending Orders</NavLink>
+														<NavLink to="/my-completed-orders">My completed orders</NavLink>
+														<a
+															onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
+															Product For Sale</a>
+													</div>
+												</AccordionItemBody>
+											</div>
+
+										</AccordionItem>
+										<AccordionItem>
+											<div className={"mobile-nav-item"}>
+												<AccordionItemTitle
+													className={`text ${this.getNavLinkClass(["/active-shuffling",
+														"/finished-shuffling",
+														"/my-shuffling"])}`}>
+													<i className="zmdi zmdi-circle-o"/>Coin shuffling
+													<span className="arrow"/>
+												</AccordionItemTitle>
+												<AccordionItemBody>
+													<div className="item-dropdown">
+														<NavLink to="/active-shuffling">Active Shuffling</NavLink>
+														<NavLink to="/finished-shuffling">Finished Shuffling</NavLink>
+														<NavLink to="/my-shuffling">My shuffling</NavLink>
+
+														<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create
+															shuffling</a>
+
+													</div>
+												</AccordionItemBody>
+											</div>
+
+										</AccordionItem>
+										<AccordionItem>
+											<div className={"mobile-nav-item"}>
+												<AccordionItemTitle
+													className={`text ${this.getNavLinkClass(["/messenger"])}`}>
+													<i className="zmdi zmdi-comments"/>Messages<span className="arrow"/>
+												</AccordionItemTitle>
+												<AccordionItemBody>
+													<div className="item-dropdown">
+														<NavLink exact={true} activeClassName="active"
+														         to="/messenger">Chat</NavLink>
+													</div>
+												</AccordionItemBody>
+											</div>
+
+										</AccordionItem>
+									</Accordion>
+
 									<NavLink exact={true} activeClassName="active" to="/aliases"
 									         className={"mobile-nav-item"}>
 										<p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
