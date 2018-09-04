@@ -57,7 +57,7 @@ input[type="number"] {
     .site-content .page-content .page-body:after {
       content: '';
       position: fixed;
-      top: 120px;
+      top: 100px;
       bottom: 0;
       left: 220px;
       right: 0;
@@ -66,6 +66,10 @@ input[type="number"] {
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease-in-out; }
+      @media (max-width: 760px) {
+        .site-content .page-content .page-body:after {
+          top: 0 !important;
+          left: 0 !important; } }
     .site-content .page-content .page-body .row {
       width: 100%;
       margin: 0;

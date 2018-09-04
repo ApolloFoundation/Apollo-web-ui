@@ -151,6 +151,13 @@
     border-radius: 6px;
     width: 100% !important;
     max-width: 500px; }
+    @media (max-width: 760px) {
+      .modal-window .modal-box {
+        max-width: 100%;
+        height: 100%;
+        border-radius: 0;
+        transform: none !important;
+        overflow: auto; } }
     .modal-window .modal-box.active {
       transform: translateY(15px); }
       .modal-window .modal-box.active .modal-form .left-bar {
@@ -166,6 +173,16 @@
     .modal-window .modal-box .modal-form {
       min-width: 500px;
       margin-bottom: 20px; }
+      @media (max-width: 760px) {
+        .modal-window .modal-box .modal-form {
+          min-width: 100%;
+          width: 100%;
+          min-height: 100%;
+          margin-bottom: 0; } }
       .modal-window .modal-box .modal-form .form-group {
         padding-bottom: 69px;
         position: relative; }
+        @media (max-width: 760px) {
+          .modal-window .modal-box .modal-form .form-group {
+            height: 100vh;
+            border-radius: 0; } }

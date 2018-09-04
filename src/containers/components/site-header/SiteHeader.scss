@@ -64,6 +64,12 @@
 			& > * {
 				vertical-align: middle;
 			}
+			.btn.primary{
+				margin: 7px 0 !important;
+				@media (max-width: 760px) {
+					display: none !important;
+				}
+			}
 			.title {
 				color: #333333;
 				font-family: "Roboto-Light";
@@ -330,6 +336,10 @@
 				transform: translateY(50px);
 				transition: all 0.3s ease-in-out;
 				z-index: 4;
+				
+				@media (max-width: 760px) {
+					top: 50px;
+				}
 				
 				&.active {
 					opacity: 1;

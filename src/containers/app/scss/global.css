@@ -654,12 +654,22 @@ input {
     transition: all 0.3s ease-in-out; }
   .btn.underscore.general .settings-bar {
     top: calc(100% + 45.6px) !important; }
+    @media (max-width: 1024px) {
+      .btn.underscore.general .settings-bar {
+        top: calc(100% + 49.6px) !important; } }
   .btn.underscore.general:after {
     top: calc(100% + 43.5px); }
   .btn.underscore.settings .settings-bar {
-    top: calc(100% + 49.6px) !important; }
+    top: calc(100% + 40.6px) !important; }
+    @media (max-width: 760px) {
+      .btn.underscore.settings .settings-bar {
+        top: 40px !important;
+        right: -145px !important; } }
   .btn.underscore.settings:after {
-    top: calc(100% + 47px); }
+    top: calc(100% + 37px); }
+    @media (max-width: 760px) {
+      .btn.underscore.settings:after {
+        top: 37px; } }
   .btn.underscore.account:after {
     top: calc(100% + 49px); }
   .btn.underscore.active.account:after {
@@ -692,6 +702,11 @@ input {
     border: 1px solid transparent; }
     .btn.filters.active {
       border: 1px solid #101010; }
+      @media (max-width: 760px) {
+        .btn.filters.active {
+          border: 1px solid #fff; }
+          .btn.filters.active .zmdi {
+            transform: translate(0, -1px); } }
   .btn .no-border {
     border: 0; }
   .btn.transparent {

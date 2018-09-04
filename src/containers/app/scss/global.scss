@@ -986,6 +986,12 @@ input {
 		&.general {
 			.settings-bar {
 				top: calc(100% + 45.6px) !important;
+				@media (max-width: 1024px) {
+					top: calc(100% + 49.6px) !important;
+				}
+				//@media (max-width: 760px) {
+				//	top: 50px !important;
+				//}
 			}
 			&:after {
 				top: calc(100% + 43.5px);
@@ -993,10 +999,17 @@ input {
 		}
 		&.settings {
 			.settings-bar {
-				top: calc(100% + 49.6px) !important;
+				top: calc(100% + 40.6px) !important;
+				@media (max-width: 760px) {
+					top: 40px !important;
+					right: -145px !important;
+				}
 			}
 			&:after {
-				top: calc(100% + 47px);
+				top: calc(100% + 37px);
+				@media (max-width: 760px) {
+					top: 37px;
+				}
 			}
 		}
 		&.account {
@@ -1052,6 +1065,12 @@ input {
 		
 		&.active {
 			border: 1px solid #101010;
+			@media (max-width: 760px) {
+				border: 1px solid #fff;
+				.zmdi {
+					transform: translate(0, -1px);
+				}
+			}
 		}
 	}
 	.no-border {

@@ -79,7 +79,7 @@ input[type="number"] {
       &:after {
         content: '';
         position: fixed;
-        top: 120px;
+        top: 100px;
         bottom: 0;
         left: 220px;
         right: 0;
@@ -88,6 +88,10 @@ input[type="number"] {
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease-in-out;
+        @media (max-width: 760px) {
+          top: 0 !important;
+          left: 0 !important;
+        }
       }
       .row {
         width: 100%;
