@@ -108,7 +108,7 @@
 		left: 20px;
 		top: 50%;
 		transform: translate(0, -50%);
-		z-index: 5;
+		z-index: 3;
 		@media (max-width: 760px) {
 			display: inline-flex;
 		}
@@ -478,7 +478,11 @@
 				height: 41px;
 				display: flex;
 				justify-content: flex-end;
-				
+				.zmdi{
+					@media (max-width: 760px) {
+						color: #ffffff !important;
+					}
+				}
 				& > * {
 					margin: auto 0;
 				}
@@ -623,21 +627,64 @@
 	}
 }
 
+.close-menu-btn{
+	background-color: #666666;
+	font-size: 12px;
+	color: #ffffff;
+	line-height: 1.2;
+	padding: 5px 7px;
+	border-radius: 4px;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	transition: 0.2s;
+	&:hover{
+		background-color: #4d4d4d;
+		
+	}
+}
+
 .mobile-nav {
 	display: none;
 	
 	position: fixed;
 	left: auto;
-	right: 0;
-	top: 50px;
+	top: 0;
 	bottom: 0;
 	background-color: #333333;
 	width: 100%;
-	padding: 20px;
+	padding: 65px 20px 20px;
 	overflow: auto;
 	max-height: 100%;
+	right: -100%;
+	z-index: 5;
+	opacity: 0;
+	transition: 0.2s;
 	@media (max-width: 760px) {
 		display: block;
+	}
+	&:after{
+		content: '';
+		background-color: #333333;
+		position: fixed;
+		z-index: 2;
+		top: 0;
+		height: 50px;
+		width: 100%;
+		right: -100%;
+		transition: 0.2s;
+		box-shadow: 0px 0px 9px 2px rgba(#333333, 1);
+	}
+	&.show {
+		right: 0;
+		opacity: 1;
+		&:after {
+			right: 0;
+		}
+	}
+	
+	.btn-block{
+		text-align: center;
 	}
 }
 
@@ -707,5 +754,58 @@
 				color: #ffffff;
 			}
 		}
+	}
+}
+
+.burger-mobile {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	height: 15px;
+	width: 20px;
+	position: absolute;
+	transform: translate(0, -50%);
+	top: 50%;
+	right: 20px;
+	z-index: 6;
+	cursor: pointer;
+	@media (max-width: 760px) {
+		display: flex;
+	}
+	&.menu-open {
+		.line {
+			opacity: 0;
+		}
+		&:before {
+			top: 6px;
+			transform: rotate(45deg);
+		}
+		&:after {
+			bottom: 6px;
+			transform: rotate(-45deg);
+		}
+	}
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 3px;
+		left: 0;
+		right: 0;
+		background-color: #fff;
+		transition: 0.25s;
+	}
+	&:before {
+		top: 0;
+	}
+	&:after {
+		bottom: 0;
+	}
+	.line {
+		width: 100%;
+		height: 3px;
+		transition: 0.2s;
+		background-color: #fff;
 	}
 }

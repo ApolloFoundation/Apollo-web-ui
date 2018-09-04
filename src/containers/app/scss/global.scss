@@ -1034,9 +1034,7 @@ input {
 			padding-top: 1px;
 			font-size: 20px;
 			color: #000;
-			@media (max-width: 760px) {
-				color: #ffffff !important;
-			}
+			
 		}
 	}
 	&.filters {

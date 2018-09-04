@@ -20,18 +20,37 @@ class SiteHeader extends React.Component {
 		super(props);
 
 		this.state = {
-			searching: false
+			searching: false,
+			menuShow: false
 		};
 
 		this.setSearchStateToActive = this.setSearchStateToActive.bind(this);
 		this.resetSearchStateToActive = this.resetSearchStateToActive.bind(this);
 		this.showItemDropdown = this.showItemDropdown.bind(this);
+		this.showMenu = this.showMenu.bind(this);
+		this.closeMenu = this.closeMenu.bind(this);
 		this.searchInterval;
 	}
-
-	showItemDropdown() {
-
+	showMenu() {
+		this.setState({menuShow: !this.state.menuShow});
 	}
+	closeMenu() {
+		this.setState({menuShow: false});
+	}
+	showItemDropdown(a) {
+		document.getElementsByClassName(".mobile-nav-item .text");
+		console.log(a.target.classList);
+	}
+
+	getNavLinkClass = (path) => {
+		console.log(path);
+		console.log(window.location.pathname);
+
+		path.map((item) => {
+			console.log(item);
+			return window.location.pathname === item ? 'active' : '';
+		});
+	};
 
 	setSearchStateToActive() {
 		clearInterval(this.searchInterval);
@@ -202,12 +221,12 @@ class SiteHeader extends React.Component {
 							})}>
 								{/*TODO : fix site header search animation*/}
 								<a className="logo" href={"/"}><img src="./apollo-logo.svg"/></a>
-								<div className="burger-mobile">
+								<div className={`burger-mobile ${this.state.menuShow ? "menu-open" : ""}`} onClick={this.showMenu}>
 									<div className="line"/>
 								</div>
-								<div className="mobile-nav">
-									<div className={"mobile-nav-item"}>
-										<p className="text" onClick={this.showItemDropdown}>
+								<div className={`mobile-nav ${this.state.menuShow ? "show" : ""}`}>
+									<div className={`mobile-nav-item`}>
+										<p className={`text ${this.getNavLinkClass(["/dashboard", "/ledger"])}`} onClick={this.showItemDropdown}>
 											<i className="zmdi zmdi-view-dashboard"/>Dashboard<span className="arrow"/>
 										</p>
 										<div className="item-dropdown">
@@ -335,6 +354,11 @@ class SiteHeader extends React.Component {
 									         className={"mobile-nav-item"}>
 										<p className="text">Plugins <i className="zmdi zmdi-input-power"/></p>
 									</NavLink>
+									<div className="btn-block">
+										<div className="close-menu-btn" onClick={this.closeMenu}>
+											Close
+										</div>
+									</div>
 
 								</div>
 								<div

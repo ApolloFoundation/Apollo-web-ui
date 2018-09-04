@@ -680,9 +680,6 @@ input {
       padding-top: 1px;
       font-size: 20px;
       color: #000; }
-      @media (max-width: 760px) {
-        .btn.icon-button i {
-          color: #ffffff !important; } }
   .btn.filters {
     border: 1px solid transparent; }
     .btn.filters.active {
