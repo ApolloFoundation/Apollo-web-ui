@@ -1,9 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import {Form, Text, TextArea} from 'react-form'
+import submitForm from "../../../helpers/forms/forms";
+import {NotificationManager} from "react-notifications";
+import InfoBox from "../../components/info-box";
+
 
 class GenerateHallmark extends React.Component {
     constructor(props) {
@@ -11,6 +15,7 @@ class GenerateHallmark extends React.Component {
 
         this.state = {
             activeTab: 0,
+            hallmark: false
         };
 
         this.handleTab = this.handleTab.bind(this);
@@ -25,194 +30,249 @@ class GenerateHallmark extends React.Component {
         })
     }
 
+    handleFormSubmit = values => {
+        this.setState({
+            hallmark: false
+        });
+        switch (this.state.activeTab) {
+            case 0://generate hallmark
+                this.props.submitForm(null, null, {
+                    host: values.hostGenerate,
+                    weight: values.weightGenerate,
+                    date: values.dateGenerate,
+                    secretPhrase: values.passphraseGenerate,
+                    feeATM: 0,
+                }, 'markHost')
+                    .done(res => {
+                       if (res.errorCode) {
+                           NotificationManager.error(res.errorDescription, "Error", 5000)
+                       } else {
+                           this.setState({
+                               hallmark: res.hallmark
+                           })
+                       }
+                    });
+                break;
+            case 1://parse hallmark
+                this.props.submitForm(null, null, {
+                    hallmark: values.hallmarkParse,
+                    account: values.accountParse,
+                    host: values.hostParse,
+                    port: values.portParse,
+                    date: values.dateParse,
+                    valid: values.validParse,
+                    feeATM: 0,
+                    random: Math.random()
+                }, 'decodeHallmark')
+                    .done(res => {
+                        if (res.errorCode) {
+                            NotificationManager.error(res.errorDescription, "Error", 5000)
+                        } else {
+                            NotificationManager.success("Hallmark parsed", null, 5000);
+                        }
+                    });
+                break;
+        }
+    };
+
     render() {
         return (
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm
-                             }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                    render={formState => (
+                            <form className="modal-form" onSubmit={formState.submitForm}>
+                                <div className="form-group">
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i
+                                        className="zmdi zmdi-close"/></a>
 
-                                <div className="form-title">
-                                    <p>Generate Hallmark</p>
-                                </div>
+                                    <div className="form-title">
+                                        <p>Generate Hallmark</p>
+                                    </div>
 
-                                <div className="form-tabulator active">
-                                    <div className="form-tab-nav-box justify-left">
-                                        <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
-                                            "form-tab": true,
+                                    <div className="form-tabulator active">
+                                        <div className="form-tab-nav-box justify-left">
+                                            <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                                "form-tab": true,
+                                                "active": this.state.activeTab === 0
+                                            })}>
+                                                <p>Generate hallmark</p>
+                                            </a>
+                                            <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
+                                                "form-tab": true,
+                                                "active": this.state.activeTab === 1
+                                            })}>
+                                                <p>Parse hallmark</p>
+                                            </a>
+                                        </div>
+
+                                        <div className={classNames({
+                                            "tab-body": true,
                                             "active": this.state.activeTab === 0
                                         })}>
-                                            <p>Generate hallmark</p>
-                                        </a>
-                                        <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
-                                            "form-tab": true,
+                                            <div className="input-group block offset-bottom offset-top">
+
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Host</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text rows={5} type="text"
+                                                              field={'hostGenerate'}
+                                                              placeholder="Public Host Address"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group block offset-bottom">
+
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Weight</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text type="text" field={'weightGenerate'}
+                                                              placeholder="Proportional Weight [0-1000000000]"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group block offset-bottom">
+
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Date</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text type="text" field={'dateGenerate'}
+                                                              placeholder="Date [YYYY/MM/DD]"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="input-group block offset-bottom">
+
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Passphrase</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text type="password"
+                                                              field={'passphraseGenerate'}
+                                                              placeholder="Passphrase"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div className={classNames({
+                                            "tab-body": true,
                                             "active": this.state.activeTab === 1
                                         })}>
-                                            <p>Parse hallmark</p>
-                                        </a>
-                                    </div>
+                                            <div className="input-group block offset-bottom offset-top">
 
-                                    <div className={classNames({
-                                        "tab-body": true,
-                                        "active": this.state.activeTab === 0
-                                    })}>
-                                        <div className="input-group block offset-bottom offset-top">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Host</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text rows={5} type="text" field={'data'} placeholder="Website or text"/>
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Hallmark</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <TextArea rows={5} type="text" field={'hallmarkParse'}
+                                                                  placeholder="Hallmark"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
+                                            <div className="input-group block offset-bottom">
 
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Weight</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Account</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text rows={5} type="text" field={'accountParse'}
+                                                              placeholder="Account"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
+                                            <div className="input-group block offset-bottom">
 
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Date</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Host</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text type="text" field={'hostParse'} placeholder="Host"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
+                                            <div className="input-group block offset-bottom">
 
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Passphrase</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Port</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text type="text" field={'portParse'} placeholder="Port"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="btn-box align-buttons-inside absolute right-conner">
-                                            <button
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Generate
-                                            </button>
-                                            <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
+                                            <div className="input-group block offset-bottom">
 
-                                        </div>
-                                    </div>
-                                    <div className={classNames({
-                                        "tab-body": true,
-                                        "active": this.state.activeTab === 1
-                                    })}>
-                                        <div className="input-group block offset-bottom offset-top">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Hallmark</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <TextArea rows={5} type="text" field={'data'} placeholder="Website or text"/>
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Weight</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text type="text"
+                                                              field={'weightParse'} placeholder="Weight"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
+                                            <div className="input-group block offset-bottom">
 
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Account</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text rows={5} type="text" field={'data'} placeholder="Website or text"/>
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Date</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text type="text"
+                                                              field={'dateParse'} placeholder="Date"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
+                                            <div className="input-group block offset-bottom">
 
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Host</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <label>Valid</label>
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <Text type="text"
+                                                              field={'validParse'} placeholder="Valid"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
 
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Port</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Weight</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Date</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Valid</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="text" field={'passphrase'} placeholder="passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="btn-box align-buttons-inside absolute right-conner">
-                                            <button
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Generate
-                                            </button>
-                                            <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    )}
+
+                                {this.state.hallmark ? <InfoBox info>
+                                    {this.state.hallmark}
+                                </InfoBox> : null}
+
+                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                    <button className="btn btn-right round round-top-left"
+                                            onClick={() => this.props.closeModal()}>Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        name={'closeModal'}
+                                        className="btn btn-right blue round round-bottom-right"
+                                    >
+                                        Generate
+                                    </button>
+
+                                </div>
+
+                            </form>
+                        )}
                 >
                 </Form>
             </div>
@@ -225,7 +285,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenerateHallmark);
