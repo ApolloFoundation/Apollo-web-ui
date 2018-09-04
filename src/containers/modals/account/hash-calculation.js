@@ -139,7 +139,6 @@ class HashCalculation extends React.Component {
                                 }
 
                                 <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button className="btn btn-right round round-top-left">Cancel</button>
                                     <button
                                         type="submit"
                                         name={'closeModal'}
@@ -147,12 +146,13 @@ class HashCalculation extends React.Component {
                                     >
                                         Send
                                     </button>
-
+                                    <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                 </div>
+
                                 <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
-                                        className="btn btn-right round round-bottom-left round-top-right"
+                                        className="btn btn-left round round-bottom-left round-top-right"
                                     >
                                         Calculate
                                     </a>

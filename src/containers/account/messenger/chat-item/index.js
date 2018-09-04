@@ -60,9 +60,6 @@ class ChatItem extends React.Component {
     };
 
     render () {
-        console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-        console.log(this.state);
-        console.log(this.props);
         return (
             <div className={classNames({
                 'message-box': true,

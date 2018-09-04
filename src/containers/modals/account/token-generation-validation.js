@@ -158,7 +158,7 @@ class TokenGenerationValidation extends React.Component {
                                             >
                                                 Generate
                                             </button>
-                                            <button className="btn btn-right round round-top-left">Cancel</button>
+                                            <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
 
 
                                         </div>
@@ -216,7 +216,7 @@ class TokenGenerationValidation extends React.Component {
                                             >
                                                 Validate
                                             </button>
-                                            <button className="btn btn-right round round-top-left">Cancel</button>
+                                            <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
 
                                         </div>
                                     </form>

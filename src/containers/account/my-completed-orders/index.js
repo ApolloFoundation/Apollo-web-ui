@@ -8,6 +8,7 @@ import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/l
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
+import MarketplaceItem from "../marketplace/marketplace-card";
 
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
@@ -83,53 +84,41 @@ class MyProductsForSale extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Name</td>
-                                        <td className="align-right">Quantity</td>
-                                        <td className="align-right">Price</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody key={uuid()}>
-                                    {
-                                        this.state.getDGSGoods.map((el, index) => {
-                                            return (
-                                                <MarketplaceTableItem
-                                                    {...el}
-                                                />
-                                            );
-                                        })
-                                    }
-                                    </tbody>
-                                </table>
-                                <div className="btn-box">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
-                                    </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.getDGSGoods.length < 15
-                                        })}
-                                    >Next</a>
-                                </div>
+                        {
+                            this.state.getDGSGoods.map((el, index) => {
+                                return (
+                                    <MarketplaceItem
+                                        tall={false}
+                                        fluid={!this.state.isGrid}
+                                        isHovered
+                                        index={index}
+                                        {...el}
+                                    />
+                                );
+                            })
+                        }
+                        <div className="btn-box">
+                            <a
+                                className={classNames({
+                                    'btn' : true,
+                                    'btn-left' : true,
+                                    'disabled' : this.state.page <= 1
+                                })}
+                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                            > Previous</a>
+                            <div className='pagination-nav'>
+                                <span>{this.state.firstIndex + 1}</span>
+                                <span>&hellip;</span>
+                                <span>{this.state.lastIndex + 1}</span>
                             </div>
+                            <a
+                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                className={classNames({
+                                    'btn' : true,
+                                    'btn-right' : true,
+                                    'disabled' : this.state.getDGSGoods.length < 8
+                                })}
+                            >Next</a>
                         </div>
                     </div>
                 </div>

@@ -231,7 +231,7 @@ class ListProductForSale extends React.Component {
                                     </div>
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button className="btn btn-right round round-top-left">Cancel</button>
+                                    <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     <button
                                         type="submit"
                                         name={'closeModal'}

@@ -80,7 +80,6 @@ class MarketplaceProductDetails extends React.Component {
                                 </div>
                             </div>,
                             <div className="right-bar">
-                                <div className="exit"><i className="zmdi zmdi-close" /></div>
                                 <div className="form-title">
                                     <p>{this.state.goods.name}</p>
                                 </div>

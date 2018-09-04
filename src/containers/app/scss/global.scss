@@ -401,7 +401,8 @@ input {
 	background: #fff;
 	border-radius: 6px;
 	height: calc(100% - 15px);
-	
+    overflow: hidden;
+
 	&.devided {
 		display: flex;
 		flex-direction: row;
@@ -484,6 +485,12 @@ input {
 	}
 	&.offset-bottom {
 		padding-bottom: 75px;
+	}
+    &.no-padding-top {
+      padding-top: 0;
+    }
+	&.no-padding-left {
+		padding-left: 0 !important;
 	}
 	&.no-padding-bottom {
 		padding-bottom: 0 !important;

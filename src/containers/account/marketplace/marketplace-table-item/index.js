@@ -14,20 +14,20 @@ const MarketplaceTableItem = (props) => (
         <td className="align-right">
             <div className="btn-box inline">
                 <a
-                    onClick={props.editAlias}
+                    onClick={() => props.setBodyModalParamsAction('CHANGE_PRICE', props.goods)}
                     className="btn primary blue"
                 >
                     Change Price
                 </a>
                 <a
+                    onClick={() => props.setBodyModalParamsAction('CHANGE_QUANTITY', props.goods)}
                     className="btn primary blue"
-                    onClick={props.transferAlias}
                 >
                     Change QTY
                 </a>
                 <a
+                    onClick={() => props.setBodyModalParamsAction('DELETE_GOODS', props.goods)}
                     className="btn primary"
-                    onClick={props.deleteAlias}
                 >
                     Delete
                 </a>

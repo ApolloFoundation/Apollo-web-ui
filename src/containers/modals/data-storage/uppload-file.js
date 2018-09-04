@@ -171,11 +171,12 @@ class UploadFile extends React.Component {
                             </div>
 
                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                <button
+                                <a
+                                    onClick={() => this.props.closeModal()}
                                     className="btn round round-top-left"
                                 >
                                     Cancel
-                                </button>
+                                </a>
                                 <button
                                     type="submit"
                                     name={'closeModal'}

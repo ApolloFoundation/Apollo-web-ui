@@ -56,6 +56,10 @@ import AddAlias   from './aliases/add-alias';
 import MarketplaceImage from './marketplace/mraketplace-image-view';
 import MarketplaceProductDetails from './marketplace/marketplace-product-details';
 import ListProductForSale from './marketplace/list-product-for-sale';
+import MarketplacePurchase from './marketplace/marketplace-purchase/';
+import MarketplaceChangePrice from './marketplace/change-price/';
+import MarketplaceChangeQuantity from './marketplace/change-quantity/';
+import MarketplaceDelete from './marketplace/delete-goods/';
 
 // Marketplace
 import DecryptMessage from './messenger/decrypt-messages';
@@ -199,10 +203,15 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={this.closeModal}/>}
 
+
                 {/*Marketplace*/}
                 {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          closeModal={this.closeModal}/>}
                 {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails closeModal={this.closeModal}/>}
                 {this.props.modalType === 'LIST_PRODUCT_FOR_SALE'       && <ListProductForSale        closeModal={this.closeModal}/>}
+                {this.props.modalType === 'MARKETPLACE_PURCHASE'        && <MarketplacePurchase       closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CHANGE_PRICE'                && <MarketplaceChangePrice    closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CHANGE_QUANTITY'             && <MarketplaceChangeQuantity closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.closeModal}/>}
 
 
                 {/*Messages*/}

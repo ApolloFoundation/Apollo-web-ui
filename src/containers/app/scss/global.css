@@ -282,7 +282,8 @@ input {
   width: 100%;
   background: #fff;
   border-radius: 6px;
-  height: calc(100% - 15px); }
+  height: calc(100% - 15px);
+  overflow: hidden; }
   .form-group.devided {
     display: flex;
     flex-direction: row;
@@ -336,6 +337,10 @@ input {
     height: auto; }
   .form-group.offset-bottom {
     padding-bottom: 75px; }
+  .form-group.no-padding-top {
+    padding-top: 0; }
+  .form-group.no-padding-left {
+    padding-left: 0 !important; }
   .form-group.no-padding-bottom {
     padding-bottom: 0 !important; }
   .form-group .form-body .input-section {

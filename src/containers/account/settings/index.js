@@ -333,7 +333,7 @@ class Settings extends React.Component {
                             </div>
                             <div className="col-md-6">
                                 <div className="btn-box absolute right-conner more-padding">
-                                    <div className="btn primary">Cancel</div>
+                                    <a onClick={() => this.props.closeModal()} className="btn primary">Cancel</a>
                                     <div className="btn primary blue">Save settings</div>
                                 </div>
                             </div>

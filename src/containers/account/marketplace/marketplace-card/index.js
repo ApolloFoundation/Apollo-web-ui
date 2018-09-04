@@ -53,7 +53,7 @@ const MarketplaceItem = (props, history) => (
                             </div>
                         </div>
                         <div
-                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
+                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
                             className="user"
                         >
                             {props.name}
@@ -87,12 +87,12 @@ const MarketplaceItem = (props, history) => (
                         </div>
                     </div>
                     <div className="cargo-description">
-                        <div
-                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
+                        <a
+                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
                             className="cargo-title"
                         >
                             {props.name}
-                        </div>
+                        </a>
                         <div className="cargo-description" dangerouslySetInnerHTML={{__html: props.description.length < 100 ? props.description : props.description.slice(0, 100) + '&hellip;'}} />
                     </div>
                     <div className="cargo-owner-box">
@@ -120,18 +120,6 @@ const MarketplaceItem = (props, history) => (
                     >
                         tags: {props.parsedTags.map((el, index) => {return <Link to={'/marketplace/' + el} style={{marginLeft: 15}} className="btn static primary">{el}</Link>})}
                     </div>
-	                {/*<div className="tags-block">*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-		                {/*fdsfd s fds fds fds fds fds fds fds fsd fds fds fds fds fsdf dsf dsf ds*/}
-	                {/*</div>*/}
                 </div>
             ]
         }
@@ -151,16 +139,19 @@ const MarketplaceItem = (props, history) => (
                     />
                     <div className='cargo-major-details'>
                         <div className="cargo-description">
-                            <div
-                                onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
+                            <a
+                                onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
                                 className="cargo-title"
                             >
                                 {props.name}
-                            </div>
+                            </a>
                         </div>
-                        <div className="cargo-id">
+                        <a
+                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
+                            className="cargo-id"
+                        >
                             {props.goods}
-                        </div>
+                        </a>
                         <div className="amount">
                             {props.priceATM / 100000000} <small>APL</small>
                         </div>
