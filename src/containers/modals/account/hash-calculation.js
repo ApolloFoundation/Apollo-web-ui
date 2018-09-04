@@ -120,10 +120,14 @@ class HashCalculation extends React.Component {
                                     <div className="row">
                                         <div className="col-md-3"/>
                                         <div className="col-md-9">
-                                            <Checkbox style={{display: 'inline-block'}} type="checkbox"
-                                                      field="isMessage"/>
-                                            <label style={{display: 'inline-block'}}>Textual data representation</label>
-
+                                            <div className="input-wrapper">
+                                                <div
+                                                    className="input-group align-middle display-block">
+                                                    <Checkbox style={{display: 'inline-block'}} type="checkbox"
+                                                              field="isMessage"/>
+                                                    <label style={{display: 'inline-block'}}>Textual data representation</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
