@@ -94,8 +94,22 @@ export function validateTokenAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 } else {
-                    NotificationManager.error(res.data.errorDescription, 'Error', 5000)
+                    NotificationManager.error(res.data.errorDescription, 'Error', 5000);
                     return;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+}
+
+export function getNewsAction(reqParams) {
+    return (dispatch) => {
+        return axios.get(config.api.localServerUrl + '/api/twitter')
+            .then((res) => {
+                if (res.data.tweets) {
+                    return res.data;
                 }
             })
             .catch((err) => {

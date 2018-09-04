@@ -33,7 +33,7 @@ class IssueCurrency extends React.Component {
                 } else {
                     this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Asset has been submitted!', null, 5000);
+                    NotificationManager.success('Issue currency request has been submitted!', null, 5000);
 
                 }
             })

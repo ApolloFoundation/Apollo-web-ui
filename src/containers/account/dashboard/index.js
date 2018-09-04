@@ -20,6 +20,7 @@ import {
 import {getAccountAssetsAction} from '../../../actions/assets'
 import {getAliasesCountAction} from '../../../actions/aliases'
 import {getMessages} from "../../../actions/messager";
+import {getNewsAction} from "../../../actions/account";
 
 
 const mapStateToProps = state => ({
@@ -38,6 +39,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+    getNewsAction: () => dispatch(getNewsAction()),
     setMopalType: (type) => dispatch(setMopalType(type)),
     formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
@@ -63,6 +65,7 @@ class Dashboard extends React.Component {
 		transactions: null,
 		firstIndex: 0,
 		lastIndex: 14,
+		newsItem: 0
 	};
 
     componentWillReceiveProps(newState) {
@@ -77,6 +80,7 @@ class Dashboard extends React.Component {
         if (this.props.account) {
             this.initDashboard({account: this.props.account})
         }
+        this.getNews();
     }
 
     initDashboard = (reqParams) => {
@@ -174,8 +178,33 @@ class Dashboard extends React.Component {
                 pendingGoods: pendingGoods.purchases.length,
             })
         }
-
     };
+
+	getNews = async () => {
+		const news = await this.props.getNewsAction();
+
+        console.log(news);
+
+        if (news) {
+			this.setState({
+				news,
+				newsCount: news.tweets.length
+			})
+		}
+	};
+
+	getNewsItem = (tweet) => {
+        let itemContent = '';
+        const post = tweet.retweeted_status ? tweet.retweeted_status : tweet;
+        const dateArr = post.created_at.split(" ");
+        const media = (post.extended_entities && post.extended_entities.media.length > 0) ?
+            post.extended_entities.media[0].media_url : false;
+        itemContent += `<div class='post-title'>@${post.user.screen_name}<span class='post-date'>${dateArr[1]} ${dateArr[2]}</span></div>`;
+        itemContent += `<div class='post-content'>${post.full_text}</div>`;
+        if (media) itemContent += `<div class='post-image' style="background-image: url('${media}')"></div>`;
+        return <a className="post-item" href={`https://twitter.com/${post.user.screen_name}/status/${post.id_str}`}
+                  target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
+	};
 
 	render() {
 		return (
@@ -408,34 +437,46 @@ class Dashboard extends React.Component {
 							<div className="page-body-item ">
 								<div className="card card-tall apollo-news">
 									<div className="card-title">Apollo News</div>
-									<div className="card-news-content">Lorem ipsum dolor sit amet, consectetur
-										adipiscing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-										ad
-										minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo consequat. Duis
-										aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat
-										nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-										qui
-										officia deserunt mollit anim id est laborum.
+									<div className="card-news-content">
+										{this.state.news && this.getNewsItem(this.state.news.tweets[this.state.newsItem])}
 									</div>
                                     <button
-                                        className="btn btn-left gray round round-top-right round-bottom-left absolute "
+                                        className={classNames({
+                                            'btn': true,
+                                            'btn-left': true,
+                                            'gray': true,
+                                            'round': true,
+                                            'round-top-right': true,
+                                            'round-bottom-left': true,
+                                            'absolute': true,
+                                            'disabled': this.state.newsItem === 0
+                                        })}
                                         data-modal="sendMoney"
-
+										onClick={() => {this.setState({newsItem: this.state.newsItem - 1})}}
                                     >
                                         <i className="arrow zmdi zmdi-chevron-left" />&nbsp;
                                         Previous
                                     </button>
-                                    <button
-                                        className="btn btn-right gray round round-bottom-right round-top-left absolute "
-                                        data-modal="sendMoney"
-
-                                    >
-                                        Next&nbsp;
-                                        <i className="arrow zmdi zmdi-chevron-right" />
-                                    </button>
+									{
+                                        this.state.newsCount &&
+                                        <button
+                                            className={classNames({
+												'btn': true,
+												'btn-right': true,
+												'gray': true,
+												'round': true,
+												'round-bottom-right': true,
+												'round-top-left': true,
+												'absolute': true,
+												'disabled': this.state.newsItem === this.state.newsCount - 1
+											})}
+                                            data-modal="sendMoney"
+                                            onClick={() => {this.setState({newsItem: this.state.newsItem + 1})}}
+                                        >
+                                            Next&nbsp;
+                                            <i className="arrow zmdi zmdi-chevron-right" />
+                                        </button>
+									}
 								</div>
 							</div>
 						</div>
