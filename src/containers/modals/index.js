@@ -29,6 +29,7 @@ import ApolloAbout from './about';
 // Assets
 import TransferAsset from './assets/transfer-asset';
 import DeleteShares from './assets/delete-shares';
+import BuyAssets from './assets/buy-asset';
 
 // currency System
 import ReserveCurrency from './currencies/reserve-currency'
@@ -162,7 +163,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'DELETE_SHARES'               && <DeleteShares              closeModal={this.closeModal}/>}
                 {this.props.modalType === 'RESERVE_CURRENCY'            && <ReserveCurrency           closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ISSUE_ASSET'                 && <IssueAsset                closeModal={this.closeModal}/>}
-
+                {this.props.modalType === 'BUY_ASSET'                   && <BuyAssets                 closeModal={this.closeModal}/>}
 
                 {/* Currency */}
                 {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             closeModal={this.closeModal}/>}
