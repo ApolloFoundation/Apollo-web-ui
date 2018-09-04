@@ -3,7 +3,7 @@ import SiteHeader from '../../components/site-header'
 import CircleFigure from './circle-figure'
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import {setMopalType} from '../../../modules/modals';
+import {setBodyModalParamsAction, setMopalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
 
@@ -41,6 +41,7 @@ const mapDispatchToProps = dispatch => ({
 
     getMessages: (reqParams) => dispatch(getMessages(reqParams)),
     getNewsAction: () => dispatch(getNewsAction()),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     setMopalType: (type) => dispatch(setMopalType(type)),
     formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
@@ -410,15 +411,15 @@ class Dashboard extends React.Component {
 										<div className="form-group offset">
 											<div className="input-group lighten">
 												<label>Wallet</label>
-												<input type="number"/>
+												<input ref={'recipient'} type="text"/>
 											</div>
 											<div className="input-group lighten">
 												<label>Amount</label>
-												<input/>
+												<input  ref={'amountATM'} type={'number'}/>
 											</div>
 											<div className="input-group lighten">
 												<label>Send to</label>
-												<input/>
+												<input ref={'feeATM'}/>
 											</div>
 										</div>
 									</div>
@@ -427,7 +428,7 @@ class Dashboard extends React.Component {
 									<button
 										className="btn btn-right gray round round-bottom-right round-top-left absolute"
 										data-modal="sendMoney"
-										onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+										onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient: this.refs.recipient.value, amountATM: this.refs.amountATM.value, feeATM: this.refs.feeATM.value})}
 									>
 										Send&nbsp;
 										<i className="arrow zmdi zmdi-chevron-right"/>

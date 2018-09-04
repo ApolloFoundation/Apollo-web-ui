@@ -3,7 +3,7 @@ import InputMask from 'react-input-mask';
 
 
 const AccountRS = (props) => (
-    <InputMask mask='APL-****-****-****-*****' placeholder={'Account RS'} onChange={(e) => {
+    <InputMask mask='APL-****-****-****-*****' placeholder={'Account RS'} value={props.defaultValue} onChange={(e) => {
         if (e.target) {
             var value = e.target.value;
             var newState = {
