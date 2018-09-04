@@ -4,7 +4,7 @@ const express = require('express');
 const Twitter = require('twitter');
 const bodyParser = require('body-parser');
 
-const PORT = 3003;
+const PORT = parseInt(process.env.SERVER_PORT, 10) || 3020;
 const HOST = '0.0.0.0';
 
 const app = express();
