@@ -160,7 +160,18 @@ class GenerateHallmark extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div className="btn-box align-buttons-inside absolute right-conner">
+                                                <button
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Generate
+                                                </button>
+                                                <a className="btn btn-right round round-top-left"
+                                                   onClick={() => this.props.closeModal()}>Cancel
+                                                </a>
+                                            </div>
                                         </div>
                                         <div className={classNames({
                                             "tab-body": true,
@@ -248,7 +259,18 @@ class GenerateHallmark extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div className="btn-box align-buttons-inside absolute right-conner">
+                                                <button
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Generate
+                                                </button>
+                                                <a className="btn btn-right round round-top-left"
+                                                   onClick={() => this.props.closeModal()}>Cancel
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -256,20 +278,6 @@ class GenerateHallmark extends React.Component {
                                 {this.state.hallmark ? <InfoBox info>
                                     {this.state.hallmark}
                                 </InfoBox> : null}
-
-                                <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button className="btn btn-right round round-top-left"
-                                            onClick={() => this.props.closeModal()}>Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Generate
-                                    </button>
-
-                                </div>
 
                             </form>
                         )}

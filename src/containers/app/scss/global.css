@@ -248,6 +248,8 @@ input {
     padding-right: 0; }
 
 .info-box p {
+  word-wrap: break-word;
+  word-break: break-all;
   color: #000; }
 
 .no-margin {
@@ -282,8 +284,7 @@ input {
   width: 100%;
   background: #fff;
   border-radius: 6px;
-  height: calc(100% - 15px);
-  overflow: hidden; }
+  height: calc(100% - 15px); }
   .form-group.devided {
     display: flex;
     flex-direction: row;

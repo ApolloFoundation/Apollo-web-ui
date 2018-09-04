@@ -119,22 +119,25 @@ class HashCalculation extends React.Component {
                                 <div className="input-group offset-top display-block">
                                     <div className="row">
                                         <div className="col-md-3"/>
-                                        <div className="input-group align-middle display-block offset-bottom">
+                                        <div className="col-md-9">
                                             <Checkbox style={{display: 'inline-block'}} type="checkbox"
                                                       field="isMessage"/>
                                             <label style={{display: 'inline-block'}}>Textual data representation</label>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div className="input-group offset-top display-block">
                                     <div className="row">
                                         <div className="col-md-3"/>
-                                        <div className="input-group align-middle display-block offset-bottom">
-                                            <CustomSelect
-                                                field={'alg'}
-                                                setValue={setValue}
-                                                options={this.hashOptions}
-                                            />
+                                        <div className="col-md-9">
+                                            <div className="input-group align-middle display-block offset-bottom" style={{width: "100%"}}>
+                                                <CustomSelect
+                                                    field={'alg'}
+                                                    setValue={setValue}
+                                                    options={this.hashOptions}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -164,20 +167,12 @@ class HashCalculation extends React.Component {
                                         Missing fee.
                                     </InfoBox>
                                 }
-                                {this.state.generatedHash ?
+                                {
+                                    this.state.generatedHash ?
                                     <InfoBox info>
                                         {this.state.generatedHash}
-                                    </InfoBox> : null}
-                                <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <a
-                                        onClick={() => this.props.closeModal()}
-                                        className="btn btn-right round round-top-left"
-                                    >
-                                        Cancel
-                                    </a>
-                                    <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
-                                </div>
-
+                                    </InfoBox> : null
+                                }
                                 <div className="btn-box align-buttons-inside absolute left-conner">
                                     <button
                                         className="btn btn-right blue round round-bottom-right"
@@ -185,6 +180,12 @@ class HashCalculation extends React.Component {
                                     >
                                         Calculate
                                     </button>
+                                    <a
+                                        onClick={() => this.props.closeModal()}
+                                        className="btn btn-right round round-top-left"
+                                    >
+                                        Cancel
+                                    </a>
                                 </div>
                             </div>
                         </form>
