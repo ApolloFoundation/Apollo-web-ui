@@ -8,7 +8,7 @@ import crypto from '../../../helpers/crypto/crypto'
 import InfoBox from '../../components/info-box';
 import {buyAssetAction} from "../../../actions/assets";
 import {sellAssetAction} from "../../../actions/assets";
-import {setAlert} from "../../../modules/modals";
+import {setAlert, setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 
 const mapStateToProps = state => ({
@@ -21,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
     buyAssetAction: (requestParams) => dispatch(buyAssetAction(requestParams)),
     setAlert: (status, message) => dispatch(setAlert(status, message)),
     sellAssetAction: (requestParams) => dispatch(sellAssetAction(requestParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
 });
 
@@ -204,104 +205,64 @@ class AssetExchange extends React.Component {
                                         </div>
 
                                         <div style={{height: 'auto'}} className="card ballance card-medium medium-padding full-height">
-                                            <Form
-                                                onSubmit={(values) => this.handleBuyFormSubmit(values)}
-                                                render={({ submitForm, values, addValue, removeValue }) => (
-                                                    <form className="form-group" onSubmit={submitForm}>
-                                                        <div className="form-title">
-                                                            <p>Buy {this.state.asset.name}</p>
-                                                            <div className="form-sub-title">
-                                                                balance: <strong>{this.props.amountATM} ATM</strong>
-                                                            </div>
+                                            <div className="form-group">
+                                                <div className="form-title">
+                                                    <p>Buy {this.state.asset.name}</p>
+                                                    <div className="form-sub-title">
+                                                        balance: <strong>{this.props.amountATM} ATM</strong>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Recipient</label>
                                                         </div>
-                                                        <div className="input-group">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Quantity</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="quantityATU" placeholder='Quantity' />
-                                                                </div>
-                                                            </div>
+                                                        <div className="col-md-7">
+                                                            <input ref="recipient1" placeholder='Recipient' />
                                                         </div>
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Price</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="priceATM" placeholder='Price' />
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Quantity</label>
                                                         </div>
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Total</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="totalATM" placeholder='Total' />
-                                                                </div>
-                                                            </div>
+                                                        <div className="col-md-7">
+                                                            <input ref="quantityATU1" placeholder='Quantity' />
                                                         </div>
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Fee</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="feeATM" placeholder='Fee' />
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Price</label>
                                                         </div>
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Pass phrase</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="secretPhrase" placeholder='Secret phrase'  type={'password'}/>
-                                                                </div>
-                                                            </div>
+                                                        <div className="col-md-7">
+                                                            <input ref="priceATM1" placeholder='Price' />
                                                         </div>
-                                                        {
-                                                            this.state.passphraseStatus &&
-                                                            <InfoBox danger mt>
-                                                                Incorrect passphrase.
-                                                            </InfoBox>
-                                                        }
-                                                        {
-                                                            this.state.recipientStatus &&
-                                                            <InfoBox danger mt>
-                                                                Incorrect recipient.
-                                                            </InfoBox>
-                                                        }
-                                                        {
-                                                            this.state.amountStatus &&
-                                                            <InfoBox danger mt>
-                                                                Missing amount.
-                                                            </InfoBox>
-                                                        }
-                                                        {
-                                                            this.state.feeStatus &&
-                                                            <InfoBox danger mt>
-                                                                Missing fee.
-                                                            </InfoBox>
-                                                        }
-
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label></label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <button className="btn static blue">Buy (NXT > {this.state.asset.name})</button>
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
                                                         </div>
-                                                    </form>
-                                                )}
-                                            />
+                                                        <div className="col-md-7">
+                                                            <a
+                                                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
+                                                                    quantityATU: this.refs.quantityATU1.value,
+                                                                    priceATM: this.refs.priceATM1.value,
+                                                                    recipient: this.refs.recipient1.value,
+                                                                    assetID: this.state.asset.asset,
+                                                                    assetName: this.state.asset.name
+                                                                })}
+                                                                className="btn static blue"
+                                                            >
+                                                                Buy (NXT > {this.state.asset.name})
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="card ballance card-tiny medium-padding">
                                             <div className="form-group">
@@ -341,104 +302,62 @@ class AssetExchange extends React.Component {
                                             </div>
                                         </div>
                                         <div  style={{height: 'auto'}} className="card assets card-medium medium-padding full-height">
-                                            <Form
-                                                onSubmit={(values) => this.handleSellFormSubmit(values)}
-                                                render={({ submitForm, values, addValue, removeValue }) => (
-                                                    <form className="form-group" onSubmit={submitForm}>
-                                                        <div className="form-title">
-                                                            <p>Buy {this.state.asset.name}</p>
-                                                            <div className="form-sub-title">
-                                                                balance: <strong>{this.props.amountATM} ATM</strong>
-                                                            </div>
+                                            <div className="form-group">
+                                                <div className="form-title">
+                                                    <p>Sell {this.state.asset.name}</p>
+                                                    <div className="form-sub-title">
+                                                        balance: <strong>{this.props.amountATM} ATM</strong>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Recipient</label>
                                                         </div>
-                                                        <div className="input-group">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Quantity</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="quantityATU" placeholder='Quantity' />
-                                                                </div>
-                                                            </div>
+                                                        <div className="col-md-7">
+                                                            <input ref="recipient2" placeholder='Recipient' />
                                                         </div>
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Price</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="priceATM" placeholder='Price' />
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Quantity</label>
                                                         </div>
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Total</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="totalATM" placeholder='Total' />
-                                                                </div>
-                                                            </div>
+                                                        <div className="col-md-7">
+                                                            <input ref="quantityATU2" placeholder='Quantity' />
                                                         </div>
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Fee</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="feeATM" placeholder='Fee' />
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Price</label>
                                                         </div>
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label>Pass phrase</label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <Text field="secretPhrase" placeholder='Secret phrase'  type={'password'}/>
-                                                                </div>
-                                                            </div>
+                                                        <div className="col-md-7">
+                                                            <input ref="priceATM2" placeholder='Price' />
                                                         </div>
-                                                        {
-                                                            this.state.passphraseStatus &&
-                                                            <InfoBox danger mt>
-                                                                Incorrect passphrase.
-                                                            </InfoBox>
-                                                        }
-                                                        {
-                                                            this.state.recipientStatus &&
-                                                            <InfoBox danger mt>
-                                                                Incorrect recipient.
-                                                            </InfoBox>
-                                                        }
-                                                        {
-                                                            this.state.amountStatus &&
-                                                            <InfoBox danger mt>
-                                                                Missing amount.
-                                                            </InfoBox>
-                                                        }
-                                                        {
-                                                            this.state.feeStatus &&
-                                                            <InfoBox danger mt>
-                                                                Missing fee.
-                                                            </InfoBox>
-                                                        }
-
-                                                        <div className="input-group offset-top display-block inline no-margin">
-                                                            <div className="row">
-                                                                <div className="col-md-5">
-                                                                    <label></label>
-                                                                </div>
-                                                                <div className="col-md-7">
-                                                                    <button className="btn static blue">Buy (NXT > {this.state.asset.name})</button>
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
                                                         </div>
-                                                    </form>
-                                                )}
-                                            />
+                                                        <div className="col-md-7">
+                                                            <a
+                                                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
+                                                                    quantityATU: this.refs.quantityATU2.value,
+                                                                    priceATM: this.refs.priceATM2.value,
+                                                                    recipient: this.refs.recipient2.value,
+                                                                })}
+                                                                className="btn static blue"
+                                                            >
+                                                                Sell (NXT > {this.state.asset.name})
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="card assets card-tiny medium-padding">
                                             <div className="form-group">

@@ -244,31 +244,6 @@ class IssueCurrency extends React.Component {
 
                                 </div>
 
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect passphrase.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.recipientStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect recipient.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.amountStatus &&
-                                    <InfoBox danger mt>
-                                        Missing amount.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.feeStatus &&
-                                    <InfoBox danger mt>
-                                        Missing fee.
-                                    </InfoBox>
-                                }
-
                                 <AdvancedSettings advancedState={this.state.advancedState}/>
                                 <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a

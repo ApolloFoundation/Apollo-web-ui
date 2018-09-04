@@ -32,13 +32,21 @@ class MyAssetItem extends React.Component {
                     <td className="align-right">
                         <div className="btn-box inline">
                             <a
-                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', null)}
+                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
+                                    quantityATU: this.state.transfer.quantityATU,
+                                    assetID:   this.state.transfer.asset,
+                                    assetName: this.state.transfer.name
+                                })}
                                 className="btn primary blue"
                             >
                                 Transfer
                             </a>
                             <a
-                                onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', null)}
+                                onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
+                                    quantityATU: this.state.transfer.quantityATU,
+                                    assetID:   this.state.transfer.asset,
+                                    assetName: this.state.transfer.name
+                                })}
                                 className="btn primary blue"
                             >
                                 Delete Shares

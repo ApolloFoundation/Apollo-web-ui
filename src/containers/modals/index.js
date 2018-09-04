@@ -118,7 +118,7 @@ class ModalWindow extends React.Component {
         Object.values(modalWindow).map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active');
-            }, 1);
+            }, 10);
 
 
         });
@@ -126,7 +126,7 @@ class ModalWindow extends React.Component {
         Object.values(modalBox).map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active');
-            }, 1);
+            }, 10);
 
 
         });
