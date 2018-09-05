@@ -30,16 +30,30 @@ class BuyAsset extends React.Component {
 
         console.log(values);
 
-        this.props.submitForm(null, null, values, 'transferAsset')
+        values = {
+            ...values,
+            asset: this.props.modalData.assetInfo.asset,
+            priceATM: this.props.modalData.priceATM,
+            quantityATU: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
+        };
+
+        console.log(values);
+
+
+        this.props.submitForm(null, null, values, 'placeBidOrder')
             .done((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {
                     this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('Transfer asset request has been submitted!', null, 5000);
+                    NotificationManager.success('The buy order has been submitted!', null, 5000);
                 }
             })
     };
+
+    // getAsset = async  () => {
+    //     const asset = await this.props.
+    // }
 
     handleAdvancedState = () => {
         if (this.state.advancedState) {
@@ -69,39 +83,29 @@ class BuyAsset extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
-                                        <p>Buy Asset</p>
+                                        <p>Confirm Order (Buy)</p>
                                     </div>
                                     <div className="input-group display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
-                                                <label>Asset</label>
+                                                <label>Order Description</label>
                                             </div>
                                             <div className="col-md-9">
+                                                <p>Buy {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at 1 Apollo each.</p>
                                                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                                                 <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
+                                                <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="input-group display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
-                                                <label>Recipient</label>
+                                                <label>Total</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <AccountRS
-                                                    field={'recipient'}
-                                                    setValue={setValue}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Quantity</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Quantity'} type="text" field={'quantityATU'}/>
+                                                <p>{this.props.modalData.quantityATU} Apollo</p>
+                                                <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +115,7 @@ class BuyAsset extends React.Component {
                                                 <label>Fee</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text placeholder={'Amount'} type="text" field={'feeATM'}/>
+                                                <Text defaultValue={this.props.modalData.assetName} placeholder={'Amount'} type="text" field={'feeATM'}/>
                                             </div>
                                         </div>
                                     </div>

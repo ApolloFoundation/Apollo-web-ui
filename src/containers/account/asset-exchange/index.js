@@ -215,20 +215,10 @@ class AssetExchange extends React.Component {
                                                 <div className="input-group offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
-                                                            <label>Recipient</label>
-                                                        </div>
-                                                        <div className="col-md-7">
-                                                            <input ref="recipient1" placeholder='Recipient' />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
                                                             <label>Quantity</label>
                                                         </div>
                                                         <div className="col-md-7">
-                                                            <input ref="quantityATU1" placeholder='Quantity' />
+                                                            <input ref="quantity1" placeholder='Recipient' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -238,7 +228,17 @@ class AssetExchange extends React.Component {
                                                             <label>Price</label>
                                                         </div>
                                                         <div className="col-md-7">
-                                                            <input ref="priceATM1" placeholder='Price' />
+                                                            <input ref="priceATM1" placeholder='Quantity' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Total</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <input ref="total1" placeholder='Price' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -249,11 +249,10 @@ class AssetExchange extends React.Component {
                                                         <div className="col-md-7">
                                                             <a
                                                                 onClick={() => this.props.setBodyModalParamsAction('BUY_ASSET', {
-                                                                    quantityATU: this.refs.quantityATU1.value,
+                                                                    quantityATU: this.refs.quantity1.value,
                                                                     priceATM: this.refs.priceATM1.value,
-                                                                    recipient: this.refs.recipient1.value,
-                                                                    assetID: this.state.asset.asset,
-                                                                    assetName: this.state.asset.name
+                                                                    total: this.refs.total1.value,
+                                                                    assetInfo: this.state.asset
                                                                 })}
                                                                 className="btn static blue"
                                                             >
@@ -312,20 +311,10 @@ class AssetExchange extends React.Component {
                                                 <div className="input-group offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
-                                                            <label>Recipient</label>
-                                                        </div>
-                                                        <div className="col-md-7">
-                                                            <input ref="recipient2" placeholder='Recipient' />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
                                                             <label>Quantity</label>
                                                         </div>
                                                         <div className="col-md-7">
-                                                            <input ref="quantityATU2" placeholder='Quantity' />
+                                                            <input ref="quantity2" placeholder='Recipient' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -335,7 +324,17 @@ class AssetExchange extends React.Component {
                                                             <label>Price</label>
                                                         </div>
                                                         <div className="col-md-7">
-                                                            <input ref="priceATM2" placeholder='Price' />
+                                                            <input ref="priceATM2" placeholder='Quantity' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input-group offset-top display-block inline no-margin">
+                                                    <div className="row">
+                                                        <div className="col-md-5">
+                                                            <label>Total</label>
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <input ref="total2" placeholder='Price' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -346,9 +345,10 @@ class AssetExchange extends React.Component {
                                                         <div className="col-md-7">
                                                             <a
                                                                 onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
-                                                                    quantityATU: this.refs.quantityATU2.value,
+                                                                    quantityATU: this.refs.quantity2.value,
                                                                     priceATM: this.refs.priceATM2.value,
-                                                                    recipient: this.refs.recipient2.value,
+                                                                    total: this.refs.total2.value,
+                                                                    assetInfo: this.state.asset
                                                                 })}
                                                                 className="btn static blue"
                                                             >
