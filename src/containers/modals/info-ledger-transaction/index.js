@@ -86,9 +86,14 @@ class InfoTransactions extends React.Component {
                                     </table>
                                 </div>
                             </div>
+                            <div className="btn-box align-buttons-inside absolute right-conner">
+                                <a className="btn btn-right round round-top-left round-bottom-right"
+                                   onClick={() => this.props.closeModal()}
+                                >
+                                    Close
+                                </a>
+                            </div>
                         </div>
-                        <a type="submit" className="btn btn-right">Close</a>
-
                     </form>
                 }
 

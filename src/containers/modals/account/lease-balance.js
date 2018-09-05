@@ -268,8 +268,10 @@ class LeaseBalance extends React.Component {
 
                                 <AdvancedSettings advancedState={this.state.advancedState}/>
 
-                                <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
+
+
+
+                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <button
                                         type="submit"
                                         name={'closeModal'}
@@ -277,16 +279,24 @@ class LeaseBalance extends React.Component {
                                     >
                                         Send
                                     </button>
+                                    <a
+                                        onClick={() => this.props.closeModal()}
+                                        className="btn round round-top-left"
+                                    >
+                                        Cancel
+                                    </a>
 
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
-                                        className="btn btn-right round round-bottom-left round-top-right"
+                                        className="btn btn-right round round-bottom-left round-top-right absolute"
+                                        style={{left : 0, right: 'auto'}}
                                     >
                                         Advanced
                                     </a>
                                 </div>
+
                             </div>
                         </form>
                     )}

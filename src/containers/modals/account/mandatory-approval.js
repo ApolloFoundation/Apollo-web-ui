@@ -262,28 +262,32 @@ class MandatoryApproval extends React.Component {
                                 </div>
                             </div>
                             <AdvancedSettings advancedState={this.state.advancedState} white/>
-                        </div>
+                            <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                <button
+                                    type="submit"
+                                    name={'closeModal'}
+                                    className="btn btn-right blue round round-bottom-right"
+                                >
+                                    Send
+                                </button>
+                                <a
+                                    onClick={() => this.props.closeModal()}
+                                    className="btn round round-top-left"
+                                >
+                                    Cancel
+                                </a>
 
-                        <div className="btn-box align-buttons-inside absolute right-conner">
-                            <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
-                            <button
-                                type="submit"
-                                name={'closeModal'}
-                                className="btn btn-right blue round round-bottom-right"
-                            >
-                                Send
-                            </button>
-
+                            </div>
+                            <div className="btn-box align-buttons-inside absolute left-conner">
+                                <a
+                                    onClick={this.handleAdvancedState}
+                                    className="btn btn-right round round-bottom-left round-top-right absolute"
+                                    style={{left : 0, right: 'auto'}}
+                                >
+                                    Advanced
+                                </a>
+                            </div>
                         </div>
-                        <div className="btn-box align-buttons-inside absolute left-conner">
-                            <a
-                                onClick={this.handleAdvancedState}
-                                className="btn btn-right round round-bottom-left round-top-right"
-                            >
-                                Advanced
-                            </a>
-                        </div>
-
                     </form>
             </div>
         );

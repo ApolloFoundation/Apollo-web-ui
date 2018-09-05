@@ -219,9 +219,14 @@ class InfoLedgerTransaction extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            <div className="btn-box align-buttons-inside absolute right-conner">
+                                <a className="btn btn-right round round-top-left round-bottom-right"
+                                   onClick={() => this.props.closeModal()}
+                                >
+                                    Close
+                                </a>
+                            </div>
                         </div>
-                        <button type="submit" className="btn btn-right">Enter</button>
-
                     </form>
                 }
 
