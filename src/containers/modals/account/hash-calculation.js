@@ -123,7 +123,7 @@ class HashCalculation extends React.Component {
                                             <div className="input-wrapper">
                                                 <div
                                                     className="input-group align-middle display-block">
-                                                    <Checkbox style={{display: 'inline-block'}} type="checkbox"
+                                                    <Checkbox style={{display: 'inline-block', paddingTop: 0}} type="checkbox"
                                                               field="isMessage"/>
                                                     <label style={{display: 'inline-block'}}>Textual data representation</label>
                                                 </div>
