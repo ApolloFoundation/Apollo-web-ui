@@ -4,7 +4,7 @@
   height: 100%;
   width: 100%;
   min-height: 560px;
-  overflow-x: auto;
+  //overflow-x: auto;
   //background-color: #FFFFFF;
 
   &.no-min-height {
@@ -19,7 +19,7 @@
     background-color: #FFFFFF;
     border-radius: 3px;
     position: relative;
-    //overflow-x: auto;
+    overflow-x: auto;
     &.offset-bottom {
       padding-bottom: 75px;
     }
@@ -33,7 +33,9 @@
       padding: 40px 0;
     }
     
-
+    .btn-box {
+      min-width: 800px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -286,6 +288,9 @@
         width: 100%;
         min-height: 100%;
         margin-bottom: 0;
+      }
+      table {
+        min-width: 100%;
       }
 
       .form-group {

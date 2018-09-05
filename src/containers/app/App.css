@@ -1070,8 +1070,7 @@ table td .btn, table th .btn {
 .transaction-table {
   height: 100%;
   width: 100%;
-  min-height: 560px;
-  overflow-x: auto; }
+  min-height: 560px; }
   .transaction-table.no-min-height {
     min-height: auto;
     height: auto; }
@@ -1080,7 +1079,8 @@ table td .btn, table th .btn {
     width: 100%;
     background-color: #FFFFFF;
     border-radius: 3px;
-    position: relative; }
+    position: relative;
+    overflow-x: auto; }
     .transaction-table .transaction-table-body.offset-bottom {
       padding-bottom: 75px; }
     .transaction-table .transaction-table-body.padding-only-top {
@@ -1089,6 +1089,8 @@ table td .btn, table th .btn {
       background-color: transparent; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
+    .transaction-table .transaction-table-body .btn-box {
+      min-width: 800px; }
     .transaction-table .transaction-table-body table {
       width: 100%;
       border-collapse: collapse;
@@ -1247,6 +1249,8 @@ table td .btn, table th .btn {
           width: 100%;
           min-height: 100%;
           margin-bottom: 0; } }
+      .modal-window .modal-box .modal-form table {
+        min-width: 100%; }
       .modal-window .modal-box .modal-form .form-group {
         padding-bottom: 69px;
         position: relative; }
