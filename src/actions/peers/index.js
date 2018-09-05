@@ -19,6 +19,21 @@ export function getPeersAction(requestParams) {
     }
 }
 
+export const getPeerAction = peerAddress => dispatch => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: "getPeer",
+            peer: peerAddress,
+            random: Math.random()
+        }
+    })
+        .then(res => {
+            if (!res.data.errorCode) {
+                return res.data;
+            }
+        })
+};
+
 export function getPeersInfoAction() {
     return dispatch => {
         return async () => {
