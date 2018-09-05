@@ -5,7 +5,7 @@
   width: 100%;
   min-height: 560px;
   overflow-x: scroll;
-  background-color: #FFFFFF;
+  //background-color: #FFFFFF;
 
   &.no-min-height {
     min-height: auto;
@@ -13,7 +13,7 @@
   }
 
   .transaction-table-body {
-    //min-width: 900px;
+    //min-width: 800px;
     padding: 40px 35px;
     width: 100%;
     background-color: #FFFFFF;
