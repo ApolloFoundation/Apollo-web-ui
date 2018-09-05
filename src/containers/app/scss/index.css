@@ -282,7 +282,6 @@ input {
         font-size: 15px; }
 
 .form-group {
-  display: table;
   padding: 35px;
   box-sizing: border-box;
   width: 100%;
@@ -404,6 +403,7 @@ input {
     background-position: left;
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group .form-title {
+    padding-top: 30px;
     padding-bottom: 20px; }
     .form-group .form-title.inline > * {
       vertical-align: middle;
@@ -656,12 +656,22 @@ input {
     transition: all 0.3s ease-in-out; }
   .btn.underscore.general .settings-bar {
     top: calc(100% + 45.6px) !important; }
+    @media (max-width: 1024px) {
+      .btn.underscore.general .settings-bar {
+        top: calc(100% + 49.6px) !important; } }
   .btn.underscore.general:after {
     top: calc(100% + 43.5px); }
   .btn.underscore.settings .settings-bar {
-    top: calc(100% + 49.6px) !important; }
+    top: calc(100% + 40.6px) !important; }
+    @media (max-width: 760px) {
+      .btn.underscore.settings .settings-bar {
+        top: 40px !important;
+        right: -145px !important; } }
   .btn.underscore.settings:after {
-    top: calc(100% + 47px); }
+    top: calc(100% + 37px); }
+    @media (max-width: 760px) {
+      .btn.underscore.settings:after {
+        top: 37px; } }
   .btn.underscore.account:after {
     top: calc(100% + 49px); }
   .btn.underscore.active.account:after {
@@ -694,6 +704,11 @@ input {
     border: 1px solid transparent; }
     .btn.filters.active {
       border: 1px solid #101010; }
+      @media (max-width: 760px) {
+        .btn.filters.active {
+          border: 1px solid #fff; }
+          .btn.filters.active .zmdi {
+            transform: translate(0, -1px); } }
   .btn .no-border {
     border: 0; }
   .btn.transparent {
@@ -776,6 +791,8 @@ input {
     min-height: auto;
     height: auto;
     max-height: 800px; }
+    .card.card-flexible table {
+      min-width: 500px !important; }
   .card.full-height {
     height: 100%; }
   .card.card-full-screen {
@@ -1043,11 +1060,17 @@ input {
     .page-body-item .card.card-tall {
       min-height: 520px; }
 
+table tr > td {
+  white-space: nowrap; }
+
+table td .btn, table th .btn {
+  white-space: nowrap; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
   min-height: 560px;
-  overflow-x: scroll; }
+  overflow-x: auto; }
   .transaction-table.no-min-height {
     min-height: auto;
     height: auto; }
@@ -1067,7 +1090,8 @@ input {
       padding: 40px 0; }
     .transaction-table .transaction-table-body table {
       width: 100%;
-      border-collapse: collapse; }
+      border-collapse: collapse;
+      min-width: 800px; }
       .transaction-table .transaction-table-body table thead {
         padding: 35px; }
         .transaction-table .transaction-table-body table thead tr td {
@@ -1091,8 +1115,7 @@ input {
         height: 6.66%; }
         .transaction-table .transaction-table-body table tbody tr td {
           border-top: 1px solid #E5E5E5;
-          padding: 0 0 0 15px;
-          height: 50px; }
+          padding: 20px 0 20px 15px; }
           .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
             color: #00C8FF;
             font-family: "Roboto-Regular";
@@ -1194,6 +1217,13 @@ input {
     border-radius: 6px;
     width: 100% !important;
     max-width: 500px; }
+    @media (max-width: 760px) {
+      .modal-window .modal-box {
+        max-width: 100%;
+        height: 100%;
+        border-radius: 0;
+        transform: none !important;
+        overflow: auto; } }
     .modal-window .modal-box.active {
       transform: translateY(15px); }
       .modal-window .modal-box.active .modal-form .left-bar {
@@ -1209,9 +1239,19 @@ input {
     .modal-window .modal-box .modal-form {
       min-width: 500px;
       margin-bottom: 20px; }
+      @media (max-width: 760px) {
+        .modal-window .modal-box .modal-form {
+          min-width: 100%;
+          width: 100%;
+          min-height: 100%;
+          margin-bottom: 0; } }
       .modal-window .modal-box .modal-form .form-group {
         padding-bottom: 69px;
         position: relative; }
+        @media (max-width: 760px) {
+          .modal-window .modal-box .modal-form .form-group {
+            height: 100vh;
+            border-radius: 0; } }
 
 .btn {
   display: inline-block;
@@ -1272,7 +1312,7 @@ input[type="number"] {
     .site-content .page-content .page-body:after {
       content: '';
       position: fixed;
-      top: 120px;
+      top: 100px;
       bottom: 0;
       left: 220px;
       right: 0;
@@ -1281,6 +1321,10 @@ input[type="number"] {
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease-in-out; }
+      @media (max-width: 760px) {
+        .site-content .page-content .page-body:after {
+          top: 0 !important;
+          left: 0 !important; } }
     .site-content .page-content .page-body .row {
       width: 100%;
       margin: 0;

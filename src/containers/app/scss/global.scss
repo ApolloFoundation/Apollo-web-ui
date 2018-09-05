@@ -396,7 +396,7 @@ input {
 }
 
 .form-group {
-	display: table;
+	//display: table;
 	padding: 35px;
 	box-sizing: border-box;
 	width: 100%;
@@ -578,6 +578,7 @@ input {
 		background-image: url(../../assets/brand-logo.png) !important;
 	}
 	.form-title {
+		padding-top: 30px;
 		padding-bottom: 20px;
 		
 		&.inline {
@@ -898,6 +899,9 @@ input {
 		& > * {
 			display: inline;
 			margin-right: 15px;
+			//@media (max-width: 1100px) {
+			//	margin-right: 30px;
+			//}
 		}
 	}
 	&.success {
@@ -985,6 +989,12 @@ input {
 		&.general {
 			.settings-bar {
 				top: calc(100% + 45.6px) !important;
+				@media (max-width: 1024px) {
+					top: calc(100% + 49.6px) !important;
+				}
+				//@media (max-width: 760px) {
+				//	top: 50px !important;
+				//}
 			}
 			&:after {
 				top: calc(100% + 43.5px);
@@ -992,10 +1002,17 @@ input {
 		}
 		&.settings {
 			.settings-bar {
-				top: calc(100% + 49.6px) !important;
+				top: calc(100% + 40.6px) !important;
+				@media (max-width: 760px) {
+					top: 40px !important;
+					right: -145px !important;
+				}
 			}
 			&:after {
-				top: calc(100% + 47px);
+				top: calc(100% + 37px);
+				@media (max-width: 760px) {
+					top: 37px;
+				}
 			}
 		}
 		&.account {
@@ -1051,6 +1068,12 @@ input {
 		
 		&.active {
 			border: 1px solid #101010;
+			@media (max-width: 760px) {
+				border: 1px solid #fff;
+				.zmdi {
+					transform: translate(0, -1px);
+				}
+			}
 		}
 	}
 	.no-border {
@@ -1162,6 +1185,9 @@ input {
 		min-height: auto;
 		height: auto;
 		max-height: 800px;
+		table{
+			min-width: 500px !important;
+		}
 	}
 	&.full-height {
 		height: 100%;
@@ -1593,6 +1619,17 @@ input {
 		height: calc(100% - 15px);
 		&.card-tall {
 			min-height: 520px;
+		}
+	}
+}
+
+table{
+	tr > td {
+		white-space: nowrap;
+	}
+	td, th {
+		.btn {
+			white-space: nowrap;
 		}
 	}
 }

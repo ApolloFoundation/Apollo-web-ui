@@ -4,16 +4,22 @@
   height: 100%;
   width: 100%;
   min-height: 560px;
-  overflow-x: scroll;
+  overflow-x: auto;
+  //background-color: #FFFFFF;
 
   &.no-min-height {
     min-height: auto;
     height: auto;
   }
-
+ 
   .transaction-table-body {
-    //min-width: 900px;
-
+    //min-width: 800px;
+    padding: 40px 35px;
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    position: relative;
+    //overflow-x: auto;
     &.offset-bottom {
       padding-bottom: 75px;
     }
@@ -26,15 +32,12 @@
     &.padding-vertical-padding {
       padding: 40px 0;
     }
-    padding: 40px 35px;
-    width: 100%;
-    background-color: #FFFFFF;
-    border-radius: 3px;
-    position: relative;
+    
 
     table {
       width: 100%;
       border-collapse: collapse;
+      min-width: 800px;
 
       thead {
         padding: 35px;
@@ -77,8 +80,8 @@
 
           td {
             border-top: 1px solid #E5E5E5;
-            padding: 0 0 0 15px;
-            height: 50px;
+            padding: 20px 0 20px 15px;
+            //height: 50px;
 
             &.blue-link-text {
               a {
@@ -242,6 +245,13 @@
     border-radius: 6px;
     width: 100% !important;
     max-width: 500px;
+    @media (max-width: 760px) {
+      max-width: 100%;
+      height: 100%;
+      border-radius: 0;
+      transform: none !important;
+      overflow: auto;
+    }
 
 
     &.active {
@@ -271,10 +281,20 @@
     .modal-form {
       min-width: 500px;
       margin-bottom: 20px;
+      @media (max-width: 760px) {
+        min-width: 100%;
+        width: 100%;
+        min-height: 100%;
+        margin-bottom: 0;
+      }
 
       .form-group {
         padding-bottom: 69px;
         position: relative;
+        @media (max-width: 760px) {
+          height: 100vh;
+          border-radius: 0;
+        }
       }
     }
   }
