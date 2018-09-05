@@ -228,9 +228,8 @@ class FollowedVotes extends React.Component {
 
                 {
                     this.state.poll &&
-                    <div className="page-body container-fluid">
-                        <div className="messenger">
-                            <div className="followed-polls">
+                    <div className="page-body container-fluid followed-polls-container">
+                        <div className="followed-polls">
                                 <div className="followed-polls-item">
                                     <div className="left">
 	                                    <div className="card card-full-screen no-padding">
@@ -340,130 +339,123 @@ class FollowedVotes extends React.Component {
 		                                    </div>
 
 	                                    </div>
+	                                    <div className="card card-flexible">
+		                                    {
+			                                    this.state.poll && this.state.pollResults &&
+			                                    <div className="row">
+				                                    <div className="col-md-12">
+					                                    <div className="right-bar">
+						                                    <div className="form-group height-auto">
+							                                    <div className="form-title">
+								                                    <p>Poll Requests</p>
+							                                    </div>
+							                                    <div className="transaction-table no-min-height">
+								                                    <div className="transaction-table-body padding-only-top">
+									                                    <table>
+										                                    <thead>
+										                                    <tr>
+											                                    <td>Label</td>
+											                                    <td>Voter</td>
+											                                    <td className="align-right">Result</td>
+											                                    <td className="align-right">Weight</td>
+										                                    </tr>
+										                                    </thead>
+										                                    <tbody>
+										                                    {
+											                                    this.state.pollResults.options.map((el, index) => {
+
+												                                    return (
+													                                    <tr>
+														                                    <td><div className="color-box" style={{background: 'linear-gradient(' + colors[index].startColorGradient + ', ' + colors[index].stopColorGradient + ')'}}/></td>
+														                                    <td>{el}</td>
+														                                    <td className="align-right">{this.state.pollResults.results[index].result}</td>
+														                                    <td className="align-right">{this.state.pollResults.results[index].weight}</td>
+													                                    </tr>
+												                                    );
+											                                    })
+										                                    }
+										                                    </tbody>
+									                                    </table>
+
+								                                    </div>
+							                                    </div>
+						                                    </div>
+						                                    {
+							                                    this.state.votes &&
+							                                    <div className="form-group height-auto">
+								                                    <div className="form-title">
+									                                    <p>Votes cast ({this.state.allVotesNumber})</p>
+								                                    </div>
+								                                    <div className="transaction-table no-min-height">
+									                                    <div className="transaction-table-body padding-only-top">
+										                                    <table>
+											                                    <thead>
+											                                    <tr>
+												                                    <td>Voter</td>
+												                                    <td className="align-right">Result</td>
+												                                    <td className="align-right">Weight</td>
+											                                    </tr>
+											                                    </thead>
+											                                    <tbody>
+											                                    {
+												                                    this.state.votes.map((el, index) => {
+													                                    return (
+														                                    <tr>
+															                                    <td className="blue-link-text">
+																                                    <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.voter)}> {el.voterRS} </a>
+															                                    </td>
+															                                    {
+																                                    el.votes.map((subEl, subIndex) => {
+																	                                    return (
+																		                                    <td className="align-right">{subEl}</td>
+																	                                    );
+																                                    })
+															                                    }
+														                                    </tr>
+													                                    );
+												                                    })
+											                                    }
+											                                    </tbody>
+										                                    </table>
+
+									                                    </div>
+								                                    </div>
+							                                    </div>
+						                                    }
+					                                    </div>
+				                                    </div>
+			                                    </div>
+		                                    }
+		                                    {
+			                                    this.state.votes &&
+			                                    <div className="btn-box">
+				                                    <a
+					                                    className={classNames({
+						                                    'btn' : true,
+						                                    'btn-left' : true,
+						                                    'disabled' : this.state.page <= 1
+					                                    })}
+					                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
+				                                    > Previous</a>
+				                                    <div className='pagination-nav'>
+					                                    <span>{this.state.firstIndex + 1}</span>
+					                                    <span>&hellip;</span>
+					                                    <span>{this.state.lastIndex + 1}</span>
+				                                    </div>
+				                                    <a
+					                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
+					                                    className={classNames({
+						                                    'btn' : true,
+						                                    'btn-right' : true,
+						                                    'disabled' : this.state.votes.length < 3
+					                                    })}
+				                                    >Next</a>
+			                                    </div>
+		                                    }
+	                                    </div>
+
                                     </div>
                                 </div>
-	                            <div className="followed-polls-item">
-		                            <div className="left">
-
-		                            </div>
-		                            <div className="right">
-			                            <div className="card card-flexible">
-				                            {
-					                            this.state.poll && this.state.pollResults &&
-					                            <div className="row">
-						                            <div className="col-md-12">
-							                            <div className="right-bar">
-								                            <div className="form-group height-auto">
-									                            <div className="form-title">
-										                            <p>Poll Requests</p>
-									                            </div>
-									                            <div className="transaction-table no-min-height">
-										                            <div className="transaction-table-body padding-only-top">
-											                            <table>
-												                            <thead>
-												                            <tr>
-													                            <td>Label</td>
-													                            <td>Voter</td>
-													                            <td className="align-right">Result</td>
-													                            <td className="align-right">Weight</td>
-												                            </tr>
-												                            </thead>
-												                            <tbody>
-												                            {
-													                            this.state.pollResults.options.map((el, index) => {
-
-														                            return (
-															                            <tr>
-																                            <td><div className="color-box" style={{background: 'linear-gradient(' + colors[index].startColorGradient + ', ' + colors[index].stopColorGradient + ')'}}/></td>
-																                            <td>{el}</td>
-																                            <td className="align-right">{this.state.pollResults.results[index].result}</td>
-																                            <td className="align-right">{this.state.pollResults.results[index].weight}</td>
-															                            </tr>
-														                            );
-													                            })
-												                            }
-												                            </tbody>
-											                            </table>
-
-										                            </div>
-									                            </div>
-								                            </div>
-								                            {
-									                            this.state.votes &&
-									                            <div className="form-group height-auto">
-										                            <div className="form-title">
-											                            <p>Votes cast ({this.state.allVotesNumber})</p>
-										                            </div>
-										                            <div className="transaction-table no-min-height">
-											                            <div className="transaction-table-body padding-only-top">
-												                            <table>
-													                            <thead>
-													                            <tr>
-														                            <td>Voter</td>
-														                            <td className="align-right">Result</td>
-														                            <td className="align-right">Weight</td>
-													                            </tr>
-													                            </thead>
-													                            <tbody>
-													                            {
-														                            this.state.votes.map((el, index) => {
-															                            return (
-																                            <tr>
-																	                            <td className="blue-link-text">
-																		                            <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.voter)}> {el.voterRS} </a>
-																	                            </td>
-																	                            {
-																		                            el.votes.map((subEl, subIndex) => {
-																			                            return (
-																				                            <td className="align-right">{subEl}</td>
-																			                            );
-																		                            })
-																	                            }
-																                            </tr>
-															                            );
-														                            })
-													                            }
-													                            </tbody>
-												                            </table>
-
-											                            </div>
-										                            </div>
-									                            </div>
-								                            }
-							                            </div>
-						                            </div>
-					                            </div>
-				                            }
-				                            {
-					                            this.state.votes &&
-					                            <div className="btn-box">
-						                            <a
-							                            className={classNames({
-								                            'btn' : true,
-								                            'btn-left' : true,
-								                            'disabled' : this.state.page <= 1
-							                            })}
-							                            onClick={this.onPaginate.bind(this, this.state.page - 1)}
-						                            > Previous</a>
-						                            <div className='pagination-nav'>
-							                            <span>{this.state.firstIndex + 1}</span>
-							                            <span>&hellip;</span>
-							                            <span>{this.state.lastIndex + 1}</span>
-						                            </div>
-						                            <a
-							                            onClick={this.onPaginate.bind(this, this.state.page + 1)}
-							                            className={classNames({
-								                            'btn' : true,
-								                            'btn-right' : true,
-								                            'disabled' : this.state.votes.length < 3
-							                            })}
-						                            >Next</a>
-					                            </div>
-				                            }
-			                            </div>
-		                            </div>
-	                            </div>
-                            </div>
                         </div>
                     </div>
                 }
