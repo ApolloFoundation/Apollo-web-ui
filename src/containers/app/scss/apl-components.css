@@ -2,8 +2,7 @@
   height: 100%;
   width: 100%;
   min-height: 560px;
-  overflow-x: scroll;
-  background-color: #FFFFFF; }
+  overflow-x: scroll; }
   .transaction-table.no-min-height {
     min-height: auto;
     height: auto; }
