@@ -48,11 +48,9 @@
           border: 0; }
     .page-header .page-title-box .page-title-box > * {
       vertical-align: middle; }
-    .page-header .page-title-box .page-title-box .btn.primary {
-      margin: 7px 0 !important; }
-      @media (max-width: 760px) {
-        .page-header .page-title-box .page-title-box .btn.primary {
-          display: none !important; } }
+    @media (max-width: 760px) {
+      .page-header .page-title-box .page-title-box .btn.primary {
+        display: none !important; } }
     .page-header .page-title-box .page-title-box .title {
       color: #333333;
       font-family: "Roboto-Light";

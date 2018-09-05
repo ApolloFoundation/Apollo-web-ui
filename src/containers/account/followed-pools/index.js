@@ -2,12 +2,15 @@ import React from 'react';
 import SiteHeader from '../../components/site-header';
 import Pie from './pie-diagram';
 
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import '../messenger/Messenger.scss'
 import './FollowedPools.css'
 import classNames from "classnames";
 import {getPoolAction, getPollResultAction, getPollVotesAction} from '../../../actions/pools';
 import {setBodyModalParamsAction} from "../../../modules/modals";
+import {NotificationManager} from "react-notifications";
+import {getBlockAction} from "../../../actions/blocks";
 
 
 const mapStateToProps = state => ({
@@ -18,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
     getPoolAction: (reqParams) => dispatch(getPoolAction(reqParams)),
     getPollVotesAction: (reqParams) => dispatch(getPollVotesAction(reqParams)),
     getPollResultAction: (reqParams) => dispatch(getPollResultAction(reqParams)),
+    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
@@ -52,7 +56,24 @@ class FollowedVotes extends React.Component {
         this.getPoolResults({
             poll: this.props.match.params.poll
         });
+        this.getFollowedPolls();
+        this.getBlock();
+    }
 
+    componentWillReceiveProps(newState) {
+        this.getPool({
+            poll: newState.match.params.poll
+        });
+        this.getPollVotes({
+            poll: newState.match.params.poll,
+            firstIndex: this.state.firstIndex,
+            lastIndex:  this.state.lastIndex
+        });
+        this.getPoolResults({
+            poll: newState.match.params.poll
+        });
+        this.getFollowedPolls();
+        this.getBlock();
     }
 
     async getPool(reqParams) {
@@ -83,6 +104,18 @@ class FollowedVotes extends React.Component {
         }
     }
 
+    getBlock = async () => {
+        const block = await this.props.getBlockAction();
+
+        console.log(block);
+
+        if (block) {
+            this.setState({
+                block: block
+            })
+        }
+    };
+
     async getPoolResults(reqParams) {
         const pollResults = await this.props.getPollResultAction(reqParams);
 
@@ -93,6 +126,53 @@ class FollowedVotes extends React.Component {
             });
         }
     }
+
+    addToFollowedPolls = () => {
+        let polls = localStorage.getItem('followedPolls');
+
+        console.log(polls);
+
+        if (polls) {
+            polls = JSON.parse(polls);
+
+            if (polls.indexOf(this.props.match.params.poll) === -1) {
+                polls.push(this.props.match.params.poll);
+                localStorage.setItem('followedPolls', JSON.stringify(polls));
+                NotificationManager.success('Added to followed polls!', null, 5000)
+
+            } else {
+                NotificationManager.error('Already in followed polls.', 'Error', 5000)
+
+            }
+            this.getFollowedPolls();
+        } else {
+            localStorage.setItem('followedPolls', JSON.stringify([this.props.match.params.poll]))
+            this.getFollowedPolls();
+        }
+    };
+
+    getFollowedPolls = () => {
+        let polls = localStorage.getItem('followedPolls');
+
+        if (polls) {
+            polls = JSON.parse(polls);
+            const followedpolls = polls.map(async (el, index) => {
+                return this.props.getPoolAction({poll: el});
+            });
+
+            Promise.all(followedpolls)
+                .then((data) => {
+                    console.log(data);
+                    this.setState({
+                        followedpolls: data
+                    })
+                })
+        } else {
+            this.setState({
+                followedpolls: []
+            })
+        }
+    };
 
     onPaginate (page) {
         this.setState({
@@ -130,7 +210,22 @@ class FollowedVotes extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Followed polls'}
-                />
+                >
+                    <a
+                        className="btn primary"
+                        style={{marginLeft: 15}}
+                    >
+                        Add Poll
+                    </a>
+                    <a
+                        className="btn primary"
+                        style={{marginLeft: 15}}
+                        onClick={() => this.addToFollowedPolls()}
+                    >
+                        Bookmark This Poll
+                    </a>
+                </SiteHeader>
+
                 {
                     this.state.poll &&
                     <div className="page-body container-fluid">
@@ -139,40 +234,50 @@ class FollowedVotes extends React.Component {
                                 <div className="followed-polls-item">
                                     <div className="left">
 	                                    <div className="card card-full-screen no-padding">
-		                                    <div className="chat-item">
-			                                    <div className="chat-box-item">
-				                                    <div className="chat-box-rs">
-					                                    {this.state.poll.name}
-				                                    </div>
-				                                    <div className="chat-date">
-					                                    Blocks left: 3,946
-				                                    </div>
-			                                    </div>
-			                                    <div className="chat-box-item">
-				                                    <div className="chat-box-rs">
-					                                    I CAN'T VIEW ALL MY ALIAS NAMES
-				                                    </div>
-				                                    <div className="chat-date">
-					                                    Blocks left: 1,356
-				                                    </div>
-			                                    </div>
-			                                    <div className="chat-box-item">
-				                                    <div className="chat-box-rs">
-					                                    User Interface Upgrade
-				                                    </div>
-				                                    <div className="chat-date">
-					                                    Blocks left: 95
-				                                    </div>
-			                                    </div>
-			                                    <div className="chat-box-item">
-				                                    <div className="chat-box-rs">
-					                                    Should Apollo add a Live-Chatroom
-				                                    </div>
-				                                    <div className="chat-date">
-					                                    Blocks left: 187
-				                                    </div>
-			                                    </div>
-		                                    </div>
+                                            {
+                                                this.state.followedpolls && this.state.block &&
+                                                this.state.followedpolls.map((el, index)=> {
+                                                    const blocksLeft = parseInt(el.finishHeight) - parseInt(this.state.block.height);
+
+                                                    return (
+                                                        <Link
+                                                            to={'/followed-pools/' + el.poll}
+                                                            className={classNames({
+                                                                'chat-item': true,
+                                                                'active': el.poll === this.props.match.params.poll
+                                                            })}
+                                                            style={{
+                                                                display: 'block'
+                                                            }}
+                                                        >
+
+                                                            <div
+
+                                                                className="chat-box-item"
+                                                            >
+                                                                <div className="chat-box-rs">
+                                                                    {el.name}
+                                                                </div>
+                                                                <div className="chat-date">
+                                                                    {
+                                                                        blocksLeft > 0 &&
+                                                                        'Blocks left:' + blocksLeft
+                                                                    }
+                                                                    {
+                                                                        blocksLeft < 0 &&
+                                                                        'Poll has been finished ' + (blocksLeft * -1) + ' blocks ago'
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+
+                                                    )
+                                                })
+                                            }
+                                            {
+                                                this.state.followedpolls && !this.state.followedpolls.length &&
+                                                <p>No followed polls</p>
+                                            }
 	                                    </div>
                                     </div>
                                     <div className="right">
