@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
-class TradeHistory extends React.Component {
+class TradeHistoryCurrency extends React.Component {
     constructor(props) {
         super(props);
 
@@ -162,4 +162,4 @@ class TradeHistory extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TradeHistory);
+export default connect(mapStateToProps, mapDispatchToProps)(TradeHistoryCurrency);

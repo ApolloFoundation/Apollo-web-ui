@@ -125,8 +125,8 @@ class Sidebar extends React.Component {
                                     <ul>
                                         <li><NavLink to="/currencies">Currencies</NavLink></li>
                                         <li><NavLink to="/my-shuffling">Exchange history</NavLink></li>
-                                        <li><NavLink to="/transfer-history">Transfer history</NavLink></li>
-                                        <li><NavLink to="/trade-history">Approval requests</NavLink></li>
+                                        <li><NavLink to="/transfer-history-currency">Transfer history</NavLink></li>
+                                        <li><NavLink to="/trade-history-currency">Trade history</NavLink></li>
                                         <li>
                                             <a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue Currencies</a>
                                         </li>

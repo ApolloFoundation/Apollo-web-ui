@@ -42,7 +42,9 @@ import Plugins from '../account/plugins'
 import ScheduledTransactions from '../account/scheduled-transactions'
 import Settings from '../account/settings'
 import TradeHistory from '../account/trade-history'
+import TradeHistoryCurrency from '../account/trade-history-currency'
 import TransferHistory from '../account/transfer-history'
+import TransferHistoryCurrency from '../account/transfer-history-currency'
 import Currencies from '../account/currencies'
 import MyCurrencies from '../account/my-shuffling'
 import FinishedPools from '../account/finished-pools'
@@ -155,7 +157,9 @@ class App extends React.Component {
                                 ,<Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
                                 ,<Route exact path="/settings" component={Settings}/>
                                 ,<Route exact path="/trade-history" component={TradeHistory}/>
+                                ,<Route exact path="/trade-history-currency" component={TradeHistoryCurrency}/>
                                 ,<Route exact path="/transfer-history" component={TransferHistory}/>
+                                ,<Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
                                 ,<Route exact path="/finished-pools" component={FinishedPools}/>
                                 ,<Route exact path="/data-storage" component={DataStorage}/>
                                 ,<Route exact path="/finished-shuffling" component={FinishedShufflings}/>
