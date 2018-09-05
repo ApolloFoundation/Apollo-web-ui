@@ -5,6 +5,8 @@ import {setModalData, setBodyModalParamsAction} from '../../../modules/modals';
 import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
 import uuid from "uuid";
+import {formatTimestamp} from "../../../helpers/util/time";
+
 
 class InfoBlock extends React.Component {
     constructor(props) {
@@ -194,7 +196,7 @@ class InfoBlock extends React.Component {
                                                     </tr>
                                                     <tr>
                                                         <td>Timestamp:</td>
-                                                        <td className="word-brake">{this.props.modalData.timesamp}</td>
+                                                        <td className="word-brake">{this.props.modalData.timestamp}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Generator:</td>
@@ -232,6 +234,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoBlock);

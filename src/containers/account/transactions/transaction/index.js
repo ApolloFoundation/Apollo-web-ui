@@ -63,6 +63,7 @@ class Transaction extends React.Component {
     }
 
     render () {
+        console.log(this.props.transaction);
         if (this.props.block) {
             if (!this.state.transaction.encryptedTransaction) {
                 return (
@@ -71,7 +72,7 @@ class Transaction extends React.Component {
                             {this.props.index}
                         </td>
                         <td  key={uuid()} className="blue-link-text">
-                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.state.transaction.blockTimestamp}</a>
+                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>{this.props.formatTimestamp(this.state.transaction.blockTimestamp)}</a>
                         </td>
                         <td  key={uuid()}>
                             {formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}
@@ -85,8 +86,15 @@ class Transaction extends React.Component {
                         <td  key={uuid()} className="blue-link-text">
                             <a>{this.state.transaction.senderRS}</a>
                         </td>
-                        <td  key={uuid()} className="align-right">
-                            <a>{this.props.transaction.recipientRS}</a>
+                        <td  key={uuid()} className="blue-link-text align-right">
+                            {
+                                this.props.transaction.recipientRS &&
+                                <a>{this.props.transaction.recipientRS}</a>
+                            }
+                            {
+                                !this.props.transaction.recipientRS &&
+                                '-'
+                            }
                         </td>
                     </tr>
                 );
