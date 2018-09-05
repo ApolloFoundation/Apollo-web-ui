@@ -401,8 +401,8 @@ input {
 	background: #fff;
 	border-radius: 6px;
 	height: calc(100% - 15px);
-    overflow: hidden;
-
+	overflow: hidden;
+	
 	&.devided {
 		display: flex;
 		flex-direction: row;
@@ -486,9 +486,9 @@ input {
 	&.offset-bottom {
 		padding-bottom: 75px;
 	}
-    &.no-padding-top {
-      padding-top: 0;
-    }
+	&.no-padding-top {
+		padding-top: 0;
+	}
 	&.no-padding-left {
 		padding-left: 0 !important;
 	}
@@ -1183,7 +1183,7 @@ input {
 		min-height: auto;
 		height: auto;
 		max-height: 800px;
-		table{
+		table {
 			min-width: 500px !important;
 		}
 	}
@@ -1271,7 +1271,7 @@ input {
 					white-space: normal;
 					word-break: break-all;
 				}
-				&:hover{
+				&:hover {
 					@media (min-width: 760px) {
 						& + .amount-tooltip {
 							opacity: 1;
@@ -1294,7 +1294,7 @@ input {
 				transition: 0.3s;
 				word-break: break-all;
 				visibility: hidden;
-				.amount-tooltip-text{
+				.amount-tooltip-text {
 					position: relative;
 					z-index: 2;
 				}
@@ -1619,9 +1619,12 @@ input {
 			min-height: 520px;
 		}
 	}
+	.form-group {
+		display: table;
+	}
 }
 
-table{
+table {
 	tr > td {
 		white-space: nowrap;
 	}

@@ -1058,6 +1058,8 @@ input {
     height: calc(100% - 15px); }
     .page-body-item .card.card-tall {
       min-height: 520px; }
+  .page-body-item .form-group {
+    display: table; }
 
 table tr > td {
   white-space: nowrap; }
