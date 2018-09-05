@@ -21,7 +21,6 @@
 
 .messenger, .messenger a {
   min-height: auto !important;
-  height: 100%;
   margin-bottom: 15px; }
   .messenger > *, .messenger a > * {
     height: 100%; }
@@ -148,3 +147,68 @@
           position: relative;
           margin-left: 15px;
           white-space: pre; }
+
+.followed-polls-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: stretch;
+  margin-bottom: 15px; }
+  @media (max-width: 760px) {
+    .followed-polls-item {
+      align-items: flex-start; } }
+  .followed-polls-item:first-of-type {
+    min-height: 100%; }
+    .followed-polls-item:first-of-type .left {
+      width: calc(33.33% - 15px);
+      margin-right: 15px; }
+      @media (max-width: 760px) {
+        .followed-polls-item:first-of-type .left {
+          width: 100%;
+          margin-right: 0;
+          margin-bottom: 15px; } }
+    .followed-polls-item:first-of-type .right {
+      width: 66.66%; }
+      @media (max-width: 760px) {
+        .followed-polls-item:first-of-type .right {
+          width: 100%; } }
+  @media (max-width: 1023px) {
+    .followed-polls-item .col-md-7, .followed-polls-item .col-md-5 {
+      flex: 100%;
+      max-width: 100%; } }
+  @media (max-width: 1023px) {
+    .followed-polls-item .col-md-5 {
+      padding-left: 120px;
+      margin-top: -50px; } }
+  @media (max-width: 760px) {
+    .followed-polls-item .col-md-5 {
+      padding-left: 0px;
+      margin-top: 10px; } }
+  .followed-polls-item .card .form-group {
+    padding-bottom: 0;
+    padding-top: 0; }
+    .followed-polls-item .card .form-group .form-title {
+      padding-top: 0; }
+  .followed-polls-item .card {
+    margin-bottom: 0 !important;
+    height: 100% !important; }
+  .followed-polls-item .right {
+    width: 66.66%; }
+    @media (max-width: 1023px) {
+      .followed-polls-item .right {
+        width: 100%; } }
+  .followed-polls-item svg {
+    max-width: 100%;
+    height: auto; }
+    @media (max-width: 760px) {
+      .followed-polls-item svg {
+        float: none; } }
+  @media (max-width: 760px) {
+    .followed-polls-item .description-bar {
+      padding-top: 20px;
+      padding-bottom: 20px; } }
+  @media (max-width: 760px) {
+    .followed-polls-item .chat-item, .followed-polls-item .card {
+      padding-right: 20px;
+      padding-left: 20px;
+      padding-bottom: 20px; } }

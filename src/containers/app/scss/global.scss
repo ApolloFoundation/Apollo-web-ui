@@ -394,7 +394,7 @@ input {
 }
 
 .form-group {
-	display: table;
+	//display: table;
 	padding: 35px;
 	box-sizing: border-box;
 	width: 100%;
@@ -576,6 +576,7 @@ input {
 		background-image: url(../../assets/brand-logo.png) !important;
 	}
 	.form-title {
+		padding-top: 30px;
 		padding-bottom: 20px;
 		
 		&.inline {
@@ -1182,6 +1183,9 @@ input {
 		min-height: auto;
 		height: auto;
 		max-height: 800px;
+		table{
+			min-width: 500px !important;
+		}
 	}
 	&.full-height {
 		height: 100%;

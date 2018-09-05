@@ -288,6 +288,7 @@
 		.user-box {
 			width: 230px;
 			display: flex;
+			flex-wrap: wrap;
 			justify-content: flex-end;
 			cursor: pointer;
 			
@@ -296,6 +297,7 @@
 				display: flex;
 			}
 			.user-name {
+				width: calc(100% - 70px);
 				& > * {
 					display: inline-block;
 					vertical-align: bottom;
@@ -309,7 +311,7 @@
 				height: 50px;
 				width: 50px;
 				border-radius: 100%;
-				margin-left: 30px;
+				margin-left: 20px;
 				border: 1px solid #eee;
 				background-color: #eeeeee;
 				@media (max-width: 760px) {

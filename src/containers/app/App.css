@@ -280,7 +280,6 @@ input {
         font-size: 15px; }
 
 .form-group {
-  display: table;
   padding: 35px;
   box-sizing: border-box;
   width: 100%;
@@ -403,6 +402,7 @@ input {
     background-position: left;
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group .form-title {
+    padding-top: 30px;
     padding-bottom: 20px; }
     .form-group .form-title.inline > * {
       vertical-align: middle;
@@ -790,6 +790,8 @@ input {
     min-height: auto;
     height: auto;
     max-height: 800px; }
+    .card.card-flexible table {
+      min-width: 500px !important; }
   .card.full-height {
     height: 100%; }
   .card.card-full-screen {
@@ -1067,7 +1069,7 @@ table td .btn, table th .btn {
   height: 100%;
   width: 100%;
   min-height: 560px;
-  overflow-x: scroll; }
+  overflow-x: auto; }
   .transaction-table.no-min-height {
     min-height: auto;
     height: auto; }
@@ -1112,8 +1114,7 @@ table td .btn, table th .btn {
         height: 6.66%; }
         .transaction-table .transaction-table-body table tbody tr td {
           border-top: 1px solid #E5E5E5;
-          padding: 0 0 0 15px;
-          height: 50px; }
+          padding: 20px 0 20px 15px; }
           .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
             color: #00C8FF;
             font-family: "Roboto-Regular";

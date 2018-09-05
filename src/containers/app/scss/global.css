@@ -276,7 +276,6 @@ input {
         font-size: 15px; }
 
 .form-group {
-  display: table;
   padding: 35px;
   box-sizing: border-box;
   width: 100%;
@@ -399,6 +398,7 @@ input {
     background-position: left;
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group .form-title {
+    padding-top: 30px;
     padding-bottom: 20px; }
     .form-group .form-title.inline > * {
       vertical-align: middle;
@@ -786,6 +786,8 @@ input {
     min-height: auto;
     height: auto;
     max-height: 800px; }
+    .card.card-flexible table {
+      min-width: 500px !important; }
   .card.full-height {
     height: 100%; }
   .card.card-full-screen {

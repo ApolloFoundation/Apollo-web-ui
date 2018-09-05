@@ -4,7 +4,7 @@
   height: 100%;
   width: 100%;
   min-height: 560px;
-  overflow-x: scroll;
+  overflow-x: auto;
   //background-color: #FFFFFF;
 
   &.no-min-height {
@@ -19,6 +19,7 @@
     background-color: #FFFFFF;
     border-radius: 3px;
     position: relative;
+    //overflow-x: auto;
     &.offset-bottom {
       padding-bottom: 75px;
     }
@@ -79,8 +80,8 @@
 
           td {
             border-top: 1px solid #E5E5E5;
-            padding: 0 0 0 15px;
-            height: 50px;
+            padding: 20px 0 20px 15px;
+            //height: 50px;
 
             &.blue-link-text {
               a {
