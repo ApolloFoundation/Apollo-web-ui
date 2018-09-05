@@ -344,7 +344,7 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                         <div className="col-md-7">
                                                             <a
-                                                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
+                                                                onClick={() => this.props.setBodyModalParamsAction('SELL_ASSET', {
                                                                     quantityATU: this.refs.quantity2.value,
                                                                     priceATM: this.refs.priceATM2.value,
                                                                     total: this.refs.total2.value,
