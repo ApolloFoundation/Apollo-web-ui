@@ -25,6 +25,7 @@ import HashCalculation from './account/hash-calculation';
 import TransactionOperations from './account/transactions-operations';
 import DeviceSettings from './account/device-settings';
 import ApolloAbout from './about';
+import AccountInfo from './account/account-info';
 
 // Assets
 import TransferAsset from './assets/transfer-asset';
@@ -192,6 +193,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          closeModal={this.closeModal}/>}
                 {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CREATE_USER'                 && <CreateUser                closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal}/>}
 
 
                 {/* Shuffling */}

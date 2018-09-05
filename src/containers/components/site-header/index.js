@@ -578,6 +578,7 @@ class SiteHeader extends React.Component {
 													<div className="row">
 														<div className="col-xc-12 col-md-6">
 															<a
+																onClick={() => this.props.setBodyModalParamsAction('SET_ACCOUNT_INFO', {})}
 																className="btn static blue block"
 															>
 																Set account info
