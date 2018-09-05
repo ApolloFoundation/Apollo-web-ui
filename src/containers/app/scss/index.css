@@ -600,9 +600,6 @@ input {
     .btn-box.inline > * {
       display: inline;
       margin-right: 15px; }
-      @media (max-width: 1100px) {
-        .btn-box.inline > * {
-          margin-right: 30px; } }
   .btn-box.success > * {
     color: #2ecc71; }
   .btn-box.danger > * {
@@ -1091,7 +1088,8 @@ table td .btn, table th .btn {
       padding: 40px 0; }
     .transaction-table .transaction-table-body table {
       width: 100%;
-      border-collapse: collapse; }
+      border-collapse: collapse;
+      min-width: 800px; }
       .transaction-table .transaction-table-body table thead {
         padding: 35px; }
         .transaction-table .transaction-table-body table thead tr td {

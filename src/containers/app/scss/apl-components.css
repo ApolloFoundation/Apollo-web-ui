@@ -23,7 +23,8 @@
       padding: 40px 0; }
     .transaction-table .transaction-table-body table {
       width: 100%;
-      border-collapse: collapse; }
+      border-collapse: collapse;
+      min-width: 800px; }
       .transaction-table .transaction-table-body table thead {
         padding: 35px; }
         .transaction-table .transaction-table-body table thead tr td {
