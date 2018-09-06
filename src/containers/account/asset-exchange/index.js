@@ -205,14 +205,14 @@ class AssetExchange extends React.Component {
                                         </div>
 
                                         <div style={{height: 'auto'}} className="card ballance card-medium medium-padding full-height">
-                                            <div className="form-group">
+                                            <div className="form-group-app">
                                                 <div className="form-title">
                                                     <p>Buy {this.state.asset.name}</p>
                                                     <div className="form-sub-title">
                                                         balance: <strong>{this.props.amountATM} ATM</strong>
                                                     </div>
                                                 </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
+                                                <div className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
                                                             <label>Quantity</label>
@@ -222,7 +222,7 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
+                                                <div className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
                                                             <label>Price</label>
@@ -232,7 +232,7 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
+                                                <div className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
                                                             <label>Total</label>
@@ -242,7 +242,7 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
+                                                <div className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
                                                         </div>
@@ -264,7 +264,7 @@ class AssetExchange extends React.Component {
                                             </div>
                                         </div>
                                         <div className="card ballance card-tiny medium-padding">
-                                            <div className="form-group">
+                                            <div className="form-group-app">
                                                 <div className="form-title">
                                                     <p>Offers to sell {this.state.asset.name}</p>
                                                 </div>
@@ -301,14 +301,14 @@ class AssetExchange extends React.Component {
                                             </div>
                                         </div>
                                         <div  style={{height: 'auto'}} className="card assets card-medium medium-padding full-height">
-                                            <div className="form-group">
+                                            <div className="form-group-app">
                                                 <div className="form-title">
                                                     <p>Sell {this.state.asset.name}</p>
                                                     <div className="form-sub-title">
                                                         balance: <strong>{this.props.amountATM} ATM</strong>
                                                     </div>
                                                 </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
+                                                <div className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
                                                             <label>Quantity</label>
@@ -318,7 +318,7 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
+                                                <div className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
                                                             <label>Price</label>
@@ -328,7 +328,7 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
+                                                <div className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
                                                             <label>Total</label>
@@ -338,7 +338,7 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="input-group offset-top display-block inline no-margin">
+                                                <div className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="row">
                                                         <div className="col-md-5">
                                                         </div>
@@ -360,7 +360,7 @@ class AssetExchange extends React.Component {
                                             </div>
                                         </div>
                                         <div className="card assets card-tiny medium-padding">
-                                            <div className="form-group">
+                                            <div className="form-group-app">
                                                 <div className="form-title">
                                                     <p>Offers to buy {this.state.asset.name}</p>
                                                 </div>

@@ -10,7 +10,7 @@
 .site-content .page-content .page-body .marketplace .row > *.col-md-12, .site-content .page-content .page-body .marketplace .row > *.col-lg-12 {
   height: auto !important; }
 
-.form-group.marketplace {
+.form-group-app.marketplace {
   padding: 35px 0 !important; }
 
 .marketplace-item {
@@ -41,10 +41,10 @@
   .card .full-box .full-box-item .align-right {
     font-size: 24px; }
 
-.card .input-group {
+.card .input-group-app {
   width: 100%;
   margin-bottom: 15px; }
-  .card .input-group > * {
+  .card .input-group-app > * {
     display: table-cell; }
 
 .card.relative {

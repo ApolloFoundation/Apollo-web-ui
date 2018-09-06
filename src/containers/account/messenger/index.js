@@ -179,7 +179,7 @@ class Messenger extends React.Component {
 															style={{height: 51}}
 														>
 															<div className="encrypt-message-box">
-																<div className="input-group">
+																<div className="input-group-app">
 																	<div className="encrypt-message-checkbox">
 																		<Checkbox field={'messageToEncrypt'} type="checkbox"/>
 																	</div>

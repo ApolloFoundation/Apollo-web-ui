@@ -101,13 +101,13 @@ class TransferAlias extends React.Component {
                         <form className="modal-form" onSubmit={submitForm}>
                             {
                                 this.state.alias &&
-                                <div className="form-group">
+                                <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
                                         <p>Sell Alias</p>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Alias</label>
@@ -117,7 +117,7 @@ class TransferAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Recipient</label>
@@ -127,7 +127,7 @@ class TransferAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Fee</label>
@@ -137,7 +137,7 @@ class TransferAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Passphrase</label>

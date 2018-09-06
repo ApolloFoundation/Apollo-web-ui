@@ -39,14 +39,14 @@ class ConnectPeer extends React.Component {
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({submitForm}) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
                                     <p>Connect Peer</p>
                                 </div>
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Name: </label>
@@ -58,7 +58,7 @@ class ConnectPeer extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Admin Password:</label>

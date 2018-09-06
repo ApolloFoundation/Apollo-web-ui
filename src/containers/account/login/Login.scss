@@ -7,7 +7,7 @@
   background: #F5F5F5;
   z-index: 100;
 
-  .form-group {
+  .form-group-app {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -15,7 +15,7 @@
     max-width: 500px;
     height: auto;
 
-    .input-group {
+    .input-group-app {
       label {
         height: 100%;
         display: flex;

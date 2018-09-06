@@ -255,7 +255,7 @@ class Marketplace extends React.Component {
                                                 'col-md-12' : !this.state.isShowMore,
                                                 'col-md-6' : this.state.isShowMore
                                             })}>
-                                                <div className="input-group search tabled">
+                                                <div className="input-group-app search tabled">
                                                     <Form
                                                         onSubmit={(values) => this.handleSearchByAccount(values)}
                                                         render={({
@@ -285,7 +285,7 @@ class Marketplace extends React.Component {
                                                 'col-md-12' : !this.state.isShowMore,
                                                 'col-md-6' : this.state.isShowMore
                                             })}>
-                                                <div className="input-group search tabled">
+                                                <div className="input-group-app search tabled">
                                                     <Form
                                                         onSubmit={(values) => this.handleSearchByTag(values)}
                                                         render={({
@@ -356,7 +356,7 @@ class Marketplace extends React.Component {
                             </div>
                             {
                                 this.state.getDGSGoods &&
-                                <div className="form-group transparent marketplace no-padding-bottom">
+                                <div className="form-group-app transparent marketplace no-padding-bottom">
                                     <div className="form-title padding-left offset-bottom">
                                         <p>
                                             Recent listings&nbsp;&nbsp;
@@ -382,7 +382,7 @@ class Marketplace extends React.Component {
                             }
                             {
                                 this.state.getDGSPurchases &&
-                                <div className="form-group transparent marketplace no-padding-bottom">
+                                <div className="form-group-app transparent marketplace no-padding-bottom">
                                     <div className="form-title padding-left offset-bottom">
                                         <p>
                                             Recent purchases&nbsp;&nbsp;

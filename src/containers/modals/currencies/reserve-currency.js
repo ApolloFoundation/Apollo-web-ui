@@ -96,13 +96,13 @@ class ReserveCurrency extends React.Component {
         return (
             <div className="modal-box">
                 <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
-                    <div className="form-group">
+                    <div className="form-group-app">
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                         <div className="form-title">
                             <p>Reserve Currency</p>
                         </div>
-                        <div className="input-group display-block offset-bottom">
+                        <div className="input-group-app display-block offset-bottom">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Asset</label>
@@ -112,7 +112,7 @@ class ReserveCurrency extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group display-block offset-bottom">
+                        <div className="input-group-app display-block offset-bottom">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Recipient</label>
@@ -122,7 +122,7 @@ class ReserveCurrency extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group display-block offset-bottom">
+                        <div className="input-group-app display-block offset-bottom">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Quantity</label>
@@ -132,7 +132,7 @@ class ReserveCurrency extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group display-block offset-bottom">
+                        <div className="input-group-app display-block offset-bottom">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Fee</label>
@@ -142,7 +142,7 @@ class ReserveCurrency extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group display-block offset-bottom">
+                        <div className="input-group-app display-block offset-bottom">
                             <div className="row">
                                 <div className="col-md-3">
                                     <label>Passphrase</label>

@@ -104,7 +104,7 @@ class SellAlias extends React.Component {
                 <div className="modal-form">
                     {
                         this.state.alias &&
-                        <div className="form-group">
+                        <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
@@ -139,7 +139,7 @@ class SellAlias extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 0
                                             })}>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Alias</label>
@@ -149,7 +149,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Recipient</label>
@@ -159,7 +159,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Price</label>
@@ -169,7 +169,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Fee</label>
@@ -179,7 +179,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Passphrase</label>
@@ -219,7 +219,7 @@ class SellAlias extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 1
                                             })}>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Alias</label>
@@ -229,7 +229,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Price</label>
@@ -239,7 +239,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Fee</label>
@@ -249,7 +249,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group offset-top display-block">
+                                            <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Passphrase</label>

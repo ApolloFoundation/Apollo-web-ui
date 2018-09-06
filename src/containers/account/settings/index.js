@@ -54,11 +54,11 @@ class Settings extends React.Component {
                                         <form onSubmit={submitForm} style={{width: '100%', padding: 0}}>
                                             <div className="page-settings-body">
                                                 <div className="page-settings-item">
-                                                    <div className="form-group">
+                                                    <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>General</p>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Language</label>
@@ -71,7 +71,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Regional format</label>
@@ -84,7 +84,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Use 24 hour format</label>
@@ -98,7 +98,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Maximum decimal positions</label>
@@ -122,7 +122,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Enable plugins</label>
@@ -137,7 +137,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label></label>
@@ -149,7 +149,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Show console log button</label>
@@ -164,7 +164,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Administrator password</label>
@@ -177,11 +177,11 @@ class Settings extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="page-settings-item">
-                                                    <div className="form-group">
+                                                    <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>User interface behaviour</p>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Submit forms on enter</label>
@@ -196,7 +196,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label></label>
@@ -209,7 +209,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Enable marketplace section</label>
@@ -224,7 +224,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Enable exchange section</label>
@@ -239,7 +239,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Animate forging indicator</label>
@@ -254,7 +254,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Items to show per page</label>
@@ -284,7 +284,7 @@ class Settings extends React.Component {
                                             </div>
                                             <div className="page-settings-body">
                                                 <div className="page-settings-item">
-                                                    <div className="form-group">
+                                                    <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>Form warnings</p>
                                                             <div className="form-sub-title">Show a warning when an amount /
@@ -292,7 +292,7 @@ class Settings extends React.Component {
                                                                 higher than specified below.
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Max amount warning</label>
@@ -302,7 +302,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Max fee warning</label>
@@ -312,7 +312,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Max asset transfer warning</label>
@@ -322,7 +322,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Max currency transfer warning</label>
@@ -332,7 +332,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Show fake warnings</label>
@@ -350,11 +350,11 @@ class Settings extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="page-settings-item">
-                                                    <div className="form-group">
+                                                    <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>Theme settings</p>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Header</label>
@@ -368,7 +368,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Sidebar</label>
@@ -382,7 +382,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Boxes</label>
@@ -401,11 +401,11 @@ class Settings extends React.Component {
                                             </div>
                                             <div className="page-settings-body">
                                                 <div className="page-settings-item">
-                                                    <div className="form-group">
+                                                    <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>Exchange settings</p>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>ShapeShift URL</label>
@@ -415,7 +415,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>ShapeShift API Key</label>
@@ -425,7 +425,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Changelly URL</label>
@@ -435,7 +435,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Changelly URL</label>
@@ -445,7 +445,7 @@ class Settings extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="input-group">
+                                                        <div className="input-group-app">
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <label>Changelly API Secret</label>

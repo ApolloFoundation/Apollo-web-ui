@@ -98,13 +98,13 @@ class IssueAsset extends React.Component {
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
                                     <p>Issue Asset</p>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Asset name</label>
@@ -114,7 +114,7 @@ class IssueAsset extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Description</label>
@@ -124,7 +124,7 @@ class IssueAsset extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Quantity</label>
@@ -134,7 +134,7 @@ class IssueAsset extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Decimals</label>
@@ -144,7 +144,7 @@ class IssueAsset extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Fee</label>
@@ -154,7 +154,7 @@ class IssueAsset extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>

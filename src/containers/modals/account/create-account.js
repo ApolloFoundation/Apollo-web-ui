@@ -88,13 +88,13 @@ class CreateUser extends React.Component {
                         <form className="modal-form" onSubmit={submitForm}>
                             {
                                 !this.state.isValidating &&
-                                <div className="form-group">
+                                <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
                                         <p>Create Your Wallet</p>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <label>Your randomly generated passphrase is:</label>
@@ -108,7 +108,7 @@ class CreateUser extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <label>Write down this passphrase and store securely (order and capitalization matter). This passphrase will be needed to use your wallet.</label>
@@ -116,7 +116,7 @@ class CreateUser extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <label>Your public wallet address is:</label>
@@ -135,7 +135,7 @@ class CreateUser extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <label>Attention:</label>
@@ -157,7 +157,7 @@ class CreateUser extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <Checkbox /> <label>I will not lose my passphrase</label>
@@ -180,11 +180,11 @@ class CreateUser extends React.Component {
                             }
                             {
                                 this.state.isValidating &&
-                                <div className="form-group">
+                                <div className="form-group-app">
                                     <div className="form-title">
                                         <p>Create Your Wallet</p>
                                     </div>
-                                    <div className="input-group block offset-bottom offset-top">
+                                    <div className="input-group-app block offset-bottom offset-top">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Secret Phrase</label>

@@ -69,7 +69,7 @@ a {
 span.blue {
   color: #00C8FF; }
 
-.form-group {
+.form-group-app {
   display: table;
   padding: 35px;
   box-sizing: border-box;
@@ -77,50 +77,50 @@ span.blue {
   background: #fff;
   border-radius: 6px;
   height: calc(100% - 15px); }
-  .form-group.offset {
+  .form-group-app.offset {
     height: 100%;
     padding: 20px 0 0px; }
-  .form-group.compensate-margin {
+  .form-group-app.compensate-margin {
     margin: 0 -7.5px;
     margin-bottom: 15px; }
-  .form-group .form-title {
+  .form-group-app .form-title {
     padding-bottom: 20px; }
-    .form-group .form-title p {
+    .form-group-app .form-title p {
       color: #333333;
       font-family: "Roboto-Regular";
       font-size: 24px;
       line-height: 18px; }
-    .form-group .form-title .form-sub-title {
+    .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
-  .form-group .form-sub-title {
+  .form-group-app .form-sub-title {
     color: #BBBBBB;
     font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 19px;
     margin-top: -15px; }
-  .form-group .input-group {
+  .form-group-app .input-group-app {
     display: block;
     padding-top: 25px; }
-    .form-group .input-group .form-sub-title {
+    .form-group-app .input-group-app .form-sub-title {
       padding-left: 15px; }
-    .form-group .input-group input {
+    .form-group-app .input-group-app input {
       padding-left: 15px;
       padding-right: 15px; }
 
-.input-group {
+.input-group-app {
   display: table-row; }
-  .input-group.lighten input {
+  .input-group-app.lighten input {
     background-color: #fff; }
-  .input-group.middle > * {
+  .input-group-app.middle > * {
     vertical-align: middle; }
-  .input-group label {
+  .input-group-app label {
     display: table-cell;
     color: #777777;
     font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 14px;
     padding-right: 20px; }
-  .input-group input {
+  .input-group-app input {
     display: table-cell; }
 
 .btn-box.inline {
@@ -249,20 +249,20 @@ span.blue {
       display: block; }
     .card .full-box.offset {
       padding: 20px 0px 14px; }
-  .card .form-group {
+  .card .form-group-app {
     padding: 30px 0 25px; }
-  .card .input-group {
+  .card .input-group-app {
     display: table-row; }
-    .card .input-group input, .card .input-group input[type="number"] {
+    .card .input-group-app input, .card .input-group-app input[type="number"] {
       padding: 8px 20px; }
-    .card .input-group.lighten input {
+    .card .input-group-app.lighten input {
       background-color: #fff; }
-    .card .input-group label {
+    .card .input-group-app label {
       display: table-cell;
       color: #777777;
       font-family: "Roboto-Regular";
       font-size: 12px;
       line-height: 14px;
       padding-right: 20px; }
-    .card .input-group input {
+    .card .input-group-app input {
       display: table-cell; }

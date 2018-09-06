@@ -96,13 +96,13 @@ class SendApollo extends React.Component {
                          submitForm, values, addValue, removeValue, setValue, getFormState
                     }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
                                     <p>Send Apollo</p>
                                 </div>
-                                <div className="input-group offset-top display-block inline user">
+                                <div className="input-group-app offset-top display-block inline user">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Recipient</label>
@@ -122,7 +122,7 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Amount</label>
@@ -134,7 +134,7 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                         </div>
@@ -142,9 +142,9 @@ class SendApollo extends React.Component {
                                             <div className="input-wrapper">
                                                 <div className="form-sub-actions">
                                                     <div
-                                                        className="input-group align-middle display-block offset-bottom"
+                                                        className="input-group-app align-middle display-block offset-bottom"
                                                     >
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isMessage"/>
                                                             <label>Add note to self?</label>
                                                         </div>
@@ -162,7 +162,7 @@ class SendApollo extends React.Component {
                                 </div>
                                 {
                                     getFormState().values.isMessage &&
-                                    <div className="input-group offset-top display-block inline">
+                                    <div className="input-group-app offset-top display-block inline">
                                         <div className="row">
                                             <div className="col-md-3">
                                             </div>
@@ -175,7 +175,7 @@ class SendApollo extends React.Component {
                                     </div>
                                 }
 
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label style={{paddingRight: 7}}>Fee</label>
@@ -204,7 +204,7 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>

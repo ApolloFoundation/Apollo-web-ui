@@ -56,7 +56,7 @@ class AddMonitor extends React.Component {
                                  submitForm, values, addValue, removeValue, setValue, getFormState
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
@@ -67,7 +67,7 @@ class AddMonitor extends React.Component {
                                     Your passphrase will be sent to the server!
                                 </InfoBox>
 
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Control Property</label>
@@ -80,7 +80,7 @@ class AddMonitor extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Amount</label>
@@ -93,7 +93,7 @@ class AddMonitor extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Threshold</label>
@@ -106,7 +106,7 @@ class AddMonitor extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Interval</label>
@@ -119,7 +119,7 @@ class AddMonitor extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>

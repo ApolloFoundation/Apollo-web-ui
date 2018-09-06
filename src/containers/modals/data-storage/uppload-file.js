@@ -62,13 +62,13 @@ class UploadFile extends React.Component {
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                     <form className="modal-form" onSubmit={submitForm}>
-                        <div className="form-group">
+                        <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
                                 <p>Upload file</p>
                             </div>
-                            <div className="input-group display-block offset-bottom">
+                            <div className="input-group-app display-block offset-bottom">
                                 <div className="row">
                                     <div className="col-md-3">
                                         <label>Name</label>
@@ -78,7 +78,7 @@ class UploadFile extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="input-group display-block offset-bottom">
+                            <div className="input-group-app display-block offset-bottom">
                                 <div className="row">
                                     <div className="col-md-3">
                                         <label>Description</label>
@@ -88,7 +88,7 @@ class UploadFile extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="input-group display-block offset-bottom">
+                            <div className="input-group-app display-block offset-bottom">
                                 <div className="row">
                                     <div className="col-md-3">
                                         <label>Tags</label>
@@ -98,7 +98,7 @@ class UploadFile extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="input-group display-block offset-bottom">
+                            <div className="input-group-app display-block offset-bottom">
                                 <div className="row">
                                     <div className="col-md-3">
                                         <label>Channel</label>
@@ -108,14 +108,14 @@ class UploadFile extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="input-group display-block offset-bottom">
+                            <div className="input-group-app display-block offset-bottom">
                                 <div className="row">
                                     <div className="col-md-3">
                                         <label>File</label>
                                     </div>
                                     <div className="col-md-9">
                                         <div className="iconned-input-field">
-                                            <div className="input-group search">
+                                            <div className="input-group-app search">
                                                 <div className="iconned-input-field">
                                                     <div className="input-icon text"><i className="">Browse&hellip;</i></div>
                                                     <input
@@ -149,7 +149,7 @@ class UploadFile extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="input-group display-block offset-bottom">
+                            <div className="input-group-app display-block offset-bottom">
                                 <div className="row">
                                     <div className="col-md-3">
                                         <label>Fee</label>
@@ -159,7 +159,7 @@ class UploadFile extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="input-group display-block offset-bottom">
+                            <div className="input-group-app display-block offset-bottom">
                                 <div className="row">
                                     <div className="col-md-3">
                                         <label>Passphrase</label>

@@ -395,7 +395,7 @@ input {
 	}
 }
 
-.form-group {
+.form-group-app {
 	//display: table;
 	padding: 35px;
 	box-sizing: border-box;
@@ -638,7 +638,7 @@ input {
 	.form-exit {
 	
 	}
-	.input-group {
+	.input-group-app {
 		&:last-child:not(:first-child) {
 			padding-bottom: 0 !important;
 		}
@@ -750,7 +750,7 @@ input {
 		.form-sub-actions {
 			display: block;
 			
-			.form-group {
+			.form-group-app {
 				background-color: transparent;
 				padding: 0;
 			}
@@ -758,7 +758,7 @@ input {
 	}
 }
 
-.input-group {
+.input-group-app {
 	display: table-row;
 	
 	&.tabled {
@@ -1534,10 +1534,10 @@ input {
 			}
 		}
 	}
-	.form-group {
+	.form-group-app {
 		padding: 30px 0 15px;
 	}
-	.input-group {
+	.input-group-app {
 		display: table-row;
 		
 		input, input[type="number"] {
@@ -1626,7 +1626,7 @@ input {
 			min-height: 520px;
 		}
 	}
-	.form-group {
+	.form-group-app {
 		display: table;
 	}
 }

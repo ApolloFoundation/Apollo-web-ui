@@ -79,14 +79,14 @@ class DeviceSettings extends React.Component {
                         }
                         return (
                             <form className="modal-form" onSubmit={submitForm}>
-                                <div className="form-group">
+                                <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i
                                         className="zmdi zmdi-close"/></a>
 
                                     <div className="form-title">
                                         <p>Device Settings</p>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Settings</label>
@@ -94,28 +94,28 @@ class DeviceSettings extends React.Component {
                                             <div className="col-md-9">
                                                 <div className="input-wrapper">
                                                     <div
-                                                        className="input-group align-middle display-block offset-bottom">
+                                                        className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox style={{display: 'inline-block'}} type="checkbox"
                                                                   field="is_check_remember_me"/>
                                                         <label style={{display: 'inline-block'}}>Check remember me
                                                             checkbox</label>
                                                     </div>
                                                     <div
-                                                        className="input-group align-middle display-block offset-bottom">
+                                                        className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox style={{display: 'inline-block'}} type="checkbox"
                                                                   field="is_store_remembered_passphrase"/>
                                                         <label style={{display: 'inline-block'}}>Store remembered
                                                             passphrase</label>
                                                     </div>
                                                     <div
-                                                        className="input-group align-middle display-block offset-bottom">
+                                                        className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox style={{display: 'inline-block'}} type="checkbox"
                                                                   field="is_simulate_app"/>
                                                         <label style={{display: 'inline-block'}}>Simulate mobile
                                                             app</label>
                                                     </div>
                                                     <div
-                                                        className="input-group align-middle display-block offset-bottom">
+                                                        className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox style={{display: 'inline-block'}} type="checkbox"
                                                                   field="is_testnet"/>
                                                         <label style={{display: 'inline-block'}}>Connect to
@@ -125,7 +125,7 @@ class DeviceSettings extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Remote node address</label>
@@ -137,7 +137,7 @@ class DeviceSettings extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Remote node port</label>
@@ -149,13 +149,13 @@ class DeviceSettings extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                             </div>
                                             <div className="col-md-9">
                                                 <div className="input-wrapper">
-                                                    <div className="input-group align-middle display-block">
+                                                    <div className="input-group-app align-middle display-block">
                                                         <Checkbox style={{display: 'inline-block'}} type="checkbox"
                                                                   field="is_remote_node_ssl"/>
                                                         <label style={{display: 'inline-block'}}>Use https</label>
@@ -164,7 +164,7 @@ class DeviceSettings extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Number of data validators</label>
@@ -176,7 +176,7 @@ class DeviceSettings extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group offset-top display-block">
+                                    <div className="input-group-app offset-top display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Number of bootstrap nodes</label>

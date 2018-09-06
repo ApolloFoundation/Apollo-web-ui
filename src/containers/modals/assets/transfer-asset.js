@@ -66,13 +66,13 @@ class TransferAsset extends React.Component {
                             {
                                 this.props.modalData &&
 
-                                <div className="form-group">
+                                <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
                                         <p>Transfer Asset</p>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Asset</label>
@@ -83,7 +83,7 @@ class TransferAsset extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Recipient</label>
@@ -96,7 +96,7 @@ class TransferAsset extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Quantity</label>
@@ -106,7 +106,7 @@ class TransferAsset extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Fee</label>
@@ -116,7 +116,7 @@ class TransferAsset extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Secret Phrase</label>

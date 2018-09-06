@@ -105,13 +105,13 @@ class IssueCurrency extends React.Component {
                     render={({ submitForm, values, addValue, removeValue }) => (
 
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
                                     <p>Issue Currency</p>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Currency Name</label>
@@ -121,7 +121,7 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Currency Code</label>
@@ -131,7 +131,7 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Description</label>
@@ -141,7 +141,7 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Type</label>
@@ -149,30 +149,30 @@ class IssueCurrency extends React.Component {
                                         <div className="col-md-9">
                                             <div className="form-sub-actions">
                                                 <div
-                                                    className="form-group no-padding-bottom no-padding-top"
+                                                    className="form-group-app no-padding-bottom no-padding-top"
                                                     style={{paddingTop: 0}}
                                                 >
-                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox field={'type1'}/>
                                                         <label>Exchangeable</label>
                                                     </div>
-                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox field={'type2'}/>
                                                         <label>Controllable</label>
                                                     </div>
-                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox field={'type3'}/>
                                                         <label>Reservable</label>
                                                     </div>
-                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox field={'type4'}/>
                                                         <label>Claimable</label>
                                                     </div>
-                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox field={'type5'}/>
                                                         <label>Mintable</label>
                                                     </div>
-                                                    <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="input-group-app align-middle display-block offset-bottom">
                                                         <Checkbox field={'type6'}/>
                                                         <label>Non-Shuffleable</label>
                                                     </div>
@@ -182,7 +182,7 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Initial Supply</label>
@@ -192,7 +192,7 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Total Supply</label>
@@ -202,7 +202,7 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Decimals</label>
@@ -212,7 +212,7 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Fee</label>
@@ -222,7 +222,7 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>

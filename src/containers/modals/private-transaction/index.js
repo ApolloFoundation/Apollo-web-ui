@@ -74,13 +74,13 @@ class PrivateTransactions extends React.Component {
                                    submitForm
                                }) => (
                     <form className="modal-form"  onSubmit={submitForm}>
-                        <div className="form-group">
+                        <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
                                 <p>Show private transactions</p>
                             </div>
-                            <div className="input-group">
+                            <div className="input-group-app">
                                 <div className="row">
                                     <div className="col-md-3">
                                         <label>Passphrase</label>

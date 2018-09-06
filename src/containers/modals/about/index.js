@@ -27,7 +27,7 @@ class AboutApollo extends React.Component {
         return (
             <div className="modal-box wide">
                 <div className="modal-form">
-                    <div className="form-group devided about">
+                    <div className="form-group-app devided about">
                         <div className="left-bar overflow-visible">
                             <div className="top-bar">
                                 <div className="form-title">

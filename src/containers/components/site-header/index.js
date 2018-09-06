@@ -165,7 +165,7 @@ class SiteHeader extends React.Component {
 												"active": this.props.bodyModalType === "FORGING_BODY_MODAL",
 												"no-padding": true
 											})}>
-												<div className="form-group">
+												<div className="form-group-app">
 													<div className="form-body">
 														<div className="input-section">
 															<div className="image-button success">
@@ -566,7 +566,7 @@ class SiteHeader extends React.Component {
 										"active": this.props.bodyModalType === 'ACCOUNT_BODY_MODAL',
 										"no-padding": true
 									})}>
-										<div className="form-group">
+										<div className="form-group-app">
 											<div className="form-title">
 												<p>Current account</p>
 											</div>

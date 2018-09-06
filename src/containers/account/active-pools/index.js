@@ -145,7 +145,7 @@ class ActivePools extends React.Component {
 
                             </div>
                         </div>
-                        <div className="form-group offset-bottom height-auto no-padding">
+                        <div className="form-group-app offset-bottom height-auto no-padding">
                             <div className="form-title padding-left padding-top">
                                 <p>Finished pools</p>
                             </div>
