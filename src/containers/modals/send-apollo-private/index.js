@@ -119,13 +119,13 @@ class SendApolloPrivate extends React.Component {
                                  submitForm, values, addValue, removeValue, setValue, getFormState
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
                                     <p>Send Apollo</p>
                                 </div>
-                                <div className="input-group offset-top display-block inline user">
+                                <div className="input-group-app offset-top display-block inline user">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Recipient</label>
@@ -144,7 +144,7 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Amount</label>
@@ -157,7 +157,7 @@ class SendApolloPrivate extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label style={{paddingRight: 7}}>Fee</label>
@@ -186,7 +186,7 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>

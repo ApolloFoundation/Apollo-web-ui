@@ -39,6 +39,7 @@ input[type="number"] {
     display: flex;
     flex-wrap: wrap;
     padding: 120px 7.5px 15px;
+    min-height: 100%;
     z-index: 0; }
     @media (max-width: 760px) {
       .site-content .page-content .page-body {

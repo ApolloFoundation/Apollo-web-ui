@@ -65,14 +65,14 @@ class ExchangeBooth extends React.Component {
                                     </div>
                                 </div>
                                 <div className="card ballance card-medium medium-padding">
-                                    <div className="form-group">
+                                    <div className="form-group-app">
                                         <div className="form-title">
                                             <p>Buy {this.state.code}</p>
                                             <div className="form-sub-title">
                                                 balance: <strong>8,686 NXT</strong>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label>Quantity</label>
@@ -82,7 +82,7 @@ class ExchangeBooth extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label>Price</label>
@@ -92,7 +92,7 @@ class ExchangeBooth extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label>Total</label>
@@ -102,7 +102,7 @@ class ExchangeBooth extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label>Fee</label>
@@ -112,7 +112,7 @@ class ExchangeBooth extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label></label>
@@ -155,14 +155,14 @@ class ExchangeBooth extends React.Component {
                                     </div>
                                 </div>
                                 <div className="card assets card-medium medium-padding">
-                                    <div className="form-group">
+                                    <div className="form-group-app">
                                         <div className="form-title">
                                             <p>Sell {this.state.code}</p>
                                             <div className="form-sub-title">
                                                 balance: <strong>8,686 NXT</strong>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label>Quantity</label>
@@ -172,7 +172,7 @@ class ExchangeBooth extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label>Price</label>
@@ -182,7 +182,7 @@ class ExchangeBooth extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label>Total</label>
@@ -192,7 +192,7 @@ class ExchangeBooth extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label>Fee</label>
@@ -202,7 +202,7 @@ class ExchangeBooth extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-5">
                                                     <label></label>
@@ -219,7 +219,7 @@ class ExchangeBooth extends React.Component {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="card ballance medium-padding">
-                                            <div className="form-group">
+                                            <div className="form-group-app">
                                                 <div className="form-title">
                                                     <p>Offers to sell SECRT</p>
                                                 </div>
@@ -253,7 +253,7 @@ class ExchangeBooth extends React.Component {
                                     </div>
                                     <div className="col-md-6">
                                         <div className="card assets medium-padding">
-                                            <div className="form-group">
+                                            <div className="form-group-app">
                                                 <div className="form-title">
                                                     <p>Offers to buy KKT</p>
                                                 </div>
@@ -267,7 +267,7 @@ class ExchangeBooth extends React.Component {
                             </div>
                             <div className="col-md-12">
                                 <div className="card ballance medium-padding">
-                                    <div className="form-group">
+                                    <div className="form-group-app">
                                         <div className="form-title">
                                             <p>Exchange requests</p>
                                         </div>
@@ -301,7 +301,7 @@ class ExchangeBooth extends React.Component {
                             </div>
                             <div className="col-md-12">
                                 <div className="card ballance medium-padding card-flexible">
-                                    <div className="form-group">
+                                    <div className="form-group-app">
                                         <div className="form-title">
                                             <p>Executed exchanges</p>
                                         </div>

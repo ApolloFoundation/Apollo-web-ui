@@ -93,13 +93,13 @@ class ListProductForSale extends React.Component {
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
                                     <p>List Product For Sale</p>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Name</label>
@@ -109,7 +109,7 @@ class ListProductForSale extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Description</label>
@@ -119,7 +119,7 @@ class ListProductForSale extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Tags</label>
@@ -129,7 +129,7 @@ class ListProductForSale extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Price</label>
@@ -139,7 +139,7 @@ class ListProductForSale extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Quantity</label>
@@ -149,14 +149,14 @@ class ListProductForSale extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Image</label>
                                         </div>
                                         <div className="col-md-9">
                                             <div className="iconned-input-field">
-                                                <div className="input-group search">
+                                                <div className="input-group-app search">
                                                     <div className="iconned-input-field">
                                                         <div className="input-icon text"><i className="">Browse&hellip;</i></div>
                                                         <input
@@ -192,7 +192,7 @@ class ListProductForSale extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                         </div>
@@ -210,7 +210,7 @@ class ListProductForSale extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Fee</label>
@@ -220,7 +220,7 @@ class ListProductForSale extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group display-block offset-bottom">
+                                <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>

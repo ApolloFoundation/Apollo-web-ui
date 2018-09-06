@@ -80,7 +80,7 @@ class TokenGenerationValidation extends React.Component {
         return (
             <div className="modal-box">
                 <div className="modal-form">
-                    <div className="form-group">
+                    <div className="form-group-app">
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                         <div className="form-title">
@@ -129,7 +129,7 @@ class TokenGenerationValidation extends React.Component {
 
                                     }
 
-                                        <div className="input-group block offset-bottom offset-top">
+                                        <div className="input-group-app block offset-bottom offset-top">
                                             <div className="row">
                                                 <div className="col-md-3">
                                                     <label>Data</label>
@@ -139,7 +139,7 @@ class TokenGenerationValidation extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block">
+                                        <div className="input-group-app block">
                                             <div className="row">
                                                 <div className="col-md-3">
                                                     <label>Passphrase</label>
@@ -186,7 +186,7 @@ class TokenGenerationValidation extends React.Component {
                                             </InfoBox>
                                         }
 
-                                        <div className="input-group block offset-bottom offset-top">
+                                        <div className="input-group-app block offset-bottom offset-top">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -197,7 +197,7 @@ class TokenGenerationValidation extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block">
+                                        <div className="input-group-app block">
 
                                             <div className="row">
                                                 <div className="col-md-3">

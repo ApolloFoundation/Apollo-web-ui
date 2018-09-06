@@ -35,7 +35,7 @@
         opacity: 1;
         transform: none;
         visibility: visible; }
-      .page-header .page-title-box .page-title-box .open-settings .settings-bar .form-group {
+      .page-header .page-title-box .page-title-box .open-settings .settings-bar .form-group-app {
         padding: 35px 25px; }
       .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section {
         padding: 0; }
@@ -296,7 +296,7 @@
         opacity: 1;
         transform: none;
         visibility: visible; }
-      .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar .form-group {
+      .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar .form-group-app {
         padding: 35px 25px; }
       .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar .input-section {
         padding: 0; }

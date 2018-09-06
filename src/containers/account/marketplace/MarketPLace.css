@@ -10,7 +10,7 @@
 .site-content .page-content .page-body .marketplace .row > *.col-md-12, .site-content .page-content .page-body .marketplace .row > *.col-lg-12 {
   height: auto !important; }
 
-.form-group.marketplace {
+.form-group-app.marketplace {
   padding: 35px 0 !important; }
 
 .marketplace-item {
@@ -41,10 +41,10 @@
   .card .full-box .full-box-item .align-right {
     font-size: 24px; }
 
-.card .input-group {
+.card .input-group-app {
   width: 100%;
   margin-bottom: 15px; }
-  .card .input-group > * {
+  .card .input-group-app > * {
     display: table-cell; }
 
 .card.relative {
@@ -210,3 +210,21 @@
       color: #777777;
       font-size: 12px;
       margin-top: 15px; }
+
+.marketplace-row .marketplace-row-item {
+  margin-top: 15px; }
+  @media (max-width: 992px) {
+    .marketplace-row .marketplace-row-item {
+      width: 33.33%; } }
+  @media (max-width: 992px) {
+    .marketplace-row .marketplace-row-item {
+      width: 100%; } }
+  .marketplace-row .marketplace-row-item:nth-of-type(-n + 3) {
+    margin-top: 0; }
+
+.marketplace-preview .card.marketplace {
+  position: static; }
+
+@media (max-width: 768px) {
+  .marketplace-preview .marketplace-preview-item:nth-of-type(3) .card {
+    min-height: auto !important; } }

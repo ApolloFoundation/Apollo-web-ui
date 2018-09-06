@@ -281,195 +281,196 @@ input {
         padding-right: 15px;
         font-size: 15px; }
 
-.form-group {
+.form-group-app {
   padding: 35px;
   box-sizing: border-box;
   width: 100%;
   background: #fff;
   border-radius: 6px;
   height: calc(100% - 15px); }
-  .form-group.devided {
+  .form-group-app.devided {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between; }
-    .form-group.devided .left-bar {
+    .form-group-app.devided .left-bar {
       width: 50%;
       margin: -35px 0 -70px -35px; }
-      .form-group.devided .left-bar .top-bar .marketplace-image {
+      .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
         height: 400px; }
-      .form-group.devided .left-bar .bottom-bar .description {
+      .form-group-app.devided .left-bar .bottom-bar .description {
         padding: 35px;
         line-height: 1.6; }
-    .form-group.devided .right-bar {
+    .form-group-app.devided .right-bar {
       width: 50%; }
-      .form-group.devided .right-bar .price {
+      .form-group-app.devided .right-bar .price {
         padding-top: 35px;
         padding-bottom: 30px;
         color: #333333;
         font-size: 36px;
         line-height: 18px; }
-      .form-group.devided .right-bar .info-table {
+      .form-group-app.devided .right-bar .info-table {
         padding-bottom: 30px; }
-  .form-group.about .left-bar {
+  .form-group-app.about .left-bar {
     width: 200px;
     margin: 0; }
-  .form-group.about .right-bar {
+  .form-group-app.about .right-bar {
     width: calc(100% - 160px); }
-    .form-group.about .right-bar .description {
+    .form-group-app.about .right-bar .description {
       color: #333333;
       font-size: 14px;
       line-height: 1.6;
       padding-top: 48px; }
-      .form-group.about .right-bar .description p {
+      .form-group-app.about .right-bar .description p {
         margin-top: 30px;
         font-size: 14px; }
-        .form-group.about .right-bar .description p a {
+        .form-group-app.about .right-bar .description p a {
           color: #00C8FF;
           font-weight: normal;
           font-size: 14px; }
-  .form-group.transparent {
+  .form-group-app.transparent {
     background: transparent; }
-  .form-group.offset {
+  .form-group-app.offset {
     height: 100%;
     padding: 20px 0 0px; }
-  .form-group.compensate-margin {
+  .form-group-app.compensate-margin {
     margin: 0 -7.5px;
     margin-bottom: 15px; }
-  .form-group.height-auto {
+  .form-group-app.height-auto {
     height: auto; }
-  .form-group.offset-bottom {
+  .form-group-app.offset-bottom {
     padding-bottom: 75px; }
-  .form-group.no-padding-top {
+  .form-group-app.no-padding-top {
     padding-top: 0; }
-  .form-group.no-padding-left {
+  .form-group-app.no-padding-left {
     padding-left: 0 !important; }
-  .form-group.no-padding-bottom {
+  .form-group-app.no-padding-bottom {
     padding-bottom: 0 !important; }
-  .form-group .form-body .input-section {
+  .form-group-app .form-body .input-section {
     padding-top: 35px;
     padding-bottom: 35px;
     border-bottom: 1px solid #E6E6E6; }
-    .form-group .form-body .input-section:last-child {
+    .form-group-app .form-body .input-section:last-child {
       padding-bottom: 0;
       border-bottom: 0; }
-  .form-group .form-body .image-button {
+  .form-group-app .form-body .image-button {
     margin-bottom: 10px; }
-    .form-group .form-body .image-button:last-child {
+    .form-group-app .form-body .image-button:last-child {
       margin-bottom: 0px; }
-    .form-group .form-body .image-button.success > * {
+    .form-group-app .form-body .image-button.success > * {
       color: #2ecc71 !important; }
-    .form-group .form-body .image-button.danger > * {
+    .form-group-app .form-body .image-button.danger > * {
       color: #e74c3c !important; }
-    .form-group .form-body .image-button .zmdi {
+    .form-group-app .form-body .image-button .zmdi {
       font-size: 18px;
       color: #333333;
       display: inline-block;
       vertical-align: middle;
       margin-right: 10px; }
       @media (max-width: 760px) {
-        .form-group .form-body .image-button .zmdi {
+        .form-group-app .form-body .image-button .zmdi {
           color: #ffffff; } }
-    .form-group .form-body .image-button label {
+    .form-group-app .form-body .image-button label {
       font-size: 13px;
       color: #333333;
       display: inline-block;
       vertical-align: middle; }
-  .form-group .form-body .row {
+  .form-group-app .form-body .row {
     margin: 0 -5px; }
-    .form-group .form-body .row > * {
+    .form-group-app .form-body .row > * {
       padding: 0 5px; }
-  .form-group .exit {
+  .form-group-app .exit {
     position: absolute;
     top: 35px;
     right: 35px; }
-    .form-group .exit i {
+    .form-group-app .exit i {
       font-size: 20px; }
-  .form-group .marketplace-image {
+  .form-group-app .marketplace-image {
     margin: 0 -35px -70px;
     background-color: #ccc;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center; }
-    .form-group .marketplace-image.no-image {
+    .form-group-app .marketplace-image.no-image {
       background-size: 30% !important;
       background-image: url(../../assets/no-photo.svg) !important;
       background-color: #eee !important; }
-  .form-group .about-image {
+  .form-group-app .about-image {
     height: 155px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: left;
     background-image: url(../../assets/brand-logo.png) !important; }
-  .form-group .form-title {
-    padding-top: 30px;
+  .form-group-app .form-title {
     padding-bottom: 20px; }
-    .form-group .form-title.inline > * {
+    .form-group-app .form-title.inline > * {
       vertical-align: middle;
       display: inline-block; }
-    .form-group .form-title.padding-left p {
+    .form-group-app .form-title.padding-left p {
       padding-left: 35px; }
-    .form-group .form-title.offset-bottom p {
+    .form-group-app .form-title.offset-bottom p {
       padding-bottom: 28px; }
-    .form-group .form-title p {
+    .form-group-app .form-title.padding-top p {
+      padding-top: 30px; }
+    .form-group-app .form-title p {
       color: #333333;
       font-family: "Roboto-Regular";
       font-size: 24px;
       line-height: 18px; }
-    .form-group .form-title .form-sub-title {
+    .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
-  .form-group .form-sub-title {
+  .form-group-app .form-sub-title {
     color: #BBBBBB;
     font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 19px;
     margin-top: -15px; }
-    .form-group .form-sub-title.align-padding-bottom {
+    .form-group-app .form-sub-title.align-padding-bottom {
       padding-bottom: 15px; }
-    .form-group .form-sub-title.align-margin-top {
+    .form-group-app .form-sub-title.align-margin-top {
       margin-top: 5px; }
-    .form-group .form-sub-title.align-right {
+    .form-group-app .form-sub-title.align-right {
       text-align: right; }
-  .form-group .input-group:last-child:not(:first-child) {
+  .form-group-app .input-group-app:last-child:not(:first-child) {
     padding-bottom: 0 !important; }
-  .form-group .input-group.block {
+  .form-group-app .input-group-app.block {
     display: block; }
-  .form-group .input-group.offset-top {
+  .form-group-app .input-group-app.offset-top {
     padding-top: 25px; }
-  .form-group .input-group.offset-bottom {
+  .form-group-app .input-group-app.offset-bottom {
     padding-bottom: 25px; }
-  .form-group .input-group.display-block {
+  .form-group-app .input-group-app.display-block {
     display: block; }
-  .form-group .input-group.tabled {
+  .form-group-app .input-group-app.tabled {
     display: table !important; }
-  .form-group .input-group.align-middle > * {
+  .form-group-app .input-group-app.align-middle > * {
     vertical-align: middle; }
-  .form-group .input-group.align-middle label {
+  .form-group-app .input-group-app.align-middle label {
     padding-left: 20px; }
-  .form-group .input-group .input-wrapper {
+  .form-group-app .input-group-app .input-wrapper {
     width: 100%; }
-  .form-group .input-group .form-sub-title {
+  .form-group-app .input-group-app .form-sub-title {
     padding-left: 15px; }
-  .form-group .input-group input {
+  .form-group-app .input-group-app input {
     padding-left: 15px;
     padding-right: 15px; }
-  .form-group .form-tabulator {
+  .form-group-app .form-tabulator {
     position: relative;
     margin: 55px -35px -69px -35px;
     background-color: #F5F5F5;
     padding: 18px 35px 70px 35px;
     display: none;
     border-radius: 0 0 6px 6px; }
-    .form-group .form-tabulator.white {
+    .form-group-app .form-tabulator.white {
       background-color: white; }
-      .form-group .form-tabulator.white .form-tab-nav-box .form-tab {
+      .form-group-app .form-tabulator.white .form-tab-nav-box .form-tab {
         background-color: #F5F5F5; }
-        .form-group .form-tabulator.white .form-tab-nav-box .form-tab.active {
+        .form-group-app .form-tabulator.white .form-tab-nav-box .form-tab.active {
           background-color: #fff; }
-    .form-group .form-tabulator.active {
+    .form-group-app .form-tabulator.active {
       display: block; }
-    .form-group .form-tabulator .form-tab-nav-box {
+    .form-group-app .form-tabulator .form-tab-nav-box {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -477,54 +478,54 @@ input {
       bottom: 100%;
       right: 20px;
       left: 20px; }
-      .form-group .form-tabulator .form-tab-nav-box.justify-left {
+      .form-group-app .form-tabulator .form-tab-nav-box.justify-left {
         justify-content: flex-start; }
-        .form-group .form-tabulator .form-tab-nav-box.justify-left .form-tab {
+        .form-group-app .form-tabulator .form-tab-nav-box.justify-left .form-tab {
           margin-right: 15px;
           width: auto;
           padding: 0 15px; }
-      .form-group .form-tabulator .form-tab-nav-box .form-tab {
+      .form-group-app .form-tabulator .form-tab-nav-box .form-tab {
         display: flex;
         width: 54px;
         height: 32px;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px; }
-        .form-group .form-tabulator .form-tab-nav-box .form-tab.active {
+        .form-group-app .form-tabulator .form-tab-nav-box .form-tab.active {
           background-color: #F5F5F5; }
-        .form-group .form-tabulator .form-tab-nav-box .form-tab p {
+        .form-group-app .form-tabulator .form-tab-nav-box .form-tab p {
           font-size: 13px !important; }
-        .form-group .form-tabulator .form-tab-nav-box .form-tab > * {
+        .form-group-app .form-tabulator .form-tab-nav-box .form-tab > * {
           margin: auto;
           font-size: 16px; }
-    .form-group .form-tabulator .tab-body {
+    .form-group-app .form-tabulator .tab-body {
       display: none; }
-      .form-group .form-tabulator .tab-body.active {
+      .form-group-app .form-tabulator .tab-body.active {
         display: block; }
-    .form-group .form-tabulator .form-sub-actions {
+    .form-group-app .form-tabulator .form-sub-actions {
       display: block; }
-      .form-group .form-tabulator .form-sub-actions .form-group {
+      .form-group-app .form-tabulator .form-sub-actions .form-group-app {
         background-color: transparent;
         padding: 0; }
 
-.input-group {
+.input-group-app {
   display: table-row; }
-  .input-group.tabled {
+  .input-group-app.tabled {
     display: table !important; }
-  .input-group.lighten input {
+  .input-group-app.lighten input {
     background-color: #fff; }
-  .input-group.middle > * {
+  .input-group-app.middle > * {
     vertical-align: middle; }
-  .input-group.inline label {
+  .input-group-app.inline label {
     display: inline-block; }
-  .input-group .row > * {
+  .input-group-app .row > * {
     display: flex; }
-    .input-group .row > * > * {
+    .input-group-app .row > * > * {
       padding-top: 10px; }
-  .input-group textarea {
+  .input-group-app textarea {
     width: 100%; }
-  .input-group.search input, .input-group.user input {
+  .input-group-app.search input, .input-group-app.user input {
     display: block; }
-  .input-group.search .input-icon, .input-group.user .input-icon {
+  .input-group-app.search .input-icon, .input-group-app.user .input-icon {
     border: 1px solid #E5E5E5;
     background: #E5E5E5;
     font-size: 18px;
@@ -533,28 +534,28 @@ input {
     cursor: pointer;
     display: flex;
     border-radius: 3px; }
-    .input-group.search .input-icon.text, .input-group.user .input-icon.text {
+    .input-group-app.search .input-icon.text, .input-group-app.user .input-icon.text {
       width: auto; }
-      .input-group.search .input-icon.text i, .input-group.user .input-icon.text i {
+      .input-group-app.search .input-icon.text i, .input-group-app.user .input-icon.text i {
         font-style: normal;
         font-size: 11px;
         padding: 0 10px; }
-  .input-group.search .iconned-input-field, .input-group.user .iconned-input-field {
+  .input-group-app.search .iconned-input-field, .input-group-app.user .iconned-input-field {
     display: flex;
     width: 100%;
     flex-direction: row;
     justify-content: space-around; }
-    .input-group.search .iconned-input-field i, .input-group.user .iconned-input-field i {
+    .input-group-app.search .iconned-input-field i, .input-group-app.user .iconned-input-field i {
       margin: auto;
       padding-bottom: 3px; }
-    .input-group.search .iconned-input-field *:nth-child(2), .input-group.user .iconned-input-field *:nth-child(2) {
+    .input-group-app.search .iconned-input-field *:nth-child(2), .input-group-app.user .iconned-input-field *:nth-child(2) {
       border-left: 0 !important;
       border-bottom-left-radius: 0 !important;
       border-top-left-radius: 0 !important; }
-    .input-group.search .iconned-input-field *:nth-child(1), .input-group.user .iconned-input-field *:nth-child(1) {
+    .input-group-app.search .iconned-input-field *:nth-child(1), .input-group-app.user .iconned-input-field *:nth-child(1) {
       border-bottom-right-radius: 0 !important;
       border-top-right-radius: 0 !important; }
-  .input-group .preview-image {
+  .input-group-app .preview-image {
     padding: 0;
     width: 150px;
     height: 100px;
@@ -563,7 +564,7 @@ input {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center; }
-  .input-group .calculate-fee {
+  .input-group-app .calculate-fee {
     display: inline-block;
     color: #00C8FF;
     font-family: "Roboto-Regular";
@@ -571,21 +572,21 @@ input {
     line-height: 14px;
     padding-right: 20px;
     cursor: pointer; }
-  .input-group .input-icon {
+  .input-group-app .input-icon {
     width: 32px;
     display: table-cell; }
-    .input-group .input-icon i {
+    .input-group-app .input-icon i {
       margin: auto; }
-  .input-group .row {
+  .input-group-app .row {
     display: flex !important; }
-  .input-group label {
+  .input-group-app label {
     display: table-cell;
     color: #777777;
     font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 14px;
     padding-right: 20px; }
-  .input-group input {
+  .input-group-app input {
     display: table-cell; }
 
 .btn-box {
@@ -988,22 +989,22 @@ input {
         width: 200px; }
       .card .full-box .full-box-item .description {
         width: 100%; }
-  .card .form-group {
-    padding: 30px 0 25px; }
-  .card .input-group {
+  .card .form-group-app {
+    padding: 30px 0 15px; }
+  .card .input-group-app {
     display: table-row; }
-    .card .input-group input, .card .input-group input[type="number"] {
+    .card .input-group-app input, .card .input-group-app input[type="number"] {
       padding: 8px 20px; }
-    .card .input-group.lighten input {
+    .card .input-group-app.lighten input {
       background-color: #fff; }
-    .card .input-group label {
+    .card .input-group-app label {
       display: table-cell;
       color: #777777;
       font-family: "Roboto-Regular";
       font-size: 12px;
       line-height: 14px;
       padding-right: 20px; }
-    .card .input-group input {
+    .card .input-group-app input {
       display: table-cell; }
 
 .page-body.white-space {
@@ -1059,7 +1060,7 @@ input {
     height: calc(100% - 15px); }
     .page-body-item .card.card-tall {
       min-height: 520px; }
-  .page-body-item .form-group {
+  .page-body-item .form-group-app {
     display: table; }
 
 table tr > td {
@@ -1067,6 +1068,11 @@ table tr > td {
 
 table td .btn, table th .btn {
   white-space: nowrap; }
+
+.assets-exchange {
+  max-height: calc(100vh); }
+  .assets-exchange .row {
+    max-height: 100%; }
 
 .transaction-table {
   height: 100%;
@@ -1090,8 +1096,6 @@ table td .btn, table th .btn {
       background-color: transparent; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
-    .transaction-table .transaction-table-body .btn-box {
-      min-width: 800px; }
     .transaction-table .transaction-table-body table {
       width: 100%;
       border-collapse: collapse;
@@ -1251,11 +1255,11 @@ table td .btn, table th .btn {
           margin-bottom: 0; } }
       .modal-window .modal-box .modal-form table {
         min-width: 100%; }
-      .modal-window .modal-box .modal-form .form-group {
+      .modal-window .modal-box .modal-form .form-group-app {
         padding-bottom: 69px;
         position: relative; }
         @media (max-width: 760px) {
-          .modal-window .modal-box .modal-form .form-group {
+          .modal-window .modal-box .modal-form .form-group-app {
             height: 100vh;
             border-radius: 0; } }
 
@@ -1300,6 +1304,7 @@ input[type="number"] {
     display: flex;
     flex-wrap: wrap;
     padding: 120px 7.5px 15px;
+    min-height: 100%;
     z-index: 0; }
     @media (max-width: 760px) {
       .site-content .page-content .page-body {

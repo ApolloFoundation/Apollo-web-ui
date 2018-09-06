@@ -107,5 +107,5 @@
     transition: all 0.3s ease-in-out; }
     .modal-window .modal-box .modal-form {
       min-width: 500px; }
-      .modal-window .modal-box .modal-form .form-group {
+      .modal-window .modal-box .modal-form .form-group-app {
         padding-bottom: 69px; }

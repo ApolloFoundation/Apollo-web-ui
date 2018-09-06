@@ -53,7 +53,7 @@ class MarketplaceProductDetails extends React.Component {
         return (
             <div className="modal-box x-wide">
                 <div className="modal-form">
-                    <div className="form-group devided">
+                    <div className="form-group-app devided">
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                     {

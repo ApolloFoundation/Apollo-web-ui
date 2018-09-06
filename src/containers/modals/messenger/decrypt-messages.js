@@ -83,30 +83,30 @@ class DecryptMessage extends React.Component {
                                  submitForm
                              }) => (
                         <form className="modal-form"  onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
                                     <p>Decrypt messages</p>
                                 </div>
-                                <div className="input-group">
+                                <div className="input-group-app">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field="passphrase" placeholder='Secret phrase' />
+                                            <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group">
+                                <div className="input-group-app">
                                     <div className="row">
                                         <div className="col-md-3">
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
                                                 <div className="form-sub-actions">
-                                                    <div className="input-group align-middle display-block offset-bottom offset-top">
+                                                    <div className="input-group-app align-middle display-block offset-bottom offset-top">
                                                         <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isMessage"/>
                                                         <label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>
                                                     </div>
@@ -115,7 +115,7 @@ class DecryptMessage extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group">
+                                <div className="input-group-app">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Shared Key</label>

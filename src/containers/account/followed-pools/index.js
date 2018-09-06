@@ -285,7 +285,7 @@ class FollowedVotes extends React.Component {
                                         <div className="row">
                                             <div className="col-md-7">
                                                 <div className="right-bar">
-                                                    <div className="form-group">
+                                                    <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>{this.state.poll.name}</p>
                                                         </div>
@@ -346,7 +346,7 @@ class FollowedVotes extends React.Component {
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="right-bar">
-                                                        <div className="form-group height-auto">
+                                                        <div className="form-group-app height-auto">
                                                             <div className="form-title">
                                                                 <p>Poll Requests</p>
                                                             </div>
@@ -383,7 +383,7 @@ class FollowedVotes extends React.Component {
                                                         </div>
                                                         {
                                                             this.state.votes &&
-                                                            <div className="form-group height-auto">
+                                                            <div className="form-group-app height-auto">
                                                                 <div className="form-title">
                                                                     <p>Votes cast ({this.state.allVotesNumber})</p>
                                                                 </div>

@@ -212,17 +212,17 @@ class Marketplace extends React.Component {
                     pageTitle={'Marketplace'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="marketplace">
+                    <div className="marketplace marketplace-preview">
                         <div className="row">
                             <div className={classNames({
-                                'col-md-6' : !this.state.isShowMore,
+                                'col-md-12 col-lg-6 marketplace-preview-item' : !this.state.isShowMore,
                                 'col-md-3' : this.state.isShowMore
                             })}>
                                 <div className="card fll-height marketplace product-box">
 
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-6  col-lg-3 marketplace-preview-item">
                                 <div className="card fll-height header ballance">
                                     <div className="full-box full">
                                         <div className="full-box-item direction-row">
@@ -245,7 +245,7 @@ class Marketplace extends React.Component {
                                 </div>
                             </div>
                             <div className={classNames({
-                                'col-md-3' : !this.state.isShowMore,
+                                'col-md-6  col-lg-3 marketplace-preview-item' : !this.state.isShowMore,
                                 'col-md-6' : this.state.isShowMore
                             })}>
                                 <div className="card  marketplace filters transparent">
@@ -255,7 +255,7 @@ class Marketplace extends React.Component {
                                                 'col-md-12' : !this.state.isShowMore,
                                                 'col-md-6' : this.state.isShowMore
                                             })}>
-                                                <div className="input-group search tabled">
+                                                <div className="input-group-app search tabled">
                                                     <Form
                                                         onSubmit={(values) => this.handleSearchByAccount(values)}
                                                         render={({
@@ -285,7 +285,7 @@ class Marketplace extends React.Component {
                                                 'col-md-12' : !this.state.isShowMore,
                                                 'col-md-6' : this.state.isShowMore
                                             })}>
-                                                <div className="input-group search tabled">
+                                                <div className="input-group-app search tabled">
                                                     <Form
                                                         onSubmit={(values) => this.handleSearchByTag(values)}
                                                         render={({
@@ -356,18 +356,18 @@ class Marketplace extends React.Component {
                             </div>
                             {
                                 this.state.getDGSGoods &&
-                                <div className="form-group transparent marketplace no-padding-bottom">
+                                <div className="form-group-app transparent marketplace no-padding-bottom">
                                     <div className="form-title padding-left offset-bottom">
                                         <p>
                                             Recent listings&nbsp;&nbsp;
                                             <Link to="/recent-listing" className="btn primary static">View more</Link>
                                         </p>
                                     </div>
-                                    <div className="row">
+                                    <div className="row marketplace-row">
                                         {
                                             this.state.getDGSGoods.map((el, index) => {
                                                 return (
-                                                    <div className="col-md-2">
+                                                    <div className="marketplace-row-item col-lg-2">
                                                         <MarketplaceItem
                                                             fullHeight
                                                             relative={true}
@@ -382,18 +382,18 @@ class Marketplace extends React.Component {
                             }
                             {
                                 this.state.getDGSPurchases &&
-                                <div className="form-group transparent marketplace no-padding-bottom">
+                                <div className="form-group-app transparent marketplace no-padding-bottom">
                                     <div className="form-title padding-left offset-bottom">
                                         <p>
                                             Recent purchases&nbsp;&nbsp;
                                             <a className="btn primary static">View more</a>
                                         </p>
                                     </div>
-                                    <div className="row">
+                                    <div className="row marketplace-row">
                                         {
                                             this.state.getDGSPurchases.map((el, index) => {
                                                 return (
-                                                    <div className="col-md-2">
+                                                    <div className="marketplace-row-item col-lg-2">
                                                         <MarketplaceItem
                                                             fullHeight
                                                             {...el}

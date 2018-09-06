@@ -120,7 +120,7 @@ class TransactionOperations extends React.Component {
                                  submitForm
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
 
@@ -160,7 +160,7 @@ class TransactionOperations extends React.Component {
                                         "tab-body": true,
                                         "active": this.state.activeTab === 0
                                     })}>
-                                        <div className="input-group block offset-bottom offset-top">
+                                        <div className="input-group-app block offset-bottom offset-top">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -172,7 +172,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
+                                        <div className="input-group-app block offset-bottom">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -184,7 +184,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
+                                        <div className="input-group-app block offset-bottom">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -196,7 +196,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
+                                        <div className="input-group-app block offset-bottom">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -225,7 +225,7 @@ class TransactionOperations extends React.Component {
                                         "tab-body": true,
                                         "active": this.state.activeTab === 1
                                     })}>
-                                        <div className="input-group block offset-bottom offset-top">
+                                        <div className="input-group-app block offset-bottom offset-top">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -237,7 +237,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
+                                        <div className="input-group-app block offset-bottom">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -268,7 +268,7 @@ class TransactionOperations extends React.Component {
                                         "active": this.state.activeTab === 2
                                     })}>
 
-                                        <div className="input-group block offset-bottom offset-top">
+                                        <div className="input-group-app block offset-bottom offset-top">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -280,7 +280,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
+                                        <div className="input-group-app block offset-bottom">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -310,7 +310,7 @@ class TransactionOperations extends React.Component {
                                         "tab-body": true,
                                         "active": this.state.activeTab === 3
                                     })}>
-                                        <div className="input-group block offset-bottom offset-top">
+                                        <div className="input-group-app block offset-bottom offset-top">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -322,7 +322,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
+                                        <div className="input-group-app block offset-bottom">
 
                                             <div className="row">
                                                 <div className="col-md-3">
@@ -334,7 +334,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group block offset-bottom">
+                                        <div className="input-group-app block offset-bottom">
 
                                             <div className="row">
                                                 <div className="col-md-3">

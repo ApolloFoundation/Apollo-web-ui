@@ -1,20 +1,20 @@
-.form-group .account-bar .information {
+.form-group-app .account-bar .information {
   display: block; }
-  .form-group .account-bar .information > * {
+  .form-group-app .account-bar .information > * {
     display: inline-block; }
-  .form-group .account-bar .information .title {
+  .form-group-app .account-bar .information .title {
     color: #333333;
     font-size: 14px;
     font-weight: bold;
     line-height: 16px; }
-  .form-group .account-bar .information .content {
+  .form-group-app .account-bar .information .content {
     color: #00C8FF;
     font-size: 14px; }
 
-.form-group .description-bar {
+.form-group-app .description-bar {
   padding-top: 20px;
   padding-bottom: 35px; }
-  .form-group .description-bar p {
+  .form-group-app .description-bar p {
     color: #333333;
     font-size: 14px;
     line-height: 1.6;

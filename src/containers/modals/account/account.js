@@ -75,13 +75,14 @@ class InfoAccount extends React.Component {
         }
     }
 
-    async getTransaction (requestParams) {
+    getTransaction = async (requestParams) => {
+        console.log(requestParams);
         const transaction = await this.props.getTransactionAction(requestParams);
 
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
         }
-    }
+    };
 
     setTransactionInfo(modalType, data) {
         this.getTransaction({
@@ -98,7 +99,7 @@ class InfoAccount extends React.Component {
                 {
                     this.props.modalData &&
                     <form className="modal-form">
-                        <div className="form-group">
+                        <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title inline">

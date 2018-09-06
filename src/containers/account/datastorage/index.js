@@ -90,7 +90,7 @@ class DataStorage extends React.Component {
                                 <div className="transactions-filters align-for-inputs">
                                     <div className="search-bar">
                                         <span>
-                                            <div className="input-group search">
+                                            <div className="input-group-app search">
                                                 <div className="iconned-input-field">
                                                     <input type="text"/>
                                                     <div
@@ -107,7 +107,7 @@ class DataStorage extends React.Component {
                                         <span style={{
                                             marginLeft: 20
                                         }}>
-                                            <div className="input-group search">
+                                            <div className="input-group-app search">
                                                 <div className="iconned-input-field">
                                                     <input type="text"/>
                                                     <div
