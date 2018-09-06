@@ -187,32 +187,60 @@ class MarketplaceSearch extends React.Component {
 
                                 })
                             }
-                            <div className="btn-box">
-                                <a
-                                    className={classNames({
-                                        'btn' : true,
-                                        'btn-left' : true,
-                                        'disabled' : this.state.page <= 1
-                                    })}
-                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                > Previous</a>
-                                <div className={classNames({
-                                    'pagination-nav': true,
-                                    'disabled' : !(this.state.getDGSGoods < 8)
-                                })}>
-                                    <span>{this.state.firstIndex + 1}</span>
-                                    <span>&hellip;</span>
-                                    <span>{this.state.lastIndex + 1}</span>
+                            {
+                                this.state.getDGSGoods &&
+                                <div
+                                    className="btn-box relative padding-bottom"
+                                    style={{
+                                        position: "relative",
+                                        height: 37
+                                    }}
+                                >
+                                    <a
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-left' : true,
+                                            'disabled' : this.state.page <= 1
+                                        })}
+                                        style={{
+                                            left: 7.5
+                                        }}
+                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                    >
+                                        Previous
+                                    </a>
+                                    {
+                                        this.state.getDGSGoods.length < 8 &&
+                                        <div className='pagination-nav'>
+                                            <span>{(this.state.page * 8) - 7}</span>
+                                            <span>&hellip;</span>
+                                            <span>{this.state.page * 8 + this.state.getDGSGoods.length - 8}</span>
+                                        </div>
+                                    }
+                                    {
+                                        this.state.getDGSGoods.length === 8 &&
+                                        <div className='pagination-nav'>
+                                            <span>{this.state.firstIndex + 1}</span>
+                                            <span>&hellip;</span>
+                                            <span>{this.state.lastIndex + 1}</span>
+                                        </div>
+                                    }
+                                    {
+                                        console.log(this.state.getDGSGoods)
+                                    }
+                                    <a
+                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-right' : true,
+                                            'disabled' : this.state.getDGSGoods.length < 8
+                                        })}
+                                        style={{
+                                            right: 7.5
+                                        }}
+                                    >Next</a>
                                 </div>
-                                <a
-                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                    className={classNames({
-                                        'btn' : true,
-                                        'btn-right' : true,
-                                        'disabled' : !(this.state.getDGSGoods < 8)
-                                    })}
-                                >Next</a>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
