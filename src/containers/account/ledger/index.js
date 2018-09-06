@@ -6,6 +6,7 @@ import SiteHeader from  '../../components/site-header'
 import Entry from './entry'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
+import {getTransactionAction} from "../../../actions/transactions/";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
@@ -96,7 +97,7 @@ class Ledger extends React.Component {
     async getAccountLedger(requestParams) {
 
         if (requestParams.PublicKey) {
-            requestParams.publicKey = requestParams.PublicKey
+            requestParams.publicKey = requestParams.PublicKey;
             delete requestParams.PublicKey;
         }
 
@@ -128,6 +129,19 @@ class Ledger extends React.Component {
     }
 
     async getLedgerEntry (modaltype, ledgerId) {
+
+        const requestParams = {
+            ledgerId: ledgerId
+        };
+
+        const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
+
+        if (ledgerEntry) {
+            this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry)
+        }
+    }
+
+    async getTransaction (modaltype, ledgerId) {
 
         const requestParams = {
             ledgerId: ledgerId
@@ -184,6 +198,7 @@ class Ledger extends React.Component {
                                                     privateKey={this.state.privateKey}
                                                     sharedKey= {this.state.sharedKey}
                                                     setLedgerEntryInfo={this.getLedgerEntry}
+                                                    setTransactionInfo={this.getTransaction}
                                                 />
                                             );
                                         })
@@ -231,6 +246,7 @@ const mapStateToProps = state => ({
 
 const initMapDispatchToProps = dispatch => ({
     getAccountLedgerAction: (requestParams) => dispatch(getAccountLedgerAction(requestParams)),
+    getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
     getLedgerEntryAction: (reqParams) => dispatch(getLedgerEntryAction(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))

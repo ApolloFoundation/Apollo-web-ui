@@ -5,6 +5,8 @@ import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
+import {getLedgerEntryAction} from "../../../../actions/ledger";
+import {getTransactionAction} from "../../../../actions/transactions/";
 
 class Entry extends React.Component {
     constructor(props) {
@@ -12,6 +14,19 @@ class Entry extends React.Component {
 
         this.state = {
             entry: this.props.entry
+        }
+    }
+
+    getTransaction = async (transaction) => {
+
+        const requestParams = {
+            transaction: transaction
+        };
+
+        const transactionEntry = await this.props.getTransactionAction(requestParams);
+
+        if (transactionEntry) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transactionEntry)
         }
     }
 
@@ -48,7 +63,15 @@ class Entry extends React.Component {
                     </td>
                     <td>
                         {this.state.entry.eventType}
-                        <a><span className="info"></span></a>
+                        &nbsp;&nbsp;
+                        <a
+                            onClick={() => this.getTransaction(this.state.entry.event)}
+                        >
+                            <span
+                                style={{color: '#00C8FF'}}
+                                className="zmdi zmdi-info"
+                            />
+                        </a>
                     </td>
                     <td className="align-right">-{this.state.entry.change / 100000000}</td>
                     <td>{(this.state.entry.balance / 100000000).toFixed(2)}</td>
@@ -74,6 +97,8 @@ class Entry extends React.Component {
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
+    getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
+
 });
 
 export default connect(null, mapDispatchToProps)(Entry);
