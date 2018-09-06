@@ -25,7 +25,7 @@ class AboutPeerInfo extends React.Component {
     render() {
         const peer = this.props.modalData;
         return (
-            <div className="modal-box wide">
+            <div className="modal-box">
                 {
                     this.props.modalData &&
                     <form className="modal-form">
@@ -36,7 +36,7 @@ class AboutPeerInfo extends React.Component {
                             </div>
 
                             <div className="transaction-table no-min-height">
-                                <div className="transaction-table-body transparent">
+                                <div className="transaction-table-body transparent padding-only-top">
                                     <table>
                                         <tbody>
                                         <tr>
@@ -125,10 +125,16 @@ class AboutPeerInfo extends React.Component {
                                     </table>
                                 </div>
                             </div>
+                            <a
+                                type="submit"
+                                className="btn btn-right round round-top-left round-bottom-right absolute"
+                                onClick={() => this.props.closeModal()}
+                            >
+                                Close
+                            </a>
                         </div>
                     </form>
                 }
-                < button type="submit" className="btn btn-right" onClick={() => this.props.closeModal()}>Close</button>
 
             </div>
         );
