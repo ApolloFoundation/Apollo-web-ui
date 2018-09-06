@@ -95,7 +95,7 @@ class DecryptMessage extends React.Component {
                                             <label>Passphrase</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field="passphrase" placeholder='Secret phrase' />
+                                            <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
                                         </div>
                                     </div>
                                 </div>
