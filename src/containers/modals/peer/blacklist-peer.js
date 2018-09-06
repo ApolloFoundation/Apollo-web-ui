@@ -37,7 +37,7 @@ class BlacklistPeer extends React.Component {
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({submitForm}) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
 
@@ -49,7 +49,7 @@ class BlacklistPeer extends React.Component {
                                     Are you sure you want to blacklist this peer?
                                 </InfoBox>
 
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Name: </label>
@@ -61,7 +61,7 @@ class BlacklistPeer extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block inline">
+                                <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Admin Password:</label>

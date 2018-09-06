@@ -408,16 +408,16 @@ class Dashboard extends React.Component {
 								<div className="card send-apollo">
 									<div className="card-title">Send Apollo</div>
 									<div className="full-box">
-										<div className="form-group offset">
-											<div className="input-group lighten">
+										<div className="form-group-app offset">
+											<div className="input-group-app lighten">
 												<label>Recipient</label>
 												<input placeholder={'Account RS'} ref={'recipient'} type="text"/>
 											</div>
-											<div className="input-group lighten">
+											<div className="input-group-app lighten">
 												<label>Amount</label>
 												<input placeholder={'Amount'} ref={'amountATM'} type={'number'}/>
 											</div>
-											<div className="input-group lighten">
+											<div className="input-group-app lighten">
 												<label>Fee</label>
 												<input placeholder={'Amount'} ref={'feeATM'}/>
 											</div>

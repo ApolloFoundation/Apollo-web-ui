@@ -55,7 +55,7 @@ class MarketplaceImage extends React.Component {
                 <div className="modal-form">
                     {
                         this.state.goods &&
-                        <div className="form-group">
+                        <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
                             <div className="form-title">
                                 <p>{this.state.goods.name}</p>

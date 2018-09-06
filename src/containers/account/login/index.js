@@ -46,7 +46,7 @@ class Login extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="login">
                         <div className="modal-form">
-                            <div className="form-group" style={{boxShadow: '0 0 30px #000'}}>
+                            <div className="form-group-app" style={{boxShadow: '0 0 30px #000'}}>
                                 <div className="form-title">
                                     <p>Welcome to Apollo</p>
                                 </div>
@@ -79,7 +79,7 @@ class Login extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 0
                                             })}>
-                                                <div className="input-group block offset-bottom offset-top">
+                                                <div className="input-group-app block offset-bottom offset-top">
                                                     <div className="row">
                                                         <div className="col-md-3">
                                                             <label>Account RS</label>
@@ -123,7 +123,7 @@ class Login extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 1
                                             })}>
-                                                <div className="input-group block offset-bottom offset-top">
+                                                <div className="input-group-app block offset-bottom offset-top">
 
                                                     <div className="row">
                                                         <div className="col-md-3">

@@ -1,0 +1,41 @@
+.page-settings-body {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 270px; }
+  @media (max-width: 1230px) {
+    .page-settings-body {
+      height: auto;
+      min-height: 213px; } }
+
+.page-settings-item {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 50%;
+  flex-basis: 0;
+  padding: 0 7.5px 0px;
+  flex-grow: 1;
+  position: relative;
+  max-width: 100%; }
+  @media (max-width: 1230px) {
+    .page-settings-item {
+      min-width: 50%;
+      height: auto; } }
+  @media (max-width: 768px) {
+    .page-settings-item {
+      min-width: 100%;
+      padding: 0; } }
+  .page-settings-item .btn-box {
+    right: 7.5px !important;
+    bottom: 15px !important;
+    text-align: right; }
+  .page-settings-item .card {
+    min-height: 253px;
+    height: calc(100% - 15px); }
+    .page-settings-item .card.card-tall {
+      min-height: 520px; }
+  .page-settings-item .form-group-app {
+    padding-bottom: 55px; }
+    .page-settings-item .form-group-app .input-group-app {
+      display: block;
+      padding-top: 20px; }

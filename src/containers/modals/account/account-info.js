@@ -69,13 +69,13 @@ class AccountInfo extends React.Component {
                         <form className="modal-form" onSubmit={submitForm}>
                             {
                                 this.props.modalData &&
-                                <div className="form-group">
+                                <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
                                         <p>Set Account Info</p>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Name</label>
@@ -85,7 +85,7 @@ class AccountInfo extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Description</label>
@@ -95,7 +95,7 @@ class AccountInfo extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Fee</label>
@@ -105,7 +105,7 @@ class AccountInfo extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Secret Phrase</label>

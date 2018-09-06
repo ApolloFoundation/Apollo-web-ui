@@ -452,6 +452,7 @@ const initMapDispatchToProps = dispatch => ({
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+
 });
 
 export default connect(

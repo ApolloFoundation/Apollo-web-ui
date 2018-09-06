@@ -29,7 +29,7 @@ class InfoBlock extends React.Component {
         })
     }
 
-    async getTransaction (modalType, transactionId) {
+    getTransaction = async (modalType, transactionId) => {
         const transaction = await this.props.getTransactionAction({
             transaction: transactionId
         });
@@ -48,7 +48,7 @@ class InfoBlock extends React.Component {
                 {
                     this.props.modalData &&
                     <form className="modal-form">
-                        <div className="form-group">
+                        <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">

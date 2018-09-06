@@ -20,8 +20,6 @@
       background-color: transparent; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
-    .transaction-table .transaction-table-body .btn-box {
-      min-width: 800px; }
     .transaction-table .transaction-table-body table {
       width: 100%;
       border-collapse: collapse;
@@ -182,10 +180,10 @@
           margin-bottom: 0; } }
       .modal-window .modal-box .modal-form table {
         min-width: 100%; }
-      .modal-window .modal-box .modal-form .form-group {
+      .modal-window .modal-box .modal-form .form-group-app {
         padding-bottom: 69px;
         position: relative; }
         @media (max-width: 760px) {
-          .modal-window .modal-box .modal-form .form-group {
+          .modal-window .modal-box .modal-form .form-group-app {
             height: 100vh;
             border-radius: 0; } }

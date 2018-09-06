@@ -123,20 +123,20 @@
         flex-direction: row;
         justify-content: space-around;
         padding-top: 15px; }
-        .messenger .right-bar .card .compose-message-box .bottom-bar .input-group, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group {
+        .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app {
           margin: auto;
           height: 100%; }
-          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group > *, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group > * {
+          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app > *, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app > * {
             display: table-cell;
             vertical-align: middle; }
-          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group .encrypt-message-checkbox input, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group .encrypt-message-checkbox input {
+          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app .encrypt-message-checkbox input, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app .encrypt-message-checkbox input {
             padding: 8px;
             display: inline-block;
             margin: 0 15px 0 0; }
-          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group input, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group input {
+          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app input, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app input {
             height: 15px !important;
             width: 15px !important; }
-          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group label, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group label {
+          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app label, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app label {
             white-space: pre;
             padding-right: 0; }
         .messenger .right-bar .card .compose-message-box .bottom-bar input, .messenger a .right-bar .card .compose-message-box .bottom-bar input {
@@ -178,11 +178,9 @@
     .followed-polls-item .col-md-5 {
       padding-left: 0px;
       margin-top: 10px; } }
-  .followed-polls-item .card .form-group {
+  .followed-polls-item .card .form-group-app {
     padding-bottom: 0;
     padding-top: 0; }
-    .followed-polls-item .card .form-group .form-title {
-      padding-top: 0; }
   .followed-polls-item .left {
     width: calc(33.33% - 15px);
     margin-right: 15px; }
@@ -225,7 +223,7 @@
         @media (max-width: 760px) {
           .followed-polls-item .right .card:last-of-type {
             position: static; } }
-      .followed-polls-item .right .card .form-group {
+      .followed-polls-item .right .card .form-group-app {
         margin-bottom: 15px; }
   .followed-polls-item svg {
     width: 100%;

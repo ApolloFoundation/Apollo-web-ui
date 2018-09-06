@@ -89,13 +89,13 @@ class AddAlias extends React.Component {
                                  submitForm, setValue
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group">
+                            <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
                                     <p>Add Alias</p>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group-app offset-top display-block">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Type</label>
@@ -113,7 +113,7 @@ class AddAlias extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group-app offset-top display-block">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Alias</label>
@@ -123,7 +123,7 @@ class AddAlias extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group-app offset-top display-block">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>URI</label>
@@ -133,7 +133,7 @@ class AddAlias extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group-app offset-top display-block">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Fee</label>
@@ -143,7 +143,7 @@ class AddAlias extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group offset-top display-block">
+                                <div className="input-group-app offset-top display-block">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <label>Passphrase</label>
@@ -237,7 +237,7 @@ class AddAlias extends React.Component {
 
                                     </div>
                                     <div className="form-tab">
-                                        <div className="input-group">
+                                        <div className="input-group-app">
                                             <div className="row">
                                                 <div className="col-md-3">
                                                     <label>Referenced transaction hash</label>
@@ -250,12 +250,12 @@ class AddAlias extends React.Component {
                                                 </div>
                                                 <div className="col-md-9">
                                                     <div className="form-sub-actions">
-                                                        <div className="form-group">
-                                                            <div className="input-group align-middle display-block offset-top">
+                                                        <div className="form-group-app">
+                                                            <div className="input-group-app align-middle display-block offset-top">
                                                                 <input type="checkbox"/>
                                                                 <label>Do not broadcast</label>
                                                             </div>
-                                                            <div className="input-group align-middle display-block offset-top">
+                                                            <div className="input-group-app align-middle display-block offset-top">
                                                                 <input type="checkbox"/>
                                                                 <label>Add note to self?</label>
                                                             </div>

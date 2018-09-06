@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
+import {getLedgerEntryAction} from '../../../actions/ledger/';
 import classNames from 'classnames';
 
 class InfoTransactions extends React.Component {
@@ -23,15 +24,32 @@ class InfoTransactions extends React.Component {
         })
     }
 
+    componentDidMount = () => {
+        this.getAccountLedgerEntry();
+    };
+
+    getAccountLedgerEntry = async () => {
+        const entry = await this.props.getLedgerEntryAction({ledgerId: this.props.modalData});
+
+        if (entry) {
+            console.log(entry);
+
+            this.setState({
+                entry
+            })
+        }
+    };
+
     // TODO: migrate timesamp, migrate account to RS
 
     render() {
+        console.log(this.props.modalData);
         return (
             <div className="modal-box wide">
                 {
                     this.props.modalData &&
                     <form className="modal-form">
-                        <div className="form-group">
+                        <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
@@ -41,48 +59,51 @@ class InfoTransactions extends React.Component {
                             <div className="transaction-table no-min-height">
                                 <div className="transaction-table-body transparent">
                                     <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>Event Type:	</td>
-                                                <td>{this.props.modalData.eventType}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ledger Id:</td>
-                                                <td>{this.props.modalData.ledgerId}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Holding Type:</td>
-                                                <td>{this.props.modalData.holdingType}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Account RS:	</td>
-                                                <td>{this.props.modalData.accountRS}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Account:</td>
-                                                <td>{this.props.modalData.account}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Timestamp:</td>
-                                                <td>{this.props.modalData.timestamp}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Height:</td>
-                                                <td>{this.props.modalData.height}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Transaction:</td>
-                                                <td>{this.props.modalData.event}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Change:</td>
-                                                <td>{this.props.modalData.change / 100000000}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Balance:</td>
-                                                <td>{Math.round(this.props.modalData.balance / 100000000)}</td>
-                                            </tr>
-                                        </tbody>
+                                        {
+                                            this.state.entry &&
+                                            <tbody>
+                                                <tr>
+                                                    <td>Event Type:	</td>
+                                                    <td>{this.state.entry.eventType}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ledger Id:</td>
+                                                    <td>{this.state.entry.ledgerId}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Holding Type:</td>
+                                                    <td>{this.state.entry.holdingType}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Account RS:	</td>
+                                                    <td>{this.state.entry.accountRS}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Account:</td>
+                                                    <td>{this.state.entry.account}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Timestamp:</td>
+                                                    <td>{this.state.entry.timestamp}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Height:</td>
+                                                    <td>{this.state.entry.height}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Transaction:</td>
+                                                    <td>{this.state.entry.event}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Change:</td>
+                                                    <td>{this.state.entry.change / 100000000}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Balance:</td>
+                                                    <td>{Math.round(this.state.entry.balance / 100000000)}</td>
+                                                </tr>
+                                            </tbody>
+                                        }
                                     </table>
                                 </div>
                             </div>
@@ -107,7 +128,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    getLedgerEntryAction: (data) => dispatch(getLedgerEntryAction(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoTransactions);

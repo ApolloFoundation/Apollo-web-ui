@@ -90,7 +90,7 @@ class MarketplaceChangeQuantity extends React.Component {
         return (
             <div className="modal-box x-wide">
                 <div className="modal-form">
-                    <div className="form-group devided no-padding-bottom">
+                    <div className="form-group-app devided no-padding-bottom">
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
                         {
                             this.state.goods &&
@@ -140,8 +140,8 @@ class MarketplaceChangeQuantity extends React.Component {
                                         render={({ submitForm, values, addValue, removeValue }) => (
 
                                             <form className="modal-form" onSubmit={submitForm}>
-                                                <div className="form-group no-padding-left no-padding-top">
-                                                    <div className="input-group display-block offset-bottom">
+                                                <div className="form-group-app no-padding-left no-padding-top">
+                                                    <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
                                                                 <label>Current price</label>
@@ -154,7 +154,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group display-block offset-bottom">
+                                                    <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
                                                                 <label>New price</label>
@@ -167,7 +167,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group display-block offset-bottom">
+                                                    <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
                                                                 <label>Fee</label>
@@ -177,7 +177,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group display-block offset-bottom">
+                                                    <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
                                                                 <label>Passphrase</label>

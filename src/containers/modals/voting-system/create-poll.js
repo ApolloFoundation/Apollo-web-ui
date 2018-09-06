@@ -131,13 +131,13 @@ class CreatePoll extends React.Component {
                                 className="modal-form"
                                 onSubmit={submitForm}
                             >
-                                <div className="form-group">
+                                <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
                                         <p>Create Poll</p>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Name</label>
@@ -147,7 +147,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Description</label>
@@ -157,7 +157,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Poll By</label>
@@ -177,7 +177,7 @@ class CreatePoll extends React.Component {
                                         </div>
                                     </div>
                                     <RadioGroup field={'minBalanceType'}>
-                                        <div className="input-group display-block offset-bottom">
+                                        <div className="input-group-app display-block offset-bottom">
                                             <div className="row">
                                                 <div className="col-md-3">
                                                     <label>Min Balance Type</label>
@@ -185,22 +185,22 @@ class CreatePoll extends React.Component {
                                                 <div className="col-md-9">
                                                     <div className="form-sub-actions">
                                                         <div
-                                                            className="form-group no-padding-bottom"
+                                                            className="form-group-app no-padding-bottom"
                                                             style={{paddingTop:0,paddingLeft:0}}
                                                         >
-                                                            <div className="input-group align-middle display-block offset-bottom">
+                                                            <div className="input-group-app align-middle display-block offset-bottom">
                                                                 <Radio value={0}/>
                                                                 <label style={{display: 'inline-block'}}>None</label>
                                                             </div>
-                                                            <div className="input-group align-middle display-block offset-bottom">
+                                                            <div className="input-group-app align-middle display-block offset-bottom">
                                                                 <Radio value={1}/>
                                                                 <label style={{display: 'inline-block'}}>Account Balance</label>
                                                             </div>
-                                                            <div className="input-group align-middle display-block offset-bottom">
+                                                            <div className="input-group-app align-middle display-block offset-bottom">
                                                                 <Radio value={2}/>
                                                                 <label style={{display: 'inline-block'}}>Asset Balance</label>
                                                             </div>
-                                                            <div className="input-group align-middle display-block offset-bottom">
+                                                            <div className="input-group-app align-middle display-block offset-bottom">
                                                                 <Radio value={3}/>
                                                                 <label style={{display: 'inline-block'}}>Currency Balance</label>
                                                             </div>
@@ -210,7 +210,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     </RadioGroup>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Finish Height</label>
@@ -225,7 +225,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Min voting balance (none)</label>
@@ -237,7 +237,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Answer</label>
@@ -248,7 +248,7 @@ class CreatePoll extends React.Component {
                                                         this.state.answers.map((el, index) => {
                                                             if (index === 0) {
                                                                 return (
-                                                                    <div key={'answer-' + index} className="input-group search" style={{display: 'block'}}>
+                                                                    <div key={'answer-' + index} className="input-group-app search" style={{display: 'block'}}>
                                                                         <div className="iconned-input-field">
                                                                             <input name={'create_poll_answers[]'} onChange={(e) => this.handleAnswerChange(e, index)} value={el} placeholder={'Answer'} type="text"/>
                                                                             <a onClick={() => this.removeAnswer(index)} className="input-icon"><i className="zmdi zmdi-minus-circle" /></a>
@@ -258,7 +258,7 @@ class CreatePoll extends React.Component {
 
                                                             } else {
                                                                 return (
-                                                                    <div key={'answer-' + index} className="input-group search" style={{display: 'block', marginTop: 25}}>
+                                                                    <div key={'answer-' + index} className="input-group-app search" style={{display: 'block', marginTop: 25}}>
                                                                         <div className="iconned-input-field">
                                                                             <input name={'create_poll_answers[]'} onChange={(e) => this.handleAnswerChange(e, index)} value={el} placeholder={'Answer'} type="text"/>
                                                                             <a onClick={() => this.removeAnswer(index)} className="input-icon"><i className="zmdi zmdi-minus-circle" /></a>
@@ -269,7 +269,7 @@ class CreatePoll extends React.Component {
 
                                                         })
                                                     }
-                                                    <div className="input-group" style={{display: 'block', marginTop: 25}}>
+                                                    <div className="input-group-app" style={{display: 'block', marginTop: 25}}>
                                                         <a
                                                             onClick={() => this.addAnswer()}
                                                             className="no-margin btn static blue"
@@ -282,7 +282,7 @@ class CreatePoll extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Minimum nr of choices</label>
@@ -303,7 +303,7 @@ class CreatePoll extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Minimum range value</label>
@@ -324,7 +324,7 @@ class CreatePoll extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Fee</label>
@@ -334,7 +334,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group display-block offset-bottom">
+                                    <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Passphrase</label>

@@ -44,7 +44,7 @@ class MandatoryApproval extends React.Component {
         return (
             <div className="modal-box">
                     <form className="modal-form">
-                        <div className="form-group">
+                        <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
@@ -95,7 +95,7 @@ class MandatoryApproval extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 0
                                 })}>
-                                    <div className="input-group block">
+                                    <div className="input-group-app block">
                                         <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
 
                                         <div className="row">
@@ -110,12 +110,12 @@ class MandatoryApproval extends React.Component {
                                             </div>
                                             <div className="col-md-9">
                                                 <div className="form-sub-actions">
-                                                    <div className="form-group no-padding-bottom">
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="form-group-app no-padding-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Do not broadcast</label>
                                                         </div>
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Add note to self?</label>
                                                         </div>
@@ -129,7 +129,7 @@ class MandatoryApproval extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 1
                                 })}>
-                                    <div className="input-group block">
+                                    <div className="input-group-app block">
                                         <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
                                         <div className="row">
                                             <div className="col-md-3">
@@ -143,12 +143,12 @@ class MandatoryApproval extends React.Component {
                                             </div>
                                             <div className="col-md-9">
                                                 <div className="form-sub-actions">
-                                                    <div className="form-group no-padding-bottom">
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="form-group-app no-padding-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Do not broadcast</label>
                                                         </div>
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Add note to self?</label>
                                                         </div>
@@ -162,7 +162,7 @@ class MandatoryApproval extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 2
                                 })}>
-                                    <div className="input-group block">
+                                    <div className="input-group-app block">
                                         <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
 
                                         <div className="row">
@@ -177,12 +177,12 @@ class MandatoryApproval extends React.Component {
                                             </div>
                                             <div className="col-md-9">
                                                 <div className="form-sub-actions">
-                                                    <div className="form-group no-padding-bottom">
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="form-group-app no-padding-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Do not broadcast</label>
                                                         </div>
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Add note to self?</label>
                                                         </div>
@@ -196,7 +196,7 @@ class MandatoryApproval extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 3
                                 })}>
-                                    <div className="input-group block">
+                                    <div className="input-group-app block">
                                         <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
 
                                         <div className="row">
@@ -211,12 +211,12 @@ class MandatoryApproval extends React.Component {
                                             </div>
                                             <div className="col-md-9">
                                                 <div className="form-sub-actions">
-                                                    <div className="form-group no-padding-bottom">
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="form-group-app no-padding-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Do not broadcast</label>
                                                         </div>
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Add note to self?</label>
                                                         </div>
@@ -230,7 +230,7 @@ class MandatoryApproval extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 4
                                 })}>
-                                    <div className="input-group block">
+                                    <div className="input-group-app block">
                                         <div className="row">
                                             <label style={{marginBottom: 15, display: 'block'}}>Process without approval</label>
 
@@ -245,12 +245,12 @@ class MandatoryApproval extends React.Component {
                                             </div>
                                             <div className="col-md-9">
                                                 <div className="form-sub-actions">
-                                                    <div className="form-group no-padding-bottom">
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                    <div className="form-group-app no-padding-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Do not broadcast</label>
                                                         </div>
-                                                        <div className="input-group align-middle display-block offset-bottom">
+                                                        <div className="input-group-app align-middle display-block offset-bottom">
                                                             <input type="checkbox"/>
                                                             <label>Add note to self?</label>
                                                         </div>
