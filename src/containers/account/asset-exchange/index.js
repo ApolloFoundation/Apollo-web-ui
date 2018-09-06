@@ -256,7 +256,7 @@ class AssetExchange extends React.Component {
                                                                 })}
                                                                 className="btn static blue"
                                                             >
-                                                                Buy (NXT > {this.state.asset.name})
+                                                                Buy (APL > {this.state.asset.name})
                                                             </a>
                                                         </div>
                                                     </div>
@@ -352,7 +352,7 @@ class AssetExchange extends React.Component {
                                                                 })}
                                                                 className="btn static blue"
                                                             >
-                                                                Sell (NXT > {this.state.asset.name})
+                                                                Sell ({this.state.asset.name} > APL)
                                                             </a>
                                                         </div>
                                                     </div>
