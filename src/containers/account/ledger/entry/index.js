@@ -28,7 +28,7 @@ class Entry extends React.Component {
         if (transactionEntry) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transactionEntry)
         }
-    }
+    };
 
     componentWillMount() {
         if (this.props.entry.encryptedLedgerEntry) {
