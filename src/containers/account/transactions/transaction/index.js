@@ -43,7 +43,7 @@ class Transaction extends React.Component {
             decrypted = converters.hexStringToString(decrypted);
             decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
             decrypted = JSON.parse(decrypted);
-
+            console.log(decrypted);
             this.setState({
                 transaction: decrypted
             })
@@ -63,7 +63,6 @@ class Transaction extends React.Component {
     }
 
     render () {
-        console.log(this.props.transaction);
         if (this.props.block) {
             if (!this.state.transaction.encryptedTransaction) {
                 return (

@@ -2,13 +2,15 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
+import converters from "../../../helpers/converters";
+import crypto from "../../../helpers/crypto/crypto";
 
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeTab: 0
+            activeTab: 0,
         };
 
         this.handleTab = this.handleTab.bind(this);
@@ -23,11 +25,71 @@ class InfoLedgerTransaction extends React.Component {
         })
     }
 
+    componentWillReceiveProps(newState) {
+        console.log(newState);
+        this.setState({
+            transaction: newState.modalData
+        }, () => {
+            console.log(this.state.transaction);
+            if (this.state.transaction.privateTransaction && this.state.transaction.privateTransaction.encryptedTransaction) {
+                var options = {
+                    publicKey  :  converters.hexStringToByteArray(this.state.transaction.publicKey),
+                    privateKey :  converters.hexStringToByteArray(this.state.transaction.privateKey),
+                };
+
+                const sharedKey  = new Uint8Array(crypto.getSharedSecretJava(
+                    options.privateKey,
+                    options.publicKey
+                ));
+
+                options.sharedKey = sharedKey;
+
+                console.log(options);
+
+                var decrypted =  crypto.decryptData(this.state.transaction.privateTransaction.encryptedTransaction, options);
+                decrypted = decrypted.message;
+
+                decrypted = converters.hexStringToString(decrypted);
+                decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
+                decrypted = JSON.parse(decrypted);
+                console.log(decrypted);
+                this.setState({
+                    transaction: decrypted
+                })
+            }
+        })
+    }
+
+    componentDidMount() {
+        console.log(this.state.transaction);
+        if (this.state.transaction) {
+            if (this.state.transaction.encryptedTransaction) {
+                var options = {
+                    publicKey  :  converters.hexStringToByteArray(this.props.publicKey),
+                    privateKey :  converters.hexStringToByteArray(this.props.privateKey),
+                };
+
+                options.sharedKey = this.props.sharedKey;
+
+                var decrypted =  crypto.decryptData(this.props.transaction.encryptedTransaction, options);
+                decrypted = decrypted.message;
+
+                decrypted = converters.hexStringToString(decrypted);
+                decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
+                decrypted = JSON.parse(decrypted);
+                console.log(decrypted);
+                this.setState({
+                    transaction: decrypted
+                })
+            }
+        }
+    }
+
     render() {
         return (
             <div className="modal-box wide">
                 {
-                    this.props.modalData &&
+                    this.state.transaction &&
                     <form className="modal-form">
                         <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
@@ -73,15 +135,15 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Shared key:</td>
-                                                    <td>{this.props.modalData.senderPublicKey}</td>
+                                                    <td>{this.state.transaction.senderPublicKey}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>From:</td>
-                                                    <td>{this.props.modalData.senderRS}</td>
+                                                    <td>{this.state.transaction.senderRS}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>To:</td>
-                                                    <td>{this.props.modalData.recipientRS}</td>
+                                                    <td>{this.state.transaction.recipientRS}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Compressed:</td>
@@ -89,7 +151,7 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Hash:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.fullHash}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -119,15 +181,15 @@ class InfoLedgerTransaction extends React.Component {
                                                 <tbody>
                                                 <tr>
                                                     <td>Sender public key:</td>
-                                                    <td>{this.props.modalData.senderPublicKey}</td>
+                                                    <td>{this.state.transaction.senderPublicKey}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Signature:</td>
-                                                    <td>{this.props.modalData.senderRS}</td>
+                                                    <td>{this.state.transaction.senderRS}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Fee NQT:</td>
-                                                    <td>{this.props.modalData.recipientRS}</td>
+                                                    <td>{this.state.transaction.recipientRS}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Transaction index:</td>
@@ -135,83 +197,70 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Type:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.fullHash}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Confirmations:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.confirmations}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Full Hash:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.fullHash}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Version:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.version}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Phased:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Phased:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.phased}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>EC block id:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.ecBlockId}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Signature hash:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.signatureHash}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Sender RS:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.senderRS}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Subtype:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.subtype}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Amount NQT:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
-                                                </tr>
+                                                {
+                                                    this.state.transaction.amountATM &&
+                                                    <tr>
+                                                        <td>Amount ATM:</td>
+                                                        <td>{this.state.transaction.amountATM / 100000000}</td>
+                                                    </tr>
+                                                }
                                                 <tr>
                                                     <td>Sender:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.senderRS}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>EC block height:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.ecBlockHeight}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Block:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.block}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Block timestamp:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.blockTimestamp}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Deadline:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.deadline}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Timestamp:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Transaction time:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Block generation time:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Height:</td>
-                                                    <td>{this.props.modalData.fullHash}</td>
+                                                    <td>{this.state.transaction.timestamp}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
