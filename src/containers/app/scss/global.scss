@@ -628,6 +628,7 @@ input {
 		}
 		&.align-right {
 			text-align: right;
+			justify-content: flex-end;
 		}
 	}
 	.form-exit {
@@ -871,12 +872,13 @@ input {
 		display: table-cell;
 		color: #777777;
 		font-family: "Roboto-Regular";
-		font-size: 12px;
 		line-height: 14px;
-		padding-right: 20px;
+		padding: 0 0 0 5px;
+		font-size: 13.5px;
 	}
 	input {
 		display: table-cell;
+		border-radius: 3px 0 0 3px;
 	}
 }
 

@@ -184,26 +184,25 @@ class AdvancedSettings extends React.Component {
                     <div className="form-tab">
                         <div className="input-group block offset-bottom">
                             <div className="row">
-                                <div className="col-md-3">
-                                    <label>Finish height</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-title align-right align-margin-top">
-                                            2018/06/19 09:32 am
-                                        </div>
+                                <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
+                                <div className="col-sm-9 input-group">
+                                    <input ref={'passphrase'} type="number" name={'passphrase'}
+                                           className="form-control-plaintext" id="finishHeight"/>
+                                    <div className="input-group-append">
+                                        <span className="input-group-text" id="basic-addon2">146,66</span>
                                     </div>
+                                </div>
+                                <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                    2018/06/19 09:32 am
                                 </div>
                             </div>
                         </div>
                         <div className="input-group block offset-bottom">
                             <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                <label htmlFor="referencedHash" className="col-sm-3 col-form-label">Referenced transaction hash</label>
+                                <div className="col-sm-9">
+                                    <input ref={'passphrase'} type="text" name={'passphrase'}
+                                           className="form-control-plaintext" id="referencedHash"/>
                                 </div>
                             </div>
                         </div>

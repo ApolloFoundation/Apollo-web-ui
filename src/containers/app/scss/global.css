@@ -426,7 +426,8 @@ input {
     .form-group .form-sub-title.align-margin-top {
       margin-top: 5px; }
     .form-group .form-sub-title.align-right {
-      text-align: right; }
+      text-align: right;
+      justify-content: flex-end; }
   .form-group .input-group:last-child:not(:first-child) {
     padding-bottom: 0 !important; }
   .form-group .input-group.block {
@@ -578,11 +579,12 @@ input {
     display: table-cell;
     color: #777777;
     font-family: "Roboto-Regular";
-    font-size: 12px;
     line-height: 14px;
-    padding-right: 20px; }
+    padding: 0 0 0 5px;
+    font-size: 13.5px; }
   .input-group input {
-    display: table-cell; }
+    display: table-cell;
+    border-radius: 3px 0 0 3px; }
 
 .btn-box {
   width: 100%; }

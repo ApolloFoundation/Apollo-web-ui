@@ -1,4 +1,4 @@
-@import url(~bootstrap/dist/css/bootstrap-grid.min.css);
+@import url(~bootstrap/dist/css/bootstrap.min.css);
 @import url(~material-design-iconic-font/dist/css/material-design-iconic-font.min.css);
 @import url(~loaders.css/loaders.min.css);
 @import url(~react-notifications/lib/notifications.css);
@@ -430,7 +430,8 @@ input {
     .form-group .form-sub-title.align-margin-top {
       margin-top: 5px; }
     .form-group .form-sub-title.align-right {
-      text-align: right; }
+      text-align: right;
+      justify-content: flex-end; }
   .form-group .input-group:last-child:not(:first-child) {
     padding-bottom: 0 !important; }
   .form-group .input-group.block {
@@ -582,11 +583,12 @@ input {
     display: table-cell;
     color: #777777;
     font-family: "Roboto-Regular";
-    font-size: 12px;
     line-height: 14px;
-    padding-right: 20px; }
+    padding: 0 0 0 5px;
+    font-size: 13.5px; }
   .input-group input {
-    display: table-cell; }
+    display: table-cell;
+    border-radius: 3px 0 0 3px; }
 
 .btn-box {
   width: 100%; }
@@ -1241,8 +1243,9 @@ table td .btn, table th .btn {
     .modal-window .modal-box.x-wide {
       max-width: 1000px !important; }
     .modal-window .modal-box .modal-form {
-      min-width: 500px;
-      margin-bottom: 20px; }
+      max-width: 480px;
+      margin-bottom: 20px;
+      width: 100%; }
       @media (max-width: 760px) {
         .modal-window .modal-box .modal-form {
           min-width: 100%;
