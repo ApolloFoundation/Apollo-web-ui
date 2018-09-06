@@ -121,7 +121,7 @@ class ActiveShufflings extends React.Component {
                             }
                         </div>
                         <div className="form-group offset-bottom height-auto no-padding">
-                            <div className="form-title padding-left">
+                            <div className="form-title padding-left padding-top">
                                 <p>Finished Shufflings</p>
                             </div>
                             <div className="transaction-table no-min-height">

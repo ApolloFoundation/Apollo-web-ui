@@ -181,8 +181,6 @@
   .followed-polls-item .card .form-group {
     padding-bottom: 0;
     padding-top: 0; }
-    .followed-polls-item .card .form-group .form-title {
-      padding-top: 0; }
   .followed-polls-item .left {
     width: calc(33.33% - 15px);
     margin-right: 15px; }

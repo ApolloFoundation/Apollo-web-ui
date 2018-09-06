@@ -330,3 +330,33 @@
 		}
 	}
 }
+
+.marketplace-row {
+	.marketplace-row-item {
+		margin-top: 15px;
+		@media (max-width: 992px) {
+			width: 33.33%;
+		}
+		@media (max-width: 992px) {
+			width: 100%;
+		}
+		&:nth-of-type(-n + 3) {
+			margin-top: 0;
+		}
+	}
+}
+
+.marketplace-preview {
+	.card.marketplace {
+		position: static;
+	}
+	.marketplace-preview-item {
+		&:nth-of-type(3) {
+			.card {
+				@media (max-width: 768px) {
+					min-height: auto !important;
+				}
+			}
+		}
+	}
+}

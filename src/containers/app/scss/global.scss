@@ -578,7 +578,7 @@ input {
 		background-image: url(../../assets/brand-logo.png) !important;
 	}
 	.form-title {
-		padding-top: 30px;
+		//padding-top: 30px;
 		padding-bottom: 20px;
 		
 		&.inline {
@@ -595,6 +595,11 @@ input {
 		&.offset-bottom {
 			p {
 				padding-bottom: 28px;
+			}
+		}
+		&.padding-top {
+			p {
+				padding-top: 30px;
 			}
 		}
 		p {
@@ -1530,7 +1535,7 @@ input {
 		}
 	}
 	.form-group {
-		padding: 30px 0 25px;
+		padding: 30px 0 15px;
 	}
 	.input-group {
 		display: table-row;
@@ -1634,5 +1639,13 @@ table {
 		.btn {
 			white-space: nowrap;
 		}
+	}
+}
+
+
+.assets-exchange{
+	max-height: calc(100vh);
+	.row {
+		max-height: 100%;
 	}
 }
