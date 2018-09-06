@@ -15,7 +15,9 @@ class GenerateHallmark extends React.Component {
 
         this.state = {
             activeTab: 0,
-            hallmark: false
+            hallmark: false,
+
+            parsedHallmark: false,
         };
 
         this.handleTab = this.handleTab.bind(this);
@@ -44,13 +46,13 @@ class GenerateHallmark extends React.Component {
                     feeATM: 0,
                 }, 'markHost')
                     .done(res => {
-                       if (res.errorCode) {
-                           NotificationManager.error(res.errorDescription, "Error", 5000)
-                       } else {
-                           this.setState({
-                               hallmark: res.hallmark
-                           })
-                       }
+                        if (res.errorCode) {
+                            NotificationManager.error(res.errorDescription, "Error", 5000)
+                        } else {
+                            this.setState({
+                                hallmark: res.hallmark
+                            })
+                        }
                     });
                 break;
             case 1://parse hallmark
@@ -68,20 +70,39 @@ class GenerateHallmark extends React.Component {
                         if (res.errorCode) {
                             NotificationManager.error(res.errorDescription, "Error", 5000)
                         } else {
+                            this.set = false;
                             NotificationManager.success("Hallmark parsed", null, 5000);
+                            this.setState({parsedHallmark: res})
                         }
                     });
                 break;
         }
     };
 
+    set = false;
+
     render() {
         return (
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={formState => (
-                            <form className="modal-form" onSubmit={formState.submitForm}>
+                    render={({submitForm, setAllValues}) => {
+                        if (this.state.parsedHallmark) {
+                            if (!this.set) {
+                                this.set = true;
+                                const parsedHallmark = this.state.parsedHallmark;
+                                setAllValues({
+                                    accountParse: parsedHallmark.accountRS,
+                                    hostParse: parsedHallmark.host,
+                                    portParse: parsedHallmark.port,
+                                    weightParse: parsedHallmark.weight,
+                                    dateParse: parsedHallmark.date,
+                                    validParse: parsedHallmark.valid ? "true" : "false",
+                                })
+                            }
+                        }
+                        return (
+                            <form className="modal-form" onSubmit={submitForm}>
                                 <div className="form-group">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i
                                         className="zmdi zmdi-close"/></a>
@@ -184,8 +205,8 @@ class GenerateHallmark extends React.Component {
                                                         <label>Hallmark</label>
                                                     </div>
                                                     <div className="col-md-9">
-                                                        <TextArea rows={5} type="text" field={'hallmarkParse'}
-                                                                  placeholder="Hallmark"/>
+                                                            <TextArea rows={5} type="text" field={'hallmarkParse'}
+                                                                      placeholder="Hallmark"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -282,7 +303,8 @@ class GenerateHallmark extends React.Component {
                                 </InfoBox> : null}
 
                             </form>
-                        )}
+                        );
+                    }}
                 >
                 </Form>
             </div>
