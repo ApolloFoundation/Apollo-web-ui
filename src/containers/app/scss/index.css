@@ -403,7 +403,6 @@ input {
     background-position: left;
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group .form-title {
-    padding-top: 30px;
     padding-bottom: 20px; }
     .form-group .form-title.inline > * {
       vertical-align: middle;
@@ -412,6 +411,8 @@ input {
       padding-left: 35px; }
     .form-group .form-title.offset-bottom p {
       padding-bottom: 28px; }
+    .form-group .form-title.padding-top p {
+      padding-top: 30px; }
     .form-group .form-title p {
       color: #333333;
       font-family: "Roboto-Regular";
@@ -989,7 +990,7 @@ input {
       .card .full-box .full-box-item .description {
         width: 100%; }
   .card .form-group {
-    padding: 30px 0 25px; }
+    padding: 30px 0 15px; }
   .card .input-group {
     display: table-row; }
     .card .input-group input, .card .input-group input[type="number"] {
@@ -1068,6 +1069,11 @@ table tr > td {
 table td .btn, table th .btn {
   white-space: nowrap; }
 
+.assets-exchange {
+  max-height: calc(100vh); }
+  .assets-exchange .row {
+    max-height: 100%; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
@@ -1090,8 +1096,6 @@ table td .btn, table th .btn {
       background-color: transparent; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
-    .transaction-table .transaction-table-body .btn-box {
-      min-width: 800px; }
     .transaction-table .transaction-table-body table {
       width: 100%;
       border-collapse: collapse;
@@ -1300,6 +1304,7 @@ input[type="number"] {
     display: flex;
     flex-wrap: wrap;
     padding: 120px 7.5px 15px;
+    min-height: 100%;
     z-index: 0; }
     @media (max-width: 760px) {
       .site-content .page-content .page-body {

@@ -156,7 +156,7 @@ class AssetExchange extends React.Component {
                 />
                 {
                     this.state.asset &&
-                    <div className="page-body container-fluid">
+                    <div className="page-body container-fluid assets-exchange">
 
                         <div className="row">
                             <div className="col-md-4">

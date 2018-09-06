@@ -210,3 +210,21 @@
       color: #777777;
       font-size: 12px;
       margin-top: 15px; }
+
+.marketplace-row .marketplace-row-item {
+  margin-top: 15px; }
+  @media (max-width: 992px) {
+    .marketplace-row .marketplace-row-item {
+      width: 33.33%; } }
+  @media (max-width: 992px) {
+    .marketplace-row .marketplace-row-item {
+      width: 100%; } }
+  .marketplace-row .marketplace-row-item:nth-of-type(-n + 3) {
+    margin-top: 0; }
+
+.marketplace-preview .card.marketplace {
+  position: static; }
+
+@media (max-width: 768px) {
+  .marketplace-preview .marketplace-preview-item:nth-of-type(3) .card {
+    min-height: auto !important; } }
