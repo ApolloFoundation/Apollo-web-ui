@@ -170,7 +170,7 @@ class ResentMarketplaceListing extends React.Component {
                                     className={classNames({
                                         'btn' : true,
                                         'btn-right' : true,
-                                        'disabled' : this.state.getDGSGoods < 8
+                                        'disabled' : !(this.state.getDGSGoods == 8)
                                     })}
                                     style={{
                                         right: 7.5

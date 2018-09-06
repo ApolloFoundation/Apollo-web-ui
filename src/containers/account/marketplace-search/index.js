@@ -196,7 +196,10 @@ class MarketplaceSearch extends React.Component {
                                     })}
                                     onClick={this.onPaginate.bind(this, this.state.page - 1)}
                                 > Previous</a>
-                                <div className='pagination-nav'>
+                                <div className={classNames({
+                                    'pagination-nav': true,
+                                    'disabled' : !(this.state.getDGSGoods < 8)
+                                })}>
                                     <span>{this.state.firstIndex + 1}</span>
                                     <span>&hellip;</span>
                                     <span>{this.state.lastIndex + 1}</span>
@@ -206,7 +209,7 @@ class MarketplaceSearch extends React.Component {
                                     className={classNames({
                                         'btn' : true,
                                         'btn-right' : true,
-                                        'disabled' : this.state.getDGSGoods < 8
+                                        'disabled' : !(this.state.getDGSGoods < 8)
                                     })}
                                 >Next</a>
                             </div>
