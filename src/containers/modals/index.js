@@ -66,6 +66,9 @@ import MarketplaceDelete from './marketplace/delete-goods/';
 
 // Marketplace
 import DecryptMessage from './messenger/decrypt-messages';
+import AboutPeerInfo from "./peer/about-peer-info";
+import ConnectPeer from "./peer/connect-peer";
+import BlacklistPeer from "./peer/blacklist-peer";
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -217,6 +220,11 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'CHANGE_PRICE'                && <MarketplaceChangePrice    closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CHANGE_QUANTITY'             && <MarketplaceChangeQuantity closeModal={this.closeModal}/>}
                 {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.closeModal}/>}
+
+                {/*Peers*/}
+                {this.props.modalType === 'ABOUT_PEER_INFO'             && <AboutPeerInfo             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CONNECT_PEER'                && <ConnectPeer               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'BLACKLIST_PEER'              && <BlacklistPeer             closeModal={this.closeModal}/>}
 
 
                 {/*Messages*/}

@@ -1,13 +1,16 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
 import {connect} from 'react-redux';
-import {getPeersAction, getPeersInfoAction} from "../../../actions/peers";
+import {getPeerAction, getPeersAction, getPeersInfoAction} from "../../../actions/peers";
 import Peer from './peer'
+import {setBodyModalParamsAction} from "../../../modules/modals";
 
 const mapDispatchToProps = dispatch => ({
     getPeersAction: (requestParams) => dispatch(getPeersAction(requestParams)),
-    getPeersInfoAction: (requestParams) => dispatch(getPeersInfoAction(requestParams))
-})
+    getPeerAction: peerAddress => dispatch(getPeerAction(peerAddress)),
+    getPeersInfoAction: (requestParams) => dispatch(getPeersInfoAction(requestParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+});
 
 @connect(null, mapDispatchToProps)
 class Peers extends React.Component {
@@ -40,6 +43,18 @@ class Peers extends React.Component {
             })
         }
     };
+
+    getPeer = async peerAddress => {
+        const peer = await this.props.getPeerAction(peerAddress);
+
+        if (peer) {
+            this.props.setBodyModalParamsAction("ABOUT_PEER_INFO", peer)
+        }
+    };
+
+    connectPeer = peerAddress => this.props.setBodyModalParamsAction("CONNECT_PEER", peerAddress);
+
+    blacklistPeer = peerAddress => this.props.setBodyModalParamsAction("BLACKLIST_PEER", peerAddress);
 
     render () {
         return (
@@ -105,9 +120,13 @@ class Peers extends React.Component {
                                     <tbody>
                                         {
                                             this.state.peers &&
-                                            this.state.peers.map((el) => {
+                                            this.state.peers.map(peer => {
                                                 return (
-                                                    <Peer {...el}/>
+                                                    <Peer {...peer}
+                                                          onTransactionSelected={() => this.getPeer(peer.address)}
+                                                          onConnectClick={() => this.connectPeer(peer.address)}
+                                                          onBlacklistClick={() => this.blacklistPeer(peer.address)}
+                                                    />
                                                 );
                                             })
                                         }
