@@ -152,9 +152,9 @@ class TransferAlias extends React.Component {
                                         <button
                                             type="submit"
                                             name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
+                                            className="btn btn-right blue round round-bottom-right round-top-left"
                                         >
-                                            Update
+                                            Transfer alias
                                         </button>
 
                                     </div>

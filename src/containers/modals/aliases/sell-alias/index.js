@@ -259,21 +259,24 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="btn-box align-buttons-inside absolute right-conner">
-                                                <a
-                                                    className="btn btn-left round round-bottom-left round-top-right"
-                                                    // onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
-                                                >
-                                                    Create account
-                                                </a>
+                                            <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                 <button
                                                     type="submit"
                                                     name={'closeModal'}
                                                     className="btn btn-right blue round round-bottom-right round-top-left"
                                                 >
-                                                    Enter
+                                                    Sell alias
                                                 </button>
 
+                                            </div>
+                                            <div className="btn-box align-buttons-inside absolute left-conner">
+                                                <a
+                                                    onClick={this.handleAdvancedState}
+                                                    className="btn btn-right round round-bottom-left round-top-right absolute"
+                                                    style={{left : 0, right: 'auto'}}
+                                                >
+                                                    Advanced
+                                                </a>
                                             </div>
                                         </form>
                                     )}
