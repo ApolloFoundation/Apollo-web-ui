@@ -29,7 +29,7 @@ class InfoBlock extends React.Component {
         })
     }
 
-    async getTransaction (modalType, transactionId) {
+    getTransaction = async (modalType, transactionId) => {
         const transaction = await this.props.getTransactionAction({
             transaction: transactionId
         });
