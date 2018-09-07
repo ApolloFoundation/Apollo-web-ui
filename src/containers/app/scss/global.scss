@@ -148,6 +148,46 @@ input {
 	}
 }
 
+.contacts-list {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	left: 0;
+	padding: 8px 15px 0 15px;
+	z-index: 4;
+	transform: translateY(50px);
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease-in-out;
+
+	&.active {
+		opacity: 1;
+		transform: none;
+		visibility: visible;
+	}
+
+	ul {
+		background-color: #F5F5F5;
+		border: 1px solid #E5E5E5;
+		border-radius: 3px;
+		box-shadow: 0 0 10px #000000;
+
+		li {
+			border-bottom: 1px solid #E5E5E5;
+
+			&:last-child {
+				border-bottom: 0;
+			}
+			a {
+				padding: 10px 15px;
+				display: block;
+				width: 100%;
+				color: #000;
+			}
+		}
+	}
+}
+
 [data-blue-link-text] {
 	color: #00C8FF;
 	cursor: pointer;
@@ -1686,7 +1726,6 @@ table {
 		}
 	}
 }
-
 
 .assets-exchange{
 	max-height: calc(100vh);

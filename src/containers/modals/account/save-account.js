@@ -9,7 +9,7 @@ import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 
-class AccountInfo extends React.Component {
+class AddAccount extends React.Component {
     constructor(props) {
         super(props);
 
@@ -28,21 +28,36 @@ class AccountInfo extends React.Component {
 
     handleFormSubmit = async(values) => {
 
-        values = {
-            ...values,
+        if (!values.name) {
+            NotificationManager.error('Enter the contact name.', 'Error', 5000);
+            return;
+        }
 
-        };
+        if (!values.accountRS) {
+            NotificationManager.error('Enter the contact id.', 'Error', 5000);
+            return;
+        }
 
+        let localContacts = localStorage.getItem('APLContacts');
 
-        this.props.submitForm(null, null, values, 'setAccountInfo')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('Account info has been submitted!', null, 5000);
-                }
-            })
+        if (localContacts) {
+            localContacts = JSON.parse(localContacts);
+
+            if (localContacts.indexOf(values) === -1) {
+                localContacts.push(values);
+                localStorage.setItem('APLContacts', JSON.stringify(localContacts));
+                NotificationManager.success('Added to contacts!', null, 5000);
+                this.props.closeModal()
+
+            } else {
+                NotificationManager.error('Already in contacts.', 'Error', 5000)
+
+            }
+        } else {
+            localStorage.setItem('APLContacts', JSON.stringify([values]));
+            NotificationManager.success('Added to contacts!', null, 5000);
+            this.props.closeModal()
+        }
     };
 
     handleAdvancedState = () => {
@@ -66,77 +81,65 @@ class AccountInfo extends React.Component {
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue, setValue }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            {
-                                this.props.modalData &&
-                                <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                            <div className="form-group-app">
+                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
-                                    <div className="form-title">
-                                        <p>Set Account Info</p>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Name</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Your name'} field={'name'}/>
-                                            </div>
+                                <div className="form-title">
+                                    <p>Add Contact</p>
+                                </div>
+                                <div className="input-group-app display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Name</label>
                                         </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Description</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <TextArea placeholder="Message" field="message" cols="30" rows="10" />
-                                            </div>
+                                        <div className="col-md-9">
+                                            <Text placeholder={'Contact Name'} field={'name'}/>
                                         </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Fee</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Amount'} type="number" field={'feeATM'}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Secret Phrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Secret Phrase'} type="password" field={'secretPhrase'}/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <AdvancedSettings advancedState={this.state.advancedState}/>
-
-                                    <div className="btn-box align-buttons-inside absolute right-conner">
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Update Account Info
-                                        </button>
-                                        <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
-                                    </div>
-                                    <div className="btn-box align-buttons-inside absolute left-conner">
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-left round round-bottom-left round-top-right"
-                                        >
-                                            Advanced
-                                        </a>
                                     </div>
                                 </div>
-                            }
+                                <div className="input-group-app display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Account ID</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text defaultValue={this.props.modalData} placeholder={'Secret Phrase'} type="text" field={'accountRS'}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group-app display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Email Address</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text placeholder={'contact@email.com'} type="text" field={'email'}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group-app display-block offset-bottom">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Description</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <TextArea placeholder="Optional" field="message" cols="30" rows="10" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                    <button
+                                        type="submit"
+                                        name={'closeModal'}
+                                        className="btn btn-right blue round round-bottom-right"
+                                    >
+                                        Add Account
+                                    </button>
+                                    <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
+                                </div>
+                            </div>
+
                         </form>
                     )}
                 />
@@ -155,4 +158,4 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAccount);

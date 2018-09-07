@@ -137,8 +137,6 @@ class SendApolloPrivate extends React.Component {
                                                     field={'recipient'}
                                                     setValue={setValue}
                                                 />
-
-                                                <div className="input-icon"><i className="zmdi zmdi-account" /></div>
                                             </div>
 
                                         </div>

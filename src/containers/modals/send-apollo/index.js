@@ -114,10 +114,7 @@ class SendApollo extends React.Component {
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
                                                 />
-
-                                                <div className="input-icon"><i className="zmdi zmdi-account" /></div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

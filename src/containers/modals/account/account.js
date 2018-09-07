@@ -489,7 +489,17 @@ class InfoAccount extends React.Component {
                                         <a className="btn btn-primary blue static">Send Apollo</a>
                                         <a className="btn btn-primary blue static">Send currency</a>
                                         <a className="btn btn-primary blue static">Send a message</a>
-                                        <a className="btn btn-primary blue static">Add as contact</a>
+                                        {
+                                            this.state.account &&
+                                            this.state.account.accountRS &&
+                                            this.props.account !== this.state.account.account &&
+                                            <a
+                                                onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.state.account.accountRS)}
+                                                className="btn btn-primary blue static"
+                                            >
+                                                Add as contact
+                                            </a>
+                                        }
                                     </div>
                                 </div>
 
