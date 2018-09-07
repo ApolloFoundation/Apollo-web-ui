@@ -142,34 +142,32 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                        <label htmlFor="referencedHash" className="col-form-label mb-2">
+                            Process without approval
+                        </label>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
+                                Referenced transaction hash
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input ref={'passphrase'} type="text" name={'passphrase'}
+                                       className="form-control form-control-sm" id="referencedHash"
+                                       placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-
+                        <div className="row">
+                            <div className="col-md-9 offset-md-3">
+                                <div className="form-check custom-checkbox mb-2">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                        Do not broadcast
+                                    </label>
                                 </div>
-                                <div className="col-md-9">
-                                    <div className="form-sub-actions">
-                                        <div className="form-group-app no-padding-bottom">
-                                            <div className="input-group-app align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Do not broadcast</label>
-                                            </div>
-                                            <div className="input-group-app align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Add note to self?</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="form-check custom-checkbox">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="addNote">
+                                        Add note to self?
+                                    </label>
                                 </div>
                             </div>
                         </div>
