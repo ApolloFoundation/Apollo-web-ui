@@ -281,6 +281,9 @@
       max-width: 1000px !important;
     }
     .modal-form {
+      //max-width: 480px;
+      //margin-bottom: 20px;
+      //width: 100%;
       min-width: 500px;
       margin-bottom: 20px;
       @media (max-width: 760px) {
