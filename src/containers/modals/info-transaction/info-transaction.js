@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
@@ -147,14 +147,26 @@ class InfoLedgerTransaction extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 1
                                 })}>
-                                    <div className="flexible-grid">
-                                        <div className="btn btn-primary blue static">Send Apollo</div>
-                                        <div className="btn btn-primary blue static">Send currency to sender</div>
-                                        <div className="btn btn-primary blue static">Send a message to sender</div>
-                                        <div className="btn btn-primary blue static">Add sender as contact</div>
-                                        <div className="btn btn-primary blue static">Apptove transaction</div>
-                                        <div className="btn btn-primary blue static">Extend data lifetime</div>
-                                    </div>
+                                    {
+                                        this.state.transaction &&
+                                        <div className="flexible-grid">
+                                            <a className="btn btn-primary blue static">Send Apollo</a>
+                                            <a className="btn btn-primary blue static">Send currency to sender</a>
+                                            <a className="btn btn-primary blue static">Send a message to sender</a>
+                                            {
+                                                this.state.transaction.recipientRS &&
+                                                <a
+                                                    onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.state.transaction.recipientRS)}
+                                                    className="btn btn-primary blue static"
+                                                >
+                                                    Add sender as contact
+                                                </a>
+                                            }
+                                            <a className="btn btn-primary blue static">Apptove transaction</a>
+                                            <a className="btn btn-primary blue static">Extend data lifetime</a>
+                                        </div>
+                                    }
+
                                 </div>
                                 <div className={classNames({
                                     "tab-body": true,
@@ -275,7 +287,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoLedgerTransaction);
