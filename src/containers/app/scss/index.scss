@@ -3,15 +3,16 @@
 @import "~loaders.css/loaders.min.css";
 @import '~react-notifications/lib/notifications.css';
 
+@import "bootstrap/mixins";
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/utilities";
+@import "bootstrap/forms";
+@import "bootstrap/input-group";
+@import "bootstrap/custom-forms";
+
 @import "global.scss";
 @import "apl-components.scss";
 @import "style.scss";
 @import "media.scss";
 
-
-@import "bootstrap/mixins";
-@import "bootstrap/functions";
-@import "bootstrap/variables";
-@import "bootstrap/forms";
-@import "bootstrap/input-group";
-@import "bootstrap/custom-forms";
