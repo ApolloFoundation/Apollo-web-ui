@@ -1078,6 +1078,9 @@ table td .btn, table th .btn {
   .transactions-title .btn {
     display: none !important; } }
 
+.exchange-booth .form-group-app {
+  display: table; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
@@ -1644,39 +1647,17 @@ input[type="number"] {
                   color: white;
                   text-decoration: underline;
                   box-sizing: border-box; }
-        .menu-bar.collapsed .menu-bar-container .collapse-button {
-          min-width: 220px; }
-          .menu-bar.collapsed .menu-bar-container .collapse-button.active {
-            color: #fff; }
-            .menu-bar.collapsed .menu-bar-container .collapse-button.active .zmdi {
-              transform: rotate(180deg); }
-          .menu-bar.collapsed .menu-bar-container .collapse-button .zmdi {
-            font-size: 26px;
-            position: absolute;
-            color: #777777;
-            top: 70%;
-            transform: translateY(-50%);
-            height: auto !important; }
-            .menu-bar.collapsed .menu-bar-container .collapse-button .zmdi.left {
-              left: 40px; }
-            .menu-bar.collapsed .menu-bar-container .collapse-button .zmdi.right {
-              right: 20px;
-              font-size: 18px; }
-          .menu-bar.collapsed .menu-bar-container .collapse-button:hover {
-            color: #fff; }
     .menu-bar .menu-bar-container .site-logo {
       width: 100px; }
     .menu-bar .menu-bar-container nav {
       width: 100px; }
       .menu-bar .menu-bar-container nav ul li a {
+        padding-left: 55px;
         font-size: 0px; }
         .menu-bar .menu-bar-container nav ul li a i.right {
           display: none; }
       .menu-bar .menu-bar-container nav ul li .dropdown-menu a {
-        font-size: 13px; }
-    .menu-bar .menu-bar-container .collapse-button {
-      width: 100px;
-      display: block; } }
+        font-size: 13px; } }
 
 .site-content .container h1 {
   color: #f00; }

@@ -1073,3 +1073,6 @@ table td .btn, table th .btn {
 @media (max-width: 1023px) {
   .transactions-title .btn {
     display: none !important; } }
+
+.exchange-booth .form-group-app {
+  display: table; }
