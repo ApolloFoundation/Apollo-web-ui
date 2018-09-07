@@ -49,6 +49,24 @@ export function getTransactionAction(requestParams) {
     }
 }
 
+export function getPrivateTransactionAction(requestParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params : {
+                requestType: 'getPrivateTransaction',
+                ...requestParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
 export function sendTransactionAction(requestParams) {
     return (dispatch) => {
         requestParams = {
@@ -65,7 +83,6 @@ export function sendTransactionAction(requestParams) {
         })
 
             .then((res) => {
-                console.log(res);
                 if (!res.data.errorCode) {
                     return res.data;
                 }

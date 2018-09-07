@@ -107,8 +107,6 @@ class FollowedVotes extends React.Component {
     getBlock = async () => {
         const block = await this.props.getBlockAction();
 
-        console.log(block);
-
         if (block) {
             this.setState({
                 block: block
@@ -129,8 +127,6 @@ class FollowedVotes extends React.Component {
 
     addToFollowedPolls = () => {
         let polls = localStorage.getItem('followedPolls');
-
-        console.log(polls);
 
         if (polls) {
             polls = JSON.parse(polls);
@@ -162,7 +158,6 @@ class FollowedVotes extends React.Component {
 
             Promise.all(followedpolls)
                 .then((data) => {
-                    console.log(data);
                     this.setState({
                         followedpolls: data
                     })

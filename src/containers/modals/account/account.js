@@ -76,7 +76,6 @@ class InfoAccount extends React.Component {
     }
 
     getTransaction = async (requestParams) => {
-        console.log(requestParams);
         const transaction = await this.props.getTransactionAction(requestParams);
 
         if (transaction) {
@@ -209,6 +208,11 @@ class InfoAccount extends React.Component {
                                                             />
                                                         )
                                                     })
+                                                }
+                                                {
+                                                    this.state.transactions &&
+                                                    !this.state.transactions.transactions.length &&
+                                                    'No transactions in this account.'
                                                 }
                                                 </tbody>
                                             </table>

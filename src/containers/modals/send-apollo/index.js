@@ -87,7 +87,6 @@ class SendApollo extends React.Component {
     };
 
     render() {
-        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form
@@ -112,7 +111,7 @@ class SendApollo extends React.Component {
                                                 <AccountRS
                                                     value={''}
                                                     field={'recipient'}
-                                                    defaultValue={this.props.modalData.recipient}
+                                                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
                                                 />
 
@@ -129,7 +128,7 @@ class SendApollo extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text defaultValue={this.props.modalData.amountATM} field="amountATM" placeholder="Amount" />
+                                                <Text defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''} field="amountATM" placeholder="Amount" />
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +199,7 @@ class SendApollo extends React.Component {
                                                 Calculate</span>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text defaultValue={this.props.modalData.feeATM} field="feeATM" value={this.state.feeATM} placeholder="Amount" />
+                                            <Text defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''} field="feeATM" value={this.state.feeATM} placeholder="Amount" />
                                         </div>
                                     </div>
                                 </div>

@@ -55,7 +55,7 @@ import ActiveShufflings   from "../account/active-shufflings";
 import FinishedShufflings from "../account/finished-shufflings";
 import MyMessages from "../account/my-messages";
 import MarketplaceSearch from "../account/marketplace-search";
-
+import Generators from "../account/generators"
 import style from './App.css';
 import converters from "../../helpers/converters";
 import crypto from '../../helpers/crypto/crypto';
@@ -164,6 +164,7 @@ class App extends React.Component {
                                 ,<Route exact path="/data-storage" component={DataStorage}/>
                                 ,<Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 ,<Route exact path="/my-messages" component={MyMessages}/>
+                                ,<Route exact path="/generators" component={Generators}/>
                             ]
                         }
                     </Switch>

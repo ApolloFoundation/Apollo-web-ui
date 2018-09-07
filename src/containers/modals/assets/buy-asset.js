@@ -28,17 +28,12 @@ class BuyAsset extends React.Component {
 
     handleFormSubmit = async(values) => {
 
-        console.log(values);
-
         values = {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
             priceATM: this.props.modalData.priceATM,
             quantityATU: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
         };
-
-        console.log(values);
-
 
         this.props.submitForm(null, null, values, 'placeBidOrder')
             .done((res) => {
@@ -50,10 +45,6 @@ class BuyAsset extends React.Component {
                 }
             })
     };
-
-    // getAsset = async  () => {
-    //     const asset = await this.props.
-    // }
 
     handleAdvancedState = () => {
         if (this.state.advancedState) {
@@ -70,7 +61,6 @@ class BuyAsset extends React.Component {
     };
 
     render() {
-        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form

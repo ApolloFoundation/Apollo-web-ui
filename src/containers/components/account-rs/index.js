@@ -14,7 +14,6 @@ const AccountRS = (props) => (
             if (/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(value)) {
                 newState.value = 'APL-****-****-****-*****';
             }
-            console.log(e.target.value);
             if (/^APL-/.test(e.target.value)) {
             }
             props.setValue(props.field, value);

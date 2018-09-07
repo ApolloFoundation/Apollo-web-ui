@@ -80,7 +80,6 @@ export function getSettings(isAccountSpecific) {
                                 }
                             })
                         }
-                        // console.log("User settings for account " + NRS.convertNumericToRSAccountFormat(NRS.account));
                         for (var setting in account.defaultSettings) {
                             if (!account.defaultSettings.hasOwnProperty(setting)) {
                                 continue;

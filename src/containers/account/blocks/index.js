@@ -14,13 +14,18 @@ class Blocks extends React.Component {
         super(props);
 
         this.getBlocks = this.getBlocks.bind(this);
-        this.getBlock  = this.getBlock.bind(this);
+        this.getBlock = this.getBlock.bind(this);
 
         this.state = {
             page: 1,
             firstIndex: 0,
             lastIndex: 14,
-            blocks: []
+            blocks: [],
+
+            avgFee: 0,
+            avgAmount: 0,
+            blockGenerateTime: 0,
+            transactionPerHour: 0,
         };
     }
 
@@ -33,10 +38,40 @@ class Blocks extends React.Component {
     }
 
     async getBlocks(requestParams) {
-        const ledger = await this.props.getBlocksAction(requestParams);
+        const blocks = (await this.props.getBlocksAction(requestParams)).blocks;
+
+        let totalFee = 0;
+        let totalAmount = 0;
+        const time = blocks[0].timestamp - blocks[blocks.length - 1].timestamp;
+        let transactions = 0;
+
+        let avgFee = 0;
+        let avgAmount = 0;
+
+        blocks.forEach(block => {
+            totalFee += block.totalFeeATM;
+            totalAmount += block.totalAmountATM;
+            transactions += block.numberOfTransactions;
+        });
+
+        if (time === 0) {
+            transactions = 0
+        } else {
+            transactions = Math.round(transactions / (time / 60) * 60);
+        }
+
+        if (blocks.length) {
+            avgFee = (totalFee / 100000000 / blocks.length).toFixed(2);
+            avgAmount = (totalAmount / 100000000 / blocks.length).toFixed(2);
+        }
+
         this.setState({
             ...this.props,
-            blocks: ledger.blocks
+            blocks: blocks,
+            avgFee,
+            avgAmount,
+            blockGenerateTime: time,
+            transactionPerHour: transactions
         });
     }
 
@@ -52,12 +87,12 @@ class Blocks extends React.Component {
         }
     }
 
-    onPaginate (page) {
+    onPaginate(page) {
         this.setState({
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex: page * 15 - 1
         }, () => {
             this.getBlocks({
                 account: this.props.account,
@@ -67,7 +102,7 @@ class Blocks extends React.Component {
         });
     }
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
@@ -78,26 +113,26 @@ class Blocks extends React.Component {
                         <div className="row">
                             <div className="col-md-6 col-lg-3">
                                 <div className="card header ballance single">
-                                    <div className="card-title">Available Balance</div>
-                                    <div className="amount">37,000,000</div>
+                                    <div className="card-title">AVG. Amount Per Block</div>
+                                    <div className="amount">{this.state.avgAmount}</div>
                                 </div>
                             </div>
                             <div className="col-md-6 col-lg-3">
                                 <div className="card header assets single">
-                                    <div className="card-title">Available Balance</div>
-                                    <div className="amount">37,000,000</div>
+                                    <div className="card-title">AVG. Fee Per Block</div>
+                                    <div className="amount">{this.state.avgFee}</div>
                                 </div>
                             </div>
                             <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="card header currencies single">
-                                    <div className="card-title">Available Balance</div>
-                                    <div className="amount">37,000,000</div>
+                                    <div className="card-title">Transactions Per Hour</div>
+                                    <div className="amount">{this.state.transactionPerHour}</div>
                                 </div>
                             </div>
                             <div className="col-md-6 col-lg-3">
                                 <div className="card header coins single">
-                                    <div className="card-title">Available Balance</div>
-                                    <div className="amount">37,000,000</div>
+                                    <div className="card-title">Block Generation Time</div>
+                                    <div className="amount">{this.state.blockGenerateTime}s</div>
                                 </div>
                             </div>
                         </div>
@@ -117,24 +152,24 @@ class Blocks extends React.Component {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            this.state.blocks.map((el, index) => {
-                                                return (
-                                                    <Block
-                                                        block={el}
-                                                        setBlockInfo={this.getBlock}
-                                                    />
-                                                );
-                                            })
-                                        }
+                                    {
+                                        this.state.blocks.map((el, index) => {
+                                            return (
+                                                <Block
+                                                    block={el}
+                                                    setBlockInfo={this.getBlock}
+                                                />
+                                            );
+                                        })
+                                    }
                                     </tbody>
                                 </table>
                                 <div className="btn-box">
                                     <a
                                         className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
+                                            'btn': true,
+                                            'btn-left': true,
+                                            'disabled': this.state.page <= 1
                                         })}
                                         onClick={this.onPaginate.bind(this, this.state.page - 1)}
                                     > Previous</a>
@@ -146,9 +181,9 @@ class Blocks extends React.Component {
                                     <a
                                         onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                         className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.blocks.length < 15
+                                            'btn': true,
+                                            'btn-right': true,
+                                            'disabled': this.state.blocks.length < 15
                                         })}
                                     >Next</a>
                                 </div>
@@ -166,8 +201,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams)),
-    getBlockAction  : (requestParams) => dispatch(getBlockAction(requestParams)),
+    getBlocksAction: (requestParams) => dispatch(getBlocksAction(requestParams)),
+    getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 
 })

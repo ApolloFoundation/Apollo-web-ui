@@ -27,10 +27,6 @@ class MarketplaceSearch extends React.Component {
             isGrid: true,
 
         };
-
-
-        console.log(/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(this.props.match.params.tag));
-
     }
 
     componentWillMount() {
@@ -62,7 +58,6 @@ class MarketplaceSearch extends React.Component {
         const getDGSGoods = await this.props.searchDGSGoodsAction(reqParams);
 
         if (getDGSGoods) {
-            console.log(getDGSGoods.goods);
             this.setState({
                 ...this.state,
                 getDGSGoods: getDGSGoods.goods
@@ -104,10 +99,6 @@ class MarketplaceSearch extends React.Component {
 
 
     handleCardMouseOver = (e) =>  {
-        // console.log(e.nativeEvent.target.offsetParent);
-        console.log(e.currentTarget);
-        // console.log(e.target.firstChild);
-        //
         e.currentTarget.classList.add('active')
     };
     handleCardMouseOut = (e) =>  {
@@ -224,9 +215,6 @@ class MarketplaceSearch extends React.Component {
                                             <span>&hellip;</span>
                                             <span>{this.state.lastIndex + 1}</span>
                                         </div>
-                                    }
-                                    {
-                                        console.log(this.state.getDGSGoods)
                                     }
                                     <a
                                         onClick={this.onPaginate.bind(this, this.state.page + 1)}

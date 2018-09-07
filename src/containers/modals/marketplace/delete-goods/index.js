@@ -49,8 +49,6 @@ class MarketplaceDelete extends React.Component {
             goods: value
         });
 
-        console.log(value);
-
         if (productData) {
             this.setState({
                 goods: productData
@@ -61,8 +59,6 @@ class MarketplaceDelete extends React.Component {
     async handleFormSubmit(values) {
         const publicKey = await crypto.getPublicKey(values.secretPhrase, false);
 
-        console.log(publicKey);
-
         values = {
             ...values,
             deltaQuantity: (values.quantity - this.state.goods.quantity),
@@ -70,9 +66,6 @@ class MarketplaceDelete extends React.Component {
             recipient: this.props.account,
             publicKey: publicKey
         };
-
-        console.log(this.state.goods.quantity);
-        console.log(values.quantity);
 
         this.props.submitForm(null, null, values, 'dgsDelisting')
             .done((res) => {

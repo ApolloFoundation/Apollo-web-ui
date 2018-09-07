@@ -4,6 +4,13 @@ import {getLocale} from "../internationalisation";
 
 const EPOCH_BEGINNING = 1385294400000;
 
+export function toEpochTime(currentTime) {
+    if (currentTime === undefined) {
+        currentTime = new Date();
+    }
+    return Math.floor((currentTime - EPOCH_BEGINNING) / 1000);
+};
+
 export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {
     return (dispatch, getState) => {
         const {account} = getState();

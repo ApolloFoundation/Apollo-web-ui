@@ -170,8 +170,6 @@ function submitForm($modal, $btn, data, requestType) {
             }
         }
 
-        console.log(data.deadline);
-
         if (!data.deadline) {
             data.deadline = 1440;
         }
@@ -645,8 +643,6 @@ function sendRequest(requestType, data, callback, options) {
     return (dispatch, getState) => {
         const account = getState().account;
 
-        console.log(data);
-
         if (!options) {
             options = {};
         }
@@ -813,18 +809,11 @@ function sendRequest(requestType, data, callback, options) {
         }
         // check to see if secretPhrase supplied matches logged in account, if not - show error.
         if ("secretPhrase" in data) {
-            // accountId = crypto.getAccountId(NRS.rememberPassword ? _password : data.secretPhrase);
-            // accountId = dispatch(crypto.getAccountId(data.secretPhrase));
-            //
-            // console.log(accountId);
-
             return (dispatch(processAjaxRequest(requestType, data, callback, options)));
 
 
         } else {
             const formRes = dispatch(processAjaxRequest(requestType, data, callback, options));
-
-            console.log(formRes);
 
             return formRes;
             // dispatch(processAjaxRequest(requestType, data, callback, options));
@@ -948,8 +937,6 @@ function processAjaxRequest(requestType, data, callback, options) {
 
         const {account} = getState();
 
-        console.log(data)
-
         var extra = null;
         if (data["_extra"]) {
             extra = data["_extra"];
@@ -1017,7 +1004,6 @@ function processAjaxRequest(requestType, data, callback, options) {
         var formData = null;
 
         var config = dispatch(getFileUploadConfig(requestType, data));
-        console.log(data.messageFile);
 
         if (config) {
             // inspired by http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
@@ -1028,7 +1014,6 @@ function processAjaxRequest(requestType, data, callback, options) {
             // var tempFiel = Object.assign(data.messageFile);
             if (data.messageFile) {
                 file = data.messageFile;
-                console.log(config);
                 delete data.messageFile;
                 delete data.encrypt_message;
             } else {
@@ -1056,12 +1041,7 @@ function processAjaxRequest(requestType, data, callback, options) {
                 return;
             }
             httpMethod = "POST";
-            console.log(file);
             formData.append(config.requestParam, file);
-
-            console.log(file);
-
-            console.log(formData);
 
             for (var key in data) {
                 if (!data.hasOwnProperty(key)) {
@@ -1088,22 +1068,6 @@ function processAjaxRequest(requestType, data, callback, options) {
         }
 
         url += "requestType=" + requestType;
-
-        console.log({
-            url: url,
-            crossDomain: true,
-            dataType: "json",
-            type: 'POST',
-            timeout: (options.timeout === undefined ? 30000 : options.timeout),
-            async: (options.isAsync === undefined ? true : options.isAsync),
-            currentPage: currentPage,
-            currentSubPage: currentSubPage,
-            shouldRetry: null,
-            traditional: true,
-            data: (formData != null ? formData : data),
-            contentType: contentType,
-            processData: processData
-        });
 
         return $.ajax({
             url: url,
@@ -1192,9 +1156,6 @@ function processAjaxRequest(requestType, data, callback, options) {
 
 function getFileUploadConfig(requestType, data) {
     return (dispatch, getState) => {
-
-        console.log(requestType)
-        console.log(data)
         const {account} = getState();
 
         var config = {};

@@ -82,10 +82,19 @@ class InfoBlock extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 0
                                 })}>
-                                    <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent padding-vertical-padding">
-                                            <table>
-                                                <thead key={uuid()}>
+                                    {
+                                        this.props.modalData.transactions &&
+                                        !this.props.modalData.transactions.length &&
+                                        'No transactions in this block.'
+                                    }
+                                    {
+                                        this.props.modalData.transactions &&
+                                        !!this.props.modalData.transactions.length &&
+                                        <div className="transaction-table no-min-height">
+                                            <div className="transaction-table-body transparent padding-vertical-padding">
+
+                                                <table>
+                                                    <thead key={uuid()}>
                                                     <tr>
                                                         <td>Index</td>
                                                         <td>Date</td>
@@ -95,26 +104,29 @@ class InfoBlock extends React.Component {
                                                         <td>From</td>
                                                         <td>To</td>
                                                     </tr>
-                                                </thead>
-                                                <tbody key={uuid()}>
-                                                {
-                                                    this.props.modalData.transactions &&
-                                                    this.props.modalData.transactions.map((el, index) => {
+                                                    </thead>
+                                                    <tbody key={uuid()}>
+                                                    {
+                                                        this.props.modalData.transactions &&
+                                                        this.props.modalData.transactions.map((el, index) => {
 
-                                                        return (
-                                                            <Transaction
-                                                                block
-                                                                transaction = {el}
-                                                                index={index}
-                                                                setTransactionInfo={this.getTransaction}
-                                                            />
-                                                        )
-                                                    })
-                                                }
-                                                </tbody>
-                                            </table>
+                                                            return (
+                                                                <Transaction
+                                                                    block
+                                                                    transaction = {el}
+                                                                    index={index}
+                                                                    setTransactionInfo={this.getTransaction}
+                                                                />
+                                                            )
+                                                        })
+                                                    }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+
                                 </div>
                                 <div className={classNames({
                                     "tab-body": true,
