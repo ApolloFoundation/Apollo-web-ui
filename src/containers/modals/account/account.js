@@ -209,6 +209,11 @@ class InfoAccount extends React.Component {
                                                         )
                                                     })
                                                 }
+                                                {
+                                                    this.state.transactions &&
+                                                    !this.state.transactions.transactions.length &&
+                                                    'No transactions in this account.'
+                                                }
                                                 </tbody>
                                             </table>
                                         </div>

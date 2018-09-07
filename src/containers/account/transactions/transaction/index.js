@@ -82,12 +82,20 @@ class Transaction extends React.Component {
                             {this.state.transaction.feeATM / 100000000}
                         </td>
                         <td  key={uuid()} className="blue-link-text">
-                            <a>{this.state.transaction.senderRS}</a>
+                            <a
+                                onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.senderRS)}
+                            >
+                                {this.state.transaction.senderRS}
+                            </a>
                         </td>
                         <td  key={uuid()} className="blue-link-text align-right">
                             {
                                 this.props.transaction.recipientRS &&
-                                <a>{this.props.transaction.recipientRS}</a>
+                                <a
+                                    onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.recipientRS)}
+                                >
+                                    {this.props.transaction.recipientRS}
+                                </a>
                             }
                             {
                                 !this.props.transaction.recipientRS &&
@@ -120,7 +128,7 @@ class Transaction extends React.Component {
                             {this.state.transaction.feeATM / 100000000}
                         </td>
                         <td className="blue-link-text">
-                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.sender)}>{this.state.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.sender)}>{this.props.transaction.recipientRS}</a>
+                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.sender)}>{this.state.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
                         </td>
                         <td className="align-right">
                         </td>

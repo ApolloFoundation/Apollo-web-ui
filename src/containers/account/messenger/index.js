@@ -109,6 +109,7 @@ class Messenger extends React.Component {
 				<SiteHeader
 					pageTitle={'Messenger'}
 				/>
+
 				<div className="page-body container-fluid flexible-height overflow-hidden">
 					<div className="messenger">
 						<div className="row">
