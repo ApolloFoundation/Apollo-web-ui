@@ -209,7 +209,7 @@ class AdvancedSettings extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
-                                <div className="form-check custom-checkbox">
+                                <div className="form-check custom-checkbox mb-2">
                                     <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
                                         <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
                                             Do not broadcast
