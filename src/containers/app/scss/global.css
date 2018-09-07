@@ -454,7 +454,8 @@ input {
     padding-left: 15px; }
   .form-group-app .input-group-app input {
     padding-left: 15px;
-    padding-right: 15px; }
+    padding-right: 15px;
+    border-radius: 3px; }
   .form-group-app .form-tabulator {
     position: relative;
     margin: 55px -35px -69px -35px;
@@ -1122,7 +1123,7 @@ table td .btn, table th .btn {
     background-color: #F5F5F5;
     border-radius: 3px;
     color: #000000;
-    top: 1px; }
+    top: -1px; }
   .custom-checkbox .custom-control-label {
     padding-left: 6px;
     color: #333333; }

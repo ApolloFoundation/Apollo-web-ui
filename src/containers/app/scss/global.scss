@@ -679,6 +679,7 @@ input {
 		input {
 			padding-left: 15px;
 			padding-right: 15px;
+            border-radius: 3px;
 		}
 	}
 	
@@ -1711,7 +1712,7 @@ table {
     background-color: #F5F5F5;
     border-radius: 3px;
     color: #000000;
-    top: 1px
+    top: -1px;
   }
   .custom-control-label {
     padding-left: 6px;
