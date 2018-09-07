@@ -1,7 +1,7 @@
+@import url(~bootstrap/dist/css/bootstrap-grid.min.css);
 @import url(~material-design-iconic-font/dist/css/material-design-iconic-font.min.css);
 @import url(~loaders.css/loaders.min.css);
 @import url(~react-notifications/lib/notifications.css);
-@import url(~bootstrap/dist/css/bootstrap.min.css);
 @import url(~roboto-fontface/css/roboto/roboto-fontface.css);
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   margin: 0;
