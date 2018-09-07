@@ -12,6 +12,10 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 html, body {
   background-color: #F5F5F5; }
 
+*:focus {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important; }
+
 html {
   height: 100%; }
   html body {
@@ -51,7 +55,6 @@ input[type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  display: block;
   border: 1px solid #E5E5E5;
   background-color: #F5F5F5;
   border-radius: 3px;
@@ -427,7 +430,8 @@ input {
     .form-group-app .form-sub-title.align-margin-top {
       margin-top: 5px; }
     .form-group-app .form-sub-title.align-right {
-      text-align: right; }
+      text-align: right;
+      justify-content: flex-end; }
   .form-group-app .input-group-app:last-child:not(:first-child) {
     padding-bottom: 0 !important; }
   .form-group-app .input-group-app.block {
@@ -498,10 +502,41 @@ input {
       .form-group-app .form-tabulator .tab-body.active {
         display: block; }
     .form-group-app .form-tabulator .form-sub-actions {
-      display: block; }
+      display: block;
+      padding-top: 7px; }
       .form-group-app .form-tabulator .form-sub-actions .form-group-app {
         background-color: transparent;
         padding: 0; }
+  .form-group-app .form-group-grey {
+    margin-bottom: 8px;
+    margin-left: 0;
+    align-items: center; }
+    .form-group-app .form-group-grey label {
+      color: #333333;
+      letter-spacing: 0.3px;
+      line-height: 16px;
+      padding: 0; }
+    .form-group-app .form-group-grey .no-left-padding {
+      padding-left: 7px; }
+    .form-group-app .form-group-grey .form-control {
+      background-color: #f5f5f5;
+      border-color: #e5e5e5;
+      color: #707070;
+      line-height: 2.1;
+      letter-spacing: 0.2px;
+      font-size: 11.5px; }
+    .form-group-app .form-group-grey .input-group-text {
+      background-color: #e5e5e5;
+      border-color: #e5e5e5;
+      color: #707070; }
+    .form-group-app .form-group-grey ::placeholder {
+      color: #a6a6a6;
+      opacity: 1;
+      font-weight: 400; }
+    .form-group-app .form-group-grey :-ms-input-placeholder {
+      color: #a6a6a6; }
+    .form-group-app .form-group-grey ::-ms-input-placeholder {
+      color: #a6a6a6; }
 
 .input-group-app {
   display: table-row; }
@@ -579,11 +614,12 @@ input {
     display: table-cell;
     color: #777777;
     font-family: "Roboto-Regular";
-    font-size: 12px;
     line-height: 14px;
-    padding-right: 20px; }
+    padding: 0 0 0 5px;
+    font-size: 13.5px; }
   .input-group-app input {
-    display: table-cell; }
+    display: table-cell;
+    border-radius: 3px 0 0 3px; }
 
 .btn-box {
   width: 100%; }
@@ -1069,3 +1105,24 @@ table td .btn, table th .btn {
   max-height: calc(100vh); }
   .assets-exchange .row {
     max-height: 100%; }
+
+.custom-checkbox {
+  padding-left: 23px; }
+  .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+    background-image: url(../../assets/checked.svg);
+    background-repeat: no-repeat;
+    background-size: 10px;
+    left: -1.45rem;
+    top: 2px; }
+  .custom-checkbox .custom-control-input ~ .custom-control-label::before,
+  .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    height: 16px;
+    width: 16px;
+    border: 1px solid #E5E5E5;
+    background-color: #F5F5F5;
+    border-radius: 3px;
+    color: #000000;
+    top: 1px; }
+  .custom-checkbox .custom-control-label {
+    padding-left: 6px;
+    color: #333333; }
