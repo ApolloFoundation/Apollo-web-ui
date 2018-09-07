@@ -83,7 +83,6 @@ export function sendTransactionAction(requestParams) {
         })
 
             .then((res) => {
-                console.log(res);
                 if (!res.data.errorCode) {
                     return res.data;
                 }

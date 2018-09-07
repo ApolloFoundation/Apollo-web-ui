@@ -172,9 +172,6 @@ class Transactions extends React.Component {
         } else {
             const privateTransaction = await this.props.getPrivateTransactionAction({...requestParams, publicKey: this.state.publicKey});
 
-            console.log(            {privateTransaction, publicKey: this.state.publicKey,  privateKey: this.state.privateKey}
-            );
-
             if (privateTransaction){
                 this.props.setBodyModalParamsAction('INFO_TRANSACTION', {privateTransaction, publicKey: this.state.publicKey,  privateKey: this.state.privateKey})
             }

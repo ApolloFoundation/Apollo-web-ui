@@ -73,7 +73,6 @@ class MyShufling extends React.Component {
         });
 
         if (shufflings) {
-            console.log(shufflings);
             this.setState({
                 shufflings : shufflings.shufflings
             });

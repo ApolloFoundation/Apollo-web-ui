@@ -67,9 +67,6 @@ class IssueCurrency extends React.Component {
 
         };
 
-        console.log(values);
-
-
         this.props.submitForm(null, null, values, 'issueCurrency')
             .done((res) => {
                 if (res.errorCode) {

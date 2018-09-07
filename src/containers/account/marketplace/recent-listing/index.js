@@ -68,10 +68,6 @@ class ResentMarketplaceListing extends React.Component {
     };
 
     handleCardMouseOver = (e) =>  {
-        // console.log(e.nativeEvent.target.offsetParent);
-        console.log(e.currentTarget);
-        // console.log(e.target.firstChild);
-        //
         e.currentTarget.classList.add('active')
     };
     handleCardMouseOut = (e) =>  {

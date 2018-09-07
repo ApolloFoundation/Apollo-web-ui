@@ -122,11 +122,6 @@ class AssetExchange extends React.Component {
         this.props.setAlert('success', 'The buy order has been submitted.');
     };
 
-    handleSellFormSubmit = (values) => {
-        console.log(values);
-    };
-
-
     async getAssets() {
         if (this.props.assetBalances) {
             let assets = this.props.assetBalances.map(async (el, index) => {

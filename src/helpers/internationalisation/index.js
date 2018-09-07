@@ -143,11 +143,6 @@ export function getLocale() {
             CURRENT_LOCALE.decimal = LOCALE_DATA[lang].decimal;
             CURRENT_LOCALE.section = LOCALE_DATA[lang].section;
             CURRENT_LOCALE.displayName = LOCALE_DATA[lang].displayName;
-            console.log("Locale language: '" + CURRENT_LOCALE.lang +
-                "' date format: '" + CURRENT_LOCALE.dateFormat +
-                "' decimal separator: '" + CURRENT_LOCALE.decimal +
-                "' section separator: '" + CURRENT_LOCALE.section +
-                "' display name: '" + CURRENT_LOCALE.displayName + "'");
         }
         return CURRENT_LOCALE;
     }

@@ -85,10 +85,6 @@ export function storageSelect(table, query, callback) {
 };
 
 export function storageInsert(table, key, data, callback, isAutoIncrement) {
-    // if (isIndexedDBSupported()) {
-    //     console.log(NRS.database.insert(table, data, callback));
-    //     return NRS.database.insert(table, data, callback);
-    // }
     return (dispatch, getState) => {
         var items = dispatch(getAccountJSONItem(table));
         if (!items) {

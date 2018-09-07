@@ -4,6 +4,7 @@ import {setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
+import {formatTransactionType} from "../../../actions/transactions";
 
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {
@@ -26,14 +27,12 @@ class InfoLedgerTransaction extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
-        console.log(newState);
         this.setState({
             transaction: newState.modalData
         }, () => {
-            console.log(this.state.transaction);
             if (this.state.transaction.privateTransaction && this.state.transaction.privateTransaction.encryptedTransaction) {
                 var options = {
-                    publicKey  :  converters.hexStringToByteArray(this.state.transaction.publicKey),
+                    publicKey  :  converters.hexStringToByteArray(this.state.transaction.privateTransaction.serverPublicKey),
                     privateKey :  converters.hexStringToByteArray(this.state.transaction.privateKey),
                 };
 
@@ -44,15 +43,12 @@ class InfoLedgerTransaction extends React.Component {
 
                 options.sharedKey = sharedKey;
 
-                console.log(options);
-
                 var decrypted =  crypto.decryptData(this.state.transaction.privateTransaction.encryptedTransaction, options);
                 decrypted = decrypted.message;
 
                 decrypted = converters.hexStringToString(decrypted);
                 decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
                 decrypted = JSON.parse(decrypted);
-                console.log(decrypted);
                 this.setState({
                     transaction: decrypted
                 })
@@ -61,7 +57,6 @@ class InfoLedgerTransaction extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.transaction);
         if (this.state.transaction) {
             if (this.state.transaction.encryptedTransaction) {
                 var options = {
@@ -77,7 +72,6 @@ class InfoLedgerTransaction extends React.Component {
                 decrypted = converters.hexStringToString(decrypted);
                 decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
                 decrypted = JSON.parse(decrypted);
-                console.log(decrypted);
                 this.setState({
                     transaction: decrypted
                 })
@@ -89,7 +83,7 @@ class InfoLedgerTransaction extends React.Component {
         return (
             <div className="modal-box wide">
                 {
-                    this.state.transaction &&
+                    this.state.transaction && !this.state.transaction.privateTransaction &&
                     <form className="modal-form">
                         <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
@@ -127,34 +121,25 @@ class InfoLedgerTransaction extends React.Component {
                                 })}>
                                     <div className="transaction-table no-min-height">
                                         <div className="transaction-table-body transparent">
-                                            <table>
-                                                <tbody>
-                                                <tr>
-                                                    <td>Encrypted message:</td>
-                                                    <td>This is encrypted test message!</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shared key:</td>
-                                                    <td>{this.state.transaction.senderPublicKey}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>From:</td>
-                                                    <td>{this.state.transaction.senderRS}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>To:</td>
-                                                    <td>{this.state.transaction.recipientRS}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Compressed:</td>
-                                                    <td>?</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Hash:</td>
-                                                    <td>{this.state.transaction.fullHash}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            {
+                                                this.state.transaction && this.props.constants.transactionTypes &&
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Type:</td>
+                                                        <td>{formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>From:</td>
+                                                        <td>{this.state.transaction.senderRS}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>To:</td>
+                                                        <td>{this.state.transaction.recipientRS}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -188,16 +173,12 @@ class InfoLedgerTransaction extends React.Component {
                                                     <td>{this.state.transaction.senderRS}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Fee NQT:</td>
-                                                    <td>{this.state.transaction.recipientRS}</td>
+                                                    <td>Fee ATM:</td>
+                                                    <td>{this.state.transaction.feeATM / 100000000}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Transaction index:</td>
                                                     <td>?</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Type:</td>
-                                                    <td>{this.state.transaction.fullHash}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Confirmations:</td>
@@ -206,6 +187,14 @@ class InfoLedgerTransaction extends React.Component {
                                                 <tr>
                                                     <td>Full Hash:</td>
                                                     <td>{this.state.transaction.fullHash}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Type:</td>
+                                                    <td>{this.state.transaction.type}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Subtype:</td>
+                                                    <td>{this.state.transaction.subtype}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Version:</td>
@@ -226,10 +215,6 @@ class InfoLedgerTransaction extends React.Component {
                                                 <tr>
                                                     <td>Sender RS:</td>
                                                     <td>{this.state.transaction.senderRS}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Subtype:</td>
-                                                    <td>{this.state.transaction.subtype}</td>
                                                 </tr>
                                                 {
                                                     this.state.transaction.amountATM &&
@@ -285,7 +270,8 @@ class InfoLedgerTransaction extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    constants: state.account.constants
 });
 
 const mapDispatchToProps = dispatch => ({

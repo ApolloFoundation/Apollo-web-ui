@@ -112,15 +112,13 @@ class ModalWindow extends React.Component {
         if (this.refs.modalWindow.childNodes.length) {
             setTimeout(() => {
                 document.querySelector('.modal-box').classList.add('active')
-            }, 1)
+            }, 10)
         }
     }
 
     closeModal = () => {
         const modalWindow = document.querySelectorAll('.modal-window');
         const modalBox = document.querySelectorAll('.modal-box');
-
-        console.log(modalWindow);
 
         Object.values(modalWindow).map((el, index) => {
             setTimeout(() => {

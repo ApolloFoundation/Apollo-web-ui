@@ -49,8 +49,6 @@ class MarketplaceChangePrice extends React.Component {
             goods: value
         });
 
-        console.log(value);
-
         if (productData) {
             this.setState({
                 goods: productData
@@ -61,8 +59,6 @@ class MarketplaceChangePrice extends React.Component {
     async handleFormSubmit(values) {
         const publicKey = await crypto.getPublicKey(values.secretPhrase, false);
 
-        console.log(publicKey);
-
         values = {
             ...values,
             priceATM: parseInt(values.priceATM),
@@ -70,8 +66,6 @@ class MarketplaceChangePrice extends React.Component {
             recipient: this.props.account,
             publicKey: publicKey
         };
-
-        console.log(values);
 
         this.props.submitForm(null, null, values, 'dgsPriceChange')
             .done((res) => {

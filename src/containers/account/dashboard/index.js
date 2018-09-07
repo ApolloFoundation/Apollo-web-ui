@@ -189,8 +189,6 @@ class Dashboard extends React.Component {
 	getNews = async () => {
 		const news = await this.props.getNewsAction();
 
-        console.log(news);
-
         if (news) {
 			this.setState({
 				news,

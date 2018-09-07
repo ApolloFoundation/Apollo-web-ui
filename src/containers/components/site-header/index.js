@@ -110,8 +110,6 @@ class SiteHeader extends React.Component {
 	getBlock = async () => {
 		const block = await this.props.getBlockAction();
 
-		console.log(block);
-
 		if (block) {
 			this.setState({
 				block: block
