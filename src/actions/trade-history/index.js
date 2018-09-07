@@ -6,6 +6,7 @@ export function getTradesAction(reqParams) {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getTrades',
+                includeAssetInfo: true,
                 ...reqParams
             }
         })

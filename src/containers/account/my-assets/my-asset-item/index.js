@@ -13,6 +13,12 @@ class MyAssetItem extends React.Component {
         }
     }
 
+    componentWillReceiveProps (newState) {
+        this.setState({
+            transfer: newState.transfer
+        })
+    }
+
     render () {
         if (this.state.transfer) {
             return (
@@ -21,38 +27,45 @@ class MyAssetItem extends React.Component {
                         <Link to={"/asset-exchange/" + this.state.transfer.asset}>{this.state.transfer.name}</Link>
                     </td>
                     <td className="align-right">
-                        {this.state.transfer.initialQuantityATU}
+                        {this.state.transfer.quantityATU}
                     </td>
-                    <td className="align-right">{this.state.transfer.tradeType}</td>
-                    <td className="align-right"></td>
-                    <td className="align-right"></td>
-                    <td className="align-right" ></td>
-                    <td className="align-right blue-link-text">
-                    </td>
+                    <td className="align-right">{this.state.transfer.initialQuantityATU}</td>
                     <td className="align-right">
-                        <div className="btn-box inline">
-                            <a
-                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
-                                    quantityATU: this.state.transfer.quantityATU,
-                                    assetID:   this.state.transfer.asset,
-                                    assetName: this.state.transfer.name
-                                })}
-                                className="btn primary blue"
-                            >
-                                Transfer
-                            </a>
-                            <a
-                                onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
-                                    quantityATU: this.state.transfer.quantityATU,
-                                    assetID:   this.state.transfer.asset,
-                                    assetName: this.state.transfer.name
-                                })}
-                                className="btn primary blue"
-                            >
-                                Delete Shares
-                            </a>
-                        </div>
+                        {((parseInt(this.state.transfer.quantityATU) / parseInt(this.state.transfer.initialQuantityATU)) * 100).toFixed(2)}&nbsp;%
                     </td>
+                    {
+                        !this.props.info &&
+                        <React.Fragment>
+                            <td className="align-right"></td>
+                            <td className="align-right" ></td>
+                            <td className="align-right blue-link-text">
+                            </td>
+                            <td className="align-right">
+                                <div className="btn-box inline">
+                                    <a
+                                        onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
+                                            quantityATU: this.state.transfer.quantityATU,
+                                            assetID:   this.state.transfer.asset,
+                                            assetName: this.state.transfer.name
+                                        })}
+                                        className="btn primary blue"
+                                    >
+                                        Transfer
+                                    </a>
+                                    <a
+                                        onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
+                                            quantityATU: this.state.transfer.quantityATU,
+                                            assetID:   this.state.transfer.asset,
+                                            assetName: this.state.transfer.name
+                                        })}
+                                        className="btn primary blue"
+                                    >
+                                        Delete Shares
+                                    </a>
+                                </div>
+                            </td>
+                        </React.Fragment>
+                    }
                 </tr>
             );
         } else {

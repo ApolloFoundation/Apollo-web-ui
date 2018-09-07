@@ -1,14 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction} from '../../../modules/modals';
-import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
 import uuid from "uuid";
 import {getAccountAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {switchAccountAction} from "../../../actions/account";
-import Entry from '../../account/ledger/entry';
+import {formatTimestamp} from '../../../helpers/util/time';
+import {Link} from "react-router-dom";
 
+import Transaction from '../../account/transactions/transaction';
+import Entry from '../../account/ledger/entry';
+import Asset from '../../account/my-assets/my-asset-item/';
 
 class InfoAccount extends React.Component {
     constructor(props) {
@@ -71,6 +74,8 @@ class InfoAccount extends React.Component {
                 goods:          await accountData['GOODS'],
                 aliases:        await accountData['ALIASES'],
                 account:        await accountData['ACCOUNT'],
+            }, () => {
+                console.log(this.state);
             });
         }
     }
@@ -129,49 +134,49 @@ class InfoAccount extends React.Component {
                                         "form-tab": true,
                                         "active": this.state.activeTab === 0
                                     })}>
-                                        <span className="pre">Transactions</span>
+                                        <p className="pre">Transactions</p>
                                     </a>
                                     <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                         "form-tab": true,
                                         "active": this.state.activeTab === 1
                                     })}>
-                                        <span className="pre">Ledger</span>
+                                        <p className="pre">Ledger</p>
                                     </a>
                                     <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
                                         "form-tab": true,
                                         "active": this.state.activeTab === 2
                                     })}>
-                                        <span className="pre">Assets</span>
+                                        <p className="pre">Assets</p>
                                     </a>
-                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                    <a onClick={(e) => this.handleTab(e, 3)} className={classNames({
                                         "form-tab": true,
-                                        "active": this.state.activeTab === 2
+                                        "active": this.state.activeTab === 3
                                     })}>
-                                        <span className="pre">Trade history</span>
+                                        <p className="pre">Trade history</p>
                                     </a>
-                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                    <a onClick={(e) => this.handleTab(e, 4)} className={classNames({
                                         "form-tab": true,
-                                        "active": this.state.activeTab === 2
+                                        "active": this.state.activeTab === 4
                                     })}>
-                                        <span className="pre">Currencies</span>
+                                        <p className="pre">Currencies</p>
                                     </a>
-                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                    <a onClick={(e) => this.handleTab(e, 5)} className={classNames({
                                         "form-tab": true,
-                                        "active": this.state.activeTab === 2
+                                        "active": this.state.activeTab === 5
                                     })}>
-                                        <span className="pre">Marketplace</span>
+                                        <p className="pre">Marketplace</p>
                                     </a>
-                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                    <a onClick={(e) => this.handleTab(e, 6)} className={classNames({
                                         "form-tab": true,
-                                        "active": this.state.activeTab === 2
+                                        "active": this.state.activeTab === 6
                                     })}>
-                                        <span className="pre">Aliases</span>
+                                        <p className="pre">Aliases</p>
                                     </a>
-                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                    <a onClick={(e) => this.handleTab(e, 7)} className={classNames({
                                         "form-tab": true,
-                                        "active": this.state.activeTab === 2
+                                        "active": this.state.activeTab === 7
                                     })}>
-                                        <span className="pre">Actions</span>
+                                        <p className="pre">Actions</p>
                                     </a>
 
                                 </div>
@@ -262,81 +267,29 @@ class InfoAccount extends React.Component {
                                     "active": this.state.activeTab === 2
                                 })}>
                                     <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent">
+                                        <div className="transaction-table-body transparent padding-vertical-padding">
                                             <table>
-                                                <tbody>
+                                                <thead>
                                                     <tr>
-                                                        <td>Previous Block Hash:</td>
-                                                        <td className="word-brake">{this.props.modalData.previousBlockHash}</td>
+                                                        <td>Asset</td>
+                                                        <td className="align-right">Quantity</td>
+                                                        <td className="align-right">Total Available</td>
+                                                        <td className="align-right">Percentage</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Payload Length:</td>
-                                                        <td className="word-brake">{this.props.modalData.payloadLength}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Total Fee ATM:</td>
-                                                        <td className="word-brake">{this.props.modalData.totalFeeATM / 100000000}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Generation Signature:</td>
-                                                        <td className="word-brake">{this.props.modalData.generationSignature}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Executed Phased Transactions:</td>
-                                                        <td className="word-brake">{this.props.modalData.fullHash}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Generator Public Key:</td>
-                                                        <td className="word-brake">{this.props.modalData.generatorPublicKey}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Base Target:</td>
-                                                        <td className="word-brake">{this.props.modalData.baseTarget}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Payload Hash:</td>
-                                                        <td className="word-brake">{this.props.modalData.payloadHash}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Number of Transactions:</td>
-                                                        <td className="word-brake">{this.props.modalData.numberOfTransactions}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Block Signature:</td>
-                                                        <td className="word-brake">{this.props.modalData.blockSignature}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Version:</td>
-                                                        <td className="word-brake">{this.props.modalData.version}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Total Amount ATM:</td>
-                                                        <td className="word-brake">{this.props.modalData.totalFeeATM / 100000000}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Cumulative Difficulty:</td>
-                                                        <td className="word-brake">{this.props.modalData.cumulativeDifficulty}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Block:</td>
-                                                        <td className="word-brake">{this.props.modalData.block}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Height:</td>
-                                                        <td className="word-brake">{this.props.modalData.height}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Timestamp:</td>
-                                                        <td className="word-brake">{this.props.modalData.timesamp}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Generator:</td>
-                                                        <td className="word-brake">{this.props.modalData.generator}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Previous Block:</td>
-                                                        <td className="word-brake">{this.props.modalData.previousBlock}</td>
-                                                    </tr>
+                                                </thead>
+                                                <tbody key={uuid()}>
+                                                {
+                                                    this.state.assets &&
+                                                    this.state.assets.map((el, index) => {
+                                                        return (
+                                                            <Asset
+                                                                info
+                                                                transfer={el}
+                                                                setLedgerEntryInfo={this.getLedgerEntry}
+                                                            />
+                                                        );
+                                                    })
+                                                }
                                                 </tbody>
                                             </table>
                                         </div>
@@ -346,87 +299,203 @@ class InfoAccount extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 3
                                 })}>
-                                    <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent">
-                                            <table>
-                                                <tbody>
-                                                <tr>
-                                                    <td>Previous Block Hash:</td>
-                                                    <td className="word-brake">{this.props.modalData.previousBlockHash}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Payload Length:</td>
-                                                    <td className="word-brake">{this.props.modalData.payloadLength}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Total Fee ATM:</td>
-                                                    <td className="word-brake">{this.props.modalData.totalFeeATM / 100000000}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Generation Signature:</td>
-                                                    <td className="word-brake">{this.props.modalData.generationSignature}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Executed Phased Transactions:</td>
-                                                    <td className="word-brake">{this.props.modalData.fullHash}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Generator Public Key:</td>
-                                                    <td className="word-brake">{this.props.modalData.generatorPublicKey}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Base Target:</td>
-                                                    <td className="word-brake">{this.props.modalData.baseTarget}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Payload Hash:</td>
-                                                    <td className="word-brake">{this.props.modalData.payloadHash}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Number of Transactions:</td>
-                                                    <td className="word-brake">{this.props.modalData.numberOfTransactions}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Block Signature:</td>
-                                                    <td className="word-brake">{this.props.modalData.blockSignature}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Version:</td>
-                                                    <td className="word-brake">{this.props.modalData.version}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Total Amount ATM:</td>
-                                                    <td className="word-brake">{this.props.modalData.totalFeeATM / 100000000}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cumulative Difficulty:</td>
-                                                    <td className="word-brake">{this.props.modalData.cumulativeDifficulty}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Block:</td>
-                                                    <td className="word-brake">{this.props.modalData.block}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Height:</td>
-                                                    <td className="word-brake">{this.props.modalData.height}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Timestamp:</td>
-                                                    <td className="word-brake">{this.props.modalData.timesamp}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Generator:</td>
-                                                    <td className="word-brake">{this.props.modalData.generator}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Previous Block:</td>
-                                                    <td className="word-brake">{this.props.modalData.previousBlock}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                    {
+                                        this.state.trades &&
+                                        this.state.trades.trades.length &&
+                                        <div className="transaction-table no-min-height">
+                                            <div className="transaction-table no-min-height">
+                                                <div className="transaction-table-body transparent padding-vertical-padding">
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <td>Asset</td>
+                                                            <td>Date</td>
+                                                            <td>Type</td>
+                                                            <td className="align-right">Quantity</td>
+                                                            <td className="align-right">Price</td>
+                                                            <td className="align-right">Total</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody key={uuid()}>
+                                                        {
+                                                            this.state.trades &&
+                                                            this.state.trades.trades.map((el, index) => {
+                                                                return (
+                                                                    <tr>
+                                                                        <td className={'blue-link-text'}>
+                                                                            <Link
+                                                                                onClick={() => this.props.closeModal()}
+                                                                                to={'/asset-exchange/' + el.asset}
+                                                                            >
+                                                                                {el.name}
+                                                                            </Link>
+                                                                        </td>
+                                                                        <td>{this.props.formatTimestamp(el.timestamp)}</td>
+                                                                        <td>{el.tradeType}</td>
+                                                                        <td className="align-right">{el.quantityATU / el.decimals}</td>
+                                                                        <td className="align-right">{(el.priceATM * Math.pow(10, el.decimals)) / 100000000}</td>
+                                                                        <td className="align-right">0.00</td>
+                                                                    </tr>
+                                                                );
+                                                            })
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
+                                    }
+                                    {
+                                        this.state.trades &&
+                                        !this.state.trades.trades.length &&
+                                        <p>This user has no trades.</p>
+                                    }
+                                </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 4
+                                })}>
+                                    {
+                                        this.state.currencies &&
+                                        this.state.currencies.currencies.length &&
+                                        <div className="transaction-table no-min-height">
+                                            <div className="transaction-table no-min-height">
+                                                <div className="transaction-table-body transparent padding-vertical-padding">
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <td>Code</td>
+                                                            <td>Name</td>
+                                                            <td className="align-right">Units</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody key={uuid()}>
+                                                        {
+                                                            this.state.currencies &&
+                                                            this.state.currencies.currencies.map((el, index) => {
+                                                                return (
+                                                                    <tr>
+                                                                        <td>{el.code}</td>
+                                                                        <td>{el.name}</td>
+                                                                        <td className="align-right">{0.1}</td>
+                                                                    </tr>
+                                                                );
+                                                            })
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    {
+                                        this.state.currencies &&
+                                        !this.state.currencies.currencies.length &&
+                                        <p>This user has no currencies.</p>
+                                    }
+                                </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 5
+                                })}>
+                                    {
+                                        this.state.goods &&
+                                        this.state.goods.goods.length &&
+                                        <div className="transaction-table no-min-height">
+                                            <div className="transaction-table no-min-height">
+                                                <div className="transaction-table-body transparent padding-vertical-padding">
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <td>Item</td>
+                                                            <td>Price</td>
+                                                            <td className="align-right">QTY</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody key={uuid()}>
+                                                        {
+                                                            this.state.goods &&
+                                                            this.state.goods.goods.map((el, index) => {
+                                                                return (
+                                                                    <tr>
+                                                                        <td
+                                                                            className={'blue-link-text'}
+                                                                        >
+                                                                            <a onClick={() => this.props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', el.goods)}>
+                                                                                {el.name}
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>{el.priceATM / 100000000}</td>
+                                                                        <td className="align-right">{el.quantity}</td>
+                                                                    </tr>
+                                                                );
+                                                            })
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    {
+                                        this.state.goods &&
+                                        !this.state.goods.goods.length &&
+                                        <p>This user has no goods.</p>
+                                    }
+                                </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 6
+                                })}>
+                                    {
+                                        this.state.aliases &&
+                                        this.state.aliases.aliases.length &&
+                                        <div className="transaction-table no-min-height">
+                                            <div className="transaction-table no-min-height">
+                                                <div className="transaction-table-body transparent padding-vertical-padding">
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <td>Alias</td>
+                                                            <td>URI</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody key={uuid()}>
+                                                        {
+                                                            this.state.aliases &&
+                                                            this.state.aliases.aliases.map((el, index) => {
+                                                                return (
+                                                                    <tr>
+                                                                        <td>{el.aliasName}</td>
+                                                                        <td>{el.aliasURI}</td>
+                                                                    </tr>
+                                                                );
+                                                            })
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    {
+                                        this.state.aliases &&
+                                        !this.state.aliases.aliases.length &&
+                                        <p>This user has no aliases.</p>
+                                    }
+                                </div>
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 7
+                                })}>
+                                    <div className="flexible-grid">
+                                        <a className="btn btn-primary blue static">Send Apollo</a>
+                                        <a className="btn btn-primary blue static">Send currency</a>
+                                        <a className="btn btn-primary blue static">Send a message</a>
+                                        <a className="btn btn-primary blue static">Add as contact</a>
                                     </div>
                                 </div>
+
                             </div>
                             <div className="btn-box align-buttons-inside absolute right-conner">
                                 <a className="btn btn-right round round-top-left round-bottom-right"
@@ -454,6 +523,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => setModalData(data),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 
     // getAccountData
     getAccountAction:  (requestParams) => dispatch(getAccountAction(requestParams)),
