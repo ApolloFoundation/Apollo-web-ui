@@ -6,7 +6,8 @@
   z-index: 1;
   background-color: #F5F5F5;
   padding: 30px 40px 30px 40px;
-  width: calc(100% - 220px); }
+  width: calc(100% - 220px);
+  top: 0; }
   @media (max-width: 760px) {
     .page-header {
       position: static;
