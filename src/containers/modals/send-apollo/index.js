@@ -210,6 +210,16 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="input-group-app offset-top display-block inline">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Deadline (hours)</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <Text field="deadline" type={'number'}/>
+                                        </div>
+                                    </div>
+                                </div>
                                 {
                                     this.state.passphraseStatus &&
                                     <InfoBox danger mt>
