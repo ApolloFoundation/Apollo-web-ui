@@ -318,13 +318,16 @@ input[type="number"] {
         width: 100%;
 
         .transactions-filters {
-          height: 120px;
+          min-height: 120px;
           padding-left: 40px;
 
           .top-bar {
             display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
 
             .btn {
+              margin-top: 10px;
               margin-right: 15px;
             }
           }

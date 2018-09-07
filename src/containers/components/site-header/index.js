@@ -126,7 +126,7 @@ class SiteHeader extends React.Component {
 					<div className="row">
 						<div className="col-md-6">
 							<div className="page-title-box">
-								<div className="page-title-box">
+								<div className="page-title-box transactions-title">
 									<h1 className="title">{this.props.pageTitle}</h1>
 									{
 										this.props.showPrivateTransactions &&

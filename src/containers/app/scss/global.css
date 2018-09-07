@@ -1069,3 +1069,7 @@ table td .btn, table th .btn {
   max-height: calc(100vh); }
   .assets-exchange .row {
     max-height: 100%; }
+
+@media (max-width: 1023px) {
+  .transactions-title .btn {
+    display: none !important; } }
