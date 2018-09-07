@@ -142,13 +142,9 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <label htmlFor="referencedHash" className="col-form-label mb-2">
-                                    Process without approval
-                                </label>
-                            </div>
-                        </div>
+                        <p className="mb-3">
+                            Process without approval
+                        </p>
                         <div className="form-group row form-group-grey">
                             <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                 Referenced transaction hash
