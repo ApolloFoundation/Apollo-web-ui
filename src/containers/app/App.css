@@ -3286,11 +3286,51 @@ input {
       color: #707070;
       line-height: 2.1;
       letter-spacing: 0.2px;
-      font-size: 11.5px; }
+      font-size: 11.5px;
+      border-radius: 5px; }
+      .form-group-app .form-group-grey .form-controlselect {
+        background-color: #e5e5e5; }
+    .form-group-app .form-group-grey .form-group-select {
+      /*&::before {
+        content: "\f2fc";
+        color: #707070;
+        position: absolute;
+        top: 1px;
+        right: 25px;
+        font: normal normal normal 18px/1 'Material-Design-Iconic-Font';
+      }
+      &::after {
+        content: "\f2f9";
+        color: #707070;
+        position: absolute;
+        bottom: 1px;
+        right: 25px;
+        font: normal normal normal 18px/1 'Material-Design-Iconic-Font';
+      }*/ }
+      .form-group-app .form-group-grey .form-group-select select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none; }
+        .form-group-app .form-group-grey .form-group-select select::-ms-expand {
+          display: none; }
+      .form-group-app .form-group-grey .form-group-select::after {
+        content: "\f2f9";
+        color: #707070;
+        position: absolute;
+        top: 7px;
+        right: 25px;
+        font: normal normal normal 20px/1 'Material-Design-Iconic-Font'; }
+    .form-group-app .form-group-grey .input-group .form-control {
+      border-radius: 5px 0 0 5px; }
+    .form-group-app .form-group-grey .input-group .input-group-text {
+      border-radius: 0 5px 5px 0; }
     .form-group-app .form-group-grey .input-group-text {
       background-color: #e5e5e5;
       border-color: #e5e5e5;
       color: #707070; }
+    .form-group-app .form-group-grey .input-group-icon {
+      font-size: 18px;
+      padding: 5px 9px; }
     .form-group-app .form-group-grey ::placeholder {
       color: #a6a6a6;
       opacity: 1;
@@ -3301,6 +3341,8 @@ input {
       color: #a6a6a6; }
   .form-group-app .btn {
     font-size: 11px; }
+  .form-group-app .mb-15 {
+    margin-bottom: 15px; }
 
 .input-group-app {
   display: table-row; }
@@ -4102,8 +4144,7 @@ input[type="number"] {
   width: 100%;
   border: 1px solid #E5E5E5;
   background-color: #F5F5F5;
-  border-radius: 3px;
-  padding: 12px 20px; }
+  border-radius: 3px; }
 
 .site-content {
   position: relative;
