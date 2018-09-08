@@ -2820,7 +2820,7 @@ input[type="number"]::-webkit-inner-spin-button {
   background-size: contain;
   width: 9px;
   margin-right: 6px;
-  opacity: .5;
+  opacity: 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -3301,13 +3301,16 @@ input {
       line-height: 2.1;
       letter-spacing: 0.2px;
       font-size: 11.5px;
-      border-radius: 5px; }
+      border-radius: 5px;
+      padding: 0.25rem 0.5rem 0.2rem; }
       .form-group-app .form-group-grey .form-controlselect {
         background-color: #e5e5e5; }
     .form-group-app .form-group-grey .form-group-select select {
       -webkit-appearance: none;
       -moz-appearance: none;
-      appearance: none; }
+      appearance: none;
+      padding: 0.25rem 0.5rem 0.2rem;
+      height: auto; }
       .form-group-app .form-group-grey .form-group-select select::-ms-expand {
         display: none; }
     .form-group-app .form-group-grey .form-group-select::after {
@@ -3334,6 +3337,15 @@ input {
     .form-group-app .form-group-grey .input-group.input-group-text-transparent .input-group-text {
       background-color: transparent;
       color: #a6a6a6; }
+    .form-group-app .form-group-grey .input-group.input-group-double .form-control {
+      border-right: none;
+      text-align: left; }
+    .form-group-app .form-group-grey .input-group.input-group-double .input-group-append {
+      flex: 2; }
+    .form-group-app .form-group-grey .input-group.input-group-double .input-group-text {
+      background-color: transparent;
+      color: #a6a6a6;
+      border: 1px solid #e5e5e5; }
     .form-group-app .form-group-grey ::placeholder {
       color: #a6a6a6;
       opacity: 1;
@@ -3924,7 +3936,8 @@ table td .btn, table th .btn {
     background-repeat: no-repeat;
     background-size: 10px;
     left: -18px;
-    top: 0; }
+    top: 0;
+    box-shadow: none; }
   .custom-checkbox .custom-control-input ~ .custom-control-label::before,
   .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
     height: 16px;
@@ -3933,7 +3946,9 @@ table td .btn, table th .btn {
     background-color: #F5F5F5;
     border-radius: 3px;
     color: #000000;
-    top: -1px; }
+    top: -1px;
+    box-shadow: none;
+    cursor: pointer; }
   .custom-checkbox .custom-control-label {
     padding-left: 6px;
     color: #333333; }
