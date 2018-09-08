@@ -34,7 +34,7 @@ class AccountRS extends React.Component {
         console.log(this.state.contacts);
         return (
             <React.Fragment>
-                <InputMask mask='APL-****-****-****-*****' placeholder={'Account RS'} ref={'input'} value={this.state.inputValue} onChange={(e) => {
+                <InputMask class="form-control" mask='APL-****-****-****-*****' placeholder={'Account RS'} ref={'input'} value={this.state.inputValue} onChange={(e) => {
                     if (e.target) {
                         var value = e.target.value;
                         var newState = {
