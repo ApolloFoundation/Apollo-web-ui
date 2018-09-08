@@ -579,7 +579,8 @@ input {
       -moz-appearance: none;
       appearance: none;
       padding: 0.25rem 0.5rem 0.2rem;
-      height: auto; }
+      height: auto;
+      background-color: #e5e5e5; }
       .form-group-app .form-group-grey .form-group-select select::-ms-expand {
         display: none; }
     .form-group-app .form-group-grey .form-group-select::after {
