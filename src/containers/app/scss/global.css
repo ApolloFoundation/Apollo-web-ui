@@ -587,10 +587,6 @@ input {
       right: 25px;
       font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
       cursor: pointer; }
-    .form-group-app .form-group-grey .input-group .form-control {
-      border-radius: 5px 0 0 5px; }
-    .form-group-app .form-group-grey .input-group .input-group-text {
-      border-radius: 0 5px 5px 0; }
     .form-group-app .form-group-grey .input-group-text {
       background-color: #e5e5e5;
       border-color: #e5e5e5;
@@ -598,6 +594,15 @@ input {
     .form-group-app .form-group-grey .input-group-icon {
       font-size: 18px;
       padding: 5px 9px; }
+    .form-group-app .form-group-grey .input-group .form-control {
+      border-radius: 5px 0 0 5px; }
+    .form-group-app .form-group-grey .input-group .input-group-text {
+      border-radius: 0 5px 5px 0; }
+    .form-group-app .form-group-grey .input-group.input-group-text-transparent .form-control {
+      border-right: none; }
+    .form-group-app .form-group-grey .input-group.input-group-text-transparent .input-group-text {
+      background-color: transparent;
+      color: #a6a6a6; }
     .form-group-app .form-group-grey ::placeholder {
       color: #a6a6a6;
       opacity: 1;

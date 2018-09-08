@@ -469,11 +469,11 @@ input {
 		flex-direction: row;
 		flex-wrap: nowrap;
 		justify-content: space-between;
-		
+
 		.left-bar {
 			width: 50%;
 			margin: -35px 0 -70px -35px;
-			
+
 			.top-bar {
 				.marketplace-image {
 					margin: 0;
@@ -489,7 +489,7 @@ input {
 		}
 		.right-bar {
 			width: 50%;
-			
+
 			.price {
 				padding-top: 35px;
 				padding-bottom: 30px;
@@ -509,17 +509,17 @@ input {
 		}
 		.right-bar {
 			width: calc(100% - 160px);
-			
+
 			.description {
 				color: #333333;
 				font-size: 14px;
 				line-height: 1.6;
 				padding-top: 48px;
-				
+
 				p {
 					margin-top: 30px;
 					font-size: 14px;
-					
+
 					a {
 						color: #00C8FF;
 						font-weight: normal;
@@ -539,7 +539,7 @@ input {
 	&.compensate-margin {
 		margin: 0 -7.5px;
 		margin-bottom: 15px;
-		
+
 	}
 	&.height-auto {
 		height: auto;
@@ -561,7 +561,7 @@ input {
 			padding-top: 35px;
 			padding-bottom: 35px;
 			border-bottom: 1px solid #E6E6E6;
-			
+
 			&:last-child {
 				padding-bottom: 0;
 				border-bottom: 0;
@@ -569,7 +569,7 @@ input {
 		}
 		.image-button {
 			margin-bottom: 10px;
-			
+
 			&:last-child {
 				margin-bottom: 0px;
 			}
@@ -611,7 +611,7 @@ input {
 		position: absolute;
 		top: 35px;
 		right: 35px;
-		
+
 		i {
 			font-size: 20px;
 		}
@@ -622,7 +622,7 @@ input {
 		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: center;
-		
+
 		&.no-image {
 			background-size: 30% !important;
 			background-image: url(../../assets/no-photo.svg) !important;
@@ -639,7 +639,7 @@ input {
 	.form-title {
 		//padding-top: 30px;
 		padding-bottom: 20px;
-		
+
 		&.inline {
 			& > * {
 				vertical-align: middle;
@@ -672,10 +672,10 @@ input {
 		}
 	}
 	.left-bar {
-	
+
 	}
 	.right-bar {
-	
+
 	}
 	.form-sub-title {
 		color: #BBBBBB;
@@ -683,7 +683,7 @@ input {
 		font-size: 12px;
 		line-height: 19px;
 		margin-top: -15px;
-		
+
 		&.align-padding-bottom {
 			padding-bottom: 15px;
 		}
@@ -696,7 +696,7 @@ input {
 		}
 	}
 	.form-exit {
-	
+
 	}
 	.input-group-app {
 		&:last-child:not(:first-child) {
@@ -737,7 +737,7 @@ input {
             border-radius: 3px;
 		}
 	}
-	
+
 	// needed for modal windows
 	.form-tabulator {
 		position: relative;
@@ -746,14 +746,14 @@ input {
 		padding: 18px 35px 70px 35px;
 		display: none;
 		border-radius: 0 0 6px 6px;
-		
+
 		&.white {
 			background-color: white;
-			
+
 			.form-tab-nav-box {
 				.form-tab {
 					background-color: #F5F5F5;
-					
+
 					&.active {
 						background-color: #fff;
 					}
@@ -771,24 +771,24 @@ input {
 			bottom: 100%;
 			right: 20px;
 			left: 20px;
-			
+
 			&.justify-left {
 				justify-content: flex-start;
-				
+
 				.form-tab {
 					margin-right: 15px;
 					width: auto;
 					padding: 0 15px;
 				}
 			}
-			
+
 			.form-tab {
 				display: flex;
 				width: 54px;
 				height: 32px;
 				border-top-left-radius: 6px;
 				border-top-right-radius: 6px;
-				
+
 				&.active {
 					background-color: #F5F5F5;
 				}
@@ -803,7 +803,7 @@ input {
 		}
 		.tab-body {
 			display: none;
-			
+
 			&.active {
 				display: block;
 			}
@@ -811,7 +811,7 @@ input {
 		.form-sub-actions {
 			display: block;
             padding-top: 7px;
-			
+
 			.form-group-app {
 				background-color: transparent;
 				padding: 0;
@@ -819,83 +819,92 @@ input {
 		}
 	}
   .form-group-grey {
-    margin-bottom: 8px;
-    margin-left: 0;
-    align-items: center;
-    label {
-      color: #333333;
-      letter-spacing: 0.3px;
-      line-height: 16px;
-      padding: 0;
-    }
-    .no-left-padding {
-      padding-left: 7px;
-    }
-    .form-control {
-      background-color: #f5f5f5;
-      border-color: #e5e5e5;
-      color: #727272;
-      line-height: 2.1;
-      letter-spacing: 0.2px;
-      font-size: 11.5px;
-      border-radius: 5px;
-      &select {
-        background-color: #e5e5e5;
-      }
-    }
-    .form-group-select {
-      select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        &::-ms-expand {
-          display: none;
-        }
-      }
-      &::after {
-        content: "\f2f9";
-        color: #727272;
-        position: absolute;
-        top: 7px;
-        right: 25px;
-        font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
-        cursor: pointer;
-      }
-    }
-    .input-group {
-      .form-control {
-        border-radius: 5px 0 0 5px;
-      }
-      .input-group-text {
-        border-radius: 0 5px 5px 0;
-      }
-    }
-    .input-group-text {
-      background-color: #e5e5e5;
-      border-color: #e5e5e5;
-      color: #707070;
-    }
-    .input-group-icon {
-      font-size: 18px;
-      padding: 5px 9px;
-    }
-    ::placeholder {
-      color: #a6a6a6;
-      opacity: 1;
-      font-weight: 400;
-    }
-    :-ms-input-placeholder {
-      color: #a6a6a6;
-    }
-    ::-ms-input-placeholder {
-      color: #a6a6a6;
-    }
+	  margin-bottom: 8px;
+	  margin-left: 0;
+	  align-items: center;
+	  label {
+		  color: #333333;
+		  letter-spacing: 0.3px;
+		  line-height: 16px;
+		  padding: 0;
+	  }
+	  .no-left-padding {
+		  padding-left: 7px;
+	  }
+	  .form-control {
+		  background-color: #f5f5f5;
+		  border-color: #e5e5e5;
+		  color: #727272;
+		  line-height: 2.1;
+		  letter-spacing: 0.2px;
+		  font-size: 11.5px;
+		  border-radius: 5px;
+		  &select {
+			  background-color: #e5e5e5;
+		  }
+	  }
+	  .form-group-select {
+		  select {
+			  -webkit-appearance: none;
+			  -moz-appearance: none;
+			  appearance: none;
+			  &::-ms-expand {
+				  display: none;
+			  }
+		  }
+		  &::after {
+			  content: "\f2f9";
+			  color: #727272;
+			  position: absolute;
+			  top: 7px;
+			  right: 25px;
+			  font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
+			  cursor: pointer;
+		  }
+	  }
+	  .input-group-text {
+		  background-color: #e5e5e5;
+		  border-color: #e5e5e5;
+		  color: #707070;
+	  }
+	  .input-group-icon {
+		  font-size: 18px;
+		  padding: 5px 9px;
+	  }
+	  .input-group {
+		  .form-control {
+			  border-radius: 5px 0 0 5px;
+		  }
+		  .input-group-text {
+			  border-radius: 0 5px 5px 0;
+		  }
+		  &.input-group-text-transparent {
+			  .form-control {
+				  border-right: none;
+			  }
+			  .input-group-text {
+				  background-color: transparent;
+				  color: #a6a6a6;
+			  }
+		  }
+	  }
+	  ::placeholder {
+		  color: #a6a6a6;
+		  opacity: 1;
+		  font-weight: 400;
+	  }
+	  :-ms-input-placeholder {
+		  color: #a6a6a6;
+	  }
+	  ::-ms-input-placeholder {
+		  color: #a6a6a6;
+	  }
   }
   .btn {
-    font-size: 11px;
+	  font-size: 11px;
   }
   .mb-15 {
-    margin-bottom: 15px;
+	  margin-bottom: 15px;
   }
 }
 
