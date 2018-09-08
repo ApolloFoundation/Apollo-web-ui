@@ -568,6 +568,8 @@ input {
       color: #a6a6a6; }
     .form-group-app .form-group-grey ::-ms-input-placeholder {
       color: #a6a6a6; }
+  .form-group-app .btn {
+    font-size: 11px; }
 
 .input-group-app {
   display: table-row; }
@@ -1139,12 +1141,14 @@ table td .btn, table th .btn {
 
 .custom-checkbox {
   padding-left: 23px; }
+  .custom-checkbox .custom-control-input {
+    z-index: 1; }
   .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
     background-image: url(../../assets/checked.svg);
     background-repeat: no-repeat;
     background-size: 10px;
-    left: -1.45rem;
-    top: 2px; }
+    left: -18px;
+    top: 0; }
   .custom-checkbox .custom-control-input ~ .custom-control-label::before,
   .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
     height: 16px;
