@@ -841,6 +841,9 @@ input {
       color: #a6a6a6;
     }
   }
+	.btn {
+		font-size: 11px;
+	}
 }
 
 .input-group-app {
@@ -1736,12 +1739,15 @@ table {
 }
 .custom-checkbox {
   padding-left: 23px;
+  .custom-control-input {
+    z-index: 1;
+  }
   .custom-control-input:checked~.custom-control-label::after {
     background-image: url(../../assets/checked.svg);
     background-repeat: no-repeat;
     background-size: 10px;
-    left: -1.45rem;
-    top: 2px;
+    left: -18px;
+    top: 0;
   }
   .custom-control-input~.custom-control-label::before,
   .custom-control-input:checked~.custom-control-label::before {

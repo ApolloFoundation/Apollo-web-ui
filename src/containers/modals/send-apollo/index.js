@@ -259,7 +259,7 @@ class SendApollo extends React.Component {
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
-                                        Send
+                                        Submit
                                     </button>
 
                                 </div>
