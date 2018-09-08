@@ -222,11 +222,14 @@ input[type="number"] {
     .site-content .page-content .page-body .my-transactions {
       width: 100%; }
       .site-content .page-content .page-body .my-transactions .transactions-filters {
-        height: 120px;
+        min-height: 120px;
         padding-left: 40px; }
         .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar {
-          display: flex; }
+          display: flex;
+          flex-wrap: wrap;
+          margin-bottom: 20px; }
           .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar .btn {
+            margin-top: 10px;
             margin-right: 15px; }
       .site-content .page-content .page-body .my-transactions .transaction-table {
         height: calc(100% - 120px);

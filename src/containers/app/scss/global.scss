@@ -81,6 +81,7 @@ input[type="checkbox"] {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+	display: block;
 	border: 1px solid #E5E5E5;
 	background-color: #F5F5F5;
 	border-radius: 3px;
@@ -796,7 +797,7 @@ input {
 		.form-sub-actions {
 			display: block;
             padding-top: 7px;
-			
+
 			.form-group-app {
 				background-color: transparent;
 				padding: 0;
@@ -961,6 +962,7 @@ input {
 		display: table-cell;
 		color: #777777;
 		font-family: "Roboto-Regular";
+		font-size: 12px;
 		line-height: 14px;
 		padding: 0 0 0 5px;
 		font-size: 13.5px;
@@ -1728,10 +1730,19 @@ table {
 	}
 }
 
+
 .assets-exchange{
 	max-height: calc(100vh);
 	.row {
 		max-height: 100%;
+	}
+}
+
+.transactions-title{
+	.btn {
+		@media (max-width: 1023px) {
+			display: none !important;
+		}
 	}
 }
 .custom-checkbox {
