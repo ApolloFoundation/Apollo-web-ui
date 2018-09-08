@@ -10,6 +10,7 @@ class AccountRS extends React.Component {
 
     state = {
         contacts: JSON.parse(localStorage.getItem('APLContacts')),
+        inputValue: this.props.defaultValue,
         isContacts: false
     };
 
@@ -18,7 +19,8 @@ class AccountRS extends React.Component {
         this.refs.input.value = account;
         console.log(this.refs.input.value);
         this.setState({
-            isContacts: false
+            isContacts: false,
+            inputValue: account
         })
     };
 
@@ -32,7 +34,7 @@ class AccountRS extends React.Component {
         console.log(this.state.contacts);
         return (
             <React.Fragment>
-                <InputMask mask='APL-****-****-****-*****' placeholder={'Account RS'} ref={'input'} value={this.props.defaultValue} onChange={(e) => {
+                <InputMask class="form-control" mask='APL-****-****-****-*****' placeholder={'Account RS'} ref={'input'} value={this.state.inputValue} onChange={(e) => {
                     if (e.target) {
                         var value = e.target.value;
                         var newState = {
@@ -46,6 +48,7 @@ class AccountRS extends React.Component {
                         if (/^APL-/.test(e.target.value)) {
                         }
                         this.props.setValue(this.props.field, value);
+                        this.setState({inputValue: newState.value})
                     }
                 }}
                 >

@@ -12,9 +12,20 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 html, body {
   background-color: #F5F5F5; }
 
-*:focus {
+*:focus, *:active, *:hover {
   box-shadow: none !important;
   -webkit-box-shadow: none !important; }
+
+::placeholder {
+  color: #a6a6a6;
+  opacity: 1;
+  font-weight: 400; }
+
+:-ms-input-placeholder {
+  color: #a6a6a6; }
+
+::-ms-input-placeholder {
+  color: #a6a6a6; }
 
 html {
   height: 100%; }
@@ -83,6 +94,20 @@ input[type="radio"] {
   width: auto;
   display: inline-block !important; }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  background: url(../../assets/number-arrows.png) no-repeat center center;
+  background-size: contain;
+  width: 9px;
+  margin-right: 6px;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer; }
+
 .notification-message .title {
   color: white; }
 
@@ -112,21 +137,21 @@ input {
   top: 100%;
   right: 0;
   left: 0;
-  padding: 8px 15px 0 15px;
+  margin: 1px 15px 0 15px;
   z-index: 4;
   transform: translateY(50px);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease-in-out; }
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #E5E5E5;
+  border-radius: 3px; }
   .contacts-list.active {
     opacity: 1;
     transform: none;
     visibility: visible; }
   .contacts-list ul {
     background-color: #F5F5F5;
-    border: 1px solid #E5E5E5;
-    border-radius: 3px;
-    box-shadow: 0 0 10px #000000; }
+    box-shadow: 0 6px 10px 0 #e5e5e5; }
     .contacts-list ul li {
       border-bottom: 1px solid #E5E5E5; }
       .contacts-list ul li:last-child {
@@ -433,7 +458,7 @@ input {
     background-position: left;
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group-app .form-title {
-    padding-bottom: 20px; }
+    padding-bottom: 23px; }
     .form-group-app .form-title.inline > * {
       vertical-align: middle;
       display: inline-block; }
@@ -528,7 +553,7 @@ input {
           font-size: 13px !important; }
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab > * {
           margin: auto;
-          font-size: 16px; }
+          font-size: 18px; }
     .form-group-app .form-tabulator .tab-body {
       display: none; }
       .form-group-app .form-tabulator .tab-body.active {
@@ -551,24 +576,133 @@ input {
     .form-group-app .form-group-grey .no-left-padding {
       padding-left: 7px; }
     .form-group-app .form-group-grey .form-control {
-      background-color: #f5f5f5;
+      background-color: transparent;
       border-color: #e5e5e5;
-      color: #707070;
+      color: #727272;
       line-height: 2.1;
       letter-spacing: 0.2px;
-      font-size: 11.5px; }
+      font-size: 11.5px;
+      border-radius: 5px;
+      padding: 0.25rem 0.5rem 0.2rem; }
+      .form-group-app .form-group-grey .form-controlselect {
+        background-color: #e5e5e5; }
+    .form-group-app .form-group-grey .form-group-select select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding: 0.25rem 0.5rem 0.2rem;
+      height: auto;
+      background-color: #e5e5e5; }
+      .form-group-app .form-group-grey .form-group-select select::-ms-expand {
+        display: none; }
+    .form-group-app .form-group-grey .form-group-select::after {
+      content: "\f2f9";
+      color: #727272;
+      position: absolute;
+      top: 7px;
+      right: 25px;
+      font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
+      cursor: pointer; }
     .form-group-app .form-group-grey .input-group-text {
       background-color: #e5e5e5;
       border-color: #e5e5e5;
       color: #707070; }
-    .form-group-app .form-group-grey ::placeholder {
+    .form-group-app .form-group-grey .input-group-icon {
+      font-size: 18px;
+      padding: 5px 9px; }
+    .form-group-app .form-group-grey .input-group .form-control {
+      border-radius: 5px 0 0 5px; }
+    .form-group-app .form-group-grey .input-group .input-group-text {
+      border-radius: 0 5px 5px 0; }
+    .form-group-app .form-group-grey .input-group.input-group-text-transparent .form-control {
+      border-right: none; }
+    .form-group-app .form-group-grey .input-group.input-group-text-transparent .input-group-text {
+      background-color: transparent;
+      color: #a6a6a6; }
+    .form-group-app .form-group-grey .input-group.input-group-double .form-control {
+      border-right: none;
+      text-align: left; }
+    .form-group-app .form-group-grey .input-group.input-group-double .input-group-append {
+      flex: 2; }
+    .form-group-app .form-group-grey .input-group.input-group-double .input-group-text {
+      background-color: transparent;
       color: #a6a6a6;
-      opacity: 1;
-      font-weight: 400; }
-    .form-group-app .form-group-grey :-ms-input-placeholder {
+      border: 1px solid #e5e5e5; }
+  .form-group-app .form-group-white {
+    margin-bottom: 8px;
+    margin-left: 0;
+    align-items: center; }
+    .form-group-app .form-group-white label {
+      color: #333333;
+      letter-spacing: 0.3px;
+      line-height: 16px;
+      padding: 0 0 0 5px; }
+    .form-group-app .form-group-white .form-control {
+      background-color: #ffffff;
+      border-color: #e5e5e5;
+      color: #727272;
+      line-height: 2.1;
+      letter-spacing: 0.2px;
+      font-size: 11.5px;
+      border-radius: 5px;
+      padding: 0.25rem 0.5rem 0.2rem; }
+      .form-group-app .form-group-white .form-controlselect {
+        background-color: #e5e5e5; }
+    .form-group-app .form-group-white .form-group-select select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding: 0.25rem 0.5rem 0.2rem;
+      height: auto;
+      background-color: #e5e5e5; }
+      .form-group-app .form-group-white .form-group-select select::-ms-expand {
+        display: none; }
+    .form-group-app .form-group-white .form-group-select::after {
+      content: "\f2f9";
+      color: #727272;
+      position: absolute;
+      top: 7px;
+      right: 25px;
+      font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
+      cursor: pointer; }
+    .form-group-app .form-group-white .input-group-text {
+      background-color: #e5e5e5;
+      border-color: #e5e5e5;
+      color: #707070; }
+    .form-group-app .form-group-white .input-group-icon {
+      font-size: 18px;
+      padding: 5px 9px; }
+    .form-group-app .form-group-white .input-group .form-control {
+      border-radius: 5px 0 0 5px; }
+    .form-group-app .form-group-white .input-group .input-group-text {
+      border-radius: 0 5px 5px 0; }
+    .form-group-app .form-group-white .input-group.input-group-text-transparent .form-control {
+      border-right: none; }
+    .form-group-app .form-group-white .input-group.input-group-text-transparent .input-group-text {
+      background-color: transparent;
       color: #a6a6a6; }
-    .form-group-app .form-group-grey ::-ms-input-placeholder {
-      color: #a6a6a6; }
+    .form-group-app .form-group-white .input-group.input-group-double .form-control {
+      border-right: none;
+      text-align: left; }
+    .form-group-app .form-group-white .input-group.input-group-double .input-group-append {
+      flex: 2; }
+    .form-group-app .form-group-white .input-group.input-group-double .input-group-text {
+      background-color: transparent;
+      color: #a6a6a6;
+      border: 1px solid #e5e5e5; }
+    .form-group-app .form-group-white .custom-checkbox {
+      padding-left: 16px; }
+    .form-group-app .form-group-white .calculate-fee {
+      color: #00C8FF;
+      font-family: "Roboto-Regular";
+      font-size: 10px;
+      line-height: 14px;
+      padding-left: 5px;
+      cursor: pointer; }
+  .form-group-app .btn {
+    font-size: 11px; }
+  .form-group-app .mb-15 {
+    margin-bottom: 15px; }
 
 .input-group-app {
   display: table-row; }
@@ -1145,12 +1279,15 @@ table td .btn, table th .btn {
 
 .custom-checkbox {
   padding-left: 23px; }
+  .custom-checkbox .custom-control-input {
+    z-index: 1; }
   .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
     background-image: url(../../assets/checked.svg);
     background-repeat: no-repeat;
     background-size: 10px;
-    left: -1.45rem;
-    top: 2px; }
+    left: -18px;
+    top: 0;
+    box-shadow: none; }
   .custom-checkbox .custom-control-input ~ .custom-control-label::before,
   .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
     height: 16px;
@@ -1159,7 +1296,9 @@ table td .btn, table th .btn {
     background-color: #F5F5F5;
     border-radius: 3px;
     color: #000000;
-    top: -1px; }
+    top: -1px;
+    box-shadow: none;
+    cursor: pointer; }
   .custom-checkbox .custom-control-label {
     padding-left: 6px;
     color: #333333; }

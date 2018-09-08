@@ -73,7 +73,7 @@ class AdvancedSettings extends React.Component {
                             'active' : this.state.activeTab === 4
                         })}
                     >
-                        <i className={'zmdi zmdi-equalizer'} />
+                        <i className={'zmdi zmdi-chart'} />
                     </a>
                     <a
                         onClick={this.handleTabChange.bind(this, 5)}
@@ -112,7 +112,7 @@ class AdvancedSettings extends React.Component {
                                     <label>Referenced transaction hash</label>
                                 </div>
                                 <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                                    <input type="text" />
                                 </div>
                                 <div className="col-md-3">
 
@@ -142,15 +142,15 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <label htmlFor="referencedHash" className="col-form-label mb-2">
+                        <p className="mb-3">
                             Process without approval
-                        </label>
+                        </p>
                         <div className="form-group row form-group-grey">
                             <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input ref={'passphrase'} type="text" name={'passphrase'}
+                                <input type="text" 
                                        className="form-control form-control-sm" id="referencedHash"
                                        placeholder="Referenced transaction full hash"/>
                             </div>
@@ -183,7 +183,7 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey">
                             <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input ref={'passphrase'} name={'passphrase'} type="number"
+                                <input type="number"
                                        className="form-control" id="finishHeight"
                                        placeholder="Finish height"
                                        aria-describedby="finishHeightText" />
@@ -200,7 +200,7 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input ref={'passphrase'} type="text" name={'passphrase'}
+                                <input type="text" 
                                        className="form-control form-control-sm" id="referencedHash"
                                        placeholder="Referenced transaction full hash"/>
                             </div>
@@ -230,84 +230,87 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Number of accounts</label>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="numberAccounts" className="col-sm-3 col-form-label">
+                                Number of accounts
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="number" 
+                                       className="form-control form-control-sm" id="numberAccounts"
+                                       placeholder="Number of accounts"/>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="number"
+                                       className="form-control" id="finishHeight"
+                                       placeholder="Finish height"
+                                       aria-describedby="finishHeightText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                            </div>
+                            <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                2018/06/19 09:32 am
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control" id="account"
+                                       placeholder="Account"
+                                       aria-describedby="accountIcon" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text input-group-icon" id="accountIcon">
+                                        <i className="zmdi zmdi-account" />
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Finish height</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div
-                                                    className="input-group-app align-middle display-block offset-bottom offset-top"
-                                                >
-                                                    <a
-                                                        className="no-margin btn static blue"
-                                                    >
-                                                        Add account
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div className="form-group-grey row mb-15">
+                            <div className="col-sm-9 offset-sm-3 no-left-padding">
+                                <a className="no-margin btn static blue">
+                                    Add account
+                                </a>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="numberAccounts" className="col-sm-3 col-form-label">
+                                Min balance type
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <div className="form-group-select">
+                                    <select className="form-control">
+                                        <option selected>No min balance necessary</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Accounts (whitelist)</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
+                                Referenced transaction hash
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text" 
+                                       className="form-control form-control-sm" id="referencedHash"
+                                       placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Min balance type</label>
+                        <div className="row">
+                            <div className="col-md-9 offset-md-3">
+                                <div className="form-check custom-checkbox mb-2">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                        Do not broadcast
+                                    </label>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                    <input type="checkbox"/>
-                                                    <label>Do not broadcast</label>
-                                                </div>
-                                                <div className="input-group-app align-middle display-block offset-bottom">
-                                                    <input type="checkbox"/>
-                                                    <label>Add note to self?</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="form-check custom-checkbox">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="addNote">
+                                        Add note to self?
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -320,84 +323,91 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Amount</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Finish height</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div
-                                                    className="input-group-app align-middle display-block offset-bottom offset-top"
-                                                >
-                                                    <a
-                                                        className="no-margin btn static blue"
-                                                    >
-                                                        Add account
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="amount" className="col-sm-3 col-form-label">
+                                Amount
+                            </label>
+                            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control" id="amount"
+                                       placeholder="Amount"
+                                       aria-describedby="amountText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="amountText">APL</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Accounts (whitelist)</label>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="number"
+                                       className="form-control" id="finishHeight"
+                                       placeholder="Finish height"
+                                       aria-describedby="finishHeightText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                            </div>
+                            <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                2018/06/19 09:32 am
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control" id="account"
+                                       placeholder="Account"
+                                       aria-describedby="accountIcon" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text input-group-icon" id="accountIcon">
+                                        <i className="zmdi zmdi-account" />
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Min balance type</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                        <div className="form-group-grey row mb-15">
+                            <div className="col-sm-9 offset-sm-3 no-left-padding">
+                                <a className="no-margin btn static blue">
+                                    Add account
+                                </a>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="numberAccounts" className="col-sm-3 col-form-label">
+                                Min balance type
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <div className="form-group-select">
+                                    <select className="form-control">
+                                        <option selected>No min balance necessary</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
+                                Referenced transaction hash
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text" 
+                                       className="form-control form-control-sm" id="referencedHash"
+                                       placeholder="Referenced transaction full hash"/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-9 offset-md-3">
+                                <div className="form-check custom-checkbox mb-2">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                        Do not broadcast
+                                    </label>
                                 </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                    <input type="checkbox"/>
-                                                    <label>Do not broadcast</label>
-                                                </div>
-                                                <div className="input-group-app align-middle display-block offset-bottom">
-                                                    <input type="checkbox"/>
-                                                    <label>Add note to self?</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="form-check custom-checkbox">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="addNote">
+                                        Add note to self?
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -410,100 +420,101 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Asset quantity</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Finish height</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-title align-right align-margin-top">
-                                            2018/06/19 09:32 am
-                                        </div>
-                                    </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="quantity" className="col-sm-3 col-form-label">
+                                Asset quantity
+                            </label>
+                            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control" id="quantity"
+                                       placeholder="Asset quantity"
+                                       aria-describedby="quantityText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="quantityText">Quantity</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Asset</label>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="number"
+                                       className="form-control" id="finishHeight"
+                                       placeholder="Finish height"
+                                       aria-describedby="finishHeightText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                            </div>
+                            <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                2018/06/19 09:32 am
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="asset" className="col-sm-3 col-form-label">
+                                Asset
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control form-control-sm" id="asset"
+                                       placeholder="AssetID"/>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control" id="account"
+                                       placeholder="Account"
+                                       aria-describedby="accountIcon" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text input-group-icon" id="accountIcon">
+                                        <i className="zmdi zmdi-account" />
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Accounts (whitelist)</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div
-                                                    className="input-group-app align-middle display-block offset-bottom offset-top"
-                                                >
-                                                    <a
-                                                        className="no-margin btn static blue"
-                                                    >
-                                                        Add account
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div className="form-group-grey row mb-15">
+                            <div className="col-sm-9 offset-sm-3 no-left-padding">
+                                <a className="no-margin btn static blue">
+                                    Add account
+                                </a>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="numberAccounts" className="col-sm-3 col-form-label">
+                                Min balance type
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <div className="form-group-select">
+                                    <select className="form-control">
+                                        <option selected>No min balance necessary</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Min balance type</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
+                                Referenced transaction hash
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text" 
+                                       className="form-control form-control-sm" id="referencedHash"
+                                       placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
+                        <div className="row">
+                            <div className="col-md-9 offset-md-3">
+                                <div className="form-check custom-checkbox mb-2">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                        Do not broadcast
+                                    </label>
                                 </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                    <input type="checkbox"/>
-                                                    <label>Do not broadcast</label>
-                                                </div>
-                                                <div className="input-group-app align-middle display-block offset-bottom">
-                                                    <input type="checkbox"/>
-                                                    <label>Add note to self?</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="form-check custom-checkbox">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="addNote">
+                                        Add note to self?
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -516,100 +527,106 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Currency units </label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Finish height</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-title align-right align-margin-top">
-                                            2018/06/19 09:32 am
-                                        </div>
-                                    </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="units" className="col-sm-3 col-form-label">
+                                Currency units
+                            </label>
+                            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control" id="units"
+                                       placeholder="Currency units"
+                                       aria-describedby="unitsText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="unitsText">Units</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Currency</label>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="number"
+                                       className="form-control" id="finishHeight"
+                                       placeholder="Finish height"
+                                       aria-describedby="finishHeightText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                            </div>
+                            <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                2018/06/19 09:32 am
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="currency" className="col-sm-3 col-form-label">
+                                Currency
+                            </label>
+                            <div className="col-sm-9 input-group input-group-double input-group-sm mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control" id="currency"
+                                       placeholder="Code" />
+                                <div className="input-group-append">
+                                    <input type="text"
+                                           className="form-control input-group-text" id="ID"
+                                           placeholder="ID: - " />
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Accounts (whitelist)</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div
-                                                    className="input-group-app align-middle display-block offset-bottom offset-top"
-                                                >
-                                                    <a
-                                                        className="no-margin btn static blue"
-                                                    >
-                                                        Add account
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control" id="account"
+                                       placeholder="Account"
+                                       aria-describedby="accountIcon" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text input-group-icon" id="accountIcon">
+                                        <i className="zmdi zmdi-account" />
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Min balance type</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
+                        <div className="form-group-grey row mb-15">
+                            <div className="col-sm-9 offset-sm-3 no-left-padding">
+                                <a className="no-margin btn static blue">
+                                    Add account
+                                </a>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="numberAccounts" className="col-sm-3 col-form-label">
+                                Min balance type
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <div className="form-group-select">
+                                    <select className="form-control">
+                                        <option selected>No min balance necessary</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
+                                Referenced transaction hash
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control form-control-sm" id="referencedHash"
+                                       placeholder="Referenced transaction full hash"/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-9 offset-md-3">
+                                <div className="form-check custom-checkbox mb-2">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                        Do not broadcast
+                                    </label>
                                 </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                    <input type="checkbox"/>
-                                                    <label>Do not broadcast</label>
-                                                </div>
-                                                <div className="input-group-app align-middle display-block offset-bottom">
-                                                    <input type="checkbox"/>
-                                                    <label>Add note to self?</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="form-check custom-checkbox">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="addNote">
+                                        Add note to self?
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -622,54 +639,54 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Finish height</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-title align-right align-margin-top">
-                                            2018/06/19 09:32 am
-                                        </div>
-                                    </div>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="number"
+                                       className="form-control" id="finishHeight"
+                                       placeholder="Finish height"
+                                       aria-describedby="finishHeightText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
                             </div>
-                        </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Approved by transaction hash</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                            <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                2018/06/19 09:32 am
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="approveHash" className="col-sm-3 col-form-label">
+                                Approved by transaction hash
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control form-control-sm" id="approveHash"
+                                       placeholder="Full hash of transaction"/>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
+                                Referenced transaction hash
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control form-control-sm" id="referencedHash"
+                                       placeholder="Referenced transaction full hash"/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-9 offset-md-3">
+                                <div className="form-check custom-checkbox mb-2">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                        Do not broadcast
+                                    </label>
                                 </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                    <input type="checkbox"/>
-                                                    <label>Do not broadcast</label>
-                                                </div>
-                                                <div className="input-group-app align-middle display-block offset-bottom">
-                                                    <input type="checkbox"/>
-                                                    <label>Add note to self?</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="form-check custom-checkbox">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="addNote">
+                                        Add note to self?
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -682,64 +699,66 @@ class AdvancedSettings extends React.Component {
                     })}
                 >
                     <div className="form-tab">
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Finish height</label>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
+                            <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                <input type="number"
+                                       className="form-control" id="finishHeight"
+                                       placeholder="Finish height"
+                                       aria-describedby="finishHeightText" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-title align-right align-margin-top">
-                                            2018/06/19 09:32 am
-                                        </div>
-                                    </div>
+                            </div>
+                            <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                2018/06/19 09:32 am
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="approveHash" className="col-sm-3 col-form-label">
+                                Approved by hash secret
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control form-control-sm" id="approveHash"
+                                       placeholder="Hash of secret"/>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-grey mb-15">
+                            <label htmlFor="numberAccounts" className="col-sm-3 col-form-label">
+                                Hash algorithm
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <div className="form-group-select">
+                                    <select className="form-control">
+                                        <option selected>SHA256</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Approved by hashed secret</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                        <div className="form-group row form-group-grey">
+                            <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
+                                Referenced transaction hash
+                            </label>
+                            <div className="col-sm-9 mb-0 no-left-padding">
+                                <input type="text"
+                                       className="form-control form-control-sm" id="referencedHash"
+                                       placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Hash algorithm</label>
+                        <div className="row">
+                            <div className="col-md-9 offset-md-3">
+                                <div className="form-check custom-checkbox mb-2">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                        Do not broadcast
+                                    </label>
                                 </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="input-group-app block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="input-wrapper">
-
-                                        <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                        <div className="form-sub-actions">
-                                            <div className="form-group-app no-padding-bottom">
-                                                <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                    <input type="checkbox"/>
-                                                    <label>Do not broadcast</label>
-                                                </div>
-                                                <div className="input-group-app align-middle display-block offset-bottom">
-                                                    <input type="checkbox"/>
-                                                    <label>Add note to self?</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="form-check custom-checkbox">
+                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="addNote">
+                                        Add note to self?
+                                    </label>
                                 </div>
                             </div>
                         </div>
