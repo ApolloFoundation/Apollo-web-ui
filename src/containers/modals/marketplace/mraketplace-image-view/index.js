@@ -19,7 +19,6 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class MarketplaceImage extends React.Component {
     constructor(props) {
         super(props);

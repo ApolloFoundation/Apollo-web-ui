@@ -27,7 +27,6 @@ const mapDispatchToProps = dispatch => ({
     getDGSTagsAction: (reqParams) => dispatch(getDGSTagsAction(reqParams)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class Marketplace extends React.Component {
     constructor(props) {
         super(props);
@@ -413,4 +412,4 @@ class Marketplace extends React.Component {
     }
 };
 
-export default Marketplace;
+export default connect(mapStateToProps, mapDispatchToProps)(Marketplace);

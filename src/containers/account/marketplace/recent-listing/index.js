@@ -12,7 +12,6 @@ const mapDispatchToProps = dispatch => ({
     getDGSGoodsAction: (reqParams) => dispatch(getDGSGoodsAction(reqParams))
 });
 
-@connect(null, mapDispatchToProps)
 class ResentMarketplaceListing extends React.Component {
     constructor(props) {
         super(props);
@@ -198,4 +197,4 @@ class ResentMarketplaceListing extends React.Component {
     }
 };
 
-export default ResentMarketplaceListing;
+export default connect(null, mapDispatchToProps)(ResentMarketplaceListing);

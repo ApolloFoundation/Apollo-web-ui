@@ -55,7 +55,6 @@ const mapDispatchToProps = dispatch => ({
     getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
@@ -504,4 +503,4 @@ class Dashboard extends React.Component {
 }
 
 
-export default Dashboard;
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

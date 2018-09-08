@@ -22,7 +22,6 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class Currencies extends React.Component {
     constructor(props) {
         super(props);
@@ -148,4 +147,4 @@ class Currencies extends React.Component {
     }
 }
 
-export default Currencies;
+export default connect(mapStateToProps, mapDispatchToProps)(Currencies);

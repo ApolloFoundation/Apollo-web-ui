@@ -20,7 +20,6 @@ const mapDispatchToProps = dispatch => ({
     getDataTagsAction: (reqParams) => dispatch(getDataTagsAction(reqParams))
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class DataStorage extends React.Component {
     constructor(props) {
         super(props);
@@ -211,4 +210,4 @@ class DataStorage extends React.Component {
     }
 }
 
-export default DataStorage;
+export default connect(mapStateToProps, mapDispatchToProps)(DataStorage);

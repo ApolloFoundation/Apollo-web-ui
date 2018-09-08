@@ -28,7 +28,6 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class MarketplaceDelete extends React.Component {
     constructor(props) {
         super(props);

@@ -22,7 +22,6 @@ const mapDispatchToProps = dispatch => ({
 	submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class Messenger extends React.Component {
 	constructor(props) {
 		super(props);
@@ -206,4 +205,4 @@ class Messenger extends React.Component {
 	}
 }
 
-export default Messenger;
+export default connect(mapStateToProps, mapDispatchToProps)(Messenger);

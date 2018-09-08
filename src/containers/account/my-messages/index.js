@@ -14,8 +14,6 @@ const mapDispatchToProps = dispatch => ({
     getMessages: (reqParams) => dispatch(getMessages(reqParams))
 });
 
-
-@connect(mapStateToProps, mapDispatchToProps)
 class MyMessages extends React.Component {
     constructor(props) {
         super(props);
@@ -137,4 +135,4 @@ class MyMessages extends React.Component {
     }
 }
 
-export default MyMessages;
+export default connect(mapStateToProps, mapDispatchToProps)(MyMessages);

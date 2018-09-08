@@ -21,7 +21,6 @@ const mapDispatchToProps = dispatch => ({
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class MarketplaceProductDetails extends React.Component {
     constructor(props) {
         super(props);

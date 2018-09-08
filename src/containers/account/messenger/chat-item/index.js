@@ -17,7 +17,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-@connect(mapStateToProps, mapDispatchToProps)
 class ChatItem extends React.Component {
     constructor(props) {
         super(props)
@@ -105,4 +104,4 @@ class ChatItem extends React.Component {
     }
 }
 
-export default ChatItem;
+export default connect(mapStateToProps, mapDispatchToProps)(ChatItem);

@@ -21,7 +21,6 @@ const mapDispatchToProps = dispatch => ({
     setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase))
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class DecryptMessage extends React.Component {
     constructor(props) {
         super(props);
@@ -142,4 +141,4 @@ class DecryptMessage extends React.Component {
     }
 }
 
-export default (DecryptMessage);
+export default connect(mapStateToProps, mapDispatchToProps)(DecryptMessage);

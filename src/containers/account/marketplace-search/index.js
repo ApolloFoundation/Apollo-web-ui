@@ -13,7 +13,6 @@ const mapDispatchToProps = dispatch => ({
     searchDGSGoodsAction: (reqParams) => dispatch(searchDGSGoodsAction(reqParams))
 });
 
-@connect(null, mapDispatchToProps)
 class MarketplaceSearch extends React.Component {
     constructor(props) {
         super(props);
@@ -237,4 +236,4 @@ class MarketplaceSearch extends React.Component {
     }
 };
 
-export default MarketplaceSearch;
+export default connect(null, mapDispatchToProps)(MarketplaceSearch);

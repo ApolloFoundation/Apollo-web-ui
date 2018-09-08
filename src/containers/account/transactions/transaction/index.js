@@ -18,7 +18,6 @@ const mapDispatchToProps = dispatch => ({
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime))
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class Transaction extends React.Component {
     constructor(props) {
         super(props);
@@ -149,4 +148,4 @@ class Transaction extends React.Component {
     }
 }
 
-export default Transaction;
+export default connect(mapStateToProps, mapDispatchToProps)(Transaction);
