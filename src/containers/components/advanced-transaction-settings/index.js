@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from "classnames";
-import {Text} from 'react-form';
+import {Form, Text, TextArea, Checkbox} from 'react-form';
 
 
 class AdvancedSettings extends React.Component {
@@ -104,37 +104,6 @@ class AdvancedSettings extends React.Component {
                     </a>
 
                 </div>
-                <div className="tab-body">
-                    <div className="form-tab">
-                        <div className="input-group-app block">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Referenced transaction hash</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input type="text" />
-                                </div>
-                                <div className="col-md-3">
-
-                                </div>
-                                <div className="col-md-9">
-                                    <div className="form-sub-actions">
-                                        <div className="form-group-app no-padding-bottom">
-                                            <div className="input-group-app align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Do not broadcast</label>
-                                            </div>
-                                            <div className="input-group-app align-middle display-block offset-bottom">
-                                                <input type="checkbox"/>
-                                                <label>Add note to self?</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div
                     className={classNames({
                         "tab-body": true,
@@ -150,21 +119,29 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text" 
-                                       className="form-control form-control-sm" id="referencedHash"
-                                       placeholder="Referenced transaction full hash"/>
+                                <Text
+                                    id="referencedHash"
+                                    className="form-control"
+                                    field="referencedHash"
+                                    placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
                                 <div className="form-check custom-checkbox mb-2">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="doNotBroadcast"
+                                              id="doNotBroadcast"/>
                                     <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
                                         Do not broadcast
                                     </label>
                                 </div>
                                 <div className="form-check custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="addNote"
+                                              id="addNote"/>
                                     <label className="form-check-label custom-control-label" htmlFor="addNote">
                                         Add note to self?
                                     </label>
@@ -183,10 +160,13 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey">
                             <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="number"
-                                       className="form-control" id="finishHeight"
-                                       placeholder="Finish height"
-                                       aria-describedby="finishHeightText" />
+                                <Text
+                                    type="number"
+                                    id="finishHeight"
+                                    className="form-control"
+                                    field="finishHeight"
+                                    placeholder="Finish height"
+                                    aria-describedby="finishHeightText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
@@ -200,21 +180,29 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text" 
-                                       className="form-control form-control-sm" id="referencedHash"
-                                       placeholder="Referenced transaction full hash"/>
+                                <Text
+                                    id="referencedHash"
+                                    className="form-control"
+                                    field="referencedHash"
+                                    placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
                                 <div className="form-check custom-checkbox mb-2">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
-                                        <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
-                                            Do not broadcast
-                                        </label>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="doNotBroadcast"
+                                              id="doNotBroadcast"/>
+                                    <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                        Do not broadcast
+                                    </label>
                                 </div>
                                 <div className="form-check custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="addNote"
+                                              id="addNote"/>
                                     <label className="form-check-label custom-control-label" htmlFor="addNote">
                                         Add note to self?
                                     </label>
@@ -235,18 +223,24 @@ class AdvancedSettings extends React.Component {
                                 Number of accounts
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="number" 
-                                       className="form-control form-control-sm" id="numberAccounts"
-                                       placeholder="Number of accounts"/>
+                                <Text
+                                    type="number"
+                                    id="numberAccounts"
+                                    className="form-control"
+                                    field="numberAccounts"
+                                    placeholder="Number of accounts"/>
                             </div>
                         </div>
                         <div className="form-group row form-group-grey">
                             <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="number"
-                                       className="form-control" id="finishHeight"
-                                       placeholder="Finish height"
-                                       aria-describedby="finishHeightText" />
+                                <Text
+                                    type="number"
+                                    id="finishHeight"
+                                    className="form-control"
+                                    field="finishHeight"
+                                    placeholder="Finish height"
+                                    aria-describedby="finishHeightText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
@@ -258,10 +252,13 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey mb-15">
                             <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control" id="account"
-                                       placeholder="Account"
-                                       aria-describedby="accountIcon" />
+                                <Text
+                                    type="text"
+                                    id="account"
+                                    className="form-control"
+                                    field="account"
+                                    placeholder="Account"
+                                    aria-describedby="accountIcon"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text input-group-icon" id="accountIcon">
                                         <i className="zmdi zmdi-account" />
@@ -293,21 +290,29 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text" 
-                                       className="form-control form-control-sm" id="referencedHash"
-                                       placeholder="Referenced transaction full hash"/>
+                                <Text
+                                    id="referencedHash"
+                                    className="form-control"
+                                    field="referencedHash"
+                                    placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
                                 <div className="form-check custom-checkbox mb-2">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="doNotBroadcast"
+                                              id="doNotBroadcast"/>
                                     <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
                                         Do not broadcast
                                     </label>
                                 </div>
                                 <div className="form-check custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="addNote"
+                                              id="addNote"/>
                                     <label className="form-check-label custom-control-label" htmlFor="addNote">
                                         Add note to self?
                                     </label>
@@ -328,10 +333,13 @@ class AdvancedSettings extends React.Component {
                                 Amount
                             </label>
                             <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control" id="amount"
-                                       placeholder="Amount"
-                                       aria-describedby="amountText" />
+                                <Text
+                                    type="text"
+                                    id="account"
+                                    className="form-control"
+                                    field="account"
+                                    placeholder="Account"
+                                    aria-describedby="amountText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="amountText">APL</span>
                                 </div>
@@ -340,10 +348,13 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey">
                             <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="number"
-                                       className="form-control" id="finishHeight"
-                                       placeholder="Finish height"
-                                       aria-describedby="finishHeightText" />
+                                <Text
+                                    type="number"
+                                    id="finishHeight"
+                                    className="form-control"
+                                    field="finishHeight"
+                                    placeholder="Finish height"
+                                    aria-describedby="finishHeightText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
@@ -355,10 +366,13 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey mb-15">
                             <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control" id="account"
-                                       placeholder="Account"
-                                       aria-describedby="accountIcon" />
+                                <Text
+                                    type="text"
+                                    id="account"
+                                    className="form-control"
+                                    field="account"
+                                    placeholder="Account"
+                                    aria-describedby="accountIcon"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text input-group-icon" id="accountIcon">
                                         <i className="zmdi zmdi-account" />
@@ -390,21 +404,29 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text" 
-                                       className="form-control form-control-sm" id="referencedHash"
-                                       placeholder="Referenced transaction full hash"/>
+                                <Text
+                                    id="referencedHash"
+                                    className="form-control"
+                                    field="referencedHash"
+                                    placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
                                 <div className="form-check custom-checkbox mb-2">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="doNotBroadcast"
+                                              id="doNotBroadcast"/>
                                     <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
                                         Do not broadcast
                                     </label>
                                 </div>
                                 <div className="form-check custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="addNote"
+                                              id="addNote"/>
                                     <label className="form-check-label custom-control-label" htmlFor="addNote">
                                         Add note to self?
                                     </label>
@@ -425,10 +447,13 @@ class AdvancedSettings extends React.Component {
                                 Asset quantity
                             </label>
                             <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control" id="quantity"
-                                       placeholder="Asset quantity"
-                                       aria-describedby="quantityText" />
+                                <Text
+                                    type="text"
+                                    id="quantity"
+                                    className="form-control"
+                                    field="quantity"
+                                    placeholder="Asset quantity"
+                                    aria-describedby="quantityText" />
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="quantityText">Quantity</span>
                                 </div>
@@ -437,10 +462,13 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey">
                             <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="number"
-                                       className="form-control" id="finishHeight"
-                                       placeholder="Finish height"
-                                       aria-describedby="finishHeightText" />
+                                <Text
+                                    type="number"
+                                    id="finishHeight"
+                                    className="form-control"
+                                    field="finishHeight"
+                                    placeholder="Finish height"
+                                    aria-describedby="finishHeightText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
@@ -454,18 +482,24 @@ class AdvancedSettings extends React.Component {
                                 Asset
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control form-control-sm" id="asset"
-                                       placeholder="AssetID"/>
+                                <Text
+                                    type="text"
+                                    id="asset"
+                                    className="form-control"
+                                    field="asset"
+                                    placeholder="AssetID"/>
                             </div>
                         </div>
                         <div className="form-group row form-group-grey mb-15">
                             <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control" id="account"
-                                       placeholder="Account"
-                                       aria-describedby="accountIcon" />
+                                <Text
+                                    type="text"
+                                    id="account"
+                                    className="form-control"
+                                    field="account"
+                                    placeholder="Account"
+                                    aria-describedby="accountIcon"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text input-group-icon" id="accountIcon">
                                         <i className="zmdi zmdi-account" />
@@ -497,21 +531,29 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text" 
-                                       className="form-control form-control-sm" id="referencedHash"
-                                       placeholder="Referenced transaction full hash"/>
+                                <Text
+                                    id="referencedHash"
+                                    className="form-control"
+                                    field="referencedHash"
+                                    placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
                                 <div className="form-check custom-checkbox mb-2">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="doNotBroadcast"
+                                              id="doNotBroadcast"/>
                                     <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
                                         Do not broadcast
                                     </label>
                                 </div>
                                 <div className="form-check custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="addNote"
+                                              id="addNote"/>
                                     <label className="form-check-label custom-control-label" htmlFor="addNote">
                                         Add note to self?
                                     </label>
@@ -532,10 +574,13 @@ class AdvancedSettings extends React.Component {
                                 Currency units
                             </label>
                             <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control" id="units"
-                                       placeholder="Currency units"
-                                       aria-describedby="unitsText" />
+                                <Text
+                                    type="text"
+                                    id="units"
+                                    className="form-control"
+                                    field="units"
+                                    placeholder="Currency units"
+                                    aria-describedby="unitsText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="unitsText">Units</span>
                                 </div>
@@ -544,10 +589,13 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey">
                             <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="number"
-                                       className="form-control" id="finishHeight"
-                                       placeholder="Finish height"
-                                       aria-describedby="finishHeightText" />
+                                <Text
+                                    type="number"
+                                    id="finishHeight"
+                                    className="form-control"
+                                    field="finishHeight"
+                                    placeholder="Finish height"
+                                    aria-describedby="finishHeightText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
@@ -561,23 +609,32 @@ class AdvancedSettings extends React.Component {
                                 Currency
                             </label>
                             <div className="col-sm-9 input-group input-group-double input-group-sm mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control" id="currency"
-                                       placeholder="Code" />
+                                <Text
+                                    type="text"
+                                    id="currency"
+                                    className="form-control"
+                                    field="currency"
+                                    placeholder="Code"/>
                                 <div className="input-group-append">
-                                    <input type="text"
-                                           className="form-control input-group-text" id="ID"
-                                           placeholder="ID: - " />
+                                    <Text
+                                        type="text"
+                                        id="ID"
+                                        className="form-control input-group-text"
+                                        field="ID"
+                                        placeholder="ID: - "/>
                                 </div>
                             </div>
                         </div>
                         <div className="form-group row form-group-grey mb-15">
                             <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control" id="account"
-                                       placeholder="Account"
-                                       aria-describedby="accountIcon" />
+                                <Text
+                                    type="text"
+                                    id="account"
+                                    className="form-control"
+                                    field="account"
+                                    placeholder="Account"
+                                    aria-describedby="accountIcon" />
                                 <div className="input-group-append">
                                     <span className="input-group-text input-group-icon" id="accountIcon">
                                         <i className="zmdi zmdi-account" />
@@ -609,21 +666,29 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control form-control-sm" id="referencedHash"
-                                       placeholder="Referenced transaction full hash"/>
+                                <Text
+                                    id="referencedHash"
+                                    className="form-control"
+                                    field="referencedHash"
+                                    placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
                                 <div className="form-check custom-checkbox mb-2">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="doNotBroadcast"
+                                              id="doNotBroadcast"/>
                                     <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
                                         Do not broadcast
                                     </label>
                                 </div>
                                 <div className="form-check custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="addNote"
+                                              id="addNote"/>
                                     <label className="form-check-label custom-control-label" htmlFor="addNote">
                                         Add note to self?
                                     </label>
@@ -642,10 +707,13 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey">
                             <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="number"
-                                       className="form-control" id="finishHeight"
-                                       placeholder="Finish height"
-                                       aria-describedby="finishHeightText" />
+                                <Text
+                                    type="number"
+                                    id="finishHeight"
+                                    className="form-control"
+                                    field="finishHeight"
+                                    placeholder="Finish height"
+                                    aria-describedby="finishHeightText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
@@ -659,9 +727,11 @@ class AdvancedSettings extends React.Component {
                                 Approved by transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control form-control-sm" id="approveHash"
-                                       placeholder="Full hash of transaction"/>
+                                <Text
+                                    id="approveHash"
+                                    className="form-control"
+                                    field="approveHash"
+                                    placeholder="Full hash of transaction"/>
                             </div>
                         </div>
                         <div className="form-group row form-group-grey">
@@ -669,21 +739,29 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control form-control-sm" id="referencedHash"
-                                       placeholder="Referenced transaction full hash"/>
+                                <Text
+                                    id="referencedHash"
+                                    className="form-control"
+                                    field="referencedHash"
+                                    placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
                                 <div className="form-check custom-checkbox mb-2">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="doNotBroadcast"
+                                              id="doNotBroadcast"/>
                                     <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
                                         Do not broadcast
                                     </label>
                                 </div>
                                 <div className="form-check custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="addNote"
+                                              id="addNote"/>
                                     <label className="form-check-label custom-control-label" htmlFor="addNote">
                                         Add note to self?
                                     </label>
@@ -702,10 +780,13 @@ class AdvancedSettings extends React.Component {
                         <div className="form-group row form-group-grey">
                             <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                             <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                <input type="number"
-                                       className="form-control" id="finishHeight"
-                                       placeholder="Finish height"
-                                       aria-describedby="finishHeightText" />
+                                <Text
+                                    type="number"
+                                    id="finishHeight"
+                                    className="form-control"
+                                    field="finishHeight"
+                                    placeholder="Finish height"
+                                    aria-describedby="finishHeightText"/>
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="finishHeightText">146,631</span>
                                 </div>
@@ -719,9 +800,11 @@ class AdvancedSettings extends React.Component {
                                 Approved by hash secret
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control form-control-sm" id="approveHash"
-                                       placeholder="Hash of secret"/>
+                                <Text
+                                    id="hashSecret"
+                                    className="form-control"
+                                    field="hashSecret"
+                                    placeholder="Hash of secret"/>
                             </div>
                         </div>
                         <div className="form-group row form-group-grey mb-15">
@@ -741,21 +824,29 @@ class AdvancedSettings extends React.Component {
                                 Referenced transaction hash
                             </label>
                             <div className="col-sm-9 mb-0 no-left-padding">
-                                <input type="text"
-                                       className="form-control form-control-sm" id="referencedHash"
-                                       placeholder="Referenced transaction full hash"/>
+                                <Text
+                                    id="referencedHash"
+                                    className="form-control"
+                                    field="referencedHash"
+                                    placeholder="Referenced transaction full hash"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-9 offset-md-3">
                                 <div className="form-check custom-checkbox mb-2">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="doNotBroadcast"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="doNotBroadcast"
+                                              id="doNotBroadcast"/>
                                     <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
                                         Do not broadcast
                                     </label>
                                 </div>
                                 <div className="form-check custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" value="" id="addNote"/>
+                                    <Checkbox className="form-check-input custom-control-input"
+                                              type="checkbox"
+                                              field="addNote"
+                                              id="addNote"/>
                                     <label className="form-check-label custom-control-label" htmlFor="addNote">
                                         Add note to self?
                                     </label>
