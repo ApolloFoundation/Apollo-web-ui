@@ -902,6 +902,7 @@ input {
 				.input-group-text {
 					background-color: transparent;
 					color: #a6a6a6;
+					border-left: none;
 				}
 			}
 			&.input-group-double {
@@ -916,6 +917,7 @@ input {
 					background-color: transparent;
 					color: #a6a6a6;
 					border: 1px solid #e5e5e5;
+					border-left: none;
 				}
 			}
 		}

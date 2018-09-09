@@ -618,7 +618,8 @@ input {
       border-right: none; }
     .form-group-app .form-group-grey .input-group.input-group-text-transparent .input-group-text {
       background-color: transparent;
-      color: #a6a6a6; }
+      color: #a6a6a6;
+      border-left: none; }
     .form-group-app .form-group-grey .input-group.input-group-double .form-control {
       border-right: none;
       text-align: left; }
@@ -627,7 +628,8 @@ input {
     .form-group-app .form-group-grey .input-group.input-group-double .input-group-text {
       background-color: transparent;
       color: #a6a6a6;
-      border: 1px solid #e5e5e5; }
+      border: 1px solid #e5e5e5;
+      border-left: none; }
   .form-group-app .form-group-white {
     margin-bottom: 8px;
     margin-left: 0;
