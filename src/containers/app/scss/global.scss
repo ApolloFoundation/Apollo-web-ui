@@ -811,7 +811,16 @@ input {
 				}
 				& > * {
 					margin: auto;
-					font-size: 18px;
+					font-size: 14px;
+				}
+			}
+
+			&.form-tab-icons {
+				.form-tab {
+					& > * {
+						margin: auto;
+						font-size: 18px;
+					}
 				}
 			}
 		}

@@ -41,7 +41,7 @@ class AdvancedSettings extends React.Component {
                             'white': this.props.white
                         })}
                     >
-                        <div className="form-tab-nav-box">
+                        <div className="form-tab-nav-box form-tab-icons">
                             <a
                                 onClick={this.handleTabChange.bind(this, 0)}
                                 className={classNames({

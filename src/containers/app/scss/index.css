@@ -3281,7 +3281,10 @@ input {
           font-size: 13px !important; }
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab > * {
           margin: auto;
-          font-size: 18px; }
+          font-size: 14px; }
+      .form-group-app .form-tabulator .form-tab-nav-box.form-tab-icons .form-tab > * {
+        margin: auto;
+        font-size: 18px; }
     .form-group-app .form-tabulator .tab-body {
       display: none; }
       .form-group-app .form-tabulator .tab-body.active {
@@ -4051,7 +4054,6 @@ table td .btn, table th .btn {
     min-height: auto;
     height: auto; }
   .transaction-table .transaction-table-body {
-    padding: 40px 35px;
     width: 100%;
     background-color: #FFFFFF;
     border-radius: 3px;
@@ -4087,7 +4089,7 @@ table td .btn, table th .btn {
           .transaction-table .transaction-table-body table thead tr td:last-child {
             padding-right: 0; }
       .transaction-table .transaction-table-body table tbody.with-padding tr td {
-        padding: 15px 0 15px 15px; }
+        padding: 18px 0 17px 15px; }
       .transaction-table .transaction-table-body table tbody tr {
         height: 6.66%; }
         .transaction-table .transaction-table-body table tbody tr td {
@@ -4098,9 +4100,12 @@ table td .btn, table th .btn {
             font-family: "Roboto-Regular";
             font-size: 14px;
             line-height: 16px; }
+          .transaction-table .transaction-table-body table tbody tr td.blue-text {
+            color: #00C8FF; }
           .transaction-table .transaction-table-body table tbody tr td.word-brake {
             word-break: break-all;
-            word-wrap: break-word; }
+            word-wrap: break-word;
+            white-space: normal; }
           .transaction-table .transaction-table-body table tbody tr td.no-brake {
             white-space: pre; }
           .transaction-table .transaction-table-body table tbody tr td.align-right {
@@ -4108,7 +4113,8 @@ table td .btn, table th .btn {
             padding: 0 15px 0 0; }
           .transaction-table .transaction-table-body table tbody tr td:first-child {
             padding-left: 0;
-            font-family: "Roboto-Black"; }
+            font-family: "Roboto-Black";
+            width: 45%; }
           .transaction-table .transaction-table-body table tbody tr td:last-child {
             padding-right: 0; }
     .transaction-table .transaction-table-body .pagination-nav {

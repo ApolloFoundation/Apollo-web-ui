@@ -98,7 +98,7 @@ class AccountDetails extends React.Component {
                                                 <tbody className="with-padding">
                                                     <tr>
                                                         <td  className="no-brake">Account ID:</td>
-                                                        <td>{this.state.account.accountRS}</td>
+                                                        <td className="blue-text">{this.state.account.accountRS}</td>
                                                     </tr>
                                                     <tr>
                                                         <td  className="no-brake">Numeric Account ID::</td>

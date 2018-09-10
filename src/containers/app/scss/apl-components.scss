@@ -14,7 +14,7 @@
  
   .transaction-table-body {
     //min-width: 800px;
-    padding: 40px 35px;
+    //padding: 40px 35px;
     width: 100%;
     background-color: #FFFFFF;
     border-radius: 3px;
@@ -73,7 +73,7 @@
         &.with-padding {
           tr {
             td {
-              padding: 15px 0 15px 15px;
+              padding: 18px 0 17px 15px;
             }
           }
         }
@@ -93,9 +93,13 @@
                 line-height: 16px;
               }
             }
+            &.blue-text {
+                color: #00C8FF;
+            }
             &.word-brake {
               word-break: break-all;
               word-wrap: break-word;
+              white-space: normal;
             }
             &.no-brake {
               white-space: pre;
@@ -107,6 +111,7 @@
             &:first-child {
               padding-left: 0;
               font-family: "Roboto-Black";
+              width: 45%;
             }
             &:last-child {
               padding-right: 0;

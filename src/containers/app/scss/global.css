@@ -550,7 +550,10 @@ input {
           font-size: 13px !important; }
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab > * {
           margin: auto;
-          font-size: 18px; }
+          font-size: 14px; }
+      .form-group-app .form-tabulator .form-tab-nav-box.form-tab-icons .form-tab > * {
+        margin: auto;
+        font-size: 18px; }
     .form-group-app .form-tabulator .tab-body {
       display: none; }
       .form-group-app .form-tabulator .tab-body.active {
