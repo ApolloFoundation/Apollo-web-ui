@@ -244,7 +244,10 @@ class SendApollo extends React.Component {
                                     </InfoBox>
                                 }
 
-                                <AdvancedSettings advancedState={this.state.advancedState}/>
+                                <AdvancedSettings
+                                    setValue={setValue}
+                                    advancedState={this.state.advancedState}
+                                />
 
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a

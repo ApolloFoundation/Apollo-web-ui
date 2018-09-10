@@ -106,7 +106,7 @@ class TokenGenerationValidation extends React.Component {
                             <Form
                                 onSubmit={(values) => this.handleFormSubmit(values)}
                                 render={({
-                                             submitForm
+                                             submitForm, setValue
                                          }) => (
                                 <form
                                     className={classNames({
@@ -219,12 +219,16 @@ class TokenGenerationValidation extends React.Component {
                                             <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
 
                                         </div>
+                                        {/*<AdvancedSettings*/}
+                                            {/*setValue={setValue}*/}
+                                            {/*advancedState={this.state.advancedState}*/}
+                                            {/*white*/}
+                                        {/*/>*/}
                                     </form>
                                 )}
                             >
                         </Form>
                         </div>
-                        <AdvancedSettings advancedState={this.state.advancedState} white/>
                     </div>
 
                 </div>

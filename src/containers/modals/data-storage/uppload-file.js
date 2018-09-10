@@ -221,7 +221,10 @@ class UploadFile extends React.Component {
                                 </InfoBox>
                             }
 
-                            <AdvancedSettings advancedState={this.state.advancedState}/>
+                            <AdvancedSettings
+                                setState={setValue}
+                                advancedState={this.state.advancedState}
+                            />
 
                         </div>
                     </form>

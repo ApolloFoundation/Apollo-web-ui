@@ -129,7 +129,7 @@ class MarketplaceDelete extends React.Component {
                                     </div>
                                     <Form
                                         onSubmit={(values) => this.handleFormSubmit(values)}
-                                        render={({ submitForm, values, addValue, removeValue }) => (
+                                        render={({ submitForm, values, addValue, removeValue, setValue }) => (
 
                                             <form className="modal-form" onSubmit={submitForm}>
                                                 <div className="form-group-app no-padding-left no-padding-top">
@@ -153,7 +153,10 @@ class MarketplaceDelete extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <AdvancedSettings advancedState={this.state.advancedState}/>
+                                                    <AdvancedSettings
+                                                        setState={setValue}
+                                                        advancedState={this.state.advancedState}
+                                                    />
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a

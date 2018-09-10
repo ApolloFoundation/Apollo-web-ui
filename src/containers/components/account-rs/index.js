@@ -17,7 +17,6 @@ class AccountRS extends React.Component {
     handleFillForm = (account) => {
         this.props.setValue(this.props.field, account);
         this.refs.input.value = account;
-        console.log(this.refs.input.value);
         this.setState({
             isContacts: false,
             inputValue: account
@@ -31,7 +30,6 @@ class AccountRS extends React.Component {
     };
 
     render () {
-        console.log(this.state.contacts);
         return (
             <React.Fragment>
                 <InputMask class="form-control" mask='APL-****-****-****-*****' placeholder={'Account RS'} ref={'input'} value={this.state.inputValue} onChange={(e) => {

@@ -173,7 +173,10 @@ class JoinShuffling extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <AdvancedSettings advancedState={this.state.advancedState}/>
+                                <AdvancedSettings
+                                    setState={setValue}
+                                    advancedState={this.state.advancedState}
+                                />
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a
                                         onClick={() => this.props.closeModal()}

@@ -120,7 +120,10 @@ class BuyAsset extends React.Component {
                                         </div>
                                     </div>
 
-                                    <AdvancedSettings advancedState={this.state.advancedState}/>
+                                    <AdvancedSettings
+                                        setState={setValue}
+                                        advancedState={this.state.advancedState}
+                                    />
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
                                         <button

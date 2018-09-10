@@ -99,7 +99,7 @@ class IssueCurrency extends React.Component {
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue }) => (
+                    render={({ submitForm, values, addValue, removeValue, setValue }) => (
 
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
@@ -254,7 +254,10 @@ class IssueCurrency extends React.Component {
                                         Advanced
                                     </a>
                                 </div>
-                                <AdvancedSettings advancedState={this.state.advancedState}/>
+                                <AdvancedSettings
+                                    setState={setValue}
+                                    advancedState={this.state.advancedState}
+                                />
                             </div>
                         </form>
                     )}
