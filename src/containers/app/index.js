@@ -27,6 +27,7 @@ import ResentMarketplaceListing from '../account/marketplace/recent-listing'
 import Marketplace from '../account/marketplace'
 import MyProductsForSale from '../account/my-products-for-sale'
 import MyPandingOrders from '../account/my-panding-orders'
+import PurchasdProucts from '../account/purchased-proucts'
 import MyCompletedOrders from '../account/my-completed-orders'
 import ActivePools from '../account/active-pools'
 import AccountProperties from '../account/account-properties'
@@ -153,6 +154,7 @@ class App extends React.Component {
                                 ,<Route exact path="/my-assets" component={MyAssets}/>
                                 ,<Route exact path="/open-orders" component={OpenOrders}/>
                                 ,<Route exact path="/peers" component={Peers}/>
+                                ,<Route exact path="/purchased-products" component={PurchasdProucts}/>
                                 ,<Route exact path="/plugins" component={Plugins}/>
                                 ,<Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
                                 ,<Route exact path="/settings" component={Settings}/>

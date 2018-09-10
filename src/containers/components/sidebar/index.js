@@ -108,7 +108,7 @@ class Sidebar extends React.Component {
                                         <li><NavLink exact={true} activeClassName="active" to="/delete-history">Delete history</NavLink></li>
                                         <li><NavLink exact={true} activeClassName="active" to="/my-assets">My Assets</NavLink></li>
                                         <li><NavLink exact={true} activeClassName="active" to="/open-orders">Open orders</NavLink></li>
-                                        <li><NavLink exact={true} activeClassName="active" to="approval-request">Approval request</NavLink></li>
+                                        <li><NavLink exact={true} activeClassName="active" to="/approval-request">Approval request</NavLink></li>
                                         <li>
                                             <a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue Assets</a>
                                         </li>
@@ -174,7 +174,7 @@ class Sidebar extends React.Component {
                                 </NavLink>
                                 <div className="dropdown-menu">
                                     <ul>
-                                        <li><a>Purchased Products</a></li>
+                                        <li><NavLink to='/purchased-products'>Purchased Products</NavLink></li>
                                         <li><NavLink to='/my-products-for-sale'>My Products For Sales</NavLink></li>
                                         <li><NavLink to='/my-panding-orders'>My Pending Orders</NavLink></li>
                                         <li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
