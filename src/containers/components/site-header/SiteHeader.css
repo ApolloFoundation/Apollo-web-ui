@@ -221,7 +221,8 @@
         margin: auto 0;
         display: flex; }
       .page-header .user-search-box .user-box .user-name {
-        width: calc(100% - 70px); }
+        width: calc(100% - 70px);
+        align-items: center; }
         .page-header .user-search-box .user-box .user-name > * {
           display: inline-block;
           vertical-align: bottom; }

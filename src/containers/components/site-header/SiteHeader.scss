@@ -299,6 +299,7 @@
 			}
 			.user-name {
 				width: calc(100% - 70px);
+				align-items: center;
 				& > * {
 					display: inline-block;
 					vertical-align: bottom;
