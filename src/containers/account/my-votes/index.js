@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
 import {getMyVotesAction, getVoteAction} from '../../../actions/polls';
-import pollItem from '../active-polls/pool-item';
+import PoolItem from '../active-polls/pool-item';
 import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
@@ -118,7 +118,7 @@ class MyVotes extends React.Component {
                                         this.state.myVotes &&
                                         this.state.myVotes.map((el, index) => {
                                             return (
-                                                <pollItem
+                                                <PoolItem
                                                     {...el}
                                                     activepolls
                                                     getTransaction={this.getTransaction}

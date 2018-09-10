@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getAliasesAction} from "../../../actions/aliases";
 import SiteHeader from '../../components/site-header'
 import {getpollsAction} from '../../../actions/polls';
-import pollItem from './pool-item';
+import PoolItem from './pool-item';
 import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
@@ -132,7 +132,7 @@ class Activepolls extends React.Component {
                                             this.state.activepolls &&
                                             this.state.activepolls.map((el, index) => {
                                                 return (
-                                                    <pollItem
+                                                    <PoolItem
                                                         {...el}
                                                         activepolls
                                                         getTransaction={this.getTransaction}
@@ -167,7 +167,7 @@ class Activepolls extends React.Component {
                                                 this.state.finishedpolls &&
                                                 this.state.finishedpolls.map((el, index) => {
                                                     return (
-                                                        <pollItem
+                                                        <PoolItem
                                                             {...el}
                                                             activepolls
                                                             getTransaction={this.getTransaction}

@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-const pollItem  = props => (
+const PoolItem  = props => (
     <tr key={uuid()}>
         <td  key={uuid()} className="blue-link-text">
             <a onClick={() => props.getTransaction(props.poll)}>{props.name}</a>
@@ -35,4 +35,4 @@ const pollItem  = props => (
     </tr>
 );
 
-export default connect(mapStateToPreops, mapDispatchToProps)(pollItem)
+export default connect(mapStateToPreops, mapDispatchToProps)(PoolItem)
