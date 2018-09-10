@@ -11,8 +11,12 @@ class DeleteHistory extends React.Component {
         deletes: [],
     };
 
+    componentWillMount() {
+        this.getDeleteHistory(this.props.account);
+    }
+
     componentWillReceiveProps = (nextProps) => {
-        if (nextProps.account && nextProps.account.length > 0 && this.props.account !== nextProps.account) {
+        if (nextProps.account && nextProps.account.length > 0) {
             this.getDeleteHistory(nextProps.account);
         }
     };
@@ -20,14 +24,12 @@ class DeleteHistory extends React.Component {
     getDeleteHistory = account => {
         console.warn("account-history", account);
         this.props.getDeleteHistory(account).then(history => this.setState({
-                deletes: history.deletes
+                deletes: history ? history.deletes : []
             })
         )
     };
 
     render() {
-        console.warn("account", this.props.account);
-
         return (
             <div className="page-content">
                 <SiteHeader
@@ -48,14 +50,14 @@ class DeleteHistory extends React.Component {
                                         </tr>
                                         </thead>
                                         <tbody key={uuid()}>
-                                        {
+                                        {this.state.deletes.length > 0 ?
                                             this.state.deletes.map(el => {
                                                 return (
                                                     <DeleteItem
                                                         delete={el}
                                                     />
                                                 )
-                                            })
+                                            }) : <p>No delete history</p>
                                         }
                                         </tbody>
                                     </table>
