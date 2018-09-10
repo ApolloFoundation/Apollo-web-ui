@@ -142,7 +142,7 @@ class Sidebar extends React.Component {
                                 <div className="dropdown-menu">
                                     <ul>
                                         <li><NavLink to="/active-pools">Active pools</NavLink></li>
-                                        <li><a>Followed pools</a></li>
+                                        <li><NavLink to='/followed-pools'>Followed pools</NavLink></li>
                                         <li><NavLink to="/my-votes">My votes</NavLink></li>
                                         <li><NavLink to="/my-polls">My pools</NavLink></li>
                                         <li>

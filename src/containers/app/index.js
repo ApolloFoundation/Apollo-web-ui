@@ -131,6 +131,7 @@ class App extends React.Component {
                                 ,<Route exact path="/blocks" component={Blocks}/>
 
                                 ,<Route path="/followed-pools/:poll" component={FollowedPools}/>
+                                ,<Route path="/followed-pools" component={FollowedPools}/>
                                 ,<Route exact path="/my-votes" component={MyVotes}/>
                                 ,<Route exact path="/my-polls" component={MyPolls}/>
                                 ,<Route exact path="/messenger" component={Messenger}/>
