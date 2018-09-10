@@ -134,7 +134,7 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group-grey row">
+                                <div className="form-group-grey row mb-15">
                                     <div className="col-sm-9 offset-sm-3">
                                         <a className="no-margin btn static blue"
                                            onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}>

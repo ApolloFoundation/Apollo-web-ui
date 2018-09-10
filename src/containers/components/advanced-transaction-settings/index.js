@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from "classnames";
+import AccountRS from '../../components/account-rs';
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 
 
@@ -126,7 +127,7 @@ class AdvancedSettings extends React.Component {
                                 <p className="mb-3">
                                     Process without approval
                                 </p>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
@@ -140,7 +141,7 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
                                                       field="doNotBroadcast"
@@ -187,7 +188,7 @@ class AdvancedSettings extends React.Component {
                                         2018/06/19 09:32 am
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
@@ -201,7 +202,7 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
                                                       field="doNotBroadcast"
@@ -261,20 +262,20 @@ class AdvancedSettings extends React.Component {
                                         2018/06/19 09:32 am
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label htmlFor="account" className="col-sm-3 col-form-label">Accounts (whitelist)</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            id="account"
-                                            className="form-control"
-                                            field="account"
-                                            placeholder="Account"
-                                            aria-describedby="accountIcon"/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text input-group-icon" id="accountIcon">
-                                                <i className="zmdi zmdi-account" />
-                                            </span>
+                                <div className="input-group-app form-group mb-15 display-block inline user">
+                                    <div className="row form-group-grey">
+                                        <label htmlFor="account" className="col-sm-3 col-form-label">
+                                            Accounts (whitelist)
+                                        </label>
+                                        <div className="col-sm-9 no-left-padding">
+                                            <div className="iconned-input-field">
+                                                <AccountRS
+                                                    id="account"
+                                                    value={''}
+                                                    field={'account'}
+                                                    setValue={setValue}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -297,7 +298,7 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
@@ -311,7 +312,7 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
                                                       field="doNotBroadcast"
@@ -411,7 +412,7 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
@@ -425,7 +426,7 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
                                                       field="doNotBroadcast"
@@ -538,7 +539,7 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
@@ -552,7 +553,7 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
                                                       field="doNotBroadcast"
@@ -673,7 +674,7 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
@@ -687,7 +688,7 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
                                                       field="doNotBroadcast"
@@ -746,7 +747,7 @@ class AdvancedSettings extends React.Component {
                                             placeholder="Full hash of transaction"/>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
@@ -760,7 +761,7 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
                                                       field="doNotBroadcast"
@@ -831,7 +832,7 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label htmlFor="referencedHash" className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
@@ -845,7 +846,7 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
                                                       field="doNotBroadcast"
