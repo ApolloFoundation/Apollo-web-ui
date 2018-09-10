@@ -263,10 +263,45 @@ class SiteHeader extends React.Component {
 										<AccordionItem>
 											<div className={"mobile-nav-item"}>
 												<AccordionItemTitle
+													className={`text ${this.getNavLinkClass(["/trade-history",
+														"/transfer-history",
+														"/delete-history",
+														"/my-assets",
+														"/open-orders",
+														"approval-request"])}`}>
+													<i className="zmdi zmdi-case"/>Asset system<span
+													className="arrow"/>
+												</AccordionItemTitle>
+												<AccordionItemBody>
+													<div className="item-dropdown">
+														<NavLink exact={true} activeClassName="active"
+														         to="/trade-history">Trade history</NavLink>
+														<NavLink exact={true} activeClassName="active"
+														         to="/transfer-history">Transfer history</NavLink>
+														<NavLink exact={true} activeClassName="active"
+														         to="/delete-history">Delete history</NavLink>
+														<NavLink exact={true} activeClassName="active" to="/my-assets">My
+															Assets</NavLink>
+														<NavLink exact={true} activeClassName="active"
+														         to="/open-orders">Open orders</NavLink>
+														<NavLink exact={true} activeClassName="active"
+														         to="approval-request">Approval request</NavLink>
+
+														<a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue
+															Assets</a>
+
+													</div>
+												</AccordionItemBody>
+											</div>
+
+										</AccordionItem>
+										<AccordionItem>
+											<div className={"mobile-nav-item"}>
+												<AccordionItemTitle
 													className={`text ${this.getNavLinkClass(["/currencies",
 														"/my-shuffling",
-														"/transfer-history",
-														"/trade-history"])}`}>
+														"/transfer-history-currency",
+														"/trade-history-currency"])}`}>
 													<i className="zmdi zmdi-money"/>Currency system<span
 													className="arrow"/>
 												</AccordionItemTitle>
@@ -274,8 +309,10 @@ class SiteHeader extends React.Component {
 													<div className="item-dropdown">
 														<NavLink to="/currencies">Currencies</NavLink>
 														<NavLink to="/my-shuffling">Exchange history</NavLink>
-														<NavLink to="/transfer-history">Transfer history</NavLink>
-														<NavLink to="/trade-history">Approval requests</NavLink>
+														<NavLink to="/transfer-history-currency">Transfer
+															history</NavLink>
+														<NavLink to="/trade-history-currency">Approval
+															requests</NavLink>
 
 														<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
 															Currencies</a>

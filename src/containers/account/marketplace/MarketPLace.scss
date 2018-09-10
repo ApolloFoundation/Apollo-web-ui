@@ -1,5 +1,7 @@
 .marketplace-container {
 	z-index: 1 !important;
+	padding-top: 0 !important;
+	margin-top: 120px;
 	@media (max-height: 860px) {
 		z-index: 0 !important;
 	}

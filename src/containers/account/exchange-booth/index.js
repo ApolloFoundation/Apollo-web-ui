@@ -41,7 +41,7 @@ class ExchangeBooth extends React.Component {
                 />
                 {
                     this.state.currency &&
-                    <div className="page-body container-fluid">
+                    <div className="page-body container-fluid exchange-booth">
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="transactions-filters align-for-inputs">

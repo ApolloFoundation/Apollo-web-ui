@@ -221,7 +221,7 @@ input[type="number"] {
     .site-content .page-content .page-body .my-transactions {
       width: 100%; }
       .site-content .page-content .page-body .my-transactions .transactions-filters {
-        min-height: 120px;
+        min-height: zmdi zmdi-money120px;
         padding-left: 40px; }
         .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar {
           display: flex;
