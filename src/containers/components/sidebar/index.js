@@ -5,7 +5,7 @@ import './Sidebar.css';
 import AssetExchange from "../../account/asset-exchange";
 import {setMopalType} from "../../../modules/modals";
 import classNames from 'classnames'
-
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const mapStateToProps = state => ({
     modalType : state.modals.modalType,
@@ -22,21 +22,21 @@ class Sidebar extends React.Component {
     }
 
     state = {
-        isHover: false,
+        // isHover: false,
         isMenuCollapsed: false
     };
 
-    handleMenuMouseOver = () => {
-        this.setState({
-            isHover: true
-        });
-    };
-
-    handleMenuMouseOut = () => {
-        this.setState({
-            isHover: false
-        });
-    };
+    // handleMenuMouseOver = () => {
+    //     this.setState({
+    //         isHover: true
+    //     });
+    // };
+    //
+    // handleMenuMouseOut = () => {
+    //     this.setState({
+    //         isHover: false
+    //     });
+    // };
 
     handleMenuCollapse = () => {
         this.setState({
@@ -47,11 +47,14 @@ class Sidebar extends React.Component {
 
     render() {
         return (
-            <div
+            <Scrollbars
+	            renderView={props => <div {...props} className="track-content-view"/>}
+	            renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
+	            renderTrackVertical={props => <div {...props} className="track-vertical"/>}
                 className={classNames({
                     "menu-bar": true,
                     "collapsed": this.state.isMenuCollapsed,
-                    "hover": this.state.isHover
+                    // "hover": this.state.isHover
                 })}
             >
                 <div className="menu-bar-container">
@@ -243,7 +246,7 @@ class Sidebar extends React.Component {
                         <i className="zmdi zmdi-chevron-right left" />
                     </a>
                 </div>
-            </div>
+            </Scrollbars>
         );
     }
 }

@@ -1,19 +1,22 @@
 .menu-bar {
-  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: auto;
   z-index: 2;
-  min-width: 260px;
-  overflow-y: auto; }
+  position: fixed !important;
+  width: auto !important;
+  min-width: 260px !important; }
   @media (max-width: 760px) {
     .menu-bar {
       display: none !important; } }
-  .menu-bar.hover {
+  .menu-bar .track-content-view {
+    margin-bottom: -20px !important; }
+  .menu-bar .track-horizontal,
+  .menu-bar .track-vertical {
+    display: none !important; }
+  .menu-bar:hover {
     right: 0; }
-  .menu-bar::-webkit-scrollbar {
-    width: 0; }
   @media (max-width: 760px) {
     .menu-bar .header-nav {
       width: 100% !important;

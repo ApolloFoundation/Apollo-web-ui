@@ -84,7 +84,7 @@ input[type="number"] {
       right: 30px;
       bottom: 20px; }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard.scroll {
-        overflow-y: scroll;
+        overflow-y: auto;
         margin-right: -30px;
         padding-right: 20px; }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {

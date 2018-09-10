@@ -2743,10 +2743,6 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 html, body {
   background-color: #F5F5F5; }
 
-*:focus, *:active, *:hover {
-  box-shadow: none !important;
-  -webkit-box-shadow: none !important; }
-
 ::placeholder {
   color: #a6a6a6;
   opacity: 1;
@@ -4322,7 +4318,7 @@ input[type="number"] {
       right: 30px;
       bottom: 20px; }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard.scroll {
-        overflow-y: scroll;
+        overflow-y: auto;
         margin-right: -30px;
         padding-right: 20px; }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
@@ -4534,7 +4530,7 @@ input[type="number"] {
           display: none; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
           height: 300px;
-          overflow-y: scroll;
+          overflow-y: auto;
           width: 300px;
           display: block; }
       .page-header .user-search-box .user-box {
