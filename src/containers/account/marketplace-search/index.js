@@ -183,7 +183,8 @@ class MarketplaceSearch extends React.Component {
                                     className="btn-box relative padding-bottom"
                                     style={{
                                         position: "relative",
-                                        height: 37
+                                        height: 37,
+                                        marginBottom: 15
                                     }}
                                 >
                                     <a
@@ -223,7 +224,7 @@ class MarketplaceSearch extends React.Component {
                                             'disabled' : this.state.getDGSGoods.length < 8
                                         })}
                                         style={{
-                                            right: 7.5
+                                            right: 0
                                         }}
                                     >Next</a>
                                 </div>

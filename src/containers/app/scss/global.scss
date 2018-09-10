@@ -1160,7 +1160,8 @@ input {
 
 .btn-box {
 	width: 100%;
-	
+	min-height: 37px;
+
 	&.align-right {
 		text-align: right;
 	}

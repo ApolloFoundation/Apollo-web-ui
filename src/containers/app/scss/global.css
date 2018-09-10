@@ -791,7 +791,8 @@ input {
     border-radius: 3px 0 0 3px; }
 
 .btn-box {
-  width: 100%; }
+  width: 100%;
+  min-height: 37px; }
   .btn-box.align-right {
     text-align: right; }
   .btn-box.align-left {
