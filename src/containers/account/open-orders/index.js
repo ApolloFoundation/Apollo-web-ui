@@ -51,69 +51,77 @@ class OpenOrders extends React.Component {
                     <div className="open-orders">
                         <div className="row">
                             <div className="col-md-6">
-                                <div className="approval-request white-space">
-                                    <p>Sell Orders</p>
-                                    {this.state.sellOrders.length === 0 ? <div className="alert">No assets.</div> :
-                                        <div className="transaction-table">
-                                            <div className="transaction-table-body">
-                                                <table>
-                                                    <thead key={uuid()}>
-                                                    <tr>
-                                                        <td className="align-left">Asset</td>
-                                                        <td>Quantity</td>
-                                                        <td>Price</td>
-                                                        <td>Total</td>
-                                                        <td className="align-left">Cancel</td>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody key={uuid()}>
-                                                    {
-                                                        this.state.sellOrders.map(el => {
-                                                            return (
-                                                                <OrderItem
-                                                                    order={el}
-                                                                />
-                                                            )
-                                                        })
-                                                    }
-                                                    </tbody>
-                                                </table>
+                                <div className="form-group-app">
+                                    <div className="form-title">
+                                        <p>Sell Orders</p>
+                                    </div>
+                                    <div className="approval-request white-space no-padding">
+                                        {this.state.sellOrders.length === 0 ? <div className="alert">No assets.</div> :
+                                            <div className="transaction-table">
+                                                <div className="transaction-table-body no-padding">
+                                                    <table>
+                                                        <thead key={uuid()}>
+                                                        <tr>
+                                                            <td className="align-left">Asset</td>
+                                                            <td>Quantity</td>
+                                                            <td>Price</td>
+                                                            <td>Total</td>
+                                                            <td className="align-left">Cancel</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody key={uuid()}>
+                                                        {
+                                                            this.state.sellOrders.map(el => {
+                                                                return (
+                                                                    <OrderItem
+                                                                        order={el}
+                                                                    />
+                                                                )
+                                                            })
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="approval-request white-space">
-                                    <p>Buy Orders</p>
-                                    {this.state.buyOrders.length === 0 ? <div className="alert">No assets.</div> :
-                                        <div className="transaction-table">
-                                            <div className="transaction-table-body">
-                                                <table>
-                                                    <thead key={uuid()}>
-                                                    <tr>
-                                                        <td className="align-left">Asset</td>
-                                                        <td>Quantity</td>
-                                                        <td>Price</td>
-                                                        <td>Total</td>
-                                                        <td className="align-left">Cancel</td>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody key={uuid()}>
-                                                    {
-                                                        this.state.buyOrders.map(el => {
-                                                            return (
-                                                                <OrderItem
-                                                                    order={el}
-                                                                />
-                                                            )
-                                                        })
-                                                    }
-                                                    </tbody>
-                                                </table>
+                                <div className="form-group-app">
+                                    <div className="form-title">
+                                        <p>Buy Orders</p>
+                                    </div>
+                                    <div className="approval-request white-space no-padding">
+                                        {this.state.buyOrders.length === 0 ? <div className="alert">No assets.</div> :
+                                            <div className="transaction-table">
+                                                <div className="transaction-table-body no-padding">
+                                                    <table>
+                                                        <thead key={uuid()}>
+                                                        <tr>
+                                                            <td className="align-left">Asset</td>
+                                                            <td>Quantity</td>
+                                                            <td>Price</td>
+                                                            <td>Total</td>
+                                                            <td className="align-left">Cancel</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody key={uuid()}>
+                                                        {
+                                                            this.state.buyOrders.map(el => {
+                                                                return (
+                                                                    <OrderItem
+                                                                        order={el}
+                                                                    />
+                                                                )
+                                                            })
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
