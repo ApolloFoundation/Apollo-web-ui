@@ -4014,7 +4014,8 @@ table td .btn, table th .btn {
 .custom-checkbox {
   padding-left: 23px; }
   .custom-checkbox .custom-control-input {
-    z-index: 1; }
+    z-index: 1;
+    position: absolute; }
   .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
     background-image: url(../../assets/checked.svg);
     background-repeat: no-repeat;
