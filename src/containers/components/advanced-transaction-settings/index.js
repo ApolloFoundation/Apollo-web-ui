@@ -1,8 +1,13 @@
 import React from 'react';
 import classNames from "classnames";
+import {connect} from 'react-redux';
 import AccountRS from '../../components/account-rs';
 import {Form, Text, TextArea, Checkbox} from 'react-form';
+import {getBlockAction} from "../../../actions/blocks";
 
+const mapDispatchToProps = dispatch => ({
+    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
+});
 
 class AdvancedSettings extends React.Component {
     constructor(props) {
@@ -11,6 +16,7 @@ class AdvancedSettings extends React.Component {
 
     state = {
         activeTab: 0,
+        block: null
     };
 
     handleFormSubmit = (values) => {
@@ -24,6 +30,19 @@ class AdvancedSettings extends React.Component {
             ...this.props,
             activeTab: tab
         })
+    };
+
+    componentDidMount = () => {
+        this.getBlock();
+    };
+
+    getBlock = async (reqParams) => {
+        const block = await this.props.getBlockAction(reqParams);
+        if (block) {
+            this.setState({
+                block: block
+            })
+        }
     };
 
     render () {
@@ -173,15 +192,23 @@ class AdvancedSettings extends React.Component {
                                 <div className="form-group row form-group-grey">
                                     <label htmlFor="finishHeight" className="col-sm-3 col-form-label">Finish height</label>
                                     <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="number"
-                                            id="finishHeight"
-                                            className="form-control"
-                                            field="finishHeight"
-                                            placeholder="Finish height"
-                                            aria-describedby="finishHeightText"/>
+                                        {
+                                            this.state.block &&
+                                            <Text
+                                                type="number"
+                                                id="finishHeight"
+                                                className="form-control"
+                                                field="finishHeight"
+                                                defaultValue={this.state.block.height}
+                                                placeholder="Finish height"
+                                                aria-describedby="finishHeightText"/>
+                                        }
+
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="finishHeightText">146,631</span>
+                                            {
+                                                this.state.block &&
+                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                            }
                                         </div>
                                     </div>
                                     <div className="col-sm-12 form-sub-title block align-right align-margin-top">
@@ -255,7 +282,10 @@ class AdvancedSettings extends React.Component {
                                             placeholder="Finish height"
                                             aria-describedby="finishHeightText"/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="finishHeightText">146,631</span>
+                                            {
+                                                this.state.block &&
+                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                            }
                                         </div>
                                     </div>
                                     <div className="col-sm-12 form-sub-title block align-right align-margin-top">
@@ -369,7 +399,10 @@ class AdvancedSettings extends React.Component {
                                             placeholder="Finish height"
                                             aria-describedby="finishHeightText"/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="finishHeightText">146,631</span>
+                                            {
+                                                this.state.block &&
+                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                            }
                                         </div>
                                     </div>
                                     <div className="col-sm-12 form-sub-title block align-right align-margin-top">
@@ -468,7 +501,10 @@ class AdvancedSettings extends React.Component {
                                             placeholder="Asset quantity"
                                             aria-describedby="quantityText" />
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="quantityText">Quantity</span>
+                                            {
+                                                this.state.block &&
+                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -483,7 +519,10 @@ class AdvancedSettings extends React.Component {
                                             placeholder="Finish height"
                                             aria-describedby="finishHeightText"/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="finishHeightText">146,631</span>
+                                            {
+                                                this.state.block &&
+                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                            }
                                         </div>
                                     </div>
                                     <div className="col-sm-12 form-sub-title block align-right align-margin-top">
@@ -610,7 +649,10 @@ class AdvancedSettings extends React.Component {
                                             placeholder="Finish height"
                                             aria-describedby="finishHeightText"/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="finishHeightText">146,631</span>
+                                            {
+                                                this.state.block &&
+                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                            }
                                         </div>
                                     </div>
                                     <div className="col-sm-12 form-sub-title block align-right align-margin-top">
@@ -728,7 +770,10 @@ class AdvancedSettings extends React.Component {
                                             placeholder="Finish height"
                                             aria-describedby="finishHeightText"/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="finishHeightText">146,631</span>
+                                            {
+                                                this.state.block &&
+                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                            }
                                         </div>
                                     </div>
                                     <div className="col-sm-12 form-sub-title block align-right align-margin-top">
@@ -801,7 +846,10 @@ class AdvancedSettings extends React.Component {
                                             placeholder="Finish height"
                                             aria-describedby="finishHeightText"/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="finishHeightText">146,631</span>
+                                            {
+                                                this.state.block &&
+                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                            }
                                         </div>
                                     </div>
                                     <div className="col-sm-12 form-sub-title block align-right align-margin-top">
@@ -876,4 +924,4 @@ class AdvancedSettings extends React.Component {
     }
 }
 
-export default AdvancedSettings;
+export default connect(null, mapDispatchToProps)(AdvancedSettings);

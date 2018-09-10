@@ -687,14 +687,14 @@ class SiteHeader extends React.Component {
 														className="image-button"
 													>
 														<i className="zmdi zmdi-account"/>
-														<label>Details</label>
+														<label style={{cursor: 'pointer'}}>Details</label>
 													</a>
 													<Link
 														to="/messenger"
 														className="image-button"
 													>
 														<i className="zmdi zmdi-comments"/>
-														<label>Messages</label>
+														<label style={{cursor: 'pointer'}}>Messages</label>
 													</Link>
 
 												</div>
@@ -704,7 +704,7 @@ class SiteHeader extends React.Component {
 														className="image-button"
 													>
 														<i className="zmdi zmdi-settings"/>
-														<label>Settings</label>
+														<label style={{cursor: 'pointer'}}>Settings</label>
 													</Link>
 
 												</div>
@@ -713,15 +713,21 @@ class SiteHeader extends React.Component {
 														onClick={() => logOutAction('simpleLogOut')}
 														className="image-button">
 														<i className="zmdi zmdi-power"/>
-														<label>Logout</label>
+														<label style={{cursor: 'pointer'}}>Logout</label>
 													</div>
-													<div className="image-button">
-														<i className="zmdi zmdi-power"/>
-														<label>Logout and stop forging</label>
+													<div
+                                                        onClick={() => logOutAction('logOutStopForging')}
+														className="image-button"
+													>
+														<i className="zmdi zmdi-pause-circle"/>
+														<label style={{cursor: 'pointer'}}>Logout and stop forging</label>
 													</div>
-													<div className="image-button">
+													<div
+                                                        onClick={() => logOutAction('logoutClearUserData')}
+														className="image-button"
+													>
 														<i className="zmdi zmdi-close-circle"/>
-														<label>Logout and clear user data</label>
+														<label style={{cursor: 'pointer'}}>Logout and clear user data</label>
 													</div>
 												</div>
 											</div>

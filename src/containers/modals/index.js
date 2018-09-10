@@ -27,6 +27,7 @@ import DeviceSettings from './account/device-settings';
 import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
 import SaveAccount from './account/save-account';
+import EnterAdminPassword from './admin-password';
 
 // Assets
 import TransferAsset from './assets/transfer-asset';
@@ -198,6 +199,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'CREATE_USER'                 && <CreateUser                closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'ADMIN_PASSWORD'              && <EnterAdminPassword        closeModal={this.closeModal}/>}
 
 
                 {/* Shuffling */}

@@ -88,9 +88,23 @@ function makeLoginReq(dispatch, requestParams) {
         });
 }
 
-export function logOutAction() {
-    deleteFromLocalStorage('APLUserRS');
-    document.location = '/';
+export function logOutAction(action) {
+    switch (action) {
+        case('simpleLogOut'):
+            deleteFromLocalStorage('APLUserRS');
+            document.location = '/';
+        case('logOutStopForging'):
+            deleteFromLocalStorage('APLUserRS');
+            document.location = '/';
+        case('logoutClearUserData'):
+            localStorage.clear();
+            document.location = '/';
+        default:
+            deleteFromLocalStorage('APLUserRS');
+            document.location = '/';
+
+    }
+
 }
 
 export function getConstantsAction() {
