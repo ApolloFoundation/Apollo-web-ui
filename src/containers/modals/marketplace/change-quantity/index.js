@@ -28,7 +28,6 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class MarketplaceChangeQuantity extends React.Component {
     constructor(props) {
         super(props);
@@ -49,8 +48,6 @@ class MarketplaceChangeQuantity extends React.Component {
             goods: value
         });
 
-        console.log(value);
-
         if (productData) {
             this.setState({
                 goods: productData
@@ -61,8 +58,6 @@ class MarketplaceChangeQuantity extends React.Component {
     async handleFormSubmit(values) {
         const publicKey = await crypto.getPublicKey(values.secretPhrase, false);
 
-        console.log(publicKey);
-
         values = {
             ...values,
             deltaQuantity: (values.quantity - this.state.goods.quantity),
@@ -70,9 +65,6 @@ class MarketplaceChangeQuantity extends React.Component {
             recipient: this.props.account,
             publicKey: publicKey
         };
-
-        console.log(this.state.goods.quantity);
-        console.log(values.quantity);
 
         this.props.submitForm(null, null, values, 'dgsQuantityChange')
             .done((res) => {
@@ -137,7 +129,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                     </div>
                                     <Form
                                         onSubmit={(values) => this.handleFormSubmit(values)}
-                                        render={({ submitForm, values, addValue, removeValue }) => (
+                                        render={({ submitForm, values, addValue, removeValue, setValue }) => (
 
                                             <form className="modal-form" onSubmit={submitForm}>
                                                 <div className="form-group-app no-padding-left no-padding-top">
@@ -187,7 +179,10 @@ class MarketplaceChangeQuantity extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <AdvancedSettings advancedState={this.state.advancedState}/>
+                                                    <AdvancedSettings
+                                                        setState={setValue}
+                                                        advancedState={this.state.advancedState}
+                                                    />
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a

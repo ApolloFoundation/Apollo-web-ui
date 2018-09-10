@@ -33,7 +33,6 @@ class MessageItem extends React.Component {
     }
 
     tryToDecrypt = (newState) => {
-        console.log(newState.account.passPhrase);
         if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
             this.decryptMessage(this.props, newState.account.passPhrase)
         }

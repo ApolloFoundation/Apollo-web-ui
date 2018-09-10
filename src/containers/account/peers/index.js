@@ -12,7 +12,6 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
-@connect(null, mapDispatchToProps)
 class Peers extends React.Component {
     constructor(props) {
         super(props);
@@ -141,4 +140,4 @@ class Peers extends React.Component {
     }
 }
 
-export default Peers;
+export default connect(null, mapDispatchToProps)(Peers);

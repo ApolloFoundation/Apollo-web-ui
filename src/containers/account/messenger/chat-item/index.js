@@ -17,7 +17,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-@connect(mapStateToProps, mapDispatchToProps)
 class ChatItem extends React.Component {
     constructor(props) {
         super(props)
@@ -31,16 +30,11 @@ class ChatItem extends React.Component {
         this.tryToDecrypt(newState);
     };
 
-    componentWillMount() {
-        console.log(this.state);
-    }
-
     componentDidMount() {
         this.tryToDecrypt(this.props);
     }
 
     tryToDecrypt = (newState) => {
-        console.log(newState.account.passPhrase);
         if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
             this.decryptMessage(this.props, newState.account.passPhrase)
         }
@@ -110,4 +104,4 @@ class ChatItem extends React.Component {
     }
 }
 
-export default ChatItem;
+export default connect(mapStateToProps, mapDispatchToProps)(ChatItem);

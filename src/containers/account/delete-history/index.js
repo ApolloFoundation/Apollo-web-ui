@@ -1,8 +1,33 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
+import uuid from "uuid";
+import {connect} from "react-redux";
+import {getDeleteHistory} from "../../../actions/delete-history";
+import DeleteItem from "./deletes";
 
 class DeleteHistory extends React.Component {
-    render () {
+
+    state = {
+        deletes: [],
+    };
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.account && nextProps.account.length > 0 && this.props.account !== nextProps.account) {
+            this.getDeleteHistory(nextProps.account);
+        }
+    };
+
+    getDeleteHistory = account => {
+        console.warn("account-history", account);
+        this.props.getDeleteHistory(account).then(history => this.setState({
+                deletes: history.deletes
+            })
+        )
+    };
+
+    render() {
+        console.warn("account", this.props.account);
+
         return (
             <div className="page-content">
                 <SiteHeader
@@ -11,7 +36,33 @@ class DeleteHistory extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
                         <div className="approval-request white-space">
-                            <div className="alert">No delete history available.</div>
+                            <div className="transaction-table">
+                                <div className="transaction-table-body">
+                                    <table>
+                                        <thead key={uuid()}>
+                                        <tr>
+                                            <td className="align-left">Transaction</td>
+                                            <td>Asset</td>
+                                            <td className="align-left">Date</td>
+                                            <td className="align-right">Quantity</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody key={uuid()}>
+                                        {
+                                            this.state.deletes.map(el => {
+                                                return (
+                                                    <DeleteItem
+                                                        delete={el}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -20,4 +71,20 @@ class DeleteHistory extends React.Component {
     }
 }
 
-export default DeleteHistory;
+const
+    mapStateToProps = state => ({
+        account: state.account.accountRS,
+
+    });
+
+const
+    mapDispatchToProps = dispatch => ({
+        getDeleteHistory: account => dispatch(getDeleteHistory(account))
+    });
+
+export default connect(mapStateToProps, mapDispatchToProps)
+
+(
+    DeleteHistory
+)
+;

@@ -26,6 +26,7 @@ import TransactionOperations from './account/transactions-operations';
 import DeviceSettings from './account/device-settings';
 import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
+import SaveAccount from './account/save-account';
 
 // Assets
 import TransferAsset from './assets/transfer-asset';
@@ -112,15 +113,13 @@ class ModalWindow extends React.Component {
         if (this.refs.modalWindow.childNodes.length) {
             setTimeout(() => {
                 document.querySelector('.modal-box').classList.add('active')
-            }, 1)
+            }, 10)
         }
     }
 
     closeModal = () => {
         const modalWindow = document.querySelectorAll('.modal-window');
         const modalBox = document.querySelectorAll('.modal-box');
-
-        console.log(modalWindow);
 
         Object.values(modalWindow).map((el, index) => {
             setTimeout(() => {
@@ -198,6 +197,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CREATE_USER'                 && <CreateUser                closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.closeModal}/>}
 
 
                 {/* Shuffling */}

@@ -21,14 +21,15 @@ import Ledger from '../account/ledger'
 import Blocks from '../account/blocks'
 
 import ExchangeBooth from '../account/exchange-booth'
-import FollowedPools from '../account/followed-pools'
+import Followedpolls from '../account/followed-polls'
 import Messenger from '../account/messenger'
 import ResentMarketplaceListing from '../account/marketplace/recent-listing'
 import Marketplace from '../account/marketplace'
 import MyProductsForSale from '../account/my-products-for-sale'
 import MyPandingOrders from '../account/my-panding-orders'
+import PurchasdProucts from '../account/purchased-proucts'
 import MyCompletedOrders from '../account/my-completed-orders'
-import ActivePools from '../account/active-pools'
+import Activepolls from '../account/active-polls'
 import AccountProperties from '../account/account-properties'
 import ApprovalRequest from '../account/approval-request'
 import AssetExchange from '../account/asset-exchange'
@@ -47,7 +48,7 @@ import TransferHistory from '../account/transfer-history'
 import TransferHistoryCurrency from '../account/transfer-history-currency'
 import Currencies from '../account/currencies'
 import MyCurrencies from '../account/my-shuffling'
-import FinishedPools from '../account/finished-pools'
+import Finishedpolls from '../account/finished-polls'
 import MyVotes from '../account/my-votes'
 import MyPolls from '../account/my-polls'
 import DataStorage from "../account/datastorage";
@@ -129,7 +130,8 @@ class App extends React.Component {
                                 ,<Route exact path="/ledger" component={Ledger}/>
                                 ,<Route exact path="/blocks" component={Blocks}/>
 
-                                ,<Route path="/followed-pools/:poll" component={FollowedPools}/>
+                                ,<Route path="/followed-polls/:poll" component={Followedpolls}/>
+                                ,<Route path="/followed-polls" component={Followedpolls}/>
                                 ,<Route exact path="/my-votes" component={MyVotes}/>
                                 ,<Route exact path="/my-polls" component={MyPolls}/>
                                 ,<Route exact path="/messenger" component={Messenger}/>
@@ -140,7 +142,7 @@ class App extends React.Component {
                                 ,<Route exact path="/my-panding-orders" component={MyPandingOrders}/>
                                 ,<Route exact path="/my-completed-orders" component={MyCompletedOrders}/>
                                 ,<Route exact path="/marketplace/:tag" component={MarketplaceSearch}/>
-                                ,<Route exact path="/active-pools" component={ActivePools}/>
+                                ,<Route exact path="/active-polls" component={Activepolls}/>
                                 ,<Route exact path="/active-shuffling" component={ActiveShufflings}/>
                                 ,<Route path="/exchange-booth/:currency" component={ExchangeBooth}/>
                                 ,<Route exact path="/my-shuffling" component={MyCurrencies}/>
@@ -153,6 +155,7 @@ class App extends React.Component {
                                 ,<Route exact path="/my-assets" component={MyAssets}/>
                                 ,<Route exact path="/open-orders" component={OpenOrders}/>
                                 ,<Route exact path="/peers" component={Peers}/>
+                                ,<Route exact path="/purchased-products" component={PurchasdProucts}/>
                                 ,<Route exact path="/plugins" component={Plugins}/>
                                 ,<Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
                                 ,<Route exact path="/settings" component={Settings}/>
@@ -160,7 +163,7 @@ class App extends React.Component {
                                 ,<Route exact path="/trade-history-currency" component={TradeHistoryCurrency}/>
                                 ,<Route exact path="/transfer-history" component={TransferHistory}/>
                                 ,<Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
-                                ,<Route exact path="/finished-pools" component={FinishedPools}/>
+                                ,<Route exact path="/finished-polls" component={Finishedpolls}/>
                                 ,<Route exact path="/data-storage" component={DataStorage}/>
                                 ,<Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 ,<Route exact path="/my-messages" component={MyMessages}/>

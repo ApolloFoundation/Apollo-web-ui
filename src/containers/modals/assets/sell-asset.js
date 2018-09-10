@@ -28,17 +28,12 @@ class BuyAsset extends React.Component {
 
     handleFormSubmit = async(values) => {
 
-        console.log(values);
-
         values = {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
             priceATM: this.props.modalData.priceATM,
             quantityATU: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
         };
-
-        console.log(values);
-
 
         this.props.submitForm(null, null, values, 'placeAskOrder')
             .done((res) => {
@@ -70,7 +65,6 @@ class BuyAsset extends React.Component {
     };
 
     render() {
-        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form
@@ -130,7 +124,10 @@ class BuyAsset extends React.Component {
                                         </div>
                                     </div>
 
-                                    <AdvancedSettings advancedState={this.state.advancedState}/>
+                                    <AdvancedSettings
+                                        setState={setValue}
+                                        advancedState={this.state.advancedState}
+                                    />
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
                                         <button

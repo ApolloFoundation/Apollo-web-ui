@@ -12,7 +12,6 @@ const mapDispatchToProps = dispatch => ({
     getDGSGoodsAction: (reqParams) => dispatch(getDGSGoodsAction(reqParams))
 });
 
-@connect(null, mapDispatchToProps)
 class ResentMarketplaceListing extends React.Component {
     constructor(props) {
         super(props);
@@ -68,10 +67,6 @@ class ResentMarketplaceListing extends React.Component {
     };
 
     handleCardMouseOver = (e) =>  {
-        // console.log(e.nativeEvent.target.offsetParent);
-        console.log(e.currentTarget);
-        // console.log(e.target.firstChild);
-        //
         e.currentTarget.classList.add('active')
     };
     handleCardMouseOut = (e) =>  {
@@ -148,7 +143,8 @@ class ResentMarketplaceListing extends React.Component {
                                     className="btn-box relative padding-bottom"
                                     style={{
                                         position: "relative",
-                                        height: 37
+                                        height: 37,
+                                        marginBottom: 15
                                     }}
                                 >
                                     <a
@@ -188,7 +184,7 @@ class ResentMarketplaceListing extends React.Component {
                                             'disabled' : this.state.getDGSGoods.length < 8
                                         })}
                                         style={{
-                                            right: 7.5
+                                            right: 0
                                         }}
                                     >Next</a>
                                 </div>
@@ -202,4 +198,4 @@ class ResentMarketplaceListing extends React.Component {
     }
 };
 
-export default ResentMarketplaceListing;
+export default connect(null, mapDispatchToProps)(ResentMarketplaceListing);

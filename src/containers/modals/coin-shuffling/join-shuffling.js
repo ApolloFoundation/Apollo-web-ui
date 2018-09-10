@@ -40,8 +40,6 @@ class JoinShuffling extends React.Component {
             recipientPublicKey: await crypto.getPublicKey(values.recipientSecretPhrase, false)
         };
 
-        console.log(values);
-
         this.props.submitForm(null, null, values, 'startShuffler')
             .done((res) => {
                 if (res.errorCode) {
@@ -110,8 +108,6 @@ class JoinShuffling extends React.Component {
 
         const generatedAccount = store.dispatch(await this.props.getAccountIdAsync(passphrase));
 
-        console.log(generatedAccount);
-
         setValue('generatedAccount', generatedAccount);
     };
 
@@ -177,7 +173,10 @@ class JoinShuffling extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <AdvancedSettings advancedState={this.state.advancedState}/>
+                                <AdvancedSettings
+                                    setState={setValue}
+                                    advancedState={this.state.advancedState}
+                                />
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a
                                         onClick={() => this.props.closeModal()}

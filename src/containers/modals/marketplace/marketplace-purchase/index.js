@@ -28,7 +28,6 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class MarketplacePurchase extends React.Component {
     constructor(props) {
         super(props);
@@ -49,8 +48,6 @@ class MarketplacePurchase extends React.Component {
             goods: value
         });
 
-        console.log(value);
-
         if (productData) {
             this.setState({
                 goods: productData
@@ -61,8 +58,6 @@ class MarketplacePurchase extends React.Component {
     async handleFormSubmit(values) {
         const publicKey = await crypto.getPublicKey(values.secretPhrase, false);
 
-        console.log(publicKey);
-
         values = {
             ...values,
             priceATM: parseInt(this.state.goods.priceATM) / 100000000,
@@ -70,8 +65,6 @@ class MarketplacePurchase extends React.Component {
             recipient: this.props.account,
             publicKey: publicKey
         };
-
-        console.log(values);
 
         this.props.submitForm(null, null, values, 'dgsPurchase')
             .done((res) => {
@@ -138,7 +131,7 @@ class MarketplacePurchase extends React.Component {
                                     </div>
                                     <Form
                                         onSubmit={(values) => this.handleFormSubmit(values)}
-                                        render={({ submitForm, values, addValue, removeValue }) => (
+                                        render={({ submitForm, values, addValue, removeValue, setValue }) => (
 
                                             <form className="modal-form" onSubmit={submitForm}>
                                                 <div className="form-group-app no-padding-left no-padding-top">
@@ -184,7 +177,10 @@ class MarketplacePurchase extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <AdvancedSettings advancedState={this.state.advancedState}/>
+                                                    <AdvancedSettings
+                                                        setState={setValue}
+                                                        advancedState={this.state.advancedState}
+                                                    />
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a

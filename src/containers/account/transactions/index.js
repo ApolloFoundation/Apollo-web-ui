@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
-import { getTransactionsAction, getTransactionAction } from "../../../actions/transactions";
+import {getTransactionsAction, getTransactionAction, getPrivateTransactionAction} from "../../../actions/transactions";
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
@@ -169,6 +169,12 @@ class Transactions extends React.Component {
 
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+        } else {
+            const privateTransaction = await this.props.getPrivateTransactionAction({...requestParams, publicKey: this.state.publicKey});
+
+            if (privateTransaction){
+                this.props.setBodyModalParamsAction('INFO_TRANSACTION', {privateTransaction, publicKey: this.state.publicKey,  privateKey: this.state.privateKey})
+            }
         }
     };
 
@@ -451,7 +457,8 @@ const initMapDispatchToProps = dispatch => ({
     getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    getPrivateTransactionAction: (data) => dispatch(getPrivateTransactionAction(data)),
 
 });
 

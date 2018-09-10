@@ -28,8 +28,6 @@ class TransferAsset extends React.Component {
 
     handleFormSubmit = async(values) => {
 
-        console.log(values);
-
         this.props.submitForm(null, null, values, 'transferAsset')
             .done((res) => {
                 if (res.errorCode) {
@@ -56,7 +54,6 @@ class TransferAsset extends React.Component {
     };
 
     render() {
-        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form
@@ -127,7 +124,10 @@ class TransferAsset extends React.Component {
                                         </div>
                                     </div>
 
-                                    <AdvancedSettings advancedState={this.state.advancedState}/>
+                                    <AdvancedSettings
+                                        setState={setValue}
+                                        advancedState={this.state.advancedState}
+                                    />
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
                                         <button

@@ -16,7 +16,6 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-@connect(mapStateToPropms, mapDispatchToProps)
 class ActiveShufflings extends React.Component {
     constructor(props) {
         super(props)
@@ -162,4 +161,4 @@ class ActiveShufflings extends React.Component {
     }
 }
 
-export default ActiveShufflings;
+export default connect(mapStateToPropms, mapDispatchToProps)(ActiveShufflings);

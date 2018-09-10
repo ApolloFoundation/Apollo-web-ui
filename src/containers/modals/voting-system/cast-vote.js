@@ -8,7 +8,7 @@ import {Form, Text, TextArea, Number, Radio, RadioGroup} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
-import {getPoolAction} from "../../../actions/pools";
+import {getpollAction} from "../../../actions/polls";
 
 class CastPoll extends React.Component {
     constructor(props) {
@@ -33,7 +33,7 @@ class CastPoll extends React.Component {
     }
 
     getPoll =  async () => {
-        const poll = await this.props.getPoolAction({
+        const poll = await this.props.getpollAction({
             poll: this.props.modalData
         });
 
@@ -257,7 +257,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
-    getPoolAction: (reqParams) => dispatch(getPoolAction(reqParams))
+    getpollAction: (reqParams) => dispatch(getpollAction(reqParams))
 
 });
 

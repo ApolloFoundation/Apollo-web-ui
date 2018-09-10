@@ -23,6 +23,37 @@ export function getAssetsAction(reqParams) {
     }
 }
 
+export function getSpecificAccountAssetsAction(reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAccountAssets',
+                includeAssetInf: true,
+                ...reqParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+
+                    const assets = res.data.accountAssets.map((el, index) => {
+                        return dispatch(getAssetAction({
+                            asset: el.asset
+                        }))
+                    });
+
+                    return Promise.all(assets)
+
+
+                }
+                console.log('Error: ', res.data.errorCode);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }
+}
+
 export function getTransferHistory(reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
@@ -74,7 +105,6 @@ export function getAssetAction(reqParams) {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getAsset',
-                asset: 5996019989653579881,
                 phasingVotingModel: 0,
                 phasingQuorum: 1,
                 phasingWhitelisted: 3958487933422064851,

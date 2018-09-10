@@ -32,8 +32,6 @@ class InfoTransactions extends React.Component {
         const entry = await this.props.getLedgerEntryAction({ledgerId: this.props.modalData});
 
         if (entry) {
-            console.log(entry);
-
             this.setState({
                 entry
             })
@@ -43,7 +41,6 @@ class InfoTransactions extends React.Component {
     // TODO: migrate timesamp, migrate account to RS
 
     render() {
-        console.log(this.props.modalData);
         return (
             <div className="modal-box wide">
                 {

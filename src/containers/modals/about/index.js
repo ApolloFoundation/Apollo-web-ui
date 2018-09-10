@@ -13,7 +13,6 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
-@connect(mapStateToProps, mapDispatchToProps)
 class AboutApollo extends React.Component {
     constructor(props) {
         super(props);

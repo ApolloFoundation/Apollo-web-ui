@@ -18,7 +18,6 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
-@connect(mapStateToPropms, mapDispatchToProps)
 class FinishedShufflings extends React.Component {
     constructor(props) {
         super(props)
@@ -142,4 +141,4 @@ class FinishedShufflings extends React.Component {
     }
 }
 
-export default FinishedShufflings;
+export default connect(mapStateToPropms, mapDispatchToProps)(FinishedShufflings);

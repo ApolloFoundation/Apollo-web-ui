@@ -8,7 +8,6 @@ const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams))
 });
 
-@connect(null, mapDispatchToProps)
 class ExchangeBooth extends React.Component {
     constructor(props) {
         super(props);
@@ -479,4 +478,4 @@ class ExchangeBooth extends React.Component {
     }
 }
 
-export default ExchangeBooth;
+export default connect(null, mapDispatchToProps)(ExchangeBooth);

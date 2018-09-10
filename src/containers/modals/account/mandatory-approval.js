@@ -261,7 +261,11 @@ class MandatoryApproval extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <AdvancedSettings advancedState={this.state.advancedState} white/>
+                            {/*<AdvancedSettings*/}
+                                {/*setValue={setValue}*/}
+                                {/*advancedState={this.state.advancedState}*/}
+                                {/*white*/}
+                            {/*/>*/}
                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                 <button
                                     type="submit"

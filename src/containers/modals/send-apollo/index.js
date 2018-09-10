@@ -87,7 +87,6 @@ class SendApollo extends React.Component {
     };
 
     render() {
-        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form
@@ -102,118 +101,124 @@ class SendApollo extends React.Component {
                                 <div className="form-title">
                                     <p>Send Apollo</p>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline user">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Recipient</label>
-                                        </div>
-                                        <div className="col-md-9">
+                                <div className="input-group-app form-group mb-15 display-block inline user">
+                                    <div className="row form-group-white">
+                                        <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                            Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
+                                        </label>
+                                        <div className="col-sm-9">
                                             <div className="iconned-input-field">
                                                 <AccountRS
                                                     value={''}
                                                     field={'recipient'}
-                                                    defaultValue={this.props.modalData.recipient}
+                                                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
                                                 />
-
-                                                <div className="input-icon"><i className="zmdi zmdi-account" /></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Amount</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text defaultValue={this.props.modalData.amountATM} field="amountATM" placeholder="Amount" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
+                                <div className="form-group row form-group-white mb-15">
+                                    <label htmlFor="amountATM" className="col-sm-3 col-form-label">
+                                        Amount
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                        <Text defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+                                              id="amountATM"
+                                              className="form-control"
+                                              field="amountATM"
+                                              placeholder="Amount"
+                                              aria-describedby="amountText" />
+                                        <div className="input-group-append">
+                                            <span className="input-group-text" id="amountText">Apollo</span>
                                         </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <div className="form-sub-actions">
-                                                    <div
-                                                        className="input-group-app align-middle display-block offset-bottom"
-                                                    >
-                                                        <div className="input-group-app align-middle display-block offset-bottom">
-                                                            <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isMessage"/>
-                                                            <label>Add note to self?</label>
-                                                        </div>
-                                                        <a
-                                                            onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}
-                                                            className="no-margin btn static blue"
-                                                        >
-                                                            Private transaction?
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div className="form-group-grey row mb-15">
+                                    <div className="col-sm-9 offset-sm-3">
+                                        <a className="no-margin btn static blue"
+                                           onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}>
+                                            Private transaction
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="row mb-15 form-group-white">
+                                    <div className="col-md-9 offset-md-3">
+                                        <div className="form-check custom-checkbox mb-2">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="isMessage"/>
+                                            <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                                Add a message?
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
                                 {
                                     getFormState().values.isMessage &&
-                                    <div className="input-group-app offset-top display-block inline">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <TextArea placeholder="Message" field="message" cols="30" rows="10" />
-                                                </div>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Message
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <TextArea className="form-control" placeholder="Message" field="message" cols="30" rows="5" />
                                         </div>
                                     </div>
                                 }
 
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label style={{paddingRight: 7}}>Fee</label>
-                                            <span
-                                                onClick={async () => {
-                                                        const formState = getFormState();
-                                                        const fee = await this.props.calculateFeeAction({
-                                                            recipient: formState.values.recipient,
-                                                            amountATM: formState.values.amountATM,
-                                                            publicKey: this.props.publicKey,
-                                                            feeATM: 0
-                                                        });
+                                <div className="form-group row form-group-white mb-15">
+                                    <label htmlFor="feeATM" className="col-sm-3 col-form-label">
+                                        Fee
+                                        <span
+                                            onClick={async () => {
+                                                const formState = getFormState();
+                                                const fee = await this.props.calculateFeeAction({
+                                                    recipient: formState.values.recipient,
+                                                    amountATM: formState.values.amountATM,
+                                                    publicKey: this.props.publicKey,
+                                                    feeATM: 0
+                                                });
 
-                                                        if (fee) {
-                                                            setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
-                                                        }
-                                                    }
+                                                if (fee) {
+                                                    setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
                                                 }
-                                                style={{paddingRight: 0}}
-                                                className="calculate-fee"
-                                            >
+                                            }
+                                            }
+                                            style={{paddingRight: 0}}
+                                            className="calculate-fee"
+                                        >
                                                 Calculate</span>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text defaultValue={this.props.modalData.feeATM} field="feeATM" value={this.state.feeATM} placeholder="Amount" />
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                        <Text defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                              id="feeATM"
+                                              field="feeATM"
+                                              className="form-control"
+                                              value={this.state.feeATM}
+                                              placeholder="Amount"
+                                              type={"number"}
+                                              aria-describedby="feeATMText" />
+                                        <div className="input-group-append">
+                                            <span className="input-group-text" id="feeATMText">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="secretPhrase" placeholder="secretPhrase" type={'password'}/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label htmlFor="secretPhrase" className="col-sm-3 col-form-label">
+                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                    </label>
+                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                        <Text id="secretPhrase" className="form-control" field="secretPhrase" placeholder="secretPhrase" type={'password'}/>
                                     </div>
                                 </div>
+                                {this.state.advancedState && <div className="form-group row form-group-white mb-15">
+                                    <label htmlFor="secretPhrase" className="col-sm-3 col-form-label">
+                                        Deadline (hours)
+                                    </label>
+                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                        <Text id="secretPhrase" className="form-control" field="deadline" placeholder="Deadline" type={'number'}/>
+                                    </div>
+                                </div>}
                                 {
                                     this.state.passphraseStatus &&
                                     <InfoBox danger mt>
@@ -239,7 +244,10 @@ class SendApollo extends React.Component {
                                     </InfoBox>
                                 }
 
-                                <AdvancedSettings advancedState={this.state.advancedState}/>
+                                <AdvancedSettings
+                                    setValue={setValue}
+                                    advancedState={this.state.advancedState}
+                                />
 
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a
@@ -253,7 +261,7 @@ class SendApollo extends React.Component {
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
-                                        Send
+                                        Submit
                                     </button>
 
                                 </div>
@@ -263,7 +271,7 @@ class SendApollo extends React.Component {
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
                                         style={{left : 0, right: 'auto'}}
                                     >
-                                        Advanced
+                                        {this.state.advancedState ? "Basic" : "Advanced"}
                                     </a>
                                 </div>
                             </div>

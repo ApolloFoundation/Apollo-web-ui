@@ -368,8 +368,10 @@ class CreatePoll extends React.Component {
                                             Advanced
                                         </a>
                                     </div>
-                                    <AdvancedSettings advancedState={this.state.advancedState}/>
-
+                                    <AdvancedSettings
+                                        setState={setValue}
+                                        advancedState={this.state.advancedState}
+                                    />
                                 </div>
                             </form>
                         )}
