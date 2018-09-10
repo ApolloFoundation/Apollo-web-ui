@@ -3317,6 +3317,8 @@ input {
       padding: 0.25rem 0.5rem 0.2rem; }
       .form-group-app .form-group-grey .form-controlselect {
         background-color: #e5e5e5; }
+      .form-group-app .form-group-grey .form-control:focus {
+        box-shadow: none; }
     .form-group-app .form-group-grey .form-group-select select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -3381,6 +3383,8 @@ input {
       padding: 0.25rem 0.5rem 0.2rem; }
       .form-group-app .form-group-white .form-controlselect {
         background-color: #e5e5e5; }
+      .form-group-app .form-group-white .form-control:focus {
+        box-shadow: none; }
     .form-group-app .form-group-white .form-group-select select {
       -webkit-appearance: none;
       -moz-appearance: none;

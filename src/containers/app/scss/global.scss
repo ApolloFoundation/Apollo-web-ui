@@ -866,6 +866,9 @@ input {
 			&select {
 				background-color: #e5e5e5;
 			}
+			&:focus {
+				box-shadow: none
+			}
 		}
 		.form-group-select {
 			select {
@@ -953,6 +956,9 @@ input {
 			padding: 0.25rem 0.5rem 0.2rem;
 			&select {
 				background-color: #e5e5e5;
+			}
+			&:focus {
+				box-shadow: none
 			}
 		}
 		.form-group-select {

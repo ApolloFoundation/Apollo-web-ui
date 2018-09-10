@@ -22,7 +22,10 @@ class AccountRS extends React.Component {
         this.refs.input.value = account;
         this.setState({
             isContacts: false,
-            // inputValue: account
+            inputValue: {
+                mask: 'APL-****-****-****-*****',
+                value: account
+            }
         })
     };
 
