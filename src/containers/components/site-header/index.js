@@ -8,6 +8,7 @@ import {setMopalType, setBodyModalType, setBodyModalParamsAction} from "../../..
 import {logOutAction} from "../../../actions/login";
 import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
+import {switchAccountAction} from "../../../actions/account";
 
 
 import {setModalData} from "../../../modules/modals";
@@ -24,6 +25,7 @@ import {
 
 // Demo styles, see 'Styles' section below for some notes on use.
 import 'react-accessible-accordion/dist/fancy-example.css';
+import {NotificationManager} from "react-notifications";
 
 class SiteHeader extends React.Component {
 	constructor(props) {
@@ -32,7 +34,9 @@ class SiteHeader extends React.Component {
 		this.state = {
 			searching: false,
 			menuShow: false,
-		};
+            isContacts: false,
+            contacts: JSON.parse(localStorage.getItem('APLContacts')),
+        };
 
 		this.setSearchStateToActive = this.setSearchStateToActive.bind(this);
 		this.resetSearchStateToActive = this.resetSearchStateToActive.bind(this);
@@ -605,12 +609,21 @@ class SiteHeader extends React.Component {
 											<div className="form-title">
 												<p>Current account</p>
 											</div>
-											<div className="form-sub-title">
-												Not verified profile
-											</div>
+											{
+												!this.props.publicKey &&
+                                                <div className="form-sub-title">
+                                                    Not verified profile
+                                                </div>
+											}
+											{
+                                                this.props.publicKey &&
+                                                <div className="form-sub-title">
+													Verified profile
+                                                </div>
+											}
 											<div className="form-body">
 												<div className="input-section">
-													<div className="row">
+													<div className="row" style={{position: 'relative'}}>
 														<div className="col-xc-12 col-md-6">
 															<a
 																onClick={() => this.props.setBodyModalParamsAction('SET_ACCOUNT_INFO', {})}
@@ -621,11 +634,48 @@ class SiteHeader extends React.Component {
 														</div>
 														<div className="col-xc-12 col-md-6">
 															<a
+																onClick={() => {
+
+                                                                    	if (this.state.contacts && this.state.contacts.length) {
+                                                                        	this.setState({isContacts: !this.state.isContacts})
+                                                                    	} else {
+                                                                            NotificationManager.info('You have an empty contacts list.', null, 5000)
+                                                                        }
+																	}
+                                                                }
 																className="btn static block"
 															>
 																Switch account
 															</a>
 														</div>
+                                                        <div
+                                                            className={classNames({
+                                                                'contacts-list': true,
+                                                                'active': this.state.isContacts
+                                                            })}
+															style={{
+																padding: 0,
+																margin: 5
+															}}
+                                                        >
+                                                            <ul>
+                                                                {
+                                                                    this.state.contacts &&
+                                                                    this.state.contacts.length &&
+                                                                    this.state.contacts.map((el, index) => {
+                                                                        return (
+                                                                            <li>
+                                                                                <a
+																					onClick={() => this.props.switchAccountAction(el.accountRS)}
+																				>
+                                                                                    {el.name}
+                                                                                </a>
+                                                                            </li>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </ul>
+                                                        </div>
 													</div>
 												</div>
 												<div className="input-section">
@@ -691,6 +741,7 @@ const mapStateToProps = state => ({
 	account: state.account.account,
 	accountRS: state.account.accountRS,
 	name: state.account.name,
+	publicKey: state.account.publicKey,
 	forgedBalanceATM: state.account.forgedBalanceATM,
 	moalTtype: state.modals.modalType,
 	bodyModalType: state.modals.bodyModalType
@@ -704,7 +755,8 @@ const mapDispatchToProps = dispatch => ({
 	getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
 	getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
 	setModalData: (reqParams) => dispatch(setModalData(reqParams)),
-	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
 
