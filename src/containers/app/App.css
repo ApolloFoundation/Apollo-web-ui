@@ -3072,7 +3072,7 @@ input {
   box-sizing: border-box;
   width: 100%;
   background: #fff;
-  border-radius: 6px;
+  border-radius: 7px;
   height: calc(100% - 15px); }
   .form-group-app.devided {
     display: flex;
@@ -3141,7 +3141,8 @@ input {
       padding-bottom: 0;
       border-bottom: 0; }
   .form-group-app .form-body .image-button {
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    cursor: pointer; }
     .form-group-app .form-body .image-button:last-child {
       margin-bottom: 0px; }
     .form-group-app .form-body .image-button.success > * {
@@ -3607,7 +3608,8 @@ input {
       .btn.underscore.settings:after {
         top: 37px; } }
   .btn.underscore.account:after {
-    top: calc(100% + 49px); }
+    top: calc(100% + 27px);
+    left: auto; }
   .btn.underscore.active.account:after {
     width: 25px !important; }
   .btn.underscore.active:after {
@@ -3718,7 +3720,7 @@ input {
   z-index: 3;
   padding: 20px 30px; }
   .card.scroll {
-    overflow-y: scroll; }
+    overflow-y: auto; }
   .card.transparent {
     background: transparent; }
   .card.card-flexible {
@@ -3984,7 +3986,7 @@ input {
     .page-body-item {
       min-width: 50%;
       height: auto; } }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .page-body-item {
       min-width: 100%;
       padding: 0; } }
@@ -4004,8 +4006,12 @@ table td .btn, table th .btn {
 
 .assets-exchange {
   max-height: calc(100vh); }
+  .assets-exchange > .row {
+    min-height: 810px !important; }
   .assets-exchange .row {
-    max-height: 100%; }
+    min-height: 100%; }
+  .assets-exchange .card.header {
+    min-height: 200px; }
 
 @media (max-width: 1023px) {
   .transactions-title .btn {
@@ -4234,7 +4240,8 @@ table td .btn, table th .btn {
   display: inline-block;
   padding: 10px 11px;
   cursor: pointer;
-  user-select: none; }
+  user-select: none;
+  min-height: 33px; }
 
 button {
   background-color: transparent; }

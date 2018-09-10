@@ -2,7 +2,8 @@
   display: inline-block;
   padding: 10px 11px;
   cursor: pointer;
-  user-select: none; }
+  user-select: none;
+  min-height: 33px; }
 
 button {
   background-color: transparent; }

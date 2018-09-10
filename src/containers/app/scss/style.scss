@@ -7,6 +7,7 @@
   padding: 10px 11px;
   cursor: pointer;
   user-select: none;
+	min-height: 33px;
 }
 
 button {
@@ -118,7 +119,7 @@ input[type="number"] {
             bottom: 20px;
 
             &.scroll {
-              overflow-y: scroll;
+              overflow-y: auto;
               margin-right: -30px;
               padding-right: 20px;
             }
