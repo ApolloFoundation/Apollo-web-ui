@@ -271,7 +271,7 @@ class SiteHeader extends React.Component {
 														"/my-assets",
 														"/open-orders",
 														"approval-request"])}`}>
-													<i className="zmdi zmdi-money"/>Asset system<span
+													<i className="zmdi zmdi-case"/>Asset system<span
 													className="arrow"/>
 												</AccordionItemTitle>
 												<AccordionItemBody>

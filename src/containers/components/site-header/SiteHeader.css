@@ -542,6 +542,7 @@
     transform: translate(0, -50%);
     width: 20px;
     height: auto;
+    text-align: center;
     color: #787878; }
     .mobile-nav-item .zmdi:before {
       font-size: 27px; }
