@@ -194,6 +194,7 @@ input {
 		opacity: 1;
 		transform: none;
 		visibility: visible;
+		margin-top: -1px;
 	}
 
 	ul {
@@ -437,6 +438,19 @@ input {
 
 .pre {
 	white-space: pre;
+}
+
+.block {
+	display: block;
+}
+.offset-top {
+	padding-top: 25px;
+}
+.offset-bottom {
+	padding-bottom: 25px;
+}
+.display-block {
+	display: block;
 }
 
 .info-table {
@@ -715,18 +729,6 @@ input {
 	.input-group-app {
 		&:last-child:not(:first-child) {
 			padding-bottom: 0 !important;
-		}
-		&.block {
-			display: block;
-		}
-		&.offset-top {
-			padding-top: 25px;
-		}
-		&.offset-bottom {
-			padding-bottom: 25px;
-		}
-		&.display-block {
-			display: block;
 		}
 		&.tabled {
 			display: table !important;
@@ -1044,7 +1046,7 @@ input {
 }
 
 .input-group-app {
-	display: table-row;
+	//display: table-row;
 	
 	&.tabled {
 		display: table !important;
@@ -1068,9 +1070,9 @@ input {
 		& > * {
 			display: flex;
 			
-			& > * {
-				padding-top: 10px;
-			}
+			//& > * {
+			//	padding-top: 10px;
+			//}
 		}
 	}
 	textarea {

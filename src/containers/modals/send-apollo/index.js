@@ -208,7 +208,7 @@ class SendApollo extends React.Component {
                                         Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                                     </label>
                                     <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text id="secretPhrase" className="form-control" field="secretPhrase" placeholder="secretPhrase" type={'password'}/>
+                                        <Text id="secretPhrase" className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 {this.state.advancedState && <div className="form-group row form-group-white mb-15">

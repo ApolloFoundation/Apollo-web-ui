@@ -1,4 +1,4 @@
-.login {
+.site-content .page-content .page-body > .login {
   position: fixed;
   top: 0;
   right: 0;
@@ -6,6 +6,7 @@
   left: 0;
   background: #F5F5F5;
   z-index: 100;
+  min-height: 300px;
 
   .form-group-app {
     position: absolute;

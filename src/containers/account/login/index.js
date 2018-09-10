@@ -79,17 +79,19 @@ class Login extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 0
                                             })}>
-                                                <div className="input-group-app block offset-bottom offset-top">
-                                                    <div className="row">
-                                                        <div className="col-md-3">
-                                                            <label>Account RS</label>
-                                                        </div>
-                                                        <div className="col-md-9">
-                                                            <AccountRS
-                                                                value={''}
-                                                                field={'accountRS'}
-                                                                setValue={setValue}
-                                                            />
+                                                <div className="input-group-app form-group display-block inline user offset-top mb-0">
+                                                    <div className="row form-group-white">
+                                                        <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                            Account RS
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <div className="iconned-input-field">
+                                                                <AccountRS
+                                                                    value={''}
+                                                                    field={'accountRS'}
+                                                                    setValue={setValue}
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -123,15 +125,13 @@ class Login extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 1
                                             })}>
-                                                <div className="input-group-app block offset-bottom offset-top">
-
-                                                    <div className="row">
-                                                        <div className="col-md-3">
-                                                            <label>Secret Phrase</label>
-                                                        </div>
-                                                        <div className="col-md-9">
-                                                            <Text  type={'password'} field={'secretPhrase'} placeholder="Secret Phrase"/>
-                                                        </div>
+                                                <div className="form-group row form-group-white offset-top mb-0">
+                                                    <label className="col-sm-3 col-form-label">
+                                                        Secret Phrase
+                                                    </label>
+                                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                                        <Text className="form-control" field="secretPhrase"
+                                                              placeholder="Secret Phrase" type={'password'}/>
                                                     </div>
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner">

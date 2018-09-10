@@ -1,19 +1,20 @@
-.login {
+.site-content .page-content .page-body > .login {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background: #F5F5F5;
-  z-index: 100; }
-  .login .form-group-app {
+  z-index: 100;
+  min-height: 300px; }
+  .site-content .page-content .page-body > .login .form-group-app {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 500px;
     height: auto; }
-    .login .form-group-app .input-group-app label {
+    .site-content .page-content .page-body > .login .form-group-app .input-group-app label {
       height: 100%;
       display: flex;
       justify-content: center;
