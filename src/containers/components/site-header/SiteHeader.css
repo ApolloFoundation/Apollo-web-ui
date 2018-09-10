@@ -146,6 +146,8 @@
         height: 41px;
         display: flex;
         justify-content: flex-end; }
+        .page-header .user-search-box .search-bar .user-account-actions .zmdi-settings {
+          transform: translate(0, -2px); }
         .page-header .user-search-box .search-bar .user-account-actions > * {
           margin: auto 0; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-rs {

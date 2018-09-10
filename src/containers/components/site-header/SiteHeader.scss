@@ -195,7 +195,9 @@
 				height: 41px;
 				display: flex;
 				justify-content: flex-end;
-				
+				.zmdi-settings{
+					transform: translate(0, -2px);
+				}
 				& > * {
 					margin: auto 0;
 				}
