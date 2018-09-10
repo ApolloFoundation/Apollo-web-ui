@@ -147,7 +147,7 @@
         display: flex;
         justify-content: flex-end; }
         .page-header .user-search-box .search-bar .user-account-actions .zmdi-settings {
-          transform: translate(0, -2px); }
+          transform: translate(0, -1px); }
         .page-header .user-search-box .search-bar .user-account-actions > * {
           margin: auto 0; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-rs {
@@ -219,6 +219,8 @@
       flex-wrap: wrap;
       justify-content: flex-end;
       cursor: pointer; }
+      .page-header .user-search-box .user-box .btn.filters {
+        min-height: 25px; }
       .page-header .user-search-box .user-box > * {
         margin: auto 0;
         display: flex; }
@@ -260,7 +262,9 @@
         opacity: 0;
         transform: translateY(50px);
         transition: all 0.3s ease-in-out;
-        z-index: 4; }
+        z-index: 4;
+        overflow: auto;
+        max-height: calc(100vh - 120px); }
         @media (max-width: 760px) {
           .page-header .user-search-box .user-box .settings-bar {
             top: 50px; } }
@@ -364,7 +368,8 @@
         width: 100%;
         visibility: hidden;
         opacity: 0;
-        transition: all 0.3s ease-in-out; }
+        transition: all 0.3s ease-in-out;
+        padding-right: 35px; }
       .zmdi-balance-wallet .user-search-box .search-bar.searching input {
         height: 41px; }
       .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions {

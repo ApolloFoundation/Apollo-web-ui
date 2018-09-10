@@ -196,7 +196,7 @@
 				display: flex;
 				justify-content: flex-end;
 				.zmdi-settings{
-					transform: translate(0, -2px);
+					transform: translate(0, -1px);
 				}
 				& > * {
 					margin: auto 0;
@@ -294,7 +294,9 @@
 			flex-wrap: wrap;
 			justify-content: flex-end;
 			cursor: pointer;
-			
+			.btn.filters {
+				min-height: 25px;
+			}
 			& > * {
 				margin: auto 0;
 				display: flex;
@@ -306,6 +308,9 @@
 					display: inline-block;
 					vertical-align: bottom;
 				}
+				//.zmdi-chevron-down {
+				//	margin-top: 4px;
+				//}
 				i {
 					font-size: 16px;
 					margin-right: 15px;
@@ -342,6 +347,8 @@
 				transform: translateY(50px);
 				transition: all 0.3s ease-in-out;
 				z-index: 4;
+				overflow: auto;
+				max-height: calc(100vh - 120px);
 				
 				@media (max-width: 760px) {
 					top: 50px;
@@ -494,6 +501,7 @@
 				visibility: hidden;
 				opacity: 0;
 				transition: all 0.3s ease-in-out;
+				padding-right: 35px;
 			}
 			&.searching {
 				
