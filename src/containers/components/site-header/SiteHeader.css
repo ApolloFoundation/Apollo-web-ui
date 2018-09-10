@@ -219,6 +219,8 @@
       flex-wrap: wrap;
       justify-content: flex-end;
       cursor: pointer; }
+      .page-header .user-search-box .user-box .btn.filters {
+        min-height: 25px; }
       .page-header .user-search-box .user-box > * {
         margin: auto 0;
         display: flex; }
