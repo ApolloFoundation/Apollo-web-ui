@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-const PoolItem  = props => (
+const pollItem  = props => (
     <tr key={uuid()}>
         <td  key={uuid()} className="blue-link-text">
             <a onClick={() => props.getTransaction(props.poll)}>{props.name}</a>
@@ -29,10 +29,10 @@ const PoolItem  = props => (
         </td>
         <td key={uuid()} className={"align-right"}>
             <div className="btn-box inline">
-                <Link to={"/followed-pools/" + props.poll } className="btn primary blue">View</Link>
+                <Link to={"/followed-polls/" + props.poll } className="btn primary blue">View</Link>
             </div>
         </td>
     </tr>
 );
 
-export default connect(mapStateToPreops, mapDispatchToProps)(PoolItem)
+export default connect(mapStateToPreops, mapDispatchToProps)(pollItem)

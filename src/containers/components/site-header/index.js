@@ -288,7 +288,7 @@ class SiteHeader extends React.Component {
 										<AccordionItem>
 											<div className={"mobile-nav-item"}>
 												<AccordionItemTitle
-													className={`text ${this.getNavLinkClass(["/active-pools",
+													className={`text ${this.getNavLinkClass(["/active-polls",
 														"/my-votes",
 														"/my-polls"])}`}>
 													<i className="zmdi zmdi-star"/>Voting system
@@ -296,10 +296,10 @@ class SiteHeader extends React.Component {
 												</AccordionItemTitle>
 												<AccordionItemBody>
 													<div className="item-dropdown">
-														<NavLink to="/active-pools">Active pools</NavLink>
-														<a>Followed pools</a>
+														<NavLink to="/active-polls">Active polls</NavLink>
+														<a>Followed polls</a>
 														<NavLink to="/my-votes">My votes</NavLink>
-														<NavLink to="/my-polls">My pools</NavLink>
+														<NavLink to="/my-polls">My polls</NavLink>
 
 														<a onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}>Create
 															poll</a>

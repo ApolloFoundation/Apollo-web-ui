@@ -2,15 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
-import {getPoolsAction} from "../../../actions/pools";
+import {getpollsAction} from "../../../actions/polls";
 
-import FinishedPoolsItem from "./finished-pools-item";
+import FinishedpollsItem from "./finished-pools-item";
 import classNames from "classnames";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 
 
-class FinishedPools extends React.Component {
+class Finishedpolls extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,16 +18,16 @@ class FinishedPools extends React.Component {
             firstIndex: 0,
             lastIndex: 14,
             page: 1,
-            activePools: null,
-            finishedPools: null
+            activepolls: null,
+            finishedpolls: null
         };
 
-        this.getFinishedPools = this.getFinishedPools.bind(this);
+        this.getFinishedpolls = this.getFinishedpolls.bind(this);
         this.getTransaction   = this.getTransaction.bind(this);
     }
 
     componentDidMount() {
-        this.getFinishedPools({
+        this.getFinishedpolls({
             firstIndex: 0,
             lastIndex:  9,
         });
@@ -35,10 +35,10 @@ class FinishedPools extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
-        this.getFinishedPools();
+        this.getFinishedpolls();
     }
 
-    async getFinishedPools(reqParams){
+    async getFinishedpolls(reqParams){
         reqParams = {
             ...reqParams,
             finishedOnly: true,
@@ -46,12 +46,12 @@ class FinishedPools extends React.Component {
             lastIndex:  this.state.lastIndex
         };
 
-        const finishedPools = await this.props.getPoolsAction(reqParams);
+        const finishedpolls = await this.props.getpollsAction(reqParams);
 
-        if (finishedPools) {
+        if (finishedpolls) {
             this.setState({
                 ...this.props,
-                finishedPools: finishedPools.polls
+                finishedpolls: finishedpolls.polls
             });
         }
     }
@@ -64,7 +64,7 @@ class FinishedPools extends React.Component {
         };
 
         this.setState(reqParams, () => {
-            this.getFinishedPools(reqParams)
+            this.getFinishedpolls(reqParams)
         });
     }
 
@@ -103,12 +103,12 @@ class FinishedPools extends React.Component {
                                     </thead>
                                     <tbody key={uuid()}>
                                         {
-                                            this.state.finishedPools &&
-                                            this.state.finishedPools.map((el, index) => {
+                                            this.state.finishedpolls &&
+                                            this.state.finishedpolls.map((el, index) => {
                                                 return (
-                                                    <FinishedPoolsItem
+                                                    <FinishedpollsItem
                                                         {...el}
-                                                        activePools
+                                                        activepolls
                                                         getTransaction={this.getTransaction}
                                                     />
                                                 );
@@ -117,7 +117,7 @@ class FinishedPools extends React.Component {
                                     </tbody>
                                 </table>
                                 {
-                                    this.state.finishedPools &&
+                                    this.state.finishedpolls &&
                                     <div className="btn-box">
                                         <a
                                             className={classNames({
@@ -137,7 +137,7 @@ class FinishedPools extends React.Component {
                                             className={classNames({
                                                 'btn' : true,
                                                 'btn-right' : true,
-                                                'disabled' : this.state.finishedPools.length < 15
+                                                'disabled' : this.state.finishedpolls.length < 15
                                             })}
                                         >Next</a>
                                     </div>
@@ -159,7 +159,7 @@ const mapStateToProps = state => ({
 });
 
 const initMapDispatchToProps = dispatch => ({
-    getPoolsAction: (reqParams) => dispatch(getPoolsAction(reqParams)),
+    getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
@@ -167,4 +167,4 @@ const initMapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     initMapDispatchToProps
-)(FinishedPools);
+)(Finishedpolls);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PoolRequest = props => (
+const pollRequest = props => (
     <tr>
         <td>Result</td>
         <td>4</td>

@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getAliasesAction} from "../../../actions/aliases";
 import SiteHeader from '../../components/site-header'
-import {getPoolsAction} from '../../../actions/pools';
-import PoolItem from './pool-item';
+import {getpollsAction} from '../../../actions/polls';
+import pollItem from './pool-item';
 import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
@@ -14,14 +14,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getPoolsAction: (reqParams) => dispatch(getPoolsAction(reqParams)),
+    getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
     getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
     getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
 
-class ActivePools extends React.Component {
+class Activepolls extends React.Component {
     constructor(props) {
         super(props);
 
@@ -29,21 +29,21 @@ class ActivePools extends React.Component {
             firstIndex: 0,
             lastIndex: 14,
             page: 1,
-            activePools: null,
-            finishedPools: null
+            activepolls: null,
+            finishedpolls: null
         };
 
-        this.getActivePools   = this.getActivePools.bind(this);
-        this.getFinishedPools = this.getFinishedPools.bind(this);
+        this.getActivepolls   = this.getActivepolls.bind(this);
+        this.getFinishedpolls = this.getFinishedpolls.bind(this);
         this.getTransaction   = this.getTransaction.bind(this);
     }
 
     componentDidMount() {
-        this.getActivePools({
+        this.getActivepolls({
             firstIndex: 0,
             lastIndex:  2,
         });
-        this.getFinishedPools({
+        this.getFinishedpolls({
             firstIndex: 0,
             lastIndex:  9,
         });
@@ -51,44 +51,44 @@ class ActivePools extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
-        this.getActivePools({
+        this.getActivepolls({
             firstIndex: 0,
             lastIndex:  2,
         });
-        this.getFinishedPools({
+        this.getFinishedpolls({
             firstIndex: 0,
             lastIndex:  9,
         });
     }
 
-    async getActivePools(reqParams){
+    async getActivepolls(reqParams){
         reqParams = {
             ...reqParams,
             includeFinished: false,
         };
 
-        const activePools = await this.props.getPoolsAction(reqParams);
+        const activepolls = await this.props.getpollsAction(reqParams);
 
-        if (activePools) {
+        if (activepolls) {
             this.setState({
                 ...this.props,
-                activePools: activePools.polls
+                activepolls: activepolls.polls
             });
         }
     }
 
-    async getFinishedPools(reqParams){
+    async getFinishedpolls(reqParams){
         reqParams = {
             ...reqParams,
             finishedOnly: true
         };
 
-        const finishedPools = await this.props.getPoolsAction(reqParams);
+        const finishedpolls = await this.props.getpollsAction(reqParams);
 
-        if (finishedPools) {
+        if (finishedpolls) {
             this.setState({
                 ...this.props,
-                finishedPools: finishedPools.polls
+                finishedpolls: finishedpolls.polls
             });
         }
     }
@@ -110,10 +110,10 @@ class ActivePools extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Active Pools'}
+                    pageTitle={'Active polls'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="active-pools white-space">
+                    <div className="active-polls white-space">
                         <div className="transaction-table no-min-height">
                             <div className="transaction-table-body">
                                 <table>
@@ -129,12 +129,12 @@ class ActivePools extends React.Component {
                                     </thead>
                                     <tbody  key={uuid()}>
                                         {
-                                            this.state.activePools &&
-                                            this.state.activePools.map((el, index) => {
+                                            this.state.activepolls &&
+                                            this.state.activepolls.map((el, index) => {
                                                 return (
-                                                    <PoolItem
+                                                    <pollItem
                                                         {...el}
-                                                        activePools
+                                                        activepolls
                                                         getTransaction={this.getTransaction}
                                                     />
                                                 );
@@ -147,7 +147,7 @@ class ActivePools extends React.Component {
                         </div>
                         <div className="form-group-app offset-bottom height-auto no-padding">
                             <div className="form-title padding-left padding-top">
-                                <p>Finished pools</p>
+                                <p>Finished polls</p>
                             </div>
                             <div className="transaction-table no-min-height">
                                 <div className="transaction-table-body offset-bottom">
@@ -164,12 +164,12 @@ class ActivePools extends React.Component {
                                         </thead>
                                         <tbody>
                                             {
-                                                this.state.finishedPools &&
-                                                this.state.finishedPools.map((el, index) => {
+                                                this.state.finishedpolls &&
+                                                this.state.finishedpolls.map((el, index) => {
                                                     return (
-                                                        <PoolItem
+                                                        <pollItem
                                                             {...el}
-                                                            activePools
+                                                            activepolls
                                                             getTransaction={this.getTransaction}
                                                         />
                                                     );
@@ -178,7 +178,7 @@ class ActivePools extends React.Component {
                                         </tbody>
                                     </table>
                                     <div className="btn-box">
-                                        <Link to="/finished-pools" className="btn btn-right blue" >View more</Link>
+                                        <Link to="/finished-polls" className="btn btn-right blue" >View more</Link>
                                     </div>
                                 </div>
                             </div>
@@ -193,4 +193,4 @@ class ActivePools extends React.Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ActivePools);
+)(Activepolls);

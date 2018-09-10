@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
-import {getMyVotesAction, getVoteAction} from '../../../actions/pools';
-import PoolItem from '../active-pools/pool-item';
+import {getMyVotesAction, getVoteAction} from '../../../actions/polls';
+import pollItem from '../active-polls/pool-item';
 import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
@@ -99,7 +99,7 @@ class MyVotes extends React.Component {
                     pageTitle={'My Votes'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="active-pools white-space">
+                    <div className="active-polls white-space">
                         <div className="transaction-table no-min-height">
                             <div className="transaction-table-body">
                                 <table>
@@ -118,9 +118,9 @@ class MyVotes extends React.Component {
                                         this.state.myVotes &&
                                         this.state.myVotes.map((el, index) => {
                                             return (
-                                                <PoolItem
+                                                <pollItem
                                                     {...el}
-                                                    activePools
+                                                    activepolls
                                                     getTransaction={this.getTransaction}
                                                 />
                                             );

@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import '../messenger/Messenger.scss'
 import './FollowedPools.css'
 import classNames from "classnames";
-import {getPoolAction, getPollResultAction, getPollVotesAction} from '../../../actions/pools';
+import {getpollAction, getPollResultAction, getPollVotesAction} from '../../../actions/polls';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getPoolAction: (reqParams) => dispatch(getPoolAction(reqParams)),
+    getpollAction: (reqParams) => dispatch(getpollAction(reqParams)),
     getPollVotesAction: (reqParams) => dispatch(getPollVotesAction(reqParams)),
     getPollResultAction: (reqParams) => dispatch(getPollResultAction(reqParams)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
@@ -39,13 +39,13 @@ class FollowedVotes extends React.Component {
             allVotesNumber: null
         };
 
-        this.getPool        = this.getPool.bind(this);
+        this.getpoll        = this.getpoll.bind(this);
         this.getPollVotes   = this.getPollVotes.bind(this);
-        this.getPoolResults = this.getPoolResults.bind(this);
+        this.getpollResults = this.getpollResults.bind(this);
     }
 
     componentDidMount() {
-        this.getPool({
+        this.getpoll({
             poll: this.props.match.params.poll
         });
         this.getPollVotes({
@@ -53,7 +53,7 @@ class FollowedVotes extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex:  this.state.lastIndex
         });
-        this.getPoolResults({
+        this.getpollResults({
             poll: this.props.match.params.poll
         });
         this.getFollowedPolls();
@@ -61,7 +61,7 @@ class FollowedVotes extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
-        this.getPool({
+        this.getpoll({
             poll: newState.match.params.poll
         });
         this.getPollVotes({
@@ -69,15 +69,15 @@ class FollowedVotes extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex:  this.state.lastIndex
         });
-        this.getPoolResults({
+        this.getpollResults({
             poll: newState.match.params.poll
         });
         this.getFollowedPolls();
         this.getBlock();
     }
 
-    async getPool(reqParams) {
-        const poll = await this.props.getPoolAction(reqParams);
+    async getpoll(reqParams) {
+        const poll = await this.props.getpollAction(reqParams);
 
         if (poll) {
             this.setState({
@@ -114,7 +114,7 @@ class FollowedVotes extends React.Component {
         }
     };
 
-    async getPoolResults(reqParams) {
+    async getpollResults(reqParams) {
         const pollResults = await this.props.getPollResultAction(reqParams);
 
         if (pollResults) {
@@ -153,7 +153,7 @@ class FollowedVotes extends React.Component {
         if (polls) {
             polls = JSON.parse(polls);
             const followedpolls = polls.map(async (el, index) => {
-                return this.props.getPoolAction({poll: el});
+                return this.props.getpollAction({poll: el});
             });
 
             Promise.all(followedpolls)
@@ -238,7 +238,7 @@ class FollowedVotes extends React.Component {
                                                 if (el.name) {
                                                     return (
                                                         <Link
-                                                            to={'/followed-pools/' + el.poll}
+                                                            to={'/followed-polls/' + el.poll}
                                                             className={classNames({
                                                                 'chat-item': true,
                                                                 'active': el.poll === this.props.match.params.poll

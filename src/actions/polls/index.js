@@ -1,7 +1,7 @@
 import config from '../../config';
 import axios from 'axios';
 
-export function getPoolsAction (reqParams) {
+export function getpollsAction (reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl , {
             params: {
@@ -21,7 +21,7 @@ export function getPoolsAction (reqParams) {
     }
 }
 
-export function getPoolAction (reqParams) {
+export function getpollAction (reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl , {
             params: {
