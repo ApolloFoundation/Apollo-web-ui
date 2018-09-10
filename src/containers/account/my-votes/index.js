@@ -6,7 +6,6 @@ import PoolItem from '../active-pools/pool-item';
 import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {Link} from 'react-router-dom';
 
 const mapStateToProps = state => ({
     account: state.account.account
