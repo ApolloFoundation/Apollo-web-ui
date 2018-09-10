@@ -1397,10 +1397,14 @@ input {
 		background: #666666;
 	}
 	&.primary {
-		padding: 6px;
+		padding: 5px 7px;
 		background: #666666;
 		color: #fff;
 		border-radius: 6px;
+		font-size: 12px;
+		min-height: 25px;
+		font-weight: 100;
+		letter-spacing: -0.1px;
 		margin-top: 15px;
 		position: static;
 		

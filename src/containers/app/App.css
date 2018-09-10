@@ -3670,10 +3670,14 @@ input {
   .btn.gray {
     background: #666666; }
   .btn.primary {
-    padding: 6px;
+    padding: 5px 7px;
     background: #666666;
     color: #fff;
     border-radius: 6px;
+    font-size: 12px;
+    min-height: 25px;
+    font-weight: 100;
+    letter-spacing: -0.1px;
     margin-top: 15px;
     position: static; }
     .btn.primary.bigger {
@@ -4122,6 +4126,14 @@ table td .btn, table th .btn {
       bottom: 13px;
       left: 50%;
       transform: translateX(-50%); }
+
+.page-body .transaction-table .transaction-table-body {
+  padding: 35px; }
+  .page-body .transaction-table .transaction-table-body table thead tr td {
+    padding: 0 15px 15px 0; }
+  .page-body .transaction-table .transaction-table-body table tbody tr td {
+    border-top: 1px solid #E5E5E5;
+    padding: 18px 0 16px 0; }
 
 .transactions-filters {
   display: flex;

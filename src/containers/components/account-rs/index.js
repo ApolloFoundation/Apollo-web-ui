@@ -5,21 +5,24 @@ import classNames from 'classnames';
 
 class AccountRS extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            contacts: JSON.parse(localStorage.getItem('APLContacts')),
+            inputValue: {
+                mask: 'APL-****-****-****-*****',
+                value: ''
+            },
+            isContacts: false
+        };
     };
 
-    state = {
-        contacts: JSON.parse(localStorage.getItem('APLContacts')),
-        inputValue: this.props.defaultValue,
-        isContacts: false
-    };
 
     handleFillForm = (account) => {
         this.props.setValue(this.props.field, account);
         this.refs.input.value = account;
         this.setState({
             isContacts: false,
-            inputValue: account
+            // inputValue: account
         })
     };
 
@@ -29,28 +32,29 @@ class AccountRS extends React.Component {
         })
     };
 
+    onChange = (event) => {
+        const value = event.target.value;
+        const newState = {
+            mask: 'APL-****-****-****-*****',
+            value: value.toUpperCase()
+        };
+
+        this.props.setValue(this.props.field, value);
+        this.setState({inputValue: newState});
+    };
+
     render () {
         return (
             <React.Fragment>
-                <InputMask class="form-control" mask='APL-****-****-****-*****' placeholder={'Account RS'} ref={'input'} value={this.state.inputValue} onChange={(e) => {
-                    if (e.target) {
-                        var value = e.target.value;
-                        var newState = {
-                            mask: 'APL-****-****-****-*****',
-                            value: value.toUpperCase()
-                        };
-
-                        if (/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(value)) {
-                            newState.value = 'APL-****-****-****-*****';
-                        }
-                        if (/^APL-/.test(e.target.value)) {
-                        }
-                        this.props.setValue(this.props.field, value);
-                        this.setState({inputValue: newState.value})
-                    }
-                }}
-                >
-                </InputMask>
+                {this.state.inputValue &&
+                    <InputMask className="form-control"
+                               mask={this.state.inputValue.mask}
+                               placeholder={'Account RS'}
+                               ref={'input'}
+                               value={this.state.inputValue.value}
+                               onChange={this.onChange}
+                    />
+                }
                 <a
                     onClick={() => this.handleContacts()}
                     className="input-icon"
@@ -68,7 +72,7 @@ class AccountRS extends React.Component {
                             this.state.contacts &&
                             this.state.contacts.map((el, index) => {
                                 return (
-                                    <li>
+                                    <li key={index}>
                                         <a onClick={() => this.handleFillForm(el.accountRS)}>
                                             {el.name}
                                         </a>
