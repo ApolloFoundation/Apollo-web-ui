@@ -22,21 +22,21 @@ class Sidebar extends React.Component {
     }
 
     state = {
-        // isHover: false,
+        isHover: false,
         isMenuCollapsed: false
     };
 
-    // handleMenuMouseOver = () => {
-    //     this.setState({
-    //         isHover: true
-    //     });
-    // };
-    //
-    // handleMenuMouseOut = () => {
-    //     this.setState({
-    //         isHover: false
-    //     });
-    // };
+    handleMenuMouseOver = () => {
+        this.setState({
+            isHover: true
+        });
+    };
+
+    handleMenuMouseOut = () => {
+        this.setState({
+            isHover: false
+        });
+    };
 
     handleMenuCollapse = () => {
         this.setState({
@@ -54,7 +54,7 @@ class Sidebar extends React.Component {
                 className={classNames({
                     "menu-bar": true,
                     "collapsed": this.state.isMenuCollapsed,
-                    // "hover": this.state.isHover
+                    "hover": this.state.isHover
                 })}
             >
                 <div className="menu-bar-container">

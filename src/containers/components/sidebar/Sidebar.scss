@@ -8,6 +8,7 @@
 	width: auto !important;
 	//overflow: visible !important;
 	min-width: 260px !important;
+	transition: 0s !important;
 	//overflow-y: auto;
 	@media (max-width: 760px) {
 		display: none !important;
@@ -21,7 +22,7 @@
 		display: none !important;
 	}
 	
-	&:hover {
+	&.hover {
 		right: 0;
 	}
 	//&::-webkit-scrollbar {

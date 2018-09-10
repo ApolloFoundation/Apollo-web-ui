@@ -6,7 +6,8 @@
   z-index: 2;
   position: fixed !important;
   width: auto !important;
-  min-width: 260px !important; }
+  min-width: 260px !important;
+  transition: 0s !important; }
   @media (max-width: 760px) {
     .menu-bar {
       display: none !important; } }
@@ -15,7 +16,7 @@
   .menu-bar .track-horizontal,
   .menu-bar .track-vertical {
     display: none !important; }
-  .menu-bar:hover {
+  .menu-bar.hover {
     right: 0; }
   @media (max-width: 760px) {
     .menu-bar .header-nav {
