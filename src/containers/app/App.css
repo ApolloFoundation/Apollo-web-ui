@@ -3319,8 +3319,9 @@ input {
         padding: 0; }
   .form-group-app .form-group-grey {
     margin-bottom: 8px;
-    margin-left: 0;
     align-items: center; }
+    .form-group-app .form-group-grey.row {
+      margin-left: 0 !important; }
     .form-group-app .form-group-grey label {
       color: #333333;
       letter-spacing: 0.3px;
@@ -3387,9 +3388,10 @@ input {
       border-left: none; }
   .form-group-app .form-group-white {
     margin-bottom: 8px;
-    margin-left: 0 !important;
     align-items: center;
     flex-wrap: nowrap; }
+    .form-group-app .form-group-white.row {
+      margin-left: 0 !important; }
     .form-group-app .form-group-white label {
       color: #333333;
       letter-spacing: 0.3px;
