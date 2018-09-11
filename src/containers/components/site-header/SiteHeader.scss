@@ -65,7 +65,7 @@
 			& > * {
 				vertical-align: middle;
 			}
-			.btn.primary{
+			.btn.primary {
 				//margin: 7px 0 !important;
 				//@media (max-width: 760px) {
 				//	display: none !important;
@@ -195,7 +195,7 @@
 				height: 41px;
 				display: flex;
 				justify-content: flex-end;
-				.zmdi-settings{
+				.zmdi-settings {
 					transform: translate(0, -1px);
 				}
 				& > * {
@@ -724,8 +724,8 @@
 	display: block;
 	margin-bottom: 25px;
 	cursor: pointer;
-	&.active{
-		.text{
+	&.active {
+		.text {
 			color: #ffffff;
 		}
 		.zmdi {
@@ -861,5 +861,24 @@
 	transition: 0.2s;
 	&--hidden {
 		max-height: 0;
+	}
+}
+
+.account-body-modal {
+	@media (max-width: 760px) {
+		background-color: #333333 !important;
+		height: calc(100vh - 50px);
+		max-height: 100vh !important;
+		width: 100% !important;
+	}
+	.input-section.row .col-md-6 {
+	
+	}
+	&.active {
+	}
+	.form-group-app {
+		@media (max-width: 760px) {
+			background-color: #333333 !important;
+		}
 	}
 }

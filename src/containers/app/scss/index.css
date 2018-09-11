@@ -4015,7 +4015,7 @@ input {
     .page-body-item {
       min-width: 50%;
       height: auto; } }
-  @media (max-width: 767px) {
+  @media (max-width: 760px) {
     .page-body-item {
       min-width: 100%;
       padding: 0; } }
@@ -4024,6 +4024,9 @@ input {
     height: calc(100% - 15px); }
     .page-body-item .card.card-tall {
       min-height: 520px; }
+      @media (max-width: 760px) {
+        .page-body-item .card.card-tall {
+          min-height: auto; } }
   .page-body-item .form-group-app {
     display: table; }
 
@@ -4411,15 +4414,26 @@ input[type="number"] {
       left: 30px;
       right: 30px;
       bottom: 20px; }
+      @media (max-width: 760px) {
+        .site-content .page-content .page-body .card.transactions .transactions-dashboard {
+          position: static; } }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard.scroll {
         overflow-y: auto;
         margin-right: -30px;
         padding-right: 20px; }
+        @media (max-width: 760px) {
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard.scroll {
+            max-height: 300px; } }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
         height: 25%;
         display: flex;
         box-sizing: border-box;
         border-bottom: 1px solid #E5E5E5; }
+        @media (max-width: 760px) {
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
+            height: auto;
+            margin-top: 20px;
+            padding-bottom: 5px; } }
         .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box {
           margin: auto 0;
           position: relative;
@@ -4626,12 +4640,7 @@ input[type="number"] {
           height: 300px;
           overflow-y: auto;
           width: 300px;
-          display: block; }
-      .page-header .user-search-box .user-box {
-        width: auto;
-        margin: 0; }
-        .page-header .user-search-box .user-box .user-name {
-          display: none; } }
+          display: block; } }
 
 @media (max-width: 1000px) {
   .site-content {

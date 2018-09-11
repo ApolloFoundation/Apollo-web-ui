@@ -1921,7 +1921,7 @@ input {
 		min-width: 50%;
 		height: auto;
 	}
-	@media (max-width: 767px) {
+	@media (max-width: 760px) {
 		min-width: 100%;
 		padding: 0;
 	}
@@ -1932,6 +1932,9 @@ input {
 		height: calc(100% - 15px);
 		&.card-tall {
 			min-height: 520px;
+			@media (max-width: 760px) {
+				min-height: auto;
+			}
 		}
 	}
 	.form-group-app {

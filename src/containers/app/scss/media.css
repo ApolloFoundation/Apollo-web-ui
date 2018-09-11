@@ -16,12 +16,7 @@
           height: 300px;
           overflow-y: auto;
           width: 300px;
-          display: block; }
-      .page-header .user-search-box .user-box {
-        width: auto;
-        margin: 0; }
-        .page-header .user-search-box .user-box .user-name {
-          display: none; } }
+          display: block; } }
 
 @media (max-width: 1000px) {
   .site-content {

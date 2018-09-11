@@ -1284,7 +1284,7 @@ input {
     .page-body-item {
       min-width: 50%;
       height: auto; } }
-  @media (max-width: 767px) {
+  @media (max-width: 760px) {
     .page-body-item {
       min-width: 100%;
       padding: 0; } }
@@ -1293,6 +1293,9 @@ input {
     height: calc(100% - 15px); }
     .page-body-item .card.card-tall {
       min-height: 520px; }
+      @media (max-width: 760px) {
+        .page-body-item .card.card-tall {
+          min-height: auto; } }
   .page-body-item .form-group-app {
     display: table; }
 

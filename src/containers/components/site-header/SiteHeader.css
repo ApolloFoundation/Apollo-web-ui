@@ -641,3 +641,14 @@
   transition: 0.2s; }
   .accordion__body--hidden {
     max-height: 0; }
+
+@media (max-width: 760px) {
+  .account-body-modal {
+    background-color: #333333 !important;
+    height: calc(100vh - 50px);
+    max-height: 100vh !important;
+    width: 100% !important; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .form-group-app {
+    background-color: #333333 !important; } }

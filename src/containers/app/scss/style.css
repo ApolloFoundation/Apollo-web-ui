@@ -81,15 +81,26 @@ input[type="number"] {
       left: 30px;
       right: 30px;
       bottom: 20px; }
+      @media (max-width: 760px) {
+        .site-content .page-content .page-body .card.transactions .transactions-dashboard {
+          position: static; } }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard.scroll {
         overflow-y: auto;
         margin-right: -30px;
         padding-right: 20px; }
+        @media (max-width: 760px) {
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard.scroll {
+            max-height: 300px; } }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
         height: 25%;
         display: flex;
         box-sizing: border-box;
         border-bottom: 1px solid #E5E5E5; }
+        @media (max-width: 760px) {
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
+            height: auto;
+            margin-top: 20px;
+            padding-bottom: 5px; } }
         .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box {
           margin: auto 0;
           position: relative;

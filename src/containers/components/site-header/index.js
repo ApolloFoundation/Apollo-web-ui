@@ -713,7 +713,8 @@ class SiteHeader extends React.Component {
 									<div className={classNames({
 										"settings-bar": true,
 										"active": this.props.bodyModalType === 'ACCOUNT_BODY_MODAL',
-										"no-padding": true
+										"no-padding": true,
+										"account-body-modal": true
 									})}>
 										<div className="form-group-app">
 											<div className="form-title">
