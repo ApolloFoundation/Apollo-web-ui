@@ -7,9 +7,16 @@
 	position: fixed !important;
 	width: auto !important;
 	//overflow: visible !important;
-	min-width: 260px !important;
 	transition: 0s !important;
 	//overflow-y: auto;
+	min-width: 260px !important;
+	@media (max-width: 1000px) {
+		min-width: 130px !important;
+	}
+	&.collapsed {
+		min-width: 260px !important;
+		
+	}
 	@media (max-width: 760px) {
 		display: none !important;
 	}
@@ -98,6 +105,9 @@
 			min-height: calc(100vh - 100px);
 			position: relative;
 			z-index: 3;
+			a {
+				text-decoration: none !important;
+			}
 			ul {
 				li {
 					position: relative;
@@ -117,7 +127,7 @@
 							
 						}
 					}
-					a {
+					.text {
 						color: #777777;
 						padding: 25px 40px 25px 75px;
 						display: block;
@@ -188,6 +198,7 @@
 									}
 								}
 								a {
+									text-decoration: none;
 									padding: 20px 40px;
 									
 									&.active {
@@ -214,6 +225,7 @@
 			padding: 30px 0 30px;
 			justify-content: center;
 			align-items: center;
+			z-index: 6;
 			@media (max-width: 1000px) {
 				display: flex;
 				//	display: none !important;
