@@ -37,6 +37,7 @@
         transform: none;
         visibility: visible; }
       .page-header .page-title-box .page-title-box .open-settings .settings-bar .form-group-app {
+        cursor: auto;
         padding: 35px 25px; }
       .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section {
         padding: 0; }
@@ -192,6 +193,9 @@
             transform: translateY(50px);
             transition: all 0.3s ease-in-out;
             z-index: 4; }
+            @media (max-width: 760px) {
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
+                padding: 30px 55px; } }
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
               opacity: 1;
               transform: none;
@@ -199,8 +203,16 @@
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
               width: 100%;
               border-right: 1px solid #E6E6E6; }
+              @media (max-width: 760px) {
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
+                  border-bottom: 1px solid #777777;
+                  border-right: none;
+                  padding: 10px 0; } }
               .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col:last-child {
                 border: 0; }
+              @media (max-width: 760px) {
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li {
+                  text-align: left; } }
               .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li:last-child a {
                 margin-bottom: 0; }
               .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
@@ -210,10 +222,16 @@
                 line-height: 14px;
                 padding: 0 35px;
                 margin-bottom: 20px; }
+                @media (max-width: 760px) {
+                  .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
+                    color: #777777;
+                    padding: 0;
+                    margin-bottom: 0; } }
     .page-header .user-search-box .user-box {
-      width: 230px;
+      max-width: 230px;
+      width: auto;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       justify-content: flex-end;
       cursor: pointer; }
       @media (max-width: 1023px) {
@@ -221,21 +239,21 @@
           width: auto; } }
       .page-header .user-search-box .user-box .btn.filters {
         min-height: 25px; }
-      .page-header .user-search-box .user-box > * {
-        margin: auto 0;
-        display: flex; }
       .page-header .user-search-box .user-box .user-name {
-        width: calc(100% - 70px);
-        align-items: center; }
+        display: flex;
+        align-items: center;
+        width: auto;
+        max-width: calc(100% - 70px); }
         @media (max-width: 1023px) {
           .page-header .user-search-box .user-box .user-name {
             display: none; } }
-        .page-header .user-search-box .user-box .user-name > * {
-          display: inline-block;
-          vertical-align: bottom; }
         .page-header .user-search-box .user-box .user-name i {
           font-size: 16px;
           margin-right: 15px; }
+      .page-header .user-search-box .user-box .name {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis; }
       .page-header .user-search-box .user-box .user-avatar {
         height: 50px;
         width: 50px;
@@ -654,6 +672,23 @@
     height: calc(100vh - 50px);
     max-height: 100vh !important;
     width: 100% !important; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .form-group-app {
+    padding-left: 55px !important;
+    padding-right: 55px !important; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .input-section .row .col-md-6 {
+    max-width: 50%; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .form-title p {
+    color: #ffffff !important; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .image-button {
+    margin-left: -25px; } }
 
 @media (max-width: 760px) {
   .account-body-modal .form-group-app {

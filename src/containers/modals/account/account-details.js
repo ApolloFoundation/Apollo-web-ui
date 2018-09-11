@@ -79,12 +79,12 @@ class AccountDetails extends React.Component {
                                     })}>
                                         <span className="pre">Account Leasing</span>
                                     </a>
-                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                    {/*<a onClick={(e) => this.handleTab(e, 2)} className={classNames({
                                         "form-tab": true,
                                         "active": this.state.activeTab === 2
                                     })}>
                                         <span className="pre">Account Control</span>
-                                    </a>
+                                    </a>*/}
 
                                 </div>
 
@@ -175,7 +175,7 @@ class AccountDetails extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={classNames({
+                                {/*<div className={classNames({
                                     "tab-body": true,
                                     "active": this.state.activeTab === 2
                                 })}>
@@ -189,7 +189,7 @@ class AccountDetails extends React.Component {
                                             </a>
                                         </div>
                                     </div>
-                                </div>
+                                </div>*/}
 
                             </div>
                             <div className="btn-box align-buttons-inside absolute right-conner">

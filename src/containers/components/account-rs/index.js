@@ -52,7 +52,7 @@ class AccountRS extends React.Component {
                 {this.state.inputValue &&
                     <InputMask className="form-control"
                                mask={this.state.inputValue.mask}
-                               placeholder={'Account RS'}
+                               placeholder={'Recipient account'}
                                ref={'input'}
                                value={this.state.inputValue.value}
                                onChange={this.onChange}

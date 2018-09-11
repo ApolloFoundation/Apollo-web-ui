@@ -62,13 +62,14 @@ class Sidebar extends React.Component {
 				})}
 			>
 				<div className="menu-bar-container">
-					<div
+					<NavLink
 						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
 						className="site-logo"
+						exact={true} activeClassName="active" to="/"
 					>
 						<img src="./apollo-logo.svg"/>
-					</div>
+					</NavLink>
 
 					<nav
 						className={"header-nav"}
@@ -78,7 +79,8 @@ class Sidebar extends React.Component {
 						<ul>
 							<li>
 								<NavLink exact={true} activeClassName="active" to="/dashboard"
-								         className={`text ${this.getNavLinkClass(["/dashboard",
+								         className={`text ${this.getNavLinkClass(["/",
+									         "/dashboard",
 									         "/ledger",
 									         "/account-properties",
 									         "/transactions",

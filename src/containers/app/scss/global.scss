@@ -380,6 +380,11 @@ input {
 	display: flex;
 	width: 220px;
 	background-color: #333333;
+	&:hover{
+		img {
+			opacity: 0.7;
+		}
+	}
 	
 	&.page-loader-image {
 		mask-image: url("~/apollo-logo.svg");
@@ -390,6 +395,7 @@ input {
 		width: 40px;
 	}
 	img {
+		transition: 0.2s;
 		margin: auto;
 		height: 32px;
 		width: 32px;
@@ -495,7 +501,11 @@ input {
 	border-radius: 7px;
 	height: calc(100% - 15px);
 	//overflow: hidden;
-	
+
+	.form-control:focus {
+		box-shadow: none;
+	}
+
 	&.devided {
 		display: flex;
 		flex-direction: row;
@@ -589,11 +599,17 @@ input {
 		padding-bottom: 0 !important;
 	}
 	.form-body {
+		@media (max-width: 760px) {
+			padding-bottom: 30px;
+		}
 		.input-section {
 			padding-top: 35px;
 			padding-bottom: 35px;
 			border-bottom: 1px solid #E6E6E6;
-			
+			cursor: auto;
+			@media (max-width: 760px) {
+				border-bottom: 1px solid #777;
+			}
 			&:last-child {
 				padding-bottom: 0;
 				border-bottom: 0;
@@ -604,6 +620,10 @@ input {
 			cursor: pointer;
 			position: relative;
 			padding-left: 25px;
+			transition: 0.2s;
+			&:hover {
+				opacity: 0.7;
+			}
 			
 			&:last-child {
 				margin-bottom: 0px;
@@ -629,7 +649,7 @@ input {
 				vertical-align: middle;
 				margin-right: 10px;
 				@media (max-width: 760px) {
-					color: #ffffff;
+					color: #777;
 				}
 			}
 			label {
@@ -637,6 +657,10 @@ input {
 				color: #333333;
 				display: inline-block;
 				vertical-align: middle;
+				cursor: pointer;
+				@media (max-width: 760px) {
+					color: #777;
+				}
 			}
 		}
 		.row {
@@ -754,9 +778,6 @@ input {
 		}
 		.input-wrapper {
 			width: 100%;
-		}
-		.form-sub-title {
-			padding-left: 15px;
 		}
 		input {
 			padding-left: 15px;
@@ -892,7 +913,7 @@ input {
 			letter-spacing: 0.2px;
 			font-size: 11.5px;
 			border-radius: 5px;
-			padding: 0.25rem 0.5rem 0.2rem;
+			padding: 0.25rem 25px 0.2rem 0.5rem;
 			&select {
 				background-color: #e5e5e5;
 			}
@@ -978,7 +999,7 @@ input {
 			line-height: 16px;
 			padding: 0 0 0 5px;
 			@media (max-width: 760px) {
-				max-width: 130px;
+				max-width: 100px;
 			}
 		}
 		.form-control {
@@ -989,7 +1010,7 @@ input {
 			letter-spacing: 0.2px;
 			font-size: 11.5px;
 			border-radius: 5px;
-			padding: 0.25rem 0.5rem 0.2rem;
+			padding: 0.25rem 25px 0.2rem 0.5rem;
 			&select {
 				background-color: #e5e5e5;
 			}
@@ -1103,7 +1124,7 @@ input {
 	.row {
 		margin-right: -15px !important;
 		margin-left: -15px !important;
-
+		
 		& > * {
 			display: flex;
 			
@@ -1198,16 +1219,17 @@ input {
 	}
 	label {
 		display: table-cell;
-		color: #777777;
 		font-family: "Roboto-Regular";
-		font-size: 12px;
 		line-height: 14px;
 		padding: 0 0 0 5px;
 		font-size: 13.5px;
+		align-self: center;
+		color: #333333;
 	}
 	input {
 		display: table-cell;
 		border-radius: 3px 0 0 3px;
+		padding: 7px 20px;
 	}
 }
 
@@ -1339,14 +1361,20 @@ input {
 			.settings-bar {
 				top: calc(100% + 40.6px) !important;
 				@media (max-width: 760px) {
-					top: 40px !important;
-					right: -145px !important;
+					position: fixed !important;
+					background-color: #333333 !important;
+					height: calc(100vh - 50px) !important;
+					max-height: 100vh !important;
+					width: 100% !important;
+					top: 50px !important;
+					left: 0 !important;
+					right: 0 !important;
 				}
 			}
 			&:after {
 				top: calc(100% + 37px);
 				@media (max-width: 760px) {
-					top: 37px;
+					display: none !important;
 				}
 			}
 		}
@@ -2065,12 +2093,14 @@ table {
 	.custom-control-input {
 		z-index: 1;
 		position: absolute;
+		margin-left: -15px;
+		margin-top: -1px;
 	}
 	.custom-control-input:checked ~ .custom-control-label::after {
 		background-image: url(../../assets/checked.svg);
 		background-repeat: no-repeat;
 		background-size: 10px;
-		left: -18px;
+		left: -14px;
 		top: 0;
 		box-shadow: none;
 	}
@@ -2083,6 +2113,7 @@ table {
 		border-radius: 3px;
 		color: #000000;
 		top: -1px;
+		left: -15px;
 		box-shadow: none;
 		cursor: pointer;
 	}
@@ -2096,13 +2127,13 @@ table {
 	.mobile-class {
 		.col-md-9 {
 			@media (max-width: 760px) {
-				padding-left: 150px;
+				padding-left: 120px;
 			}
 		}
 		
 		.col-sm-9 {
 			@media (max-width: 760px) {
-				padding-left: 148px;
+				padding-left: 120px;
 			}
 		}
 	}
