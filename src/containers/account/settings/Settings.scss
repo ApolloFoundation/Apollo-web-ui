@@ -50,9 +50,23 @@
     //display: table;
     padding-bottom: 55px;
 
+    label {
+      padding: 0;
+      color: #333333;
+    }
+
     .input-group-app {
       display: block;
-      padding-top: 20px;
+      padding-top: 18px;
+
+      .form-sub-title {
+        padding-left: 0;
+      }
     }
+
+    .form-title {
+      padding-bottom: 15px;
+    }
+
   }
 }
