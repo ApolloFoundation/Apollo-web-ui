@@ -9,12 +9,14 @@ import {logOutAction} from "../../../actions/login";
 import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
 import {switchAccountAction} from "../../../actions/account";
-
+import {setForging} from '../../../actions/login';
 
 import {setModalData} from "../../../modules/modals";
 import {getAccountInfoAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {getBlockAction} from "../../../actions/blocks";
+import {getForging} from "../../../actions/login"
+
 
 import {
 	Accordion,
@@ -81,7 +83,12 @@ class SiteHeader extends React.Component {
 		}, 4000);
 	}
 
-	componentWillReceiveProps() {
+	componentWillReceiveProps(newState) {
+		console.log(newState);
+		this.setState({
+			...this.state,
+			forgingStatus: newState.forgingStatus,
+		});
 		this.getBlock()
 	}
 
@@ -91,7 +98,6 @@ class SiteHeader extends React.Component {
 
 	setBodyModalType(bodyModalType) {
 		if (this.props.bodyModalType) {
-			// this.props.setBodyModalType(null);
 
 		} else {
 			this.props.setBodyModalType(bodyModalType);
@@ -125,6 +131,20 @@ class SiteHeader extends React.Component {
 				block: block
 			})
 		}
+	};
+
+	setForging = async (action) => {
+		this.props.setForging({requestType: action.requestType})
+			.done(async (data) => {
+
+				const forgingStatus = await this.props.getForging();
+
+				if (forgingStatus) {
+					this.setState({
+						forgingStatus: forgingStatus
+					});
+				}
+			})
 	};
 
 	render() {
@@ -177,17 +197,48 @@ class SiteHeader extends React.Component {
 													<div className="form-group-app">
 														<div className="form-body">
 															<div className="input-section">
+
 																<div className="image-button success">
 																	<i className="zmdi zmdi-check-circle"/>
 																	<label>Connected</label>
 																</div>
-																<a
-																	to="/messenger"
-																	className="image-button  danger"
-																>
-																	<i className="zmdi zmdi-close-circle"/>
-																	<label>Not forging</label>
-																</a>
+
+																{
+																	this.state.forgingStatus &&
+																	this.state.forgingStatus.errorCode === 5 &&
+																	<a
+																		onClick={() => this.setForging({requestType: 'startForging'})}
+																		className="image-button  danger"
+																	>
+																		{console.log(this.state.forgingStatus)}
+																		<i className="zmdi zmdi-close-circle"/>
+																		<label>Not forging</label>
+																	</a>
+																}
+																{
+																	this.state.forgingStatus &&
+																	!this.state.forgingStatus.errorCode &&
+																	<a
+																		onClick={() => this.setForging({requestType: 'stopForging'})}
+																		className="image-button  success"
+																	>
+																		<i className="zmdi zmdi-check-circle"/>
+																		<label>Forging</label>
+																	</a>
+																}
+																{
+																	this.state.forgingStatus &&
+																	this.state.forgingStatus.errorCode === 8 &&
+																	<a
+																		onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+																		className="image-button danger"
+																	>
+																		<i className="zmdi zmdi-help"/>
+																		<label>Unknown forging status</label>
+																	</a>
+																}
+
+
 																<a
 																	to="/messenger"
 																	className="image-button"
@@ -287,7 +338,8 @@ class SiteHeader extends React.Component {
 											<a>{this.props.pageTitle}</a>
 										</strong>
 									</div>
-									<div className={`form-group-app mobile-form-group-app ${this.state.showTitleForginMenu ? "show": ""}`}>
+									<div
+										className={`form-group-app mobile-form-group-app ${this.state.showTitleForginMenu ? "show" : ""}`}>
 										<div className="form-body">
 											<div className="input-section">
 												<div className="image-button success">
@@ -545,10 +597,10 @@ class SiteHeader extends React.Component {
 									         className={"mobile-nav-item"}>
 										<p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
 									</NavLink>
-									<NavLink exact={true} activeClassName="active" to="/plugins"
+									{/*<NavLink exact={true} activeClassName="active" to="/plugins"
 									         className={"mobile-nav-item"}>
 										<p className="text">Plugins <i className="zmdi zmdi-input-power"/></p>
-									</NavLink>
+									</NavLink>*/}
 									<div className="btn-block">
 										<div className="close-menu-btn" onClick={this.closeMenu}>
 											Close
@@ -564,7 +616,7 @@ class SiteHeader extends React.Component {
 
 									<Form
 										onSubmit={values => this.handleSearchind(values)}
-										render={({submitForm, values, addValue, removeValue}) => (
+										render={({submitForm}) => (
 											<form onSubmit={submitForm}>
 												<Text
 													field={'value'}
@@ -654,7 +706,9 @@ class SiteHeader extends React.Component {
 												</div>
 												<div className="options-col">
 													<ul>
+														{/*
 														<li><Link to="/plugins" className="option">Plugins</Link></li>
+*/}
 														<li><Link to="/settings" className="option">Account
 															settings</Link></li>
 														<li><a
@@ -798,14 +852,14 @@ class SiteHeader extends React.Component {
 														className="image-button"
 													>
 														<i className="zmdi zmdi-account"/>
-														<label>Details</label>
+														<label style={{cursor: 'pointer'}}>Details</label>
 													</a>
 													<Link
 														to="/messenger"
 														className="image-button"
 													>
 														<i className="zmdi zmdi-comments"/>
-														<label>Messages</label>
+														<label style={{cursor: 'pointer'}}>Messages</label>
 													</Link>
 
 												</div>
@@ -815,7 +869,7 @@ class SiteHeader extends React.Component {
 														className="image-button"
 													>
 														<i className="zmdi zmdi-settings"/>
-														<label>Settings</label>
+														<label style={{cursor: 'pointer'}}>Settings</label>
 													</Link>
 
 												</div>
@@ -824,15 +878,23 @@ class SiteHeader extends React.Component {
 														onClick={() => logOutAction('simpleLogOut')}
 														className="image-button">
 														<i className="zmdi zmdi-power"/>
-														<label>Logout</label>
+														<label style={{cursor: 'pointer'}}>Logout</label>
 													</div>
-													<div className="image-button">
-														<i className="zmdi zmdi-power"/>
-														<label>Logout and stop forging</label>
+													<div
+														onClick={() => logOutAction('logOutStopForging')}
+														className="image-button"
+													>
+														<i className="zmdi zmdi-pause-circle"/>
+														<label style={{cursor: 'pointer'}}>Logout and stop
+															forging</label>
 													</div>
-													<div className="image-button">
+													<div
+														onClick={() => logOutAction('logoutClearUserData')}
+														className="image-button"
+													>
 														<i className="zmdi zmdi-close-circle"/>
-														<label>Logout and clear user data</label>
+														<label style={{cursor: 'pointer'}}>Logout and clear user
+															data</label>
 													</div>
 												</div>
 											</div>
@@ -852,10 +914,12 @@ const mapStateToProps = state => ({
 	account: state.account.account,
 	accountRS: state.account.accountRS,
 	name: state.account.name,
+	forgingStatus: state.account.forgingStatus,
 	publicKey: state.account.publicKey,
 	forgedBalanceATM: state.account.forgedBalanceATM,
 	moalTtype: state.modals.modalType,
-	bodyModalType: state.modals.bodyModalType
+	bodyModalType: state.modals.bodyModalType,
+	secretPhrase: state.account.passPhrase
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -863,9 +927,11 @@ const mapDispatchToProps = dispatch => ({
 	setMopalType: (prevent) => dispatch(setMopalType(prevent)),
 	setBodyModalType: (prevent) => dispatch(setBodyModalType(prevent)),
 	getAccountInfoAction: (reqParams) => dispatch(getAccountInfoAction(reqParams)),
+	setForging: (reqParams) => dispatch(setForging(reqParams)),
 	getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
 	getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
 	setModalData: (reqParams) => dispatch(setModalData(reqParams)),
+	getForging: (reqParams) => dispatch(getForging(reqParams)),
 	switchAccountAction: (requestParams) => dispatch(switchAccountAction(requestParams)),
 	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });

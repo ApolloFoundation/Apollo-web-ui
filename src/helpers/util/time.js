@@ -4,11 +4,12 @@ import {getLocale} from "../internationalisation";
 
 const EPOCH_BEGINNING = 1385294400000;
 
-export function toEpochTime(currentTime) {
+export function toEpochTime(currentTime, epochB) {
     if (currentTime === undefined) {
         currentTime = new Date();
     }
-    return Math.floor((currentTime - EPOCH_BEGINNING) / 1000);
+    console.warn("epochB", epochB);
+    return Math.floor((currentTime - epochB) / 1000);
 };
 
 export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {

@@ -602,6 +602,8 @@ input {
 		.image-button {
 			margin-bottom: 10px;
 			cursor: pointer;
+			position: relative;
+			padding-left: 25px;
 			
 			&:last-child {
 				margin-bottom: 0px;
@@ -617,6 +619,10 @@ input {
 				}
 			}
 			.zmdi {
+				position: absolute;
+				top: 50%;
+				left: 0;
+				transform: translate(0, -50%);
 				font-size: 18px;
 				color: #333333;
 				display: inline-block;
@@ -755,7 +761,22 @@ input {
 		input {
 			padding-left: 15px;
 			padding-right: 15px;
-			border-radius: 3px;
+			border-radius: 5px;
+			border-color: #e5e5e5;
+			background-color: transparent;
+		}
+		.input-group-text-transparent {
+			.form-control {
+				border-right: none;
+			}
+			.input-group-text {
+				background-color: transparent;
+				color: #a6a6a6;
+				border-left: none;
+				border-color: #e5e5e5;
+				font-size: 11px;
+				line-height: 11px;
+			}
 		}
 	}
 	
@@ -945,7 +966,7 @@ input {
 	}
 	.form-group-white {
 		margin-bottom: 8px;
-		margin-left: 0;
+		margin-left: 0 !important;
 		align-items: center;
 		flex-wrap: nowrap;
 		label {
@@ -1077,6 +1098,9 @@ input {
 		}
 	}
 	.row {
+		margin-right: -15px !important;
+		margin-left: -15px !important;
+
 		& > * {
 			display: flex;
 			

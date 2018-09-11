@@ -36,6 +36,13 @@
       min-height: 520px; }
   .page-settings-item .form-group-app {
     padding-bottom: 55px; }
+    .page-settings-item .form-group-app label {
+      padding: 0;
+      color: #333333; }
     .page-settings-item .form-group-app .input-group-app {
       display: block;
-      padding-top: 20px; }
+      padding-top: 18px; }
+      .page-settings-item .form-group-app .input-group-app .form-sub-title {
+        padding-left: 0; }
+    .page-settings-item .form-group-app .form-title {
+      padding-bottom: 15px; }

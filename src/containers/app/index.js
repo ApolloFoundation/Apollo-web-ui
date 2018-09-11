@@ -156,7 +156,7 @@ class App extends React.Component {
                                 ,<Route exact path="/open-orders" component={OpenOrders}/>
                                 ,<Route exact path="/peers" component={Peers}/>
                                 ,<Route exact path="/purchased-products" component={PurchasdProucts}/>
-                                ,<Route exact path="/plugins" component={Plugins}/>
+                                /*,<Route exact path="/plugins" component={Plugins}/>*/
                                 ,<Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
                                 ,<Route exact path="/settings" component={Settings}/>
                                 ,<Route exact path="/trade-history" component={TradeHistory}/>
@@ -165,6 +165,7 @@ class App extends React.Component {
                                 ,<Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
                                 ,<Route exact path="/finished-polls" component={Finishedpolls}/>
                                 ,<Route exact path="/data-storage" component={DataStorage}/>
+                                ,<Route exact path="/data-storage/:query" component={DataStorage}/>
                                 ,<Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 ,<Route exact path="/my-messages" component={MyMessages}/>
                                 ,<Route exact path="/generators" component={Generators}/>
