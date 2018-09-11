@@ -99,9 +99,11 @@ function makeLoginReq(dispatch, requestParams) {
 export function getForging() {
     return (dispatch, getState) => {
         const account = getState().account;
-        console.log(account);
 
-        const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase'));
+        const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
+        console.log(passpPhrase);
+
+
         dispatch({
             type: 'SET_PASSPHRASE',
             payload: passpPhrase
@@ -127,14 +129,14 @@ export function setForging(requestType) {
         const account = getState().account;
         // console.log(account);
         //
-        const secretPhrase = JSON.parse(localStorage.getItem('secretPhrase'));
+        const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
         // dispatch({
         //     type: 'SET_PASSPHRASE',
         //     payload: passpPhrase
         // });
         requestType = {
             ...requestType,
-            secretPhrase: secretPhrase
+            secretPhrase: passpPhrase
         };
 
 

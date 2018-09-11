@@ -28,6 +28,7 @@ import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
 import SaveAccount from './account/save-account';
 import EnterAdminPassword from './admin-password';
+import EnterSecretPhrase from './account/get-seecret-phrase';
 
 // Assets
 import TransferAsset from './assets/transfer-asset';
@@ -66,7 +67,7 @@ import MarketplaceChangePrice from './marketplace/change-price/';
 import MarketplaceChangeQuantity from './marketplace/change-quantity/';
 import MarketplaceDelete from './marketplace/delete-goods/';
 
-// Marketplace
+// Messenger
 import DecryptMessage from './messenger/decrypt-messages';
 import AboutPeerInfo from "./peer/about-peer-info";
 import ConnectPeer from "./peer/connect-peer";
@@ -200,6 +201,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ADMIN_PASSWORD'              && <EnterAdminPassword        closeModal={this.closeModal}/>}
+                {this.props.modalType === 'ENTER_SECRET_PHRASE'         && <EnterSecretPhrase         closeModal={this.closeModal}/>}
 
 
                 {/* Shuffling */}

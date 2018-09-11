@@ -134,8 +134,6 @@ class SiteHeader extends React.Component {
 
 				const forgingStatus = await this.props.getForging();
 
-                console.log(forgingStatus);
-
                 if (forgingStatus) {
                     this.setState({
                         forgingStatus: forgingStatus
@@ -201,7 +199,7 @@ class SiteHeader extends React.Component {
 
 															{
 																this.state.forgingStatus &&
-																this.state.forgingStatus.errorCode &&
+																this.state.forgingStatus.errorCode === 5 &&
                                                                 <a
                                                                     onClick={() => this.setForging({requestType: 'startForging'})}
                                                                     className="image-button  danger"
@@ -222,6 +220,18 @@ class SiteHeader extends React.Component {
                                                                     <label>Forging</label>
                                                                 </a>
                                                             }
+                                                            {
+                                                                this.state.forgingStatus &&
+                                                                this.state.forgingStatus.errorCode === 8 &&
+                                                                <a
+																	onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                                                                    className="image-button"
+                                                                >
+                                                                    <i className="zmdi zmdi-help"/>
+                                                                    <label>Unknown forging status</label>
+                                                                </a>
+                                                            }
+
 
 															<a
 																to="/messenger"
