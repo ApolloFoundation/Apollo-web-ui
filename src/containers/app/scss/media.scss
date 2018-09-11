@@ -77,13 +77,15 @@
 
           ul {
             li {
-              a {
+              .text{
                 color: #777777;
                 font-size: 14px;
                 padding: 25px 40px 25px 75px;
                 display: block;
                 position: relative;
-
+                i.right {
+                  display: block;
+                }
                 &.active {
                   color: #fff;
 
@@ -196,7 +198,7 @@
 
         ul {
           li {
-            a {
+            .text {
               padding-left: 55px;
               font-size: 0px;
               

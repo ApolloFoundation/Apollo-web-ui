@@ -186,7 +186,7 @@ class Messenger extends React.Component {
 																	<label>Encrypt message</label>
 																</div>
 															</div>
-															<Text field={'secretPhrase'} className={'Secret Phrase'} type="text"/>
+															<Text field={'secretPhrase'} className={'Secret Phrase'} type="password"/>
 															<button type="submit" className="btn blue btn-primary">Send Message</button>
 														</div>
 													</form>

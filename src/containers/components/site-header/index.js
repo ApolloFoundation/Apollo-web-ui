@@ -58,7 +58,6 @@ class SiteHeader extends React.Component {
 	}
 
 	showHideTitleForginMenu() {
-		console.log('3');
 		this.setState({showTitleForginMenu: !this.state.showTitleForginMenu});
 	}
 

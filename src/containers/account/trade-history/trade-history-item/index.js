@@ -24,7 +24,7 @@ class TradeHistoryItem extends React.Component {
                     </td>
                     <td>
                         {this.state.transfer.timestamp}
-                        <a><span className="info"></span></a>
+                        <a><span className="info"/></a>
                     </td>
                     <td className="">{this.state.transfer.tradeType}</td>
                     <td className="align-right">{this.state.transfer.quantityATU}</td>

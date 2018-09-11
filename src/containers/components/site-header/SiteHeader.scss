@@ -294,6 +294,9 @@
 			flex-wrap: wrap;
 			justify-content: flex-end;
 			cursor: pointer;
+			@media (max-width: 1023px) {
+				width: auto;
+			}
 			.btn.filters {
 				min-height: 25px;
 			}
@@ -304,6 +307,9 @@
 			.user-name {
 				width: calc(100% - 70px);
 				align-items: center;
+				@media (max-width: 1023px) {
+					display: none;
+				}
 				& > * {
 					display: inline-block;
 					vertical-align: bottom;
