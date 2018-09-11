@@ -165,6 +165,7 @@ class App extends React.Component {
                                 ,<Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
                                 ,<Route exact path="/finished-polls" component={Finishedpolls}/>
                                 ,<Route exact path="/data-storage" component={DataStorage}/>
+                                ,<Route exact path="/data-storage/:query" component={DataStorage}/>
                                 ,<Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 ,<Route exact path="/my-messages" component={MyMessages}/>
                                 ,<Route exact path="/generators" component={Generators}/>

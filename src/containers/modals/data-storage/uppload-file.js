@@ -165,7 +165,7 @@ class UploadFile extends React.Component {
                                         <label>Passphrase</label>
                                     </div>
                                     <div className="col-md-9">
-                                        <Text placeholder={'Passphrase'} type="text" field={'secretPhrase'}/>
+                                        <Text placeholder={'Passphrase'} type="password" field={'secretPhrase'}/>
                                     </div>
                                 </div>
                             </div>
