@@ -13,7 +13,7 @@ export const GET_FORGING = 'GET_FORGING';
 
 const initialState = {
     settings: null,
-    constants: null,
+    constants: {},
     passPhrase: null,
 	account: null,
     accountRS: null,

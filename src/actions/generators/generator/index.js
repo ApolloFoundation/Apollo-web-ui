@@ -16,7 +16,7 @@ class Generator extends React.Component {
     };
 
     initTimer = () => {
-        const remaining = this.props.generator.deadline - (toEpochTime() - this.props.resTimestamps) + 20;
+        const remaining = this.props.generator.deadline - (toEpochTime(undefined, this.props.epochB) - this.props.resTimestamps) + 20;
         this.setState({
             remaining
         });
