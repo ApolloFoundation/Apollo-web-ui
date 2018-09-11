@@ -860,8 +860,10 @@ input {
 	}
 	.form-group-grey {
 		margin-bottom: 8px;
-		margin-left: 0;
 		align-items: center;
+		&.row {
+			margin-left: 0 !important;
+		}
 		label {
 			color: #333333;
 			letter-spacing: 0.3px;
@@ -954,8 +956,10 @@ input {
 	}
 	.form-group-white {
 		margin-bottom: 8px;
-		margin-left: 0 !important;
 		align-items: center;
+		&.row {
+			margin-left: 0 !important;
+		}
 		label {
 			color: #333333;
 			letter-spacing: 0.3px;
