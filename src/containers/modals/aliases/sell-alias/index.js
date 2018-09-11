@@ -8,6 +8,7 @@ import InfoBox from '../../../components/info-box';
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+import AdvancedSettings from '../../../components/advanced-transaction-settings'
 
 class SellAlias extends React.Component {
     constructor(props) {
@@ -52,10 +53,6 @@ class SellAlias extends React.Component {
                     NotificationManager.success('Product has been listed!', null, 5000);
                 }
             })
-
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
     }
 
     getAlias = async () => {
@@ -95,6 +92,12 @@ class SellAlias extends React.Component {
         this.setState({
             ...this.props,
             activeTab: index
+        })
+    };
+
+    handleChange = (value) => {
+        this.setState({
+            inputType: value
         })
     };
 
@@ -189,29 +192,36 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="btn-box align-buttons-inside absolute right-conner">
-                                                <a
-                                                    className="btn btn-left round round-bottom-left round-top-right"
-                                                    // onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
-                                                >
-                                                    Create account
-                                                </a>
+                                            <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                 <button
                                                     type="submit"
                                                     name={'closeModal'}
                                                     className="btn btn-right blue round round-bottom-right round-top-left"
                                                 >
-                                                    Enter
+                                                    Sell alias
                                                 </button>
 
                                             </div>
+                                            <div className="btn-box align-buttons-inside absolute left-conner">
+                                                <a
+                                                    onClick={this.handleAdvancedState}
+                                                    className="btn btn-right round round-bottom-left round-top-right absolute"
+                                                    style={{left : 0, right: 'auto'}}
+                                                >
+                                                    Advanced
+                                                </a>
+                                            </div>
+                                            <AdvancedSettings
+                                                setValue={setValue}
+                                                advancedState={this.state.advancedState}
+                                            />
                                         </form>
                                     )}
                                 />
                                 <Form
                                     onSubmit={(values) => this.handleFormSubmit(values)}
                                     render={({
-                                                 submitForm
+                                                 submitForm, setValue
                                              }) => (
                                         <form
                                             onSubmit={submitForm}
@@ -278,6 +288,10 @@ class SellAlias extends React.Component {
                                                     Advanced
                                                 </a>
                                             </div>
+                                            <AdvancedSettings
+                                                setValue={setValue}
+                                                advancedState={this.state.advancedState}
+                                            />
                                         </form>
                                     )}
                                 />

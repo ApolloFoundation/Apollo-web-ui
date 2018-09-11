@@ -8,6 +8,7 @@ import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
+import AdvancedSettings from '../../../components/advanced-transaction-settings'
 
 class DeleteAlias extends React.Component {
     constructor(props) {
@@ -89,13 +90,19 @@ class DeleteAlias extends React.Component {
         }
     }
 
+    handleChange = (value) => {
+        this.setState({
+            inputType: value
+        })
+    };
+
     render() {
         return (
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm
+                                 submitForm, setValue
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             {
@@ -156,6 +163,10 @@ class DeleteAlias extends React.Component {
                                             Advanced
                                         </a>
                                     </div>
+                                    <AdvancedSettings
+                                        setValue={setValue}
+                                        advancedState={this.state.advancedState}
+                                    />
                                 </div>
                             }
                         </form>
