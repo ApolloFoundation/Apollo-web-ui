@@ -13,6 +13,7 @@ import MarketplaceItem from "../marketplace/marketplace-card";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
+import InfoBox from "../../components/info-box";
 
 class PurchasedProducts extends React.Component {
     constructor(props) {
@@ -83,6 +84,7 @@ class PurchasedProducts extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
                         {
+                            this.state.getDGSGoods &&
                             this.state.getDGSGoods.map((el, index) => {
                                 return (
                                     <MarketplaceItem
@@ -94,6 +96,13 @@ class PurchasedProducts extends React.Component {
                                     />
                                 );
                             })
+                        }
+                        {
+                            this.state.getDGSGoods &&
+                            !(!!this.state.getDGSGoods.length) &&
+                                <InfoBox default>
+                                    No purchased products yet.
+                                </InfoBox>
                         }
                         <div className="btn-box">
                             <a

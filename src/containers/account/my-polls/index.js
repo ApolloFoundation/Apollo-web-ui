@@ -7,6 +7,7 @@ import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {Link} from 'react-router-dom';
+import InfoBox from '../../components/info-box';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -81,38 +82,52 @@ class MyVotes extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
-                        <div className="transaction-table no-min-height">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Title</td>
-                                        <td>Description</td>
-                                        <td>Sender</td>
-                                        <td>Start date</td>
-                                        <td>Blocks left</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody  key={uuid()}>
-                                    {
-                                        this.state.myPolls &&
-                                        this.state.myPolls.map((el, index) => {
-                                            return (
-                                                <PoolItem
-                                                    {...el}
-                                                    activepolls
-                                                    getTransaction={this.getTransaction}
-                                                />
-                                            );
-                                        })
-                                    }
-                                    </tbody>
-                                </table>
 
+                        {
+                            this.state.myPolls &&
+                            !!this.state.myPolls.length &&
+
+                                <div className="transaction-table no-min-height">
+                                    <div className="transaction-table-body">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Title</td>
+                                                <td>Description</td>
+                                                <td>Sender</td>
+                                                <td>Start date</td>
+                                                <td>Blocks left</td>
+                                                <td className="align-right">Actions</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody  key={uuid()}>
+                                            {
+                                                this.state.myPolls &&
+                                                this.state.myPolls.map((el, index) => {
+                                                    return (
+                                                        <PoolItem
+                                                            {...el}
+                                                            activepolls
+                                                            getTransaction={this.getTransaction}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                            </tbody>
+                                        </table>
+                                    </div>
                             </div>
-                        </div>
+                        }
+                        {
+                            this.state.myPolls &&
+                            !(!!this.state.myPolls.length) &&
+                            <InfoBox default>
+                                No active polls yet.
+                            </InfoBox>
+                        }
                     </div>
+
+
                 </div>
             </div>
         );

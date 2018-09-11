@@ -7,6 +7,7 @@ const InfoBox = (props) => (
             'info-box': true,
             'danger': props.danger,
             'blue-info': props.info,
+            'info': props.default,
             'mt': props.mt
         })}>
         <p>

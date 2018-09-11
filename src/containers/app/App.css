@@ -3026,6 +3026,11 @@ input {
   .info-box.blue-info p {
     color: #fff; }
 
+.info-box.info {
+  background: #666666; }
+  .info-box.info p {
+    color: #fff; }
+
 .info-box.success {
   background-color: #2ecc71; }
   .info-box.success p {
