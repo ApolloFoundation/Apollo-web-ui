@@ -3,11 +3,9 @@ import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import classNames from 'classnames';
+import AdvancedSettings from '../../components/advanced-transaction-settings';
 import crypto from  '../../../helpers/crypto/crypto';
-import InputMask from 'react-input-mask';
-import {sendLeaseBalance} from '../../../actions/account'
+import AccountRS from '../../components/account-rs';
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
@@ -123,122 +121,112 @@ class LeaseBalance extends React.Component {
                                 <div className="form-title">
                                     <p>Lease your balance</p>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline user">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Recipient</label>
-                                        </div>
-                                        <div className="col-md-9">
+                                <div className="input-group-app form-group mb-15 display-block inline user">
+                                    <div className="row form-group-white">
+                                        <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                            Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
+                                        </label>
+                                        <div className="col-sm-9">
                                             <div className="iconned-input-field">
-                                                <InputMask mask='APL-****-****-****-*****' value={this.state.value}  onChange={(e) => {if (e.target) setValue('recipient', e.target.value)}}>
-                                                    {(inputProps) => {
-                                                        return (
-                                                            <Text  {...inputProps} field="recipient" placeholder="Recipient" />
-                                                        );
-                                                    }}
-                                                </InputMask>
-
-                                                <div className="input-icon"><i className="zmdi zmdi-account" /></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Period</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text field="period" placeholder="Period" />
-                                                <div className="form-sub-title no-margin">
-                                                    A lease of 65,535 blocks is about 46 days.
-                                                </div>
+                                                <AccountRS
+                                                    value={''}
+                                                    field={'recipient'}
+                                                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
+                                                    setValue={setValue}
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
+                                <div className="form-group row form-group-white mb-1">
+                                    <label className="col-sm-3 col-form-label">
+                                        Period
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <Text className="form-control" type={'number'} field="period" placeholder="Period" />
+                                    </div>
+                                </div>
+                                <div className="mobile-class row form-group-grey">
+                                    <div className="col-md-9 offset-md-3">
+                                        <div className="form-sub-title no-margin">
+                                            A lease of 65,535 blocks is about 46 days.
                                         </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <div className="form-sub-actions">
-                                                    <div
-                                                        className="input-group-app align-middle display-block offset-bottom"
-                                                        style={{
-                                                            padding: 0
-                                                        }}
-                                                    >
-                                                        <div
-                                                            className="input-group-app align-middle display-block offset-bottom"
-                                                            style={{
-                                                                padding: 0
-                                                            }}
-                                                        >
-                                                            <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isMessage"/>
-                                                            <label>Add note to self?</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div className="mobile-class form-group-grey row mb-15">
+                                    <div className="col-sm-9 offset-sm-3">
+                                        <a className="no-margin btn static blue"
+                                           onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}>
+                                            Private transaction
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="mobile-class row mb-15 form-group-white">
+                                    <div className="col-md-9 offset-md-3">
+                                        <div className="form-check custom-checkbox mb-2">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="isMessage"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Add a message?
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
                                 {
                                     getFormState().values.isMessage &&
-                                    <div className="input-group-app offset-top display-block inline">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <TextArea placeholder="Message" field="message" cols="30" rows="10" />
-                                                </div>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Message
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <TextArea className="form-control" placeholder="Message" field="message" cols="30" rows="5" />
                                         </div>
                                     </div>
                                 }
+                                <div className="form-group row form-group-white mb-15">
+                                    <label htmlFor="feeATM" className="col-sm-3 col-form-label">
+                                        Fee
+                                        <span
+                                            onClick={async () => {
+                                                const formState = getFormState();
+                                                const fee = await this.props.calculateFeeAction({
+                                                    recipient: formState.values.recipient,
+                                                    amountATM: formState.values.amountATM,
+                                                    publicKey: this.props.publicKey,
+                                                    feeATM: 0
+                                                });
 
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label style={{paddingRight: 7}}>Fee</label>
-                                            <span
-                                                onClick={async () => {
-                                                    const formState = getFormState();
-                                                    const fee = await this.props.calculateFeeAction({
-                                                        recipient: formState.values.recipient,
-                                                        amountATM: formState.values.amountATM,
-                                                        publicKey: this.props.publicKey,
-                                                        feeATM: 0
-                                                    });
-
-                                                    if (fee) {
-                                                        setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
-                                                    }
+                                                if (fee) {
+                                                    setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
                                                 }
-                                                }
-                                                style={{paddingRight: 0}}
-                                                className="calculate-fee"
-                                            >
+                                            }
+                                            }
+                                            style={{paddingRight: 0}}
+                                            className="calculate-fee"
+                                        >
                                                 Calculate</span>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="feeATM" value={this.state.feeATM} placeholder="Amount" />
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
+                                        <Text defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                              id="feeATM"
+                                              field="feeATM"
+                                              className="form-control"
+                                              value={this.state.feeATM}
+                                              placeholder="Minimum fee"
+                                              type={"number"}
+                                              aria-describedby="feeATMText" />
+                                        <div className="input-group-append">
+                                            <span className="input-group-text" id="feeATMText">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="secretPhrase" placeholder="secretPhrase" type={'password'}/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label htmlFor="secretPhrase" className="col-sm-3 col-form-label">
+                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <Text id="secretPhrase" className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 {
@@ -267,7 +255,7 @@ class LeaseBalance extends React.Component {
                                 }
 
                                 <AdvancedSettings
-                                    setState={setValue}
+                                    setValue={setValue}
                                     advancedState={this.state.advancedState}
                                 />
 

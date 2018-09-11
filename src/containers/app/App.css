@@ -3083,6 +3083,8 @@ input {
   background: #fff;
   border-radius: 7px;
   height: calc(100% - 15px); }
+  .form-group-app .form-control:focus {
+    box-shadow: none; }
   .form-group-app.devided {
     display: flex;
     flex-direction: row;
@@ -3259,8 +3261,6 @@ input {
     padding-left: 20px; }
   .form-group-app .input-group-app .input-wrapper {
     width: 100%; }
-  .form-group-app .input-group-app .form-sub-title {
-    padding-left: 15px; }
   .form-group-app .input-group-app input {
     padding-left: 15px;
     padding-right: 15px;
@@ -3569,16 +3569,17 @@ input {
 
 .input-group-app label {
   display: table-cell;
-  color: #777777;
   font-family: "Roboto-Regular";
-  font-size: 12px;
   line-height: 14px;
   padding: 0 0 0 5px;
-  font-size: 13.5px; }
+  font-size: 13.5px;
+  align-self: center;
+  color: #333333; }
 
 .input-group-app input {
   display: table-cell;
-  border-radius: 3px 0 0 3px; }
+  border-radius: 3px 0 0 3px;
+  padding: 7px 20px; }
 
 .btn-box {
   width: 100%;
