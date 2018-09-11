@@ -82,7 +82,6 @@ class SiteHeader extends React.Component {
         this.setState({
             ...this.state,
             forgingStatus: newState.forgingStatus,
-            searching: true
         });
         this.getBlock()
 	}
@@ -487,10 +486,10 @@ class SiteHeader extends React.Component {
 									         className={"mobile-nav-item"}>
 										<p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
 									</NavLink>
-									<NavLink exact={true} activeClassName="active" to="/plugins"
+									{/*<NavLink exact={true} activeClassName="active" to="/plugins"
 									         className={"mobile-nav-item"}>
 										<p className="text">Plugins <i className="zmdi zmdi-input-power"/></p>
-									</NavLink>
+									</NavLink>*/}
 									<div className="btn-block">
 										<div className="close-menu-btn" onClick={this.closeMenu}>
 											Close
@@ -506,7 +505,7 @@ class SiteHeader extends React.Component {
 
 									<Form
 										onSubmit={values => this.handleSearchind(values)}
-										render={({submitForm, values, addValue, removeValue}) => (
+										render={({submitForm}) => (
 											<form onSubmit={submitForm}>
 												<Text
 													field={'value'}
@@ -596,7 +595,9 @@ class SiteHeader extends React.Component {
 												</div>
 												<div className="options-col">
 													<ul>
+{/*
 														<li><Link to="/plugins" className="option">Plugins</Link></li>
+*/}
 														<li><Link to="/settings" className="option">Account
 															settings</Link></li>
 														<li><a

@@ -60,7 +60,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Language</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -73,7 +73,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Regional format</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -86,7 +86,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Use 24 hour format</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -100,7 +100,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Maximum decimal positions</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -124,7 +124,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Enable plugins</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -151,7 +151,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Show console log button</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -166,11 +166,11 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Administrator password</label>
                                                                 </div>
                                                                 <div className="col-md-6">
-                                                                    <Text field="adminPass" type="password"/>
+                                                                    <Text field="adminPass" className="form-control" type="password"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -183,7 +183,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Submit forms on enter</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -211,7 +211,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Enable marketplace section</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -226,7 +226,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Enable exchange section</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -241,7 +241,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Animate forging indicator</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -256,7 +256,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Items to show per page</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -294,47 +294,68 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Max amount warning</label>
                                                                 </div>
-                                                                <div className="col-md-6">
-                                                                    <Text type="number" field="maxAmountWarn"/>
+                                                                <div className="col-md-6 input-group input-group-text-transparent">
+                                                                    <Text type="number"
+                                                                          className="form-control"
+                                                                          field="maxAmountWarn"
+                                                                          aria-describedby="maxAmountWarnText" />
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text" id="maxAmountWarnText">Apollo</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Max fee warning</label>
                                                                 </div>
-                                                                <div className="col-md-6">
-                                                                    <Text type="number" field="maxFeeWarn"/>
+                                                                <div className="col-md-6 input-group input-group-text-transparent">
+                                                                    <Text className="form-control"
+                                                                          type="number"
+                                                                          field="maxFeeWarn"/>
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text">Apollo</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Max asset transfer warning</label>
                                                                 </div>
-                                                                <div className="col-md-6">
-                                                                    <Text type="number" field="maxAssetWarn"/>
+                                                                <div className="col-md-6 input-group input-group-text-transparent">
+                                                                    <Text className="form-control"
+                                                                          type="number"
+                                                                          field="maxAssetWarn"/>
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text">QNT</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Max currency transfer warning</label>
                                                                 </div>
-                                                                <div className="col-md-6">
-                                                                    <Text type="number" field="maxCurrencyWarn"/>
+                                                                <div className="col-md-6 input-group input-group-text-transparent">
+                                                                    <Text className="form-control"
+                                                                          type="number"
+                                                                          field="maxCurrencyWarn"/>
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text">Units</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Show fake warnings</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -356,7 +377,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Header</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -370,7 +391,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Sidebar</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -384,7 +405,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Boxes</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -399,7 +420,7 @@ class Settings extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="page-settings-body">
+                                            {/*<div className="page-settings-body">
                                                 <div className="page-settings-item">
                                                     <div className="form-group-app">
                                                         <div className="form-title">
@@ -407,7 +428,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>ShapeShift URL</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -417,7 +438,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>ShapeShift API Key</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -427,7 +448,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Changelly URL</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -437,7 +458,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Changelly URL</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -447,7 +468,7 @@ class Settings extends React.Component {
                                                         </div>
                                                         <div className="input-group-app">
                                                             <div className="row">
-                                                                <div className="col-md-6">
+                                                                <div className="col-md-6 align-items-center">
                                                                     <label>Changelly API Secret</label>
                                                                 </div>
                                                                 <div className="col-md-6">
@@ -457,11 +478,15 @@ class Settings extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="page-settings-item">
-                                                    <div className="btn-box absolute right-conner more-padding">
-                                                        <a onClick={() => this.props.closeModal()}
-                                                           className="btn primary">Cancel</a>
-                                                        <button type="submit" className="btn primary blue">Save settings</button>
+                                            </div>*/}
+                                            <div className="row">
+                                                <div className="col-md-12 text-right">
+                                                    <div className="page-settings-item">
+                                                        <div className="btn-box right-conner more-padding">
+                                                            <a onClick={() => this.props.closeModal()}
+                                                               className="btn primary">Cancel</a>
+                                                            <button type="submit" className="btn primary blue">Save settings</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

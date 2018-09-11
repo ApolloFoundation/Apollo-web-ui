@@ -513,7 +513,18 @@ input {
   .form-group-app .input-group-app input {
     padding-left: 15px;
     padding-right: 15px;
-    border-radius: 3px; }
+    border-radius: 5px;
+    border-color: #e5e5e5;
+    background-color: transparent; }
+  .form-group-app .input-group-app .input-group-text-transparent .form-control {
+    border-right: none; }
+  .form-group-app .input-group-app .input-group-text-transparent .input-group-text {
+    background-color: transparent;
+    color: #a6a6a6;
+    border-left: none;
+    border-color: #e5e5e5;
+    font-size: 11px;
+    line-height: 11px; }
   .form-group-app .form-tabulator {
     position: relative;
     margin: 55px -35px -69px -35px;
@@ -639,7 +650,7 @@ input {
       border-left: none; }
   .form-group-app .form-group-white {
     margin-bottom: 8px;
-    margin-left: 0;
+    margin-left: 0 !important;
     align-items: center; }
     .form-group-app .form-group-white label {
       color: #333333;
@@ -727,8 +738,11 @@ input {
 .input-group-app.inline label {
   display: inline-block; }
 
-.input-group-app .row > * {
-  display: flex; }
+.input-group-app .row {
+  margin-right: -15px !important;
+  margin-left: -15px !important; }
+  .input-group-app .row > * {
+    display: flex; }
 
 .input-group-app textarea {
   width: 100%; }

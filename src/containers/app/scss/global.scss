@@ -750,7 +750,22 @@ input {
 		input {
 			padding-left: 15px;
 			padding-right: 15px;
-            border-radius: 3px;
+			border-radius: 5px;
+			border-color: #e5e5e5;
+			background-color: transparent;
+		}
+		.input-group-text-transparent {
+			.form-control {
+				border-right: none;
+			}
+			.input-group-text {
+				background-color: transparent;
+				color: #a6a6a6;
+				border-left: none;
+				border-color: #e5e5e5;
+				font-size: 11px;
+				line-height: 11px;
+			}
 		}
 	}
 
@@ -939,7 +954,7 @@ input {
 	}
 	.form-group-white {
 		margin-bottom: 8px;
-		margin-left: 0;
+		margin-left: 0 !important;
 		align-items: center;
 		label {
 			color: #333333;
@@ -1067,6 +1082,9 @@ input {
 		}
 	}
 	.row {
+		margin-right: -15px !important;
+		margin-left: -15px !important;
+
 		& > * {
 			display: flex;
 			

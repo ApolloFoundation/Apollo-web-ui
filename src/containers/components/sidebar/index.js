@@ -229,10 +229,10 @@ class Sidebar extends React.Component {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink exact={true} activeClassName="active"  to="/plugins">
+                                {/*<NavLink exact={true} activeClassName="active"  to="/plugins">
                                     Plugins
                                     <i className="zmdi zmdi-input-power left" />
-                                </NavLink>
+                                </NavLink>*/}
                             </li>
                         </ul>
                     </nav>

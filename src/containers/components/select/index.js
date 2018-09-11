@@ -8,10 +8,25 @@ class CustomSelect extends React.Component {
         super(props);
     }
 
+    customStyles = {
+        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            return {
+                ...styles,
+                backgroundColor: isDisabled
+                    ? null
+                    : isSelected ? '#eee' : '#fff' ,
+                color: '#515151',
+                padding: 10,
+                cursor: isDisabled ? 'not-allowed' : 'default',
+            };
+        },
+    };
+
     render () {
         return (
             <Select
-                className={'custom-select'}
+                styles={this.customStyles}
+                className={'form-custom-select'}
                 options={this.props.options}
                 onChange={(selectedOption) => {this.props.setValue(this.props.field, selectedOption.value)}}
                 theme={(theme) => ({
@@ -19,8 +34,6 @@ class CustomSelect extends React.Component {
                     borderRadius: 0,
                     colors: {
                         ...theme.colors,
-                        text: 'orangered',
-                        primary25: 'hotpink',
                         primary: 'black',
                     },
                 })}

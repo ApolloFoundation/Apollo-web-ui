@@ -3244,7 +3244,18 @@ input {
   .form-group-app .input-group-app input {
     padding-left: 15px;
     padding-right: 15px;
-    border-radius: 3px; }
+    border-radius: 5px;
+    border-color: #e5e5e5;
+    background-color: transparent; }
+  .form-group-app .input-group-app .input-group-text-transparent .form-control {
+    border-right: none; }
+  .form-group-app .input-group-app .input-group-text-transparent .input-group-text {
+    background-color: transparent;
+    color: #a6a6a6;
+    border-left: none;
+    border-color: #e5e5e5;
+    font-size: 11px;
+    line-height: 11px; }
   .form-group-app .form-tabulator {
     position: relative;
     margin: 55px -35px -69px -35px;
@@ -3370,7 +3381,7 @@ input {
       border-left: none; }
   .form-group-app .form-group-white {
     margin-bottom: 8px;
-    margin-left: 0;
+    margin-left: 0 !important;
     align-items: center; }
     .form-group-app .form-group-white label {
       color: #333333;
@@ -3458,8 +3469,11 @@ input {
 .input-group-app.inline label {
   display: inline-block; }
 
-.input-group-app .row > * {
-  display: flex; }
+.input-group-app .row {
+  margin-right: -15px !important;
+  margin-left: -15px !important; }
+  .input-group-app .row > * {
+    display: flex; }
 
 .input-group-app textarea {
   width: 100%; }
@@ -4149,10 +4163,18 @@ table td .btn, table th .btn {
 .page-body .transaction-table .transaction-table-body {
   padding: 35px; }
   .page-body .transaction-table .transaction-table-body table thead tr td {
-    padding: 0 15px 15px 0; }
+    padding: 0 15px 15px 15px; }
+    .page-body .transaction-table .transaction-table-body table thead tr td:first-child {
+      padding-left: 0; }
+    .page-body .transaction-table .transaction-table-body table thead tr td:last-child {
+      padding-right: 0; }
   .page-body .transaction-table .transaction-table-body table tbody tr td {
     border-top: 1px solid #E5E5E5;
-    padding: 18px 0 16px 0; }
+    padding: 18px 15px 16px 15px; }
+    .page-body .transaction-table .transaction-table-body table tbody tr td:first-child {
+      padding-left: 0; }
+    .page-body .transaction-table .transaction-table-body table tbody tr td:last-child {
+      padding-right: 0; }
 
 .transactions-filters {
   display: flex;
