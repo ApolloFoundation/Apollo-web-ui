@@ -209,7 +209,7 @@ class Sidebar extends React.Component {
 								</div>
 							</li>
 							<li>
-								<NavLink to='/purchased-products'
+								<NavLink to='/marketplace'
 								         className={`text ${this.getNavLinkClass(["/my-products-for-sale",
 									         "/my-panding-orders",
 									         "/my-completed-orders"])}`}>
