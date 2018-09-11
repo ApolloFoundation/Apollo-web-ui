@@ -186,26 +186,26 @@
 						//	right: 100%;
 						//}
 						
-						ul {
-							li {
-								display: block;
-								margin: 0;
-								padding: 0;
-								
-								&:last-child {
-									a {
-										margin: 0;
-									}
-								}
+						li {
+							display: block;
+							margin: 0;
+							padding: 0;
+							
+							&:last-child {
 								a {
-									text-decoration: none;
-									padding: 20px 40px;
-									
-									&.active {
-										color: white;
-										text-decoration: underline;
-										box-sizing: border-box;
-									}
+									margin: 0;
+								}
+							}
+							a {
+								text-decoration: none;
+								padding: 20px 40px;
+								&:hover {
+									color: #ffffff;
+								}
+								&.active {
+									color: white;
+									text-decoration: underline;
+									box-sizing: border-box;
 								}
 							}
 						}
