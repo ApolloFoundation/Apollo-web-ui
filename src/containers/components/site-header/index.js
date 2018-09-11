@@ -9,12 +9,14 @@ import {logOutAction} from "../../../actions/login";
 import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
 import {switchAccountAction} from "../../../actions/account";
-
+import {setForging} from '../../../actions/login';
 
 import {setModalData} from "../../../modules/modals";
 import {getAccountInfoAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {getBlockAction} from "../../../actions/blocks";
+import {getForging} from "../../../actions/login"
+
 
 import {
 	Accordion,
@@ -75,8 +77,14 @@ class SiteHeader extends React.Component {
 		}, 4000);
 	}
 
-	componentWillReceiveProps() {
-		this.getBlock()
+	componentWillReceiveProps(newState) {
+        console.log(newState);
+        this.setState({
+            ...this.state,
+            forgingStatus: newState.forgingStatus,
+            searching: true
+        });
+        this.getBlock()
 	}
 
 	componentDidMount() {
@@ -85,7 +93,6 @@ class SiteHeader extends React.Component {
 
 	setBodyModalType(bodyModalType) {
 		if (this.props.bodyModalType) {
-			// this.props.setBodyModalType(null);
 
 		} else {
 			this.props.setBodyModalType(bodyModalType);
@@ -119,6 +126,22 @@ class SiteHeader extends React.Component {
 				block: block
 			})
 		}
+	};
+
+    setForging = async (action) => {
+        this.props.setForging({requestType: action.requestType})
+			.done(async (data) => {
+
+				const forgingStatus = await this.props.getForging();
+
+                console.log(forgingStatus);
+
+                if (forgingStatus) {
+                    this.setState({
+                        forgingStatus: forgingStatus
+                    });
+				}
+            })
 	};
 
 	render() {
@@ -170,17 +193,36 @@ class SiteHeader extends React.Component {
 												<div className="form-group-app">
 													<div className="form-body">
 														<div className="input-section">
+
 															<div className="image-button success">
 																<i className="zmdi zmdi-check-circle"/>
 																<label>Connected</label>
 															</div>
-															<a
-																to="/messenger"
-																className="image-button  danger"
-															>
-																<i className="zmdi zmdi-close-circle"/>
-																<label>Not forging</label>
-															</a>
+
+															{
+																this.state.forgingStatus &&
+																this.state.forgingStatus.errorCode &&
+                                                                <a
+                                                                    onClick={() => this.setForging({requestType: 'startForging'})}
+                                                                    className="image-button  danger"
+                                                                >
+																	{console.log(this.state.forgingStatus)}
+                                                                    <i className="zmdi zmdi-close-circle"/>
+                                                                    <label>Not forging</label>
+                                                                </a>
+															}
+                                                            {
+                                                                this.state.forgingStatus &&
+                                                                !this.state.forgingStatus.errorCode &&
+                                                                <a
+																	onClick={() => this.setForging({requestType: 'stopForging'})}
+                                                                    className="image-button  success"
+                                                                >
+                                                                    <i className="zmdi zmdi-check-circle"/>
+                                                                    <label>Forging</label>
+                                                                </a>
+                                                            }
+
 															<a
 																to="/messenger"
 																className="image-button"
@@ -747,10 +789,12 @@ const mapStateToProps = state => ({
 	account: state.account.account,
 	accountRS: state.account.accountRS,
 	name: state.account.name,
+    forgingStatus: state.account.forgingStatus,
 	publicKey: state.account.publicKey,
 	forgedBalanceATM: state.account.forgedBalanceATM,
 	moalTtype: state.modals.modalType,
-	bodyModalType: state.modals.bodyModalType
+	bodyModalType: state.modals.bodyModalType,
+	secretPhrase: state.account.passPhrase
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -758,9 +802,11 @@ const mapDispatchToProps = dispatch => ({
 	setMopalType: (prevent) => dispatch(setMopalType(prevent)),
 	setBodyModalType: (prevent) => dispatch(setBodyModalType(prevent)),
 	getAccountInfoAction: (reqParams) => dispatch(getAccountInfoAction(reqParams)),
-	getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
+    setForging: (reqParams) => dispatch(setForging(reqParams)),
+    getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
 	getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
 	setModalData: (reqParams) => dispatch(setModalData(reqParams)),
+    getForging: (reqParams) => dispatch(getForging(reqParams)),
     switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
