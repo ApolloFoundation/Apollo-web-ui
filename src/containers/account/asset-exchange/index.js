@@ -20,7 +20,6 @@ import OrderItem from "./order/index";
 class AssetExchange extends React.Component {
     constructor(props) {
         super(props);
-
         this.getAsset = this.getAsset.bind(this);
     }
 
