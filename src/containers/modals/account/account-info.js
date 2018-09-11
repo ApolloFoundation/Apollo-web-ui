@@ -116,7 +116,7 @@ class AccountInfo extends React.Component {
                                     </div>
 
                                     <AdvancedSettings
-                                        setState={setValue}
+                                        setValue={setValue}
                                         advancedState={this.state.advancedState}
                                     />
 

@@ -154,7 +154,7 @@ class MarketplaceDelete extends React.Component {
                                                         </div>
                                                     </div>
                                                     <AdvancedSettings
-                                                        setState={setValue}
+                                                        setValue={setValue}
                                                         advancedState={this.state.advancedState}
                                                     />
                                                 </div>

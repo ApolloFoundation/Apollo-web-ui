@@ -380,6 +380,11 @@ input {
 	display: flex;
 	width: 220px;
 	background-color: #333333;
+	&:hover{
+		img {
+			opacity: 0.7;
+		}
+	}
 	
 	&.page-loader-image {
 		mask-image: url("~/apollo-logo.svg");
@@ -390,6 +395,7 @@ input {
 		width: 40px;
 	}
 	img {
+		transition: 0.2s;
 		margin: auto;
 		height: 32px;
 		width: 32px;
