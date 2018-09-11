@@ -8,6 +8,7 @@ import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
+import AdvancedSettings from '../../../components/advanced-transaction-settings'
 
 
 class TransferAlias extends React.Component {
@@ -90,13 +91,19 @@ class TransferAlias extends React.Component {
         }
     }
 
+    handleChange = (value) => {
+        this.setState({
+            inputType: value
+        })
+    };
+
     render() {
         return (
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm
+                                 submitForm, setValue
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             {
@@ -105,7 +112,7 @@ class TransferAlias extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
-                                        <p>Sell Alias</p>
+                                        <p>Transfer Alias</p>
                                     </div>
                                     <div className="input-group-app offset-top display-block">
                                         <div className="row">
@@ -167,6 +174,10 @@ class TransferAlias extends React.Component {
                                             Advanced
                                         </a>
                                     </div>
+                                    <AdvancedSettings
+                                        setValue={setValue}
+                                        advancedState={this.state.advancedState}
+                                    />
                                 </div>
                             }
                         </form>

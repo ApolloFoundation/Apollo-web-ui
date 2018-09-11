@@ -8,6 +8,7 @@ import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {Link} from 'react-router-dom';
+import InfoBox from '../../components/info-box';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -116,18 +117,22 @@ class Activepolls extends React.Component {
                     <div className="active-polls white-space">
                         <div className="transaction-table no-min-height">
                             <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Title</td>
-                                        <td>Description</td>
-                                        <td>Sender</td>
-                                        <td>Start date</td>
-                                        <td>Blocks left</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody  key={uuid()}>
+
+                                {
+                                    this.state.activepolls &&
+                                    !!this.state.activepolls.length &&
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td>Title</td>
+                                            <td>Description</td>
+                                            <td>Sender</td>
+                                            <td>Start date</td>
+                                            <td>Blocks left</td>
+                                            <td className="align-right">Actions</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody  key={uuid()}>
                                         {
                                             this.state.activepolls &&
                                             this.state.activepolls.map((el, index) => {
@@ -140,8 +145,16 @@ class Activepolls extends React.Component {
                                                 );
                                             })
                                         }
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                }
+                                {
+                                    this.state.activepolls &&
+                                    !(!!this.state.activepolls.length) &&
+                                    <InfoBox default>
+                                        No active polls yet.
+                                    </InfoBox>
+                                }
 
                             </div>
                         </div>

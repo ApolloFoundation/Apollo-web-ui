@@ -9,6 +9,8 @@ import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import CustomSelect from '../../../components/select';
+import AccountRS from '../../../components/account-rs';
+import AdvancedSettings from '../../../components/advanced-transaction-settings'
 
 class AddAlias extends React.Component {
     constructor(props) {
@@ -19,6 +21,7 @@ class AddAlias extends React.Component {
         this.state = {
             activeTab: 0,
             advancedState: false,
+            inputType: 'uri',
 
             // submitting
             passphraseStatus: false,
@@ -45,9 +48,6 @@ class AddAlias extends React.Component {
                 }
             })
 
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
     }
 
     handleTabChange(tab) {
@@ -80,15 +80,25 @@ class AddAlias extends React.Component {
         })
     };
 
+    handleChange = (value) => {
+        this.setState({
+            inputType: value
+        })
+    };
+
     render() {
         return (
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, setValue
+                                 submitForm, setValue, getFormState
                              }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form
+                            className="modal-form"
+                            onSubmit={submitForm}
+                            onChange={() => this.handleChange(getFormState)}
+                        >
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
@@ -104,6 +114,8 @@ class AddAlias extends React.Component {
                                             <CustomSelect
                                                 field={'type'}
                                                 setValue={setValue}
+                                                getFormState={getFormState}
+                                                onChange={this.handleChange}
                                                 options={[
                                                     { value: 'uri',     label: 'URI' },
                                                     { value: 'account', label: 'Account' },
@@ -124,14 +136,43 @@ class AddAlias extends React.Component {
                                     </div>
                                 </div>
                                 <div className="input-group-app offset-top display-block">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>URI</label>
+                                    {
+                                        this.state.inputType == 'uri' &&
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <label>URI</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <Text field="aliasURI" placeholder="http://"/>
+                                            </div>
                                         </div>
-                                        <div className="col-md-9">
-                                            <Text field="aliasURI" placeholder="http://"/>
+                                    }
+                                    {
+                                        this.state.inputType == 'account' &&
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <label>Account</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <AccountRS
+                                                    field="aliasURI"
+                                                    setValue={setValue}
+                                                    placeholder="Account RS"
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    {
+                                        this.state.inputType == 'general' &&
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <label>Data</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <Text field="aliasURI" placeholder="http://"/>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                                 <div className="input-group-app offset-top display-block">
                                     <div className="row">
@@ -154,118 +195,6 @@ class AddAlias extends React.Component {
                                     </div>
                                 </div>
 
-                                <div
-                                    className={classNames({
-                                        'form-tabulator': true,
-                                        'active': this.state.advancedState
-                                    })}
-                                >
-                                    <div className="form-tab-nav-box">
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 0)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 0
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-close-circle'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 1)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 1
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 2)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 2
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-accounts-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 3)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 3
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-money-box'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 4)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 4
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-                                        <a
-                                            onClick={this.handleTabChange.bind(this, 5)}
-                                            className={classNames({
-                                                'form-tab': true,
-                                                'active' : this.state.activeTab === 5
-                                            })}
-                                        >
-                                            <i className={'zmdi zmdi-image-alt'}></i>
-                                        </a>
-
-                                    </div>
-                                    <div className="form-tab">
-                                        <div className="input-group-app">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Referenced transaction hash</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                                </div>
-                                                <div className="col-md-3">
-
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <div className="form-sub-actions">
-                                                        <div className="form-group-app">
-                                                            <div className="input-group-app align-middle display-block offset-top">
-                                                                <input type="checkbox"/>
-                                                                <label>Do not broadcast</label>
-                                                            </div>
-                                                            <div className="input-group-app align-middle display-block offset-top">
-                                                                <input type="checkbox"/>
-                                                                <label>Add note to self?</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <button
                                         type="submit"
@@ -285,6 +214,10 @@ class AddAlias extends React.Component {
                                         Advanced
                                     </a>
                                 </div>
+                                <AdvancedSettings
+                                    setValue={setValue}
+                                    advancedState={this.state.advancedState}
+                                />
                             </div>
                         </form>
                     )}

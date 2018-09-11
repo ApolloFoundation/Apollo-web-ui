@@ -9,6 +9,7 @@ import { setModalCallback, setBodyModalParamsAction } from "../../../modules/mod
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
+import InfoBox from "../../components/info-box";
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class Transactions extends React.Component {
             subtype: null,
             isUnconfirmed: false,
             isAll: false,
-            transactions: []
+            transactions: null
         };
     }
 
@@ -442,21 +443,24 @@ class Transactions extends React.Component {
                             </div>
                         </div>
                         <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead key={uuid()}>
-                                    <tr>
-                                        <td>Date</td>
-                                        <td>Type</td>
-                                        <td className="align-right">Amount</td>
-                                        <td className="align-right">Fee</td>
-                                        <td>Account</td>
-                                        <td className="align-right">Phasing</td>
-                                        <td className="align-right">Height</td>
-                                        <td className="align-right">Confirmations</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody key={uuid()}>
+                            {
+                                this.state.transactions &&
+                                !!this.state.transactions.length &&
+                                <div className="transaction-table-body">
+                                    <table>
+                                        <thead key={uuid()}>
+                                        <tr>
+                                            <td>Date</td>
+                                            <td>Type</td>
+                                            <td className="align-right">Amount</td>
+                                            <td className="align-right">Fee</td>
+                                            <td>Account</td>
+                                            <td className="align-right">Phasing</td>
+                                            <td className="align-right">Height</td>
+                                            <td className="align-right">Confirmations</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody key={uuid()}>
                                         {
                                             this.state.transactions &&
                                             this.state.transactions.map((el, index) => {
@@ -472,36 +476,45 @@ class Transactions extends React.Component {
                                                 )
                                             })
                                         }
-                                    </tbody>
-                                </table>
-                                {
-                                    this.state.transactions &&
-                                    <div className="btn-box">
-                                        <a
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-left' : true,
-                                                'disabled' : this.state.page <= 1
-                                            })}
-                                            onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                        > Previous</a>
-                                        <div className='pagination-nav'>
-                                            <span>{this.state.firstIndex + 1}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.lastIndex + 1}</span>
-                                        </div>
-                                        <a
-                                            onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-right' : true,
-                                                'disabled' : this.state.transactions.length < 15
-                                            })}
-                                        >Next</a>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            }
+                            {
+                                this.state.transactions &&
+                                !(!!this.state.transactions.length) &&
+                                <InfoBox default>
+                                    No transactions found.
+                                </InfoBox>
+                            }
+                            {
+                                this.state.transactions &&
+                                <div className="btn-box">
+                                    <a
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-left' : true,
+                                            'disabled' : this.state.page <= 1
+                                        })}
+                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                    > Previous</a>
+                                    <div className='pagination-nav'>
+                                        <span>{this.state.firstIndex + 1}</span>
+                                        <span>&hellip;</span>
+                                        <span>{this.state.lastIndex + 1}</span>
                                     </div>
-                                }
+                                    <a
+                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-right' : true,
+                                            'disabled' : this.state.transactions.length < 15
+                                        })}
+                                    >Next</a>
+                                </div>
+                            }
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
