@@ -34,12 +34,14 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
         localStorage.setItem('secretPhrase', JSON.stringify(requestParams.secretPhrase));
 
-        const loginStatus = (await makeLoginReq(dispatch, {account: dispatch(accountRS)}));
+        const loginStatus = await makeLoginReq(dispatch, {account: dispatch(accountRS)});
 
-        if (loginStatus.errorCode && !loginStatus.account) {
-            NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
-        } else {
-            document.location = '/dashboard';
+        if (loginStatus) {
+            if (loginStatus.errorCode && !loginStatus.account) {
+                NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
+            } else {
+                document.location = '/dashboard';
+            }
         }
     };
 }
