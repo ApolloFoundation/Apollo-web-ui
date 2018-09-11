@@ -109,8 +109,9 @@
             }
             &:first-child {
               padding-left: 0;
-              font-family: "Roboto-Black";
+              //font-family: "Roboto-Black";
               width: 45%;
+              font-weight: bold;
             }
             &:last-child {
               padding-right: 0;
