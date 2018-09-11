@@ -250,8 +250,12 @@ class Sidebar extends React.Component {
 								</div>
 							</li>
 							<li>
-								<NavLink exact={true} activeClassName="active" to="/messenger"
-								         className={`text ${this.getNavLinkClass(["/messenger"])}`}>
+								<NavLink
+									exact={true}
+									activeClassName="active"
+									to="/my-messages"
+									className={`text ${this.getNavLinkClass(["/messenger"])}`}
+								>
 									Messages
 									{
 										this.props.notifications && this.props.notifications[1].notificationCount === 0 &&
@@ -267,8 +271,15 @@ class Sidebar extends React.Component {
 								</NavLink>
 								<div className="dropdown-menu">
 									<ul>
-										<li><NavLink exact={true} activeClassName="active"
-										             to="/messenger">Chat</NavLink></li>
+										<li>
+											<NavLink
+												exact={true}
+												activeClassName="active"
+												to="/messenger"
+											>
+												Chat
+											</NavLink>
+										</li>
 									</ul>
 								</div>
 							</li>

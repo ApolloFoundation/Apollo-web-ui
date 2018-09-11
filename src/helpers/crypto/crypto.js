@@ -319,18 +319,20 @@ function tryToDecryptMessage(message, options) {
     return (dispatch, getState) => {
         const account = getState().account;
         try {
-            if (!message.attachment.encryptedMessage.data) {
-                return console.log('empty message');
-            } else {
-                var decoded = decryptMessage(message.attachment.encryptedMessage.data, {
-                    "nonce": message.attachment.encryptedMessage.nonce,
-                    "account": account.account,
-                    "isText": message.attachment.encryptedMessage.isText,
-                    "isCompressed": message.attachment.encryptedMessage.isCompressed,
-                    "sharedKey": options.sharedKey
-                });
+            if (message.attachment.encryptedMessage) {
+                if (!message.attachment.encryptedMessage.data) {
+                    return console.log('empty message');
+                } else {
+                    var decoded = decryptMessage(message.attachment.encryptedMessage.data, {
+                        "nonce": message.attachment.encryptedMessage.nonce,
+                        "account": account.account,
+                        "isText": message.attachment.encryptedMessage.isText,
+                        "isCompressed": message.attachment.encryptedMessage.isCompressed,
+                        "sharedKey": options.sharedKey
+                    });
+                }
+                return decoded;
             }
-            return decoded;
         } catch (err) {
             throw err;
         }

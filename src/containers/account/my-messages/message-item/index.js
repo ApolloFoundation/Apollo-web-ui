@@ -46,9 +46,11 @@ class MessageItem extends React.Component {
 
         const sharedKey = crypto.getSharedSecret(privateKey, publicKey);
         let decrypted = this.props.tryToDecryptMessage(data, {sharedKey: sharedKey});
-        this.setState({
-            message: decrypted.message
-        })
+        if (decrypted) {
+            this.setState({
+                message: decrypted.message
+            })
+        }
     };
 
     render (){
