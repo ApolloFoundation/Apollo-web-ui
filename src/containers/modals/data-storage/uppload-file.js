@@ -222,7 +222,7 @@ class UploadFile extends React.Component {
                             }
 
                             <AdvancedSettings
-                                setState={setValue}
+                                setValue={setValue}
                                 advancedState={this.state.advancedState}
                             />
 

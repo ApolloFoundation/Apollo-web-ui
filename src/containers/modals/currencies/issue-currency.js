@@ -255,7 +255,7 @@ class IssueCurrency extends React.Component {
                                     </a>
                                 </div>
                                 <AdvancedSettings
-                                    setState={setValue}
+                                    setValue={setValue}
                                     advancedState={this.state.advancedState}
                                 />
                             </div>
