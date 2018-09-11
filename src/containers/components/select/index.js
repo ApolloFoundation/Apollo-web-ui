@@ -28,7 +28,13 @@ class CustomSelect extends React.Component {
                 styles={this.customStyles}
                 className={'form-custom-select'}
                 options={this.props.options}
-                onChange={(selectedOption) => {this.props.setValue(this.props.field, selectedOption.value)}}
+                onChange={(selectedOption) => {
+                        this.props.setValue(this.props.field, selectedOption.value);
+                        if (this.props.onChange) {
+                            this.props.onChange(selectedOption.value);
+                        }
+                    }
+                }
                 theme={(theme) => ({
                     ...theme,
                     borderRadius: 0,

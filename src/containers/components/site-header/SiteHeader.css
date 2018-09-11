@@ -678,15 +678,17 @@
     padding-left: 55px !important;
     padding-right: 55px !important; } }
 
-.account-body-modal .input-section .row .col-md-6 {
-  max-width: 50%; }
+@media (max-width: 760px) {
+  .account-body-modal .input-section .row .col-md-6 {
+    max-width: 50%; } }
 
 @media (max-width: 760px) {
   .account-body-modal .form-title p {
     color: #ffffff !important; } }
 
-.account-body-modal .image-button {
-  margin-left: -25px; }
+@media (max-width: 760px) {
+  .account-body-modal .image-button {
+    margin-left: -25px; } }
 
 @media (max-width: 760px) {
   .account-body-modal .form-group-app {
