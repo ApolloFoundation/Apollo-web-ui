@@ -193,6 +193,9 @@
             transform: translateY(50px);
             transition: all 0.3s ease-in-out;
             z-index: 4; }
+            @media (max-width: 760px) {
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
+                padding: 30px 55px; } }
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
               opacity: 1;
               transform: none;
@@ -200,8 +203,16 @@
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
               width: 100%;
               border-right: 1px solid #E6E6E6; }
+              @media (max-width: 760px) {
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
+                  border-bottom: 1px solid #777777;
+                  border-right: none;
+                  padding: 10px 0; } }
               .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col:last-child {
                 border: 0; }
+              @media (max-width: 760px) {
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li {
+                  text-align: left; } }
               .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li:last-child a {
                 margin-bottom: 0; }
               .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
@@ -211,6 +222,11 @@
                 line-height: 14px;
                 padding: 0 35px;
                 margin-bottom: 20px; }
+                @media (max-width: 760px) {
+                  .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
+                    color: #777777;
+                    padding: 0;
+                    margin-bottom: 0; } }
     .page-header .user-search-box .user-box {
       width: 230px;
       display: flex;
@@ -655,6 +671,21 @@
     height: calc(100vh - 50px);
     max-height: 100vh !important;
     width: 100% !important; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .form-group-app {
+    padding-left: 55px !important;
+    padding-right: 55px !important; } }
+
+.account-body-modal .input-section .row .col-md-6 {
+  max-width: 50%; }
+
+@media (max-width: 760px) {
+  .account-body-modal .form-title p {
+    color: #ffffff !important; } }
+
+.account-body-modal .image-button {
+  margin-left: -25px; }
 
 @media (max-width: 760px) {
   .account-body-modal .form-group-app {

@@ -589,11 +589,17 @@ input {
 		padding-bottom: 0 !important;
 	}
 	.form-body {
+		@media (max-width: 760px) {
+			padding-bottom: 30px;
+		}
 		.input-section {
 			padding-top: 35px;
 			padding-bottom: 35px;
 			border-bottom: 1px solid #E6E6E6;
 			cursor: auto;
+			@media (max-width: 760px) {
+				border-bottom: 1px solid #777;
+			}
 			&:last-child {
 				padding-bottom: 0;
 				border-bottom: 0;
@@ -633,7 +639,7 @@ input {
 				vertical-align: middle;
 				margin-right: 10px;
 				@media (max-width: 760px) {
-					color: #ffffff;
+					color: #777;
 				}
 			}
 			label {
@@ -642,6 +648,9 @@ input {
 				display: inline-block;
 				vertical-align: middle;
 				cursor: pointer;
+				@media (max-width: 760px) {
+					color: #777;
+				}
 			}
 		}
 		.row {
@@ -983,7 +992,7 @@ input {
 			line-height: 16px;
 			padding: 0 0 0 5px;
 			@media (max-width: 760px) {
-				max-width: 130px;
+				max-width: 100px;
 			}
 		}
 		.form-control {
@@ -1108,7 +1117,7 @@ input {
 	.row {
 		margin-right: -15px !important;
 		margin-left: -15px !important;
-
+		
 		& > * {
 			display: flex;
 			
@@ -1344,14 +1353,20 @@ input {
 			.settings-bar {
 				top: calc(100% + 40.6px) !important;
 				@media (max-width: 760px) {
-					top: 40px !important;
-					right: -145px !important;
+					position: fixed !important;
+					background-color: #333333 !important;
+					height: calc(100vh - 50px) !important;
+					max-height: 100vh !important;
+					width: 100% !important;
+					top: 50px !important;
+					left: 0 !important;
+					right: 0 !important;
 				}
 			}
 			&:after {
 				top: calc(100% + 37px);
 				@media (max-width: 760px) {
-					top: 37px;
+					display: none !important;
 				}
 			}
 		}
@@ -2101,13 +2116,13 @@ table {
 	.mobile-class {
 		.col-md-9 {
 			@media (max-width: 760px) {
-				padding-left: 150px;
+				padding-left: 120px;
 			}
 		}
 		
 		.col-sm-9 {
 			@media (max-width: 760px) {
-				padding-left: 148px;
+				padding-left: 120px;
 			}
 		}
 	}

@@ -663,6 +663,7 @@ class SiteHeader extends React.Component {
 											<i className="zmdi zmdi-settings"/>
 											<div className={classNames({
 												"settings-bar": true,
+												"settings-menu": true,
 												"active": this.props.bodyModalType === 'SETTINGS_BODY_MODAL'
 											})}>
 												<div className="options-col">

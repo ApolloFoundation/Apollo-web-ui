@@ -78,7 +78,8 @@ class Sidebar extends React.Component {
 						<ul>
 							<li>
 								<NavLink exact={true} activeClassName="active" to="/dashboard"
-								         className={`text ${this.getNavLinkClass(["/dashboard",
+								         className={`text ${this.getNavLinkClass(["/",
+									         "/dashboard",
 									         "/ledger",
 									         "/account-properties",
 									         "/transactions",

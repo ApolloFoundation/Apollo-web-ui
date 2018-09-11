@@ -411,11 +411,17 @@ input {
     padding-left: 0 !important; }
   .form-group-app.no-padding-bottom {
     padding-bottom: 0 !important; }
+  @media (max-width: 760px) {
+    .form-group-app .form-body {
+      padding-bottom: 30px; } }
   .form-group-app .form-body .input-section {
     padding-top: 35px;
     padding-bottom: 35px;
     border-bottom: 1px solid #E6E6E6;
     cursor: auto; }
+    @media (max-width: 760px) {
+      .form-group-app .form-body .input-section {
+        border-bottom: 1px solid #777; } }
     .form-group-app .form-body .input-section:last-child {
       padding-bottom: 0;
       border-bottom: 0; }
@@ -445,13 +451,16 @@ input {
       margin-right: 10px; }
       @media (max-width: 760px) {
         .form-group-app .form-body .image-button .zmdi {
-          color: #ffffff; } }
+          color: #777; } }
     .form-group-app .form-body .image-button label {
       font-size: 13px;
       color: #333333;
       display: inline-block;
       vertical-align: middle;
       cursor: pointer; }
+      @media (max-width: 760px) {
+        .form-group-app .form-body .image-button label {
+          color: #777; } }
   .form-group-app .form-body .row {
     margin: 0 -5px; }
     .form-group-app .form-body .row > * {
@@ -673,7 +682,7 @@ input {
       padding: 0 0 0 5px; }
       @media (max-width: 760px) {
         .form-group-app .form-group-white label {
-          max-width: 130px; } }
+          max-width: 100px; } }
     .form-group-app .form-group-white .form-control {
       background-color: #ffffff;
       border-color: #e5e5e5;
@@ -921,13 +930,19 @@ input {
     top: calc(100% + 40.6px) !important; }
     @media (max-width: 760px) {
       .btn.underscore.settings .settings-bar {
-        top: 40px !important;
-        right: -145px !important; } }
+        position: fixed !important;
+        background-color: #333333 !important;
+        height: calc(100vh - 50px) !important;
+        max-height: 100vh !important;
+        width: 100% !important;
+        top: 50px !important;
+        left: 0 !important;
+        right: 0 !important; } }
   .btn.underscore.settings:after {
     top: calc(100% + 37px); }
     @media (max-width: 760px) {
       .btn.underscore.settings:after {
-        top: 37px; } }
+        display: none !important; } }
   .btn.underscore.account:after {
     top: calc(100% + 27px);
     left: auto; }
@@ -1421,8 +1436,8 @@ table td .btn, table th .btn {
 
 @media (max-width: 760px) {
   .modal-send-apollo .mobile-class .col-md-9 {
-    padding-left: 150px; } }
+    padding-left: 120px; } }
 
 @media (max-width: 760px) {
   .modal-send-apollo .mobile-class .col-sm-9 {
-    padding-left: 148px; } }
+    padding-left: 120px; } }
