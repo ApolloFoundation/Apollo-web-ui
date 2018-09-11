@@ -285,7 +285,7 @@ class GenerateHallmark extends React.Component {
                                                     name={'closeModal'}
                                                     className="btn btn-right blue round round-bottom-right"
                                                 >
-                                                    Generate
+                                                    Parse
                                                 </button>
                                                 <a className="btn btn-right round round-top-left"
                                                    onClick={() => this.props.closeModal()}

@@ -6,8 +6,13 @@
   z-index: 2;
   position: fixed !important;
   width: auto !important;
-  min-width: 260px !important;
-  transition: 0s !important; }
+  transition: 0s !important;
+  min-width: 260px !important; }
+  @media (max-width: 1000px) {
+    .menu-bar {
+      min-width: 130px !important; } }
+  .menu-bar.collapsed {
+    min-width: 260px !important; }
   @media (max-width: 760px) {
     .menu-bar {
       display: none !important; } }
@@ -67,6 +72,8 @@
       min-height: calc(100vh - 100px);
       position: relative;
       z-index: 3; }
+      .menu-bar .menu-bar-container nav a {
+        text-decoration: none !important; }
       .menu-bar .menu-bar-container nav ul li {
         position: relative; }
         .menu-bar .menu-bar-container nav ul li:hover .zmdi {
@@ -75,7 +82,7 @@
           color: #777; }
         .menu-bar .menu-bar-container nav ul li:hover .dropdown-menu {
           display: block; }
-        .menu-bar .menu-bar-container nav ul li a {
+        .menu-bar .menu-bar-container nav ul li .text {
           color: #777777;
           padding: 25px 40px 25px 75px;
           display: block;
@@ -83,25 +90,25 @@
           z-index: 2;
           background-color: #333333; }
           @media (max-width: 760px) {
-            .menu-bar .menu-bar-container nav ul li a {
+            .menu-bar .menu-bar-container nav ul li .text {
               font-size: 14px !important; } }
-          .menu-bar .menu-bar-container nav ul li a.active {
+          .menu-bar .menu-bar-container nav ul li .text.active {
             color: #fff; }
-            .menu-bar .menu-bar-container nav ul li a.active .zmdi.left {
+            .menu-bar .menu-bar-container nav ul li .text.active .zmdi.left {
               color: #00C8FF; }
-          .menu-bar .menu-bar-container nav ul li a .zmdi {
+          .menu-bar .menu-bar-container nav ul li .text .zmdi {
             font-size: 26px;
             position: absolute;
             color: #777777;
             top: 50%;
             transform: translateY(-50%);
             height: auto !important; }
-            .menu-bar .menu-bar-container nav ul li a .zmdi.left {
+            .menu-bar .menu-bar-container nav ul li .text .zmdi.left {
               left: 40px; }
-            .menu-bar .menu-bar-container nav ul li a .zmdi.right {
+            .menu-bar .menu-bar-container nav ul li .text .zmdi.right {
               right: 20px;
               font-size: 18px; }
-          .menu-bar .menu-bar-container nav ul li a:hover {
+          .menu-bar .menu-bar-container nav ul li .text:hover {
             color: #fff; }
         .menu-bar .menu-bar-container nav ul li .dropdown-menu {
           -webkit-box-sizing: border-box;
@@ -116,15 +123,18 @@
           display: none;
           padding: 15px 0;
           z-index: 1; }
-          .menu-bar .menu-bar-container nav ul li .dropdown-menu ul li {
+          .menu-bar .menu-bar-container nav ul li .dropdown-menu li {
             display: block;
             margin: 0;
             padding: 0; }
-            .menu-bar .menu-bar-container nav ul li .dropdown-menu ul li:last-child a {
+            .menu-bar .menu-bar-container nav ul li .dropdown-menu li:last-child a {
               margin: 0; }
-            .menu-bar .menu-bar-container nav ul li .dropdown-menu ul li a {
+            .menu-bar .menu-bar-container nav ul li .dropdown-menu li a {
+              text-decoration: none;
               padding: 20px 40px; }
-              .menu-bar .menu-bar-container nav ul li .dropdown-menu ul li a.active {
+              .menu-bar .menu-bar-container nav ul li .dropdown-menu li a:hover {
+                color: #ffffff; }
+              .menu-bar .menu-bar-container nav ul li .dropdown-menu li a.active {
                 color: white;
                 text-decoration: underline;
                 box-sizing: border-box; }
@@ -138,7 +148,8 @@
       width: 100%;
       padding: 30px 0 30px;
       justify-content: center;
-      align-items: center; }
+      align-items: center;
+      z-index: 6; }
       @media (max-width: 1000px) {
         .menu-bar .menu-bar-container .collapse-button {
           display: flex; } }

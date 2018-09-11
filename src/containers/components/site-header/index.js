@@ -58,7 +58,6 @@ class SiteHeader extends React.Component {
 	}
 
 	showHideTitleForginMenu() {
-		console.log('3');
 		this.setState({showTitleForginMenu: !this.state.showTitleForginMenu});
 	}
 
@@ -668,36 +667,48 @@ class SiteHeader extends React.Component {
 											})}>
 												<div className="options-col">
 													<ul>
-														<li><Link className="option" to="/blocks">Blocks</Link></li>
-														<li><Link className="option" to="/peers">Peers</Link></li>
-														<li><Link className="option" to="/generators">Generators</Link>
+														<li><Link onClick={() => this.props.setBodyModalType(null)} className="option" to="/blocks">Blocks</Link></li>
+														<li><Link onClick={() => this.props.setBodyModalType(null)} className="option" to="/peers">Peers</Link></li>
+														<li><Link onClick={() => this.props.setBodyModalType(null)} className="option" to="/generators">Generators</Link>
 														</li>
-														<li><Link className="option" to="/scheduled-transactions">Scheduled
+														<li><Link onClick={() => this.props.setBodyModalType(null)} className="option" to="/scheduled-transactions">Scheduled
 															transactions</Link></li>
-														<li><Link className="option"
+														<li><Link className="option" onClick={() => this.props.setBodyModalType(null)}
 														          to="/funding-monitors">monitors</Link></li>
 													</ul>
 												</div>
 												<div className="options-col">
 													<ul>
 														<li><a
-															onClick={() => this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION')}
+															onClick={() => {
+                                                                this.props.setBodyModalType(null);
+                                                                return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
+                                                            }}
 															className="option">Generate token</a></li>
 														<li><a
-															onClick={() => this.props.setBodyModalParamsAction('GENERATE_HALLMARK')}
+															onClick={() => {
+                                                                this.props.setBodyModalType(null);
+                                                                return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
+                                                            }}
 															className="option">Generate hallmark</a></li>
 														<li><a
-															onClick={() => this.props.setBodyModalParamsAction('CALCULATE_CACHE')}
+															onClick={() => {
+                                                                this.props.setBodyModalType(null);
+                                                                return this.props.setBodyModalParamsAction('CALCULATE_CACHE');
+                                                            }}
 															className="option">Calculate hash</a></li>
 														<li><a
-															onClick={() => this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS')}
+															onClick={() => {
+                                                                this.props.setBodyModalType(null);
+                                                                return this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS');
+                                                            }}
 															className="option">Transaction operations</a></li>
 													</ul>
 
 												</div>
 												<div className="options-col">
 													<ul>
-														<li><a className="option">Refresh search index</a></li>
+														<li><a onClick={() => this.props.setBodyModalType(null)} className="option">Refresh search index</a></li>
 														<li><a href="https://apollowallet.org/test" className="option">API
 															console</a></li>
 														<li><a href="https://apollowallet.org/dbshell"
@@ -709,10 +720,13 @@ class SiteHeader extends React.Component {
 														{/*
 														<li><Link to="/plugins" className="option">Plugins</Link></li>
 */}
-														<li><Link to="/settings" className="option">Account
+														<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account
 															settings</Link></li>
 														<li><a
-															onClick={() => this.props.setBodyModalParamsAction('DEVICE_SETTINGS')}
+															onClick={() => {
+                                                                this.props.setBodyModalType(null);
+                                                                return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');
+                                                            }}
 															className="option">Device settings</a></li>
 													</ul>
 												</div>
