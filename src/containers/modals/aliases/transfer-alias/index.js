@@ -112,7 +112,7 @@ class TransferAlias extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
-                                        <p>Sell Alias</p>
+                                        <p>Transfer Alias</p>
                                     </div>
                                     <div className="input-group-app offset-top display-block">
                                         <div className="row">

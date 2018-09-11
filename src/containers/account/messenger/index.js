@@ -9,7 +9,7 @@ import './Messenger.css';
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
-
+import uuid from 'uuid';
 
 const mapStateToProps = state => ({
 	account: state.account.account
@@ -120,6 +120,7 @@ class Messenger extends React.Component {
 											this.state.chats.map((el, index) => {
 												return (
 													<div
+														key={uuid()}
 														className={classNames({
 															"chat-item": true,
 															"active": this.state.selectedChat === index
@@ -155,6 +156,7 @@ class Messenger extends React.Component {
 
 														return (
 															<ChatItem
+																key={uuid()}
 																{...this.props}
 																{...el}
 																message={message}
