@@ -82,7 +82,6 @@ class SiteHeader extends React.Component {
         this.setState({
             ...this.state,
             forgingStatus: newState.forgingStatus,
-            searching: true
         });
         this.getBlock()
 	}
@@ -506,7 +505,7 @@ class SiteHeader extends React.Component {
 
 									<Form
 										onSubmit={values => this.handleSearchind(values)}
-										render={({submitForm, values, addValue, removeValue}) => (
+										render={({submitForm}) => (
 											<form onSubmit={submitForm}>
 												<Text
 													field={'value'}
