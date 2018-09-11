@@ -3145,7 +3145,8 @@ input {
   .form-group-app .form-body .input-section {
     padding-top: 35px;
     padding-bottom: 35px;
-    border-bottom: 1px solid #E6E6E6; }
+    border-bottom: 1px solid #E6E6E6;
+    cursor: auto; }
     .form-group-app .form-body .input-section:last-child {
       padding-bottom: 0;
       border-bottom: 0; }
@@ -3153,7 +3154,10 @@ input {
     margin-bottom: 10px;
     cursor: pointer;
     position: relative;
-    padding-left: 25px; }
+    padding-left: 25px;
+    transition: 0.2s; }
+    .form-group-app .form-body .image-button:hover {
+      opacity: 0.7; }
     .form-group-app .form-body .image-button:last-child {
       margin-bottom: 0px; }
     .form-group-app .form-body .image-button.success > * {
@@ -3177,7 +3181,8 @@ input {
       font-size: 13px;
       color: #333333;
       display: inline-block;
-      vertical-align: middle; }
+      vertical-align: middle;
+      cursor: pointer; }
   .form-group-app .form-body .row {
     margin: 0 -5px; }
     .form-group-app .form-body .row > * {

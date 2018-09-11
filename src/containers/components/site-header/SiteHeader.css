@@ -37,6 +37,7 @@
         transform: none;
         visibility: visible; }
       .page-header .page-title-box .page-title-box .open-settings .settings-bar .form-group-app {
+        cursor: auto;
         padding: 35px 25px; }
       .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section {
         padding: 0; }
