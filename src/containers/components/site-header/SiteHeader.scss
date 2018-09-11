@@ -903,7 +903,9 @@
 		}
 	}
 	.input-section .row .col-md-6 {
-		max-width: 50%;
+		@media (max-width: 760px) {
+			max-width: 50%;
+		}
 	}
 	.form-title {
 		p {
@@ -915,7 +917,9 @@
 	&.active {
 	}
 	.image-button {
-		margin-left: -25px;
+		@media (max-width: 760px) {
+			margin-left: -25px;
+		}
 	}
 	.form-group-app {
 		@media (max-width: 760px) {
