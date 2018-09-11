@@ -775,7 +775,7 @@ class SiteHeader extends React.Component {
 										>
 											<i className="to-revert zmdi zmdi-chevron-down"/>
 										</a>
-										<a>{this.props.name}</a>
+										<a className={"name"}>{this.props.name}</a>
 
 									</div>
 									<div className="user-avatar"/>
