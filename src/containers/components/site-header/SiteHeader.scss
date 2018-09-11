@@ -67,9 +67,9 @@
 			}
 			.btn.primary{
 				//margin: 7px 0 !important;
-				@media (max-width: 760px) {
-					display: none !important;
-				}
+				//@media (max-width: 760px) {
+				//	display: none !important;
+				//}
 			}
 			.title {
 				color: #333333;
@@ -233,7 +233,7 @@
 					}
 					&.settings {
 						@media (max-width: 760px) {
-							margin-right: 0;
+							margin-right: 20px;
 						}
 					}
 					.settings-bar {

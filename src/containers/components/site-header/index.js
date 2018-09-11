@@ -34,14 +34,16 @@ class SiteHeader extends React.Component {
 		this.state = {
 			searching: false,
 			menuShow: false,
-            isContacts: false,
-            contacts: JSON.parse(localStorage.getItem('APLContacts')),
-        };
+			isContacts: false,
+			showTitleForginMenu: false,
+			contacts: JSON.parse(localStorage.getItem('APLContacts')),
+		};
 
 		this.setSearchStateToActive = this.setSearchStateToActive.bind(this);
 		this.resetSearchStateToActive = this.resetSearchStateToActive.bind(this);
 		this.showMenu = this.showMenu.bind(this);
 		this.closeMenu = this.closeMenu.bind(this);
+		this.showHideTitleForginMenu = this.showHideTitleForginMenu.bind(this);
 		this.searchInterval;
 	}
 
@@ -53,6 +55,10 @@ class SiteHeader extends React.Component {
 		this.setState({menuShow: false});
 	}
 
+	showHideTitleForginMenu() {
+		console.log('3');
+		this.setState({showTitleForginMenu: !this.state.showTitleForginMenu});
+	}
 
 	getNavLinkClass = (path) => {
 		return path.some(i => window.location.pathname === i) ? 'active' : '';
@@ -146,74 +152,178 @@ class SiteHeader extends React.Component {
 									}
 									{
 										this.props.dashboardPage &&
-										<div
-											onClick={this.setBodyModalType.bind(this, 'FORGING_BODY_MODAL')}
-											className={classNames({
-												"underscore": true,
-												"general": true,
-												"btn": true,
-												"icon-button": true,
-												"filters": true,
-												"primary": true,
-												"active": this.props.bodyModalType === "FORGING_BODY_MODAL",
-												"revert-content": this.props.bodyModalType === "FORGING_BODY_MODAL",
-												"transparent": true,
-												"open-settings": true
-											})}
-										>
-											<i className="to-revert zmdi zmdi-chevron-down"/>
-											<div className={classNames({
-												"settings-bar": true,
-												"active": this.props.bodyModalType === "FORGING_BODY_MODAL",
-												"no-padding": true
-											})}>
-												<div className="form-group-app">
-													<div className="form-body">
-														<div className="input-section">
-															<div className="image-button success">
-																<i className="zmdi zmdi-check-circle"/>
-																<label>Connected</label>
-															</div>
-															<a
-																to="/messenger"
-																className="image-button  danger"
-															>
-																<i className="zmdi zmdi-close-circle"/>
-																<label>Not forging</label>
-															</a>
-															<a
-																to="/messenger"
-																className="image-button"
-															>
-																<i className="zmdi"/>
-																{
-																	this.state.block &&
-																	<label>Height: {this.state.block.height}</label>
-																}
-															</a>
-															<a
-																onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
-																className="image-button"
-															>
-																<i className="zmdi"/>
-																{
-																	this.props.forgedBalanceATM &&
-																	<label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
-																}
-															</a>
+										<React.Fragment>
+											<div
+												onClick={this.setBodyModalType.bind(this, 'FORGING_BODY_MODAL')}
+												className={classNames({
+													"underscore": true,
+													"general": true,
+													"btn": true,
+													"icon-button": true,
+													"filters": true,
+													"primary": true,
+													"active": this.props.bodyModalType === "FORGING_BODY_MODAL",
+													"revert-content": this.props.bodyModalType === "FORGING_BODY_MODAL",
+													"transparent": true,
+													"open-settings": true
+												})}
+											>
+												<i className="to-revert zmdi zmdi-chevron-down"/>
+												<div className={classNames({
+													"settings-bar": true,
+													"active": this.props.bodyModalType === "FORGING_BODY_MODAL",
+													"no-padding": true
+												})}>
+													<div className="form-group-app">
+														<div className="form-body">
+															<div className="input-section">
+																<div className="image-button success">
+																	<i className="zmdi zmdi-check-circle"/>
+																	<label>Connected</label>
+																</div>
+																<a
+																	to="/messenger"
+																	className="image-button  danger"
+																>
+																	<i className="zmdi zmdi-close-circle"/>
+																	<label>Not forging</label>
+																</a>
+																<a
+																	to="/messenger"
+																	className="image-button"
+																>
+																	<i className="zmdi"/>
+																	{
+																		this.state.block &&
+																		<label>Height: {this.state.block.height}</label>
+																	}
+																</a>
+																<a
+																	onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
+																	className="image-button"
+																>
+																	<i className="zmdi"/>
+																	{
+																		this.props.forgedBalanceATM &&
+																		<label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
+																	}
+																</a>
 
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
 
-										</div>
+											</div>
+											<div
+												onClick={this.showHideTitleForginMenu}
+												className={classNames({
+													"underscore": true,
+													"general": true,
+													"btn": true,
+													"icon-button": true,
+													"filters": true,
+													"primary": true,
+													"active": this.state.showTitleForginMenu === true,
+													"revert-content": this.state.showTitleForginMenu === true,
+													"transparent": true,
+													"open-settings": true,
+													"mobile-btn": true
+												})}
+											>
+												<i className="to-revert zmdi zmdi-chevron-down"/>
+												<div className={classNames({
+													"settings-bar": true,
+													"active": this.props.bodyModalType === "FORGING_BODY_MODAL",
+													"no-padding": true
+												})}>
+													<div className="form-group-app">
+														<div className="form-body">
+															<div className="input-section">
+																<div className="image-button success">
+																	<i className="zmdi zmdi-check-circle"/>
+																	<label>Connected</label>
+																</div>
+																<a
+																	to="/messenger"
+																	className="image-button  danger"
+																>
+																	<i className="zmdi zmdi-close-circle"/>
+																	<label>Not forging</label>
+																</a>
+																<a
+																	to="/messenger"
+																	className="image-button"
+																>
+																	<i className="zmdi"/>
+																	{
+																		this.state.block &&
+																		<label>Height: {this.state.block.height}</label>
+																	}
+																</a>
+																<a
+																	onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
+																	className="image-button"
+																>
+																	<i className="zmdi"/>
+																	{
+																		this.props.forgedBalanceATM &&
+																		<label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
+																	}
+																</a>
+
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</React.Fragment>
 									}
+
 									<div className="breadcrumbs">
 										<a>Apollo Wallet /</a>
 										<strong>
 											<a>{this.props.pageTitle}</a>
 										</strong>
+									</div>
+									<div className={`form-group-app mobile-form-group-app ${this.state.showTitleForginMenu ? "show": ""}`}>
+										<div className="form-body">
+											<div className="input-section">
+												<div className="image-button success">
+													<i className="zmdi zmdi-check-circle"/>
+													<label>Connected</label>
+												</div>
+												<a
+													to="/messenger"
+													className="image-button  danger"
+												>
+													<i className="zmdi zmdi-close-circle"/>
+													<label>Not forging</label>
+												</a>
+												<a
+													to="/messenger"
+													className="image-button"
+												>
+													<i className="zmdi"/>
+													{
+														this.state.block &&
+														<label>Height: {this.state.block.height}</label>
+													}
+												</a>
+												<a
+													onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
+													className="image-button"
+												>
+													<i className="zmdi"/>
+													{
+														this.props.forgedBalanceATM &&
+														<label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
+													}
+												</a>
+
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -611,15 +721,15 @@ class SiteHeader extends React.Component {
 											</div>
 											{
 												!this.props.publicKey &&
-                                                <div className="form-sub-title">
-                                                    Not verified profile
-                                                </div>
+												<div className="form-sub-title">
+													Not verified profile
+												</div>
 											}
 											{
-                                                this.props.publicKey &&
-                                                <div className="form-sub-title">
+												this.props.publicKey &&
+												<div className="form-sub-title">
 													Verified profile
-                                                </div>
+												</div>
 											}
 											<div className="form-body">
 												<div className="input-section">
@@ -636,46 +746,46 @@ class SiteHeader extends React.Component {
 															<a
 																onClick={() => {
 
-                                                                    	if (this.state.contacts && this.state.contacts.length) {
-                                                                        	this.setState({isContacts: !this.state.isContacts})
-                                                                    	} else {
-                                                                            NotificationManager.info('You have an empty contacts list.', null, 5000)
-                                                                        }
+																	if (this.state.contacts && this.state.contacts.length) {
+																		this.setState({isContacts: !this.state.isContacts})
+																	} else {
+																		NotificationManager.info('You have an empty contacts list.', null, 5000)
 																	}
-                                                                }
+																}
+																}
 																className="btn static block"
 															>
 																Switch account
 															</a>
 														</div>
-                                                        <div
-                                                            className={classNames({
-                                                                'contacts-list': true,
-                                                                'active': this.state.isContacts
-                                                            })}
+														<div
+															className={classNames({
+																'contacts-list': true,
+																'active': this.state.isContacts
+															})}
 															style={{
 																padding: 0,
 																margin: 5
 															}}
-                                                        >
-                                                            <ul>
-                                                                {
-                                                                    this.state.contacts &&
-                                                                    this.state.contacts.length &&
-                                                                    this.state.contacts.map((el, index) => {
-                                                                        return (
-                                                                            <li>
-                                                                                <a
+														>
+															<ul>
+																{
+																	this.state.contacts &&
+																	this.state.contacts.length &&
+																	this.state.contacts.map((el, index) => {
+																		return (
+																			<li>
+																				<a
 																					onClick={() => this.props.switchAccountAction(el.accountRS)}
 																				>
-                                                                                    {el.name}
-                                                                                </a>
-                                                                            </li>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </ul>
-                                                        </div>
+																					{el.name}
+																				</a>
+																			</li>
+																		)
+																	})
+																}
+															</ul>
+														</div>
 													</div>
 												</div>
 												<div className="input-section">
@@ -755,8 +865,8 @@ const mapDispatchToProps = dispatch => ({
 	getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
 	getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
 	setModalData: (reqParams) => dispatch(setModalData(reqParams)),
-    switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+	switchAccountAction: (requestParams) => dispatch(switchAccountAction(requestParams)),
+	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
 

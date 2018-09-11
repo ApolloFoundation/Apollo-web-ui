@@ -49,9 +49,6 @@
           border: 0; }
     .page-header .page-title-box .page-title-box > * {
       vertical-align: middle; }
-    @media (max-width: 760px) {
-      .page-header .page-title-box .page-title-box .btn.primary {
-        display: none !important; } }
     .page-header .page-title-box .page-title-box .title {
       color: #333333;
       font-family: "Roboto-Light";
@@ -177,7 +174,7 @@
                 display: none; } }
           @media (max-width: 760px) {
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action.settings {
-              margin-right: 0; } }
+              margin-right: 20px; } }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
             position: absolute;
             top: calc(100% + 47px);

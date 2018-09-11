@@ -3371,12 +3371,16 @@ input {
   .form-group-app .form-group-white {
     margin-bottom: 8px;
     margin-left: 0;
-    align-items: center; }
+    align-items: center;
+    flex-wrap: nowrap; }
     .form-group-app .form-group-white label {
       color: #333333;
       letter-spacing: 0.3px;
       line-height: 16px;
       padding: 0 0 0 5px; }
+      @media (max-width: 760px) {
+        .form-group-app .form-group-white label {
+          max-width: 130px; } }
     .form-group-app .form-group-white .form-control {
       background-color: #ffffff;
       border-color: #e5e5e5;
@@ -3614,6 +3618,9 @@ input {
         top: calc(100% + 49.6px) !important; } }
   .btn.underscore.general:after {
     top: calc(100% + 43.5px); }
+    @media (max-width: 1024px) {
+      .btn.underscore.general:after {
+        top: calc(100% + 47px); } }
   .btn.underscore.settings .settings-bar {
     top: calc(100% + 40.6px) !important; }
     @media (max-width: 760px) {
@@ -3662,7 +3669,7 @@ input {
         .btn.filters.active {
           border: 1px solid #fff; }
           .btn.filters.active .zmdi {
-            transform: translate(0, -1px); } }
+            margin-top: -1px; } }
   .btn .no-border {
     border: 0; }
   .btn.transparent {
@@ -4035,9 +4042,53 @@ table td .btn, table th .btn {
   .assets-exchange .card.header {
     min-height: 200px; }
 
-@media (max-width: 1023px) {
+@media (max-width: 760px) {
   .transactions-title .btn {
     display: none !important; } }
+
+.transactions-title .btn.mobile-btn {
+  display: none !important; }
+  @media (max-width: 760px) {
+    .transactions-title .btn.mobile-btn {
+      display: inline-block !important; } }
+  .transactions-title .btn.mobile-btn:after {
+    display: none !important; }
+
+@media (max-width: 760px) {
+  .transactions-title .btn.active {
+    border: 1px solid #000; } }
+
+@media (max-width: 760px) {
+  .transactions-title .btn .settings-bar {
+    transition: 0.2s;
+    position: static;
+    display: none !important; } }
+
+.transactions-title .mobile-form-group-app {
+  display: none !important;
+  position: static;
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.2s;
+  opacity: 0;
+  padding: 0 20px !important;
+  margin-left: -15px !important;
+  margin-right: -15px !important;
+  width: auto !important; }
+  @media (max-width: 760px) {
+    .transactions-title .mobile-form-group-app {
+      display: block !important; } }
+  .transactions-title .mobile-form-group-app .input-section {
+    padding: 0; }
+    .transactions-title .mobile-form-group-app .input-section .zmdi {
+      width: 15px; }
+    .transactions-title .mobile-form-group-app .input-section a {
+      display: block; }
+  .transactions-title .mobile-form-group-app.show {
+    margin-top: 15px;
+    opacity: 1;
+    max-height: 300px;
+    padding: 20px 20px !important; }
 
 .exchange-booth .form-group-app {
   display: table; }
@@ -4068,6 +4119,14 @@ table td .btn, table th .btn {
   .custom-checkbox .custom-control-label {
     padding-left: 6px;
     color: #333333; }
+
+@media (max-width: 760px) {
+  .modal-send-apollo .mobile-class .col-md-9 {
+    padding-left: 150px; } }
+
+@media (max-width: 760px) {
+  .modal-send-apollo .mobile-class .col-sm-9 {
+    padding-left: 148px; } }
 
 .transaction-table {
   height: 100%;
@@ -4491,7 +4550,7 @@ input[type="number"] {
     .site-content .page-content .page-body .my-transactions {
       width: 100%; }
       .site-content .page-content .page-body .my-transactions .transactions-filters {
-        min-height: zmdi zmdi-money120px;
+        min-height: 120px;
         padding-left: 40px; }
         .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar {
           display: flex;
