@@ -12,7 +12,7 @@ export const LOAD_BLOCKCHAIN_STATUS = 'LOAD_BLOCKCHAIN_STATUS';
 
 const initialState = {
     settings: null,
-    constants: null,
+    constants: {},
     passPhrase: null,
 	account: null,
     accountRS: null,
