@@ -87,6 +87,7 @@ class Generators extends React.Component {
                                                 <Generator
                                                     generator={el}
                                                     resTimestamps={this.state.timestamp}
+                                                    epochB={this.props.epochB}
                                                 />
                                             );
                                         })
@@ -102,7 +103,9 @@ class Generators extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    epochB: state.account.constants.epochBeginning,
+});
 
 const mapDispatchToProps = dispatch => ({
     getGeneratorsAction: () => dispatch(getGeneratorsAction()),

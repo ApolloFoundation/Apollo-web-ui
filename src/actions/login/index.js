@@ -8,6 +8,7 @@ import {login, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PA
 import { writeToLocalStorage, readFromLocalStorage, deleteFromLocalStorage } from "../localStorage";
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
+import submitForm from "../../helpers/forms/forms";
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -30,6 +31,8 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
             type: 'SET_PASSPHRASE',
             payload: requestParams.secretPhrase
         });
+
+        localStorage.setItem('secretPhrase', JSON.stringify(requestParams.secretPhrase));
 
         const loginStatus = (await makeLoginReq(dispatch, {account: dispatch(accountRS)}));
 
@@ -75,6 +78,11 @@ function makeLoginReq(dispatch, requestParams) {
                 dispatch(endLoad());
                 writeToLocalStorage('APLUserRS', res.data.accountRS);
                 dispatch(updateNotifications())(res.data.accountRS);
+                dispatch(getForging());
+                dispatch({
+                    type: 'SET_PASSPHRASE',
+                    payload: JSON.parse(localStorage.getItem('secretPhrase'))
+                });
 
                 dispatch(login(res.data));
 
@@ -88,9 +96,71 @@ function makeLoginReq(dispatch, requestParams) {
         });
 }
 
-export function logOutAction() {
-    deleteFromLocalStorage('APLUserRS');
-    document.location = '/';
+export function getForging() {
+    return (dispatch, getState) => {
+        const account = getState().account;
+
+        const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
+        console.log(passpPhrase);
+
+
+        dispatch({
+            type: 'SET_PASSPHRASE',
+            payload: passpPhrase
+        });
+
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getForging',
+                secretPhrase: passpPhrase
+            }
+        })
+            .then((res) => {
+                dispatch({
+                    type: 'GET_FORGING',
+                    payload: res.data
+                })
+            })
+    }
+}
+
+export function setForging(requestType) {
+    return (dispatch, getState) => {
+        const account = getState().account;
+        // console.log(account);
+        //
+        const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
+        // dispatch({
+        //     type: 'SET_PASSPHRASE',
+        //     payload: passpPhrase
+        // });
+        requestType = {
+            ...requestType,
+            secretPhrase: passpPhrase
+        };
+
+
+        return dispatch(submitForm.submitForm(null, null, requestType));
+    }
+}
+
+export function logOutAction(action) {
+    switch (action) {
+        case('simpleLogOut'):
+            deleteFromLocalStorage('APLUserRS');
+            document.location = '/';
+        case('logOutStopForging'):
+            deleteFromLocalStorage('APLUserRS');
+            document.location = '/';
+        case('logoutClearUserData'):
+            localStorage.clear();
+            document.location = '/';
+        default:
+            deleteFromLocalStorage('APLUserRS');
+            document.location = '/';
+
+    }
+
 }
 
 export function getConstantsAction() {
