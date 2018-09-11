@@ -486,9 +486,18 @@ class InfoAccount extends React.Component {
                                     "active": this.state.activeTab === 7
                                 })}>
                                     <div className="flexible-grid">
-                                        <a className="btn btn-primary blue static">Send Apollo</a>
-                                        <a className="btn btn-primary blue static">Send currency</a>
-                                        <a className="btn btn-primary blue static">Send a message</a>
+                                        {
+                                            this.state.account &&
+                                            this.state.account.accountRS &&
+                                            this.props.account !== this.state.account.account &&
+                                            <a
+                                                onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', this.state.account.accountRS)}
+                                                className="btn btn-primary blue static"
+                                            >
+                                                Add as contact
+                                            </a>
+                                        }
+                                        {/*<a className="btn btn-primary blue static">Send a message</a>*/}
                                         {
                                             this.state.account &&
                                             this.state.account.accountRS &&
@@ -512,8 +521,6 @@ class InfoAccount extends React.Component {
                                 </a>
                             </div>
                         </div>
-
-
                     </form>
                 }
             </div>

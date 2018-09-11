@@ -92,7 +92,8 @@ function makeLoginReq(dispatch, requestParams) {
             }
         })
         .catch(function(err){
-            console.log(err)
+            console.log(err);
+            NotificationManager.error('Can not connect to server', 'Error', 900000);
         });
 }
 
