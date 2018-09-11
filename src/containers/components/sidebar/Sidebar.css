@@ -123,16 +123,18 @@
           display: none;
           padding: 15px 0;
           z-index: 1; }
-          .menu-bar .menu-bar-container nav ul li .dropdown-menu ul li {
+          .menu-bar .menu-bar-container nav ul li .dropdown-menu li {
             display: block;
             margin: 0;
             padding: 0; }
-            .menu-bar .menu-bar-container nav ul li .dropdown-menu ul li:last-child a {
+            .menu-bar .menu-bar-container nav ul li .dropdown-menu li:last-child a {
               margin: 0; }
-            .menu-bar .menu-bar-container nav ul li .dropdown-menu ul li a {
+            .menu-bar .menu-bar-container nav ul li .dropdown-menu li a {
               text-decoration: none;
               padding: 20px 40px; }
-              .menu-bar .menu-bar-container nav ul li .dropdown-menu ul li a.active {
+              .menu-bar .menu-bar-container nav ul li .dropdown-menu li a:hover {
+                color: #ffffff; }
+              .menu-bar .menu-bar-container nav ul li .dropdown-menu li a.active {
                 color: white;
                 text-decoration: underline;
                 box-sizing: border-box; }
