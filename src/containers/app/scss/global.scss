@@ -495,7 +495,11 @@ input {
 	border-radius: 7px;
 	height: calc(100% - 15px);
 	//overflow: hidden;
-	
+
+	.form-control:focus {
+		box-shadow: none;
+	}
+
 	&.devided {
 		display: flex;
 		flex-direction: row;
@@ -754,9 +758,6 @@ input {
 		}
 		.input-wrapper {
 			width: 100%;
-		}
-		.form-sub-title {
-			padding-left: 15px;
 		}
 		input {
 			padding-left: 15px;
@@ -1198,16 +1199,17 @@ input {
 	}
 	label {
 		display: table-cell;
-		color: #777777;
 		font-family: "Roboto-Regular";
-		font-size: 12px;
 		line-height: 14px;
 		padding: 0 0 0 5px;
 		font-size: 13.5px;
+		align-self: center;
+		color: #333333;
 	}
 	input {
 		display: table-cell;
 		border-radius: 3px 0 0 3px;
+		padding: 7px 20px;
 	}
 }
 
