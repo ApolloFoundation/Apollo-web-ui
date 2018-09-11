@@ -75,8 +75,6 @@ input[type="number"] {
       width: 100%;
       margin: 0;
       flex-direction: row; }
-      .site-content .page-content .page-body .row > * {
-        padding: 0 7.5px; }
     .site-content .page-content .page-body .card.transactions .transactions-dashboard {
       position: absolute;
       top: 38px;

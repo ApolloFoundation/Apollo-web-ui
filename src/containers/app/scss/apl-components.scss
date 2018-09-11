@@ -14,7 +14,6 @@
  
   .transaction-table-body {
     //min-width: 800px;
-    //padding: 40px 35px;
     width: 100%;
     background-color: #FFFFFF;
     border-radius: 3px;
@@ -125,6 +124,19 @@
       bottom: 13px;
       left: 50%;
       transform: translateX(-50%);
+    }
+  }
+}
+
+.page-body .transaction-table .transaction-table-body {
+  padding: 35px;
+  table {
+    thead tr td {
+      padding: 0 15px 15px 0;
+    }
+    tbody tr td {
+      border-top: 1px solid #E5E5E5;
+      padding: 18px 0 16px 0;
     }
   }
 }

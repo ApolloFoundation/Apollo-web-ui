@@ -125,12 +125,12 @@ class SendApolloPrivate extends React.Component {
                                 <div className="form-title">
                                     <p>Send Apollo</p>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline user">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Recipient</label>
-                                        </div>
-                                        <div className="col-md-9">
+                                <div className="input-group-app form-group mb-15 display-block inline user">
+                                    <div className="row form-group-white">
+                                        <label className="col-sm-3 col-form-label">
+                                            Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
+                                        </label>
+                                        <div className="col-sm-9">
                                             <div className="iconned-input-field">
                                                 <AccountRS
                                                     value={''}
@@ -138,60 +138,67 @@ class SendApolloPrivate extends React.Component {
                                                     setValue={setValue}
                                                 />
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Amount</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text field="amountATM" placeholder="Amount" />
-                                            </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Amount
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                        <Text defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+                                              className="form-control"
+                                              field="amountATM"
+                                              placeholder="Amount"
+                                              aria-describedby="amountText" />
+                                        <div className="input-group-append">
+                                            <span className="input-group-text" id="amountText">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label style={{paddingRight: 7}}>Fee</label>
-                                            <span
-                                                onClick={async () => {
-                                                    const formState = getFormState();
-                                                    const fee = await this.props.calculateFeeAction({
-                                                        recipient: formState.values.recipient,
-                                                        amountATM: formState.values.amountATM,
-                                                        publicKey: this.props.publicKey,
-                                                        feeATM: 0
-                                                    });
+                                <div className="form-group row form-group-white mb-15">
+                                    <label htmlFor="feeATM" className="col-sm-3 col-form-label">
+                                        Fee
+                                        <span
+                                            onClick={async () => {
+                                                const formState = getFormState();
+                                                const fee = await this.props.calculateFeeAction({
+                                                    recipient: formState.values.recipient,
+                                                    amountATM: formState.values.amountATM,
+                                                    publicKey: this.props.publicKey,
+                                                    feeATM: 0
+                                                });
 
-                                                    if (fee) {
-                                                        setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
-                                                    }
+                                                if (fee) {
+                                                    setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
                                                 }
-                                                }
-                                                style={{paddingRight: 0}}
-                                                className="calculate-fee"
-                                            >
+                                            }
+                                            }
+                                            style={{paddingRight: 0}}
+                                            className="calculate-fee"
+                                        >
                                                 Calculate</span>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="feeATM" value={this.state.feeATM} placeholder="Amount" />
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                        <Text id="feeATM"
+                                              field="feeATM"
+                                              className="form-control"
+                                              value={this.state.feeATM}
+                                              placeholder="Amount"
+                                              type={"number"}
+                                              aria-describedby="feeATMText" />
+                                        <div className="input-group-append">
+                                            <span className="input-group-text" id="feeATMText">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="secretPhrase" placeholder="secretPhrase"  type={'password'}/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                    </label>
+                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                        <Text id="secretPhrase" className="form-control" field="secretPhrase" placeholder="secretPhrase" type={'password'}/>
                                     </div>
                                 </div>
                                 {

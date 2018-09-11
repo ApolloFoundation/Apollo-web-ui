@@ -194,6 +194,7 @@ input {
 		opacity: 1;
 		transform: none;
 		visibility: visible;
+		margin-top: -1px;
 	}
 
 	ul {
@@ -437,6 +438,19 @@ input {
 
 .pre {
 	white-space: pre;
+}
+
+.block {
+	display: block;
+}
+.offset-top {
+	padding-top: 25px;
+}
+.offset-bottom {
+	padding-bottom: 25px;
+}
+.display-block {
+	display: block;
 }
 
 .info-table {
@@ -716,18 +730,6 @@ input {
 		&:last-child:not(:first-child) {
 			padding-bottom: 0 !important;
 		}
-		&.block {
-			display: block;
-		}
-		&.offset-top {
-			padding-top: 25px;
-		}
-		&.offset-bottom {
-			padding-bottom: 25px;
-		}
-		&.display-block {
-			display: block;
-		}
 		&.tabled {
 			display: table !important;
 		}
@@ -866,6 +868,9 @@ input {
 			&select {
 				background-color: #e5e5e5;
 			}
+			&:focus {
+				box-shadow: none
+			}
 		}
 		.form-group-select {
 			select {
@@ -954,6 +959,9 @@ input {
 			&select {
 				background-color: #e5e5e5;
 			}
+			&:focus {
+				box-shadow: none
+			}
 		}
 		.form-group-select {
 			select {
@@ -1038,7 +1046,7 @@ input {
 }
 
 .input-group-app {
-	display: table-row;
+	//display: table-row;
 	
 	&.tabled {
 		display: table !important;
@@ -1062,9 +1070,9 @@ input {
 		& > * {
 			display: flex;
 			
-			& > * {
-				padding-top: 10px;
-			}
+			//& > * {
+			//	padding-top: 10px;
+			//}
 		}
 	}
 	textarea {
@@ -1397,10 +1405,14 @@ input {
 		background: #666666;
 	}
 	&.primary {
-		padding: 6px;
+		padding: 5px 7px;
 		background: #666666;
 		color: #fff;
 		border-radius: 6px;
+		font-size: 12px;
+		min-height: 25px;
+		font-weight: 100;
+		letter-spacing: -0.1px;
 		margin-top: 15px;
 		position: static;
 		

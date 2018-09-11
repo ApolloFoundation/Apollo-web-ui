@@ -75,6 +75,14 @@
       left: 50%;
       transform: translateX(-50%); }
 
+.page-body .transaction-table .transaction-table-body {
+  padding: 35px; }
+  .page-body .transaction-table .transaction-table-body table thead tr td {
+    padding: 0 15px 15px 0; }
+  .page-body .transaction-table .transaction-table-body table tbody tr td {
+    border-top: 1px solid #E5E5E5;
+    padding: 18px 0 16px 0; }
+
 .transactions-filters {
   display: flex;
   flex-wrap: nowrap;
