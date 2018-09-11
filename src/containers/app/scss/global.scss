@@ -808,7 +808,7 @@ input {
 		background-color: #F5F5F5;
 		padding: 18px 35px 70px 35px;
 		display: none;
-		border-radius: 0 0 6px 6px;
+		border-radius: 0 0 8px 8px;
 		
 		&.white {
 			background-color: white;
@@ -1237,7 +1237,7 @@ input {
 
 .btn-box {
 	width: 100%;
-	min-height: 32px;
+	//min-height: 32px;
 	
 	&.align-right {
 		text-align: right;
