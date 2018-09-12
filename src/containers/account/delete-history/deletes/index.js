@@ -17,8 +17,11 @@ class DeleteItem extends React.Component {
     render() {
         return (
             <tr key={uuid()}>
-                <td className="align-left blue-link-text"
-                    onClick={async () => this.props.setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(this.props.delete.assetDelete))}>{this.props.delete.assetDelete}</td>
+                <td className="align-left blue-link-text">
+                    <a onClick={async () => this.props.setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(this.props.delete.assetDelete))}>
+                        {this.props.delete.assetDelete}
+                        </a>
+                </td>
                 <td className="align-left">{this.props.delete.name}</td>
                 <td>{this.props.formatTimestamp(this.props.delete.timestamp)}</td>
                 <td className="align-right">{this.props.delete.quantityATU}</td>
