@@ -366,7 +366,7 @@ class Marketplace extends React.Component {
                                         {
                                             this.state.getDGSGoods.map((el, index) => {
                                                 return (
-                                                    <div className="marketplace-row-item col-lg-2">
+                                                    <div className="marketplace-row-item col-xl-2">
                                                         <MarketplaceItem
                                                             fullHeight
                                                             relative={true}
@@ -392,7 +392,7 @@ class Marketplace extends React.Component {
                                         {
                                             this.state.getDGSPurchases.map((el, index) => {
                                                 return (
-                                                    <div className="marketplace-row-item col-lg-2">
+                                                    <div className="marketplace-row-item col-xl-2">
                                                         <MarketplaceItem
                                                             fullHeight
                                                             {...el}

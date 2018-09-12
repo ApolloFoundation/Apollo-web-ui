@@ -56,7 +56,26 @@ class AssetExchange extends React.Component {
 
         }
     }
+	async getAssets() {
+		if (this.props.assetBalances) {
+			let assets = this.props.assetBalances.map(async (el, index) => {
+				return this.props.getAssetAction({
+					asset: el ? el.asset : ""
+				})
+			});
+			Promise.all(assets)
+				.then((data) => {
 
+					this.setState({
+						...this.props,
+						assets: data,
+					})
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+		}
+	}
     handleBuyFormSubmit = async (values) => {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
         if (!values.quantityATU) {
@@ -122,26 +141,7 @@ class AssetExchange extends React.Component {
         this.props.setAlert('success', 'The buy order has been submitted.');
     };
 
-    async getAssets() {
-        if (this.props.assetBalances) {
-            let assets = this.props.assetBalances.map(async (el, index) => {
-                return this.props.getAssetAction({
-                    asset: el ? el.asset : ""
-                })
-            });
-            Promise.all(assets)
-                .then((data) => {
 
-                    this.setState({
-                        ...this.props,
-                        assets: data,
-                    })
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-        }
-    }
 
     async getTransaction(data) {
         const reqParams = {
@@ -197,19 +197,17 @@ class AssetExchange extends React.Component {
                             </div>
                             <div className="col-md-8">
                                 <div className="row">
-                                    <div className="col-sm-12 col-md-6">
+                                    <div className="col-xl-6 col-md-12">
                                         <div className="card header ballance card-tiny medium-padding">
-                                            <div className="container">
                                                 <div className="row">
                                                     <div className="col-md-6">
-                                                        <div className="card-title big">{this.state.asset.name}</div>
+                                                        <div className="card-title medium">{this.state.asset.name}</div>
                                                     </div>
                                                     <div className="col-md-6 flex">
                                                         <div
-                                                            className="card-title align-middle">{this.state.asset.description}</div>
+                                                            className="card-title small align-middle">{this.state.asset.description}</div>
                                                     </div>
                                                 </div>
-                                            </div>
                                         </div>
 
                                         <div style={{height: 'auto'}}
@@ -223,43 +221,52 @@ class AssetExchange extends React.Component {
                                                 </div>
                                                 <div
                                                     className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
+                                                    <div className="form-group row form-group-white">
+                                                        <div className="col-md-3 pl-0">
                                                             <label>Quantity</label>
                                                         </div>
-                                                        <div className="col-md-7">
-                                                            <input ref="quantity1" placeholder='Recipient'/>
+                                                        <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                            <input ref="quantity1" placeholder='Recipient' className={"form-control"}/>
+	                                                        <div className="input-group-append">
+		                                                        <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+	                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div
                                                     className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
+                                                    <div className="form-group row form-group-white">
+                                                        <div className="col-md-3 pl-0">
                                                             <label>Price</label>
                                                         </div>
-                                                        <div className="col-md-7">
-                                                            <input ref="priceATM1" placeholder='Quantity'/>
-                                                        </div>
+	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+		                                                    <input ref="priceATM1" placeholder='Quantity' className={"form-control"}/>
+		                                                    <div className="input-group-append">
+			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+		                                                    </div>
+	                                                    </div>
                                                     </div>
                                                 </div>
                                                 <div
                                                     className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
+                                                    <div className="form-group row form-group-white">
+                                                        <div className="col-md-3 pl-0">
                                                             <label>Total</label>
                                                         </div>
-                                                        <div className="col-md-7">
-                                                            <input ref="total1" placeholder='Price'/>
-                                                        </div>
+	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+		                                                    <input ref="total1" placeholder='Price' className={"form-control"}/>
+		                                                    <div className="input-group-append">
+			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+		                                                    </div>
+	                                                    </div>
                                                     </div>
                                                 </div>
                                                 <div
                                                     className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
+                                                    <div className="row form-group-white">
+                                                        <div className="col-md-3 pl-0">
                                                         </div>
-                                                        <div className="col-md-7">
+                                                        <div className="col-md-9 pr-0">
                                                             <a
                                                                 onClick={() => this.props.setBodyModalParamsAction('BUY_ASSET', {
                                                                     quantityATU: this.refs.quantity1.value,
@@ -317,31 +324,31 @@ class AssetExchange extends React.Component {
                                         </div>
 
                                     </div>
-                                    <div className="col-md-6">
+                                    <div className="col-xl-6 col-md-12">
                                         <div className="card header assets card-tiny medium-padding">
                                             <div className="full-box full">
                                                 <div className="full-box-item">
                                                     <div className='box'>
-                                                        <div className="card-title bold">Account:</div>
+                                                        <div className="card-title bold small">Account:</div>
                                                         <div
-                                                            className="card-title description">{this.state.asset.accountRS}</div>
+                                                            className="card-title description small">{this.state.asset.accountRS}</div>
                                                     </div>
                                                     <div className='box'>
-                                                        <div className="card-title bold">Asset ID:</div>
+                                                        <div className="card-title bold small">Asset ID:</div>
                                                         <div
-                                                            className="card-title description">{this.state.asset.account}</div>
+                                                            className="card-title asset-id description small">{this.state.asset.account}</div>
                                                     </div>
                                                 </div>
                                                 <div className="full-box-item">
                                                     <div className='box'>
-                                                        <div className="card-title bold">Quantity:</div>
+                                                        <div className="card-title bold small">Quantity:</div>
                                                         <div
-                                                            className="card-title description">{this.state.asset.quantityATU}</div>
+                                                            className="card-title description small">{this.state.asset.quantityATU}</div>
                                                     </div>
                                                     <div className='box'>
                                                         <div
-                                                            className="card-title bold">{this.state.asset.decimals}</div>
-                                                        <div className="card-title description">2</div>
+                                                            className="card-title bold small">{this.state.asset.decimals}</div>
+                                                        <div className="card-title description small">2</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -357,43 +364,52 @@ class AssetExchange extends React.Component {
                                                 </div>
                                                 <div
                                                     className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
+                                                    <div className="form-group row form-group-white">
+                                                        <div className="col-md-3 pl-0">
                                                             <label>Quantity</label>
                                                         </div>
-                                                        <div className="col-md-7">
-                                                            <input ref="quantity2" placeholder='Recipient'/>
-                                                        </div>
+	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+		                                                    <input ref="quantity2" placeholder='Recipient' className={"form-control"}/>
+		                                                    <div className="input-group-append">
+			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+		                                                    </div>
+	                                                    </div>
                                                     </div>
                                                 </div>
                                                 <div
                                                     className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
+                                                    <div className="form-group row form-group-white">
+                                                        <div className="col-md-3 pl-0">
                                                             <label>Price</label>
                                                         </div>
-                                                        <div className="col-md-7">
-                                                            <input ref="priceATM2" placeholder='Quantity'/>
-                                                        </div>
+	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+		                                                    <input ref="priceATM2" placeholder='Quantity' className={"form-control"}/>
+		                                                    <div className="input-group-append">
+			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+		                                                    </div>
+	                                                    </div>
                                                     </div>
                                                 </div>
                                                 <div
                                                     className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
+                                                    <div className="form-group row form-group-white">
+                                                        <div className="col-md-3 pl-0">
                                                             <label>Total</label>
                                                         </div>
-                                                        <div className="col-md-7">
-                                                            <input ref="total2" placeholder='Price'/>
-                                                        </div>
+	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+		                                                    <input ref="total2" placeholder='Price' className={"form-control"}/>
+		                                                    <div className="input-group-append">
+			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+		                                                    </div>
+	                                                    </div>
                                                     </div>
                                                 </div>
                                                 <div
                                                     className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row">
-                                                        <div className="col-md-5">
+                                                    <div className="row form-group-white">
+                                                        <div className="col-md-3 pl-0">
                                                         </div>
-                                                        <div className="col-md-7">
+                                                        <div className="col-md-9 pr-0">
                                                             <a
                                                                 onClick={() => this.props.setBodyModalParamsAction('SELL_ASSET', {
                                                                     quantityATU: this.refs.quantity2.value,
