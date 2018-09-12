@@ -60,7 +60,12 @@ class ComposeMessage extends React.Component {
         //     });
         // }
 
+        if (values.messageToEncrypt) {
+            values.messageToEncrypt = values.message;
+            delete values.message;
+        }
 
+        console.log(values);
 
         // Todo: finish form validating
         this.props.submitForm(null, null, values, 'sendMessage')
