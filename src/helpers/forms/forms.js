@@ -1021,7 +1021,7 @@ function processAjaxRequest(requestType, data, callback, options) {
                 try {
                     file = $("#file")[0].files[0];
                 } catch(e) {
-                    console.log(e);
+                    // console.log(e);
                 }
             }
             if (!file && requestType == "uploadTaggedData") {

@@ -94,7 +94,6 @@ function makeLoginReq(dispatch, requestParams) {
             }
         })
         .catch(function(err){
-            console.log(err);
             NotificationManager.error('Can not connect to server', 'Error', 900000);
         });
 }
@@ -104,8 +103,6 @@ export function getForging() {
         const account = getState().account;
 
         const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
-        console.log(passpPhrase);
-
 
         dispatch({
             type: 'SET_PASSPHRASE',

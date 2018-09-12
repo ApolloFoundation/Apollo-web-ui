@@ -12,6 +12,10 @@ import { I18nextProvider } from 'react-i18next';
 
 const target = document.querySelector('#root');
 
+// TODO: uncomment before production deploy
+// console.warn  = function(message){};
+// console.error = function(message){};
+
 render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
