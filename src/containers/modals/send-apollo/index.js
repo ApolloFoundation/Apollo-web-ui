@@ -188,7 +188,8 @@ class SendApollo extends React.Component {
                                             style={{paddingRight: 0}}
                                             className="calculate-fee"
                                         >
-                                                Calculate</span>
+                                            Calculate
+                                        </span>
                                     </label>
                                     <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
                                         <Text defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
