@@ -65,8 +65,8 @@
             padding: 0 15px 0 0; }
           .transaction-table .transaction-table-body table tbody tr td:first-child {
             padding-left: 0;
-            font-family: "Roboto-Black";
-            width: 45%; }
+            width: 45%;
+            font-weight: bold; }
           .transaction-table .transaction-table-body table tbody tr td:last-child {
             padding-right: 0; }
     .transaction-table .transaction-table-body .pagination-nav {
