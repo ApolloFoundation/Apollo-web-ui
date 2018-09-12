@@ -47,8 +47,6 @@ class DataStorage extends React.Component {
     }
 
     getAllTaggedData = async (newState) => {
-        console.log(this.props.match.params.query);
-
         let query;
 
         if (newState) {

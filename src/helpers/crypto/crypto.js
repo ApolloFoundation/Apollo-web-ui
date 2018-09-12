@@ -363,7 +363,7 @@ function decryptNote(message, options, secretPhrase) {
         if (err.errorCode && err.errorCode < 3) {
             throw err;
         } else {
-            console.log(err.message);
+            // console.log(err.message);
         }
     }
 };

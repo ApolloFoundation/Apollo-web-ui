@@ -105,8 +105,6 @@ class Transactions extends React.Component {
         let params = requestParams;
         delete params.requestType;
 
-        console.log(this.state.isUnconfirmed);
-
         if (!this.state.isUnconfirmed && !this.state.isPhassing) {
             const transactions = await this.props.getTransactionsAction(params);
 
@@ -478,6 +476,32 @@ class Transactions extends React.Component {
                                         }
                                         </tbody>
                                     </table>
+                                    {
+                                        this.state.transactions &&
+                                        <div className="btn-box">
+                                            <a
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-left' : true,
+                                                    'disabled' : this.state.page <= 1
+                                                })}
+                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                            > Previous</a>
+                                            <div className='pagination-nav'>
+                                                <span>{this.state.firstIndex + 1}</span>
+                                                <span>&hellip;</span>
+                                                <span>{this.state.lastIndex + 1}</span>
+                                            </div>
+                                            <a
+                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-right' : true,
+                                                    'disabled' : this.state.transactions.length < 15
+                                                })}
+                                            >Next</a>
+                                        </div>
+                                    }
                                 </div>
 
                             }
@@ -487,32 +511,6 @@ class Transactions extends React.Component {
                                 <InfoBox default>
                                     No transactions found.
                                 </InfoBox>
-                            }
-                            {
-                                this.state.transactions &&
-                                <div className="btn-box">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
-                                    </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.transactions.length < 15
-                                        })}
-                                    >Next</a>
-                                </div>
                             }
                             </div>
                     </div>

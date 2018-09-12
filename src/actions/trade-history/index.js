@@ -14,7 +14,6 @@ export function getTradesAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);

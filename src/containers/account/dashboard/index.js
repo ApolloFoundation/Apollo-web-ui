@@ -238,13 +238,13 @@ class Dashboard extends React.Component {
 											Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
 										</div>
 									}
-									<button
-										className="btn btn-right gray round round-bottom-right round-top-left absolute"
-										data-modal="sendMoney"
-									>
-										Buy/sell&nbsp;
-										<i className="arrow zmdi zmdi-chevron-right"/>
-									</button>
+									{/*<button*/}
+										{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
+										{/*data-modal="sendMoney"*/}
+									{/*>*/}
+										{/*Buy/sell&nbsp;*/}
+										{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
+									{/*</button>*/}
 								</div>
 							</div>
 							<div className="page-body-item ">
