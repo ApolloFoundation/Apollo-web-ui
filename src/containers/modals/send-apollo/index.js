@@ -128,6 +128,7 @@ class SendApollo extends React.Component {
                                               className="form-control"
                                               field="amountATM"
                                               placeholder="Amount"
+                                              type={"number"}
                                               aria-describedby="amountText" />
                                         <div className="input-group-append">
                                             <span className="input-group-text" id="amountText">Apollo</span>
