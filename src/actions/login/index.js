@@ -9,6 +9,7 @@ import { writeToLocalStorage, readFromLocalStorage, deleteFromLocalStorage } fro
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
 import submitForm from "../../helpers/forms/forms";
+import store from '../../store'
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -151,9 +152,12 @@ export function logOutAction(action) {
             document.location = '/';
             return;
         case('logOutStopForging'):
-            setForging({requestType: 'stopForging'});
-            localStorage.removeItem("APLUserRS");
-            document.location = '/';
+            store.dispatch(setForging({requestType: 'stopForging'}))
+            .done(() => {
+                    localStorage.removeItem("APLUserRS");
+                    document.location = '/';
+                });
+
             return;
         case('logoutClearUserData'):
             localStorage.clear();
