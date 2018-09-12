@@ -380,7 +380,7 @@ input {
 	display: flex;
 	width: 220px;
 	background-color: #333333;
-	&:hover{
+	&:hover {
 		img {
 			opacity: 0.7;
 		}
@@ -416,7 +416,7 @@ input {
 	}
 	&.info {
 		background: #666666;
-
+		
 		p {
 			color: #fff;
 		}
@@ -508,11 +508,11 @@ input {
 	border-radius: 7px;
 	height: calc(100% - 15px);
 	//overflow: hidden;
-
+	
 	.form-control:focus {
 		box-shadow: none;
 	}
-
+	
 	&.devided {
 		display: flex;
 		flex-direction: row;
@@ -1564,6 +1564,9 @@ input {
 			min-width: 500px !important;
 		}
 	}
+	&.auto-height {
+		height: auto;
+	}
 	&.full-height {
 		height: 100%;
 	}
@@ -1609,7 +1612,9 @@ input {
 			font-size: 16px;
 			line-height: 18px;
 			color: #fff;
-			
+			&.small {
+				font-size: 14px;
+			}
 			&.big {
 				font-size: 42px;
 				line-height: 42px;
@@ -1619,6 +1624,10 @@ input {
 			}
 			&.bold {
 				font-weight: bold;
+			}
+			&.medium {
+				font-size: 24px;
+				line-height: 1.2;
 			}
 		}
 		.asset-account-description {
@@ -2022,10 +2031,50 @@ table {
 	}
 	.row {
 		min-height: 100%;
+		align-items: stretch;
 		//	max-height: 100%;
 	}
 	.card.header {
 		min-height: 200px;
+	}
+	.card.card-tiny {
+		height: auto;
+	}
+	.ballance .form-group-app {
+		height: auto;
+	}
+	.transaction-table {
+		height: auto;
+		min-height: auto;
+	}
+	.transaction-table-body {
+		padding: 0 !important;
+		table {
+			min-width: 500px !important;
+		}
+	}
+	.info-box.simple {
+		margin-bottom: 0;
+		p {
+			padding-bottom: 0;
+		}
+	}
+	.full-box-item {
+		.asset-id {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+	.card.scroll {
+		@media (max-width: 767px) {
+			max-height: 300px;
+		}
+	}
+	.col-xl-6.col-md-12 {
+		@media (max-width: 767px) {
+			padding: 0;
+		}
 	}
 }
 
