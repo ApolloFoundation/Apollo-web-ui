@@ -74,8 +74,6 @@ class InfoAccount extends React.Component {
                 goods:          await accountData['GOODS'],
                 aliases:        await accountData['ALIASES'],
                 account:        await accountData['ACCOUNT'],
-            }, () => {
-                console.log(this.state);
             });
         }
     }

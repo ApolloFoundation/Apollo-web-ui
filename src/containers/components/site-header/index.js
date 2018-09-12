@@ -83,7 +83,6 @@ class SiteHeader extends React.Component {
 	}
 
 	componentWillReceiveProps(newState) {
-		console.log(newState);
 		this.setState({
 			...this.state,
 			forgingStatus: newState.forgingStatus,
@@ -209,7 +208,6 @@ class SiteHeader extends React.Component {
 																		onClick={() => this.setForging({requestType: 'startForging'})}
 																		className="image-button  danger"
 																	>
-																		{console.log(this.state.forgingStatus)}
 																		<i className="zmdi zmdi-close-circle"/>
 																		<label>Not forging</label>
 																	</a>

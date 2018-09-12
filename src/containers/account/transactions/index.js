@@ -105,8 +105,6 @@ class Transactions extends React.Component {
         let params = requestParams;
         delete params.requestType;
 
-        console.log(this.state.isUnconfirmed);
-
         if (!this.state.isUnconfirmed && !this.state.isPhassing) {
             const transactions = await this.props.getTransactionsAction(params);
 
