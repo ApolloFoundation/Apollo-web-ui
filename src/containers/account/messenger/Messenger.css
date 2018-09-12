@@ -244,3 +244,5 @@
       padding-right: 20px;
       padding-left: 20px;
       padding-bottom: 20px; } }
+  .followed-polls-item .transaction-table-body {
+    padding: 0 !important; }
