@@ -5,13 +5,15 @@ import SiteHeader from "../../components/site-header"
 import MessageItem from './message-item'
 import {connect} from 'react-redux';
 import {getMessages} from "../../../actions/messager";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 
 const mapStateToProps = state => ({
     account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMessages: (reqParams) => dispatch(getMessages(reqParams))
+    getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 class MyMessages extends React.Component {
@@ -72,7 +74,14 @@ class MyMessages extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'My messages'}
-                />
+                >
+                    <a
+                        onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', null)}
+                        className="btn primary"
+                    >
+                        Compose message
+                    </a>
+                </SiteHeader>
                 {
                     this.state.messages && this.state.messages.length &&
                     <div className="page-body container-fluid">
