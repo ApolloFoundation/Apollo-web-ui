@@ -37,34 +37,31 @@ class DeleteHistory extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
-                        <div className="approval-request white-space">
-                            <div className="transaction-table">
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead key={uuid()}>
-                                        <tr>
-                                            <td className="align-left">Transaction</td>
-                                            <td>Asset</td>
-                                            <td className="align-left">Date</td>
-                                            <td className="align-right">Quantity</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody key={uuid()}>
-                                        {this.state.deletes.length > 0 ?
-                                            this.state.deletes.map(el => {
-                                                return (
-                                                    <DeleteItem
-                                                        delete={el}
-                                                    />
-                                                )
-                                            }) : <p>No delete history</p>
-                                        }
-                                        </tbody>
-                                    </table>
+                        <div className="transaction-table">
+                            <div className="transaction-table-body">
+                                <table>
+                                    <thead key={uuid()}>
+                                    <tr>
+                                        <td className="align-left">Transaction</td>
+                                        <td>Asset</td>
+                                        <td className="align-left">Date</td>
+                                        <td className="align-right">Quantity</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody key={uuid()}>
+                                    {this.state.deletes.length > 0 ?
+                                        this.state.deletes.map(el => {
+                                            return (
+                                                <DeleteItem
+                                                    delete={el}
+                                                />
+                                            )
+                                        }) : <p>No delete history</p>
+                                    }
+                                    </tbody>
+                                </table>
 
-                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
