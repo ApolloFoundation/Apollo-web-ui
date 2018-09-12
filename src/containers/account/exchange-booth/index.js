@@ -82,7 +82,7 @@ class ExchangeBooth extends React.Component {
 								                    <div className="card-title medium">{this.state.code}</div>
 							                    </div>
 							                    <div className="col-md-6 flex">
-								                    <div className="card-title small align-middle">{this.state.description}</div>
+								                    <div className="card-title small">{this.state.description}</div>
 							                    </div>
 						                    </div>
 					                    </div>
