@@ -147,18 +147,18 @@ export function setForging(requestType) {
 export function logOutAction(action) {
     switch (action) {
         case('simpleLogOut'):
-            deleteFromLocalStorage('APLUserRS');
+            localStorage.removeItem("APLUserRS");
             document.location = '/';
+            return;
         case('logOutStopForging'):
-            deleteFromLocalStorage('APLUserRS');
+            setForging({requestType: 'stopForging'});
+            localStorage.removeItem("APLUserRS");
             document.location = '/';
+            return;
         case('logoutClearUserData'):
             localStorage.clear();
             document.location = '/';
-        default:
-            deleteFromLocalStorage('APLUserRS');
-            document.location = '/';
-
+            return;
     }
 
 }
