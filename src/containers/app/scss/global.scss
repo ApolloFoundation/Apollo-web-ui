@@ -1908,26 +1908,26 @@ input {
 		padding: 30px 0 15px;
 	}
 	.input-group-app {
-		display: table-row;
 		
 		input, input[type="number"] {
 			padding: 8px 20px;
 		}
 		&.lighten {
+			display: table-row;
+			label {
+				display: table-cell;
+			}
 			input {
+				display: table-cell;
 				background-color: #fff;
 			}
 		}
 		label {
-			display: table-cell;
 			color: #777777;
 			font-family: "Roboto-Regular";
 			font-size: 12px;
 			line-height: 14px;
 			padding-right: 20px;
-		}
-		input {
-			display: table-cell;
 		}
 	}
 }

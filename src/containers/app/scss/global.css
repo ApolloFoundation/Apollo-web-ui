@@ -1275,21 +1275,21 @@ input {
         width: 100%; }
   .card .form-group-app {
     padding: 30px 0 15px; }
-  .card .input-group-app {
+  .card .input-group-app input, .card .input-group-app input[type="number"] {
+    padding: 8px 20px; }
+  .card .input-group-app.lighten {
     display: table-row; }
-    .card .input-group-app input, .card .input-group-app input[type="number"] {
-      padding: 8px 20px; }
-    .card .input-group-app.lighten input {
-      background-color: #fff; }
-    .card .input-group-app label {
-      display: table-cell;
-      color: #777777;
-      font-family: "Roboto-Regular";
-      font-size: 12px;
-      line-height: 14px;
-      padding-right: 20px; }
-    .card .input-group-app input {
+    .card .input-group-app.lighten label {
       display: table-cell; }
+    .card .input-group-app.lighten input {
+      display: table-cell;
+      background-color: #fff; }
+  .card .input-group-app label {
+    color: #777777;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    line-height: 14px;
+    padding-right: 20px; }
 
 .page-body.white-space {
   background-color: #fff;
