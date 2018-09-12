@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../../modules/accountSettings";
 import CustomSelect from "../../components/select";
+import {NotificationManager} from "react-notifications";
 
 import './Settings.css';
 
@@ -18,7 +19,8 @@ class Settings extends React.Component {
     }
 
     handleSubmit = values => {
-        this.props.saveAccountSettings(values);
+        saveAccountSettingsAction(values);
+        NotificationManager.success('Settings has been saved!');
     };
 
     optionsYesNo = [
@@ -505,8 +507,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
-    saveAccountSettings: settings => dispatch(saveAccountSettingsAction(settings)),
+    getSavedAccountSettings:   ()         => dispatch(getSavedAccountSettingsAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
