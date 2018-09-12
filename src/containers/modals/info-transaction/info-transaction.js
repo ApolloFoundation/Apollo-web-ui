@@ -151,7 +151,7 @@ class InfoLedgerTransaction extends React.Component {
                                         this.state.transaction &&
                                         <div className="flexible-grid">
                                             <a className="btn btn-primary blue static">Send Apollo</a>
-                                            <a className="btn btn-primary blue static">Send currency to sender</a>
+                                            <a className="btn btn-primary blue-disabled static">Send currency to sender</a>
                                             <a className="btn btn-primary blue static">Send a message to sender</a>
                                             {
                                                 this.state.transaction.recipientRS &&
@@ -162,8 +162,8 @@ class InfoLedgerTransaction extends React.Component {
                                                     Add sender as contact
                                                 </a>
                                             }
-                                            <a className="btn btn-primary blue static">Apptove transaction</a>
-                                            <a className="btn btn-primary blue static">Extend data lifetime</a>
+                                            <a className="btn btn-primary blue-disabled static">Apptove transaction</a>
+                                            <a className="btn btn-primary blue-disabled static">Extend data lifetime</a>
                                         </div>
                                     }
 

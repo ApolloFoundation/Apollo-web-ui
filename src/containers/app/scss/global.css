@@ -1030,6 +1030,11 @@ input {
   .btn.blue {
     background: #00C8FF;
     color: #fff; }
+  .btn.blue-disabled {
+    background: #00C8FF;
+    color: #fff;
+    opacity: 0.5;
+    cursor: default; }
   .btn.gray-lighten {
     background: #E5E5E5;
     color: black; }

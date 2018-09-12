@@ -1499,6 +1499,12 @@ input {
 		background: #00C8FF;
 		color: #fff;
 	}
+	&.blue-disabled {
+		background: #00C8FF;
+		color: #fff;
+		opacity: 0.5;
+		cursor: default;
+	}
 	&.gray-lighten {
 		background: #E5E5E5;
 		color: black;
