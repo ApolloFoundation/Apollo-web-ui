@@ -330,7 +330,7 @@ class CreatePoll extends React.Component {
                                                 <label>Fee</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text field={'feeAPL'} placeholder={'Amount'} type="text"/>
+                                                <Text field={'feeAPL'} placeholder={'Amount'} type="number"/>
                                             </div>
                                         </div>
                                     </div>

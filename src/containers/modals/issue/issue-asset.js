@@ -150,7 +150,7 @@ class IssueAsset extends React.Component {
                                             <label>Fee</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Fee" field="feeATM" type="text"/>
+                                            <Text placeholder="Fee" field="feeATM" type="number"/>
                                         </div>
                                     </div>
                                 </div>

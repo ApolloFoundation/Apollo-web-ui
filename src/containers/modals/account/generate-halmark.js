@@ -251,7 +251,8 @@ class GenerateHallmark extends React.Component {
                                                     </div>
                                                     <div className="col-md-9">
                                                         <Text type="text"
-                                                              field={'weightParse'} placeholder="Weight"/>
+                                                              field={'weightParse'}
+                                                              placeholder="Weight"/>
                                                     </div>
                                                 </div>
                                             </div>
