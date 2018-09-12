@@ -140,7 +140,7 @@ class TransferAlias extends React.Component {
                                                 <label>Fee</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text field="feeATM" placeholder="Amount" />
+                                                <Text field="feeATM" placeholder="Amount" type={'number'}/>
                                             </div>
                                         </div>
                                     </div>

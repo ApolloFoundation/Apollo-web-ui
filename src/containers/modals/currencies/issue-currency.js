@@ -215,7 +215,7 @@ class IssueCurrency extends React.Component {
                                             <label>Fee</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text type="text" field='feeATM' placeholder="Fee" />
+                                            <Text field='feeATM' placeholder="Fee" type={'number'}/>
                                         </div>
                                     </div>
                                 </div>
