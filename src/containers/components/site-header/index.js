@@ -641,7 +641,7 @@ class SiteHeader extends React.Component {
 										>
 											<i className="zmdi zmdi-balance-wallet"/>
 										</a>
-										<button
+										<div
 											style={{height: 32}}
 											className={classNames({
 												"underscore": true,
@@ -730,7 +730,7 @@ class SiteHeader extends React.Component {
 													</ul>
 												</div>
 											</div>
-										</button>
+										</div>
 										<a
 											onClick={() => this.props.setMopalType('GENERAL_INFO')}
 											className="user-account-action user-account-action--help"
