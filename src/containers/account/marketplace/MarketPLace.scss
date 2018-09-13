@@ -172,46 +172,197 @@
 			justify-content: space-between;
 			flex-direction: row;
 			position: static;
-			
+			height: auto;
+			min-height: auto;
+			flex-wrap: wrap;
+			@media (max-width: 760px) {
+				padding: 20px;
+			}
+			.cargo-owner {
+				display: flex;
+				align-items: center;
+				span {
+					color: #00C8FF;
+					font-size: 12px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					max-width: 100%;
+				}
+			}
 			.left-bar {
 				display: flex;
-				
-				.description {
-					max-width: 400px;
+				flex-wrap: wrap;
+				width: 100%;
+			}
+			.right-bar {
+				display: flex;
+				flex-wrap: wrap;
+				width: calc(100% - 170px);
+				@media (max-width: 760px) {
+					width: 100%;
 				}
-				.cargo-major-details {
-					width: 300px;
-					margin-right: 30px;
-					padding-left: 30px;
+			}
+			.item {
+				display: flex;
+				flex-wrap: wrap;
+				flex-direction: column;
+				justify-content: space-between;
+				min-height: 100%;
+				@media (max-width: 1200px) {
+					width: 40%;
+					min-height: auto;
+				}
+				@media (max-width: 760px) {
+					width: 100%;
+					padding-right: 0;
+					flex-direction: row;
+					justify-content: flex-start;
+				}
+				&.cargo-major-details {
+					width: 25%;
+					padding-right: 30px;
+					@media (max-width: 1200px) {
+						width: 40%;
+						padding-right: 20px;
+					}
+					@media (max-width: 760px) {
+						width: 100%;
+						padding-right: 0;
+					}
+				}
+				&.description {
+					width: 35%;
+					padding-right: 30px;
+					@media (max-width: 1200px) {
+						padding-right: 0;
+						width: 100%;
+						order: 3;
+						margin-top: 20px;
+					}
+					.text {
+						max-height: 60px;
+						overflow: hidden;
+					}
+				}
+				&.tags-links {
+					align-items: flex-end;
+					width: 40%;
+					text-align: right;
+					@media (max-width: 1200px) {
+						width: 60%;
+					}
+					@media (max-width: 760px) {
+						width: 100%;
+						margin-top: 20px;
+						text-align: left;
+					}
+				}
+			}
+			.top {
+				margin-bottom: 20px;
+				max-width: 100%;
+				width: 100%;
+			}
+			.bottom {
+				width: 100%;
+			}
+			.group {
+				width: 100%;
+				margin-bottom: 6px;
+				&:last-of-type {
+					margin-bottom: 0;
+				}
+			}
+			.cargo-title {
+				width: 100%;
+				color: #333333;
+				font-size: 24px;
+				line-height: 1;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.cargo-id {
+				color: #BBBBBB;
+				font-size: 12px;
+				line-height: 14px;
+				span {
+					margin-right: 7px;
+				}
+				a {
+					color: #00C8FF;
+					transition: 0.2s;
+					&:hover{
+						color: #00B6E9;
+					}
+				}
+			}
+			.amount {
+				color: #333333;
+				font-size: 36px;
+				line-height: 1;
+				font-weight: bold;
+				small {
+					margin-left: 5px;
+					font-size: 18px;
+				}
+			}
+			
+			
+			.seller {
+				display: flex;
+				justify-content: flex-end;
+				align-items: flex-start;
+				@media (max-width: 760px) {
+					justify-content: flex-start;
+				}
+				.name {
+					color: #333333;
+					font-size: 14px;
+					line-height: 16px;
+					text-align: right;
+				}
+				.link-date {
+					padding-right: 10px;
+					padding-left: 5px;
+					max-width: calc(100% - 90px);
+				}
+				.link {
+					color: #00C8FF;
+					font-size: 14px;
+					line-height: 16px;
+					text-align: right;
+					cursor: pointer;
+					white-space: nowrap;
+					overflow: hidden;
+					max-width: 100%;
+					text-overflow: ellipsis;
 					
-					.cargo-title {
-						color: #333333;
-						font-size: 24px;
-						padding-top: 15px;
-					}
-					.cargo-id {
-						padding: 10px 0 20px;
-						color: #BBBBBB;
-						font-size: 12px;
-						line-height: 14px;
-					}
-					.amount {
-						color: #333333;
-						font-size: 36px;
-						
-						small {
-							font-size: 18px;
-							font-weight: 500;
-						}
-					}
+				}
+				.date {
+					color: #BBBBBB;
+					font-size: 12px;
+					line-height: 14px;
+					text-align: right;
+					margin-top: 3px;
+				}
+				.btn {
+					display: inline-block;
+					margin-top: -5px;
 				}
 			}
 			.card-avatar {
 				height: 100px;
 				width: 150px;
 				border-radius: 6px;
-				margin: auto 0;
+				margin-right: 20px;
 				cursor: pointer;
+				@media (max-width: 760px) {
+					width: 100%;
+					margin-right: 0;
+					margin-bottom: 14px;
+				}
 			}
 			.price-box {
 				height: auto;

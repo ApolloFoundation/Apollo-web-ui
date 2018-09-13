@@ -43,7 +43,16 @@
       //border-collapse: collapse;
       min-width: 800px;
       padding: 0 35px;
-
+      //& + .btn-box {
+      //  min-width: 800px;
+      //  position: absolute;
+      //  bottom: 0;
+      //  left: 0;
+      //  right: 0;
+      //  .btn {
+      //    position: static !important;
+      //  }
+      //}
       thead {
         padding: 35px 0;
 

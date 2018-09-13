@@ -489,6 +489,7 @@ class SiteHeader extends React.Component {
 											<div className={"mobile-nav-item"}>
 												<AccordionItemTitle
 													className={`text ${this.getNavLinkClass(["/active-polls",
+														"/followed-polls",
 														"/my-votes",
 														"/my-polls"])}`}>
 													<i className="zmdi zmdi-star"/>Voting system
@@ -497,7 +498,7 @@ class SiteHeader extends React.Component {
 												<AccordionItemBody>
 													<div className="item-dropdown">
 														<NavLink to="/active-polls">Active polls</NavLink>
-														<a>Followed polls</a>
+														<NavLink to="/followed-polls">Followed polls</NavLink>
 														<NavLink to="/my-votes">My votes</NavLink>
 														<NavLink to="/my-polls">My polls</NavLink>
 

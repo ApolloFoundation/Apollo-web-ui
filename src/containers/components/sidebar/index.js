@@ -172,6 +172,7 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink to="/active-polls" className={`text ${this.getNavLinkClass(["/active-polls",
+									"/followed-polls",
 									"/my-votes",
 									"/my-polls"])}`}>
 									Voting system
