@@ -63,6 +63,24 @@ export function isLoggedIn() {
     };
 }
 
+export function getUpdateStatus() {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getUpdateStatus',
+        }
+    })
+        .then((res) => {
+            if (res.data ) {
+                if (!res.data.isUpdate) {
+                    NotificationManager.info('You are using up to date version', null, 900000);
+                }
+                if (res.data.isUpdate) {
+                    NotificationManager.error('You current version is expired. Available new version: ' + res.data.level, 'Attention', 900000);
+                }
+            }
+        })
+}
+
 export const reloadAccountAction = acc => dispatch => {
     makeLoginReq(dispatch, {account: acc});
 };

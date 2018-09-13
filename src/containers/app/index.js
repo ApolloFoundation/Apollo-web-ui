@@ -59,14 +59,15 @@ import MyMessages from "../account/my-messages";
 import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
 import style from './App.css';
-import converters from "../../helpers/converters";
-import crypto from '../../helpers/crypto/crypto';
+
+import {getUpdateStatus} from '../../actions/login/index'
 
 import {startBlockPullingAction} from '../../actions/blocks'
 
 class App extends React.Component {
     componentDidMount() {
         // this.props.startBlockPullingAction();
+        getUpdateStatus();
         this.props.isLoggedIn();
         this.props.getConstantsAction();
         this.handleModal = this.handleModal.bind(this);
