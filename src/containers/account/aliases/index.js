@@ -8,7 +8,7 @@ import {getTransactionAction, getTransactionsAction} from "../../../actions/tran
 import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modals";
 import {submitForm} from  '../../../helpers/forms/forms';
 import {NotificationManager} from "react-notifications";
-
+import {BlockUpdater} from "../../block-subscriber";
 
 class Aliases extends React.Component {
     constructor(props) {
@@ -25,12 +25,25 @@ class Aliases extends React.Component {
         this.onPaginate = this.onPaginate.bind(this);
     }
 
+    listener = data => {
+        this.getAliases({
+            account:    this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex:  this.state.lastIndex,
+        });
+    };
+
     componentDidMount() {
         this.getAliases({
             account:    this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex:  this.state.lastIndex,
         });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.off("data", this.listener)
     }
 
     componentWillReceiveProps(newState) {

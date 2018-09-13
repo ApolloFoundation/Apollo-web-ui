@@ -42,14 +42,21 @@ class Currencies extends React.Component {
         });
     }
 
-    componentDidMount() {
-        BlockUpdater.on("data", data => {
-            this.getCurrencie({
-                account: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            });
+    listener = data => {
+        this.getCurrencie({
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         });
+
+    };
+
+    componentDidMount() {
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.off("data", this.listener)
     }
 
     onPaginate = (page) => {

@@ -69,12 +69,16 @@ class Dashboard extends React.Component {
 		newsItem: 0
 	};
 
+	listener = data => {
+        this.initDashboard();
+	};
+
 	componentDidMount() {
-		BlockUpdater.on("data", data => {
-			console.warn("height in dashboard", data);
-			console.warn("updating dashboard");
-			this.initDashboard();
-		});
+		BlockUpdater.on("data", this.listener);
+	}
+
+	componentWillUnmount() {
+		BlockUpdater.off("data", this.listener);
 	}
 
 	componentWillReceiveProps(newState) {
@@ -83,7 +87,6 @@ class Dashboard extends React.Component {
 			this.initDashboard({account: newState.account})
 		}
 	}
-
 
     componentWillMount() {
         this.getBlock();
