@@ -18,11 +18,14 @@ const ShufflingItem = (props) => (
         <td className="align-right">{props.amount / 100000000}</td>
         <td className="align-right">{props.registrantCount} / {props.participantCount}</td>
         <td className="align-right">
-            <a className={'btn primary blue'}
-               onClick={() => props.setBodyModalParamsAction('START_SHUFFLING', props.shuffling)}
-            >
-                Join
-            </a>
+            <div className="btn-box inline">
+	            <a className={'btn primary blue'}
+	               onClick={() => props.setBodyModalParamsAction('START_SHUFFLING', props.shuffling)}
+	            >
+		            Join
+	            </a>
+            </div>
+
         </td>
     </tr>
 );

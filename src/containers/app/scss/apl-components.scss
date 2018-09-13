@@ -6,7 +6,10 @@
   min-height: 560px;
   //overflow-x: auto;
   //background-color: #FFFFFF;
-
+	@media (max-width: 1025px) {
+		height: auto;
+		min-height: auto;
+	}
   &.no-min-height {
     min-height: auto;
     height: auto;
