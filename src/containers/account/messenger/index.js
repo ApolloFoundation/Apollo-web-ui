@@ -107,8 +107,14 @@ class Messenger extends React.Component {
 			<div className="page-content">
 				<SiteHeader
 					pageTitle={'Messenger'}
-				/>
-
+				>
+                    <a
+                        onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', null)}
+                        className="btn primary"
+                    >
+                        Compose message
+                    </a>
+				</SiteHeader>
 				<div className="page-body container-fluid flexible-height overflow-hidden">
 					<div className="messenger">
 						<div className="row">

@@ -3813,6 +3813,8 @@ input {
     max-height: 800px; }
     .card.card-flexible table {
       min-width: 500px !important; }
+  .card.auto-height {
+    height: auto; }
   .card.full-height {
     height: 100%; }
   .card.card-full-screen {
@@ -3846,6 +3848,8 @@ input {
       font-size: 16px;
       line-height: 18px;
       color: #fff; }
+      .card.header .card-title.small {
+        font-size: 14px; }
       .card.header .card-title.big {
         font-size: 42px;
         line-height: 42px; }
@@ -3853,6 +3857,9 @@ input {
         margin: auto 0; }
       .card.header .card-title.bold {
         font-weight: bold; }
+      .card.header .card-title.medium {
+        font-size: 24px;
+        line-height: 1.2; }
     .card.header .asset-account-description {
       width: 100%; }
     .card.header .amount {
@@ -4096,9 +4103,35 @@ table td .btn, table th .btn {
   .assets-exchange > .row {
     min-height: 810px !important; }
   .assets-exchange .row {
-    min-height: 100%; }
+    min-height: 100%;
+    align-items: stretch; }
   .assets-exchange .card.header {
     min-height: 200px; }
+  .assets-exchange .card.card-tiny {
+    height: auto; }
+  .assets-exchange .ballance .form-group-app {
+    height: auto; }
+  .assets-exchange .transaction-table {
+    height: auto;
+    min-height: auto; }
+  .assets-exchange .transaction-table-body {
+    padding: 0 !important; }
+    .assets-exchange .transaction-table-body table {
+      min-width: 500px !important; }
+  .assets-exchange .info-box.simple {
+    margin-bottom: 0; }
+    .assets-exchange .info-box.simple p {
+      padding-bottom: 0; }
+  .assets-exchange .full-box-item .asset-id {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  @media (max-width: 767px) {
+    .assets-exchange .card.scroll {
+      max-height: 300px; } }
+  @media (max-width: 767px) {
+    .assets-exchange .col-xl-6.col-md-12 {
+      padding: 0; } }
 
 @media (max-width: 760px) {
   .transactions-title .btn {

@@ -69,6 +69,7 @@ import MarketplaceDelete from './marketplace/delete-goods/';
 
 // Messenger
 import DecryptMessage from './messenger/decrypt-messages';
+import ComposeMessage from './messenger/compose-message';
 import AboutPeerInfo from "./peer/about-peer-info";
 import ConnectPeer from "./peer/connect-peer";
 import BlacklistPeer from "./peer/blacklist-peer";
@@ -236,6 +237,7 @@ class ModalWindow extends React.Component {
 
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal}/>}
+                {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal}/>}
             </div>
         );
     }

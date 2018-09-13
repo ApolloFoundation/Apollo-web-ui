@@ -1,13 +1,5 @@
-.marketplace-container {
-  z-index: 1 !important;
-  padding-top: 0 !important;
-  margin-top: 120px; }
-  @media (max-height: 860px) {
-    .marketplace-container {
-      z-index: 0 !important; } }
-  @media (max-height: 870px) {
-    .marketplace-container > .marketplace {
-      padding-top: 26px !important; } }
+.marketplace-container > .marketplace {
+  padding-top: 15px !important; }
 
 .site-content .page-content .page-body .marketplace .row > *.col-md-12, .site-content .page-content .page-body .marketplace .row > *.col-lg-12 {
   height: auto !important; }
@@ -26,10 +18,23 @@
   margin: 0 7.5px 15px; }
   .marketplace-item:nth-of-type(-n + 4) {
     transition-delay: 0.3s; }
+  @media (max-width: 1320px) {
+    .marketplace-item {
+      width: calc(33.333% - 15px); } }
+  @media (max-width: 1200px) {
+    .marketplace-item {
+      width: calc(50% - 15px); } }
+  @media (max-width: 760px) {
+    .marketplace-item {
+      width: calc(100% - 15px); } }
   .marketplace-item .marketplace.card {
     width: 100%;
     min-height: 100%;
     bottom: auto; }
+    @media (max-width: 760px) {
+      .marketplace-item .marketplace.card {
+        left: 0;
+        right: 0; } }
   .marketplace-item:hover {
     z-index: 1;
     transition-delay: 0s; }
@@ -213,20 +218,31 @@
       font-size: 12px;
       margin-top: 15px; }
 
-.marketplace-row .marketplace-row-item {
-  margin-top: 15px; }
-  @media (max-width: 992px) {
-    .marketplace-row .marketplace-row-item {
-      width: 33.33%; } }
-  @media (max-width: 992px) {
-    .marketplace-row .marketplace-row-item {
-      width: 100%; } }
+@media (max-width: 1200px) {
+  .marketplace-row .marketplace-row-item {
+    margin-top: 15px;
+    width: 33.33%; } }
+
+@media (max-width: 760px) {
+  .marketplace-row .marketplace-row-item {
+    width: 100%; } }
+
+@media (max-width: 760px) {
+  .marketplace-row .marketplace-row-item > .card {
+    left: 0 !important;
+    right: 0 !important; } }
+
+@media (min-width: 760px) and (max-width: 1200px) {
   .marketplace-row .marketplace-row-item:nth-of-type(-n + 3) {
-    margin-top: 0; }
+    margin-top: 0; } }
 
 .marketplace-preview .card.marketplace {
   position: static; }
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
+  .marketplace-preview .form-group-app .form-title {
+    padding-bottom: 0; } }
+
+@media (max-width: 760px) {
   .marketplace-preview .marketplace-preview-item:nth-of-type(3) .card {
     min-height: auto !important; } }

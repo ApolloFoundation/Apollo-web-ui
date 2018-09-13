@@ -39,6 +39,22 @@ export function getChats (reqParams) {
     }
 }
 
+export function readMessageAction (reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'readMessage',
+                ...reqParams
+            }
+        })
+            .then((res) => {
+                if(!res.data.errorMessage) {
+                    return res.data;
+                }
+            })
+    }
+}
+
 export function getPrunableMessageAction(reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {

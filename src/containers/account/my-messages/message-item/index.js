@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import converters from '../../../../helpers/converters'
 import crypto from '../../../../helpers/crypto/crypto'
 import {formatTimestamp} from "../../../../helpers/util/time";
+import {readMessageAction} from '../../../../actions/messager/'
+import submitForm from "../../../../helpers/forms/forms";
 
 const mapStateToProps = state => ({
     account: state.account
@@ -13,6 +15,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     tryToDecryptMessage: (data, options) => dispatch(crypto.tryToDecryptMessage(data, options)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
 class MessageItem extends React.Component {
@@ -33,24 +36,41 @@ class MessageItem extends React.Component {
     }
 
     tryToDecrypt = (newState) => {
-        if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
-            this.decryptMessage(this.props, newState.account.passPhrase)
-        }
+        console.log(this.props);
+        this.decryptMessage(this.props, newState.account.passPhrase)
+
+        // if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
+        // }
     };
 
     decryptMessage = async (data, passPhrase) => {
-        const privateKey = converters.hexStringToByteArray(crypto.getPrivateKey(passPhrase));
-        let publicKey = await crypto.getPublicKey(this.props.sender, true);
 
-        publicKey =  converters.hexStringToByteArray(publicKey);
 
-        const sharedKey = crypto.getSharedSecret(privateKey, publicKey);
-        let decrypted = this.props.tryToDecryptMessage(data, {sharedKey: sharedKey});
-        if (decrypted) {
-            this.setState({
-                message: decrypted.message
-            })
-        }
+        this.props.submitForm(null, null, {
+            requestType: 'readMessage',
+            secretPhrase: passPhrase,
+            transaction: this.props.transaction
+        }, 'readMessage')
+            .done((data) => {
+                this.setState({
+                    message: data.decryptedMessage
+                });
+                console.log(data);
+
+            });
+
+        // const privateKey = converters.hexStringToByteArray(crypto.getPrivateKey(passPhrase));
+        // let publicKey = await crypto.getPublicKey(this.props.sender, true);
+        //
+        // publicKey =  converters.hexStringToByteArray(publicKey);
+        //
+        // const sharedKey = crypto.getSharedSecret(privateKey, publicKey);
+        // let decrypted = this.props.tryToDecryptMessage(data, {sharedKey: sharedKey});
+        // if (decrypted) {
+        //     this.setState({
+        //         message: decrypted.message
+        //     })
+        // }
     };
 
     render (){
@@ -69,9 +89,14 @@ class MessageItem extends React.Component {
 
                 }
                 {
+                    this.state.message &&
+                    !this.state.message.length &&
+                    <td>Empty message</td>
+
+                }
+                {
                     this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
                     <td><i className="zmdi zmdi-alert-triangle"/>&nbsp;<span>Message is encrypted.</span></td>
-
                 }
                 {
                     (this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message  &&

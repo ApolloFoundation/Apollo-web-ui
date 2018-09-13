@@ -150,18 +150,26 @@ class InfoLedgerTransaction extends React.Component {
                                     {
                                         this.state.transaction &&
                                         <div className="flexible-grid">
-                                            <a className="btn btn-primary blue static">Send Apollo</a>
+                                            <a
+                                                onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', this.state.transaction.recipientRS)}
+                                                className="btn btn-primary blue static"
+                                            >
+                                                Send Apollo
+                                            </a>
+                                            <a
+                                                onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', this.state.transaction.recipientRS)}
+                                                className="btn btn-primary blue static"
+                                            >
+                                                Send a message
+                                            </a>
+                                            <a
+                                                onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.state.transaction.recipientRS)}
+                                                className="btn btn-primary blue static"
+                                            >
+                                                Add as contact
+                                            </a>
                                             <a className="btn btn-primary blue-disabled static">Send currency to sender</a>
-                                            <a className="btn btn-primary blue static">Send a message to sender</a>
-                                            {
-                                                this.state.transaction.recipientRS &&
-                                                <a
-                                                    onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.state.transaction.recipientRS)}
-                                                    className="btn btn-primary blue static"
-                                                >
-                                                    Add sender as contact
-                                                </a>
-                                            }
+                                            <a className="btn btn-primary blue-disabled static">Send a message to sender</a>
                                             <a className="btn btn-primary blue-disabled static">Apptove transaction</a>
                                             <a className="btn btn-primary blue-disabled static">Extend data lifetime</a>
                                         </div>

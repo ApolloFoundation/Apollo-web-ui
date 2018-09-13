@@ -103,7 +103,7 @@ class AddAccount extends React.Component {
                                             <label>Account ID</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text defaultValue={this.props.modalData} placeholder={'Secret Phrase'} type="password" field={'accountRS'}/>
+                                            <Text defaultValue={this.props.modalData} placeholder={'Secret Phrase'} type="text" field={'accountRS'}/>
                                         </div>
                                     </div>
                                 </div>
