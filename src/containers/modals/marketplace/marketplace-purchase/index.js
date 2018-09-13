@@ -56,14 +56,12 @@ class MarketplacePurchase extends React.Component {
     };
 
     async handleFormSubmit(values) {
-        const publicKey = await crypto.getPublicKey(values.secretPhrase, false);
-
         values = {
             ...values,
             priceATM: parseInt(this.state.goods.priceATM) / 100000000,
             goods: this.state.goods.goods,
             recipient: this.props.account,
-            publicKey: publicKey
+            secretPhrase: values.secretPhrase
         };
 
         this.props.submitForm(null, null, values, 'dgsPurchase')
@@ -78,11 +76,25 @@ class MarketplacePurchase extends React.Component {
             });
     }
 
+    handleAdvancedState = () => {
+        if (this.state.advancedState) {
+            this.setState({
+                ...this.props,
+                advancedState: false
+            })
+        } else {
+            this.setState({
+                ...this.props,
+                advancedState: true
+            })
+        }
+    };
+
     render() {
         return (
             <div className="modal-box x-wide">
                 <div className="modal-form">
-                    <div className="form-group-app devided no-padding-bottom">
+                    <div className="form-group-app devided no-padding-bottom overflow-hidden">
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                         {
@@ -199,13 +211,26 @@ class MarketplacePurchase extends React.Component {
 
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute left-conner">
-                                                    <a
-                                                        onClick={this.handleAdvancedState}
-                                                        className="btn btn-right round round-top-right absolute"
-                                                        style={{left : 'calc(50% - 35px)', right: 'auto'}}
-                                                    >
-                                                        Advanced
-                                                    </a>
+                                                    {
+                                                        this.state.advancedState &&
+                                                        <a
+                                                            onClick={this.handleAdvancedState}
+                                                            className="btn btn-right round round-top-right absolute"
+                                                            style={{left : 'calc(50% - 35px)', right: 'auto'}}
+                                                        >
+                                                            Basic
+                                                        </a>
+                                                    }
+                                                    {
+                                                        !this.state.advancedState &&
+                                                        <a
+                                                            onClick={this.handleAdvancedState}
+                                                            className="btn btn-right round round-top-right absolute"
+                                                            style={{left : 'calc(50% - 35px)', right: 'auto'}}
+                                                        >
+                                                            Advanced
+                                                        </a>
+                                                    }
                                                 </div>
                                             </form>
                                         )}

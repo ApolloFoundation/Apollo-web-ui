@@ -3053,6 +3053,9 @@ input {
 .no-padding {
   padding: 0 !important; }
 
+.overflow-hidden {
+  overflow: hidden; }
+
 .pre {
   white-space: pre; }
 
@@ -4433,7 +4436,8 @@ table td .btn, table th .btn {
     position: relative;
     border-radius: 6px;
     width: 100% !important;
-    max-width: 500px; }
+    max-width: 500px;
+    padding-bottom: 20px; }
     @media (max-width: 760px) {
       .modal-window .modal-box {
         max-width: 100%;
@@ -4454,8 +4458,7 @@ table td .btn, table th .btn {
     .modal-window .modal-box.x-wide {
       max-width: 1000px !important; }
     .modal-window .modal-box .modal-form {
-      min-width: 500px;
-      margin-bottom: 20px; }
+      min-width: 500px; }
       @media (max-width: 760px) {
         .modal-window .modal-box .modal-form {
           min-width: 100%;
