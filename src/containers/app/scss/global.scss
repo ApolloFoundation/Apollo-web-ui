@@ -2086,7 +2086,21 @@ table {
 }
 
 .transactions-title {
-	.btn {
+	.title {
+		max-width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		@media (max-width: 760px) {
+			white-space: normal;
+		}
+	}
+	.btn.primary:not(.icon-button) {
+		@media (max-width: 1024px) {
+			display: none !important;
+		}
+	}
+	.btn.icon-button {
 		@media (max-width: 760px) {
 			display: none !important;
 		}
@@ -2224,4 +2238,8 @@ table {
 			}
 		}
 	}
+}
+
+.no-followed-polls{
+	padding: 30px;
 }

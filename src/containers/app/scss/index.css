@@ -4132,24 +4132,37 @@ table td .btn, table th .btn {
     .assets-exchange .col-xl-6.col-md-12 {
       padding: 0; } }
 
-@media (max-width: 760px) {
-  .transactions-title .btn {
+.transactions-title .title {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+  @media (max-width: 760px) {
+    .transactions-title .title {
+      white-space: normal; } }
+
+@media (max-width: 1024px) {
+  .transactions-title .btn.primary:not(.icon-button) {
     display: none !important; } }
 
-.transactions-title .btn.mobile-btn {
+@media (max-width: 760px) {
+  .transactions-title .btn.icon-button {
+    display: none !important; } }
+
+.transactions-title .btn.icon-button.mobile-btn {
   display: none !important; }
   @media (max-width: 760px) {
-    .transactions-title .btn.mobile-btn {
+    .transactions-title .btn.icon-button.mobile-btn {
       display: inline-block !important; } }
-  .transactions-title .btn.mobile-btn:after {
+  .transactions-title .btn.icon-button.mobile-btn:after {
     display: none !important; }
 
 @media (max-width: 760px) {
-  .transactions-title .btn.active {
+  .transactions-title .btn.icon-button.active {
     border: 1px solid #000; } }
 
 @media (max-width: 760px) {
-  .transactions-title .btn .settings-bar {
+  .transactions-title .btn.icon-button .settings-bar {
     transition: 0.2s;
     position: static;
     display: none !important; } }
@@ -4240,10 +4253,17 @@ table td .btn, table th .btn {
     .data-storage .search-bar .input-group-app:nth-of-type(2n) {
       margin-right: 0; }
 
+.no-followed-polls {
+  padding: 30px; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
   min-height: 560px; }
+  @media (max-width: 1025px) {
+    .transaction-table {
+      height: auto;
+      min-height: auto; } }
   .transaction-table.no-min-height {
     min-height: auto;
     height: auto; }
@@ -4454,7 +4474,7 @@ table td .btn, table th .btn {
 
 .btn {
   display: inline-block;
-  padding: 10px 11px;
+  padding: 9px 11px;
   cursor: pointer;
   user-select: none;
   min-height: 33px; }
@@ -4682,6 +4702,9 @@ input[type="number"] {
       padding: 0 7.5px;
       display: flex;
       flex-direction: column; }
+      @media (max-width: 1024px) {
+        .site-content .page-content .page-body > div {
+          min-height: auto; } }
     .site-content .page-content .page-body .my-transactions {
       width: 100%; }
       .site-content .page-content .page-body .my-transactions .transactions-filters {
@@ -4697,6 +4720,10 @@ input[type="number"] {
       .site-content .page-content .page-body .my-transactions .transaction-table {
         height: calc(100% - 120px);
         min-height: 560px; }
+        @media (max-width: 1024px) {
+          .site-content .page-content .page-body .my-transactions .transaction-table {
+            height: auto;
+            min-height: auto; } }
         .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
           color: #00C8FF;
           font-family: "Roboto-Regular";
@@ -4736,6 +4763,8 @@ input[type="number"] {
       .site-content .page-content .page-body .open-orders .row {
         padding: 0;
         height: 100%; }
+      .site-content .page-content .page-body .open-orders .transaction-table-body table {
+        min-width: 500px; }
     .site-content .page-content .page-body .account-settings .row {
       position: relative; }
     .site-content .page-content .page-body .messenger {
