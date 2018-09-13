@@ -8,6 +8,10 @@
   padding: 27px 40px 26px 40px;
   width: calc(100% - 220px);
   top: 0; }
+  @media (max-width: 1023px) {
+    .page-header {
+      padding-top: 30px;
+      padding-bottom: 30px; } }
   @media (max-width: 760px) {
     .page-header {
       position: static;

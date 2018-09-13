@@ -4736,6 +4736,8 @@ input[type="number"] {
       .site-content .page-content .page-body .open-orders .row {
         padding: 0;
         height: 100%; }
+      .site-content .page-content .page-body .open-orders .transaction-table-body table {
+        min-width: 500px; }
     .site-content .page-content .page-body .account-settings .row {
       position: relative; }
     .site-content .page-content .page-body .messenger {

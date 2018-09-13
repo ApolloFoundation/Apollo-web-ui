@@ -449,6 +449,9 @@ input[type="number"] {
           padding: 0;
           height: 100%;
         }
+        .transaction-table-body table {
+          min-width: 500px;
+        }
       }
       .account-settings {
         .row {
