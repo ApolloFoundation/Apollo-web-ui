@@ -37,11 +37,12 @@
     //}
     table {
       width: 100%;
-      border-collapse: collapse;
+      //border-collapse: collapse;
       min-width: 800px;
+      padding: 0 35px;
 
       thead {
-        padding: 35px;
+        padding: 35px 0;
 
         tr {
           td {
@@ -129,7 +130,7 @@
 }
 
 .page-body .transaction-table .transaction-table-body {
-  padding: 35px;
+  padding: 35px 0;
   table {
     thead tr td {
       padding: 0 15px 15px 15px;
