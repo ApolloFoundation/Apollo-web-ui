@@ -53,11 +53,7 @@ if (process.env.HOST) {
       )}`
     )
   );
-  console.log(
-    `If this was unintentional, check that you haven't mistakenly set it in your shell.`
-  );
   console.log(`Learn more here: ${chalk.yellow('http://bit.ly/2mwWSwH')}`);
-  console.log();
 }
 
 
@@ -91,7 +87,6 @@ choosePort(HOST, DEFAULT_PORT)
       if (isInteractive) {
         clearConsole();
       }
-      console.log(chalk.cyan('Starting the development server...\n'));
       openBrowser(urls.localUrlForBrowser);
     });
 
@@ -104,7 +99,6 @@ choosePort(HOST, DEFAULT_PORT)
   })
   .catch(err => {
     if (err && err.message) {
-      console.log(err.message);
     }
     process.exit(1);
   });
