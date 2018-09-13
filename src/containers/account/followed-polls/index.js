@@ -1,7 +1,7 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import Pie from './pie-diagram';
-
+import {BlockUpdater} from "../../block-subscriber";
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import '../messenger/Messenger.scss'
@@ -58,6 +58,21 @@ class FollowedVotes extends React.Component {
         });
         this.getFollowedPolls();
         this.getBlock();
+        BlockUpdater.on("data", data => {
+            this.getpoll({
+                poll: this.props.match.params.poll
+            });
+            this.getPollVotes({
+                poll: this.props.match.params.poll,
+                firstIndex: this.state.firstIndex,
+                lastIndex:  this.state.lastIndex
+            });
+            this.getpollResults({
+                poll: this.props.match.params.poll
+            });
+            this.getFollowedPolls();
+            this.getBlock();
+        })
     }
 
     componentWillReceiveProps(newState) {

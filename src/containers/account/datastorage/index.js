@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-	getAllTaggedDataAction,
-	searchTaggedDataAction,
-	getAccountTaggedDataAction,
-	getDataTagsAction
+    getAllTaggedDataAction,
+    searchTaggedDataAction,
+    getAccountTaggedDataAction,
+    getDataTagsAction
 } from "../../../actions/datastorage";
 import {getTransactionAction} from '../../../actions/transactions/index';
 import {setBodyModalParamsAction} from "../../../modules/modals";
@@ -14,7 +14,7 @@ import DataStorageItem from "./datastorage-item";
 import {Form, Text} from 'react-form';
 import classNames from 'classnames';
 import {Link} from 'react-router-dom';
-
+import {BlockUpdater} from "../../block-subscriber";
 
 const mapStateToProps = state => ({
 	account: state.account.account,
@@ -41,10 +41,14 @@ class DataStorage extends React.Component {
 
 	};
 
-	componentDidMount() {
-		this.getAllTaggedData();
-		this.getDataTags();
-	}
+    componentDidMount() {
+        this.getAllTaggedData();
+        this.getDataTags();
+        BlockUpdater.on("data", data => {
+            this.getAllTaggedData(this.props);
+            this.getDataTags();
+        });
+    }
 
 	componentWillReceiveProps(newState) {
 		this.getAllTaggedData(newState);
@@ -239,94 +243,95 @@ class DataStorage extends React.Component {
 								<div
 									className="transactions-filters align-for-inputs"
 									style={{
-										display: 'block'
-									}}
-								>
-									{
-										this.state.dataTags &&
-										this.state.dataTags.map((el, index) => {
-											const params = this.props.match.params.query;
 
-											return (
-												<Link
-													to={'/data-storage/tag=' + el.tag}
-													className={classNames({
-														'btn': true,
-														'btn-primary': true,
-														'gray-lighten': !params || (params && params.split('=')[1] !== el.tag),
-														'static': true,
-														'blue': params && params.split('=')[1] === el.tag
-													})}
-													style={{
-														marginRight: 20
-													}}
-												>
-													{el.tag} [{el.count}]
-												</Link>
-											);
-										})
-									}
+                                        display: 'block'
+                                    }}
+                                >
+                                    {
+                                        this.state.dataTags &&
+                                        this.state.dataTags.map((el, index) => {
+                                            const params = this.props.match.params.query;
 
-								</div>
-							</div>
-						</div>
-						<div className="transaction-table">
-							<div className="transaction-table-body">
-								<table>
-									<thead>
-									<tr>
-										<td>Name</td>
-										<td>Account</td>
-										<td className="align-right">Mime Type</td>
-										<td>Channel</td>
-										<td>Filename</td>
-										<td className="align-right">Data</td>
-									</tr>
-									</thead>
-									<tbody key={uuid()}>
-									{
-										this.state.taggedData &&
-										this.state.taggedData.map((el, index) => {
-											return (
-												<DataStorageItem
-													{...el}
-													getTransaction={this.getTransaction}
-												/>
-											);
-										})
-									}
-									</tbody>
-								</table>
-								{/*<div className="btn-box">*/}
-								{/*<a*/}
-								{/*className={classNames({*/}
-								{/*'btn' : true,*/}
-								{/*'btn-left' : true,*/}
-								{/*'disabled' : this.state.page <= 1*/}
-								{/*})}*/}
-								{/*onClick={this.onPaginate.bind(this, this.state.page - 1)}*/}
-								{/*> Previous</a>*/}
-								{/*<div className='pagination-nav'>*/}
-								{/*<span>{this.state.firstIndex + 1}</span>*/}
-								{/*<span>&hellip;</span>*/}
-								{/*<span>{this.state.lastIndex + 1}</span>*/}
-								{/*</div>*/}
-								{/*<a*/}
-								{/*onClick={this.onPaginate.bind(this, this.state.page + 1)}*/}
-								{/*className={classNames({*/}
-								{/*'btn' : true,*/}
-								{/*'btn-right' : true,*/}
-								{/*'disabled' : this.state.ledger.length < 15*/}
-								{/*})}*/}
-								{/*>Next</a>*/}
-								{/*</div>*/}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	}
+                                            return (
+                                                <Link
+                                                    to={'/data-storage/tag=' + el.tag}
+                                                    className={classNames({
+                                                        'btn': true,
+                                                        'btn-primary': true,
+                                                        'gray-lighten': !params || (params && params.split('=')[1] !== el.tag),
+                                                        'static': true,
+                                                        'blue': params && params.split('=')[1] === el.tag
+                                                    })}
+                                                    style={{
+                                                        marginRight: 20
+                                                    }}
+                                                >
+                                                    {el.tag} [{el.count}]
+                                                </Link>
+                                            );
+                                        })
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="transaction-table">
+                            <div className="transaction-table-body">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Account</td>
+                                        <td className="align-right">Mime Type</td>
+                                        <td>Channel</td>
+                                        <td>Filename</td>
+                                        <td className="align-right">Data</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody key={uuid()}>
+                                    {
+                                        this.state.taggedData &&
+                                        this.state.taggedData.map((el, index) => {
+                                            return (
+                                                <DataStorageItem
+                                                    {...el}
+                                                    getTransaction={this.getTransaction}
+                                                />
+                                            );
+                                        })
+                                    }
+                                    </tbody>
+                                </table>
+                                {/*<div className="btn-box">*/}
+                                {/*<a*/}
+                                {/*className={classNames({*/}
+                                {/*'btn' : true,*/}
+                                {/*'btn-left' : true,*/}
+                                {/*'disabled' : this.state.page <= 1*/}
+                                {/*})}*/}
+                                {/*onClick={this.onPaginate.bind(this, this.state.page - 1)}*/}
+                                {/*> Previous</a>*/}
+                                {/*<div className='pagination-nav'>*/}
+                                {/*<span>{this.state.firstIndex + 1}</span>*/}
+                                {/*<span>&hellip;</span>*/}
+                                {/*<span>{this.state.lastIndex + 1}</span>*/}
+                                {/*</div>*/}
+                                {/*<a*/}
+                                {/*onClick={this.onPaginate.bind(this, this.state.page + 1)}*/}
+                                {/*className={classNames({*/}
+                                {/*'btn' : true,*/}
+                                {/*'btn-right' : true,*/}
+                                {/*'disabled' : this.state.ledger.length < 15*/}
+                                {/*})}*/}
+                                {/*>Next</a>*/}
+                                {/*</div>*/}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataStorage);

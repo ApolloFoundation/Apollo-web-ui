@@ -10,6 +10,7 @@ import {getTransactionAction} from "../../../actions/transactions/";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
+import {BlockUpdater} from "../../block-subscriber";
 
 class Ledger extends React.Component {
     constructor(props) {
@@ -35,6 +36,13 @@ class Ledger extends React.Component {
             lastIndex: this.state.lastIndex
         });
         this.props.setModalCallbackAction(this.getPrivateEntries);
+        BlockUpdater.on("data", data => {
+            this.getAccountLedger({
+                account: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        });
     }
 
     componentWillReceiveProps(newState) {
