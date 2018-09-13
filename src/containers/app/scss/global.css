@@ -1508,3 +1508,6 @@ table td .btn, table th .btn {
         margin-bottom: 10px; } }
     .data-storage .search-bar .input-group-app:nth-of-type(2n) {
       margin-right: 0; }
+
+.no-followed-polls {
+  padding: 30px; }

@@ -4240,6 +4240,9 @@ table td .btn, table th .btn {
     .data-storage .search-bar .input-group-app:nth-of-type(2n) {
       margin-right: 0; }
 
+.no-followed-polls {
+  padding: 30px; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
@@ -4454,7 +4457,7 @@ table td .btn, table th .btn {
 
 .btn {
   display: inline-block;
-  padding: 10px 11px;
+  padding: 9px 11px;
   cursor: pointer;
   user-select: none;
   min-height: 33px; }

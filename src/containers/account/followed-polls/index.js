@@ -289,7 +289,7 @@ class FollowedVotes extends React.Component {
                                         }
                                         {
                                             this.state.followedpolls && !this.state.followedpolls.length &&
-                                            <p>No followed polls</p>
+                                            <p className={"no-followed-polls"}>No followed polls</p>
                                         }
                                     </div>
                                 </div>
