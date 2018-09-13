@@ -78,7 +78,7 @@ class Dashboard extends React.Component {
 	}
 
 	componentWillUnmount() {
-		BlockUpdater.off("data", this.listener);
+		BlockUpdater.removeListener("data", this.listener);
 	}
 
 	componentWillReceiveProps(newState) {
