@@ -9,7 +9,7 @@ import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 
-class TransferAsset extends React.Component {
+class TransferCurrency extends React.Component {
     constructor(props) {
         super(props);
 
@@ -27,14 +27,18 @@ class TransferAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
+        values = {
+            ...values,
+            units: values.units * Math.pow(10, this.props.modalData.decimals)
+        };
 
-        this.props.submitForm(null, null, values, 'transferAsset')
+        this.props.submitForm(null, null, values, 'transferCurrency')
             .done((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {
                     this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('Transfer asset request has been submitted!', null, 5000);
+                    NotificationManager.success('Transfer currency request has been submitted!', null, 5000);
                 }
             })
     };
@@ -67,17 +71,21 @@ class TransferAsset extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
-                                        <p>Transfer Asset</p>
+                                        <p>Transfer Currency</p>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Asset</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
-                                                <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
-                                            </div>
+                                    <div className="form-group row form-group-grey mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Currency
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                            <Text
+                                                type="hidden"
+                                                className="form-control"
+                                                field="currency"
+                                                placeholder="Account"
+                                                defaultValue={this.props.modalData.currency}
+                                                aria-describedby="amountText"/>
+                                            <p>{this.props.modalData.code}</p>
                                         </div>
                                     </div>
                                     <div className="input-group-app display-block offset-bottom inline user">
@@ -95,23 +103,48 @@ class TransferAsset extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Quantity</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Quantity'} type="text" field={'quantityATU'}/>
+                                    <div className="form-group row form-group-grey mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Units
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                            <Text
+                                                type="text"
+                                                className="form-control"
+                                                field="units"
+                                                placeholder="Account"
+                                                aria-describedby="amountText"/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">{this.props.modalData.code}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Fee</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Amount'} type="text" field={'feeATM'}/>
+
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label htmlFor="feeATM" className="col-sm-3 col-form-label">
+                                            Fee
+                                            <span
+                                                onClick={async () => {
+                                                        setValue("feeATM", 1);
+                                                    }
+                                                }
+                                                style={{paddingRight: 0}}
+                                                className="calculate-fee"
+                                            >
+                                            Calculate
+                                        </span>
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                            <Text defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                                  id="feeATM"
+                                                  field="feeATM"
+                                                  className="form-control"
+                                                  value={this.state.feeATM}
+                                                  placeholder="Amount"
+                                                  type={"number"}
+                                                  aria-describedby="feeATMText" />
+                                            <div className="input-group-append">
+                                                <span className="input-group-text" id="feeATMText">Apollo</span>
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +160,7 @@ class TransferAsset extends React.Component {
                                     </div>
 
                                     <AdvancedSettings
-                                        setState={setValue}
+                                        setValue={setValue}
                                         advancedState={this.state.advancedState}
                                     />
 
@@ -169,4 +202,4 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransferAsset);
+export default connect(mapStateToProps, mapDispatchToProps)(TransferCurrency);

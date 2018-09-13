@@ -6,10 +6,12 @@ import {connect} from 'react-redux';
 import {getCurrencyAction, getAllCurrenciesAction} from "../../../actions/currencies";
 import classNames from "classnames";
 import {BlockUpdater} from "../../block-subscriber";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 
 const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
-    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams))
+    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 class ExchangeBooth extends React.Component {
@@ -48,7 +50,8 @@ class ExchangeBooth extends React.Component {
 
             this.setState({
                 ...this.state,
-                ...currency
+                ...currency,
+                currencyInfo: currency
             });
         }
     };
@@ -68,7 +71,27 @@ class ExchangeBooth extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Exchange booth'}
-                />
+                >
+                    {
+                        this.state.currency &&
+                        <React.Fragment>
+                            <a
+                                onClick={() => this.props.setBodyModalParamsAction('OFFER_CURRENCY', this.state.currencyInfo)}
+                                className="btn primary"
+                            >
+                                Offer
+                            </a>
+                            <a
+                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', this.state.currencyInfo)}
+                                style={{marginLeft: 15}}
+                                className="btn primary"
+                            >
+                                Transfer
+                            </a>
+                        </React.Fragment>
+
+                    }
+                </SiteHeader>
                 {
                     this.state.currency &&
                     <div className="page-body container-fluid assets-exchange">

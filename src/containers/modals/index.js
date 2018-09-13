@@ -37,6 +37,8 @@ import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
 
 // currency System
+import TransferCurrency from './currencies/transfer-currency'
+import OfferCurrency from './currencies/offer-currebcy'
 import ReserveCurrency from './currencies/reserve-currency'
 import IssueCurrency from './currencies/issue-currency';
 
@@ -176,6 +178,8 @@ class ModalWindow extends React.Component {
 
                 {/* Currency */}
                 {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'TRANSFER_CURRENCY'           && <TransferCurrency          closeModal={this.closeModal}/>}
+                {this.props.modalType === 'OFFER_CURRENCY'              && <OfferCurrency             closeModal={this.closeModal}/>}
 
 
                 {/* Voting */}
