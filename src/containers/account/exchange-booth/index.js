@@ -3,11 +3,12 @@ import {Link} from 'react-router-dom';
 import SiteHeader from '../../components/site-header'
 import ExchangeBoothTable from './exchange-booth-table';
 import {connect} from 'react-redux';
-import {getCurrencyAction} from "../../../actions/currencies";
+import {getCurrencyAction, getAllCurrenciesAction} from "../../../actions/currencies";
 import classNames from "classnames";
 
 const mapDispatchToProps = dispatch => ({
-    getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams))
+    getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
+    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams))
 });
 
 class ExchangeBooth extends React.Component {
@@ -21,6 +22,12 @@ class ExchangeBooth extends React.Component {
 
     componentDidMount() {
         this.getCurrency({code: this.props.match.params.currency});
+        this.getCurrencies();
+    }
+
+    componentWillReceiveProps(newState) {
+        this.getCurrency({code: newState.match.params.currency});
+        this.getCurrencies();
     }
 
     getCurrency = async (reqParams) => {
@@ -32,6 +39,16 @@ class ExchangeBooth extends React.Component {
                 ...this.state,
                 ...currency
             });
+        }
+    };
+
+    getCurrencies = async (reqParams) => {
+        const allCurrencies = await this.props.getAllCurrenciesAction(reqParams);
+
+        if (allCurrencies) {
+            this.setState({
+                currencies: allCurrencies.currencies
+            })
         }
     };
 
@@ -48,15 +65,17 @@ class ExchangeBooth extends React.Component {
 		                    <div className="col-md-4">
 			                    <div className="card card-full-screen no-padding scroll">
 				                    {
-					                    this.state.assets &&
-					                    this.state.assets.map((el, index) => {
-						                    return (
+					                    this.state.currencies &&
+					                    this.state.currencies.map((el, index) => {
+                                            console.log(el);
+                                            console.log(this.state);
+                                            return (
 							                    <Link
 								                    style={{display: 'block'}}
-								                    to={"/exchange-booth/" + (el ? el.currency : "")}
+								                    to={"/exchange-booth/" + (el ? el.code : "")}
 								                    className={classNames({
 									                    "chat-item": true,
-									                    "active": this.state.currency.currency === (el ? el.currency : "")
+									                    "active": this.state.currency === (el ? el.currency : "")
 								                    })}
 							                    >
 								                    <div className="chat-box-item">
