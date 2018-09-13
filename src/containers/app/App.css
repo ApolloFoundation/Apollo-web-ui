@@ -3597,11 +3597,10 @@ input {
     text-align: left; }
   .btn-box.inline {
     display: inline-block;
-    position: static !important;
-    margin-right: -15px; }
+    position: static !important; }
     .btn-box.inline > * {
       display: inline;
-      margin-right: 15px; }
+      margin-left: 15px; }
   .btn-box.success > * {
     color: #2ecc71; }
   .btn-box.danger > * {
@@ -4222,6 +4221,25 @@ table td .btn, table th .btn {
   .modal-send-apollo .mobile-class .col-sm-9 {
     padding-left: 120px; } }
 
+.data-storage .transaction-table {
+  height: auto; }
+
+.data-storage .search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; }
+  .data-storage .search-bar .input-group-app {
+    margin-right: 20px;
+    width: calc(50% - 10px);
+    max-width: 300px; }
+    @media (max-width: 760px) {
+      .data-storage .search-bar .input-group-app {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px; } }
+    .data-storage .search-bar .input-group-app:nth-of-type(2n) {
+      margin-right: 0; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
@@ -4324,7 +4342,11 @@ table td .btn, table th .btn {
   .transactions-filters.padding-left {
     padding-left: 36px; }
   .transactions-filters.align-for-inputs {
-    padding: 0px 0 23px 36px; }
+    padding: 0px 0 23px 29px; }
+    @media (max-width: 760px) {
+      .transactions-filters.align-for-inputs {
+        padding-left: 9px;
+        padding-bottom: 10px; } }
   .transactions-filters .top-bar > {
     margin-right: 15px; }
   .transactions-filters .btn {

@@ -17,29 +17,29 @@ import {Link} from 'react-router-dom';
 import {BlockUpdater} from "../../block-subscriber";
 
 const mapStateToProps = state => ({
-    account: state.account.account,
-    state: state
+	account: state.account.account,
+	state: state
 });
 
 const mapDispatchToProps = dispatch => ({
-    getTransactionAction: (type, data) => dispatch(getTransactionAction(type, data)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
-    getDataTagsAction: (reqParams) => dispatch(getDataTagsAction(reqParams)),
-    getAccountTaggedDataAction: (reqParams) => dispatch(getAccountTaggedDataAction(reqParams)),
-    searchTaggedDataAction: (reqParams) => dispatch(searchTaggedDataAction(reqParams))
+	getTransactionAction: (type, data) => dispatch(getTransactionAction(type, data)),
+	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
+	getDataTagsAction: (reqParams) => dispatch(getDataTagsAction(reqParams)),
+	getAccountTaggedDataAction: (reqParams) => dispatch(getAccountTaggedDataAction(reqParams)),
+	searchTaggedDataAction: (reqParams) => dispatch(searchTaggedDataAction(reqParams))
 });
 
 class DataStorage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+	constructor(props) {
+		super(props);
+	}
 
-    state = {
-        dataTags: null,
-        taggedData: null
+	state = {
+		dataTags: null,
+		taggedData: null
 
-    };
+	};
 
     componentDidMount() {
         this.getAllTaggedData();
@@ -50,206 +50,200 @@ class DataStorage extends React.Component {
         });
     }
 
-    componentWillReceiveProps(newState) {
-        this.getAllTaggedData(newState);
-        this.getDataTags();
-    }
+	componentWillReceiveProps(newState) {
+		this.getAllTaggedData(newState);
+		this.getDataTags();
+	}
 
-    getAllTaggedData = async (newState) => {
-        let query;
+	getAllTaggedData = async (newState) => {
+		let query;
 
-        if (newState) {
-            query = newState.match.params.query;
-        } else {
-            query = this.props.match.params.query;
+		if (newState) {
+			query = newState.match.params.query;
+		} else {
+			query = this.props.match.params.query;
 
-        }
+		}
 
 
-        if (query) {
-            query = query.split('=');
+		if (query) {
+			query = query.split('=');
 
-            const target = query[0];
-            const value = query[1];
+			const target = query[0];
+			const value = query[1];
 
-            switch (target) {
-                case('tag'):
-                    const searchTaggedData = await this.props.searchTaggedDataAction({tag: value});
-                    if (searchTaggedData) {
-                        this.setState({
-                            ...this.state,
-                            taggedData: searchTaggedData.data
-                        })
-                    }
-                    return;
-                case('account'):
-                    const accountTaggedData = await this.props.getAccountTaggedDataAction({account: value});
-                    if (accountTaggedData) {
-                        this.setState({
-                            ...this.state,
-                            taggedData: accountTaggedData.data
-                        })
-                    }
-                    return;
+			switch (target) {
+				case('tag'):
+					const searchTaggedData = await this.props.searchTaggedDataAction({tag: value});
+					if (searchTaggedData) {
+						this.setState({
+							...this.state,
+							taggedData: searchTaggedData.data
+						})
+					}
+					return;
+				case('account'):
+					const accountTaggedData = await this.props.getAccountTaggedDataAction({account: value});
+					if (accountTaggedData) {
+						this.setState({
+							...this.state,
+							taggedData: accountTaggedData.data
+						})
+					}
+					return;
 
-                case('query'):
-                    const accountQueryData = await this.props.searchTaggedDataAction({query: value});
-                    if (accountQueryData) {
-                        this.setState({
-                            ...this.state,
-                            taggedData: accountQueryData.data
-                        })
-                    }
-                    return;
-                default:
-                    const allTaggedData = await this.props.getAllTaggedDataAction();
-                    if (allTaggedData) {
-                        this.setState({
-                            ...this.state,
-                            taggedData: allTaggedData.data
-                        })
-                    }
-                    return;
+				case('query'):
+					const accountQueryData = await this.props.searchTaggedDataAction({query: value});
+					if (accountQueryData) {
+						this.setState({
+							...this.state,
+							taggedData: accountQueryData.data
+						})
+					}
+					return;
+				default:
+					const allTaggedData = await this.props.getAllTaggedDataAction();
+					if (allTaggedData) {
+						this.setState({
+							...this.state,
+							taggedData: allTaggedData.data
+						})
+					}
+					return;
 
-            }
+			}
 
-        } else {
-            const allTaggedData = await this.props.getAllTaggedDataAction();
-            if (allTaggedData) {
-                this.setState({
-                    ...this.state,
-                    taggedData: allTaggedData.data
-                })
-            }
-        }
-    };
+		} else {
+			const allTaggedData = await this.props.getAllTaggedDataAction();
+			if (allTaggedData) {
+				this.setState({
+					...this.state,
+					taggedData: allTaggedData.data
+				})
+			}
+		}
+	};
 
-    getDataTags = async (reqParams) => {
-        const allTaggedData = await this.props.getDataTagsAction(reqParams);
-        if (allTaggedData) {
-            this.setState({
-                ...this.state,
-                dataTags: allTaggedData.tags
-            })
-        }
-    };
+	getDataTags = async (reqParams) => {
+		const allTaggedData = await this.props.getDataTagsAction(reqParams);
+		if (allTaggedData) {
+			this.setState({
+				...this.state,
+				dataTags: allTaggedData.tags
+			})
+		}
+	};
 
-    getTransaction = async (data) => {
-        const reqParams = {
-            transaction: data,
-            account: this.props.account
-        };
+	getTransaction = async (data) => {
+		const reqParams = {
+			transaction: data,
+			account: this.props.account
+		};
 
-        const transaction = await this.props.getTransactionAction(reqParams);
+		const transaction = await this.props.getTransactionAction(reqParams);
 
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-        }
-    };
+		if (transaction) {
+			this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+		}
+	};
 
-    handleSearchByAccount = (values) => {
-        this.props.history.push('/data-storage/account=' + values.account);
-    };
+	handleSearchByAccount = (values) => {
+		this.props.history.push('/data-storage/account=' + values.account);
+	};
 
-    handleSearchByQuery = (values) => {
-        this.props.history.push('/data-storage/query=' + values.query);
-    };
+	handleSearchByQuery = (values) => {
+		this.props.history.push('/data-storage/query=' + values.query);
+	};
 
-    handleSearchByTag = () => {
+	handleSearchByTag = () => {
 
-    };
+	};
 
-    render() {
-        return (
-            <div className="page-content">
-                <SiteHeader
-                    pageTitle={'Data Cloud'}
-                >
-                    <Link
-                        to={'/data-storage'}
-                        className="btn primary"
-                    >
-                        Reset
-                    </Link>
-                </SiteHeader>
-                <div className="page-body container-fluid">
-                    <div className="data-storage">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="transactions-filters align-for-inputs">
-                                    <div className="search-bar">
-                                        <span>
-                                            <Form
-                                                onSubmit={values => this.handleSearchByAccount(values)}
-                                                render={({submitForm, setAllValues, setValue}) => {
+	render() {
+		return (
+			<div className="page-content data-storage">
+				<SiteHeader
+					pageTitle={'Data Cloud'}
+				>
+					<Link
+						to={'/data-storage'}
+						className="btn primary"
+					>
+						Reset
+					</Link>
+				</SiteHeader>
+				<div className="page-body container-fluid">
+					<div className="data-storage">
+						<div className="row">
+							<div className="col-md-12">
+								<div className="transactions-filters align-for-inputs">
+									<div className="search-bar">
+										<Form
+											onSubmit={values => this.handleSearchByAccount(values)}
+											render={({submitForm, setAllValues, setValue}) => {
 
-                                                    return (
-                                                        <form onSubmit={submitForm} className="input-group-app search">
-                                                            <div className="iconned-input-field">
-                                                                <Text
-                                                                    placeholder={'Account ID'}
-                                                                    defaultValue={
-                                                                        this.props.match.params.query && this.props.match.params.query.split('=')[0] === 'account'
-                                                                            ? this.props.match.params.query.split('=')[1]
-                                                                            : ''
-                                                                    }
-                                                                    field={'account'}
-                                                                    type="text"
-                                                                />
-                                                                <button
-                                                                    type={'submit'}
-                                                                    className="input-icon"
-                                                                    style={{
-                                                                        width: 41
-                                                                    }}
-                                                                >
-                                                                    <i className="zmdi zmdi-search"/>
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    )
-                                                }}
-                                            />
-                                        </span>
-                                        <span style={{
-                                            marginLeft: 20
-                                        }}>
-                                            <Form
-                                                onSubmit={values => this.handleSearchByQuery(values)}
-                                                render={({submitForm, setAllValues, setValue}) => {
+												return (
+													<form onSubmit={submitForm} className="input-group-app search">
+														<div className="iconned-input-field">
+															<Text
+																placeholder={'Account ID'}
+																defaultValue={
+																	this.props.match.params.query && this.props.match.params.query.split('=')[0] === 'account'
+																		? this.props.match.params.query.split('=')[1]
+																		: ''
+																}
+																field={'account'}
+																type="text"
+															/>
+															<button
+																type={'submit'}
+																className="input-icon"
+																style={{
+																	width: 41
+																}}
+															>
+																<i className="zmdi zmdi-search"/>
+															</button>
+														</div>
+													</form>
+												)
+											}}
+										/>
+										<Form
+											onSubmit={values => this.handleSearchByQuery(values)}
+											render={({submitForm, setAllValues, setValue}) => {
 
-                                                    return (
-                                                        <form onSubmit={submitForm} className="input-group-app search">
-                                                            <div className="iconned-input-field">
-                                                                <Text
-                                                                    placeholder={'Name Description Tag'}
-                                                                    field={'query'}
-                                                                    type="text"
-                                                                />
-                                                                <button
-                                                                    type={'submit'}
-                                                                    className="input-icon"
-                                                                    style={{
-                                                                        width: 41
-                                                                    }}
-                                                                >
-                                                                    <i className="zmdi zmdi-search"/>
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    )
-                                                }}
-                                            />
-                                        </span>
-                                    </div>
-                                    <div className="tags">
+												return (
+													<form onSubmit={submitForm} className="input-group-app search">
+														<div className="iconned-input-field">
+															<Text
+																placeholder={'Name Description Tag'}
+																field={'query'}
+																type="text"
+															/>
+															<button
+																type={'submit'}
+																className="input-icon"
+																style={{
+																	width: 41
+																}}
+															>
+																<i className="zmdi zmdi-search"/>
+															</button>
+														</div>
+													</form>
+												)
+											}}
+										/>
+									</div>
+									<div className="tags">
 
-                                    </div>
-                                </div>
-                                <div
-                                    className="transactions-filters align-for-inputs"
-                                    style={{
-                                        marginBottom: 24,
+									</div>
+								</div>
+								<div
+									className="transactions-filters align-for-inputs"
+									style={{
+
                                         display: 'block'
                                     }}
                                 >

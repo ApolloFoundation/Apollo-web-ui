@@ -86,7 +86,7 @@ class MyMessages extends React.Component {
                     this.state.messages && this.state.messages.length &&
                     <div className="page-body container-fluid">
                         <div className="account-ledger">
-                            <div className="transaction-table">
+                            <div className="transaction-table message-table">
                                 <div className="transaction-table-body">
                                     <table>
                                         <thead>
