@@ -9,6 +9,7 @@ import { setModalCallback, setBodyModalParamsAction } from "../../../modules/mod
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
 import MarketplaceItem from "../marketplace/marketplace-card";
+import {BlockUpdater} from "../../block-subscriber/index";
 
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
@@ -34,18 +35,27 @@ class MyProductsForSale extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.updateDgsGoods();
+        });
+    }
+
+    updateDgsGoods = () => {
+        this.getDGSGoods({
+            requestType: 'getDGSPendingPurchases',
+            seller: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
     }
 
     componentWillReceiveProps(newState) {
         this.setState({
             ...newState
         }, () => {
-            this.getDGSGoods({
-                requestType: 'getDGSPendingPurchases',
-                seller: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            });
+            this.updateDgsGoods();
         });
     }
 

@@ -10,6 +10,8 @@ import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import uuid from 'uuid';
+import {BlockUpdater} from "../../block-subscriber/index";
+
 
 const mapStateToProps = state => ({
 	account: state.account.account
@@ -35,17 +37,24 @@ class Messenger extends React.Component {
 
 	componentDidMount () {
 		if (this.props.account) {
-			this.getChats({
-				account: this.props.account,
-			});
-		}
+            this.updateChatData(this.props);
+        }
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.updateChatData(this.props);
+        });
 	};
 
 	componentWillReceiveProps(newState) {
-		this.getChats({
-			account: this.props.account,
-		});
+        this.updateChatData(newState)
 	}
+
+	updateChatData = (newState) => {
+        this.getChats({
+            account: this.props.account,
+        });
+	};
 
 	getChats = async (reqParams) => {
 		const chats = await this.props.getChats(reqParams);

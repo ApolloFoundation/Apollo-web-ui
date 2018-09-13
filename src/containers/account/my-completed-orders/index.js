@@ -9,7 +9,8 @@ import { setModalCallback, setBodyModalParamsAction } from "../../../modules/mod
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
 import MarketplaceItem from "../marketplace/marketplace-card";
-
+import {BlockUpdater} from "../../block-subscriber/index";
+import InfoBox from "../../components/info-box"
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
@@ -34,9 +35,18 @@ class MyProductsForSale extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.updateMyCompletedOrders(this.props);
+        });
     }
 
-    componentWillReceiveProps(newState) {
+    componentWillUnmount(){
+        BlockUpdater.removeAllListeners('data');
+    }
+
+    updateMyCompletedOrders = (newState) => {
         this.setState({
             ...newState
         }, () => {
@@ -48,6 +58,11 @@ class MyProductsForSale extends React.Component {
                 completed: true
             });
         });
+    };
+
+    componentWillReceiveProps(newState) {
+        this.updateMyCompletedOrders(newState   );
+
     }
 
     onPaginate (page) {
@@ -85,6 +100,8 @@ class MyProductsForSale extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
                         {
+                            this.state.getDGSGoods &&
+                            !!this.state.getDGSGoods.length &&
                             this.state.getDGSGoods.map((el, index) => {
                                 return (
                                     <MarketplaceItem
@@ -96,6 +113,13 @@ class MyProductsForSale extends React.Component {
                                     />
                                 );
                             })
+                        }
+                        {
+                            this.state.getDGSGoods &&
+                            !(!!this.state.getDGSGoods.length) &&
+                            <InfoBox>
+                                No orders found.
+                            </InfoBox>
                         }
                         <div className="btn-box">
                             <a

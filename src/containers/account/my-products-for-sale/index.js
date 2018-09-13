@@ -6,6 +6,7 @@ import MarketplaceTableItem from '../marketplace/marketplace-table-item';
 import SiteHeader from  '../../components/site-header'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
+import {BlockUpdater} from "../../block-subscriber/index";
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
 
@@ -32,6 +33,19 @@ class MyProductsForSale extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getDGSGoods({
+                seller: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     componentWillReceiveProps(newState) {

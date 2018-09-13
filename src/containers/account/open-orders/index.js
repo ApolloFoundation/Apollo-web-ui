@@ -5,6 +5,7 @@ import DeleteItem from "../delete-history/deletes";
 import {connect} from "react-redux";
 import {getBuyOrdersAction, getSellOrdersAction} from "../../../actions/open-orders";
 import OrderItem from "./order";
+import {BlockUpdater} from "../../block-subscriber";
 
 class OpenOrders extends React.Component {
 
@@ -16,6 +17,16 @@ class OpenOrders extends React.Component {
     componentWillMount() {
         this.getBuyOrders(this.props.account);
         this.getSellOrders(this.props.account);
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getBuyOrders(this.props.account);
+            this.getSellOrders(this.props.account);
+        });
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     componentWillReceiveProps = (nextProps) => {

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getPeerAction, getPeersAction, getPeersInfoAction} from "../../../actions/peers";
 import Peer from './peer'
 import {setBodyModalParamsAction} from "../../../modules/modals";
+import {BlockUpdater} from "../../block-subscriber";
 
 const mapDispatchToProps = dispatch => ({
     getPeersAction: (requestParams) => dispatch(getPeersAction(requestParams)),
@@ -24,7 +25,17 @@ class Peers extends React.Component {
 
     componentDidMount() {
         this.initPeersPage();
-        this.getPeers({firstIndex: 0, lastIndex: 14});
+        this.getPeers();
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getPeers();
+        });
+
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     initPeersPage = async () => {
