@@ -23,6 +23,7 @@ import {getAliasesCountAction} from '../../../actions/aliases'
 import {getMessages} from "../../../actions/messager";
 import {getNewsAction} from "../../../actions/account";
 import {BlockUpdater} from "../../block-subscriber/index";
+import {reloadAccountAction} from "../../../actions/login";
 
 const mapStateToProps = state => ({
 	account: state.account.account,
@@ -40,6 +41,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 
+	reloadAccount: acc => dispatch(reloadAccountAction(acc)),
     getMessages: (reqParams) => dispatch(getMessages(reqParams)),
     getNewsAction: () => dispatch(getNewsAction()),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
@@ -71,8 +73,8 @@ class Dashboard extends React.Component {
 	};
 
 	listener = data => {
-		console.warn("reload dashboard");
         this.initDashboard({account: this.props.account});
+        this.props.reloadAccount(this.props.accountRS);
 	};
 
 	componentDidMount() {

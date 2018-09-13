@@ -51,7 +51,6 @@ class MyMessages extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log(BlockUpdater);
         BlockUpdater.removeAllListeners('data');
     }
 

@@ -55,8 +55,6 @@ class ChatItem extends React.Component {
                     message: data.decryptedMessage,
                     error: data.errorCode
                 });
-                console.log(data);
-
             });
     };
 
@@ -81,8 +79,6 @@ class ChatItem extends React.Component {
                                     onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
                                     className='action'
                                 >
-                                    {console.log(4)}
-
                                     < i className="zmdi zmdi-lock" />
                                 </a>,
                                 <span className="message-text">&nbsp;&nbsp;Message is encrypted</span>
@@ -92,8 +88,6 @@ class ChatItem extends React.Component {
                             this.props.attachment.encryptedMessageHash && this.state.message !== 'message_empty' && !this.props.message.message &&
                             [
                                 <a className='action'>
-                                    {console.log(3)}
-
                                     < i className="zmdi zmdi-scissors" />
                                 </a>,
                                 <span className="message-text">&nbsp;&nbsp;Message is prunated</span>
@@ -103,9 +97,6 @@ class ChatItem extends React.Component {
                             this.state.message && !this.props.message.message && !this.state.error &&
                             [
                                 <a className='action'>
-                                    {console.log(2)}
-                                    {console.log(this.state.error)}
-
                                     < i className="zmdi zmdi-lock-open" />
                                 </a>,
                                 <span className="message-text">&nbsp;&nbsp;{this.state.message}</span>
@@ -114,7 +105,6 @@ class ChatItem extends React.Component {
                         {
                             this.state.error === 8 &&
                             <React.Fragment >
-                                {console.log(1)}
                                 <a className='action'>
                                     < i className="zmdi zmdi-alert-triangle" />
                                 </a>

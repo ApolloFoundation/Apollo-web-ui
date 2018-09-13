@@ -1070,8 +1070,6 @@ function processAjaxRequest(requestType, data, callback, options) {
 
         url += "requestType=" + requestType;
 
-        console.log((formData != null ? formData : data));
-
         return $.ajax({
             url: url,
             crossDomain: true,

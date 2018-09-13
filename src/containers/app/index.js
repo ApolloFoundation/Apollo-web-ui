@@ -32,6 +32,7 @@ import MyCompletedOrders from '../account/my-completed-orders'
 import Activepolls from '../account/active-polls'
 import AccountProperties from '../account/account-properties'
 import ApprovalRequest from '../account/approval-request'
+import ApprovalRequestAssets from '../account/approval-request-assets'
 import AssetExchange from '../account/asset-exchange'
 import Aliases from '../account/aliases'
 import DeleteHistory from '../account/delete-history'
@@ -150,6 +151,7 @@ class App extends React.Component {
                                 ,<Route exact path="/my-shuffling" component={MyCurrencies}/>
                                 ,<Route exact path="/account-properties" component={AccountProperties}/>
                                 ,<Route exact path="/approval-request" component={ApprovalRequest}/>
+                                ,<Route exact path="/approval-request-assets" component={ApprovalRequestAssets}/>
                                 ,<Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
                                 ,<Route exact path="/aliases" component={Aliases}/>
                                 ,<Route exact path="/delete-history" component={DeleteHistory}/>
