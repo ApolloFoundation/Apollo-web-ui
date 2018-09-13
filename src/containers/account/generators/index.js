@@ -35,7 +35,7 @@ class Generators extends React.Component {
     };
 
     componentWillUnmount() {
-        BlockUpdater.off("data", this.listener)
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     getGenerators = () => this.props.getGeneratorsAction()
