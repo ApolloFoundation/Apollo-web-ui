@@ -21,7 +21,7 @@ import {getAccountAssetsAction} from '../../../actions/assets'
 import {getAliasesCountAction} from '../../../actions/aliases'
 import {getMessages} from "../../../actions/messager";
 import {getNewsAction} from "../../../actions/account";
-
+import {BlockUpdater} from "../../block-subscriber/index";
 
 const mapStateToProps = state => ({
 	account: state.account.account,
@@ -68,6 +68,14 @@ class Dashboard extends React.Component {
 		lastIndex: 14,
 		newsItem: 0
 	};
+
+	componentDidMount() {
+		BlockUpdater.on("data", data => {
+			console.warn("height in dashboard", data);
+			console.warn("updating dashboard");
+			this.initDashboard();
+		});
+	}
 
 	componentWillReceiveProps(newState) {
 		this.getBlock();

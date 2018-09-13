@@ -5,7 +5,7 @@ import {SET_CURRENT_BLOCK} from "../../modules/account";
 export function getBlocksAction(requestParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
-            params : {
+            params: {
                 requestType: 'getBlocks',
                 ...requestParams
             }
@@ -24,7 +24,7 @@ export function getBlocksAction(requestParams) {
 export function getBlockAction(requestParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
-            params : {
+            params: {
                 requestType: 'getBlock',
                 includeTransactions: true,
                 includeExecutedPhased: true,
@@ -42,23 +42,14 @@ export function getBlockAction(requestParams) {
     }
 }
 
-export function startBlockPullingAction() {
-    return dispatch => {
-        setInterval(() => {
-            axios.get(config.api.serverUrl, {
-                params : {
-                    requestType: 'getBlock'
-                }
-            })
-                .then((res) => {
-                    dispatch({
-                        type: 'SET_CURRENT_BLOCK',
-                        payload: res.data
-                    })
-                })
-                .catch(() => {
-
-                })
-        }, 60000);
+export const startBlockPullingAction = () => axios.get(config.api.serverUrl, {
+    params: {
+        requestType: 'getBlock'
     }
-}
+})
+    .then((res) => {
+        return res.data;
+    })
+    .catch(() => {
+
+    });
