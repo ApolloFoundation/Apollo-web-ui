@@ -228,6 +228,9 @@ input[type="number"] {
       padding: 0 7.5px;
       display: flex;
       flex-direction: column; }
+      @media (max-width: 1024px) {
+        .site-content .page-content .page-body > div {
+          min-height: auto; } }
     .site-content .page-content .page-body .my-transactions {
       width: 100%; }
       .site-content .page-content .page-body .my-transactions .transactions-filters {
@@ -243,6 +246,10 @@ input[type="number"] {
       .site-content .page-content .page-body .my-transactions .transaction-table {
         height: calc(100% - 120px);
         min-height: 560px; }
+        @media (max-width: 1024px) {
+          .site-content .page-content .page-body .my-transactions .transaction-table {
+            height: auto;
+            min-height: auto; } }
         .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
           color: #00C8FF;
           font-family: "Roboto-Regular";

@@ -321,6 +321,9 @@ input[type="number"] {
         padding: 0 7.5px;
         display: flex;
         flex-direction: column;
+        @media (max-width: 1024px) {
+          min-height: auto;
+        }
       }
 
       // my transactions page
@@ -345,6 +348,10 @@ input[type="number"] {
         .transaction-table {
           height: calc(100% - 120px);
           min-height: 560px;
+          @media (max-width: 1024px) {
+            height: auto;
+            min-height: auto;
+          }
 
           .transaction-table-body {
             table {
