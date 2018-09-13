@@ -450,11 +450,13 @@ input[type="number"] {
         padding: 0;
 
         .approval-request {
-          height: 100%;
         }
         .row {
           padding: 0;
           height: 100%;
+        }
+        .transaction-table{
+          min-height: auto;
         }
         .transaction-table-body table {
           min-width: 500px;
