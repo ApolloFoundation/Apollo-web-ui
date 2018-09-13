@@ -166,7 +166,11 @@
     padding-left: 36px;
   }
   &.align-for-inputs {
-    padding: 0px 0 23px 36px;
+    padding: 0px 0 23px 29px;
+    @media (max-width: 760px) {
+      padding-left: 9px;
+      padding-bottom: 10px;
+    }
   }
   .top-bar {
     & > {
