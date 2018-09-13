@@ -1,6 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getAllTaggedDataAction, searchTaggedDataAction, getAccountTaggedDataAction,getDataTagsAction} from "../../../actions/datastorage";
+import {
+    getAllTaggedDataAction,
+    searchTaggedDataAction,
+    getAccountTaggedDataAction,
+    getDataTagsAction
+} from "../../../actions/datastorage";
 import {getTransactionAction} from '../../../actions/transactions/index';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import SiteHeader from '../../components/site-header';
@@ -9,7 +14,7 @@ import DataStorageItem from "./datastorage-item";
 import {Form, Text} from 'react-form';
 import classNames from 'classnames';
 import {Link} from 'react-router-dom';
-
+import {BlockUpdater} from "../../block-subscriber";
 
 const mapStateToProps = state => ({
     account: state.account.account,
@@ -39,6 +44,10 @@ class DataStorage extends React.Component {
     componentDidMount() {
         this.getAllTaggedData();
         this.getDataTags();
+        BlockUpdater.on("data", data => {
+            this.getAllTaggedData(this.props);
+            this.getDataTags();
+        });
     }
 
     componentWillReceiveProps(newState) {
@@ -61,9 +70,9 @@ class DataStorage extends React.Component {
             query = query.split('=');
 
             const target = query[0];
-            const value  = query[1];
+            const value = query[1];
 
-            switch (target){
+            switch (target) {
                 case('tag'):
                     const searchTaggedData = await this.props.searchTaggedDataAction({tag: value});
                     if (searchTaggedData) {
@@ -150,7 +159,7 @@ class DataStorage extends React.Component {
 
     };
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
@@ -194,12 +203,13 @@ class DataStorage extends React.Component {
                                                                         width: 41
                                                                     }}
                                                                 >
-                                                                    <i className="zmdi zmdi-search" />
+                                                                    <i className="zmdi zmdi-search"/>
                                                                 </button>
                                                             </div>
                                                         </form>
-                                                    )}}
-                                                />
+                                                    )
+                                                }}
+                                            />
                                         </span>
                                         <span style={{
                                             marginLeft: 20
@@ -223,11 +233,12 @@ class DataStorage extends React.Component {
                                                                         width: 41
                                                                     }}
                                                                 >
-                                                                    <i className="zmdi zmdi-search" />
+                                                                    <i className="zmdi zmdi-search"/>
                                                                 </button>
                                                             </div>
                                                         </form>
-                                                    )}}
+                                                    )
+                                                }}
                                             />
                                         </span>
                                     </div>
@@ -244,27 +255,27 @@ class DataStorage extends React.Component {
                                 >
                                     {
                                         this.state.dataTags &&
-                                            this.state.dataTags.map((el, index) => {
-                                                const params = this.props.match.params.query;
+                                        this.state.dataTags.map((el, index) => {
+                                            const params = this.props.match.params.query;
 
-                                                return (
-                                                    <Link
-                                                        to={'/data-storage/tag=' + el.tag}
-                                                        className={classNames({
-                                                            'btn' : true,
-                                                            'btn-primary' : true,
-                                                            'gray-lighten' : !params || (params && params.split('=')[1] !== el.tag),
-                                                            'static' : true,
-                                                            'blue': params && params.split('=')[1] === el.tag
-                                                        })}
-                                                        style={{
-                                                            marginRight: 20
-                                                        }}
-                                                    >
-                                                        {el.tag} [{el.count}]
-                                                    </Link>
-                                                );
-                                            })
+                                            return (
+                                                <Link
+                                                    to={'/data-storage/tag=' + el.tag}
+                                                    className={classNames({
+                                                        'btn': true,
+                                                        'btn-primary': true,
+                                                        'gray-lighten': !params || (params && params.split('=')[1] !== el.tag),
+                                                        'static': true,
+                                                        'blue': params && params.split('=')[1] === el.tag
+                                                    })}
+                                                    style={{
+                                                        marginRight: 20
+                                                    }}
+                                                >
+                                                    {el.tag} [{el.count}]
+                                                </Link>
+                                            );
+                                        })
                                     }
 
                                 </div>
@@ -298,27 +309,27 @@ class DataStorage extends React.Component {
                                     </tbody>
                                 </table>
                                 {/*<div className="btn-box">*/}
-                                    {/*<a*/}
-                                        {/*className={classNames({*/}
-                                            {/*'btn' : true,*/}
-                                            {/*'btn-left' : true,*/}
-                                            {/*'disabled' : this.state.page <= 1*/}
-                                        {/*})}*/}
-                                        {/*onClick={this.onPaginate.bind(this, this.state.page - 1)}*/}
-                                    {/*> Previous</a>*/}
-                                    {/*<div className='pagination-nav'>*/}
-                                        {/*<span>{this.state.firstIndex + 1}</span>*/}
-                                        {/*<span>&hellip;</span>*/}
-                                        {/*<span>{this.state.lastIndex + 1}</span>*/}
-                                    {/*</div>*/}
-                                    {/*<a*/}
-                                        {/*onClick={this.onPaginate.bind(this, this.state.page + 1)}*/}
-                                        {/*className={classNames({*/}
-                                            {/*'btn' : true,*/}
-                                            {/*'btn-right' : true,*/}
-                                            {/*'disabled' : this.state.ledger.length < 15*/}
-                                        {/*})}*/}
-                                    {/*>Next</a>*/}
+                                {/*<a*/}
+                                {/*className={classNames({*/}
+                                {/*'btn' : true,*/}
+                                {/*'btn-left' : true,*/}
+                                {/*'disabled' : this.state.page <= 1*/}
+                                {/*})}*/}
+                                {/*onClick={this.onPaginate.bind(this, this.state.page - 1)}*/}
+                                {/*> Previous</a>*/}
+                                {/*<div className='pagination-nav'>*/}
+                                {/*<span>{this.state.firstIndex + 1}</span>*/}
+                                {/*<span>&hellip;</span>*/}
+                                {/*<span>{this.state.lastIndex + 1}</span>*/}
+                                {/*</div>*/}
+                                {/*<a*/}
+                                {/*onClick={this.onPaginate.bind(this, this.state.page + 1)}*/}
+                                {/*className={classNames({*/}
+                                {/*'btn' : true,*/}
+                                {/*'btn-right' : true,*/}
+                                {/*'disabled' : this.state.ledger.length < 15*/}
+                                {/*})}*/}
+                                {/*>Next</a>*/}
                                 {/*</div>*/}
                             </div>
                         </div>

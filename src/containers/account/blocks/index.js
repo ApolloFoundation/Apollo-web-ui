@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {getBlocksAction, getBlockAction} from "../../../actions/blocks";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import Block from './block';
-
+import {BlockUpdater} from "../../block-subscriber";
 import './Blocks.css';
 import classNames from "classnames";
 
@@ -27,6 +27,16 @@ class Blocks extends React.Component {
             blockGenerateTime: 0,
             transactionPerHour: 0,
         };
+    }
+
+    componentDidMount() {
+        BlockUpdater.on("data", data => {
+            this.getBlocks({
+                account: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        })
     }
 
     componentWillMount() {

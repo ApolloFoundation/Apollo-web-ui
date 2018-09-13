@@ -5,6 +5,7 @@ import ExchangeBoothTable from './exchange-booth-table';
 import {connect} from 'react-redux';
 import {getCurrencyAction, getAllCurrenciesAction} from "../../../actions/currencies";
 import classNames from "classnames";
+import {BlockUpdater} from "../../block-subscriber";
 
 const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
@@ -23,6 +24,10 @@ class ExchangeBooth extends React.Component {
     componentDidMount() {
         this.getCurrency({code: this.props.match.params.currency});
         this.getCurrencies();
+        BlockUpdater.on("data", data => {
+            this.getCurrency({code: this.props.match.params.currency});
+            this.getCurrencies();
+        });
     }
 
     componentWillReceiveProps(newState) {

@@ -4,6 +4,7 @@ import uuid from "uuid";
 import {connect} from "react-redux";
 import {getDeleteHistory} from "../../../actions/delete-history";
 import DeleteItem from "./deletes";
+import {BlockUpdater} from "../../block-subscriber";
 
 class DeleteHistory extends React.Component {
 
@@ -13,6 +14,12 @@ class DeleteHistory extends React.Component {
 
     componentWillMount() {
         this.getDeleteHistory(this.props.account);
+    }
+
+    componentDidMount() {
+        BlockUpdater.on("data", data => {
+            this.getDeleteHistory(this.props.account);
+        });
     }
 
     componentWillReceiveProps = (nextProps) => {
