@@ -14,6 +14,9 @@ import {
     getSellOffersAction
 } from "../../../actions/exchange-booth";
 
+import OfferItem  from './offer-item/'
+import ExchangeItem  from './exchange-item/ExchangeItem'
+import ExecutedItem  from './executed-item/ExecutedItem'
 
 class ExchangeBooth extends React.Component {
     state = {
