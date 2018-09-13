@@ -70,7 +70,8 @@ class Dashboard extends React.Component {
 	};
 
 	listener = data => {
-        this.initDashboard();
+		console.warn("reload dashboard");
+        this.initDashboard({account: this.props.account});
 	};
 
 	componentDidMount() {
