@@ -11,7 +11,7 @@ class ScheduledTransactions extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
                         <div className="info-box info">
-                            <p>Incorrect "adminPassword" (locked for 1 hour, too many incorrect password attempts)</p>
+                            <p>Incorrect "adminPassword" (locked, too many incorrect password attempts)</p>
                         </div>
                         <div className="approval-request white-space">
                             <div className="alert">No current approval requests.</div>

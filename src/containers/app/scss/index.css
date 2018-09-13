@@ -4266,10 +4266,10 @@ table td .btn, table th .btn {
       padding: 40px 0; }
     .transaction-table .transaction-table-body table {
       width: 100%;
-      border-collapse: collapse;
-      min-width: 800px; }
+      min-width: 800px;
+      padding: 0 35px; }
       .transaction-table .transaction-table-body table thead {
-        padding: 35px; }
+        padding: 35px 0; }
         .transaction-table .transaction-table-body table thead tr td {
           color: #333333;
           font-family: "Roboto-Bold";
@@ -4321,7 +4321,7 @@ table td .btn, table th .btn {
       transform: translateX(-50%); }
 
 .page-body .transaction-table .transaction-table-body {
-  padding: 35px; }
+  padding: 35px 0; }
   .page-body .transaction-table .transaction-table-body table thead tr td {
     padding: 0 15px 15px 15px; }
     .page-body .transaction-table .transaction-table-body table thead tr td:first-child {

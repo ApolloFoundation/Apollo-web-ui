@@ -29,14 +29,20 @@ class Blocks extends React.Component {
         };
     }
 
+    listener = data => {
+        this.getBlocks({
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+    };
+
     componentDidMount() {
-        BlockUpdater.on("data", data => {
-            this.getBlocks({
-                account: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            });
-        })
+        BlockUpdater.on("data", this.listener)
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillMount() {

@@ -14,6 +14,7 @@ import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
 import InfoBox from "../../components/info-box";
+import {BlockUpdater} from "../../block-subscriber";
 
 class PurchasedProducts extends React.Component {
     constructor(props) {
@@ -35,6 +36,20 @@ class PurchasedProducts extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getDGSGoods({
+                requestType: 'getDGSPurchases',
+                buyer: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     componentWillReceiveProps(newState) {

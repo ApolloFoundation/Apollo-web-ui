@@ -21,13 +21,19 @@ class ExchangeBooth extends React.Component {
         };
     }
 
+    listener = data => {
+        this.getCurrency({code: this.props.match.params.currency});
+        this.getCurrencies();
+    };
+
     componentDidMount() {
         this.getCurrency({code: this.props.match.params.currency});
         this.getCurrencies();
-        BlockUpdater.on("data", data => {
-            this.getCurrency({code: this.props.match.params.currency});
-            this.getCurrencies();
-        });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener);
     }
 
     componentWillReceiveProps(newState) {
