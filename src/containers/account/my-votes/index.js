@@ -6,6 +6,7 @@ import PoolItem from '../active-polls/pool-item';
 import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
+import {BlockUpdater} from "../../block-subscriber/index";
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -40,6 +41,19 @@ class MyVotes extends React.Component {
             firstIndex: 0,
             lastIndex:  9,
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getDGSGoods({
+                seller: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     componentWillReceiveProps(newState) {

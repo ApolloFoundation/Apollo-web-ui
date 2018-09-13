@@ -9,7 +9,7 @@ import uuid from "uuid";
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import {getAccountShufflingsAction} from "../../../actions/shuffling";
-
+import {BlockUpdater} from "../../block-subscriber/index";
 
 class MyShufling extends React.Component {
     constructor(props) {
@@ -31,6 +31,19 @@ class MyShufling extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getAccountShufflings({
+                account: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     componentWillReceiveProps(newState) {

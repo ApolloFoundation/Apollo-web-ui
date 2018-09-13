@@ -7,6 +7,7 @@ import {setBodyModalParamsAction, setMopalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
 
+import uuid from 'uuid';
 import {formatTimestamp} from "../../../helpers/util/time";
 import {getBlockAction} from "../../../actions/blocks";
 import {getTransactionsAction} from "../../../actions/transactions";
@@ -230,7 +231,7 @@ class Dashboard extends React.Component {
 				/>
 				<div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
 					<div className={"page-body-top-bottom-container"}>
-						<div className="page-body-top">
+						<div className="page-body-top" key={uuid()}>
 							<div className="page-body-item ">
 								<div className="card header ballance chart-sprite position-1">
 									<div className="card-title">Available Balance</div>
