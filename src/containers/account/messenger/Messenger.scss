@@ -142,7 +142,7 @@
 							}
 							a.action {
 								margin: 0;
-
+								
 								i {
 									font-size: 18px;
 								}
@@ -194,6 +194,7 @@
 					display: flex;
 					flex-direction: row;
 					justify-content: space-around;
+					align-items: center;
 					padding-top: 15px;
 					
 					.input-group-app {
@@ -235,9 +236,11 @@
 		}
 	}
 }
-.followed-polls-container{
+
+.followed-polls-container {
 	min-height: 100%;
 }
+
 .followed-polls {
 	margin-bottom: 0 !important;
 	min-height: calc(100vh - 135px) !important;
@@ -350,7 +353,19 @@
 			padding-bottom: 20px;
 		}
 	}
-	.transaction-table-body{
+	.transaction-table-body {
 		padding: 0 !important;
+	}
+}
+
+.message-table {
+	td {
+		position: relative;
+	}
+	.zmdi {
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translate(0, -50%);
 	}
 }

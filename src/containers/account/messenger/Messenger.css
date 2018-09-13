@@ -124,6 +124,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        align-items: center;
         padding-top: 15px; }
         .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app {
           margin: auto;
@@ -246,3 +247,12 @@
       padding-bottom: 20px; } }
   .followed-polls-item .transaction-table-body {
     padding: 0 !important; }
+
+.message-table td {
+  position: relative; }
+
+.message-table .zmdi {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%); }

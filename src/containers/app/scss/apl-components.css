@@ -100,7 +100,11 @@
   .transactions-filters.padding-left {
     padding-left: 36px; }
   .transactions-filters.align-for-inputs {
-    padding: 0px 0 23px 36px; }
+    padding: 0px 0 23px 29px; }
+    @media (max-width: 760px) {
+      .transactions-filters.align-for-inputs {
+        padding-left: 9px;
+        padding-bottom: 10px; } }
   .transactions-filters .top-bar > {
     margin-right: 15px; }
   .transactions-filters .btn {
