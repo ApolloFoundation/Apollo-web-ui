@@ -25,12 +25,18 @@ class Generators extends React.Component {
         return `${month}/${day}/${year} ${time}`;
     };
 
+    listener = data => {
+        this.getGenerators();
+    }
+
     componentDidMount = () => {
         this.getGenerators();
-        BlockUpdater.on("data", data => {
-            this.getGenerators();
-        });
+        BlockUpdater.on("data", this.listener);
     };
+
+    componentWillUnmount() {
+        BlockUpdater.off("data", this.listener)
+    }
 
     getGenerators = () => this.props.getGeneratorsAction()
         .then(generators => this.setState({

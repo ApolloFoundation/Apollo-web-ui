@@ -9,6 +9,7 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {Link} from 'react-router-dom';
 import InfoBox from '../../components/info-box';
+import {BlockUpdater} from "../../block-subscriber";
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -39,6 +40,17 @@ class Activepolls extends React.Component {
         this.getTransaction   = this.getTransaction.bind(this);
     }
 
+    listener = data => {
+        this.getActivepolls({
+            firstIndex: 0,
+            lastIndex:  2,
+        });
+        this.getFinishedpolls({
+            firstIndex: 0,
+            lastIndex:  9,
+        });
+    };
+
     componentDidMount() {
         this.getActivepolls({
             firstIndex: 0,
@@ -48,8 +60,12 @@ class Activepolls extends React.Component {
             firstIndex: 0,
             lastIndex:  9,
         });
-
+        BlockUpdater.on("data", this.listener);
     }
+
+    componentWillUnmount() {
+        BlockUpdater.off("data", this.listener)
+    };
 
     componentWillReceiveProps(newState) {
         this.getActivepolls({

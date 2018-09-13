@@ -8,6 +8,8 @@ import {getActiveShfflings, getFinishedShfflings} from '../../../actions/shuffli
 import {NotificationManager} from "react-notifications";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
+import {BlockUpdater} from "../../block-subscriber";
+
 const mapStateToPropms = state => ({
     account: state.account.account
 });
@@ -28,6 +30,17 @@ class ActiveShufflings extends React.Component {
         }
     }
 
+    listener = data => {
+        this.getActiveShfflings({
+            firstIndex: 0,
+            lastIndex: 14
+        });
+        this.getFinishedShfflings({
+            firstIndex: 0,
+            lastIndex: 14
+        });
+    };
+
     componentDidMount() {
         NotificationManager.info('After creating or joining a shuffling, you must keep your node online and your shuffler running, leaving enough funds in your account to cover the shuffling fees, until the shuffling completes! If you don\'t and miss your turn, you will be fined.', null, 1000000);
         this.getActiveShfflings({
@@ -38,6 +51,11 @@ class ActiveShufflings extends React.Component {
             firstIndex: 0,
             lastIndex: 14
         });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.off("data", this.listener)
     }
 
     getFinishedShfflings   = async (reqParams) => {

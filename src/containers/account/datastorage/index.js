@@ -41,13 +41,19 @@ class DataStorage extends React.Component {
 
 	};
 
+	listener = data => {
+        this.getAllTaggedData(this.props);
+        this.getDataTags();
+    };
+
     componentDidMount() {
         this.getAllTaggedData();
         this.getDataTags();
-        BlockUpdater.on("data", data => {
-            this.getAllTaggedData(this.props);
-            this.getDataTags();
-        });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.off("data", this.listener);
     }
 
 	componentWillReceiveProps(newState) {
