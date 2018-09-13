@@ -67,8 +67,7 @@ class ExchangeBooth extends React.Component {
 				                    {
 					                    this.state.currencies &&
 					                    this.state.currencies.map((el, index) => {
-                                            console.log(el);
-                                            console.log(this.state);
+
                                             return (
 							                    <Link
 								                    style={{display: 'block'}}

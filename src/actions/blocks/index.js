@@ -1,5 +1,6 @@
 import axios from 'axios/index';
 import config from '../../config';
+import {SET_CURRENT_BLOCK} from "../../modules/account";
 
 export function getBlocksAction(requestParams) {
     return dispatch => {
@@ -38,5 +39,26 @@ export function getBlockAction(requestParams) {
             .catch(() => {
 
             })
+    }
+}
+
+export function startBlockPullingAction() {
+    return dispatch => {
+        setInterval(() => {
+            axios.get(config.api.serverUrl, {
+                params : {
+                    requestType: 'getBlock'
+                }
+            })
+                .then((res) => {
+                    dispatch({
+                        type: 'SET_CURRENT_BLOCK',
+                        payload: res.data
+                    })
+                })
+                .catch(() => {
+
+                })
+        }, 60000);
     }
 }

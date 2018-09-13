@@ -6,6 +6,8 @@ import SiteHeader from "../../components/site-header";
 import ShufflingItem from './shuffling-item';
 import {getActiveShfflings, getFinishedShfflings} from '../../../actions/shuffling';
 import {NotificationManager} from "react-notifications";
+import {getTransactionAction} from "../../../actions/transactions";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 const mapStateToPropms = state => ({
     account: state.account.account
 });
@@ -13,7 +15,8 @@ const mapStateToPropms = state => ({
 const mapDispatchToProps = dispatch => ({
     getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
     getFinishedShfflings: (reqParams) => dispatch(getFinishedShfflings(reqParams)),
-
+    getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
 class ActiveShufflings extends React.Component {
@@ -71,6 +74,19 @@ class ActiveShufflings extends React.Component {
             })
         });
     };
+
+    getTransaction = async (data) => {
+        const reqParams = {
+            transaction: data,
+            account: this.props.account
+        };
+
+        const transaction = await this.props.getTransactionAction(reqParams);
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+        }
+
+    }
 
     render () {
         return (
