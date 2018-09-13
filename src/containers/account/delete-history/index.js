@@ -4,6 +4,7 @@ import uuid from "uuid";
 import {connect} from "react-redux";
 import {getDeleteHistory} from "../../../actions/delete-history";
 import DeleteItem from "./deletes";
+import {BlockUpdater} from "../../block-subscriber";
 
 class DeleteHistory extends React.Component {
 
@@ -13,6 +14,18 @@ class DeleteHistory extends React.Component {
 
     componentWillMount() {
         this.getDeleteHistory(this.props.account);
+    }
+
+    listener = data => {
+        this.getDeleteHistory(this.props.account);
+    };
+
+    componentDidMount() {
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -53,7 +66,7 @@ class DeleteHistory extends React.Component {
                                         this.state.deletes.map(el => {
                                             return (
                                                 <DeleteItem
-                                                    delete={el}
+                                                    delete={el}btn btn-primary blue static
                                                 />
                                             )
                                         }) : <p>No delete history</p>

@@ -169,7 +169,7 @@ class AddAlias extends React.Component {
                                                 <label>Data</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text field="aliasURI" placeholder="http://"/>
+                                                <Text field="aliasURI" placeholder="Data"/>
                                             </div>
                                         </div>
                                     }
@@ -177,7 +177,19 @@ class AddAlias extends React.Component {
                                 <div className="input-group-app offset-top display-block">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Fee</label>
+                                            <label htmlFor="feeATM" className="col-form-label">
+                                                Fee&nbsp;
+                                                <span
+                                                    onClick={async () => {
+                                                        setValue("feeATM", 1);
+                                                    }
+                                                    }
+                                                    style={{paddingRight: 0}}
+                                                    className="calculate-fee"
+                                                >
+                                                        Calculate
+                                                    </span>
+                                            </label>
                                         </div>
                                         <div className="col-md-9">
                                             <Text field="feeATM" placeholder="Amount" type={'number'}/>

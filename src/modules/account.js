@@ -10,6 +10,7 @@ export const UPDATE_NOTIFICATIONS = 'UPDATE_NOTIFICATIONS';
 export const SET_PASSPHRASE = 'SET_PASSPHRASE';
 export const LOAD_BLOCKCHAIN_STATUS = 'LOAD_BLOCKCHAIN_STATUS';
 export const GET_FORGING = 'GET_FORGING';
+export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 
 const initialState = {
     settings: null,
@@ -90,6 +91,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 forgingStatus: action.payload
+            };
+        case SET_CURRENT_BLOCK:
+            return {
+                ...state,
+                currentBlock: action.payload
             };
         case LOAD_BLOCKCHAIN_STATUS:
             return {

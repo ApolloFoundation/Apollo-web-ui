@@ -5,13 +5,16 @@ import SiteHeader from "../../components/site-header"
 import MessageItem from './message-item'
 import {connect} from 'react-redux';
 import {getMessages} from "../../../actions/messager";
+import {setBodyModalParamsAction} from "../../../modules/modals";
+import {BlockUpdater} from "../../block-subscriber/index";
 
 const mapStateToProps = state => ({
     account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMessages: (reqParams) => dispatch(getMessages(reqParams))
+    getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 class MyMessages extends React.Component {
@@ -32,6 +35,11 @@ class MyMessages extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.updateMessangerData();
+        });
     }
 
     componentWillReceiveProps() {
@@ -41,6 +49,19 @@ class MyMessages extends React.Component {
             lastIndex: this.state.lastIndex
         });
     }
+
+    componentWillUnmount() {
+        console.log(BlockUpdater);
+        BlockUpdater.removeAllListeners('data');
+    }
+
+    updateMessangerData = () => {
+        this.getMessages({
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+    };
 
     getMessages = async (reqParams) => {
         const messages = await this.props.getMessages(reqParams);
@@ -72,12 +93,19 @@ class MyMessages extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'My messages'}
-                />
+                >
+                    <a
+                        onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', null)}
+                        className="btn primary"
+                    >
+                        Compose message
+                    </a>
+                </SiteHeader>
                 {
                     this.state.messages && this.state.messages.length &&
                     <div className="page-body container-fluid">
                         <div className="account-ledger">
-                            <div className="transaction-table">
+                            <div className="transaction-table message-table">
                                 <div className="transaction-table-body">
                                     <table>
                                         <thead>

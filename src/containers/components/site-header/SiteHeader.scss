@@ -5,9 +5,13 @@
 	position: fixed;
 	z-index: 1;
 	background-color: #F5F5F5;
-	padding: 30px 40px 30px 40px;
+	padding: 27px 40px 26px 40px;
 	width: calc(100% - 220px);
 	top: 0;
+	@media (max-width: 1023px) {
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
 	@media (max-width: 760px) {
 		position: static;
 		width: 100% !important;
@@ -89,13 +93,13 @@
 				}
 			}
 			.breadcrumbs {
-				position: absolute;
-				top: calc(100% + -2px);
-				left: 3px;
-				@media (max-width: 760px) {
-					position: static;
-					display: block;
-				}
+				//position: absolute;
+				//top: calc(100% + -2px);
+				//left: 3px;
+				//@media (max-width: 760px) {
+				//	position: static;
+				//	display: block;
+				//}
 				a {
 					color: #BBBBBB;
 				}
@@ -291,7 +295,7 @@
 										font-size: 12px;
 										line-height: 14px;
 										padding: 0 35px;
-										margin-bottom: 20px;
+										margin: 10px 0;
 										@media (max-width: 760px) {
 											color: #777777;
 											padding: 0;

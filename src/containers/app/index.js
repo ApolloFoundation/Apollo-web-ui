@@ -61,9 +61,11 @@ import style from './App.css';
 import converters from "../../helpers/converters";
 import crypto from '../../helpers/crypto/crypto';
 
+import {startBlockPullingAction} from '../../actions/blocks'
 
 class App extends React.Component {
     componentDidMount() {
+        // this.props.startBlockPullingAction();
         this.props.isLoggedIn();
         this.props.getConstantsAction();
         this.handleModal = this.handleModal.bind(this);
@@ -74,7 +76,7 @@ class App extends React.Component {
 
     state = {
         isMounted: false
-    }
+    };
 
     componentWillReceiveProps(newState) {
         this.setState({...newState});
@@ -195,7 +197,8 @@ const mapDispatchToProps = dispatch => ({
     getConstantsAction: () => dispatch(getConstantsAction()),
 
     //modals
-    setBodyModalType: () => dispatch(setBodyModalType())
+    setBodyModalType: () => dispatch(setBodyModalType()),
+    startBlockPullingAction: () => dispatch(startBlockPullingAction())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -6,7 +6,10 @@
   min-height: 560px;
   //overflow-x: auto;
   //background-color: #FFFFFF;
-
+	@media (max-width: 1025px) {
+		height: auto;
+		min-height: auto;
+	}
   &.no-min-height {
     min-height: auto;
     height: auto;
@@ -37,11 +40,12 @@
     //}
     table {
       width: 100%;
-      border-collapse: collapse;
+      //border-collapse: collapse;
       min-width: 800px;
+      padding: 0 35px;
 
       thead {
-        padding: 35px;
+        padding: 35px 0;
 
         tr {
           td {
@@ -129,7 +133,7 @@
 }
 
 .page-body .transaction-table .transaction-table-body {
-  padding: 35px;
+  padding: 35px 0;
   table {
     thead tr td {
       padding: 0 15px 15px 15px;
@@ -166,7 +170,11 @@
     padding-left: 36px;
   }
   &.align-for-inputs {
-    padding: 0px 0 23px 36px;
+    padding: 0px 0 23px 29px;
+    @media (max-width: 760px) {
+      padding-left: 9px;
+      padding-bottom: 10px;
+    }
   }
   .top-bar {
     & > {

@@ -866,11 +866,10 @@ input {
     text-align: left; }
   .btn-box.inline {
     display: inline-block;
-    position: static !important;
-    margin-right: -15px; }
+    position: static !important; }
     .btn-box.inline > * {
       display: inline;
-      margin-right: 15px; }
+      margin-left: 15px; }
   .btn-box.success > * {
     color: #2ecc71; }
   .btn-box.danger > * {
@@ -1030,6 +1029,11 @@ input {
   .btn.blue {
     background: #00C8FF;
     color: #fff; }
+  .btn.blue-disabled {
+    background: #00C8FF;
+    color: #fff;
+    opacity: 0.5;
+    cursor: default; }
   .btn.gray-lighten {
     background: #E5E5E5;
     color: black; }
@@ -1397,24 +1401,37 @@ table td .btn, table th .btn {
     .assets-exchange .col-xl-6.col-md-12 {
       padding: 0; } }
 
-@media (max-width: 760px) {
-  .transactions-title .btn {
+.transactions-title .title {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+  @media (max-width: 760px) {
+    .transactions-title .title {
+      white-space: normal; } }
+
+@media (max-width: 1024px) {
+  .transactions-title .btn.primary:not(.icon-button) {
     display: none !important; } }
 
-.transactions-title .btn.mobile-btn {
+@media (max-width: 760px) {
+  .transactions-title .btn.icon-button {
+    display: none !important; } }
+
+.transactions-title .btn.icon-button.mobile-btn {
   display: none !important; }
   @media (max-width: 760px) {
-    .transactions-title .btn.mobile-btn {
+    .transactions-title .btn.icon-button.mobile-btn {
       display: inline-block !important; } }
-  .transactions-title .btn.mobile-btn:after {
+  .transactions-title .btn.icon-button.mobile-btn:after {
     display: none !important; }
 
 @media (max-width: 760px) {
-  .transactions-title .btn.active {
+  .transactions-title .btn.icon-button.active {
     border: 1px solid #000; } }
 
 @media (max-width: 760px) {
-  .transactions-title .btn .settings-bar {
+  .transactions-title .btn.icon-button .settings-bar {
     transition: 0.2s;
     position: static;
     display: none !important; } }
@@ -1485,3 +1502,25 @@ table td .btn, table th .btn {
 @media (max-width: 760px) {
   .modal-send-apollo .mobile-class .col-sm-9 {
     padding-left: 120px; } }
+
+.data-storage .transaction-table {
+  height: auto; }
+
+.data-storage .search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; }
+  .data-storage .search-bar .input-group-app {
+    margin-right: 20px;
+    width: calc(50% - 10px);
+    max-width: 300px; }
+    @media (max-width: 760px) {
+      .data-storage .search-bar .input-group-app {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px; } }
+    .data-storage .search-bar .input-group-app:nth-of-type(2n) {
+      margin-right: 0; }
+
+.no-followed-polls {
+  padding: 30px; }

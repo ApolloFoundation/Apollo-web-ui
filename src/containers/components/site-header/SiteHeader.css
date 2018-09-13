@@ -5,9 +5,13 @@
   position: fixed;
   z-index: 1;
   background-color: #F5F5F5;
-  padding: 30px 40px 30px 40px;
+  padding: 27px 40px 26px 40px;
   width: calc(100% - 220px);
   top: 0; }
+  @media (max-width: 1023px) {
+    .page-header {
+      padding-top: 30px;
+      padding-bottom: 30px; } }
   @media (max-width: 760px) {
     .page-header {
       position: static;
@@ -64,18 +68,10 @@
       @media (max-width: 760px) {
         .page-header .page-title-box .page-title-box .title {
           font-size: 26px; } }
-    .page-header .page-title-box .page-title-box .breadcrumbs {
-      position: absolute;
-      top: calc(100% + -2px);
-      left: 3px; }
-      @media (max-width: 760px) {
-        .page-header .page-title-box .page-title-box .breadcrumbs {
-          position: static;
-          display: block; } }
-      .page-header .page-title-box .page-title-box .breadcrumbs a {
-        color: #BBBBBB; }
-      .page-header .page-title-box .page-title-box .breadcrumbs strong a {
-        font-family: "Roboto-Bold"; }
+    .page-header .page-title-box .page-title-box .breadcrumbs a {
+      color: #BBBBBB; }
+    .page-header .page-title-box .page-title-box .breadcrumbs strong a {
+      font-family: "Roboto-Bold"; }
   .page-header .page-title-box .btn {
     margin-top: 0;
     position: relative; }
@@ -221,7 +217,7 @@
                 font-size: 12px;
                 line-height: 14px;
                 padding: 0 35px;
-                margin-bottom: 20px; }
+                margin: 10px 0; }
                 @media (max-width: 760px) {
                   .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
                     color: #777777;

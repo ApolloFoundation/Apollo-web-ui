@@ -1,14 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
 import SiteHeader from "../../components/site-header";
-import Block from "../blocks/block";
-import classNames from "classnames";
+import {BlockUpdater} from "../../block-subscriber";
 import {getGeneratorsAction} from "../../../actions/generators";
 import {formatTimestamp} from "../../../helpers/util/time";
 import Generator from "../../../actions/generators/generator";
 
 class Generators extends React.Component {
-
     state = {
         generators: [],
         lastBlockTime: "",
@@ -27,9 +25,18 @@ class Generators extends React.Component {
         return `${month}/${day}/${year} ${time}`;
     };
 
+    listener = data => {
+        this.getGenerators();
+    }
+
     componentDidMount = () => {
         this.getGenerators();
+        BlockUpdater.on("data", this.listener);
     };
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
+    }
 
     getGenerators = () => this.props.getGeneratorsAction()
         .then(generators => this.setState({

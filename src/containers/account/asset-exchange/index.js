@@ -16,6 +16,7 @@ import DeleteItem from "../delete-history/deletes";
 import TradeHistoryItem from "../trade-history/trade-history-item";
 import {getTransactionAction} from "../../../actions/transactions";
 import OrderItem from "./order/index";
+import {BlockUpdater} from "../../block-subscriber";
 
 class AssetExchange extends React.Component {
     constructor(props) {
@@ -29,9 +30,19 @@ class AssetExchange extends React.Component {
         askOrders: [],
     };
 
+    listener = data => {
+        this.getAsset(this.props.match.params.asset);
+        this.getAssets();
+    };
+
     componentDidMount() {
         this.getAsset(this.props.match.params.asset);
         this.getAssets();
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillReceiveProps(newState) {

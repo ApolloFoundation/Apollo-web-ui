@@ -8,6 +8,7 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {Link} from 'react-router-dom';
 import InfoBox from '../../components/info-box';
+import {BlockUpdater} from "../../block-subscriber/index";
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -40,6 +41,19 @@ class MyVotes extends React.Component {
         this.getMyPolls({
             account: this.props.account,
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getMyPolls({
+                account: this.props.account,
+            });
+        });
+
+    }
+
+    componentWillUnmount() {
+        console.log(BlockUpdater);
+        BlockUpdater.removeAllListeners('data');
     }
 
     componentWillReceiveProps(newState) {

@@ -5,6 +5,8 @@ import classNames from "classnames";
 import uuid from "uuid";
 import MyAssetItem from './my-asset-item';
 import {getAssetAction} from "../../../actions/assets";
+import {BlockUpdater} from "../../block-subscriber/index";
+
 
 const mapStateToProps = state => ({
     assetBalances: state.account.assetBalances
@@ -46,6 +48,15 @@ class MyAssets extends React.Component {
 
     componentDidMount() {
         this.getAssets();
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getAssets();
+        });
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     componentWillReceiveProps() {

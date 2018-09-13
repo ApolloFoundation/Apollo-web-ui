@@ -6,7 +6,7 @@ import {getAllCurrenciesAction} from "../../../actions/currencies";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import Currency from './currency';
-
+import {BlockUpdater} from "../../block-subscriber";
 import classNames from "classnames";
 import uuid from "uuid";
 
@@ -40,6 +40,23 @@ class Currencies extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+    }
+
+    listener = data => {
+        this.getCurrencie({
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+
+    };
+
+    componentDidMount() {
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     onPaginate = (page) => {

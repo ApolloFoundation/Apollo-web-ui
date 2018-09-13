@@ -7,6 +7,7 @@ import ShufflingItem from './../active-shufflings/shuffling-item';
 import {getFinishedShfflings} from '../../../actions/shuffling';
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
+import {BlockUpdater} from "../../block-subscriber";
 
 const mapStateToPropms = state => ({
     account: state.account.account
@@ -30,11 +31,23 @@ class FinishedShufflings extends React.Component {
         }
     }
 
+    listener = data => {
+        this.getFinishedShfflings({
+            firstIndex: 0,
+            lastIndex: 14
+        })
+    };
+
     componentDidMount() {
         this.getFinishedShfflings({
             firstIndex: 0,
             lastIndex: 14
         })
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener);
     }
 
     getFinishedShfflings   = async (reqParams) => {

@@ -175,7 +175,19 @@ class SellAlias extends React.Component {
                                             <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
-                                                        <label>Fee</label>
+                                                        <label htmlFor="feeATM" className="col-form-label">
+                                                            Fee&nbsp;
+                                                            <span
+                                                                onClick={async () => {
+                                                                    setValue("feeATM", 1);
+                                                                }
+                                                                }
+                                                                style={{paddingRight: 0}}
+                                                                className="calculate-fee"
+                                                            >
+                                                        Calculate
+                                                    </span>
+                                                        </label>
                                                     </div>
                                                     <div className="col-md-9">
                                                         <Text field="feeATM" placeholder="Amount" type={'number'}/>
@@ -252,7 +264,19 @@ class SellAlias extends React.Component {
                                             <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
-                                                        <label>Fee</label>
+                                                        <label htmlFor="feeATM" className="col-form-label">
+                                                            Fee&nbsp;
+                                                            <span
+                                                                onClick={async () => {
+                                                                    setValue("feeATM", 1);
+                                                                }
+                                                                }
+                                                                style={{paddingRight: 0}}
+                                                                className="calculate-fee"
+                                                            >
+                                                        Calculate
+                                                    </span>
+                                                        </label>
                                                     </div>
                                                     <div className="col-md-9">
                                                         <Text field="feeATM" placeholder="Amount" type={'number'}/>

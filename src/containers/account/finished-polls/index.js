@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import {getpollsAction} from "../../../actions/polls";
-
+import {BlockUpdater} from "../../block-subscriber";
 import FinishedpollsItem from "./finished-pools-item";
 import classNames from "classnames";
 import {getTransactionAction} from "../../../actions/transactions";
@@ -26,12 +26,20 @@ class Finishedpolls extends React.Component {
         this.getTransaction   = this.getTransaction.bind(this);
     }
 
+    listener = data => {
+        this.getFinishedpolls()
+    };
+
     componentDidMount() {
         this.getFinishedpolls({
             firstIndex: 0,
             lastIndex:  9,
         });
+        BlockUpdater.on("data", this.listener);
+    }
 
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillReceiveProps(newState) {

@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import {getTradesHistoryAction}   from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getTransactionAction}     from "../../../actions/transactions";
+import {BlockUpdater} from "../../block-subscriber";
 
 
 const mapStateToProps = state => ({
@@ -41,7 +42,20 @@ class TradeHistory extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
             account: this.props.accountRS,
-        })
+        });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getTradesHistory({
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex,
+                account: this.props.accountRS,
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     componentWillReceiveProps() {

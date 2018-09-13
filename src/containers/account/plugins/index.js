@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getPluginsAction} from '../../../actions/plugins';
 import SiteHeader from '../../components/site-header'
+import {BlockUpdater} from "../../block-subscriber";
 
 class Plugins extends React.Component {
     constructor(props) {
@@ -18,6 +19,17 @@ class Plugins extends React.Component {
         this.getPlugins({
             account: this.props.account
         });
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.getPlugins({
+                account: this.props.account
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
     }
 
     async getPlugins (reqParams) {

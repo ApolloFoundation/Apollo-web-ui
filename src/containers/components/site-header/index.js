@@ -673,7 +673,7 @@ class SiteHeader extends React.Component {
 														<li><Link onClick={() => this.props.setBodyModalType(null)} className="option" to="/scheduled-transactions">Scheduled
 															transactions</Link></li>
 														<li><Link className="option" onClick={() => this.props.setBodyModalType(null)}
-														          to="/funding-monitors">monitors</Link></li>
+														          to="/funding-monitors">Monitors</Link></li>
 													</ul>
 												</div>
 												<div className="options-col">
