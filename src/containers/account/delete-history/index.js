@@ -53,7 +53,7 @@ class DeleteHistory extends React.Component {
                                         this.state.deletes.map(el => {
                                             return (
                                                 <DeleteItem
-                                                    delete={el}
+                                                    delete={el}btn btn-primary blue static
                                                 />
                                             )
                                         }) : <p>No delete history</p>
