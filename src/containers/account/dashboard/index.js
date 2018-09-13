@@ -392,13 +392,13 @@ class Dashboard extends React.Component {
 										</div>
 									</div>
 									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
-									<button
-										className="btn btn-right gray round round-bottom-right round-top-left absolute"
-										data-modal="sendMoney"
-									>
-										Buy/sell&nbsp;
-										<i className="arrow zmdi zmdi-chevron-right"/>
-									</button>
+									{/*<button*/}
+										{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
+										{/*data-modal="sendMoney"*/}
+									{/*>*/}
+										{/*Buy/sell&nbsp;*/}
+										{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
+									{/*</button>*/}
 								</div>
 							</div>
 							<div className="page-body-item ">
