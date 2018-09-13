@@ -131,8 +131,6 @@ export function getForging() {
 export function setForging(requestType) {
     return (dispatch, getState) => {
         const account = getState().account;
-        // console.log(account);
-        //
         const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
         // dispatch({
         //     type: 'SET_PASSPHRASE',

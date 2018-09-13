@@ -6,7 +6,35 @@ const Alias = (props) => (
     <tr>
         <td>{props.aliasName}</td>
         <td className="blue-link-text"><a>{props.aliasURI}</a></td>
-        <td>Registered</td>
+        {
+            props.priceATM &&
+            props.priceATM === '0' &&
+            props.userAccount === props.buyer &&
+            <td>CANCELLING SALE</td>
+        }
+        {
+            props.priceATM &&
+            props.priceATM === '0' &&
+            props.userAccount !== props.buyer &&
+            <td>TRANSFER IN PROGRESS</td>
+        }
+        {
+            props.priceATM &&
+            props.priceATM !== '0' &&
+            typeof props.buyer !== "undefined" &&
+            <td>FOR SALE (DIRECT)</td>
+        }
+        {
+            props.priceATM &&
+            props.priceATM !== '0' &&
+            !props.buyer &&
+            <td>FOR SALE (INDIRECT)</td>
+        }
+        {
+            !props.priceATM &&
+            <td>REGISTERED</td>
+        }
+
         <td className="align-right">
             <div className="btn-box inline">
                 <a
@@ -19,12 +47,41 @@ const Alias = (props) => (
                     className="btn primary blue"
                     onClick={() => props.setBodyModalParamsAction('TRANSFER_ALIAS', props.alias)}
                 >
-                    Transfer</a>
+                    Transfer
+                </a>
                 <a
                     className="btn primary blue"
                     onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
                 >
-                    Sell</a>
+                    Sell
+                </a>
+                {
+                    (
+                        props.priceATM &&
+                        props.priceATM !== '0' &&
+                        !props.buyer
+                    ) &&
+                    <a
+                        className="btn primary blue"
+                        onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
+                    >
+                        Cancel Sale
+                    </a>
+                }
+                {
+                    (
+                        props.priceATM &&
+                        props.priceATM !== '0' &&
+                        typeof props.buyer !== "undefined"
+                    ) &&
+                    <a
+                        className="btn primary blue"
+                        onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
+                    >
+                        Cancel Sale
+                    </a>
+                }
+
                 <a
                     className="btn primary"
                     onClick={() => props.setBodyModalParamsAction('DELETE_ALIAS', props.alias)}
@@ -35,9 +92,9 @@ const Alias = (props) => (
     </tr>
 );
 
-const mapStateToProps = () => {
-
-};
+const mapStateToProps = (state) => ({
+    userAccount: state.account.account
+});
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
