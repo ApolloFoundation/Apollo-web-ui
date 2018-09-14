@@ -34,7 +34,7 @@ class Pie extends React.Component{
 
                     return <Slice
                         vote={this.props.votes[sliceIndex]}
-                        key={ sliceIndex }
+                        key={uuid()}
                         value={ slice }
                         percent={ true }
                         percentValue={ percent.toFixed(1) }

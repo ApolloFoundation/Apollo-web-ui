@@ -7,6 +7,7 @@ import {getDGSGoodsAction} from "../../../../actions/marketplace";
 import classNames from "classnames";
 
 import '../MarketPLace.css';
+import uuid from "uuid";
 
 const mapDispatchToProps = dispatch => ({
     getDGSGoodsAction: (reqParams) => dispatch(getDGSGoodsAction(reqParams))
@@ -121,6 +122,7 @@ class ResentMarketplaceListing extends React.Component {
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
                                         <div
+                                            key={uuid()}
                                             className={classNames({
                                                 'marketplace-item' : this.state.isGrid,
                                                 'marketplace-item--full-width': !this.state.isGrid,

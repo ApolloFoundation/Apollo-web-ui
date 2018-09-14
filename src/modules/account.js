@@ -134,7 +134,6 @@ export const setSetings = (settings) => {
 };
 
 export const updateStoreNotifications = (notifications) => {
-    console.log(notifications);
     return dispatch => {
         dispatch({
             type: UPDATE_NOTIFICATIONS,

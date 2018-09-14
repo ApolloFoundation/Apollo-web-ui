@@ -133,6 +133,7 @@ class TradeHistory extends React.Component {
                                         this.state.trades.map((el, index) => {
                                             return (
                                                 <TradeHistoryItem
+                                                    key={uuid()}
                                                     transfer={el}
                                                     setTransaction={this.getTransaction}
                                                 />

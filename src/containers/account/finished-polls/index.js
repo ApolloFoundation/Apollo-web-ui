@@ -115,6 +115,7 @@ class Finishedpolls extends React.Component {
                                             this.state.finishedpolls.map((el, index) => {
                                                 return (
                                                     <FinishedpollsItem
+                                                        key={uuid()}
                                                         {...el}
                                                         activepolls
                                                         getTransaction={this.getTransaction}

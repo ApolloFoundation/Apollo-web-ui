@@ -141,6 +141,7 @@ class ActiveShufflings extends React.Component {
                                             this.state.activeShuffling.map((el, index) => {
                                                 return (
                                                     <ShufflingItem
+                                                        key={uuid()}
                                                         {...el}
                                                         getTransaction={this.getTransaction}
                                                     />
@@ -176,6 +177,7 @@ class ActiveShufflings extends React.Component {
                                             this.state.finishedShufflings.map((el, index) => {
                                                 return (
                                                     <ShufflingItem
+                                                        key={uuid()}
                                                         finished
                                                         {...el}
                                                         getTransaction={this.getTransaction}

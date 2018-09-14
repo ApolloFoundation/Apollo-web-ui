@@ -247,7 +247,6 @@ export function updateNotifications() {
             const time = await dispatch(getTime());
 
             var fromTS = Math.max(time.time - 60 * 60 * 24 * 14, 0);
-            console.log(fromTS);
             if (account) {
                 const transactions = await dispatch(getTransactionsAction({
                     "account": account,

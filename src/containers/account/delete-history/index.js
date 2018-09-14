@@ -66,7 +66,8 @@ class DeleteHistory extends React.Component {
                                         this.state.deletes.map(el => {
                                             return (
                                                 <DeleteItem
-                                                    delete={el}btn btn-primary blue static
+                                                    key={uuid()}
+                                                    delete={el}
                                                 />
                                             )
                                         }) : <p>No delete history</p>

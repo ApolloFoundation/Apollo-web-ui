@@ -5,6 +5,7 @@ import {getPeerAction, getPeersAction, getPeersInfoAction} from "../../../action
 import Peer from './peer'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
+import uuid from "uuid";
 
 const mapDispatchToProps = dispatch => ({
     getPeersAction: (requestParams) => dispatch(getPeersAction(requestParams)),
@@ -133,6 +134,7 @@ class Peers extends React.Component {
                                             this.state.peers.map(peer => {
                                                 return (
                                                     <Peer {...peer}
+                                                          key={uuid()}
                                                           onTransactionSelected={() => this.getPeer(peer.address)}
                                                           onConnectClick={() => this.connectPeer(peer.address)}
                                                           onBlacklistClick={() => this.blacklistPeer(peer.address)}

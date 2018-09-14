@@ -982,7 +982,7 @@ function processAjaxRequest(requestType, data, callback, options) {
         //     return;
         // }
 
-        if (data.referencedTransactionFullHash) {
+        /*if (data.referencedTransactionFullHash) {
             if (!/^[a-z0-9]{64}$/.test(data.referencedTransactionFullHash)) {
                 callback({
                     "errorCode": -1,
@@ -990,7 +990,7 @@ function processAjaxRequest(requestType, data, callback, options) {
                 }, data);
                 return;
             }
-        }
+        }*/
 
         var secretPhrase = "";
 

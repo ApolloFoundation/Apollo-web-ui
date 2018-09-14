@@ -13,6 +13,7 @@ import {getDGSGoodsAction,
         getDGSPurchasesAction,
         getDGSTagsAction,} from '../../../actions/marketplace'
 import './MarketPLace.css';
+import uuid from "uuid";
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -311,7 +312,7 @@ class Marketplace extends React.Component {
                                             this.state.getDGSTags &&
                                             this.state.getDGSTags.map((el, index) => {
                                                 return (
-                                                    <Link to={'/marketplace/' + el.tag} className="btn primary">{el.tag}&nbsp;[{el.totalCount}]</Link>
+                                                    <Link key={uuid()} to={'/marketplace/' + el.tag} className="btn primary">{el.tag}&nbsp;[{el.totalCount}]</Link>
                                                 );
                                             })
                                         }
@@ -366,7 +367,7 @@ class Marketplace extends React.Component {
                                         {
                                             this.state.getDGSGoods.map((el, index) => {
                                                 return (
-                                                    <div className="marketplace-row-item col-xl-2">
+                                                    <div key={uuid()} className="marketplace-row-item col-xl-2">
                                                         <MarketplaceItem
                                                             fullHeight
                                                             relative={true}
@@ -392,7 +393,7 @@ class Marketplace extends React.Component {
                                         {
                                             this.state.getDGSPurchases.map((el, index) => {
                                                 return (
-                                                    <div className="marketplace-row-item col-xl-2">
+                                                    <div key={uuid()} className="marketplace-row-item col-xl-2">
                                                         <MarketplaceItem
                                                             fullHeight
                                                             {...el}

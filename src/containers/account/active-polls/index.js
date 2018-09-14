@@ -154,6 +154,7 @@ class Activepolls extends React.Component {
                                             this.state.activepolls.map((el, index) => {
                                                 return (
                                                     <PoolItem
+                                                        key={uuid()}
                                                         {...el}
                                                         activepolls
                                                         getTransaction={this.getTransaction}
@@ -197,6 +198,7 @@ class Activepolls extends React.Component {
                                                 this.state.finishedpolls.map((el, index) => {
                                                     return (
                                                         <PoolItem
+                                                            key={uuid()}
                                                             {...el}
                                                             activepolls
                                                             getTransaction={this.getTransaction}

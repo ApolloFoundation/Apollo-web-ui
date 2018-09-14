@@ -112,6 +112,7 @@ class FinishedShufflings extends React.Component {
                                     this.state.finishedShufflings.map((el, index) => {
                                         return (
                                             <ShufflingItem
+                                                key={uuid()}
                                                 {...el}
                                                 getTransaction={this.getTransaction}
                                             />

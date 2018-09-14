@@ -10,6 +10,7 @@ import classNames from "classnames";
 import {getNextBlockGeneratorsAction} from '../../../actions/blocks'
 import {formatTimestamp} from "../../../helpers/util/time";
 import {getTime} from '../../../actions/login/index'
+import uuid from "uuid";
 
 class Blocks extends React.Component {
 	constructor(props) {
@@ -189,6 +190,7 @@ class Blocks extends React.Component {
 										this.state.blocks.map((el, index) => {
 											return (
 												<Block
+                                                    key={uuid()}
 													block={el}
 													setBlockInfo={this.getBlock}
 												/>

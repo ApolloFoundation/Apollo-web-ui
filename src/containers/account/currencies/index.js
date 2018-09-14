@@ -122,6 +122,7 @@ class Currencies extends React.Component {
                                     this.state.currencies.map((el, index) => {
                                         return (
                                             <Currency
+                                                key={uuid()}
                                                 {...el}
                                                 getTransaction={this.getTransaction}
                                             />

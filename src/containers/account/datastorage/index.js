@@ -260,6 +260,7 @@ class DataStorage extends React.Component {
 
                                             return (
                                                 <Link
+                                                    key={uuid()}
                                                     to={'/data-storage/tag=' + el.tag}
                                                     className={classNames({
                                                         'btn': true,
@@ -300,6 +301,7 @@ class DataStorage extends React.Component {
                                         this.state.taggedData.map((el, index) => {
                                             return (
                                                 <DataStorageItem
+                                                    key={uuid()}
                                                     {...el}
                                                     getTransaction={this.getTransaction}
                                                 />
