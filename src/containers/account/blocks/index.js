@@ -40,7 +40,6 @@ class Blocks extends React.Component {
     };
 
     componentDidMount() {
-        console.log(this.getNextBlock());
         BlockUpdater.on("data", this.listener)
     }
 
