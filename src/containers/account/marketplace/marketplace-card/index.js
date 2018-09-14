@@ -196,7 +196,9 @@ const MarketplaceItem = (props, history) => (
 								<div className="seller">
 									<div className="name">Tags:</div>
 									<div className="tags">
-										{props.parsedTags.map((el, index) => {
+										{
+                                            props.parsedTags &&
+											props.parsedTags.map((el, index) => {
 											return <Link to={'/marketplace/' + el} style={{marginLeft: 15}}
 											             className="btn static primary">{el}</Link>
 										})}
