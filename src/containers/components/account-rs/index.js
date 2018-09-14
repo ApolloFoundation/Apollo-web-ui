@@ -10,7 +10,7 @@ class AccountRS extends React.Component {
             contacts: JSON.parse(localStorage.getItem('APLContacts')),
             inputValue: {
                 mask: 'APL-****-****-****-*****',
-                value: ''
+                value: this.props.defaultValue || ''
             },
             isContacts: false
         };
@@ -64,27 +64,29 @@ class AccountRS extends React.Component {
                 >
                     <i className="zmdi zmdi-account" />
                 </a>
-                <div
-                    className={classNames({
-                        'contacts-list': true,
-                        'active': this.state.isContacts
-                    })}
-                >
-                    <ul>
-                        {
-                            this.state.contacts &&
-                            this.state.contacts.map((el, index) => {
-                                return (
-                                    <li key={index}>
-                                        <a onClick={() => this.handleFillForm(el.accountRS)}>
-                                            {el.name}
-                                        </a>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                </div>
+                {
+                    this.state.contacts &&
+                    <div
+                        className={classNames({
+                            'contacts-list': true,
+                            'active': this.state.isContacts
+                        })}
+                    >
+                        <ul>
+                            {
+                                this.state.contacts.map((el, index) => {
+                                    return (
+                                        <li key={index}>
+                                            <a onClick={() => this.handleFillForm(el.accountRS)}>
+                                                {el.name}
+                                            </a>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
+                }
             </React.Fragment>
 
         )

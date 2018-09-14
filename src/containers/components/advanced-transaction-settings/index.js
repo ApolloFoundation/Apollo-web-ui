@@ -2,22 +2,39 @@ import React from 'react';
 import classNames from "classnames";
 import {connect} from 'react-redux';
 import AccountRS from '../../components/account-rs';
+import InputForm from '../../components/input-form';
+import CustomSelect from '../../components/select';
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {getBlockAction} from "../../../actions/blocks";
+import {getCurrencyAction} from "../../../actions/currencies";
+
+const minBalanceType = [
+    { value: '0', label: 'No min balance necessary' },
+    { value: '1', label: 'Account Balance' },
+    { value: '2', label: 'Asset Balance' },
+    { value: '3', label: 'Currency Balance' }
+];
+const hashAlgorithm = [
+    { value: '2', label: 'SHA256' },
+    { value: '6', label: 'RIPEMD160' },
+    { value: '62', label: 'RIPEMD160_SHA256' }
+];
 
 const mapDispatchToProps = dispatch => ({
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
+    getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams))
 });
 
 class AdvancedSettings extends React.Component {
     constructor(props) {
-        super(props)
-    }
+        super(props);
+        this.state = {
+            activeTab: 0,
+            currency: '-',
+            block: null
+        };
 
-    state = {
-        activeTab: 0,
-        block: null
-    };
+    }
 
     handleFormSubmit = (values) => {
         Object.keys(values).map((el) => {
@@ -45,15 +62,32 @@ class AdvancedSettings extends React.Component {
         }
     };
 
+    getCurrency = async (reqParams) => {
+        const result = await this.props.getCurrencyAction(reqParams);
+
+        if (result) {
+            this.setState({ currency: result.currency });
+        } else {
+            this.setState({ currency: '-' });
+        }
+    };
+
+    handleNotBroadcast = (value) => {
+        if (value === false) {
+            this.props.setValue('doNotSign', false);
+        }
+    };
+
+    handleAddNote = (value) => {
+        if (value === false) {
+            this.props.setValue('note_to_self', '');
+        }
+    };
+
     render () {
+        const setValue = this.props.setValue;
         return (
-            <Form
-                onSubmit={(values) => this.handleFormSubmit(values)}
-                render={({
-                             submitForm,setValue
-                         }) => (
-                    <form
-                        onChange={submitForm}
+                    <div
                         className={classNames({
                             'form-tabulator': true,
                             'active': this.props.advancedState,
@@ -150,33 +184,58 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="referencedHash"
-                                            placeholder="Referenced transaction full hash"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="referencedTransactionFullHash"
+                                            placeholder="Referenced transaction full hash"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row form-group-grey">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={this.handleNotBroadcast}
                                                       field="doNotBroadcast"/>
                                             <label className="form-check-label custom-control-label">
                                                 Do not broadcast
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox">
+                                        {this.props.getFormState().values.doNotBroadcast &&
+                                            <div className="form-check custom-checkbox mb-15">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          field="doNotSign"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    Do not sign
+                                                </label>
+                                            </div>
+                                        }
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="addNote"/>
+                                                      onChange={this.handleAddNote}
+                                                      field="add_note_to_self"/>
                                             <label className="form-check-label custom-control-label">
                                                 Add note to self?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.getFormState().values.add_note_to_self &&
+                                    <div className="form-group row form-group-grey mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Note to self
+                                        </label>
+                                        <div className="col-sm-9 mb-0">
+                                            <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
+                                        </div>
+                                        <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                            This note is encrypted
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div
@@ -188,22 +247,21 @@ class AdvancedSettings extends React.Component {
                             <div className="form-tab">
                                 <div className="form-group row form-group-grey">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
+                                    <div className="col-sm-9 input-group input-group-sm mb-0">
                                         {
                                             this.state.block &&
-                                            <Text
+                                            <InputForm
                                                 type="number"
-                                                className="form-control"
-                                                field="finishHeight"
+                                                field="phasingFinishHeight"
                                                 defaultValue={this.state.block.height}
                                                 placeholder="Finish height"
-                                                aria-describedby="finishHeightText"/>
+                                                setValue={setValue}/>
                                         }
 
                                         <div className="input-group-append">
                                             {
                                                 this.state.block &&
-                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                                <span className="input-group-text">{this.state.block.height}</span>
                                             }
                                         </div>
                                     </div>
@@ -215,33 +273,57 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="referencedHash"
-                                            placeholder="Referenced transaction full hash"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="referencedTransactionFullHash"
+                                            placeholder="Referenced transaction full hash"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row form-group-grey">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={this.handleNotBroadcast}
                                                       field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label" >
+                                            <label className="form-check-label custom-control-label">
                                                 Do not broadcast
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox">
+                                        {this.props.getFormState().values.doNotBroadcast &&
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="addNote"/>
+                                                      field="doNotSign"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Do not sign
+                                            </label>
+                                        </div>
+                                        }
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="add_note_to_self"/>
                                             <label className="form-check-label custom-control-label">
                                                 Add note to self?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.getFormState().values.add_note_to_self &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Note to self
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
+                                    </div>
+                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                        This note is encrypted
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
                         <div
@@ -255,23 +337,26 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Number of accounts
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
                                             type="number"
-                                            className="form-control"
-                                            field="numberAccounts"
-                                            placeholder="Number of accounts"/>
+                                            field="phasingQuorum"
+                                            placeholder="Number of accounts"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-grey">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="number"
-                                            className="form-control"
-                                            field="finishHeight"
-                                            placeholder="Finish height"
-                                            aria-describedby="finishHeightText"/>
+                                    <div className="col-sm-9 input-group input-group-sm mb-0">
+                                        {
+                                            this.state.block &&
+                                            <InputForm
+                                                type="number"
+                                                field="phasingFinishHeight"
+                                                defaultValue={this.state.block.height}
+                                                placeholder="Finish height"
+                                                setValue={setValue}/>
+                                        }
                                         <div className="input-group-append">
                                             {
                                                 this.state.block &&
@@ -288,33 +373,37 @@ class AdvancedSettings extends React.Component {
                                         <label className="col-sm-3 col-form-label">
                                             Accounts (whitelist)
                                         </label>
-                                        <div className="col-sm-9 no-left-padding">
+                                        <div className="col-sm-9">
                                             <div className="iconned-input-field">
                                                 <AccountRS
                                                     value={''}
-                                                    field={'account'}
+                                                    field={'phasingWhitelisted'}
                                                     setValue={setValue}
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3 no-left-padding">
+                                {/*<div className="form-group-grey row mb-15">
+                                    <div className="col-sm-9 offset-sm-3">
                                         <a className="no-margin btn static blue">
                                             Add account
                                         </a>
                                     </div>
-                                </div>
+                                </div>*/}
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Min balance type
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                    <div className="col-sm-9 mb-0">
                                         <div className="form-group-select">
-                                            <select className="form-control">
-                                                <option selected>No min balance necessary</option>
-                                            </select>
+                                            <CustomSelect
+                                                className="form-control"
+                                                field={'phasingMinBalanceModel'}
+                                                defaultValue={minBalanceType[0]}
+                                                setValue={setValue}
+                                                options={minBalanceType}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -322,33 +411,57 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="referencedHash"
-                                            placeholder="Referenced transaction full hash"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="referencedTransactionFullHash"
+                                            placeholder="Referenced transaction full hash"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row form-group-grey">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={this.handleNotBroadcast}
                                                       field="doNotBroadcast"/>
                                             <label className="form-check-label custom-control-label">
                                                 Do not broadcast
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox">
+                                        {this.props.getFormState().values.doNotBroadcast &&
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="addNote"/>
+                                                      field="doNotSign"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Do not sign
+                                            </label>
+                                        </div>
+                                        }
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="add_note_to_self"/>
                                             <label className="form-check-label custom-control-label">
                                                 Add note to self?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.getFormState().values.add_note_to_self &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Note to self
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
+                                    </div>
+                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                        This note is encrypted
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
                         <div
@@ -362,13 +475,13 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Amount
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            className="form-control"
-                                            field="account"
-                                            placeholder="Account"
-                                            aria-describedby="amountText"/>
+                                    <div
+                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
+                                        <InputForm
+                                            type="number"
+                                            field="phasingQuorumAPL"
+                                            placeholder="Amount"
+                                            setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">APL</span>
                                         </div>
@@ -376,17 +489,20 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="form-group row form-group-grey">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="number"
-                                            className="form-control"
-                                            field="finishHeight"
-                                            placeholder="Finish height"
-                                            aria-describedby="finishHeightText"/>
+                                    <div className="col-sm-9 input-group input-group-sm mb-0">
+                                        {
+                                            this.state.block &&
+                                            <InputForm
+                                                type="number"
+                                                field="phasingFinishHeight"
+                                                defaultValue={this.state.block.height}
+                                                placeholder="Finish height"
+                                                setValue={setValue}/>
+                                        }
                                         <div className="input-group-append">
                                             {
                                                 this.state.block &&
-                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                                <span className="input-group-text">{this.state.block.height}</span>
                                             }
                                         </div>
                                     </div>
@@ -394,38 +510,42 @@ class AdvancedSettings extends React.Component {
                                         2018/06/19 09:32 am
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Accounts (whitelist)</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            className="form-control"
-                                            field="account"
-                                            placeholder="Account"
-                                            aria-describedby="accountIcon"/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text input-group-icon">
-                                                <i className="zmdi zmdi-account" />
-                                            </span>
+                                <div className="input-group-app form-group mb-15 display-block inline user">
+                                    <div className="row form-group-grey">
+                                        <label className="col-sm-3 col-form-label">
+                                            Accounts (whitelist)
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <div className="iconned-input-field">
+                                                <AccountRS
+                                                    value={''}
+                                                    field={'phasingWhitelisted'}
+                                                    setValue={setValue}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3 no-left-padding">
+                                {/*<div className="form-group-grey row mb-15">
+                                    <div className="col-sm-9 offset-sm-3">
                                         <a className="no-margin btn static blue">
                                             Add account
                                         </a>
                                     </div>
-                                </div>
+                                </div>*/}
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Min balance type
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                    <div className="col-sm-9 mb-0">
                                         <div className="form-group-select">
-                                            <select className="form-control">
-                                                <option selected>No min balance necessary</option>
-                                            </select>
+                                            <CustomSelect
+                                                className="form-control"
+                                                field={'phasingMinBalanceModel'}
+                                                defaultValue={minBalanceType[0]}
+                                                setValue={setValue}
+                                                options={minBalanceType}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -433,33 +553,57 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="referencedHash"
-                                            placeholder="Referenced transaction full hash"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="referencedTransactionFullHash"
+                                            placeholder="Referenced transaction full hash"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row form-group-grey">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={this.handleNotBroadcast}
                                                       field="doNotBroadcast"/>
                                             <label className="form-check-label custom-control-label">
                                                 Do not broadcast
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox">
+                                        {this.props.getFormState().values.doNotBroadcast &&
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="addNote"/>
+                                                      field="doNotSign"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Do not sign
+                                            </label>
+                                        </div>
+                                        }
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="add_note_to_self"/>
                                             <label className="form-check-label custom-control-label">
                                                 Add note to self?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.getFormState().values.add_note_to_self &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Note to self
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
+                                    </div>
+                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                        This note is encrypted
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
                         <div
@@ -473,30 +617,32 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Asset quantity
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            className="form-control"
-                                            field="quantity"
+                                    <div
+                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
+                                        <InputForm
+                                            field="phasingQuorumATUf"
                                             placeholder="Asset quantity"
-                                            aria-describedby="quantityText" />
+                                            setValue={setValue}/>
                                         <div className="input-group-append">
                                             {
                                                 this.state.block &&
-                                                <span className="input-group-text" >{this.state.block.height}</span>
+                                                <span className="input-group-text">{this.state.block.height}</span>
                                             }
                                         </div>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-grey">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="number"
-                                            className="form-control"
-                                            field="finishHeight"
-                                            placeholder="Finish height"
-                                            aria-describedby="finishHeightText"/>
+                                    <div className="col-sm-9 input-group input-group-sm mb-0">
+                                        {
+                                            this.state.block &&
+                                            <InputForm
+                                                type="number"
+                                                field="phasingFinishHeight"
+                                                defaultValue={this.state.block.height}
+                                                placeholder="Finish height"
+                                                setValue={setValue}/>
+                                        }
                                         <div className="input-group-append">
                                             {
                                                 this.state.block &&
@@ -512,46 +658,49 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Asset
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            className="form-control"
-                                            field="asset"
-                                            placeholder="AssetID"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="phasingHolding"
+                                            placeholder="AssetID"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Accounts (whitelist)</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            className="form-control"
-                                            field="account"
-                                            placeholder="Account"
-                                            aria-describedby="accountIcon"/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text input-group-icon">
-                                                <i className="zmdi zmdi-account" />
-                                            </span>
+                                <div className="input-group-app form-group mb-15 display-block inline user">
+                                    <div className="row form-group-grey">
+                                        <label className="col-sm-3 col-form-label">
+                                            Accounts (whitelist)
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <div className="iconned-input-field">
+                                                <AccountRS
+                                                    value={''}
+                                                    field={'phasingWhitelisted'}
+                                                    setValue={setValue}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3 no-left-padding">
+                                {/*<div className="form-group-grey row mb-15">
+                                    <div className="col-sm-9 offset-sm-3">
                                         <a className="no-margin btn static blue">
                                             Add account
                                         </a>
                                     </div>
-                                </div>
+                                </div>*/}
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Min balance type
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                    <div className="col-sm-9 mb-0">
                                         <div className="form-group-select">
-                                            <select className="form-control">
-                                                <option selected>No min balance necessary</option>
-                                            </select>
+                                            <CustomSelect
+                                                className="form-control"
+                                                field={'phasingMinBalanceModel'}
+                                                defaultValue={minBalanceType[0]}
+                                                setValue={setValue}
+                                                options={minBalanceType}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -559,33 +708,57 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="referencedHash"
-                                            placeholder="Referenced transaction full hash"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="referencedTransactionFullHash"
+                                            placeholder="Referenced transaction full hash"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row form-group-grey">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={this.handleNotBroadcast}
                                                       field="doNotBroadcast"/>
                                             <label className="form-check-label custom-control-label">
                                                 Do not broadcast
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox">
+                                        {this.props.getFormState().values.doNotBroadcast &&
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="addNote"/>
+                                                      field="doNotSign"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Do not sign
+                                            </label>
+                                        </div>
+                                        }
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="add_note_to_self"/>
                                             <label className="form-check-label custom-control-label">
                                                 Add note to self?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.getFormState().values.add_note_to_self &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Note to self
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
+                                    </div>
+                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                        This note is encrypted
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
                         <div
@@ -599,13 +772,12 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Currency units
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            className="form-control"
-                                            field="units"
+                                    <div
+                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
+                                        <InputForm
+                                            field="phasingQuorumATUf"
                                             placeholder="Currency units"
-                                            aria-describedby="unitsText"/>
+                                            setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">Units</span>
                                         </div>
@@ -613,17 +785,20 @@ class AdvancedSettings extends React.Component {
                                 </div>
                                 <div className="form-group row form-group-grey">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="number"
-                                            className="form-control"
-                                            field="finishHeight"
-                                            placeholder="Finish height"
-                                            aria-describedby="finishHeightText"/>
+                                    <div className="col-sm-9 input-group input-group-sm mb-0">
+                                        {
+                                            this.state.block &&
+                                            <InputForm
+                                                type="number"
+                                                field="phasingFinishHeight"
+                                                defaultValue={this.state.block.height}
+                                                placeholder="Finish height"
+                                                setValue={setValue}/>
+                                        }
                                         <div className="input-group-append">
                                             {
                                                 this.state.block &&
-                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                                <span className="input-group-text">{this.state.block.height}</span>
                                             }
                                         </div>
                                     </div>
@@ -635,53 +810,53 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Currency
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-double input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            className="form-control"
-                                            field="currency"
-                                            placeholder="Code"/>
+                                    <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                        <InputForm
+                                            field="phasingHoldingCurrencyCode"
+                                            placeholder="Code"
+                                            onChange={(code) => this.getCurrency({code})}
+                                            setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <Text
-                                                type="text"
-                                                className="form-control input-group-text"
-                                                field="ID"
-                                                placeholder="ID: - "/>
+                                            <span className="input-group-text">ID: {this.state.currency}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Accounts (whitelist)</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="text"
-                                            className="form-control"
-                                            field="account"
-                                            placeholder="Account"
-                                            aria-describedby="accountIcon" />
-                                        <div className="input-group-append">
-                                            <span className="input-group-text input-group-icon" >
-                                                <i className="zmdi zmdi-account" />
-                                            </span>
+                                <div className="input-group-app form-group mb-15 display-block inline user">
+                                    <div className="row form-group-grey">
+                                        <label className="col-sm-3 col-form-label">
+                                            Accounts (whitelist)
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <div className="iconned-input-field">
+                                                <AccountRS
+                                                    value={''}
+                                                    field={'phasingWhitelisted'}
+                                                    setValue={setValue}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3 no-left-padding">
+                                {/*<div className="form-group-grey row mb-15">
+                                    <div className="col-sm-9 offset-sm-3">
                                         <a className="no-margin btn static blue">
                                             Add account
                                         </a>
                                     </div>
-                                </div>
+                                </div>*/}
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Min balance type
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                    <div className="col-sm-9 mb-0">
                                         <div className="form-group-select">
-                                            <select className="form-control">
-                                                <option selected>No min balance necessary</option>
-                                            </select>
+                                            <CustomSelect
+                                                className="form-control"
+                                                field={'phasingMinBalanceModel'}
+                                                defaultValue={minBalanceType[0]}
+                                                setValue={setValue}
+                                                options={minBalanceType}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -689,33 +864,57 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="referencedHash"
-                                            placeholder="Referenced transaction full hash"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="referencedTransactionFullHash"
+                                            placeholder="Referenced transaction full hash"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row form-group-grey">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={this.handleNotBroadcast}
                                                       field="doNotBroadcast"/>
                                             <label className="form-check-label custom-control-label">
                                                 Do not broadcast
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox">
+                                        {this.props.getFormState().values.doNotBroadcast &&
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="addNote"/>
+                                                      field="doNotSign"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Do not sign
+                                            </label>
+                                        </div>
+                                        }
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="add_note_to_self"/>
                                             <label className="form-check-label custom-control-label">
                                                 Add note to self?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.getFormState().values.add_note_to_self &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Note to self
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
+                                    </div>
+                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                        This note is encrypted
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
                         <div
@@ -727,19 +926,22 @@ class AdvancedSettings extends React.Component {
                             <div className="form-tab">
                                 <div className="form-group row form-group-grey">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="number"
-                                            className="form-control"
-                                            field="finishHeight"
-                                            placeholder="Finish height"
-                                            aria-describedby="finishHeightText"/>
+                                    <div className="col-sm-9 input-group input-group-sm mb-0">
+                                        {
+                                            this.state.block &&
+                                            <InputForm
+                                                type="number"
+                                                field="phasingFinishHeight"
+                                                defaultValue={this.state.block.height}
+                                                placeholder="Finish height"
+                                                setValue={setValue}/>
+                                        }
                                         <div className="input-group-append">
                                         </div>
-                                            {
-                                                this.state.block &&
-                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
-                                            }
+                                        {
+                                            this.state.block &&
+                                            <span className="input-group-text">{this.state.block.height}</span>
+                                        }
                                     </div>
                                     <div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                         2018/06/19 09:32 am
@@ -749,44 +951,68 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Approved by transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="approveHash"
-                                            placeholder="Full hash of transaction"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="phasingLinkedFullHash"
+                                            placeholder="Full hash of transaction"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="referencedHash"
-                                            placeholder="Referenced transaction full hash"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="referencedTransactionFullHash"
+                                            placeholder="Referenced transaction full hash"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row form-group-grey">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={this.handleNotBroadcast}
                                                       field="doNotBroadcast"/>
                                             <label className="form-check-label custom-control-label">
                                                 Do not broadcast
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox">
+                                        {this.props.getFormState().values.doNotBroadcast &&
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="addNote"/>
+                                                      field="doNotSign"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Do not sign
+                                            </label>
+                                        </div>
+                                        }
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="add_note_to_self"/>
                                             <label className="form-check-label custom-control-label">
                                                 Add note to self?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.getFormState().values.add_note_to_self &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Note to self
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
+                                    </div>
+                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                        This note is encrypted
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
                         <div
@@ -798,17 +1024,20 @@ class AdvancedSettings extends React.Component {
                             <div className="form-tab">
                                 <div className="form-group row form-group-grey">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                        <Text
-                                            type="number"
-                                            className="form-control"
-                                            field="finishHeight"
-                                            placeholder="Finish height"
-                                            aria-describedby="finishHeightText"/>
+                                    <div className="col-sm-9 input-group input-group-sm mb-0">
+                                        {
+                                            this.state.block &&
+                                            <InputForm
+                                                type="number"
+                                                field="phasingFinishHeight"
+                                                defaultValue={this.state.block.height}
+                                                placeholder="Finish height"
+                                                setValue={setValue}/>
+                                        }
                                         <div className="input-group-append">
                                             {
                                                 this.state.block &&
-                                                <span className="input-group-text" id="finishHeightText">{this.state.block.height}</span>
+                                                <span className="input-group-text">{this.state.block.height}</span>
                                             }
                                         </div>
                                     </div>
@@ -820,22 +1049,26 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Approved by hash secret
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="hashSecret"
-                                            placeholder="Hash of secret"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="phasingHashedSecret"
+                                            placeholder="Hash of secret"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Hash algorithm
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                    <div className="col-sm-9 mb-0">
                                         <div className="form-group-select">
-                                            <select className="form-control">
-                                                <option selected>SHA256</option>
-                                            </select>
+                                            <CustomSelect
+                                                className="form-control"
+                                                field={'phasingHashedSecretAlgorithm'}
+                                                defaultValue={hashAlgorithm[0]}
+                                                setValue={setValue}
+                                                options={hashAlgorithm}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -843,38 +1076,60 @@ class AdvancedSettings extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Referenced transaction hash
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text
-                                            className="form-control"
-                                            field="referencedHash"
-                                            placeholder="Referenced transaction full hash"/>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="referencedTransactionFullHash"
+                                            placeholder="Referenced transaction full hash"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="row">
+                                <div className="row form-group-grey">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={this.handleNotBroadcast}
                                                       field="doNotBroadcast"/>
                                             <label className="form-check-label custom-control-label">
                                                 Do not broadcast
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox">
+                                        {this.props.getFormState().values.doNotBroadcast &&
+                                        <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="addNote"/>
+                                                      field="doNotSign"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Do not sign
+                                            </label>
+                                        </div>
+                                        }
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="add_note_to_self"/>
                                             <label className="form-check-label custom-control-label">
                                                 Add note to self?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.getFormState().values.add_note_to_self &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Note to self
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
+                                    </div>
+                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                        This note is encrypted
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
-                    </form>
-                )}
-            />
+                    </div>
 
         );
     }

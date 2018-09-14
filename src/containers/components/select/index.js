@@ -28,6 +28,7 @@ class CustomSelect extends React.Component {
                 styles={this.customStyles}
                 className={'form-custom-select'}
                 options={this.props.options}
+                defaultValue={this.props.defaultValue}
                 onChange={(selectedOption) => {
                         this.props.setValue(this.props.field, selectedOption.value);
                         if (this.props.onChange) {

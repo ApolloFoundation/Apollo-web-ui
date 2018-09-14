@@ -146,6 +146,36 @@ input[type="number"]::-webkit-inner-spin-button {
 	cursor: pointer;
 }
 
+.input-text-wrap {
+	display: flex;
+	flex: 1;
+	position: relative;
+}
+.input-number-wrap {
+	-webkit-appearance: none;
+	background: url(../../assets/number-arrows.png) no-repeat center center;
+	background-size: contain;
+	width: 9px;
+	margin-right: 6px;
+	opacity: 1;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	cursor: pointer;
+	display: flex;
+	flex: 2;
+	flex-direction: column;
+}
+.input-number-up {
+	display: flex;
+	flex: 1;
+}
+.input-number-down {
+	display: flex;
+	flex: 1;
+}
+
 .notification-message {
 	.title {
 		color: white;
@@ -907,7 +937,7 @@ input {
 			color: #333333;
 			letter-spacing: 0.3px;
 			line-height: 16px;
-			padding: 0;
+			padding: 0 0 0 5px;
 		}
 		.no-left-padding {
 			padding-left: 7px;
@@ -940,7 +970,7 @@ input {
 					display: none;
 				}
 			}
-			&::after {
+			/*&::after {
 				content: "\f2f9";
 				color: #727272;
 				position: absolute;
@@ -948,7 +978,7 @@ input {
 				right: 25px;
 				font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
 				cursor: pointer;
-			}
+			}*/
 		}
 		.input-group-text {
 			background-color: #e5e5e5;
@@ -985,6 +1015,7 @@ input {
 					flex: 2;
 				}
 				.input-group-text {
+					width: 100%;
 					background-color: transparent;
 					color: #a6a6a6;
 					border: 1px solid #e5e5e5;
@@ -1086,9 +1117,6 @@ input {
 					border: 1px solid #e5e5e5;
 				}
 			}
-		}
-		.custom-checkbox {
-			padding-left: 16px;
 		}
 		.calculate-fee {
 			color: #00C8FF;
@@ -2152,7 +2180,7 @@ table {
 }
 
 .custom-checkbox {
-	padding-left: 23px;
+	padding-left: 16px;
 	.custom-control-input {
 		z-index: 1;
 		position: absolute;

@@ -4,7 +4,7 @@ import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
 import AdvancedSettings from '../../components/advanced-transaction-settings';
-import classNames from 'classnames';
+import InputForm from '../../components/input-form';
 import crypto from  '../../../helpers/crypto/crypto';
 import InputMask from 'react-input-mask';
 import AccountRS from '../../components/account-rs';
@@ -13,6 +13,7 @@ import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
+import {getCurrencyAction} from "../../../actions/currencies";
 
 class SendApollo extends React.Component {
     constructor(props) {
@@ -87,6 +88,7 @@ class SendApollo extends React.Component {
     };
 
     render() {
+        console.log('----this.props.modalData-----', this.props.modalData)
         return (
             <div className="modal-box">
                 <Form
@@ -94,7 +96,7 @@ class SendApollo extends React.Component {
                     render={({
                          submitForm, values, addValue, removeValue, setValue, getFormState
                     }) => (
-                        <form className="modal-form modal-send-apollo" onSubmit={submitForm}>
+                        <form className="modal-form modal-send-apollo" onSubmit={submitForm} onChange={(e) => console.log('----------', values)}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
@@ -119,17 +121,16 @@ class SendApollo extends React.Component {
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
-                                    <label htmlFor="amountATM" className="col-sm-3 col-form-label">
+                                    <label className="col-sm-3 col-form-label">
                                         Amount
                                     </label>
                                     <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <Text defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
-                                              id="amountATM"
-                                              className="form-control"
-                                              field="amountATM"
-                                              placeholder="Amount"
-                                              type={"number"}
-                                              aria-describedby="amountText" />
+                                        <InputForm
+                                            defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+                                            field="amountAPL"
+                                            placeholder="Amount"
+                                            type={"number"}
+                                            setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text" id="amountText">Apollo</span>
                                         </div>
@@ -148,15 +149,15 @@ class SendApollo extends React.Component {
                                         <div className="form-check custom-checkbox mb-2">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
-                                                      field="isMessage"/>
-                                            <label className="form-check-label custom-control-label" htmlFor="doNotBroadcast">
+                                                      field="add_message"/>
+                                            <label className="form-check-label custom-control-label">
                                                 Add a message?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 {
-                                    getFormState().values.isMessage &&
+                                    getFormState().values.add_message &&
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label align-self-start">
                                             Message
@@ -166,22 +167,54 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 }
+                                {
+                                    getFormState().values.add_message &&
+                                    <div className="mobile-class row mb-15 form-group-white">
+                                        <div className="col-md-9 offset-md-3">
+                                            <div className="form-check custom-checkbox mb-2">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          defaultValue={true}
+                                                          field="encrypt_message"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    Encrypt Message
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    getFormState().values.add_message &&
+                                    <div className="mobile-class row mb-15 form-group-white">
+                                        <div className="col-md-9 offset-md-3">
+                                            <div className="form-check custom-checkbox mb-2">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          defaultValue={false}
+                                                          field="permanent_message"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    Message is Never Deleted
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
 
                                 <div className="form-group row form-group-white mb-15">
-                                    <label htmlFor="feeATM" className="col-sm-3 col-form-label">
+                                    <label className="col-sm-3 col-form-label">
                                         Fee
                                         <span
                                             onClick={async () => {
                                                 const formState = getFormState();
                                                 const fee = await this.props.calculateFeeAction({
                                                     recipient: formState.values.recipient,
-                                                    amountATM: formState.values.amountATM,
+                                                    amountATM: formState.values.amountAPL,
                                                     publicKey: this.props.publicKey,
                                                     feeATM: 0
                                                 });
 
                                                 if (fee) {
-                                                    setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
+                                                    setValue("feeAPL", fee.transactionJSON.feeATM / 100000000);
                                                 }
                                             }
                                             }
@@ -192,33 +225,36 @@ class SendApollo extends React.Component {
                                         </span>
                                     </label>
                                     <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <Text defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
-                                              id="feeATM"
-                                              field="feeATM"
-                                              className="form-control"
-                                              value={this.state.feeATM}
-                                              placeholder="Amount"
-                                              type={"number"}
-                                              aria-describedby="feeATMText" />
+                                        <InputForm
+                                            defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                            field="feeAPL"
+                                            value={this.state.feeATM}
+                                            placeholder="Amount"
+                                            type={"number"}
+                                            setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="feeATMText">Apollo</span>
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
-                                    <label htmlFor="secretPhrase" className="col-sm-3 col-form-label">
+                                    <label className="col-sm-3 col-form-label">
                                         Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                                     </label>
                                     <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text id="secretPhrase" className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
+                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 {this.state.advancedState && <div className="form-group row form-group-white mb-15">
-                                    <label htmlFor="secretPhrase" className="col-sm-3 col-form-label">
+                                    <label className="col-sm-3 col-form-label">
                                         Deadline (hours)
                                     </label>
                                     <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text id="secretPhrase" className="form-control" field="deadline" placeholder="Deadline" type={'number'}/>
+                                        <InputForm
+                                            field="deadline"
+                                            placeholder="Deadline"
+                                            type={"number"}
+                                            setValue={setValue}/>
                                     </div>
                                 </div>}
                                 {
@@ -248,6 +284,8 @@ class SendApollo extends React.Component {
 
                                 <AdvancedSettings
                                     setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
                                     advancedState={this.state.advancedState}
                                 />
 
