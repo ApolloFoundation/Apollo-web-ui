@@ -134,7 +134,7 @@ class SellAlias extends React.Component {
                                 <Form
                                     onSubmit={(values) => this.handleFormSubmit(values)}
                                     render={({
-                                                 submitForm, setValue
+                                                 submitForm, setValue, values, getFormState
                                              }) => (
                                         <form
                                             onSubmit={submitForm}
@@ -225,6 +225,8 @@ class SellAlias extends React.Component {
                                             </div>
                                             <AdvancedSettings
                                                 setValue={setValue}
+                                                getFormState={getFormState}
+                                                values={values}
                                                 advancedState={this.state.advancedState}
                                             />
                                         </form>
@@ -233,7 +235,7 @@ class SellAlias extends React.Component {
                                 <Form
                                     onSubmit={(values) => this.handleFormSubmit(values)}
                                     render={({
-                                                 submitForm, setValue
+                                                 submitForm, setValue, values, getFormState
                                              }) => (
                                         <form
                                             onSubmit={submitForm}
@@ -314,6 +316,8 @@ class SellAlias extends React.Component {
                                             </div>
                                             <AdvancedSettings
                                                 setValue={setValue}
+                                                getFormState={getFormState}
+                                                values={values}
                                                 advancedState={this.state.advancedState}
                                             />
                                         </form>

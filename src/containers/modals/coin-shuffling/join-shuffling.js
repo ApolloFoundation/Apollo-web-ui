@@ -117,7 +117,7 @@ class JoinShuffling extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, setValue, getFormState
+                                 submitForm, setValue, getFormState, values
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
@@ -175,6 +175,8 @@ class JoinShuffling extends React.Component {
                                 </div>
                                 <AdvancedSettings
                                     setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
                                     advancedState={this.state.advancedState}
                                 />
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">

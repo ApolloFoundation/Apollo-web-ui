@@ -92,7 +92,7 @@ class AddAlias extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, setValue, getFormState
+                                 submitForm, setValue, getFormState, values
                              }) => (
                         <form
                             className="modal-form"
@@ -228,6 +228,8 @@ class AddAlias extends React.Component {
                                 </div>
                                 <AdvancedSettings
                                     setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
                                     advancedState={this.state.advancedState}
                                 />
                             </div>

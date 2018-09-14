@@ -223,6 +223,8 @@ class UploadFile extends React.Component {
 
                             <AdvancedSettings
                                 setValue={setValue}
+                                getFormState={getFormState}
+                                values={values}
                                 advancedState={this.state.advancedState}
                             />
 
