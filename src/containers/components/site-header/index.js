@@ -720,8 +720,8 @@ class SiteHeader extends React.Component {
 														{/*
 														<li><Link to="/plugins" className="option">Plugins</Link></li>
 */}
-														<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account
-															settings</Link></li>
+														{/*<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account
+															settings</Link></li>*/}
 														<li><a
 															onClick={() => {
                                                                 this.props.setBodyModalType(null);
@@ -877,7 +877,7 @@ class SiteHeader extends React.Component {
 													</Link>
 
 												</div>
-												<div className="input-section">
+												{/*<div className="input-section">
 													<Link
 														to="/settings"
 														className="image-button"
@@ -886,7 +886,7 @@ class SiteHeader extends React.Component {
 														<label style={{cursor: 'pointer'}}>Settings</label>
 													</Link>
 
-												</div>
+												</div>*/}
 												<div className="input-section">
 													<div
 														onClick={() => logOutAction('simpleLogOut')}
