@@ -11,6 +11,7 @@ import {getpollAction, getPollResultAction, getPollVotesAction} from '../../../a
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
+import uuid from "uuid";
 
 
 const mapStateToProps = state => ({
@@ -389,7 +390,7 @@ class FollowedVotes extends React.Component {
                                                                                 this.state.pollResults.options.map((el, index) => {
 
                                                                                     return (
-                                                                                        <tr>
+                                                                                        <tr key={uuid()}>
                                                                                             <td><div className="color-box" style={{background: 'linear-gradient(' + colors[index].startColorGradient + ', ' + colors[index].stopColorGradient + ')'}}/></td>
                                                                                             <td>{el}</td>
                                                                                             <td className="align-right">{this.state.pollResults.results[index].result}</td>
@@ -424,14 +425,14 @@ class FollowedVotes extends React.Component {
                                                                                 {
                                                                                     this.state.votes.map((el, index) => {
                                                                                         return (
-                                                                                            <tr>
+                                                                                            <tr key={uuid()}>
                                                                                                 <td className="blue-link-text">
                                                                                                     <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.voter)}> {el.voterRS} </a>
                                                                                                 </td>
                                                                                                 {
                                                                                                     el.votes.map((subEl, subIndex) => {
                                                                                                         return (
-                                                                                                            <td className="align-right">{subEl}</td>
+                                                                                                            <td key={uuid()} className="align-right">{subEl}</td>
                                                                                                         );
                                                                                                     })
                                                                                                 }

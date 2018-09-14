@@ -207,6 +207,7 @@ class Ledger extends React.Component {
                                         this.state.ledger.map((el, index) => {
                                             return (
                                                 <Entry
+                                                    key={uuid()}
                                                     entry={el}
                                                     publicKey= {this.state.serverPublicKey}
                                                     privateKey={this.state.privateKey}

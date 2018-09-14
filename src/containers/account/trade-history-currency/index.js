@@ -161,6 +161,7 @@ class TradeHistoryCurrency extends React.Component {
                                         this.state.executedExchanges.map((el, index) => {
                                             return (
                                                 <TradeHistoryItem
+                                                    key={uuid()}
                                                     transfer={el}
                                                     setTransaction={this.getTransaction}
                                                 />

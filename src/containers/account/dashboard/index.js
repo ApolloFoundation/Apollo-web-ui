@@ -346,7 +346,7 @@ class Dashboard extends React.Component {
 											this.state.transactions &&
 											this.state.transactions.map((el, index) => {
 												return (
-													<Transaction {...el}/>
+													<Transaction key={uuid()} {...el}/>
 												);
 											})
 										}
@@ -362,7 +362,7 @@ class Dashboard extends React.Component {
 											this.state.assetData.map((el, index) => {
 												if (index < 3) {
 													return (
-														<div className="full-box-item coin">
+														<div key={uuid()} className="full-box-item coin">
 															<div className="coin-data">
 																<CircleFigure
 																	index={index}

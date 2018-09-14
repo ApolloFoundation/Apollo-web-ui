@@ -132,6 +132,7 @@ class MyVotes extends React.Component {
                                         this.state.myVotes.map((el, index) => {
                                             return (
                                                 <PoolItem
+                                                    key={uuid()}
                                                     {...el}
                                                     activepolls
                                                     getTransaction={this.getTransaction}

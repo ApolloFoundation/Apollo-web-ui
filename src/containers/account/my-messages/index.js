@@ -121,6 +121,7 @@ class MyMessages extends React.Component {
                                             this.state.messages.map((el, index) => {
                                                 return (
                                                     <MessageItem
+                                                        key={uuid()}
                                                         {...el}
                                                     />
                                                 );

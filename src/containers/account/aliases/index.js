@@ -9,6 +9,7 @@ import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modal
 import {submitForm} from  '../../../helpers/forms/forms';
 import {NotificationManager} from "react-notifications";
 import {BlockUpdater} from "../../block-subscriber";
+import uuid from "uuid";
 
 class Aliases extends React.Component {
     constructor(props) {
@@ -135,6 +136,7 @@ class Aliases extends React.Component {
                                             this.state.aliases.map((el, index) => {
                                                 return (
                                                     <Alias
+                                                        key={uuid()}
                                                         editAlias={this.editAlias}
                                                         sellAlias={this.sellAlias}
                                                         transferAlias={this.transferAlias}

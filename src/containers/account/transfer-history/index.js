@@ -132,6 +132,7 @@ class ScheduledTransactions extends React.Component {
                                         this.state.transfers.map((el, index) => {
                                             return (
                                                 <TransferHistoryItem
+                                                    key={uuid()}
                                                     transfer={el}
                                                     setTransaction={this.getTransaction}
                                                 />

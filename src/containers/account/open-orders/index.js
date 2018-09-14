@@ -85,6 +85,7 @@ class OpenOrders extends React.Component {
                                                             this.state.sellOrders.map(el => {
                                                                 return (
                                                                     <OrderItem
+                                                                        key={uuid()}
                                                                         order={el}
                                                                     />
                                                                 )
@@ -122,6 +123,7 @@ class OpenOrders extends React.Component {
                                                             this.state.buyOrders.map(el => {
                                                                 return (
                                                                     <OrderItem
+                                                                        key={uuid()}
                                                                         order={el}
                                                                     />
                                                                 )

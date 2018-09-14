@@ -185,6 +185,7 @@ class AssetExchange extends React.Component {
                                         this.state.assets.map((el, index) => {
                                             return (
                                                 <Link
+                                                    key={uuid()}
                                                     style={{display: 'block'}}
                                                     to={"/asset-exchange/" + (el ? el.asset : "")}
                                                     className={classNames({
@@ -319,6 +320,7 @@ class AssetExchange extends React.Component {
                                                                     this.state.askOrders.map(el => {
                                                                         return (
                                                                             <OrderItem
+                                                                                key={uuid()}
                                                                                 order={el}
                                                                             />
                                                                         )
@@ -459,6 +461,7 @@ class AssetExchange extends React.Component {
                                                                     this.state.bidOrders.map(el => {
                                                                         return (
                                                                             <OrderItem
+                                                                                key={uuid()}
                                                                                 order={el}
                                                                             />
                                                                         )

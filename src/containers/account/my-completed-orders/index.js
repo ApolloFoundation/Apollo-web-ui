@@ -105,6 +105,7 @@ class MyProductsForSale extends React.Component {
                             this.state.getDGSGoods.map((el, index) => {
                                 return (
                                     <MarketplaceItem
+                                        key={uuid()}
                                         tall={false}
                                         fluid={!this.state.isGrid}
                                         isHovered

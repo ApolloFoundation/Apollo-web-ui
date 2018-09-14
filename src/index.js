@@ -2,9 +2,10 @@ import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {ConnectedRouter} from 'react-router-redux'
-import store, {history} from './store'
-import App from './containers/app'
+import {ConnectedRouter} from 'react-router-redux';
+import store, {history} from './store';
+import App from './containers/app';
+import i18n from './i18n';
 
 // import './index.css'
 
@@ -22,7 +23,7 @@ render(
     <Provider store={store}>
         <BlockSubscriber>
             <ConnectedRouter history={history}>
-                <I18nextProvider>
+                <I18nextProvider  i18n={ i18n }>
                     <BrowserRouter>
                         <Switch>
                             <Route path="/" component={App}/>

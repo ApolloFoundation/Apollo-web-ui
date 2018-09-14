@@ -66,8 +66,9 @@ class ComposeMessage extends React.Component {
         }
 
         // Todo: finish form validating
-        this.props.submitForm(null, null, values, 'sendMessage')
-            .done((res) => {
+        const result  = await this.props.submitForm(null, null, values, 'sendMessage');
+        console.log('-----', result)
+            /*.done((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {
@@ -78,7 +79,7 @@ class ComposeMessage extends React.Component {
 
                     // this.props.setAlert('success', 'Transaction has been submitted!');
                 }
-            })
+            })*/
     };
 
     handleAdvancedState = () => {

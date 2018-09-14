@@ -142,6 +142,7 @@ class MyShufling extends React.Component {
                                             this.state.shufflings.map((el, index) => {
                                                 return (
                                                     <ShufflingItem
+                                                        key={uuid()}
                                                         {...el}
                                                         getTransaction={this.getTransaction}
                                                     />

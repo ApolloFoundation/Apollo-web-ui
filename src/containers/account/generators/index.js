@@ -5,6 +5,7 @@ import {BlockUpdater} from "../../block-subscriber";
 import {getGeneratorsAction} from "../../../actions/generators";
 import {formatTimestamp} from "../../../helpers/util/time";
 import Generator from "../../../actions/generators/generator";
+import uuid from "uuid";
 
 class Generators extends React.Component {
     state = {
@@ -92,6 +93,7 @@ class Generators extends React.Component {
                                         this.state.generators.map(el => {
                                             return (
                                                 <Generator
+                                                    key={uuid()}
                                                     generator={el}
                                                     resTimestamps={this.state.timestamp}
                                                     epochB={this.props.epochB}

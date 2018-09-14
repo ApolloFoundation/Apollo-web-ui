@@ -120,7 +120,7 @@ const MarketplaceItem = (props, history) => (
 						})}
 					>
 						tags: {props.parsedTags.map((el, index) => {
-						return <Link to={'/marketplace/' + el} style={{marginLeft: 15}}
+						return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
 						             className="btn static primary">{el}</Link>
 					})}
 					</div>
@@ -199,7 +199,7 @@ const MarketplaceItem = (props, history) => (
 										{
                                             props.parsedTags &&
 											props.parsedTags.map((el, index) => {
-											return <Link to={'/marketplace/' + el} style={{marginLeft: 15}}
+											return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
 											             className="btn static primary">{el}</Link>
 										})}
 									</div>

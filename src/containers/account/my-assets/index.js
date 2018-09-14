@@ -126,6 +126,7 @@ class MyAssets extends React.Component {
                                         this.state.assets.map((el, index) => {
                                             return (
                                                 <MyAssetItem
+                                                    key={uuid()}
                                                     transfer={el}
                                                     setTransaction={this.getTransaction}
                                                 />

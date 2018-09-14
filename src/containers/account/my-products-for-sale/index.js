@@ -109,6 +109,7 @@ class MyProductsForSale extends React.Component {
                                         this.state.getDGSGoods.map((el, index) => {
                                             return (
                                                 <MarketplaceTableItem
+                                                    key={uuid()}
                                                     {...el}
                                                 />
                                             );

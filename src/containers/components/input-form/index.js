@@ -52,6 +52,7 @@ class InputForm extends React.Component {
                     field={this.props.field}
                     defaultValue={this.props.defaultValue}
                     placeholder={this.props.placeholder}
+                    minLength={this.props.minLength}
                 />
                 {this.props.type === "number" &&
                 <div className="input-number-wrap">
