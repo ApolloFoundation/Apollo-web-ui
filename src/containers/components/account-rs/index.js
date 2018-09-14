@@ -1,6 +1,7 @@
 import React from 'react';
 import InputMask from 'react-input-mask';
 import classNames from 'classnames';
+import {NotificationManager} from "react-notifications";
 
 
 class AccountRS extends React.Component {
@@ -16,7 +17,6 @@ class AccountRS extends React.Component {
         };
     };
 
-
     handleFillForm = (account) => {
         this.props.setValue(this.props.field, account);
         this.refs.input.value = account;
@@ -30,9 +30,13 @@ class AccountRS extends React.Component {
     };
 
     handleContacts = () => {
-        this.setState({
-            isContacts: !this.state.isContacts
-        })
+        if (this.state.contacts && !!this.state.contacts.length) {
+            this.setState({
+                isContacts: !this.state.isContacts
+            })
+        } else {
+            NotificationManager.info('You have an empty contacts list.', null, 5000)
+        }
     };
 
     onChange = (event) => {
