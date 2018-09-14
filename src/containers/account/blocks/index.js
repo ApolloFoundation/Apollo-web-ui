@@ -7,7 +7,9 @@ import Block from './block';
 import {BlockUpdater} from "../../block-subscriber";
 import './Blocks.css';
 import classNames from "classnames";
-
+import {getNextBlockGeneratorsAction} from '../../../actions/blocks'
+import {formatTimestamp} from "../../../helpers/util/time";
+import {getTime} from '../../../actions/login/index'
 
 class Blocks extends React.Component {
     constructor(props) {
@@ -38,6 +40,7 @@ class Blocks extends React.Component {
     };
 
     componentDidMount() {
+        console.log(this.getNextBlock());
         BlockUpdater.on("data", this.listener)
     }
 
@@ -53,12 +56,22 @@ class Blocks extends React.Component {
         });
     }
 
+    getNextBlock = async () => {
+        const nextBlock = await getNextBlockGeneratorsAction();
+
+        const currentTime = await this.props.getTime();
+
+        console.log(nextBlock.generators[0].hitTime - currentTime.time);
+
+
+    };
+
     async getBlocks(requestParams) {
         const blocks = (await this.props.getBlocksAction(requestParams)).blocks;
 
         let totalFee = 0;
         let totalAmount = 0;
-        const time = blocks[0].timestamp - blocks[blocks.length - 1].timestamp;
+        const time = Math.round((blocks[0].timestamp - blocks[blocks.length - 1].timestamp) / 15);
         let transactions = 0;
 
         let avgFee = 0;
@@ -68,18 +81,25 @@ class Blocks extends React.Component {
             totalFee += block.totalFeeATM;
             totalAmount += block.totalAmountATM;
             transactions += block.numberOfTransactions;
+
+            console.log(transactions);
         });
+
+        console.log(transactions);
+
 
         if (time === 0) {
             transactions = 0
         } else {
-            transactions = Math.round(transactions / (time / 60) * 60);
+            transactions = Math.round((transactions / (time / 60) * 60));
         }
 
         if (blocks.length) {
             avgFee = (totalFee / 100000000 / blocks.length).toFixed(2);
             avgAmount = (totalAmount / 100000000 / blocks.length).toFixed(2);
         }
+
+        console.log(transactions);
 
         this.setState({
             ...this.props,
@@ -219,8 +239,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getBlocksAction: (requestParams) => dispatch(getBlocksAction(requestParams)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
-
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
+    getTime: () => dispatch(getTime())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blocks);

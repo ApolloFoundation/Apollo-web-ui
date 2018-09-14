@@ -53,3 +53,16 @@ export const startBlockPullingAction = () => axios.get(config.api.serverUrl, {
     .catch(() => {
 
     });
+
+export const getNextBlockGeneratorsAction = (reqParams) => axios.get(config.api.serverUrl, {
+    params: {
+        requestType: 'getNextBlockGenerators',
+        ...reqParams
+    }
+})
+    .then((res) => {
+        return res.data;
+    })
+    .catch(() => {
+
+    });
