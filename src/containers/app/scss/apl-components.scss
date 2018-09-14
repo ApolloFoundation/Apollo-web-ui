@@ -6,7 +6,10 @@
   min-height: 560px;
   //overflow-x: auto;
   //background-color: #FFFFFF;
-
+	@media (max-width: 1025px) {
+		height: auto;
+		min-height: auto;
+	}
   &.no-min-height {
     min-height: auto;
     height: auto;
@@ -40,7 +43,16 @@
       //border-collapse: collapse;
       min-width: 800px;
       padding: 0 35px;
-
+      //& + .btn-box {
+      //  min-width: 800px;
+      //  position: absolute;
+      //  bottom: 0;
+      //  left: 0;
+      //  right: 0;
+      //  .btn {
+      //    position: static !important;
+      //  }
+      //}
       thead {
         padding: 35px 0;
 
@@ -281,6 +293,8 @@
     border-radius: 6px;
     width: 100% !important;
     max-width: 500px;
+    padding-bottom: 20px;
+
     @media (max-width: 760px) {
       max-width: 100%;
       height: 100%;
@@ -288,7 +302,6 @@
       transform: none !important;
       overflow: auto;
     }
-
 
     &.active {
       transform: translateY(15px);
@@ -319,7 +332,6 @@
       //margin-bottom: 20px;
       //width: 100%;
       min-width: 500px;
-      margin-bottom: 20px;
       @media (max-width: 760px) {
         min-width: 100%;
         width: 100%;

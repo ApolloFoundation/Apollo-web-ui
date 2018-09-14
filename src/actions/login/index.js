@@ -1,15 +1,16 @@
-import  axios from "axios/index";
+import axios from "axios/index";
 import config from "../../config";
 import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
 import {login, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PASSPHRASE} from '../../modules/account';
-import { writeToLocalStorage, readFromLocalStorage, deleteFromLocalStorage } from "../localStorage";
+import {writeToLocalStorage, readFromLocalStorage, deleteFromLocalStorage} from "../localStorage";
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
 import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
+import async from "../../helpers/util/async";
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -27,7 +28,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
     return async dispatch => {
 
         const accountRS = await (dispatch(crypto.getAccountIdAsync(requestParams.secretPhrase)));
-        
+
         dispatch({
             type: 'SET_PASSPHRASE',
             payload: requestParams.secretPhrase
@@ -47,8 +48,6 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
     };
 }
 
-
-
 export function isLoggedIn() {
     return dispatch => {
         let account = JSON.parse(readFromLocalStorage('APLUserRS'));
@@ -63,6 +62,28 @@ export function isLoggedIn() {
         }
     };
 }
+
+export function getUpdateStatus() {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getUpdateStatus',
+        }
+    })
+        .then((res) => {
+            if (res.data ) {
+                if (!res.data.isUpdate) {
+                    NotificationManager.info('You are using up to date version', null, 900000);
+                }
+                if (res.data.isUpdate) {
+                    NotificationManager.error('You current version is expired. Available new version: ' + res.data.level, 'Attention', 900000);
+                }
+            }
+        })
+}
+
+export const reloadAccountAction = acc => dispatch => {
+    makeLoginReq(dispatch, {account: acc});
+};
 
 function makeLoginReq(dispatch, requestParams) {
     dispatch(startLoad());
@@ -94,7 +115,7 @@ function makeLoginReq(dispatch, requestParams) {
                 return res.data;
             }
         })
-        .catch(function(err){
+        .catch(function (err) {
             NotificationManager.error('Can not connect to server', 'Error', 900000);
         });
 }
@@ -128,8 +149,6 @@ export function getForging() {
 export function setForging(requestType) {
     return (dispatch, getState) => {
         const account = getState().account;
-        // console.log(account);
-        //
         const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
         // dispatch({
         //     type: 'SET_PASSPHRASE',
@@ -153,7 +172,7 @@ export function logOutAction(action) {
             return;
         case('logOutStopForging'):
             store.dispatch(setForging({requestType: 'stopForging'}))
-            .done(() => {
+                .done(() => {
                     localStorage.removeItem("APLUserRS");
                     document.location = '/';
                 });
@@ -181,7 +200,7 @@ export function getConstantsAction() {
                 } else {
                 }
             })
-            .catch(function(err){
+            .catch(function (err) {
                 console.log(err)
             });
     };
@@ -208,9 +227,9 @@ export function loadBlockchainStatus() {
     }
 }
 
-export function getTime () {
+export function getTime() {
     return dispatch => {
-        return axios.get(config.api.serverUrl,{
+        return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getTime'
             }
@@ -221,13 +240,14 @@ export function getTime () {
     }
 }
 
-export function updateNotifications () {
+export function updateNotifications() {
     return (dispatch, getState) => {
         return async (account) => {
 
             const time = await dispatch(getTime());
 
             var fromTS = Math.max(time.time - 60 * 60 * 24 * 14, 0);
+            console.log(fromTS);
             if (account) {
                 const transactions = await dispatch(getTransactionsAction({
                     "account": account,
@@ -240,9 +260,9 @@ export function updateNotifications () {
 
                 let tsDict = {};
                 if (transactions) {
-                    Object.values(notifications).map(function(typeDict, typeIndex) {
+                    Object.values(notifications).map(function (typeDict, typeIndex) {
                         typeDict["notificationCount"] = 0;
-                        Object.values(typeDict["subTypes"]).map(function(subTypeDict, subTypeIndex) {
+                        Object.values(typeDict["subTypes"]).map(function (subTypeDict, subTypeIndex) {
                             var tsKey = "ts_" + String(typeIndex) + "_" + String(subTypeIndex);
                             if (tsDict[tsKey]) {
                                 subTypeDict["notificationTS"] = tsDict[tsKey];
@@ -254,7 +274,7 @@ export function updateNotifications () {
                     });
 
                     if (transactions.transactions && transactions.transactions.length) {
-                        for (var i=0; i<transactions.transactions.length; i++) {
+                        for (var i = 0; i < transactions.transactions.length; i++) {
                             var t = transactions.transactions[i];
                             var subTypeDict = notifications[t.type];
                             if (subTypeDict) {

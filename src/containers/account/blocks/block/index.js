@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import uuid from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
+import CryptoJS from 'crypto-js'
 
 const mapDispatchToProps = dispatch => ({
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
@@ -32,7 +33,7 @@ class Block extends React.Component {
                 </td>
                 <td className="align-right"><a>{this.props.block.payloadLength} B</a>
                 </td>
-                <td className="align-right"><a>{this.props.block.baseTarget} %</a>
+                <td className="align-right"><a>{Math.round(this.props.block.baseTarget / 153722867 * 100)} %</a>
                 </td>
             </tr>
         );

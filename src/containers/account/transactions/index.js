@@ -10,6 +10,8 @@ import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
 import InfoBox from "../../components/info-box";
+import {BlockUpdater} from "../../block-subscriber/index";
+
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -41,9 +43,18 @@ class Transactions extends React.Component {
 
         });
         this.props.setModalCallbackAction(this.getPrivateTransactions);
+        BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
+            this.updateTransactionsData();
+        });
     }
 
-    componentWillReceiveProps(newState) {
+    componentWillUnmount() {
+        BlockUpdater.removeAllListeners('data');
+    }
+
+    updateTransactionsData  = (newState)  => {
         this.setState({
             ...newState,
             publicKey:  this.state.publicKey,
@@ -54,6 +65,20 @@ class Transactions extends React.Component {
                 PublicKey: this.state.publicKey
             });
         });
+    };
+
+    componentWillReceiveProps(newState) {
+        this.updateTransactionsData(newState);
+        // this.setState({
+        //     ...newState,
+        //     publicKey:  this.state.publicKey,
+        //     privateKey: this.state.privateKey,
+        //     sharedKey:  this.state.sharedKey
+        // }, () => {
+        //     this.getPrivateTransactions({
+        //         PublicKey: this.state.publicKey
+        //     });
+        // });
     }
 
     getPrivateTransactions = (data) => {

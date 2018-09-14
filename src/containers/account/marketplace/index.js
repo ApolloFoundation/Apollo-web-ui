@@ -385,7 +385,7 @@ class Marketplace extends React.Component {
                                     <div className="form-title padding-left offset-bottom">
                                         <p>
                                             Recent purchases&nbsp;&nbsp;
-                                            <a className="btn primary static">View more</a>
+                                            <Link to="/purchased-products" className="btn primary static">View more</Link>
                                         </p>
                                     </div>
                                     <div className="row marketplace-row">

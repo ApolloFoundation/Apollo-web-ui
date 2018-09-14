@@ -4,7 +4,7 @@
 
 .btn {
   display: inline-block;
-  padding: 10px 11px;
+  padding: 9px 11px;
   cursor: pointer;
   user-select: none;
 	min-height: 33px;
@@ -321,6 +321,9 @@ input[type="number"] {
         padding: 0 7.5px;
         display: flex;
         flex-direction: column;
+        @media (max-width: 1024px) {
+          min-height: auto;
+        }
       }
 
       // my transactions page
@@ -345,6 +348,10 @@ input[type="number"] {
         .transaction-table {
           height: calc(100% - 120px);
           min-height: 560px;
+          @media (max-width: 1024px) {
+            height: auto;
+            min-height: auto;
+          }
 
           .transaction-table-body {
             table {
@@ -443,11 +450,16 @@ input[type="number"] {
         padding: 0;
 
         .approval-request {
-          height: 100%;
         }
         .row {
           padding: 0;
           height: 100%;
+        }
+        .transaction-table{
+          min-height: auto;
+        }
+        .transaction-table-body table {
+          min-width: 500px;
         }
       }
       .account-settings {

@@ -30,13 +30,19 @@ class AssetExchange extends React.Component {
         askOrders: [],
     };
 
+    listener = data => {
+        this.getAsset(this.props.match.params.asset);
+        this.getAssets();
+    };
+
     componentDidMount() {
         this.getAsset(this.props.match.params.asset);
         this.getAssets();
-        BlockUpdater.on("data", data => {
-            this.getAsset(this.props.match.params.asset);
-            this.getAssets();
-        });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillReceiveProps(newState) {

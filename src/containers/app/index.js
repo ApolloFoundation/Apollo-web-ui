@@ -32,6 +32,7 @@ import MyCompletedOrders from '../account/my-completed-orders'
 import Activepolls from '../account/active-polls'
 import AccountProperties from '../account/account-properties'
 import ApprovalRequest from '../account/approval-request'
+import ApprovalRequestAssets from '../account/approval-request-assets'
 import AssetExchange from '../account/asset-exchange'
 import Aliases from '../account/aliases'
 import DeleteHistory from '../account/delete-history'
@@ -58,14 +59,15 @@ import MyMessages from "../account/my-messages";
 import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
 import style from './App.css';
-import converters from "../../helpers/converters";
-import crypto from '../../helpers/crypto/crypto';
+
+import {getUpdateStatus} from '../../actions/login/index'
 
 import {startBlockPullingAction} from '../../actions/blocks'
 
 class App extends React.Component {
     componentDidMount() {
         // this.props.startBlockPullingAction();
+        getUpdateStatus();
         this.props.isLoggedIn();
         this.props.getConstantsAction();
         this.handleModal = this.handleModal.bind(this);
@@ -150,6 +152,7 @@ class App extends React.Component {
                                 ,<Route exact path="/my-shuffling" component={MyCurrencies}/>
                                 ,<Route exact path="/account-properties" component={AccountProperties}/>
                                 ,<Route exact path="/approval-request" component={ApprovalRequest}/>
+                                ,<Route exact path="/approval-request-assets" component={ApprovalRequestAssets}/>
                                 ,<Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
                                 ,<Route exact path="/aliases" component={Aliases}/>
                                 ,<Route exact path="/delete-history" component={DeleteHistory}/>

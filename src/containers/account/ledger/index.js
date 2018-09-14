@@ -29,6 +29,14 @@ class Ledger extends React.Component {
         };
     }
 
+    listener = data => {
+        this.getAccountLedger({
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+    }
+
     componentDidMount() {
         this.getAccountLedger({
             account: this.props.account,
@@ -36,13 +44,11 @@ class Ledger extends React.Component {
             lastIndex: this.state.lastIndex
         });
         this.props.setModalCallbackAction(this.getPrivateEntries);
-        BlockUpdater.on("data", data => {
-            this.getAccountLedger({
-                account: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            });
-        });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillReceiveProps(newState) {
@@ -213,30 +219,30 @@ class Ledger extends React.Component {
                                     }
                                     </tbody>
                                 </table>
-                                <div className="btn-box">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
-                                    </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.ledger.length < 15
-                                        })}
-                                    >Next</a>
-                                </div>
                             </div>
+	                        <div className="btn-box under-table">
+		                        <a
+			                        className={classNames({
+				                        'btn' : true,
+				                        'btn-left' : true,
+				                        'disabled' : this.state.page <= 1
+			                        })}
+			                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
+		                        > Previous</a>
+		                        <div className='pagination-nav'>
+			                        <span>{this.state.firstIndex + 1}</span>
+			                        <span>&hellip;</span>
+			                        <span>{this.state.lastIndex + 1}</span>
+		                        </div>
+		                        <a
+			                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
+			                        className={classNames({
+				                        'btn' : true,
+				                        'btn-right' : true,
+				                        'disabled' : this.state.ledger.length < 15
+			                        })}
+		                        >Next</a>
+	                        </div>
                         </div>
                     </div>
                 </div>

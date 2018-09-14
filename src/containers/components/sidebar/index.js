@@ -122,7 +122,8 @@ class Sidebar extends React.Component {
 									         "/delete-history",
 									         "/my-assets",
 									         "/open-orders",
-									         "approval-request"])}`}>
+									         "approval-request",
+											 "/approval-request-assets"])}`}>
 									Asset system
 									<i className="zmdi zmdi-case left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
@@ -139,7 +140,7 @@ class Sidebar extends React.Component {
 											Assets</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/open-orders">Open
 											orders</NavLink></li>
-										<li><NavLink exact={true} activeClassName="active" to="/approval-request">Approval
+										<li><NavLink exact={true} activeClassName="active" to="/approval-request-assets">Approval
 											request</NavLink></li>
 										<li>
 											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue
@@ -150,7 +151,7 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink to="/currencies" className={`text ${this.getNavLinkClass(["/currencies",
-									"/my-shuffling",
+									// "/my-shuffling",
 									"/transfer-history-currency",
 									"/trade-history-currency"])}`}>
 									Currency system
@@ -160,7 +161,7 @@ class Sidebar extends React.Component {
 								<div className="dropdown-menu">
 									<ul>
 										<li><NavLink to="/currencies">Currencies</NavLink></li>
-										<li><NavLink to="/my-shuffling">Exchange history</NavLink></li>
+										{/*<li><NavLink to="/my-shuffling">Exchange history</NavLink></li>*/}
 										<li><NavLink to="/transfer-history-currency">Transfer history</NavLink></li>
 										<li><NavLink to="/trade-history-currency">Trade history</NavLink></li>
 										<li>
@@ -172,6 +173,7 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink to="/active-polls" className={`text ${this.getNavLinkClass(["/active-polls",
+									"/followed-polls",
 									"/my-votes",
 									"/my-polls"])}`}>
 									Voting system
@@ -212,7 +214,8 @@ class Sidebar extends React.Component {
 								<NavLink to='/marketplace'
 								         className={`text ${this.getNavLinkClass(["/my-products-for-sale",
 									         "/my-panding-orders",
-									         "/my-completed-orders"])}`}>
+									         "/my-completed-orders",
+										 	 "/purchased-products"])}`}>
 									Marketplace
 									<i className="zmdi zmdi-label left"/>
 									<i className="zmdi zmdi-chevron-right right"/>

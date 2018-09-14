@@ -1,4 +1,4 @@
-import { getAccountDataAction } from '../actions/login/index';
+import {getAccountDataAction} from '../actions/login/index';
 
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
 export const SET_CONSTANTS = 'SET_CONSTANTS';
@@ -16,7 +16,7 @@ const initialState = {
     settings: null,
     constants: {},
     passPhrase: null,
-	account: null,
+    account: null,
     accountRS: null,
     assetBalances: null,
     balanceATM: null,
@@ -42,7 +42,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-	switch (action.type) {
+    switch (action.type) {
         case LOAD_ACCOUNT:
             const serverRes = action.payload;
             return {
@@ -102,31 +102,26 @@ export default (state = initialState, action) => {
                 ...state,
                 blockchainStatus: action.payload
             };
-		default:
-			return state
-	}
+        default:
+            return state
+    }
 }
 
 
 export const login = (reqParams) => {
-	return dispatch => {
-        dispatch({
-			type: LOAD_ACCOUNT,
-            payload: reqParams
-		});
-
-	}
-};
-
-export const loadConstants = (constants) => {
     return dispatch => {
         dispatch({
-            type: SET_CONSTANTS,
-            payload: constants
+            type: LOAD_ACCOUNT,
+            payload: reqParams
         });
 
     }
 };
+
+export const loadConstants = (constants) => ({
+    type: SET_CONSTANTS,
+    payload: constants
+});
 
 export const setSetings = (settings) => {
     return dispatch => {
@@ -139,6 +134,7 @@ export const setSetings = (settings) => {
 };
 
 export const updateStoreNotifications = (notifications) => {
+    console.log(notifications);
     return dispatch => {
         dispatch({
             type: UPDATE_NOTIFICATIONS,
@@ -191,7 +187,7 @@ export const setAccountPassphrase = (passPhrase) => {
 
 export const getState = () => {
     return (dispatch, getStore) => {
-        const { account } = getStore();
+        const {account} = getStore();
         return account
     }
 };

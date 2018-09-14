@@ -16,10 +16,16 @@ class DeleteHistory extends React.Component {
         this.getDeleteHistory(this.props.account);
     }
 
+    listener = data => {
+        this.getDeleteHistory(this.props.account);
+    };
+
     componentDidMount() {
-        BlockUpdater.on("data", data => {
-            this.getDeleteHistory(this.props.account);
-        });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillReceiveProps = (nextProps) => {

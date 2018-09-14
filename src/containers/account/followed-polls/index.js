@@ -44,6 +44,22 @@ class FollowedVotes extends React.Component {
         this.getpollResults = this.getpollResults.bind(this);
     }
 
+    listener = data => {
+        this.getpoll({
+            poll: this.props.match.params.poll
+        });
+        this.getPollVotes({
+            poll: this.props.match.params.poll,
+            firstIndex: this.state.firstIndex,
+            lastIndex:  this.state.lastIndex
+        });
+        this.getpollResults({
+            poll: this.props.match.params.poll
+        });
+        this.getFollowedPolls();
+        this.getBlock();
+    };
+
     componentDidMount() {
         this.getpoll({
             poll: this.props.match.params.poll
@@ -58,21 +74,11 @@ class FollowedVotes extends React.Component {
         });
         this.getFollowedPolls();
         this.getBlock();
-        BlockUpdater.on("data", data => {
-            this.getpoll({
-                poll: this.props.match.params.poll
-            });
-            this.getPollVotes({
-                poll: this.props.match.params.poll,
-                firstIndex: this.state.firstIndex,
-                lastIndex:  this.state.lastIndex
-            });
-            this.getpollResults({
-                poll: this.props.match.params.poll
-            });
-            this.getFollowedPolls();
-            this.getBlock();
-        })
+        BlockUpdater.on("data", this.listener)
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillReceiveProps(newState) {
@@ -289,7 +295,7 @@ class FollowedVotes extends React.Component {
                                         }
                                         {
                                             this.state.followedpolls && !this.state.followedpolls.length &&
-                                            <p>No followed polls</p>
+                                            <p className={"no-followed-polls"}>No followed polls</p>
                                         }
                                     </div>
                                 </div>

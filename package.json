@@ -65,6 +65,7 @@
     "react-forms": "^1.0.0-rc6",
     "react-i18next": "^7.10.1",
     "react-input-mask": "^2.0.3",
+    "react-lines-ellipsis": "^0.13.2",
     "react-maskedinput": "^4.0.1",
     "react-notifications": "^1.4.3",
     "react-redux": "^5.0.7",

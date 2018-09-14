@@ -31,17 +31,23 @@ class FinishedShufflings extends React.Component {
         }
     }
 
+    listener = data => {
+        this.getFinishedShfflings({
+            firstIndex: 0,
+            lastIndex: 14
+        })
+    };
+
     componentDidMount() {
         this.getFinishedShfflings({
             firstIndex: 0,
             lastIndex: 14
         })
-        BlockUpdater.on("data", data => {
-            this.getFinishedShfflings({
-                firstIndex: 0,
-                lastIndex: 14
-            })
-        });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener);
     }
 
     getFinishedShfflings   = async (reqParams) => {

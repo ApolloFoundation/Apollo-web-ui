@@ -123,7 +123,7 @@ class ResentMarketplaceListing extends React.Component {
                                         <div
                                             className={classNames({
                                                 'marketplace-item' : this.state.isGrid,
-                                                'col-xs-12 col-sm-12 col-md-12 col-lg-12 marketplace-item': !this.state.isGrid,
+                                                'marketplace-item--full-width': !this.state.isGrid,
                                             })}
                                         >
                                             <MarketplaceItem

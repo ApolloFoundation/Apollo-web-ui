@@ -26,14 +26,20 @@ class Finishedpolls extends React.Component {
         this.getTransaction   = this.getTransaction.bind(this);
     }
 
+    listener = data => {
+        this.getFinishedpolls()
+    };
+
     componentDidMount() {
         this.getFinishedpolls({
             firstIndex: 0,
             lastIndex:  9,
         });
-        BlockUpdater.on("data", data => {
-            this.getFinishedpolls()
-        });
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentWillReceiveProps(newState) {
