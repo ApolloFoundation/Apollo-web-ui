@@ -69,7 +69,7 @@ class OfferCurrency extends React.Component {
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue }) => (
+                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             {
                                 this.props.modalData &&
@@ -260,7 +260,9 @@ class OfferCurrency extends React.Component {
                                     </div>
 
                                     <AdvancedSettings
-                                        setState={setValue}
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
                                         advancedState={this.state.advancedState}
                                     />
 

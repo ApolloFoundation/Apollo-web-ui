@@ -88,7 +88,6 @@ class SendApollo extends React.Component {
     };
 
     render() {
-        console.log('----this.props.modalData-----', this.props.modalData)
         return (
             <div className="modal-box">
                 <Form

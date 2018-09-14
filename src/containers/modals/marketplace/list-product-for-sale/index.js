@@ -257,6 +257,8 @@ class ListProductForSale extends React.Component {
                                 </div>
                                 <AdvancedSettings
                                     setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
                                     advancedState={this.state.advancedState}
                                 />
                             </div>

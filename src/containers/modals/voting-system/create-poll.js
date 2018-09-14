@@ -126,7 +126,7 @@ class CreatePoll extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={
-                        ({ submitForm, values, addValue, removeValue, setValue }) => (
+                        ({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                             <form
                                 className="modal-form"
                                 onSubmit={submitForm}
@@ -369,7 +369,9 @@ class CreatePoll extends React.Component {
                                         </a>
                                     </div>
                                     <AdvancedSettings
-                                        setState={setValue}
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
                                         advancedState={this.state.advancedState}
                                     />
                                 </div>

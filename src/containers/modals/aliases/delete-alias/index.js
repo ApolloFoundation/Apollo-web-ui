@@ -102,7 +102,7 @@ class DeleteAlias extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, setValue
+                                 submitForm, setValue, values, getFormState
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             {
@@ -177,6 +177,8 @@ class DeleteAlias extends React.Component {
                                     </div>
                                     <AdvancedSettings
                                         setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
                                         advancedState={this.state.advancedState}
                                     />
                                 </div>

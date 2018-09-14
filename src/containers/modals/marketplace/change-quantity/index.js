@@ -129,7 +129,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                     </div>
                                     <Form
                                         onSubmit={(values) => this.handleFormSubmit(values)}
-                                        render={({ submitForm, values, addValue, removeValue, setValue }) => (
+                                        render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
 
                                             <form className="modal-form" onSubmit={submitForm}>
                                                 <div className="form-group-app no-padding-left no-padding-top">
@@ -181,6 +181,8 @@ class MarketplaceChangeQuantity extends React.Component {
                                                     </div>
                                                     <AdvancedSettings
                                                         setValue={setValue}
+                                                        getFormState={getFormState}
+                                                        values={values}
                                                         advancedState={this.state.advancedState}
                                                     />
                                                 </div>
