@@ -485,13 +485,13 @@ class InfoAccount extends React.Component {
                                 })}>
                                     <div className="flexible-grid">
                                         <a
-                                            onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', this.state.account.accountRS)}
+                                            onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient: this.state.account.accountRS})}
                                             className="btn btn-primary blue static"
                                         >
                                             Send Apollo
                                         </a>
                                         <a
-                                            onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', this.state.account.accountRS)}
+                                            onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient: this.state.account.accountRS})}
                                             className="btn btn-primary blue static"
                                         >
                                             Send a message

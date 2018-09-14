@@ -151,13 +151,13 @@ class InfoLedgerTransaction extends React.Component {
                                         this.state.transaction &&
                                         <div className="flexible-grid">
                                             <a
-                                                onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', this.state.transaction.recipientRS)}
+                                                onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient: this.state.transaction.recipientRS})}
                                                 className="btn btn-primary blue static"
                                             >
                                                 Send Apollo
                                             </a>
                                             <a
-                                                onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', this.state.transaction.recipientRS)}
+                                                onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient: this.state.transaction.recipientRS})}
                                                 className="btn btn-primary blue static"
                                             >
                                                 Send a message
