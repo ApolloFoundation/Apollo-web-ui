@@ -1249,7 +1249,12 @@ input {
 .btn-box {
 	width: 100%;
 	//min-height: 32px;
-	
+	&.under-table {
+		transform: translate(0, 0px);
+		@media (max-width: 1024px) {
+			transform: translate(0, -17px);
+		}
+	}
 	&.align-right {
 		text-align: right;
 	}

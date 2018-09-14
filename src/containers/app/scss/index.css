@@ -3594,6 +3594,11 @@ input {
 
 .btn-box {
   width: 100%; }
+  .btn-box.under-table {
+    transform: translate(0, 0px); }
+    @media (max-width: 1024px) {
+      .btn-box.under-table {
+        transform: translate(0, -17px); } }
   .btn-box.align-right {
     text-align: right; }
   .btn-box.align-left {

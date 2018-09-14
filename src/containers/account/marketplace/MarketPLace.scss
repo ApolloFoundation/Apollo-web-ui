@@ -45,6 +45,9 @@
 		height: 1px;
 		bottom: 0;
 		background-color: #e5e5e5;
+		@media (max-width: 760px) {
+			width: calc(100% - 40px);
+		}
 	}
 }
 .marketplace-item {
