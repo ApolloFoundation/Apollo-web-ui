@@ -28,6 +28,7 @@ import {
 // Demo styles, see 'Styles' section below for some notes on use.
 import 'react-accessible-accordion/dist/fancy-example.css';
 import {NotificationManager} from "react-notifications";
+import uuid from "uuid";
 
 class SiteHeader extends React.Component {
 	constructor(props) {
@@ -843,7 +844,7 @@ class SiteHeader extends React.Component {
 																	this.state.contacts.length &&
 																	this.state.contacts.map((el, index) => {
 																		return (
-																			<li>
+																			<li key={uuid()}>
 																				<a
 																					onClick={() => this.props.switchAccountAction(el.accountRS)}
 																				>
