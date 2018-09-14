@@ -32,6 +32,21 @@
 	}
 }
 
+.marketplace-item--full-width {
+	position: relative;
+	width: 100%;
+	margin-bottom: 0;
+	&:after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%, 0);
+		width: calc(100% - 60px);
+		height: 1px;
+		bottom: 0;
+		background-color: #e5e5e5;
+	}
+}
 .marketplace-item {
 	min-height: 325px;
 	position: relative;
@@ -55,6 +70,8 @@
 	}
 	@media (max-width: 760px) {
 		width: calc(100% - 15px);
+		height: auto !important;
+		min-height: auto;
 	}
 	.marketplace.card {
 		width: 100%;
@@ -63,6 +80,9 @@
 		@media (max-width: 760px) {
 			left: 0;
 			right: 0;
+			position: static;
+			min-height: auto;
+			margin-bottom: 0;
 		}
 	}
 	&:hover {
@@ -111,6 +131,7 @@
 		opacity: 0;
 		overflow: hidden;
 		transition: 0.2s;
+		
 	}
 	&.marketplace {
 		padding: 0;
@@ -175,6 +196,7 @@
 			height: auto;
 			min-height: auto;
 			flex-wrap: wrap;
+			margin-bottom: 0;
 			@media (max-width: 760px) {
 				padding: 20px;
 			}
@@ -393,7 +415,10 @@
 					max-height: 0px;
 					overflow: hidden;
 					transition: all 0.3s ease-in-out;
-					
+					@media (max-width: 760px) {
+						max-height: 100%;
+						opacity: 1;
+					}
 					&.active {
 						max-height: 100px;
 					}
