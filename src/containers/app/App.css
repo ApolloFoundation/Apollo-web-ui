@@ -3100,6 +3100,9 @@ input {
 .display-block {
   display: block; }
 
+.display-flex {
+  display: flex; }
+
 .info-table {
   display: table;
   max-width: 400px; }
@@ -3802,7 +3805,8 @@ input {
     background: #00C8FF;
     color: #fff;
     opacity: 0.5;
-    cursor: default; }
+    cursor: default;
+    pointer-events: none; }
   .btn.gray-lighten {
     background: #E5E5E5;
     color: black; }
@@ -3839,7 +3843,8 @@ input {
   background-color: #FFFFFF;
   position: relative;
   z-index: 3;
-  padding: 20px 30px; }
+  padding: 20px 30px;
+  width: 100%; }
   .card.scroll {
     overflow-y: auto; }
   .card.transparent {

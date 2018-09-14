@@ -1,6 +1,6 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
-import TradeHistoryItem from '../trade-history/trade-history-item'
+import TradeHistoryItem from './trade-history-item'
 import classNames from "classnames";
 import uuid from "uuid";
 import {connect} from 'react-redux'
@@ -9,7 +9,9 @@ import {getTradesHistoryAction}   from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getTransactionAction}     from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
-
+import {
+    getAccountExchangesAction
+} from "../../../actions/exchange-booth";
 
 const mapStateToProps = state => ({
     account: state.account.account,
@@ -19,6 +21,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getTradesHistoryAction: (requestParams) => dispatch(getTradesHistoryAction(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
+    getExchanges: currency => dispatch(getAccountExchangesAction(currency)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 
@@ -43,6 +46,12 @@ class TradeHistoryCurrency extends React.Component {
             lastIndex: this.state.lastIndex,
             account: this.props.accountRS,
         });
+        this.getExchanges({
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex,
+            account: this.props.accountRS,
+            includeCurrencyInfo: true,
+        });
         BlockUpdater.on("data", data => {
             console.warn("height in dashboard", data);
             console.warn("updating dashboard");
@@ -52,15 +61,32 @@ class TradeHistoryCurrency extends React.Component {
                 account: this.props.accountRS,
             });
         });
-
     }
 
-    componentWillReceiveProps() {
+    getExchanges = async currency => {
+        const exchanges = (await this.props.getExchanges(currency));
+
+        console.log(exchanges);
+
+        if (exchanges) {
+            this.setState({
+                executedExchanges: exchanges.exchanges
+            })
+        }
+    };
+
+    componentWillReceiveProps(newState) {
         this.getTradesHistory({
-            account: this.props.accountRS,
+            account: newState.accountRS,
             firstIndex: this.state.firstIndex,
             lastIndex:  this.state.lastIndex
-        })
+        });
+        this.getExchanges({
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex,
+            account: newState.accountRS,
+            includeCurrencyInfo: true,
+        });
     }
 
     componentWillUnmount() {
@@ -109,7 +135,7 @@ class TradeHistoryCurrency extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Trade History'}
+                    pageTitle={'Exchange History'}
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
@@ -118,20 +144,21 @@ class TradeHistoryCurrency extends React.Component {
                                 <table>
                                     <thead>
                                     <tr>
-                                        <td>Asset</td>
                                         <td>Date</td>
-                                        <td>Type</td>
-                                        <td className="align-right">Quantity</td>
-                                        <td className="align-right">Price</td>
-                                        <td className="align-right">Total</td>
-                                        <td>Buyer</td>
+                                        <td>Exchange Request</td>
+                                        <td>Exchange Offer</td>
+                                        <td className="align-right">Code</td>
                                         <td>Seller</td>
+                                        <td>Buyer</td>
+                                        <td className="align-right">Units</td>
+                                        <td className="align-right">Rate</td>
+                                        <td className="align-right">Amount</td>
                                     </tr>
                                     </thead>
                                     <tbody key={uuid()}>
                                     {
-                                        this.state.trades &&
-                                        this.state.trades.map((el, index) => {
+                                        this.state.executedExchanges &&
+                                        this.state.executedExchanges.map((el, index) => {
                                             return (
                                                 <TradeHistoryItem
                                                     transfer={el}
@@ -143,7 +170,7 @@ class TradeHistoryCurrency extends React.Component {
                                     </tbody>
                                 </table>
                                 {
-                                    this.state.trades &&
+                                    this.state.executedExchanges &&
                                     <div className="btn-box">
                                         <a
                                             className={classNames({
@@ -163,7 +190,7 @@ class TradeHistoryCurrency extends React.Component {
                                             className={classNames({
                                                 'btn' : true,
                                                 'btn-right' : true,
-                                                'disabled' : this.state.trades.length < 15
+                                                'disabled' : this.state.executedExchanges.length < 15
                                             })}
                                         >Next</a>
                                     </div>

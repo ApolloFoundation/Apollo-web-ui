@@ -153,7 +153,7 @@ class Sidebar extends React.Component {
 								<NavLink to="/currencies" className={`text ${this.getNavLinkClass(["/currencies",
 									// "/my-shuffling",
 									"/transfer-history-currency",
-									"/trade-history-currency"])}`}>
+									"/exchange-history-currency"])}`}>
 									Currency system
 									<i className="zmdi zmdi-money left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
@@ -163,7 +163,7 @@ class Sidebar extends React.Component {
 										<li><NavLink to="/currencies">Currencies</NavLink></li>
 										{/*<li><NavLink to="/my-shuffling">Exchange history</NavLink></li>*/}
 										<li><NavLink to="/transfer-history-currency">Transfer history</NavLink></li>
-										<li><NavLink to="/trade-history-currency">Trade history</NavLink></li>
+										<li><NavLink to="/exchange-history-currency">Exchange History</NavLink></li>
 										<li>
 											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
 												Currencies</a>

@@ -163,7 +163,7 @@ class App extends React.Component {
                                 <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
                                 {/*<Route exact path="/settings" component={Settings}/>*/}
                                 <Route exact path="/trade-history" component={TradeHistory}/>
-                                <Route exact path="/trade-history-currency" component={TradeHistoryCurrency}/>
+                                <Route exact path="/exchange-history-currency" component={TradeHistoryCurrency}/>
                                 <Route exact path="/transfer-history" component={TransferHistory}/>
                                 <Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
                                 <Route exact path="/finished-polls" component={Finishedpolls}/>

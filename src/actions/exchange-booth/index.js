@@ -68,3 +68,17 @@ export const getExchangesAction = currency => dispatch => {
         }
     });
 };
+
+export const getAccountExchangesAction = requestParams => dispatch => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getExchanges',
+            ...requestParams,
+            random: Math.random()
+        }
+    }).then((res) => {
+        if (!res.data.errorCode) {
+            return res.data
+        }
+    });
+};

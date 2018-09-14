@@ -17,7 +17,9 @@ import {
 import OfferItem  from './offer-item/'
 import ExchangeItem  from './exchange-item/ExchangeItem'
 import ExecutedItem  from './executed-item/ExecutedItem'
+import {Form, Text, TextArea} from 'react-form';
 import uuid from 'uuid'
+import {NotificationManager} from "react-notifications";
 
 class ExchangeBooth extends React.Component {
     state = {
@@ -27,7 +29,9 @@ class ExchangeBooth extends React.Component {
         exchangeRequest: [],
         executedExchanges: [],
         minimumSellRate: null,
-        minimumBuyRate: null
+        minimumBuyRate: null,
+        totalBuyRate: 0,
+        totalSellRate: 0
     };
 
     listener = data => {
@@ -136,6 +140,38 @@ class ExchangeBooth extends React.Component {
         }
     };
 
+    handleMinimumBuyRate = (values) => {
+        console.log(this.state.currency);
+
+        values = {
+            ...values,
+            currency: this.state.currency
+        };
+
+        if (!!parseInt(values.rateATM) && !!parseInt(values.units)) {
+            this.props.setBodyModalParamsAction('BUY_CURRENCY', values);
+
+        } else {
+            NotificationManager.error('Please fill in number of units and rate.', null, 5000);
+        }
+    };
+
+    handleMinimumSellRate = (values) => {
+        console.log(values);
+
+        values = {
+            ...values,
+            currency: this.state.currency
+        };
+
+        if (!!parseInt(values.rateATM) && !!parseInt(values.units)) {
+            this.props.setBodyModalParamsAction('SELL_CURRENCY', values);
+
+        } else {
+            NotificationManager.error('Please fill in number of units and rate.', null, 5000);
+        }
+    };
+
     render() {
         return (
             <div className="page-content">
@@ -209,117 +245,142 @@ class ExchangeBooth extends React.Component {
                                             </div>
                                         </div>
                                         <div className="card ballance auto-height medium-padding">
-                                            <div className="form-group-app">
-                                                <div className="form-title">
-                                                    <p>Buy {this.state.code}</p>
-                                                    <div className="form-sub-title">
-                                                        balance: <strong>8,686 NXT</strong>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="form-group row form-group-white">
-                                                        <div className="col-md-3 pl-0">
-                                                            <label>Units</label>
-                                                        </div>
-                                                        <div
-                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input
-                                                                ref="buy_currency_units"
-                                                                placeholder='Recipient'
-                                                                className={"form-control"}
-                                                            />
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text"
-                                                                      id="amountText">{this.state.code}</span>
+                                            <Form
+                                                onSubmit={(values) => this.handleMinimumBuyRate(values)}
+                                                render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                                                    <form onSubmit={submitForm} className="form-group-app">
+                                                        <div className="form-title">
+                                                            <p>Buy {this.state.code}</p>
+                                                            <div className="form-sub-title">
+                                                                balance: <strong>8,686 NXT</strong>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="form-group row form-group-white">
-                                                        <div className="col-md-3 pl-0">
-                                                            <label>Maximum Rate</label>
+                                                        <div
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="form-group row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                    <label>Units</label>
+                                                                </div>
+                                                                <div
+                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    <Text
+                                                                        field="units"
+                                                                        placeholder='Recipient'
+                                                                        className={"form-control"}
+                                                                        onKeyUp={(e) => {
+                                                                            console.log(this.state.minimumBuyRate);
+                                                                            setValue('rateATM', ((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
+                                                                        }}
+                                                                    />
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text"
+                                                                              id="amountText">{this.state.code}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div
-                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            {
-                                                                !!this.state.minimumSellRate &&
-                                                                <input
-                                                                    value={(this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)}
-                                                                    ref="buy_currency_rate"
-                                                                    placeholder='Quantity'
-                                                                    className={"form-control "}
-                                                                    readOnly
-                                                                    disabled
-                                                                />
-                                                            }
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="form-group row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                    <label>Maximum Rate</label>
+                                                                </div>
+                                                                <div
+                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    {
+                                                                        !!this.state.minimumBuyRate &&
+                                                                        <input
+                                                                            value={(this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                            ref="buy_currency_rate"
+                                                                            placeholder='Quantity'
+                                                                            className={"form-control "}
+                                                                            readOnly
+                                                                            disabled
+                                                                        />
+                                                                    }
 
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text"
-                                                                      id="amountText">{this.state.code}</span>
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text"
+                                                                            id="amountText">{this.state.code}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="form-group row form-group-white">
-                                                        <div className="col-md-3 pl-0">
-                                                            <label>Effective Rate</label>
                                                         </div>
                                                         <div
-                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input
-                                                                ref="buy_currency_effective_rate"
-                                                                placeholder='Price'
-                                                                className={"form-control"}
-                                                                readOnly
-                                                                disabled
-                                                            />
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text"
-                                                                      id="amountText">{this.state.code}</span>
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="form-group row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                    <label>Effective Rate</label>
+                                                                </div>
+                                                                <div
+                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    {
+                                                                        !!this.state.minimumBuyRate &&
+                                                                        <input
+                                                                            value={(this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                            ref="buy_currency_rate"
+                                                                            placeholder='Quantity'
+                                                                            className={"form-control "}
+                                                                            readOnly
+                                                                            disabled
+                                                                        />
+                                                                    }
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text"
+                                                                            id="amountText">{this.state.code}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="form-group row form-group-white">
-                                                        <div className="col-md-3 pl-0">
-                                                            <label>Total</label>
                                                         </div>
                                                         <div
-                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input
-                                                                ref="buy_currency_total"
-                                                                placeholder='Price'
-                                                                className={"form-control"}
-                                                                readOnly
-                                                                disabled
-                                                            />
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text"
-                                                                      id="amountText">{this.state.code}</span>
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="form-group row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                    <label>Total</label>
+                                                                </div>
+                                                                <div
+                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    <Text
+                                                                        field="rateATM"
+                                                                        placeholder='Price'
+                                                                        className={"form-control"}
+                                                                        readOnly
+                                                                        disabled
+                                                                        value={this.state.totalSellRate}
+                                                                    />
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text"
+                                                                            id="amountText">{this.state.code}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row form-group-white">
-                                                        <div className="col-md-3 pl-0">
+                                                        <div
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                </div>
+                                                                <div className="col-md-9 pr-0">
+                                                                    <button
+                                                                        type='submit'
+                                                                        className={classNames({
+                                                                            'blue-disabled' : !(!!parseInt(getFormState().values.rateATM)),
+                                                                            'btn': true,
+                                                                            'static': true,
+                                                                            'blue': true,
+                                                                        })}
+                                                                    >
+                                                                        Buy ({this.state.code} > {this.state.code})
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div className="col-md-9 pr-0">
-                                                            <button className="btn static blue">Buy
-                                                                ({this.state.code} > {this.state.code})
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    </form>
+                                                )}
+                                            />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -357,124 +418,147 @@ class ExchangeBooth extends React.Component {
                                             </div>
                                         </div>
                                         <div className="card assets auto-height medium-padding">
-                                            <div className="form-group-app">
-                                                <div className="form-title">
-                                                    <p>Sell {this.state.code}</p>
-                                                    <div className="form-sub-title">
-                                                        balance: <strong>8,686 NXT</strong>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="form-group row form-group-white">
-                                                        <div className="col-md-3 pl-0">
-                                                            <label>Units</label>
-                                                        </div>
-                                                        <div
-                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input
-                                                                ref="buy_currency_units"
-                                                                placeholder='Recipient'
-                                                                className={"form-control"}
-                                                                readOnly
-                                                                disabled
-                                                            />
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text"
-                                                                      id="amountText">{this.state.code}</span>
+                                            <Form
+                                                onSubmit={(values) => this.handleMinimumSellRate(values)}
+                                                render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                                                    <form className="form-group-app" onSubmit={submitForm}>
+                                                        <div className="form-title">
+                                                            <p>Sell {this.state.code}</p>
+                                                            <div className="form-sub-title">
+                                                                balance: <strong>8,686 NXT</strong>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="form-group row form-group-white">
-                                                        <div className="col-md-3 pl-0">
-                                                            <label>Maximum Rate</label>
-                                                        </div>
                                                         <div
-                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            {
-                                                                !!this.state.minimumBuyRate &&
-                                                                <input
-                                                                    value={(this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)}
-                                                                    ref="buy_currency_rate"
-                                                                    placeholder='Quantity'
-                                                                    className={"form-control"}
-                                                                    readOnly
-                                                                    disabled
-                                                                />
-                                                            }
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text"
-                                                                      id="amountText">{this.state.code}</span>
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="form-group row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                    <label>Units</label>
+                                                                </div>
+                                                                <div
+                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    <Text
+                                                                        field="units"
+                                                                        placeholder='Recipient'
+                                                                        className={"form-control"}
+                                                                        onKeyUp={(e) => {
+                                                                            console.log(this.state.minimumSellRate);
+
+                                                                            setValue('rateATM', ((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
+                                                                        }}
+                                                                    />
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text"
+                                                                              id="amountText">{this.state.code}</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="form-group row form-group-white">
-                                                        <div className="col-md-3 pl-0">
-                                                            <label>Effective Rate</label>
-                                                        </div>
                                                         <div
-                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input
-                                                                ref="buy_currency_effective_rate"
-                                                                placeholder='Price'
-                                                                className={"form-control"}
-                                                                readOnly
-                                                                disabled
-                                                            />
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text"
-                                                                      id="amountText">{this.state.code}</span>
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="form-group row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                    <label>Maximum Rate</label>
+                                                                </div>
+                                                                <div
+                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    {
+                                                                        !!this.state.minimumSellRate &&
+                                                                        <input
+                                                                            value={(this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                            ref="buy_currency_rate"
+                                                                            placeholder='Quantity'
+                                                                            className={"form-control "}
+                                                                            readOnly
+                                                                            disabled
+                                                                        />
+                                                                    }
+
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text"
+                                                                              id="amountText">{this.state.code}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="form-group row form-group-white">
-                                                        <div className="col-md-3 pl-0">
-                                                            <label>Total</label>
-                                                        </div>
                                                         <div
-                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input
-                                                                ref="buy_currency_total"
-                                                                placeholder='Price'
-                                                                className={"form-control"}
-                                                                readOnly
-                                                                disabled
-                                                            />
-                                                            <div className="input-group-append">
-                                                                <span className="input-group-text"
-                                                                      id="amountText">{this.state.code}</span>
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="form-group row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                    <label>Effective Rate</label>
+                                                                </div>
+                                                                <div
+                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    {
+                                                                        !!this.state.minimumSellRate &&
+                                                                        <input
+                                                                            value={(this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                            ref="buy_currency_rate"
+                                                                            placeholder='Quantity'
+                                                                            className={"form-control "}
+                                                                            readOnly
+                                                                            disabled
+                                                                        />
+                                                                    }
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text"
+                                                                              id="amountText">{this.state.code}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="input-group-app offset-top display-block inline no-margin">
-                                                    <div className="row form-group-white">
-                                                        <div className="col-md-3 pl-0">
+                                                        <div
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="form-group row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                    <label>Total</label>
+                                                                </div>
+                                                                <div
+                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    <Text
+                                                                        field="rateATM"
+                                                                        placeholder='Price'
+                                                                        className={"form-control"}
+                                                                        readOnly
+                                                                        disabled
+                                                                        value={this.state.totalSellRate}
+                                                                    />
+                                                                    <div className="input-group-append">
+                                                                        <span className="input-group-text"
+                                                                              id="amountText">{this.state.code}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div className="col-md-9 pr-0">
-                                                            <button className="btn static blue">Sell
-                                                                ({this.state.code} > {this.state.code})
-                                                            </button>
+                                                        <div
+                                                            className="input-group-app offset-top display-block inline no-margin">
+                                                            <div className="row form-group-white">
+                                                                <div className="col-md-3 pl-0">
+                                                                </div>
+                                                                <div className="col-md-9 pr-0">
+                                                                    <button className={classNames({
+                                                                        'blue-disabled' : !(!!parseInt(getFormState().values.rateATM)),
+                                                                        'btn': true,
+                                                                        'static': true,
+                                                                        'blue': true,
+                                                                    })}
+                                                                    >
+                                                                        Sell ({this.state.code} > {this.state.code})
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    </form>
+                                                )}
+                                            />
                                         </div>
                                     </div>
                                     <div className="col-md-12 no-padding">
                                         <div className="row">
-                                            <div className="col-md-6">
-                                                <div className="card ballance medium-padding">
+                                            <div className="col-md-6 display-flex">
+                                                <div className="card ballance medium-padding card-flexible">
                                                     <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>Offers to sell SECRT</p>
@@ -513,8 +597,8 @@ class ExchangeBooth extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
-                                                <div className="card assets medium-padding">
+                                            <div className="col-md-6 display-flex">
+                                                <div className="card assets medium-padding card-flexible">
                                                     <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>Offers to buy KKT</p>
@@ -560,7 +644,7 @@ class ExchangeBooth extends React.Component {
                                         </div>
                                     </div>
                                     <div className="col-md-12">
-                                        <div className="card ballance medium-padding">
+                                        <div className="card ballance medium-padding card-flexible">
                                             <div className="form-group-app">
                                                 <div className="form-title">
                                                     <p>Exchange requests</p>
