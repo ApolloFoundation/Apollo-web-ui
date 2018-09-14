@@ -28,6 +28,7 @@ import {
 // Demo styles, see 'Styles' section below for some notes on use.
 import 'react-accessible-accordion/dist/fancy-example.css';
 import {NotificationManager} from "react-notifications";
+import uuid from "uuid";
 
 class SiteHeader extends React.Component {
 	constructor(props) {
@@ -720,8 +721,8 @@ class SiteHeader extends React.Component {
 														{/*
 														<li><Link to="/plugins" className="option">Plugins</Link></li>
 */}
-														<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account
-															settings</Link></li>
+														{/*<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account
+															settings</Link></li>*/}
 														<li><a
 															onClick={() => {
                                                                 this.props.setBodyModalType(null);
@@ -843,7 +844,7 @@ class SiteHeader extends React.Component {
 																	this.state.contacts.length &&
 																	this.state.contacts.map((el, index) => {
 																		return (
-																			<li>
+																			<li key={uuid()}>
 																				<a
 																					onClick={() => this.props.switchAccountAction(el.accountRS)}
 																				>
@@ -877,7 +878,7 @@ class SiteHeader extends React.Component {
 													</Link>
 
 												</div>
-												<div className="input-section">
+												{/*<div className="input-section">
 													<Link
 														to="/settings"
 														className="image-button"
@@ -886,7 +887,7 @@ class SiteHeader extends React.Component {
 														<label style={{cursor: 'pointer'}}>Settings</label>
 													</Link>
 
-												</div>
+												</div>*/}
 												<div className="input-section">
 													<div
 														onClick={() => logOutAction('simpleLogOut')}

@@ -30,8 +30,12 @@ class OfferCurrency extends React.Component {
 
         values = {
             ...values,
+            initialBuySupply: values.initialBuySupply * Math.pow(10, this.props.modalData.decimals),
+            totalBuyLimit: values.totalBuyLimit * Math.pow(10, this.props.modalData.decimals),
+            totalSellLimit: values.totalSellLimit * Math.pow(10, this.props.modalData.decimals),
+            sellRateATM: values.sellRateATM * Math.pow(10, 8),
             buyRateATM: values.buyRateATM * Math.pow(10, 8),
-            initialSellSupply: values.initialSellSupply * Math.pow(10, 8)
+            initialSellSupply: values.initialSellSupply * Math.pow(10, this.props.modalData.decimals)
         };
 
         this.props.submitForm(null, null, values, 'publishExchangeOffer')

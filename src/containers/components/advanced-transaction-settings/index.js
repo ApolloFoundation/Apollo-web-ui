@@ -245,7 +245,7 @@ class AdvancedSettings extends React.Component {
                             })}
                         >
                             <div className="form-tab">
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
                                     <div className="col-sm-9 input-group input-group-sm mb-0">
                                         {
@@ -265,9 +265,9 @@ class AdvancedSettings extends React.Component {
                                             }
                                         </div>
                                     </div>
-                                    <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                         2018/06/19 09:32 am
-                                    </div>
+                                    </div>*/}
                                 </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
@@ -345,7 +345,7 @@ class AdvancedSettings extends React.Component {
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
                                     <div className="col-sm-9 input-group input-group-sm mb-0">
                                         {
@@ -364,9 +364,9 @@ class AdvancedSettings extends React.Component {
                                             }
                                         </div>
                                     </div>
-                                    <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                         2018/06/19 09:32 am
-                                    </div>
+                                    </div>*/}
                                 </div>
                                 <div className="input-group-app form-group mb-15 display-block inline user">
                                     <div className="row form-group-grey">
@@ -487,7 +487,7 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
                                     <div className="col-sm-9 input-group input-group-sm mb-0">
                                         {
@@ -506,9 +506,9 @@ class AdvancedSettings extends React.Component {
                                             }
                                         </div>
                                     </div>
-                                    <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                         2018/06/19 09:32 am
-                                    </div>
+                                    </div>*/}
                                 </div>
                                 <div className="input-group-app form-group mb-15 display-block inline user">
                                     <div className="row form-group-grey">
@@ -631,7 +631,7 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
                                     <div className="col-sm-9 input-group input-group-sm mb-0">
                                         {
@@ -650,9 +650,9 @@ class AdvancedSettings extends React.Component {
                                             }
                                         </div>
                                     </div>
-                                    <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                         2018/06/19 09:32 am
-                                    </div>
+                                    </div>*/}
                                 </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
@@ -783,7 +783,7 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
                                     <div className="col-sm-9 input-group input-group-sm mb-0">
                                         {
@@ -802,9 +802,9 @@ class AdvancedSettings extends React.Component {
                                             }
                                         </div>
                                     </div>
-                                    <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                         2018/06/19 09:32 am
-                                    </div>
+                                    </div>*/}
                                 </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
@@ -924,7 +924,7 @@ class AdvancedSettings extends React.Component {
                             })}
                         >
                             <div className="form-tab">
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
                                     <div className="col-sm-9 input-group input-group-sm mb-0">
                                         {
@@ -943,9 +943,9 @@ class AdvancedSettings extends React.Component {
                                             <span className="input-group-text">{this.state.block.height}</span>
                                         }
                                     </div>
-                                    <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                         2018/06/19 09:32 am
-                                    </div>
+                                    </div>*/}
                                 </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
@@ -1022,7 +1022,7 @@ class AdvancedSettings extends React.Component {
                             })}
                         >
                             <div className="form-tab">
-                                <div className="form-group row form-group-grey">
+                                <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">Finish height</label>
                                     <div className="col-sm-9 input-group input-group-sm mb-0">
                                         {
@@ -1041,9 +1041,9 @@ class AdvancedSettings extends React.Component {
                                             }
                                         </div>
                                     </div>
-                                    <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                         2018/06/19 09:32 am
-                                    </div>
+                                    </div>*/}
                                 </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">

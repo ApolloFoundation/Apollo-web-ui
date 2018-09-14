@@ -17,6 +17,7 @@ import {
 import OfferItem  from './offer-item/'
 import ExchangeItem  from './exchange-item/ExchangeItem'
 import ExecutedItem  from './executed-item/ExecutedItem'
+import uuid from 'uuid'
 
 class ExchangeBooth extends React.Component {
     state = {
@@ -25,6 +26,8 @@ class ExchangeBooth extends React.Component {
         buyOffers: [],
         exchangeRequest: [],
         executedExchanges: [],
+        minimumSellRate: null,
+        minimumBuyRate: null
     };
 
     listener = data => {
@@ -66,18 +69,45 @@ class ExchangeBooth extends React.Component {
 
     getBuyOffers = async currency => {
         const buyOffers = await this.props.getBuyOffers(currency);
-        console.warn("buy --------------------------", buyOffers);
         const offers = buyOffers.offers;
+
+        console.log(Math.min.apply(null, offers.map((el) => {
+            return el.rateATM
+        })) || 0);
+
         this.setState({
             buyOffers: offers,
+            minimumBuyRate: '0'
+        }, () => {
+            if (offers.length) {
+                this.setState({
+                    minimumBuyRate: Math.min.apply(null, offers.map((el) => {
+                        return el.rateATM
+                    }))
+                })
+            }
         })
     };
 
     getSellOffers = async currency => {
         const sellOffers = await this.props.getSellOffers(currency);
         const offers = sellOffers.offers;
+
+        console.log(Math.min.apply(null, offers.map((el) => {
+            return el.rateATM
+        })));
+
         this.setState({
             sellOffers: offers,
+            minimumSellRate: '0'
+        }, () => {
+            if (offers.length) {
+                this.setState({
+                    minimumSellRate: Math.min.apply(null, offers.map((el) => {
+                        return el.rateATM
+                    }))
+                })
+            }
         })
     };
 
@@ -141,9 +171,9 @@ class ExchangeBooth extends React.Component {
                                     {
                                         this.state.currencies &&
                                         this.state.currencies.map((el, index) => {
-
                                             return (
                                                 <Link
+                                                    key={uuid()}
                                                     style={{display: 'block'}}
                                                     to={"/exchange-booth/" + (el ? el.code : "")}
                                                     className={classNames({
@@ -190,12 +220,15 @@ class ExchangeBooth extends React.Component {
                                                     className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="form-group row form-group-white">
                                                         <div className="col-md-3 pl-0">
-                                                            <label>Quantity</label>
+                                                            <label>Units</label>
                                                         </div>
                                                         <div
                                                             className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input ref="quantity1" placeholder='Recipient'
-                                                                   className={"form-control"}/>
+                                                            <input
+                                                                ref="buy_currency_units"
+                                                                placeholder='Recipient'
+                                                                className={"form-control"}
+                                                            />
                                                             <div className="input-group-append">
                                                                 <span className="input-group-text"
                                                                       id="amountText">{this.state.code}</span>
@@ -207,12 +240,44 @@ class ExchangeBooth extends React.Component {
                                                     className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="form-group row form-group-white">
                                                         <div className="col-md-3 pl-0">
-                                                            <label>Price</label>
+                                                            <label>Maximum Rate</label>
                                                         </div>
                                                         <div
                                                             className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input ref="priceATM1" placeholder='Quantity'
-                                                                   className={"form-control"}/>
+                                                            {
+                                                                !!this.state.minimumSellRate &&
+                                                                <input
+                                                                    value={(this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                    ref="buy_currency_rate"
+                                                                    placeholder='Quantity'
+                                                                    className={"form-control "}
+                                                                    readOnly
+                                                                    disabled
+                                                                />
+                                                            }
+
+                                                            <div className="input-group-append">
+                                                                <span className="input-group-text"
+                                                                      id="amountText">{this.state.code}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className="input-group-app offset-top display-block inline no-margin">
+                                                    <div className="form-group row form-group-white">
+                                                        <div className="col-md-3 pl-0">
+                                                            <label>Effective Rate</label>
+                                                        </div>
+                                                        <div
+                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                            <input
+                                                                ref="buy_currency_effective_rate"
+                                                                placeholder='Price'
+                                                                className={"form-control"}
+                                                                readOnly
+                                                                disabled
+                                                            />
                                                             <div className="input-group-append">
                                                                 <span className="input-group-text"
                                                                       id="amountText">{this.state.code}</span>
@@ -228,8 +293,13 @@ class ExchangeBooth extends React.Component {
                                                         </div>
                                                         <div
                                                             className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input ref="total1" placeholder='Price'
-                                                                   className={"form-control"}/>
+                                                            <input
+                                                                ref="buy_currency_total"
+                                                                placeholder='Price'
+                                                                className={"form-control"}
+                                                                readOnly
+                                                                disabled
+                                                            />
                                                             <div className="input-group-append">
                                                                 <span className="input-group-text"
                                                                       id="amountText">{this.state.code}</span>
@@ -298,12 +368,17 @@ class ExchangeBooth extends React.Component {
                                                     className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="form-group row form-group-white">
                                                         <div className="col-md-3 pl-0">
-                                                            <label>Quantity</label>
+                                                            <label>Units</label>
                                                         </div>
                                                         <div
                                                             className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input ref="quantity1" placeholder='Recipient'
-                                                                   className={"form-control"}/>
+                                                            <input
+                                                                ref="buy_currency_units"
+                                                                placeholder='Recipient'
+                                                                className={"form-control"}
+                                                                readOnly
+                                                                disabled
+                                                            />
                                                             <div className="input-group-append">
                                                                 <span className="input-group-text"
                                                                       id="amountText">{this.state.code}</span>
@@ -315,12 +390,43 @@ class ExchangeBooth extends React.Component {
                                                     className="input-group-app offset-top display-block inline no-margin">
                                                     <div className="form-group row form-group-white">
                                                         <div className="col-md-3 pl-0">
-                                                            <label>Price</label>
+                                                            <label>Maximum Rate</label>
                                                         </div>
                                                         <div
                                                             className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input ref="priceATM1" placeholder='Quantity'
-                                                                   className={"form-control"}/>
+                                                            {
+                                                                !!this.state.minimumBuyRate &&
+                                                                <input
+                                                                    value={(this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                    ref="buy_currency_rate"
+                                                                    placeholder='Quantity'
+                                                                    className={"form-control"}
+                                                                    readOnly
+                                                                    disabled
+                                                                />
+                                                            }
+                                                            <div className="input-group-append">
+                                                                <span className="input-group-text"
+                                                                      id="amountText">{this.state.code}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className="input-group-app offset-top display-block inline no-margin">
+                                                    <div className="form-group row form-group-white">
+                                                        <div className="col-md-3 pl-0">
+                                                            <label>Effective Rate</label>
+                                                        </div>
+                                                        <div
+                                                            className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                            <input
+                                                                ref="buy_currency_effective_rate"
+                                                                placeholder='Price'
+                                                                className={"form-control"}
+                                                                readOnly
+                                                                disabled
+                                                            />
                                                             <div className="input-group-append">
                                                                 <span className="input-group-text"
                                                                       id="amountText">{this.state.code}</span>
@@ -336,8 +442,13 @@ class ExchangeBooth extends React.Component {
                                                         </div>
                                                         <div
                                                             className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input ref="total1" placeholder='Price'
-                                                                   className={"form-control"}/>
+                                                            <input
+                                                                ref="buy_currency_total"
+                                                                placeholder='Price'
+                                                                className={"form-control"}
+                                                                readOnly
+                                                                disabled
+                                                            />
                                                             <div className="input-group-append">
                                                                 <span className="input-group-text"
                                                                       id="amountText">{this.state.code}</span>
@@ -389,7 +500,7 @@ class ExchangeBooth extends React.Component {
                                                                         </thead>
                                                                         <tbody>
                                                                         {this.state.sellOffers.map(offer => <OfferItem
-                                                                                key={offer}
+                                                                                key={uuid()}
                                                                                 offer={offer}
                                                                                 decimals={this.state.currency.decimals}
                                                                             />
@@ -432,7 +543,7 @@ class ExchangeBooth extends React.Component {
                                                                             <tbody>
                                                                             {this.state.buyOffers.map(offer =>
                                                                                 <OfferItem
-                                                                                    key={offer}
+                                                                                    key={uuid()}
                                                                                     offer={offer}
                                                                                     decimals={this.state.currency.decimals}
                                                                                 />
@@ -474,6 +585,7 @@ class ExchangeBooth extends React.Component {
                                                                 <tbody>
                                                                 {this.state.exchangeRequest.map(exchange =>
                                                                     <ExchangeItem
+                                                                        key={uuid()}
                                                                         exchange={exchange}
                                                                     />
                                                                 )}
@@ -512,6 +624,7 @@ class ExchangeBooth extends React.Component {
                                                                 <tbody>
                                                                 {this.state.executedExchanges.map(exchange =>
                                                                     <ExecutedItem
+                                                                        key={uuid()}
                                                                         exchange={exchange}
                                                                     />
                                                                 )}
