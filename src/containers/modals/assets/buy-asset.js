@@ -35,15 +35,13 @@ class BuyAsset extends React.Component {
             quantityATU: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
         };
 
-        this.props.submitForm(null, null, values, 'placeBidOrder')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('The buy order has been submitted!', null, 5000);
-                }
-            })
+        const res = await this.props.submitForm(null, null, values, 'placeBidOrder');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('The buy order has been submitted!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {

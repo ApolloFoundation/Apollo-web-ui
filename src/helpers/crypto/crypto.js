@@ -1,4 +1,5 @@
 import CryptoJS from 'crypto-js';
+import i18n from 'i18next';
 import converters from '../converters';
 import AplAddress from '../util/apladres';
 import account from '../../modules/modals';
@@ -62,7 +63,7 @@ async function getPublicKey(id, isAccountId) {
         })
             .then((res) => {
                 if (!res.data.publicKey) {
-                    // throw $.t("error_no_public_key");
+                    // throw i18n.t("error_no_public_key");
                 } else {
                     publicKey = res.data.publicKey;
                     return publicKey;
@@ -396,7 +397,7 @@ function encryptFile(file, options, callback) {
     try {
         r = new FileReader();
     } catch(e) {
-        // throw $.t("encrypted_file_upload_not_supported");
+        // throw i18n.t("encrypted_file_upload_not_supported");
     }
     r.onload = function (e) {
         var bytes = e.target.result;
@@ -426,7 +427,7 @@ function getRandomBytes(length) {
     if (!window.crypto && !window.msCrypto && !crypto) {
         // throw {
         //     "errorCode": -1,
-        //     "message": $.t("error_encryption_browser_support")
+        //     "message": i18n.t("error_encryption_browser_support")
         // };
     }
     var bytes = new Uint8Array(length);
@@ -451,7 +452,7 @@ function getEncryptionKeys(options, secretPhrase){
                 //     // secretPhrase = _password;
                 // } else {
                 //     throw {
-                //         "message": $.t("error_encryption_passphrase_required"),
+                //         "message": i18n.t("error_encryption_passphrase_required"),
                 //         "errorCode": 1
                 //     };
                 // }
@@ -497,7 +498,7 @@ function generatePublicKey (secretPhrase) {
     //     if (NRS.rememberPassword) {
     //         secretPhrase = _password;
     //     } else {
-    //         throw { message: $.t("error_generate_public_key_no_password") };
+    //         throw { message: i18n.t("error_generate_public_key_no_password") };
     //     }
     // }
 

@@ -44,16 +44,14 @@ class TransferAlias extends React.Component {
             aliasName: this.state.alias.aliasName
         };
 
-        this.props.submitForm(null, null, values, 'sellAlias')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'sellAlias')
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Product has been listed!', null, 5000);
-                }
-            })
+            NotificationManager.success('Product has been listed!', null, 5000);
+        }
 
         // this.props.sendTransaction(values);
         // this.props.setBodyModalParamsAction(null, {});

@@ -33,15 +33,13 @@ class SellCurrency extends React.Component {
             ...this.props.modalData
         };
 
-        this.props.submitForm(null, null, values, 'currencySell')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('The sell order has been submitted!', null, 5000);
-                }
-            })
+        const res = await submitForm(null, null, values, 'currencySell');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('The sell order has been submitted!', null, 5000);
+        }
     };
 
     // getAsset = async  () => {

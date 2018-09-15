@@ -273,7 +273,7 @@ function convertToAPL(amount, returnAsObject) {
     if (typeof amount !== "object") {
         amount = new BigInteger(String(amount));
     }
-    console.warn("WTFTFTFTTF----------------------------------------, ", amount);
+
     if (amount.compareTo(BigInteger.ZERO) < 0) {
         amount = amount.abs();
         negative = "-";

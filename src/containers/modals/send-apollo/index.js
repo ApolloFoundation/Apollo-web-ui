@@ -38,16 +38,14 @@ class SendApollo extends React.Component {
     async handleFormSubmit(values) {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        this.props.submitForm(null, null, values, 'sendMoney')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'sendMoney');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Transaction has been submitted!', null, 5000);
-                }
-            });
+            NotificationManager.success('Transaction has been submitted!', null, 5000);
+        }
     }
 
     handleAdvancedState() {

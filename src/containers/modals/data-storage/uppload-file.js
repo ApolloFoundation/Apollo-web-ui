@@ -29,16 +29,14 @@ class UploadFile extends React.Component {
         // const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
 
-        this.props.submitForm(null, null, values, 'uploadTaggedData')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'uploadTaggedData');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('File has been submitted!', null, 5000);
-                }
-            })
+            NotificationManager.success('File has been submitted!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {

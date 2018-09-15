@@ -33,16 +33,14 @@ class CreateShuffling extends React.Component {
             registrationPeriod: 1439
         };
 
-        this.props.submitForm(null, null, values, 'shufflingCreate')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'shufflingCreate');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Shuffling Created!', null, 5000);
-                }
-            })
+            NotificationManager.success('Shuffling Created!', null, 5000);
+        }
 
         // this.props.sendTransaction(values);
         // this.props.setBodyModalParamsAction(null, {});

@@ -32,31 +32,30 @@ class GenerateHallmark extends React.Component {
         })
     }
 
-    handleFormSubmit = values => {
+    handleFormSubmit = async values => {
         this.setState({
             hallmark: false
         });
+        let res = null;
         switch (this.state.activeTab) {
             case 0://generate hallmark
-                this.props.submitForm(null, null, {
+                res = await this.props.submitForm(null, null, {
                     host: values.hostGenerate,
                     weight: values.weightGenerate,
                     date: values.dateGenerate,
                     secretPhrase: values.passphraseGenerate,
                     feeATM: 0,
-                }, 'markHost')
-                    .done(res => {
-                        if (res.errorCode) {
-                            NotificationManager.error(res.errorDescription, "Error", 5000)
-                        } else {
-                            this.setState({
-                                hallmark: res.hallmark
-                            })
-                        }
-                    });
+                }, 'markHost');
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, "Error", 5000)
+                } else {
+                    this.setState({
+                        hallmark: res.hallmark
+                    })
+                }
                 break;
             case 1://parse hallmark
-                this.props.submitForm(null, null, {
+                res = await this.props.submitForm(null, null, {
                     hallmark: values.hallmarkParse,
                     account: values.accountParse,
                     host: values.hostParse,
@@ -65,15 +64,13 @@ class GenerateHallmark extends React.Component {
                     valid: values.validParse,
                     feeATM: 0,
                     random: Math.random()
-                }, 'decodeHallmark')
-                    .done(res => {
-                        if (res.errorCode) {
-                            NotificationManager.error(res.errorDescription, "Error", 5000)
-                        } else {
-                            NotificationManager.success("Hallmark parsed", null, 5000);
-                            this.setState({parsedHallmark: res})
-                        }
-                    });
+                }, 'decodeHallmark');
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, "Error", 5000)
+                } else {
+                    NotificationManager.success("Hallmark parsed", null, 5000);
+                    this.setState({parsedHallmark: res})
+                }
                 break;
         }
     };

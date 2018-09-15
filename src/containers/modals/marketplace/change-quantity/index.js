@@ -66,16 +66,14 @@ class MarketplaceChangeQuantity extends React.Component {
             publicKey: publicKey
         };
 
-        this.props.submitForm(null, null, values, 'dgsQuantityChange')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'dgsQuantityChange')
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('The marketplace item\'s quantity has been changed successfully!', null, 5000);
-                }
-            });
+            NotificationManager.success('The marketplace item\'s quantity has been changed successfully!', null, 5000);
+        }
     }
 
     render() {

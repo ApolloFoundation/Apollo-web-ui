@@ -32,21 +32,19 @@ class HashCalculation extends React.Component {
 
     async handleFormSubmit(values) {
         console.warn(values);
-        this.props.submitForm(null, null, {
+        const res = await this.props.submitForm(null, null, {
             secret: values.data,
             secretIsText: values.isMessage,
             hashAlgorithm: values.alg,
             feeATM: 0
-        }, 'hash')
-            .done(res => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, "Error", 5000)
-                } else {
-                    this.setState({
-                        generatedHash: res.hash
-                    });
-                }
+        }, 'hash');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, "Error", 5000)
+        } else {
+            this.setState({
+                generatedHash: res.hash
             });
+        }
     }
 
     handleAdvancedState() {

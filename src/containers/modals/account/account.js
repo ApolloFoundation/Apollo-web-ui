@@ -201,6 +201,7 @@ class InfoAccount extends React.Component {
 
                                                         return (
                                                             <Transaction
+                                                                key={uuid()}
                                                                 block
                                                                 transaction = {el}
                                                                 index={index}
@@ -243,6 +244,7 @@ class InfoAccount extends React.Component {
                                                     this.state.account_ledger.entries.map((el, index) => {
                                                         return (
                                                             <Entry
+                                                                key={uuid()}
                                                                 entry={el}
                                                                 publicKey= {this.state.serverPublicKey}
                                                                 privateKey={this.state.privateKey}
@@ -278,6 +280,7 @@ class InfoAccount extends React.Component {
                                                     this.state.assets.map((el, index) => {
                                                         return (
                                                             <Asset
+                                                                key={uuid()}
                                                                 info
                                                                 transfer={el}
                                                                 setLedgerEntryInfo={this.getLedgerEntry}
@@ -316,7 +319,7 @@ class InfoAccount extends React.Component {
                                                             this.state.trades &&
                                                             this.state.trades.trades.map((el, index) => {
                                                                 return (
-                                                                    <tr>
+                                                                    <tr key={uuid()}>
                                                                         <td className={'blue-link-text'}>
                                                                             <Link
                                                                                 onClick={() => this.props.closeModal()}
@@ -369,7 +372,7 @@ class InfoAccount extends React.Component {
                                                             this.state.currencies &&
                                                             this.state.currencies.currencies.map((el, index) => {
                                                                 return (
-                                                                    <tr>
+                                                                    <tr key={uuid()}>
                                                                         <td>{el.code}</td>
                                                                         <td>{el.name}</td>
                                                                         <td className="align-right">{0.1}</td>
@@ -412,7 +415,7 @@ class InfoAccount extends React.Component {
                                                             this.state.goods &&
                                                             this.state.goods.goods.map((el, index) => {
                                                                 return (
-                                                                    <tr>
+                                                                    <tr key={uuid()}>
                                                                         <td
                                                                             className={'blue-link-text'}
                                                                         >
@@ -460,7 +463,7 @@ class InfoAccount extends React.Component {
                                                             this.state.aliases &&
                                                             this.state.aliases.aliases.map((el, index) => {
                                                                 return (
-                                                                    <tr>
+                                                                    <tr key={uuid()}>
                                                                         <td>{el.aliasName}</td>
                                                                         <td>{el.aliasURI}</td>
                                                                     </tr>

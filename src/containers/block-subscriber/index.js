@@ -19,7 +19,7 @@ export default class BlockSubscriber extends React.Component {
         const blockData = await startBlockPullingAction();
         if (blockData) {
             const currHeight = blockData.height;
-            console.warn("updateBlock prev curr", this.prevHeight, currHeight);
+            // console.warn("updateBlock prev curr", this.prevHeight, currHeight);
             if (currHeight > this.prevHeight) {
                 this.prevHeight = currHeight;
                 BlockUpdater.emit("data", currHeight);
