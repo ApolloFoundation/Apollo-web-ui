@@ -465,7 +465,7 @@ class SiteHeader extends React.Component {
 													className={`text ${this.getNavLinkClass(["/currencies",
 														"/my-shuffling",
 														"/transfer-history-currency",
-														"/trade-history-currency"])}`}>
+														"/exchange-history-currency"])}`}>
 													<i className="zmdi zmdi-money"/>Currency system<span
 													className="arrow"/>
 												</AccordionItemTitle>
@@ -475,7 +475,7 @@ class SiteHeader extends React.Component {
 														<NavLink to="/my-shuffling">Exchange history</NavLink>
 														<NavLink to="/transfer-history-currency">Transfer
 															history</NavLink>
-														<NavLink to="/trade-history-currency">Approval
+														<NavLink to="/exchange-history-currency">Approval
 															requests</NavLink>
 
 														<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue

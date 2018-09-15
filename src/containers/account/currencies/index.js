@@ -9,6 +9,7 @@ import Currency from './currency';
 import {BlockUpdater} from "../../block-subscriber";
 import classNames from "classnames";
 import uuid from "uuid";
+import {getExchangesAction} from "../../../actions/exchange-booth";
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -19,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
     getTransactionAction : (type, data) => dispatch(getTransactionAction(type, data)),
     getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-
+    getExchanges: currency => dispatch(getExchangesAction(currency)),
 });
 
 class Currencies extends React.Component {
@@ -48,7 +49,16 @@ class Currencies extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+    };
 
+    getExchanges = async currency => {
+        const exchanges = (await this.props.getExchanges(currency)).exchanges;
+
+        if (exchanges) {
+            this.setState({
+                executedExchanges: exchanges
+            })
+        }
     };
 
     componentDidMount() {

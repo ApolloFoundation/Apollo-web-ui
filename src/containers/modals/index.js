@@ -12,7 +12,6 @@ import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
 
-
 // Account
 import InfoAccount from './account/account';
 import CreateUser from './account/create-account';
@@ -35,6 +34,8 @@ import TransferAsset from './assets/transfer-asset';
 import DeleteShares from './assets/delete-shares';
 import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
+import BuyCurrency from './currencies/confirm-buy-request';
+import SellCurrency from './currencies/confirm-sell-request';
 
 // currency System
 import TransferCurrency from './currencies/transfer-currency'
@@ -180,6 +181,8 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'TRANSFER_CURRENCY'           && <TransferCurrency          closeModal={this.closeModal}/>}
                 {this.props.modalType === 'OFFER_CURRENCY'              && <OfferCurrency             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'BUY_CURRENCY'                && <BuyCurrency               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SELL_CURRENCY'               && <SellCurrency              closeModal={this.closeModal}/>}
 
 
                 {/* Voting */}
@@ -208,11 +211,9 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'ADMIN_PASSWORD'              && <EnterAdminPassword        closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ENTER_SECRET_PHRASE'         && <EnterSecretPhrase         closeModal={this.closeModal}/>}
 
-
                 {/* Shuffling */}
                 {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.closeModal}/>}
                 {this.props.modalType === 'START_SHUFFLING'             && <JoinShuffling             closeModal={this.closeModal}/>}
-
 
                 {/*Aliases */}
                 {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={this.closeModal}/>}
@@ -220,7 +221,6 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={this.closeModal}/>}
-
 
                 {/*Marketplace*/}
                 {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          closeModal={this.closeModal}/>}

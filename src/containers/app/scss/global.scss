@@ -505,6 +505,10 @@ input {
 	display: block;
 }
 
+.display-flex {
+	display: flex;
+}
+
 .info-table {
 	display: table;
 	max-width: 400px;
@@ -1542,6 +1546,7 @@ input {
 		color: #fff;
 		opacity: 0.5;
 		cursor: default;
+		pointer-events: none;
 	}
 	&.gray-lighten {
 		background: #E5E5E5;
@@ -1593,6 +1598,7 @@ input {
 	position: relative;
 	z-index: 3;
 	padding: 20px 30px;
+	width: 100%;
 	
 	&.scroll {
 		overflow-y: auto;

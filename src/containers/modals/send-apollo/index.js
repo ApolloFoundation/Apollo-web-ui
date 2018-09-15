@@ -72,7 +72,7 @@ class SendApollo extends React.Component {
                     render={({
                          submitForm, values, addValue, removeValue, setValue, getFormState
                     }) => (
-                        <form className="modal-form modal-send-apollo" onSubmit={submitForm} onChange={(e) => console.log('----------', values)}>
+                        <form className="modal-form modal-send-apollo" onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
