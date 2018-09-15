@@ -15,6 +15,7 @@ class AccountRS extends React.Component {
             },
             isContacts: false
         };
+        this.props.setValue(this.props.field, this.props.defaultValue);
     };
 
     handleFillForm = (account) => {
