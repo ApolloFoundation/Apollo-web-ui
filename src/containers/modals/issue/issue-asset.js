@@ -157,7 +157,7 @@ class IssueAsset extends React.Component {
                                             <label>Passphrase</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Passphrase" field={'secretPhrase'} type="text"/>
+                                            <Text placeholder="Passphrase" field={'secretPhrase'} type="password"/>
                                         </div>
                                     </div>
                                 </div>
