@@ -190,7 +190,7 @@ class TokenGenerationValidation extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Website</label>
+                                                    <label>Data</label>
                                                 </div>
                                                 <div className="col-md-9">
                                                     <TextArea rows={5} type="text" field={'website'} placeholder="Website or text"/>
