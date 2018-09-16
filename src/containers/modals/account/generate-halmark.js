@@ -159,8 +159,13 @@ class GenerateHallmark extends React.Component {
                                                         <label>Date</label>
                                                     </div>
                                                     <div className="col-md-9">
-                                                        <Text type="text" field={'dateGenerate'}
-                                                              placeholder="Date [YYYY/MM/DD]"/>
+                                                        <Text
+                                                            type="date"
+                                                            pattern="\d{1,2}/\d{1,2}/\d{4}"
+                                                            min="1990/04/01"
+                                                            field={'dateGenerate'}
+                                                            placeholder="Date [YYYY/MM/DD]"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
