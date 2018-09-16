@@ -31,7 +31,8 @@ class MyProductsForSale extends React.Component {
     componentDidMount() {
         this.getDGSGoods({
             seller: this.props.account,
-            requestType: 'getDGSPendingPurchases',
+                completed: true,
+            requestType: 'getDGSPurchases',
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
@@ -51,7 +52,7 @@ class MyProductsForSale extends React.Component {
             ...newState
         }, () => {
             this.getDGSGoods({
-                requestType: 'getDGSPendingPurchases',
+                requestType: 'getDGSPurchases',
                 seller: this.props.account,
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex,
@@ -69,7 +70,7 @@ class MyProductsForSale extends React.Component {
         let reqParams = {
             page: page,
             account: this.props.account,
-            requestType: 'getDGSPendingPurchases',
+            requestType: 'getDGSPurchases',
             completed: true,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1
@@ -118,33 +119,41 @@ class MyProductsForSale extends React.Component {
                         {
                             this.state.getDGSGoods &&
                             !(!!this.state.getDGSGoods.length) &&
-                            <InfoBox>
+                            <InfoBox default>
                                 No orders found.
                             </InfoBox>
                         }
-                        <div className="btn-box">
-                            <a
-                                className={classNames({
-                                    'btn' : true,
-                                    'btn-left' : true,
-                                    'disabled' : this.state.page <= 1
-                                })}
-                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                            > Previous</a>
-                            <div className='pagination-nav'>
-                                <span>{this.state.firstIndex + 1}</span>
-                                <span>&hellip;</span>
-                                <span>{this.state.lastIndex + 1}</span>
+                        {
+                            this.state.getDGSGoods &&
+                            (!!this.state.getDGSGoods.length) &&
+                            <div className="btn-box">
+                                <a
+                                    className={classNames({
+                                        'btn' : true,
+                                        'btn-left' : true,
+                                        'disabled' : this.state.page <= 1
+                                    })}
+                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                >
+                                    Previous
+                                </a>
+                                <div className='pagination-nav'>
+                                    <span>{this.state.firstIndex + 1}</span>
+                                    <span>&hellip;</span>
+                                    <span>{this.state.lastIndex + 1}</span>
+                                </div>
+                                <a
+                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                    className={classNames({
+                                        'btn' : true,
+                                        'btn-right' : true,
+                                        'disabled' : this.state.getDGSGoods.length < 8
+                                    })}
+                                >
+                                    Next
+                                </a>
                             </div>
-                            <a
-                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                className={classNames({
-                                    'btn' : true,
-                                    'btn-right' : true,
-                                    'disabled' : this.state.getDGSGoods.length < 8
-                                })}
-                            >Next</a>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
