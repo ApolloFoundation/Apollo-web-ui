@@ -64,6 +64,7 @@ import {getUpdateStatus} from '../../actions/login/index'
 
 import {startBlockPullingAction} from '../../actions/blocks'
 
+import UnknownPage from '../account/404'
 class App extends React.Component {
     componentDidMount() {
         // this.props.startBlockPullingAction();
@@ -172,6 +173,7 @@ class App extends React.Component {
                                 <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 <Route exact path="/my-messages" component={MyMessages}/>
                                 <Route exact path="/generators" component={Generators}/>
+                                {/*<Route path="*" exact={true} component={UnknownPage}/>*/}
                             </React.Fragment>
                         }
                     </Switch>
