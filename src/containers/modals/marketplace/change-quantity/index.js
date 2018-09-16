@@ -134,7 +134,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                                     <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
-                                                                <label>Current price</label>
+                                                                <label>Current quantity</label>
                                                             </div>
                                                             <div className="col-md-9">
                                                                 {
@@ -147,7 +147,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                                     <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
-                                                                <label>New price</label>
+                                                                <label>New quantity</label>
                                                             </div>
                                                             <div className="col-md-9">
                                                                 {
