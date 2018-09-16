@@ -9,7 +9,7 @@ import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 
-class BuyAsset extends React.Component {
+class SellAsset extends React.Component {
     constructor(props) {
         super(props);
 
@@ -85,7 +85,7 @@ class BuyAsset extends React.Component {
                                                 <label>Order Description</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <p>Buy {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at 1 Apollo each.</p>
+                                                <p>Sell {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at 1 Apollo each.</p>
                                                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                                                 <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
                                                 <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
@@ -137,7 +137,7 @@ class BuyAsset extends React.Component {
                                             name={'closeModal'}
                                             className="btn btn-right blue round round-bottom-right"
                                         >
-                                            Buy
+                                            Sell
                                         </button>
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
@@ -169,4 +169,4 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuyAsset);
+export default connect(mapStateToProps, mapDispatchToProps)(SellAsset);
