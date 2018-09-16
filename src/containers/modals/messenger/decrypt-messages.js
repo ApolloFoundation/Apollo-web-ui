@@ -27,7 +27,7 @@ class DecryptMessage extends React.Component {
 
         this.state = {
             passphraseStatus: false
-        }
+        };
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
@@ -55,9 +55,20 @@ class DecryptMessage extends React.Component {
             })
         }
 
-        this.props.setAccountPassphrase(passphrase);
-        this.closeModal();
+        if (params.isRememberPassphrase) {
+            localStorage.setItem('secretPhrase', JSON.stringify(params.passphrase))
+        }
 
+        if (params.passphrase) {
+            delete params.sharedKey;
+            this.props.setAccountPassphrase(passphrase);
+            this.closeModal();
+        }
+        if (params.sharedKey) {
+            delete params.passphrase;
+            this.props.setAccountPassphrase(passphrase);
+            this.closeModal();
+        }
         // this.props.setBodyModalParamsAction(null, null);
     }
 
@@ -106,7 +117,7 @@ class DecryptMessage extends React.Component {
                                             <div className="input-wrapper">
                                                 <div className="form-sub-actions">
                                                     <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isMessage"/>
+                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isRememberPassphrase"/>
                                                         <label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>
                                                     </div>
                                                 </div>

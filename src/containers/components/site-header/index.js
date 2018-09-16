@@ -29,6 +29,7 @@ import {
 import 'react-accessible-accordion/dist/fancy-example.css';
 import {NotificationManager} from "react-notifications";
 import uuid from "uuid";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 class SiteHeader extends React.Component {
 	constructor(props) {
@@ -400,8 +401,9 @@ class SiteHeader extends React.Component {
 														"/transactions",
 														"/approval-request"])
 														}`}>
-													<i className="zmdi zmdi-view-dashboard"/>Dashboard<span
-													className="arrow"/>
+													<i className="zmdi zmdi-view-dashboard"/>
+														Dashboard
+													<span className="arrow"/>
 												</AccordionItemTitle>
 
 												<AccordionItemBody>
@@ -632,11 +634,19 @@ class SiteHeader extends React.Component {
 
 
 									<div className="user-account-actions">
-										<a
-											className="user-account-rs"
+                                        <CopyToClipboard
+											text={this.props.accountRS}
+											 onCopy={() => {
+										        NotificationManager.success('The account RS has been copied to clipboard.')
+											 }}
 										>
-											{this.props.accountRS}
-										</a>
+                                            <a
+                                                className="user-account-rs"
+                                            >
+                                                {this.props.accountRS}
+                                            </a>
+                                        </CopyToClipboard>
+
 										<a
 											className="user-account-action"
 											onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
