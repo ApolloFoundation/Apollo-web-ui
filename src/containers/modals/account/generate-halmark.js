@@ -162,7 +162,6 @@ class GenerateHallmark extends React.Component {
                                                         <Text
                                                             type="date"
                                                             pattern="\d{1,2}/\d{1,2}/\d{4}"
-                                                            min="1990/04/01"
                                                             field={'dateGenerate'}
                                                             placeholder="Date [YYYY/MM/DD]"
                                                         />
