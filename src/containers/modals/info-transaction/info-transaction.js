@@ -89,7 +89,7 @@ class InfoLedgerTransaction extends React.Component {
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
-                                <p>Transaction</p>
+                                <p>Transaction {this.state.transaction.transaction} Info</p>
                             </div>
 
                             <div className="form-tabulator active">
