@@ -1,23 +1,28 @@
 import i18n from 'i18next';
-import XHR from 'i18next-xhr-backend';
+import Backend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { reactI18nextModule } from 'react-i18next';
 
 i18n
-    .use(XHR)
     .use(LanguageDetector)
-    .use(reactI18nextModule) // if not using I18nextProvider
+    .use(Backend)
     .init({
-        fallbackLng: 'en',
-        debug: true,
-
-        // react i18next special options (optional)
-        /*react: {
-            wait: false,
-            bindI18n: 'languageChanged loaded',
-            bindStore: 'added removed',
-            nsMode: 'default'
-        }*/
-    });
+            lng: 'en',
+            fallbackLng: 'en',
+            whitelist: ['en'],
+            backend: {
+                loadPath: '/locales/{{lng}}/{{ns}}.json',
+                crossDomain: false,
+                withCredentials: false,
+            },
+            debug: false,
+            react: {
+                wait: true,
+                bindI18n: 'languageChanged loaded',
+            }
+        },
+        (err, t) => {
+            if (err) return console.log('something went wrong loading', err);
+            t('error_invalid_referenced_transaction_hash'); // -> same as i18next.t
+        });
 
 export default i18n;

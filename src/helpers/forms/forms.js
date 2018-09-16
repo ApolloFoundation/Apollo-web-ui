@@ -24,6 +24,7 @@
  */
 
 import $ from 'jquery';
+import i18n from 'i18next';
 import util from '../../helpers/util/utils';
 import crypto from '../crypto/crypto';
 import config from '../../config';
@@ -206,7 +207,7 @@ function submitForm($modal, $btn, data, requestType) {
         }
         if (data.messageFile && data.encrypt_message) {
             if (!util.isFileEncryptionSupported()) {
-                $form.find(".error_message").html($.t("file_encryption_not_supported")).show();
+                $form.find(".error_message").html(i18n.t("file_encryption_not_supported")).show();
                 if (formErrorFunction) {
                     formErrorFunction(false, data);
                 }
@@ -272,7 +273,7 @@ function getSuccessMessage(requestType) {
         var key = "success_" + requestType;
 
         // if ($.i18n.exists(key)) {
-        //     return $.t(key);
+        //     return i18n.t(key);
         // } else {
         //     return "";
         // }
@@ -288,7 +289,7 @@ function getErrorMessage(requestType) {
         var key = "error_" + requestType;
 
         // if ($.i18n.exists(key)) {
-        //     return $.t(key);
+        //     return i18n.t(key);
         // } else {
         //     return "";
         // }
@@ -417,7 +418,7 @@ function getEncryptionKeys(options, secretPhrase){
         if (!options.publicKey) {
             if (!options.account) {
                 throw {
-                    "message": $.t("error_account_id_not_specified"),
+                    "message": i18n.t("error_account_id_not_specified"),
                     "errorCode": 2
                 };
             }
@@ -429,12 +430,12 @@ function getEncryptionKeys(options, secretPhrase){
 
                 if (!aplAddress.set(options.account)) {
                     throw {
-                        "message": $.t("error_invalid_account_id"),
+                        "message": i18n.t("error_invalid_account_id"),
                         "errorCode": 3
                     };
                 } else {
                     throw {
-                        "message": $.t("error_public_key_not_specified"),
+                        "message": i18n.t("error_public_key_not_specified"),
                         "errorCode": 4
                     };
                 }
@@ -459,7 +460,7 @@ function encryptNote(message, options, secretPhrase) {
             throw err;
         } else {
             throw {
-                "message": $.t("error_message_encryption"),
+                "message": i18n.t("error_message_encryption"),
                 "errorCode": 5
             };
         }
@@ -481,7 +482,7 @@ function formResponse(response, data, requestType, $modal, $form, $btn, successM
 
         if (!$modal.hasClass("modal-no-hide")) {
             $modal.modal("hide");
-            $.growl($.t("send_money_submitted"), {
+            $.growl(i18n.t("send_money_submitted"), {
                 "type": "success"
             });
         }
@@ -554,13 +555,13 @@ function formResponse(response, data, requestType, $modal, $form, $btn, successM
                 if (!$modal.hasClass("modal-no-hide")) {
 
                     $modal.modal("hide");
-                    /*                        $.growl($.t("send_money_submitted"), {
+                    /*                        $.growl(i18n.t("send_money_submitted"), {
                                                 "type": "success"
                                             });*/
                 }
                 formCompleteFunction(response, data);
             } else {
-                errorMessage = $.t("error_unknown");
+                errorMessage = i18n.t("error_unknown");
             }
         }
         if (!sentToFunction) {
@@ -651,13 +652,12 @@ function sendRequest(requestType, data, callback, options) {
             return;
         }
         if (!util.isRequestTypeEnabled(requestType)) {
-            callback({
+            return {
                 "errorCode": 1,
-                "errorDescription": $.t("request_of_type", {
+                "errorDescription": i18n.t("request_of_type", {
                     type: requestType
                 })
-            });
-            return;
+            };
         }
         if (data == undefined) {
             return;
@@ -702,11 +702,10 @@ function sendRequest(requestType, data, callback, options) {
                 }
             }
         } catch (err) {
-            callback({
+            return {
                 "errorCode": 1,
                 "errorDescription": err + " (" + field + ")"
-            });
-            return;
+            };
         }
         // convert asset/currency decimal amount to base unit
         try {
@@ -736,11 +735,10 @@ function sendRequest(requestType, data, callback, options) {
                 delete data[toDelete[i]];
             }
         } catch (err) {
-            callback({
+            return {
                 "errorCode": 1,
-                "errorDescription": err + " (" + $.t(field) + ")"
-            });
-            return;
+                "errorDescription": err + " (" + i18n.t(field) + ")"
+            };
         }
 
 
@@ -755,7 +753,7 @@ function sendRequest(requestType, data, callback, options) {
         //     if (maxFees > 0 && new BigInteger(data.feeATM).compareTo(new BigInteger(phasingControl.maxFees)) > 0) {
         //         callback({
         //             "errorCode": 1,
-        //             "errorDescription": $.t("error_fee_exceeds_max_account_control_fee", {
+        //             "errorDescription": i18n.t("error_fee_exceeds_max_account_control_fee", {
         //                 "maxFee": convertToAPL(phasingControl.maxFees), "symbol": account.constants.coinSymbol
         //             })
         //         });
@@ -768,7 +766,7 @@ function sendRequest(requestType, data, callback, options) {
         //     if (phasingDuration < minDuration || phasingDuration > maxDuration) {
         //         callback({
         //             "errorCode": 1,
-        //             "errorDescription": $.t("error_finish_height_out_of_account_control_interval", {
+        //             "errorDescription": i18n.t("error_finish_height_out_of_account_control_interval", {
         //                 "min": NRS.lastBlockHeight + minDuration,
         //                 "max": NRS.lastBlockHeight + maxDuration
         //             })
@@ -840,7 +838,7 @@ function convertToATU(quantity, decimals) {
     } else if (parts.length == 2) {
         var fraction = parts[1];
         if (fraction.length > decimals) {
-            throw $.t("error_fraction_decimals", {
+            throw i18n.t("error_fraction_decimals", {
                 "decimals": decimals
             });
         } else if (fraction.length < decimals) {
@@ -850,12 +848,12 @@ function convertToATU(quantity, decimals) {
         }
         qnt += fraction;
     } else {
-        throw $.t("error_invalid_input");
+        throw i18n.t("error_invalid_input");
     }
 
     //in case there's a comma or something else in there.. at this point there should only be numbers
     if (!/^\d+$/.test(qnt)) {
-        throw $.t("error_invalid_input_numbers");
+        throw i18n.t("error_invalid_input_numbers");
     }
     try {
         if (parseInt(qnt) === 0) {
@@ -886,7 +884,7 @@ function convertToATM(currency) {
             fraction = parts[1].substring(0, 8);
         }
     } else {
-        throw $.t("error_invalid_input");
+        throw i18n.t("error_invalid_input");
     }
 
     for (var i = fraction.length; i < 8; i++) {
@@ -897,7 +895,7 @@ function convertToATM(currency) {
 
     //in case there's a comma or something else in there.. at this point there should only be numbers
     if (!/^\d+$/.test(result)) {
-        throw $.t("error_invalid_input");
+        throw i18n.t("error_invalid_input");
     }
 
     //remove leading zeroes
@@ -977,20 +975,19 @@ function processAjaxRequest(requestType, data, callback, options) {
         //      util.accountInfo.errorCode && util.accountInfo.errorCode == 5) {
         //     callback({
         //         "errorCode": 2,
-        //         "errorDescription": $.t("error_new_account")
+        //         "errorDescription": i18n.t("error_new_account")
         //     }, data);
         //     return;
         // }
 
-        /*if (data.referencedTransactionFullHash) {
+        if (data.referencedTransactionFullHash) {
             if (!/^[a-z0-9]{64}$/.test(data.referencedTransactionFullHash)) {
-                callback({
+                return {
                     "errorCode": -1,
-                    "errorDescription": $.t("error_invalid_referenced_transaction_hash")
-                }, data);
-                return;
+                    "errorDescription": i18n.t("error_invalid_referenced_transaction_hash")
+                };
             }
-        }*/
+        }
 
         var secretPhrase = "";
 
@@ -1025,21 +1022,19 @@ function processAjaxRequest(requestType, data, callback, options) {
                 }
             }
             if (!file && requestType == "uploadTaggedData") {
-                callback({
+                return {
                     "errorCode": 3,
-                    "errorDescription": $.t("error_no_file_chosen")
-                }, data);
-                return;
+                    "errorDescription": i18n.t("error_no_file_chosen")
+                };
             }
             if (file && file.size > config.maxSize) {
-                callback({
+                return {
                     "errorCode": 3,
-                    "errorDescription": $.t(config.errorDescription, {
+                    "errorDescription": i18n.t(config.errorDescription, {
                         "size": file.size,
                         "allowed": config.maxSize
                     })
-                }, data);
-                return;
+                };
             }
             httpMethod = "POST";
             formData.append(config.requestParam, file);
@@ -1110,7 +1105,7 @@ function processAjaxRequest(requestType, data, callback, options) {
         //             // NRS.resetRemoteNode(true);
         //         }
         //         if (error == "timeout") {
-        //             error = $.t("error_request_timeout");
+        //             error = i18n.t("error_request_timeout");
         //         }
         //         callback({
         //             "errorCode": -1,
@@ -1151,7 +1146,7 @@ function processAjaxRequest(requestType, data, callback, options) {
 //         return url;
 //     } else {
 //         NRS.logConsole("No available remote nodes");
-//         $.growl($.t("no_available_remote_nodes"));
+//         $.growl(i18n.t("no_available_remote_nodes"));
 //     }
 // };
 

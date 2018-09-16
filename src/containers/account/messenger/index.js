@@ -78,33 +78,31 @@ class Messenger extends React.Component {
 
 	handleSendMessageFormSubmit = async (values) => {
 
-		// recipient: 14423669713677089029
-		// deadline: 1440
-		// encrypt_message: true
-		// encryptedMessageData: bc985f3bdc571d9504e8221bf43c311f57c09eea2bd2e7959e150220cff47992f7d3115364d200ceecd48715374aa00b
-		// encryptedMessageNonce: 43e2e35cd6ada65c497c35e8c7057c8b62ed579177df82b00de533de25605514
-		// messageToEncryptIsText: true
-		// encryptedMessageIsPrunable: true
-		// feeATM: 100000000
-		// publicKey: bf0ced0472d8ba3df9e21808e98e61b34404aad737e2bae1778cebc698b40f37
-		// ecBlockId: 18338875302302929178
-		// ecBlockHeight: 0
+        // recipient: 14423669713677089029
+        // deadline: 1440
+        // encrypt_message: true
+        // encryptedMessageData: bc985f3bdc571d9504e8221bf43c311f57c09eea2bd2e7959e150220cff47992f7d3115364d200ceecd48715374aa00b
+        // encryptedMessageNonce: 43e2e35cd6ada65c497c35e8c7057c8b62ed579177df82b00de533de25605514
+        // messageToEncryptIsText: true
+        // encryptedMessageIsPrunable: true
+        // feeATM: 100000000
+        // publicKey: bf0ced0472d8ba3df9e21808e98e61b34404aad737e2bae1778cebc698b40f37
+        // ecBlockId: 18338875302302929178
+        // ecBlockHeight: 0
 
-		this.props.submitForm(null, null, {
-			...values,
-			recipient: this.state.chats[this.state.selectedChat].account,
-			feeATM: values.messageToEncrypt ? 2 :1
-		}, 'sendMessage')
-			.done((res) => {
-				if (res.errorCode) {
-					NotificationManager.error(res.errorDescription, 'Error', 5000)
-				} else {
-					this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, {
+            ...values,
+            recipient: this.state.chats[this.state.selectedChat].account,
+            feeATM: values.messageToEncrypt ? 2 : 1
+        }, 'sendMessage');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-					NotificationManager.success('Transaction has been submitted!', null, 5000);
-				}
-			});
-	};
+            NotificationManager.success('Transaction has been submitted!', null, 5000);
+        }
+    };
 
 	render (){
 		if (this.state.chatHistory) {

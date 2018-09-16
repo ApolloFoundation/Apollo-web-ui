@@ -45,16 +45,14 @@ class EditAlias extends React.Component {
             aliasName: this.state.alias.aliasName
         };
 
-        this.props.submitForm(null, null, values, 'setAlias')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'setAlias')
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Product has been listed!', null, 5000);
-                }
-            })
+            NotificationManager.success('Product has been listed!', null, 5000);
+        }
 
         // this.props.sendTransaction(values);
         // this.props.setBodyModalParamsAction(null, {});

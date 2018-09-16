@@ -64,16 +64,14 @@ class MarketplacePurchase extends React.Component {
             secretPhrase: values.secretPhrase
         };
 
-        this.props.submitForm(null, null, values, 'dgsPurchase')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'dgsPurchase');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Goods has been purchased!', null, 5000);
-                }
-            });
+            NotificationManager.success('Goods has been purchased!', null, 5000);
+        }
     }
 
     handleAdvancedState = () => {

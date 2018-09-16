@@ -11,7 +11,7 @@ class BlacklistPeer extends React.Component {
         super(props);
     }
 
-    handleFormSubmit = (values) => {
+    handleFormSubmit = async (values) => {
         const toSend = {
             adminPassword: values.adminPass,
             peer: this.props.modalData,
@@ -19,14 +19,12 @@ class BlacklistPeer extends React.Component {
             ecBlockId: 18338875302302929178,
             ecBlockHeight: 0
         };
-        this.props.submitForm(null, null, toSend, "blacklistPeer")
-            .done(res => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    NotificationManager.success('Peer has been blacklisted!', null, 5000);
-                }
-            });
+        const res = await this.props.submitForm(null, null, toSend, "blacklistPeer");
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            NotificationManager.success('Peer has been blacklisted!', null, 5000);
+        }
     };
 
     render() {

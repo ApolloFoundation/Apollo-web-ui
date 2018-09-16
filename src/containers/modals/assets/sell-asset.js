@@ -35,15 +35,13 @@ class SellAsset extends React.Component {
             quantityATU: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
         };
 
-        this.props.submitForm(null, null, values, 'placeAskOrder')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('The sell order has been submitted!', null, 5000);
-                }
-            })
+        const res = await this.props.submitForm(null, null, values, 'placeAskOrder');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('The sell order has been submitted!', null, 5000);
+        }
     };
 
     // getAsset = async  () => {

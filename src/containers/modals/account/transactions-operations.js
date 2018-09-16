@@ -29,6 +29,7 @@ class TransactionOperations extends React.Component {
     }
 
     handleFormSubmit = async values => {
+        let res = null;
         switch (this.state.activeTab) {
             case 0:
                 if (!values.signPassphrase) {
@@ -48,14 +49,12 @@ class TransactionOperations extends React.Component {
                     ecBlockId: 11255812614937856744,
                     ecBlockHeight: 0
                 };
-                this.props.submitForm(null, null, toSend, "signTransaction")
-                    .done(res => {
-                        if (res.errorCode) {
-                            NotificationManager.error(res.errorDescription, "Error", 5000)
-                        } else {
-                            NotificationManager.success("Transaction signed!", null, 5000);
-                        }
-                    });
+                res = await this.props.submitForm(null, null, toSend, "signTransaction");
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, "Error", 5000)
+                } else {
+                    NotificationManager.success("Transaction signed!", null, 5000);
+                }
                 break;
             case 1://broadcast
                 const toSendBroadcast = {
@@ -66,14 +65,12 @@ class TransactionOperations extends React.Component {
                     ecBlockId: 11255812614937856744,
                     ecBlockHeight: 0
                 };
-                this.props.submitForm(null, null, toSendBroadcast, "broadcastTransaction")
-                    .done(res => {
-                        if (res.errorCode) {
-                            NotificationManager.error(res.errorDescription, "Error", 5000)
-                        } else {
-                            NotificationManager.success("Transaction broadcasted!", null, 5000);
-                        }
-                    });
+                res = await this.props.submitForm(null, null, toSendBroadcast, "broadcastTransaction");
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, "Error", 5000)
+                } else {
+                    NotificationManager.success("Transaction broadcasted!", null, 5000);
+                }
                 break;
             case 2:
                 const toSendParse = {
@@ -82,14 +79,12 @@ class TransactionOperations extends React.Component {
                     feeATM: 0,
                     random: Math.random()
                 };
-                this.props.submitForm(null, null, toSendParse, "parseTransaction")
-                    .done(res => {
-                        if (res.errorCode) {
-                            NotificationManager.error(res.errorDescription, "Error", 5000)
-                        } else {
-                            NotificationManager.success("Transaction parsed!", null, 5000);
-                        }
-                    });
+                res = await this.props.submitForm(null, null, toSendParse, "parseTransaction");
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, "Error", 5000)
+                } else {
+                    NotificationManager.success("Transaction parsed!", null, 5000);
+                }
                 break;
             case 3:
                 const toSendCalculate = {
@@ -99,14 +94,12 @@ class TransactionOperations extends React.Component {
                     feeATM: 0,
                     random: Math.random()
                 };
-                this.props.submitForm(null, null, toSendCalculate, "calculateFullHash")
-                    .done(res => {
-                        if (res.errorCode) {
-                            NotificationManager.error(res.errorDescription, "Error", 5000)
-                        } else {
-                            NotificationManager.success("Hash calculated", null, 5000);
-                        }
-                    });
+                res = await this.props.submitForm(null, null, toSendCalculate, "calculateFullHash");
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, "Error", 5000)
+                } else {
+                    NotificationManager.success("Hash calculated", null, 5000);
+                }
                 break;
         }
     };

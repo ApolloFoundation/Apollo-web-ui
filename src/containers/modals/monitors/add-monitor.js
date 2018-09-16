@@ -24,7 +24,7 @@ class AddMonitor extends React.Component {
         if (!values.phrase) {
             NotificationManager.error("Passphrase is a required field", "Error", 5000);
         }
-        if (! await this.props.validatePassphrase(values.phrase)) {
+        if (!await this.props.validatePassphrase(values.phrase)) {
             NotificationManager.error("Incorrect passphrase", "Error", 5000);
         }
         const toSend = {
@@ -35,15 +35,13 @@ class AddMonitor extends React.Component {
             amount: values.amount,
             threshold: values.threshold,
         };
-        this.props.submitForm(null, null, toSend, "startFundingMonitor")
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    NotificationManager.success('Monitor has been started!', null, 5000);
-                    this.props.closeModal();
-                }
-            });
+        const res = await this.props.submitForm(null, null, toSend, "startFundingMonitor");
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            NotificationManager.success('Monitor has been started!', null, 5000);
+            this.props.closeModal();
+        }
     };
 
     render() {

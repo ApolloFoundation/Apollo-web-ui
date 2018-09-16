@@ -28,15 +28,13 @@ class TransferAsset extends React.Component {
 
     handleFormSubmit = async(values) => {
 
-        this.props.submitForm(null, null, values, 'transferAsset')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('Transfer asset request has been submitted!', null, 5000);
-                }
-            })
+        const res = await this.props.submitForm(null, null, values, 'transferAsset');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('Transfer asset request has been submitted!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {

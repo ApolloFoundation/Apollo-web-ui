@@ -8,6 +8,7 @@ class InputForm extends React.Component {
         this.state = {
             value: this.props.defaultValue || ''
         };
+        this.props.setValue(this.props.field, this.props.defaultValue || '');
     };
 
     handleChange = (value) => {

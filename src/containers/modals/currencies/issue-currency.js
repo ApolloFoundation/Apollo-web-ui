@@ -30,7 +30,7 @@ class IssueCurrency extends React.Component {
 
         let type;
 
-        switch(values) {
+        switch (values) {
             case(values.type1):
                 type = 1;
                 delete values.type1;
@@ -67,17 +67,14 @@ class IssueCurrency extends React.Component {
 
         };
 
-        this.props.submitForm(null, null, values, 'issueCurrency')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'issueCurrency');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Issue currency request has been submitted!', null, 5000);
-
-                }
-            })
+            NotificationManager.success('Issue currency request has been submitted!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {

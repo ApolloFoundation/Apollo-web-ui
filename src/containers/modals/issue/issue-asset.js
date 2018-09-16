@@ -60,21 +60,18 @@ class IssueAsset extends React.Component {
         // }
 
 
-
         // Todo: finish form validating
-        this.props.submitForm(null, null, values, 'issueAsset')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.issueAssetAction(values);
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'issueAsset');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.issueAssetAction(values);
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Asset has been submitted!', null, 5000);
+            NotificationManager.success('Asset has been submitted!', null, 5000);
 
-                    // this.props.setAlert('success', 'Transaction has been submitted!');
-                }
-            })
+            // this.props.setAlert('success', 'Transaction has been submitted!');
+        }
     };
 
     handleAdvancedState = () => {

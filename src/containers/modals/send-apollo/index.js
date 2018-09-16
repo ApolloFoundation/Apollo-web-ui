@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {NotificationManager} from 'react-notifications';
 import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
@@ -11,7 +12,6 @@ import AccountRS from '../../components/account-rs';
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
-import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import {getCurrencyAction} from "../../../actions/currencies";
 
@@ -38,16 +38,14 @@ class SendApollo extends React.Component {
     async handleFormSubmit(values) {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        this.props.submitForm(null, null, values, 'sendMoney')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'sendMoney');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Transaction has been submitted!', null, 5000);
-                }
-            });
+            NotificationManager.success('Transaction has been submitted!', null, 5000);
+        }
     }
 
     handleAdvancedState() {
@@ -63,29 +61,6 @@ class SendApollo extends React.Component {
             })
         }
     }
-
-    handleChange = (event) => {
-        if (event.target) {
-            var value = event.target.value;
-            var newState = {
-                mask: 'APL-****-****-****-*****',
-                value: value.toUpperCase()
-            };
-
-            if (/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(value)) {
-                newState.value = 'APL-****-****-****-*****';
-            }
-            this.setState(newState);
-        }
-    };
-
-    calculateFee = () => {
-
-        this.setState({
-            ...this.state,
-            feeATM: 1
-        })
-    };
 
     render() {
         return (
@@ -110,7 +85,6 @@ class SendApollo extends React.Component {
                                         <div className="col-sm-9">
                                             <div className="iconned-input-field">
                                                 <AccountRS
-                                                    value={''}
                                                     field={'recipient'}
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
@@ -204,16 +178,17 @@ class SendApollo extends React.Component {
                                         Fee
                                         <span
                                             onClick={async () => {
-                                                const formState = getFormState();
                                                 const fee = await this.props.calculateFeeAction({
-                                                    recipient: formState.values.recipient,
-                                                    amountATM: formState.values.amountAPL,
+                                                    recipient: getFormState().values.recipient,
+                                                    amountATM: parseInt(getFormState().values.amountAPL),
                                                     publicKey: this.props.publicKey,
                                                     feeATM: 0
                                                 });
 
-                                                if (fee) {
+                                                if (!fee.errorCode) {
                                                     setValue("feeAPL", fee.transactionJSON.feeATM / 100000000);
+                                                } else {
+                                                    NotificationManager.error(fee.errorDescription, 'Error', 5000);
                                                 }
                                             }
                                             }
@@ -227,7 +202,6 @@ class SendApollo extends React.Component {
                                         <InputForm
                                             defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
                                             field="feeAPL"
-                                            value={this.state.feeATM}
                                             placeholder="Amount"
                                             type={"number"}
                                             setValue={setValue}/>

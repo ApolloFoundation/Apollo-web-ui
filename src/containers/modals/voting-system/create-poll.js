@@ -77,21 +77,18 @@ class CreatePoll extends React.Component {
             }
         });
 
-        this.props.submitForm(null, null, {
+        const res = await this.props.submitForm(null, null, {
             ...values,
-            'create_poll_answers[]' : this.state.answers[0],
+            'create_poll_answers[]': this.state.answers[0],
             ...resultAnswers
-        }, 'createPoll')
-            .done((res) => {
+        }, 'createPoll');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-
-                    NotificationManager.success('Your vote has been created!', null, 5000);
-                }
-            });
+            NotificationManager.success('Your vote has been created!', null, 5000);
+        }
     };
 
     handleAnswerChange = (e, index) => {

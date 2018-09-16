@@ -26,15 +26,13 @@ class DeleteShares extends React.Component {
     handleFormSubmit = async(values) => {
         // const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        this.props.submitForm(null, null, values, 'deleteAssetShares')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('Delete asset request has been submitted!', null, 5000);
-                }
-            });
+        const res = await this.props.submitForm(null, null, values, 'deleteAssetShares');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('Delete asset request has been submitted!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {

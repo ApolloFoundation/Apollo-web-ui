@@ -9,6 +9,7 @@ import submitForm from "../../../helpers/forms/forms";
 import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import {getpollAction} from "../../../actions/polls";
+import uuid from "uuid";
 
 class CastPoll extends React.Component {
     constructor(props) {
@@ -86,17 +87,14 @@ class CastPoll extends React.Component {
             ...votes,
         };
 
-        this.props.submitForm(null, null, values, 'castVote')
-            .done((res) => {
+        const res = await this.props.submitForm(null, null, values, 'castVote');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-
-                    NotificationManager.success('Your vote has been cast!!', null, 5000);
-                }
-            });
+            NotificationManager.success('Your vote has been cast!!', null, 5000);
+        }
     };
 
     handleAnswerChange = (e, index) => {
@@ -179,7 +177,7 @@ class CastPoll extends React.Component {
                                                                 {
                                                                     Object.keys(this.state.votes).map((el, index) => {
                                                                         return (
-                                                                            <div className="input-group-app align-middle display-block offset-bottom">
+                                                                            <div key={uuid()} className="input-group-app align-middle display-block offset-bottom">
                                                                                 <Radio value={el}/>
                                                                                 <label style={{display: 'inline-block'}}>{this.state.votes[el]}</label>
                                                                             </div>

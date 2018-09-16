@@ -32,15 +32,13 @@ class TransferCurrency extends React.Component {
             units: values.units * Math.pow(10, this.props.modalData.decimals)
         };
 
-        this.props.submitForm(null, null, values, 'transferCurrency')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('Transfer currency request has been submitted!', null, 5000);
-                }
-            })
+        const res = await this.props.submitForm(null, null, values, 'transferCurrency');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('Transfer currency request has been submitted!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {

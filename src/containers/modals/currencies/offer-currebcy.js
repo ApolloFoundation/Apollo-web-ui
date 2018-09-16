@@ -38,15 +38,13 @@ class OfferCurrency extends React.Component {
             initialSellSupply: values.initialSellSupply * Math.pow(10, this.props.modalData.decimals)
         };
 
-        this.props.submitForm(null, null, values, 'publishExchangeOffer')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('Transfer asset request has been submitted!', null, 5000);
-                }
-            })
+        const res = await this.props.submitForm(null, null, values, 'publishExchangeOffer');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('Transfer asset request has been submitted!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {

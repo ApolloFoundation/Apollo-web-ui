@@ -40,16 +40,14 @@ class JoinShuffling extends React.Component {
             recipientPublicKey: await crypto.getPublicKey(values.recipientSecretPhrase, false)
         };
 
-        this.props.submitForm(null, null, values, 'startShuffler')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
+        const res = await this.props.submitForm(null, null, values, 'startShuffler');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-                    NotificationManager.success('Shuffling Started!', null, 5000);
-                }
-            })
+            NotificationManager.success('Shuffling Started!', null, 5000);
+        }
 
         // this.props.sendTransaction(values);
         // this.props.setBodyModalParamsAction(null, {});

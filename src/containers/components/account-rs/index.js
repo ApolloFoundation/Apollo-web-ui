@@ -2,6 +2,7 @@ import React from 'react';
 import InputMask from 'react-input-mask';
 import classNames from 'classnames';
 import {NotificationManager} from "react-notifications";
+import uuid from "uuid";
 
 
 class AccountRS extends React.Component {
@@ -15,6 +16,7 @@ class AccountRS extends React.Component {
             },
             isContacts: false
         };
+        this.props.setValue(this.props.field, this.props.defaultValue);
     };
 
     handleFillForm = (account) => {
@@ -80,7 +82,7 @@ class AccountRS extends React.Component {
                             {
                                 this.state.contacts.map((el, index) => {
                                     return (
-                                        <li key={index}>
+                                        <li key={uuid()}>
                                             <a onClick={() => this.handleFillForm(el.accountRS)}>
                                                 {el.name}
                                             </a>

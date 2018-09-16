@@ -33,15 +33,13 @@ class BuyCurrency extends React.Component {
             ...this.props.modalData
         };
 
-        this.props.submitForm(null, null, values, 'currencyBuy')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-                    NotificationManager.success('The buy order has been submitted!', null, 5000);
-                }
-            })
+        const res = await this.props.submitForm(null, null, values, 'currencyBuy');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('The buy order has been submitted!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {

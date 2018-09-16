@@ -95,18 +95,14 @@ class MyShufling extends React.Component {
     };
 
     getShufflers = async () => {
-        this.props.submitForm(null, null, {
+        const res = await this.props.submitForm(null, null, {}, 'getShufflers');
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.props.setBodyModalParamsAction(null, {});
 
-        }, 'getShufflers')
-            .done((res) => {
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-
-                    NotificationManager.success('Transaction has been submitted!', null, 5000);
-                }
-            });
+            NotificationManager.success('Transaction has been submitted!', null, 5000);
+        }
     };
 
     getTransaction = async (data) => {

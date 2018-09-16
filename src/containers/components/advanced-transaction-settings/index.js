@@ -188,7 +188,6 @@ class AdvancedSettings extends React.Component {
                                         <InputForm
                                             field="referencedTransactionFullHash"
                                             placeholder="Referenced transaction full hash"
-                                            minLength={64}
                                             setValue={setValue}/>
                                     </div>
                                 </div>
