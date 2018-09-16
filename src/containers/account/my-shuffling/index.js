@@ -10,6 +10,8 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import {getAccountShufflingsAction} from "../../../actions/shuffling";
 import {BlockUpdater} from "../../block-subscriber/index";
+import {getTransactionAction} from "../../../actions/transactions";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 
 class MyShufling extends React.Component {
     constructor(props) {
@@ -107,6 +109,18 @@ class MyShufling extends React.Component {
             });
     };
 
+    getTransaction = async (data) => {
+        const reqParams = {
+            transaction: data,
+            account: this.props.account
+        };
+
+        const transaction = await this.props.getTransactionAction(reqParams);
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+        }
+    };
+
     render () {
         return (
             <div className="page-content">
@@ -169,8 +183,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams)),
     getAccountShufflingsAction : (requestParams) => dispatch(getAccountShufflingsAction(requestParams)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
-
+    getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyShufling);
