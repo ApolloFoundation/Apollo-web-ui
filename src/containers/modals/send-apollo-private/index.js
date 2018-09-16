@@ -162,18 +162,8 @@ class SendApolloPrivate extends React.Component {
                                         Fee
                                         <span
                                             onClick={async () => {
-                                                const formState = getFormState();
-                                                const fee = await this.props.calculateFeeAction({
-                                                    recipient: formState.values.recipient,
-                                                    amountATM: formState.values.amountATM,
-                                                    publicKey: this.props.publicKey,
-                                                    feeATM: 0
-                                                });
-
-                                                if (fee) {
-                                                    setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
+                                                    setValue("feeATM", 2);
                                                 }
-                                            }
                                             }
                                             style={{paddingRight: 0}}
                                             className="calculate-fee"
