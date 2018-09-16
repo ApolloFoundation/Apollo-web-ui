@@ -97,7 +97,12 @@ class SellAsset extends React.Component {
                                             </div>
                                             <div className="col-md-9">
                                                 <p>{this.props.modalData.quantityATU} Apollo</p>
-                                                <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
+                                                <Text
+                                                    defaultValue={this.props.modalData.assetName}
+                                                    placeholder={'Quantity'}
+                                                    type="hidden"
+                                                    field={'quantityATU'}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +112,12 @@ class SellAsset extends React.Component {
                                                 <label>Fee</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text defaultValue={this.props.modalData.assetName} placeholder={'Amount'} type="text" field={'feeATM'}/>
+                                                <Text
+                                                    defaultValue={this.props.modalData.assetName}
+                                                    placeholder={'Amount'}
+                                                    type="number"
+                                                    field={'feeATM'}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +127,11 @@ class SellAsset extends React.Component {
                                                 <label>Secret Phrase</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text placeholder={'Secret Phrase'} type="password" field={'secretPhrase'}/>
+                                                <Text
+                                                    placeholder={'Secret Phrase'}
+                                                    type="password"
+                                                    field={'secretPhrase'}
+                                                />
                                             </div>
                                         </div>
                                     </div>

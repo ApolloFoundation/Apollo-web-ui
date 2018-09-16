@@ -103,7 +103,7 @@ class BuyAsset extends React.Component {
                                                 <label>Fee</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text defaultValue={this.props.modalData.assetName} placeholder={'Amount'} type="text" field={'feeATM'}/>
+                                                <Text defaultValue={this.props.modalData.assetName} placeholder={'Amount'} type="number" field={'feeATM'}/>
                                             </div>
                                         </div>
                                     </div>

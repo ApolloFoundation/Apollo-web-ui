@@ -17,6 +17,7 @@ import TradeHistoryItem from "../trade-history/trade-history-item";
 import {getTransactionAction} from "../../../actions/transactions";
 import OrderItem from "./order/index";
 import {BlockUpdater} from "../../block-subscriber";
+import {NotificationManager} from "react-notifications";
 
 class AssetExchange extends React.Component {
     constructor(props) {
@@ -238,7 +239,12 @@ class AssetExchange extends React.Component {
                                                             <label>Quantity</label>
                                                         </div>
                                                         <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                            <input ref="quantity1" placeholder='Recipient' className={"form-control"}/>
+                                                            <input
+                                                                ref="quantity1"
+                                                                placeholder='Quantity'
+                                                                type={'number'}
+                                                                className={"form-control"}
+                                                            />
 	                                                        <div className="input-group-append">
 		                                                        <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
 	                                                        </div>
@@ -252,7 +258,12 @@ class AssetExchange extends React.Component {
                                                             <label>Price</label>
                                                         </div>
 	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-		                                                    <input ref="priceATM1" placeholder='Quantity' className={"form-control"}/>
+		                                                    <input
+                                                                ref="priceATM1"
+                                                                type={'number'}
+                                                                placeholder='Quantity'
+                                                                className={"form-control"}
+                                                            />
 		                                                    <div className="input-group-append">
 			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
 		                                                    </div>
@@ -266,7 +277,12 @@ class AssetExchange extends React.Component {
                                                             <label>Total</label>
                                                         </div>
 	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-		                                                    <input ref="total1" placeholder='Price' className={"form-control"}/>
+		                                                    <input
+                                                                ref="total1"
+                                                                type={'number'}
+                                                                placeholder='Price'
+                                                                className={"form-control"}
+                                                            />
 		                                                    <div className="input-group-append">
 			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
 		                                                    </div>
@@ -280,13 +296,33 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                         <div className="col-md-9 pr-0">
                                                             <a
-                                                                onClick={() => this.props.setBodyModalParamsAction('BUY_ASSET', {
-                                                                    quantityATU: this.refs.quantity1.value,
-                                                                    priceATM: this.refs.priceATM1.value,
-                                                                    total: this.refs.total1.value,
-                                                                    assetInfo: this.state.asset
+                                                                onClick={() => {
+                                                                    if (!this.refs.quantity1.value) {
+                                                                        NotificationManager.error('Fill the quantity field', 'Unable to buy asset ' + this.state.asset.name, 5000);
+                                                                        return;
+                                                                    }
+                                                                    if (!this.refs.priceATM1.value) {
+                                                                        NotificationManager.error('Fill the price field', 'Unable to buy asset ' + this.state.asset.name, 5000);
+                                                                        return;
+                                                                    }
+                                                                    if (!this.refs.total1.value) {
+                                                                        NotificationManager.error('Fill the total field', 'Unable to buy asset ' + this.state.asset.name, 5000);
+                                                                        return;
+                                                                    }
+
+                                                                    this.props.setBodyModalParamsAction('BUY_ASSET', {
+                                                                        quantityATU: this.refs.quantity1.value,
+                                                                        priceATM: this.refs.priceATM1.value,
+                                                                        total: this.refs.total1.value,
+                                                                        assetInfo: this.state.asset
+                                                                    })
+                                                                }}
+                                                                className={classNames({
+                                                                    "btn": true,
+                                                                    "static": true,
+                                                                    "blue": true,
+                                                                    "blue-disabled": false
                                                                 })}
-                                                                className="btn static blue"
                                                             >
                                                                 Buy (APL > {this.state.asset.name})
                                                             </a>
@@ -331,8 +367,6 @@ class AssetExchange extends React.Component {
 
                                                         </div>
                                                     </div>}
-
-
                                             </div>
                                         </div>
 
@@ -382,7 +416,12 @@ class AssetExchange extends React.Component {
                                                             <label>Quantity</label>
                                                         </div>
 	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-		                                                    <input ref="quantity2" placeholder='Recipient' className={"form-control"}/>
+		                                                    <input
+                                                                ref="quantity2"
+                                                                type={'number'}
+                                                                placeholder='Quantity'
+                                                                className={"form-control"}
+                                                            />
 		                                                    <div className="input-group-append">
 			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
 		                                                    </div>
@@ -396,7 +435,12 @@ class AssetExchange extends React.Component {
                                                             <label>Price</label>
                                                         </div>
 	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-		                                                    <input ref="priceATM2" placeholder='Quantity' className={"form-control"}/>
+		                                                    <input
+                                                                ref="priceATM2"
+                                                                type={'number'}
+                                                                placeholder='Quantity'
+                                                                className={"form-control"}
+                                                            />
 		                                                    <div className="input-group-append">
 			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
 		                                                    </div>
@@ -410,7 +454,12 @@ class AssetExchange extends React.Component {
                                                             <label>Total</label>
                                                         </div>
 	                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-		                                                    <input ref="total2" placeholder='Price' className={"form-control"}/>
+		                                                    <input
+                                                                ref="total2"
+                                                                type={'number'}
+                                                                placeholder='Price'
+                                                                className={"form-control"}
+                                                            />
 		                                                    <div className="input-group-append">
 			                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
 		                                                    </div>
@@ -424,13 +473,33 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                         <div className="col-md-9 pr-0">
                                                             <a
-                                                                onClick={() => this.props.setBodyModalParamsAction('SELL_ASSET', {
-                                                                    quantityATU: this.refs.quantity2.value,
-                                                                    priceATM: this.refs.priceATM2.value,
-                                                                    total: this.refs.total2.value,
-                                                                    assetInfo: this.state.asset
+                                                                onClick={() => {
+                                                                    if (!this.refs.quantity2.value) {
+                                                                        NotificationManager.error('Fill the quantity field', 'Unable to sell asset ' + this.state.asset.name, 5000);
+                                                                        return;
+                                                                    }
+                                                                    if (!this.refs.priceATM2.value) {
+                                                                        NotificationManager.error('Fill the price field', 'Unable to sell asset ' + this.state.asset.name, 5000);
+                                                                        return;
+                                                                    }
+                                                                    if (!this.refs.total2.value) {
+                                                                        NotificationManager.error('Fill the total field', 'Unable to sell asset ' + this.state.asset.name, 5000);
+                                                                        return;
+                                                                    }
+
+                                                                    this.props.setBodyModalParamsAction('SELL_ASSET', {
+                                                                        quantityATU: this.refs.quantity2.value,
+                                                                        priceATM: this.refs.priceATM2.value,
+                                                                        total: this.refs.total2.value,
+                                                                        assetInfo: this.state.asset
+                                                                    })
+                                                                }}
+                                                                className={classNames({
+                                                                    "btn": true,
+                                                                    "static": true,
+                                                                    "blue": true,
+                                                                    "blue-disabled": false
                                                                 })}
-                                                                className="btn static blue"
                                                             >
                                                                 Sell ({this.state.asset.name} > APL)
                                                             </a>
