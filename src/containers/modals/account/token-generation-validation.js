@@ -145,7 +145,7 @@ class TokenGenerationValidation extends React.Component {
                                                     <label>Passphrase</label>
                                                 </div>
                                                 <div className="col-md-9">
-                                                    <Text type="text" field={'secretPhrase'} placeholder="passphrase"/>
+                                                    <Text type="password" field={'secretPhrase'} placeholder="passphrase"/>
                                                 </div>
                                             </div>
                                         </div>
