@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
+import InputForm from '../../components/input-form';
+import AccountRS from '../../components/account-rs';
 import {Form, Text, TextArea} from 'react-form';
 
-import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 
@@ -87,44 +86,45 @@ class AddAccount extends React.Component {
                                 <div className="form-title">
                                     <p>Add Contact</p>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Name</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder={'Contact Name'} field={'name'}/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Name
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            field="name"
+                                            placeholder="Contact Name"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Account ID</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text defaultValue={this.props.modalData} placeholder={'Account ID'} type="text" field={'accountRS'}/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Account ID
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <AccountRS
+                                            field={'accountRS'}
+                                            noContactList={true}
+                                            placeholder="Account ID"
+                                            defaultValue={this.props.modalData}
+                                            setValue={setValue}
+                                        />
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Email Address</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder={'contact@email.com'} type="text" field={'email'}/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Email Address
+                                    </label>
+                                    <div className="col-md-9">
+                                        <Text className="form-control" placeholder={'contact@email.com'} type="text" field={'email'}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Description</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <TextArea placeholder="Optional" field="message" cols="30" rows="10" />
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label align-self-start">
+                                        Description
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <TextArea className="form-control" placeholder="Optional" field="message" cols="30" rows="5" />
                                     </div>
                                 </div>
 

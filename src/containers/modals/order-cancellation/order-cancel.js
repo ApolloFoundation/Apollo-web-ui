@@ -34,9 +34,7 @@ class OrderCancel extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-
         const {modalData} = this.props;
-        console.warn("modal dda ", modalData);
         values.publicKey = await crypto.getPublicKey(values.secretPhrase);
         const res = await this.props.submitForm(null, null, {
             ...values,
@@ -84,18 +82,18 @@ class OrderCancel extends React.Component {
                                     <div className="form-title">
                                         <p>Confirm Order Cancellation</p>
                                     </div>
-                                    <InfoBox>
+                                    <InfoBox default>
                                         If you are sure you want to cancel your order, type your passphrase to confirm.
                                     </InfoBox>
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Fee
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
                                                 field="feeAPL"
                                                 placeholder="Minimum fee"
-                                                type={"number"}
+                                                type={"float"}
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">Apollo</span>
@@ -106,7 +104,7 @@ class OrderCancel extends React.Component {
                                         <label className="col-sm-3 col-form-label">
                                             Passphrase <i className="zmdi zmdi-portable-wifi-changes"/>
                                         </label>
-                                        <div className="col-sm-9 mb-0 no-left-padding">
+                                        <div className="col-sm-9">
                                             <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>

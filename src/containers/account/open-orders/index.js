@@ -136,14 +136,14 @@ class OpenOrders extends React.Component {
                                         {this.state.buyOrders && this.state.buyOrders.length === 0 ? <div className="alert">No assets.</div> :
                                             <div className="transaction-table">
                                                 <div className="transaction-table-body no-padding">
-                                                    <table>
+                                                    <table className="no-padding">
                                                         <thead key={uuid()}>
                                                         <tr>
                                                             <td className="align-left">Asset</td>
                                                             <td>Quantity</td>
                                                             <td>Price</td>
                                                             <td>Total</td>
-                                                            <td className="align-left">Cancel</td>
+                                                            <td className="align-right">Actions</td>
                                                         </tr>
                                                         </thead>
                                                         <tbody key={uuid()}>

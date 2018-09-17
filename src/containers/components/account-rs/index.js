@@ -53,16 +53,12 @@ class AccountRS extends React.Component {
 
             this.props.setValue(this.props.field, value);
             this.setState({inputValue: newState});
-        }
+        };
 
         if (event.clipboardData) {
-            console.log(event.clipboardData.getData('text/plain'));
             value = event.clipboardData.getData('text/plain');
-            console.log(value.includes('APL-'));
-            console.log(value.indexOf('APL-'));
             if (value.includes('APL-') && value.indexOf('APL-') === 0) {
                 value = value.replace('APL-', '');
-                console.log(value);
                 setInputValue(value);
             }
         } else {
@@ -85,14 +81,15 @@ class AccountRS extends React.Component {
                                onChange={this.onChange}
                     />
                 }
-                <a
-                    onClick={() => this.handleContacts()}
-                    className="input-icon"
-                >
-                    <i className="zmdi zmdi-account" />
-                </a>
-                {
-                    this.state.contacts &&
+                {!this.props.noContactList &&
+                    <a
+                        onClick={() => this.handleContacts()}
+                        className="input-icon"
+                    >
+                        <i className="zmdi zmdi-account"/>
+                    </a>
+                }
+                {this.state.contacts &&
                     <div
                         className={classNames({
                             'contacts-list': true,

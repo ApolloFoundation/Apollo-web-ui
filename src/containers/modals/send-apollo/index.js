@@ -203,7 +203,7 @@ class SendApollo extends React.Component {
                                             defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
                                             field="feeAPL"
                                             placeholder="Amount"
-                                            type={"number"}
+                                            type={"float"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">Apollo</span>

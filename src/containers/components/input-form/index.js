@@ -18,8 +18,9 @@ class InputForm extends React.Component {
 
     validateInput = (value) => {
         if (this.props.type === "number") {
-            // value = value.replace(/[^\d.]|\.(?=.*\.)/g,""); // float numbers
             value = value.replace(/[^\d]/g,"");
+        } else if (this.props.type === "float") {
+            value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
         } else {
             value = value.replace(/[.,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
         }
@@ -29,7 +30,7 @@ class InputForm extends React.Component {
 
     handleClickUp = () => {
         if (!this.props.disabled) {
-            let value = this.state.value !== '' ? parseInt(this.state.value) : 0;
+            let value = this.state.value !== '' ? parseFloat(this.state.value) : 0;
             value = value + 1; // or parseFloat
             this.props.setValue(this.props.field, value);
             this.setState({value});
@@ -38,7 +39,7 @@ class InputForm extends React.Component {
 
     handleClickDown = () => {
         if (!this.props.disabled) {
-            let value = this.state.value !== '' ? parseInt(this.state.value) : 0;
+            let value = this.state.value !== '' ? parseFloat(this.state.value) : 0;
             if (value > 0) {
                 value = value - 1; // or parseFloat
                 this.props.setValue(this.props.field, value);
@@ -60,7 +61,7 @@ class InputForm extends React.Component {
                     minLength={this.props.minLength}
                     disabled={this.props.disabled}
                 />
-                {this.props.type === "number" &&
+                {(this.props.type === "number" || this.props.type === "float") &&
                 <div className="input-number-wrap">
                     <div className="input-number-up" onClick={this.handleClickUp}/>
                     <div className="input-number-down" onClick={this.handleClickDown}/>
