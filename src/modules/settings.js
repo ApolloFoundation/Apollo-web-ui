@@ -25,9 +25,8 @@ export default (state = initState, action) => {
     }
 }
 
-export const saveSettingsAction = (settings) => {
+export const saveSettingsAction = (settings) => dispatch => {
     writeToLocalStorage("settings", settings);
-    window.location.reload();
 };
 
 export const getSavedSettingsAction = () => dispatch => {
