@@ -151,6 +151,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	flex: 1;
 	position: relative;
 }
+
 .input-number-wrap {
 	-webkit-appearance: none;
 	background: url(../../assets/number-arrows.png) no-repeat center center;
@@ -167,10 +168,12 @@ input[type="number"]::-webkit-inner-spin-button {
 	flex: 2;
 	flex-direction: column;
 }
+
 .input-number-up {
 	display: flex;
 	flex: 1;
 }
+
 .input-number-down {
 	display: flex;
 	flex: 1;
@@ -2066,19 +2069,82 @@ input {
 	
 	.card {
 		//margin: 15px;
+		transition: 0.2s;
 		min-height: 253px;
 		height: calc(100% - 15px);
+		@media (max-width: 760px) {
+			height: auto;
+			padding: 15px 20px;
+			min-height: 0;
+		}
 		&.card-tall {
 			min-height: 520px;
 			@media (max-width: 760px) {
 				min-height: auto;
 			}
 		}
+		//.card-title {
+		//	pointer-events: none;
+		//}
+	}
+	.arrow-block {
+		display: none;
+		position: absolute;
+		right: 13px;
+		top: 13px;
+		width: 20px;
+		cursor: pointer;
+		height: 20px;
+		transition: 0.2s;
+		backface-visibility: hidden;
+		@media (max-width: 760px) {
+			display: block;
+		}
+		&:hover{
+			opacity: 0.6;
+		}
+		.arrow {
+			position: absolute;
+			width: 45%;
+			height: 45%;
+			top: 50%;
+			left: 50%;
+			transition: 0.2s;
+			border: 1px solid;
+			
+			margin-top: -3px;
+			transform: translate(-50%, -50%) rotate(45deg);
+			border-color: transparent #fff #fff transparent;
+		}
 	}
 	.form-group-app {
 		display: table;
 	}
+	.show-hide-content {
+		@media (max-width: 760px) {
+			min-height: 185px;
+			padding: 26px 20px;
+			.arrow {
+				margin-top: 2px;
+				transform: translate(-50%, -50%) rotate(45deg);
+				border-color: #fff transparent transparent #fff;
+			}
+			.page-body-item-content {
+				max-height: 1000px;
+				opacity: 1;
+			}
+		}
+	}
+	.page-body-item-content {
+		@media (max-width: 760px) {
+			max-height: 0;
+			opacity: 0;
+			transition: 0.2s;
+			overflow: hidden;
+		}
+	}
 }
+
 
 table {
 	tr > td {
@@ -2280,7 +2346,7 @@ table {
 	.transaction-table {
 		height: auto;
 	}
-	.search-bar{
+	.search-bar {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
@@ -2300,6 +2366,6 @@ table {
 	}
 }
 
-.no-followed-polls{
+.no-followed-polls {
 	padding: 30px;
 }
