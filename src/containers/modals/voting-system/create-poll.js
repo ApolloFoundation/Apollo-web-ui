@@ -2,30 +2,41 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import CustomSelect from '../../components/select';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
+import AdvancedSettings from '../../components/advanced-transaction-settings';
+import InputForm from '../../components/input-form';
 import {Form, Text, TextArea, Number, Radio, RadioGroup} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import {getBlockAction} from "../../../actions/blocks";
+import {getCurrencyAction} from "../../../actions/currencies";
+import {getAssetAction} from "../../../actions/assets";
 import {NotificationManager} from "react-notifications";
+import {calculateFeeAction} from "../../../actions/forms";
+
+const votingModelData = [
+    { value: '0', label: 'Vote by Account' },
+    { value: '1', label: 'Vote by Account Balance' },
+    { value: '2', label: 'Vote by Asset Balance' },
+    { value: '3', label: 'Vote by Currency Balance' }
+];
 
 class CreatePoll extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            activeTab: 0,
+            advancedState: false,
+
+            // submitting
+            passphraseStatus: false,
+            recipientStatus: false,
+            amountStatus: false,
+            feeStatus: false,
+
+            answers: [''],
+            currency: '-',
+            asset: 'Not Existing',
+        }
     }
-
-    state = {
-        activeTab: 0,
-        advancedState: false,
-
-        // submitting
-        passphraseStatus: false,
-        recipientStatus: false,
-        amountStatus: false,
-        feeStatus: false,
-
-        answers: ['']
-    };
 
     componentDidMount() {
         this.setFinishHeight()
@@ -117,6 +128,39 @@ class CreatePoll extends React.Component {
         }
     };
 
+    selectedBalanceType = (minBalanceType) => {
+        switch (minBalanceType) {
+            case 0:
+                return '(none)';
+            case 1:
+                return '(Apollo)';
+            case 2:
+                return '(Asset)';
+            case 3:
+                return '(Currency)';
+        }
+    };
+
+    getCurrency = async (reqParams) => {
+        const result = await this.props.getCurrencyAction(reqParams);
+
+        if (result) {
+            this.setState({ currency: result.currency });
+        } else {
+            this.setState({ currency: '-' });
+        }
+    };
+
+    getAsset = async (reqParams) => {
+        const result = await this.props.getAssetAction(reqParams);
+
+        if (result) {
+            this.setState({ asset: result.name });
+        } else {
+            this.setState({ asset: 'Not Existing' });
+        }
+    };
+
     render() {
         return (
             <div className="modal-box">
@@ -134,211 +178,243 @@ class CreatePoll extends React.Component {
                                     <div className="form-title">
                                         <p>Create Poll</p>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Name</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text field={'name'} placeholder={'Poll Name'} type="text"/>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Name
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <InputForm
+                                                field="name"
+                                                placeholder="Poll Name"
+                                                setValue={setValue}/>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Description</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <TextArea placeholder="Description" field="description" cols="30" rows="10" />
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Description
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <TextArea className="form-control"
+                                                      placeholder="Description"
+                                                      field="description"
+                                                      cols="30" rows="5" />
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Poll By</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <CustomSelect
-                                                    field={'votingModel'}
-                                                    setValue={setValue}
-                                                    options={[
-                                                        { value: '0', label: 'Vote by Account' },
-                                                        { value: '1', label: 'Vote by Account Balance' },
-                                                        { value: '2', label: 'Vote by Asset Balance' },
-                                                        { value: '3', label: 'Vote by Currency Balance' }
-                                                    ]}
-                                                />
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">Poll By</label>
+                                        <div className="col-md-9">
+                                            <CustomSelect
+                                                field={'votingModel'}
+                                                setValue={setValue}
+                                                defaultValue={votingModelData[0]}
+                                                options={votingModelData}
+                                            />
                                         </div>
                                     </div>
-                                    <RadioGroup field={'minBalanceType'}>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Min Balance Type</label>
+                                    {getFormState().values.minBalanceType === 2 &&
+                                        <div className="form-group row form-group-grey mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Asset
+                                            </label>
+                                            <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                                <InputForm
+                                                    field="create_poll_asset_id"
+                                                    placeholder="Asset Id"
+                                                    onChange={(asset) => this.getAsset({asset})}
+                                                    setValue={setValue}/>
+                                                <div className="input-group-append">
+                                                    <span className="input-group-text">{this.state.asset}</span>
                                                 </div>
-                                                <div className="col-md-9">
-                                                    <div className="form-sub-actions">
-                                                        <div
-                                                            className="form-group-app no-padding-bottom"
-                                                            style={{paddingTop:0,paddingLeft:0}}
-                                                        >
-                                                            <div className="input-group-app align-middle display-block offset-bottom">
-                                                                <Radio value={0}/>
-                                                                <label style={{display: 'inline-block'}}>None</label>
-                                                            </div>
-                                                            <div className="input-group-app align-middle display-block offset-bottom">
-                                                                <Radio value={1}/>
-                                                                <label style={{display: 'inline-block'}}>Account Balance</label>
-                                                            </div>
-                                                            <div className="input-group-app align-middle display-block offset-bottom">
-                                                                <Radio value={2}/>
-                                                                <label style={{display: 'inline-block'}}>Asset Balance</label>
-                                                            </div>
-                                                            <div className="input-group-app align-middle display-block offset-bottom">
-                                                                <Radio value={3}/>
-                                                                <label style={{display: 'inline-block'}}>Currency Balance</label>
-                                                            </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    {getFormState().values.minBalanceType === 3 &&
+                                        <div className="form-group row form-group-grey mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Currency
+                                            </label>
+                                            <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                                <InputForm
+                                                    field="create_poll_ms_code"
+                                                    placeholder="Code"
+                                                    onChange={(code) => this.getCurrency({code})}
+                                                    setValue={setValue}/>
+                                                <div className="input-group-append">
+                                                    <span className="input-group-text">ID: {this.state.currency}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <RadioGroup field={'minBalanceType'} defaultValue={0}>
+                                        <div className="form-group row form-group-white">
+                                            <label className="col-sm-3 col-form-label align-self-start">
+                                                Min Balance Type
+                                            </label>
+                                            <div className="col-md-9">
+                                                <div className="form-sub-actions">
+                                                    <div
+                                                        className="form-group-app no-padding-bottom"
+                                                        style={{paddingTop:0,paddingLeft:0}}
+                                                    >
+                                                        <div className="input-group-app align-middle display-block mb-3">
+                                                            <Radio value={0}/>
+                                                            <label style={{display: 'inline-block'}}>None</label>
+                                                        </div>
+                                                        <div className="input-group-app align-middle display-block mb-3">
+                                                            <Radio value={1}/>
+                                                            <label style={{display: 'inline-block'}}>Account Balance</label>
+                                                        </div>
+                                                        <div className="input-group-app align-middle display-block mb-3">
+                                                            <Radio value={2}/>
+                                                            <label style={{display: 'inline-block'}}>Asset Balance</label>
+                                                        </div>
+                                                        <div className="input-group-app align-middle display-block mb-3">
+                                                            <Radio value={3}/>
+                                                            <label style={{display: 'inline-block'}}>Currency Balance</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </RadioGroup>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Finish Height</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div style={{width: '100%'}} onLoad={(setValue) => {this.setFinishHeight(setValue)}}>
-                                                    {
-                                                        this.state.block &&
-                                                        <Text placeholder="Finish Height" field="finishHeight" defaultValue={parseInt(this.state.block.height) + 10000} step={500} type='number' />
-                                                    }
-                                                </div>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Min voting balance {this.selectedBalanceType(getFormState().values.minBalanceType)}
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <InputForm
+                                                disabled={getFormState().values.minBalanceType === 0}
+                                                field="minBalance"
+                                                placeholder=""
+                                                type={"number"}
+                                                setValue={setValue}/>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Min voting balance (none)</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div style={{width: '100%'}}>
-                                                    <Text placeholder="" field="minBalanceATUf" type='number' />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Answer</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="iconned-input-field" style={{width: '100%'}}>
-                                                    {
-                                                        this.state.answers.map((el, index) => {
-                                                            if (index === 0) {
-                                                                return (
-                                                                    <div key={'answer-' + index} className="input-group-app search" style={{display: 'block'}}>
-                                                                        <div className="iconned-input-field">
-                                                                            <input name={'create_poll_answers[]'} onChange={(e) => this.handleAnswerChange(e, index)} value={el} placeholder={'Answer'} type="text"/>
-                                                                            <a onClick={() => this.removeAnswer(index)} className="input-icon"><i className="zmdi zmdi-minus-circle" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                )
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">Finish height</label>
+                                        <div className="col-sm-9 input-group input-group-sm mb-0" onLoad={(setValue) => {this.setFinishHeight(setValue)}}>
+                                            {
+                                                this.state.block &&
+                                                <InputForm
+                                                    type="number"
+                                                    field="finishHeight"
+                                                    defaultValue={parseInt(this.state.block.height) + 10000}
+                                                    placeholder="Finish height"
+                                                    setValue={setValue}/>
+                                            }
 
-                                                            } else {
-                                                                return (
-                                                                    <div key={'answer-' + index} className="input-group-app search" style={{display: 'block', marginTop: 25}}>
-                                                                        <div className="iconned-input-field">
-                                                                            <input name={'create_poll_answers[]'} onChange={(e) => this.handleAnswerChange(e, index)} value={el} placeholder={'Answer'} type="text"/>
-                                                                            <a onClick={() => this.removeAnswer(index)} className="input-icon"><i className="zmdi zmdi-minus-circle" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            }
-
-                                                        })
-                                                    }
-                                                    <div className="input-group-app" style={{display: 'block', marginTop: 25}}>
-                                                        <a
-                                                            onClick={() => this.addAnswer()}
-                                                            className="no-margin btn static blue"
-                                                        >
-                                                            Add answer
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                            <div className="input-group-append">
+                                                {
+                                                    this.state.block &&
+                                                    <span className="input-group-text">{this.state.block.height}</span>
+                                                }
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Minimum nr of choices</label>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <div style={{width: '100%'}}>
-                                                    <Text placeholder="" field="minNumberOfOptions" type='number' />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <label>Maximum nr of choices</label>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <div style={{width: '100%'}}>
-                                                    <Text placeholder="" field="maxNumberOfOptions" type='number' />
-                                                </div>
+                                    <div className="form-group row form-group-white mb-0">
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Answer
+                                        </label>
+                                        <div className="col-sm-9">
+                                            {
+                                                this.state.answers.map((el, index) => {
+                                                    return (
+                                                        <div className="input-group input-group-sm mb-15 no-left-padding">
+                                                            <input
+                                                                className="form-control"
+                                                                name={'create_poll_answers[]'}
+                                                                onChange={(e) => this.handleAnswerChange(e, index)}
+                                                                value={el}
+                                                                placeholder={'Answer'}/>
+                                                            <div className="input-group-append" onClick={() => this.removeAnswer(index)}>
+                                                                    <span className="input-group-text">
+                                                                        <i className="zmdi zmdi-minus-circle" />
+                                                                    </span>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="mobile-class form-group-grey row mb-15">
+                                        <div className="col-sm-9 offset-sm-3">
+                                            <a className="no-margin btn static blue"
+                                               onClick={() => this.addAnswer()}>
+                                                Add answer
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Minimum nr of choices
+                                        </label>
+                                        <div className="col-sm-3">
+                                            <InputForm
+                                                defaultValue={1}
+                                                type="number"
+                                                field="minNumberOfOptions"
+                                                placeholder=""
+                                                setValue={setValue}/>
+                                        </div>
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Maximum nr of choices
+                                        </label>
+                                        <div className="col-sm-3">
+                                            <InputForm
+                                                defaultValue={1}
+                                                type="number"
+                                                field="maxNumberOfOptions"
+                                                placeholder=""
+                                                setValue={setValue}/>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Minimum range value
+                                        </label>
+                                        <div className="col-sm-3">
+                                            <InputForm
+                                                defaultValue={0}
+                                                type="number"
+                                                field="minRangeValue"
+                                                placeholder=""
+                                                setValue={setValue}/>
+                                        </div>
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Maximum range value
+                                        </label>
+                                        <div className="col-sm-3">
+                                            <InputForm
+                                                defaultValue={1}
+                                                type="number"
+                                                field="maxRangeValue"
+                                                placeholder=""
+                                                setValue={setValue}/>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Fee
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                            <InputForm
+                                                defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                                field="feeAPL"
+                                                placeholder="Minimum fee"
+                                                type={"number"}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">Apollo</span>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Minimum range value</label>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <div style={{width: '100%'}}>
-                                                    <Text placeholder="" field="minRangeValue" type='number' />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <label>Maximum range value</label>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <div style={{width: '100%'}}>
-                                                    <Text placeholder="" field="maxRangeValue" type='number' />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Fee</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text field={'feeAPL'} placeholder={'Amount'} type="number"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Passphrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Secret phrase'} type={'password'} field={'secretPhrase'}/>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Passphrase <i className="zmdi zmdi-portable-wifi-changes"/>
+                                        </label>
+                                        <div className="col-sm-9 mb-0 no-left-padding">
+                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>
                                     <div className="btn-box align-buttons-inside absolute right-conner align-right">
@@ -353,7 +429,7 @@ class CreatePoll extends React.Component {
                                             name={'closeModal'}
                                             className="btn btn-right blue round round-bottom-right"
                                         >
-                                            Send
+                                            Create poll
                                         </button>
                                     </div>
                                     <div className="btn-box align-buttons-inside absolute left-conner">
@@ -362,7 +438,7 @@ class CreatePoll extends React.Component {
                                             className="btn btn-right round round-bottom-left round-top-right absolute"
                                             style={{left : 0, right: 'auto'}}
                                         >
-                                            Advanced
+                                            {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
                                     </div>
                                     <AdvancedSettings
@@ -389,7 +465,9 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
-
+    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
+    getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
+    getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePoll);
