@@ -3478,6 +3478,8 @@ input {
         background-color: #e5e5e5; }
       .form-group-app .form-group-white .form-control:focus {
         box-shadow: none; }
+      .form-group-app .form-group-white .form-control:disabled {
+        background-color: #e5e5e5; }
     .form-group-app .form-group-white .form-group-select select {
       -webkit-appearance: none;
       -moz-appearance: none;
