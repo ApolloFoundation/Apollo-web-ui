@@ -42,39 +42,56 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 
 	reloadAccount: acc => dispatch(reloadAccountAction(acc)),
-    getMessages: (reqParams) => dispatch(getMessages(reqParams)),
-    getNewsAction: () => dispatch(getNewsAction()),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    setMopalType: (type) => dispatch(setMopalType(type)),
-    formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
-    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
-    getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
-    getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
-    getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
-    getAccountAssetsAction: (requestParams) => dispatch(getAccountAssetsAction(requestParams)),
-    getAliasesCountAction: (requestParams) => dispatch(getAliasesCountAction(requestParams)),
-    getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
-    getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
-    getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
+	getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+	getNewsAction: () => dispatch(getNewsAction()),
+	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	setMopalType: (type) => dispatch(setMopalType(type)),
+	formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
+	getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
+	getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
+	getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
+	getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
+	getAccountAssetsAction: (requestParams) => dispatch(getAccountAssetsAction(requestParams)),
+	getAliasesCountAction: (requestParams) => dispatch(getAliasesCountAction(requestParams)),
+	getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
+	getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
+	getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
 });
 
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			positionState1: false,
+			positionState2: false,
+			positionState3: false,
+			assetsValue: null,
+			aliassesValue: null,
+			transactions: null,
+			firstIndex: 0,
+			lastIndex: 14,
+			newsItem: 0
+		};
+		this.position1 = this.position1.bind(this);
+		this.position2 = this.position2.bind(this);
+		this.position3 = this.position3.bind(this);
 	}
 
-	state = {
-		assetsValue: null,
-		aliassesValue: null,
-		transactions: null,
-		firstIndex: 0,
-		lastIndex: 14,
-		newsItem: 0
-	};
+	position1() {
+		this.setState({positionState1: !this.state.positionState1});
+	}
+
+	position2() {
+		this.setState({positionState2: !this.state.positionState2});
+	}
+
+	position3() {
+		this.setState({positionState3: !this.state.positionState3});
+	}
 
 	listener = data => {
-        this.initDashboard({account: this.props.account});
-        this.props.reloadAccount(this.props.accountRS);
+		this.initDashboard({account: this.props.account});
+		this.props.reloadAccount(this.props.accountRS);
 	};
 
 	componentDidMount() {
@@ -92,13 +109,13 @@ class Dashboard extends React.Component {
 		}
 	}
 
-    componentWillMount() {
-        this.getBlock();
-        if (this.props.account) {
-            this.initDashboard({account: this.props.account})
-        }
-        this.getNews();
-    }
+	componentWillMount() {
+		this.getBlock();
+		if (this.props.account) {
+			this.initDashboard({account: this.props.account})
+		}
+		this.getNews();
+	}
 
 	initDashboard = (reqParams) => {
 		this.getAccountAsset(reqParams);
@@ -117,21 +134,21 @@ class Dashboard extends React.Component {
 	getAccountAsset = async (requsetParams) => {
 		const accountAssets = await this.props.getAccountAssetsAction(requsetParams);
 
-        if (accountAssets) {
-            this.setState({
-                assetData: accountAssets.accountAssets,
-                assetsValue: parseInt(accountAssets.accountAssets
+		if (accountAssets) {
+			this.setState({
+				assetData: accountAssets.accountAssets,
+				assetsValue: parseInt(accountAssets.accountAssets
 					.map((el) => {
-						if(el.decimals) {
-                    		return parseInt(el.quantityATU / Math.pow(10, el.decimals))
+						if (el.decimals) {
+							return parseInt(el.quantityATU / Math.pow(10, el.decimals))
 						} else {
-                            return parseInt(el.quantityATU)
+							return parseInt(el.quantityATU)
 						}
 					}).reduce((a, b) => a + b, 0)),
-                assetsCount: accountAssets.accountAssets.length
-            })
-        }
-    };
+				assetsCount: accountAssets.accountAssets.length
+			})
+		}
+	};
 
 	getAliasesCount = async (requsetParams) => {
 		const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
@@ -191,19 +208,19 @@ class Dashboard extends React.Component {
 		const completedPurchased = await this.props.getDGSPurchaseCountAction(reqParams);
 
 
-        if (purchased && completedPurchased && pendingGoods) {
-            this.setState({
-                numberOfGoods: purchased.numberOfPurchases,
-                completedGoods: completedPurchased.numberOfPurchases,
-                pendingGoods: pendingGoods.purchases.length,
-            })
-        }
-    };
+		if (purchased && completedPurchased && pendingGoods) {
+			this.setState({
+				numberOfGoods: purchased.numberOfPurchases,
+				completedGoods: completedPurchased.numberOfPurchases,
+				pendingGoods: pendingGoods.purchases.length,
+			})
+		}
+	};
 
 	getNews = async () => {
 		const news = await this.props.getNewsAction();
 
-        if (news) {
+		if (news) {
 			this.setState({
 				news,
 				newsCount: news.tweets.length
@@ -212,16 +229,16 @@ class Dashboard extends React.Component {
 	};
 
 	getNewsItem = (tweet) => {
-        let itemContent = '';
-        const post = tweet.retweeted_status ? tweet.retweeted_status : tweet;
-        const dateArr = post.created_at.split(" ");
-        const media = (post.extended_entities && post.extended_entities.media.length > 0) ?
-            post.extended_entities.media[0].media_url : false;
-        itemContent += `<div class='post-title'>@${post.user.screen_name}<span class='post-date'>${dateArr[1]} ${dateArr[2]}</span></div>`;
-        itemContent += `<div class='post-content'>${post.full_text}</div>`;
-        if (media) itemContent += `<div class='post-image' style="background-image: url('${media}')"></div>`;
-        return <a className="post-item" href={`https://twitter.com/${post.user.screen_name}/status/${post.id_str}`}
-                  target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
+		let itemContent = '';
+		const post = tweet.retweeted_status ? tweet.retweeted_status : tweet;
+		const dateArr = post.created_at.split(" ");
+		const media = (post.extended_entities && post.extended_entities.media.length > 0) ?
+			post.extended_entities.media[0].media_url : false;
+		itemContent += `<div class='post-title'>@${post.user.screen_name}<span class='post-date'>${dateArr[1]} ${dateArr[2]}</span></div>`;
+		itemContent += `<div class='post-content'>${post.full_text}</div>`;
+		if (media) itemContent += `<div class='post-image' style="background-image: url('${media}')"></div>`;
+		return <a className="post-item" href={`https://twitter.com/${post.user.screen_name}/status/${post.id_str}`}
+		          target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
 	};
 
 	render() {
@@ -235,61 +252,80 @@ class Dashboard extends React.Component {
 					<div className={"page-body-top-bottom-container"}>
 						<div className="page-body-top" key={uuid()}>
 							<div className="page-body-item ">
-								<div className="card header ballance chart-sprite position-1">
+								<div
+									className={`card header ballance chart-sprite position-1 ${this.state.positionState1 ? "show-hide-content" : ""}`}>
 									<div className="card-title">Available Balance</div>
-									<div className="amount">
-										{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')}
-										<div className="owned">
-											APL <span>Owned</span>
-										</div>
+									<div className="arrow-block" onClick={this.position1}>
+										<div className="arrow"/>
 									</div>
-									<div className="account-sub-titles">
-										{this.props.accountRS}
-									</div>
+									<div className="page-body-item-content">
 
-									{
-										this.state.block &&
+										<div className="amount">
+											{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')}
+											<div className="owned">
+												APL <span>Owned</span>
+											</div>
+										</div>
 										<div className="account-sub-titles">
-											Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
+											{this.props.accountRS}
 										</div>
-									}
-									{/*<button*/}
-										{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
-										{/*data-modal="sendMoney"*/}
-									{/*>*/}
-										{/*Buy/sell&nbsp;*/}
-										{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
-									{/*</button>*/}
-								</div>
-							</div>
-							<div className="page-body-item ">
-								<div className="card header assets chart-sprite position-2">
-									<div className="card-title">Assets Value</div>
-									<div className="amount">
-										<div className="text">
-											{Math.round(this.state.assetsValue).toLocaleString('en')}
-										</div>
+
 										{
-											Math.round(this.state.assetsValue) > 100000000000 &&
-											<div className="amount-tooltip">
-												<div className="amount-tooltip-text">
-													{Math.round(this.state.assetsValue).toLocaleString('en')}
-												</div>
+											this.state.block &&
+											<div className="account-sub-titles">
+												Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
 											</div>
 										}
-										<div className="owned">
-											{this.state.assetsCount} <span>Owned</span>
+										{/*<button*/}
+										{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
+										{/*data-modal="sendMoney"*/}
+										{/*>*/}
+										{/*Buy/sell&nbsp;*/}
+										{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
+										{/*</button>*/}
+									</div>
+								</div>
+							</div>
+							<div className="page-body-item ">
+								<div
+									className={`card header assets chart-sprite position-2 ${this.state.positionState2 ? "show-hide-content" : ""}`}>
+									<div className="arrow-block" onClick={this.position2}>
+										<div className="arrow"/>
+									</div>
+									<div className="card-title">Assets Value</div>
+									<div className="page-body-item-content">
+										<div className="amount">
+											<div className="text">
+												{Math.round(this.state.assetsValue).toLocaleString('en')}
+											</div>
+											{
+												Math.round(this.state.assetsValue) > 100000000000 &&
+												<div className="amount-tooltip">
+													<div className="amount-tooltip-text">
+														{Math.round(this.state.assetsValue).toLocaleString('en')}
+													</div>
+												</div>
+											}
+											<div className="owned">
+												{this.state.assetsCount} <span>Owned</span>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div className="page-body-item ">
-								<div className="card header currencies chart-sprite position-3">
+								<div
+									className={`card header currencies chart-sprite position-3 ${this.state.positionState3 ? "show-hide-content" : ""}`}>
+									<div className="arrow-block" onClick={this.position3}>
+										<div className="arrow"/>
+									</div>
 									<div className="card-title">Currencies Value</div>
-									<div className="amount">
-										{Math.round(this.state.currenciesValue / 100000000).toLocaleString('en')}
-										<div className="owned">
-											{this.state.currenciesCount} <span>Owned</span>
+									<div className="page-body-item-content">
+										<div className="amount">
+											{Math.round(this.state.currenciesValue / 100000000).toLocaleString('en')}
+											<div className="owned">
+												{this.state.currenciesCount} <span>Owned</span>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -408,11 +444,11 @@ class Dashboard extends React.Component {
 									</div>
 									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
 									{/*<button*/}
-										{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
-										{/*data-modal="sendMoney"*/}
+									{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
+									{/*data-modal="sendMoney"*/}
 									{/*>*/}
-										{/*Buy/sell&nbsp;*/}
-										{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
+									{/*Buy/sell&nbsp;*/}
+									{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
 									{/*</button>*/}
 								</div>
 							</div>
@@ -431,7 +467,7 @@ class Dashboard extends React.Component {
 											</div>
 											<div className="input-group-app lighten">
 												<label>Fee</label>
-												<input placeholder={'Amount'} ref={'feeATM'}  type={'number'}/>
+												<input placeholder={'Amount'} ref={'feeATM'} type={'number'}/>
 											</div>
 										</div>
 									</div>
@@ -440,7 +476,11 @@ class Dashboard extends React.Component {
 									<button
 										className="btn btn-right gray round round-bottom-right round-top-left absolute"
 										data-modal="sendMoney"
-										onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient: this.refs.recipient.value, amountATM: this.refs.amountATM.value, feeATM: this.refs.feeATM.value})}
+										onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {
+											recipient: this.refs.recipient.value,
+											amountATM: this.refs.amountATM.value,
+											feeATM: this.refs.feeATM.value
+										})}
 									>
 										Send&nbsp;
 										<i className="arrow zmdi zmdi-chevron-right"/>
@@ -470,27 +510,29 @@ class Dashboard extends React.Component {
 										{this.state.news && this.getNewsItem(this.state.news.tweets[this.state.newsItem])}
 									</div>
 
-                                    <button
-                                        className={classNames({
-                                            'btn': true,
-                                            'btn-left': true,
-                                            'gray': true,
-                                            'round': true,
-                                            'round-top-right': true,
-                                            'round-bottom-left': true,
-                                            'absolute': true,
-                                            'disabled': this.state.newsItem === 0
-                                        })}
-                                        data-modal="sendMoney"
-										onClick={() => {this.setState({newsItem: this.state.newsItem - 1})}}
-                                    >
-                                        <i className="arrow zmdi zmdi-chevron-left" />&nbsp;
-                                        Previous
-                                    </button>
+									<button
+										className={classNames({
+											'btn': true,
+											'btn-left': true,
+											'gray': true,
+											'round': true,
+											'round-top-right': true,
+											'round-bottom-left': true,
+											'absolute': true,
+											'disabled': this.state.newsItem === 0
+										})}
+										data-modal="sendMoney"
+										onClick={() => {
+											this.setState({newsItem: this.state.newsItem - 1})
+										}}
+									>
+										<i className="arrow zmdi zmdi-chevron-left"/>&nbsp;
+										Previous
+									</button>
 									{
-                                        this.state.newsCount &&
-                                        <button
-                                            className={classNames({
+										this.state.newsCount &&
+										<button
+											className={classNames({
 												'btn': true,
 												'btn-right': true,
 												'gray': true,
@@ -500,12 +542,14 @@ class Dashboard extends React.Component {
 												'absolute': true,
 												'disabled': this.state.newsItem === this.state.newsCount - 1
 											})}
-                                            data-modal="sendMoney"
-                                            onClick={() => {this.setState({newsItem: this.state.newsItem + 1})}}
-                                        >
-                                            Next&nbsp;
-                                            <i className="arrow zmdi zmdi-chevron-right" />
-                                        </button>
+											data-modal="sendMoney"
+											onClick={() => {
+												this.setState({newsItem: this.state.newsItem + 1})
+											}}
+										>
+											Next&nbsp;
+											<i className="arrow zmdi zmdi-chevron-right"/>
+										</button>
 									}
 								</div>
 							</div>

@@ -80,7 +80,6 @@ class ExchangeBooth extends React.Component {
         }));
 
 
-        console.log(isFinite(values) ? values : 0);
         this.setState({
             buyOffers: offers,
             minimumBuyRate: '0'
@@ -100,9 +99,6 @@ class ExchangeBooth extends React.Component {
         const values = Math.min.apply(null, offers.map((el) => {
             return el.rateATM
         }));
-
-        console.log(isFinite(values) ? values : 0);
-
 
         this.setState({
             sellOffers: offers,
@@ -199,7 +195,7 @@ class ExchangeBooth extends React.Component {
                     this.state.currency &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-4">
+                            <div className="col-md-4 p-0">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.currencies &&
@@ -228,9 +224,9 @@ class ExchangeBooth extends React.Component {
                                     }
                                 </div>
                             </div>
-                            <div className="col-md-8">
+                            <div className="col-md-8 p-0">
                                 <div className="row">
-                                    <div className="col-md-6">
+                                    <div className="col-xl-6 col-md-12 pr-0">
                                         <div className="card header ballance medium-padding">
                                             <div className="row">
                                                 <div className="col-md-6">
@@ -283,7 +279,6 @@ class ExchangeBooth extends React.Component {
                                                                 <div className="col-md-3 pl-0">
                                                                     <label>Maximum Rate</label>
                                                                 </div>
-                                                                {console.log(this.state.minimumSellRate)}
 
                                                                 <div
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
@@ -316,7 +311,6 @@ class ExchangeBooth extends React.Component {
                                                                 <div className="col-md-3 pl-0">
                                                                     <label>Effective Rate</label>
                                                                 </div>
-                                                                {console.log(this.state.minimumSellRate)}
 
                                                                 <div
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
@@ -393,7 +387,7 @@ class ExchangeBooth extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-md-6">
+                                    <div className="col-xl-6 col-md-12 pr-0">
                                         <div className="card header assets medium-padding">
                                             <div className="full-box full">
                                                 <div className="full-box-item">

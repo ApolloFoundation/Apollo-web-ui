@@ -16,7 +16,6 @@ class BlacklistPeer extends React.Component {
             adminPassword: values.adminPass,
             peer: this.props.modalData,
             publicKey: this.props.publicKey,
-            ecBlockId: 18338875302302929178,
             ecBlockHeight: 0
         };
         const res = await this.props.submitForm(null, null, toSend, "blacklistPeer");

@@ -1368,6 +1368,11 @@ input {
   height: 33.33%;
   min-height: 270px;
   padding: 0 7.5px; }
+  @media (max-width: 760px) {
+    .page-body-top .page-body-item .card {
+      height: auto;
+      padding: 15px 20px;
+      min-height: 0; } }
   @media (max-width: 1230px) {
     .page-body-top {
       height: auto;
@@ -1406,6 +1411,7 @@ input {
       min-width: 100%;
       padding: 0; } }
   .page-body-item .card {
+    transition: 0.2s;
     min-height: 253px;
     height: calc(100% - 15px); }
     .page-body-item .card.card-tall {
@@ -1413,8 +1419,51 @@ input {
       @media (max-width: 760px) {
         .page-body-item .card.card-tall {
           min-height: auto; } }
+  .page-body-item .arrow-block {
+    display: none;
+    position: absolute;
+    right: 13px;
+    top: 13px;
+    width: 20px;
+    cursor: pointer;
+    height: 20px;
+    transition: 0.2s;
+    backface-visibility: hidden; }
+    @media (max-width: 760px) {
+      .page-body-item .arrow-block {
+        display: block; } }
+    .page-body-item .arrow-block:hover {
+      opacity: 0.6; }
+    .page-body-item .arrow-block .arrow {
+      position: absolute;
+      width: 45%;
+      height: 45%;
+      top: 50%;
+      left: 50%;
+      transition: 0.2s;
+      border: 1px solid;
+      margin-top: -3px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      border-color: transparent #fff #fff transparent; }
   .page-body-item .form-group-app {
     display: table; }
+  @media (max-width: 760px) {
+    .page-body-item .show-hide-content {
+      min-height: 185px;
+      padding: 26px 20px; }
+      .page-body-item .show-hide-content .arrow {
+        margin-top: 2px;
+        transform: translate(-50%, -50%) rotate(45deg);
+        border-color: #fff transparent transparent #fff; }
+      .page-body-item .show-hide-content .page-body-item-content {
+        max-height: 1000px;
+        opacity: 1; } }
+  @media (max-width: 760px) {
+    .page-body-item .page-body-item-content {
+      max-height: 0;
+      opacity: 0;
+      transition: 0.2s;
+      overflow: hidden; } }
 
 table tr > td {
   white-space: nowrap; }

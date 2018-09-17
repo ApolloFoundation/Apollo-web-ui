@@ -78,6 +78,7 @@ import AboutPeerInfo from "./peer/about-peer-info";
 import ConnectPeer from "./peer/connect-peer";
 import BlacklistPeer from "./peer/blacklist-peer";
 import AddMonitor from "./monitors/add-monitor";
+import OrderCancel from "./order-cancellation/order-cancel";
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -143,8 +144,6 @@ class ModalWindow extends React.Component {
 
 
         });
-
-
         // document.querySelector('.modal-window').classList.remove('active');
 
         setTimeout(() => {
@@ -238,8 +237,8 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'CONNECT_PEER'                && <ConnectPeer               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'BLACKLIST_PEER'              && <BlacklistPeer             closeModal={this.closeModal}/>}
 
-                {/**/}
                 {this.props.modalType === 'ADD_MONITOR'                 && <AddMonitor                closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CANCEL_ORDER'                && <OrderCancel               closeModal={this.closeModal}/>}
 
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal}/>}

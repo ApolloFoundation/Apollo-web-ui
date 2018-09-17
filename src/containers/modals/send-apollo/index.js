@@ -105,7 +105,7 @@ class SendApollo extends React.Component {
                                             type={"number"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="amountText">Apollo</span>
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
