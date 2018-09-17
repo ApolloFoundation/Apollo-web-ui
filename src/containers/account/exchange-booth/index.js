@@ -265,7 +265,8 @@ class ExchangeBooth extends React.Component {
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                     <Text
                                                                         field="units"
-                                                                        placeholder='Recipient'
+                                                                        type={'number'}
+                                                                        placeholder='Units'
                                                                         className={"form-control"}
                                                                         onKeyUp={(e) => {
                                                                             console.log(this.state.minimumBuyRate);
@@ -438,7 +439,8 @@ class ExchangeBooth extends React.Component {
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                     <Text
                                                                         field="units"
-                                                                        placeholder='Recipient'
+                                                                        type={'number'}
+                                                                        placeholder='Units'
                                                                         className={"form-control"}
                                                                         onKeyUp={(e) => {
                                                                             console.log(this.state.minimumSellRate);
