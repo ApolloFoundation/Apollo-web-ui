@@ -3758,6 +3758,8 @@ input {
       padding-top: 1px;
       font-size: 20px;
       color: #000; }
+  .btn.with-out-border {
+    border: 0 solid rgba(255, 255, 255, 0) !important; }
   .btn.filters {
     border: 1px solid transparent; }
     .btn.filters.active {
@@ -3833,6 +3835,10 @@ input {
     text-align: center; }
   .btn .arrow {
     transform: translateY(1px); }
+  .btn.disabled {
+    display: inline-block !important;
+    background-color: #e1e1e1 !important;
+    pointer-events: none; }
 
 .input-block {
   width: 300px; }
