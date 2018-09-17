@@ -46,7 +46,6 @@ class TransactionOperations extends React.Component {
                     validate: values.signValidate,
                     publicKey: this.props.publicKey,
                     feeATM: 0,
-                    ecBlockId: 11255812614937856744,
                     ecBlockHeight: 0
                 };
                 res = await this.props.submitForm(null, null, toSend, "signTransaction");

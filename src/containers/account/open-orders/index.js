@@ -87,6 +87,7 @@ class OpenOrders extends React.Component {
                                                                     <OrderItem
                                                                         key={uuid()}
                                                                         order={el}
+                                                                        type={"cancelAskOrder"}
                                                                     />
                                                                 )
                                                             })
@@ -125,6 +126,7 @@ class OpenOrders extends React.Component {
                                                                     <OrderItem
                                                                         key={uuid()}
                                                                         order={el}
+                                                                        type={"cancelBidOrder"}
                                                                     />
                                                                 )
                                                             })

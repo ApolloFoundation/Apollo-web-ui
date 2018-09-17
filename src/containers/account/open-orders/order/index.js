@@ -24,7 +24,7 @@ class OrderItem extends React.Component {
 
     getOrderInfo = () => {
         this.props.getOrderInfo(this.props.order.asset).then(res => {
-            console.warn("order", res);
+            console.warn("aitem", res, this.props.order);
             this.setState({
                 orderInfo: res ? res : {}
             })
@@ -36,12 +36,12 @@ class OrderItem extends React.Component {
         return (
             <tr key={uuid()}>
                 <td className="align-left blue-link-text"
-                    onClick={async () => this.props.setBodyModalParamsAction('INFO_TRANSACTION', {})}>{orderInfo.name}</td>
+                    onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', {})}>{orderInfo.name}</td>
                 <td className="align-left">{NRS.formatQuantity(orderInfo.quantityATU, orderInfo.decimals)}</td>
                 {/*<td>{NRS.formatOrderPricePerWholeATU(orderInfo.priceATM === undefined ? 0 :orderInfo.priceATM, orderInfo.decimals === undefined ? 0 : orderInfo.decimals)}</td>*/}
                 <td>{this.props.order.priceATM}</td>
                 <td>{this.props.order.priceATM * NRS.formatQuantity(orderInfo.quantityATU, orderInfo.decimals)}</td>
-                <td>{orderInfo.quantityATU}</td>
+                <td onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props.order, type: this.props.type})}>Cancel</td>
 
                 {/*<td className="align-right">{this.props.delete.quantityATU}</td>*/}
             </tr>
