@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../../modules/modals';
-import  {getDGSGoodAction} from "../../../../actions/marketplace";
+import  {getDGSPurchaseAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    getDGSGoodAction: (requestParams) => dispatch(getDGSGoodAction(requestParams)),
+    getDGSGoodAction: (requestParams) => dispatch(getDGSPurchaseAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
@@ -45,7 +45,7 @@ class MarketplacePurchase extends React.Component {
 
     handleImageLoadint = async (value) => {
         const productData = await this.props.getDGSGoodAction({
-            goods: value
+            purchase: value
         });
 
         if (productData) {
