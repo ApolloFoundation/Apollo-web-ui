@@ -15,6 +15,7 @@ export default class BlockSubscriber extends React.Component {
         this.interval = setInterval(this.updateBlock, 4000)
     }
 
+
     updateBlock = async () => {
         const blockData = await startBlockPullingAction();
         if (blockData) {

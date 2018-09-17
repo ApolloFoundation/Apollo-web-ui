@@ -44,7 +44,8 @@ class CreateUser extends React.Component {
     }
 
     handleFormSubmit = (values) => {
-        // Todo: finish form validating
+
+
         if (values.secretPhrase === this.state.generatedPassphrase) {
             this.props.getAccountDataAction({
                 account: this.state.generatedAccount
@@ -74,8 +75,8 @@ class CreateUser extends React.Component {
 
         this.setState({
             ...this.state,
-            generatedPassphrase : generatedPassphrase.join(' '),
-            generatedAccount : generatedAccount
+            generatedPassphrase: generatedPassphrase.join(' '),
+            generatedAccount: generatedAccount
         })
     };
 
@@ -84,12 +85,13 @@ class CreateUser extends React.Component {
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue }) => (
+                    render={({submitForm, values, addValue, removeValue, getFormState}) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             {
                                 !this.state.isValidating &&
                                 <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i
+                                        className="zmdi zmdi-close"/></a>
 
                                     <div className="form-title">
                                         <p>Create Your Wallet</p>
@@ -111,7 +113,9 @@ class CreateUser extends React.Component {
                                     <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-12">
-                                                <label>Write down this passphrase and store securely (order and capitalization matter). This passphrase will be needed to use your wallet.</label>
+                                                <label>Write down this passphrase and store securely (order and
+                                                    capitalization matter). This passphrase will be needed to use your
+                                                    wallet.</label>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +154,8 @@ class CreateUser extends React.Component {
                                                         <strong>
                                                             Remember:
                                                         </strong>
-                                                        Anyone with this passphrase will have total control of your wallet.
+                                                        Anyone with this passphrase will have total control of your
+                                                        wallet.
                                                     </InfoBox>
                                                 </div>
                                             </div>
@@ -160,14 +165,21 @@ class CreateUser extends React.Component {
                                     <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
                                             <div className="col-md-12">
-                                                <Checkbox /> <label>I will not lose my passphrase</label>
+                                                <Checkbox defaultValue={false} field="losePhrase"/> <label>I will not lose my
+                                                passphrase</label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
                                         <a
-                                            onClick={() => {this.setState({...this.state, isValidating: true})}}
+                                            onClick={() => {
+                                                if (!getFormState().values.losePhrase) {
+                                                    NotificationManager.error('You have to verify that you will not lose your passphrase', 'Error', 7000);
+                                                    return;
+                                                }
+                                                this.setState({...this.state, isValidating: true})
+                                            }}
                                             type="submit"
                                             name={'closeModal'}
                                             className="btn absolute btn-right blue round round-top-left round-bottom-right"
@@ -190,7 +202,8 @@ class CreateUser extends React.Component {
                                                 <label>Secret Phrase</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <TextArea rows={5}  type={'password'} field={'secretPhrase'} placeholder="Secret Phrase" />
+                                                <TextArea rows={5} type={'password'} field={'secretPhrase'}
+                                                          placeholder="Secret Phrase"/>
                                             </div>
                                         </div>
                                     </div>
