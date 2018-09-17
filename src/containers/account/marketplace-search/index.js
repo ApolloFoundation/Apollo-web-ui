@@ -130,7 +130,7 @@ class MarketplaceSearch extends React.Component {
                         Back
                     </Link>
                     <a
-                        className="btn primary transparent icon-button"
+                        className="btn primary transparent icon-button with-out-border"
                         style={{marginLeft: 15}}
                         onClick={this.handleGrid}
                     >

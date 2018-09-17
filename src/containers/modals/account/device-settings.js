@@ -1,20 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
-import InfoBox from '../../components/info-box';
+import InputForm from '../../components/input-form';
 import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";
 import {getSavedSettingsAction, saveSettingsAction} from "../../../modules/settings";
+import {NotificationManager} from "react-notifications";
 
 class DeviceSettings extends React.Component {
     constructor(props) {
         super(props);
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
         this.state = {
             activeTab: 0,
             advancedState: false,
@@ -24,8 +22,9 @@ class DeviceSettings extends React.Component {
             recipientStatus: false,
             amountStatus: false,
             feeStatus: false
-        }
+        };
 
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleTabChange = this.handleTabChange.bind(this);
         this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
@@ -38,13 +37,14 @@ class DeviceSettings extends React.Component {
         this.settingsLoaded = true;
     }
 
-    async handleFormSubmit(values) {
+    handleFormSubmit(values) {
         this.props.saveSettings(values);
+        this.props.setBodyModalParamsAction(null, {});
+        NotificationManager.success('Settings has been saved!', null, 5000);
     }
 
     handleTabChange(tab) {
         this.setState({
-            ...this.props,
             activeTab: tab
         })
     }
@@ -52,12 +52,10 @@ class DeviceSettings extends React.Component {
     handleAdvancedState() {
         if (this.state.advancedState) {
             this.setState({
-                ...this.props,
                 advancedState: false
             })
         } else {
             this.setState({
-                ...this.props,
                 advancedState: true
             })
         }
@@ -69,7 +67,7 @@ class DeviceSettings extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, setAllValues
+                                 setValue, submitForm, setAllValues
                              }) => {
                         if (this.settingsLoaded) {
                             if (!this.valuesSet) {
@@ -82,113 +80,107 @@ class DeviceSettings extends React.Component {
                                 <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i
                                         className="zmdi zmdi-close"/></a>
-
                                     <div className="form-title">
                                         <p>Device Settings</p>
+                                        <div className="form-sub-title">
+                                            Remote Node URL
+                                        </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Settings</label>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label align-self-start">
+                                            Settings
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <div className="form-check custom-checkbox mb-15">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          field="is_check_remember_me"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    Check remember me checkbox
+                                                </label>
                                             </div>
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <div
-                                                        className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox"
-                                                                  field="is_check_remember_me"/>
-                                                        <label style={{display: 'inline-block'}}>Check remember me
-                                                            checkbox</label>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox"
-                                                                  field="is_store_remembered_passphrase"/>
-                                                        <label style={{display: 'inline-block'}}>Store remembered
-                                                            passphrase</label>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox"
-                                                                  field="is_simulate_app"/>
-                                                        <label style={{display: 'inline-block'}}>Simulate mobile
-                                                            app</label>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox"
-                                                                  field="is_testnet"/>
-                                                        <label style={{display: 'inline-block'}}>Connect to
-                                                            Testnet</label>
-                                                    </div>
-                                                </div>
+                                            <div className="form-check custom-checkbox mb-15">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          field="is_store_remembered_passphrase"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    Store remembered passphrase
+                                                </label>
+                                            </div>
+                                            <div className="form-check custom-checkbox mb-15">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          field="is_simulate_app"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    Simulate mobile app
+                                                </label>
+                                            </div>
+                                            <div className="form-check custom-checkbox">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          field="is_testnet"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    Connect to Testnet
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Remote node address</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <Text field="remote_node_address" placeholder=""/>
-                                                </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Remote node address
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <InputForm
+                                                field="remote_node_address"
+                                                placeholder=""
+                                                setValue={setValue}/>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Remote node port
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <InputForm
+                                                field="remote_node_port"
+                                                placeholder=""
+                                                setValue={setValue}/>
+                                        </div>
+                                    </div>
+                                    <div className="mobile-class row mb-15 form-group-white">
+                                        <div className="col-md-9 offset-md-3">
+                                            <div className="form-check custom-checkbox">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          field="is_remote_node_ssl"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    Use https
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Remote node port</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <Text field="remote_node_port" placeholder=""/>
-                                                </div>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Number of data validators
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <InputForm
+                                                field="validators_count"
+                                                placeholder=""
+                                                setValue={setValue}/>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <div className="input-group-app align-middle display-block">
-                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox"
-                                                                  field="is_remote_node_ssl"/>
-                                                        <label style={{display: 'inline-block'}}>Use https</label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Number of bootstrap nodes
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <InputForm
+                                                field="bootstrap_nodes_count"
+                                                placeholder=""
+                                                setValue={setValue}/>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Number of data validators</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <Text field="validators_count" placeholder=""/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app offset-top display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Number of bootstrap nodes</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <Text field="bootstrap_nodes_count" placeholder=""/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
                                         <button
@@ -196,7 +188,7 @@ class DeviceSettings extends React.Component {
                                             name={'closeModal'}
                                             className="btn btn-right blue round round-bottom-right"
                                         >
-                                            Send
+                                            Set
                                         </button>
                                         <a onClick={() => this.props.closeModal()}
                                            className="btn btn-right round round-top-left">
@@ -225,7 +217,8 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     loadSavedSettings: () => dispatch(getSavedSettingsAction()),
-    saveSettings: settings => dispatch(saveSettingsAction(settings))
+    saveSettings: settings => dispatch(saveSettingsAction(settings)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceSettings);

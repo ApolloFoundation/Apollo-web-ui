@@ -25,9 +25,10 @@
     @media (max-width: 760px) {
       .marketplace-item--full-width:after {
         width: calc(100% - 40px); } }
-  .marketplace-item--full-width:last-of-type:after {
+  .marketplace-item--full-width:nth-last-of-type(2):after {
     display: none; }
   .marketplace-item--full-width + .btn-box {
+    position: relative;
     min-height: 46px; }
 
 .marketplace-item {
