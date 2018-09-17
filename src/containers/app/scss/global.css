@@ -657,7 +657,7 @@ input {
       color: #333333;
       letter-spacing: 0.3px;
       line-height: 16px;
-      padding: 0 0 0 5px; }
+      padding: 0; }
     .form-group-app .form-group-grey .no-left-padding {
       padding-left: 7px; }
     .form-group-app .form-group-grey .form-control {
@@ -730,7 +730,7 @@ input {
       color: #333333;
       letter-spacing: 0.3px;
       line-height: 16px;
-      padding: 0 0 0 5px; }
+      padding: 0; }
       @media (max-width: 760px) {
         .form-group-app .form-group-white label {
           max-width: 100px; } }
@@ -1027,6 +1027,8 @@ input {
       padding-top: 1px;
       font-size: 20px;
       color: #000; }
+  .btn.with-out-border {
+    border: 0 solid rgba(255, 255, 255, 0) !important; }
   .btn.filters {
     border: 1px solid transparent; }
     .btn.filters.active {
@@ -1102,6 +1104,10 @@ input {
     text-align: center; }
   .btn .arrow {
     transform: translateY(1px); }
+  .btn.disabled {
+    display: inline-block !important;
+    background-color: #e1e1e1 !important;
+    pointer-events: none; }
 
 .input-block {
   width: 300px; }
@@ -1450,11 +1456,6 @@ table td .btn, table th .btn {
   @media (max-width: 767px) {
     .assets-exchange .col-xl-6.col-md-12 {
       padding: 0; } }
-  .assets-exchange .assets-exchange-item {
-    width: calc(50% - 7.5px);
-    margin-right: 15px; }
-    .assets-exchange .assets-exchange-item:nth-of-type(2n) {
-      margin-right: 0; }
 
 .transactions-title .title {
   max-width: 100%;
@@ -1539,15 +1540,15 @@ table td .btn, table th .btn {
     height: 16px;
     width: 16px;
     border: 1px solid #E5E5E5;
-    background-color: #F5F5F5;
+    background-color: transparent;
     border-radius: 3px;
     color: #000000;
     top: -1px;
     left: -15px;
     box-shadow: none;
     cursor: pointer; }
-  .custom-checkbox .custom-control-label {
-    padding-left: 6px;
+  .custom-checkbox label.custom-control-label {
+    padding-left: 10px;
     color: #333333; }
 
 @media (max-width: 760px) {

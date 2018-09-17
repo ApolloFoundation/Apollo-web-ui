@@ -50,12 +50,13 @@
 			width: calc(100% - 40px);
 		}
 	}
-	&:last-of-type {
+	&:nth-last-of-type(2) {
 		&:after {
 			display: none;
 		}
 	}
 	& + .btn-box {
+		position: relative;
 		min-height: 46px;
 	}
 }

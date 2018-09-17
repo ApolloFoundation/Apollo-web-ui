@@ -2,18 +2,20 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
+import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
 
 import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+import {getBlockAction} from "../../../actions/blocks";
 
 class OfferCurrency extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            block: null,
             activeTab: 0,
             advancedState: false,
 
@@ -61,8 +63,18 @@ class OfferCurrency extends React.Component {
         }
     };
 
+    componentDidMount = () => {
+        this.getBlock();
+    };
+
+    getBlock = async (reqParams) => {
+        const block = await this.props.getBlockAction(reqParams);
+        if (block) {
+            this.setState({ block })
+        }
+    };
+
     render() {
-        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form
@@ -85,127 +97,121 @@ class OfferCurrency extends React.Component {
                                         placeholder="Account"
                                         defaultValue={this.props.modalData.currency}
                                         aria-describedby="amountText"/>
-                                    {/*<div className="input-group-app display-block inline user mb-15">*/}
-                                        {/*<div className="row">*/}
-                                            {/*<div className="col-md-3">*/}
-                                                {/*<label>Recipient</label>*/}
-                                            {/*</div>*/}
-                                            {/*<div className="col-md-9">*/}
-                                                {/*<div className="iconned-input-field">*/}
-                                                    {/*<AccountRS*/}
-                                                        {/*field={'recipient'}*/}
-                                                        {/*setValue={setValue}*/}
-                                                    {/*/>*/}
-                                                {/*</div>*/}
-                                            {/*</div>*/}
-                                        {/*</div>*/}
-                                    {/*</div>*/}
-                                    <div className="form-group row form-group-grey mb-15">
+
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
-                                            Currency MKA
+                                            Currency {this.props.modalData.code}
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                            <Text
-                                                type="text"
-                                                className="form-control"
-                                                field="initialBuySupply"
-                                                placeholder="Account"
-                                                aria-describedby="amountText"/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">{this.props.modalData.code}</span>
-                                            </div>
+                                        <div className="col-sm-9">
+                                            <span>
+                                                {(this.props.modalData.maxSupply - this.props.modalData.currentSupply) === 0
+                                                ? "None Available"
+                                                : `Currency units available ${(this.props.modalData.maxSupply - this.props.modalData.currentSupply)}`}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-grey mb-15">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Buy units (Initial)
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                            <Text
-                                                type="text"
-                                                className="form-control"
-                                                field="totalBuyLimit"
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
+                                            <InputForm
+                                                type={"number"}
+                                                field="initialBuySupply"
                                                 placeholder="Account"
-                                                aria-describedby="amountText"/>
+                                                setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-grey mb-15">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Buy units (Limit)
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                            <Text
-                                                type="text"
-                                                className="form-control"
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
+                                            <InputForm
+                                                type={"number"}
+                                                field="totalBuyLimit"
+                                                placeholder="Account"
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">{this.props.modalData.code}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Buy Rate per unit
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
+                                            <InputForm
+                                                type={"number"}
                                                 field="buyRateATM"
                                                 placeholder="Account"
-                                                aria-describedby="amountText"/>
+                                                setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code} / APL</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-grey mb-15">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Sell units (Initial)
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                            <Text
-                                                type="text"
-                                                className="form-control"
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
+                                            <InputForm
+                                                type={"number"}
                                                 field="initialSellSupply"
                                                 placeholder="Account"
-                                                aria-describedby="amountText"/>
+                                                setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-grey mb-15">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Sell units (Limit)
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                            <Text
-                                                type="text"
-                                                className="form-control"
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
+                                            <InputForm
+                                                type={"number"}
                                                 field="totalSellLimit"
                                                 placeholder="Account"
-                                                aria-describedby="amountText"/>
+                                                setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-grey mb-15">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Sell Rate per unit
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                            <Text
-                                                type="text"
-                                                className="form-control"
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
+                                            <InputForm
+                                                type={"number"}
                                                 field="sellRateATM"
                                                 placeholder="Account"
-                                                aria-describedby="amountText"/>
+                                                setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code} / APL</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-grey">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">Expiration Height</label>
-                                        <div className="col-sm-9 input-group input-group-sm mb-0 no-left-padding">
-                                            <Text
-                                                type="number"
-                                                step={10000}
-                                                className="form-control"
-                                                field="expirationHeight"
-                                                placeholder="Finish height"
-                                                aria-describedby="finishHeightText"/>
+                                        <div className="col-sm-9 input-group">
+                                            {
+                                                this.state.block &&
+                                                <InputForm
+                                                    type={"number"}
+                                                    field="expirationHeight"
+                                                    placeholder="Finish height"
+                                                    defaultValue={this.state.block.height}
+                                                    setValue={setValue}/>
+                                            }
                                             <div className="input-group-append">
                                                 {
                                                     this.state.block &&
@@ -213,9 +219,9 @@ class OfferCurrency extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="col-sm-12 form-sub-title block align-right align-margin-top">
+                                        {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
                                             2018/06/19 09:32 am
-                                        </div>
+                                        </div>*/}
                                     </div>
 
                                     <div className="form-group row form-group-white mb-15">
@@ -246,14 +252,12 @@ class OfferCurrency extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block mb-15">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Secret Phrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Secret Phrase'} type="password" field={'secretPhrase'}/>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Secret Phrase
+                                        </label>
+                                        <div className="col-sm-9 mb-0 no-left-padding">
+                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>
 
@@ -279,7 +283,7 @@ class OfferCurrency extends React.Component {
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-left round round-bottom-left round-top-right"
                                         >
-                                            Advanced
+                                            {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
                                     </div>
                                 </div>
@@ -300,6 +304,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferCurrency);

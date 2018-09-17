@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import SiteHeader from '../../../components/site-header/index';
 import MarketplaceItem from '../marketplace-card'
+import {Link} from 'react-router-dom';
 import {getDGSGoodsAction} from "../../../../actions/marketplace";
 
 import classNames from "classnames";
@@ -90,18 +91,24 @@ class ResentMarketplaceListing extends React.Component {
                 <SiteHeader
                     pageTitle={'Recent listing'}
                 >
+	                <Link
+		                to={'/marketplace'}
+		                className="btn primary"
+	                >
+		                Back
+	                </Link>
                     <a
-                        className="btn primary transparent icon-button"
+                        className="btn primary transparent icon-button with-out-border"
                         style={{marginLeft: 15}}
                         onClick={this.handleGrid}
                     >
                         {
                             this.state.isGrid &&
-                            <i className="zmdi zmdi-view-module" />
+                            <i className="zmdi zmdi-view-list" />
                         }
                         {
                             !this.state.isGrid &&
-                            <i className="zmdi zmdi-view-list" />
+                            <i className="zmdi zmdi-view-module" />
                         }
                     </a>
                 </SiteHeader>
