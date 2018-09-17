@@ -53,6 +53,7 @@ function getAccountIdFromPublicKey(publicKey, isRsFormat) {
 };
 
 async function getPublicKey(id, isAccountId) {
+    if (!id) return;
     if (isAccountId) {
         let publicKey = "";
         return axios.get(config.api.serverUrl, {

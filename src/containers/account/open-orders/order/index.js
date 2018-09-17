@@ -41,8 +41,14 @@ class OrderItem extends React.Component {
                 {/*<td>{NRS.formatOrderPricePerWholeATU(orderInfo.priceATM === undefined ? 0 :orderInfo.priceATM, orderInfo.decimals === undefined ? 0 : orderInfo.decimals)}</td>*/}
                 <td>{this.props.order.priceATM}</td>
                 <td>{this.props.order.priceATM * NRS.formatQuantity(orderInfo.quantityATU, orderInfo.decimals)}</td>
-                <td onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props.order, type: this.props.type})}>Cancel</td>
-
+                <td className="align-right">
+                    <div className="btn-box inline">
+                        <a onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props.order, type: this.props.type})}
+                           className="btn primary blue">
+                            Cancel
+                        </a>
+                    </div>
+                </td>
                 {/*<td className="align-right">{this.props.delete.quantityATU}</td>*/}
             </tr>
         );
