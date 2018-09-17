@@ -396,9 +396,11 @@ class InfoAccount extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 5
                                 })}>
+
                                     {
                                         this.state.goods &&
-                                        this.state.goods.goods.length &&
+                                        this.state.goods.purchases &&
+                                        this.state.goods.purchases.length &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
@@ -413,13 +415,13 @@ class InfoAccount extends React.Component {
                                                         <tbody key={uuid()}>
                                                         {
                                                             this.state.goods &&
-                                                            this.state.goods.goods.map((el, index) => {
+                                                            this.state.goods.purchases.map((el, index) => {
                                                                 return (
                                                                     <tr key={uuid()}>
                                                                         <td
                                                                             className={'blue-link-text'}
                                                                         >
-                                                                            <a onClick={() => this.props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', el.goods)}>
+                                                                            <a onClick={() => this.props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', el.purchase)}>
                                                                                 {el.name}
                                                                             </a>
                                                                         </td>
@@ -437,7 +439,8 @@ class InfoAccount extends React.Component {
                                     }
                                     {
                                         this.state.goods &&
-                                        !this.state.goods.goods.length &&
+                                        this.state.goods.purchases &&
+                                        !this.state.goods.purchases.length &&
                                         <p>This user has no goods.</p>
                                     }
                                 </div>
