@@ -396,8 +396,8 @@ class InfoAccount extends React.Component {
 
                                     {
                                         this.state.goods &&
-                                        this.state.goods.purchases &&
-                                        this.state.goods.purchases.length &&
+                                        this.state.goods.goods &&
+                                        this.state.goods.goods.length &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
@@ -412,13 +412,13 @@ class InfoAccount extends React.Component {
                                                         <tbody key={uuid()}>
                                                         {
                                                             this.state.goods &&
-                                                            this.state.goods.purchases.map((el, index) => {
+                                                            this.state.goods.goods.map((el, index) => {
                                                                 return (
                                                                     <tr key={uuid()}>
                                                                         <td
                                                                             className={'blue-link-text'}
                                                                         >
-                                                                            <a onClick={() => this.props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', el.purchase)}>
+                                                                            <a onClick={() => this.props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', el.goods)}>
                                                                                 {el.name}
                                                                             </a>
                                                                         </td>
@@ -436,8 +436,8 @@ class InfoAccount extends React.Component {
                                     }
                                     {
                                         this.state.goods &&
-                                        this.state.goods.purchases &&
-                                        !this.state.goods.purchases.length &&
+                                        this.state.goods.goods &&
+                                        !this.state.goods.goods.length &&
                                         <p>This user has no goods.</p>
                                     }
                                 </div>

@@ -21,7 +21,7 @@ export function getAccountAction(reqParams) {
             'ASSETS':         dispatch(getSpecificAccountAssetsAction(reqParams)),
             'TRADES':         dispatch(getTradesAction(reqParams)),
             'CURRENCIES':     dispatch(getAllCurrenciesAction(reqParams)),
-            'GOODS':          dispatch(getDGSPurchasesAction(reqParams)),
+            'GOODS':          dispatch(getDGSGoodsAction({seller: reqParams.account})),
             'ALIASES':        dispatch(getAliasesAction(reqParams)),
             'ACCOUNT':        dispatch(getAccountInfoAction(reqParams)),
         }
