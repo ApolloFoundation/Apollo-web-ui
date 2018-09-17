@@ -80,9 +80,11 @@ class DeviceSettings extends React.Component {
                                 <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i
                                         className="zmdi zmdi-close"/></a>
-
                                     <div className="form-title">
                                         <p>Device Settings</p>
+                                        <div className="form-sub-title">
+                                            Remote Node URL
+                                        </div>
                                     </div>
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label align-self-start">

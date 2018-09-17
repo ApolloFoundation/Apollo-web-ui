@@ -951,7 +951,7 @@ input {
 			color: #333333;
 			letter-spacing: 0.3px;
 			line-height: 16px;
-			padding: 0 0 0 5px;
+			padding: 0;
 		}
 		.no-left-padding {
 			padding-left: 7px;
@@ -1049,7 +1049,7 @@ input {
 			color: #333333;
 			letter-spacing: 0.3px;
 			line-height: 16px;
-			padding: 0 0 0 5px;
+			padding: 0;
 			@media (max-width: 760px) {
 				max-width: 100px;
 			}
