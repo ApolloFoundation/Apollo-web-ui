@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
+import AdvancedSettings from '../../components/advanced-transaction-settings';
+import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
 
 import AccountRS from '../../components/account-rs';
@@ -71,11 +71,11 @@ class TransferCurrency extends React.Component {
                                     <div className="form-title">
                                         <p>Transfer Currency</p>
                                     </div>
-                                    <div className="form-group row form-group-grey mb-15">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Currency
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                        <div className="col-sm-9">
                                             <Text
                                                 type="hidden"
                                                 className="form-control"
@@ -86,12 +86,12 @@ class TransferCurrency extends React.Component {
                                             <p>{this.props.modalData.code}</p>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom inline user">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Recipient</label>
-                                            </div>
-                                            <div className="col-md-9">
+                                    <div className="input-group-app form-group mb-15 display-block inline user">
+                                        <div className="row form-group-white">
+                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
+                                            </label>
+                                            <div className="col-sm-9">
                                                 <div className="iconned-input-field">
                                                     <AccountRS
                                                         field={'recipient'}
@@ -101,23 +101,20 @@ class TransferCurrency extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-grey mb-15">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Units
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                            <Text
-                                                type="text"
-                                                className="form-control"
+                                        <div className="col-sm-9 input-group input-group-text-transparent no-left-padding">
+                                            <InputForm
                                                 field="units"
-                                                placeholder="Account"
-                                                aria-describedby="amountText"/>
+                                                placeholder="Utils"
+                                                setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code}</span>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div className="form-group row form-group-white mb-15">
                                         <label htmlFor="feeATM" className="col-sm-3 col-form-label">
                                             Fee
@@ -146,17 +143,14 @@ class TransferCurrency extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Secret Phrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Secret Phrase'} type="password" field={'secretPhrase'}/>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Secret Phrase
+                                        </label>
+                                        <div className="col-sm-9 mb-0 no-left-padding">
+                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>
-
                                     <AdvancedSettings
                                         setValue={setValue}
                                         getFormState={getFormState}
