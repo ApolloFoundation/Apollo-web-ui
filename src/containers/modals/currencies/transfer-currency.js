@@ -107,6 +107,7 @@ class TransferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent no-left-padding">
                                             <InputForm
+                                                type={"number"}
                                                 field="units"
                                                 placeholder="Utils"
                                                 setValue={setValue}/>
@@ -173,7 +174,7 @@ class TransferCurrency extends React.Component {
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-left round round-bottom-left round-top-right"
                                         >
-                                            Advanced
+                                            {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
                                     </div>
                                 </div>

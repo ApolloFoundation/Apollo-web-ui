@@ -80,7 +80,6 @@ class ExchangeBooth extends React.Component {
         }));
 
 
-        console.log(isFinite(values) ? values : 0);
         this.setState({
             buyOffers: offers,
             minimumBuyRate: '0'
@@ -100,9 +99,6 @@ class ExchangeBooth extends React.Component {
         const values = Math.min.apply(null, offers.map((el) => {
             return el.rateATM
         }));
-
-        console.log(isFinite(values) ? values : 0);
-
 
         this.setState({
             sellOffers: offers,
@@ -283,7 +279,6 @@ class ExchangeBooth extends React.Component {
                                                                 <div className="col-md-3 pl-0">
                                                                     <label>Maximum Rate</label>
                                                                 </div>
-                                                                {console.log(this.state.minimumSellRate)}
 
                                                                 <div
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
@@ -316,7 +311,6 @@ class ExchangeBooth extends React.Component {
                                                                 <div className="col-md-3 pl-0">
                                                                     <label>Effective Rate</label>
                                                                 </div>
-                                                                {console.log(this.state.minimumSellRate)}
 
                                                                 <div
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
