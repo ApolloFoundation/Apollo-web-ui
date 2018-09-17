@@ -42,14 +42,34 @@ class AccountRS extends React.Component {
     };
 
     onChange = (event) => {
-        const value = event.target.value;
-        const newState = {
-            mask: 'APL-****-****-****-*****',
-            value: value.toUpperCase()
-        };
+        let value;
 
-        this.props.setValue(this.props.field, value);
-        this.setState({inputValue: newState});
+        const setInputValue = (value) => {
+            console.log(value);
+            const newState = {
+                mask: 'APL-****-****-****-*****',
+                value: value.toUpperCase()
+            };
+
+            this.props.setValue(this.props.field, value);
+            this.setState({inputValue: newState});
+        }
+
+        if (event.clipboardData) {
+            console.log(event.clipboardData.getData('text/plain'));
+            value = event.clipboardData.getData('text/plain');
+            console.log(value.includes('APL-'));
+            console.log(value.indexOf('APL-'));
+            if (value.includes('APL-') && value.indexOf('APL-') === 0) {
+                value = value.replace('APL-', '');
+                console.log(value);
+                setInputValue(value);
+            }
+        } else {
+            value = event.target.value;
+            setInputValue(value);
+        }
+        event.stopPropagation();
     };
 
     render () {
@@ -61,6 +81,7 @@ class AccountRS extends React.Component {
                                placeholder={'Recipient account'}
                                ref={'input'}
                                value={this.state.inputValue.value}
+                               onPaste={this.onChange}
                                onChange={this.onChange}
                     />
                 }

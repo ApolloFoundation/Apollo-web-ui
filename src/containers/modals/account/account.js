@@ -298,8 +298,8 @@ class InfoAccount extends React.Component {
                                     "active": this.state.activeTab === 3
                                 })}>
                                     {
-                                        this.state.trades &&
-                                        this.state.trades.trades.length &&
+                                        (this.state.trades &&
+                                        this.state.trades.trades.length > 0) ?
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
@@ -342,10 +342,7 @@ class InfoAccount extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    }
-                                    {
-                                        this.state.trades &&
-                                        !this.state.trades.trades.length &&
+                                   :
                                         <p>This user has no trades.</p>
                                     }
                                 </div>

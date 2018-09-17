@@ -954,7 +954,7 @@ input {
 			color: #333333;
 			letter-spacing: 0.3px;
 			line-height: 16px;
-			padding: 0 0 0 5px;
+			padding: 0;
 		}
 		.no-left-padding {
 			padding-left: 7px;
@@ -1052,7 +1052,7 @@ input {
 			color: #333333;
 			letter-spacing: 0.3px;
 			line-height: 16px;
-			padding: 0 0 0 5px;
+			padding: 0;
 			@media (max-width: 760px) {
 				max-width: 100px;
 			}
@@ -2312,7 +2312,7 @@ table {
 		height: 16px;
 		width: 16px;
 		border: 1px solid #E5E5E5;
-		background-color: #F5F5F5;
+		background-color: transparent;
 		border-radius: 3px;
 		color: #000000;
 		top: -1px;
@@ -2320,8 +2320,8 @@ table {
 		box-shadow: none;
 		cursor: pointer;
 	}
-	.custom-control-label {
-		padding-left: 6px;
+	label.custom-control-label {
+		padding-left: 10px;
 		color: #333333;
 	}
 }
