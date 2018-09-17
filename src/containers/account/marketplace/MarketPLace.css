@@ -1,5 +1,7 @@
-.marketplace-container > .marketplace {
-  padding-top: 15px !important; }
+.marketplace-container {
+  height: auto !important; }
+  .marketplace-container > .marketplace {
+    padding-top: 15px !important; }
 
 .site-content .page-content .page-body .marketplace .row > *.col-md-12, .site-content .page-content .page-body .marketplace .row > *.col-lg-12 {
   height: auto !important; }
@@ -23,6 +25,10 @@
     @media (max-width: 760px) {
       .marketplace-item--full-width:after {
         width: calc(100% - 40px); } }
+  .marketplace-item--full-width:last-of-type:after {
+    display: none; }
+  .marketplace-item--full-width + .btn-box {
+    min-height: 46px; }
 
 .marketplace-item {
   min-height: 325px;
@@ -285,6 +291,7 @@
       height: 100px;
       width: 150px;
       border-radius: 6px;
+      overflow: hidden;
       margin-right: 20px;
       cursor: pointer; }
       @media (max-width: 760px) {
