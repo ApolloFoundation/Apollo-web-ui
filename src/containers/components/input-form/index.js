@@ -28,18 +28,22 @@ class InputForm extends React.Component {
     };
 
     handleClickUp = () => {
-        let value = this.state.value !== '' ? parseInt(this.state.value) : 0;
-        value = value+ 1; // or parseFloat
-        this.props.setValue(this.props.field, value);
-        this.setState({ value });
+        if (!this.props.disabled) {
+            let value = this.state.value !== '' ? parseInt(this.state.value) : 0;
+            value = value + 1; // or parseFloat
+            this.props.setValue(this.props.field, value);
+            this.setState({value});
+        }
     };
 
     handleClickDown = () => {
-        let value = this.state.value !== '' ? parseInt(this.state.value) : 0;
-        if (value > 0) {
-            value = value - 1; // or parseFloat
-            this.props.setValue(this.props.field, value);
-            this.setState({value});
+        if (!this.props.disabled) {
+            let value = this.state.value !== '' ? parseInt(this.state.value) : 0;
+            if (value > 0) {
+                value = value - 1; // or parseFloat
+                this.props.setValue(this.props.field, value);
+                this.setState({value});
+            }
         }
     };
 
@@ -54,6 +58,7 @@ class InputForm extends React.Component {
                     defaultValue={this.props.defaultValue}
                     placeholder={this.props.placeholder}
                     minLength={this.props.minLength}
+                    disabled={this.props.disabled}
                 />
                 {this.props.type === "number" &&
                 <div className="input-number-wrap">
