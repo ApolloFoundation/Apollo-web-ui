@@ -116,7 +116,7 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 
-								<NavLink exact={true} activeClassName="active" to="/trade-history"
+								<NavLink exact={true} activeClassName="active" to="/asset-exchange"
 								         className={`text ${this.getNavLinkClass(["/trade-history",
 									         "/transfer-history",
 									         "/delete-history",
@@ -130,8 +130,16 @@ class Sidebar extends React.Component {
 								</NavLink>
 								<div className="dropdown-menu">
 									<ul>
-										<li><NavLink exact={true} activeClassName="active" to="/trade-history">Trade
-											history</NavLink></li>
+                                        <li>
+                                            <NavLink exact={true} activeClassName="active" to="/asset-exchange">
+                                                Asset exchange
+                                            </NavLink>
+                                        </li>
+										<li>
+											<NavLink exact={true} activeClassName="active" to="/trade-history">
+												Trade history
+											</NavLink>
+										</li>
 										<li><NavLink exact={true} activeClassName="active" to="/transfer-history">Transfer
 											history</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/delete-history">Delete

@@ -112,16 +112,19 @@ const MarketplaceItem = (props, history) => (
                             {props.formatTimestamp(props.timestamp)}
                         </div>
                     </div>
-                    <div
-                        className={classNames({
-                            'tags': true,
+					{
+                        props.parsedTags &&
+                        <div
+                            className={classNames({
+                                'tags': true,
+                            })}
+                        >
+                            tags: {props.parsedTags.map((el, index) => {
+                            return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
+                                         className="btn static primary">{el}</Link>
                         })}
-                    >
-                        tags: {props.parsedTags.map((el, index) => {
-                        return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
-                                     className="btn static primary">{el}</Link>
-                    })}
-                    </div>
+                        </div>
+                    }
                 </div>
 			</React.Fragment>
 		}
@@ -142,7 +145,7 @@ const MarketplaceItem = (props, history) => (
 					<div className="item cargo-major-details">
 						<div className="group">
 							<a
-								onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
+								onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.purchase)}
 								className="cargo-title"
 							>
 								{props.name}
@@ -160,7 +163,7 @@ const MarketplaceItem = (props, history) => (
 								<small>APL</small>
 							</div>
 							<div className="cargo-id">
-								<span>Quantity: 1</span>
+								<span>Quantity: {props.quantity}</span>
 								{
 									!!props.numberOfPurchases &&
                                     <span className={'blue-text'}>Purchases: {props.numberOfPurchases}</span>
@@ -193,17 +196,20 @@ const MarketplaceItem = (props, history) => (
 							</div>
 						</div>
 						<div className="bottom">
-							<div className="seller">
-								<div className="name">Tags:</div>
-								<div className="tags">
-									{
-										props.parsedTags &&
-										props.parsedTags.map((el, index) => {
-										return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
-													 className="btn static primary">{el}</Link>
-									})}
-								</div>
-							</div>
+							{
+                                props.parsedTags &&
+                                <div className="seller">
+                                    <div className="name">Tags:</div>
+                                    <div className="tags">
+                                        {
+                                            props.parsedTags &&
+                                            props.parsedTags.map((el, index) => {
+                                                return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
+                                                             className="btn static primary">{el}</Link>
+                                            })}
+                                    </div>
+                                </div>
+							}
 						</div>
                         {
                             props.deliver &&

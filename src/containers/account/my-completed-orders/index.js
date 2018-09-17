@@ -19,7 +19,6 @@ class MyProductsForSale extends React.Component {
     constructor(props) {
         super(props);
 
-
         this.state = {
             page: 1,
             firstIndex: 0,
@@ -31,7 +30,6 @@ class MyProductsForSale extends React.Component {
     componentDidMount() {
         this.getDGSGoods({
             seller: this.props.account,
-                completed: true,
             requestType: 'getDGSPurchases',
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
@@ -53,7 +51,6 @@ class MyProductsForSale extends React.Component {
         }, () => {
             this.getDGSGoods({
                 requestType: 'getDGSPurchases',
-                includeCounts: true,
                 seller: this.props.account,
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex,
@@ -71,7 +68,6 @@ class MyProductsForSale extends React.Component {
         let reqParams = {
             page: page,
             account: this.props.account,
-            includeCounts: true,
             requestType: 'getDGSPurchases',
             completed: true,
             firstIndex: page * 15 - 15,
