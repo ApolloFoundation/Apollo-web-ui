@@ -4099,6 +4099,11 @@ input {
   height: 33.33%;
   min-height: 270px;
   padding: 0 7.5px; }
+  @media (max-width: 760px) {
+    .page-body-top .page-body-item .card {
+      height: auto;
+      padding: 15px 20px;
+      min-height: 0; } }
   @media (max-width: 1230px) {
     .page-body-top {
       height: auto;
@@ -4140,11 +4145,6 @@ input {
     transition: 0.2s;
     min-height: 253px;
     height: calc(100% - 15px); }
-    @media (max-width: 760px) {
-      .page-body-item .card {
-        height: auto;
-        padding: 15px 20px;
-        min-height: 0; } }
     .page-body-item .card.card-tall {
       min-height: 520px; }
       @media (max-width: 760px) {
@@ -4789,12 +4789,14 @@ input[type="number"] {
         font-size: 12px;
         line-height: 14px;
         margin-bottom: 30px; }
-    .site-content .page-content .page-body .card.apollo-news .card-news-content {
-      margin-top: 30px;
-      color: #777777;
-      font-family: "Roboto-Regular";
-      font-size: 12px;
-      line-height: 18px; }
+    .site-content .page-content .page-body .card.apollo-news {
+      padding-bottom: 45px !important; }
+      .site-content .page-content .page-body .card.apollo-news .card-news-content {
+        margin-top: 30px;
+        color: #777777;
+        font-family: "Roboto-Regular";
+        font-size: 12px;
+        line-height: 18px; }
     .site-content .page-content .page-body .card .full-box {
       position: absolute;
       top: 38px;

@@ -393,8 +393,10 @@ class InfoAccount extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 5
                                 })}>
+
                                     {
                                         this.state.goods &&
+                                        this.state.goods.goods &&
                                         this.state.goods.goods.length &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
@@ -434,6 +436,7 @@ class InfoAccount extends React.Component {
                                     }
                                     {
                                         this.state.goods &&
+                                        this.state.goods.goods &&
                                         !this.state.goods.goods.length &&
                                         <p>This user has no goods.</p>
                                     }

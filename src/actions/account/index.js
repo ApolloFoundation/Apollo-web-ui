@@ -8,7 +8,7 @@ import {getAliasesAction}        from '../../actions/currencies/';
 import {getAssetsAction, getSpecificAccountAssetsAction}         from '../../actions/assets';
 import {getTradesAction}         from '../../actions/trade-history';
 import {getAllCurrenciesAction}  from '../../actions/currencies';
-import {getDGSGoodsAction}       from '../../actions/marketplace';
+import {getDGSGoodsAction, getDGSPurchasesAction}       from '../../actions/marketplace';
 
 import {writeToLocalStorage} from "../localStorage";
 import {NotificationManager} from "react-notifications";
@@ -21,7 +21,7 @@ export function getAccountAction(reqParams) {
             'ASSETS':         dispatch(getSpecificAccountAssetsAction(reqParams)),
             'TRADES':         dispatch(getTradesAction(reqParams)),
             'CURRENCIES':     dispatch(getAllCurrenciesAction(reqParams)),
-            'GOODS':          dispatch(getDGSGoodsAction(reqParams)),
+            'GOODS':          dispatch(getDGSGoodsAction({seller: reqParams.account})),
             'ALIASES':        dispatch(getAliasesAction(reqParams)),
             'ACCOUNT':        dispatch(getAccountInfoAction(reqParams)),
         }
