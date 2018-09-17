@@ -1368,6 +1368,11 @@ input {
   height: 33.33%;
   min-height: 270px;
   padding: 0 7.5px; }
+  @media (max-width: 760px) {
+    .page-body-top .page-body-item .card {
+      height: auto;
+      padding: 15px 20px;
+      min-height: 0; } }
   @media (max-width: 1230px) {
     .page-body-top {
       height: auto;
@@ -1409,11 +1414,6 @@ input {
     transition: 0.2s;
     min-height: 253px;
     height: calc(100% - 15px); }
-    @media (max-width: 760px) {
-      .page-body-item .card {
-        height: auto;
-        padding: 15px 20px;
-        min-height: 0; } }
     .page-body-item .card.card-tall {
       min-height: 520px; }
       @media (max-width: 760px) {
