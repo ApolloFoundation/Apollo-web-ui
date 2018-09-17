@@ -90,6 +90,15 @@ class Messenger extends React.Component {
         // ecBlockId: 18338875302302929178
         // ecBlockHeight: 0
 
+		if (values.messageToEncrypt) {
+            values = {
+				...values,
+                messageToEncrypt: values.message
+            };
+            delete values.message;
+		}
+
+
         const res = await this.props.submitForm(null, null, {
             ...values,
             recipient: this.state.chats[this.state.selectedChat].account,
