@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../../modules/modals';
-import  {getDGSPurchaseAction} from "../../../../actions/marketplace";
+import {getDGSPurchaseAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
-import { Form, Text, Checkbox } from 'react-form';
+import { Form, Text, TextArea, Checkbox } from 'react-form';
 import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
@@ -21,22 +21,20 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
+    getDGSPurchasesAction: (data) => dispatch(setModalData(data)),
     getDGSGoodAction: (requestParams) => dispatch(getDGSPurchaseAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
-class MarketplacePurchase extends React.Component {
+class MarketplaceDeliver extends React.Component {
     constructor(props) {
         super(props);
-
 
         this.state = {
             goods: null
         };
-
     }
 
     componentDidMount() {
@@ -44,6 +42,8 @@ class MarketplacePurchase extends React.Component {
     }
 
     handleImageLoadint = async (value) => {
+        console.log(value);
+
         const productData = await this.props.getDGSGoodAction({
             purchase: value
         });
@@ -59,12 +59,12 @@ class MarketplacePurchase extends React.Component {
         values = {
             ...values,
             priceATM: parseInt(this.state.goods.priceATM) / 100000000,
-            goods: this.state.goods.goods,
+            purchase: this.state.goods.purchase,
             recipient: this.props.account,
-            secretPhrase: values.secretPhrase
+            secretPhrase: values.secretPhrase,
         };
 
-        const res = await this.props.submitForm(null, null, values, 'dgsPurchase');
+        const res = await this.props.submitForm(null, null, values, 'dgsDelivery');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -98,8 +98,7 @@ class MarketplacePurchase extends React.Component {
                         {
 
                             this.state.goods &&
-
-                            [
+                            <React.Fragment>
                                 <div className="left-bar">
                                     <div className="top-bar">
                                         <div
@@ -117,7 +116,7 @@ class MarketplacePurchase extends React.Component {
                                             {this.state.goods.description}
                                         </div>
                                     </div>
-                                </div>,
+                                </div>
                                 <div className="right-bar">
                                     <div className="form-title">
                                         <p>{this.state.goods.name}</p>
@@ -148,21 +147,38 @@ class MarketplacePurchase extends React.Component {
                                                     <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
-                                                                <label>Quantity</label>
+                                                                <label>Data</label>
                                                             </div>
                                                             <div className="col-md-9">
-                                                                <Text defaultValue={1} type="number" field="quantity" placeholder="Currency Name" min={1}/>
+                                                                <TextArea
+                                                                    field="goodsToEncrypt"
+                                                                    placeholder="Currency Name"
+                                                                    min={1}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="input-group-app display-block offset-bottom">
+
                                                         <div className="row">
                                                             <div className="col-md-3">
-                                                                <label>Delivery deadline (hours)</label>
+                                                                <label>Discount</label>
                                                             </div>
-                                                            <div className="col-md-9">
-                                                                <div style={{width: '100%'}}>
-                                                                    <Text defaultValue={168} type="number" field='deliveryDeadlineTimestamp' placeholder="Currency Code"/>
+                                                            <div
+                                                                className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                <Text
+                                                                    type={'number'}
+                                                                    field="discountATM"
+                                                                    placeholder='Recipient'
+                                                                    className={"form-control"}
+                                                                />
+                                                                <div className="input-group-append">
+                                                                        <span
+                                                                            className="input-group-text"
+                                                                            id="discountATM"
+                                                                        >
+                                                                            Apollo
+                                                                        </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -206,7 +222,7 @@ class MarketplacePurchase extends React.Component {
                                                         name={'closeModal'}
                                                         className="btn btn-right blue round round-bottom-right"
                                                     >
-                                                        Purchase
+                                                        Deliver goods
                                                     </button>
 
                                                 </div>
@@ -236,7 +252,7 @@ class MarketplacePurchase extends React.Component {
                                         )}
                                     />
                                 </div>
-                            ]
+                            </React.Fragment>
                         }
                     </div>
                 </div>
@@ -247,4 +263,4 @@ class MarketplacePurchase extends React.Component {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MarketplacePurchase);
+export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceDeliver);

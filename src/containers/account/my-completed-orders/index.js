@@ -19,7 +19,6 @@ class MyProductsForSale extends React.Component {
     constructor(props) {
         super(props);
 
-
         this.state = {
             page: 1,
             firstIndex: 0,
@@ -31,7 +30,6 @@ class MyProductsForSale extends React.Component {
     componentDidMount() {
         this.getDGSGoods({
             seller: this.props.account,
-                completed: true,
             requestType: 'getDGSPurchases',
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex

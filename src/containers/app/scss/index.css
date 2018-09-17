@@ -2959,6 +2959,11 @@ input {
   border-radius: 100%;
   border: 3px solid #333; }
 
+.blue-text {
+  color: #00C8FF;
+  font-weight: normal;
+  font-size: 14px; }
+
 .no-image {
   height: 100px;
   width: 150px;
@@ -3473,6 +3478,8 @@ input {
         background-color: #e5e5e5; }
       .form-group-app .form-group-white .form-control:focus {
         box-shadow: none; }
+      .form-group-app .form-group-white .form-control:disabled {
+        background-color: #e5e5e5; }
     .form-group-app .form-group-white .form-group-select select {
       -webkit-appearance: none;
       -moz-appearance: none;

@@ -305,6 +305,12 @@ input {
 	
 }
 
+.blue-text {
+	color: #00C8FF;
+	font-weight: normal;
+	font-size: 14px;
+}
+
 .no-image {
 	height: 100px;
 	width: 150px;
@@ -1062,6 +1068,9 @@ input {
 			}
 			&:focus {
 				box-shadow: none
+			}
+			&:disabled {
+				background-color: #e5e5e5;
 			}
 		}
 		.form-group-select {
