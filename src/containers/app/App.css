@@ -2959,6 +2959,11 @@ input {
   border-radius: 100%;
   border: 3px solid #333; }
 
+.blue-text {
+  color: #00C8FF;
+  font-weight: normal;
+  font-size: 14px; }
+
 .no-image {
   height: 100px;
   width: 150px;

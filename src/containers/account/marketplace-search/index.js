@@ -47,6 +47,7 @@ class MarketplaceSearch extends React.Component {
             };
 
         this.getDGSGoods({
+            includeCounts: true,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
             completed: true,
@@ -75,6 +76,7 @@ class MarketplaceSearch extends React.Component {
             }
 
         let reqParams = {
+            includeCounts: true,
             page: page,
             tag: this.state.tag,
             ...searchingBy,

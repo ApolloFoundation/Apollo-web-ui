@@ -53,6 +53,7 @@ class MyProductsForSale extends React.Component {
         }, () => {
             this.getDGSGoods({
                 requestType: 'getDGSPurchases',
+                includeCounts: true,
                 seller: this.props.account,
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex,
@@ -70,6 +71,7 @@ class MyProductsForSale extends React.Component {
         let reqParams = {
             page: page,
             account: this.props.account,
+            includeCounts: true,
             requestType: 'getDGSPurchases',
             completed: true,
             firstIndex: page * 15 - 15,

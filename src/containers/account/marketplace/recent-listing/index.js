@@ -28,6 +28,7 @@ class ResentMarketplaceListing extends React.Component {
 
     componentWillMount() {
         this.getDGSGoods({
+            includeCounts: true,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
             completed: true
@@ -47,6 +48,7 @@ class ResentMarketplaceListing extends React.Component {
 
     onPaginate = (page) => {
         let reqParams = {
+            includeCounts: true,
             page: page,
             firstIndex: page * 8 - 8,
             lastIndex:  page * 8 - 1
