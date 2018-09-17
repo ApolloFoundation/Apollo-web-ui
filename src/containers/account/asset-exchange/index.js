@@ -7,7 +7,7 @@ import {Form, Text, Radio, RadioGroup, TextArea, Checkbox} from "react-form";
 import crypto from '../../../helpers/crypto/crypto'
 import InfoBox from '../../components/info-box';
 import {buyAssetAction} from "../../../actions/assets";
-import {sellAssetAction} from "../../../actions/assets";
+import {sellAssetAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {setAlert, setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import {getAskOrders, getBidOrders} from "../../../actions/marketplace";
