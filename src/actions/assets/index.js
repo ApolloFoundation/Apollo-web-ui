@@ -32,7 +32,7 @@ export function getSpecificAccountAssetsAction(reqParams) {
                 ...reqParams
             }
         })
-            .then((res) => {
+            .then(async (res) => {
                 if (!res.data.errorCode) {
 
                     const assets = res.data.accountAssets.map((el, index) => {
@@ -41,7 +41,7 @@ export function getSpecificAccountAssetsAction(reqParams) {
                         }))
                     });
 
-                    return Promise.all(assets)
+                    return {assets: await (Promise.all(assets)), accountAssets: res.data.accountAssets}
 
 
                 }

@@ -64,17 +64,32 @@ class InfoAccount extends React.Component {
         if (this.props.modalData) {
             const accountData = this.props.getAccountAction(requestParams);
 
-            this.setState({
-                ...this.props,
-                transactions:   await accountData['TRANSACTIONS'],
-                account_ledger: await accountData['ACCOUNT_LEDGER'],
-                assets:         await accountData['ASSETS'],
-                trades:         await accountData['TRADES'],
-                currencies:     await accountData['CURRENCIES'],
-                goods:          await accountData['GOODS'],
-                aliases:        await accountData['ALIASES'],
-                account:        await accountData['ACCOUNT'],
-            });
+            if (accountData) {
+                this.setState({
+                    ...this.props,
+                    transactions:   await accountData['TRANSACTIONS'],
+                    account_ledger: await accountData['ACCOUNT_LEDGER'],
+                    assets:         await accountData['ASSETS'],
+                    trades:         await accountData['TRADES'],
+                    currencies:     await accountData['CURRENCIES'],
+                    goods:          await accountData['GOODS'],
+                    aliases:        await accountData['ALIASES'],
+                    account:        await accountData['ACCOUNT'],
+                }, () => {
+                    console.log(this.state.assets);
+                    const accountAssets = this.state.assets.accountAssets;
+                    const assetsInfo    = this.state.assets.assets;
+
+
+                    const resultAsset = accountAssets.map((el, index) => {
+                        return {...(assetsInfo[index]), ...el}
+                    });
+
+                    this.setState({
+                        assets: resultAsset
+                    })
+                });
+            }
         }
     }
 
@@ -277,6 +292,7 @@ class InfoAccount extends React.Component {
                                                 <tbody key={uuid()}>
                                                 {
                                                     this.state.assets &&
+                                                    !(this.state.assets.assets) &&
                                                     this.state.assets.map((el, index) => {
                                                         return (
                                                             <Asset

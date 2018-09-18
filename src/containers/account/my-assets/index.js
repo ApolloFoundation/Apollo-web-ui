@@ -4,16 +4,17 @@ import {connect} from 'react-redux';
 import classNames from "classnames";
 import uuid from "uuid";
 import MyAssetItem from './my-asset-item';
-import {getAssetAction} from "../../../actions/assets";
+import {getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {BlockUpdater} from "../../block-subscriber/index";
 
 
 const mapStateToProps = state => ({
-    assetBalances: state.account.assetBalances
+    assetBalances: state.account.assetBalances,
+    account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({
-    getAssetAction: (reqParams) => dispatch(getAssetAction(reqParams))
+    getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
 });
 
 class MyAssets extends React.Component {
@@ -65,22 +66,34 @@ class MyAssets extends React.Component {
 
     async getAssets() {
         if (this.props.assetBalances) {
-            let assets = this.props.assetBalances.map(async (el, index) => {
-                return this.props.getAssetAction({
-                    asset: el.asset
-                })
+            let assets = await this.props.getAssetAction({
+                account: this.props.account
             });
-            Promise.all(assets)
-                .then((data) => {
 
-                    this.setState({
-                        ...this.props,
-                        assets: data,
-                    })
+            console.log(assets);
+
+            if (assets) {
+                const accountAssets = assets.accountAssets;
+                const assetsInfo    = assets.assets;
+
+
+                const result = accountAssets.map((el, index) => {
+                    return {...(assetsInfo[index]), ...el}
+                });
+
+                this.setState({
+                    assets: result,
                 })
-                .catch((err) => {
-                    console.log(err);
-                })
+            }
+
+            // Promise.all(assets)
+            //     .then((data) => {
+            //
+            //
+            //     })
+            //     .catch((err) => {
+            //         console.log(err);
+            //     })
         }
     }
 

@@ -27,9 +27,9 @@ class MyAssetItem extends React.Component {
                         <Link to={"/asset-exchange/" + this.state.transfer.asset}>{this.state.transfer.name}</Link>
                     </td>
                     <td className="align-right">
-                        {this.state.transfer.quantityATU}
+                        {(this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toFixed(2)}
                     </td>
-                    <td className="align-right">{this.state.transfer.initialQuantityATU}</td>
+                    <td className="align-right">{(this.state.transfer.initialQuantityATU  / Math.pow(10, this.state.transfer.decimals)).toFixed(2)}</td>
                     <td className="align-right">
                         {((parseInt(this.state.transfer.quantityATU) / parseInt(this.state.transfer.initialQuantityATU)) * 100).toFixed(2)}&nbsp;%
                     </td>
