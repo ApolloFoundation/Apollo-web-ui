@@ -134,9 +134,12 @@
     }
     .pagination-nav {
       position: absolute;
-      bottom: 13px;
+      bottom: 9px;
       left: 50%;
       transform: translateX(-50%);
+      span {
+        padding: 0 5px;
+      }
     }
   }
 }
