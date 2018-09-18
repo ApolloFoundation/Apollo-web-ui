@@ -180,7 +180,7 @@ class MarketplaceDelete extends React.Component {
                                                         className="btn btn-right round round-top-right absolute"
                                                         style={{left : 'calc(50% - 35px)', right: 'auto'}}
                                                     >
-                                                        Advanced
+                                                        {this.state.advancedState ? "Basic" : "Advanced"}
                                                     </a>
                                                 </div>
                                             </form>

@@ -6,22 +6,23 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   font-weight: normal;
   text-decoration: none;
   list-style: none;
-  color: #101010;
+  color: #333333;
   font-family: "Roboto-Regular"; }
 
 html, body {
   background-color: #F5F5F5; }
 
 ::placeholder {
-  color: #a6a6a6;
+  color: #a6a6a6 !important;
+  font-size: 0.875rem;
   opacity: 1;
   font-weight: 400; }
 
 :-ms-input-placeholder {
-  color: #a6a6a6; }
+  color: #a6a6a6 !important; }
 
 ::-ms-input-placeholder {
-  color: #a6a6a6; }
+  color: #a6a6a6 !important; }
 
 html {
   height: 100%; }
@@ -749,6 +750,9 @@ input {
         box-shadow: none; }
       .form-group-app .form-group-white .form-control:disabled {
         background-color: #e5e5e5; }
+        .form-group-app .form-group-white .form-control:disabled + .input-group-append .input-group-text {
+          color: #747474;
+          background-color: #e5e5e5; }
     .form-group-app .form-group-white .form-group-select select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -1341,8 +1345,6 @@ input {
         width: 100%; }
   .card .form-group-app {
     padding: 30px 0 15px; }
-  .card .input-group-app input, .card .input-group-app input[type="number"] {
-    padding: 8px 20px; }
   .card .input-group-app.lighten {
     display: table-row; }
     .card .input-group-app.lighten label {
@@ -1490,15 +1492,26 @@ table td .btn, table th .btn {
   .assets-exchange .transaction-table-body {
     padding: 0 !important; }
     .assets-exchange .transaction-table-body table {
-      min-width: 500px !important; }
+      min-width: 500px !important;
+      padding: 0 !important; }
   .assets-exchange .info-box.simple {
     margin-bottom: 0; }
     .assets-exchange .info-box.simple p {
       padding-bottom: 0; }
-  .assets-exchange .full-box-item .asset-id {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; }
+  .assets-exchange .full-box-item {
+    display: block !important; }
+    .assets-exchange .full-box-item .box {
+      margin-bottom: 5px;
+      max-width: 100%; }
+    .assets-exchange .full-box-item .card-title.description {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 10px; }
+    .assets-exchange .full-box-item .asset-id {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
   @media (max-width: 767px) {
     .assets-exchange .card.scroll {
       max-height: 300px; } }
@@ -1629,3 +1642,6 @@ table td .btn, table th .btn {
 
 .no-followed-polls {
   padding: 30px; }
+
+.margin-top-13 {
+  margin-top: 13px !important; }

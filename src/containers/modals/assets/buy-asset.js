@@ -140,7 +140,7 @@ class BuyAsset extends React.Component {
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-left round round-bottom-left round-top-right"
                                         >
-                                            Advanced
+                                            {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
                                     </div>
                                 </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
+import AdvancedSettings from '../../components/advanced-transaction-settings';
+import InputForm from '../../components/input-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
@@ -108,75 +108,116 @@ class IssueCurrency extends React.Component {
                                 <div className="form-title">
                                     <p>Issue Currency</p>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Currency Name</label>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Currency Name
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            field="name"
+                                            placeholder="Currency Name"
+                                            setValue={setValue}/>
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Currency Code
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            field="code"
+                                            placeholder="Currency Code"
+                                            setValue={setValue}/>
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label align-self-start">
+                                        Description
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <TextArea className="form-control"
+                                                  placeholder="Description"
+                                                  field="description"
+                                                  cols="30" rows="5" />
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label align-self-start">
+                                        Type
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type1"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Exchangeable
+                                            </label>
                                         </div>
-                                        <div className="col-md-9">
-                                            <Text type="text" field="name" placeholder="Currency Name"/>
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type2"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Controllable
+                                            </label>
+                                        </div>
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type3"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Reservable
+                                            </label>
+                                        </div>
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type4"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Claimable
+                                            </label>
+                                        </div>
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type5"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Mintable
+                                            </label>
+                                        </div>
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type6"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Non-Shuffleable
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Currency Code</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text type="text" field='code' placeholder="Currency Code"/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Initial Supply
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            type="number"
+                                            field="initialSupply"
+                                            placeholder="Initial Supply"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Description</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <TextArea placeholder="Description" field="description" cols="30" rows="10" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Type</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="form-sub-actions">
-                                                <div
-                                                    className="form-group-app no-padding-bottom no-padding-top"
-                                                    style={{paddingTop: 0}}
-                                                >
-                                                    <div className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox field={'type1'}/>
-                                                        <label>Exchangeable</label>
-                                                    </div>
-                                                    <div className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox field={'type2'}/>
-                                                        <label>Controllable</label>
-                                                    </div>
-                                                    <div className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox field={'type3'}/>
-                                                        <label>Reservable</label>
-                                                    </div>
-                                                    <div className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox field={'type4'}/>
-                                                        <label>Claimable</label>
-                                                    </div>
-                                                    <div className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox field={'type5'}/>
-                                                        <label>Mintable</label>
-                                                    </div>
-                                                    <div className="input-group-app align-middle display-block offset-bottom">
-                                                        <Checkbox field={'type6'}/>
-                                                        <label>Non-Shuffleable</label>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Total Supply
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            type="number"
+                                            field="maxSupply"
+                                            placeholder="Total Supply"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
                                 {
@@ -260,44 +301,49 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </React.Fragment>
                                 }
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Total Supply</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text type="number" field='maxSupply' placeholder="Currency Code"/>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Decimals
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            type="number"
+                                            field="decimals"
+                                            placeholder="Decimals"
+                                            setValue={setValue}/>
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Fee
+                                        <span
+                                            onClick={async () => {
+                                                setValue("feeAPL", 1);
+                                            }
+                                            }
+                                            style={{paddingRight: 0}}
+                                            className="calculate-fee"
+                                        >
+                                            Calculate
+                                        </span>
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                        <InputForm
+                                            field="feeAPL"
+                                            placeholder="Minimum fee"
+                                            type={"float"}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Decimals</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text type="number" field='decimals' placeholder="Currency Code"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Fee</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field='feeATM' placeholder="Fee" type={'number'}/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text type="password" field='secretPhrase' placeholder="Passphrase" />
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                    </label>
+                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
@@ -322,7 +368,7 @@ class IssueCurrency extends React.Component {
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
                                         style={{left : 0, right: 'auto'}}
                                     >
-                                        Advanced
+                                        {this.state.advancedState ? "Basic" : "Advanced"}
                                     </a>
                                 </div>
                                 <AdvancedSettings

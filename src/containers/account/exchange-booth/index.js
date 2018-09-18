@@ -562,9 +562,9 @@ class ExchangeBooth extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-md-12 no-padding">
+                                    <div className="col-md-12 p-0 margin-top-13">
                                         <div className="row">
-                                            <div className="col-md-6 display-flex">
+                                            <div className="col-md-6 display-flex pr-0">
                                                 <div className="card ballance medium-padding card-flexible">
                                                     <div className="form-group-app">
                                                         <div className="form-title">
@@ -604,7 +604,7 @@ class ExchangeBooth extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6 display-flex">
+                                            <div className="col-md-6 display-flex pr-0">
                                                 <div className="card assets medium-padding card-flexible">
                                                     <div className="form-group-app">
                                                         <div className="form-title">

@@ -7,7 +7,8 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 	font-weight: normal;
 	text-decoration: none;
 	list-style: none;
-	color: #101010;
+	//color: #101010;
+	color: #333333;
 	font-family: "Roboto-Regular";
 }
 
@@ -21,17 +22,18 @@ html, body {
 //}
 
 ::placeholder {
-	color: #a6a6a6;
+	color: #a6a6a6 !important;
+	font-size: 0.875rem;
 	opacity: 1;
 	font-weight: 400;
 }
 
 :-ms-input-placeholder {
-	color: #a6a6a6;
+	color: #a6a6a6 !important;
 }
 
 ::-ms-input-placeholder {
-	color: #a6a6a6;
+	color: #a6a6a6 !important;
 }
 
 html {
@@ -1074,6 +1076,12 @@ input {
 			}
 			&:disabled {
 				background-color: #e5e5e5;
+				& + .input-group-append {
+					.input-group-text{
+						color: #747474;
+						background-color: #e5e5e5;
+					}
+				}
 			}
 		}
 		.form-group-select {
@@ -1988,9 +1996,9 @@ input {
 	}
 	.input-group-app {
 		
-		input, input[type="number"] {
-			padding: 8px 20px;
-		}
+		//input, input[type="number"] {
+		//	padding: 8px 20px;
+		//}
 		&.lighten {
 			display: table-row;
 			label {
@@ -2188,6 +2196,7 @@ table {
 		padding: 0 !important;
 		table {
 			min-width: 500px !important;
+			padding: 0 !important;
 		}
 	}
 	.info-box.simple {
@@ -2197,6 +2206,17 @@ table {
 		}
 	}
 	.full-box-item {
+		display: block !important;
+		.box {
+			margin-bottom: 5px;
+			max-width: 100%;
+		}
+		.card-title.description {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			padding-left: 10px;
+		}
 		.asset-id {
 			white-space: nowrap;
 			overflow: hidden;
@@ -2287,6 +2307,8 @@ table {
 			padding: 20px 20px !important;
 		}
 	}
+	
+	
 }
 
 .exchange-booth {
@@ -2372,4 +2394,8 @@ table {
 
 .no-followed-polls {
 	padding: 30px;
+}
+
+.margin-top-13 {
+	margin-top: 13px !important;
 }
