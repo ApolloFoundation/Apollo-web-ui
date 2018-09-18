@@ -39,7 +39,6 @@ class OpenOrders extends React.Component {
     getBuyOrders = async account => {
 
         const buyOrders = await this.props.getBuyOrders(account);
-        console.log(buyOrders);
         if (buyOrders) {
             const assets = buyOrders.assets;
             const  orders = buyOrders.orders;
@@ -52,15 +51,12 @@ class OpenOrders extends React.Component {
 
             this.setState({
                 buyOrders: result
-            }, () => {
-                console.log(this.state.buyOrders);
             });
         }
     };
 
     getSellOrders = async account => {
         const buyOrders = await this.props.getSellOrders(account);
-        console.log(buyOrders);
         if (buyOrders) {
             const assets = buyOrders.assets;
             const  orders = buyOrders.orders;
@@ -73,8 +69,6 @@ class OpenOrders extends React.Component {
 
             this.setState({
                 sellOrders: result
-            }, () => {
-                console.log(this.state.buyOrders);
             });
         }
     };

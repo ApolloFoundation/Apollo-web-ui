@@ -42,8 +42,6 @@ class MarketplaceDeliver extends React.Component {
     }
 
     handleImageLoadint = async (value) => {
-        console.log(value);
-
         const productData = await this.props.getDGSGoodAction({
             purchase: value
         });

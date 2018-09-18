@@ -72,7 +72,6 @@ class AssetExchange extends React.Component {
     getBuyOrders = async assetName => {
 
         const buyOrders = await this.props.getBidOrders(assetName.asset);
-        console.log(buyOrders);
         if (buyOrders) {
             const assets = buyOrders.assets;
             const  orders = buyOrders.orders;
@@ -88,7 +87,6 @@ class AssetExchange extends React.Component {
 
     getSellOrders = async assetName => {
         const buyOrders = await this.props.getAskOrders(assetName.asset);
-        console.log(buyOrders);
         if (buyOrders) {
             const assets = buyOrders.assets;
             const  orders = buyOrders.orders;
