@@ -1449,7 +1449,7 @@ input {
 		}
 		&.account {
 			&:after {
-				top: calc(100% + 27px);
+				top: calc(100% + 23px);
 				left: auto;
 			}
 		}
@@ -1556,6 +1556,40 @@ input {
 		margin-top: 15px;
 		position: static;
 		
+		&.bigger {
+			padding: 11px 10px 9px 10px;
+		}
+	}
+	&.outline-primary {
+		padding: 5px 7px;
+		background: transparent;
+		border: 1px solid #666666;
+		color: #666666;
+		border-radius: 6px;
+		font-size: 12px;
+		min-height: 25px;
+		font-weight: 100;
+		letter-spacing: -0.1px;
+		margin-top: 15px;
+		position: static;
+
+		&.bigger {
+			padding: 11px 10px 9px 10px;
+		}
+	}
+	&.outline-transparent {
+		padding: 5px 7px;
+		background: transparent;
+		border: 1px solid transparent;
+		color: #666666;
+		border-radius: 6px;
+		font-size: 12px;
+		min-height: 25px;
+		font-weight: 100;
+		letter-spacing: -0.1px;
+		margin-top: 15px;
+		position: static;
+
 		&.bigger {
 			padding: 11px 10px 9px 10px;
 		}
@@ -2399,3 +2433,9 @@ table {
 .margin-top-13 {
 	margin-top: 13px !important;
 }
+
+//.add-alias {
+//	textarea {
+//		resize: vertical;
+//	}
+//}

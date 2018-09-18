@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import CustomSelect from '../../components/select';
@@ -13,10 +14,10 @@ import {NotificationManager} from "react-notifications";
 import {calculateFeeAction} from "../../../actions/forms";
 
 const votingModelData = [
-    { value: '0', label: 'Vote by Account' },
-    { value: '1', label: 'Vote by Account Balance' },
-    { value: '2', label: 'Vote by Asset Balance' },
-    { value: '3', label: 'Vote by Currency Balance' }
+    { value: 0, label: 'Vote by Account' },
+    { value: 1, label: 'Vote by Account Balance' },
+    { value: 2, label: 'Vote by Asset Balance' },
+    { value: 3, label: 'Vote by Currency Balance' }
 ];
 
 class CreatePoll extends React.Component {
@@ -128,8 +129,9 @@ class CreatePoll extends React.Component {
         }
     };
 
-    selectedBalanceType = (minBalanceType) => {
-        switch (minBalanceType) {
+    selectedBalanceType = (values) => {
+        const type = values.minBalanceModel || values.votingModel;
+        switch (type) {
             case 0:
                 return '(none)';
             case 1:
@@ -159,6 +161,10 @@ class CreatePoll extends React.Component {
         } else {
             this.setState({ asset: 'Not Existing' });
         }
+    };
+
+    handleVotingModel = (value, setValue) => {
+        if (value !== 0) setValue('minBalanceModel', 0);
     };
 
     render() {
@@ -208,10 +214,12 @@ class CreatePoll extends React.Component {
                                                 setValue={setValue}
                                                 defaultValue={votingModelData[0]}
                                                 options={votingModelData}
+                                                onChange={(value) => this.handleVotingModel(value, setValue)}
                                             />
                                         </div>
                                     </div>
-                                    {getFormState().values.minBalanceType === 2 &&
+                                    {getFormState().values.minBalanceModel === 2 ||
+                                    getFormState().values.votingModel === 2 &&
                                         <div className="form-group row form-group-grey mb-15">
                                             <label className="col-sm-3 col-form-label">
                                                 Asset
@@ -228,7 +236,8 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     }
-                                    {getFormState().values.minBalanceType === 3 &&
+                                    {getFormState().values.minBalanceModel === 3 ||
+                                    getFormState().values.votingModel === 3 &&
                                         <div className="form-group row form-group-grey mb-15">
                                             <label className="col-sm-3 col-form-label">
                                                 Currency
@@ -245,7 +254,8 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     }
-                                    <RadioGroup field={'minBalanceType'} defaultValue={0}>
+                                    {getFormState().values.votingModel === votingModelData[0].value &&
+                                    <RadioGroup field={'minBalanceModel'} defaultValue={0}>
                                         <div className="form-group row form-group-white">
                                             <label className="col-sm-3 col-form-label align-self-start">
                                                 Min Balance Type
@@ -254,39 +264,49 @@ class CreatePoll extends React.Component {
                                                 <div className="form-sub-actions">
                                                     <div
                                                         className="form-group-app no-padding-bottom"
-                                                        style={{paddingTop:0,paddingLeft:0}}
+                                                        style={{paddingTop: 0, paddingLeft: 0}}
                                                     >
-                                                        <div className="input-group-app align-middle display-block mb-3">
+                                                        <div
+                                                            className="input-group-app align-middle display-block mb-3">
                                                             <Radio value={0}/>
                                                             <label style={{display: 'inline-block'}}>None</label>
                                                         </div>
-                                                        <div className="input-group-app align-middle display-block mb-3">
+                                                        <div
+                                                            className="input-group-app align-middle display-block mb-3">
                                                             <Radio value={1}/>
-                                                            <label style={{display: 'inline-block'}}>Account Balance</label>
+                                                            <label style={{display: 'inline-block'}}>Account
+                                                                Balance</label>
                                                         </div>
-                                                        <div className="input-group-app align-middle display-block mb-3">
+                                                        <div
+                                                            className="input-group-app align-middle display-block mb-3">
                                                             <Radio value={2}/>
-                                                            <label style={{display: 'inline-block'}}>Asset Balance</label>
+                                                            <label style={{display: 'inline-block'}}>Asset
+                                                                Balance</label>
                                                         </div>
-                                                        <div className="input-group-app align-middle display-block mb-3">
+                                                        <div
+                                                            className="input-group-app align-middle display-block mb-3">
                                                             <Radio value={3}/>
-                                                            <label style={{display: 'inline-block'}}>Currency Balance</label>
+                                                            <label style={{display: 'inline-block'}}>Currency
+                                                                Balance</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </RadioGroup>
+                                    }
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
-                                            Min voting balance {this.selectedBalanceType(getFormState().values.minBalanceType)}
+                                            Min voting balance {this.selectedBalanceType(getFormState().values)}
                                         </label>
                                         <div className="col-sm-9">
                                             <InputForm
-                                                disabled={getFormState().values.minBalanceType === 0}
+                                                disabled={getFormState().values.minBalanceModel === 0 &&
+                                                            getFormState().values.votingModel === 0}
                                                 field="minBalance"
                                                 placeholder=""
                                                 type={"number"}
+                                                defaultValue={0}
                                                 setValue={setValue}/>
                                         </div>
                                     </div>
@@ -319,7 +339,7 @@ class CreatePoll extends React.Component {
                                             {
                                                 this.state.answers.map((el, index) => {
                                                     return (
-                                                        <div className="input-group input-group-sm mb-15 no-left-padding">
+                                                        <div key={uuid()} className="input-group input-group-sm mb-15 no-left-padding">
                                                             <input
                                                                 className="form-control"
                                                                 name={'create_poll_answers[]'}

@@ -98,19 +98,36 @@ class Messenger extends React.Component {
             delete values.message;
 		}
 
+		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
+        // delete values.secretPhrase;
 
-        const res = await this.props.submitForm(null, null, {
-            ...values,
+        console.log(secretPhrase);
+
+        await this.props.submitForm(null, null, {
+			...values,
             recipient: this.state.chats[this.state.selectedChat].account,
-            feeATM: values.messageToEncrypt ? 2 : 1
-        }, 'sendMessage');
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
+            feeATM: 0
+        }, 'sendMessage')
+			.done(async (feeData) => {
+				if (feeData.errorCode === 4) {
+                    NotificationManager.error('Message length should not bu grater than 100 symbols.', 'Error', 5000)
+                } else {
+                    const res = await this.props.submitForm(null, null, {
+                        ...values,
+                        recipient: this.state.chats[this.state.selectedChat].account,
+                        secretPhrase: secretPhrase,
+                        feeATM: feeData.transactionJSON.feeATM
+                    }, 'sendMessage');
 
-            NotificationManager.success('Transaction has been submitted!', null, 5000);
-        }
+                    if (res.errorCode) {
+                        NotificationManager.error(res.errorDescription, 'Error', 5000)
+                    } else {
+                        this.props.setBodyModalParamsAction(null, {});
+
+                        NotificationManager.success('Transaction has been submitted!', null, 5000);
+                    }
+				}
+			})
     };
 
 	render (){

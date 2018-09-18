@@ -136,10 +136,23 @@ class Transaction extends React.Component {
                         <td className="align-right">
                         </td>
                         <td className="align-right blue-link-text">
-                            <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', this.state.transaction.height)}>{this.state.transaction.height}</a>
+                            {
+                                !this.props.isUnconfirmed &&
+                                <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', this.state.transaction.height)}>{this.state.transaction.height}</a>
+                            }
+                            {
+                                this.props.isUnconfirmed && '-'
+                            }
                         </td>
+
                         <td className="align-right">
-                            <a>{this.state.transaction.confirmations}</a>
+                            {
+                                !this.props.isUnconfirmed &&
+                                <a>{this.state.transaction.confirmations}</a>
+                            }
+                            {
+                                this.props.isUnconfirmed && '-'
+                            }
                         </td>
                     </tr>
                 );

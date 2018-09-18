@@ -1003,7 +1003,7 @@ input {
       .btn.underscore.settings:after {
         display: none !important; } }
   .btn.underscore.account:after {
-    top: calc(100% + 27px);
+    top: calc(100% + 23px);
     left: auto; }
   .btn.underscore.active.account:after {
     width: 25px !important; }
@@ -1079,6 +1079,34 @@ input {
     margin-top: 15px;
     position: static; }
     .btn.primary.bigger {
+      padding: 11px 10px 9px 10px; }
+  .btn.outline-primary {
+    padding: 5px 7px;
+    background: transparent;
+    border: 1px solid #666666;
+    color: #666666;
+    border-radius: 6px;
+    font-size: 12px;
+    min-height: 25px;
+    font-weight: 100;
+    letter-spacing: -0.1px;
+    margin-top: 15px;
+    position: static; }
+    .btn.outline-primary.bigger {
+      padding: 11px 10px 9px 10px; }
+  .btn.outline-transparent {
+    padding: 5px 7px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #666666;
+    border-radius: 6px;
+    font-size: 12px;
+    min-height: 25px;
+    font-weight: 100;
+    letter-spacing: -0.1px;
+    margin-top: 15px;
+    position: static; }
+    .btn.outline-transparent.bigger {
       padding: 11px 10px 9px 10px; }
   .btn.blue {
     background: #00C8FF;

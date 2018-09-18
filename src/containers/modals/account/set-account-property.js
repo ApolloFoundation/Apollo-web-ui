@@ -40,6 +40,7 @@ class SetAccountProperty extends React.Component {
     }
 
     render() {
+        const contactRS = this.props.modalData.setterRS || this.props.modalData.recipientRS || '';
         return (
             <div className="modal-box">
                 <Form
@@ -52,20 +53,38 @@ class SetAccountProperty extends React.Component {
                                 <div className="form-title">
                                     <p>Set Account Property</p>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
+                                {contactRS !== '' ?
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Recipient
                                         </label>
                                         <div className="col-sm-9">
-                                                <AccountRS
-                                                    field={'recipient'}
-                                                    disabled={true}
-                                                    noContactList={true}
-                                                    defaultValue={(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
-                                                    setValue={setValue}
-                                                />
+                                            <AccountRS
+                                                field={'recipient'}
+                                                disabled={true}
+                                                noContactList={true}
+                                                defaultValue={contactRS}
+                                                setValue={setValue}
+                                            />
                                         </div>
-                                </div>
+                                    </div>
+                                    :
+                                    <div className="input-group-app form-group mb-15 display-block inline user">
+                                        <div className="row form-group-white">
+                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <div className="iconned-input-field">
+                                                    <AccountRS
+                                                        field={'recipient'}
+                                                        setValue={setValue}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Property
@@ -74,7 +93,7 @@ class SetAccountProperty extends React.Component {
                                         <InputForm
                                             field="property"
                                             defaultValue={(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
-                                            disabled={true}
+                                            disabled={(this.props.modalData && this.props.modalData.property)}
                                             placeholder="Property"
                                             setValue={setValue}/>
                                     </div>
@@ -107,6 +126,7 @@ class SetAccountProperty extends React.Component {
                                     <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
                                         <InputForm
                                             field="feeAPL"
+                                            defaultValue={1}
                                             placeholder="Minimum fee"
                                             type={"float"}
                                             setValue={setValue}/>

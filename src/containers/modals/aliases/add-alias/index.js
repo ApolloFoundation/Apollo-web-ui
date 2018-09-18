@@ -96,7 +96,7 @@ class AddAlias extends React.Component {
                                  submitForm, setValue, getFormState, values
                              }) => (
                         <form
-                            className="modal-form"
+                            className="modal-form add-alias"
                             onSubmit={submitForm}
                         >
                             <div className="form-group-app">
@@ -212,12 +212,12 @@ class AddAlias extends React.Component {
                                 </div>
 
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <a
-                                        onClick={() => this.props.closeModal()}
-                                        className="btn round round-top-left"
-                                    >
-                                        Cancel
-                                    </a>
+	                                <a
+		                                onClick={() => this.props.closeModal()}
+		                                className="btn round round-top-left"
+	                                >
+		                                Cancel
+	                                </a>
                                     <button
                                         type="submit"
                                         name={'closeModal'}

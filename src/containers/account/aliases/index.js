@@ -95,6 +95,10 @@ class Aliases extends React.Component {
         this.props.setBodyModalParamsAction('SELL_ALIAS', {});
     };
 
+	cancelSaleAlias = () => {
+		this.props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', {});
+	};
+
     transferAlias = () => {
         this.props.setBodyModalParamsAction('TRANSFER_ALIAS', {});
     };
@@ -139,6 +143,7 @@ class Aliases extends React.Component {
                                                         key={uuid()}
                                                         editAlias={this.editAlias}
                                                         sellAlias={this.sellAlias}
+                                                        cancelSaleAlias={this.cancelSaleAlias}
                                                         transferAlias={this.transferAlias}
                                                         deleteAlias={this.deleteAlias}
                                                         {...el}
