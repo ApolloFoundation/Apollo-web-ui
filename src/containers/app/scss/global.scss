@@ -1074,6 +1074,12 @@ input {
 			}
 			&:disabled {
 				background-color: #e5e5e5;
+				& + .input-group-append {
+					.input-group-text{
+						color: #747474;
+						background-color: #e5e5e5;
+					}
+				}
 			}
 		}
 		.form-group-select {
