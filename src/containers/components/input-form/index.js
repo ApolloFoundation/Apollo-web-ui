@@ -24,7 +24,7 @@ class InputForm extends React.Component {
             if (value === '.') value = '0.';
             value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
         } else {
-            value = value.replace(/[.,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
+            value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
         }
         this.setState({ value });
         return value;
