@@ -366,7 +366,7 @@ class AssetExchange extends React.Component {
                                             <div className="card ballance card-tiny medium-padding">
                                                 <div className="form-group-app">
                                                     <div className="form-title">
-                                                        <p>Offers to buy {this.state.asset.name}</p>
+                                                        <p>Offers to sell {this.state.asset.name}</p>
                                                     </div>
                                                     {
                                                         this.state.askOrders &&
@@ -546,7 +546,7 @@ class AssetExchange extends React.Component {
                                             <div className="card assets card-tiny medium-padding">
                                                 <div className="form-group-app">
                                                     <div className="form-title">
-                                                        <p>Offers to sell {this.state.asset.name}</p>
+                                                        <p>Offers to buy {this.state.asset.name}</p>
                                                     </div>
                                                     {
                                                         this.state.bidOrders &&
