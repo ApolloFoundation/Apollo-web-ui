@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
+import {setAlert, setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
 import classNames from 'classnames';
 
-import { Form, Text } from 'react-form';
+import { Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import {getAliasAction} from "../../../../actions/aliases";
@@ -112,7 +112,7 @@ class TransferAlias extends React.Component {
                                     <div className="form-title">
                                         <p>Transfer Alias</p>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app form-group mb-15">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Alias</label>
@@ -122,7 +122,7 @@ class TransferAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app display-block mb-15">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Recipient</label>
@@ -132,7 +132,70 @@ class TransferAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+	                                <div className="mobile-class form-group-grey row mb-15">
+		                                <div className="col-sm-9 offset-sm-3">
+			                                <a className="no-margin btn static blue"
+			                                   onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}>
+				                                Private transaction
+			                                </a>
+		                                </div>
+	                                </div>
+	                                <div className="mobile-class row mb-15 form-group-white">
+		                                <div className="col-md-9 offset-md-3">
+			                                <div className="form-check custom-checkbox mb-2">
+				                                <Checkbox className="form-check-input custom-control-input"
+				                                          type="checkbox"
+				                                          field="add_message"/>
+				                                <label className="form-check-label custom-control-label">
+					                                Add a message?
+				                                </label>
+			                                </div>
+		                                </div>
+	                                </div>
+	                                {
+		                                getFormState().values.add_message &&
+		                                <div className="form-group row form-group-white mb-15">
+			                                <label className="col-sm-3 col-form-label align-self-start">
+				                                Message
+			                                </label>
+			                                <div className="col-sm-9">
+				                                <TextArea className="form-control" placeholder="Message" field="message" cols="30" rows="5" />
+			                                </div>
+		                                </div>
+	                                }
+	                                {
+		                                getFormState().values.add_message &&
+		                                <div className="mobile-class row mb-15 form-group-white">
+			                                <div className="col-md-9 offset-md-3">
+				                                <div className="form-check custom-checkbox mb-2">
+					                                <Checkbox className="form-check-input custom-control-input"
+					                                          type="checkbox"
+					                                          defaultValue={true}
+					                                          field="encrypt_message"/>
+					                                <label className="form-check-label custom-control-label">
+						                                Encrypt Message
+					                                </label>
+				                                </div>
+			                                </div>
+		                                </div>
+	                                }
+	                                {
+		                                getFormState().values.add_message &&
+		                                <div className="mobile-class row mb-15 form-group-white">
+			                                <div className="col-md-9 offset-md-3">
+				                                <div className="form-check custom-checkbox mb-2">
+					                                <Checkbox className="form-check-input custom-control-input"
+					                                          type="checkbox"
+					                                          defaultValue={false}
+					                                          field="permanent_message"/>
+					                                <label className="form-check-label custom-control-label">
+						                                Message is Never Deleted
+					                                </label>
+				                                </div>
+			                                </div>
+		                                </div>
+	                                }
+                                    <div className="input-group-app display-block mb-15">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label htmlFor="feeATM" className="col-form-label">
@@ -154,7 +217,7 @@ class TransferAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Passphrase</label>
@@ -166,10 +229,16 @@ class TransferAlias extends React.Component {
                                     </div>
 
                                     <div className="btn-box align-buttons-inside absolute right-conner align-right">
+	                                    <a
+		                                    onClick={() => this.props.closeModal()}
+		                                    className="btn round round-top-left"
+	                                    >
+		                                    Cancel
+	                                    </a>
                                         <button
                                             type="submit"
                                             name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right round-top-left"
+                                            className="btn btn-right blue round round-bottom-right"
                                         >
                                             Transfer alias
                                         </button>
@@ -181,7 +250,7 @@ class TransferAlias extends React.Component {
                                             className="btn btn-right round round-bottom-left round-top-right absolute"
                                             style={{left : 0, right: 'auto'}}
                                         >
-                                            Advanced
+	                                        {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
                                     </div>
                                     <AdvancedSettings
@@ -207,6 +276,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	setAlert: (status, message) => dispatch(setAlert(status, message)),
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),

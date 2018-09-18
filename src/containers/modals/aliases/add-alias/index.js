@@ -96,7 +96,7 @@ class AddAlias extends React.Component {
                                  submitForm, setValue, getFormState, values
                              }) => (
                         <form
-                            className="modal-form"
+                            className="modal-form add-alias"
                             onSubmit={submitForm}
                         >
                             <div className="form-group-app">
@@ -212,10 +212,16 @@ class AddAlias extends React.Component {
                                 </div>
 
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
+	                                <a
+		                                onClick={() => this.props.closeModal()}
+		                                className="btn round round-top-left"
+	                                >
+		                                Cancel
+	                                </a>
                                     <button
                                         type="submit"
                                         name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right round-top-left"
+                                        className="btn btn-right blue round round-bottom-right"
                                     >
                                         Add alias
                                     </button>
@@ -227,7 +233,7 @@ class AddAlias extends React.Component {
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
                                         style={{left : 0, right: 'auto'}}
                                     >
-                                        Advanced
+	                                    {this.state.advancedState ? "Basic" : "Advanced"}
                                     </a>
                                 </div>
                                 <AdvancedSettings

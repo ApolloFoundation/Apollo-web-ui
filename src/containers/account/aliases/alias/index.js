@@ -63,7 +63,7 @@ const Alias = (props) => (
                     ) &&
                     <a
                         className="btn primary blue"
-                        onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
+                        onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
                     >
                         Cancel Sale
                     </a>
@@ -76,7 +76,7 @@ const Alias = (props) => (
                     ) &&
                     <a
                         className="btn primary blue"
-                        onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
+                        onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
                     >
                         Cancel Sale
                     </a>
