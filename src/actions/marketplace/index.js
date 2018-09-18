@@ -1,5 +1,7 @@
 import config from '../../config';
 import axios from 'axios';
+import store from "../../store";
+import {getAssetAction} from "../assets";
 
 export function getDGSGoodsAction(reqParams) {
     return dispatch => {
@@ -214,16 +216,25 @@ export const getAskOrders = asset => {
             asset
         }
     })
-        .then((res) => {
+        .then(async (res) => {
             if (!res.data.errorCode) {
-                return res.data;
+                console.log(res.data);
+
+                const assets = res.data.askOrders.map((el, index) => {
+                    return store.dispatch(getAssetAction({
+                        asset: el.asset
+                    }))
+                });
+
+                return {assets: await Promise.all(assets), orders: res.data.askOrders};
+
+
             }
-            console.log('Error: ', res.data.errorCode);
         })
         .catch((err) => {
             console.log(err);
-        })
-};
+        });
+}
 
 export const getBidOrders = asset => {
     return axios.get(config.api.serverUrl, {
@@ -232,15 +243,25 @@ export const getBidOrders = asset => {
             asset
         }
     })
-        .then((res) => {
+        .then(async (res) => {
             if (!res.data.errorCode) {
-                return res.data;
+                console.log(res.data);
+
+                const assets = res.data.bidOrders.map((el, index) => {
+                    return store.dispatch(getAssetAction({
+                        asset: el.asset
+                    }))
+                });
+
+                return {assets: await Promise.all(assets), orders: res.data.bidOrders};
+
             }
-            console.log('Error: ', res.data.errorCode);
         })
         .catch((err) => {
             console.log(err);
         })
-};
+}
+
+
 
 

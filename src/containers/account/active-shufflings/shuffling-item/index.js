@@ -13,20 +13,46 @@ const ShufflingItem = (props) => (
                 {props.shuffling}
             </a>
         </td>
-        <td>{props.stage}</td>
-        <td>{props.holdingType}</td>
-        <td className="align-right">{props.amount / 100000000}</td>
-        <td className="align-right">{props.registrantCount} / {props.participantCount}</td>
-        <td className="align-right">
-            <div className="btn-box inline">
-	            <a className={'btn primary blue'}
-	               onClick={() => props.setBodyModalParamsAction('START_SHUFFLING', props.shuffling)}
-	            >
-		            Join
-	            </a>
-            </div>
-
+        <td>
+            {
+                props.stage === 0 &&
+                'Registration'
+            }
+            {
+                props.stage === 4 &&
+                'Expired'
+            }
+            {
+                props.stage === 5 &&
+                'Done'
+            }
         </td>
+        <td>APL</td>
+        <td>{props.amount / 100000000}</td>
+        {
+            !props.finished &&
+            <td>{props.blocksRemaining}</td>
+        }
+
+        <td className="align-right">{props.registrantCount} / {props.participantCount}</td>
+        <td className="blue-link-text align-right">
+            <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.shuffling)}>
+                {props.shuffling}
+            </a>
+        </td>
+        {
+            !props.finished &&
+            <td className="align-right">
+                <div className="btn-box inline">
+                    <a className={'btn primary blue'}
+                       onClick={() => props.setBodyModalParamsAction('START_SHUFFLING', props.shuffling)}
+                    >
+                        Join
+                    </a>
+                </div>
+
+            </td>
+        }
     </tr>
 );
 

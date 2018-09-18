@@ -35,15 +35,23 @@ class OrderItem extends React.Component {
         const {orderInfo} = this.state;
         return (
             <tr key={uuid()}>
-                <td className="align-left blue-link-text"
-                    onClick={async () => this.props.setBodyModalParamsAction('INFO_TRANSACTION', {})}>{orderInfo.name}</td>
-                <td className="align-left">{NRS.formatQuantity(orderInfo.quantityATU, orderInfo.decimals)}</td>
-                {/*<td>{NRS.formatOrderPricePerWholeATU(orderInfo.priceATM === undefined ? 0 :orderInfo.priceATM, orderInfo.decimals === undefined ? 0 : orderInfo.decimals)}</td>*/}
-                <td>{this.props.order.priceATM}</td>
-                <td>{this.props.order.priceATM * NRS.formatQuantity(orderInfo.quantityATU, orderInfo.decimals)}</td>
-                <td>{orderInfo.quantityATU}</td>
 
-                {/*<td className="align-right">{this.props.delete.quantityATU}</td>*/}
+                <td
+                    className="align-left blue-link-text"
+                >
+                    {orderInfo.name}
+                </td>
+
+                <td
+                    className="align-left"
+                >
+                    {this.props.order.quantityATU / Math.pow(10, this.props.order.decimals)}
+                </td>
+
+                <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  100000000) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
+
+                <td className="align-right">{(this.props.order.quantityATU * this.props.order.priceATM) /  100000000}</td>
+
             </tr>
         );
     }

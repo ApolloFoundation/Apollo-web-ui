@@ -117,3 +117,20 @@ export function getNewsAction(reqParams) {
             })
     }
 }
+
+export function getAccountPropertiesAction(reqParams) {
+    return (dispatch) => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAccountProperties',
+                ...reqParams,
+            }
+        })
+            .then((res) => {
+                return res.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+}

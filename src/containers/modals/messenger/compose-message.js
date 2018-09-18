@@ -182,26 +182,7 @@ class ComposeMessage extends React.Component {
                                                             id="file"
                                                             type="file"
                                                             placeholder="Recipient"
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
 
-                                                                let reader = new FileReader();
-                                                                let file = e.target.files[0];
-
-                                                                reader.onloadend = () => {
-                                                                    this.setState({
-                                                                        ...this.state,
-                                                                        file: file,
-                                                                        imagePreviewUrl: reader.result
-                                                                    });
-                                                                };
-
-                                                                setValue("messageIsText", false);
-                                                                setValue("messageIsPrunable", true);
-
-                                                                reader.readAsDataURL(file);
-
-                                                            }}
                                                         />
                                                     </div>
                                                 </div>
