@@ -8,6 +8,24 @@ import submitForm from "../../../helpers/forms/forms";
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import CustomSelect from '../../components/select';
 
+const algorithmData = [
+    {
+        label: "SHA256",
+        value: "2"
+    },
+    {
+        label: "SHA3",
+        value: "3",
+    },
+    {
+        label: "SCRYPT",
+        value: "5",
+    },
+    {
+        label: "Keccak25",
+        value: "25"
+    }
+];
 class IssueCurrency extends React.Component {
     constructor(props) {
         super(props);
@@ -173,6 +191,9 @@ class IssueCurrency extends React.Component {
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
+                                                      onChange={(value) => {
+                                                          if(value) setValue('type3', true);
+                                                      }}
                                                       field="type4"/>
                                             <label className="form-check-label custom-control-label">
                                                 Claimable
@@ -196,6 +217,77 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                {
+                                    !!getFormState().values.type3 &&
+                                    <React.Fragment>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Minimum Amount to Reserve Per Unit
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <InputForm
+                                                    type="number"
+                                                    field="minReservePerUnitATM"
+                                                    placeholder="Minimum Amount Per Unit"
+                                                    setValue={setValue}/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Reserve Supply
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <InputForm
+                                                    type="number"
+                                                    field="reserveSupply"
+                                                    placeholder="Number of Units"
+                                                    setValue={setValue}/>
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                }
+                                {
+                                    !!getFormState().values.type5 &&
+                                    <React.Fragment>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Minimum Difficulty
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <InputForm
+                                                    type="number"
+                                                    field="minDifficulty"
+                                                    placeholder="Minimum Difficulty"
+                                                    setValue={setValue}/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Maximum Difficulty
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <InputForm
+                                                    type="number"
+                                                    field="maxDifficulty"
+                                                    placeholder="Maximum Difficulty"
+                                                    setValue={setValue}/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Algorithm
+                                            </label>
+                                            <div className="col-md-9">
+                                                <CustomSelect
+                                                    field={'algorithm'}
+                                                    setValue={setValue}
+                                                    defaultValue={algorithmData[0]}
+                                                    options={algorithmData}
+                                                />
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                }
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Initial Supply
@@ -220,87 +312,6 @@ class IssueCurrency extends React.Component {
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                {
-                                    !!getFormState().values.type2 &&
-                                    <React.Fragment>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Minimum Amount to Reserve Per Unit</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="number" field='minReservePerUnitATM' placeholder="Currency Code"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Reserve Supply</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="number" field='reserveSupply' placeholder="Currency Code"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </React.Fragment>
-                                }
-                                {
-                                    !!getFormState().values.type5 &&
-                                    <React.Fragment>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Minimum Difficulty</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="number" field='minDifficulty' placeholder="Currency Code"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Maximum Difficulty</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="number" field='maxDifficulty' placeholder="Currency Code"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Algorithm</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <CustomSelect
-                                                        field={'algorithm'}
-                                                        setValue={setValue}
-                                                        options={[
-                                                            {
-                                                                label: "SHA256",
-                                                                value: "2"
-                                                            },
-                                                            {
-                                                                label: "SHA3",
-                                                                value: "3",
-                                                            },
-                                                            {
-                                                                label: "SCRYPT",
-                                                                value: "5",
-                                                            },
-                                                            {
-                                                                label: "Keccak25",
-                                                                value: "25"
-                                                            }
-                                                        ]}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </React.Fragment>
-                                }
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Decimals
