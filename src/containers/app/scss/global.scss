@@ -1076,6 +1076,12 @@ input {
 			}
 			&:disabled {
 				background-color: #e5e5e5;
+				& + .input-group-append {
+					.input-group-text{
+						color: #747474;
+						background-color: #e5e5e5;
+					}
+				}
 			}
 		}
 		.form-group-select {
@@ -1990,9 +1996,9 @@ input {
 	}
 	.input-group-app {
 		
-		input, input[type="number"] {
-			padding: 8px 20px;
-		}
+		//input, input[type="number"] {
+		//	padding: 8px 20px;
+		//}
 		&.lighten {
 			display: table-row;
 			label {

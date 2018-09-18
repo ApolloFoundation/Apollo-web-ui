@@ -3481,6 +3481,9 @@ input {
         box-shadow: none; }
       .form-group-app .form-group-white .form-control:disabled {
         background-color: #e5e5e5; }
+        .form-group-app .form-group-white .form-control:disabled + .input-group-append .input-group-text {
+          color: #747474;
+          background-color: #e5e5e5; }
     .form-group-app .form-group-white .form-group-select select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -4073,8 +4076,6 @@ input {
         width: 100%; }
   .card .form-group-app {
     padding: 30px 0 15px; }
-  .card .input-group-app input, .card .input-group-app input[type="number"] {
-    padding: 8px 20px; }
   .card .input-group-app.lighten {
     display: table-row; }
     .card .input-group-app.lighten label {
