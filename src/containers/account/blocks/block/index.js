@@ -24,8 +24,8 @@ class Block extends React.Component {
                 <td className="align-right">
                     <a>{this.props.formatTimestamp(this.props.block.timestamp)}</a>
                 </td>
-                <td className="align-right">{this.props.block.totalAmountATM}</td>
-                <td className="align-right">{this.props.block.totalFeeATM}</td>
+                <td className="align-right">{this.props.block.totalAmountATM / 100000000}</td>
+                <td className="align-right">{this.props.block.totalFeeATM    / 100000000}</td>
                 <td className="align-right"><a>1</a>
                 </td>
                 <td className="blue-link-text">

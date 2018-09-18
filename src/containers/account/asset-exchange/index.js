@@ -429,8 +429,8 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                         <div className='box'>
                                                             <div
-                                                                className="card-title bold small">{this.state.asset.decimals}</div>
-                                                            <div className="card-title description small">2</div>
+                                                                className="card-title bold small">Asset decimals</div>
+                                                            <div className="card-title description small">{this.state.asset.decimals}</div>
                                                         </div>
                                                     </div>
                                                 </div>

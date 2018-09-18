@@ -4,13 +4,14 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 class OfferItem extends React.Component {
     render() {
-        const {offer, decimals} = this.props;
+        const {offer} = this.props;
+        console.log(this.props);
         return (
             <tr>
                 <td className="blue-link-text" onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', offer.accountRS)}><a>{offer.accountRS}</a></td>
-                <td className="align-right">{offer.supply}</td>
-                <td className="align-right">{offer.supply}</td>
-                <td className="align-right">{offer.rateATM / 100}</td>
+                <td className="align-right">{offer.supply / Math.pow(10, this.props.decimals)}</td>
+                <td className="align-right">{offer.limit / Math.pow(10, this.props.decimals)}</td>
+                <td className="align-right">{(offer.rateATM * Math.pow(10, this.props.decimals) / 100000000)}</td>
             </tr>
         );
     }

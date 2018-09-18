@@ -94,7 +94,7 @@ class Blocks extends React.Component {
 			avgFee,
 			avgAmount,
 			blockGenerateTime: time,
-			transactionPerHour: transactions
+			transactionPerHour: Math.floor(transactions / 15)
 		});
 	}
 

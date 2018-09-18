@@ -590,7 +590,7 @@ class ExchangeBooth extends React.Component {
                                                                         {this.state.sellOffers.map(offer => <OfferItem
                                                                                 key={uuid()}
                                                                                 offer={offer}
-                                                                                decimals={this.state.currency.decimals}
+                                                                                decimals={this.state.currencyInfo.decimals}
                                                                             />
                                                                         )}
                                                                         </tbody>
@@ -633,7 +633,7 @@ class ExchangeBooth extends React.Component {
                                                                                 <OfferItem
                                                                                     key={uuid()}
                                                                                     offer={offer}
-                                                                                    decimals={this.state.currency.decimals}
+                                                                                    decimals={this.state.currencyInfo.decimals}
                                                                                 />
                                                                             )}
                                                                             </tbody>
@@ -673,6 +673,7 @@ class ExchangeBooth extends React.Component {
                                                                 <tbody>
                                                                 {this.state.exchangeRequest.map(exchange =>
                                                                     <ExchangeItem
+                                                                        decimals={this.state.currencyInfo.decimals}
                                                                         key={uuid()}
                                                                         exchange={exchange}
                                                                     />
@@ -712,6 +713,7 @@ class ExchangeBooth extends React.Component {
                                                                 <tbody>
                                                                 {this.state.executedExchanges.map(exchange =>
                                                                     <ExecutedItem
+                                                                        decimals={this.state.currencyInfo.decimals}
                                                                         key={uuid()}
                                                                         exchange={exchange}
                                                                     />

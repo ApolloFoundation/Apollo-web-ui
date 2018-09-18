@@ -8,11 +8,11 @@ class ExchangeItem extends React.Component {
             <tr>
                 <td className="align-left">{exchange.height}</td>
                 <td className="align-right">{"buy"}</td>
-                <td className="align-right">{Math.ceil(exchange.units / 100)}</td>
-                <td className="align-right">{Math.ceil(exchange.rateATM / 6)}</td>
-                <td className="align-right">{Math.ceil(exchange.rateATM / 6 * exchange.units / 100)}</td>
+                <td className="align-right">{(parseInt(exchange.units) / Math.pow(10, this.props.decimals))}</td>
+                <td className="align-right">{((exchange.rateATM / 100000000) * Math.pow(10, this.props.decimals)).toFixed(2)}</td>
+                <td className="align-right">{(((parseInt(exchange.units) / Math.pow(10, this.props.decimals))) * ((exchange.rateATM / 100000000))* Math.pow(10, this.props.decimals)).toFixed(2)}</td>
             </tr>
-        );
+        );s
     }
 }
 
