@@ -318,7 +318,7 @@ class IssueCurrency extends React.Component {
                                         Fee
                                         <span
                                             onClick={async () => {
-                                                setValue("feeAPL", 1);
+                                                setValue("feeAPL", 25000);
                                             }
                                             }
                                             style={{paddingRight: 0}}
