@@ -218,8 +218,6 @@ export const getAskOrders = asset => {
     })
         .then(async (res) => {
             if (!res.data.errorCode) {
-                console.log(res.data);
-
                 const assets = res.data.askOrders.map((el, index) => {
                     return store.dispatch(getAssetAction({
                         asset: el.asset
@@ -245,8 +243,6 @@ export const getBidOrders = asset => {
     })
         .then(async (res) => {
             if (!res.data.errorCode) {
-                console.log(res.data);
-
                 const assets = res.data.bidOrders.map((el, index) => {
                     return store.dispatch(getAssetAction({
                         asset: el.asset

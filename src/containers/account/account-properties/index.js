@@ -44,8 +44,6 @@ class AccountProperties extends React.Component {
         })
 
         if (properties) {
-            console.log(properties);
-
             this.setState({
                 properties: properties.properties
             })

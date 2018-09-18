@@ -16,8 +16,6 @@ export const getSellOrdersAction = account => dispatch =>
     })
         .then(async (res) => {
             if (!res.data.errorCode) {
-                console.log(res.data);
-
                 const assets = res.data.askOrders.map((el, index) => {
                     return store.dispatch(getAssetAction({
                         asset: el.asset
@@ -40,8 +38,6 @@ export const getClearSellOrdersAction = account => dispatch => axios.get(config.
     }
 }).then((res) => {
     if (!res.data.errorCode) {
-        console.log(res.data);
-
         return res.data.askOrders;
 
     }
@@ -57,8 +53,6 @@ export const getBuyOrdersAction = account => dispatch => axios.get(config.api.se
     }
 }).then(async (res) => {
     if (!res.data.errorCode) {
-        console.log(res.data);
-
         const assets = res.data.bidOrders.map((el, index) => {
             return store.dispatch(getAssetAction({
                 asset: el.asset
@@ -88,8 +82,6 @@ export const getClearBuyOrdersAction = account => dispatch => axios.get(config.a
     }
 }).then((res) => {
     if (!res.data.errorCode) {
-        console.log(res.data);
-
         return res.data.bidOrders
     }
     console.log('Error: ', res.data.errorCode);

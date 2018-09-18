@@ -262,7 +262,6 @@ class ExchangeBooth extends React.Component {
                                                                         placeholder='Units'
                                                                         className={"form-control"}
                                                                         onKeyUp={(e) => {
-                                                                            console.log(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units));
                                                                             setValue('rateATM', Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
                                                                         }}
                                                                     />
@@ -446,8 +445,6 @@ class ExchangeBooth extends React.Component {
                                                                         placeholder='Units'
                                                                         className={"form-control"}
                                                                         onKeyUp={(e) => {
-                                                                            console.log(this.state.minimumBuyRate);
-
                                                                             setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
                                                                         }}
                                                                     />
