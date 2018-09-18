@@ -4221,15 +4221,26 @@ table td .btn, table th .btn {
   .assets-exchange .transaction-table-body {
     padding: 0 !important; }
     .assets-exchange .transaction-table-body table {
-      min-width: 500px !important; }
+      min-width: 500px !important;
+      padding: 0 !important; }
   .assets-exchange .info-box.simple {
     margin-bottom: 0; }
     .assets-exchange .info-box.simple p {
       padding-bottom: 0; }
-  .assets-exchange .full-box-item .asset-id {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; }
+  .assets-exchange .full-box-item {
+    display: block !important; }
+    .assets-exchange .full-box-item .box {
+      margin-bottom: 5px;
+      max-width: 100%; }
+    .assets-exchange .full-box-item .card-title.description {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 10px; }
+    .assets-exchange .full-box-item .asset-id {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
   @media (max-width: 767px) {
     .assets-exchange .card.scroll {
       max-height: 300px; } }
@@ -4360,6 +4371,9 @@ table td .btn, table th .btn {
 
 .no-followed-polls {
   padding: 30px; }
+
+.margin-top-13 {
+  margin-top: 13px !important; }
 
 .transaction-table {
   height: 100%;
