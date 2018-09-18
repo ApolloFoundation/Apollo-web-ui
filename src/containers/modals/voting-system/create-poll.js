@@ -130,7 +130,7 @@ class CreatePoll extends React.Component {
     };
 
     selectedBalanceType = (values) => {
-        const type = values.minBalanceType || values.votingModel;
+        const type = values.minBalanceModel || values.votingModel;
         switch (type) {
             case 0:
                 return '(none)';
@@ -164,7 +164,7 @@ class CreatePoll extends React.Component {
     };
 
     handleVotingModel = (value, setValue) => {
-        if (value !== 0) setValue('minBalanceType', 0);
+        if (value !== 0) setValue('minBalanceModel', 0);
     };
 
     render() {
@@ -218,7 +218,7 @@ class CreatePoll extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                    {getFormState().values.minBalanceType === 2 ||
+                                    {getFormState().values.minBalanceModel === 2 ||
                                     getFormState().values.votingModel === 2 &&
                                         <div className="form-group row form-group-grey mb-15">
                                             <label className="col-sm-3 col-form-label">
@@ -236,7 +236,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     }
-                                    {getFormState().values.minBalanceType === 3 ||
+                                    {getFormState().values.minBalanceModel === 3 ||
                                     getFormState().values.votingModel === 3 &&
                                         <div className="form-group row form-group-grey mb-15">
                                             <label className="col-sm-3 col-form-label">
@@ -255,7 +255,7 @@ class CreatePoll extends React.Component {
                                         </div>
                                     }
                                     {getFormState().values.votingModel === votingModelData[0].value &&
-                                    <RadioGroup field={'minBalanceType'} defaultValue={0}>
+                                    <RadioGroup field={'minBalanceModel'} defaultValue={0}>
                                         <div className="form-group row form-group-white">
                                             <label className="col-sm-3 col-form-label align-self-start">
                                                 Min Balance Type
@@ -301,7 +301,7 @@ class CreatePoll extends React.Component {
                                         </label>
                                         <div className="col-sm-9">
                                             <InputForm
-                                                disabled={getFormState().values.minBalanceType === 0 &&
+                                                disabled={getFormState().values.minBalanceModel === 0 &&
                                                             getFormState().values.votingModel === 0}
                                                 field="minBalance"
                                                 placeholder=""
