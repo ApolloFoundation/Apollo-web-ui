@@ -6,6 +6,7 @@ import InfoBox from '../../components/info-box'
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
+import CustomSelect from '../../components/select';
 
 class IssueCurrency extends React.Component {
     constructor(props) {
@@ -178,16 +179,87 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Initial Supply</label>
+                                {
+                                    !!getFormState().values.type2 &&
+                                    <React.Fragment>
+                                        <div className="input-group-app display-block offset-bottom">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <label>Minimum Amount to Reserve Per Unit</label>
+                                                </div>
+                                                <div className="col-md-9">
+                                                    <Text type="number" field='minReservePerUnitATM' placeholder="Currency Code"/>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="col-md-9">
-                                            <Text type="number" field='initialSupply' placeholder="Currency Code"/>
+                                        <div className="input-group-app display-block offset-bottom">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <label>Reserve Supply</label>
+                                                </div>
+                                                <div className="col-md-9">
+                                                    <Text type="number" field='reserveSupply' placeholder="Currency Code"/>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </React.Fragment>
+                                }
+                                {
+                                    !!getFormState().values.type5 &&
+                                    <React.Fragment>
+                                        <div className="input-group-app display-block offset-bottom">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <label>Minimum Difficulty</label>
+                                                </div>
+                                                <div className="col-md-9">
+                                                    <Text type="number" field='minDifficulty' placeholder="Currency Code"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="input-group-app display-block offset-bottom">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <label>Maximum Difficulty</label>
+                                                </div>
+                                                <div className="col-md-9">
+                                                    <Text type="number" field='maxDifficulty' placeholder="Currency Code"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="input-group-app display-block offset-bottom">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <label>Algorithm</label>
+                                                </div>
+                                                <div className="col-md-9">
+                                                    <CustomSelect
+                                                        field={'algorithm'}
+                                                        setValue={setValue}
+                                                        options={[
+                                                            {
+                                                                label: "SHA256",
+                                                                value: "2"
+                                                            },
+                                                            {
+                                                                label: "SHA3",
+                                                                value: "3",
+                                                            },
+                                                            {
+                                                                label: "SCRYPT",
+                                                                value: "5",
+                                                            },
+                                                            {
+                                                                label: "Keccak25",
+                                                                value: "25"
+                                                            }
+                                                        ]}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                }
                                 <div className="input-group-app display-block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
