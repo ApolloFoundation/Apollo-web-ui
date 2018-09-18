@@ -8,6 +8,7 @@ import {Form, Text, TextArea} from 'react-form';
 import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+import crypto from "../../../helpers/crypto/crypto";
 
 class AccountInfo extends React.Component {
     constructor(props) {
@@ -27,6 +28,13 @@ class AccountInfo extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
+
         values = {
             ...values,
 
@@ -154,6 +162,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo);

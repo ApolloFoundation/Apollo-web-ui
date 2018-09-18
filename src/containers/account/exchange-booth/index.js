@@ -263,7 +263,7 @@ class ExchangeBooth extends React.Component {
                                                                         className={"form-control"}
                                                                         onKeyUp={(e) => {
                                                                             console.log(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units));
-                                                                            setValue('rateATM', ((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
+                                                                            setValue('rateATM', Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
                                                                         }}
                                                                     />
                                                                     <div className="input-group-append">
@@ -285,7 +285,7 @@ class ExchangeBooth extends React.Component {
                                                                     {
                                                                         !!this.state.minimumSellRate &&
                                                                         <input
-                                                                            value={(this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                            value={Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals))}
                                                                             ref="buy_currency_rate"
                                                                             placeholder='Quantity'
                                                                             className={"form-control "}
@@ -317,7 +317,7 @@ class ExchangeBooth extends React.Component {
                                                                     {
                                                                         !!this.state.minimumSellRate &&
                                                                         <input
-                                                                            value={(this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                            value={Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals))}
                                                                             ref="buy_currency_rate"
                                                                             placeholder='Quantity'
                                                                             className={"form-control "}
@@ -448,7 +448,7 @@ class ExchangeBooth extends React.Component {
                                                                         onKeyUp={(e) => {
                                                                             console.log(this.state.minimumBuyRate);
 
-                                                                            setValue('rateATM', ((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
+                                                                            setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
                                                                         }}
                                                                     />
                                                                     <div className="input-group-append">
@@ -469,7 +469,7 @@ class ExchangeBooth extends React.Component {
                                                                     {
                                                                         !!this.state.minimumBuyRate &&
                                                                         <input
-                                                                            value={(this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                            value={Math.round((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals))}
                                                                             ref="buy_currency_rate"
                                                                             placeholder='Quantity'
                                                                             className={"form-control "}
@@ -500,7 +500,7 @@ class ExchangeBooth extends React.Component {
                                                                     {
                                                                         !!this.state.minimumBuyRate &&
                                                                         <input
-                                                                            value={(this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)}
+                                                                            value={Math.round((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals))}
                                                                             ref="buy_currency_rate"
                                                                             placeholder='Quantity'
                                                                             className={"form-control "}

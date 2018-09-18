@@ -90,6 +90,15 @@ class Messenger extends React.Component {
         // ecBlockId: 18338875302302929178
         // ecBlockHeight: 0
 
+		if (values.messageToEncrypt) {
+            values = {
+				...values,
+                messageToEncrypt: values.message
+            };
+            delete values.message;
+		}
+
+
         const res = await this.props.submitForm(null, null, {
             ...values,
             recipient: this.state.chats[this.state.selectedChat].account,
@@ -201,7 +210,7 @@ class Messenger extends React.Component {
 																	<label>Encrypt message</label>
 																</div>
 															</div>
-															<Text field={'secretPhrase'} className={'Secret Phrase'} type="password"/>
+															<Text field={'secretPhrase'} placeholder={'Secret Phrase'} type="password"/>
 															<button type="submit" className="btn blue btn-primary">Send Message</button>
 														</div>
 													</form>

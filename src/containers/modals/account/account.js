@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction} from '../../../modules/modals';
 import classNames from 'classnames';
 import uuid from "uuid";
-import {getAccountAction} from "../../../actions/account";
+import {getAccountAction}     from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
-import {switchAccountAction} from "../../../actions/account";
-import {formatTimestamp} from '../../../helpers/util/time';
-import {Link} from "react-router-dom";
+import {switchAccountAction}  from "../../../actions/account";
+import {formatTimestamp}      from '../../../helpers/util/time';
+import {Link}                 from "react-router-dom";
 
 import Transaction from '../../account/transactions/transaction';
 import Entry from '../../account/ledger/entry';
@@ -352,7 +352,7 @@ class InfoAccount extends React.Component {
                                 })}>
                                     {
                                         this.state.currencies &&
-                                        this.state.currencies.currencies.length &&
+                                        this.state.currencies.accountCurrencies.length &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
@@ -367,12 +367,12 @@ class InfoAccount extends React.Component {
                                                         <tbody key={uuid()}>
                                                         {
                                                             this.state.currencies &&
-                                                            this.state.currencies.currencies.map((el, index) => {
+                                                            this.state.currencies.accountCurrencies.map((el, index) => {
                                                                 return (
                                                                     <tr key={uuid()}>
                                                                         <td>{el.code}</td>
                                                                         <td>{el.name}</td>
-                                                                        <td className="align-right">{0.1}</td>
+                                                                        <td className="align-right">{(el.unconfirmedUnits / Math.pow(10, el.decimals)).toFixed(2)}</td>
                                                                     </tr>
                                                                 );
                                                             })
@@ -385,7 +385,7 @@ class InfoAccount extends React.Component {
                                     }
                                     {
                                         this.state.currencies &&
-                                        !this.state.currencies.currencies.length &&
+                                        !this.state.currencies.accountCurrencies.length &&
                                         <p>This user has no currencies.</p>
                                     }
                                 </div>

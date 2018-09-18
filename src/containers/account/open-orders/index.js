@@ -36,20 +36,47 @@ class OpenOrders extends React.Component {
         }
     };
 
-    getBuyOrders = account => {
-          this.props.getBuyOrders(account).then(res => {
-              this.setState({
-                  buyOrders: res ? res.bidOrders : []
-              });
-          });
+    getBuyOrders = async account => {
+
+        const buyOrders = await this.props.getBuyOrders(account);
+        console.log(buyOrders);
+        if (buyOrders) {
+            const assets = buyOrders.assets;
+            const  orders = buyOrders.orders;
+
+            const result = assets.map((el, index) => {
+                const asset = orders[index];
+                return {...el, ...asset}
+            });
+
+
+            this.setState({
+                buyOrders: result
+            }, () => {
+                console.log(this.state.buyOrders);
+            });
+        }
     };
 
-    getSellOrders = account => {
-          this.props.getSellOrders(account).then(res => {
-              this.setState({
-                  sellOrders: res ? res.askOrders : []
-              });
-          });
+    getSellOrders = async account => {
+        const buyOrders = await this.props.getSellOrders(account);
+        console.log(buyOrders);
+        if (buyOrders) {
+            const assets = buyOrders.assets;
+            const  orders = buyOrders.orders;
+
+            const result = assets.map((el, index) => {
+                const asset = orders[index];
+                return {...el, ...asset}
+            });
+
+
+            this.setState({
+                sellOrders: result
+            }, () => {
+                console.log(this.state.buyOrders);
+            });
+        }
     };
 
     render() {
@@ -67,7 +94,7 @@ class OpenOrders extends React.Component {
                                         <p>Sell Orders</p>
                                     </div>
                                     <div className="approval-request white-space no-padding">
-                                        {this.state.sellOrders.length === 0 ? <div className="alert">No assets.</div> :
+                                        {this.state.sellOrders && this.state.sellOrders.length === 0 ? <div className="alert">No assets.</div> :
                                             <div className="transaction-table">
                                                 <div className="transaction-table-body no-padding">
                                                     <table>
@@ -106,7 +133,7 @@ class OpenOrders extends React.Component {
                                         <p>Buy Orders</p>
                                     </div>
                                     <div className="approval-request white-space no-padding">
-                                        {this.state.buyOrders.length === 0 ? <div className="alert">No assets.</div> :
+                                        {this.state.buyOrders && this.state.buyOrders.length === 0 ? <div className="alert">No assets.</div> :
                                             <div className="transaction-table">
                                                 <div className="transaction-table-body no-padding">
                                                     <table className="no-padding">
@@ -155,6 +182,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getBuyOrders: account => dispatch(getBuyOrdersAction(account)),
     getSellOrders: account => dispatch(getSellOrdersAction(account)),
+    getSpecificAccountAssetsAction: requestParams => dispatch(getSpecificAccountAssetsAction(requestParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OpenOrders);

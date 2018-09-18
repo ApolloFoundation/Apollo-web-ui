@@ -30,8 +30,11 @@ class BuyCurrency extends React.Component {
 
         values = {
             ...values,
-            ...this.props.modalData
+            ...this.props.modalData,
+            rateATM: this.props.modalData.rateATM * 100000000
         };
+
+        console.log(this.props.modalData);
 
         const res = await this.props.submitForm(null, null, values, 'currencyBuy');
         if (res.errorCode) {
@@ -90,7 +93,7 @@ class BuyCurrency extends React.Component {
                                                 <label>Total</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <p>{this.props.modalData.quantityATU} Apollo</p>
+                                                <p>{this.props.modalData.rateATM} Apollo</p>
                                                 <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
                                             </div>
                                         </div>

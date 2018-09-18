@@ -7,7 +7,7 @@ import {getAccountLedgerAction}  from '../../actions/ledger/';
 import {getAliasesAction}        from '../../actions/currencies/';
 import {getAssetsAction, getSpecificAccountAssetsAction}         from '../../actions/assets';
 import {getTradesAction}         from '../../actions/trade-history';
-import {getAllCurrenciesAction}  from '../../actions/currencies';
+import {getAccountCurrenciesAction}  from '../../actions/currencies';
 import {getDGSGoodsAction, getDGSPurchasesAction}       from '../../actions/marketplace';
 
 import {writeToLocalStorage} from "../localStorage";
@@ -20,7 +20,7 @@ export function getAccountAction(reqParams) {
             'ACCOUNT_LEDGER': dispatch(getAccountLedgerAction(reqParams)),
             'ASSETS':         dispatch(getSpecificAccountAssetsAction(reqParams)),
             'TRADES':         dispatch(getTradesAction(reqParams)),
-            'CURRENCIES':     dispatch(getAllCurrenciesAction(reqParams)),
+            'CURRENCIES':     dispatch(getAccountCurrenciesAction(reqParams)),
             'GOODS':          dispatch(getDGSGoodsAction({seller: reqParams.account})),
             'ALIASES':        dispatch(getAliasesAction(reqParams)),
             'ACCOUNT':        dispatch(getAccountInfoAction(reqParams)),
