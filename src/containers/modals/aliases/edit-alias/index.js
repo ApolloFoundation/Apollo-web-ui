@@ -4,13 +4,19 @@ import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals
 import classNames from 'classnames';
 
 import { Form, Text } from 'react-form';
-import InfoBox from '../../../components/info-box';
+import InputForm from '../../../components/input-form';
 import CustomSelect from '../../../components/select';
 import {getAliasAction} from '../../../../actions/aliases/';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
 import AccountRS from '../../../components/account-rs';
+
+const typeData = [
+    { value: 'uri',     label: 'URI' },
+    { value: 'account', label: 'Account' },
+    { value: 'general', label: 'Other' },
+];
 
 class EditAlias extends React.Component {
     constructor(props) {
@@ -114,104 +120,107 @@ class EditAlias extends React.Component {
                                     <div className="form-title">
                                         <p>Edit Alias</p>
                                     </div>
-                                    <div className="input-group-app mb-15 display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Type</label>
-                                            </div>
-                                            <div className="col-md-9">
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Type
+                                        </label>
+                                        <div className="col-sm-9">
                                                 <CustomSelect
                                                     field={'type'}
                                                     setValue={setValue}
                                                     onChange={this.handleChange}
-                                                    options={[
-                                                        { value: 'uri',     label: 'URI' },
-                                                        { value: 'account', label: 'Account' },
-                                                        { value: 'general', label: 'Other' },
-                                                    ]}
+                                                    defaultValue={typeData[1]}
+                                                    options={typeData}
                                                 />
-                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Alias
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <span>{this.state.alias.aliasName}</span>
                                         </div>
                                     </div>
                                     <div className="input-group-app mb-15 display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Alias</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <p>{this.state.alias.aliasName}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app mb-15 display-block">
                                         {
-                                            this.state.inputType == 'uri' &&
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>URI</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text field="aliasURI" placeholder="http://"/>
-                                                </div>
-                                            </div>
-                                        }
-                                        {
-                                            this.state.inputType == 'account' &&
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Account</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <AccountRS
-                                                        field="aliasURI"
-                                                        setValue={setValue}
-                                                        placeholder="Account RS"
-                                                    />
-                                                </div>
-                                            </div>
-                                        }
-                                        {
-                                            this.state.inputType == 'general' &&
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Data</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text field="aliasURI" placeholder="Data"/>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                    <div className="input-group-app mb-15 display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label htmlFor="feeATM" className="col-form-label">
-                                                    Fee&nbsp;
-                                                    <span
-                                                        onClick={async () => {
-                                                                setValue("feeATM", 1);
-                                                            }
-                                                        }
-                                                        style={{paddingRight: 0}}
-                                                        className="calculate-fee"
-                                                            >
-                                                        Calculate
-                                                    </span>
+                                            this.state.inputType === 'uri' &&
+                                            <div className="form-group row form-group-white mb-15">
+                                                <label className="col-sm-3 col-form-label">
+                                                    URI
                                                 </label>
+                                                <div className="col-sm-9">
+                                                    <InputForm
+                                                        field="aliasURI"
+                                                        placeholder="http://"
+                                                        setValue={setValue}/>
+                                                </div>
                                             </div>
-                                            <div className="col-md-9">
-                                                <Text field="feeATM" placeholder="Amount" type={'number'}/>
+
+                                        }
+                                        {
+                                            this.state.inputType === 'account' &&
+                                            <div className="form-group row form-group-white mb-15">
+                                                <div className="row form-group-white">
+                                                    <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                        Account
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                            <AccountRS
+                                                                field={'aliasURI'}
+                                                                noContactList={true}
+                                                                setValue={setValue}
+                                                                placeholder={'Account RS'}
+                                                            />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        {
+                                            this.state.inputType === 'general' &&
+                                            <div className="form-group row form-group-white mb-15">
+                                                <label className="col-sm-3 col-form-label">
+                                                    Data
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    <InputForm
+                                                        field="aliasURI"
+                                                        placeholder="Data"
+                                                        setValue={setValue}/>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Fee
+                                            <span
+                                                onClick={async () => {
+                                                    setValue("feeAPL", 1);
+                                                }}
+                                                style={{paddingRight: 0}}
+                                                className="calculate-fee"
+                                            >
+                                            Calculate
+                                        </span>
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                            <InputForm
+                                                field="feeAPL"
+                                                placeholder="Minimum fee"
+                                                type={"float"}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">Apollo</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Passphrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text field="secretPhrase" placeholder="secretPhrase"  type={'password'}/>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>
 

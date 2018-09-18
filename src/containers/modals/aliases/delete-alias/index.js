@@ -4,7 +4,7 @@ import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals
 import classNames from 'classnames';
 
 import { Form, Text } from 'react-form';
-import InfoBox from '../../../components/info-box';
+import InputForm from '../../../components/input-form';
 import {NotificationManager} from "react-notifications";
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
@@ -110,48 +110,47 @@ class DeleteAlias extends React.Component {
                                     <div className="form-title">
                                         <p>Delete Alias</p>
                                     </div>
-                                    <div className="input-group-app mb-15 display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Alias</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <p>{this.state.alias.aliasName}</p>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Alias
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <span>{this.state.alias.aliasName}</span>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Fee
+                                            <span
+                                                onClick={async () => {
+                                                    setValue("feeAPL", 1);
+                                                }}
+                                                style={{paddingRight: 0}}
+                                                className="calculate-fee"
+                                            >
+                                            Calculate
+                                        </span>
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                            <InputForm
+                                                field="feeAPL"
+                                                placeholder="Minimum fee"
+                                                type={"float"}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">Apollo</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app mb-15 display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label htmlFor="feeATM" className="col-form-label">
-                                                    Fee&nbsp;
-                                                    <span
-                                                        onClick={async () => {
-                                                            setValue("feeATM", 1);
-                                                        }
-                                                        }
-                                                        style={{paddingRight: 0}}
-                                                        className="calculate-fee"
-                                                    >
-                                                        Calculate
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text field="feeATM" placeholder="Amount" type={'number'}/>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Passphrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text field="secretPhrase" placeholder="secretPhrase"  type={'password'}/>
-                                            </div>
-                                        </div>
-                                    </div>
+
 
                                     <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                         <a
