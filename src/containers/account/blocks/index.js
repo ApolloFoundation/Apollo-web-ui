@@ -182,7 +182,7 @@ class Blocks extends React.Component {
 										<td className="align-right"># TX</td>
 										<td>Generator</td>
 										<td className="align-right">Payload</td>
-										<td className="align-right">Base Target</td>
+										{/*<td className="align-right">Base Target</td>*/}
 									</tr>
 									</thead>
 									<tbody>

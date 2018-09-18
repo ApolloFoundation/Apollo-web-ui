@@ -18,16 +18,23 @@ export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {
 
         var locale = dispatch(getLocale());
         var date;
+        console.log(timestamp);
+
         if (typeof timestamp == "object") {
-
             date = timestamp;
+            console.log('++++++++++++++++++++++');
         } else if (isAbsoluteTime) {
-
             date = new Date(timestamp);
+            console.log('++++++++++++++++++++++');
+            console.log(date);
         } else {
-
             date = new Date(dispatch(fromEpochTime(timestamp)));
+            console.log('++++++++++++++++++++++');
+            console.log(date);
         }
+
+        console.log('++++++++++++++++++++++');
+        console.log(date);
 
         if (!isNaN(date) && typeof(date.getFullYear) == 'function') {
             var d = date.getDate();
@@ -44,6 +51,10 @@ export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {
                 .replace(/M/g, M)
                 .replace(/yyyy/g, yyyy)
                 .replace(/yy/g, yy);
+
+            console.log(res);
+            console.log('LLLLLLLLLLLLLLLLLLLLLLLL');
+            console.log(date_only);
 
             if (!date_only) {
                 var hours = date.getHours();
@@ -70,6 +81,9 @@ export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {
                     res += " " + (originalHours >= 12 ? "PM" : "AM");
                 }
             }
+
+            console.log('::::::::::::::::::::::');
+            console.log(res);
 
             return res;
         } else {

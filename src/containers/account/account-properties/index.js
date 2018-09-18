@@ -60,18 +60,21 @@ class AccountProperties extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="funding-monitors">
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
+                        {
+                            this.state.properties &&
+                            !!this.state.properties.length &&
+                            <div className="transaction-table">
+                                <div className="transaction-table-body">
+                                    <table>
+                                        <thead>
                                         <tr>
                                             <td>Setter</td>
                                             <td>Property</td>
                                             <td>Value</td>
                                             <td className="align-right">Actions</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                        </thead>
+                                        <tbody>
                                         {
                                             this.state.properties &&
                                             this.state.properties.length &&
@@ -97,19 +100,20 @@ class AccountProperties extends React.Component {
                                                 )
                                             })
                                         }
-                                        {
-                                            this.state.properties &&
-                                            !!(!this.state.properties.length) &&
-                                            <InfoBox default>
-                                                No properties found.
-                                            </InfoBox>
-                                        }
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
 
+                                </div>
                             </div>
-                        </div>
+                        }
+                        {
+                            this.state.properties &&
+                            !!(!this.state.properties.length) &&
+                            <InfoBox default>
+                                No properties found.
+                            </InfoBox>
+                        }
                     </div>
                 </div>
             </div>
