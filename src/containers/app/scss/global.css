@@ -1344,8 +1344,6 @@ input {
         width: 100%; }
   .card .form-group-app {
     padding: 30px 0 15px; }
-  .card .input-group-app input, .card .input-group-app input[type="number"] {
-    padding: 8px 20px; }
   .card .input-group-app.lighten {
     display: table-row; }
     .card .input-group-app.lighten label {
