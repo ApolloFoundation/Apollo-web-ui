@@ -5,6 +5,7 @@ import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
+import {formatTimestamp} from "../../../../helpers/util/time";
 
 class TradeHistoryItem extends React.Component {
     constructor(props) {
@@ -23,13 +24,13 @@ class TradeHistoryItem extends React.Component {
                         <Link to={'/asset-exchange/' + this.state.transfer.asset}>{this.state.transfer.name}</Link>
                     </td>
                     <td>
-                        {this.state.transfer.timestamp}
+                        {this.props.formatTimestamp(this.state.transfer.timestamp)}
                         <a><span className="info"/></a>
                     </td>
                     <td className="">{this.state.transfer.tradeType}</td>
-                    <td className="align-right">{this.state.transfer.quantityATU}</td>
-                    <td className="align-right">{this.state.transfer.quantityATU}</td>
-                    <td className="align-right" >{this.state.transfer.quantityATU}</td>
+                    <td className="align-right">{this.state.transfer.quantityATU/ Math.pow(10, this.state.transfer.decimals)}</td>
+                    <td className="align-right">{(this.state.transfer.priceATM / 100000000) * Math.pow(10, this.state.transfer.decimals)}</td>
+                    <td className="align-right" >{((this.state.transfer.quantityATU )/ this.state.transfer.decimals) * ((this.state.transfer.priceATM / 100000000) * this.state.transfer.decimals)}</td>
                     <td className="blue-link-text">
                         <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transfer.buyer)}>{this.state.transfer.buyerRS}</a>
                     </td>
@@ -47,7 +48,8 @@ class TradeHistoryItem extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
 export default connect(null, mapDispatchToProps)(TradeHistoryItem);
