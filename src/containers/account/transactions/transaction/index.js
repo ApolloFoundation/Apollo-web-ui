@@ -69,7 +69,11 @@ class Transaction extends React.Component {
                             {this.props.index}
                         </td>
                         <td  key={uuid()} className="blue-link-text">
-                            <a onClick={this.props.setTransactionInfo.bind(this, {transaction: this.state.transaction.transaction})}>{this.props.formatTimestamp(this.state.transaction.blockTimestamp)}</a>
+                            <a
+                                onClick={this.props.setTransactionInfo.bind(this, {transaction: this.state.transaction.transaction})}
+                            >
+                                {this.props.formatTimestamp(this.state.transaction.timestamp)}
+                            </a>
                         </td>
                         <td  key={uuid()}>
                             {formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}
@@ -114,7 +118,7 @@ class Transaction extends React.Component {
                     <tr key={uuid()}>
                         <td className="blue-link-text">
                             <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>
-                                {this.props.formatTimestamp(this.state.transaction.blockTimestamp)}
+                                {this.props.formatTimestamp(this.state.transaction.timestamp)}
                             </a>
                         </td>
                         <td>
