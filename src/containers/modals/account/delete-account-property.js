@@ -9,7 +9,7 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 
-class SetAccountProperty extends React.Component {
+class DeleteAccountProperty extends React.Component {
     constructor(props) {
         super(props);
 
@@ -29,18 +29,17 @@ class SetAccountProperty extends React.Component {
     async handleFormSubmit(values) {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        const res = await this.props.submitForm(null, null, values, 'setAccountProperty');
+        const res = await this.props.submitForm(null, null, values, 'deleteAccountProperty');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
 
-            NotificationManager.success('Account property has been saved!', null, 5000);
+            NotificationManager.success('Account property has been deleted!', null, 5000);
         }
     }
 
     render() {
-        const contactRS = this.props.modalData.setterRS || this.props.modalData.recipientRS || '';
         return (
             <div className="modal-box">
                 <Form
@@ -53,38 +52,34 @@ class SetAccountProperty extends React.Component {
                                 <div className="form-title">
                                     <p>Set Account Property</p>
                                 </div>
-                                {contactRS !== '' ?
-                                    <div className="form-group row form-group-white mb-15">
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Setter
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <AccountRS
+                                            field={'setter'}
+                                            disabled={true}
+                                            noContactList={true}
+                                            defaultValue={(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
+                                            setValue={setValue}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Recipient
                                         </label>
                                         <div className="col-sm-9">
-                                            <AccountRS
-                                                field={'recipient'}
-                                                disabled={true}
-                                                noContactList={true}
-                                                defaultValue={contactRS}
-                                                setValue={setValue}
-                                            />
+                                                <AccountRS
+                                                    field={'recipient'}
+                                                    disabled={true}
+                                                    noContactList={true}
+                                                    defaultValue={(this.props.modalData && this.props.modalData.recipientRS) ? this.props.modalData.recipientRS : ''}
+                                                    setValue={setValue}
+                                                />
                                         </div>
-                                    </div>
-                                    :
-                                    <div className="input-group-app form-group mb-15 display-block inline user">
-                                        <div className="row form-group-white">
-                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
-                                            </label>
-                                            <div className="col-sm-9">
-                                                <div className="iconned-input-field">
-                                                    <AccountRS
-                                                        field={'recipient'}
-                                                        setValue={setValue}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
+                                </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Property
@@ -93,20 +88,8 @@ class SetAccountProperty extends React.Component {
                                         <InputForm
                                             field="property"
                                             defaultValue={(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
-                                            disabled={(this.props.modalData && this.props.modalData.property)}
+                                            disabled={true}
                                             placeholder="Property"
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Value
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <InputForm
-                                            field="value"
-                                            defaultValue={(this.props.modalData && this.props.modalData.value) ? this.props.modalData.value : ''}
-                                            placeholder="Value"
                                             setValue={setValue}/>
                                     </div>
                                 </div>
@@ -126,7 +109,6 @@ class SetAccountProperty extends React.Component {
                                     <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
                                         <InputForm
                                             field="feeAPL"
-                                            defaultValue={1}
                                             placeholder="Minimum fee"
                                             type={"float"}
                                             setValue={setValue}/>
@@ -150,7 +132,7 @@ class SetAccountProperty extends React.Component {
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
-                                        Set Property
+                                        Delete Property
                                     </button>
                                     <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                 </div>
@@ -175,4 +157,4 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetAccountProperty);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteAccountProperty);
