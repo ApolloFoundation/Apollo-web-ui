@@ -360,7 +360,7 @@
 			}
 			.settings-bar {
 				position: absolute;
-				top: calc(100% + 30px);
+				top: calc(100% + 26px);
 				right: 0;
 				display: flex;
 				justify-content: space-around;
@@ -377,7 +377,9 @@
 				z-index: 4;
 				overflow: auto;
 				max-height: calc(100vh - 120px);
-				
+				@media (max-width: 1024px) {
+					top: calc(100% + 30px);
+				}
 				@media (max-width: 760px) {
 					top: 50px;
 				}

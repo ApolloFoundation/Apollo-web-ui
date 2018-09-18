@@ -1042,6 +1042,14 @@ input {
 				}
 			}
 		}
+		.calculate-fee {
+			color: #00C8FF;
+			font-family: "Roboto-Regular";
+			font-size: 10px;
+			line-height: 14px;
+			padding-left: 5px;
+			cursor: pointer;
+		}
 	}
 	.form-group-white {
 		margin-bottom: 8px;
@@ -1449,7 +1457,7 @@ input {
 		}
 		&.account {
 			&:after {
-				top: calc(100% + 27px);
+				top: calc(100% + 23px);
 				left: auto;
 			}
 		}
@@ -2433,3 +2441,9 @@ table {
 .margin-top-13 {
 	margin-top: 13px !important;
 }
+
+//.add-alias {
+//	textarea {
+//		resize: vertical;
+//	}
+//}

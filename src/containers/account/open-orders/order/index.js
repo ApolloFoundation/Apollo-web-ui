@@ -46,7 +46,6 @@ class OrderItem extends React.Component {
                 >
                     {this.props.order.quantityATU / Math.pow(10, this.props.order.decimals)}
                 </td>
-                {/*<td>{NRS.formatOrderPricePerWholeATU(orderInfo.priceATM === undefined ? 0 :orderInfo.priceATM, orderInfo.decimals === undefined ? 0 : orderInfo.decimals)}</td>*/}
                 <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  100000000) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
 
                 <td>{(this.props.order.quantityATU * this.props.order.priceATM) /  100000000}</td>
@@ -55,8 +54,6 @@ class OrderItem extends React.Component {
                 >
                     Cancel
                 </td>
-
-                {/*<td className="align-right">{this.props.delete.quantityATU}</td>*/}
             </tr>
         );
     }

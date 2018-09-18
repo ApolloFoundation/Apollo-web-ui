@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
-import classNames from 'classnames';
 
 import { Form, Text } from 'react-form';
 import InputForm from '../../../components/input-form';
@@ -18,120 +17,120 @@ const typeData = [
     { value: 'general', label: 'Other' },
 ];
 
-class EditAlias extends React.Component {
-    constructor(props) {
-        super(props);
+class CancelSaleAlias extends React.Component {
+	constructor(props) {
+		super(props);
 
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-            inputType: 'uri',
+		this.state = {
+			activeTab: 0,
+			advancedState: false,
+			inputType: 'uri',
 
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
-        };
+			// submitting
+			passphraseStatus: false,
+			recipientStatus: false,
+			amountStatus: false,
+			feeStatus: false
+		};
 
-        this.handleTabChange = this.handleTabChange.bind(this);
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
-    }
+		this.handleTabChange = this.handleTabChange.bind(this);
+		this.handleAdvancedState = this.handleAdvancedState.bind(this);
+	}
 
-    componentDidMount = () => {
-        this.getAlias();
-    };
+	componentDidMount = () => {
+		this.getAlias();
+	};
 
-    async handleFormSubmit(values) {
+	async handleFormSubmit(values) {
 
-        values = {
-            ...values,
-            aliasName: this.state.alias.aliasName
-        };
+		values = {
+			...values,
+			aliasName: this.state.alias.aliasName
+		};
 
-        const res = await this.props.submitForm(null, null, values, 'setAlias')
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
+		const res = await this.props.submitForm(null, null, values, 'setAlias')
+		if (res.errorCode) {
+			NotificationManager.error(res.errorDescription, 'Error', 5000)
+		} else {
+			this.props.setBodyModalParamsAction(null, {});
 
-            NotificationManager.success('Product has been listed!', null, 5000);
-        }
+			NotificationManager.success('Product has been listed!', null, 5000);
+		}
 
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
-    }
+		// this.props.sendTransaction(values);
+		// this.props.setBodyModalParamsAction(null, {});
+		// this.props.setAlert('success', 'Transaction has been submitted!');
+	}
 
-    getAlias = async () => {
-        const alias = await this.props.getAliasAction({alias: this.props.modalData});
+	getAlias = async () => {
+		const alias = await this.props.getAliasAction({alias: this.props.modalData});
 
-        if (alias) {
-            this.setState({
-                alias
-            });
-        }
-    };
+		if (alias) {
+			this.setState({
+				alias
+			});
+		}
+	};
 
-    handleTabChange(tab) {
-        this.setState({
-            ...this.props,
-            activeTab: tab
-        })
-    }
+	handleTabChange(tab) {
+		this.setState({
+			...this.props,
+			activeTab: tab
+		})
+	}
 
-    handleAdvancedState() {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    }
+	handleAdvancedState() {
+		if (this.state.advancedState) {
+			this.setState({
+				...this.props,
+				advancedState: false
+			})
+		} else {
+			this.setState({
+				...this.props,
+				advancedState: true
+			})
+		}
+	}
 
-    handleChange = (value) => {
-        this.setState({
-            inputType: value
-        })
-    };
+	handleChange = (value) => {
+		this.setState({
+			inputType: value
+		})
+	};
 
 
-    render() {
-        return (
-            <div className="modal-box">
-                <Form
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm, setValue, values, getFormState
-                             }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            {
-                                this.state.alias &&
-                                <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+	render() {
+		return (
+			<div className="modal-box">
+				<Form
+					onSubmit={(values) => this.handleFormSubmit(values)}
+					render={({
+						         submitForm, setValue, values, getFormState
+					         }) => (
+						<form className="modal-form" onSubmit={submitForm}>
+							{
+								this.state.alias &&
+								<div className="form-group-app">
+									<a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
-                                    <div className="form-title">
-                                        <p>Edit Alias</p>
-                                    </div>
+									<div className="form-title">
+										<p>Cancel Sale Alias</p>
+									</div>
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Type
                                         </label>
                                         <div className="col-sm-9">
-                                                <CustomSelect
-                                                    field={'type'}
-                                                    setValue={setValue}
-                                                    onChange={this.handleChange}
-                                                    defaultValue={typeData[1]}
-                                                    options={typeData}
-                                                />
+                                            <CustomSelect
+                                                field={'type'}
+                                                setValue={setValue}
+                                                onChange={this.handleChange}
+                                                defaultValue={typeData[1]}
+                                                options={typeData}
+                                            />
                                         </div>
                                     </div>
                                     <div className="form-group row form-group-white mb-15">
@@ -142,7 +141,7 @@ class EditAlias extends React.Component {
                                             <span>{this.state.alias.aliasName}</span>
                                         </div>
                                     </div>
-                                    <div className="input-group-app mb-15 display-block">
+									<div className="input-group-app mb-15 display-block">
                                         {
                                             this.state.inputType === 'uri' &&
                                             <div className="form-group row form-group-white mb-15">
@@ -166,12 +165,12 @@ class EditAlias extends React.Component {
                                                         Account
                                                     </label>
                                                     <div className="col-sm-9">
-                                                            <AccountRS
-                                                                field={'aliasURI'}
-                                                                noContactList={true}
-                                                                setValue={setValue}
-                                                                placeholder={'Account RS'}
-                                                            />
+                                                        <AccountRS
+                                                            field={'aliasURI'}
+                                                            noContactList={true}
+                                                            setValue={setValue}
+                                                            placeholder={'Account RS'}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,7 +189,7 @@ class EditAlias extends React.Component {
                                                 </div>
                                             </div>
                                         }
-                                    </div>
+									</div>
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Fee
@@ -224,57 +223,58 @@ class EditAlias extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                        <a
-                                            onClick={() => this.props.closeModal()}
-                                            className="btn round round-top-left"
-                                        >
-                                            Cancel
-                                        </a>
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Edit alias
-                                        </button>
-                                    </div>
-                                    <div className="btn-box align-buttons-inside absolute left-conner">
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-right round round-bottom-left round-top-right absolute"
-                                            style={{left : 0, right: 'auto'}}
-                                        >
-                                            {this.state.advancedState ? "Basic" : "Advanced"}
-                                        </a>
-                                    </div>
-                                    <AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        advancedState={this.state.advancedState}
-                                    />
-                                </div>
-                            }
-                        </form>
-                    )}
-                >
+									<div className="btn-box align-buttons-inside absolute right-conner align-right">
+										<a
+											onClick={() => this.props.closeModal()}
+											className="btn round round-top-left"
+										>
+											Cancel
+										</a>
+										<button
+											type="submit"
+											name={'closeModal'}
+											className="btn btn-right blue round round-bottom-right"
+										>
+											Cancel sale alias
+										</button>
 
-                </Form>
-            </div>
-        );
-    }
+									</div>
+									<div className="btn-box align-buttons-inside absolute left-conner">
+										<a
+											onClick={this.handleAdvancedState}
+											className="btn btn-right round round-bottom-left round-top-right absolute"
+											style={{left : 0, right: 'auto'}}
+										>
+											{this.state.advancedState ? "Basic" : "Advanced"}
+										</a>
+									</div>
+									<AdvancedSettings
+										setValue={setValue}
+										getFormState={getFormState}
+										values={values}
+										advancedState={this.state.advancedState}
+									/>
+								</div>
+							}
+						</form>
+					)}
+				>
+
+				</Form>
+			</div>
+		);
+	}
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+	modalData: state.modals.modalData
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
-    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	setModalData: (data) => dispatch(setModalData(data)),
+	submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+	getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
+	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditAlias);
+export default connect(mapStateToProps, mapDispatchToProps)(CancelSaleAlias);

@@ -3452,6 +3452,13 @@ input {
       color: #a6a6a6;
       border: 1px solid #e5e5e5;
       border-left: none; }
+    .form-group-app .form-group-grey .calculate-fee {
+      color: #00C8FF;
+      font-family: "Roboto-Regular";
+      font-size: 10px;
+      line-height: 14px;
+      padding-left: 5px;
+      cursor: pointer; }
   .form-group-app .form-group-white {
     margin-bottom: 8px;
     align-items: center;
@@ -3734,7 +3741,7 @@ input {
       .btn.underscore.settings:after {
         display: none !important; } }
   .btn.underscore.account:after {
-    top: calc(100% + 27px);
+    top: calc(100% + 23px);
     left: auto; }
   .btn.underscore.active.account:after {
     width: 25px !important; }

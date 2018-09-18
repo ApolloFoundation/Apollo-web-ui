@@ -1,21 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
-import classNames from 'classnames';
-
-import { Form, Text } from 'react-form';
-import InputForm from '../../../components/input-form';
+import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import AdvancedSettings from '../../components/advanced-transaction-settings';
+import InputForm from '../../components/input-form';
+import {Form, Text, Number} from 'react-form';
+import submitForm from "../../../helpers/forms/forms";
+import {getBlockAction} from "../../../actions/blocks";
+import {getCurrencyAction} from "../../../actions/currencies";
+import {getAssetAction} from "../../../actions/assets";
 import {NotificationManager} from "react-notifications";
-import {getAliasAction} from "../../../../actions/aliases";
-import submitForm from "../../../../helpers/forms/forms";
-import AdvancedSettings from '../../../components/advanced-transaction-settings'
+import {calculateFeeAction} from "../../../actions/forms";
+import crypto from "../../../helpers/crypto/crypto";
+import {formatTimestamp} from "../../../helpers/util/time";
 
-class DeleteAlias extends React.Component {
+class ApproveTransaction extends React.Component {
     constructor(props) {
         super(props);
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
         this.state = {
             activeTab: 0,
             advancedState: false,
@@ -24,56 +24,32 @@ class DeleteAlias extends React.Component {
             passphraseStatus: false,
             recipientStatus: false,
             amountStatus: false,
-            feeStatus: false
-        };
+            feeStatus: false,
 
-        this.handleTabChange = this.handleTabChange.bind(this);
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
+            answers: [''],
+            currency: '-',
+            asset: 'Not Existing',
+        }
     }
 
-    componentDidMount = () => {
-        this.getAlias();
-    };
-
-    async handleFormSubmit(values) {
-
-        values = {
+    handleFormSubmit = async (values) => {
+        const {transaction} = this.props.modalData;
+        values.publicKey = await crypto.getPublicKey(values.secretPhrase);
+        const res = await this.props.submitForm(null, null, {
             ...values,
-            priceATM: 0,
-            aliasName: this.state.alias.aliasName
-        };
-
-        const res = await this.props.submitForm(null, null, values, 'deleteAlias');
+            transactionFullHash: transaction.fullHash,
+            phased: false,
+            deadline: 1440,
+        }, "approveTransaction");
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
-            NotificationManager.success('Product has been listed!', null, 5000);
-        }
-
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
-    }
-
-    getAlias = async () => {
-        const alias = await this.props.getAliasAction({alias: this.props.modalData});
-
-        if (alias) {
-            this.setState({
-                alias
-            });
+            NotificationManager.success('Transaction has been approved!', null, 5000);
         }
     };
 
-    handleTabChange(tab) {
-        this.setState({
-            ...this.props,
-            activeTab: tab
-        })
-    }
-
-    handleAdvancedState() {
+    handleAdvancedState = () => {
         if (this.state.advancedState) {
             this.setState({
                 ...this.props,
@@ -85,12 +61,6 @@ class DeleteAlias extends React.Component {
                 advancedState: true
             })
         }
-    }
-
-    handleChange = (value) => {
-        this.setState({
-            inputType: value
-        })
     };
 
     render() {
@@ -98,40 +68,24 @@ class DeleteAlias extends React.Component {
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm, setValue, values, getFormState
-                             }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            {
-                                this.state.alias &&
+                    render={
+                        ({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
+                            <form
+                                className="modal-form"
+                                onSubmit={submitForm}
+                            >
                                 <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
-
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i
+                                        className="zmdi zmdi-close"/></a>
                                     <div className="form-title">
-                                        <p>Delete Alias</p>
+                                        <p>Approve Transaction</p>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Alias
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <span>{this.state.alias.aliasName}</span>
-                                        </div>
-                                    </div>
+                                    <p>Transaction ID {this.props.modalData.transaction.transaction} ({this.props.formatTimestamp(this.props.modalData.transaction.timestamp)})</p>
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Fee
-                                            <span
-                                                onClick={async () => {
-                                                    setValue("feeAPL", 1);
-                                                }}
-                                                style={{paddingRight: 0}}
-                                                className="calculate-fee"
-                                            >
-                                            Calculate
-                                        </span>
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
                                                 field="feeAPL"
                                                 placeholder="Minimum fee"
@@ -144,14 +98,13 @@ class DeleteAlias extends React.Component {
                                     </div>
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
-                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                            Passphrase <i className="zmdi zmdi-portable-wifi-changes"/>
                                         </label>
                                         <div className="col-sm-9">
-                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
+                                            <Text className="form-control" field="secretPhrase"
+                                                  placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>
-
-
                                     <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                         <a
                                             onClick={() => this.props.closeModal()}
@@ -164,14 +117,14 @@ class DeleteAlias extends React.Component {
                                             name={'closeModal'}
                                             className="btn btn-right blue round round-bottom-right"
                                         >
-                                            Delete alias
+                                            Approve
                                         </button>
                                     </div>
                                     <div className="btn-box align-buttons-inside absolute left-conner">
                                         <a
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-right round round-bottom-left round-top-right absolute"
-                                            style={{left : 0, right: 'auto'}}
+                                            style={{left: 0, right: 'auto'}}
                                         >
                                             {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
@@ -183,12 +136,9 @@ class DeleteAlias extends React.Component {
                                         advancedState={this.state.advancedState}
                                     />
                                 </div>
-                            }
-                        </form>
-                    )}
-                >
-
-                </Form>
+                            </form>
+                        )}
+                />
             </div>
         );
     }
@@ -199,10 +149,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    getBlockAction: (data) => dispatch(getBlockAction(data)),
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
-    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
+    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
+    getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
+    getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteAlias);
+export default connect(mapStateToProps, mapDispatchToProps)(ApproveTransaction);

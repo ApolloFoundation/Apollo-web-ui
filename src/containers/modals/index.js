@@ -59,6 +59,7 @@ import JoinShuffling from './coin-shuffling/join-shuffling';
 // Aliases
 import EditAlias     from './aliases/edit-alias';
 import SellAlias     from './aliases/sell-alias';
+import CancelSaleAlias     from './aliases/cancel-alias';
 import TransferAlias from './aliases/transfer-alias';
 import DeleteAlias   from './aliases/delete-alias';
 import AddAlias   from './aliases/add-alias';
@@ -82,6 +83,7 @@ import ConnectPeer from "./peer/connect-peer";
 import BlacklistPeer from "./peer/blacklist-peer";
 import AddMonitor from "./monitors/add-monitor";
 import OrderCancel from "./order-cancellation/order-cancel";
+import ApproveTransaction from "./approve-transaction";
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -170,6 +172,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'PrivateTransactions'         && <PrivateTransactions       closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SEND_APOLLO'                 && <SendApollo                closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         closeModal={this.closeModal}/>}
+                {this.props.modalType === 'APPROVE_TRANSACTION'         && <ApproveTransaction        closeModal={this.closeModal}/>}
 
 
                 {/* Assets */}
@@ -223,6 +226,7 @@ class ModalWindow extends React.Component {
                 {/*Aliases */}
                 {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CANCEL_SALE_ALIAS'           && <CancelSaleAlias           closeModal={this.closeModal}/>}
                 {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={this.closeModal}/>}
