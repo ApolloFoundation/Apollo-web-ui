@@ -33,8 +33,8 @@ class Block extends React.Component {
                 </td>
                 <td className="align-right"><a>{this.props.block.payloadLength} B</a>
                 </td>
-                <td className="align-right"><a>{Math.round(this.props.block.baseTarget / 153722867 * 100)} %</a>
-                </td>
+                {/*<td className="align-right"><a>{Math.round(this.props.block.baseTarget / 153722867 * 100)} %</a>*/}
+                {/*</td>*/}
             </tr>
         );
     }

@@ -60,10 +60,6 @@ class Blocks extends React.Component {
 		const nextBlock = await getNextBlockGeneratorsAction();
 
 		const currentTime = await this.props.getTime();
-
-		console.log(nextBlock.generators[0].hitTime - currentTime.time);
-
-
 	};
 
 	async getBlocks(requestParams) {
@@ -79,12 +75,7 @@ class Blocks extends React.Component {
 			totalFee += parseFloat(block.totalFeeATM);
 			totalAmount += parseFloat(block.totalAmountATM);
 			transactions += parseFloat(block.numberOfTransactions);
-
-			console.log(transactions);
 		});
-
-		console.log(transactions);
-
 
 		if (time === 0) {
 			transactions = 0
@@ -96,8 +87,6 @@ class Blocks extends React.Component {
 			avgFee = (totalFee / 100000000 / blocks.length).toFixed(2);
 			avgAmount = (totalAmount / 100000000 / blocks.length).toFixed(2);
 		}
-
-		console.log(transactions);
 
 		this.setState({
 			...this.props,
@@ -182,7 +171,7 @@ class Blocks extends React.Component {
 										<td className="align-right"># TX</td>
 										<td>Generator</td>
 										<td className="align-right">Payload</td>
-										<td className="align-right">Base Target</td>
+										{/*<td className="align-right">Base Target</td>*/}
 									</tr>
 									</thead>
 									<tbody>

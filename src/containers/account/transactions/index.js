@@ -487,7 +487,6 @@ class Transactions extends React.Component {
                                         {
                                             this.state.transactions &&
                                             this.state.transactions.map((el, index) => {
-
                                                 return (
                                                     <Transaction
                                                         key={uuid()}

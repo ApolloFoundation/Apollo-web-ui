@@ -22,17 +22,18 @@ html, body {
 //}
 
 ::placeholder {
-	color: #a6a6a6;
+	color: #a6a6a6 !important;
+	font-size: 0.875rem;
 	opacity: 1;
 	font-weight: 400;
 }
 
 :-ms-input-placeholder {
-	color: #a6a6a6;
+	color: #a6a6a6 !important;
 }
 
 ::-ms-input-placeholder {
-	color: #a6a6a6;
+	color: #a6a6a6 !important;
 }
 
 html {
@@ -1555,6 +1556,40 @@ input {
 		margin-top: 15px;
 		position: static;
 		
+		&.bigger {
+			padding: 11px 10px 9px 10px;
+		}
+	}
+	&.outline-primary {
+		padding: 5px 7px;
+		background: transparent;
+		border: 1px solid #666666;
+		color: #666666;
+		border-radius: 6px;
+		font-size: 12px;
+		min-height: 25px;
+		font-weight: 100;
+		letter-spacing: -0.1px;
+		margin-top: 15px;
+		position: static;
+
+		&.bigger {
+			padding: 11px 10px 9px 10px;
+		}
+	}
+	&.outline-transparent {
+		padding: 5px 7px;
+		background: transparent;
+		border: 1px solid transparent;
+		color: #666666;
+		border-radius: 6px;
+		font-size: 12px;
+		min-height: 25px;
+		font-weight: 100;
+		letter-spacing: -0.1px;
+		margin-top: 15px;
+		position: static;
+
 		&.bigger {
 			padding: 11px 10px 9px 10px;
 		}

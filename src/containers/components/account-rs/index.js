@@ -45,7 +45,6 @@ class AccountRS extends React.Component {
         let value;
 
         const setInputValue = (value) => {
-            console.log(value);
             const newState = {
                 mask: 'APL-****-****-****-*****',
                 value: value.toUpperCase()
@@ -73,6 +72,7 @@ class AccountRS extends React.Component {
             <React.Fragment>
                 {this.state.inputValue &&
                     <InputMask className="form-control"
+                               disabled={this.props.disabled}
                                mask={this.state.inputValue.mask}
                                placeholder={'Recipient account'}
                                ref={'input'}

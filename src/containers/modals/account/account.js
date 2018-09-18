@@ -51,9 +51,9 @@ class InfoAccount extends React.Component {
         })
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(newState) {
         this.getAcccount({
-            account:    this.props.modalData,
+            account:    newState.modalData,
             firstIndex: 0,
             lastIndex:  99
         })

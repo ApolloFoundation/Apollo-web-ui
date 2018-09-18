@@ -127,12 +127,14 @@ class ActiveShufflings extends React.Component {
                                     <table>
                                         <thead>
                                         <tr>
-                                            <td>Code</td>
-                                            <td>Name</td>
-                                            <td>Type</td>
-                                            <td className="align-right">Current Supply</td>
-                                            <td className="align-right">Max Supply</td>
-                                            <td className="align-right">Actions</td>
+                                            <td>Shuffling</td>
+                                            <td>Stage</td>
+                                            <td>Holding</td>
+                                            <td>Amount</td>
+                                            <td>Blocks Remaining</td>
+                                            <td className="align-right">Participants</td>
+                                            <td className="align-right">Assignee</td>
+                                            <td className="align-right">Status</td>
                                         </tr>
                                         </thead>
                                         <tbody key={uuid()}>
@@ -163,12 +165,12 @@ class ActiveShufflings extends React.Component {
                                     <table>
                                         <thead>
                                         <tr>
-                                            <td>Title</td>
-                                            <td>Description</td>
-                                            <td>Sender</td>
-                                            <td>Start date</td>
-                                            <td>Blocks left</td>
-                                            <td className="align-right">Actions</td>
+                                            <td>Shuffling</td>
+                                            <td>Stage</td>
+                                            <td>Holding</td>
+                                            <td>Amount</td>
+                                            <td className="align-right">Participants</td>
+                                            <td className="align-right">Issuer</td>
                                         </tr>
                                         </thead>
                                         <tbody>

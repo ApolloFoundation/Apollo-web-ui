@@ -34,8 +34,6 @@ class BuyCurrency extends React.Component {
             rateATM: this.props.modalData.rateATM * 100000000
         };
 
-        console.log(this.props.modalData);
-
         const res = await this.props.submitForm(null, null, values, 'currencyBuy');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
@@ -141,7 +139,7 @@ class BuyCurrency extends React.Component {
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-left round round-bottom-left round-top-right"
                                         >
-                                            Advanced
+                                            {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
                                     </div>
                                 </div>

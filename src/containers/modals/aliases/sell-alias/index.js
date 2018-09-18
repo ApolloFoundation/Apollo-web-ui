@@ -203,12 +203,12 @@ class SellAlias extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
-	                                            <a
-		                                            onClick={() => this.props.closeModal()}
-		                                            className="btn round round-top-left"
-	                                            >
-		                                            Cancel
-	                                            </a>
+                                                <a
+                                                    onClick={() => this.props.closeModal()}
+                                                    className="btn round round-top-left"
+                                                >
+                                                    Cancel
+                                                </a>
                                                 <button
                                                     type="submit"
                                                     name={'closeModal'}
@@ -216,7 +216,6 @@ class SellAlias extends React.Component {
                                                 >
                                                     Sell alias
                                                 </button>
-
                                             </div>
                                             <div className="btn-box align-buttons-inside absolute left-conner">
                                                 <a
@@ -224,7 +223,7 @@ class SellAlias extends React.Component {
                                                     className="btn btn-right round round-bottom-left round-top-right absolute"
                                                     style={{left : 0, right: 'auto'}}
                                                 >
-	                                                {this.state.advancedState ? "Basic" : "Advanced"}
+                                                    {this.state.advancedState ? "Basic" : "Advanced"}
                                                 </a>
                                             </div>
                                             <AdvancedSettings
@@ -300,12 +299,12 @@ class SellAlias extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
-	                                            <a
-		                                            onClick={() => this.props.closeModal()}
-		                                            className="btn round round-top-left"
-	                                            >
-		                                            Cancel
-	                                            </a>
+                                                <a
+                                                    onClick={() => this.props.closeModal()}
+                                                    className="btn round round-top-left"
+                                                >
+                                                    Cancel
+                                                </a>
                                                 <button
                                                     type="submit"
                                                     name={'closeModal'}
@@ -313,7 +312,6 @@ class SellAlias extends React.Component {
                                                 >
                                                     Sell alias
                                                 </button>
-
                                             </div>
                                             <div className="btn-box align-buttononClick={this.handleAdvancedState}s-inside absolute left-conner">
                                                 <a
@@ -321,7 +319,7 @@ class SellAlias extends React.Component {
                                                     className="btn btn-right round round-bottom-left round-top-right absolute"
                                                     style={{left : 0, right: 'auto'}}
                                                 >
-	                                                {this.state.advancedState ? "Basic" : "Advanced"}
+                                                    {this.state.advancedState ? "Basic" : "Advanced"}
                                                 </a>
                                             </div>
                                             <AdvancedSettings

@@ -42,8 +42,6 @@ class MarketplaceDeliver extends React.Component {
     }
 
     handleImageLoadint = async (value) => {
-        console.log(value);
-
         const productData = await this.props.getDGSGoodAction({
             purchase: value
         });
@@ -244,7 +242,7 @@ class MarketplaceDeliver extends React.Component {
                                                             className="btn btn-right round round-top-right absolute"
                                                             style={{left : 'calc(50% - 35px)', right: 'auto'}}
                                                         >
-                                                            Advanced
+                                                            {this.state.advancedState ? "Basic" : "Advanced"}
                                                         </a>
                                                     }
                                                 </div>

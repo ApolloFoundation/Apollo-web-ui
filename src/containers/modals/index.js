@@ -28,6 +28,8 @@ import AccountInfo from './account/account-info';
 import SaveAccount from './account/save-account';
 import EnterAdminPassword from './admin-password';
 import EnterSecretPhrase from './account/get-seecret-phrase';
+import SetAccountProperty from './account/set-account-property';
+import DeleteAccountProperty from './account/delete-account-property';
 
 // Assets
 import TransferAsset from './assets/transfer-asset';
@@ -211,6 +213,8 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ADMIN_PASSWORD'              && <EnterAdminPassword        closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ENTER_SECRET_PHRASE'         && <EnterSecretPhrase         closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DELETE_ACCOUNT_PROPERTY'     && <DeleteAccountProperty     closeModal={this.closeModal}/>}
 
                 {/* Shuffling */}
                 {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.closeModal}/>}

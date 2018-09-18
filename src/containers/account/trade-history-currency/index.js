@@ -66,8 +66,6 @@ class TradeHistoryCurrency extends React.Component {
     getExchanges = async currency => {
         const exchanges = (await this.props.getExchanges(currency));
 
-        console.log(exchanges);
-
         if (exchanges) {
             this.setState({
                 executedExchanges: exchanges.exchanges

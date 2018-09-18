@@ -19,13 +19,10 @@ export function formatTimestamp(timestamp, date_only, isAbsoluteTime) {
         var locale = dispatch(getLocale());
         var date;
         if (typeof timestamp == "object") {
-
             date = timestamp;
         } else if (isAbsoluteTime) {
-
             date = new Date(timestamp);
         } else {
-
             date = new Date(dispatch(fromEpochTime(timestamp)));
         }
 
