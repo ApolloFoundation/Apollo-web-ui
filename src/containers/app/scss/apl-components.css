@@ -75,9 +75,11 @@
             padding-right: 0; }
     .transaction-table .transaction-table-body .pagination-nav {
       position: absolute;
-      bottom: 13px;
+      bottom: 9px;
       left: 50%;
       transform: translateX(-50%); }
+      .transaction-table .transaction-table-body .pagination-nav span {
+        padding: 0 5px; }
 
 .page-body .transaction-table .transaction-table-body {
   padding: 35px 0; }
