@@ -2189,6 +2189,7 @@ table {
 		padding: 0 !important;
 		table {
 			min-width: 500px !important;
+			padding: 0 !important;
 		}
 	}
 	.info-box.simple {
@@ -2198,6 +2199,17 @@ table {
 		}
 	}
 	.full-box-item {
+		display: block !important;
+		.box {
+			margin-bottom: 5px;
+			max-width: 100%;
+		}
+		.card-title.description {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			padding-left: 10px;
+		}
 		.asset-id {
 			white-space: nowrap;
 			overflow: hidden;
@@ -2288,6 +2300,8 @@ table {
 			padding: 20px 20px !important;
 		}
 	}
+	
+	
 }
 
 .exchange-booth {
@@ -2373,4 +2387,8 @@ table {
 
 .no-followed-polls {
 	padding: 30px;
+}
+
+.margin-top-13 {
+	margin-top: 13px !important;
 }
