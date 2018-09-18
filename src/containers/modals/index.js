@@ -82,6 +82,7 @@ import ConnectPeer from "./peer/connect-peer";
 import BlacklistPeer from "./peer/blacklist-peer";
 import AddMonitor from "./monitors/add-monitor";
 import OrderCancel from "./order-cancellation/order-cancel";
+import ApproveTransaction from "./approve-transaction";
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -170,6 +171,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'PrivateTransactions'         && <PrivateTransactions       closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SEND_APOLLO'                 && <SendApollo                closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         closeModal={this.closeModal}/>}
+                {this.props.modalType === 'APPROVE_TRANSACTION'         && <ApproveTransaction        closeModal={this.closeModal}/>}
 
 
                 {/* Assets */}
