@@ -20,6 +20,8 @@ class InputForm extends React.Component {
         if (this.props.type === "number") {
             value = value.replace(/[^\d]/g,"");
         } else if (this.props.type === "float") {
+            value = value.replace(",", ".");
+            if (value === '.') value = '0.';
             value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
         } else {
             value = value.replace(/[.,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
