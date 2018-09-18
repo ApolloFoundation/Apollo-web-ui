@@ -7,13 +7,11 @@ import {calculateFeeAction} from "../../../actions/forms";
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
 import crypto from  '../../../helpers/crypto/crypto';
-import InputMask from 'react-input-mask';
 import AccountRS from '../../components/account-rs';
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
-import {getCurrencyAction} from "../../../actions/currencies";
 
 class SendApollo extends React.Component {
     constructor(props) {

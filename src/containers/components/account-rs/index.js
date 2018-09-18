@@ -45,7 +45,6 @@ class AccountRS extends React.Component {
         let value;
 
         const setInputValue = (value) => {
-            console.log(value);
             const newState = {
                 mask: 'APL-****-****-****-*****',
                 value: value.toUpperCase()
