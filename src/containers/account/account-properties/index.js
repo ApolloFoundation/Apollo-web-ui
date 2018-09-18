@@ -88,8 +88,9 @@ class AccountProperties extends React.Component {
                                                         <td>{el.property}</td>
                                                         <td>{el.value}</td>
                                                         <td className="align-right">
-                                                            <div className="btn-box inline"><a className="btn primary blue">Update</a><a
-                                                                className="btn primary">Delete</a>
+                                                            <div className="btn-box inline">
+                                                                <a onClick={() => this.props.setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', el)} className="btn primary blue">Update</a>
+                                                                <a className="btn primary">Delete</a>
                                                             </div>
                                                         </td>
                                                     </tr>

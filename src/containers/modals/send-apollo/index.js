@@ -95,7 +95,7 @@ class SendApollo extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Amount
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                         <InputForm
                                             defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
                                             field="amountAPL"
@@ -196,7 +196,7 @@ class SendApollo extends React.Component {
                                             Calculate
                                         </span>
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                         <InputForm
                                             defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
                                             field="feeAPL"
@@ -212,7 +212,7 @@ class SendApollo extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                    <div className="col-sm-9">
                                         <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
@@ -220,7 +220,7 @@ class SendApollo extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Deadline (hours)
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
+                                    <div className="col-sm-9">
                                         <InputForm
                                             field="deadline"
                                             placeholder="Deadline"
