@@ -1,15 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setAlert, setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
-import classNames from 'classnames';
 
 import { Form, Text, TextArea, Checkbox} from 'react-form';
-import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
-import AdvancedSettings from '../../../components/advanced-transaction-settings'
-
+import AdvancedSettings from '../../../components/advanced-transaction-settings';
+import AccountRS from '../../../components/account-rs';
+import InputForm from '../../../components/input-form';
 
 class TransferAlias extends React.Component {
     constructor(props) {
@@ -112,23 +111,27 @@ class TransferAlias extends React.Component {
                                     <div className="form-title">
                                         <p>Transfer Alias</p>
                                     </div>
-                                    <div className="input-group-app form-group mb-15">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Alias</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <p>{this.state.alias.aliasName}</p>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Alias
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <span>{this.state.alias.aliasName}</span>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block mb-15">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Recipient</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text field="recipient" placeholder="Recipient Account" />
+                                    <div className="input-group-app form-group mb-15 display-block inline user">
+                                        <div className="row form-group-white">
+                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <div className="iconned-input-field">
+                                                    <AccountRS
+                                                        field={'recipient'}
+                                                        setValue={setValue}
+                                                        placeholder={'Recipient Account'}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -195,36 +198,38 @@ class TransferAlias extends React.Component {
 			                                </div>
 		                                </div>
 	                                }
-                                    <div className="input-group-app display-block mb-15">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label htmlFor="feeATM" className="col-form-label">
-                                                    Fee&nbsp;
-                                                    <span
-                                                        onClick={async () => {
-                                                            setValue("feeATM", 1);
-                                                        }
-                                                        }
-                                                        style={{paddingRight: 0}}
-                                                        className="calculate-fee"
-                                                    >
-                                                        Calculate
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text field="feeATM" placeholder="Amount" type={'number'}/>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Fee
+                                            <span
+                                                onClick={async () => {
+                                                    setValue("feeAPL", 1);
+                                                }
+                                                }
+                                                style={{paddingRight: 0}}
+                                                className="calculate-fee"
+                                            >
+                                            Calculate
+                                        </span>
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                            <InputForm
+                                                defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                                field="feeAPL"
+                                                placeholder="Amount"
+                                                type={"float"}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">Apollo</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Passphrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text field="secretPhrase" placeholder="secretPhrase"  type={'password'}/>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>
 
