@@ -203,14 +203,19 @@ class SellAlias extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                                <a
+                                                    onClick={() => this.props.closeModal()}
+                                                    className="btn round round-top-left"
+                                                >
+                                                    Cancel
+                                                </a>
                                                 <button
                                                     type="submit"
                                                     name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right round-top-left"
+                                                    className="btn btn-right blue round round-bottom-right"
                                                 >
                                                     Sell alias
                                                 </button>
-
                                             </div>
                                             <div className="btn-box align-buttons-inside absolute left-conner">
                                                 <a
@@ -294,14 +299,19 @@ class SellAlias extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                                <a
+                                                    onClick={() => this.props.closeModal()}
+                                                    className="btn round round-top-left"
+                                                >
+                                                    Cancel
+                                                </a>
                                                 <button
                                                     type="submit"
                                                     name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right round-top-left"
+                                                    className="btn btn-right blue round round-bottom-right"
                                                 >
                                                     Sell alias
                                                 </button>
-
                                             </div>
                                             <div className="btn-box align-buttons-inside absolute left-conner">
                                                 <a
