@@ -253,7 +253,7 @@ class ComposeMessage extends React.Component {
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
                                         style={{left : 0, right: 'auto'}}
                                     >
-                                        Advanced
+                                        {this.state.advancedState ? "Basic" : "Advanced"}
                                     </a>
                                 </div>
                                 <AdvancedSettings

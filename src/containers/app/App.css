@@ -2744,15 +2744,16 @@ html, body {
   background-color: #F5F5F5; }
 
 ::placeholder {
-  color: #a6a6a6;
+  color: #a6a6a6 !important;
+  font-size: 0.875rem;
   opacity: 1;
   font-weight: 400; }
 
 :-ms-input-placeholder {
-  color: #a6a6a6; }
+  color: #a6a6a6 !important; }
 
 ::-ms-input-placeholder {
-  color: #a6a6a6; }
+  color: #a6a6a6 !important; }
 
 html {
   height: 100%; }
