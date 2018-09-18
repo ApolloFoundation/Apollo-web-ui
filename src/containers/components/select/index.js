@@ -6,6 +6,7 @@ import './Select.css'
 class CustomSelect extends React.Component {
     constructor(props) {
         super(props);
+        if (this.props.defaultValue) this.props.setValue(this.props.field, this.props.defaultValue.value);
     }
 
     customStyles = {
