@@ -140,7 +140,7 @@ class SellAlias extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 0
                                             })}>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app mb-15 display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Alias</label>
@@ -150,7 +150,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app mb-15 display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Recipient</label>
@@ -160,7 +160,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app mb-15 display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Price</label>
@@ -170,7 +170,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app mb-15 display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label htmlFor="feeATM" className="col-form-label">
@@ -192,7 +192,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Passphrase</label>
@@ -246,7 +246,7 @@ class SellAlias extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 1
                                             })}>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app mb-15 display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Alias</label>
@@ -256,7 +256,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app mb-15 display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Price</label>
@@ -266,7 +266,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app mb-15 display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label htmlFor="feeATM" className="col-form-label">
@@ -288,7 +288,7 @@ class SellAlias extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label>Passphrase</label>
@@ -313,7 +313,7 @@ class SellAlias extends React.Component {
                                                     Sell alias
                                                 </button>
                                             </div>
-                                            <div className="btn-box align-buttons-inside absolute left-conner">
+                                            <div className="btn-box align-buttononClick={this.handleAdvancedState}s-inside absolute left-conner">
                                                 <a
                                                     onClick={this.handleAdvancedState}
                                                     className="btn btn-right round round-bottom-left round-top-right absolute"

@@ -110,7 +110,7 @@ class DeleteAlias extends React.Component {
                                     <div className="form-title">
                                         <p>Delete Alias</p>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app mb-15 display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Alias</label>
@@ -120,7 +120,7 @@ class DeleteAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app mb-15 display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label htmlFor="feeATM" className="col-form-label">
@@ -142,7 +142,7 @@ class DeleteAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Passphrase</label>

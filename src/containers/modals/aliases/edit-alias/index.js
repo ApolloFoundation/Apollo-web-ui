@@ -112,9 +112,9 @@ class EditAlias extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
-                                        <p>Update Alias</p>
+                                        <p>Edit Alias</p>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app mb-15 display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Type</label>
@@ -133,7 +133,7 @@ class EditAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app mb-15 display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Alias</label>
@@ -143,7 +143,7 @@ class EditAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app mb-15 display-block">
                                         {
                                             this.state.inputType == 'uri' &&
                                             <div className="row">
@@ -182,7 +182,7 @@ class EditAlias extends React.Component {
                                             </div>
                                         }
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app mb-15 display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label htmlFor="feeATM" className="col-form-label">
@@ -204,7 +204,7 @@ class EditAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app offset-top display-block">
+                                    <div className="input-group-app display-block">
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <label>Passphrase</label>

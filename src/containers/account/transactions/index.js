@@ -490,6 +490,7 @@ class Transactions extends React.Component {
                                                 return (
                                                     <Transaction
                                                         key={uuid()}
+                                                        isUnconfirmed={this.state.isUnconfirmed}
                                                         transaction = {el}
                                                         publicKey= {this.state.serverPublicKey}
                                                         privateKey={this.state.privateKey}

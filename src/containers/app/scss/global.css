@@ -1003,7 +1003,7 @@ input {
       .btn.underscore.settings:after {
         display: none !important; } }
   .btn.underscore.account:after {
-    top: calc(100% + 27px);
+    top: calc(100% + 23px);
     left: auto; }
   .btn.underscore.active.account:after {
     width: 25px !important; }
