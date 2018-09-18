@@ -4586,7 +4586,8 @@ table td .btn, table th .btn {
           min-height: 100%;
           margin-bottom: 0; } }
       .modal-window .modal-box .modal-form table {
-        min-width: 100%; }
+        min-width: 100%;
+        padding: 0; }
       .modal-window .modal-box .modal-form .form-group-app {
         padding-bottom: 69px;
         position: relative; }

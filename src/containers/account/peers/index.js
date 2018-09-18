@@ -72,7 +72,12 @@ class Peers extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Peers'}
-                />
+                >
+                    <a className="btn primary"
+                       onClick={() => this.connectPeer()}>
+                        Add peer
+                    </a>
+                </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="peers">
                         <div className="row" style={{height: '100%'}}>
