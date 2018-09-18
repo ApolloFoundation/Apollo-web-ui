@@ -59,15 +59,49 @@ class AssetExchange extends React.Component {
                 ...this.props,
                 asset: asset,
             });
-            const bidOrders = await this.props.getBidOrders(asset.asset);
-            const askOrders = await this.props.getAskOrders(asset.asset);
+            const bidOrders = await this.getBuyOrders(asset);
+            const askOrders = await this.getSellOrders(asset);
             this.setState({
-                askOrders: askOrders.askOrders,
-                bidOrders: bidOrders.bidOrders,
+                askOrders: askOrders,
+                bidOrders: bidOrders,
             })
 
         }
     }
+
+    getBuyOrders = async assetName => {
+
+        const buyOrders = await this.props.getBidOrders(assetName.asset);
+        console.log(buyOrders);
+        if (buyOrders) {
+            const assets = buyOrders.assets;
+            const  orders = buyOrders.orders;
+
+            const result = assets.map((el, index) => {
+                const asset = orders[index];
+                return {...el, ...asset}
+            });
+
+            return result;
+        }
+    };
+
+    getSellOrders = async assetName => {
+        const buyOrders = await this.props.getAskOrders(assetName.asset);
+        console.log(buyOrders);
+        if (buyOrders) {
+            const assets = buyOrders.assets;
+            const  orders = buyOrders.orders;
+
+            const result = assets.map((el, index) => {
+                const asset = orders[index];
+                return {...el, ...asset}
+            });
+
+            return result;
+        }
+    };
+
 	async getAssets() {
 		if (this.props.assetBalances) {
 			let assets = this.props.assetBalances.map(async (el, index) => {
@@ -165,7 +199,6 @@ class AssetExchange extends React.Component {
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
-
     }
 
     render() {
@@ -337,7 +370,9 @@ class AssetExchange extends React.Component {
                                                     <div className="form-title">
                                                         <p>Offers to buy {this.state.asset.name}</p>
                                                     </div>
-                                                    {this.state.askOrders.length === 0 ? <div className="info-box simple">
+                                                    {
+                                                        this.state.askOrders &&
+                                                        this.state.askOrders.length === 0 ? <div className="info-box simple">
                                                             <p>No buy offers for this asset.</p>
                                                         </div>:
                                                         <div className="transaction-table">
@@ -349,11 +384,12 @@ class AssetExchange extends React.Component {
                                                                         <td>Quantity</td>
                                                                         <td className="align-left">Price</td>
                                                                         <td className="align-right">Total</td>
-                                                                        <td className="align-right">Cancel</td>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody key={uuid()}>
-                                                                    {this.state.askOrders.length > 0 ?
+                                                                    {
+                                                                        this.state.askOrders &&
+                                                                        this.state.askOrders.length > 0 ?
                                                                         this.state.askOrders.map(el => {
                                                                             return (
                                                                                 <OrderItem
@@ -511,9 +547,14 @@ class AssetExchange extends React.Component {
                                             </div>
                                             <div className="card assets card-tiny medium-padding">
                                                 <div className="form-group-app">
-                                                    {this.state.bidOrders.length === 0 ? <div className="form-title">
-                                                            <p>Offers to sell {this.state.asset.name}</p>
-                                                        </div> :
+                                                    <div className="form-title">
+                                                        <p>Offers to sell {this.state.asset.name}</p>
+                                                    </div>
+                                                    {
+                                                        this.state.bidOrders &&
+                                                        this.state.bidOrders.length === 0 ?  <div className="info-box simple">
+                                                                <p>No buy offersfor this aaset.</p>
+                                                            </div>:
                                                         <div className="transaction-table">
                                                             <div className="transaction-table-body">
                                                                 <table>
@@ -523,11 +564,12 @@ class AssetExchange extends React.Component {
                                                                         <td>Quantity</td>
                                                                         <td className="align-left">Price</td>
                                                                         <td className="align-right">Total</td>
-                                                                        <td className="align-right">Cancel</td>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody key={uuid()}>
-                                                                    {this.state.bidOrders.length > 0 ?
+                                                                    {
+                                                                        this.state.bidOrders &&
+                                                                        this.state.bidOrders.length > 0 ?
                                                                         this.state.bidOrders.map(el => {
                                                                             return (
                                                                                 <OrderItem
@@ -541,11 +583,9 @@ class AssetExchange extends React.Component {
                                                                 </table>
 
                                                             </div>
-                                                        </div>}
+                                                        </div>
+                                                    }
 
-                                                    <div className="info-box simple">
-                                                        <p>No buy offersfor this aaset.</p>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
