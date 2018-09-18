@@ -25,6 +25,7 @@ class AccountProperties extends React.Component {
         firstIndex: 0,
         lastIndex: 14,
         page: 1,
+        recipientRS: null
 
     };
 
@@ -47,12 +48,14 @@ class AccountProperties extends React.Component {
             console.log(properties);
 
             this.setState({
-                properties: properties.properties
+                properties: properties.properties,
+                recipientRS: properties.recipientRS
             })
         }
     }
 
     render () {
+        console.log('===============', this.props.account)
         return (
             <div className="page-content">
                 <SiteHeader
@@ -92,8 +95,12 @@ class AccountProperties extends React.Component {
                                                         <td>{el.value}</td>
                                                         <td className="align-right">
                                                             <div className="btn-box inline">
-                                                                <a onClick={() => this.props.setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', el)} className="btn primary blue">Update</a>
-                                                                <a className="btn primary">Delete</a>
+                                                                {this.state.recipientRS === el.setterRS &&
+                                                                <a onClick={() => this.props.setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', el)}
+                                                                   className="btn primary blue">Update</a>
+                                                                }
+                                                                <a onClick={() => this.props.setBodyModalParamsAction('DELETE_ACCOUNT_PROPERTY', {...el, recipientRS: this.state.recipientRS })}
+                                                                   className="btn primary">Delete</a>
                                                             </div>
                                                         </td>
                                                     </tr>
