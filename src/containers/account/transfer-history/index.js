@@ -9,6 +9,7 @@ import {getTransferHistory} from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
+import {formatTimestamp} from "../../../helpers/util/time";
 
 
 const mapStateToProps = state => ({
@@ -19,6 +20,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getTransferHistory: (requestParams) => dispatch(getTransferHistory(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
 });
 

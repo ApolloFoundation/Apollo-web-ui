@@ -304,6 +304,12 @@
       border-radius: 0;
       transform: none !important;
       overflow: auto;
+      min-height: 100vh;
+      padding-bottom: 0;
+
+      .modal-form {
+        display: flex;
+      }
     }
 
     &.active {
@@ -312,7 +318,7 @@
       .modal-form {
         .left-bar {
           max-height: 700px;
-          overflow-y: scroll;
+          overflow-y: auto;
 
           &.overflow-visible {
             overflow: visible;
@@ -350,8 +356,8 @@
         padding-bottom: 69px;
         position: relative;
         @media (max-width: 760px) {
-          height: 100vh;
           border-radius: 0;
+          height: auto;
         }
       }
     }

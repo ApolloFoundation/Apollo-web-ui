@@ -4,6 +4,7 @@ import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
+import {formatTimestamp} from "../../../../helpers/util/time";
 
 class TransferHistoryItem extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class TransferHistoryItem extends React.Component {
                         {this.state.transfer.name}
                         <a><span className="info"></span></a>
                     </td>
-                    <td className="">{this.state.transfer.timestamp}</td>
+                    <td className="">{this.props.formatTimestamp(this.state.transfer.timestamp)}</td>
                     <td className="align-right" >{this.state.transfer.quantityATU}</td>
                     <td className="blue-link-text">
                         <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transfer.recipient)}>{this.state.transfer.recipientRS}</a>
@@ -47,7 +48,8 @@ class TransferHistoryItem extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
 export default connect(null, mapDispatchToProps)(TransferHistoryItem);
