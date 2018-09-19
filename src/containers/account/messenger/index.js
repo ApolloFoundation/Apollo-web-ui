@@ -98,6 +98,11 @@ class Messenger extends React.Component {
             delete values.message;
 		}
 
+		if (!values.secretPhrase) {
+            NotificationManager.error('Enter secret phrase.', 'Error', 5000);
+            return;
+        }
+
 		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
         // delete values.secretPhrase;
 
