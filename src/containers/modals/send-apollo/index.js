@@ -34,13 +34,31 @@ class SendApollo extends React.Component {
     }
 
     async handleFormSubmit(values) {
+        if (!values.secretPhrase || values.secretPhrase.length === 0) {
+            NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
+            return;
+        }
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
+        if (values.doNotSign) {
+            values.publicKey = await crypto.getPublicKey(this.props.account, true);
+            delete values.secretPhrase;
+        }
         const res = await this.props.submitForm(null, null, values, 'sendMoney');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
-            this.props.setBodyModalParamsAction(null, {});
+            if (res.broadcasted === false) {
+                this.props.setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
+                    request: values,
+                    result: res
+                });
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
+            }
 
             NotificationManager.success('Transaction has been submitted!', null, 5000);
         }
@@ -311,6 +329,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    getPublicKey: (passphrase) => dispatch(crypto.getPublicKey(passphrase)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
 });
 
