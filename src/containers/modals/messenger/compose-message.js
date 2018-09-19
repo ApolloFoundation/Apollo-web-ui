@@ -46,6 +46,11 @@ class ComposeMessage extends React.Component {
     handleFormSubmit = async(values) => {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
+
 
         // if (!isPassphrase) {
         //     this.setState({
