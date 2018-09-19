@@ -199,6 +199,38 @@ class AssetExchange extends React.Component {
         }
     }
 
+    handleSellOrders = async (values) => {
+        console.log(values);
+
+        this.props.setBodyModalParamsAction('SELL_ASSET', {
+            quantityATU: values.quantity,
+            priceATM: values.priceATM,
+            total: values.total,
+            assetInfo: this.state.asset
+        })
+    };
+
+    handleBuyOrders = async (values) => {
+        console.log(values);
+
+        this.props.setBodyModalParamsAction('BUY_ASSET', {
+            quantityATU: values.quantity,
+            priceATM: values.priceATM,
+            total: values.total,
+            assetInfo: this.state.asset
+        })
+    };
+
+    handleTotalValue = (setValue, getFormState) => {
+        const {values} = getFormState();
+
+        if (values.quantity && values.priceATM) {
+            setValue('total', values.quantity * values.priceATM);
+        } else {
+            setValue('total', 0);
+        }
+    };
+
     render() {
         return (
             <div className="page-content">
@@ -255,116 +287,107 @@ class AssetExchange extends React.Component {
                                                 </div>
                                             </div>
 
-                                            <div style={{height: 'auto'}}
-                                                 className="card ballance card-medium medium-padding full-height">
-                                                <div className="form-group-app">
-                                                    <div className="form-title">
-                                                        <p>Buy {this.state.asset.name}</p>
-                                                        <div className="form-sub-title">
-                                                            balance: <strong>{this.props.amountATM} ATM</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app offset-top display-block inline no-margin">
-                                                        <div className="form-group row form-group-white">
-                                                            <div className="col-md-3 pl-0">
-                                                                <label>Quantity</label>
-                                                            </div>
-                                                            <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                <input
-                                                                    ref="quantity1"
-                                                                    placeholder='Quantity'
-                                                                    type={'number'}
-                                                                    className={"form-control"}
-                                                                />
-                                                                <div className="input-group-append">
-                                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app offset-top display-block inline no-margin">
-                                                        <div className="form-group row form-group-white">
-                                                            <div className="col-md-3 pl-0">
-                                                                <label>Price</label>
-                                                            </div>
-                                                            <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                <input
-                                                                    ref="priceATM1"
-                                                                    type={'number'}
-                                                                    placeholder='Quantity'
-                                                                    className={"form-control"}
-                                                                />
-                                                                <div className="input-group-append">
-                                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app offset-top display-block inline no-margin">
-                                                        <div className="form-group row form-group-white">
-                                                            <div className="col-md-3 pl-0">
-                                                                <label>Total</label>
-                                                            </div>
-                                                            <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                <input
-                                                                    ref="total1"
-                                                                    type={'number'}
-                                                                    placeholder='Price'
-                                                                    className={"form-control"}
-                                                                    // readOnly
-                                                                    // disabled
-                                                                />
-                                                                <div className="input-group-append">
-                                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app offset-top display-block inline no-margin">
-                                                        <div className="row form-group-white">
-                                                            <div className="col-md-3 pl-0">
-                                                            </div>
-                                                            <div className="col-md-9 pr-0">
-                                                                <a
-                                                                    onClick={() => {
-                                                                        if (!this.refs.quantity1.value) {
-                                                                            NotificationManager.error('Fill the quantity field', 'Unable to buy asset ' + this.state.asset.name, 5000);
-                                                                            return;
-                                                                        }
-                                                                        if (!this.refs.priceATM1.value) {
-                                                                            NotificationManager.error('Fill the price field', 'Unable to buy asset ' + this.state.asset.name, 5000);
-                                                                            return;
-                                                                        }
-                                                                        if (!this.refs.total1.value) {
-                                                                            NotificationManager.error('Fill the total field', 'Unable to buy asset ' + this.state.asset.name, 5000);
-                                                                            return;
-                                                                        }
+                                            <Form
+                                                onSubmit={(values) => this.handleBuyOrders(values)}
+                                                render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
 
-                                                                        this.props.setBodyModalParamsAction('BUY_ASSET', {
-                                                                            quantityATU: this.refs.quantity1.value,
-                                                                            priceATM: this.refs.priceATM1.value,
-                                                                            total: this.refs.total1.value,
-                                                                            assetInfo: this.state.asset
-                                                                        })
-                                                                    }}
-                                                                    className={classNames({
-                                                                        "btn": true,
-                                                                        "static": true,
-                                                                        "blue": true,
-                                                                        "blue-disabled": false
-                                                                    })}
-                                                                >
-                                                                    Buy (APL > {this.state.asset.name})
-                                                                </a>
+                                                    <form style={{height: 'auto'}} className="card ballance card-medium medium-padding full-height" onSubmit={submitForm}>
+                                                        <div className="form-group-app">
+                                                            <div className="form-title">
+                                                                <p>Buy {this.state.asset.name}</p>
+                                                                <div className="form-sub-title">
+                                                                    balance: <strong>{this.props.amountATM} ATM</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Quantity</label>
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <Text
+                                                                            field="quantity"
+                                                                            placeholder='Quantity'
+                                                                            type={'number'}
+                                                                            className={"form-control"}
+                                                                            onMouseUp={() => this.handleTotalValue(setValue, getFormState)}
+                                                                            onKeyUp={() => this.handleTotalValue(setValue, getFormState)}
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Price</label>
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <Text
+                                                                            field="priceATM"
+                                                                            type={'number'}
+                                                                            placeholder='Quantity'
+                                                                            className={"form-control"}
+                                                                            onMouseUp={() => this.handleTotalValue(setValue, getFormState)}
+                                                                            onKeyUp={() => this.handleTotalValue(setValue, getFormState)}
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Total</label>
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <Text
+                                                                            field="total"
+                                                                            type={'number'}
+                                                                            placeholder='Price'
+                                                                            className={"form-control"}
+                                                                            readOnly
+                                                                            disabled
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0">
+                                                                        <button
+                                                                            className={classNames({
+                                                                                "btn": true,
+                                                                                "static": true,
+                                                                                "blue": true,
+                                                                                "blue-disabled": !(!!getFormState().values.total)
+                                                                            })}
+                                                                        >
+                                                                            Buy (APL > {this.state.asset.name})
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    </form>
+
+                                                )}
+                                            />
+
+
                                             <div className="card ballance card-tiny medium-padding">
                                                 <div className="form-group-app">
                                                     <div className="form-title">
@@ -440,116 +463,106 @@ class AssetExchange extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style={{height: 'auto'}}
-                                                 className="card assets card-medium medium-padding full-height">
-                                                <div className="form-group-app">
-                                                    <div className="form-title">
-                                                        <p>Sell {this.state.asset.name}</p>
-                                                        <div className="form-sub-title">
-                                                            balance: <strong>{this.props.amountATM} ATM</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app offset-top display-block inline no-margin">
-                                                        <div className="form-group row form-group-white">
-                                                            <div className="col-md-3 pl-0">
-                                                                <label>Quantity</label>
-                                                            </div>
-                                                            <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                <input
-                                                                    ref="quantity2"
-                                                                    type={'number'}
-                                                                    placeholder='Quantity'
-                                                                    className={"form-control"}
-                                                                />
-                                                                <div className="input-group-append">
-                                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app offset-top display-block inline no-margin">
-                                                        <div className="form-group row form-group-white">
-                                                            <div className="col-md-3 pl-0">
-                                                                <label>Price</label>
-                                                            </div>
-                                                            <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                <input
-                                                                    ref="priceATM2"
-                                                                    type={'number'}
-                                                                    placeholder='Quantity'
-                                                                    className={"form-control"}
-                                                                />
-                                                                <div className="input-group-append">
-                                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app offset-top display-block inline no-margin">
-                                                        <div className="form-group row form-group-white">
-                                                            <div className="col-md-3 pl-0">
-                                                                <label>Total</label>
-                                                            </div>
-                                                            <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                <input
-                                                                    ref="total2"
-                                                                    type={'number'}
-                                                                    placeholder='Price'
-                                                                    className={"form-control"}
-                                                                    // readOnly
-                                                                    // disabled
-                                                                />
-                                                                <div className="input-group-append">
-                                                                    <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        className="input-group-app offset-top display-block inline no-margin">
-                                                        <div className="row form-group-white">
-                                                            <div className="col-md-3 pl-0">
-                                                            </div>
-                                                            <div className="col-md-9 pr-0">
-                                                                <a
-                                                                    onClick={() => {
-                                                                        if (!this.refs.quantity2.value) {
-                                                                            NotificationManager.error('Fill the quantity field', 'Unable to sell asset ' + this.state.asset.name, 5000);
-                                                                            return;
-                                                                        }
-                                                                        if (!this.refs.priceATM2.value) {
-                                                                            NotificationManager.error('Fill the price field', 'Unable to sell asset ' + this.state.asset.name, 5000);
-                                                                            return;
-                                                                        }
-                                                                        if (!this.refs.total2.value) {
-                                                                            NotificationManager.error('Fill the total field', 'Unable to sell asset ' + this.state.asset.name, 5000);
-                                                                            return;
-                                                                        }
+                                            <Form
+                                                onSubmit={(values) => this.handleSellOrders(values)}
+                                                render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
 
-                                                                        this.props.setBodyModalParamsAction('SELL_ASSET', {
-                                                                            quantityATU: this.refs.quantity2.value,
-                                                                            priceATM: this.refs.priceATM2.value,
-                                                                            total: this.refs.total2.value,
-                                                                            assetInfo: this.state.asset
-                                                                        })
-                                                                    }}
-                                                                    className={classNames({
-                                                                        "btn": true,
-                                                                        "static": true,
-                                                                        "blue": true,
-                                                                        "blue-disabled": false
-                                                                    })}
-                                                                >
-                                                                    Sell ({this.state.asset.name} > APL)
-                                                                </a>
+                                                    <form style={{height: 'auto'}} className="card ballance card-medium medium-padding full-height" onSubmit={submitForm}>
+                                                        <div className="form-group-app">
+                                                            <div className="form-title">
+                                                                <p>Sell {this.state.asset.name}</p>
+                                                                <div className="form-sub-title">
+                                                                    balance: <strong>{this.state.asset.quantityATU / Math.pow(10, this.state.asset.decimals)} {this.state.asset.name}</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Quantity</label>
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <Text
+                                                                            field="quantity"
+                                                                            placeholder='Quantity'
+                                                                            type={'number'}
+                                                                            className={"form-control"}
+                                                                            onMouseUp={() => this.handleTotalValue(setValue, getFormState)}
+                                                                            onKeyUp={() => this.handleTotalValue(setValue, getFormState)}
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Price</label>
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <Text
+                                                                            field="priceATM"
+                                                                            type={'number'}
+                                                                            placeholder='Quantity'
+                                                                            className={"form-control"}
+                                                                            onMouseUp={() => this.handleTotalValue(setValue, getFormState)}
+                                                                            onKeyUp={() => this.handleTotalValue(setValue, getFormState)}
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Total</label>
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <Text
+                                                                            field="total"
+                                                                            type={'number'}
+                                                                            placeholder='Price'
+                                                                            className={"form-control"}
+                                                                            readOnly
+                                                                            disabled
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0">
+                                                                        <button
+                                                                            className={classNames({
+                                                                                "btn": true,
+                                                                                "static": true,
+                                                                                "blue": true,
+                                                                                "blue-disabled": !(!!getFormState().values.total)
+                                                                            })}
+                                                                        >
+                                                                            Sell (APL > {this.state.asset.name})
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    </form>
+
+                                                )}
+                                            />
+
                                             <div className="card assets card-tiny medium-padding">
                                                 <div className="form-group-app">
                                                     <div className="form-title">
