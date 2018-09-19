@@ -415,12 +415,15 @@ class AssetExchange extends React.Component {
                                                         <div className='box'>
                                                             <div className="card-title bold small">Account:</div>
                                                             <div
-                                                                className="card-title description small">{this.state.asset.accountRS}</div>
+                                                                className="card-title description small"
+                                                            >
+                                                                {this.state.asset.accountRS}
+                                                            </div>
                                                         </div>
                                                         <div className='box'>
                                                             <div className="card-title bold small">Asset ID:</div>
                                                             <div
-                                                                className="card-title asset-id description small">{this.state.asset.account}</div>
+                                                                className="card-title asset-id description small">{this.state.asset.asset}</div>
                                                         </div>
                                                     </div>
                                                     <div className="full-box-item">

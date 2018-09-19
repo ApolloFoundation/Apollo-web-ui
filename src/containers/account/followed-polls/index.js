@@ -228,12 +228,12 @@ class FollowedVotes extends React.Component {
                 <SiteHeader
                     pageTitle={'Followed polls'}
                 >
-                    <a
-                        className="btn primary"
-                        style={{marginLeft: 15}}
-                    >
-                        Add Poll
-                    </a>
+                    {/*<a*/}
+                        {/*className="btn primary"*/}
+                        {/*style={{marginLeft: 15}}*/}
+                    {/*>*/}
+                        {/*Add Poll*/}
+                    {/*</a>*/}
                     {
                         this.props.match.params.poll &&
                         <a
