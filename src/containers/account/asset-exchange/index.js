@@ -209,7 +209,7 @@ class AssetExchange extends React.Component {
                     this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-4 p-0">
+                            <div className="col-md-3 p-0">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.assets &&
@@ -240,7 +240,7 @@ class AssetExchange extends React.Component {
                             </div>
                             {
                                 this.props.match.params &&
-                                <div className="col-md-8 p-0">
+                                <div className="col-md-9 p-0">
                                     <div className="row">
                                         <div className="col-xl-6 col-md-12 pr-0">
                                             <div className="card header ballance card-tiny medium-padding">

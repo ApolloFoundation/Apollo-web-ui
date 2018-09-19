@@ -151,7 +151,7 @@ class Messenger extends React.Component {
 				<div className="page-body container-fluid flexible-height overflow-hidden">
 					<div className="messenger">
 						<div className="row">
-							<div className="col-md-4">
+							<div className="col-md-3">
 								<div className="left-bar">
 									<div className="card card-full-screen no-padding scroll">
 										{
@@ -182,7 +182,7 @@ class Messenger extends React.Component {
 									</div>
 								</div>
 							</div>
-							<div className="col-md-8">
+							<div className="col-md-9">
 								<div className="right-bar">
 									{
 										this.state.chatHistory &&
