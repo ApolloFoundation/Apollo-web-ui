@@ -553,7 +553,10 @@ input {
       color: #333333;
       font-family: "Roboto-Regular";
       font-size: 24px;
-      line-height: 18px; }
+      word-break: break-word;
+      line-height: 1.6;
+      margin-top: -10px;
+      padding-right: 30px; }
     .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
   .form-group-app .form-sub-title {

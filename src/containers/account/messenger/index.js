@@ -106,8 +106,6 @@ class Messenger extends React.Component {
 		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
         // delete values.secretPhrase;
 
-        console.log(secretPhrase);
-
         await this.props.submitForm(null, null, {
 			...values,
             recipient: this.state.chats[this.state.selectedChat].account,
