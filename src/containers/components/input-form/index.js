@@ -36,6 +36,7 @@ class InputForm extends React.Component {
             value = value + 1; // or parseFloat
             this.props.setValue(this.props.field, value);
             this.setState({value});
+            if (this.props.onChange) this.props.onChange(value);
         }
     };
 
@@ -46,6 +47,7 @@ class InputForm extends React.Component {
                 value = value - 1; // or parseFloat
                 this.props.setValue(this.props.field, value);
                 this.setState({value});
+                if (this.props.onChange) this.props.onChange(value);
             }
         }
     };

@@ -261,6 +261,7 @@ input {
 
 ::-webkit-scrollbar {
 	width: 10px;
+	height: 10px;
 }
 
 /* Track */
@@ -1683,9 +1684,6 @@ input {
 		min-height: auto;
 		height: auto;
 		max-height: 800px;
-		table {
-			min-width: 500px !important;
-		}
 	}
 	&.auto-height {
 		height: auto;
@@ -2240,7 +2238,6 @@ table {
 	.transaction-table-body {
 		padding: 0 !important;
 		table {
-			min-width: 500px !important;
 			padding: 0 !important;
 		}
 	}

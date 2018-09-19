@@ -146,25 +146,25 @@ class CancelSell extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label htmlFor="feeATM" className="col-form-label">
-                                                            Fee&nbsp;
-                                                            <span
-                                                                onClick={async () => {
-                                                                    setValue("feeATM", 1);
-                                                                }
-                                                                }
-                                                                style={{paddingRight: 0}}
-                                                                className="calculate-fee"
-                                                            >
-                                                                Calculate
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text field="feeATM" placeholder="Amount" type={'number'}/>
+                                            <div className="form-group row form-group-white mb-15">
+                                                <label className="col-sm-3 col-form-label">
+                                                    Fee
+                                                    <span
+                                                        onClick={async () => {
+                                                            setValue("feeAPL", 1);
+                                                        }}
+                                                        style={{paddingRight: 0}}
+                                                        className="calculate-fee"
+                                                    >Calculate</span>
+                                                </label>
+                                                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                                    <InputForm
+                                                        field="feeAPL"
+                                                        placeholder="Minimum fee"
+                                                        type={"float"}
+                                                        setValue={setValue}/>
+                                                    <div className="input-group-append">
+                                                        <span className="input-group-text">Apollo</span>
                                                     </div>
                                                 </div>
                                             </div>

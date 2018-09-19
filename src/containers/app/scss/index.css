@@ -2925,7 +2925,8 @@ input {
   cursor: pointer; }
 
 ::-webkit-scrollbar {
-  width: 10px; }
+  width: 10px;
+  height: 10px; }
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -3908,8 +3909,6 @@ input {
     min-height: auto;
     height: auto;
     max-height: 800px; }
-    .card.card-flexible table {
-      min-width: 500px !important; }
   .card.auto-height {
     height: auto; }
   .card.full-height {
@@ -4261,7 +4260,6 @@ table td .btn, table th .btn {
   .assets-exchange .transaction-table-body {
     padding: 0 !important; }
     .assets-exchange .transaction-table-body table {
-      min-width: 500px !important;
       padding: 0 !important; }
   .assets-exchange .info-box.simple {
     margin-bottom: 0; }
@@ -4442,7 +4440,6 @@ table td .btn, table th .btn {
       padding: 40px 0; }
     .transaction-table .transaction-table-body table {
       width: 100%;
-      min-width: 800px;
       padding: 0 35px; }
       .transaction-table .transaction-table-body table thead {
         padding: 35px 0; }
@@ -4508,7 +4505,7 @@ table td .btn, table th .btn {
       padding-right: 0; }
   .page-body .transaction-table .transaction-table-body table tbody tr td {
     border-top: 1px solid #E5E5E5;
-    padding: 18px 15px 16px 15px; }
+    padding: 18px 5px 16px 5px; }
     .page-body .transaction-table .transaction-table-body table tbody tr td:first-child {
       padding-left: 0; }
     .page-body .transaction-table .transaction-table-body table tbody tr td:last-child {
@@ -4931,8 +4928,6 @@ input[type="number"] {
         height: 100%; }
       .site-content .page-content .page-body .open-orders .transaction-table {
         min-height: auto; }
-      .site-content .page-content .page-body .open-orders .transaction-table-body table {
-        min-width: 500px; }
     .site-content .page-content .page-body .account-settings .row {
       position: relative; }
     .site-content .page-content .page-body .messenger {

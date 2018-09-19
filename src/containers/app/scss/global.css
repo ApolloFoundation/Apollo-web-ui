@@ -194,7 +194,8 @@ input {
   cursor: pointer; }
 
 ::-webkit-scrollbar {
-  width: 10px; }
+  width: 10px;
+  height: 10px; }
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -1177,8 +1178,6 @@ input {
     min-height: auto;
     height: auto;
     max-height: 800px; }
-    .card.card-flexible table {
-      min-width: 500px !important; }
   .card.auto-height {
     height: auto; }
   .card.full-height {
@@ -1530,7 +1529,6 @@ table td .btn, table th .btn {
   .assets-exchange .transaction-table-body {
     padding: 0 !important; }
     .assets-exchange .transaction-table-body table {
-      min-width: 500px !important;
       padding: 0 !important; }
   .assets-exchange .info-box.simple {
     margin-bottom: 0; }

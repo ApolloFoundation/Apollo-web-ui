@@ -41,7 +41,7 @@
     table {
       width: 100%;
       //border-collapse: collapse;
-      min-width: 800px;
+      //min-width: 800px;
       padding: 0 35px;
       //& + .btn-box {
       //  min-width: 800px;
@@ -158,7 +158,7 @@
     }
     tbody tr td {
       border-top: 1px solid #E5E5E5;
-      padding: 18px 15px 16px 15px;
+      padding: 18px 5px 16px 5px;
       &:first-child {
         padding-left: 0;
       }

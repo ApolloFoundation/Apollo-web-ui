@@ -13,6 +13,7 @@ import {
     getExchangesAction,
     getSellOffersAction
 } from "../../../actions/exchange-booth";
+import InputForm from '../../components/input-form';
 
 import OfferItem  from './offer-item/'
 import ExchangeItem  from './exchange-item/ExchangeItem'
@@ -256,14 +257,14 @@ class ExchangeBooth extends React.Component {
                                                                 </div>
                                                                 <div
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    <Text
+                                                                    <InputForm
                                                                         field="units"
                                                                         type={'number'}
                                                                         placeholder='Units'
-                                                                        className={"form-control"}
-                                                                        onKeyUp={(e) => {
+                                                                        onChange={(e) => {
                                                                             setValue('rateATM', Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
                                                                         }}
+                                                                        setValue={setValue}
                                                                     />
                                                                     <div className="input-group-append">
                                                                         <span className="input-group-text"
@@ -439,14 +440,14 @@ class ExchangeBooth extends React.Component {
                                                                 </div>
                                                                 <div
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    <Text
+                                                                    <InputForm
                                                                         field="units"
                                                                         type={'number'}
                                                                         placeholder='Units'
-                                                                        className={"form-control"}
-                                                                        onKeyUp={(e) => {
+                                                                        onChange={(e) => {
                                                                             setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
                                                                         }}
+                                                                        setValue={setValue}
                                                                     />
                                                                     <div className="input-group-append">
                                                                         <span className="input-group-text"
