@@ -53,7 +53,7 @@ class RawTransactionDetails extends React.Component {
                                 <div className="form-title">
                                     <p>Raw Transaction Details</p>
                                 </div>
-                                {(request.doNotSign === 1 && result.unsignedTransactionBytes) &&
+                                {(!result.signatureHash && result.unsignedTransactionBytes) &&
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label align-self-start">
                                         Unsigned Transaction Bytes
@@ -71,10 +71,10 @@ class RawTransactionDetails extends React.Component {
                                 {result.transactionJSON &&
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label align-self-start">
-                                        {request.doNotSign === 1 ?
-                                            'Unsigned Transaction JSON'
-                                            :
+                                        {result.signatureHash ?
                                             'Signed Transaction JSON'
+                                            :
+                                            'Unsigned Transaction JSON'
                                         }
                                     </label>
                                     <div className="col-sm-9">
@@ -87,14 +87,14 @@ class RawTransactionDetails extends React.Component {
                                     </div>
                                 </div>
                                 }
-                                {(request.doNotSign === 0 && (result.transactionBytes || result.unsignedTransactionBytes)) &&
+                                {(result.signatureHash && result.transactionBytes) &&
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label align-self-start">
                                         Signed Transaction Bytes
                                     </label>
                                     <div className="col-sm-9">
                                         <TextArea className="form-control"
-                                                  defaultValue={(result.transactionBytes || result.unsignedTransactionBytes)}
+                                                  defaultValue={result.transactionBytes}
                                                   placeholder="Signed Transaction Bytes"
                                                   disabled={true}
                                                   field="transactionBytes"
@@ -147,11 +147,11 @@ class RawTransactionDetails extends React.Component {
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a
                                         onClick={() => this.props.closeModal()}
-                                        className={`btn round ${request.doNotSign === 1 ? 'round-top-left' : 'round-bottom-right'}`}
+                                        className={`btn round round-top-left ${result.signatureHash ? 'round-bottom-right' : ''}`}
                                     >
                                         Close
                                     </a>
-                                    {request.doNotSign === 1 &&
+                                    {!result.signatureHash &&
                                         <button
                                             type="submit"
                                             name={'closeModal'}

@@ -209,7 +209,7 @@ class AssetExchange extends React.Component {
                     this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-4 p-0">
+                            <div className="col-md-3 p-0">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.assets &&
@@ -240,7 +240,7 @@ class AssetExchange extends React.Component {
                             </div>
                             {
                                 this.props.match.params &&
-                                <div className="col-md-8 p-0">
+                                <div className="col-md-9 p-0">
                                     <div className="row">
                                         <div className="col-xl-6 col-md-12 pr-0">
                                             <div className="card header ballance card-tiny medium-padding">
@@ -314,6 +314,8 @@ class AssetExchange extends React.Component {
                                                                     type={'number'}
                                                                     placeholder='Price'
                                                                     className={"form-control"}
+                                                                    // readOnly
+                                                                    // disabled
                                                                 />
                                                                 <div className="input-group-append">
                                                                     <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
@@ -413,12 +415,15 @@ class AssetExchange extends React.Component {
                                                         <div className='box'>
                                                             <div className="card-title bold small">Account:</div>
                                                             <div
-                                                                className="card-title description small">{this.state.asset.accountRS}</div>
+                                                                className="card-title description small"
+                                                            >
+                                                                {this.state.asset.accountRS}
+                                                            </div>
                                                         </div>
                                                         <div className='box'>
                                                             <div className="card-title bold small">Asset ID:</div>
                                                             <div
-                                                                className="card-title asset-id description small">{this.state.asset.account}</div>
+                                                                className="card-title asset-id description small">{this.state.asset.asset}</div>
                                                         </div>
                                                     </div>
                                                     <div className="full-box-item">
@@ -494,6 +499,8 @@ class AssetExchange extends React.Component {
                                                                     type={'number'}
                                                                     placeholder='Price'
                                                                     className={"form-control"}
+                                                                    // readOnly
+                                                                    // disabled
                                                                 />
                                                                 <div className="input-group-append">
                                                                     <span className="input-group-text" id="amountText">{this.state.asset.name}</span>

@@ -195,7 +195,7 @@ class ExchangeBooth extends React.Component {
                     this.state.currency &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-4 p-0">
+                            <div className="col-md-3 p-0">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.currencies &&
@@ -224,7 +224,7 @@ class ExchangeBooth extends React.Component {
                                     }
                                 </div>
                             </div>
-                            <div className="col-md-8 p-0">
+                            <div className="col-md-9 p-0">
                                 <div className="row">
                                     <div className="col-xl-6 col-md-12 pr-0">
                                         <div className="card header ballance medium-padding">
@@ -565,7 +565,7 @@ class ExchangeBooth extends React.Component {
                                                 <div className="card ballance medium-padding card-flexible">
                                                     <div className="form-group-app">
                                                         <div className="form-title">
-                                                            <p>Offers to sell SECRT</p>
+                                                            <p>Offers to sell {this.state.code}</p>
                                                         </div>
                                                         {this.state.sellOffers.length === 0 ?
                                                             <div className="info-box simple">
@@ -605,7 +605,7 @@ class ExchangeBooth extends React.Component {
                                                 <div className="card assets medium-padding card-flexible">
                                                     <div className="form-group-app">
                                                         <div className="form-title">
-                                                            <p>Offers to buy KKT</p>
+                                                            <p>Offers to buy {this.state.code}</p>
                                                         </div>
                                                         <div className="info-box simple">
                                                             {this.state.buyOffers.length === 0 ?

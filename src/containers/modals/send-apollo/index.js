@@ -34,16 +34,18 @@ class SendApollo extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        this.setState({passphraseStatus: false});
+        if (!values.secretPhrase || values.secretPhrase.length === 0) {
+            NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
+            return;
+        }
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
         if (values.doNotSign) {
-            const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-            if (isPassphrase) {
-                values.publicKey = await crypto.getPublicKey(this.props.account, true);
-                delete values.secretPhrase;
-            } else {
-                this.setState({passphraseStatus: true});
-                return;
-            }
+            values.publicKey = await crypto.getPublicKey(this.props.account, true);
+            delete values.secretPhrase;
         }
         const res = await this.props.submitForm(null, null, values, 'sendMoney');
         if (res.errorCode) {

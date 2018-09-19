@@ -133,8 +133,8 @@ class App extends React.Component {
                                 <Route exact path="/transactions" component={Transactions}/>
                                 <Route exact path="/ledger" component={Ledger}/>
                                 <Route exact path="/blocks" component={Blocks}/>
-                                <Route path="/followed-polls/:poll" component={Followedpolls}/>
-                                <Route path="/followed-polls" component={Followedpolls}/>
+                                <Route exact path="/followed-polls/:poll" component={Followedpolls}/>
+                                <Route exact path="/followed-polls" component={Followedpolls}/>
                                 <Route exact path="/my-votes" component={MyVotes}/>
                                 <Route exact path="/my-polls" component={MyPolls}/>
                                 <Route exact path="/messenger" component={Messenger}/>
@@ -147,7 +147,7 @@ class App extends React.Component {
                                 <Route exact path="/marketplace/:tag" component={MarketplaceSearch}/>
                                 <Route exact path="/active-polls" component={Activepolls}/>
                                 <Route exact path="/active-shuffling" component={ActiveShufflings}/>
-                                <Route path="/exchange-booth/:currency" component={ExchangeBooth}/>
+                                <Route exact path="/exchange-booth/:currency" component={ExchangeBooth}/>
                                 <Route exact path="/my-shuffling" component={MyCurrencies}/>
                                 <Route exact path="/account-properties" component={AccountProperties}/>
                                 <Route exact path="/approval-request" component={ApprovalRequest}/>

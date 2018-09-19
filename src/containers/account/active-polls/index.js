@@ -41,10 +41,8 @@ class Activepolls extends React.Component {
     }
 
     listener = data => {
-        this.getActivepolls({
-            firstIndex: 0,
-            lastIndex:  2,
-        });
+        this.getActivepolls();
+
         this.getFinishedpolls({
             firstIndex: 0,
             lastIndex:  9,
@@ -52,10 +50,8 @@ class Activepolls extends React.Component {
     };
 
     componentDidMount() {
-        this.getActivepolls({
-            firstIndex: 0,
-            lastIndex:  2,
-        });
+        this.getActivepolls();
+
         this.getFinishedpolls({
             firstIndex: 0,
             lastIndex:  9,
@@ -68,10 +64,7 @@ class Activepolls extends React.Component {
     };
 
     componentWillReceiveProps(newState) {
-        this.getActivepolls({
-            firstIndex: 0,
-            lastIndex:  2,
-        });
+        this.getActivepolls();
         this.getFinishedpolls({
             firstIndex: 0,
             lastIndex:  9,
@@ -152,6 +145,7 @@ class Activepolls extends React.Component {
                                         {
                                             this.state.activepolls &&
                                             this.state.activepolls.map((el, index) => {
+
                                                 return (
                                                     <PoolItem
                                                         key={uuid()}

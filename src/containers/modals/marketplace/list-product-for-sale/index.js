@@ -234,7 +234,7 @@ class ListProductForSale extends React.Component {
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
-                                        List product
+                                        Put for sale
                                     </button>
                                     <a
                                         onClick={() => this.props.closeModal()}
