@@ -314,6 +314,8 @@ class AssetExchange extends React.Component {
                                                                     type={'number'}
                                                                     placeholder='Price'
                                                                     className={"form-control"}
+                                                                    // readOnly
+                                                                    // disabled
                                                                 />
                                                                 <div className="input-group-append">
                                                                     <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
@@ -494,6 +496,8 @@ class AssetExchange extends React.Component {
                                                                     type={'number'}
                                                                     placeholder='Price'
                                                                     className={"form-control"}
+                                                                    // readOnly
+                                                                    // disabled
                                                                 />
                                                                 <div className="input-group-append">
                                                                     <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
