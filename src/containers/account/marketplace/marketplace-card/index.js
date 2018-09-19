@@ -144,12 +144,23 @@ const MarketplaceItem = (props, history) => (
 				<div className='right-bar'>
 					<div className="item cargo-major-details">
 						<div className="group">
-							<a
-								onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.purchase)}
-								className="cargo-title"
-							>
-								{props.name}
-							</a>
+							{
+								props.purchase &&
+                                <a
+                                    onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.purchase)}
+                                    className="cargo-title"
+                                >
+                                    {props.name}
+                                </a>
+								||
+                                <a
+                                    onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
+                                    className="cargo-title"
+                                >
+                                    {props.name}
+                                </a>
+                            }
+
 							<a
 								onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
 								className="cargo-id"
