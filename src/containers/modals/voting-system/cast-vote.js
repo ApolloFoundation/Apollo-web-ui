@@ -4,7 +4,7 @@ import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import CustomSelect from '../../components/select';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
-import {Form, Text, TextArea, Number, Radio, RadioGroup} from 'react-form';
+import {Form, Text, TextArea, Number, Radio, RadioGroup, Checkbox} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
@@ -62,22 +62,24 @@ class CastPoll extends React.Component {
 
         let votes = {};
 
+        const voteVals = Object.keys(values).filter((el) => {
+            return el.includes('vote')
+        });
 
-        Object.values(this.state.poll.options).forEach((el, index) => {
-
+        const allGivenVals = this.state.poll.options.map((el, index) => {
             if (index > 9) {
-                if (values.option === 'vote' + index) {
-                    votes['vote' + index] = 1;
-                    return;
-                }
-                votes['vote' + index] = -128
-
+                return 'vote' + index;
             } else {
-                if (values.option === 'vote0' + index) {
-                    votes['vote0' + index] = 1;
-                    return;
-                }
-                votes['vote0' + index] = -128
+                return 'vote0' + index;
+            }
+        });
+
+        allGivenVals.forEach((el, index) => {
+
+            if (voteVals.indexOf(el) === -1) {
+                votes[el] = -128
+            } else {
+                votes[el] = 1
             }
         });
 
@@ -162,34 +164,45 @@ class CastPoll extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <RadioGroup field={'option'}>
-                                            <div className="input-group-app display-block offset-bottom">
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Select option</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <div className="form-sub-actions">
-                                                            <div
-                                                                className="form-group-app no-padding-bottom"
-                                                                style={{paddingTop:0,paddingLeft:0}}
-                                                            >
-                                                                {
-                                                                    Object.keys(this.state.votes).map((el, index) => {
-                                                                        return (
-                                                                            <div key={uuid()} className="input-group-app align-middle display-block offset-bottom">
-                                                                                <Radio value={el}/>
-                                                                                <label style={{display: 'inline-block'}}>{this.state.votes[el]}</label>
-                                                                            </div>
-                                                                        );
-                                                                    })
+                                            <div className="mobile-class row mb-15 form-group-white">
+                                                <div className="col-md-3">
+                                                    <label>Select option</label>
+                                                </div>
+                                                <div className="col-md-9">
+                                                    <div className="form-check custom-checkbox mb-2" style={{paddingLeft: 0}}>
+                                                        {
+                                                            Object.keys(this.state.votes).map((el, index) => {
+                                                                if (index > 9) {
+                                                                    return (
+                                                                        <div key={uuid()} className="input-group-app align-middle display-block offset-bottom">
+                                                                            <Checkbox
+                                                                                className="form-check-input custom-control-input"
+                                                                                field={'vote' + index}
+                                                                                value={el}
+                                                                                style={{opacity: 1}}
+                                                                            />
+                                                                            <label style={{display: 'inline-block'}}>{this.state.votes[el]}</label>
+                                                                        </div>
+                                                                    );
+                                                                } else {
+                                                                    return (
+                                                                        <div key={uuid()} className="input-group-app align-middle display-block offset-bottom">
+                                                                            <Checkbox
+                                                                                className="form-check-input custom-control-input"
+                                                                                field={'vote0' + index}
+                                                                                value={el}
+                                                                                style={{opacity: 1}}
+                                                                            />
+                                                                            <label style={{display: 'inline-block'}}>{this.state.votes[el]}</label>
+                                                                        </div>
+                                                                    );
                                                                 }
-                                                            </div>
-                                                        </div>
+                                                            })
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
-                                        </RadioGroup>
+
 
                                         <div className="input-group-app display-block offset-bottom">
                                             <div className="row">
