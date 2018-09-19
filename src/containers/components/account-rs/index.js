@@ -74,7 +74,7 @@ class AccountRS extends React.Component {
                     <InputMask className="form-control"
                                disabled={this.props.disabled}
                                mask={this.state.inputValue.mask}
-                               placeholder={'Recipient account'}
+                               placeholder={this.props.placeholder || 'Recipient account'}
                                ref={'input'}
                                value={this.state.inputValue.value}
                                onPaste={this.onChange}
