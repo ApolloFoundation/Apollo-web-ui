@@ -24,6 +24,9 @@ import {getMessages} from "../../../actions/messager";
 import {getNewsAction} from "../../../actions/account";
 import {BlockUpdater} from "../../block-subscriber/index";
 import {reloadAccountAction} from "../../../actions/login";
+import {getAllTaggedDataAction} from "../../../actions/datastorage";
+import {getActiveShfflings, getShufflingAction} from "../../../actions/shuffling";
+import {getpollsAction} from "../../../actions/polls";
 
 const mapStateToProps = state => ({
 	account: state.account.account,
@@ -47,7 +50,8 @@ const mapDispatchToProps = dispatch => ({
 	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 	setMopalType: (type) => dispatch(setMopalType(type)),
 	formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
-	getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
+    getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
+    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
 	getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
 	getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
 	getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
@@ -56,6 +60,8 @@ const mapDispatchToProps = dispatch => ({
 	getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
 	getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
 	getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
+    getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
+    getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
 });
 
 class Dashboard extends React.Component {
@@ -68,6 +74,7 @@ class Dashboard extends React.Component {
 			assetsValue: null,
 			aliassesValue: null,
 			transactions: null,
+            taggedData: null,
 			firstIndex: 0,
 			lastIndex: 14,
 			newsItem: 0
@@ -118,10 +125,13 @@ class Dashboard extends React.Component {
 	}
 
 	initDashboard = (reqParams) => {
+		this.getAllTaggedData(reqParams);
 		this.getAccountAsset(reqParams);
 		this.getAliasesCount(reqParams);
 		this.getCurrenciesCount(reqParams);
 		this.getMessagesCount(reqParams);
+		this.getActivePolls(reqParams);
+		this.getShufflingAction(reqParams);
 		this.getGoods({...reqParams, seller: this.props.account});
 		this.getTransactions({
 			...reqParams,
@@ -129,6 +139,44 @@ class Dashboard extends React.Component {
 			lastIndex: this.state.lastIndex
 		});
 
+	};
+
+	getActivePolls = async (reqParams) => {
+
+        reqParams = {
+            ...reqParams,
+            includeFinished: false,
+        };
+
+		const polls = await this.props.getpollsAction(reqParams);
+
+		if (polls) {
+			this.setState({
+                polls: polls.polls.splice(0,3)
+			})
+		}
+	};
+
+    getAllTaggedData = async (requsetParams) => {
+    	const taggedData = await this.props.getAllTaggedDataAction(requsetParams);
+
+    	console.log(taggedData);
+
+    	if (taggedData) {
+			this.setState({
+                taggedData: taggedData.data.length
+			})
+		}
+	};
+
+    getShufflingAction = async (reqParams) => {
+    	const shuffling = await this.props.getActiveShfflings(reqParams);
+
+    	if (shuffling) {
+            this.setState({
+                shuffling: shuffling.shufflings.length
+            })
+		}
 	};
 
 	getAccountAsset = async (requsetParams) => {
@@ -154,7 +202,9 @@ class Dashboard extends React.Component {
 		const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
 
 		if (aliasesCount) {
-			this.setState({
+            console.log(aliasesCount);
+
+            this.setState({
 				aliassesValue: aliasesCount.numberOfAliases
 			})
 		}
@@ -344,7 +394,7 @@ class Dashboard extends React.Component {
 										</div>
 										<div className="general-info-item top-right">
 											<div className="top-bar">
-												11
+												{this.state.shuffling}
 											</div>
 											<div className="bottom-bar">
 												Coin
@@ -352,17 +402,19 @@ class Dashboard extends React.Component {
 											</div>
 										</div>
 										<div className="general-info-item bottom-left">
-											<div className="top-bar">
-												1
-											</div>
+											{
+                                                this.state.aliassesValue &&
+                                                <div className="top-bar">
+                                                    {this.state.aliassesValue}
+                                                </div>
+											}
 											<div className="bottom-bar">
-												Secure
-												aliases
+												Aliases
 											</div>
 										</div>
 										<div className="general-info-item bottom-right">
 											<div className="top-bar">
-												22
+												{this.state.taggedData}
 											</div>
 											<div className="bottom-bar">
 												Data
@@ -488,10 +540,29 @@ class Dashboard extends React.Component {
 								</div>
 								<div className="card active-polls">
 									<div className="card-title">Active Polls</div>
-									<div className="full-box block">
-										<p>Search for Zerp on the Asset Exchange section.</p>
-										<p>What features should be implemented in apollo platform?</p>
-										<p>Apollo to have future USD/Fiat Pairs on Exchange?</p>
+									<div
+										className="full-box block"
+										style={{
+                                            display: 'flex',
+                                            paddingBottom: '50px'
+										}}
+									>
+										{
+											this.state.polls &&
+												this.state.polls.map((el) => {
+                                                    return (
+														<Link
+															style={{
+																display: 'block',
+																color: '#777777'
+															}}
+															to={'/followed-polls/' + el.poll}
+														>
+                                                            {el.name}
+														</Link>
+                                                    )
+                                                })
+										}
 									</div>
 									<button
 										className="btn btn-right gray round round-bottom-right round-top-left absolute "

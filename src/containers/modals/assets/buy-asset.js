@@ -92,7 +92,7 @@ class BuyAsset extends React.Component {
                                                 <label>Total</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <p>{this.props.modalData.quantityATU} Apollo</p>
+                                                <p>{this.props.modalData.total} Apollo</p>
                                                 <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
                                             </div>
                                         </div>
