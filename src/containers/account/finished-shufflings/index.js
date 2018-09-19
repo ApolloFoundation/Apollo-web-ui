@@ -114,6 +114,7 @@ class FinishedShufflings extends React.Component {
                                             <ShufflingItem
                                                 key={uuid()}
                                                 {...el}
+                                                finished
                                                 getTransaction={this.getTransaction}
                                             />
                                         );

@@ -36,8 +36,8 @@ const ShufflingItem = (props) => (
 
         <td className="align-right">{props.registrantCount} / {props.participantCount}</td>
         <td className="blue-link-text align-right">
-            <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.shuffling)}>
-                {props.shuffling}
+            <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.issuer)}>
+                {props.issuerRS}
             </a>
         </td>
         {
