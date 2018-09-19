@@ -11,6 +11,7 @@ import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
+import RawTransactionDetails from './send-apollo/raw-transaction-details';
 
 // Account
 import InfoAccount from './account/account';
@@ -173,6 +174,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SEND_APOLLO'                 && <SendApollo                closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'APPROVE_TRANSACTION'         && <ApproveTransaction        closeModal={this.closeModal}/>}
+                {this.props.modalType === 'RAW_TRANSACTION_DETAILS'     && <RawTransactionDetails     closeModal={this.closeModal}/>}
 
 
                 {/* Assets */}
