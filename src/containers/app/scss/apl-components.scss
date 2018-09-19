@@ -312,7 +312,7 @@
       .modal-form {
         .left-bar {
           max-height: 700px;
-          overflow-y: scroll;
+          overflow-y: auto;
 
           &.overflow-visible {
             overflow: visible;
