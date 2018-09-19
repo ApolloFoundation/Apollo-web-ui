@@ -4599,7 +4599,11 @@ table td .btn, table th .btn {
         height: 100%;
         border-radius: 0;
         transform: none !important;
-        overflow: auto; } }
+        overflow: auto;
+        min-height: 100vh;
+        padding-bottom: 0; }
+        .modal-window .modal-box .modal-form {
+          display: flex; } }
     .modal-window .modal-box.active {
       transform: translateY(15px); }
       .modal-window .modal-box.active .modal-form .left-bar {
@@ -4628,8 +4632,8 @@ table td .btn, table th .btn {
         position: relative; }
         @media (max-width: 760px) {
           .modal-window .modal-box .modal-form .form-group-app {
-            height: 100vh;
-            border-radius: 0; } }
+            border-radius: 0;
+            height: auto; } }
 
 .btn {
   display: inline-block;
