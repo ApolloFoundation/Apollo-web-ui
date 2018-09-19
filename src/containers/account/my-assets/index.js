@@ -114,7 +114,7 @@ class MyAssets extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Asset exchange'}
+                    pageTitle={'My assets'}
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
