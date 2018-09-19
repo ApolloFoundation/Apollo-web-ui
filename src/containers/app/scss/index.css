@@ -4608,7 +4608,7 @@ table td .btn, table th .btn {
       transform: translateY(15px); }
       .modal-window .modal-box.active .modal-form .left-bar {
         max-height: 700px;
-        overflow-y: scroll; }
+        overflow-y: auto; }
         .modal-window .modal-box.active .modal-form .left-bar.overflow-visible {
           overflow: visible;
           max-height: auto; }
