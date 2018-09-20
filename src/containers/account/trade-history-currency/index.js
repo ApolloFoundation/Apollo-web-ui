@@ -145,7 +145,7 @@ class TradeHistoryCurrency extends React.Component {
                                         <td>Date</td>
                                         <td>Exchange Request</td>
                                         <td>Exchange Offer</td>
-                                        <td className="align-right">Code</td>
+                                        <td>Code</td>
                                         <td>Seller</td>
                                         <td>Buyer</td>
                                         <td className="align-right">Units</td>
