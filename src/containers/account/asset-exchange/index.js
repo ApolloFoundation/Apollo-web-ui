@@ -472,10 +472,11 @@ class AssetExchange extends React.Component {
                                                     </div>
                                                     <div className="full-box-item">
                                                         <div className='box'>
-                                                            <div className="card-title bold small">Quantity:</div>
+                                                            <div className="card-title bold small">Total available:</div>
                                                             <div
                                                                 className="card-title description small"
                                                             >
+                                                                {/*(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)*/}
                                                                 {(this.state.asset.quantityATU / Math.pow(10, this.state.asset.decimals)).toFixed(this.state.asset.decimals)}
                                                             </div>
                                                         </div>
