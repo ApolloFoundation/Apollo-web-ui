@@ -31,76 +31,33 @@ import config from '../../config';
 import converters from '../converters'
 import BigInteger from 'big-integer';
 import AplAddress from '../util/apladres'
+import store from '../../store';
+import {NotificationManager} from "react-notifications";
 
 let forms = {};
-
-// $(".modal form input").keydown(function(e) {
-//     return (dispatch, getState) => {
-//         const {account} = getState();
-//
-//         if (e.which == "13") {
-//             e.preventDefault();
-//             if (account.settings["submit_on_enter"] && e.target.type != "textarea") {
-//                 $(this).submit();
-//             } else {
-//                 return false;
-//             }
-//         }
-//     }
-// });
-//
-// $(".modal button.btn-primary:not([data-dismiss=modal]):not([data-ignore=true]),button.btn-calculate-fee,button.scan-qr-code").click(function() {
-//     var $btn = $(this);
-//     var $modal = $(this).closest(".modal");
-//     if ($btn.hasClass("scan-qr-code")) {
-//         var data = $btn.data();
-//         NRS.scanQRCode(data.reader, function(text) {
-//             $modal.find("#" + data.result).val(text);
-//         });
-//         return;
-//     }
-//     try {
-//         NRS.submitForm($modal, $btn);
-//     } catch(e) {
-//         $modal.find(".error_message").html("Form submission error '" + e.message + "' - please report to developers").show();
-//         NRS.unlockForm($modal, $btn);
-//     }
-// });
-//
-// $(".modal input,select,textarea").change(function() {
-//     var id = $(this).attr('id');
-//     var modal = $(this).closest(".modal");
-//     if (!modal) {
-//         return;
-//     }
-//     var feeFieldId = modal.attr('id');
-//     if (!feeFieldId) {
-//         // Not a modal dialog with fee calculation widget
-//         return;
-//     }
-//     feeFieldId = feeFieldId.replace('_modal', '') + "_fee";
-//     if (id == feeFieldId) {
-//         return;
-//     }
-//     var fee = $("#" + feeFieldId);
-//     if (fee.val() == "") {
-//         return;
-//     }
-//     var recalcIndicator = $("#" + modal.attr('id').replace('_modal', '') + "_recalc");
-//     recalcIndicator.show();
-// });
 
 const configServer = config;
 
 let isLocalHost = false;
 
 function submitForm($modal, $btn, data, requestType) {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
 
         const {account} = getState();
 
         if (!$btn) {
             // $btn = $modal.find("button.btn-primary:not([data-dismiss=modal])");
+        }
+
+        if (data.secretPhrase) {
+            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsync(data.secretPhrase)));
+
+            console.log(isPassphrase);
+
+            if (account.accountRS !== isPassphrase) {
+                NotificationManager.error('Incorrect secret phrase.', null, 5000);
+                return {};
+            }
         }
 
         var $form;

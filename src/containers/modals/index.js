@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setMopalType} from '../../modules/modals';
+import {SET_MODAL_DATA, setMopalType} from '../../modules/modals';
 import classNames from 'classnames';
 
 // Modals
@@ -151,6 +151,11 @@ class ModalWindow extends React.Component {
 
         });
         // document.querySelector('.modal-window').classList.remove('active');
+
+        dispatch({
+           type: 'SET_MODAL_DATA',
+           payload: null
+        });
 
         setTimeout(() => {
             this.props.setMopalType(null);
