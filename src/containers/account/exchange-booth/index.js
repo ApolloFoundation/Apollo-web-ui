@@ -692,7 +692,7 @@ class ExchangeBooth extends React.Component {
                                                                 <thead>
                                                                 <tr>
                                                                     <td>Height</td>
-                                                                    <td className="align-right">Type</td>
+                                                                    <td>Type</td>
                                                                     <td className="align-right">Units</td>
                                                                     <td className="align-right">Rate</td>
                                                                     <td className="align-right">Total</td>
@@ -732,8 +732,8 @@ class ExchangeBooth extends React.Component {
                                                                 <thead>
                                                                 <tr>
                                                                     <td>Date</td>
-                                                                    <td className="align-right">Seller</td>
-                                                                    <td className="align-right">Buyer</td>
+                                                                    <td>Seller</td>
+                                                                    <td>Buyer</td>
                                                                     <td className="align-right">Units</td>
                                                                     <td className="align-right">Rate</td>
                                                                     <td className="align-right">Total</td>
