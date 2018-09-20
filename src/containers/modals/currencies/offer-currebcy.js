@@ -9,6 +9,7 @@ import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
+    import {getAccountCurrenciesAction} from "../../../actions/currencies";
 
 class OfferCurrency extends React.Component {
     constructor(props) {
@@ -65,6 +66,12 @@ class OfferCurrency extends React.Component {
 
     componentDidMount = () => {
         this.getBlock();
+        this.getCurrency(this.props);
+    };
+
+    componentWillReceiveProps = (newState) => {
+        this.getBlock();
+        this.getCurrency(newState);
     };
 
     getBlock = async (reqParams) => {
@@ -74,7 +81,28 @@ class OfferCurrency extends React.Component {
         }
     };
 
+    getCurrency = async (newState) => {
+        const currency = await this.props.getAccountCurrenciesAction({
+            currency: this.props.modalData.currency,
+            account: newState.account,
+            includeCurrencyInfo: true
+        });
+
+        if (currency && currency.unconfirmedUnits) {
+            console.log(currency.unconfirmedUnits);
+
+            this.setState({
+                currencyAvailable : currency.unconfirmedUnits / Math.pow(10, currency.decimals)
+            })
+        } else {
+            this.setState({
+                currencyAvailable : null
+            })
+        }
+    }
+
     render() {
+        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form
@@ -103,9 +131,9 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9">
                                             <span>
-                                                {(this.props.modalData.maxSupply - this.props.modalData.currentSupply) === 0
-                                                ? "None Available"
-                                                : `Currency units available ${(this.props.modalData.maxSupply - this.props.modalData.currentSupply)}`}
+                                                {!!(this.state.currencyAvailable)
+                                                ? `Currency units available ${(this.state.currencyAvailable)}`
+                                                : "None Available"}
                                             </span>
                                         </div>
                                     </div>
@@ -292,7 +320,8 @@ class OfferCurrency extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -300,6 +329,8 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
+    getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferCurrency);
