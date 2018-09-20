@@ -111,16 +111,21 @@ class SiteHeader extends React.Component {
 
 		if (transaction) {
 			this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+			return;
 		}
 
 		if (block) {
-			this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+			this.props.setBodyModalParamsAction('INFO_BLOCK', block);
+            return;
 		}
 
 		if (account) {
 			this.props.setModalData(account.account);
-			this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account)
-		}
+			this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account);
+            return;
+        }
+
+        NotificationManager.error('Invalid search properties.', null, 5000);
 	};
 
 	getBlock = async () => {

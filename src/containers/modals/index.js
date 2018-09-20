@@ -86,6 +86,10 @@ import AddMonitor from "./monitors/add-monitor";
 import OrderCancel from "./order-cancellation/order-cancel";
 import ApproveTransaction from "./approve-transaction";
 
+
+import store from '../../store';
+
+
 class ModalWindow extends React.Component {
     constructor(props) {
         super(props);
@@ -152,13 +156,14 @@ class ModalWindow extends React.Component {
         });
         // document.querySelector('.modal-window').classList.remove('active');
 
-        dispatch({
-           type: 'SET_MODAL_DATA',
-           payload: null
-        });
+
 
         setTimeout(() => {
             this.props.setMopalType(null);
+            store.dispatch({
+                type: 'SET_MODAL_DATA',
+                payload: null
+            });
         }, 300);
     };
 
