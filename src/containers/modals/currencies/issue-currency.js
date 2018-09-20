@@ -180,33 +180,33 @@ class IssueCurrency extends React.Component {
                                                 Controllable
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                      type="checkbox"
-                                                      field="type3"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Reservable
-                                            </label>
-                                        </div>
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                      type="checkbox"
-                                                      onChange={(value) => {
-                                                          if(value) setValue('type3', true);
-                                                      }}
-                                                      field="type4"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Claimable
-                                            </label>
-                                        </div>
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                      type="checkbox"
-                                                      field="type5"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Mintable
-                                            </label>
-                                        </div>
+                                        {/*<div className="form-check custom-checkbox mb-15">*/}
+                                            {/*<Checkbox className="form-check-input custom-control-input"*/}
+                                                      {/*type="checkbox"*/}
+                                                      {/*field="type3"/>*/}
+                                            {/*<label className="form-check-label custom-control-label">*/}
+                                                {/*Reservable*/}
+                                            {/*</label>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="form-check custom-checkbox mb-15">*/}
+                                            {/*<Checkbox className="form-check-input custom-control-input"*/}
+                                                      {/*type="checkbox"*/}
+                                                      {/*onChange={(value) => {*/}
+                                                          {/*if(value) setValue('type3', true);*/}
+                                                      {/*}}*/}
+                                                      {/*field="type4"/>*/}
+                                            {/*<label className="form-check-label custom-control-label">*/}
+                                                {/*Claimable*/}
+                                            {/*</label>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="form-check custom-checkbox mb-15">*/}
+                                            {/*<Checkbox className="form-check-input custom-control-input"*/}
+                                                      {/*type="checkbox"*/}
+                                                      {/*field="type5"/>*/}
+                                            {/*<label className="form-check-label custom-control-label">*/}
+                                                {/*Mintable*/}
+                                            {/*</label>*/}
+                                        {/*</div>*/}
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"

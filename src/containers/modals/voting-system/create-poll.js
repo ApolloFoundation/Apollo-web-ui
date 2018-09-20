@@ -16,8 +16,8 @@ import {calculateFeeAction} from "../../../actions/forms";
 const votingModelData = [
     { value: 0, label: 'Vote by Account' },
     { value: 1, label: 'Vote by Account Balance' },
-    { value: 2, label: 'Vote by Asset Balance' },
-    { value: 3, label: 'Vote by Currency Balance' }
+    // { value: 2, label: 'Vote by Asset Balance' },
+    // { value: 3, label: 'Vote by Currency Balance' }
 ];
 
 class CreatePoll extends React.Component {
@@ -277,18 +277,18 @@ class CreatePoll extends React.Component {
                                                             <label style={{display: 'inline-block'}}>Account
                                                                 Balance</label>
                                                         </div>
-                                                        <div
-                                                            className="input-group-app align-middle display-block mb-3">
-                                                            <Radio value={2}/>
-                                                            <label style={{display: 'inline-block'}}>Asset
-                                                                Balance</label>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app align-middle display-block mb-3">
-                                                            <Radio value={3}/>
-                                                            <label style={{display: 'inline-block'}}>Currency
-                                                                Balance</label>
-                                                        </div>
+                                                        {/*<div*/}
+                                                            {/*className="input-group-app align-middle display-block mb-3">*/}
+                                                            {/*<Radio value={2}/>*/}
+                                                            {/*<label style={{display: 'inline-block'}}>Asset*/}
+                                                                {/*Balance</label>*/}
+                                                        {/*</div>*/}
+                                                        {/*<div*/}
+                                                            {/*className="input-group-app align-middle display-block mb-3">*/}
+                                                            {/*<Radio value={3}/>*/}
+                                                            {/*<label style={{display: 'inline-block'}}>Currency*/}
+                                                                {/*Balance</label>*/}
+                                                        {/*</div>*/}
                                                     </div>
                                                 </div>
                                             </div>
