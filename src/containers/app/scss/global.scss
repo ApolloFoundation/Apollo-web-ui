@@ -32,6 +32,17 @@ html, body {
 	color: #a6a6a6 !important;
 }
 
+.no-white-space {
+	white-space: normal;
+	overflow: visible;
+	-o-text-overflow: unset;
+	text-overflow: unset;
+}
+
+.break-word {
+	word-break: break-word;
+}
+
 ::-ms-input-placeholder {
 	color: #a6a6a6 !important;
 }

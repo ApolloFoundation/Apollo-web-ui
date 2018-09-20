@@ -201,7 +201,7 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Signature:</td>
-                                                    <td>{this.state.transaction.signature}</td>
+                                                    <td className={'no-white-space'}><span className={'break-word'}>{this.state.transaction.signature}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Fee ATM:</td>
@@ -217,7 +217,7 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Full Hash:</td>
-                                                    <td>{this.state.transaction.fullHash}</td>
+                                                    <td className={'no-white-space break-word'}>{this.state.transaction.fullHash}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Type:</td>
@@ -237,11 +237,11 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>EC block id:</td>
-                                                    <td>{this.state.transaction.ecBlockId}</td>
+                                                    <td className={'no-white-space break-word'}>{this.state.transaction.ecBlockId}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Signature hash:</td>
-                                                    <td>{this.state.transaction.signatureHash}</td>
+                                                    <td className={'no-white-space'}><span className={'break-word'}>{this.state.transaction.signatureHash}</span></td>
                                                 </tr>
 
                                                 <tr>
