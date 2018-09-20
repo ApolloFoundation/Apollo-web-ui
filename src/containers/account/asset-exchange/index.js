@@ -39,6 +39,7 @@ class AssetExchange extends React.Component {
     componentDidMount() {
         this.getAsset(this.props.match.params.asset);
         this.getAssets();
+        this.getAccountAsset(this.props);
         BlockUpdater.on("data", this.listener);
     }
 
@@ -49,6 +50,7 @@ class AssetExchange extends React.Component {
     componentWillReceiveProps(newState) {
         this.getAsset(newState.match.params.asset);
         this.getAssets();
+        this.getAccountAsset(newState);
     }
 
     async getAsset(assetID) {
@@ -68,6 +70,27 @@ class AssetExchange extends React.Component {
 
         }
     }
+
+    getAccountAsset = async (newState) => {
+        const assets = await this.props.getAccountAssetAction({account: newState.account});
+
+        if (assets) {
+
+            const accountAssets = assets.accountAssets;
+            const assetsInfo    = assets.assets;
+
+
+
+            const result = accountAssets.map((el, index) => {
+                return {...(assetsInfo[index]), ...el}
+            });
+
+            this.setState({
+                accountAssets: result,
+            })
+        }
+
+    };
 
     getBuyOrders = async assetName => {
 
@@ -200,8 +223,6 @@ class AssetExchange extends React.Component {
     }
 
     handleSellOrders = async (values) => {
-        console.log(values);
-
         this.props.setBodyModalParamsAction('SELL_ASSET', {
             quantityATU: values.quantity,
             priceATM: values.priceATM,
@@ -211,8 +232,6 @@ class AssetExchange extends React.Component {
     };
 
     handleBuyOrders = async (values) => {
-        console.log(values);
-
         this.props.setBodyModalParamsAction('BUY_ASSET', {
             quantityATU: values.quantity,
             priceATM: values.priceATM,
@@ -231,6 +250,8 @@ class AssetExchange extends React.Component {
         }
     };
 
+
+
     render() {
         return (
             <div className="page-content">
@@ -244,8 +265,8 @@ class AssetExchange extends React.Component {
                             <div className="col-md-3 p-0">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
-                                        this.state.assets &&
-                                        this.state.assets.map((el, index) => {
+                                        this.state.accountAssets &&
+                                        this.state.accountAssets.map((el, index) => {
                                             return (
                                                 <Link
                                                     key={uuid()}
@@ -261,7 +282,7 @@ class AssetExchange extends React.Component {
                                                             {el ? el.name : ""}
                                                         </div>
                                                         <div className="chat-date">
-                                                            Quantity:&nbsp;{el ? el.initialQuantityATU : 0 * Math.pow(10, el ? el.decimals : 0)}
+                                                            Quantity:&nbsp;{(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)}
                                                         </div>
                                                     </div>
                                                 </Link>
@@ -296,7 +317,7 @@ class AssetExchange extends React.Component {
                                                             <div className="form-title">
                                                                 <p>Buy {this.state.asset.name}</p>
                                                                 <div className="form-sub-title">
-                                                                    balance: <strong>{this.props.amountATM} ATM</strong>
+                                                                    balance: <strong>{this.props.amountATM / 100000000} ATM</strong>
                                                                 </div>
                                                             </div>
                                                             <div
@@ -453,7 +474,10 @@ class AssetExchange extends React.Component {
                                                         <div className='box'>
                                                             <div className="card-title bold small">Quantity:</div>
                                                             <div
-                                                                className="card-title description small">{this.state.asset.quantityATU}</div>
+                                                                className="card-title description small"
+                                                            >
+                                                                {(this.state.asset.quantityATU / Math.pow(10, this.state.asset.decimals)).toFixed(this.state.asset.decimals)}
+                                                            </div>
                                                         </div>
                                                         <div className='box'>
                                                             <div
@@ -472,7 +496,7 @@ class AssetExchange extends React.Component {
                                                             <div className="form-title">
                                                                 <p>Sell {this.state.asset.name}</p>
                                                                 <div className="form-sub-title">
-                                                                    balance: <strong>{this.state.asset.quantityATU / Math.pow(10, this.state.asset.decimals)} {this.state.asset.name}</strong>
+                                                                    balance: <strong>{this.state.asset.quantityATU / this.state.asset.decimals} {this.state.asset.name}</strong>
                                                                 </div>
                                                             </div>
                                                             <div
@@ -617,11 +641,11 @@ class AssetExchange extends React.Component {
                     !this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-4 p-0">
+                            <div className="col-md-3 p-0">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
-                                        this.state.assets &&
-                                        this.state.assets.map((el, index) => {
+                                        this.state.accountAssets &&
+                                        this.state.accountAssets.map((el, index) => {
                                             return (
                                                 <Link
                                                     key={uuid()}
@@ -636,7 +660,7 @@ class AssetExchange extends React.Component {
                                                             {el ? el.name : ""}
                                                         </div>
                                                         <div className="chat-date">
-                                                            Quantity:&nbsp;{el ? el.initialQuantityATU : 0 * Math.pow(10, el ? el.decimals : 0)}
+                                                            Quantity:&nbsp;{(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)}
                                                         </div>
                                                     </div>
                                                 </Link>
@@ -655,7 +679,8 @@ class AssetExchange extends React.Component {
 
 
 const mapStateToProps = state => ({
-    amountATM: state.account.amountATM,
+    amountATM: state.account.balanceATM,
+    account: state.account.account,
     assetBalances: state.account.assetBalances
 });
 
@@ -668,6 +693,7 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
 
+    getAccountAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams)),
     getAskOrders: asset => getAskOrders(asset),
     getBidOrders: asset => getBidOrders(asset),
 });

@@ -70,8 +70,6 @@ class MyAssets extends React.Component {
                 account: this.props.account
             });
 
-            console.log(assets);
-
             if (assets) {
                 const accountAssets = assets.accountAssets;
                 const assetsInfo    = assets.assets;
@@ -107,10 +105,10 @@ class MyAssets extends React.Component {
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
-
     }
 
     render () {
+        console.log(this.state.assets);
         return (
             <div className="page-content">
                 <SiteHeader

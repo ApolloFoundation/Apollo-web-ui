@@ -5,7 +5,6 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 class OfferItem extends React.Component {
     render() {
         const {offer} = this.props;
-        console.log(this.props);
         return (
             <tr>
                 <td className="blue-link-text" onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', offer.accountRS)}><a>{offer.accountRS}</a></td>

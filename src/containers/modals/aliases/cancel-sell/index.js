@@ -53,8 +53,6 @@ class CancelSell extends React.Component {
 
         };
 
-        console.log(values);
-
         this.props.submitForm(null, null, values, 'sellAlias')
             .done((data) => {
                 console.log(data);
