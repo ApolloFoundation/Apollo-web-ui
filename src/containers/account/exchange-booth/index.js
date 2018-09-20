@@ -13,6 +13,7 @@ import {
     getExchangesAction,
     getSellOffersAction
 } from "../../../actions/exchange-booth";
+import InputForm from '../../components/input-form';
 
 import OfferItem  from './offer-item/'
 import ExchangeItem  from './exchange-item/ExchangeItem'
@@ -20,19 +21,26 @@ import ExecutedItem  from './executed-item/ExecutedItem'
 import {Form, Text, TextArea} from 'react-form';
 import uuid from 'uuid'
 import {NotificationManager} from "react-notifications";
+import {getBlockAction} from "../../../actions/blocks";
+import {getTransactionAction} from "../../../actions/transactions";
 
 class ExchangeBooth extends React.Component {
-    state = {
-        currency: null,
-        sellOffers: [],
-        buyOffers: [],
-        exchangeRequest: [],
-        executedExchanges: [],
-        minimumSellRate: null,
-        minimumBuyRate: null,
-        totalBuyRate: 0,
-        totalSellRate: 0
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            currency: null,
+            sellOffers: [],
+            buyOffers: [],
+            exchangeRequest: [],
+            executedExchanges: [],
+            minimumSellRate: null,
+            minimumBuyRate: null,
+            totalBuyRate: 0,
+            totalSellRate: 0
+        };
+        this.getBlock = this.getBlock.bind(this);
+        this.getTransaction = this.getTransaction.bind(this);
+    }
 
     listener = data => {
         this.getCurrency({code: this.props.match.params.currency});
@@ -165,6 +173,26 @@ class ExchangeBooth extends React.Component {
         }
     };
 
+    async getBlock(type, blockHeight) {
+        const requestParams = {
+            height: blockHeight
+        };
+
+        const block = await this.props.getBlockAction(requestParams);
+
+        if (block) {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+        }
+    }
+
+    async getTransaction(requestParams) {
+        const transaction = await this.props.getTransactionAction(requestParams);
+
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+        }
+    };
+
     render() {
         return (
             <div className="page-content">
@@ -256,14 +284,14 @@ class ExchangeBooth extends React.Component {
                                                                 </div>
                                                                 <div
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    <Text
+                                                                    <InputForm
                                                                         field="units"
                                                                         type={'number'}
                                                                         placeholder='Units'
-                                                                        className={"form-control"}
-                                                                        onKeyUp={(e) => {
+                                                                        onChange={(e) => {
                                                                             setValue('rateATM', Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
                                                                         }}
+                                                                        setValue={setValue}
                                                                     />
                                                                     <div className="input-group-append">
                                                                         <span className="input-group-text"
@@ -439,14 +467,14 @@ class ExchangeBooth extends React.Component {
                                                                 </div>
                                                                 <div
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    <Text
+                                                                    <InputForm
                                                                         field="units"
                                                                         type={'number'}
                                                                         placeholder='Units'
-                                                                        className={"form-control"}
-                                                                        onKeyUp={(e) => {
+                                                                        onChange={(e) => {
                                                                             setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
                                                                         }}
+                                                                        setValue={setValue}
                                                                     />
                                                                     <div className="input-group-append">
                                                                         <span className="input-group-text"
@@ -664,7 +692,7 @@ class ExchangeBooth extends React.Component {
                                                                 <thead>
                                                                 <tr>
                                                                     <td>Height</td>
-                                                                    <td className="align-right">Type</td>
+                                                                    <td>Type</td>
                                                                     <td className="align-right">Units</td>
                                                                     <td className="align-right">Rate</td>
                                                                     <td className="align-right">Total</td>
@@ -676,6 +704,7 @@ class ExchangeBooth extends React.Component {
                                                                         decimals={this.state.currencyInfo.decimals}
                                                                         key={uuid()}
                                                                         exchange={exchange}
+                                                                        setBlockInfo={this.getBlock}
                                                                     />
                                                                 )}
                                                                 </tbody>
@@ -703,8 +732,8 @@ class ExchangeBooth extends React.Component {
                                                                 <thead>
                                                                 <tr>
                                                                     <td>Date</td>
-                                                                    <td className="align-right">Seller</td>
-                                                                    <td className="align-right">Buyer</td>
+                                                                    <td>Seller</td>
+                                                                    <td>Buyer</td>
                                                                     <td className="align-right">Units</td>
                                                                     <td className="align-right">Rate</td>
                                                                     <td className="align-right">Total</td>
@@ -716,6 +745,7 @@ class ExchangeBooth extends React.Component {
                                                                         decimals={this.state.currencyInfo.decimals}
                                                                         key={uuid()}
                                                                         exchange={exchange}
+                                                                        setTransactionInfo={this.getTransaction}
                                                                     />
                                                                 )}
                                                                 </tbody>
@@ -750,7 +780,9 @@ const mapDispatchToProps = dispatch => ({
 
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
-    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams))
+    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
+    getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
+    getTransactionAction: (data) => dispatch(getTransactionAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeBooth);

@@ -48,10 +48,11 @@ class EditAlias extends React.Component {
 
         values = {
             ...values,
-            aliasName: this.state.alias.aliasName
+            aliasName: this.state.alias.aliasName,
+            aliasURI: values[this.state.inputType]
         };
 
-        const res = await this.props.submitForm(null, null, values, 'setAlias')
+        const res = await this.props.submitForm(null, null, values, 'setAlias');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -104,6 +105,7 @@ class EditAlias extends React.Component {
 
 
     render() {
+        console.log('==============', this.props.modalData, this.state.alias)
         return (
             <div className="modal-box">
                 <Form
@@ -151,8 +153,9 @@ class EditAlias extends React.Component {
                                                 </label>
                                                 <div className="col-sm-9">
                                                     <InputForm
-                                                        field="aliasURI"
+                                                        field="uri"
                                                         placeholder="http://"
+                                                        defaultValue={this.state.alias.aliasURI}
                                                         setValue={setValue}/>
                                                 </div>
                                             </div>
@@ -160,18 +163,19 @@ class EditAlias extends React.Component {
                                         }
                                         {
                                             this.state.inputType === 'account' &&
-                                            <div className="form-group row form-group-white mb-15">
+                                            <div className="input-group-app form-group mb-15 display-block inline user">
                                                 <div className="row form-group-white">
                                                     <label htmlFor="recipient" className="col-sm-3 col-form-label">
                                                         Account
                                                     </label>
                                                     <div className="col-sm-9">
+                                                        <div className="iconned-input-field">
                                                             <AccountRS
-                                                                field={'aliasURI'}
-                                                                noContactList={true}
-                                                                setValue={setValue}
+                                                                field={'account'}
                                                                 placeholder={'Account RS'}
+                                                                setValue={setValue}
                                                             />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -184,7 +188,8 @@ class EditAlias extends React.Component {
                                                 </label>
                                                 <div className="col-sm-9">
                                                     <InputForm
-                                                        field="aliasURI"
+                                                        field="general"
+                                                        defaultValue={this.state.alias.aliasURI}
                                                         placeholder="Data"
                                                         setValue={setValue}/>
                                                 </div>
