@@ -213,16 +213,16 @@ class InfoBlock extends React.Component {
                                                     </tr>
                                                     <tr>
                                                         <td>Generator:</td>
-                                                        <td className="word-brake">{this.props.modalData.generator}</td>
+                                                        <td className="word-brake">{this.props.modalData.generatorRS}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Previous Block:</td>
                                                         <td className="word-brake">{this.props.modalData.previousBlock}</td>
                                                     </tr>
-                                                    {/*<tr>*/}
-                                                        {/*<td>Block Generating Time:</td>*/}
-                                                        {/*<td>{this.props.modalData.fullHash}</td>*/}
-                                                    {/*</tr>*/}
+                                                    <tr>
+                                                        <td>Block Generating Time:</td>
+                                                        <td>{this.props.formatTimestamp(this.props.modalData.timestamp)}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
