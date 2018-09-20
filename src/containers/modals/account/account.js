@@ -76,17 +76,18 @@ class InfoAccount extends React.Component {
                     aliases:        await accountData['ALIASES'],
                     account:        await accountData['ACCOUNT'],
                 }, () => {
-                    const accountAssets = this.state.assets.accountAssets;
-                    const assetsInfo    = this.state.assets.assets;
+                    if (this.state.assets) {
+                        const accountAssets = this.state.assets.accountAssets;
+                        const assetsInfo = this.state.assets.assets;
 
+                        const resultAsset = accountAssets.map((el, index) => {
+                            return {...(assetsInfo[index]), ...el}
+                        });
 
-                    const resultAsset = accountAssets.map((el, index) => {
-                        return {...(assetsInfo[index]), ...el}
-                    });
-
-                    this.setState({
-                        assets: resultAsset
-                    })
+                        this.setState({
+                            assets: resultAsset
+                        })
+                    }
                 });
             }
         }
