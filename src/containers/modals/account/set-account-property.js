@@ -8,6 +8,7 @@ import {Form, Text, TextArea} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
+import {calculateFeeAction} from "../../../actions/forms";
 
 class SetAccountProperty extends React.Component {
     constructor(props) {
@@ -44,19 +45,37 @@ class SetAccountProperty extends React.Component {
         }
     }
 
+    calculateFee = async (values, setValue) => {
+        const requestParams = {
+            requestType: 'setAccountProperty',
+            deadline: '1440',
+            property: values.property,
+            recipient: values.recipient,
+            publicKey: this.props.publicKey,
+            feeATM: 0
+        };
+        const fee = await this.props.calculateFeeAction(requestParams);
+
+        if (!fee.errorCode) {
+            setValue("feeAPL", fee.transactionJSON.feeATM / 100000000);
+        } else {
+            NotificationManager.error(fee.errorDescription, 'Error', 5000);
+        }
+    };
+
     render() {
         const contactRS = this.props.modalData.setterRS || this.props.modalData.recipientRS || '';
         return (
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue }) => (
+                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
-                                    <p>Set Account Property</p>
+                                    <p>{this.props.modalData.property ? 'Update' : 'Set'} Account Property</p>
                                 </div>
                                 {contactRS !== '' ?
                                     <div className="form-group row form-group-white mb-15">
@@ -119,9 +138,7 @@ class SetAccountProperty extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Fee
                                         <span
-                                            onClick={async () => {
-                                                    setValue("feeAPL", 1);
-                                            }}
+                                            onClick={() => this.calculateFee(getFormState().values, setValue)}
                                             style={{paddingRight: 0}}
                                             className="calculate-fee"
                                         >
@@ -131,7 +148,6 @@ class SetAccountProperty extends React.Component {
                                     <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
                                         <InputForm
                                             field="feeAPL"
-                                            defaultValue={1}
                                             placeholder="Minimum fee"
                                             type={"float"}
                                             setValue={setValue}/>
@@ -170,7 +186,8 @@ class SetAccountProperty extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    publicKey: state.account.publicKey
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -178,6 +195,7 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetAccountProperty);
