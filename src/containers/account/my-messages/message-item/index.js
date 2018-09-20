@@ -45,16 +45,17 @@ class MessageItem extends React.Component {
     decryptMessage = async (data, passPhrase) => {
 
 
-        this.props.submitForm(null, null, {
+        const message = await this.props.submitForm(null, null, {
             requestType: 'readMessage',
             secretPhrase: passPhrase,
             transaction: this.props.transaction
         }, 'readMessage')
-            .done((data) => {
-                this.setState({
-                    message: data.decryptedMessage
-                });
+
+        if (message) {
+            this.setState({
+                message: message.decryptedMessage
             });
+        }
 
         // const privateKey = converters.hexStringToByteArray(crypto.getPrivateKey(passPhrase));
         // let publicKey = await crypto.getPublicKey(this.props.sender, true);

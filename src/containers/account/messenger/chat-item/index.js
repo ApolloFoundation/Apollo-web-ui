@@ -45,17 +45,18 @@ class ChatItem extends React.Component {
     };
 
     decryptMessage = async (data, passPhrase) => {
-        this.props.submitForm(null, null, {
+        const message = await this.props.submitForm(null, null, {
             requestType: 'readMessage',
             secretPhrase: passPhrase,
             transaction: this.props.transaction
         }, 'readMessage')
-            .done((data) => {
-                this.setState({
-                    message: data.decryptedMessage,
-                    error: data.errorCode
-                });
+
+        if (message) {
+            this.setState({
+                message: message.decryptedMessage
             });
+        }
+
     };
 
     render () {
