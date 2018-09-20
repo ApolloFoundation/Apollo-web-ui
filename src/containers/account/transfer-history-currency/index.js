@@ -5,7 +5,7 @@ import classNames from "classnames";
 import uuid from "uuid";
 import {connect} from 'react-redux'
 
-import {getTransferHistory} from "../../../actions/assets";
+import {getTransferHistory} from "../../../actions/currencies";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";

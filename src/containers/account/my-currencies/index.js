@@ -129,6 +129,7 @@ class MyMadedCurrencies extends React.Component {
                                         <td>Code</td>
                                         <td>Name</td>
                                         <td className="align-right">Units</td>
+                                        <td className="align-right">Actions</td>
                                     </tr>
                                     </thead>
                                     <tbody key={uuid()}>
