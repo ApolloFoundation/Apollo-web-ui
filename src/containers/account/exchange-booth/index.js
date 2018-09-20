@@ -22,6 +22,7 @@ import {Form, Text, TextArea} from 'react-form';
 import uuid from 'uuid'
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
+import {getTransactionAction} from "../../../actions/transactions";
 
 class ExchangeBooth extends React.Component {
     constructor(props) {
@@ -38,6 +39,7 @@ class ExchangeBooth extends React.Component {
             totalSellRate: 0
         };
         this.getBlock = this.getBlock.bind(this);
+        this.getTransaction = this.getTransaction.bind(this);
     }
 
     listener = data => {
@@ -182,6 +184,14 @@ class ExchangeBooth extends React.Component {
             this.props.setBodyModalParamsAction('INFO_BLOCK', block)
         }
     }
+
+    async getTransaction(requestParams) {
+        const transaction = await this.props.getTransactionAction(requestParams);
+
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+        }
+    };
 
     render() {
         return (
@@ -735,6 +745,7 @@ class ExchangeBooth extends React.Component {
                                                                         decimals={this.state.currencyInfo.decimals}
                                                                         key={uuid()}
                                                                         exchange={exchange}
+                                                                        setTransactionInfo={this.getTransaction}
                                                                     />
                                                                 )}
                                                                 </tbody>
@@ -771,6 +782,7 @@ const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
     getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
+    getTransactionAction: (data) => dispatch(getTransactionAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeBooth);

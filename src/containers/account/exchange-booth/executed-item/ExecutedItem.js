@@ -14,11 +14,10 @@ class ExecutedItem extends React.Component {
     };
 
     render() {
-        const {exchange} = this.props;
-        console.log(this.props);
+        const {exchange, setTransactionInfo} = this.props;
         return (
             <tr>
-                <td className="align-left">{this.props.formatTimestamp(exchange.timestamp)}</td>
+                <td className="blue-link-text"><a onClick={setTransactionInfo.bind(this, {transaction: exchange.transaction})}>{this.props.formatTimestamp(exchange.timestamp)}</a></td>
                 <td className="align-right blue-link-text" onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', exchange.sellerRS)}><a>{exchange.sellerRS}</a></td>
                 <td className="align-right blue-link-text" onClick={exchange.buyerRS === this.props.account ? () => {} : this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', exchange.buyerRS)}><a>{exchange.buyerRS === this.props.account ? "You" : exchange.buyerRS}</a></td>
                 <td className="align-right">{(exchange.units    / Math.pow(10, this.props.decimals))}</td>
