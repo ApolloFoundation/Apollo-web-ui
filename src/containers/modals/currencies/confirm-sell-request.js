@@ -33,7 +33,7 @@ class SellCurrency extends React.Component {
             rateATM: this.props.modalData.rateATM * 100000000
         };
 
-        const res = await submitForm(null, null, values, 'currencySell');
+        const res = await this.props.submitForm(null, null, values, 'currencySell');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
