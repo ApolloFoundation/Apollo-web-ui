@@ -21,19 +21,24 @@ import ExecutedItem  from './executed-item/ExecutedItem'
 import {Form, Text, TextArea} from 'react-form';
 import uuid from 'uuid'
 import {NotificationManager} from "react-notifications";
+import {getBlockAction} from "../../../actions/blocks";
 
 class ExchangeBooth extends React.Component {
-    state = {
-        currency: null,
-        sellOffers: [],
-        buyOffers: [],
-        exchangeRequest: [],
-        executedExchanges: [],
-        minimumSellRate: null,
-        minimumBuyRate: null,
-        totalBuyRate: 0,
-        totalSellRate: 0
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            currency: null,
+            sellOffers: [],
+            buyOffers: [],
+            exchangeRequest: [],
+            executedExchanges: [],
+            minimumSellRate: null,
+            minimumBuyRate: null,
+            totalBuyRate: 0,
+            totalSellRate: 0
+        };
+        this.getBlock = this.getBlock.bind(this);
+    }
 
     listener = data => {
         this.getCurrency({code: this.props.match.params.currency});
@@ -165,6 +170,18 @@ class ExchangeBooth extends React.Component {
             NotificationManager.error('Please fill in number of units and rate.', null, 5000);
         }
     };
+
+    async getBlock(type, blockHeight) {
+        const requestParams = {
+            height: blockHeight
+        };
+
+        const block = await this.props.getBlockAction(requestParams);
+
+        if (block) {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+        }
+    }
 
     render() {
         return (
@@ -677,6 +694,7 @@ class ExchangeBooth extends React.Component {
                                                                         decimals={this.state.currencyInfo.decimals}
                                                                         key={uuid()}
                                                                         exchange={exchange}
+                                                                        setBlockInfo={this.getBlock}
                                                                     />
                                                                 )}
                                                                 </tbody>
@@ -751,7 +769,8 @@ const mapDispatchToProps = dispatch => ({
 
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
-    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams))
+    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
+    getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeBooth);
