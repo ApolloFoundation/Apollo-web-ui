@@ -76,7 +76,6 @@ class InfoAccount extends React.Component {
                     aliases:        await accountData['ALIASES'],
                     account:        await accountData['ACCOUNT'],
                 }, () => {
-                    console.log(this.state.assets);
                     const accountAssets = this.state.assets.accountAssets;
                     const assetsInfo    = this.state.assets.assets;
 

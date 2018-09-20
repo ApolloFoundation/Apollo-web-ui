@@ -15,7 +15,6 @@ class ExecutedItem extends React.Component {
 
     render() {
         const {exchange} = this.props;
-        console.log(this.props);
         return (
             <tr>
                 <td className="align-left">{this.props.formatTimestamp(exchange.timestamp)}</td>

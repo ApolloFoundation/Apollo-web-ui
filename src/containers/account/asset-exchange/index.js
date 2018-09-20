@@ -74,11 +74,7 @@ class AssetExchange extends React.Component {
     getAccountAsset = async (newState) => {
         const assets = await this.props.getAccountAssetAction({account: newState.account});
 
-        console.log(assets);
-
         if (assets) {
-
-            console.log(assets.accountAssets);
 
             const accountAssets = assets.accountAssets;
             const assetsInfo    = assets.assets;
@@ -227,8 +223,6 @@ class AssetExchange extends React.Component {
     }
 
     handleSellOrders = async (values) => {
-        console.log(values);
-
         this.props.setBodyModalParamsAction('SELL_ASSET', {
             quantityATU: values.quantity,
             priceATM: values.priceATM,
@@ -238,8 +232,6 @@ class AssetExchange extends React.Component {
     };
 
     handleBuyOrders = async (values) => {
-        console.log(values);
-
         this.props.setBodyModalParamsAction('BUY_ASSET', {
             quantityATU: values.quantity,
             priceATM: values.priceATM,

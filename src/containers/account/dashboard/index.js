@@ -160,8 +160,6 @@ class Dashboard extends React.Component {
     getAllTaggedData = async (requsetParams) => {
     	const taggedData = await this.props.getAllTaggedDataAction(requsetParams);
 
-    	console.log(taggedData);
-
     	if (taggedData) {
 			this.setState({
                 taggedData: taggedData.data.length
@@ -202,8 +200,6 @@ class Dashboard extends React.Component {
 		const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
 
 		if (aliasesCount) {
-            console.log(aliasesCount);
-
             this.setState({
 				aliassesValue: aliasesCount.numberOfAliases
 			})

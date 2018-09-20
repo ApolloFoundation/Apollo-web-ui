@@ -70,8 +70,6 @@ class MyAssets extends React.Component {
                 account: this.props.account
             });
 
-            console.log(assets);
-
             if (assets) {
                 const accountAssets = assets.accountAssets;
                 const assetsInfo    = assets.assets;
