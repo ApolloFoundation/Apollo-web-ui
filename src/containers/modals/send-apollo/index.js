@@ -194,13 +194,15 @@ class SendApollo extends React.Component {
                                         Fee
                                         <span
                                             onClick={async () => {
-                                                const fee = await this.props.calculateFeeAction({
+                                                const requestParams = {
+                                                    requestType: 'sendMoney',
+                                                    deadline: '1440',
+                                                    amountATM: parseInt(getFormState().values.amountAPL) * 100000000,
                                                     recipient: getFormState().values.recipient,
-                                                    amountATM: parseInt(getFormState().values.amountAPL),
                                                     publicKey: this.props.publicKey,
                                                     feeATM: 0
-                                                });
-
+                                                };
+                                                const fee = await this.props.calculateFeeAction(requestParams);
                                                 if (!fee.errorCode) {
                                                     setValue("feeAPL", fee.transactionJSON.feeATM / 100000000);
                                                 } else {
