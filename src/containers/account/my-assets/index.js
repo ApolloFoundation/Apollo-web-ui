@@ -105,10 +105,10 @@ class MyAssets extends React.Component {
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
-
     }
 
     render () {
+        console.log(this.state.assets);
         return (
             <div className="page-content">
                 <SiteHeader
