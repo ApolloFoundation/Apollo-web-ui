@@ -62,7 +62,7 @@ class MyAssetItem extends React.Component {
 
                 orders = isFinite(orders) ? orders : null;
 
-                console.log(orders)
+                console.log(orders);
 
                 this.setState({
                     highestBidOrder : orders
