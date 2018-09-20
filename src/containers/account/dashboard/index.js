@@ -186,14 +186,8 @@ class Dashboard extends React.Component {
 
 		if (accountAssets) {
 
-			console.log(accountAssets);
 			this.setState({
 				assetData: accountAssets.accountAssets,
-				assetsValue: parseInt(accountAssets.accountAssets
-					.map((el) => {
-                        return parseInt(el.quantityATU / Math.pow(10, el.decimals))
-
-                    }).reduce((a, b) => a + b, 0)),
 				assetsCount: accountAssets.accountAssets.length
 			})
 		}
@@ -203,7 +197,6 @@ class Dashboard extends React.Component {
 		let assets = await this.props.getAssetAction({
 			account: this.props.account
 		});
-		console.log(assets);
 		if (assets) {
 			const accountAssets = assets.accountAssets;
 			const assetsInfo    = assets.assets;
@@ -213,20 +206,14 @@ class Dashboard extends React.Component {
 				return {...(assetsInfo[index]), ...el}
 			});
 
-			this.setState({
+            const assetsCountValue = (result.map((el) => {return Number(el.quantityATU / Math.pow(10, el.decimals))})).reduce((a, b) => {return a + b});
+
+            this.setState({
 				dashboardAssets: result.splice(0,3),
+                assetsValue: assetsCountValue
 			})
 		}
-
-		// Promise.all(assets)
-		//     .then((data) => {
-		//
-		//
-		//     })
-		//     .catch((err) => {
-		//         console.log(err);
-		//     })
-    }
+    };
 
 	getAliasesCount = async (requsetParams) => {
 		const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
@@ -242,10 +229,16 @@ class Dashboard extends React.Component {
 		const currencies = await this.props.getAccountCurrenciesAction(requsetParams);
 
 		if (currencies) {
-			this.setState({
-				currenciesValue: (currencies.accountCurrencies && currencies.accountCurrencies.length && parseInt(currencies.accountCurrencies.map((el) => {
-					return el.utils
-				}).reduce((a, b) => a + b, 0))) || parseInt(0),
+            console.log(currencies);
+
+            const currenciesValue = (
+            	currencies.accountCurrencies.map((el) => {
+                	console.log(parseInt(el.units));
+                	return parseInt(el.units) / Math.pow(10, el.decimals)})
+			).reduce((a, b) => {console.log(a, b); return a + b});
+
+            this.setState({
+				currenciesValue: currenciesValue,
 				currenciesCount: currencies.accountCurrencies.length
 			})
 		}
@@ -338,7 +331,11 @@ class Dashboard extends React.Component {
 									</div>
 									<div className="page-body-item-content">
 
-										<div className="amount">
+										<div
+                                            onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
+											style={{cursor: 'pointer'}}
+											className="amount"
+										>
 											{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')}
 											<div className="owned">
 												APL <span>Owned</span>
@@ -372,7 +369,11 @@ class Dashboard extends React.Component {
 									</div>
 									<div className="card-title">Assets Value</div>
 									<div className="page-body-item-content">
-										<div className="amount">
+										<Link
+											to={'/my-assets'}
+											style={{display: 'block'}}
+											className="amount"
+										>
 											<div className="text">
 												{Math.round(this.state.assetsValue).toLocaleString('en')}
 											</div>
@@ -387,7 +388,7 @@ class Dashboard extends React.Component {
 											<div className="owned">
 												{this.state.assetsCount} <span>Owned</span>
 											</div>
-										</div>
+										</Link>
 									</div>
 								</div>
 							</div>
@@ -399,19 +400,26 @@ class Dashboard extends React.Component {
 									</div>
 									<div className="card-title">Currencies Value</div>
 									<div className="page-body-item-content">
-										<div className="amount">
-											{Math.round(this.state.currenciesValue / 100000000).toLocaleString('en')}
+										<Link
+											className="amount"
+                                            to={'/currencies'}
+                                            style={{display: 'block'}}
+										>
+											{Math.round(this.state.currenciesValue).toLocaleString('en')}
 											<div className="owned">
 												{this.state.currenciesCount} <span>Owned</span>
 											</div>
-										</div>
+										</Link>
 									</div>
 								</div>
 							</div>
 							<div className="page-body-item ">
 								<div className="card header coins flex chart-sprite position-4">
 									<div className="general-info">
-										<div className="general-info-item top-left">
+										<Link
+											to={'/messenger'}
+											className="general-info-item top-left"
+										>
 											<div className="top-bar">
 												{this.state.messages}
 											</div>
@@ -419,8 +427,11 @@ class Dashboard extends React.Component {
 												Secure
 												messages
 											</div>
-										</div>
-										<div className="general-info-item top-right">
+										</Link>
+										<Link
+											to={'/active-shuffling'}
+											className="general-info-item top-right"
+										>
 											<div className="top-bar">
 												{this.state.shuffling}
 											</div>
@@ -428,8 +439,11 @@ class Dashboard extends React.Component {
 												Coin
 												shuffling
 											</div>
-										</div>
-										<div className="general-info-item bottom-left">
+										</Link>
+										<Link
+											to="/aliases"
+											className="general-info-item bottom-left"
+										>
 											{
                                                 this.state.aliassesValue &&
                                                 <div className="top-bar">
@@ -439,8 +453,11 @@ class Dashboard extends React.Component {
 											<div className="bottom-bar">
 												Aliases
 											</div>
-										</div>
-										<div className="general-info-item bottom-right">
+										</Link>
+										<Link
+											to={'/data-storage'}
+											className="general-info-item bottom-right"
+										>
 											<div className="top-bar">
 												{this.state.taggedData}
 											</div>
@@ -448,7 +465,7 @@ class Dashboard extends React.Component {
 												Data
 												storage
 											</div>
-										</div>
+										</Link>
 									</div>
 								</div>
 							</div>
