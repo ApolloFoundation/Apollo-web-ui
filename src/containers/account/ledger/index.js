@@ -33,15 +33,17 @@ class Ledger extends React.Component {
         this.getAccountLedger({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
+            lastIndex: this.state.lastIndex,
+            includeHoldingInfo: true
         });
-    }
+    };
 
     componentDidMount() {
         this.getAccountLedger({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
+            lastIndex: this.state.lastIndex,
+            includeHoldingInfo: true
         });
         this.props.setModalCallbackAction(this.getPrivateEntries);
         BlockUpdater.on("data", this.listener);
@@ -62,7 +64,8 @@ class Ledger extends React.Component {
                 PublicKey: this.state.publicKey,
                 account: this.props.account,
                 firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
+                lastIndex: this.state.lastIndex,
+                includeHoldingInfo: true
             });
         });
     }
@@ -193,7 +196,7 @@ class Ledger extends React.Component {
                                 <table>
                                     <thead>
                                     <tr>
-                                        <td>Entry</td>
+                                        <td>Date</td>
                                         <td>Type</td>
                                         <td className="align-right">Change</td>
                                         <td>Balance</td>
