@@ -4498,7 +4498,7 @@ table td .btn, table th .btn {
 .page-body .transaction-table .transaction-table-body {
   padding: 35px 0; }
   .page-body .transaction-table .transaction-table-body table thead tr td {
-    padding: 0 15px 15px 15px; }
+    padding: 0 5px 15px 5px; }
     .page-body .transaction-table .transaction-table-body table thead tr td:first-child {
       padding-left: 0; }
     .page-body .transaction-table .transaction-table-body table thead tr td:last-child {
