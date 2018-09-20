@@ -73,7 +73,7 @@ class Entry extends React.Component {
                             />
                         </a>
                     </td>
-                    <td className="align-right">-{this.state.entry.change / 100000000}</td>
+                    <td className="align-right">{this.state.entry.change / 100000000}</td>
                     <td>{this.state.entry.balance > 0 && (this.state.entry.balance / 100000000).toFixed(2)}</td>
                     <td>
                         {this.state.entry.holdingInfo && this.state.entry.holdingInfo.name}
