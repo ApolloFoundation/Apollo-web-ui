@@ -25,6 +25,7 @@ export function getAssetsAction(reqParams) {
 
 export function getSpecificAccountAssetsAction(reqParams) {
     return dispatch => {
+        console.log(reqParams);
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getAccountAssets',
