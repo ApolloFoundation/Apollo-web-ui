@@ -38,7 +38,7 @@ class AccountDetails extends React.Component {
     };
 
     getAccountInfo = async () => {
-        const account = await this.props.getAccountInfoAction({account: this.props.account});
+        const account = await this.props.getAccountInfoAction({account: this.props.account, includeLessors: true, includeEffectiveBalance: true});
 
         if (account) {
             this.setState({
@@ -106,23 +106,23 @@ class AccountDetails extends React.Component {
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Balance::</td>
-                                                        <td>{Math.round(this.state.account.balanceATM / 100000000)}</td>
+                                                        <td>{(this.state.account.balanceATM / 100000000).toFixed(2)} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Available Balance:</td>
-                                                        <td>{Math.round(this.state.account.balanceATM / 100000000)}</td>
+                                                        <td>{(this.state.account.unconfirmedBalanceATM / 100000000).toFixed(2)} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Guaranteed Balance:</td>
-                                                        <td>{Math.round(this.state.account.guaranteedBalanceATM / 100000000)}</td>
+                                                        <td>{(this.state.account.guaranteedBalanceATM / 100000000).toFixed(2)} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Effective Balance:</td>
-                                                        <td>{Math.round(this.state.account.effectiveBalanceAPL / 100000000)}</td>
+                                                        <td>{(this.state.account.effectiveBalanceAPL).toFixed(2)} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Forged Balance:</td>
-                                                        <td>{Math.round(this.state.account.forgedBalanceATM / 100000000)}</td>
+                                                        <td>{(this.state.account.forgedBalanceATM / 100000000).toFixed(2)} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Public Key:</td>
