@@ -55,8 +55,7 @@ function submitForm($modal, $btn, data, requestType) {
             console.log(isPassphrase);
 
             if (account.accountRS !== isPassphrase) {
-                NotificationManager.error('Incorrect secret phrase.', null, 5000);
-                return {};
+                return {errorCode: 10, errorDescription: 'Incorrect secret phrase.'};
             }
         }
 
