@@ -136,6 +136,24 @@ class CreateShuffling extends React.Component {
                                         />
                                     </div>
                                 </div>
+                                {getFormState().values.holdingType === 0 &&
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Amount
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            defaultValue={0}
+                                            field="shufflingAmountAPL"
+                                            placeholder="Amount"
+                                            type={"number"}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
                                 {getFormState().values.holdingType === 1 &&
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
@@ -170,22 +188,22 @@ class CreateShuffling extends React.Component {
                                     </div>
                                 </div>
                                 }
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Amount
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                        <InputForm
-                                            defaultValue={0}
-                                            field="shufflingAmountAPL"
-                                            placeholder="Amount"
-                                            type={"number"}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
+                                {(getFormState().values.holdingType === 1 ||
+                                    getFormState().values.holdingType === 2) &&
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Quantity
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <InputForm
+                                                defaultValue={0}
+                                                field="amountATUf"
+                                                placeholder="Amount"
+                                                type={"number"}
+                                                setValue={setValue}/>
                                         </div>
                                     </div>
-                                </div>
+                                }
                                 {
                                     this.state.block &&
                                     <div className="form-group row form-group-white mb-15">
