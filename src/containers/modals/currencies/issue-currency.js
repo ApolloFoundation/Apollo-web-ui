@@ -172,14 +172,14 @@ class IssueCurrency extends React.Component {
                                                 Exchangeable
                                             </label>
                                         </div>
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                      type="checkbox"
-                                                      field="type2"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Controllable
-                                            </label>
-                                        </div>
+                                        {/*<div className="form-check custom-checkbox mb-15">*/}
+                                            {/*<Checkbox className="form-check-input custom-control-input"*/}
+                                                      {/*type="checkbox"*/}
+                                                      {/*field="type2"/>*/}
+                                            {/*<label className="form-check-label custom-control-label">*/}
+                                                {/*Controllable*/}
+                                            {/*</label>*/}
+                                        {/*</div>*/}
                                         {/*<div className="form-check custom-checkbox mb-15">*/}
                                             {/*<Checkbox className="form-check-input custom-control-input"*/}
                                                       {/*type="checkbox"*/}
