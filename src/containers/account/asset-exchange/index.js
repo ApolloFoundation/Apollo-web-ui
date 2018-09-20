@@ -641,11 +641,11 @@ class AssetExchange extends React.Component {
                     !this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-4 p-0">
+                            <div className="col-md-3 p-0">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
-                                        this.state.assets &&
-                                        this.state.assets.map((el, index) => {
+                                        this.state.accountAssets &&
+                                        this.state.accountAssets.map((el, index) => {
                                             return (
                                                 <Link
                                                     key={uuid()}
@@ -660,7 +660,7 @@ class AssetExchange extends React.Component {
                                                             {el ? el.name : ""}
                                                         </div>
                                                         <div className="chat-date">
-                                                            Quantity:&nbsp;{el ? el.initialQuantityATU : 0 * Math.pow(10, el ? el.decimals : 0)}
+                                                            Quantity:&nbsp;{(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)}
                                                         </div>
                                                     </div>
                                                 </Link>
