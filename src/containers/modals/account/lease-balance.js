@@ -197,7 +197,7 @@ class LeaseBalance extends React.Component {
                                                     feeATM: 0
                                                 });
 
-                                                if (fee) {
+                                                if (fee && fee.transactionJSON) {
                                                     setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
                                                 }
                                             }
