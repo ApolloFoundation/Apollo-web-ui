@@ -51,16 +51,23 @@ class CreateShuffling extends React.Component {
             registrationPeriod: 1439
         };
 
-        values.publicKey = await crypto.getPublicKey(this.props.account, true);
-        delete values.secretPhrase;
+        // values.publicKey = await crypto.getPublicKey(this.props.account, true);
+        // delete values.secretPhrase;
 
         const res = await this.props.submitForm(null, null, values, 'shufflingCreate');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
-            this.props.setBodyModalParamsAction(null, {});
-
             NotificationManager.success('Shuffling Created!', null, 5000);
+            const broadcast = await this.props.submitForm(null, null, {
+                transactionBytes: res.transactionBytes || res.unsignedTransactionBytes,
+                prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), "version.ShufflingCreation": 1})
+            }, 'broadcastTransaction');
+            if (broadcast.errorCode) {
+                NotificationManager.error(broadcast.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction('START_SHUFFLING', {broadcast});
+            }
         }
 
         // this.props.sendTransaction(values);
