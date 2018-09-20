@@ -83,7 +83,7 @@ class SellAsset extends React.Component {
                                                 <label>Order Description</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <p>Sell {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at 1 Apollo each.</p>
+                                                <p>Sell {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at {this.props.modalData.total / this.props.modalData.quantityATU} Apollo each.</p>
                                                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                                                 <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
                                                 <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
