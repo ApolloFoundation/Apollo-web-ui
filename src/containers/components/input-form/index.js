@@ -17,27 +17,45 @@ class InputForm extends React.Component {
     };
 
     validateInput = (value) => {
-        if (this.props.type === "number") {
-            value = value.replace(/[^\d]/g,"");
-        } else if (this.props.type === "float") {
-            value = value.replace(",", ".");
-            if (value === '.') value = '0.';
-            value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+        if (!value.target) {
+            if (this.props.type === "number") {
+                value = value.replace(/[^\d]/g,"");
+            } else if (this.props.type === "float") {
+                value = value.replace(",", ".");
+                if (value === '.') value = '0.';
+                value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+            } else {
+                value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
+            }
+            this.setState({ value });
+            return value;
         } else {
-            value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
+            value = value.target.value
+
+            if (this.props.type === "number") {
+                value = value.replace(/[^\d]/g,"");
+            } else if (this.props.type === "float") {
+                value = value.replace(",", ".");
+                if (value === '.') value = '0.';
+                value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
+            } else {
+                value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
+            }
+            this.setState({ value });
+            return value;
         }
-        this.setState({ value });
-        return value;
     };
 
     handleClickUp = () => {
         if (!this.props.disabled) {
             let value = this.state.value !== '' ? parseFloat(this.state.value) : 0;
+
             const step = this.props.step || 1;
             value = value + step;
+
             this.props.setValue(this.props.field, value);
             this.setState({value});
-            if (this.props.onChange) this.props.onChange(value);
+            this.props.onChange(value);
         }
     };
 
@@ -50,7 +68,7 @@ class InputForm extends React.Component {
                 if (value < 0) value = 0;
                 this.props.setValue(this.props.field, value);
                 this.setState({value});
-                if (this.props.onChange) this.props.onChange(value);
+                this.props.onChange(value);
             }
         }
     };
@@ -59,7 +77,6 @@ class InputForm extends React.Component {
         return (
             <div className="input-text-wrap">
                 <Text
-                    onChange={this.handleChange}
                     value={this.state.value}
                     className={`form-control ${this.props.className}`}
                     field={this.props.field}
@@ -67,6 +84,13 @@ class InputForm extends React.Component {
                     placeholder={this.props.placeholder}
                     minLength={this.props.minLength}
                     disabled={this.props.disabled}
+
+                    onKeyUp={this.handleChange}
+                    onMouseUp={this.handleChange}
+                    onMouseDown={this.handleChange}
+                    onChange={this.handleChange}
+
+
                 />
                 {(this.props.type === "number" || this.props.type === "float") &&
                 <div className="input-number-wrap">

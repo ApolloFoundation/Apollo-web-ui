@@ -77,7 +77,7 @@ class BuyCurrency extends React.Component {
                                             Order Description
                                         </label>
                                         <div className="col-sm-9">
-                                            <p>Buy {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at 1 Apollo each.</p>
+                                            <p>Buy {this.props.modalData.units} {this.props.modalData.assetName} currencies at {this.props.modalData.rateATM / this.props.modalData.units} Apollo each.</p>
                                             <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                                             <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
                                             <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
