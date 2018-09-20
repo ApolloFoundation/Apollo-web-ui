@@ -39,18 +39,10 @@ class TokenGenerationValidation extends React.Component {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
         if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
-        }
+            NotificationManager.error('Invalid secret phrase.');
 
+            return;
+        }
 
 
         const token = await this.props.generateToken(values.data, values.secretPhrase);
