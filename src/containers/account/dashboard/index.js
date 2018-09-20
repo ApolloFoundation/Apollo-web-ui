@@ -402,7 +402,7 @@ class Dashboard extends React.Component {
 									<div className="page-body-item-content">
 										<Link
 											className="amount"
-                                            to={'/currencies'}
+                                            to={'/my-currencies'}
                                             style={{display: 'block'}}
 										>
 											{Math.round(this.state.currenciesValue).toLocaleString('en')}
