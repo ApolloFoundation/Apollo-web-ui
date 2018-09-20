@@ -199,8 +199,8 @@ class Ledger extends React.Component {
                                         <td>Date</td>
                                         <td>Type</td>
                                         <td className="align-right">Change</td>
-                                        <td>Balance</td>
-                                        <td>Holding</td>
+                                        <td className="align-right">Balance</td>
+                                        <td className="align-right">Holding</td>
                                         <td className="align-right">Change</td>
                                         <td className="align-right">Balance</td>
                                     </tr>

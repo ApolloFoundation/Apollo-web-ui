@@ -1,5 +1,6 @@
 import React from 'react';
 import uuid from 'uuid';
+import i18n from 'i18next';
 import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
@@ -62,7 +63,7 @@ class Entry extends React.Component {
                         </a>
                     </td>
                     <td>
-                        {this.state.entry.eventType}
+                        {i18n.t(this.state.entry.eventType.toLowerCase())}
                         &nbsp;&nbsp;
                         <a
                             onClick={() => this.getTransaction(this.state.entry.event)}
@@ -73,16 +74,24 @@ class Entry extends React.Component {
                             />
                         </a>
                     </td>
-                    <td className="align-right">-{this.state.entry.change / 100000000}</td>
-                    <td>{this.state.entry.balance > 0 && (this.state.entry.balance / 100000000).toFixed(2)}</td>
-                    <td>
+                    <td className="align-right">
+                        {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" &&
+                        (this.state.entry.change / 100000000).toFixed(1)}
+                    </td>
+                    <td className="align-right">
+                        {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" && this.state.entry.balance > 0 &&
+                        (this.state.entry.balance / 100000000).toLocaleString('ru')}
+                    </td>
+                    <td className="align-right">
                         {this.state.entry.holdingInfo && this.state.entry.holdingInfo.name}
                     </td>
                     <td className="align-right">
-                        {this.state.entry.change > 0 &&(this.state.entry.change/100).toFixed(2)}
+                        {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" && this.state.entry.change > 0 &&
+                        (this.state.entry.change/100).toFixed(2)}
                     </td>
                     <td className="align-right">
-                        {(this.state.entry.balance/100).toFixed(2)}
+                        {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
+                        (this.state.entry.balance/100).toLocaleString('ru')}
                     </td>
                 </tr>
             );

@@ -4236,7 +4236,11 @@ input {
       overflow: hidden; } }
 
 table tr > td {
-  white-space: nowrap; }
+  white-space: nowrap;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 70px; }
 
 table td .btn, table th .btn {
   white-space: nowrap; }
@@ -4483,7 +4487,6 @@ table td .btn, table th .btn {
             padding: 0 15px 0 0; }
           .transaction-table .transaction-table-body table tbody tr td:first-child {
             padding-left: 0;
-            width: 45%;
             font-weight: bold; }
           .transaction-table .transaction-table-body table tbody tr td:last-child {
             padding-right: 0; }
