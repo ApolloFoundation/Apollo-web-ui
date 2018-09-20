@@ -41,6 +41,7 @@ export const getAccountExchangeAction = (currency, account) => dispatch => {
             requestType: 'getAccountExchangeRequests',
             currency,
             account,
+            includeCurrencyInfo: true,
             firstIndex: 0,
             lastIndex: 15,
             random: Math.random()
@@ -72,8 +73,9 @@ export const getExchangesAction = currency => dispatch => {
 export const getAccountExchangesAction = requestParams => dispatch => {
     return axios.get(config.api.serverUrl, {
         params: {
-            requestType: 'getExchanges',
+            requestType: 'getExchangesByExchangeRequest',
             ...requestParams,
+            includeInfo: true,
             random: Math.random()
         }
     }).then((res) => {
