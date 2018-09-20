@@ -19,15 +19,13 @@ class TradeHistoryItem extends React.Component {
         if (this.state.transfer) {
             return (
                 <tr key={uuid()}>
-
-
                     <td>{this.state.transfer.timestamp}</td>
-                    <td className="blue-link-text">
-                        <a onClick={() => this.props.setTransaction(this.state.transfer.offer)}>{this.state.transfer.offer}</a>
-                    </td>
                     <td className="blue-link-text">
                         <a onClick={() => this.props.setTransaction(this.state.transfer.transaction)}>{this.state.transfer.transaction}</a>
 
+                    </td>
+                    <td className="blue-link-text">
+                        <a onClick={() => this.props.setTransaction(this.state.transfer.offer)}>{this.state.transfer.offer}</a>
                     </td>
                     <td>
                         <Link key={uuid()}
@@ -37,22 +35,33 @@ class TradeHistoryItem extends React.Component {
                             {this.state.transfer.name}
                         </Link>
                     </td>
-                    <td>{this.state.transfer.seller}</td>
-                    <td>
-                        <a
-                            onClick={() => this.state.setBodyModalParamsAction('INFO_ACCOUNT', this.state.transfer.buyer)}
-                        >
+                    <td className="blue-link-text">
+                        <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.state.transfer.seller)}>
+                            {this.state.transfer.sellerRS}
+                        </a>
+                    </td>
+                    <td className="blue-link-text">
+                        <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.state.transfer.buyer)}>
                             {this.state.transfer.buyerRS}
                         </a>
                     </td>
-                    <td className="align-right">{this.state.transfer.units / Math.pow(10, this.state.transfer.decimals)}</td>
-                    <td className="align-right">{this.state.transfer.rateATM}</td>
-                    <td className="align-right">Amount</td>
+                    <td className="align-right">
+                        {(this.state.transfer.units / Math.pow(10, this.state.transfer.decimals)).toFixed(2)}
+                        </td>
+                    <td className="align-right">
+                        {parseFloat(this.state.transfer.rateATM).toLocaleString('ru')}
+                        </td>
+                    <td className="align-right">
+                        {(this.state.transfer.units * this.state.transfer.rateATM / 100000000).toLocaleString('ru', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })}
+                    </td>
                 </tr>
             );
         } else {
             return (
-                <tr key={uuid()}></tr>
+                <tr key={uuid()}/>
             );
         }
     }
