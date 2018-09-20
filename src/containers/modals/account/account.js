@@ -346,9 +346,9 @@ class InfoAccount extends React.Component {
                                                                         </td>
                                                                         <td>{this.props.formatTimestamp(el.timestamp)}</td>
                                                                         <td>{el.tradeType}</td>
-                                                                        <td className="align-right">{el.quantityATU / el.decimals}</td>
+                                                                        <td className="align-right">{el.quantityATU / Math.pow(10, el.decimals)}</td>
                                                                         <td className="align-right">{(el.priceATM * Math.pow(10, el.decimals)) / 100000000}</td>
-                                                                        <td className="align-right">0.00</td>
+                                                                        <td className="align-right">{(el.quantityATU / Math.pow(10, el.decimals)) * ((el.priceATM * Math.pow(10, el.decimals)) / 100000000)}</td>
                                                                     </tr>
                                                                 );
                                                             })

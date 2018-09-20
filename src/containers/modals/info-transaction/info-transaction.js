@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
 import {formatTransactionType} from "../../../actions/transactions";
+import {formatTimestamp} from "../../../helpers/util/time";
 
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {
@@ -80,6 +81,7 @@ class InfoLedgerTransaction extends React.Component {
     }
 
     render() {
+        console.log(this.state.transaction);
         return (
             <div className="modal-box wide">
                 {
@@ -199,7 +201,7 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Signature:</td>
-                                                    <td>{this.state.transaction.senderRS}</td>
+                                                    <td>{this.state.transaction.signature}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Fee ATM:</td>
@@ -231,7 +233,7 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Phased:</td>
-                                                    <td>{this.state.transaction.phased}</td>
+                                                    <td>{this.state.transaction.phased ? 'true' : 'false'}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>EC block id:</td>
@@ -241,10 +243,18 @@ class InfoLedgerTransaction extends React.Component {
                                                     <td>Signature hash:</td>
                                                     <td>{this.state.transaction.signatureHash}</td>
                                                 </tr>
+
                                                 <tr>
                                                     <td>Sender RS:</td>
                                                     <td>{this.state.transaction.senderRS}</td>
                                                 </tr>
+                                                {
+                                                    this.state.transaction.recipientRS &&
+                                                    <tr>
+                                                        <td>Recipient RS:</td>
+                                                        <td>{this.state.transaction.recipientRS}</td>
+                                                    </tr>
+                                                }
                                                 {
                                                     this.state.transaction.amountATM &&
                                                     <tr>
@@ -264,10 +274,21 @@ class InfoLedgerTransaction extends React.Component {
                                                     <td>Block:</td>
                                                     <td>{this.state.transaction.block}</td>
                                                 </tr>
+
                                                 <tr>
                                                     <td>Block timestamp:</td>
                                                     <td>{this.state.transaction.blockTimestamp}</td>
                                                 </tr>
+                                                <tr>
+                                                    <td>Transaction Time:</td>
+                                                    <td>{this.state.transaction.blockTimestamp}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Block generation time:</td>
+                                                    <td>{this.props.formatTimestamp(this.state.transaction.timestamp)}</td>
+                                                </tr>
+
                                                 <tr>
                                                     <td>Deadline:</td>
                                                     <td>{this.state.transaction.deadline}</td>
@@ -276,6 +297,11 @@ class InfoLedgerTransaction extends React.Component {
                                                     <td>Timestamp:</td>
                                                     <td>{this.state.transaction.timestamp}</td>
                                                 </tr>
+                                                <tr>
+                                                    <td>Height:</td>
+                                                    <td>{this.state.transaction.height}</td>
+                                                </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -306,6 +332,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoLedgerTransaction);

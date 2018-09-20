@@ -248,8 +248,7 @@ class SiteHeader extends React.Component {
 																		<label>Height: {this.state.block.height}</label>
 																	}
 																</a>
-																<a
-																	onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
+																<p
 																	className="image-button"
 																>
 																	<i className="zmdi"/>
@@ -257,7 +256,7 @@ class SiteHeader extends React.Component {
 																		this.props.forgedBalanceATM &&
 																		<label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
 																	}
-																</a>
+																</p>
 
 															</div>
 														</div>
