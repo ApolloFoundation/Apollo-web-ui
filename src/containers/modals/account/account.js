@@ -61,7 +61,6 @@ class InfoAccount extends React.Component {
 
     // requets
     async getAcccount (requestParams){
-        console.log(this.props.modalData);
         if (this.props.modalData) {
             const accountData = this.props.getAccountAction(requestParams);
 
@@ -77,13 +76,9 @@ class InfoAccount extends React.Component {
                     aliases:        await accountData['ALIASES'],
                     account:        await accountData['ACCOUNT'],
                 }, () => {
-
                     if (this.state.assets) {
-                        console.log(this.state.assets);
-
                         const accountAssets = this.state.assets.accountAssets;
                         const assetsInfo    = this.state.assets.assets;
-
 
                         const resultAsset = accountAssets.map((el, index) => {
                             return {...(assetsInfo[index]), ...el}
