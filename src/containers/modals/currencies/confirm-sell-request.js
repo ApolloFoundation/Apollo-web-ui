@@ -61,6 +61,7 @@ class SellCurrency extends React.Component {
     };
 
     render() {
+        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form
@@ -80,7 +81,7 @@ class SellCurrency extends React.Component {
                                             Order Description
                                         </label>
                                         <div className="col-sm-9">
-                                            <p>Buy {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at 1 Apollo each.</p>
+                                            <p>Buy {this.props.modalData.units} {this.props.modalData.assetName} currencies at {this.props.modalData.rateATM / this.props.modalData.units} Apollo each.</p>
                                             <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                                             <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
                                             <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
@@ -91,7 +92,7 @@ class SellCurrency extends React.Component {
                                             Total
                                         </label>
                                         <div className="col-sm-9">
-                                            <p>{this.props.modalData.quantityATU} Apollo</p>
+                                            <p>{this.props.modalData.rateATM} Apollo</p>
                                             <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
                                         </div>
                                     </div>
