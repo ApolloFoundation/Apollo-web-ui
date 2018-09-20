@@ -229,8 +229,6 @@ class Dashboard extends React.Component {
 		const currencies = await this.props.getAccountCurrenciesAction(requsetParams);
 
 		if (currencies) {
-            console.log(currencies);
-
             const currenciesValue = (
             	currencies.accountCurrencies.map((el) => {
                 	console.log(parseInt(el.units));
@@ -279,10 +277,18 @@ class Dashboard extends React.Component {
 		const completedPurchased = await this.props.getDGSPurchaseCountAction(reqParams);
 
 
-		if (purchased && completedPurchased && pendingGoods) {
+		const numberOfGoods = await this.props.getDGSPurchaseCountAction({...reqParams, requestType: 'getDGSGoodsCount'});
+
+        reqParams.buyer = reqParams.account;
+        delete reqParams.account;
+        delete reqParams.seller;
+
+		const proedeductsForSale = await this.props.getDGSPurchaseCountAction({...reqParams , requestType: 'getDGSPurchases'});
+
+        if (purchased && completedPurchased && pendingGoods) {
 			this.setState({
-				numberOfGoods: purchased.numberOfPurchases,
-				completedGoods: completedPurchased.numberOfPurchases,
+				numberOfGoods: proedeductsForSale.purchases.length,
+				completedGoods: numberOfGoods.numberOfGoods,
 				pendingGoods: pendingGoods.purchases.length,
 			})
 		}
