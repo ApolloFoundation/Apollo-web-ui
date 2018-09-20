@@ -94,7 +94,6 @@ class OfferCurrency extends React.Component {
                                         type="hidden"
                                         className="form-control"
                                         field="currency"
-                                        placeholder="Account"
                                         defaultValue={this.props.modalData.currency}
                                         aria-describedby="amountText"/>
 
@@ -118,7 +117,7 @@ class OfferCurrency extends React.Component {
                                             <InputForm
                                                 type={"number"}
                                                 field="initialBuySupply"
-                                                placeholder="Account"
+                                                placeholder="Amount"
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code}</span>
@@ -133,7 +132,7 @@ class OfferCurrency extends React.Component {
                                             <InputForm
                                                 type={"number"}
                                                 field="totalBuyLimit"
-                                                placeholder="Account"
+                                                placeholder="Amount"
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code}</span>
@@ -148,7 +147,7 @@ class OfferCurrency extends React.Component {
                                             <InputForm
                                                 type={"number"}
                                                 field="buyRateATM"
-                                                placeholder="Account"
+                                                placeholder="Amount"
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code} / APL</span>
@@ -163,7 +162,7 @@ class OfferCurrency extends React.Component {
                                             <InputForm
                                                 type={"number"}
                                                 field="initialSellSupply"
-                                                placeholder="Account"
+                                                placeholder="Amount"
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code}</span>
@@ -178,7 +177,7 @@ class OfferCurrency extends React.Component {
                                             <InputForm
                                                 type={"number"}
                                                 field="totalSellLimit"
-                                                placeholder="Account"
+                                                placeholder="Amount"
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code}</span>
@@ -193,7 +192,7 @@ class OfferCurrency extends React.Component {
                                             <InputForm
                                                 type={"number"}
                                                 field="sellRateATM"
-                                                placeholder="Account"
+                                                placeholder="Amount"
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{this.props.modalData.code} / APL</span>

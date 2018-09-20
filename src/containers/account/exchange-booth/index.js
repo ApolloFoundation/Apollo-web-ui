@@ -433,12 +433,12 @@ class ExchangeBooth extends React.Component {
                                                     <div className='box'>
                                                         <div className="card-title bold">Current supply:</div>
                                                         <div
-                                                            className="card-title description">{this.state.currentSupply}</div>
+                                                            className="card-title description">{this.state.currentSupply / Math.pow(10, this.state.decimals)}</div>
                                                     </div>
                                                     <div className='box'>
                                                         <div className="card-title bold">Max supply:</div>
                                                         <div
-                                                            className="card-title description">{this.state.maxSupply}</div>
+                                                            className="card-title description">{this.state.maxSupply  / Math.pow(10, this.state.decimals)}</div>
                                                     </div>
                                                     <div className='box'>
                                                         <div className="card-title bold">Currency decimals:</div>
