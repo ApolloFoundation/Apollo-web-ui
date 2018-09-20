@@ -58,8 +58,8 @@ export function getTransferHistory(reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
             params: {
-                requestType: 'getCurrencyTransfers',
-                includeCurrencyInfo: true,
+                requestType: 'getAssetTransfers',
+                includeAssetInfo: true,
                 random: 0.004660718106320294,
                 ...reqParams
             }
