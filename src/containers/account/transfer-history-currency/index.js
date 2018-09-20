@@ -1,6 +1,6 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
-import TransferHistoryItem from '../transfer-history/transfer-history-item'
+import TransferHistoryItem from './transfer-history-item'
 import classNames from "classnames";
 import uuid from "uuid";
 import {connect} from 'react-redux'
@@ -119,9 +119,9 @@ class TransferHistoryCurrency extends React.Component {
                                     <thead>
                                     <tr>
                                         <td>Transaction</td>
-                                        <td>Asset</td>
+                                        <td>Currency</td>
                                         <td>Date</td>
-                                        <td className="align-right">Quantity</td>
+                                        <td className="align-right">Units</td>
                                         <td>Recipient</td>
                                         <td>Sender</td>
                                     </tr>
