@@ -11,6 +11,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import {getAssetAction} from "../../../actions/assets";
 import {getCurrencyAction} from "../../../actions/currencies";
+import crypto from "../../../helpers/crypto/crypto";
 
 const holdingTypeData = [
     { value: 0, label: 'Apollo' },
@@ -39,19 +40,34 @@ class CreateShuffling extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
 
         values = {
             ...values,
             registrationPeriod: 1439
         };
 
+        // values.publicKey = await crypto.getPublicKey(this.props.account, true);
+        // delete values.secretPhrase;
+
         const res = await this.props.submitForm(null, null, values, 'shufflingCreate');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
-            this.props.setBodyModalParamsAction(null, {});
-
             NotificationManager.success('Shuffling Created!', null, 5000);
+            const broadcast = await this.props.submitForm(null, null, {
+                transactionBytes: res.transactionBytes || res.unsignedTransactionBytes,
+                prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), "version.ShufflingCreation": 1})
+            }, 'broadcastTransaction');
+            if (broadcast.errorCode) {
+                NotificationManager.error(broadcast.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction('START_SHUFFLING', {broadcast});
+            }
         }
 
         // this.props.sendTransaction(values);
@@ -88,23 +104,31 @@ class CreateShuffling extends React.Component {
     };
 
 
-    getCurrency = async (reqParams) => {
+    getCurrency = async (reqParams, setValue) => {
         const result = await this.props.getCurrencyAction(reqParams);
 
         if (result) {
             this.setState({ currency: result.currency });
+            setValue('holding', result.currency);
+            setValue('shuffling_ms_code', reqParams.code);
         } else {
             this.setState({ currency: '-' });
+            setValue('holding', '');
+            setValue('shuffling_ms_code', '');
         }
     };
 
-    getAsset = async (reqParams) => {
+    getAsset = async (reqParams, setValue) => {
         const result = await this.props.getAssetAction(reqParams);
 
         if (result) {
             this.setState({ asset: result.name });
+            setValue('holding', reqParams.asset);
+            setValue('shuffling_asset_decimals', result.decimals);
         } else {
             this.setState({ asset: 'Not Existing' });
+            setValue('holding', '');
+            setValue('shuffling_asset_decimals', '');
         }
     };
 
@@ -161,9 +185,9 @@ class CreateShuffling extends React.Component {
                                     </label>
                                     <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
                                         <InputForm
-                                            field="holding"
+                                            field="assetId"
                                             placeholder="Asset Id"
-                                            onChange={(asset) => this.getAsset({asset})}
+                                            onChange={(asset) => this.getAsset({asset}, setValue)}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">{this.state.asset}</span>
@@ -180,7 +204,7 @@ class CreateShuffling extends React.Component {
                                         <InputForm
                                             field="shuffling_ms_code"
                                             placeholder="Code"
-                                            onChange={(code) => this.getCurrency({code})}
+                                            onChange={(code) => this.getCurrency({code}, setValue)}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">ID: {this.state.currency}</span>
@@ -198,7 +222,7 @@ class CreateShuffling extends React.Component {
                                             <InputForm
                                                 defaultValue={0}
                                                 field="amountATUf"
-                                                placeholder="Amount"
+                                                placeholder="Quantity"
                                                 type={"number"}
                                                 setValue={setValue}/>
                                         </div>
@@ -214,7 +238,7 @@ class CreateShuffling extends React.Component {
                                             <InputForm
                                                 defaultValue={this.state.block.height}
                                                 field="finishHeight"
-                                                placeholder="Amount"
+                                                placeholder="Register Until"
                                                 type={"number"}
                                                 step={500}
                                                 setValue={setValue}/>
@@ -309,7 +333,8 @@ class CreateShuffling extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    account: state.account.account,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -319,6 +344,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateShuffling);

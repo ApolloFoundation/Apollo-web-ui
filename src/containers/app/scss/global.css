@@ -1505,7 +1505,11 @@ input {
       overflow: hidden; } }
 
 table tr > td {
-  white-space: nowrap; }
+  white-space: nowrap;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 70px; }
 
 table td .btn, table th .btn {
   white-space: nowrap; }

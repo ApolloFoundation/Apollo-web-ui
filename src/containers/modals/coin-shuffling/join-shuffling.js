@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
-import CustomSelect from '../../components/select/'
+import AdvancedSettings from '../../components/advanced-transaction-settings';
+import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
 import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
@@ -32,15 +31,19 @@ class JoinShuffling extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-
-        values = {
-            ...values,
-            shufflingFullHash: this.state.shuffling.shufflingFullHash,
-            registrationPeriod: 1439,
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
+        const data = {
+            shufflingFullHash: this.props.modalData.broadcast ? this.props.modalData.broadcast.fullHash : this.state.shuffling.shufflingFullHash,
+            recipientSecretPhrase: values.recipientSecretPhrase,
+            secretPhrase: values.secretPhrase,
             recipientPublicKey: await crypto.getPublicKey(values.recipientSecretPhrase, false)
         };
 
-        const res = await this.props.submitForm(null, null, values, 'startShuffler');
+        const res = await this.props.submitForm(null, null, data, 'startShuffler');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -124,51 +127,49 @@ class JoinShuffling extends React.Component {
                                 <div className="form-title">
                                     <p>Start shuffling</p>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Shuffling Id</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            {
-                                                this.state.shuffling &&
-                                                <p>{this.state.shuffling.shuffling}</p>
-                                            }
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Shuffling Id
+                                    </label>
+                                    <div className="col-sm-9">
+                                        {this.state.shuffling &&
+                                        <p>{this.state.shuffling.shuffling}</p>
+                                        }
+                                        {this.props.modalData.broadcast &&
+                                        <p>{this.props.modalData.broadcast.transaction}</p>
+                                        }
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Recipient Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text
-                                                field={'recipientSecretPhrase'}
-                                                type="password"
-                                                onKeyUp={() => this.setAccount(getFormState, setValue)}
-                                            />
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Recipient Passphrase
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <Text className="form-control"
+                                              field="recipientSecretPhrase"
+                                              placeholder="Recipient Passphrase"
+                                              onKeyUp={() => this.setAccount(getFormState, setValue)}
+                                              type={'password'}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Recipient Account</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text className={'not-active'} field={'generatedAccount'} type="text" readonly/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Recipient Account
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            disabled={true}
+                                            field="generatedAccount"
+                                            placeholder="Recipient Account"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder={'Secret phrase'} type="password" field={'secretPhrase'}/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Passphrase
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 <AdvancedSettings
@@ -212,7 +213,8 @@ const mapDispatchToProps = dispatch => ({
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     getAccountIdAsync: (passPhrase) => dispatch(crypto.getAccountIdAsync(passPhrase)),
-    getShufflingAction: (reqParams) => dispatch(getShufflingAction(reqParams))
+    getShufflingAction: (reqParams) => dispatch(getShufflingAction(reqParams)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoinShuffling);
