@@ -115,7 +115,8 @@ class MyAssetItem extends React.Component {
                                         onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
                                             quantityATU: this.state.transfer.quantityATU,
                                             assetID:   this.state.transfer.asset,
-                                            assetName: this.state.transfer.name
+                                            assetName: this.state.transfer.name,
+                                            availableAssets: (this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toFixed(this.state.transfer.decimals)
                                         })}
                                         className="btn primary blue"
                                     >

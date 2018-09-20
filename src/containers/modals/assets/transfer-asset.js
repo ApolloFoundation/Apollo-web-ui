@@ -27,7 +27,6 @@ class TransferAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-
         const res = await this.props.submitForm(null, null, values, 'transferAsset');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
@@ -75,6 +74,7 @@ class TransferAsset extends React.Component {
                                             <div className="col-md-9">
                                                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                                                 <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
+                                                <p>{this.props.modalData.assetName} - {this.props.modalData.availableAssets} available</p>
                                             </div>
                                         </div>
                                     </div>
