@@ -215,7 +215,7 @@ class ExchangeBooth extends React.Component {
                                                             {el ? el.name : ""}
                                                         </div>
                                                         <div className="chat-date">
-                                                            Quantity:&nbsp;{el ? el.initialQuantityATU : 0 * Math.pow(10, el ? el.decimals : 0)}
+                                                            Current Supply:&nbsp;{el.currentSupply / Math.pow(10, el.decimals)}
                                                         </div>
                                                     </div>
                                                 </Link>
@@ -405,12 +405,12 @@ class ExchangeBooth extends React.Component {
                                                     <div className='box'>
                                                         <div className="card-title bold">Current supply:</div>
                                                         <div
-                                                            className="card-title description">{this.state.currentSupply / 100000000}</div>
+                                                            className="card-title description">{this.state.currentSupply}</div>
                                                     </div>
                                                     <div className='box'>
                                                         <div className="card-title bold">Max supply:</div>
                                                         <div
-                                                            className="card-title description">{this.state.maxSupply / 100000000}</div>
+                                                            className="card-title description">{this.state.maxSupply}</div>
                                                     </div>
                                                     <div className='box'>
                                                         <div className="card-title bold">Currency decimals:</div>
