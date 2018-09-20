@@ -49,6 +49,7 @@ import TransferHistory from '../account/transfer-history'
 import TransferHistoryCurrency from '../account/transfer-history-currency'
 import Currencies from '../account/currencies'
 import MyCurrencies from '../account/my-shuffling'
+import MyMadedCurrencies from '../account/my-currencies'
 import Finishedpolls from '../account/finished-polls'
 import MyVotes from '../account/my-votes'
 import MyPolls from '../account/my-polls'
@@ -158,6 +159,7 @@ class App extends React.Component {
                                 <Route exact path="/delete-history" component={DeleteHistory}/>
                                 <Route exact path="/funding-monitors" component={FundingMonitors}/>
                                 <Route exact path="/my-assets" component={MyAssets}/>
+                                <Route exact path="/my-currencies" component={MyMadedCurrencies}/>
                                 <Route exact path="/open-orders" component={OpenOrders}/>
                                 <Route exact path="/peers" component={Peers}/>
                                 <Route exact path="/purchased-products" component={PurchasdProucts}/>

@@ -170,6 +170,8 @@ class Sidebar extends React.Component {
 									<ul>
 										<li><NavLink to="/currencies">Currencies</NavLink></li>
 										{/*<li><NavLink to="/my-shuffling">Exchange history</NavLink></li>*/}
+
+										<li><NavLink to="/my-currencies">My currencies</NavLink></li>
 										<li><NavLink to="/transfer-history-currency">Transfer history</NavLink></li>
 										<li><NavLink to="/exchange-history-currency">Exchange History</NavLink></li>
 										<li>
