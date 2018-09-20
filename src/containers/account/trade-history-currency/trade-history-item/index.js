@@ -5,6 +5,7 @@ import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
+import {formatTimestamp} from "../../../../helpers/util/time";
 
 class TradeHistoryItem extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class TradeHistoryItem extends React.Component {
         if (this.state.transfer) {
             return (
                 <tr key={uuid()}>
-                    <td>{this.state.transfer.timestamp}</td>
+                    <td>{this.props.formatTimestamp(this.state.transfer.timestamp)}</td>
                     <td className="blue-link-text">
                         <a onClick={() => this.props.setTransaction(this.state.transfer.transaction)}>{this.state.transfer.transaction}</a>
 
@@ -68,7 +69,9 @@ class TradeHistoryItem extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
+
 });
 
 export default connect(null, mapDispatchToProps)(TradeHistoryItem);
