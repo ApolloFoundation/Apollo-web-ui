@@ -78,7 +78,7 @@ class InfoAccount extends React.Component {
                 }, () => {
                     if (this.state.assets) {
                         const accountAssets = this.state.assets.accountAssets;
-                        const assetsInfo = this.state.assets.assets;
+                        const assetsInfo    = this.state.assets.assets;
 
                         const resultAsset = accountAssets.map((el, index) => {
                             return {...(assetsInfo[index]), ...el}
