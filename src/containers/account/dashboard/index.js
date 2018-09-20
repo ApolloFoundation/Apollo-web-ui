@@ -18,7 +18,7 @@ import {
 	getDGSPurchasesAction,
 	getDGSPendingPurchases
 } from "../../../actions/marketplace";
-import {getAccountAssetsAction} from '../../../actions/assets'
+import {getAccountAssetsAction, getSpecificAccountAssetsAction} from '../../../actions/assets'
 import {getAliasesCountAction} from '../../../actions/aliases'
 import {getMessages} from "../../../actions/messager";
 import {getNewsAction} from "../../../actions/account";
@@ -62,6 +62,8 @@ const mapDispatchToProps = dispatch => ({
 	getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
     getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
     getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
+	getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
+
 });
 
 class Dashboard extends React.Component {
@@ -116,12 +118,13 @@ class Dashboard extends React.Component {
 		}
 	}
 
-	componentWillMount() {
+	componentWillMount(newState) {
 		this.getBlock();
 		if (this.props.account) {
 			this.initDashboard({account: this.props.account})
 		}
-		this.getNews();
+        this.getAssets(newState);
+        this.getNews();
 	}
 
 	initDashboard = (reqParams) => {
@@ -132,6 +135,7 @@ class Dashboard extends React.Component {
 		this.getMessagesCount(reqParams);
 		this.getActivePolls(reqParams);
 		this.getShufflingAction(reqParams);
+		this.getAssets(this.props);
 		this.getGoods({...reqParams, seller: this.props.account});
 		this.getTransactions({
 			...reqParams,
@@ -181,20 +185,48 @@ class Dashboard extends React.Component {
 		const accountAssets = await this.props.getAccountAssetsAction(requsetParams);
 
 		if (accountAssets) {
+
+			console.log(accountAssets);
 			this.setState({
 				assetData: accountAssets.accountAssets,
 				assetsValue: parseInt(accountAssets.accountAssets
 					.map((el) => {
-						if (el.decimals) {
-							return parseInt(el.quantityATU / Math.pow(10, el.decimals))
-						} else {
-							return parseInt(el.quantityATU)
-						}
-					}).reduce((a, b) => a + b, 0)),
+                        return parseInt(el.quantityATU / Math.pow(10, el.decimals))
+
+                    }).reduce((a, b) => a + b, 0)),
 				assetsCount: accountAssets.accountAssets.length
 			})
 		}
 	};
+
+    getAssets = async (newState) => {
+		let assets = await this.props.getAssetAction({
+			account: this.props.account
+		});
+		console.log(assets);
+		if (assets) {
+			const accountAssets = assets.accountAssets;
+			const assetsInfo    = assets.assets;
+
+
+			const result = accountAssets.map((el, index) => {
+				return {...(assetsInfo[index]), ...el}
+			});
+
+			this.setState({
+				dashboardAssets: result.splice(0,3),
+			})
+		}
+
+		// Promise.all(assets)
+		//     .then((data) => {
+		//
+		//
+		//     })
+		//     .catch((err) => {
+		//         console.log(err);
+		//     })
+    }
 
 	getAliasesCount = async (requsetParams) => {
 		const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
@@ -442,23 +474,21 @@ class Dashboard extends React.Component {
 									<div className="card-title">Asset Portfolio</div>
 									<div className="full-box">
 										{
-											this.state.assetData &&
-											this.state.assetData.map((el, index) => {
+											this.state.dashboardAssets &&
+											this.state.dashboardAssets.map((el, index) => {
 												if (index < 3) {
 													return (
 														<div key={uuid()} className="full-box-item coin">
 															<div className="coin-data">
 																<CircleFigure
 																	index={index}
-																	percentage={(el.quantityATU) / this.props.assets.map((el, index) => {
-																		return parseInt(el.balanceATU)
-																	}).reduce((a, b) => a + b, 0) * 100}
+																	percentage={((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)}
+
 																	type={el.quantityATU}
 																/>
 																<div
-																	className="amount">{Math.round((el.quantityATU) / this.props.assets.map((el, index) => {
-																	return parseInt(el.balanceATU)
-																}).reduce((a, b) => a + b, 0) * 100)}%
+																	className="amount">
+                                                                    {((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)} %
 																</div>
 																<div className="coin-name">{el.name}</div>
 																<Link
