@@ -82,8 +82,8 @@ class IssueCurrency extends React.Component {
 
         values = {
             ...values,
-            maxSupply: values.maxSupply,
-            initialSupply: values.initialSupply,
+            maxSupply: values.maxSupply * Math.pow(10, values.decimals),
+            initialSupply: values.initialSupply * Math.pow(10, values.decimals),
             type: type
 
         };
