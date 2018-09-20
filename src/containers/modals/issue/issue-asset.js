@@ -50,20 +50,10 @@ class IssueAsset extends React.Component {
             return;
         }
 
-
-        // if (!isPassphrase) {
-        //     this.setState({
-        //         ...this.props,
-        //         passphraseStatus: true
-        //     });
-        //     return;
-        // } else {
-        //     this.setState({
-        //         ...this.props,
-        //         passphraseStatus: false
-        //     });
-        // }
-
+        values = {
+            ...values,
+            quantityATU: values.quantityATU * Math.pow(10, values.decimals)
+        };
 
         // Todo: finish form validating
         const res = await this.props.submitForm(null, null, values, 'issueAsset');
