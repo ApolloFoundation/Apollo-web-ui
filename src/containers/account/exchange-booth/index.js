@@ -289,7 +289,11 @@ class ExchangeBooth extends React.Component {
                                                                         type={'number'}
                                                                         placeholder='Units'
                                                                         onChange={(e) => {
-                                                                            setValue('rateATM', Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units))
+                                                                            if (!e.target) {
+                                                                                setValue('rateATM', Math.round(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(e)))
+                                                                            } else {
+                                                                                setValue('rateATM', Math.round(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                            }
                                                                         }}
                                                                         setValue={setValue}
                                                                     />
@@ -472,7 +476,11 @@ class ExchangeBooth extends React.Component {
                                                                         type={'number'}
                                                                         placeholder='Units'
                                                                         onChange={(e) => {
-                                                                            setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                            if (!e.target) {
+                                                                                setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(e)))
+                                                                            } else {
+                                                                                setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                            }
                                                                         }}
                                                                         setValue={setValue}
                                                                     />
