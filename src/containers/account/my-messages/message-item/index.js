@@ -122,25 +122,25 @@ class MessageItem extends React.Component {
                             </a>
 
                         }
-                        {
-                            (this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message  &&
-                            <a
-                                onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
-                                className="btn primary blue static"
-                            >
-                                Retrive
-                            </a>
+                        {/*{*/}
+                            {/*(this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message  &&*/}
+                            {/*<a*/}
+                                {/*onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}*/}
+                                {/*className="btn primary blue static"*/}
+                            {/*>*/}
+                                {/*Retrive*/}
+                            {/*</a>*/}
 
-                        }
-                        {
-                            !this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
-                            <a
-                                onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
-                                className="btn primary blue static"
-                            >
-                                Share
-                            </a>
-                        }
+                        {/*}*/}
+                        {/*{*/}
+                            {/*!this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&*/}
+                            {/*<a*/}
+                                {/*onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}*/}
+                                {/*className="btn primary blue static"*/}
+                            {/*>*/}
+                                {/*Share*/}
+                            {/*</a>*/}
+                        {/*}*/}
 
                     </div>
                 </td>
