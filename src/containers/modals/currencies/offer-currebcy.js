@@ -208,7 +208,7 @@ class OfferCurrency extends React.Component {
                                                     type={"number"}
                                                     field="expirationHeight"
                                                     placeholder="Finish height"
-                                                    defaultValue={this.state.block.height}
+                                                    defaultValue={this.state.block.height + 10000}
                                                     setValue={setValue}/>
                                             }
                                             <div className="input-group-append">
