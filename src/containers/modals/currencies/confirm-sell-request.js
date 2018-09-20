@@ -138,7 +138,7 @@ class SellCurrency extends React.Component {
                                             name={'closeModal'}
                                             className="btn btn-right blue round round-bottom-right"
                                         >
-                                            Buy
+                                            Sell
                                         </button>
 
                                     </div>
