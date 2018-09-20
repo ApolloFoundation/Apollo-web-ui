@@ -1,13 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
-import CustomSelect from '../../components/select/'
+import AdvancedSettings from '../../components/advanced-transaction-settings';
+import InputForm from '../../components/input-form';
+import AccountRS from '../../components/account-rs';
+import CustomSelect from '../../components/select/';
 import {Form, Text} from 'react-form';
 import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
+import {getAssetAction} from "../../../actions/assets";
+import {getCurrencyAction} from "../../../actions/currencies";
+
+const holdingTypeData = [
+    { value: 0, label: 'Apollo' },
+    { value: 1, label: 'Asset' },
+    { value: 2, label: 'Currency' },
+];
 
 class CreateShuffling extends React.Component {
     constructor(props) {
@@ -21,7 +30,10 @@ class CreateShuffling extends React.Component {
             passphraseStatus: false,
             recipientStatus: false,
             amountStatus: false,
-            feeStatus: false
+            feeStatus: false,
+
+            currency: '-',
+            asset: 'Not Existing',
         }
 
     }
@@ -75,6 +87,27 @@ class CreateShuffling extends React.Component {
         }
     };
 
+
+    getCurrency = async (reqParams) => {
+        const result = await this.props.getCurrencyAction(reqParams);
+
+        if (result) {
+            this.setState({ currency: result.currency });
+        } else {
+            this.setState({ currency: '-' });
+        }
+    };
+
+    getAsset = async (reqParams) => {
+        const result = await this.props.getAssetAction(reqParams);
+
+        if (result) {
+            this.setState({ asset: result.name });
+        } else {
+            this.setState({ asset: 'Not Existing' });
+        }
+    };
+
     render() {
         return (
             <div className="modal-box">
@@ -90,75 +123,131 @@ class CreateShuffling extends React.Component {
                                 <div className="form-title">
                                     <p>Create shuffling</p>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Asset name</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <CustomSelect
-                                                field={'holdingType'}
-                                                setValue={setValue}
-                                                options={[
-                                                    { value: '0',     label: 'Apollo' },
-                                                    { value: '1', label: 'Asset' },
-                                                    { value: '2', label: 'Currency' },
-                                                ]}
-                                            />
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label align-self-start">
+                                        Holding Type
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <CustomSelect
+                                            field={'holdingType'}
+                                            setValue={setValue}
+                                            defaultValue={holdingTypeData[0]}
+                                            options={holdingTypeData}
+                                        />
+                                    </div>
+                                </div>
+                                {getFormState().values.holdingType === 1 &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Asset
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                        <InputForm
+                                            field="holding"
+                                            placeholder="Asset Id"
+                                            onChange={(asset) => this.getAsset({asset})}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">{this.state.asset}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Amount</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field={'shufflingAmountAPL'} defaultValue={0} type="number" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Register Until</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            {
-                                                this.state.block &&
-                                                <Text defaultValue={this.state.block.height} field={'finishHeight'} type="number" step={10000}/>
-                                            }
+                                }
+                                {getFormState().values.holdingType === 2 &&
+                                <div className="form-group row form-group-grey mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Currency
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                        <InputForm
+                                            field="shuffling_ms_code"
+                                            placeholder="Code"
+                                            onChange={(code) => this.getCurrency({code})}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">ID: {this.state.currency}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Participant Count</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field={'participantCount'} placeholder={'Participant Count'} type="text"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Fee</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field={'feeAPL'} placeholder={'Amount'} type="text"/>
+                                }
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Amount
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            defaultValue={0}
+                                            field="shufflingAmountAPL"
+                                            placeholder="Amount"
+                                            type={"number"}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
+                                {
+                                    this.state.block &&
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Register Until
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-sm">
+                                            <InputForm
+                                                defaultValue={this.state.block.height}
+                                                field="finishHeight"
+                                                placeholder="Amount"
+                                                type={"number"}
+                                                step={500}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">{this.state.block.height}</span>
+                                            </div>
                                         </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder={'Secret phrase'} type={'password'} field={'secretPhrase'}/>
+                                    </div>
+                                }
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Participant Count
+                                    </label>
+                                    <div className="col-sm-9 mb-0">
+                                        <InputForm
+                                            field="participantCount"
+                                            type={"number"}
+                                            placeholder="Participant Count"
+                                            setValue={setValue}/>
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Fee
+                                        <span
+                                            onClick={async () => {
+                                                    setValue("feeAPL", 1);
+                                            }}
+                                            style={{paddingRight: 0}}
+                                            className="calculate-fee"
+                                        >
+                                            Calculate
+                                        </span>
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            field="feeAPL"
+                                            placeholder="Minimum fee"
+                                            type={"float"}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 <AdvancedSettings
@@ -210,6 +299,8 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
+    getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateShuffling);

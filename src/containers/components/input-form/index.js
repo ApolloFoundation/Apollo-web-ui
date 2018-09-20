@@ -33,7 +33,8 @@ class InputForm extends React.Component {
     handleClickUp = () => {
         if (!this.props.disabled) {
             let value = this.state.value !== '' ? parseFloat(this.state.value) : 0;
-            value = value + 1; // or parseFloat
+            const step = this.props.step || 1;
+            value = value + step;
             this.props.setValue(this.props.field, value);
             this.setState({value});
             if (this.props.onChange) this.props.onChange(value);
@@ -44,7 +45,9 @@ class InputForm extends React.Component {
         if (!this.props.disabled) {
             let value = this.state.value !== '' ? parseFloat(this.state.value) : 0;
             if (value > 0) {
-                value = value - 1; // or parseFloat
+                const step = this.props.step || 1;
+                value = value - step;
+                if (value < 0) value = 0;
                 this.props.setValue(this.props.field, value);
                 this.setState({value});
                 if (this.props.onChange) this.props.onChange(value);
