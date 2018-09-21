@@ -61,7 +61,7 @@ class MyVotes extends React.Component {
         });
     }
 
-    async getMyPolls(reqParams){
+    getMyPolls = async (reqParams) => {
 
         const myPolls = await this.props.getMyPollsAction(reqParams);
 
@@ -73,7 +73,7 @@ class MyVotes extends React.Component {
         }
     }
 
-    async getTransaction(data) {
+    getTransaction = async (data) => {
         const reqParams = {
             transaction: data,
             account: this.props.account
