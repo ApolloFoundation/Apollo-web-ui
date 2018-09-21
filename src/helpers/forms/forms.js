@@ -61,11 +61,11 @@ function submitForm($modal, $btn, data, requestType) {
 
         var $form;
         var requestTypeKey;
-        if (requestType) {
-            requestTypeKey = requestType.replace(/([A-Z])/g, function($1) {
-                return "_" + $1.toLowerCase();
-            });
-        }
+        // if (requestType) {
+        //     requestTypeKey = requestType.replace(/([A-Z])/g, function($1) {
+        //         return "_" + $1.toLowerCase();
+        //     });
+        // }
 
         var successMessage = getSuccessMessage(requestTypeKey);
         var errorMessage = getErrorMessage(requestTypeKey);
