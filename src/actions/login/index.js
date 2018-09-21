@@ -171,11 +171,12 @@ export function logOutAction(action) {
             document.location = '/';
             return;
         case('logOutStopForging'):
-            store.dispatch(setForging({requestType: 'stopForging'}))
-                .done(() => {
-                    localStorage.removeItem("APLUserRS");
-                    document.location = '/';
-                });
+            const forging = store.dispatch(setForging({requestType: 'stopForging'}));
+
+            if (forging) {
+                localStorage.removeItem("APLUserRS");
+                document.location = '/';
+            }
 
             return;
         case('logoutClearUserData'):
