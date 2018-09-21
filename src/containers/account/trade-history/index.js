@@ -76,7 +76,11 @@ class TradeHistory extends React.Component {
         };
 
         this.setState(reqParams, () => {
-            this.getAssets(reqParams)
+            this.getTradesHistory({
+                account: this.props.accountRS,
+                firstIndex: this.state.firstIndex,
+                lastIndex:  this.state.lastIndex
+            })
         });
     };
 
