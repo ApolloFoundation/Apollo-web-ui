@@ -461,12 +461,9 @@ class Dashboard extends React.Component {
 											to="/aliases"
 											className="general-info-item bottom-left"
 										>
-											{
-                                                this.state.aliassesValue &&
-                                                <div className="top-bar">
-                                                    {this.state.aliassesValue}
-                                                </div>
-											}
+                                            <div className="top-bar">
+                                                {this.state.aliassesValue}
+                                            </div>
 											<div className="bottom-bar">
 												Aliases
 											</div>

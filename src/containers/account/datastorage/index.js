@@ -289,7 +289,7 @@ class DataStorage extends React.Component {
                                     <tr>
                                         <td>Name</td>
                                         <td>Account</td>
-                                        <td className="align-right">Mime Type</td>
+                                        <td>Mime Type</td>
                                         <td>Channel</td>
                                         <td>Filename</td>
                                         <td className="align-right">Data</td>
