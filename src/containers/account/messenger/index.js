@@ -3,7 +3,7 @@ import SiteHeader from '../../components/site-header';
 import ChatItem from  './chat-item/index';
 import {connect} from 'react-redux';
 import classNames from "classnames";
-import {getChats, getMessage} from "../../../actions/messager";
+import {getChats, getMessage, getChatsAction, getChatHistoryAction} from "../../../actions/messager";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import './Messenger.css';
 import {Form, Text, TextArea, Checkbox} from 'react-form';
@@ -11,7 +11,8 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import uuid from 'uuid';
 import {BlockUpdater} from "../../block-subscriber/index";
-
+import {formatTimestamp} from "../../../helpers/util/time";
+import {Link} from "react-router-dom";
 
 const mapStateToProps = state => ({
 	account: state.account.account
@@ -19,9 +20,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	getChats: (reqParams) => dispatch(getChats(reqParams)),
-	getMessage: (transaction) => dispatch(getMessage(transaction)),
+    getChatsAction: (reqParams) => dispatch(getChatsAction(reqParams)),
+    getMessage: (transaction) => dispatch(getMessage(transaction)),
 	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-	submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
 });
 
 class Messenger extends React.Component {
@@ -50,16 +53,43 @@ class Messenger extends React.Component {
         this.updateChatData(newState)
 	}
 
-	updateChatData = (newState) => {
+	updateChatData = async (newState) => {
         this.getChats({
             account: this.props.account,
         });
+        console.log(newState.match.params);
+        if (newState.match.params.chat) {
+            const chatHistory = await getChatHistoryAction({account2: newState.match.params.chat})
+
+            console.log(chatHistory);
+
+            if (chatHistory) {
+                this.setState({
+                    chatHistory: chatHistory.chatHistory
+                }, () => {
+                    console.log(this.state.chatHistory);
+                })
+			}
+		}
 	};
 
 	getChats = async (reqParams) => {
-		const chats = await this.props.getChats(reqParams);
 
-		if (chats) {
+		// TODO: fixed temp
+		let chats = await getChatsAction(reqParams);
+		let correctChatsAccounts = await this.props.getChats(reqParams);
+
+        // chats = chats.chats.map((el, index) => {
+         //    console.log(correctChatsAccounts[index].data);
+         //    console.log(el);
+         //    return {...el, ...(correctChatsAccounts[index].data)}
+		// });
+
+		chats = chats.chats.map((el, index) => {
+			return {...el, ...correctChatsAccounts[index]}
+		});
+
+        if (chats) {
 			this.setState({
 				...this.state,
 				chats: chats,
@@ -67,29 +97,7 @@ class Messenger extends React.Component {
 		}
 	};
 
-	handleChatSelect = (index) => {
-
-		this.setState({
-			...this.state,
-			selectedChat: index,
-			chatHistory: this.state.chats[index].messages
-		})
-	};
-
 	handleSendMessageFormSubmit = async (values) => {
-
-        // recipient: 14423669713677089029
-        // deadline: 1440
-        // encrypt_message: true
-        // encryptedMessageData: bc985f3bdc571d9504e8221bf43c311f57c09eea2bd2e7959e150220cff47992f7d3115364d200ceecd48715374aa00b
-        // encryptedMessageNonce: 43e2e35cd6ada65c497c35e8c7057c8b62ed579177df82b00de533de25605514
-        // messageToEncryptIsText: true
-        // encryptedMessageIsPrunable: true
-        // feeATM: 100000000
-        // publicKey: bf0ced0472d8ba3df9e21808e98e61b34404aad737e2bae1778cebc698b40f37
-        // ecBlockId: 18338875302302929178
-        // ecBlockHeight: 0
-
 		if (values.messageToEncrypt) {
             values = {
 				...values,
@@ -106,36 +114,27 @@ class Messenger extends React.Component {
 		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
         // delete values.secretPhrase;
 
-        const feeData = await this.props.submitForm(null, null, {
+
+		const res = await this.props.submitForm(null, null, {
 			...values,
-            recipient: this.state.chats[this.state.selectedChat].account,
-            feeATM: 0
-        }, 'sendMessage')
+			recipient: this.props.match.params.chat,
+			secretPhrase: secretPhrase,
+			feeATM: 4
+		}, 'sendMessage');
 
-		if (feeData) {
-            if (feeData.errorCode === 4) {
-                NotificationManager.error('Message length should not bu grater than 100 symbols.', 'Error', 5000)
-            }
-            if (feeData.errorCode === 5) {
-                NotificationManager.error('Incorrect secret phrase.', 'Error', 5000)
-            }
-            if (!feeData.errorCode) {
-                const res = await this.props.submitForm(null, null, {
-                    ...values,
-                    recipient: this.state.chats[this.state.selectedChat].account,
-                    secretPhrase: secretPhrase,
-                    feeATM: feeData.transactionJSON.feeATM
-                }, 'sendMessage');
+        if (res.errorCode === 4) {
+            NotificationManager.error('Message length should not bu grater than 100 symbols.', 'Error', 5000);
+            return;
+        }
+        if (res.errorCode === 6) {
+            NotificationManager.error('Incorrect secret phrase.', 'Error', 5000);
+			return;
+        }
+		if (!res.errorCode) {
+            this.props.setBodyModalParamsAction(null, {});
 
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000)
-                } else {
-                    this.props.setBodyModalParamsAction(null, {});
-
-                    NotificationManager.success('Transaction has been submitted!', null, 5000);
-                }
-			}
-		}
+            NotificationManager.success('Transaction has been submitted!', null, 5000);
+        }
     };
 
 	render (){
@@ -165,24 +164,27 @@ class Messenger extends React.Component {
 										{
 											this.state.chats &&
 											this.state.chats.map((el, index) => {
-												return (
-													<div
+
+                                                return (
+													<Link
+														to={'/messenger/' + el.account}
 														key={uuid()}
+														style={{display: "block"}}
 														className={classNames({
 															"chat-item": true,
-															"active": this.state.selectedChat === index
+															"active": el.account === this.props.match.params.chat
 														})}
-														onClick={() => this.handleChatSelect(index)}
+														// onClick={() => this.handleChatSelect(index)}
 													>
 														<div className="chat-box-item">
 															<div className="chat-box-rs">
 																{el.accountRS}
 															</div>
 															<div className="chat-date">
-																{el.timestamp}
+																{this.props.formatTimestamp(el.lastMessageTime)}
 															</div>
 														</div>
-													</div>
+													</Link>
 												);
 											})
 										}

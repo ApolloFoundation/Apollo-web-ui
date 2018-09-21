@@ -2,6 +2,8 @@ import axios from 'axios';
 import config from '../../config'
 import crypto from '../../helpers/crypto/crypto';
 import converters from '../../helpers/converters';
+import submitForm from '../../helpers/forms/forms'
+import state from '../../store'
 
 export function getMessages (reqParams) {
     return dispatch => {
@@ -91,19 +93,12 @@ export function getMessengerChats(transactions) {
                     result.push({
                         account: el.sender,
                         accountRS: el.senderRS,
-                        messages : allTransactions.filter((transaction) => {
-
-                            return transaction.sender === el.recipient || transaction.sender === el.sender
-                        })
                     })
                 }
                 if (el.sender === account.account) {
                     result.push({
                         account: el.recipient,
                         accountRS: el.recipientRS,
-                        messages : allTransactions.filter((transaction) => {
-                            return transaction.sender === el.recipient || transaction.sender === el.sender
-                        })
                     })
                 }
             });
@@ -187,6 +182,40 @@ export function getMessage(message) {
         decoded.hash = message.attachment.messageHash || message.attachment.encryptedMessageHash;
         return decoded;
     }
+}
+
+export const getChatsAction = async () => {
+    const {account} = state.getState();
+
+    return axios.get(config.api.serverUrl,{
+        params: {
+            requestType: 'getChats',
+            account: account.accountRS
+        }
+    })
+        .then(async (res) =>  {
+            if (!res.data.errorCode) {
+                return res.data
+            }
+        })
+}
+
+
+export const getChatHistoryAction = async (requestParams) => {
+    const {account} = state.getState();
+
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: "getChatHistory",
+            account1: account.accountRS,
+            account2: requestParams.account2
+        }
+    })
+        .then((res) => {
+            if (!res.data.errorCode) {
+                return res.data
+            }
+        })
 }
 
 const isTextMessage = function(transaction) {
