@@ -139,17 +139,17 @@ class SiteHeader extends React.Component {
 	};
 
 	setForging = async (action) => {
-		this.props.setForging({requestType: action.requestType})
-			.done(async (data) => {
+		const forging = this.props.setForging({requestType: action.requestType});
 
-				const forgingStatus = await this.props.getForging();
+		if (forging) {
+            const forgingStatus = await this.props.getForging();
 
-				if (forgingStatus) {
-					this.setState({
-						forgingStatus: forgingStatus
-					});
-				}
-			})
+            if (forgingStatus) {
+                this.setState({
+                    forgingStatus: forgingStatus
+                });
+            }
+		}
 	};
 
 	render() {
