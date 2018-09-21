@@ -21,7 +21,7 @@ class InputForm extends React.Component {
             if (this.props.type === "number") {
                 value = value.replace(/[^\d]/g,"");
 
-                if (this.props.maxValue && parseFloat(value) > parseFloat(this.props.maxValue)) {
+                if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
                     value = this.props.maxValue;
                 }
             } else if (this.props.type === "float") {
@@ -29,7 +29,7 @@ class InputForm extends React.Component {
                 if (value === '.') value = '0.';
                 value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
 
-                if (this.props.maxValue && parseFloat(value) > parseFloat(this.props.maxValue)) {
+                if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
                     value = this.props.maxValue;
                 }
             } else {
