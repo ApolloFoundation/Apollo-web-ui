@@ -115,7 +115,11 @@ class Messenger extends React.Component {
 		if (feeData) {
             if (feeData.errorCode === 4) {
                 NotificationManager.error('Message length should not bu grater than 100 symbols.', 'Error', 5000)
-            } else {
+            }
+            if (feeData.errorCode === 5) {
+                NotificationManager.error('Incorrect secret phrase.', 'Error', 5000)
+            }
+            if (!feeData.errorCode) {
                 const res = await this.props.submitForm(null, null, {
                     ...values,
                     recipient: this.state.chats[this.state.selectedChat].account,
@@ -130,7 +134,7 @@ class Messenger extends React.Component {
 
                     NotificationManager.success('Transaction has been submitted!', null, 5000);
                 }
-            }
+			}
 		}
     };
 

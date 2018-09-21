@@ -9,6 +9,8 @@ import AccountRS from '../../components/account-rs';
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
+import {NotificationManager} from "react-notifications";
+import submitForm from "../../../helpers/forms/forms";
 
 class LeaseBalance extends React.Component {
     constructor(props) {
@@ -58,21 +60,21 @@ class LeaseBalance extends React.Component {
             })
         }
         if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
+            NotificationManager.error('Incorrect secret phrase.', 'Error', 5000);
             return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
         }
 
-        this.props.sendLeaseBalance(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+        const lease = await this.props.submitForm(null, null, values,'leaseBalance');
+
+        if (lease) {
+            if (lease.errorCode) {
+                NotificationManager.error(lease.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
+                NotificationManager.success('Lease has been submitted', null, 5000);
+                this.props.setBodyModalParamsAction(null, {});
+            }
+        }
     }
 
     handleAdvancedState() {
@@ -311,6 +313,7 @@ const mapDispatchToProps = dispatch => ({
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     sendLeaseBalance: (requestParams) => dispatch(crypto.sendLeaseBalance(requestParams)),
+    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
 });
 
