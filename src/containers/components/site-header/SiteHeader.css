@@ -150,6 +150,8 @@
           font-size: 12px;
           line-height: 14px;
           margin-right: 20px; }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-rs.blue-text {
+            color: #00c8ff; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-action {
           position: relative;
           color: #333333;
