@@ -57,17 +57,16 @@ class Messenger extends React.Component {
         this.getChats({
             account: this.props.account,
         });
-        console.log(newState.match.params);
+        this.setState({
+            chatHistory: [],
+        });
+
         if (newState.match.params.chat) {
             const chatHistory = await getChatHistoryAction({account2: newState.match.params.chat})
-
-            console.log(chatHistory);
 
             if (chatHistory) {
                 this.setState({
                     chatHistory: chatHistory.chatHistory
-                }, () => {
-                    console.log(this.state.chatHistory);
                 })
 			}
 		}
