@@ -7,6 +7,7 @@ import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
+import {formatTimestamp} from "../../../helpers/util/time";
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -44,10 +45,10 @@ class MyVotes extends React.Component {
         BlockUpdater.on("data", data => {
             console.warn("height in dashboard", data);
             console.warn("updating dashboard");
-            this.getDGSGoods({
-                seller: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
+            this.getMyVotes({
+                account: this.props.account,
+                firstIndex: 0,
+                lastIndex:  9,
             });
         });
     }
@@ -64,7 +65,7 @@ class MyVotes extends React.Component {
         });
     }
 
-    async getMyVotes(reqParams){
+    getMyVotes = async (reqParams) => {
         const myVotes = await this.props.getMyVotesAction(reqParams);
 
         if (myVotes && myVotes.transactions) {
@@ -81,17 +82,17 @@ class MyVotes extends React.Component {
                     });
                 })
         }
-    }
+    };
 
-    async getVote(reqParams){
+    getVote = async (reqParams) => {
         const poll = await this.props.getVoteAction(reqParams);
 
         if (poll) {
             return poll
         }
-    }
+    };
 
-    async getTransaction(data) {
+    getTransaction = async (data) => {
         const reqParams = {
             transaction: data,
             account: this.props.account
@@ -101,9 +102,7 @@ class MyVotes extends React.Component {
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
-    }
-
-
+    };
 
     render () {
         return (
