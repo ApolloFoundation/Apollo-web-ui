@@ -193,6 +193,22 @@ class ExchangeBooth extends React.Component {
         }
     };
 
+    sellLimit = () => {
+        let limit = 0;
+        this.state.sellOffers.map(item => {
+            limit += item.supply / Math.pow(10, this.state.currencyInfo.decimals);
+        });
+        return limit;
+    };
+
+    buyLimit = () => {
+        let limit = 0;
+        this.state.buyOffers.map(item => {
+            limit += item.supply / Math.pow(10, this.state.currencyInfo.decimals);
+        });
+        return limit;
+    };
+
     render() {
         return (
             <div className="page-content">
@@ -286,7 +302,7 @@ class ExchangeBooth extends React.Component {
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                     <InputForm
                                                                         field="units"
-                                                                        type={'number'}
+                                                                        type={'float'}
                                                                         placeholder='Units'
                                                                         onChange={(e) => {
                                                                             if (!e.target) {
@@ -296,6 +312,7 @@ class ExchangeBooth extends React.Component {
                                                                             }
                                                                         }}
                                                                         setValue={setValue}
+                                                                        maxValue={this.sellLimit()}
                                                                     />
                                                                     <div className="input-group-append">
                                                                         <span className="input-group-text"
@@ -473,7 +490,7 @@ class ExchangeBooth extends React.Component {
                                                                     className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                     <InputForm
                                                                         field="units"
-                                                                        type={'number'}
+                                                                        type={'float'}
                                                                         placeholder='Units'
                                                                         onChange={(e) => {
                                                                             if (!e.target) {
@@ -483,6 +500,7 @@ class ExchangeBooth extends React.Component {
                                                                             }
                                                                         }}
                                                                         setValue={setValue}
+                                                                        maxValue={this.buyLimit()}
                                                                     />
                                                                     <div className="input-group-append">
                                                                         <span className="input-group-text"
