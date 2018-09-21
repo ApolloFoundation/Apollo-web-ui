@@ -81,12 +81,14 @@
           font-size: 14px;
           position: relative;
           border-radius: 6px; }
-          .messenger .right-bar .card .chatting-box .message-box .message p > *, .messenger a .right-bar .card .chatting-box .message-box .message p > * {
-            vertical-align: middle; }
-          .messenger .right-bar .card .chatting-box .message-box .message p a.action, .messenger a .right-bar .card .chatting-box .message-box .message p a.action {
-            margin: 0; }
-            .messenger .right-bar .card .chatting-box .message-box .message p a.action i, .messenger a .right-bar .card .chatting-box .message-box .message p a.action i {
-              font-size: 18px; }
+          .messenger .right-bar .card .chatting-box .message-box .message p, .messenger a .right-bar .card .chatting-box .message-box .message p {
+            word-break: break-word; }
+            .messenger .right-bar .card .chatting-box .message-box .message p > *, .messenger a .right-bar .card .chatting-box .message-box .message p > * {
+              vertical-align: middle; }
+            .messenger .right-bar .card .chatting-box .message-box .message p a.action, .messenger a .right-bar .card .chatting-box .message-box .message p a.action {
+              margin: 0; }
+              .messenger .right-bar .card .chatting-box .message-box .message p a.action i, .messenger a .right-bar .card .chatting-box .message-box .message p a.action i {
+                font-size: 18px; }
           .messenger .right-bar .card .chatting-box .message-box .message:after, .messenger a .right-bar .card .chatting-box .message-box .message:after {
             content: '';
             display: block;
