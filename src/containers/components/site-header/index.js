@@ -166,7 +166,13 @@ class SiteHeader extends React.Component {
 										!this.props.children &&
 										<a
 											className="btn primary"
-											onClick={this.props.setMopalType.bind(this, 'PrivateTransactions')}
+											onClick={() => {
+												if (this.props.publicKey) {
+                                                    this.props.setMopalType('PrivateTransactions')
+                                                } else {
+													NotificationManager.error('Your account do not have a pubic key. Please send a single transaction to receive it.', null, 5000);
+                                                }
+											}}
 										>
 											Show private transactions
 										</a>
