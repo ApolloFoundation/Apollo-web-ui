@@ -368,13 +368,6 @@ class Dashboard extends React.Component {
 												Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
 											</div>
 										}
-										{/*<button*/}
-										{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
-										{/*data-modal="sendMoney"*/}
-										{/*>*/}
-										{/*Buy/sell&nbsp;*/}
-										{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
-										{/*</button>*/}
 									</div>
 								</div>
 							</div>
@@ -541,24 +534,25 @@ class Dashboard extends React.Component {
 									<div className="full-box">
 										<div className="full-box-item">
 											<div className="marketplace-box">
-												<div className="digit">{this.state.numberOfGoods}</div>
+												<Link to={'/purchased-products'} className="digit">{this.state.numberOfGoods}</Link>
 												<div className="subtitle">Purchased products</div>
 											</div>
 											<div className="marketplace-box">
 												<div
-													className="digit">{this.state.pendingGoods}/{this.state.completedGoods}</div>
+													className="digit">
+													<Link className="digit" to={'/my-panding-orders'}>
+                                                        {this.state.pendingGoods}
+													</Link>
+													/
+                                                    <Link className="digit" to={'/my-products-for-sale'}>
+                                                        {this.state.completedGoods}
+                                                    </Link>
+												</div>
 												<div className="subtitle">Sales</div>
 											</div>
 										</div>
 									</div>
 									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
-									{/*<button*/}
-									{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
-									{/*data-modal="sendMoney"*/}
-									{/*>*/}
-									{/*Buy/sell&nbsp;*/}
-									{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
-									{/*</button>*/}
 								</div>
 							</div>
 							<div className="page-body-item ">
