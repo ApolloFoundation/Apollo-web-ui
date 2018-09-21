@@ -110,7 +110,7 @@ class SiteHeader extends React.Component {
 		const account = await this.props.getAccountInfoAction({account: values.value});
 
 		if (transaction) {
-			this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+			this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
 			return;
 		}
 

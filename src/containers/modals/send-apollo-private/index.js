@@ -10,6 +10,7 @@ import {calculateFeeAction} from "../../../actions/forms";
 
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
+import {NotificationManager} from "react-notifications";
 
 class SendApolloPrivate extends React.Component {
     constructor(props) {
@@ -36,57 +37,25 @@ class SendApolloPrivate extends React.Component {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
         if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            })
+            NotificationManager.error('Recipient not specified.', 'Error', 5000);
             return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            })
         }
         if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            })
+            NotificationManager.error('Amount is required.', 'Error', 5000);
             return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            })
         }
         if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            })
+            NotificationManager.error('Fee not specified.', 'Error', 5000);
             return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            })
         }
         if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
+            NotificationManager.error('Incorrect secret phrase', 'Error', 5000);
             return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
         }
 
         this.props.sendPrivateTransaction(values);
         this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Private transaction has been submitted!');
+        NotificationManager.success('Private transaction has been submitted.', null, 5000)
     }
 
     handleTabChange(tab) {

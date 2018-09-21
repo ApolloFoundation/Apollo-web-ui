@@ -106,31 +106,32 @@ class Messenger extends React.Component {
 		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
         // delete values.secretPhrase;
 
-        await this.props.submitForm(null, null, {
+        const feeData = await this.props.submitForm(null, null, {
 			...values,
             recipient: this.state.chats[this.state.selectedChat].account,
             feeATM: 0
         }, 'sendMessage')
-			.done(async (feeData) => {
-				if (feeData.errorCode === 4) {
-                    NotificationManager.error('Message length should not bu grater than 100 symbols.', 'Error', 5000)
+
+		if (feeData) {
+            if (feeData.errorCode === 4) {
+                NotificationManager.error('Message length should not bu grater than 100 symbols.', 'Error', 5000)
+            } else {
+                const res = await this.props.submitForm(null, null, {
+                    ...values,
+                    recipient: this.state.chats[this.state.selectedChat].account,
+                    secretPhrase: secretPhrase,
+                    feeATM: feeData.transactionJSON.feeATM
+                }, 'sendMessage');
+
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000)
                 } else {
-                    const res = await this.props.submitForm(null, null, {
-                        ...values,
-                        recipient: this.state.chats[this.state.selectedChat].account,
-                        secretPhrase: secretPhrase,
-                        feeATM: feeData.transactionJSON.feeATM
-                    }, 'sendMessage');
+                    this.props.setBodyModalParamsAction(null, {});
 
-                    if (res.errorCode) {
-                        NotificationManager.error(res.errorDescription, 'Error', 5000)
-                    } else {
-                        this.props.setBodyModalParamsAction(null, {});
-
-                        NotificationManager.success('Transaction has been submitted!', null, 5000);
-                    }
-				}
-			})
+                    NotificationManager.success('Transaction has been submitted!', null, 5000);
+                }
+            }
+		}
     };
 
 	render (){
