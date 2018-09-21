@@ -206,7 +206,13 @@ class Dashboard extends React.Component {
 				return {...(assetsInfo[index]), ...el}
 			});
 
-            const assetsCountValue = (result.map((el) => {return Number(el.quantityATU / Math.pow(10, el.decimals))})).reduce((a, b) => {return a + b});
+            let assetsCountValue;
+
+            if (!!result.length) {
+                assetsCountValue = (result.map((el) => {return Number(el.quantityATU / Math.pow(10, el.decimals))})).reduce((a, b) => {return a + b});
+			} else {
+                assetsCountValue = 0;
+			}
 
             this.setState({
 				dashboardAssets: result.splice(0,3),
@@ -229,11 +235,16 @@ class Dashboard extends React.Component {
 		const currencies = await this.props.getAccountCurrenciesAction(requsetParams);
 
 		if (currencies) {
-            const currenciesValue = (
-            	currencies.accountCurrencies.map((el) => {
-                	console.log(parseInt(el.units));
-                	return parseInt(el.units) / Math.pow(10, el.decimals)})
-			).reduce((a, b) => {console.log(a, b); return a + b});
+            let currenciesValue;
+
+            if (!!currencies.accountCurrencies.length) {
+                currenciesValue = (
+                    currencies.accountCurrencies.map((el) => {
+                        return parseInt(el.units) / Math.pow(10, el.decimals)})
+                ).reduce((a, b) => {console.log(a, b); return a + b});
+			} else {
+                currenciesValue = 0
+			}
 
             this.setState({
 				currenciesValue: currenciesValue,
@@ -285,7 +296,7 @@ class Dashboard extends React.Component {
 
 		const proedeductsForSale = await this.props.getDGSPurchaseCountAction({...reqParams , requestType: 'getDGSPurchases'});
 
-        if (purchased && completedPurchased && pendingGoods) {
+        if (proedeductsForSale && purchased && completedPurchased && pendingGoods) {
 			this.setState({
 				numberOfGoods: proedeductsForSale.purchases.length,
 				completedGoods: numberOfGoods.numberOfGoods,
