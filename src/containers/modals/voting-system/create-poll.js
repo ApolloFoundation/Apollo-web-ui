@@ -43,26 +43,20 @@ class CreatePoll extends React.Component {
         this.setFinishHeight()
     }
 
-    removeAnswer = (index) => {
-        if (index !== 0) {
-            let answers = this.state.answers;
-
+    removeAnswer = (setValue, answers, index) => {
+        if (answers && answers.length > 1) {
             answers.splice(index, 1);
-
-            this.setState({
-                answers
-            })
+            setValue('answers', answers);
         }
     };
 
-    addAnswer = () => {
-        let answers = this.state.answers;
-
-        answers.push('');
-
-        this.setState({
-            answers
-        })
+    addAnswer = (setValue, answers) => {
+        let arrItem = answers === undefined ? 0 : answers.length;
+        if (answers === undefined) {
+            setValue(`answers[${arrItem}]`, '');
+            arrItem = 1;
+        }
+        setValue(`answers[${arrItem}]`, '');
     };
 
     setFinishHeight = async (setValue) => {
@@ -76,14 +70,11 @@ class CreatePoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
-
         let resultAnswers = {};
 
-        this.state.answers.forEach((el, index) => {
-
+        values.answers.forEach((el, index) => {
             if (index > 9) {
                 resultAnswers['option' + index] = el;
-
             } else {
                 resultAnswers['option0' + index] = el;
             }
@@ -101,18 +92,6 @@ class CreatePoll extends React.Component {
 
             NotificationManager.success('Your vote has been created!', null, 5000);
         }
-    };
-
-    handleAnswerChange = (e, index) => {
-        const newAnwer = e.target.value;
-
-        let answers = this.state.answers;
-
-        answers[index] = newAnwer;
-
-        this.setState({
-            answers
-        })
     };
 
     handleAdvancedState = () => {
@@ -336,23 +315,40 @@ class CreatePoll extends React.Component {
                                             Answer
                                         </label>
                                         <div className="col-sm-9">
-                                            {
-                                                this.state.answers.map((el, index) => {
-                                                    return (
-                                                        <div key={uuid()} className="input-group input-group-sm mb-15 no-left-padding">
-                                                            <input
-                                                                className="form-control"
-                                                                name={'create_poll_answers[]'}
-                                                                onChange={(e) => this.handleAnswerChange(e, index)}
-                                                                value={el}
-                                                                placeholder={'Answer'}/>
-                                                            <div className="input-group-append" onClick={() => this.removeAnswer(index)}>
+                                            <div className="input-group input-group-sm mb-15 no-left-padding">
+                                                <Text
+                                                    field={'answers[0]'}
+                                                    className="form-control"
+                                                    placeholder={'Answer'}
+                                                />
+                                                <div className="input-group-append"
+                                                     onClick={() => this.removeAnswer(setValue, getFormState().values.answers, 0)}>
                                                                     <span className="input-group-text">
                                                                         <i className="zmdi zmdi-minus-circle" />
                                                                     </span>
+                                                </div>
+                                            </div>
+                                            {getFormState().values.answers &&
+                                                getFormState().values.answers.map((el, index) => {
+                                                    if(index !== 0 ) {
+                                                        const filed = `answers[${index}]`;
+                                                        return (
+                                                            <div key={filed}
+                                                                className="input-group input-group-sm mb-15 no-left-padding">
+                                                                <Text
+                                                                    field={filed}
+                                                                    className="form-control"
+                                                                    placeholder={'Answer'}
+                                                                />
+                                                                <div className="input-group-append"
+                                                                     onClick={() => this.removeAnswer(setValue, getFormState().values.answers, index)}>
+                                                                    <span className="input-group-text">
+                                                                        <i className="zmdi zmdi-minus-circle"/>
+                                                                    </span>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    )
+                                                        )
+                                                    }
                                                 })
                                             }
                                         </div>
@@ -360,7 +356,7 @@ class CreatePoll extends React.Component {
                                     <div className="mobile-class form-group-grey row mb-15">
                                         <div className="col-sm-9 offset-sm-3">
                                             <a className="no-margin btn static blue"
-                                               onClick={() => this.addAnswer()}>
+                                               onClick={() => this.addAnswer(setValue, getFormState().values.answers)}>
                                                 Add answer
                                             </a>
                                         </div>

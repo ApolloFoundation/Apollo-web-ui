@@ -34,6 +34,7 @@ class MyVotes extends React.Component {
         };
 
         this.getMyPolls = this.getMyPolls.bind(this);
+        this.getTransaction = this.getTransaction.bind(this);
         // this.getVote  = this.getVote.bind(this);
     }
 
@@ -57,7 +58,7 @@ class MyVotes extends React.Component {
 
     componentWillReceiveProps(newState) {
         this.getMyPolls({
-            account: this.props.account,
+            account: newState.account,
         });
     }
 
@@ -74,14 +75,16 @@ class MyVotes extends React.Component {
     }
 
     async getTransaction(data) {
-        const reqParams = {
-            transaction: data,
-            account: this.props.account
-        };
+        if (this.props.account) {
+            const reqParams = {
+                transaction: data,
+                account: this.props.account
+            };
 
-        const transaction = await this.props.getTransactionAction(reqParams);
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+            const transaction = await this.props.getTransactionAction(reqParams);
+            if (transaction) {
+                this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+            }
         }
     }
 

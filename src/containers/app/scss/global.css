@@ -1694,3 +1694,7 @@ table td .btn, table th .btn {
 
 .margin-top-13 {
   margin-top: 13px !important; }
+
+.custom-range {
+  border: none;
+  padding: 10px 0; }

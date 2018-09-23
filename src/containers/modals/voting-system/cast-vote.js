@@ -1,10 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import CustomSelect from '../../components/select';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
-import {Form, Text, TextArea, Number, Radio, RadioGroup, Checkbox} from 'react-form';
+import InputForm from '../../components/input-form';
+import AdvancedSettings from '../../components/advanced-transaction-settings';
+import {Form, Text, Number, Checkbox} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
@@ -14,20 +13,21 @@ import uuid from "uuid";
 class CastPoll extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            activeTab: 0,
+            advancedState: false,
+            rangeValue: 10,
+
+            // submitting
+            passphraseStatus: false,
+            recipientStatus: false,
+            amountStatus: false,
+            feeStatus: false,
+
+            answers: [''],
+            voteOptions: []
+        };
     }
-
-    state = {
-        activeTab: 0,
-        advancedState: false,
-
-        // submitting
-        passphraseStatus: false,
-        recipientStatus: false,
-        amountStatus: false,
-        feeStatus: false,
-
-        answers: ['']
-    };
 
     componentDidMount() {
         this.getPoll()
@@ -43,10 +43,9 @@ class CastPoll extends React.Component {
 
             Object.values(poll.options).forEach((el, index) => {
                 if (index > 9) {
-                    votes['vote' + index] = el
-
+                    votes['vote' + index] = el;
                 } else {
-                    votes['vote0' + index] = el
+                    votes['vote0' + index] = el;
                 }
             });
 
@@ -59,29 +58,32 @@ class CastPoll extends React.Component {
 
     handleFormSubmit = async(values) => {
         let resultAnswers = {};
-
         let votes = {};
 
-        const voteVals = Object.keys(values).filter((el) => {
-            return el.includes('vote')
-        });
+        if (this.state.poll.maxRangeValue > 1) {
+            votes = this.state.voteOptions;
+        } else {
+            const voteVals = Object.keys(values).filter((el) => {
+                return el.includes('vote')
+            });
 
-        const allGivenVals = this.state.poll.options.map((el, index) => {
-            if (index > 9) {
-                return 'vote' + index;
-            } else {
-                return 'vote0' + index;
-            }
-        });
+            const allGivenVals = this.state.poll.options.map((el, index) => {
+                if (index > 9) {
+                    return 'vote' + index;
+                } else {
+                    return 'vote0' + index;
+                }
+            });
 
-        allGivenVals.forEach((el, index) => {
+            allGivenVals.forEach((el, index) => {
 
-            if (voteVals.indexOf(el) === -1) {
-                votes[el] = -128
-            } else {
-                votes[el] = 1
-            }
-        });
+                if (voteVals.indexOf(el) === -1) {
+                    votes[el] = -128
+                } else {
+                    votes[el] = 1
+                }
+            });
+        }
 
         values = {
             poll: this.state.poll.poll,
@@ -131,7 +133,7 @@ class CastPoll extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={
-                        ({ submitForm, values, addValue, removeValue, setValue }) => (
+                        ({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                             <form
                                 className="modal-form"
                                 onSubmit={submitForm}
@@ -144,84 +146,118 @@ class CastPoll extends React.Component {
                                         <div className="form-title">
                                             <p>Cast vote</p>
                                         </div>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Poll name</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    {this.state.poll.name}
-                                                </div>
+                                        <div className="mobile-class form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label align-self-start">
+                                                Poll name
+                                            </label>
+                                            <div className="col-sm-9">
+                                                {this.state.poll.name}
                                             </div>
                                         </div>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Description</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    {this.state.poll.description}
-                                                </div>
+                                        <div className="mobile-class form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label align-self-start">
+                                                Description
+                                            </label>
+                                            <div className="col-sm-9">
+                                                {this.state.poll.description}
                                             </div>
                                         </div>
-                                            <div className="mobile-class row mb-15 form-group-white">
-                                                <div className="col-md-3">
-                                                    <label>Select option</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <div className="form-check custom-checkbox mb-2" style={{paddingLeft: 0}}>
+                                        <div className="mobile-class form-group row form-group-white mb-0">
+                                            <label className="col-sm-3 col-form-label align-self-start">
+                                                Select option
+                                            </label>
+                                            <div className="col-sm-9">
+                                                {this.state.poll.maxRangeValue > 1 ?
+                                                    <div>
+                                                        {Object.keys(this.state.votes).map((el, index) =>
+                                                            <div key={uuid()} className={"mb-15"}>
+                                                                <p>
+                                                                    {this.state.votes[el]}
+                                                                    <span
+                                                                        className="badge badge-pill badge-primary float-right">
+                                                                    {this.state.voteOptions[el]}
+                                                                    </span>
+                                                                </p>
+                                                                <input type="range" className="custom-range"
+                                                                       max={this.state.poll.maxRangeValue}
+                                                                       min={this.state.poll.minRangeValue}
+                                                                       defaultValue={this.state.voteOptions[el] || this.state.poll.minRangeValue}
+                                                                       onMouseUp={(event) => this.setState({
+                                                                           voteOptions: {
+                                                                               [`${el}`]: event.target.value,
+                                                                           }
+                                                                       })}
+                                                                />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    :
+                                                    <div className="form-check custom-checkbox">
                                                         {
                                                             Object.keys(this.state.votes).map((el, index) => {
                                                                 if (index > 9) {
                                                                     return (
-                                                                        <div key={uuid()} className="input-group-app align-middle display-block offset-bottom">
+                                                                        <div key={uuid()} className={"mb-15"}>
                                                                             <Checkbox
                                                                                 className="form-check-input custom-control-input"
                                                                                 field={'vote' + index}
                                                                                 value={el}
                                                                                 style={{opacity: 1}}
                                                                             />
-                                                                            <label style={{display: 'inline-block'}}>{this.state.votes[el]}</label>
+                                                                            <label
+                                                                                className="form-check-label custom-control-label">{this.state.votes[el]}</label>
                                                                         </div>
                                                                     );
                                                                 } else {
                                                                     return (
-                                                                        <div key={uuid()} className="input-group-app align-middle display-block offset-bottom">
+                                                                        <div key={uuid()} className={"mb-15"}>
                                                                             <Checkbox
                                                                                 className="form-check-input custom-control-input"
                                                                                 field={'vote0' + index}
                                                                                 value={el}
                                                                                 style={{opacity: 1}}
                                                                             />
-                                                                            <label style={{display: 'inline-block'}}>{this.state.votes[el]}</label>
+                                                                            <label
+                                                                                className="form-check-label custom-control-label">{this.state.votes[el]}</label>
                                                                         </div>
                                                                     );
                                                                 }
                                                             })
                                                         }
                                                     </div>
-                                                </div>
+                                                }
                                             </div>
-
-
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Fee</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text field={'feeAPL'} placeholder={'Amount'} type="number"/>
+                                        </div>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Fee
+                                                <span
+                                                    onClick={async () => {
+                                                            setValue("feeAPL", 1);
+                                                    }}
+                                                    style={{paddingRight: 0}}
+                                                    className="calculate-fee"
+                                                >
+                                            Calculate
+                                        </span>
+                                            </label>
+                                            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                                <InputForm
+                                                    field="feeAPL"
+                                                    placeholder="Amount"
+                                                    type={"float"}
+                                                    setValue={setValue}/>
+                                                <div className="input-group-append">
+                                                    <span className="input-group-text">Apollo</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group-app display-block offset-bottom">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Passphrase</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text placeholder={'Secret phrase'} type="password" field={'secretPhrase'}/>
-                                                </div>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                             </div>
                                         </div>
                                         <div className="btn-box align-buttons-inside absolute right-conner align-right">
@@ -236,7 +272,7 @@ class CastPoll extends React.Component {
                                                 name={'closeModal'}
                                                 className="btn btn-right blue round round-bottom-right"
                                             >
-                                                Send
+                                                Cast vote
                                             </button>
                                         </div>
                                         <div className="btn-box align-buttons-inside absolute left-conner">
@@ -248,6 +284,12 @@ class CastPoll extends React.Component {
                                                 {this.state.advancedState ? "Basic" : "Advanced"}
                                             </a>
                                         </div>
+                                        <AdvancedSettings
+                                            setValue={setValue}
+                                            getFormState={getFormState}
+                                            values={values}
+                                            advancedState={this.state.advancedState}
+                                        />
 
                                     </div>
                                 }
