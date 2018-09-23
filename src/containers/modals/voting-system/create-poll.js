@@ -16,8 +16,8 @@ import {calculateFeeAction} from "../../../actions/forms";
 const votingModelData = [
     { value: 0, label: 'Vote by Account' },
     { value: 1, label: 'Vote by Account Balance' },
-    // { value: 2, label: 'Vote by Asset Balance' },
-    // { value: 3, label: 'Vote by Currency Balance' }
+    { value: 2, label: 'Vote by Asset Balance' },
+    { value: 3, label: 'Vote by Currency Balance' }
 ];
 
 class CreatePoll extends React.Component {
@@ -33,10 +33,11 @@ class CreatePoll extends React.Component {
             amountStatus: false,
             feeStatus: false,
 
-            answers: [''],
             currency: '-',
             asset: 'Not Existing',
         }
+        this.getCurrency = this.getCurrency.bind(this);
+        this.getAsset = this.getAsset.bind(this);
     }
 
     componentDidMount() {
@@ -82,7 +83,7 @@ class CreatePoll extends React.Component {
 
         const res = await this.props.submitForm(null, null, {
             ...values,
-            'create_poll_answers[]': this.state.answers[0],
+            'create_poll_answers[]': values.answers[0],
             ...resultAnswers
         }, 'createPoll');
         if (res.errorCode) {
@@ -109,7 +110,7 @@ class CreatePoll extends React.Component {
     };
 
     selectedBalanceType = (values) => {
-        const type = values.minBalanceModel || values.votingModel;
+        const type = values.minBalanceType || values.votingModel;
         switch (type) {
             case 0:
                 return '(none)';
@@ -122,28 +123,35 @@ class CreatePoll extends React.Component {
         }
     };
 
-    getCurrency = async (reqParams) => {
+    getCurrency = async (reqParams, setValue) => {
         const result = await this.props.getCurrencyAction(reqParams);
 
         if (result) {
             this.setState({ currency: result.currency });
+            setValue('holding', result.currency);
+            setValue('create_poll_ms_id', result.currency);
         } else {
             this.setState({ currency: '-' });
+            setValue('holding', '');
+            setValue('create_poll_ms_id', '');
         }
     };
 
-    getAsset = async (reqParams) => {
+    getAsset = async (reqParams, setValue) => {
         const result = await this.props.getAssetAction(reqParams);
 
         if (result) {
             this.setState({ asset: result.name });
+            setValue('holding', reqParams.asset);
         } else {
             this.setState({ asset: 'Not Existing' });
+            setValue('holding', '');
         }
     };
 
     handleVotingModel = (value, setValue) => {
-        if (value !== 0) setValue('minBalanceModel', 0);
+        if (value !== 0) setValue('minBalanceType', 0);
+        setValue('minBalanceModel', value);
     };
 
     render() {
@@ -197,7 +205,7 @@ class CreatePoll extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                    {getFormState().values.minBalanceModel === 2 ||
+                                    {getFormState().values.minBalanceType === 2 ||
                                     getFormState().values.votingModel === 2 &&
                                         <div className="form-group row form-group-grey mb-15">
                                             <label className="col-sm-3 col-form-label">
@@ -207,7 +215,7 @@ class CreatePoll extends React.Component {
                                                 <InputForm
                                                     field="create_poll_asset_id"
                                                     placeholder="Asset Id"
-                                                    onChange={(asset) => this.getAsset({asset})}
+                                                    onChange={(asset) => this.getAsset({asset}, setValue)}
                                                     setValue={setValue}/>
                                                 <div className="input-group-append">
                                                     <span className="input-group-text">{this.state.asset}</span>
@@ -215,7 +223,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     }
-                                    {getFormState().values.minBalanceModel === 3 ||
+                                    {getFormState().values.minBalanceType === 3 ||
                                     getFormState().values.votingModel === 3 &&
                                         <div className="form-group row form-group-grey mb-15">
                                             <label className="col-sm-3 col-form-label">
@@ -225,7 +233,7 @@ class CreatePoll extends React.Component {
                                                 <InputForm
                                                     field="create_poll_ms_code"
                                                     placeholder="Code"
-                                                    onChange={(code) => this.getCurrency({code})}
+                                                    onChange={(code) => this.getCurrency({code}, setValue)}
                                                     setValue={setValue}/>
                                                 <div className="input-group-append">
                                                     <span className="input-group-text">ID: {this.state.currency}</span>
@@ -234,7 +242,7 @@ class CreatePoll extends React.Component {
                                         </div>
                                     }
                                     {getFormState().values.votingModel === votingModelData[0].value &&
-                                    <RadioGroup field={'minBalanceModel'} defaultValue={0}>
+                                    <RadioGroup field={'minBalanceType'} defaultValue={0}>
                                         <div className="form-group row form-group-white">
                                             <label className="col-sm-3 col-form-label align-self-start">
                                                 Min Balance Type
@@ -280,7 +288,7 @@ class CreatePoll extends React.Component {
                                         </label>
                                         <div className="col-sm-9">
                                             <InputForm
-                                                disabled={getFormState().values.minBalanceModel === 0 &&
+                                                disabled={getFormState().values.minBalanceType === 0 &&
                                                             getFormState().values.votingModel === 0}
                                                 field="minBalance"
                                                 placeholder=""

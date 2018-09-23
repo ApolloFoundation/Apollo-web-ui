@@ -67,21 +67,8 @@ class CastPoll extends React.Component {
                 return el.includes('vote')
             });
 
-            const allGivenVals = this.state.poll.options.map((el, index) => {
-                if (index > 9) {
-                    return 'vote' + index;
-                } else {
-                    return 'vote0' + index;
-                }
-            });
-
-            allGivenVals.forEach((el, index) => {
-
-                if (voteVals.indexOf(el) === -1) {
-                    votes[el] = -128
-                } else {
-                    votes[el] = 1
-                }
+            voteVals.map(vote => {
+                values[vote] = values[vote] === true ? 1 : -128;
             });
         }
 
@@ -201,7 +188,6 @@ class CastPoll extends React.Component {
                                                                             <Checkbox
                                                                                 className="form-check-input custom-control-input"
                                                                                 field={'vote' + index}
-                                                                                value={el}
                                                                                 style={{opacity: 1}}
                                                                             />
                                                                             <label
@@ -214,7 +200,6 @@ class CastPoll extends React.Component {
                                                                             <Checkbox
                                                                                 className="form-check-input custom-control-input"
                                                                                 field={'vote0' + index}
-                                                                                value={el}
                                                                                 style={{opacity: 1}}
                                                                             />
                                                                             <label

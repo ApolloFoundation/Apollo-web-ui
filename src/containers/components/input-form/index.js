@@ -12,7 +12,6 @@ class InputForm extends React.Component {
     };
 
     handleChange = (value) => {
-        if (this.props.onChange) this.props.onChange(value);
         this.props.setValue(this.props.field, this.validateInput(value));
     };
 
@@ -35,10 +34,8 @@ class InputForm extends React.Component {
             } else {
                 value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
-            this.setState({ value });
-            return value;
         } else {
-            value = value.target.value
+            value = value.target.value;
 
             if (this.props.type === "number") {
                 value = value.replace(/[^\d]/g,"");
@@ -49,9 +46,10 @@ class InputForm extends React.Component {
             } else {
                 value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
-            this.setState({ value });
-            return value;
         }
+        if (this.props.onChange) this.props.onChange(value);
+        this.setState({ value });
+        return value;
     };
 
     handleClickUp = () => {
