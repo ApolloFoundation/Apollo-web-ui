@@ -827,12 +827,36 @@ class SiteHeader extends React.Component {
 												!this.props.publicKey &&
 												<div className="form-sub-title">
 													Not verified profile
+                                                    <CopyToClipboard
+                                                        text={this.props.accountRS}
+                                                        onCopy={() => {
+                                                            NotificationManager.success('The account RS has been copied to clipboard.')
+                                                        }}
+                                                    >
+                                                        <a
+                                                            className="user-account-rs blue-text"
+                                                        >
+                                                            {this.props.accountRS}
+                                                        </a>
+                                                    </CopyToClipboard>
 												</div>
 											}
 											{
 												this.props.publicKey &&
 												<div className="form-sub-title">
 													Verified profile
+                                                    <CopyToClipboard
+                                                        text={this.props.accountRS}
+                                                        onCopy={() => {
+                                                            NotificationManager.success('The account RS has been copied to clipboard.')
+                                                        }}
+                                                    >
+                                                        <a
+                                                            className="user-account-rs blue-text"
+                                                        >
+                                                            {this.props.accountRS}
+                                                        </a>
+                                                    </CopyToClipboard>
 												</div>
 											}
 											<div className="form-body">

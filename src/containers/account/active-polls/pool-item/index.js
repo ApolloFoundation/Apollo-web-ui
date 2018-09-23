@@ -3,12 +3,14 @@ import {connect} from 'react-redux';
 import uuid from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {Link} from "react-router-dom";
+import {formatTimestamp} from "../../../../helpers/util/time";
 const mapStateToPreops = state => ({
 
 });
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 });
 
 
@@ -22,7 +24,7 @@ const PoolItem  = props => (
             <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}> {props.accountRS} </a>
         </td>
         <td key={uuid()} className={""}>
-            {props.timestamp}
+            {props.formatTimestamp(props.timestamp)}
         </td>
         <td key={uuid()} className={""}>
             {props.finishHeight}

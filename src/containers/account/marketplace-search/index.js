@@ -38,6 +38,7 @@ class MarketplaceSearch extends React.Component {
     }
 
     loadAccount = (tag) => {
+        console.log(tag);
         const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(tag) ?
             {
                 seller : tag,
@@ -52,6 +53,9 @@ class MarketplaceSearch extends React.Component {
             lastIndex: this.state.lastIndex,
             completed: true,
             ...searchingBy
+        });
+        this.setState({
+            tag: tag
         })
     }
 
@@ -77,6 +81,7 @@ class MarketplaceSearch extends React.Component {
 
         let reqParams = {
             includeCounts: true,
+
             page: page,
             tag: this.state.tag,
             ...searchingBy,

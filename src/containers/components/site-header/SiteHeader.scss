@@ -212,6 +212,10 @@
 					font-size: 12px;
 					line-height: 14px;
 					margin-right: 20px;
+
+					&.blue-text {
+						color: #00c8ff;
+					}
 				}
 				.user-account-action {
 					position: relative;

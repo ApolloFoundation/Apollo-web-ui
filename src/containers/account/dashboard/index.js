@@ -27,6 +27,7 @@ import {reloadAccountAction} from "../../../actions/login";
 import {getAllTaggedDataAction} from "../../../actions/datastorage";
 import {getActiveShfflings, getShufflingAction} from "../../../actions/shuffling";
 import {getpollsAction} from "../../../actions/polls";
+import {getAccountInfoAction} from "../../../actions/account";
 
 const mapStateToProps = state => ({
 	account: state.account.account,
@@ -43,8 +44,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
 	reloadAccount: acc => dispatch(reloadAccountAction(acc)),
+    getAccountInfo: reqParams => dispatch(getAccountInfoAction(reqParams)),
 	getMessages: (reqParams) => dispatch(getMessages(reqParams)),
 	getNewsAction: () => dispatch(getNewsAction()),
 	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
@@ -100,7 +101,7 @@ class Dashboard extends React.Component {
 
 	listener = data => {
 		this.initDashboard({account: this.props.account});
-		this.props.reloadAccount(this.props.accountRS);
+		// this.props.reloadAccount(this.props.accountRS);
 	};
 
 	componentDidMount() {
@@ -117,6 +118,16 @@ class Dashboard extends React.Component {
 			this.initDashboard({account: newState.account})
 		}
 	}
+
+    getAccountInfo = async (reqParams) => {
+		const accountInfo = await this.props.getAccountInfo(reqParams);
+
+		if (accountInfo) {
+			this.setState({
+                accountInfo
+			})
+		}
+	};
 
 	componentWillMount(newState) {
 		this.getBlock();
@@ -136,6 +147,7 @@ class Dashboard extends React.Component {
 		this.getActivePolls(reqParams);
 		this.getShufflingAction(reqParams);
 		this.getAssets(this.props);
+        this.getAccountInfo(reqParams);
 		this.getGoods({...reqParams, seller: this.props.account});
 		this.getTransactions({
 			...reqParams,
@@ -353,13 +365,13 @@ class Dashboard extends React.Component {
 											style={{cursor: 'pointer'}}
 											className="amount"
 										>
-											{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')}
+											{this.state.accountInfo && Math.round(this.state.accountInfo.balanceATM / 100000000).toLocaleString('en')}
 											<div className="owned">
 												APL <span>Owned</span>
 											</div>
 										</div>
 										<div className="account-sub-titles">
-											{this.props.accountRS}
+											{this.state.accountInfo && this.state.accountInfo.accountRS}
 										</div>
 
 										{
@@ -368,13 +380,6 @@ class Dashboard extends React.Component {
 												Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
 											</div>
 										}
-										{/*<button*/}
-										{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
-										{/*data-modal="sendMoney"*/}
-										{/*>*/}
-										{/*Buy/sell&nbsp;*/}
-										{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
-										{/*</button>*/}
 									</div>
 								</div>
 							</div>
@@ -422,7 +427,7 @@ class Dashboard extends React.Component {
                                             to={'/my-currencies'}
                                             style={{display: 'block'}}
 										>
-											{Math.round(this.state.currenciesValue).toLocaleString('en')}
+											{!!this.state.currenciesValue && Math.round(this.state.currenciesValue).toLocaleString('en')}
 											<div className="owned">
 												{this.state.currenciesCount} <span>Owned</span>
 											</div>
@@ -541,24 +546,25 @@ class Dashboard extends React.Component {
 									<div className="full-box">
 										<div className="full-box-item">
 											<div className="marketplace-box">
-												<div className="digit">{this.state.numberOfGoods}</div>
+												<Link to={'/purchased-products'} className="digit">{this.state.numberOfGoods}</Link>
 												<div className="subtitle">Purchased products</div>
 											</div>
 											<div className="marketplace-box">
 												<div
-													className="digit">{this.state.pendingGoods}/{this.state.completedGoods}</div>
+													className="digit">
+													<Link className="digit" to={'/my-panding-orders'}>
+                                                        {this.state.pendingGoods}
+													</Link>
+													/
+                                                    <Link className="digit" to={'/my-products-for-sale'}>
+                                                        {this.state.completedGoods}
+                                                    </Link>
+												</div>
 												<div className="subtitle">Sales</div>
 											</div>
 										</div>
 									</div>
 									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
-									{/*<button*/}
-									{/*className="btn btn-right gray round round-bottom-right round-top-left absolute"*/}
-									{/*data-modal="sendMoney"*/}
-									{/*>*/}
-									{/*Buy/sell&nbsp;*/}
-									{/*<i className="arrow zmdi zmdi-chevron-right"/>*/}
-									{/*</button>*/}
 								</div>
 							</div>
 							<div className="page-body-item ">

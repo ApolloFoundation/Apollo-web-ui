@@ -45,10 +45,17 @@ class AboutApollo extends React.Component {
                                 Utilizing a team of world-class developers, managers, marketers, and researchers, the Apollo Foundation has set out to accomplish the vision of making Apollo the most technologically advanced, feature-rich, un-regulatable currency on Earth. We know the demands of a top-tier cryptocurrency, and we believe we can create a coin that will integrate everything necessary to rise above the rest. As we develop and improve Apollo, our team will strive to continue designing and developing features that have not previously been used in cryptocurrency. Our goal is to create the first all-in-one cryptocurrency, innovating and incorporating every ability that could be beneficial in currency, all in a single decentralized platform. Our first major update, Olympus Protocol, puts mass adoption-proof privacy at the core of Apollo. This is because we know the ability for a user to buy, sell, trade and send in absolute secrecy is vital to an industry that could be moments away from intense regulation. We are here because we believe that the only entity that should be in control of your funds is you.
 
                                 <p>
-                                    Copyright © 2017 The Apollo Developers.
+                                    Copyright © 2018 The Apollo Developers.
                                 </p>
                                 <p>
-                                    Apollo Blockchain software is developed by
+                                    Copyright © 2016-2017 Jelurida IP B.V.
+                                </p>
+                                <p>
+                                    Copyright © 2013-2016 The Nxt Core Developers.
+                                </p>
+
+                                <p>
+                                    Apollo Blockchain software is developed by <a href="https://www.apollocurrency.com/" target={'blank'}>Apollo</a>
                                 </p>
                                 <p>
                                     Contact e-mail: <a href="">info@apollocurrency.com</a>

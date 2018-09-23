@@ -62,8 +62,7 @@ class MyVotes extends React.Component {
         });
     }
 
-    async getMyPolls(reqParams){
-
+    getMyPolls = async (reqParams) => {
         const myPolls = await this.props.getMyPollsAction(reqParams);
 
         if (myPolls) {
@@ -72,23 +71,19 @@ class MyVotes extends React.Component {
                 myPolls: myPolls.polls
             });
         }
-    }
+    };
 
-    async getTransaction(data) {
-        if (this.props.account) {
-            const reqParams = {
-                transaction: data,
-                account: this.props.account
-            };
+    getTransaction = async (data) => {
+        const reqParams = {
+            transaction: data,
+            account: this.props.account
+        };
 
-            const transaction = await this.props.getTransactionAction(reqParams);
-            if (transaction) {
-                this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-            }
+        const transaction = await this.props.getTransactionAction(reqParams);
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
-    }
-
-
+    };
 
     render () {
         return (
