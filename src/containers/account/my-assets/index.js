@@ -75,8 +75,11 @@ class MyAssets extends React.Component {
                 const assetsInfo    = assets.assets;
 
 
-                const result = accountAssets.map((el, index) => {
-                    return {...(assetsInfo[index]), ...el}
+                const result = assetsInfo.map((el, index) => {
+                    return {
+                        ...el,
+                        unconfirmedQuantityATU: accountAssets[index].unconfirmedQuantityATU
+                    }
                 });
 
                 this.setState({

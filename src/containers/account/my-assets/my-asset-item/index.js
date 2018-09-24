@@ -81,11 +81,17 @@ class MyAssetItem extends React.Component {
                         <Link to={"/asset-exchange/" + this.state.transfer.asset}>{this.state.transfer.name}</Link>
                     </td>
                     <td className="align-right">
-                        {(this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toFixed(this.state.transfer.decimals)}
+                        {(this.state.transfer.unconfirmedQuantityATU / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
+                            minimumFractionDigits: this.state.transfer.decimals,
+                            maximumFractionDigits: this.state.transfer.decimals
+                        })}
                     </td>
-                    <td className="align-right">{(this.state.transfer.initialQuantityATU  / Math.pow(10, this.state.transfer.decimals)).toFixed(this.state.transfer.decimals)}</td>
+                    <td className="align-right">{(this.state.transfer.quantityATU  / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
+                        minimumFractionDigits: this.state.transfer.decimals,
+                        maximumFractionDigits: this.state.transfer.decimals
+                    })}</td>
                     <td className="align-right">
-                        {((parseInt(this.state.transfer.quantityATU) / parseInt(this.state.transfer.initialQuantityATU)) * 100).toFixed(2)}&nbsp;%
+                        {((parseInt(this.state.transfer.unconfirmedQuantityATU) / parseInt(this.state.transfer.quantityATU)) * 100).toFixed(2)}&nbsp;%
                     </td>
                     {
                         !this.props.info &&
@@ -93,20 +99,29 @@ class MyAssetItem extends React.Component {
                             <td className="align-right" >
                                 {
                                     !!(this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)) &&
-                                    (this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)).toFixed(this.state.transfer.decimals)
+                                    (this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
+                                        minimumFractionDigits: this.state.transfer.decimals,
+                                        maximumFractionDigits: this.state.transfer.decimals
+                                    })
                                 }
                             </td>
                             <td className="align-right">
                                 {
                                     !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)) &&
-                                    (this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)).toFixed(this.state.transfer.decimals)
+                                    (this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
+                                        minimumFractionDigits: this.state.transfer.decimals,
+                                        maximumFractionDigits: this.state.transfer.decimals
+                                    })
                                 }
                             </td>
                             <td className="align-right blue-link-text">
                                 {
                                     !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)) &&
                                     ((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)) *
-                                    (this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals))).toFixed(this.state.transfer.decimals)
+                                    (this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals))).toLocaleString('en', {
+                                        minimumFractionDigits: this.state.transfer.decimals,
+                                        maximumFractionDigits: this.state.transfer.decimals
+                                    })
                                 }
                             </td>
                             <td className="align-right">
@@ -117,8 +132,11 @@ class MyAssetItem extends React.Component {
                                             assetID:   this.state.transfer.asset,
                                             assetName: this.state.transfer.name,
                                             decimals: this.state.transfer.decimals,
-                                            availableAssets: (this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toFixed(this.state.transfer.decimals)
-                                        })}
+                                            availableAssets: (this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
+                                                minimumFractionDigits: this.state.transfer.decimals,
+                                                maximumFractionDigits: this.state.transfer.decimals
+                                            })}
+                                        )}
                                         className="btn primary blue"
                                     >
                                         Transfer
