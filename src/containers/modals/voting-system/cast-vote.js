@@ -9,6 +9,7 @@ import {getBlockAction} from "../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import {getpollAction} from "../../../actions/polls";
 import uuid from "uuid";
+import crypto from "../../../helpers/crypto/crypto";
 
 class CastPoll extends React.Component {
     constructor(props) {
@@ -57,7 +58,11 @@ class CastPoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
-        let resultAnswers = {};
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
         let votes = {};
 
         if (this.state.poll.maxRangeValue > 1) {
@@ -295,8 +300,8 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
-    getpollAction: (reqParams) => dispatch(getpollAction(reqParams))
-
+    getpollAction: (reqParams) => dispatch(getpollAction(reqParams)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CastPoll);

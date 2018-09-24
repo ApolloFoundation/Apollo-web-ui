@@ -13,6 +13,7 @@ import uuid from 'uuid';
 import {BlockUpdater} from "../../block-subscriber/index";
 import {formatTimestamp} from "../../../helpers/util/time";
 import {Link} from "react-router-dom";
+import crypto from "../../../helpers/crypto/crypto";
 
 const mapStateToProps = state => ({
 	account: state.account.account
@@ -25,6 +26,7 @@ const mapDispatchToProps = dispatch => ({
 	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
 class Messenger extends React.Component {
@@ -101,10 +103,22 @@ class Messenger extends React.Component {
 	};
 
 	handleSendMessageFormSubmit = async (values) => {
-		if (values.messageToEncrypt) {
+        if (!values.message || values.message.length === 0) {
+            NotificationManager.error('Please write your message.', 'Error', 5000);
+            return;
+        }
+
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
+
+        if (values.messageToEncrypt) {
             values = {
 				...values,
-                messageToEncrypt: values.message
+                messageToEncrypt: values.message,
+                // message: null
             };
             delete values.message;
 		}
@@ -134,7 +148,6 @@ class Messenger extends React.Component {
 			return;
         }
 		if (!res.errorCode) {
-            this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('Transaction has been submitted!', null, 5000);
             if (this.state.formApi) {
             	this.state.formApi.setValue('message', null);
