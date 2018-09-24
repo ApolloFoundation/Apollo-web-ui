@@ -303,7 +303,7 @@ class AssetExchange extends React.Component {
                                                     </div>
                                                     <div className="col-md-6 flex">
                                                         <div
-                                                            className="card-title small">{this.state.asset.description}</div>
+                                                            className="card-title small break-word">{this.state.asset.description}</div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -41,14 +41,14 @@ html {
       height: 100%; }
       html body #root > div {
         height: 100%; }
-        html body #root > div .site-content {
+        html body #root > div .site-content > div {
           height: 100%; }
-          html body #root > div .site-content > div {
+          html body #root > div .site-content > div.site-footer {
+            height: auto; }
+          html body #root > div .site-content > div .page-content {
             height: 100%; }
-            html body #root > div .site-content > div .page-content {
+            html body #root > div .site-content > div .page-content .page-body {
               height: 100%; }
-              html body #root > div .site-content > div .page-content .page-body {
-                height: 100%; }
 
 a {
   cursor: pointer;
@@ -1170,7 +1170,7 @@ input {
   border-radius: 3px; }
 
 .card {
-  height: calc(33.33% - 15px);
+  height: calc(33.33vh - 55px);
   min-height: 255px;
   border-radius: 6px;
   margin-bottom: 15px;
@@ -1197,13 +1197,13 @@ input {
   .card.fll-height {
     height: calc(100% - 15px); }
   .card.card-tall {
-    height: calc(66.666% - 15px);
+    height: calc(62.666vh - 55px);
     min-height: 520px; }
   .card.card-tiny {
-    height: calc(25% - 15px);
+    height: calc(25vh - 55px);
     min-height: 185px; }
   .card.card-medium {
-    height: calc(50% - 15px);
+    height: calc(50vh - 55px);
     min-height: 385px; }
   .card.header {
     padding: 50px 35px; }
@@ -1702,3 +1702,10 @@ table td .btn, table th .btn {
 .custom-range {
   border: none;
   padding: 10px 0; }
+
+.site-footer {
+  padding: 35px;
+  background-color: #fff;
+  color: #BBBBBB; }
+  .site-footer div > {
+    height: auto; }

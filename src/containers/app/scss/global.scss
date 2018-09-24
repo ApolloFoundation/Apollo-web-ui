@@ -60,10 +60,15 @@ html {
 				height: 100%;
 				
 				.site-content {
-					height: 100%;
+					//height: 100%;
 					
 					& > div {
 						height: 100%;
+
+
+						&.site-footer {
+							height: auto;
+						}
 						
 						.page-content {
 							height: 100%;
@@ -1676,7 +1681,7 @@ input {
 
 // card
 .card {
-	height: calc(33.33% - 15px);
+	height: calc(33.33vh - 55px);
 	min-height: 255px;
 	border-radius: 6px;
 	margin-bottom: 15px;
@@ -1711,15 +1716,15 @@ input {
 		height: calc(100% - 15px);
 	}
 	&.card-tall {
-		height: calc(66.666% - 15px);
+		height: calc(62.666vh - 55px);
 		min-height: 520px;
 	}
 	&.card-tiny {
-		height: calc(25% - 15px);
+		height: calc(25vh - 55px);
 		min-height: 185px;
 	}
 	&.card-medium {
-		height: calc(50% - 15px);
+		height: calc(50vh - 55px);
 		min-height: 385px;
 	}
 	&.header {
@@ -2472,6 +2477,17 @@ table {
 .custom-range {
 	border: none;
 	padding: 10px 0;
+}
+
+.site-footer {
+	padding: 35px;
+	//margin-top: 15px;
+	background-color: #fff;
+	color: #BBBBBB;
+
+	div > {
+		height: auto;
+	}
 }
 
 //.add-alias {
