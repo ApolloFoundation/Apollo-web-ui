@@ -68,7 +68,7 @@ class Sidebar extends React.Component {
 						className="site-logo"
 						exact={true} activeClassName="active" to="/"
 					>
-						<img src="./apollo-logo.svg"/>
+						<img src="/apollo-logo.svg"/>
 					</NavLink>
 
 					<nav
