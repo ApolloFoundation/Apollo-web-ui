@@ -27,7 +27,16 @@ class TransferAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
+
+        console.log(this.props.modalData);
+
+        values = {
+            ...values,
+            quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)
+        }
+
         const res = await this.props.submitForm(null, null, values, 'transferAsset');
+
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
