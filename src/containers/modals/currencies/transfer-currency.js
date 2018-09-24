@@ -162,7 +162,7 @@ class TransferCurrency extends React.Component {
                                             name={'closeModal'}
                                             className="btn btn-right blue round round-bottom-right"
                                         >
-                                            Buy
+                                            Transfer
                                         </button>
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>

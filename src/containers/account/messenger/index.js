@@ -96,6 +96,10 @@ class Messenger extends React.Component {
 		}
 	};
 
+    getFormApi = async (formApi) => {
+		this.setState({formApi})
+	};
+
 	handleSendMessageFormSubmit = async (values) => {
 		if (values.messageToEncrypt) {
             values = {
@@ -131,8 +135,11 @@ class Messenger extends React.Component {
         }
 		if (!res.errorCode) {
             this.props.setBodyModalParamsAction(null, {});
-
             NotificationManager.success('Transaction has been submitted!', null, 5000);
+            if (this.state.formApi) {
+            	this.state.formApi.setValue('message', null);
+            	this.state.formApi.setValue('secretPhrase', null);
+            }
         }
     };
 
@@ -217,26 +224,36 @@ class Messenger extends React.Component {
 											</div>
 											<Form
 												onSubmit={(values) => this.handleSendMessageFormSubmit(values)}
+                                                getApi={this.getFormApi}
 												render={({
 													         submitForm, values, addValue, removeValue, setValue, getFormState
 												         }) => (
 													<form className="compose-message-box" onSubmit={submitForm}>
 														<div className="top-bar">
-															<TextArea field={'message'} rows="4" placeholder={'Message'}/>
+															<TextArea
+                                                                className={"form-control"}
+																field={'message'}
+																rows="2"
+																placeholder={'Message'}/>
 														</div>
-														<div
-															className="bottom-bar"
-															style={{height: 51}}
-														>
+														<div className="bottom-bar">
 															<div className="encrypt-message-box">
 																<div className="input-group-app">
-																	<div className="encrypt-message-checkbox">
-																		<Checkbox field={'messageToEncrypt'} type="checkbox"/>
-																	</div>
-																	<label>Encrypt message</label>
+                                                                    <div className="form-check custom-checkbox encrypt-message-checkbox">
+                                                                        <Checkbox className="form-check-input custom-control-input"
+                                                                                  type="checkbox"
+                                                                                  field="messageToEncrypt"/>
+                                                                        <label className="form-check-label custom-control-label">
+                                                                            Encrypt message
+                                                                        </label>
+                                                                    </div>
 																</div>
 															</div>
-															<Text field={'secretPhrase'} placeholder={'Secret Phrase'} type="password"/>
+															<Text
+                                                                className={"form-control"}
+																field={'secretPhrase'}
+																placeholder={'Secret Phrase'}
+																type="password"/>
 															<button type="submit" className="btn blue btn-primary">Send Message</button>
 														</div>
 													</form>
