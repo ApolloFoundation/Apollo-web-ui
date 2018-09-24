@@ -12,6 +12,7 @@ import {getCurrencyAction} from "../../../actions/currencies";
 import {getAssetAction} from "../../../actions/assets";
 import {NotificationManager} from "react-notifications";
 import {calculateFeeAction} from "../../../actions/forms";
+import crypto from "../../../helpers/crypto/crypto";
 
 const votingModelData = [
     { value: 0, label: 'Vote by Account' },
@@ -71,19 +72,32 @@ class CreatePoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
+
         let resultAnswers = {};
 
-        values.answers.forEach((el, index) => {
-            if (index > 9) {
-                resultAnswers['option' + index] = el;
-            } else {
-                resultAnswers['option0' + index] = el;
-            }
-        });
+        if (values.answers) {
+            values.answers.forEach((el, index) => {
+                if (index > 9) {
+                    resultAnswers['option' + index] = el;
+                } else {
+                    resultAnswers['option0' + index] = el;
+                }
+            });
+        } else {
+            NotificationManager.error('Please write answers.', 'Error', 5000);
+            return;
+        }
 
         const res = await this.props.submitForm(null, null, {
             ...values,
             'create_poll_answers[]': values.answers[0],
+            minBalanceModel: 0,
+            minBalanceType: 0,
             ...resultAnswers
         }, 'createPoll');
         if (res.errorCode) {
@@ -241,7 +255,7 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     }
-                                    {getFormState().values.votingModel === votingModelData[0].value &&
+                                    {/*{getFormState().values.votingModel === votingModelData[0].value &&
                                     <RadioGroup field={'minBalanceType'} defaultValue={0}>
                                         <div className="form-group row form-group-white">
                                             <label className="col-sm-3 col-form-label align-self-start">
@@ -264,18 +278,18 @@ class CreatePoll extends React.Component {
                                                             <label style={{display: 'inline-block'}}>Account
                                                                 Balance</label>
                                                         </div>
-                                                        {/*<div*/}
-                                                            {/*className="input-group-app align-middle display-block mb-3">*/}
-                                                            {/*<Radio value={2}/>*/}
-                                                            {/*<label style={{display: 'inline-block'}}>Asset*/}
-                                                                {/*Balance</label>*/}
-                                                        {/*</div>*/}
-                                                        {/*<div*/}
-                                                            {/*className="input-group-app align-middle display-block mb-3">*/}
-                                                            {/*<Radio value={3}/>*/}
-                                                            {/*<label style={{display: 'inline-block'}}>Currency*/}
-                                                                {/*Balance</label>*/}
-                                                        {/*</div>*/}
+                                                        <div
+                                                            className="input-group-app align-middle display-block mb-3">
+                                                            <Radio value={2}/>
+                                                            <label style={{display: 'inline-block'}}>Asset
+                                                                Balance</label>
+                                                        </div>
+                                                        <div
+                                                            className="input-group-app align-middle display-block mb-3">
+                                                            <Radio value={3}/>
+                                                            <label style={{display: 'inline-block'}}>Currency
+                                                                Balance</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -296,7 +310,7 @@ class CreatePoll extends React.Component {
                                                 defaultValue={0}
                                                 setValue={setValue}/>
                                         </div>
-                                    </div>
+                                    </div>*/}
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">Finish height</label>
                                         <div className="col-sm-9 input-group input-group-sm mb-0" onLoad={(setValue) => {this.setFinishHeight(setValue)}}>
@@ -492,6 +506,7 @@ const mapDispatchToProps = dispatch => ({
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePoll);
