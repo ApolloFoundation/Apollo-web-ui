@@ -144,6 +144,18 @@ function submitForm($modal, $btn, data, requestType) {
             data.priceATM = data.priceATM + '00000000'
         }
 
+        if (data.priceOrder) {
+            data.priceATM = data.priceOrder;
+
+            delete data.priceOrder;
+        }
+
+        if (data.quantityOrder) {
+            data.quantityATU = data.quantityOrder;
+
+            delete data.quantityOrder;
+        }
+
         if (data.deliveryDeadlineTimestamp) {
             data.deliveryDeadlineTimestamp = String(toEpochTime() + 60 * 60 * data.deliveryDeadlineTimestamp);
         }
