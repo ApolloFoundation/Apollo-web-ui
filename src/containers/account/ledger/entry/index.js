@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {getLedgerEntryAction} from "../../../../actions/ledger";
 import {getTransactionAction} from "../../../../actions/transactions/";
+import {getBlockAction} from "../../../../actions/blocks";
 
 class Entry extends React.Component {
     constructor(props) {
@@ -28,6 +29,12 @@ class Entry extends React.Component {
 
         if (transactionEntry) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transactionEntry)
+        } else {
+            const block = await this.props.getBlockAction(requestParams);
+
+            if (block) {
+                this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+            }
         }
     };
 
@@ -107,7 +114,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
-
+    getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
 });
 
 export default connect(null, mapDispatchToProps)(Entry);

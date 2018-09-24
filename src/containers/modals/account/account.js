@@ -12,6 +12,7 @@ import {Link}                 from "react-router-dom";
 import Transaction from '../../account/transactions/transaction';
 import Entry from '../../account/ledger/entry';
 import Asset from '../../account/my-assets/my-asset-item/';
+import {getBlockAction} from "../../../actions/blocks";
 
 class InfoAccount extends React.Component {
     constructor(props) {
@@ -552,6 +553,7 @@ const mapDispatchToProps = dispatch => ({
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 
     // getAccountData
+    getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     getAccountAction:  (requestParams) => dispatch(getAccountAction(requestParams)),
     switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
 

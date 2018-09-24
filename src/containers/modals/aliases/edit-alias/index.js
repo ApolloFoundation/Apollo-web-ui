@@ -105,7 +105,6 @@ class EditAlias extends React.Component {
 
 
     render() {
-        console.log('==============', this.props.modalData, this.state.alias)
         return (
             <div className="modal-box">
                 <Form

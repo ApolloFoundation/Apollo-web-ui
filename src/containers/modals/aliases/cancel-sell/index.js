@@ -55,7 +55,6 @@ class CancelSell extends React.Component {
 
         this.props.submitForm(null, null, values, 'sellAlias')
             .done((data) => {
-                console.log(data);
                 if (!data.errorCode) {
                     this.props.submitForm(null, null, {
                         transactionBytes: data.transactionBytes,
@@ -117,7 +116,6 @@ class CancelSell extends React.Component {
     };
 
     render() {
-        console.log(this.state.alias);
         return (
             <div className="modal-box">
                 <Form
