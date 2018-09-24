@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
+import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
 
 import AccountRS from '../../components/account-rs';
@@ -73,48 +73,53 @@ class BuyAsset extends React.Component {
                                     <div className="form-title">
                                         <p>Confirm Order (Buy)</p>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Order Description</label>
-                                            </div>
-                                            <div className="col-md-9">
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Order Description
+                                        </label>
+                                        <div className="col-sm-9">
                                                 <p>Buy {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at {this.props.modalData.total / this.props.modalData.quantityATU} Apollo each.</p>
                                                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                                                 <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
                                                 <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Total
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <p>{this.props.modalData.total} Apollo</p>
+                                            <Text
+                                                defaultValue={this.props.modalData.assetName}
+                                                placeholder={'Quantity'}
+                                                type="hidden"
+                                                field={'quantityATU'}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Fee
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent">
+                                            <InputForm
+                                                field="feeATM"
+                                                defaultValue={this.props.modalData.assetName}
+                                                placeholder="Amount"
+                                                type={"float"}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">Apollo</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Total</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <p>{this.props.modalData.total} Apollo</p>
-                                                <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Fee</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text defaultValue={this.props.modalData.assetName} placeholder={'Amount'} type="number" field={'feeATM'}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Secret Phrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Secret Phrase'} type="password" field={'secretPhrase'}/>
-                                            </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Secret Phrase
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                         </div>
                                     </div>
 
