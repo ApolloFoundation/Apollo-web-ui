@@ -24,7 +24,7 @@ class DeleteItem extends React.Component {
                 </td>
                 <td className="align-left">{this.props.delete.name}</td>
                 <td>{this.props.formatTimestamp(this.props.delete.timestamp)}</td>
-                <td className="align-right">{this.props.delete.quantityATU}</td>
+                <td className="align-right">{this.props.delete.quantityATU / Math.pow(10, this.props.delete.decimals)}</td>
             </tr>
         );
     }
