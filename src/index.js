@@ -20,6 +20,7 @@ const target = document.querySelector('#root');
 // console.error = function(message){};
 // console.log = function(message){};
 
+
 render(
     <Provider store={store}>
         <BlockSubscriber>
