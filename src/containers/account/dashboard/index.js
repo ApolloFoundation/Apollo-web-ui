@@ -260,7 +260,7 @@ class Dashboard extends React.Component {
                 currenciesValue = (
                     currencies.accountCurrencies.map((el) => {
                         return parseInt(el.units) / Math.pow(10, el.decimals)})
-                ).reduce((a, b) => {console.log(a, b); return a + b});
+                ).reduce((a, b) => {return a + b});
 			} else {
                 currenciesValue = 0
 			}
@@ -273,11 +273,15 @@ class Dashboard extends React.Component {
 	};
 
 	getMessagesCount = async (reqParams) => {
-		const messages = await this.props.getMessages(reqParams);
+        console.log(reqParams);
 
-		if (messages) {
+        const messages = await this.props.getMessages(reqParams);
+
+        console.log(messages);
+
+        if (messages) {
 			this.setState({
-				messages: messages.transactions.length
+				messages: messages.transactions
 			})
 		}
 	};
@@ -450,7 +454,15 @@ class Dashboard extends React.Component {
 											className="general-info-item top-left"
 										>
 											<div className="top-bar">
-												{this.state.messages}
+												{
+													!!this.state.messages &&
+													this.state.messages.length
+												}
+												{
+													!!this.state.messages &&
+                                                	this.state.messages.length === 100 &&
+														'+'
+												}
 											</div>
 											<div className="bottom-bar">
 												Secure

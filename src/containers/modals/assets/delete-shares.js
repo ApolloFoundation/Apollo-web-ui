@@ -74,7 +74,7 @@ class DeleteShares extends React.Component {
                                                 <label>Asset</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <p>{this.props.modalData.assetName} - {this.props.modalData.quantityATU} availiable</p>
+                                                <p>{this.props.modalData.assetName} - {this.props.modalData.quantityATU / 100000000} availiable</p>
                                                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                                                 <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
                                             </div>
