@@ -98,7 +98,7 @@ class CreateUser extends React.Component {
                                     </div>
                                     <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
-                                            <div className="col-md-12">
+                                            <div className="col-md-12 mb-15">
                                                 <label>Your randomly generated passphrase is:</label>
                                             </div>
                                             <div className="col-md-12">
@@ -112,7 +112,7 @@ class CreateUser extends React.Component {
                                     </div>
                                     <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
-                                            <div className="col-md-12">
+                                            <div className="col-md-12 mb-15">
                                                 <label>Write down this passphrase and store securely (order and
                                                     capitalization matter). This passphrase will be needed to use your
                                                     wallet.</label>
@@ -122,7 +122,7 @@ class CreateUser extends React.Component {
 
                                     <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
-                                            <div className="col-md-12">
+                                            <div className="col-md-12 mb-15">
                                                 <label>Your public wallet address is:</label>
                                             </div>
                                             <div className="col-md-12">
@@ -141,7 +141,7 @@ class CreateUser extends React.Component {
 
                                     <div className="input-group-app display-block offset-bottom">
                                         <div className="row">
-                                            <div className="col-md-12">
+                                            <div className="col-md-12 mb-15">
                                                 <label>Attention:</label>
                                             </div>
                                             <div className="col-md-12">
@@ -151,11 +151,8 @@ class CreateUser extends React.Component {
                                                     }}
                                                 >
                                                     <InfoBox danger>
-                                                        <strong>
-                                                            Remember:
-                                                        </strong>
-                                                        Anyone with this passphrase will have total control of your
-                                                        wallet.
+                                                        <strong>Remember!</strong> Anyone with this passphrase will have
+                                                        total control of your wallet.
                                                     </InfoBox>
                                                 </div>
                                             </div>
