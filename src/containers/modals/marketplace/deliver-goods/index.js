@@ -56,6 +56,7 @@ class MarketplaceDeliver extends React.Component {
     async handleFormSubmit(values) {
         values = {
             ...values,
+            discountATM: values.discountATM * 100000000,
             priceATM: parseInt(this.state.goods.priceATM) / 100000000,
             purchase: this.state.goods.purchase,
             recipient: this.props.account,
