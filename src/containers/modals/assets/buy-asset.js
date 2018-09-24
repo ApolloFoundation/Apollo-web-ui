@@ -27,12 +27,20 @@ class BuyAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        console.log(this.props.modalData);
+        console.log(this.props.modalData.assetInfo.decimals);
+        console.log({
+            ...values,
+            asset: this.props.modalData.assetInfo.asset,
+            priceOrder: this.props.modalData.priceATM * (100000000 / Math.pow(10, this.props.modalData.assetInfo.decimals)),
+            quantityOrder: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
+        });
+
+
         values = {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
-            priceATM: (this.props.modalData.priceATM / Math.pow(10, this.props.modalData.assetInfo.decimals)) * 100000000,
-            quantityATU: (this.props.modalData.quantityATU / 100000000) * Math.pow(10, this.props.modalData.assetInfo.decimals)
+            priceOrder: this.props.modalData.priceATM * (100000000 / Math.pow(10, this.props.modalData.assetInfo.decimals)),
+            quantityOrder: (this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals))
         };
 
         console.log(values);
