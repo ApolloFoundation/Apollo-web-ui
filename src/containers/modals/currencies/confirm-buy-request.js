@@ -28,11 +28,18 @@ class BuyCurrency extends React.Component {
 
     handleFormSubmit = async(values) => {
 
+        console.log(this.props.decimals);
+
+        console.log(values);
+
         values = {
             ...values,
             ...this.props.modalData,
-            rateATM: this.props.modalData.rateATM * 100000000
+            rateATM: this.props.modalData.rateATM / this.props.modalData.units,
+            units: this.props.modalData.units * Math.pow(10, this.props.modalData.decimals)
         };
+
+        console.log(values);
 
         const res = await this.props.submitForm(null, null, values, 'currencyBuy');
         if (res.errorCode) {

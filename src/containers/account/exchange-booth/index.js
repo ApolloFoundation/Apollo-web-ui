@@ -182,7 +182,8 @@ class ExchangeBooth extends React.Component {
     handleMinimumBuyRate = (values) => {
         values = {
             ...values,
-            currency: this.state.currency
+            currency: this.state.currency,
+            decimals: this.state.currencyInfo.decimals
         };
 
         if (!!parseInt(values.rateATM) && !!parseInt(values.units)) {
@@ -196,7 +197,8 @@ class ExchangeBooth extends React.Component {
     handleMinimumSellRate = (values) => {
         values = {
             ...values,
-            currency: this.state.currency
+            currency: this.state.currency,
+            decimals: this.state.currencyInfo.decimals
         };
 
         if (!!parseInt(values.rateATM) && !!parseInt(values.units)) {

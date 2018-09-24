@@ -30,7 +30,8 @@ class SellCurrency extends React.Component {
         values = {
             ...values,
             ...this.props.modalData,
-            rateATM: this.props.modalData.rateATM * 100000000
+            rateATM: this.props.modalData.rateATM / this.props.modalData.units,
+            units: this.props.modalData.units * Math.pow(10, this.props.modalData.decimals)
         };
 
         const res = await this.props.submitForm(null, null, values, 'currencySell');
@@ -41,10 +42,6 @@ class SellCurrency extends React.Component {
             NotificationManager.success('The sell order has been submitted!', null, 5000);
         }
     };
-
-    // getAsset = async  () => {
-    //     const asset = await this.props.
-    // }
 
     handleAdvancedState = () => {
         if (this.state.advancedState) {
