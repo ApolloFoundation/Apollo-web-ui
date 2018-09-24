@@ -1246,6 +1246,12 @@ input {
       padding-right: 50px;
       position: relative;
       margin: 15px 0; }
+      @media (max-width: 1850px) {
+        .card.header .amount {
+          font-size: 30px; } }
+      @media (max-width: 1660px) {
+        .card.header .amount {
+          font-size: 24px; } }
       .card.header .amount .text {
         overflow: hidden;
         width: 100%;
