@@ -1723,7 +1723,11 @@ input {
 		min-height: 385px;
 	}
 	&.header {
-		padding: 50px 30px;
+		padding: 50px 35px;
+
+		&.header-values {
+			padding: 30px 35px;
+		}
 		
 		&.ballance {
 			background: linear-gradient(315deg, #0019E1 0%, #0050FF 100%);
@@ -1776,10 +1780,10 @@ input {
 			position: relative;
 			margin: 15px 0;
 			@media (max-width: 1850px) {
-				font-size: 30px;
+				//font-size: 30px;
 			}
 			@media (max-width: 1660px) {
-				font-size: 24px;
+				//font-size: 24px;
 			}
 			.text {
 				overflow: hidden;
@@ -1842,17 +1846,22 @@ input {
 					box-shadow: 0px 0px 6px 1px rgba(#cccccc, 1);
 				}
 			}
-			
+
+			.currency {
+				font-size: 20px;
+			}
+
 			.owned {
 				position: absolute;
-				top: 50%;
+				top: 14px;
 				transform: translate(0, -50%);
 				right: 0;
 				color: #FFFFFF;
-				//font-size: 24px;
-				font-size: 0.7em;
-				line-height: 1.2;
+				font-size: 24px;
+				line-height: 22px;
 				min-width: 38px;
+				text-align: right;
+
 				//&:after {
 				//	content: 'Owned';
 				//	position: absolute;
@@ -1874,8 +1883,10 @@ input {
 			}
 		}
 		.account-sub-titles {
-			margin-bottom: 15px;
+			margin-bottom: 5px;
 			color: #fff;
+			font-size: 11px;
+			margin-left: 5px;
 		}
 	}
 	&.single {
@@ -1968,7 +1979,7 @@ input {
 		.top-bar {
 			color: #FFFFFF;
 			font-size: 24px;
-			padding-bottom: 7px;
+			padding-bottom: 5px;
 		}
 		.bottom-bar {
 			width: 60px;
@@ -2142,11 +2153,11 @@ input {
 	.card {
 		//margin: 15px;
 		transition: 0.2s;
-		min-height: 253px;
-		height: calc(100% - 15px);
+		min-height: 215px;
+		//height: calc(100% - 15px);
 		
 		&.card-tall {
-			min-height: 520px;
+			min-height: 445px;
 			@media (max-width: 760px) {
 				min-height: auto;
 			}
