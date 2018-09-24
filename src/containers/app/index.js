@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import {connect} from 'react-redux';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import classNames from 'classnames';
@@ -87,7 +88,7 @@ class App extends React.Component {
     }
 
     handleModal = (e) => {
-        const parents = e.target.closest('.settings-bar') || null;
+        const parents = $(e.target).closest('.settings-bar') || null;
 
         if (!parents) {
             if (this) {
@@ -115,7 +116,7 @@ class App extends React.Component {
                     }
                 </header>
 
-                <main ref="siteContent"
+                <div ref="siteContent"
                     className={classNames({
                        'site-content': true,
                         'hide-page-body': this.props.bodyModalType
@@ -184,7 +185,7 @@ class App extends React.Component {
                     <div className="site-footer">
                         Copyright © 2017-2018 Apollo Foundation. Apollo Version: 1.20.3 <br/>
                     </div>
-                </main>
+                </div>
             </div>
         );
     }
