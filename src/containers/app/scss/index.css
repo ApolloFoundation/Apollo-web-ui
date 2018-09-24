@@ -4237,8 +4237,6 @@ input {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  height: 33.33%;
-  min-height: 270px;
   padding: 0 7.5px; }
   @media (max-width: 760px) {
     .page-body-top .page-body-item .card {

@@ -206,16 +206,10 @@
 							display: table-cell;
 							vertical-align: middle;
 						}
-						.encrypt-message-checkbox {
-							input {
-								padding: 8px;
-								display: inline-block;
-								margin: 0 15px 0 0;
-							}
-						}
 						input {
 							height: 15px !important;
 							width: 15px !important;
+							left: -15px;
 						}
 						label {
 							white-space: pre;
@@ -225,7 +219,7 @@
 					input {
 						width: 100%;
 						margin-left: 15px;
-						padding: 9px 20px;
+						padding: 6px 20px;
 					}
 					.btn {
 						position: relative;

@@ -134,20 +134,17 @@
           .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app > *, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app > * {
             display: table-cell;
             vertical-align: middle; }
-          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app .encrypt-message-checkbox input, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app .encrypt-message-checkbox input {
-            padding: 8px;
-            display: inline-block;
-            margin: 0 15px 0 0; }
           .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app input, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app input {
             height: 15px !important;
-            width: 15px !important; }
+            width: 15px !important;
+            left: -15px; }
           .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app label, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app label {
             white-space: pre;
             padding-right: 0; }
         .messenger .right-bar .card .compose-message-box .bottom-bar input, .messenger a .right-bar .card .compose-message-box .bottom-bar input {
           width: 100%;
           margin-left: 15px;
-          padding: 9px 20px; }
+          padding: 6px 20px; }
         .messenger .right-bar .card .compose-message-box .bottom-bar .btn, .messenger a .right-bar .card .compose-message-box .bottom-bar .btn {
           position: relative;
           margin-left: 15px;
