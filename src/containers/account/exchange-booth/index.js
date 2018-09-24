@@ -43,11 +43,27 @@ class ExchangeBooth extends React.Component {
     }
 
     listener = data => {
+        this.getAccountCurrency(
+            {
+                requestType : 'getAccountCurrencies',
+                account: this.props.account,
+                includeCurrencyInfo: true,
+                currency: this.state.currency.currency
+            }
+        );
         this.getCurrency({code: this.props.match.params.currency});
         this.getCurrencies();
     };
-
+    // requestType=getAccountCurrencies&account=APL-NZKH-MZRE-2CTT-98NPZ&currency=15796105555746164961&includeCurrencyInfo=true&random=0.9501498326661535
     componentDidMount() {
+        this.getAccountCurrency(
+            {
+                requestType : 'getAccountCurrencies',
+                account: this.props.account,
+                includeCurrencyInfo: true,
+                currency: this.props.match.params.currency
+            }
+        );
         this.getCurrency({code: this.props.match.params.currency});
         this.getCurrencies();
         BlockUpdater.on("data", this.listener);
@@ -60,6 +76,24 @@ class ExchangeBooth extends React.Component {
     componentWillReceiveProps(newState) {
         this.getCurrency({code: newState.match.params.currency});
         this.getCurrencies();
+    }
+
+    getAccountCurrency = async (reqParams) => {
+        let accountCurrency = await this.props.getCurrencyAction(reqParams);
+
+        console.log(accountCurrency);
+
+        if (accountCurrency) {
+            accountCurrency = accountCurrency.accountCurrencies.find((el) => {
+                return el.name === this.props.match.params.currency
+            })
+
+            console.log(accountCurrency);
+
+            this.setState({
+                accountCurrency
+            })
+        }
     }
 
     getCurrency = async (reqParams) => {
@@ -477,7 +511,7 @@ class ExchangeBooth extends React.Component {
                                                         <div className="form-title">
                                                             <p>Sell {this.state.code}</p>
                                                             <div className="form-sub-title">
-                                                                balance: <strong>{(this.state.initialSupply / 100000000).toLocaleString('en')} {this.state.code}</strong>
+                                                                balance: <strong>{!!this.state.accountCurrency && (this.state.accountCurrency.unconfirmedUnits / 100000000).toLocaleString('en')} {this.state.code}</strong>
                                                             </div>
                                                         </div>
                                                         <div
