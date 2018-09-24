@@ -39,7 +39,7 @@ class Generator extends React.Component {
                     <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.generator.account)}>{this.props.generator.accountRS}</a>
                 </td>
                 <td className="align-right">
-                    <a>{this.props.generator.effectiveBalanceAPL}</a>
+                    <a>{this.props.generator.effectiveBalanceAPL.toLocaleString('en')}</a>
                 </td>
                 <td className="align-left">
                     <a>{this.props.formatTimestamp(this.props.generator.hitTime)}</a>
