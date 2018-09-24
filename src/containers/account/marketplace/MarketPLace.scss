@@ -94,7 +94,7 @@
 		@media (max-width: 760px) {
 			left: 0;
 			right: 0;
-			position: static;
+			position: relative;
 			min-height: auto;
 			margin-bottom: 0;
 		}
@@ -560,7 +560,7 @@
 
 .marketplace-preview {
 	.card.marketplace {
-		position: static;
+		position: relative;
 	}
 	.form-group-app .form-title {
 		@media (max-width: 760px) {

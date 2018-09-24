@@ -61,7 +61,7 @@
       .marketplace-item .marketplace.card {
         left: 0;
         right: 0;
-        position: static;
+        position: relative;
         min-height: auto;
         margin-bottom: 0; } }
   .marketplace-item:hover {
@@ -406,7 +406,7 @@
     margin-top: 0; } }
 
 .marketplace-preview .card.marketplace {
-  position: static; }
+  position: relative; }
 
 @media (max-width: 760px) {
   .marketplace-preview .form-group-app .form-title {

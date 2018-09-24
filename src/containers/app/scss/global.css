@@ -21,6 +21,9 @@ html, body {
 :-ms-input-placeholder {
   color: #a6a6a6 !important; }
 
+.cursor-pointer {
+  cursor: pointer; }
+
 .no-white-space {
   white-space: normal;
   overflow: visible;

@@ -37,7 +37,8 @@ const MarketplaceItem = (props, history) => (
                     onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
                     className={classNames({
                         "card-avatar": true,
-                        "no-image": !props.hasImage
+                        "no-image": !props.hasImage,
+						"cursor-pointer": true
                     })}
                     style={{
                         backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
@@ -54,10 +55,19 @@ const MarketplaceItem = (props, history) => (
                     </div>
                     <div
                         onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
-                        className="user"
+                        className="user cursor-pointer"
                     >
                         {props.name}
                     </div>
+                </div>
+                <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                    <a
+                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
+                        className="btn btn-right blue round round-bottom-right round-top-left"
+                    >
+                        Purchase
+                    </a>
+
                 </div>
 			</React.Fragment>
 
@@ -69,6 +79,7 @@ const MarketplaceItem = (props, history) => (
                     onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
                     className={classNames({
                         "card-avatar": true,
+                        "cursor-pointer": true,
                         "no-image": !props.hasImage
                     })}
                     style={{
@@ -87,7 +98,7 @@ const MarketplaceItem = (props, history) => (
                     <div className="cargo-description">
                         <a
                             onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
-                            className="cargo-title"
+                            className="cargo-title cursor-pointer"
                         >
                             {props.name}
                         </a>
@@ -97,6 +108,7 @@ const MarketplaceItem = (props, history) => (
                     <div className="cargo-owner-box">
                         <div className="cargo-owner">
                             <span
+								className={"cursor-pointer"}
                                 data-blue-link-text
                                 onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}
                             >
@@ -135,6 +147,7 @@ const MarketplaceItem = (props, history) => (
 					onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
 					className={classNames({
 						"card-avatar": true,
+						"cursor-pointer": true,
 						"no-image": !props.hasImage
 					})}
 					style={{
@@ -148,14 +161,14 @@ const MarketplaceItem = (props, history) => (
 								props.purchase &&
                                 <a
                                     onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.purchase)}
-                                    className="cargo-title"
+                                    className="cargo-title cursor-pointer"
                                 >
                                     {props.name}
                                 </a>
 								||
                                 <a
                                     onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
-                                    className="cargo-title"
+                                    className="cargo-title cursor-pointer"
                                 >
                                     {props.name}
                                 </a>
@@ -163,7 +176,7 @@ const MarketplaceItem = (props, history) => (
 
 							<a
 								onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
-								className="cargo-id"
+								className="cargo-id cursor-pointer"
 							>
 								{props.goods}
 							</a>
@@ -192,7 +205,7 @@ const MarketplaceItem = (props, history) => (
 							<div className="seller">
 								<div className="name">Seller:</div>
 								<div className="link-date">
-									<div className="link"
+									<div className="link cursor-pointer"
 										 onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}>
 										{props.sellerRS}
 									</div>
@@ -227,7 +240,7 @@ const MarketplaceItem = (props, history) => (
                             <div className="deliver" style={{paddingTop: 35}}>
                                 <a
                                     onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOODS_DELIVER', props.purchase)}
-                                    className="btn blue static"
+                                    className="btn blue static cursor-pointer"
 								>
 									Deliver Goods
 								</a>
