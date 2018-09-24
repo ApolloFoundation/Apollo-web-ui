@@ -74,6 +74,16 @@ class ExchangeBooth extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
+        if (this.state.currency) {
+            this.getAccountCurrency(
+                {
+                    requestType : 'getAccountCurrencies',
+                    account: this.props.account,
+                    includeCurrencyInfo: true,
+                    currency: this.state.currency.currency
+                }
+            );
+        }
         this.getCurrency({code: newState.match.params.currency});
         this.getCurrencies();
     }
@@ -85,8 +95,9 @@ class ExchangeBooth extends React.Component {
 
         if (accountCurrency) {
             accountCurrency = accountCurrency.accountCurrencies.find((el) => {
-                return el.name === this.props.match.params.currency
-            })
+                console.log(el);
+                return el.code === this.props.match.params.currency
+            });
 
             console.log(accountCurrency);
 
@@ -513,7 +524,7 @@ class ExchangeBooth extends React.Component {
                                                         <div className="form-title">
                                                             <p>Sell {this.state.code}</p>
                                                             <div className="form-sub-title">
-                                                                balance: <strong>{!!this.state.accountCurrency && (this.state.accountCurrency.unconfirmedUnits / 100000000).toLocaleString('en')} {this.state.code}</strong>
+                                                                balance: <strong>{!!this.state.accountCurrency && !!this.state.accountCurrency.unconfirmedUnits ? (this.state.accountCurrency.unconfirmedUnits / 100000000).toLocaleString('en') : 0} {this.state.code}</strong>
                                                             </div>
                                                         </div>
                                                         <div
