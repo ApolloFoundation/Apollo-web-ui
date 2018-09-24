@@ -12,6 +12,7 @@ import BrowserDetection from 'react-browser-detection';
 
 import {I18nextProvider} from 'react-i18next';
 import BlockSubscriber from "./containers/block-subscriber";
+import classNames from "classnames";
 
 const target = document.querySelector('#root');
 
@@ -36,6 +37,33 @@ const next =
         </BlockSubscriber>
     </Provider>;
 
+const depricationAlert = (browser) => (
+    <div className={'deprication-container'}>
+        <div className="page-content">
+            <div className="page-body container-fluid">
+                <div className="login">
+                    <div className="modal-form">
+                        <div className="form-group-app" style={{boxShadow: '0 0 30px #000'}}>
+                            <div className="form-title">
+                                <p>Warning</p>
+                            </div>
+                            <p>
+                                Apollo web wallet is temporary unavailable for this browser
+                            </p>
+                            {/*<ul className={'allowlist'} style={{paddingTop: 15}}>*/}
+                                {/*<li>Chrome</li>*/}
+                                {/*<li>Firefox</li>*/}
+                                {/*<li>Opera</li>*/}
+                                {/*<li>Safari</li>*/}
+                                {/*<li>Edge</li>*/}
+                            {/*</ul>*/}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    )
 
 
 const browserHandler = {
@@ -44,7 +72,7 @@ const browserHandler = {
     safari: () => next,
     opera: () => next,
     googlebot: () => next,
-    ie: () => <div>Depricated</div>,
+    ie: () => depricationAlert(browser),
     edge: () => next,
     default: () => next,
 };
