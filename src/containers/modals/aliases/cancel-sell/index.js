@@ -53,29 +53,32 @@ class CancelSell extends React.Component {
 
         };
 
-        this.props.submitForm(null, null, values, 'sellAlias')
-            .done((data) => {
-                if (!data.errorCode) {
-                    this.props.submitForm(null, null, {
-                        transactionBytes: data.transactionBytes,
-                        prunableAttachmentJSON: JSON.stringify({...(data.transactionJSON.attachment), priceNQT: 0, uri: undefined, "version.AliasSell":1})
+        const res = await this.props.submitForm(null, null, values, 'sellAlias')
 
-                    }, 'broadcastTransaction')
-                        .done((data) => {
-                            if (data.errorCode) {
-                                NotificationManager.error(data.errorDescription, 'Error', 5000)
-                            } else {
-                                this.props.setBodyModalParamsAction(null, {});
+        if (res) {
+            console.log(res);
+            if (!res.errorCode && res.transactionJSON) {
+                console.log(res.transactionJSON);
 
-                                NotificationManager.success('Alias sell has been canceled!', null, 5000);
-                            }
-                        });
-                } else {
-                    NotificationManager.error(data.errorDescription, 'Error', 5000)
-                }
+                const broadcast = await this.props.submitForm(null, null, {
+                    transactionBytes: res.transactionBytes,
+                    prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), priceNQT: 0, uri: undefined, "version.AliasSell":1})
 
-            });
+                }, 'broadcastTransaction')
 
+                    if (broadcast) {
+                        if (broadcast.errorCode) {
+                            NotificationManager.error(broadcast.errorDescription, 'Error', 5000)
+                        } else {
+                            this.props.setBodyModalParamsAction(null, {});
+
+                            NotificationManager.success('Alias sell has been canceled!', null, 5000);
+                        }
+                    }
+            } else {
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            }
+        }
     }
 
     getAlias = async () => {

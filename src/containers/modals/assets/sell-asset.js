@@ -32,7 +32,7 @@ class SellAsset extends React.Component {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
             priceATM: this.props.modalData.priceATM,
-            quantityATU: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
+            quantityATU: this.props.modalData.quantityATU
         };
 
         const res = await this.props.submitForm(null, null, values, 'placeAskOrder');
