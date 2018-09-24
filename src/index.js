@@ -36,15 +36,17 @@ const next =
         </BlockSubscriber>
     </Provider>;
 
+
+
 const browserHandler = {
     chrome: () => next,
     firefox: () => next,
     safari: () => next,
     opera: () => next,
-    googlebot: () => <div>Depricated</div>,
+    googlebot: () => next,
     ie: () => <div>Depricated</div>,
-    edge: () => <div>Depricated</div>,
-    default: () => <div></div>,
+    edge: () => next,
+    default: () => next,
 };
 
 render(
