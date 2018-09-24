@@ -148,7 +148,13 @@ class JoinShuffling extends React.Component {
                                         <Text className="form-control"
                                               field="recipientSecretPhrase"
                                               placeholder="Recipient Passphrase"
-                                              onKeyUp={() => this.setAccount(getFormState, setValue)}
+                                              onKeyUp={(e) => {
+                                                  if (getFormState().values.recipientSecretPhrase !== '') {
+                                                      this.setAccount(getFormState, setValue)
+                                                  } else {
+                                                      setValue('generatedAccount', '')
+                                                  }
+                                              }}
                                               type={'password'}/>
                                     </div>
                                 </div>
