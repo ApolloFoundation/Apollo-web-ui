@@ -116,6 +116,7 @@ class MyAssetItem extends React.Component {
                                             quantityATU: this.state.transfer.quantityATU,
                                             assetID:   this.state.transfer.asset,
                                             assetName: this.state.transfer.name,
+                                            decimals: this.state.transfer.decimals,
                                             availableAssets: (this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toFixed(this.state.transfer.decimals)
                                         })}
                                         className="btn primary blue"
@@ -126,6 +127,7 @@ class MyAssetItem extends React.Component {
                                         onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
                                             quantityATU: this.state.transfer.quantityATU,
                                             assetID:   this.state.transfer.asset,
+                                            decimals: this.state.transfer.decimals,
                                             assetName: this.state.transfer.name
                                         })}
                                         className="btn primary blue"

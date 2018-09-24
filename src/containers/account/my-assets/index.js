@@ -108,7 +108,6 @@ class MyAssets extends React.Component {
     }
 
     render () {
-        console.log(this.state.assets);
         return (
             <div className="page-content">
                 <SiteHeader

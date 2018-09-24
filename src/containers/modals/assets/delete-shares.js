@@ -26,6 +26,11 @@ class DeleteShares extends React.Component {
     handleFormSubmit = async(values) => {
         // const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
+        values = {
+            ...values,
+            quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)
+        };
+
         const res = await this.props.submitForm(null, null, values, 'deleteAssetShares');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
@@ -58,10 +63,8 @@ class DeleteShares extends React.Component {
                         <form className="modal-form" onSubmit={submitForm}>
                             {
                                 this.props.modalData &&
-
                                 <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
-
                                     <div className="form-title">
                                         <p>Delete Asset</p>
                                     </div>

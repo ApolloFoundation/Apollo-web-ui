@@ -5,7 +5,6 @@ class ExchangeItem extends React.Component {
     render() {
         const {exchange, setBlockInfo} = this.props;
 
-        console.log(exchange);
         return (
             <tr>
                 <td className="blue-link-text"><a onClick={setBlockInfo.bind(this, 'INFO_BLOCK', exchange.height)}>{exchange.height}</a></td>

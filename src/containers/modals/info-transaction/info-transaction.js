@@ -81,7 +81,6 @@ class InfoLedgerTransaction extends React.Component {
     }
 
     render() {
-        console.log(this.state.transaction);
         return (
             <div className="modal-box wide">
                 {

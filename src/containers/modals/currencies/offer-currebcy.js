@@ -89,8 +89,6 @@ class OfferCurrency extends React.Component {
         });
 
         if (currency && currency.unconfirmedUnits) {
-            console.log(currency.unconfirmedUnits);
-
             this.setState({
                 currencyAvailable : currency.unconfirmedUnits / Math.pow(10, currency.decimals)
             })
@@ -102,7 +100,6 @@ class OfferCurrency extends React.Component {
     }
 
     render() {
-        console.log(this.props.modalData);
         return (
             <div className="modal-box">
                 <Form
