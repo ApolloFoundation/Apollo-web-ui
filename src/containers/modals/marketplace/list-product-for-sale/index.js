@@ -4,15 +4,17 @@ import {setModalData} from '../../../../modules/modals';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
-import InfoBox from '../../../components/info-box'
+import InputForm from '../../../components/input-form';
 import {Form, Text, TextArea, Number} from 'react-form';
 import crypto from '../../../../helpers/crypto/crypto';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {setAlert} from "../../../../modules/modals";
 import submitForm from "../../../../helpers/forms/forms";
+import {calculateFeeAction} from "../../../../actions/forms";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
+    publicKey: state.account.publicKey
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,7 +22,8 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
-    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase))
+    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
+    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
 });
 
 class ListProductForSale extends React.Component {
@@ -81,8 +84,26 @@ class ListProductForSale extends React.Component {
             });
         };
 
-        reader.readAsDataURL(file)
-    }
+        if (file) reader.readAsDataURL(file)
+    };
+
+    calculateFee = async (values, setValue) => {
+        const requestParams = {
+            ...values,
+            requestType: 'dgsListing',
+            deadline: '1440',
+            publicKey: this.props.publicKey,
+            feeATM: 0,
+            calculateFee: true,
+        };
+        const fee = await this.props.calculateFeeAction(requestParams);
+
+        if (!fee.errorCode) {
+            setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
+        } else {
+            NotificationManager.error(fee.errorDescription, 'Error', 5000);
+        }
+    };
 
     render() {
         return (
@@ -97,62 +118,65 @@ class ListProductForSale extends React.Component {
                                 <div className="form-title">
                                     <p>List Product For Sale</p>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Name</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Name" field="name" type="text"/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Name
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            field="name"
+                                            placeholder="Name"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Description</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <TextArea placeholder="Description" field="description" cols="30" rows="10" />
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label align-self-start">
+                                        Description
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <TextArea className="form-control" placeholder="Description" field="description" cols="30" rows="5" />
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Tags</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Tags (categories)" field="tags" type="text"/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Tags
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            field="tags"
+                                            placeholder="Tags (categories)"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Price</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Price" field="priceATM" type="number" />
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Price
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            type={"number"}
+                                            field="priceATM"
+                                            placeholder="Price"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Quantity</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Quantity" field="quantity" type="number"/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Quantity
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            type={"number"}
+                                            field="quantity"
+                                            placeholder="Quantity"
+                                            setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Image</label>
-                                        </div>
-                                        <div className="col-md-9">
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Image
+                                    </label>
+                                    <div className="col-sm-9">
                                             <div className="iconned-input-field">
                                                 <div className="input-group-app search">
                                                     <div className="iconned-input-field">
@@ -178,7 +202,7 @@ class ListProductForSale extends React.Component {
                                                                 setValue("messageIsText", false);
                                                                 setValue("messageIsPrunable", true);
 
-                                                                reader.readAsDataURL(file);
+                                                                if(file) reader.readAsDataURL(file);
 
                                                             }}
                                                         />
@@ -188,13 +212,9 @@ class ListProductForSale extends React.Component {
                                             </div>
                                             {/*<Text placeholder="Fee" field="feeATM" type="text"/>*/}
                                         </div>
-                                    </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                        </div>
-                                        <div className="col-md-9">
+                                <div className="form-group row form-group-white mb-15">
+                                    <div className="col-sm-9 offset-sm-3">
                                             {
                                                 !this.state.imagePreviewUrl &&
                                                 <div className="no-image">
@@ -205,27 +225,33 @@ class ListProductForSale extends React.Component {
                                                 this.state.imagePreviewUrl &&
                                                 <img className="preview-image" src={this.state.imagePreviewUrl} alt=""/>
                                             }
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Fee
+                                        <span
+                                            onClick={() => this.calculateFee(getFormState().values, setValue)}
+                                            style={{paddingRight: 0}}
+                                            className="calculate-fee">Calculate</span>
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                        <InputForm
+                                            field="feeATM"
+                                            placeholder="Minimum fee"
+                                            type={"float"}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Fee</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Minimum fee" field={'feeATM'} type="number"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Passphrase" field={'secretPhrase'}  type={'password'}/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">

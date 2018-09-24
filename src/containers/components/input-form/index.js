@@ -61,7 +61,7 @@ class InputForm extends React.Component {
 
             this.props.setValue(this.props.field, value);
             this.setState({value});
-            this.props.onChange(value);
+            if (this.props.onChange) this.props.onChange(value);
         }
     };
 
@@ -74,7 +74,7 @@ class InputForm extends React.Component {
                 if (value < 0) value = 0;
                 this.props.setValue(this.props.field, value);
                 this.setState({value});
-                this.props.onChange(value);
+                if (this.props.onChange) this.props.onChange(value);
             }
         }
     };

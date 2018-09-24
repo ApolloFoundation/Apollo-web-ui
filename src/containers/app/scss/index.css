@@ -3700,16 +3700,6 @@ input {
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important; }
 
-.input-group-app .preview-image {
-  padding: 0;
-  width: 150px;
-  height: 100px;
-  border-radius: 6px;
-  border: 1px solid #E5E5E5;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center; }
-
 .input-group-app .calculate-fee {
   display: inline-block;
   color: #00C8FF;
@@ -3741,6 +3731,16 @@ input {
   display: table-cell;
   border-radius: 3px 0 0 3px;
   padding: 7px 20px; }
+
+.preview-image {
+  padding: 0;
+  max-width: 150px;
+  height: 100px;
+  border-radius: 6px;
+  border: 1px solid #E5E5E5;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; }
 
 .btn-box {
   width: 100%; }
