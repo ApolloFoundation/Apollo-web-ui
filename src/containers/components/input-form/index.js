@@ -23,6 +23,9 @@ class InputForm extends React.Component {
                 if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
                     value = this.props.maxValue;
                 }
+                if (this.props.minValue !== undefined && parseFloat(value) < parseFloat(this.props.minValue)) {
+                    value = this.props.minValue;
+                }
             } else if (this.props.type === "float") {
                 value = value.replace(",", ".");
                 if (value === '.') value = '0.';
@@ -30,6 +33,9 @@ class InputForm extends React.Component {
 
                 if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
                     value = this.props.maxValue;
+                }
+                if (this.props.minValue !== undefined && parseFloat(value) < parseFloat(this.props.minValue)) {
+                    value = this.props.minValue;
                 }
             } else {
                 value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
@@ -72,6 +78,11 @@ class InputForm extends React.Component {
                 const step = this.props.step || 1;
                 value = value - step;
                 if (value < 0) value = 0;
+
+                if (this.props.minValue !== undefined && value < parseFloat(this.props.minValue)) {
+                    value = this.props.minValue;
+                }
+
                 this.props.setValue(this.props.field, value);
                 this.setState({value});
                 if (this.props.onChange) this.props.onChange(value);

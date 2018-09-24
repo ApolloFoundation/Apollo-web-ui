@@ -8,8 +8,8 @@ import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
+import InputForm from '../../../components/input-form';
 import { Form, Text, Checkbox } from 'react-form';
-import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
 class MarketplacePurchase extends React.Component {
@@ -68,6 +69,16 @@ class MarketplacePurchase extends React.Component {
     };
 
     async handleFormSubmit(values) {
+        if (!values.secretPhrase || values.secretPhrase.length === 0) {
+            NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
+            return;
+        }
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
+            return;
+        }
+
         values = {
             ...values,
             priceATM: parseInt(this.state.goods.priceATM) / 100000000,
@@ -157,46 +168,51 @@ class MarketplacePurchase extends React.Component {
 
                                             <form className="modal-form" onSubmit={submitForm}>
                                                 <div className="form-group-app no-padding-left no-padding-top">
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Quantity</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text defaultValue={1} type="number" field="quantity" placeholder="Currency Name" min={1}/>
-                                                            </div>
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Quantity
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <InputForm
+                                                                defaultValue={1}
+                                                                type="number"
+                                                                field="quantity"
+                                                                placeholder="Currency Name"
+                                                                minValue={1}
+                                                                setValue={setValue}/>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Delivery deadline (hours)</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <div style={{width: '100%'}}>
-                                                                    <Text defaultValue={168} type="number" field='deliveryDeadlineTimestamp' placeholder="Currency Code"/>
-                                                                </div>
-                                                            </div>
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Delivery deadline (hours)
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <InputForm
+                                                                defaultValue={168}
+                                                                type="number"
+                                                                field="deliveryDeadlineTimestamp"
+                                                                placeholder="Currency Code"
+                                                                setValue={setValue}/>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Fee</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text type="number" field='feeATM' placeholder="Minimum fee" />
-                                                            </div>
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Fee
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <InputForm
+                                                                type="float"
+                                                                field="feeATM"
+                                                                placeholder="Minimum fee"
+                                                                setValue={setValue}/>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Passphrase</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text type="password" field='secretPhrase' placeholder="Passphrase" />
-                                                            </div>
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                                         </div>
                                                     </div>
                                                     <AdvancedSettings
