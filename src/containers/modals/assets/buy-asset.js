@@ -31,9 +31,11 @@ class BuyAsset extends React.Component {
         values = {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
-            priceATM: this.props.modalData.priceATM,
-            quantityATU: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
+            priceATM: (this.props.modalData.priceATM / Math.pow(10, this.props.modalData.assetInfo.decimals)) * 100000000,
+            quantityATU: (this.props.modalData.quantityATU / 100000000) * Math.pow(10, this.props.modalData.assetInfo.decimals)
         };
+
+        console.log(values);
 
         const res = await this.props.submitForm(null, null, values, 'placeBidOrder');
         if (res.errorCode) {
