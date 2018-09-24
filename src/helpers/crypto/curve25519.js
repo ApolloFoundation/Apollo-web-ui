@@ -1,5 +1,16 @@
-import bigInt from 'big-integer';
+/* Ported to JavaScript from Java 07/01/14.
+ *
+ * Ported from C to Java by Dmitry Skiba [sahn0], 23/02/08.
+ * Original: http://cds.xs4all.nl:8081/ecdh/
+ */
+/* Generic 64-bit integer implementation of Curve25519 ECDH
+ * Written by Matthijs van Duin, 200608242056
+ * Public domain.
+ *
+ * Based on work by Daniel J Bernstein, http://cr.yp.to/ecdh.html
+ */
 
+import bigInt from 'big-integer';
 
 //region Constants
 
