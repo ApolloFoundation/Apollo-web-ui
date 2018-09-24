@@ -57,6 +57,7 @@
     "react": "^16.5.1",
     "react-accessible-accordion": "^2.4.4",
     "react-bootstrap-select": "^0.14.0",
+    "react-browser-detection": "^1.2.0",
     "react-bus": "^1.0.2",
     "react-circular-progressbar": "^1.0.0",
     "react-copy-to-clipboard": "^5.0.1",

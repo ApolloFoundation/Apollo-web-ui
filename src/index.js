@@ -6,6 +6,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import store, {history} from './store';
 import App from './containers/app';
 import i18n from './i18n';
+import BrowserDetection from 'react-browser-detection';
 
 // import './index.css'
 
@@ -19,7 +20,8 @@ const target = document.querySelector('#root');
 // console.error = function(message){};
 // console.log = function(message){};
 
-render(
+
+const next =
     <Provider store={store}>
         <BlockSubscriber>
             <ConnectedRouter history={history}>
@@ -32,6 +34,24 @@ render(
                 </I18nextProvider>
             </ConnectedRouter>
         </BlockSubscriber>
-    </Provider>,
+    </Provider>;
+
+const browserHandler = {
+    chrome: () => next,
+    firefox: () => next,
+    safari: () => next,
+    opera: () => next,
+    googlebot: () => <div>Depricated</div>,
+    ie: () => <div>Depricated</div>,
+    edge: () => <div>Depricated</div>,
+    default: () => <div></div>,
+};
+
+render(
+    <React.Fragment>
+        <BrowserDetection>
+            {browserHandler}
+        </BrowserDetection>
+    </React.Fragment>,
     target
 );
