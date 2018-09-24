@@ -35,8 +35,8 @@ class BuyCurrency extends React.Component {
         values = {
             ...values,
             ...this.props.modalData,
-            rateATM: this.props.modalData.rateATM / this.props.modalData.units,
-            units: this.props.modalData.units * Math.pow(10, this.props.modalData.decimals)
+            rateATM: this.props.modalData.rateATM  * (Math.pow(10, 8) / Math.pow(10, this.props.modalData.decimals)),
+            units: this.props.modalData.units * (Math.pow(10, this.props.modalData.decimals))
         };
 
         console.log(values);
