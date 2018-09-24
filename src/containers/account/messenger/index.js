@@ -103,7 +103,7 @@ class Messenger extends React.Component {
 	};
 
 	handleSendMessageFormSubmit = async (values) => {
-        if (!values.message || values.message.length === 0) {
+        if (!values.message || values.message.length === 0 || !(/\S/.test(values.message))) {
             NotificationManager.error('Please write your message.', 'Error', 5000);
             return;
         }
