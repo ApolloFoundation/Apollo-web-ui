@@ -126,6 +126,13 @@ class Dashboard extends React.Component {
 			this.setState({
                 accountInfo
 			})
+		} else {
+            this.setState({
+                accountInfo: {
+                    balanceATM: 0,
+                    accountRS: this.props.accountRS,
+				}
+            })
 		}
 	};
 
@@ -370,9 +377,9 @@ class Dashboard extends React.Component {
 											className="amount"
 										>
 											{this.state.accountInfo && Math.round(this.state.accountInfo.balanceATM / 100000000).toLocaleString('en')}
-											<div className="owned">
-												APL <span>Owned</span>
-											</div>
+											<span className="currency">
+												&nbsp;APL
+											</span>
 										</div>
 										<div className="account-sub-titles">
 											{this.state.accountInfo && this.state.accountInfo.accountRS}
@@ -431,7 +438,7 @@ class Dashboard extends React.Component {
                                             to={'/my-currencies'}
                                             style={{display: 'block'}}
 										>
-											{!!this.state.currenciesValue && Math.round(this.state.currenciesValue).toLocaleString('en')}
+											{this.state.currenciesValue && Math.round(this.state.currenciesValue).toLocaleString('en')}
 											<div className="owned">
 												{this.state.currenciesCount} <span>Owned</span>
 											</div>
@@ -440,7 +447,7 @@ class Dashboard extends React.Component {
 								</div>
 							</div>
 							<div className="page-body-item ">
-								<div className="card header coins flex chart-sprite position-4">
+								<div className="card header header-values coins flex chart-sprite position-4">
 									<div className="general-info">
 										<Link
 											to={'/messenger'}

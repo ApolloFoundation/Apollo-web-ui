@@ -4023,7 +4023,9 @@ input {
     height: calc(50% - 15px);
     min-height: 385px; }
   .card.header {
-    padding: 50px 30px; }
+    padding: 50px 35px; }
+    .card.header.header-values {
+      padding: 30px 35px; }
     .card.header.ballance {
       background: linear-gradient(315deg, #0019E1 0%, #0050FF 100%); }
     .card.header.assets {
@@ -4118,15 +4120,18 @@ input {
           background-color: #cccccc;
           z-index: 0;
           box-shadow: 0px 0px 6px 1px #cccccc; }
+      .card.header .amount .currency {
+        font-size: 20px; }
       .card.header .amount .owned {
         position: absolute;
-        top: 50%;
+        top: 14px;
         transform: translate(0, -50%);
         right: 0;
         color: #FFFFFF;
-        font-size: 0.7em;
-        line-height: 1.2;
-        min-width: 38px; }
+        font-size: 24px;
+        line-height: 22px;
+        min-width: 38px;
+        text-align: right; }
         .card.header .amount .owned span {
           margin-top: 2px;
           display: block;
@@ -4135,8 +4140,10 @@ input {
           font-size: 12px;
           line-height: 14px; }
     .card.header .account-sub-titles {
-      margin-bottom: 15px;
-      color: #fff; }
+      margin-bottom: 5px;
+      color: #fff;
+      font-size: 11px;
+      margin-left: 5px; }
   .card.single {
     min-height: 217px;
     height: auto; }
@@ -4160,7 +4167,7 @@ input {
     .card .general-info-item .top-bar {
       color: #FFFFFF;
       font-size: 24px;
-      padding-bottom: 7px; }
+      padding-bottom: 5px; }
     .card .general-info-item .bottom-bar {
       width: 60px;
       color: #FFFFFF;
@@ -4277,10 +4284,9 @@ input {
       padding: 0; } }
   .page-body-item .card {
     transition: 0.2s;
-    min-height: 253px;
-    height: calc(100% - 15px); }
+    min-height: 215px; }
     .page-body-item .card.card-tall {
-      min-height: 520px; }
+      min-height: 445px; }
       @media (max-width: 760px) {
         .page-body-item .card.card-tall {
           min-height: auto; } }
