@@ -5,7 +5,7 @@ import {getAssetAction} from "../../../actions/assets";
 import {Link} from 'react-router-dom';
 import {Form, Text, Radio, RadioGroup, TextArea, Checkbox} from "react-form";
 import crypto from '../../../helpers/crypto/crypto'
-import InfoBox from '../../components/info-box';
+import InputForm from '../../components/input-form';
 import {buyAssetAction} from "../../../actions/assets";
 import {sellAssetAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {setAlert, setBodyModalParamsAction} from "../../../modules/modals";
@@ -54,9 +54,12 @@ class AssetExchange extends React.Component {
     }
 
     async getAsset(assetID) {
-        const asset = await this.props.getAssetAction({asset: assetID});
+        let asset = await this.props.getAssetAction({asset: assetID});
 
         if (asset) {
+            const assetBalance = this.props.assetBalances.find(item => item.asset === asset.asset);
+            asset.balanceATU = assetBalance ? assetBalance.balanceATU : 0;
+
             this.setState({
                 ...this.props,
                 asset: asset,
@@ -317,7 +320,10 @@ class AssetExchange extends React.Component {
                                                             <div className="form-title">
                                                                 <p>Buy {this.state.asset.name}</p>
                                                                 <div className="form-sub-title">
-                                                                    balance: <strong>{this.props.amountATM / 100000000} ATM</strong>
+                                                                    balance: <strong>{(this.props.amountATM / Math.pow(10, this.state.asset.decimals)).toLocaleString('en', {
+                                                                    minimumFractionDigits: this.state.asset.decimals,
+                                                                    maximumFractionDigits: this.state.asset.decimals
+                                                                })} APL</strong>
                                                                 </div>
                                                             </div>
                                                             <div
@@ -327,14 +333,12 @@ class AssetExchange extends React.Component {
                                                                         <label>Quantity</label>
                                                                     </div>
                                                                     <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <Text
+                                                                        <InputForm
                                                                             field="quantity"
-                                                                            placeholder='Quantity'
-                                                                            type={'number'}
-                                                                            className={"form-control"}
-                                                                            onMouseUp={() => this.handleTotalValue(setValue, getFormState)}
-                                                                            onKeyUp={() => this.handleTotalValue(setValue, getFormState)}
-                                                                        />
+                                                                            placeholder="Quantity"
+                                                                            type={"number"}
+                                                                            onChange={() => this.handleTotalValue(setValue, getFormState)}
+                                                                            setValue={setValue}/>
                                                                         <div className="input-group-append">
                                                                             <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
                                                                         </div>
@@ -348,16 +352,14 @@ class AssetExchange extends React.Component {
                                                                         <label>Price</label>
                                                                     </div>
                                                                     <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <Text
+                                                                        <InputForm
                                                                             field="priceATM"
-                                                                            type={'number'}
-                                                                            placeholder='Quantity'
-                                                                            className={"form-control"}
-                                                                            onMouseUp={() => this.handleTotalValue(setValue, getFormState)}
-                                                                            onKeyUp={() => this.handleTotalValue(setValue, getFormState)}
-                                                                        />
+                                                                            placeholder="Quantity"
+                                                                            type={"number"}
+                                                                            onChange={() => this.handleTotalValue(setValue, getFormState)}
+                                                                            setValue={setValue}/>
                                                                         <div className="input-group-append">
-                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                            <span className="input-group-text" id="amountText">APL / {this.state.asset.name}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -368,15 +370,13 @@ class AssetExchange extends React.Component {
                                                                     <div className="col-md-3 pl-0">
                                                                         <label>Total</label>
                                                                     </div>
-                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <Text
+                                                                    <div className="col-md-9 pr-0 input-group">
+                                                                        <InputForm
                                                                             field="total"
-                                                                            type={'number'}
-                                                                            placeholder='Price'
-                                                                            className={"form-control"}
-                                                                            readOnly
-                                                                            disabled
-                                                                        />
+                                                                            placeholder="Price"
+                                                                            type={"number"}
+                                                                            disabled={true}
+                                                                            setValue={setValue}/>
                                                                         <div className="input-group-append">
                                                                             <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
                                                                         </div>
@@ -496,9 +496,12 @@ class AssetExchange extends React.Component {
                                                         <div className="form-group-app">
                                                             <div className="form-title">
                                                                 <p>Sell {this.state.asset.name}</p>
-                                                                <div className="form-sub-title">
-                                                                    balance: <strong>{this.state.asset.quantityATU / this.state.asset.decimals} {this.state.asset.name}</strong>
-                                                                </div>
+                                                                {this.state.asset.balanceATU && <div className="form-sub-title">
+                                                                    balance: <strong>{(this.state.asset.balanceATU / Math.pow(10, this.state.asset.decimals)).toLocaleString('en', {
+                                                                    minimumFractionDigits: this.state.asset.decimals,
+                                                                    maximumFractionDigits: this.state.asset.decimals
+                                                                })} {this.state.asset.name}</strong>
+                                                                </div>}
                                                             </div>
                                                             <div
                                                                 className="input-group-app offset-top display-block inline no-margin">
@@ -507,14 +510,12 @@ class AssetExchange extends React.Component {
                                                                         <label>Quantity</label>
                                                                     </div>
                                                                     <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <Text
+                                                                        <InputForm
                                                                             field="quantity"
-                                                                            placeholder='Quantity'
-                                                                            type={'number'}
-                                                                            className={"form-control"}
-                                                                            onMouseUp={() => this.handleTotalValue(setValue, getFormState)}
-                                                                            onKeyUp={() => this.handleTotalValue(setValue, getFormState)}
-                                                                        />
+                                                                            placeholder="Quantity"
+                                                                            type={"number"}
+                                                                            onChange={() => this.handleTotalValue(setValue, getFormState)}
+                                                                            setValue={setValue}/>
                                                                         <div className="input-group-append">
                                                                             <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
                                                                         </div>
@@ -528,16 +529,14 @@ class AssetExchange extends React.Component {
                                                                         <label>Price</label>
                                                                     </div>
                                                                     <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <Text
+                                                                        <InputForm
                                                                             field="priceATM"
-                                                                            type={'number'}
-                                                                            placeholder='Quantity'
-                                                                            className={"form-control"}
-                                                                            onMouseUp={() => this.handleTotalValue(setValue, getFormState)}
-                                                                            onKeyUp={() => this.handleTotalValue(setValue, getFormState)}
-                                                                        />
+                                                                            placeholder="Quantity"
+                                                                            type={"number"}
+                                                                            onChange={() => this.handleTotalValue(setValue, getFormState)}
+                                                                            setValue={setValue}/>
                                                                         <div className="input-group-append">
-                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                            <span className="input-group-text" id="amountText">APL / {this.state.asset.name}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -548,15 +547,13 @@ class AssetExchange extends React.Component {
                                                                     <div className="col-md-3 pl-0">
                                                                         <label>Total</label>
                                                                     </div>
-                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <Text
+                                                                    <div className="col-md-9 pr-0 input-group">
+                                                                        <InputForm
                                                                             field="total"
-                                                                            type={'number'}
-                                                                            placeholder='Price'
-                                                                            className={"form-control"}
-                                                                            readOnly
-                                                                            disabled
-                                                                        />
+                                                                            placeholder="Price"
+                                                                            type={"number"}
+                                                                            disabled={true}
+                                                                            setValue={setValue}/>
                                                                         <div className="input-group-append">
                                                                             <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
                                                                         </div>
