@@ -72,7 +72,7 @@ const browserHandler = {
     safari: () => next,
     opera: () => next,
     googlebot: () => next,
-    ie: () => depricationAlert(browser),
+    ie: () => depricationAlert(),
     edge: () => next,
     default: () => next,
 };
