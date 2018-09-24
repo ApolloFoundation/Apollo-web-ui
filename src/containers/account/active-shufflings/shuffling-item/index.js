@@ -19,6 +19,10 @@ const ShufflingItem = (props) => (
                 'Registration'
             }
             {
+                props.stage === 1 &&
+                'Processing'
+            }
+            {
                 props.stage === 4 &&
                 'Expired'
             }
@@ -41,7 +45,7 @@ const ShufflingItem = (props) => (
             </a>
         </td>
         {
-            !props.finished &&
+            !props.finished && props.stage !== 1 &&
             <td className="align-right">
                 <div className="btn-box inline">
                     <a className={'btn primary blue'}
@@ -51,6 +55,12 @@ const ShufflingItem = (props) => (
                     </a>
                 </div>
 
+            </td>
+        }
+        {
+            !props.finished && props.stage === 1 &&
+            <td className="align-right">
+                In Progress
             </td>
         }
     </tr>
