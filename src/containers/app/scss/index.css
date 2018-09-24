@@ -4872,7 +4872,7 @@ input[type="number"] {
       margin-bottom: 30px; }
     .site-content .page-content .page-body .card.asset-portfolio .full-box {
       position: absolute;
-      top: 58px;
+      top: 65px;
       left: 30px;
       right: 30px;
       display: flex;
@@ -4880,10 +4880,11 @@ input[type="number"] {
       flex-direction: column;
       bottom: 40px; }
       .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin {
-        padding-left: 55px;
+        padding-left: 45px;
         display: flex;
         flex-wrap: nowrap;
-        justify-content: space-between; }
+        justify-content: space-between;
+        margin-bottom: -15px; }
         .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data {
           display: flex;
           flex-wrap: wrap;
@@ -4891,10 +4892,10 @@ input[type="number"] {
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data > * {
             margin: auto 0; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .figure {
-            height: 40px;
-            width: 40px;
+            height: 25px;
+            width: 25px;
             position: absolute;
-            left: -55px;
+            left: -45px;
             top: 50%;
             transform: translateY(-50%); }
             .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .figure canvas {
