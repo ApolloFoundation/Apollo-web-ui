@@ -409,7 +409,7 @@ class AssetExchange extends React.Component {
                                             />
 
 
-                                            <div className="card ballance card-tiny medium-padding">
+                                            <div className="card ballance card-tiny medium-padding" style={{marginBottom: 0}}>
                                                 <div className="form-group-app">
                                                     <div className="form-title">
                                                         <p>Offers to sell {this.state.asset.name}</p>
@@ -585,7 +585,7 @@ class AssetExchange extends React.Component {
                                                 )}
                                             />
 
-                                            <div className="card assets card-tiny medium-padding">
+                                            <div className="card assets card-tiny medium-padding" style={{marginBottom: 0}}>
                                                 <div className="form-group-app">
                                                     <div className="form-title">
                                                         <p>Offers to buy {this.state.asset.name}</p>

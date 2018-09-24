@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {getMessages} from "../../../actions/messager";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
+import InfoBox from "../../components/info-box";
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -101,8 +102,8 @@ class MyMessages extends React.Component {
                     </a>
                 </SiteHeader>
                 {
-                    this.state.messages && this.state.messages.length &&
-                    <div className="page-body container-fluid">
+                    this.state.messages && !!this.state.messages.length &&
+                    <div className="page-body container-fluid" style={{'min-height': '100vh', 'padding-top': '120px'}}>
                         <div className="account-ledger">
                             <div className="transaction-table message-table">
                                 <div className="transaction-table-body">
@@ -150,10 +151,22 @@ class MyMessages extends React.Component {
                                                 'btn-right' : true,
                                                 'disabled' : this.state.messages.length < 15
                                             })}
-                                        >Next</a>
+                                        >
+                                            Next
+                                        </a>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                }
+                {
+                    this.state.messages && !(!!this.state.messages.length) &&
+                    <div className="page-body container-fluid">
+                        <div>
+                            <InfoBox default>
+                                No messages found.
+                            </InfoBox>
                         </div>
                     </div>
                 }

@@ -789,7 +789,7 @@ class ExchangeBooth extends React.Component {
                                         </div>
                                     </div>
                                     <div className="col-md-12">
-                                        <div className="card ballance medium-padding card-flexible">
+                                        <div className="card ballance medium-padding card-flexible" style={{marginBottom:0}}>
                                             <div className="form-group-app">
                                                 <div className="form-title">
                                                     <p>Executed exchanges</p>
