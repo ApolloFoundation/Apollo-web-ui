@@ -50,7 +50,7 @@ class TradeHistoryItem extends React.Component {
                         {(this.state.transfer.units / Math.pow(10, this.state.transfer.decimals)).toFixed(2)}
                         </td>
                     <td className="align-right">
-                        {parseFloat(this.state.transfer.rateATM).toLocaleString('ru')}
+                        {parseFloat(this.state.transfer.rateATM).toLocaleString('en')}
                         </td>
                     <td className="align-right">
                         {(this.state.transfer.units * this.state.transfer.rateATM / 100000000).toLocaleString('ru', {

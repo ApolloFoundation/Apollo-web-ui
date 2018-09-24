@@ -87,7 +87,7 @@ class Entry extends React.Component {
                     </td>
                     <td className="align-right">
                         {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" && this.state.entry.balance > 0 &&
-                        (this.state.entry.balance / 100000000).toLocaleString('ru')}
+                        (this.state.entry.balance / 100000000).toLocaleString('en')}
                     </td>
                     <td className="align-right">
                         {this.state.entry.holdingInfo && this.state.entry.holdingInfo.name}
@@ -98,7 +98,7 @@ class Entry extends React.Component {
                     </td>
                     <td className="align-right">
                         {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
-                        (this.state.entry.balance/100).toLocaleString('ru')}
+                        (this.state.entry.balance/100).toLocaleString('en')}
                     </td>
                 </tr>
             );

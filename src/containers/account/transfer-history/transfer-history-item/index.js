@@ -27,7 +27,10 @@ class TransferHistoryItem extends React.Component {
                         <a><span className="info"></span></a>
                     </td>
                     <td className="">{this.props.formatTimestamp(this.state.transfer.timestamp)}</td>
-                    <td className="align-right" >{this.state.transfer.quantityATU}</td>
+                    <td className="align-right" >{(this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
+                        minimumFractionDigits: this.state.transfer.decimals,
+                        maximumFractionDigits: this.state.transfer.decimals
+                    })}</td>
                     <td className="blue-link-text">
                         <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transfer.recipient)}>{this.state.transfer.recipientRS}</a>
                     </td>

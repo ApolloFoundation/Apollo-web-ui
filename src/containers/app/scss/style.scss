@@ -177,7 +177,7 @@ input[type="number"] {
           }
           .full-box {
             position: absolute;
-            top: 58px;
+            top: 65px;
             left: 30px;
             right: 30px;
             display: flex;
@@ -188,10 +188,11 @@ input[type="number"] {
             .full-box-item {
 
               &.coin {
-                padding-left: 55px;
+                padding-left: 45px;
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: space-between;
+                margin-bottom: -15px;
 
                 .coin-data {
                   display: flex;
@@ -202,10 +203,10 @@ input[type="number"] {
                     margin: auto 0;
                   }
                   .figure {
-                    height: 40px;
-                    width:  40px;
+                    height: 25px;
+                    width:  25px;
                     position: absolute;
-                    left: -55px;
+                    left: -45px;
                     top: 50%;
                     transform: translateY(-50%);
 
