@@ -126,7 +126,15 @@ class App extends React.Component {
                     <Switch>
                         {this.props.account}
 
-                        <Route exact path="/login" component={Login}/>
+
+                        <Route exact path="/login" render={() => (
+                            !!this.props.account ? (
+                                <Redirect to="/dashboard"/>
+                            ) : (
+                                <Route exact path="/login" component={Login}/>
+                            )
+                        )}/>
+
 
                         {!this.props.loading &&
                             <React.Fragment>
