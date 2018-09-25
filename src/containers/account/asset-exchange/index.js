@@ -56,8 +56,10 @@ class AssetExchange extends React.Component {
     async getAsset(assetID) {
         let asset = await this.props.getAssetAction({asset: assetID});
 
-        if (asset && item && this.props.assetBalances) {
-            const assetBalance = this.props.assetBalances.find(item => item.asset === asset.asset);
+        if (asset && this.props.assetBalances) {
+            const assetBalance = this.props.assetBalances.find(item => {
+                if (item) return item.asset === asset.asset;
+            });
             asset.balanceATU = assetBalance ? assetBalance.balanceATU : 0;
 
             this.setState({
