@@ -107,6 +107,7 @@ class App extends React.Component {
                 <AlertBox/>
                 <header>
                     {
+                        this.props.location.pathname !== "/login" &&
                         this.props.account &&
                         <SideBar
                             match={this.props.match}
@@ -181,9 +182,11 @@ class App extends React.Component {
                             </React.Fragment>
                         }
                     </Switch>
-                    <div className="site-footer">
-                        Copyright © 2017-2018 Apollo Foundation. Apollo Version: 1.20.3 <br/>
-                    </div>
+                    {!this.props.loading &&
+                        <div className="site-footer">
+                            Copyright © 2017-2018 Apollo Foundation. Apollo Version: 1.20.3 <br/>
+                        </div>
+                    }
                 </div>
             </div>
         );

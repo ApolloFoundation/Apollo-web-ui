@@ -640,6 +640,7 @@ class Dashboard extends React.Component {
 												this.state.polls.map((el) => {
                                                     return (
 														<Link
+															key={uuid()}
 															style={{
 																display: 'block',
 																color: '#777777'
