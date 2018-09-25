@@ -294,7 +294,7 @@ class Dashboard extends React.Component {
 		const transactions = await this.props.getTransactionsAction(reqParams);
         const unconfirmedTransactions = await this.props.getTransactionsAction({requestType: 'getUnconfirmedTransactions'});
 
-        if (transactions) {
+        if (transactions && unconfirmedTransactions) {
 			this.setState({
 				...this.state,
 				transactions: [ ...unconfirmedTransactions.unconfirmedTransactions, ...transactions.transactions]
