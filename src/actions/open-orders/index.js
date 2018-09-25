@@ -66,7 +66,7 @@ export const getBuyOrdersAction = account => dispatch => axios.get(config.api.se
             //      assets;
             // });
     }
-    console.log('Error: ', res.data.errorCode);
+    // console.log('Error: ', res.data.errorCode);
     if (!res.data.errorCode) {
         return res.data
     }
@@ -84,7 +84,7 @@ export const getClearBuyOrdersAction = account => dispatch => axios.get(config.a
     if (!res.data.errorCode) {
         return res.data.bidOrders
     }
-    console.log('Error: ', res.data.errorCode);
+    // console.log('Error: ', res.data.errorCode);
     if (!res.data.errorCode) {
         return res.data
     }

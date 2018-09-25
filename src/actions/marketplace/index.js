@@ -15,7 +15,7 @@ export function getDGSGoodsAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -36,7 +36,7 @@ export function getDGSTagsAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -57,7 +57,7 @@ export function getDGSTagCountAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -78,7 +78,7 @@ export function getDGSPurchaseCountAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -99,7 +99,7 @@ export function getDGSGoodsCountAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -120,7 +120,7 @@ export function getDGSGoodAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -141,7 +141,7 @@ export function getDGSPurchasesAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -161,7 +161,7 @@ export function getDGSPurchaseAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -181,7 +181,7 @@ export function searchDGSGoodsAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -201,7 +201,7 @@ export function getDGSPendingPurchases(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
