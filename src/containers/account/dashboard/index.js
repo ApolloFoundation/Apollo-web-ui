@@ -612,8 +612,13 @@ class Dashboard extends React.Component {
 											</div>
 										</div>
 									</div>
-									<a onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')}
-									   className="btn btn-left btn-simple">Private APL</a>
+									<a
+										onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')}
+									    className="btn btn-left btn-simple"
+										style={{margin: '0 0 -7px 35px'}}
+									>
+										Private APL
+									</a>
 									<button
 										className="btn btn-right gray round round-bottom-right round-top-left absolute"
 										data-modal="sendMoney"
