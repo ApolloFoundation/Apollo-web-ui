@@ -1,5 +1,8 @@
 import React from "react";
 import {startBlockPullingAction} from "../../actions/blocks/index";
+import store from '../../store'
+
+
 const EventEmitter = require("events").EventEmitter;
 
 
@@ -20,6 +23,16 @@ export default class BlockSubscriber extends React.Component {
         const blockData = await startBlockPullingAction();
         if (blockData) {
             const currHeight = blockData.height;
+
+            store.dispatch({
+                type: 'SET_ACTUAL_BLOCK',
+                payload: currHeight
+            });
+
+            const {account} = store.getState();
+
+            console.log(account.actualBlock);
+
             // console.warn("updateBlock prev curr", this.prevHeight, currHeight);
             if (currHeight > this.prevHeight) {
                 this.prevHeight = currHeight;

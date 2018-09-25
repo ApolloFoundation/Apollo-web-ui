@@ -2233,6 +2233,34 @@ input {
 	}
 }
 
+.loader-container {
+	position: absolute;
+	bottom: -30px;
+	right: 4px;
+
+	span {
+		color: #bbb;
+		display: inline-block;
+		transform: translateY(-4px);
+		padding-right: 15px;
+	}
+
+	& > div {
+		display: inline-block;
+		height: 12px;
+		width: 12px;
+
+		& >  {
+			div {
+				height: 15px;
+				width: 15px;
+				border-color: #0050FF;
+				border-top-color: transparent;
+			}
+		}
+	}
+}
+
 table {
 	tr > td {
 		white-space: nowrap;
