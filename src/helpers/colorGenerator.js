@@ -10,11 +10,10 @@ export default function colorGenerator() {
         return a;
     }
 
-    let newColor1 = populate('#');
-    let newColor2 = populate('#');
+    let newColor = populate('#');
 
     return {
-        startColorGradient: newColor1,
-        stopColorGradient : newColor2
+        startColorGradient: newColor,
+        stopColorGradient : newColor
     }
 }

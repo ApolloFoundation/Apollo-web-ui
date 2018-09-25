@@ -7,6 +7,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import CustomSelect from '../../components/select';
+import crypto from "../../../helpers/crypto/crypto";
 
 const algorithmData = [
     {
@@ -44,8 +45,12 @@ class IssueCurrency extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        // Todo: finish form validating
+        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
+        if (!isPassphrase) {
+            NotificationManager.error('Incorrect secret phrase', 'Error', 5000);
+            return;
+        }
 
         let type;
 
@@ -166,6 +171,7 @@ class IssueCurrency extends React.Component {
                                     <div className="col-sm-9">
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
+                                                      defaultValue={true}
                                                       type="checkbox"
                                                       field="type1"/>
                                             <label className="form-check-label custom-control-label">
@@ -405,6 +411,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssueCurrency);
