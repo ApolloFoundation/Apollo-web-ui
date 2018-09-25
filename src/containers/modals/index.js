@@ -108,7 +108,7 @@ class ModalWindow extends React.Component {
 
         if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
 
-            if (!$(e.target).closest('.modal-window .modal-box')) {
+            if (!e.target.closest('.modal-window .modal-box')) {
                 Object.values(modalBox).map((el, index) => {
                     setTimeout(() => {
                         el.classList.remove('active');

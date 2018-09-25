@@ -88,7 +88,7 @@ class App extends React.Component {
     }
 
     handleModal = (e) => {
-        const parents = $(e.target).closest('.settings-bar') || null;
+        const parents = e.target.closest('.settings-bar') || null;
 
         if (!parents) {
             if (this) {
