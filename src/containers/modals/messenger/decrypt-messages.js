@@ -109,32 +109,32 @@ class DecryptMessage extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <div className="form-sub-actions">
-                                                    <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isRememberPassphrase"/>
-                                                        <label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Shared Key</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="sharedKey" placeholder='Shared Key' />
-                                        </div>
-                                    </div>
-                                </div>
+                                {/*<div className="input-group-app">*/}
+                                    {/*<div className="row">*/}
+                                        {/*<div className="col-md-3">*/}
+                                        {/*</div>*/}
+                                        {/*<div className="col-md-9">*/}
+                                            {/*<div className="input-wrapper">*/}
+                                                {/*<div className="form-sub-actions">*/}
+                                                    {/*<div className="input-group-app align-middle display-block offset-bottom offset-top">*/}
+                                                        {/*<Checkbox style={{display: 'inline-block'}} type="checkbox" field="isRememberPassphrase"/>*/}
+                                                        {/*<label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>*/}
+                                                    {/*</div>*/}
+                                                {/*</div>*/}
+                                            {/*</div>*/}
+                                        {/*</div>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
+                                {/*<div className="input-group-app">*/}
+                                    {/*<div className="row">*/}
+                                        {/*<div className="col-md-3">*/}
+                                            {/*<label>Shared Key</label>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="col-md-9">*/}
+                                            {/*<Text field="sharedKey" placeholder='Shared Key' />*/}
+                                        {/*</div>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
 
                                 {
                                     this.state.passphraseStatus &&

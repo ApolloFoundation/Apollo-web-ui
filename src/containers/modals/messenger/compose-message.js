@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-
+import $ from 'jquery';
 
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import AccountRS from '../../components/account-rs';
@@ -45,25 +45,10 @@ class ComposeMessage extends React.Component {
 
     handleFormSubmit = async(values) => {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         if (!isPassphrase) {
             NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
             return;
         }
-
-
-        // if (!isPassphrase) {
-        //     this.setState({
-        //         ...this.props,
-        //         passphraseStatus: true
-        //     });
-        //     return;
-        // } else {
-        //     this.setState({
-        //         ...this.props,
-        //         passphraseStatus: false
-        //     });
-        // }
 
         if (values.messageToEncrypt) {
             values.messageToEncrypt = values.message;
@@ -173,28 +158,28 @@ class ComposeMessage extends React.Component {
                                     {/*</div>*/}
                                 {/*</div>*/}
 
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>File</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="iconned-input-field">
-                                                <div className="input-group-app search">
-                                                    <div className="iconned-input-field">
-                                                        <div className="input-icon text"><i className="">Browse&hellip;</i></div>
-                                                        <input
-                                                            id="file"
-                                                            type="file"
-                                                            placeholder="Recipient"
+                                {/*<div className="input-group-app display-block offset-bottom">*/}
+                                    {/*<div className="row">*/}
+                                        {/*<div className="col-md-3">*/}
+                                            {/*<label>File</label>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="col-md-9">*/}
+                                            {/*<div className="iconned-input-field">*/}
+                                                {/*<div className="input-group-app search">*/}
+                                                    {/*<div className="iconned-input-field">*/}
+                                                        {/*<div className="input-icon text"><i className="">Browse&hellip;</i></div>*/}
+                                                        {/*<input*/}
+                                                            {/*id="file"*/}
+                                                            {/*type="file"*/}
+                                                            {/*placeholder="Recipient"*/}
 
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                        {/*/>*/}
+                                                    {/*</div>*/}
+                                                {/*</div>*/}
+                                            {/*</div>*/}
+                                        {/*</div>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
 
 
                                 <div className="input-group-app display-block offset-bottom">
