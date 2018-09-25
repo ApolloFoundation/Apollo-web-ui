@@ -15,12 +15,13 @@ import async from "../../helpers/util/async";
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
         const loginStatus = (await makeLoginReq(dispatch, requestParams));
-        console.log(loginStatus);
 
-        if (loginStatus.errorCode && !loginStatus.account) {
-            NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
-        } else {
-            document.location = '/dashboard';
+        if (loginStatus) {
+            if (loginStatus.errorCode && !loginStatus.account) {
+                NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
+            } else {
+                document.location = '/dashboard';
+            }
         }
     };
 }
