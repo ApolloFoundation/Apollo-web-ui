@@ -177,54 +177,56 @@ class ListProductForSale extends React.Component {
                                         Image
                                     </label>
                                     <div className="col-sm-9">
-                                            <div className="iconned-input-field">
-                                                <div className="input-group-app search">
-                                                    <div className="iconned-input-field">
-                                                        <div className="input-icon text"><i className="">Browse&hellip;</i></div>
-                                                        <input
-                                                            id="file"
-                                                            type="file"
-                                                            placeholder="Recipient"
-                                                            onChange={(e) => {
-                                                                e.preventDefault();
+                                        <div className="iconned-input-field">
+                                            <div className="input-group-app search">
+                                                <div className="iconned-input-field">
+                                                    <div className="input-icon text"><i className="">Browse&hellip;</i></div>
+                                                    <input
+                                                        id="file"
+                                                        type="file"
+                                                        placeholder="Recipient"
+                                                        onChange={(e) => {
+                                                            e.preventDefault();
 
-                                                                let reader = new FileReader();
-                                                                let file = e.target.files[0];
+                                                            let reader = new FileReader();
+                                                            let file = e.target.files[0];
 
-                                                                reader.onloadend = () => {
-                                                                    this.setState({
-                                                                        ...this.state,
-                                                                        file: file,
-                                                                        imagePreviewUrl: reader.result
-                                                                    });
-                                                                };
+                                                            reader.onloadend = () => {
+                                                                this.setState({
+                                                                    ...this.state,
+                                                                    file: file,
+                                                                    imagePreviewUrl: reader.result
+                                                                });
+                                                            };
 
-                                                                setValue("messageIsText", false);
-                                                                setValue("messageIsPrunable", true);
+                                                            setValue("messageIsText", false);
+                                                            setValue("messageIsPrunable", true);
 
-                                                                if(file) reader.readAsDataURL(file);
+                                                            if(file) reader.readAsDataURL(file);
 
-                                                            }}
-                                                        />
-                                                    </div>
+                                                        }}
+                                                    />
                                                 </div>
-
                                             </div>
-                                            {/*<Text placeholder="Fee" field="feeATM" type="text"/>*/}
+
                                         </div>
+                                        <div className="form-sub-title block align-right align-margin-top">
+                                            Max file size - 40 KB
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <div className="col-sm-9 offset-sm-3">
-                                            {
-                                                !this.state.imagePreviewUrl &&
-                                                <div className="no-image">
-                                                    <i className="zmdi zmdi-image" />
-                                                </div>
-                                            }
-                                            {
-                                                this.state.imagePreviewUrl &&
-                                                <img className="preview-image" src={this.state.imagePreviewUrl} alt=""/>
-                                            }
+                                        {
+                                            !this.state.imagePreviewUrl &&
+                                            <div className="no-image">
+                                                <i className="zmdi zmdi-image" />
+                                            </div>
+                                        }
+                                        {
+                                            this.state.imagePreviewUrl &&
+                                            <img className="preview-image" src={this.state.imagePreviewUrl} alt=""/>
+                                        }
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
