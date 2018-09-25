@@ -44,8 +44,6 @@ class CreateUser extends React.Component {
     }
 
     handleFormSubmit = (values) => {
-
-
         if (values.secretPhrase === this.state.generatedPassphrase) {
             this.props.getAccountDataAction({
                 account: this.state.generatedAccount
@@ -71,7 +69,7 @@ class CreateUser extends React.Component {
 
     generatePassphrase = async () => {
         const generatedPassphrase = crypto.generatePassPhrase();
-        const generatedAccount = store.dispatch(await this.props.getAccountIdAsync(generatedPassphrase));
+        const generatedAccount = store.dispatch(await this.props.getAccountIdAsync(generatedPassphrase.join(' ')));
 
         this.setState({
             ...this.state,

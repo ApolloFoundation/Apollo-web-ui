@@ -135,8 +135,8 @@ class JoinShuffling extends React.Component {
                                         {this.state.shuffling &&
                                         <p>{this.state.shuffling.shuffling}</p>
                                         }
-                                        {this.props.modalData.broadcast &&
-                                        <p>{this.props.modalData.broadcast.transaction}</p>
+                                        {this.props.modalData && this.props.modalData.broadcast &&
+                                            <p>{this.props.modalData.broadcast.transaction}</p>
                                         }
                                     </div>
                                 </div>
