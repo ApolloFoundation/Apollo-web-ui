@@ -15,6 +15,7 @@ import async from "../../helpers/util/async";
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
         const loginStatus = (await makeLoginReq(dispatch, requestParams));
+        console.log(loginStatus);
 
         if (loginStatus.errorCode && !loginStatus.account) {
             NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
@@ -39,9 +40,35 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
         const loginStatus = await makeLoginReq(dispatch, {account: dispatch(accountRS)});
 
         if (loginStatus) {
+            console.log(loginStatus);
+
             if (loginStatus.errorCode && !loginStatus.account) {
                 NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
             } else {
+                let localContacts = localStorage.getItem('APLContacts');
+
+                let values = {
+                    accountRS: loginStatus.accountRS,
+                    name: loginStatus.accountRS
+                };
+
+                localContacts = JSON.parse(localContacts);
+
+                if (localContacts) {
+                    const isInside = localContacts.find((el) => {
+                        return el.accountRS === values.accountRS
+                    });
+
+                    if (isInside) {
+
+                    } else {
+                        localContacts.push(values);
+                        localStorage.setItem('APLContacts', JSON.stringify(localContacts));
+                    }
+                } else {
+                    localStorage.setItem('APLContacts', JSON.stringify([values]));
+                }
+
                 document.location = '/dashboard';
             }
         }
@@ -109,6 +136,26 @@ function makeLoginReq(dispatch, requestParams) {
                 });
 
                 dispatch(login(res.data));
+
+                //
+                // if (localContacts) {
+                //     localContacts = JSON.parse(localContacts);
+                //
+                //     if (localContacts.indexOf(values) === -1) {
+                //         localContacts.push(values);
+                //         localStorage.setItem('APLContacts', JSON.stringify(localContacts));
+                //         NotificationManager.success('Added to contacts!', null, 5000);
+                //         this.props.closeModal()
+                //
+                //     } else {
+                //         NotificationManager.error('Already in contacts.', 'Error', 5000)
+                //
+                //     }
+                // } else {
+                //     console.log(res.data);
+                //     localStorage.setItem('APLContacts', JSON.stringify([values]));
+                // }
+
 
                 return res.data;
             } else {

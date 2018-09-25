@@ -4338,6 +4338,25 @@ input {
       transition: 0.2s;
       overflow: hidden; } }
 
+.loader-container {
+  position: absolute;
+  bottom: -30px;
+  right: 4px; }
+  .loader-container span {
+    color: #bbb;
+    display: inline-block;
+    transform: translateY(-4px);
+    padding-right: 15px; }
+  .loader-container > div {
+    display: inline-block;
+    height: 12px;
+    width: 12px; }
+    .loader-container > div > div {
+      height: 15px;
+      width: 15px;
+      border-color: #0050FF;
+      border-top-color: transparent; }
+
 table tr > td {
   white-space: nowrap;
   max-width: 300px;

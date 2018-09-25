@@ -102,6 +102,13 @@ export default (state = initialState, action) => {
                 ...state,
                 blockchainStatus: action.payload
             };
+        case 'SET_ACTUAL_BLOCK':
+        return {
+                ...state,
+                actualBlock: action.payload
+            };
+
+
         default:
             return state
     }

@@ -106,10 +106,19 @@ class Dashboard extends React.Component {
 
 	componentDidMount() {
 		BlockUpdater.on("data", this.listener);
-	}
+    }
+
+	dashBoardinterval = setInterval(() => {
+        this.getTransactions({
+            account: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        })
+    }, 2000)
 
 	componentWillUnmount() {
 		BlockUpdater.removeListener("data", this.listener);
+        clearInterval(this.dashBoardinterval);
 	}
 
 	componentWillReceiveProps(newState) {
@@ -161,7 +170,6 @@ class Dashboard extends React.Component {
 			firstIndex: this.state.firstIndex,
 			lastIndex: this.state.lastIndex
 		});
-
 	};
 
 	getActivePolls = async (reqParams) => {
@@ -273,11 +281,7 @@ class Dashboard extends React.Component {
 	};
 
 	getMessagesCount = async (reqParams) => {
-        console.log(reqParams);
-
         const messages = await this.props.getMessages(reqParams);
-
-        console.log(messages);
 
         if (messages) {
 			this.setState({
@@ -288,10 +292,12 @@ class Dashboard extends React.Component {
 
 	getTransactions = async (reqParams) => {
 		const transactions = await this.props.getTransactionsAction(reqParams);
+        const unconfirmedTransactions = await this.props.getTransactionsAction({requestType: 'getUnconfirmedTransactions'});
 
-		if (transactions) {
+        if (transactions && unconfirmedTransactions) {
 			this.setState({
-				transactions: transactions.transactions
+				...this.state,
+				transactions: [ ...unconfirmedTransactions.unconfirmedTransactions, ...transactions.transactions]
 			})
 		}
 	};
