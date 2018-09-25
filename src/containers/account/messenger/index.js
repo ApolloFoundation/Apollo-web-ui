@@ -80,12 +80,6 @@ class Messenger extends React.Component {
 		let chats = await getChatsAction(reqParams);
 		let correctChatsAccounts = await this.props.getChats(reqParams);
 
-        // chats = chats.chats.map((el, index) => {
-         //    console.log(correctChatsAccounts[index].data);
-         //    console.log(el);
-         //    return {...el, ...(correctChatsAccounts[index].data)}
-		// });
-
 		chats = chats.chats.map((el, index) => {
 			return {...el, ...correctChatsAccounts[index]}
 		});
@@ -148,7 +142,7 @@ class Messenger extends React.Component {
 			return;
         }
 		if (!res.errorCode) {
-            NotificationManager.success('Transaction has been submitted!', null, 5000);
+            NotificationManager.success('Message has been submitted!', null, 5000);
             if (this.state.formApi) {
             	this.state.formApi.setValue('message', null);
             	this.state.formApi.setValue('secretPhrase', null);

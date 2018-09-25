@@ -63,7 +63,7 @@ class ComposeMessage extends React.Component {
             this.props.issueAssetAction(values);
             this.props.setBodyModalParamsAction(null, {});
 
-            NotificationManager.success('Asset has been submitted!', null, 5000);
+            NotificationManager.success('Message has been submitted!', null, 5000);
 
             // this.props.setAlert('success', 'Transaction has been submitted!');
         }
