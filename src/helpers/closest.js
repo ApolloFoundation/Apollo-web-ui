@@ -1,3 +1,7 @@
+/**
+ * Element.closest() polyfill
+ * https://developer.mozilla.org/en-US/docs/Web/API/Element/closest#Polyfill
+ */
 if (!Element.prototype.closest) {
     if (!Element.prototype.matches) {
         Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
