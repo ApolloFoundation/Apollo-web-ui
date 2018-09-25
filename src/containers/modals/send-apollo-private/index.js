@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
 import {sendPrivateTransaction} from '../../../actions/transactions';
 import AccountRS from '../../components/account-rs';
-import classNames from 'classnames';
+import InputForm from '../../components/input-form';
 import crypto from  '../../../helpers/crypto/crypto';
 import {calculateFeeAction} from "../../../actions/forms";
 
@@ -96,14 +96,14 @@ class SendApolloPrivate extends React.Component {
                                 </div>
                                 <div className="input-group-app form-group mb-15 display-block inline user">
                                     <div className="row form-group-white">
-                                        <label className="col-sm-3 col-form-label">
+                                        <label htmlFor="recipient" className="col-sm-3 col-form-label">
                                             Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
                                         </label>
                                         <div className="col-sm-9">
                                             <div className="iconned-input-field">
                                                 <AccountRS
-                                                    value={''}
                                                     field={'recipient'}
+                                                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
                                                 />
                                             </div>
@@ -114,41 +114,55 @@ class SendApolloPrivate extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Amount
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <Text defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
-                                              className="form-control"
-                                              field="amountATM"
-                                              placeholder="Amount"
-                                              aria-describedby="amountText" />
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+                                            field="amountATM"
+                                            placeholder="Amount"
+                                            type={"number"}
+                                            setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="amountText">Apollo</span>
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="form-group row form-group-white mb-15">
-                                    <label htmlFor="feeATM" className="col-sm-3 col-form-label">
+                                    <label className="col-sm-3 col-form-label">
                                         Fee
                                         <span
                                             onClick={async () => {
-                                                    setValue("feeATM", 2);
+                                                const requestParams = {
+                                                    requestType: 'sendMoney',
+                                                    deadline: '1440',
+                                                    amountATM: parseInt(getFormState().values.amountATM) * 100000000,
+                                                    recipient: getFormState().values.recipient,
+                                                    publicKey: this.props.publicKey,
+                                                    feeATM: 0
+                                                };
+                                                const fee = await this.props.calculateFeeAction(requestParams);
+                                                if (!fee.errorCode) {
+                                                    setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
+                                                } else {
+                                                    NotificationManager.error(fee.errorDescription, 'Error', 5000);
                                                 }
+                                            }
                                             }
                                             style={{paddingRight: 0}}
                                             className="calculate-fee"
                                         >
-                                                Calculate</span>
+                                            Calculate
+                                        </span>
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <Text id="feeATM"
-                                              field="feeATM"
-                                              className="form-control"
-                                              value={this.state.feeATM}
-                                              placeholder="Amount"
-                                              type={"number"}
-                                              aria-describedby="feeATMText" />
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                            field="feeATM"
+                                            placeholder="Amount"
+                                            type={"float"}
+                                            setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="feeATMText">Apollo</span>
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
@@ -156,8 +170,8 @@ class SendApolloPrivate extends React.Component {
                                     <label className="col-sm-3 col-form-label">
                                         Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                                     </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text id="secretPhrase" className="form-control" field="secretPhrase" placeholder="secretPhrase" type={'password'}/>
+                                    <div className="col-sm-9">
+                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 {
@@ -213,7 +227,8 @@ class SendApolloPrivate extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    publicKey: state.account.publicKey
 });
 
 const mapDispatchToProps = dispatch => ({
