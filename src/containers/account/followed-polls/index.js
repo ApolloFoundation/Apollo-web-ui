@@ -322,7 +322,7 @@ class FollowedVotes extends React.Component {
                                                                     <div className="content">{this.state.poll.poll}</div>
                                                                 </div>
                                                             </div>
-                                                            <div className="description-bar">
+                                                            <div className="description-bar word-brake">
                                                                 <p>{this.state.poll.description}</p>
                                                             </div>
                                                             {

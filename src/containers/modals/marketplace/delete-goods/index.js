@@ -99,7 +99,7 @@ class MarketplaceDelete extends React.Component {
                                         />
                                     </div>
                                     <div className="bottom-bar">
-                                        <div className="description">
+                                        <div className="description word-brake">
                                             {this.state.goods.description}
                                         </div>
                                     </div>
