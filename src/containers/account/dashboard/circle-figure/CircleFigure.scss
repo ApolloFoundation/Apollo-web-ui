@@ -6,6 +6,7 @@ text {
 
 svg {
   margin: 0 !important;
+  animation: none !important;
 
   &.Bitcoin {
     .CircularProgressbar-path {
@@ -22,6 +23,4 @@ svg {
       stroke: #00A0B4 !important;
     }
   }
-
-
 }
