@@ -76,7 +76,12 @@ class Sidebar extends React.Component {
 						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
 					>
-						<ul>
+						<ul
+							style={{
+                                "padding-bottom": "120px",
+                                "background": "#333"
+                            }}
+						>
 							<li>
 								<NavLink exact={true} activeClassName="active" to="/dashboard"
 								         className={`text ${this.getNavLinkClass(["/",
@@ -296,12 +301,12 @@ class Sidebar extends React.Component {
 									</ul>
 								</div>
 							</li>
-							<li>
-								<NavLink className={"text"} exact={true} activeClassName="active" to="/aliases">
-									Aliases
-									<i className="zmdi zmdi-accounts left"/>
-								</NavLink>
-							</li>
+							{/*<li>*/}
+								{/*<NavLink className={"text"} exact={true} activeClassName="active" to="/aliases">*/}
+									{/*Aliases*/}
+									{/*<i className="zmdi zmdi-accounts left"/>*/}
+								{/*</NavLink>*/}
+							{/*</li>*/}
 							<li>
 								{/*<NavLink exact={true} activeClassName="active"  to="/plugins">
                                     Plugins
