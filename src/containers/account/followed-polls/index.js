@@ -139,22 +139,24 @@ class FollowedVotes extends React.Component {
     };
 
     async getpollResults(reqParams) {
-        const pollResults = await this.props.getPollResultAction(reqParams);
+        if (reqParams.poll) {
+            const pollResults = await this.props.getPollResultAction(reqParams);
 
-        let colors = [];
-        if (!this.state.colors || this.state.colors.length === 0) {
-            pollResults.options.map((el, index) => {
-                colors.push(colorGenerator());
-            });
-        } else {
-            colors = this.state.colors;
-        }
+            let colors = [];
+            if ((!this.state.colors || this.state.colors.length === 0) && pollResults.options) {
+                pollResults.options.map((el, index) => {
+                    colors.push(colorGenerator());
+                });
+            } else {
+                colors = this.state.colors;
+            }
 
-        if (pollResults) {
-            this.setState({
-                pollResults: pollResults,
-                colors
-            });
+            if (pollResults) {
+                this.setState({
+                    pollResults: pollResults,
+                    colors
+                });
+            }
         }
     }
 
@@ -255,6 +257,7 @@ class FollowedVotes extends React.Component {
                                                 if (el.name) {
                                                     return (
                                                         <Link
+                                                            key={uuid()}
                                                             to={'/followed-polls/' + el.poll}
                                                             className={classNames({
                                                                 'chat-item': true,
