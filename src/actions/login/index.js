@@ -55,7 +55,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
                 localContacts = JSON.parse(localContacts);
 
                 if (localContacts) {
-                    const isInside = localContacts.find((el) => {
+                    const isInside = localContac.ts.find((el) => {
                         return el.accountRS === values.accountRS
                     });
 
