@@ -13,7 +13,7 @@ export function getAliasesAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -35,7 +35,7 @@ export function getAllCurrenciesAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -57,7 +57,7 @@ export function getAccountCurrenciesAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -78,7 +78,7 @@ export function getCurrencyAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -101,7 +101,7 @@ export function getTransferHistory(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                console.log('Error: ', res.data.errorCode);
+                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);

@@ -11,6 +11,7 @@ import {getpollAction, getPollResultAction, getPollVotesAction} from '../../../a
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
+import colorGenerator from "../../../helpers/colorGenerator";
 import uuid from "uuid";
 
 
@@ -37,7 +38,8 @@ class FollowedVotes extends React.Component {
             votes: null,
             firstIndex: 0,
             lastIndex: 2,
-            allVotesNumber: null
+            allVotesNumber: null,
+            colors: []
         };
 
         this.getpoll        = this.getpoll.bind(this);
@@ -139,10 +141,19 @@ class FollowedVotes extends React.Component {
     async getpollResults(reqParams) {
         const pollResults = await this.props.getPollResultAction(reqParams);
 
+        let colors = [];
+        if (!this.state.colors || this.state.colors.length === 0) {
+            pollResults.options.map((el, index) => {
+                colors.push(colorGenerator());
+            });
+        } else {
+            colors = this.state.colors;
+        }
+
         if (pollResults) {
             this.setState({
-                ...this.state,
-                pollResults: pollResults
+                pollResults: pollResults,
+                colors
             });
         }
     }
@@ -207,22 +218,6 @@ class FollowedVotes extends React.Component {
     }
 
     render() {
-        const colors = [
-            {
-                startColorGradient: '#008CDC',
-                stopColorGradient : '#00C8FF'
-            }, {
-                startColorGradient: '#0019E1',
-                stopColorGradient : '#0050FF'
-            }, {
-                startColorGradient: '#00788C',
-                stopColorGradient : '#00A0B4'
-            }, {
-                startColorGradient: '#008C46',
-                stopColorGradient : '#00B45A'
-            }
-        ];
-
         return (
             <div className="page-content">
                 <SiteHeader
@@ -344,7 +339,7 @@ class FollowedVotes extends React.Component {
                                                     }}
                                                 >
                                                     {
-                                                        this.state.pollResults && this.state.poll.options && this.state.pollResults.results &&
+                                                        this.state.colors.length > 0 && this.state.pollResults && this.state.poll.options && this.state.pollResults.results &&
                                                         <Pie
                                                             data={this.state.pollResults.results.map((el, index) => {
                                                                 return parseInt(el.result) || 0.05
@@ -352,7 +347,7 @@ class FollowedVotes extends React.Component {
                                                             votes={this.state.poll.options}
                                                             radius={ 150 }
                                                             hole={ 0 }
-                                                            colors={ colors }
+                                                            colors={ this.state.colors }
                                                             strokeWidth={ 1 }
                                                             stroke={ 'rgba(0, 0, 0, .5)' }
                                                         />
@@ -386,12 +381,13 @@ class FollowedVotes extends React.Component {
                                                                             </thead>
                                                                             <tbody>
                                                                             {
+                                                                                this.state.colors.length > 0 &&
                                                                                 this.state.pollResults.options &&
                                                                                 this.state.pollResults.options.map((el, index) => {
 
                                                                                     return (
                                                                                         <tr key={uuid()}>
-                                                                                            <td><div className="color-box" style={{background: 'linear-gradient(' + colors[index].startColorGradient + ', ' + colors[index].stopColorGradient + ')'}}/></td>
+                                                                                            <td><div className="color-box" style={{background: 'linear-gradient(' + this.state.colors[index].startColorGradient + ', ' + this.state.colors[index].stopColorGradient + ')'}}/></td>
                                                                                             <td>{el}</td>
                                                                                             <td className="align-right">{this.state.pollResults.results[index].result}</td>
                                                                                             <td className="align-right">{this.state.pollResults.results[index].weight}</td>
