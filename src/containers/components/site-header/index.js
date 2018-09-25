@@ -746,25 +746,42 @@ class SiteHeader extends React.Component {
 														{/*<li><a onClick={() => this.props.setBodyModalType(null)} className="option">Refresh search index</a></li>*/}
 														<li><a href="https://apollowallet.org/test" className="option">API
 															console</a></li>
-														<li><a href="https://apollowallet.org/dbshell"
-														       className="option">Database shell</a></li>
+														{/*<li>*/}
+															{/*<a */}
+																{/*href="https://apollowallet.org/dbshell"*/}
+																{/*className="option"*/}
+															{/*>*/}
+																{/*Database shell*/}
+															{/*</a>*/}
+														{/*</li>*/}
+                                                        <li>
+															<a
+																onClick={() => {
+																	this.props.setBodyModalType(null);
+																	return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');
+																}}
+																className="option"
+															>
+																Device settings
+															</a>
+														</li>
 													</ul>
 												</div>
-												<div className="options-col">
-													<ul>
-														{/*
-														<li><Link to="/plugins" className="option">Plugins</Link></li>
-*/}
-														{/*<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account
-															settings</Link></li>*/}
-														<li><a
-															onClick={() => {
-                                                                this.props.setBodyModalType(null);
-                                                                return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');
-                                                            }}
-															className="option">Device settings</a></li>
-													</ul>
-												</div>
+												{/*<div className="options-col">*/}
+													{/*<ul>*/}
+														{/*/!**/}
+														{/*<li><Link to="/plugins" className="option">Plugins</Link></li>*/}
+{/**!/*/}
+														{/*/!*<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account*/}
+															{/*settings</Link></li>*!/*/}
+														{/*<li><a*/}
+															{/*onClick={() => {*/}
+                                                                {/*this.props.setBodyModalType(null);*/}
+                                                                {/*return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');*/}
+                                                            {/*}}*/}
+															{/*className="option">Device settings</a></li>*/}
+													{/*</ul>*/}
+												{/*</div>*/}
 											</div>
 										</div>
 										<a
