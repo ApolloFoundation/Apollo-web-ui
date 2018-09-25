@@ -103,7 +103,7 @@ class MyMessages extends React.Component {
                 </SiteHeader>
                 {
                     this.state.messages && !!this.state.messages.length &&
-                    <div className="page-body container-fluid" style={{'min-height': '100vh', 'padding-top': '120px'}}>
+                    <div className="page-body container-fluid" style={{'minHeight': '100vh', 'paddingTop': '120px'}}>
                         <div className="account-ledger">
                             <div className="transaction-table message-table">
                                 <div className="transaction-table-body">
