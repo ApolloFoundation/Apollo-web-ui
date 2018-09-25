@@ -106,6 +106,8 @@ class Marketplace extends React.Component {
     };
 
     getDGSPurchases = async (reqParams) => {
+        delete reqParams.buyer;
+
         const getDGSPurchases = await this.props.getDGSPurchasesAction(reqParams);
         if (getDGSPurchases) {
             this.setState({
