@@ -215,6 +215,7 @@ export function logOutAction(action) {
     switch (action) {
         case('simpleLogOut'):
             localStorage.removeItem("APLUserRS");
+            localStorage.removeItem("secretPhrase");
             document.location = '/';
             return;
         case('logOutStopForging'):
