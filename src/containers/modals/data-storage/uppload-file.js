@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
+import AdvancedSettings from '../../components/advanced-transaction-settings';
+import InputForm from '../../components/input-form';
+import InfoBox from '../../components/info-box';
 import {Form, Text, TextArea} from 'react-form';
 
 import submitForm from '../../../helpers/forms/forms';
@@ -66,51 +67,51 @@ class UploadFile extends React.Component {
                             <div className="form-title">
                                 <p>Upload file</p>
                             </div>
-                            <div className="input-group-app display-block offset-bottom">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <label>Name</label>
-                                    </div>
-                                    <div className="col-md-9">
-                                        <Text placeholder={'Name'} type="text" field={'name'}/>
-                                    </div>
+                            <div className="form-group row form-group-white mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Name
+                                </label>
+                                <div className="col-sm-9">
+                                    <InputForm
+                                        field="name"
+                                        placeholder="Name"
+                                        setValue={setValue}/>
                                 </div>
                             </div>
-                            <div className="input-group-app display-block offset-bottom">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <label>Description</label>
-                                    </div>
-                                    <div className="col-md-9">
-                                        <TextArea placeholder="Description" field="description" cols="30" rows="10" />
-                                    </div>
+                            <div className="form-group row form-group-white mb-15">
+                                <label className="col-sm-3 col-form-label align-self-start">
+                                    Description
+                                </label>
+                                <div className="col-sm-9">
+                                    <TextArea className="form-control" placeholder="Description" field="description" cols="30" rows="5" />
                                 </div>
                             </div>
-                            <div className="input-group-app display-block offset-bottom">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <label>Tags</label>
-                                    </div>
-                                    <div className="col-md-9">
-                                        <Text placeholder={'Tags'} type="text" field={'tags'}/>
-                                    </div>
+                            <div className="form-group row form-group-white mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Tags
+                                </label>
+                                <div className="col-sm-9">
+                                    <InputForm
+                                        field="tags"
+                                        placeholder="Tags"
+                                        setValue={setValue}/>
                                 </div>
                             </div>
-                            <div className="input-group-app display-block offset-bottom">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <label>Channel</label>
-                                    </div>
-                                    <div className="col-md-9">
-                                        <Text placeholder={'Channel'} type="text" field={'channel'}/>
-                                    </div>
+                            <div className="form-group row form-group-white mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Channel
+                                </label>
+                                <div className="col-sm-9">
+                                    <InputForm
+                                        field="channel"
+                                        placeholder="Channel"
+                                        setValue={setValue}/>
                                 </div>
                             </div>
-                            <div className="input-group-app display-block offset-bottom">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <label>File</label>
-                                    </div>
+                            <div className="form-group row form-group-white mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    File
+                                </label>
                                     <div className="col-md-9">
                                         <div className="iconned-input-field">
                                             <div className="input-group-app search">
@@ -144,27 +145,29 @@ class UploadFile extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
+                                </div>
+                            </div>
+                            <div className="form-group row form-group-white mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Fee
+                                </label>
+                                <div className="col-sm-9 input-group input-group-text-transparent">
+                                    <InputForm
+                                        field="feeATM"
+                                        placeholder="Amount"
+                                        type={"float"}
+                                        setValue={setValue}/>
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">Apollo</span>
                                     </div>
                                 </div>
                             </div>
-                            <div className="input-group-app display-block offset-bottom">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <label>Fee</label>
-                                    </div>
-                                    <div className="col-md-9">
-                                        <Text placeholder={'Fee'} type="text" field={'feeATM'}/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="input-group-app display-block offset-bottom">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <label>Passphrase</label>
-                                    </div>
-                                    <div className="col-md-9">
-                                        <Text placeholder={'Passphrase'} type="password" field={'secretPhrase'}/>
-                                    </div>
+                            <div className="form-group row form-group-white mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Passphrase
+                                </label>
+                                <div className="col-sm-9">
+                                    <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                 </div>
                             </div>
 

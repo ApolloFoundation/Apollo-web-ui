@@ -38,7 +38,7 @@ class InputForm extends React.Component {
                     value = this.props.minValue;
                 }
             } else {
-                value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
+                value = value.replace(/[;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
         } else {
             value = value.target.value;
@@ -50,7 +50,7 @@ class InputForm extends React.Component {
                 if (value === '.') value = '0.';
                 value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
             } else {
-                value = value.replace(/[,;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
+                value = value.replace(/[;:`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
         }
         if (this.props.onChange) this.props.onChange(value);
