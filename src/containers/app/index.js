@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import {connect} from 'react-redux';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import classNames from 'classnames';
