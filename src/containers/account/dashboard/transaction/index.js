@@ -24,7 +24,9 @@ const Transaction = (props) => (
                     <span>
                         Confirmation
                     </span>
-                    <div className={'ball-clip-rotate'}>
+                    <div className={'ball-pulse-sync'}>
+                        <div></div>
+                        <div></div>
                         <div></div>
                     </div>
                 </div>
