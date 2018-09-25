@@ -55,9 +55,9 @@ class Marketplace extends React.Component {
         });
     }
 
-    componentWillReceiveProps () {
+    componentWillReceiveProps (newState) {
         this.getInitialData({
-            buyer: this.props.account
+            buyer: newState.account
         });
         this.getDGSGoods({
             firstIndex: 0,
@@ -229,7 +229,7 @@ class Marketplace extends React.Component {
                                     <div className="full-box full">
                                         <div className="full-box-item direction-row">
                                             <span className="card-title align-left">Purchased products</span>
-                                            <span className="card-title align-right">{this.state.getDGSPurchasesCount}</span>
+                                            <span className="card-title align-right">{this.state.getDGSPurchaseCount}</span>
                                         </div>
                                         <div className="full-box-item direction-row">
                                             <p className="card-title align-left">Products available</p>
@@ -237,7 +237,7 @@ class Marketplace extends React.Component {
                                         </div>
                                         <div className="full-box-item direction-row">
                                             <p className="card-title align-left">Total purchases</p>
-                                            <p className="card-title align-right">{this.state.getDGSPurchaseCount}</p>
+                                            <p className="card-title align-right">{this.state.getDGSPurchasesCount}</p>
                                         </div>
                                         <div className="full-box-item direction-row">
                                             <p className="card-title  align-left">Total tags</p>
