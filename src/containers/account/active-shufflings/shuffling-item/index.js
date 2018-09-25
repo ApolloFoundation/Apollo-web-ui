@@ -42,7 +42,7 @@ const ShufflingItem = (props) => (
                 <Link
                     to={'/asset-exchange/' + props.holding}
                 >
-                    {props.holdingInfo.name} (Asset)
+                    {props.holding} (Asset)
                 </Link>
             }
             {
@@ -50,7 +50,7 @@ const ShufflingItem = (props) => (
                 <Link
                     to={'/exchange-booth/' + props.holding}
                 >
-                    {props.holdingInfo.name} (Currency)
+                    {props.holding} (Currency)
                 </Link>
             }
 
