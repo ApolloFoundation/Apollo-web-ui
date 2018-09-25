@@ -116,7 +116,7 @@
           box-sizing: border-box;
           position: absolute;
           left: 100%;
-          top: -13px;
+          top: -10px;
           min-width: 220px;
           background-color: #333333;
           box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.6);
