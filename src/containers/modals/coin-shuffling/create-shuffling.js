@@ -110,11 +110,9 @@ class CreateShuffling extends React.Component {
         if (result) {
             this.setState({ currency: result.currency });
             setValue('holding', result.currency);
-            setValue('shuffling_ms_code', reqParams.code);
         } else {
             this.setState({ currency: '-' });
             setValue('holding', '');
-            setValue('shuffling_ms_code', '');
         }
     };
 
