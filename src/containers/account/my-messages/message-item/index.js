@@ -36,26 +36,29 @@ class MessageItem extends React.Component {
     }
 
     tryToDecrypt = (newState) => {
-        this.decryptMessage(this.props, newState.account.passPhrase)
+        if (newState.account.passPhrase) {
+            this.decryptMessage(this.props, newState.account.passPhrase)
+        }
 
         // if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
         // }
     };
 
     decryptMessage = async (data, passPhrase) => {
+        if (passPhrase) {
+            const message = await this.props.submitForm(null, null, {
+                requestType: 'readMessage',
+                secretPhrase: passPhrase,
+                transaction: this.props.transaction
+            }, 'readMessage')
 
-
-        const message = await this.props.submitForm(null, null, {
-            requestType: 'readMessage',
-            secretPhrase: passPhrase,
-            transaction: this.props.transaction
-        }, 'readMessage')
-
-        if (message) {
-            this.setState({
-                message: message.decryptedMessage
-            });
+            if (message) {
+                this.setState({
+                    message: message.decryptedMessage
+                });
+            }
         }
+
 
         // const privateKey = converters.hexStringToByteArray(crypto.getPrivateKey(passPhrase));
         // let publicKey = await crypto.getPublicKey(this.props.sender, true);
@@ -81,68 +84,43 @@ class MessageItem extends React.Component {
                 <td className="blue-link-text">
                     <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.recipient)}>{this.props.recipientRS}</a>
                 </td>
+                <td>
                 {
                     this.state.message &&
-                    <td><i className="zmdi zmdi-lock-open"/>&nbsp;<span>{this.state.message}</span></td>
+                    <div><i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{this.state.message}</span></div>
 
                 }
                 {
                     this.state.message &&
                     !this.state.message.length &&
-                    <td>Empty message</td>
+                    <div>Empty message</div>
 
                 }
                 {
                     this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
-                    <td><i className="zmdi zmdi-alert-triangle"/>&nbsp;<span>Message is encrypted.</span></td>
+                    <div><i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;<span>Message is encrypted.</span></div>
                 }
                 {
                     (this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message  &&
-                    <td><i className="zmdi zmdi-scissors"/>&nbsp;<span>Message is prunated.</span></td>
+                    <div><i className="zmdi zmdi-scissors"/>&nbsp;&nbsp;&nbsp;<span>Message is prunated.</span></div>
 
                 }
                 {
                     !this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
-                    <td>{this.props.attachment.message}</td>
+                    <div>{this.props.attachment.message}</div>
                 }
-                <td className="align-right">
-                    <div className="btn-box inline">
-                        {
-                            this.state.message &&
-                            <td></td>
+                </td>
+                <td className="align-right btn-box inline">
+                    {
+                        this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
+                        <a
+                            onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
+                            className="btn primary blue static"
+                        >
+                            Decrypt
+                        </a>
 
-                        }
-                        {
-                            this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
-                            <a
-                                onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
-                                className="btn primary blue static"
-                            >
-                                Decrypt
-                            </a>
-
-                        }
-                        {/*{*/}
-                            {/*(this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message  &&*/}
-                            {/*<a*/}
-                                {/*onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}*/}
-                                {/*className="btn primary blue static"*/}
-                            {/*>*/}
-                                {/*Retrive*/}
-                            {/*</a>*/}
-
-                        {/*}*/}
-                        {/*{*/}
-                            {/*!this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&*/}
-                            {/*<a*/}
-                                {/*onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}*/}
-                                {/*className="btn primary blue static"*/}
-                            {/*>*/}
-                                {/*Share*/}
-                            {/*</a>*/}
-                        {/*}*/}
-
-                    </div>
+                    }
                 </td>
             </tr>
         );
