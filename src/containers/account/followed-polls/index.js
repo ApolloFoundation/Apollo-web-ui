@@ -392,8 +392,8 @@ class FollowedVotes extends React.Component {
                                                                                         <tr key={uuid()}>
                                                                                             <td><div className="color-box" style={{background: 'linear-gradient(' + this.state.colors[index].startColorGradient + ', ' + this.state.colors[index].stopColorGradient + ')'}}/></td>
                                                                                             <td>{el}</td>
-                                                                                            <td className="align-right">{this.state.pollResults.results[index].result}</td>
-                                                                                            <td className="align-right">{this.state.pollResults.results[index].weight}</td>
+                                                                                            <td className="align-right">{this.state.pollResults.results[index].result > 100000000 ? this.state.pollResults.results[index].result / 100000000 : this.state.pollResults.results[index].result}</td>
+                                                                                            <td className="align-right">{this.state.pollResults.results[index].weight > 100000000 ? this.state.pollResults.results[index].weight / 100000000 : this.state.pollResults.results[index].weight}</td>
                                                                                         </tr>
                                                                                     );
                                                                                 })
@@ -430,9 +430,15 @@ class FollowedVotes extends React.Component {
                                                                                                 </td>
                                                                                                 {
                                                                                                     el.votes.map((subEl, subIndex) => {
-                                                                                                        return (
-                                                                                                            <td key={uuid()} className="align-right">{subEl}</td>
-                                                                                                        );
+                                                                                                        if (subEl.length) {
+                                                                                                            return (
+                                                                                                                <td key={uuid()} className="align-right">{subEl}</td>
+                                                                                                            );
+                                                                                                        } else {
+                                                                                                            return (
+                                                                                                                <td key={uuid()} className="align-right">-</td>
+                                                                                                            );
+                                                                                                        }
                                                                                                     })
                                                                                                 }
                                                                                             </tr>

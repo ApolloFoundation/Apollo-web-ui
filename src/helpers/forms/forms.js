@@ -49,15 +49,15 @@ function submitForm($modal, $btn, data, requestType) {
             // $btn = $modal.find("button.btn-primary:not([data-dismiss=modal])");
         }
 
-        // if (data.secretPhrase) {
-        //     const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsync(data.secretPhrase)));
-        //
-        //     console.log(isPassphrase);
-        //
-        //     if (account.accountRS !== isPassphrase) {
-        //         return {errorCode: 10, errorDescription: 'Incorrect secret phrase.'};
-        //     }
-        // }
+        if (data.secretPhrase) {
+            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsync(data.secretPhrase)));
+
+            console.log(isPassphrase);
+
+            if (account.accountRS !== isPassphrase) {
+                return {errorCode: 10, errorDescription: 'Incorrect secret phrase.'};
+            }
+        }
 
         var $form;
         var requestTypeKey;

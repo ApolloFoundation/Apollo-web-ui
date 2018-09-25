@@ -191,7 +191,7 @@ class CastPoll extends React.Component {
                                                                     return (
                                                                         <div key={uuid()} className={"mb-15"}>
                                                                             <Checkbox
-                                                                                className="form-check-input custom-control-input"
+                                                                                className="form-check-input custom-control-input word-break"
                                                                                 field={'vote' + index}
                                                                                 style={{opacity: 1}}
                                                                             />
@@ -208,7 +208,7 @@ class CastPoll extends React.Component {
                                                                                 style={{opacity: 1}}
                                                                             />
                                                                             <label
-                                                                                className="form-check-label custom-control-label">{this.state.votes[el]}</label>
+                                                                                className="form-check-label custom-control-label word-brake">{this.state.votes[el]}</label>
                                                                         </div>
                                                                     );
                                                                 }

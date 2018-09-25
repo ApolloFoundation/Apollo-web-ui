@@ -43,27 +43,31 @@ class ExchangeBooth extends React.Component {
     }
 
     listener = data => {
-        this.getAccountCurrency(
-            {
-                requestType : 'getAccountCurrencies',
-                account: this.props.account,
-                includeCurrencyInfo: true,
-                currency: this.state.currency.currency
-            }
-        );
+        if (this.state.currency) {
+            this.getAccountCurrency(
+                {
+                    requestType : 'getAccountCurrencies',
+                    account: this.props.account,
+                    includeCurrencyInfo: true,
+                    currency: this.state.currency.currency
+                }
+            );
+        }
         this.getCurrency({code: this.props.match.params.currency});
         this.getCurrencies();
     };
     // requestType=getAccountCurrencies&account=APL-NZKH-MZRE-2CTT-98NPZ&currency=15796105555746164961&includeCurrencyInfo=true&random=0.9501498326661535
     componentDidMount() {
-        this.getAccountCurrency(
-            {
-                requestType : 'getAccountCurrencies',
-                account: this.props.account,
-                includeCurrencyInfo: true,
-                currency: this.props.match.params.currency
-            }
-        );
+        if (this.state.currency) {
+            this.getAccountCurrency(
+                {
+                    requestType : 'getAccountCurrencies',
+                    account: this.props.account,
+                    includeCurrencyInfo: true,
+                    currency: this.state.currency.currency
+                }
+            );
+        }
         this.getCurrency({code: this.props.match.params.currency});
         this.getCurrencies();
         BlockUpdater.on("data", this.listener);

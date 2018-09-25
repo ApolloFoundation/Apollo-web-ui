@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from "react-redux";
 
@@ -31,7 +32,29 @@ const ShufflingItem = (props) => (
                 'Done'
             }
         </td>
-        <td>APL</td>
+        <td className={'blue-link-text'}>
+            {
+                props.holdingType === 0 &&
+                    'APl'
+            }
+            {
+                props.holdingType === 1 &&
+                <Link
+                    to={'/asset-exchange/' + props.holding}
+                >
+                    {props.holding} (Asset)
+                </Link>
+            }
+            {
+                props.holdingType === 2 &&
+                <Link
+                    to={'/exchange-booth/' + props.holding}
+                >
+                    {props.holding} (Currency)
+                </Link>
+            }
+
+        </td>
         <td>{props.amount / 100000000}</td>
         {
             !props.finished &&

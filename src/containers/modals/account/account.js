@@ -125,15 +125,18 @@ class InfoAccount extends React.Component {
                                     this.state.account &&
                                     <React.Fragment>
                                         <p>Info {this.state.account.accountRS} Account</p>
-                                        <a
-                                            onClick={() => this.props.switchAccountAction(this.state.account.accountRS)}
-                                            className="btn primary static"
-                                            style={{
-                                                margin: '0 0 0 30px'
-                                            }}
-                                        >
-                                            Switch Account
-                                        </a>
+                                        {
+                                            this.props.account !== this.state.account.account &&
+                                            <a
+                                                onClick={() => this.props.switchAccountAction(this.state.account.accountRS)}
+                                                className="btn primary static"
+                                                style={{
+                                                    margin: '0 0 0 30px'
+                                                }}
+                                            >
+                                                Switch Account
+                                            </a>
+                                        }
                                     </React.Fragment>
                                 }
 
