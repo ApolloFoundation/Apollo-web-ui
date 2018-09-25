@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {SET_MODAL_DATA, setMopalType} from '../../modules/modals';
 import classNames from 'classnames';
-import $ from 'jquery';
 
 // Modals
 import PrivateTransactions from "./private-transaction";

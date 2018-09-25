@@ -7,6 +7,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import store, {history} from './store';
 import App from './containers/app';
 import i18n from './i18n';
+import closest from './helpers/closest';
 
 // import './index.css'
 

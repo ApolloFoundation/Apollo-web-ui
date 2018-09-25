@@ -4005,8 +4005,7 @@ input {
     background: transparent; }
   .card.card-flexible {
     min-height: auto;
-    height: auto;
-    max-height: 800px; }
+    height: auto; }
   .card.auto-height {
     height: auto; }
   .card.full-height {
@@ -4045,7 +4044,9 @@ input {
       line-height: 18px;
       color: #fff; }
       .card.header .card-title.small {
-        font-size: 14px; }
+        font-size: 14px;
+        max-height: 125px;
+        overflow-y: auto; }
       .card.header .card-title.big {
         font-size: 42px;
         line-height: 42px; }
@@ -4366,11 +4367,7 @@ table tr > td {
 table td .btn, table th .btn {
   white-space: nowrap; }
 
-.assets-exchange > .row {
-  min-height: 810px !important; }
-
 .assets-exchange .row {
-  min-height: 100%;
   align-items: stretch; }
 
 .assets-exchange .card.header {

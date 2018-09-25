@@ -137,7 +137,7 @@ class UploadFile extends React.Component {
                                                             setValue("messageIsText", false);
                                                             setValue("messageIsPrunable", true);
 
-                                                            reader.readAsDataURL(file);
+                                                            if(file) reader.readAsDataURL(file);
 
                                                         }}
                                                     />
