@@ -51,15 +51,15 @@ class CreateShuffling extends React.Component {
             registrationPeriod: 1439
         };
 
-        // values.publicKey = await crypto.getPublicKey(this.props.account, true);
+        // values.publicKey = await crypto.getPublicKeyAPL(this.props.account, true);
         // delete values.secretPhrase;
 
-        const res = await this.props.submitForm(null, null, values, 'shufflingCreate');
+        const res = await this.props.submitForm( values, 'shufflingCreate');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             NotificationManager.success('Shuffling Created!', null, 5000);
-            const broadcast = await this.props.submitForm(null, null, {
+            const broadcast = await this.props.submitForm( {
                 transactionBytes: res.transactionBytes || res.unsignedTransactionBytes,
                 prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), "version.ShufflingCreation": 1})
             }, 'broadcastTransaction');
@@ -336,7 +336,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setModalData: (data) => dispatch(setModalData(data)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),

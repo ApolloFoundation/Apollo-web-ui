@@ -4,7 +4,6 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getOrderInfoAction} from "../../../../actions/open-orders";
-import NRS from "../../../../helpers/util/utils"
 class OrderItem extends React.Component {
 
     state = {

@@ -20,7 +20,7 @@
   "account_details":"Détails du compte",
   "account_has_no_assets":"Le compte n'a pas d'actif",
   "account_has_no_currencies":"Le compte n'a pas de monnaie",
-  "account_id":"ID de compte ",
+  "account_id_apl_adress":"ID de compte ",
   "account_info":"Modification des infos d'un compte",
   "account_leasing":"Usufruit",
   "account_no_assets":"Aucun actif trouvé sur ce compte.",

@@ -48,7 +48,7 @@ class TransactionOperations extends React.Component {
                     feeATM: 0,
                     ecBlockHeight: 0
                 };
-                res = await this.props.submitForm(null, null, toSend, "signTransaction");
+                res = await this.props.submitForm( toSend, "signTransaction");
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
@@ -64,7 +64,7 @@ class TransactionOperations extends React.Component {
                     ecBlockId: 11255812614937856744,
                     ecBlockHeight: 0
                 };
-                res = await this.props.submitForm(null, null, toSendBroadcast, "broadcastTransaction");
+                res = await this.props.submitForm( toSendBroadcast, "broadcastTransaction");
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
@@ -78,7 +78,7 @@ class TransactionOperations extends React.Component {
                     feeATM: 0,
                     random: Math.random()
                 };
-                res = await this.props.submitForm(null, null, toSendParse, "parseTransaction");
+                res = await this.props.submitForm( toSendParse, "parseTransaction");
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
@@ -93,7 +93,7 @@ class TransactionOperations extends React.Component {
                     feeATM: 0,
                     random: Math.random()
                 };
-                res = await this.props.submitForm(null, null, toSendCalculate, "calculateFullHash");
+                res = await this.props.submitForm( toSendCalculate, "calculateFullHash");
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
@@ -372,7 +372,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 
 });
 

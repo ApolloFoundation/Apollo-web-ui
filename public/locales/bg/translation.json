@@ -20,7 +20,7 @@
   "account_details":"Данни за сметка",
   "account_has_no_assets":"Сметката няма активи",
   "account_has_no_currencies":"Сметката няма валути",
-  "account_id":"Сметка ID",
+  "account_id_apl_adress":"Сметка ID",
   "account_info":"Информация за сметка",
   "account_leasing":"Отдаване",
   "account_no_assets":"Няма активи към тази сметка.",

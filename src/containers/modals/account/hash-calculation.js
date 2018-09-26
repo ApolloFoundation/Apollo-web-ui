@@ -32,7 +32,7 @@ class HashCalculation extends React.Component {
 
     async handleFormSubmit(values) {
         console.warn(values);
-        const res = await this.props.submitForm(null, null, {
+        const res = await this.props.submitForm( {
             secret: values.data,
             secretIsText: values.isMessage,
             hashAlgorithm: values.alg,
@@ -206,7 +206,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 
 });
 

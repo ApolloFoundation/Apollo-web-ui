@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
     getMessage: (transaction) => dispatch(getMessage(transaction)),
 	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
@@ -126,7 +126,7 @@ class Messenger extends React.Component {
         // delete values.secretPhrase;
 
 
-		const res = await this.props.submitForm(null, null, {
+		const res = await this.props.submitForm( {
 			...values,
 			recipient: this.props.match.params.chat,
 			secretPhrase: secretPhrase,

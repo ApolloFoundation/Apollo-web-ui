@@ -19,10 +19,6 @@
  *                                                                            *
  ******************************************************************************/
 
-/**
- * @depends {nrs.js}
- */
-
 import $ from 'jquery';
 import i18n from 'i18next';
 import util from '../../helpers/util/utils';
@@ -40,17 +36,13 @@ const configServer = config;
 
 let isLocalHost = false;
 
-function submitForm($modal, $btn, data, requestType) {
+function submitForm(data, requestType) {
     return async (dispatch, getState) => {
 
         const {account} = getState();
 
-        if (!$btn) {
-            // $btn = $modal.find("button.btn-primary:not([data-dismiss=modal])");
-        }
-
         if (data.secretPhrase) {
-            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsync(data.secretPhrase)));
+            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
 
             console.log(isPassphrase);
 
@@ -61,11 +53,6 @@ function submitForm($modal, $btn, data, requestType) {
 
         var $form;
         var requestTypeKey;
-        // if (requestType) {
-        //     requestTypeKey = requestType.replace(/([A-Z])/g, function($1) {
-        //         return "_" + $1.toLowerCase();
-        //     });
-        // }
 
         var successMessage = getSuccessMessage(requestTypeKey);
         var errorMessage = getErrorMessage(requestTypeKey);
@@ -91,11 +78,9 @@ function submitForm($modal, $btn, data, requestType) {
             if (!output) {
                 return;
             } else if (output.error) {
-                // $form.find(".error_message").html(output.error.escapeHTML()).show();
                 if (formErrorFunction) {
                     formErrorFunction();
                 }
-                unlockForm($modal, $btn);
                 return;
             } else {
                 if (output.requestType) {
@@ -118,7 +103,6 @@ function submitForm($modal, $btn, data, requestType) {
                             type: "success"
                         });
                     }
-                    unlockForm($modal, $btn, !output.keepOpen);
                     return;
                 }
                 if (output.reload) {
@@ -179,43 +163,32 @@ function submitForm($modal, $btn, data, requestType) {
                 if (formErrorFunction) {
                     formErrorFunction(false, data);
                 }
-                unlockForm($modal, $btn);
                 return;
             }
             try {
-                crypto.encryptFile(data.messageFile, data.encryptionKeys, function(encrypted) {
+                crypto.encryptFileAPL(data.messageFile, data.encryptionKeys, function(encrypted) {
                     data.messageFile = encrypted.file;
                     data.encryptedMessageNonce = converters.byteArrayToHexString(encrypted.nonce);
                     delete data.encryptionKeys;
 
-                    return sendRequest(requestType, data, function (response) {
-                        formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
-                            originalRequestType, formErrorFunction, errorMessage);
-                    })
+                    return sendRequest(requestType, data, function (response) {})
                 });
             } catch (err) {
                 $form.find(".error_message").html(String(err).escapeHTML()).show();
                 if (formErrorFunction) {
                     formErrorFunction(false, data);
                 }
-                unlockForm($modal, $btn);
             }
         } else {
             if (requestType === 'sendMoneyPrivate') {
                 data.deadline = '1440';
-                return sendRequest(requestType, data, function (response) {
-                    formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
-                        originalRequestType, formErrorFunction, errorMessage);
-                });
+                return sendRequest(requestType, data, function (response) {});
             } else {
 
 
 
                 return dispatch(
-                    sendRequest(requestType, data, function (response) {
-                    formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
-                        originalRequestType, formErrorFunction, errorMessage);
-                    })
+                    sendRequest(requestType, data, function (response) {})
                 );
             }
 
@@ -239,12 +212,6 @@ function getSuccessMessage(requestType) {
         return "";
     } else {
         var key = "success_" + requestType;
-
-        // if ($.i18n.exists(key)) {
-        //     return i18n.t(key);
-        // } else {
-        //     return "";
-        // }
     }
 }
 
@@ -255,12 +222,6 @@ function getErrorMessage(requestType) {
         return "";
     } else {
         var key = "error_" + requestType;
-
-        // if ($.i18n.exists(key)) {
-        //     return i18n.t(key);
-        // } else {
-        //     return "";
-        // }
     }
 }
 
@@ -353,7 +314,7 @@ function addMessageData(data, requestType) {
                     data.messageToEncryptToSelf = data.note_to_self;
                 } else {
                     encrypted = encryptNote(data.note_to_self, {
-                        "publicKey": converters.hexStringToByteArray(crypto.generatePublicKey(data.secretPhrase))
+                        "publicKey": converters.hexStringToByteArray(crypto.generatePublicKeyAPL(data.secretPhrase))
                     }, data.secretPhrase);
 
                     data.encryptToSelfMessageData = encrypted.message;
@@ -380,7 +341,7 @@ function getEncryptionKeys(options, secretPhrase){
 
             }
 
-            options.privateKey = converters.hexStringToByteArray(crypto.getPrivateKey(secretPhrase));
+            options.privateKey = converters.hexStringToByteArray(crypto.getPrivateKeyAPL(secretPhrase));
         }
 
         if (!options.publicKey) {
@@ -392,7 +353,7 @@ function getEncryptionKeys(options, secretPhrase){
             }
 
             try {
-                options.publicKey = converters.hexStringToByteArray(crypto.getPublicKey(options.account, true));
+                options.publicKey = converters.hexStringToByteArray(crypto.getPublicKeyAPL(options.account, true));
             } catch (err) {
                 var aplAddress = new AplAddress();
 
@@ -417,8 +378,8 @@ function getEncryptionKeys(options, secretPhrase){
 
 function encryptNote(message, options, secretPhrase) {
     try {
-        options = crypto.getEncryptionKeys(options, secretPhrase);
-        var encrypted = crypto.encryptData(converters.stringToByteArray(message), options);
+        options = crypto.getEncryptionKeysAPl(options, secretPhrase);
+        var encrypted = crypto.encryptDataAPL(converters.stringToByteArray(message), options);
         return {
             "message": converters.byteArrayToHexString(encrypted.data),
             "nonce": converters.byteArrayToHexString(encrypted.nonce)
@@ -434,113 +395,6 @@ function encryptNote(message, options, secretPhrase) {
         }
     }
 };
-
-function formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
-                      originalRequestType, formErrorFunction, errorMessage) {
-    //todo check again.. response.error
-    var formCompleteFunction;
-
-
-    if (response.fullHash) {
-        unlockForm($modal, $btn);
-        if (data.calculateFee) {
-            updateFee($modal, response.transactionJSON.feeATM);
-            return;
-        }
-
-        if (!$modal.hasClass("modal-no-hide")) {
-            $modal.modal("hide");
-            $.growl(i18n.t("send_money_submitted"), {
-                "type": "success"
-            });
-        }
-
-        if (successMessage) {
-            $.growl(successMessage.escapeHTML(), {
-                type: "success"
-            });
-        }
-
-        formCompleteFunction = forms[originalRequestType + "Complete"];
-
-        // if (requestType != "parseTransaction" && requestType != "calculateFullHash") {
-        //     if (typeof formCompleteFunction == "function") {
-        //         data.requestType = requestType;
-        //
-        //         if (response.transaction) {
-        //             addUnconfirmedTransaction(response.transaction, function(alreadyProcessed) {
-        //                 response.alreadyProcessed = alreadyProcessed;
-        //                 formCompleteFunction(response, data);
-        //             });
-        //         } else {
-        //             response.alreadyProcessed = false;
-        //             formCompleteFunction(response, data);
-        //         }
-        //     } else {
-        //         addUnconfirmedTransaction(response.transaction);
-        //     }
-        // } else {
-        //     if (typeof formCompleteFunction == "function") {
-        //         data.requestType = requestType;
-        //         formCompleteFunction(response, data);
-        //     }
-        // }
-
-    } else if (response.errorCode) {
-        // $form.find(".error_message").html(util.escapeRespStr(response.errorDescription)).show();
-
-        if (formErrorFunction) {
-            formErrorFunction(response, data);
-        }
-
-        unlockForm($modal, $btn);
-    } else {
-
-        if (data.calculateFee) {
-            unlockForm($modal, $btn, false);
-
-            if (requestType === 'sendMoneyPrivate') {
-                var fee = $('#send_money_fee_info');
-                fee.val(convertToAPL(response.transactionJSON.feeATM));
-                var recalcIndicator = $("#" + $modal.attr('id').replace('_modal', '') + "_recalc");
-                recalcIndicator.hide();
-                return;
-            } else {
-                updateFee($modal, response.transactionJSON.feeATM);
-                return;
-            }
-        }
-        var sentToFunction = false;
-        if (!errorMessage) {
-            formCompleteFunction = forms[originalRequestType + "Complete"];
-
-            if (typeof formCompleteFunction === 'function') {
-                sentToFunction = true;
-                data.requestType = requestType;
-
-                unlockForm($modal, $btn);
-
-                if (!$modal.hasClass("modal-no-hide")) {
-
-                    $modal.modal("hide");
-                    /*                        $.growl(i18n.t("send_money_submitted"), {
-                                                "type": "success"
-                                            });*/
-                }
-                formCompleteFunction(response, data);
-            } else {
-                errorMessage = i18n.t("error_unknown");
-            }
-        }
-        if (!sentToFunction) {
-            unlockForm($modal, $btn, true);
-
-            $.growl("The private transaction has been submitted!", {
-                "type": "success"
-            });
-        }
-    }
-}
 
 function convertToAPL(amount, returnAsObject) {
     var negative = "";
@@ -579,27 +433,6 @@ function convertToAPL(amount, returnAsObject) {
     } else {
         return negative + amount + mantissa;
     }
-};
-
-function lockForm($modal) {
-    $modal.find("button").prop("disabled", true);
-    var $btn = $modal.find("button.btn-primary:not([data-dismiss=modal])");
-    if ($btn) {
-        $btn.button("loading");
-    }
-    $modal.modal("lock");
-    return $btn;
-};
-
-function unlockForm($modal, $btn, hide) {
-    // $modal.find("button").prop("disabled", false);
-    // if ($btn) {
-    //     $btn.button("reset");
-    // }
-    // $modal.modal("unlock");
-    // if (hide) {
-    //     $modal.modal("hide");
-    // }
 };
 
 function updateFee(modal, feeATM) {
@@ -709,48 +542,6 @@ function sendRequest(requestType, data, callback, options) {
             };
         }
 
-
-        //Fill phasing parameters when mandatory approval is enabled
-        // if (requestType != "approveTransaction"
-        //     && account.accountControls && $.inArray('PHASING_ONLY', account.accountControls) > -1
-        //     && account.phasingOnly
-        //     && account.phasingOnly.votingModel >= 0) {
-        //
-        //     var phasingControl = account.phasingOnly;
-        //     var maxFees = new BigInteger(phasingControl.maxFees);
-        //     if (maxFees > 0 && new BigInteger(data.feeATM).compareTo(new BigInteger(phasingControl.maxFees)) > 0) {
-        //         callback({
-        //             "errorCode": 1,
-        //             "errorDescription": i18n.t("error_fee_exceeds_max_account_control_fee", {
-        //                 "maxFee": convertToAPL(phasingControl.maxFees), "symbol": account.constants.coinSymbol
-        //             })
-        //         });
-        //         return;
-        //     }
-        //     var phasingDuration = parseInt(data.phasingFinishHeight) - NRS.lastBlockHeight;
-        //     var minDuration = parseInt(phasingControl.minDuration) > 0 ? parseInt(phasingControl.minDuration) : 0;
-        //     var maxDuration = parseInt(phasingControl.maxDuration) > 0 ? parseInt(phasingControl.maxDuration) : NRS.constants.SERVER.maxPhasingDuration;
-        //
-        //     if (phasingDuration < minDuration || phasingDuration > maxDuration) {
-        //         callback({
-        //             "errorCode": 1,
-        //             "errorDescription": i18n.t("error_finish_height_out_of_account_control_interval", {
-        //                 "min": NRS.lastBlockHeight + minDuration,
-        //                 "max": NRS.lastBlockHeight + maxDuration
-        //             })
-        //         });
-        //         return;
-        //     }
-        //
-        //     var phasingParams = NRS.phasingControlObjectToPhasingParams(phasingControl);
-        //     $.extend(data, phasingParams);
-        //     data.phased = true;
-        //
-        //     delete data.phasingHashedSecret;
-        //     delete data.phasingHashedSecretAlgorithm;
-        //     delete data.phasingLinkedFullHash;
-        // }
-
         if (!data.recipientPublicKey) {
             delete data.recipientPublicKey;
         }
@@ -760,8 +551,8 @@ function sendRequest(requestType, data, callback, options) {
 
         //gets account id from passphrase client side, used only for login.
         var accountId;
-        if (requestType == "getAccountId") {
-            accountId = dispatch(crypto.getAccountId()(data.secretPhrase));
+        if (requestType == "getAccountIdAPL") {
+            accountId = dispatch(crypto.getAccountIdAPL()(data.secretPhrase));
 
             var aplAddress = new AplAddress();
             var accountRS = "";
@@ -912,24 +703,6 @@ function processAjaxRequest(requestType, data, callback, options) {
         var currentPage = null;
         var currentSubPage = null;
 
-        //means it is a page request, not a global request.. Page requests can be aborted.
-        // if (requestType.slice(-1) == "+") {
-        //     requestType = requestType.slice(0, -1);
-        //     currentPage = NRS.currentPage;
-        // } else {
-        //     //not really necessary... we can just use the above code..
-        //     var plusCharacter = requestType.indexOf("+");
-        //
-        //     if (plusCharacter > 0) {
-        //         requestType = requestType.substr(0, plusCharacter);
-        //         currentPage = NRS.currentPage;
-        //     }
-        // }
-        //
-        // if (currentPage && NRS.currentSubPage) {
-        //     currentSubPage = NRS.currentSubPage;
-        // }
-
         var httpMethod = (util.isRequirePost(requestType) || "secretPhrase" in data || "doNotSign" in data || "adminPassword" in data ? "POST" : "GET");
         if (httpMethod == "GET") {
             if (typeof data == "string") {
@@ -938,15 +711,6 @@ function processAjaxRequest(requestType, data, callback, options) {
                 data.random = Math.random();
             }
         }
-
-        // if (("secretPhrase" in data) &&
-        //      util.accountInfo.errorCode && util.accountInfo.errorCode == 5) {
-        //     callback({
-        //         "errorCode": 2,
-        //         "errorDescription": i18n.t("error_new_account")
-        //     }, data);
-        //     return;
-        // }
 
         if (data.referencedTransactionFullHash) {
             if (!/^[a-z0-9]{64}$/.test(data.referencedTransactionFullHash)) {
@@ -1048,75 +812,9 @@ function processAjaxRequest(requestType, data, callback, options) {
             contentType: contentType,
             processData: processData
         })
-        // .done(function (response) {
-        //     console.log(response);
-        //     if (typeof data == "string") {
-        //         data = { "querystring": data };
-        //         if (extra) {
-        //             data["_extra"] = extra;
-        //         }
-        //     }
-        //
-        //     return response;
-        // }).fail(function (xhr, textStatus, error) {
-        //
-        //     if ((error == "error" || textStatus == "error") && (xhr.status == 404 || xhr.status == 0)) {
-        //         if (httpMethod == "POST") {
-        //             // NRS.connectionError();
-        //         }
-        //     }
-        //
-        //     if (error != "abort") {
-        //         if (options.remoteNode) {
-        //             options.remoteNode.blacklist();
-        //         } else {
-        //             // NRS.resetRemoteNode(true);
-        //         }
-        //         if (error == "timeout") {
-        //             error = i18n.t("error_request_timeout");
-        //         }
-        //         callback({
-        //             "errorCode": -1,
-        //             "errorDescription": error
-        //         }, {});
-        //     }
-        // });
+
     }
 };
-
-// function getRequestPath(noProxy) {
-//     return (dispatch, getState) => {
-//         const {account} = getState();
-//
-//         var url = getRemoteNodeUrl();
-//         if (!account.apiProxy ) {
-//             return url + "/apl";
-//         } else {
-//             return url + "/apl-proxy";
-//         }
-//     }
-// };
-//
-// function getRemoteNodeUrl() {
-//     if (!NRS.isMobileApp()) {
-//         if (!isNode) {
-//             return "";
-//         }
-//         return NRS.getModuleConfig().url;
-//     }
-//     if (remoteNode) {
-//         return remoteNode.getUrl();
-//     }
-//     remoteNode = NRS.remoteNodesMgr.getRandomNode();
-//     if (remoteNode) {
-//         var url = remoteNode.getUrl();
-//         NRS.logConsole("Remote node url: " + url);
-//         return url;
-//     } else {
-//         NRS.logConsole("No available remote nodes");
-//         $.growl(i18n.t("no_available_remote_nodes"));
-//     }
-// };
 
 function getFileUploadConfig(requestType, data) {
     return (dispatch, getState) => {

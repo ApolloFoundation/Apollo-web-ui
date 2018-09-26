@@ -35,7 +35,7 @@ class TransferAsset extends React.Component {
             quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)
         }
 
-        const res = await this.props.submitForm(null, null, values, 'transferAsset');
+        const res = await this.props.submitForm( values, 'transferAsset');
 
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
@@ -174,7 +174,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 

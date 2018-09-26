@@ -44,7 +44,7 @@ class SellAlias extends React.Component {
 
         };
 
-        const res = await this.props.submitForm(null, null, values, 'sellAlias');
+        const res = await this.props.submitForm( values, 'sellAlias');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -438,7 +438,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });

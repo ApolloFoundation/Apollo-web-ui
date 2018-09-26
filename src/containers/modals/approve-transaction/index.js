@@ -34,8 +34,8 @@ class ApproveTransaction extends React.Component {
 
     handleFormSubmit = async (values) => {
         const {transaction} = this.props.modalData;
-        values.publicKey = await crypto.getPublicKey(values.secretPhrase);
-        const res = await this.props.submitForm(null, null, {
+        values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
+        const res = await this.props.submitForm( {
             ...values,
             transactionFullHash: transaction.fullHash,
             phased: false,
@@ -152,7 +152,7 @@ const mapDispatchToProps = dispatch => ({
     getBlockAction: (data) => dispatch(getBlockAction(data)),
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),

@@ -215,7 +215,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     loadSavedSettings: () => dispatch(getSavedSettingsAction()),
     saveSettings: settings => dispatch(saveSettingsAction(settings)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),

@@ -95,7 +95,7 @@ class MyShufling extends React.Component {
     };
 
     getShufflers = async () => {
-        const res = await this.props.submitForm(null, null, {}, 'getShufflers');
+        const res = await this.props.submitForm( {}, 'getShufflers');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -180,7 +180,7 @@ const mapDispatchToProps = dispatch => ({
     getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams)),
     getAccountShufflingsAction : (requestParams) => dispatch(getAccountShufflingsAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
 })
 

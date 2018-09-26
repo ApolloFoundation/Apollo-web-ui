@@ -13,9 +13,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    tryToDecryptMessage: (data, options) => dispatch(crypto.tryToDecryptMessage(data, options)),
+    tryToDecryptMessageAPL: (data, options) => dispatch(crypto.tryToDecryptMessageAPL(data, options)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 class MessageItem extends React.Component {
@@ -45,7 +45,7 @@ class MessageItem extends React.Component {
 
     decryptMessage = async (data, passPhrase) => {
         if (passPhrase) {
-            const message = await this.props.submitForm(null, null, {
+            const message = await this.props.submitForm( {
                 requestType: 'readMessage',
                 secretPhrase: passPhrase,
                 transaction: this.props.transaction
@@ -59,13 +59,13 @@ class MessageItem extends React.Component {
         }
 
 
-        // const privateKey = converters.hexStringToByteArray(crypto.getPrivateKey(passPhrase));
-        // let publicKey = await crypto.getPublicKey(this.props.sender, true);
+        // const privateKey = conv.hexStringToByteArray(crypto.getPrivateKeyAPL(passPhrase));
+        // let publicKey = await crypto.getPublicKeyAPL(this.props.sender, true);
         //
-        // publicKey =  converters.hexStringToByteArray(publicKey);
+        // publicKey =  conv.hexStringToByteArray(publicKey);
         //
         // const sharedKey = crypto.getSharedSecret(privateKey, publicKey);
-        // let decrypted = this.props.tryToDecryptMessage(data, {sharedKey: sharedKey});
+        // let decrypted = this.props.tryToDecryptMessageAPL(data, {sharedKey: sharedKey});
         // if (decrypted) {
         //     this.setState({
         //         message: decrypted.message

@@ -3,37 +3,7 @@ import {getState} from "../../modules/account";
 import BigInteger from 'big-integer';
 
 
-
-function generateQRCode(target, qrCodeData, minType, cellSize) {
-    var type = minType ? minType : 2;
-    while (type <= 40) {
-        try {
-            var qr = qrcode(type, 'M');
-            qr.addData(qrCodeData);
-            qr.make();
-            var img = qr.createImgTag(cellSize);
-            return img;
-        } catch (e) {
-            type++;
-        }
-    }
-    // $(target).empty().html($.t("cannot_encode_message", qrCodeData.length));
-};
-
-function getAccountMask(c) {
-    // switch(c) {
-    //     case "*":
-    //         return NRS.constants.ACCOUNT_MASK_ASTERIX;
-    //     case "_":
-    //         return NRS.constants.ACCOUNT_MASK_UNDERSCORE;
-    //     default:
-    //         return NRS.constants.ACCOUNT_MASK_PREFIX ? NRS.constants.ACCOUNT_MASK_PREFIX : "APL-";
-    // }
-
-    return;
-}
-
-function isNumericAccountImpl(account, regex) {
+function isNumericAccountImplAPL(account, regex) {
     return regex.test(account);
 };
 
@@ -42,7 +12,7 @@ function isNumericAccount(account) {
 
         const {account} = getState();
 
-        return isNumericAccountImpl(account, getNumericAccountRegex());
+        return isNumericAccountImplAPL(account, getNumericAccountRegex());
     }
 };
 
@@ -54,40 +24,7 @@ function isRsAccount(account) {
     return (dispatch, getState) => {
 
         const {account} = getState();
-        // NRS.constants.SERVER = response;
-        // NRS.constants.VOTING_MODELS = response.votingModels;
-        // NRS.constants.MIN_BALANCE_MODELS = response.minBalanceModels;
-        // NRS.constants.HASH_ALGORITHMS = response.hashAlgorithms;
-        // NRS.constants.PHASING_HASH_ALGORITHMS = response.phasingHashAlgorithms;
-        // NRS.constants.MINTING_HASH_ALGORITHMS = response.mintingHashAlgorithms;
-        // NRS.constants.MAX_TAGGED_DATA_DATA_LENGTH = response.maxTaggedDataDataLength;
-        // NRS.constants.MAX_PRUNABLE_MESSAGE_LENGTH = response.maxPrunableMessageLength;
-        // NRS.constants.GENESIS = response.genesisAccountId;
-        // NRS.constants.EPOCH_BEGINNING = response.epochBeginning;
-        // NRS.constants.REQUEST_TYPES = response.requestTypes;
-        // NRS.constants.API_TAGS = response.apiTags;
-        // NRS.constants.SHUFFLING_STAGES = response.shufflingStages;
-        // NRS.constants.SHUFFLING_PARTICIPANTS_STATES = response.shufflingParticipantStates;
-        // NRS.constants.DISABLED_APIS = response.disabledAPIs;
-        // NRS.constants.DISABLED_API_TAGS = response.disabledAPITags;
-        // NRS.constants.PEER_STATES = response.peerStates;
-        // NRS.constants.LAST_KNOWN_BLOCK.id = response.genesisBlockId;
-        // NRS.loadTransactionTypeConstants(response);
-        // NRS.constants.PROXY_NOT_FORWARDED_REQUESTS = response.proxyNotForwardedRequests;
-        // NRS.constants.COIN_SYMBOL = response.coinSymbol;
-        // $(".coin-symbol").html(response.coinSymbol);
-        // NRS.constants.ACCOUNT_PREFIX = response.accountPrefix;
-        // NRS.constants.PROJECT_NAME = response.projectName;
-        // NRS.constants.ACCOUNT_REGEX_STR = "^" + response.accountPrefix + "-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}";
-        // NRS.constants.ACCOUNT_RS_MATCH = NRS.getRsAccountRegex(response.accountPrefix);
-        // NRS.constants.ACCOUNT_NUMERIC_MATCH = NRS.getNumericAccountRegex();
-        // NRS.constants.ACCOUNT_MASK_ASTERIX = response.accountPrefix + "-****-****-****-*****";
-        // NRS.constants.ACCOUNT_MASK_UNDERSCORE = response.accountPrefix + "-____-____-____-_____";
-        // NRS.constants.ACCOUNT_MASK_PREFIX = response.accountPrefix + "-";
-        // NRS.constants.GENESIS_RS = converters.convertNumericToRSAccountFormat(response.genesisAccountId);
-        // NRS.constants.INITIAL_BASE_TARGET = parseInt(response.initialBaseTarget);
-        // NRS.constants.CURRENCY_TYPES = response.currencyTypes;
-        return isRsAccountImpl(account, getRsAccountRegex(account.constants.accountPrefix) ? getRsAccountRegex(account.constants.accountPrefix) : getRsAccountRegex("APL"));
+        return isRsAccountImpl(account, getRsAccountRegexAPL(account.constants.accountPrefix) ? getRsAccountRegexAPL(account.constants.accountPrefix) : getRsAccountRegexAPL("APL"));
     }
 };
 
@@ -95,7 +32,7 @@ function isRsAccountImpl(account, regex) {
     return regex.test(account);
 };
 
-function getRsAccountRegex(accountPrefix, withoutSeparator) {
+function getRsAccountRegexAPL(accountPrefix, withoutSeparator) {
     return (dispatch, getState) => {
         const {account} = getState();
 
@@ -107,13 +44,10 @@ function getRsAccountRegex(accountPrefix, withoutSeparator) {
 };
 
 function isFileEncryptionSupported() {
-    return navigator.userAgent.indexOf("JavaFX") >= 0; // When using JavaFX you cannot read the file to encrypt
+    return navigator.userAgent.indexOf("JavaFX") >= 0;
 };
 
 function isRequestTypeEnabled(requestType) {
-    // if ($.isEmptyObject(NRS.constants.REQUEST_TYPES)) {
-    //     return true;
-    // }
     return (dispatch, getState) => {
         const {account} = getState();
 
@@ -129,8 +63,7 @@ function isRequirePost(requestType) {
 
         const {account} = getState();
         if (!account.constants.requestType[requestType]) {
-            // For requests invoked before the getConstants request returns
-            // we implicitly assume that they can use GET
+
             return false;
         }
         return true === account.requestType[requestType].requirePost;
@@ -150,8 +83,6 @@ function isRequireBlockchain(requestType) {
         const {account} = getState();
 
         if (!account.constants.constants.requestType[requestType]) {
-            // For requests invoked before the getConstants request returns,
-            // we implicitly assume that they do not require the blockchain
             return false;
         }
         return true == account.constants.requestType[requestType].requireBlockchain;
@@ -163,7 +94,7 @@ function calculateOrderTotal(quantityATU, priceATM) {
 }
 
 function formatQuantity(quantity, decimals, noEscaping, zeroPad) {
-    return format(convertToATUf(quantity, decimals, true), noEscaping, zeroPad);
+    return formatAPL(convertToATUf(quantity, decimals, true), noEscaping, zeroPad);
 }
 
 function convertToATUf(quantity, decimals, returnAsObject) {
@@ -202,12 +133,12 @@ function convertToATUf(quantity, decimals, returnAsObject) {
     }
 }
 
-function format(params, no_escaping, zeroPad) {
+function formatAPL(p, isEscaping, pad) {
     let zeros = "00000000";
     let amount;
     let mantissa;
-    if (typeof params !== "object") {
-        amount = String(params);
+    if (typeof p !== "object") {
+        amount = String(p);
         if (amount.indexOf(".") !== -1) {
             mantissa = amount.substr(amount.indexOf("."));
             amount = amount.replace(mantissa, "");
@@ -218,25 +149,25 @@ function format(params, no_escaping, zeroPad) {
         if (negative) {
             amount = amount.substring(1);
         }
-        params = {
+        p = {
             "amount": amount,
             "negative": negative,
             "mantissa": mantissa
         };
     }
 
-    amount = String(params.amount);
+    amount = String(p.amount);
     let digits = amount.split("").reverse();
     let formattedAmount = "";
     let locale = ".";
-    let formattedMantissa = params.mantissa.replace(".", locale.decimal);
-    if (zeroPad) {
+    let formattedMantissa = p.mantissa.replace(".", locale.decimal);
+    if (pad) {
         let mantissaLen = formattedMantissa.length;
         if (mantissaLen > 0) {
-            formattedMantissa += zeros.substr(0, zeroPad - mantissaLen + 1);
+            formattedMantissa += zeros.substr(0, pad - mantissaLen + 1);
         } else {
-            formattedMantissa += zeros.substr(0, zeroPad);
-            if (zeroPad !== 0) {
+            formattedMantissa += zeros.substr(0, pad);
+            if (pad !== 0) {
                 formattedMantissa = locale.decimal + formattedMantissa;
             }
         }
@@ -248,14 +179,14 @@ function format(params, no_escaping, zeroPad) {
         formattedAmount = digits[i] + formattedAmount;
     }
 
-    let output = (params.negative ? params.negative : "") + formattedAmount + formattedMantissa;
+    let output = (p.negative ? p.negative : "") + formattedAmount + formattedMantissa;
 
     return output;
 }
 
 function formatOrderPricePerWholeATU(price, decimals, zeroPad) {
     price = calculateOrderPricePerWholeATU(price, decimals, true);
-    return format(price, false, zeroPad);
+    return formatAPL(price, false, zeroPad);
 }
 
 function calculateOrderPricePerWholeATU(price, decimals, returnAsObject) {
@@ -266,49 +197,47 @@ function calculateOrderPricePerWholeATU(price, decimals, returnAsObject) {
     return convertToAPL(price.multiply(new BigInteger("" + Math.pow(10, decimals))), returnAsObject);
 };
 
-function convertToAPL(amount, returnAsObject) {
-    let negative = "";
-    let mantissa = "";
+function convertToAPL(a, isObject) {
+    let negativeres = "";
+    let mantissares = "";
 
-    if (typeof amount !== "object") {
-        amount = new BigInteger(String(amount));
+    if (typeof a !== "object") {
+        a = new BigInteger(String(a));
     }
 
-    if (amount.compareTo(BigInteger.ZERO) < 0) {
-        amount = amount.abs();
-        negative = "-";
+    if (a.compareTo(BigInteger.ZERO) < 0) {
+        a = a.abs();
+        negativeres = "-";
     }
 
-    var fractionalPart = amount.mod(new BigInteger("100000000")).toString();
-    amount = amount.divide(new BigInteger("100000000"));
+    var fractionalPart = a.mod(new BigInteger("100000000")).toString();
+    a = a.divide(new BigInteger("100000000"));
 
     if (fractionalPart && fractionalPart != "0") {
-        mantissa = ".";
+        mantissares = ".";
 
         for (var i = fractionalPart.length; i < 8; i++) {
-            mantissa += "0";
+            mantissares += "0";
         }
 
-        mantissa += fractionalPart.replace(/0+$/, "");
+        mantissares += fractionalPart.replace(/0+$/, "");
     }
 
-    amount = amount.toString();
+    a = a.toString();
 
-    if (returnAsObject) {
+    if (isObject) {
         return {
-            "negative": negative,
-            "amount": amount,
-            "mantissa": mantissa
+            "negative": negativeres,
+            "amount": a,
+            "mantissa": mantissares
         };
     } else {
-        return negative + amount + mantissa;
+        return negativeres + a + mantissares;
     }
 };
 
 
 export default {
-    generateQRCode,
-    getAccountMask,
     isNumericAccount,
     isRsAccount,
     calculateOrderTotal,

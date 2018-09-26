@@ -47,10 +47,10 @@ class Entry extends React.Component {
 
             options.sharedKey = this.props.sharedKey;
 
-            var decrypted =  crypto.decryptData(this.props.entry.encryptedLedgerEntry, options);
+            var decrypted =  crypto.decryptDataStreamAPL(this.props.entry.encryptedLedgerEntry, options);
             decrypted = decrypted.message;
 
-            decrypted = converters.hexStringToString(decrypted);
+            decrypted = converters.hexStringToStringAPL(decrypted);
             decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
             decrypted = JSON.parse(decrypted);
 

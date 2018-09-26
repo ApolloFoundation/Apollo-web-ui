@@ -25,7 +25,7 @@ class RawTransactionDetails extends React.Component {
             })
         };
 
-        const res = await this.props.submitForm(null, null, data, 'broadcastTransaction');
+        const res = await this.props.submitForm( data, 'broadcastTransaction');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -182,7 +182,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setAlert: (status, message) => dispatch(setAlert(status, message)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),

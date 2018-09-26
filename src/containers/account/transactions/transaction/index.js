@@ -36,10 +36,10 @@ class Transaction extends React.Component {
 
             options.sharedKey = this.props.sharedKey;
 
-            var decrypted =  crypto.decryptData(this.props.transaction.encryptedTransaction, options);
+            var decrypted =  crypto.decryptDataStreamAPL(this.props.transaction.encryptedTransaction, options);
             decrypted = decrypted.message;
 
-            decrypted = converters.hexStringToString(decrypted);
+            decrypted = converters.hexStringToStringAPL(decrypted);
             decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
             decrypted = JSON.parse(decrypted);
             this.setState({

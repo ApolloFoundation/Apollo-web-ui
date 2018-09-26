@@ -18,7 +18,7 @@ class BlacklistPeer extends React.Component {
             publicKey: this.props.publicKey,
             ecBlockHeight: 0
         };
-        const res = await this.props.submitForm(null, null, toSend, "blacklistPeer");
+        const res = await this.props.submitForm( toSend, "blacklistPeer");
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -101,7 +101,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlacklistPeer);

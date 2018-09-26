@@ -2,49 +2,49 @@ import utils from './utils';
 const DEFAULT_PREFIX = "APL-";
 
 function AplAddress() {
-    var codeword = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    var syndrome = [0, 0, 0, 0, 0];
+    var c = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var sy = [0, 0, 0, 0, 0];
 
-    var gexp = [1, 2, 4, 8, 16, 5, 10, 20, 13, 26, 17, 7, 14, 28, 29, 31, 27, 19, 3, 6, 12, 24, 21, 15, 30, 25, 23, 11, 22, 9, 18, 1];
-    var glog = [0, 0, 1, 18, 2, 5, 19, 11, 3, 29, 6, 27, 20, 8, 12, 23, 4, 10, 30, 17, 7, 22, 28, 26, 21, 25, 9, 16, 13, 14, 24, 15];
+    var gx = [1, 2, 4, 8, 16, 5, 10, 20, 13, 26, 17, 7, 14, 28, 29, 31, 27, 19, 3, 6, 12, 24, 21, 15, 30, 25, 23, 11, 22, 9, 18, 1];
+    var gg = [0, 0, 1, 18, 2, 5, 19, 11, 3, 29, 6, 27, 20, 8, 12, 23, 4, 10, 30, 17, 7, 22, 28, 26, 21, 25, 9, 16, 13, 14, 24, 15];
 
-    var cwmap = [3, 2, 1, 0, 7, 6, 5, 4, 13, 14, 15, 16, 12, 8, 9, 10, 11];
+    var cwp = [3, 2, 1, 0, 7, 6, 5, 4, 13, 14, 15, 16, 12, 8, 9, 10, 11];
 
-    var alphabet = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+    var alp = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
     //var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ345679';
 
-    this.guess = [];
+    this.guessArray = [];
 
-    function ginv(a) {
-        return gexp[31 - glog[a]];
+    function ginvAPLAdress(a) {
+        return gx[31 - gg[a]];
     }
 
-    function gmult(a, b) {
+    function gmultAPLAdress(a, b) {
         if (a == 0 || b == 0) return 0;
 
-        var idx = (glog[a] + glog[b]) % 31;
+        var idx = (gg[a] + gg[b]) % 31;
 
-        return gexp[idx];
+        return gx[idx];
     } //__________________________
 
-    function calc_discrepancy(lambda, r) {
+    function calc_discrepancy_apl_adress(lambda, r) {
         var discr = 0;
 
         for (var i = 0; i < r; i++) {
-            discr ^= gmult(lambda[i], syndrome[r - i]);
+            discr ^= gmultAPLAdress(lambda[i], sy[r - i]);
         }
 
         return discr;
     } //__________________________
 
-    function find_errors(lambda) {
+    function find_errorsAPLAdress(l) {
         var errloc = [];
 
         for (var i = 1; i <= 31; i++) {
             var sum = 0;
 
             for (var j = 0; j < 5; j++) {
-                sum ^= gmult(gexp[(j * i) % 31], lambda[j]);
+                sum ^= gmultAPLAdress(gx[(j * i) % 31], l[j]);
             }
 
             if (sum == 0) {
@@ -58,7 +58,7 @@ function AplAddress() {
         return errloc;
     } //__________________________
 
-    function guess_errors() {
+    function guess_errors_apl_adress() {
         var el = 0,
             b = [0, 0, 0, 0, 0],
             t = [];
@@ -69,13 +69,13 @@ function AplAddress() {
         // Berlekamp-Massey algorithm to determine error+erasure locator polynomial
 
         for (var r = 0; r < 4; r++) {
-            var discr = calc_discrepancy(lambda, r + 1); // Compute discrepancy at the r-th step in poly-form
+            var discr = calc_discrepancy_apl_adress(lambda, r + 1); // Compute discrepancy at the r-th step in poly-form
 
             if (discr != 0) {
                 deg_lambda = 0;
 
                 for (var i = 0; i < 5; i++) {
-                    t[i] = lambda[i] ^ gmult(discr, b[i]);
+                    t[i] = lambda[i] ^ gmultAPLAdress(discr, b[i]);
 
                     if (t[i]) deg_lambda = i;
                 }
@@ -84,7 +84,7 @@ function AplAddress() {
                     el = r + 1 - el;
 
                     for (i = 0; i < 5; i++) {
-                        b[i] = gmult(lambda[i], ginv(discr));
+                        b[i] = gmultAPLAdress(lambda[i], ginvAPLAdress(discr));
                     }
                 }
 
@@ -96,7 +96,7 @@ function AplAddress() {
 
         // Find roots of the locator polynomial.
 
-        var errloc = find_errors(lambda);
+        var errloc = find_errorsAPLAdress(lambda);
 
         var errors = errloc.length;
 
@@ -112,7 +112,7 @@ function AplAddress() {
             var t = 0;
 
             for (var j = 0; j < i; j++) {
-                t ^= gmult(syndrome[i + 1 - j], lambda[j]);
+                t ^= gmultAPLAdress(sy[i + 1 - j], lambda[j]);
             }
 
             omega[i] = t;
@@ -127,69 +127,69 @@ function AplAddress() {
 
             for (i = 0; i < 4; i++) // evaluate Omega at alpha^(-i)
             {
-                t ^= gmult(omega[i], gexp[(root * i) % 31]);
+                t ^= gmultAPLAdress(omega[i], gx[(root * i) % 31]);
             }
 
             if (t) // evaluate Lambda' (derivative) at alpha^(-i); all odd powers disappear
             {
-                var denom = gmult(lambda[1], 1) ^ gmult(lambda[3], gexp[(root * 2) % 31]);
+                var denom = gmultAPLAdress(lambda[1], 1) ^ gmultAPLAdress(lambda[3], gx[(root * 2) % 31]);
 
                 if (denom == 0) return false;
 
                 if (pos > 12) pos -= 14;
 
-                codeword[pos] ^= gmult(t, ginv(denom));
+                c[pos] ^= gmultAPLAdress(t, ginvAPLAdress(denom));
             }
         }
 
         return true;
     } //__________________________
 
-    function encode() {
+    function encode_apl_adress() {
         var p = [0, 0, 0, 0];
 
         for (var i = 12; i >= 0; i--) {
-            var fb = codeword[i] ^ p[3];
+            var fb = c[i] ^ p[3];
 
-            p[3] = p[2] ^ gmult(30, fb);
-            p[2] = p[1] ^ gmult(6, fb);
-            p[1] = p[0] ^ gmult(9, fb);
-            p[0] = gmult(17, fb);
+            p[3] = p[2] ^ gmultAPLAdress(30, fb);
+            p[2] = p[1] ^ gmultAPLAdress(6, fb);
+            p[1] = p[0] ^ gmultAPLAdress(9, fb);
+            p[0] = gmultAPLAdress(17, fb);
         }
 
-        codeword[13] = p[0];
-        codeword[14] = p[1];
-        codeword[15] = p[2];
-        codeword[16] = p[3];
+        c[13] = p[0];
+        c[14] = p[1];
+        c[15] = p[2];
+        c[16] = p[3];
     } //__________________________
 
-    function reset() {
-        for (var i = 0; i < 17; i++) codeword[i] = 1;
+    function reset_apl_adress() {
+        for (var i = 0; i < 17; i++) c[i] = 1;
     } //__________________________
 
-    function set_codeword(cw, len, skip) {
+    function set_codeword_apl_adress(cw, len, skip) {
         if (typeof len === 'undefined') len = 17;
         if (typeof skip === 'undefined') skip = -1;
 
         for (var i = 0, j = 0; i < len; i++) {
-            if (i != skip) codeword[cwmap[j++]] = cw[i];
+            if (i != skip) c[cwp[j++]] = cw[i];
         }
     } //__________________________
 
-    this.add_guess = function() {
+    this.add_guess_apl_adress = function() {
         var s = this.toString(),
-            len = this.guess.length;
+            len = this.guessArray.length;
 
         if (len > 2) return;
 
         for (var i = 0; i < len; i++) {
-            if (this.guess[i] == s) return;
+            if (this.guessArray[i] == s) return;
         }
 
-        this.guess[len] = s;
+        this.guessArray[len] = s;
     } //__________________________
 
-    this.ok = function() {
+    this.passed = function() {
         var sum = 0;
 
         for (var i = 1; i < 5; i++) {
@@ -199,17 +199,17 @@ function AplAddress() {
                 var pos = j;
                 if (j > 26) pos -= 14;
 
-                t ^= gmult(codeword[pos], gexp[(i * j) % 31]);
+                t ^= gmultAPLAdress(c[pos], gx[(i * j) % 31]);
             }
 
             sum |= t;
-            syndrome[i] = t;
+            sy[i] = t;
         }
 
         return (sum == 0);
     } //__________________________
 
-    function from_acc(acc) {
+    function from_acc_apl_adress(acc) {
         var inp = [],
             out = [],
             pos = 0,
@@ -244,17 +244,17 @@ function AplAddress() {
 
         for (i = 0; i < 13; i++) // copy to codeword in reverse, pad with 0's
         {
-            codeword[i] = (--pos >= 0 ? out[i] : 0);
+            c[i] = (--pos >= 0 ? out[i] : 0);
         }
 
-        encode();
+        encode_apl_adress();
 
         return true;
     } //__________________________
 
     this.toString = function(out = DEFAULT_PREFIX) {
         for (var i = 0; i < 17; i++) {
-            out += alphabet[codeword[cwmap[i]]];
+            out += alp[c[cwp[i]]];
 
             if ((i & 3) == 3 && i < 13) out += '-';
         }
@@ -262,13 +262,13 @@ function AplAddress() {
         return out;
     } //__________________________
 
-    this.account_id = function() {
+    this.account_id_apl_adress = function() {
         var out = '',
             inp = [],
             len = 13;
 
         for (var i = 0; i < 13; i++) {
-            inp[i] = codeword[12 - i];
+            inp[i] = c[12 - i];
         }
 
         do // base 32 to base 10 conversion
@@ -295,28 +295,26 @@ function AplAddress() {
         return out.split("").reverse().join("");
     } //__________________________
 
-    this.set = function(adr, allow_accounts) {
-        if (typeof allow_accounts === 'undefined') allow_accounts = true;
+    this.set = function(adress, allow_accountsAPL) {
+        if (typeof allow_accountsAPL === 'undefined') allow_accountsAPL = true;
 
         var len = 0;
-        this.guess = [];
-        reset();
+        this.guessArray = [];
+        reset_apl_adress();
 
-        adr = String(adr);
+        adress = String(adress);
 
-        adr = adr.replace(/(^\s+)|(\s+$)/g, '').toUpperCase();
+        adress = adress.replace(/(^\s+)|(\s+$)/g, '').toUpperCase();
 
-        if (adr.indexOf(utils.getAccountMask()) == 0) adr = adr.substr(4);
-
-        if (adr.match(/^\d{1,20}$/g)) // account id
+        if (adress.match(/^\d{1,20}$/g)) // account id
         {
-            if (allow_accounts) return from_acc(adr);
+            if (allow_accountsAPL) return from_acc_apl_adress(adress);
         } else // address
         {
             var clean = [];
 
-            for (var i = 0; i < adr.length; i++) {
-                var pos = alphabet.indexOf(adr[i]);
+            for (var i = 0; i < adress.length; i++) {
+                var pos = alp.indexOf(adress[i]);
 
                 if (pos >= 0) {
                     clean[len++] = pos;
@@ -325,15 +323,15 @@ function AplAddress() {
             }
         }
 
-        if (len == 16) // guess deletion
+        if (len == 16) // guessArray deletion
         {
             for (var i = 16; i >= 0; i--) {
                 for (var j = 0; j < 32; j++) {
                     clean[i] = j;
 
-                    set_codeword(clean);
+                    set_codeword_apl_adress(clean);
 
-                    if (this.ok()) this.add_guess();
+                    if (this.passed()) this.add_guess_apl_adress();
                 }
 
                 if (i > 0) {
@@ -344,40 +342,40 @@ function AplAddress() {
             }
         }
 
-        if (len == 18) // guess insertion
+        if (len == 18) // guessArray insertion
         {
             for (var i = 0; i < 18; i++) {
-                set_codeword(clean, 18, i);
+                set_codeword_apl_adress(clean, 18, i);
 
-                if (this.ok()) this.add_guess();
+                if (this.passed()) this.add_guess_apl_adress();
             }
         }
 
         if (len == 17) {
-            set_codeword(clean);
+            set_codeword_apl_adress(clean);
 
-            if (this.ok()) return true;
+            if (this.passed()) return true;
 
-            if (guess_errors() && this.ok()) this.add_guess();
+            if (guess_errors_apl_adress() && this.passed()) this.add_guess_apl_adress();
         }
 
-        reset();
+        reset_apl_adress();
 
         return false;
     }
 
-    this.format_guess = function(s, org) {
+    this.format_guess_apl_adress = function(string, organise) {
         var d = '',
             list = [];
 
-        s = s.toUpperCase();
-        org = org.toUpperCase();
+        string = string.toUpperCase();
+        organise = organise.toUpperCase();
 
-        for (var i = 0; i < s.length;) {
+        for (var i = 0; i < string.length;) {
             var m = 0;
 
-            for (var j = 1; j < s.length; j++) {
-                var pos = org.indexOf(s.substr(i, j));
+            for (var j = 1; j < string.length; j++) {
+                var pos = organise.indexOf(string.substr(i, j));
 
                 if (pos != -1) {
                     if (Math.abs(pos - i) < 3) m = j;
@@ -393,9 +391,9 @@ function AplAddress() {
             } else i++;
         }
 
-        if (list.length == 0) return s;
+        if (list.length == 0) return string;
 
-        for (var i = 0, j = 0; i < s.length; i++) {
+        for (var i = 0, j = 0; i < string.length; i++) {
             if (i >= list[j].e) {
                 var start;
 
@@ -407,9 +405,9 @@ function AplAddress() {
             }
 
             if (i >= list[j].s && i < list[j].e) {
-                d += s.charAt(i);
+                d += string.charAt(i);
             } else {
-                d += '<b style="color:red">' + s.charAt(i) + '</b>';
+                d += '<b style="color:red">' + string.charAt(i) + '</b>';
             }
         }
 

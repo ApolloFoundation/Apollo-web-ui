@@ -43,7 +43,7 @@ class TransferAlias extends React.Component {
             aliasName: this.state.alias.aliasName
         };
 
-        const res = await this.props.submitForm(null, null, values, 'sellAlias')
+        const res = await this.props.submitForm( values, 'sellAlias')
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -282,7 +282,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	setAlert: (status, message) => dispatch(setAlert(status, message)),
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
