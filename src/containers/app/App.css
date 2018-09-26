@@ -4562,7 +4562,7 @@ table td .btn, table th .btn {
   z-index: 1;
   transition: all 0.3s ease-in-out;
   opacity: 1;
-  animation: 1 2s infinite; }
+  animation: pulse 0.3s 1; }
   .overflow-menu.hidden {
     opacity: 0;
     display: none; }
