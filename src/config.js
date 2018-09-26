@@ -8,8 +8,8 @@ const config = {};
 
 // API Gateway
 config.api = {
-    serverUrl: 'https://apolloface-reactdev.firstbridge.work/apl?',
-    localServerUrl: 'https://apolloface-reactdev.firstbridge.work'
+    serverUrl: 'https://apollowallet.org/apl?',
+    localServerUrl: 'https://apollowallet.org'
 };
 
 module.exports = config;

@@ -80,13 +80,14 @@ class Peers extends React.Component {
                     pageTitle={'Peers'}
                 >
                     <a className="btn primary"
-                       onClick={() => this.connectPeer()}>
+                       onClick={() => this.connectPeer()}
+                    >
                         Add peer
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="peers">
-                        <div className="row" style={{height: '100%'}}>
+                        <div className="row">
                             <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="card header ballance single">
                                     <div className="card-title">Uploaded Volume</div>
@@ -125,7 +126,7 @@ class Peers extends React.Component {
                             </div>
                         </div>
                         <div className="transaction-table">
-                            <div className="transaction-table-body">
+                            <div className="transaction-table-body" style={{'margin-top': '15px'}}>
                                 <table>
                                     <thead>
                                         <tr>
