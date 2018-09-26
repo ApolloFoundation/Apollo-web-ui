@@ -74,7 +74,8 @@ class Ledger extends React.Component {
         let reqParams = {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
+            lastIndex: this.state.lastIndex,
+            includeHoldingInfo: true
         };
 
         if (data && data.publicKey) {
@@ -99,7 +100,9 @@ class Ledger extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15 - 1,
+            includeHoldingInfo: true
+
         };
 
         if (this.state.publicKey) {
