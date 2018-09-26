@@ -84,8 +84,17 @@ class SiteHeader extends React.Component {
     }
 
     componentDidMount() {
-        this.getBlock()
+        this.getBlock();
+        this.getForging();
     }
+
+    getForging = async () => {
+        const forgingStatus = await this.props.getForging();
+
+        if (forgingStatus) {
+            this.setState({forgingStatus: forgingStatus});
+        }
+    };
 
     setBodyModalType(bodyModalType) {
         if (bodyModalType && bodyModalType === this.state.bodyModalType) {
@@ -128,7 +137,7 @@ class SiteHeader extends React.Component {
     };
 
     setForging = async (action) => {
-        const forging = this.props.setForging({requestType: action.requestType});
+        const forging = await this.props.setForging({requestType: action.requestType});
 
         if (forging) {
             const forgingStatus = await this.props.getForging();
@@ -343,7 +352,7 @@ class SiteHeader extends React.Component {
                                         }
 
                                         <div className="breadcrumbs">
-                                            <a>Apollo Wallet /</a>
+                                            <a>Apollo Wallet /</a>&nbsp;
                                             <strong>
                                                 <a>{this.props.pageTitle}</a>
                                             </strong>

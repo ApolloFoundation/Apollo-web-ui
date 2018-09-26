@@ -596,7 +596,7 @@ input {
 			.top-bar {
 				.marketplace-image {
 					margin: 0;
-					height: 400px;
+					height: 370px;
 				}
 			}
 			.bottom-bar {
@@ -760,7 +760,7 @@ input {
 		margin: 0 -35px -70px;
 		background-color: #ccc;
 		background-repeat: no-repeat;
-		background-size: contain;
+		background-size: cover;
 		background-position: center;
 		
 		&.no-image {

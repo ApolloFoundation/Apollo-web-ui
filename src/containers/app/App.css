@@ -3243,7 +3243,7 @@ input {
       margin: -35px 0 -70px -35px; }
       .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
-        height: 400px; }
+        height: 370px; }
       .form-group-app.devided .left-bar .bottom-bar .description {
         padding: 35px;
         line-height: 1.6; }
@@ -3356,7 +3356,7 @@ input {
     margin: 0 -35px -70px;
     background-color: #ccc;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-position: center; }
     .form-group-app .marketplace-image.no-image {
       background-size: 30% !important;
