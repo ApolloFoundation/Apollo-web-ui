@@ -9,6 +9,12 @@ export const INIT_TRANSACTION_TYPES = {
                 'i18nKeyTitle': 'ordinary_payment',
                 'iconHTML': "<i class='fa fa-money'></i>",
                 'receiverPage': 'transactions'
+            },
+            1: {
+                'title': "Private Payment",
+                'i18nKeyTitle': 'private_payment',
+                'iconHTML': "<i class='fa fa-money'></i>",
+                'receiverPage': 'transactions'
             }
         }
     },

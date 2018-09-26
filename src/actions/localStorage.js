@@ -27,10 +27,6 @@ export function setAccountJSONItem (key, data) {
     setJSONItem(getAccountKey(key), data)
 }
 
-// function isIndexedDBSupported() {
-//     return NRS.databaseSupport;
-// }
-
 function getAccountKey(key) {
     return (dispatch, getState) => {
         const {account} = getState();
@@ -51,10 +47,6 @@ export function storageSelect(table, query, callback) {
     return (dispatch, getState) => {
         const {account} = getState();
 
-        // if (account.databaseSupport) {
-        //     NRS.database.select(table, query, callback);
-        //     return;
-        // }
         var items = dispatch(getAccountJSONItem(table));
 
         if (!items) {

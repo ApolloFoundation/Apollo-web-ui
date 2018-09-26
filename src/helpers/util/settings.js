@@ -23,11 +23,6 @@ export const defaultSettings = {
     "enable_plugins": "0",
     "items_page": "15",
     "admin_password": "",
-    "changelly_url": "https://api.changelly.com",
-    "changelly_api_key": "77c34bb4f2bc40519df33a474097936f",
-    "changelly_api_secret": "76021037dd6358c33de88810fa4093852bf278a683843c37ea9913acc2746ee0",
-    "changelly_coin0": "BTC",
-    "changelly_coin1": "ARDR",
     "max_apl_decimals": "2",
     "fake_entity_warning": "1"
 };
@@ -90,7 +85,6 @@ export function getSettings(isAccountSpecific) {
                                 value = new Array(value.length + 1).join('*');
                             }
                         }
-                        // NRS.applySettings();
                         callback(null);
                     }))
                 },

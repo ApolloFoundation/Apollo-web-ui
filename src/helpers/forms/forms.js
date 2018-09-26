@@ -19,10 +19,6 @@
  *                                                                            *
  ******************************************************************************/
 
-/**
- * @depends {nrs.js}
- */
-
 import $ from 'jquery';
 import i18n from 'i18next';
 import util from '../../helpers/util/utils';
@@ -61,11 +57,6 @@ function submitForm($modal, $btn, data, requestType) {
 
         var $form;
         var requestTypeKey;
-        // if (requestType) {
-        //     requestTypeKey = requestType.replace(/([A-Z])/g, function($1) {
-        //         return "_" + $1.toLowerCase();
-        //     });
-        // }
 
         var successMessage = getSuccessMessage(requestTypeKey);
         var errorMessage = getErrorMessage(requestTypeKey);
@@ -239,12 +230,6 @@ function getSuccessMessage(requestType) {
         return "";
     } else {
         var key = "success_" + requestType;
-
-        // if ($.i18n.exists(key)) {
-        //     return i18n.t(key);
-        // } else {
-        //     return "";
-        // }
     }
 }
 
@@ -255,12 +240,6 @@ function getErrorMessage(requestType) {
         return "";
     } else {
         var key = "error_" + requestType;
-
-        // if ($.i18n.exists(key)) {
-        //     return i18n.t(key);
-        // } else {
-        //     return "";
-        // }
     }
 }
 
@@ -462,29 +441,6 @@ function formResponse(response, data, requestType, $modal, $form, $btn, successM
         }
 
         formCompleteFunction = forms[originalRequestType + "Complete"];
-
-        // if (requestType != "parseTransaction" && requestType != "calculateFullHash") {
-        //     if (typeof formCompleteFunction == "function") {
-        //         data.requestType = requestType;
-        //
-        //         if (response.transaction) {
-        //             addUnconfirmedTransaction(response.transaction, function(alreadyProcessed) {
-        //                 response.alreadyProcessed = alreadyProcessed;
-        //                 formCompleteFunction(response, data);
-        //             });
-        //         } else {
-        //             response.alreadyProcessed = false;
-        //             formCompleteFunction(response, data);
-        //         }
-        //     } else {
-        //         addUnconfirmedTransaction(response.transaction);
-        //     }
-        // } else {
-        //     if (typeof formCompleteFunction == "function") {
-        //         data.requestType = requestType;
-        //         formCompleteFunction(response, data);
-        //     }
-        // }
 
     } else if (response.errorCode) {
         // $form.find(".error_message").html(util.escapeRespStr(response.errorDescription)).show();
@@ -709,48 +665,6 @@ function sendRequest(requestType, data, callback, options) {
             };
         }
 
-
-        //Fill phasing parameters when mandatory approval is enabled
-        // if (requestType != "approveTransaction"
-        //     && account.accountControls && $.inArray('PHASING_ONLY', account.accountControls) > -1
-        //     && account.phasingOnly
-        //     && account.phasingOnly.votingModel >= 0) {
-        //
-        //     var phasingControl = account.phasingOnly;
-        //     var maxFees = new BigInteger(phasingControl.maxFees);
-        //     if (maxFees > 0 && new BigInteger(data.feeATM).compareTo(new BigInteger(phasingControl.maxFees)) > 0) {
-        //         callback({
-        //             "errorCode": 1,
-        //             "errorDescription": i18n.t("error_fee_exceeds_max_account_control_fee", {
-        //                 "maxFee": convertToAPL(phasingControl.maxFees), "symbol": account.constants.coinSymbol
-        //             })
-        //         });
-        //         return;
-        //     }
-        //     var phasingDuration = parseInt(data.phasingFinishHeight) - NRS.lastBlockHeight;
-        //     var minDuration = parseInt(phasingControl.minDuration) > 0 ? parseInt(phasingControl.minDuration) : 0;
-        //     var maxDuration = parseInt(phasingControl.maxDuration) > 0 ? parseInt(phasingControl.maxDuration) : NRS.constants.SERVER.maxPhasingDuration;
-        //
-        //     if (phasingDuration < minDuration || phasingDuration > maxDuration) {
-        //         callback({
-        //             "errorCode": 1,
-        //             "errorDescription": i18n.t("error_finish_height_out_of_account_control_interval", {
-        //                 "min": NRS.lastBlockHeight + minDuration,
-        //                 "max": NRS.lastBlockHeight + maxDuration
-        //             })
-        //         });
-        //         return;
-        //     }
-        //
-        //     var phasingParams = NRS.phasingControlObjectToPhasingParams(phasingControl);
-        //     $.extend(data, phasingParams);
-        //     data.phased = true;
-        //
-        //     delete data.phasingHashedSecret;
-        //     delete data.phasingHashedSecretAlgorithm;
-        //     delete data.phasingLinkedFullHash;
-        // }
-
         if (!data.recipientPublicKey) {
             delete data.recipientPublicKey;
         }
@@ -912,24 +826,6 @@ function processAjaxRequest(requestType, data, callback, options) {
         var currentPage = null;
         var currentSubPage = null;
 
-        //means it is a page request, not a global request.. Page requests can be aborted.
-        // if (requestType.slice(-1) == "+") {
-        //     requestType = requestType.slice(0, -1);
-        //     currentPage = NRS.currentPage;
-        // } else {
-        //     //not really necessary... we can just use the above code..
-        //     var plusCharacter = requestType.indexOf("+");
-        //
-        //     if (plusCharacter > 0) {
-        //         requestType = requestType.substr(0, plusCharacter);
-        //         currentPage = NRS.currentPage;
-        //     }
-        // }
-        //
-        // if (currentPage && NRS.currentSubPage) {
-        //     currentSubPage = NRS.currentSubPage;
-        // }
-
         var httpMethod = (util.isRequirePost(requestType) || "secretPhrase" in data || "doNotSign" in data || "adminPassword" in data ? "POST" : "GET");
         if (httpMethod == "GET") {
             if (typeof data == "string") {
@@ -938,15 +834,6 @@ function processAjaxRequest(requestType, data, callback, options) {
                 data.random = Math.random();
             }
         }
-
-        // if (("secretPhrase" in data) &&
-        //      util.accountInfo.errorCode && util.accountInfo.errorCode == 5) {
-        //     callback({
-        //         "errorCode": 2,
-        //         "errorDescription": i18n.t("error_new_account")
-        //     }, data);
-        //     return;
-        // }
 
         if (data.referencedTransactionFullHash) {
             if (!/^[a-z0-9]{64}$/.test(data.referencedTransactionFullHash)) {
@@ -1048,75 +935,9 @@ function processAjaxRequest(requestType, data, callback, options) {
             contentType: contentType,
             processData: processData
         })
-        // .done(function (response) {
-        //     console.log(response);
-        //     if (typeof data == "string") {
-        //         data = { "querystring": data };
-        //         if (extra) {
-        //             data["_extra"] = extra;
-        //         }
-        //     }
-        //
-        //     return response;
-        // }).fail(function (xhr, textStatus, error) {
-        //
-        //     if ((error == "error" || textStatus == "error") && (xhr.status == 404 || xhr.status == 0)) {
-        //         if (httpMethod == "POST") {
-        //             // NRS.connectionError();
-        //         }
-        //     }
-        //
-        //     if (error != "abort") {
-        //         if (options.remoteNode) {
-        //             options.remoteNode.blacklist();
-        //         } else {
-        //             // NRS.resetRemoteNode(true);
-        //         }
-        //         if (error == "timeout") {
-        //             error = i18n.t("error_request_timeout");
-        //         }
-        //         callback({
-        //             "errorCode": -1,
-        //             "errorDescription": error
-        //         }, {});
-        //     }
-        // });
+
     }
 };
-
-// function getRequestPath(noProxy) {
-//     return (dispatch, getState) => {
-//         const {account} = getState();
-//
-//         var url = getRemoteNodeUrl();
-//         if (!account.apiProxy ) {
-//             return url + "/apl";
-//         } else {
-//             return url + "/apl-proxy";
-//         }
-//     }
-// };
-//
-// function getRemoteNodeUrl() {
-//     if (!NRS.isMobileApp()) {
-//         if (!isNode) {
-//             return "";
-//         }
-//         return NRS.getModuleConfig().url;
-//     }
-//     if (remoteNode) {
-//         return remoteNode.getUrl();
-//     }
-//     remoteNode = NRS.remoteNodesMgr.getRandomNode();
-//     if (remoteNode) {
-//         var url = remoteNode.getUrl();
-//         NRS.logConsole("Remote node url: " + url);
-//         return url;
-//     } else {
-//         NRS.logConsole("No available remote nodes");
-//         $.growl(i18n.t("no_available_remote_nodes"));
-//     }
-// };
 
 function getFileUploadConfig(requestType, data) {
     return (dispatch, getState) => {

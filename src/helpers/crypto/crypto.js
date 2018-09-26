@@ -1,21 +1,5 @@
 /******************************************************************************
- * Copyright © 2013-2016 The Nxt Core Developers.                             *
- * Copyright © 2016-2017 Jelurida IP B.V.                                     *
- *                                                                            *
- * See the LICENSE.txt file at the top-level directory of this distribution   *
- * for licensing information.                                                 *
- *                                                                            *
- * Unless otherwise agreed in a custom licensing agreement with Jelurida B.V.,*
- * no part of the Nxt software, including this file, may be copied, modified, *
- * propagated, or distributed except according to the terms contained in the  *
- * LICENSE.txt file.                                                          *
- *                                                                            *
- * Removal or modification of this copyright notice is prohibited.            *
- *                                                                            *
- ******************************************************************************/
-
-/******************************************************************************
- * Copyright © 2017-2018 Apollo Foundation                                    *
+ * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
  ******************************************************************************/
 
@@ -60,7 +44,6 @@ function getPrivateKey(secretPhrase) {
 }
 
 function getAccountIdFromPublicKey(publicKey, isRsFormat) {
-
     var hex = converters.hexStringToByteArray(publicKey);
     var account = simpleHash(hex);
     account = converters.byteArrayToHexString(account);
@@ -249,14 +232,6 @@ function decryptMessage(data, options) {
 }
 
 function decryptData(data, options) {
-    // if (!options.sharedKey) {
-    //     options.sharedKey = NRS.getSharedSecretJava(options.privateKey, options.publicKey);
-    //
-    //     var sharedKey =  NRS.getSharedSecretJava(options.privateKey, options.publicKey);
-    //
-    //     var options = {};
-    //     options.sharedKey = sharedKey;
-    // }
 
     if (typeof(options.sharedKey) === 'string') {
         options.sharedKey = converters.hexStringToByteArray(options.sharedKey);
@@ -469,15 +444,7 @@ function getEncryptionKeys(options, secretPhrase){
     if (!options.sharedKey) {
         if (!options.privateKey) {
             if (!secretPhrase) {
-                // Todo: remembering of password
-                // if (NRS.rememberPassword) {
-                //     // secretPhrase = _password;
-                // } else {
-                //     throw {
-                //         "message": i18n.t("error_encryption_passphrase_required"),
-                //         "errorCode": 1
-                //     };
-                // }
+
             }
 
             options.privateKey = converters.hexStringToByteArray(getPrivateKey(secretPhrase));
@@ -516,13 +483,6 @@ function getEncryptionKeys(options, secretPhrase){
 };
 
 function generatePublicKey (secretPhrase) {
-    // if (!secretPhrase) {
-    //     if (NRS.rememberPassword) {
-    //         secretPhrase = _password;
-    //     } else {
-    //         throw { message: i18n.t("error_generate_public_key_no_password") };
-    //     }
-    // }
 
     return getPublicKey(converters.stringToHexString(secretPhrase));
 };

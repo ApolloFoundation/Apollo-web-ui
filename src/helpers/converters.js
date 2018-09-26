@@ -399,7 +399,6 @@ function isRsAccount(accountId) {
         const { account } = getStore();
         return isRsAccountImpl(accountId, getRsAccountRegex(account.constants.accountPrefix));
     };
-    // return isRsAccountImpl(account, NRS.constants.ACCOUNT_RS_MATCH ? NRS.constants.ACCOUNT_RS_MATCH : NRS.getRsAccountRegex("APL"));
 }
 
 function getRsAccountRegex(accountPrefix, withoutSeparator) {
@@ -508,16 +507,6 @@ function simpleHash(b1, b2) {
 }
 
 function signBytes(message, secretPhrase) {
-    // if (!secretPhrase) {
-    //     if (NRS.rememberPassword) {
-    //         secretPhrase = _password;
-    //     } else {
-    //         throw {
-    //             "message": $.t("error_signing_passphrase_required"),
-    //             "errorCode": 1
-    //         };
-    //     }
-    // }
     var messageBytes = hexStringToByteArray(message);
     var secretPhraseBytes = hexStringToByteArray(secretPhrase);
 
