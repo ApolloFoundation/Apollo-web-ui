@@ -21,14 +21,13 @@ const mapDispatchToProps = dispatch => ({
 class MyMessages extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            page: 1,
+            firstIndex: 0,
+            lastIndex: 14,
+            messages: null
+        };
     }
-
-    state = {
-        page: 1,
-        firstIndex: 0,
-        lastIndex: 14,
-        messages: null
-    };
 
     componentDidMount() {
         this.getMessages({
@@ -117,7 +116,7 @@ class MyMessages extends React.Component {
                                             <td className="align-right">Action</td>
                                         </tr>
                                         </thead>
-                                        <tbody key={uuid()}>
+                                        <tbody>
                                         {
                                             this.state.messages.map((el, index) => {
                                                 return (

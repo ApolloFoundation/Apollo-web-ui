@@ -78,7 +78,7 @@ class Sidebar extends React.Component {
 					>
 						<ul
 							style={{
-                                "padding-bottom": "120px",
+                                "paddingBottom": "120px",
                                 "background": "#333"
                             }}
 						>

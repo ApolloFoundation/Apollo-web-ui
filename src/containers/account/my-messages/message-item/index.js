@@ -20,15 +20,14 @@ const mapDispatchToProps = dispatch => ({
 
 class MessageItem extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            message: null
+        };
     }
 
-    state = {
-        message: null
-    };
-
     componentWillReceiveProps(newState) {
-        this.tryToDecrypt(newState);
+        // this.tryToDecrypt(newState);
     };
 
     componentDidMount() {
@@ -85,30 +84,30 @@ class MessageItem extends React.Component {
                     <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.recipient)}>{this.props.recipientRS}</a>
                 </td>
                 <td>
-                {
-                    this.state.message &&
-                    <div><i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{this.state.message}</span></div>
+                    {
+                        this.state.message &&
+                        <div><i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{this.state.message}</span></div>
 
-                }
-                {
-                    this.state.message &&
-                    !this.state.message.length &&
-                    <div>Empty message</div>
+                    }
+                    {
+                        this.state.message &&
+                        !this.state.message.length &&
+                        <div>Empty message</div>
 
-                }
-                {
-                    this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
-                    <div><i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;<span>Message is encrypted.</span></div>
-                }
-                {
-                    (this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message  &&
-                    <div><i className="zmdi zmdi-scissors"/>&nbsp;&nbsp;&nbsp;<span>Message is prunated.</span></div>
+                    }
+                    {
+                        this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
+                        <div><i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;<span>Message is encrypted.</span></div>
+                    }
+                    {
+                        (this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message  &&
+                        <div><i className="zmdi zmdi-scissors"/>&nbsp;&nbsp;&nbsp;<span>Message is prunated.</span></div>
 
-                }
-                {
-                    !this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
-                    <div>{this.props.attachment.message}</div>
-                }
+                    }
+                    {
+                        !this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
+                        <div>{this.props.attachment.message}</div>
+                    }
                 </td>
                 <td className="align-right btn-box inline">
                     {
