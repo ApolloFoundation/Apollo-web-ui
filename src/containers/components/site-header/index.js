@@ -103,9 +103,7 @@ class SiteHeader extends React.Component {
     };
 
     setBodyModalType(bodyModalType) {
-        if (bodyModalType && bodyModalType === this.state.bodyModalType) {
-            this.setState({bodyModalType: null});
-        } else {
+        if (bodyModalType && bodyModalType !== this.state.bodyModalType) {
             this.setState({bodyModalType: bodyModalType});
         }
     }
@@ -160,8 +158,20 @@ class SiteHeader extends React.Component {
         const userAvatar = e.target.closest('.user-avatar') || null;
         const name = e.target.closest('.name') || null;
 
+        console.log('++++++++++++++++++++++++++++');
+        console.log(parents);
+        console.log(btn);
+        console.log(userAvatar);
+        console.log(name);
+
         if (this.state.bodyModalType && !parents && !btn && !name && !userAvatar) {
             this.setState({bodyModalType: null})
+            console.log('-----------------------------');
+            console.log(parents);
+            console.log(btn);
+            console.log(userAvatar);
+            console.log(name);
+
         }
 
         const search = e.target.closest('.user-search-box') || null;
