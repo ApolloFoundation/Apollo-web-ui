@@ -47,12 +47,6 @@ class AboutApollo extends React.Component {
                                 <p>
                                     Copyright © 2018 The Apollo Developers.
                                 </p>
-                                <p>
-                                    Copyright © 2016-2017 Jelurida IP B.V.
-                                </p>
-                                <p>
-                                    Copyright © 2013-2016 The Nxt Core Developers.
-                                </p>
 
                                 <p>
                                     Apollo Blockchain software is developed by <a href="https://www.apollocurrency.com/" target={'blank'}>Apollo</a>
