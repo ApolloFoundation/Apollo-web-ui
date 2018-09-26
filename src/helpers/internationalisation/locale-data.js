@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 export const LOCALE_DATA = {
     "af-ZA": {dateFormat: "yyyy/MM/dd", decimal: ".", section: ",", displayName: "Afrikaans (South Africa)"},
     "am-ET": {dateFormat: "d/M/yyyy", decimal: ".", section: ",", displayName: "Amharic (Ethiopia)"},

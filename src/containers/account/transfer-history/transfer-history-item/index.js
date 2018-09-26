@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import React from 'react';
 import uuid from 'uuid';
 import crypto from "../../../../helpers/crypto/crypto";

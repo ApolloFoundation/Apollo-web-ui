@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import axios from 'axios/index';
 import config from '../../config';
 import {SET_CURRENT_BLOCK} from "../../modules/account";

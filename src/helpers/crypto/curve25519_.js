@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 // Copyright (c) 2007 Michele Bini
 // Konstantin Welke, 2008:
 // - moved into .js file, renamed all c255lname to curve25519_name

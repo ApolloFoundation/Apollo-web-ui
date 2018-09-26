@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import CryptoJS from 'crypto-js';
 import jsbn from 'jsbn';
 import AplAddress from './util/apladres';

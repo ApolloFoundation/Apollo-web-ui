@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import axios from 'axios/index';
 // import fetch from 'fetch';
 import config from '../../config';

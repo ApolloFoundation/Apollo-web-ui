@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import qrcode from '../qr-code/qr-code'
 import {getState} from "../../modules/account";
 import BigInteger from 'big-integer';
