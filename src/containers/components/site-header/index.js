@@ -256,22 +256,16 @@ class SiteHeader extends React.Component {
                                                                     }
 
 
-                                                                    <a
-                                                                        className="image-button"
-                                                                    >
-                                                                        <i className="zmdi"/>
+                                                                    <a className="mb-2">
                                                                         {
                                                                             this.state.block &&
                                                                             <label>Height: {this.state.block.height}</label>
                                                                         }
                                                                     </a>
-                                                                    <p
-                                                                        className="image-button"
-                                                                    >
-                                                                        <i className="zmdi"/>
+                                                                    <p>
                                                                         {
                                                                             this.props.forgedBalanceATM &&
-                                                                            <label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
+                                                                            <label>Forged balance: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}&nbsp;APL</label>
                                                                         }
                                                                     </p>
 

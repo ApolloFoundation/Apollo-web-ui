@@ -2533,12 +2533,21 @@ table {
 	z-index: 1;
 	transition: all 0.3s ease-in-out;
 	opacity: 1;
+	animation: 1 2s infinite;
 	&.hidden {
 		opacity: 0;
 		display: none;
 	}
 }
 
+@keyframes pulse {
+	0% {
+		background-color: rgba(0, 0, 0, 0);
+	}
+	100% {
+		background-color: rgba(0, 0, 0, 0.6);
+	}
+}
 //.add-alias {
 //	textarea {
 //		resize: vertical;
