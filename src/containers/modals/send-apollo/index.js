@@ -194,6 +194,14 @@ class SendApollo extends React.Component {
                                         Fee
                                         <span
                                             onClick={async () => {
+                                                if (!getFormState().values.recipient) {
+                                                    NotificationManager.error('Recipient is required.', 'Error', 5000);
+                                                    return;
+                                                }
+                                                if (!getFormState().values.amountAPL) {
+                                                    NotificationManager.error('Amount is required.', 'Error', 5000);
+                                                    return;
+                                                }
                                                 const requestParams = {
                                                     requestType: 'sendMoney',
                                                     deadline: '1440',

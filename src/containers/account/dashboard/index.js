@@ -157,7 +157,7 @@ class Dashboard extends React.Component {
 	initDashboard = (reqParams) => {
 		this.getAllTaggedData(reqParams);
 		this.getAccountAsset(reqParams);
-		this.getAliasesCount(reqParams);
+		// this.getAliasesCount(reqParams);
 		this.getCurrenciesCount(reqParams);
 		this.getMessagesCount(reqParams);
 		this.getActivePolls(reqParams);
@@ -489,11 +489,11 @@ class Dashboard extends React.Component {
 											</div>
 										</Link>
 										<Link
-											to="/aliases"
+											to="/dashboard"
 											className="general-info-item bottom-left"
 										>
                                             <div className="top-bar">
-                                                {this.state.aliassesValue}
+                                                {this.state.aliassesValue || 0}
                                             </div>
 											<div className="bottom-bar">
 												Aliases
