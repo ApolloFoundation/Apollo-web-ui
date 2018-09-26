@@ -844,7 +844,9 @@ class SiteHeader extends React.Component {
                                             <a className={"name"}>{this.props.name}</a>
 
                                         </div>
-                                        <div className="user-avatar"/>
+                                        <div className="user-avatar">
+                                            <i className="zmdi zmdi-account"></i>
+                                        </div>
                                         <div
                                             className={classNames({
                                                 "settings-bar": true,
