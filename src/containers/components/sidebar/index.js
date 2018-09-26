@@ -154,7 +154,7 @@ class Sidebar extends React.Component {
 										<li><NavLink exact={true} activeClassName="active" to="/open-orders">Open
 											orders</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/approval-request-assets">Approval
-											request</NavLink></li>
+											requests</NavLink></li>
 										<li>
 											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue
 												assets</a>
