@@ -578,7 +578,7 @@ class Dashboard extends React.Component {
 											<div className="marketplace-box">
 												<div
 													className="digit">
-													<Link className="digit" to={'/my-panding-orders'}>
+													<Link className="digit" to={'/my-pending-orders'}>
                                                         {this.state.pendingGoods}
 													</Link>
 													/
