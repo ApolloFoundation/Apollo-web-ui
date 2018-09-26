@@ -328,7 +328,13 @@ input {
 		border-radius: 100%;
 		border: 3px solid #333;
 	}
-	
+	&.big-count {
+		&:after {
+			right: -20px;
+			width: auto;
+			padding: 0 2px;
+		}
+	}
 }
 
 .blue-text {
@@ -588,6 +594,7 @@ input {
 		flex-direction: row;
 		flex-wrap: nowrap;
 		justify-content: space-between;
+		overflow: hidden;
 		
 		.left-bar {
 			width: 50%;
