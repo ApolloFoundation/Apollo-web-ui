@@ -3240,10 +3240,11 @@ input {
     justify-content: space-between; }
     .form-group-app.devided .left-bar {
       width: 50%;
-      margin: -35px 0 -70px -35px; }
+      margin: -35px 0 -70px -35px;
+      border-right: 5px solid #E6E6E6; }
       .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
-        height: 370px; }
+        height: 300px; }
       .form-group-app.devided .left-bar .bottom-bar .description {
         padding: 35px;
         line-height: 1.6; }

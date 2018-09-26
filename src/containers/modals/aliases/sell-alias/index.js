@@ -286,7 +286,7 @@ class SellAlias extends React.Component {
                                                     Sell alias
                                                 </button>
                                             </div>
-                                            <div className="btn-box align-buttons-inside absolute left-conner">
+                                            {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                                 <a
                                                     onClick={this.handleAdvancedState}
                                                     className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -300,7 +300,7 @@ class SellAlias extends React.Component {
                                                 getFormState={getFormState}
                                                 values={values}
                                                 advancedState={this.state.advancedState}
-                                            />
+                                            />*/}
                                         </form>
                                     )}
                                 />
@@ -405,7 +405,7 @@ class SellAlias extends React.Component {
                                                     Sell alias
                                                 </button>
                                             </div>
-                                            <div className="btn-box align-buttononClick={this.handleAdvancedState}s-inside absolute left-conner">
+                                            {/*<div className="btn-box align-buttononClick={this.handleAdvancedState}s-inside absolute left-conner">
                                                 <a
                                                     onClick={this.handleAdvancedState}
                                                     className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -419,7 +419,7 @@ class SellAlias extends React.Component {
                                                 getFormState={getFormState}
                                                 values={values}
                                                 advancedState={this.state.advancedState}
-                                            />
+                                            />*/}
                                         </form>
                                     )}
                                 />
