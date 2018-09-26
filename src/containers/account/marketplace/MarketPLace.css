@@ -139,7 +139,8 @@
     height: auto;
     min-height: auto;
     flex-wrap: wrap;
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    border-radius: 0; }
     @media (max-width: 760px) {
       .card.marketplace.card-fluid {
         padding: 20px; } }
