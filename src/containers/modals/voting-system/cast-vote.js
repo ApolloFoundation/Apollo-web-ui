@@ -142,7 +142,7 @@ class CastPoll extends React.Component {
                                             <label className="col-sm-3 col-form-label align-self-start">
                                                 Poll name
                                             </label>
-                                            <div className="col-sm-9">
+                                            <div className="col-sm-9 word-brake">
                                                 {this.state.poll.name}
                                             </div>
                                         </div>

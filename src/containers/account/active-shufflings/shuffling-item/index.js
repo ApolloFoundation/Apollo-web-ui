@@ -42,13 +42,14 @@ const ShufflingItem = (props) => (
                 <Link
                     to={'/asset-exchange/' + props.holding}
                 >
+                    {console.log(props)}
                     {props.holding} (Asset)
                 </Link>
             }
             {
                 props.holdingType === 2 &&
                 <Link
-                    to={'/exchange-booth/' + props.holding}
+                    to={'/exchange-booth/' + props.holdingInfo.name}
                 >
                     {props.holding} (Currency)
                 </Link>
