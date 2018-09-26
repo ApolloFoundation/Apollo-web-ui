@@ -362,7 +362,9 @@
     .card.marketplace .card-avatar.no-image {
       background-size: 30% !important;
       background-image: url(../../../assets/no-photo.svg) !important;
-      background-color: #eee !important; }
+      background-color: #eee !important;
+      width: 100%;
+      margin: auto; }
   .card.marketplace .price-box {
     padding: 15px;
     height: 85px;
