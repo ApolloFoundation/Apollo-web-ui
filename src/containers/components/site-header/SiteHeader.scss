@@ -382,11 +382,28 @@
 				margin-left: 20px;
 				border: 1px solid #eee;
 				background-color: #eeeeee;
+				position: relative;
+
+				.zmdi {
+					font-size: 30px;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					margin-left: 1px;
+					color: #666666;
+				}
+
 				@media (max-width: 760px) {
 					position: relative;
 					z-index: 2;
 					width: 24px;
 					height: 24px;
+
+					.zmdi {
+						font-size: 20px;
+						margin: 0;
+					}
 				}
 			}
 			.settings-bar {
@@ -682,6 +699,10 @@
 				margin-left: 30px;
 				border: 1px solid #eee;
 				background-color: #eeeeee;
+
+				.zmdi {
+					font-size: 12px;
+				}
 			}
 			.settings-bar {
 				position: absolute;

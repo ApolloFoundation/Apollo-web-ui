@@ -281,13 +281,25 @@
         border-radius: 100%;
         margin-left: 20px;
         border: 1px solid #eee;
-        background-color: #eeeeee; }
+        background-color: #eeeeee;
+        position: relative; }
+        .page-header .user-search-box .user-box .user-avatar .zmdi {
+          font-size: 30px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          margin-left: 1px;
+          color: #666666; }
         @media (max-width: 760px) {
           .page-header .user-search-box .user-box .user-avatar {
             position: relative;
             z-index: 2;
             width: 24px;
-            height: 24px; } }
+            height: 24px; }
+            .page-header .user-search-box .user-box .user-avatar .zmdi {
+              font-size: 20px;
+              margin: 0; } }
       .page-header .user-search-box .user-box .settings-bar {
         position: absolute;
         top: calc(100% + 26px);
@@ -500,6 +512,8 @@
         margin-left: 30px;
         border: 1px solid #eee;
         background-color: #eeeeee; }
+        .zmdi-balance-wallet .user-search-box .user-box .user-avatar .zmdi {
+          font-size: 12px; }
       .zmdi-balance-wallet .user-search-box .user-box .settings-bar {
         position: absolute;
         top: calc(100% + 30px);
