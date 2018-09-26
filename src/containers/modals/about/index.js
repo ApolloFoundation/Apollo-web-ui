@@ -56,9 +56,6 @@ class AboutApollo extends React.Component {
                                 <p>Copyright Web Wallet © 2018 Apollo Developers</p>
 
                                 <p>
-                                    Apollo Blockchain software is developed by <a href="https://www.apollocurrency.com/" target={'blank'}>Apollo</a>
-                                </p>
-                                <p>
                                     Contact e-mail: <a href="">info@apollocurrency.com</a>
                                 </p>
                             </div>
