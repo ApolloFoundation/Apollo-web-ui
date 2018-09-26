@@ -51,7 +51,7 @@ class CreateShuffling extends React.Component {
             registrationPeriod: 1439
         };
 
-        // values.publicKey = await crypto.getPublicKey(this.props.account, true);
+        // values.publicKey = await crypto.getPublicKeyAPL(this.props.account, true);
         // delete values.secretPhrase;
 
         const res = await this.props.submitForm(null, null, values, 'shufflingCreate');

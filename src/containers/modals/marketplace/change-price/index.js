@@ -56,7 +56,7 @@ class MarketplaceChangePrice extends React.Component {
     };
 
     async handleFormSubmit(values) {
-        const publicKey = await crypto.getPublicKey(values.secretPhrase, false);
+        const publicKey = await crypto.getPublicKeyAPL(values.secretPhrase, false);
 
         values = {
             ...values,

@@ -125,7 +125,7 @@ class Ledger extends React.Component {
         if (ledger) {
             if (ledger.serverPublicKey) {
 
-                // const serverPublicKey = crypto.getSharedSecretJava(converters.hexStringToByteArray(transactions.serverPublicKey))
+                // const serverPublicKey = crypto.getSharedSecretJava(conv.hexStringToByteArray(transactions.serverPublicKey))
                 const privateKey      = converters.hexStringToByteArray(this.state.privateKey);
 
                 const sharedKey = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(

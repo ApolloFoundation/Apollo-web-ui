@@ -44,10 +44,10 @@ class InfoLedgerTransaction extends React.Component {
 
                 options.sharedKey = sharedKey;
 
-                var decrypted =  crypto.decryptData(this.state.transaction.privateTransaction.encryptedTransaction, options);
+                var decrypted =  crypto.decryptDataStreamAPL(this.state.transaction.privateTransaction.encryptedTransaction, options);
                 decrypted = decrypted.message;
 
-                decrypted = converters.hexStringToString(decrypted);
+                decrypted = converters.hexStringToStringAPL(decrypted);
                 decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
                 decrypted = JSON.parse(decrypted);
                 this.setState({
@@ -67,10 +67,10 @@ class InfoLedgerTransaction extends React.Component {
 
                 options.sharedKey = this.props.sharedKey;
 
-                var decrypted =  crypto.decryptData(this.props.transaction.encryptedTransaction, options);
+                var decrypted =  crypto.decryptDataStreamAPL(this.props.transaction.encryptedTransaction, options);
                 decrypted = decrypted.message;
 
-                decrypted = converters.hexStringToString(decrypted);
+                decrypted = converters.hexStringToStringAPL(decrypted);
                 decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
                 decrypted = JSON.parse(decrypted);
                 this.setState({

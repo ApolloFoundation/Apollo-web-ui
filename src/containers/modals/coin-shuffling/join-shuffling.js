@@ -40,7 +40,7 @@ class JoinShuffling extends React.Component {
             shufflingFullHash: this.props.modalData.broadcast ? this.props.modalData.broadcast.fullHash : this.state.shuffling.shufflingFullHash,
             recipientSecretPhrase: values.recipientSecretPhrase,
             secretPhrase: values.secretPhrase,
-            recipientPublicKey: await crypto.getPublicKey(values.recipientSecretPhrase, false)
+            recipientPublicKey: await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false)
         };
 
         const res = await this.props.submitForm(null, null, data, 'startShuffler');
@@ -107,7 +107,7 @@ class JoinShuffling extends React.Component {
     setAccount = async (getFormState, setValue) => {
         const passphrase = getFormState().values.recipientSecretPhrase;
 
-        const generatedAccount = store.dispatch(await this.props.getAccountIdAsync(passphrase));
+        const generatedAccount = store.dispatch(await this.props.getAccountIdAsyncApl(passphrase));
 
         setValue('generatedAccount', generatedAccount);
     };
@@ -218,7 +218,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    getAccountIdAsync: (passPhrase) => dispatch(crypto.getAccountIdAsync(passPhrase)),
+    getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
     getShufflingAction: (reqParams) => dispatch(getShufflingAction(reqParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });

@@ -29,7 +29,7 @@ export function getAccountDataAction(requestParams) {
 export function getAccountDataBySecretPhrasseAction(requestParams) {
     return async dispatch => {
 
-        const accountRS = await (dispatch(crypto.getAccountIdAsync(requestParams.secretPhrase)));
+        const accountRS = await (dispatch(crypto.getAccountIdAsyncApl(requestParams.secretPhrase)));
 
         dispatch({
             type: 'SET_PASSPHRASE',

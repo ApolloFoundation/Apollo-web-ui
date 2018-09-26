@@ -45,7 +45,7 @@ class TokenGenerationValidation extends React.Component {
         }
 
 
-        const token = await this.props.generateToken(values.data, values.secretPhrase);
+        const token = await this.props.generateTokenAPL(values.data, values.secretPhrase);
 
         this.setState({
             ...this.state,
@@ -236,7 +236,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    generateToken: (message, secretPhrase) => dispatch(converters.generateToken(message, secretPhrase)),
+    generateTokenAPL: (message, secretPhrase) => dispatch(converters.generateTokenAPL(message, secretPhrase)),
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
     validateTokenAction: (requestParams) => dispatch(validateTokenAction(requestParams)),
 });

@@ -137,13 +137,13 @@ export function getMessage(message) {
             if (!message.attachment["version.Message"] && !message.attachment["version.PrunablePlainMessage"]) {
                 try {
 
-                    decoded.message = converters.hexStringToString(message.attachment.message);
+                    decoded.message = converters.hexStringToStringAPL(message.attachment.message);
                 } catch (err) {
                     //legacy
                     if (message.attachment.message.indexOf("feff") === 0) {
-                        decoded.message = converters.convertFromHex16(message.attachment.message);
+                        decoded.message = converters.convertFromHex16APL(message.attachment.message);
                     } else {
-                        decoded.message = converters.convertFromHex8(message.attachment.message);
+                        decoded.message = converters.convertFromHex8APL(message.attachment.message);
                     }
                 }
             } else {
@@ -168,7 +168,7 @@ export function getMessage(message) {
             if (!decoded.message) {
                 decoded.message = "message_empty";
             }
-            decoded.message = converters.addEllipsis(String(decoded.message).escapeHTML().nl2br(), 100);
+            decoded.message = converters.addEllipsisAPL(String(decoded.message).escapeHTML().nl2br(), 100);
         }
         if (decoded.extra === "encrypted") {
             decoded.format = "encrypted";

@@ -199,7 +199,7 @@ class AssetExchange extends React.Component {
             })
         }
 
-        values.publicKey = await crypto.getPublicKey(values.secretPhrase);
+        values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
         values.asset = this.state.asset.asset;
         values.deadline = '1440';
         values.asset_order_type = 'placeAskOrder';

@@ -5,7 +5,7 @@
 
 import CryptoJS from 'crypto-js';
 import i18n from 'i18next';
-import converters from '../converters';
+import conv from '../converters';
 import AplAddress from '../util/apladres';
 import account from '../../modules/modals';
 import curve25519 from './curve25519';
@@ -21,42 +21,42 @@ import {words} from './random-words'
 const BigInteger = jsbn.BigInteger;
 
 
-function simpleHash(b1, b2) {
+function simpleHashAPL(stage1, stage2) {
     let sha256 = CryptoJS.algo.SHA256.create();
-    sha256.update(converters.byteArrayToWordArray(b1));
-    if (b2) {
-        sha256.update(converters.byteArrayToWordArray(b2));
+    sha256.update(conv.byteArrayToWordArrayAPL(stage1));
+    if (stage2) {
+        sha256.update(conv.byteArrayToWordArrayAPL(stage2));
     }
     let hash = sha256.finalize();
-    return converters.wordArrayToByteArrayImpl(hash, false);
+    return conv.wordArrayToByteArrayImplAPL(hash, false);
 }
 
-function curve25519_clamp(curve) {
-    curve[0] &= 0xFFF8;
-    curve[15] &= 0x7FFF;
-    curve[15] |= 0x4000;
-    return curve;
+function curve25519_clampAPL(curveAPL) {
+    curveAPL[0] &= 0xFFF8;
+    curveAPL[15] &= 0x7FFF;
+    curveAPL[15] |= 0x4000;
+    return curveAPL;
 }
 
-function getPrivateKey(secretPhrase) {
-    let bytes = simpleHash(converters.stringToByteArray(secretPhrase));
-    return converters.shortArrayToHexString(curve25519_clamp(converters.byteArrayToShortArray(bytes)));
+function getPrivateKeyAPL(sp) {
+    let bts = simpleHashAPL(conv.stringToByteArray(sp));
+    return conv.shortArrayToHexString(curve25519_clampAPL(conv.byteArrayToShortArray(bts)));
 }
 
-function getAccountIdFromPublicKey(publicKey, isRsFormat) {
-    var hex = converters.hexStringToByteArray(publicKey);
-    var account = simpleHash(hex);
-    account = converters.byteArrayToHexString(account);
-    var slice = (converters.hexStringToByteArray(account)).slice(0, 8);
-    var accountId = converters.byteArrayToBigInteger(slice).toString();
-    if (isRsFormat) {
-        return converters.convertNumericToRSAccountFormat(accountId);
+function getAccountIdFromPublicKeyAPL(pk, isRsFt) {
+    var hex = conv.hexStringToByteArray(pk);
+    var account = simpleHashAPL(hex);
+    account = conv.byteArrayToHexString(account);
+    var slice = (conv.hexStringToByteArray(account)).slice(0, 8);
+    var accountId = conv.byteArrayToBigIntegerAPL(slice).toString();
+    if (isRsFt) {
+        return conv.convertNumericToRSAccountFormatAPL(accountId);
     } else {
         return accountId;
     }
 };
 
-async function getPublicKey(id, isAccountId) {
+async function getPublicKeyAPL(id, isAccountId) {
     if (!id) return;
     if (isAccountId) {
         let publicKey = "";
@@ -79,28 +79,28 @@ async function getPublicKey(id, isAccountId) {
             })
 
     } else {
-        let secretPhraseBytes = converters.hexStringToByteArray(id);
-        let digest = simpleHash(secretPhraseBytes);
+        let secretPhraseBytes = conv.hexStringToByteArray(id);
+        let digest = simpleHashAPL(secretPhraseBytes);
 
-        return converters.byteArrayToHexString(curve25519.keygen(digest).p);
+        return conv.byteArrayToHexString(curve25519.keygen(digest).p);
     }
 };
 
 // example
-function getAccountId(secretPhrase, isRsFormat) {
+function getAccountIdAPL(sp, isRsFt) {
     return async (dispatch, getStore) => {
-        // const store = getStore();
-        const publicKey = await getPublicKey(converters.stringToHexString(secretPhrase));
-        return await dispatch(getAccountIdFromPublicKey(publicKey, isRsFormat));
+
+        const publicKey = await getPublicKeyAPL(conv.stringToHexStringAPL(sp));
+        return await dispatch(getAccountIdFromPublicKeyAPL(publicKey, isRsFt));
     }
 };
 
 
-function getAccountIdAsync(secretPhrase, isRsFormat) {
+function getAccountIdAsyncApl(sp, isRsFt) {
     return async (dispatch, getStore) => {
-        const publicKey = await getPublicKey(converters.stringToHexString(secretPhrase));
+        const pk = await getPublicKeyAPL(conv.stringToHexStringAPL(sp));
 
-        return getAccountIdFromPublicKey(publicKey, true);
+        return getAccountIdFromPublicKeyAPL(pk, true);
     }
 };
 
@@ -108,20 +108,20 @@ const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(a
 
         const accountRS = getStore().account.accountRS;
 
-        const isAccount = await dispatch(getAccountId(passphrase, true));
+        const isAccount = await dispatch(getAccountIdAPL(passphrase, true));
         resolve(accountRS === isAccount);
     });
 
-function generatePassPhrase () {
-    var bits = 128;
-    var random = new Uint32Array(bits / 32);
-    crypto.getRandomValues(random);
+function generatePassPhraseAPL () {
+    var bs = 128;
+    var randomBts = new Uint32Array(bs / 32);
+    crypto.getRandomValues(randomBts);
     var n = words.length;
     var	phraseWords = [];
     var	x, w1, w2, w3;
 
-    for (var i=0; i < random.length; i++) {
-        x = random[i];
+    for (var i=0; i < randomBts.length; i++) {
+        x = randomBts[i];
         w1 = x % n;
         w2 = (((x / n) >> 0) + w1) % n;
         w3 = (((((x / n) >> 0) / n) >> 0) + w2) % n;
@@ -134,52 +134,52 @@ function generatePassPhrase () {
     return (phraseWords);
 }
 
-function getSharedSecretJava(key1, key2) {
-    var sharedKey;
+function getSharedSecretJava(k1, k2) {
+    var sk;
 
-    var result =  curve25519.generateSharedKey(sharedKey, key1, key2);
-    var result = new Uint8Array(result);
+    var r =  curve25519.generateSharedKey(sk, k1, k2);
+    var r = new Uint8Array(r);
 
     var sha256 = CryptoJS.algo.SHA256.create();
-    sha256.update(converters.byteArrayToWordArray(result));
+    sha256.update(conv.byteArrayToWordArrayAPL(r));
 
     var hash = sha256.finalize();
-    hash = converters.wordArrayToByteArrayImpl(hash, false);
+    hash = conv.wordArrayToByteArrayImplAPL(hash, false);
 
     hash = new Int8Array(hash);
 
     return hash;
 };
 
-function aesDecryptMessage(ivCiphertext, options) {
-    if (ivCiphertext.length < 16 || ivCiphertext.length % 16 != 0) {
+function aesDecryptMesAPL(iv, o) {
+    if (iv.length < 16 || iv.length % 16 != 0) {
         throw {
             name: "invalid ciphertext"
         };
     }
 
-    var iv = converters.byteArrayToWordArray(ivCiphertext.slice(0, 16));
-    var ciphertext = converters.byteArrayToWordArray(ivCiphertext.slice(16));
+    var iv = conv.byteArrayToWordArrayAPL(iv.slice(0, 16));
+    var ciphertext = conv.byteArrayToWordArrayAPL(iv.slice(16));
 
     // shared key is use for two different purposes here
     // (1) if nonce exists, shared key represents the shared secret between the private and public keys
     // (2) if nonce does not exists, shared key is the specific key needed for decryption already xored
     // with the nonce and hashed
     var sharedKey;
-    if (!options.sharedKey) {
-        sharedKey = getSharedSecret(options.privateKey, options.publicKey);
+    if (!o.sharedKey) {
+        sharedKey = getSharedSecret(o.privateKey, o.publicKey);
     } else {
-        sharedKey = options.sharedKey.slice(0); //clone
+        sharedKey = o.sharedKey.slice(0); //clone
     }
 
     var key;
-    if (options.nonce) {
+    if (o.nonce) {
         for (var i = 0; i < 32; i++) {
-            sharedKey[i] ^= options.nonce[i];
+            sharedKey[i] ^= o.nonce[i];
         }
-        key = CryptoJS.SHA256(converters.byteArrayToWordArray(sharedKey));
+        key = CryptoJS.SHA256(conv.byteArrayToWordArrayAPL(sharedKey));
     } else {
-        key = converters.byteArrayToWordArray(sharedKey);
+        key = conv.byteArrayToWordArrayAPL(sharedKey);
     }
 
     var encrypted = CryptoJS.lib.CipherParams.create({
@@ -193,13 +193,13 @@ function aesDecryptMessage(ivCiphertext, options) {
     });
 
     return {
-        decrypted: converters.wordArrayToByteArray(decrypted),
-        sharedKey: converters.wordArrayToByteArray(key)
+        decrypted: conv.wordArrayToByteArrayAPL(decrypted),
+        sharedKey: conv.wordArrayToByteArrayAPL(key)
     };
 }
 
 function getSharedSecret(key1, key2) {
-    return converters.shortArrayToByteArray(curve25519_(converters.byteArrayToShortArray(key1), converters.byteArrayToShortArray(key2), null));
+    return conv.shortArrayToByteArrayAPL(curve25519_(conv.byteArrayToShortArray(key1), conv.byteArrayToShortArray(key2), null));
 }
 
 function decryptMessage(data, options) {
@@ -207,13 +207,13 @@ function decryptMessage(data, options) {
         options.sharedKey = getSharedSecret(options.privateKey, options.publicKey);
     }
 
-    data = converters.hexStringToByteArray(data)
+    data = conv.hexStringToByteArray(data)
 
     if (typeof options.nonce === 'string') {
-        options.nonce = converters.hexStringToByteArray(options.nonce);
+        options.nonce = conv.hexStringToByteArray(options.nonce);
     }
 
-    var result = aesDecryptMessage(data, options);
+    var result = aesDecryptMesAPL(data, options);
 
     var binData = new Uint8Array(result.decrypted);
     if (!(options.isCompressed === false)){
@@ -223,52 +223,52 @@ function decryptMessage(data, options) {
     var message;
 
     if (!(options.isText === false)) {
-        message = converters.byteArrayToString(binData);
+        message = conv.byteArrayToStringAPL(binData);
     } else {
-        message = converters.byteArrayToHexString(binData);
+        message = conv.byteArrayToHexString(binData);
     }
 
-    return { message: message, sharedKey: converters.byteArrayToHexString(result.sharedKey) };
+    return { message: message, sharedKey: conv.byteArrayToHexString(result.sharedKey) };
 }
 
-function decryptData(data, options) {
+function decryptDataStreamAPL(d, o) {
 
-    if (typeof(options.sharedKey) === 'string') {
-        options.sharedKey = converters.hexStringToByteArray(options.sharedKey);
+    if (typeof(o.sharedKey) === 'string') {
+        o.sharedKey = conv.hexStringToByteArray(o.sharedKey);
     }
 
-    options.sharedKey = new Uint8Array(options.sharedKey);
+    o.sharedKey = new Uint8Array(o.sharedKey);
 
-    data = converters.hexStringToByteArray(data);
+    d = conv.hexStringToByteArray(d);
 
-    var result = aesDecrypt(data, options);
+    var result = aesDecryptStreamAPL(d, o);
 
     var binData = new Uint8Array(result.decrypted);
-    options.isCompressed = false;
-    options.isText = false;
+    o.isCompressed = false;
+    o.isText = false;
 
-    if (!(options.isCompressed === false)) {
+    if (!(o.isCompressed === false)) {
         binData = inflate(binData);
     }
     var message;
-    if (!(options.isText === false)) {
-        message = converters.byteArrayToString(binData);
+    if (!(o.isText === false)) {
+        message = conv.byteArrayToStringAPL(binData);
     } else {
-        message = converters.byteArrayToHexString(binData);
+        message = conv.byteArrayToHexString(binData);
     }
 
-    return { message: message, sharedKey: converters.byteArrayToHexString(result.sharedKey) };
+    return { message: message, sharedKey: conv.byteArrayToHexString(result.sharedKey) };
 }
 
-function aesDecrypt(ivCiphertext, options) {
+function aesDecryptStreamAPL(ivCiphertext, options) {
     if (ivCiphertext.length < 16 || ivCiphertext.length % 16 != 0) {
         throw {
             name: "invalid ciphertext"
         };
     }
 
-    var iv = converters.byteArrayToWordArray(ivCiphertext.slice(0, 16));
-    var ciphertext = converters.byteArrayToWordArray(ivCiphertext.slice(16));
+    var ivCiphertext = conv.byteArrayToWordArrayAPL(ivCiphertext.slice(0, 16));
+    var ciphertext = conv.byteArrayToWordArrayAPL(ivCiphertext.slice(16));
 
     // shared key is use for two different purposes here
     // (1) if nonce exists, shared key represents the shared secret between the private and public keys
@@ -287,9 +287,9 @@ function aesDecrypt(ivCiphertext, options) {
         for (var i = 0; i < 32; i++) {
             sharedKey[i] ^= options.nonce[i];
         }
-        key = CryptoJS.SHA256(converters.byteArrayToWordArray(sharedKey));
+        key = CryptoJS.SHA256(conv.byteArrayToWordArrayAPL(sharedKey));
     } else {
-        key = converters.byteArrayToWordArray(sharedKey);
+        key = conv.byteArrayToWordArrayAPL(sharedKey);
     }
 
     var encrypted = CryptoJS.lib.CipherParams.create({
@@ -303,30 +303,25 @@ function aesDecrypt(ivCiphertext, options) {
     });
 
     return {
-        decrypted: converters.wordArrayToByteArray(decrypted),
-        sharedKey: converters.wordArrayToByteArray(key)
+        decrypted: conv.wordArrayToByteArrayAPL(decrypted),
+        sharedKey: conv.wordArrayToByteArrayAPL(key)
     };
 }
 
-function tryToDecryptMessage(message, options) {
-    // if (_decryptedTransactions && _decryptedTransactions[message.transaction]) {
-    //     if (_decryptedTransactions[message.transaction].encryptedMessage) {
-    //         return _decryptedTransactions[message.transaction].encryptedMessage; // cache is saved differently by the info modal vs the messages table
-    //     }
-    // }
+function tryToDecryptMessageAPL(m, o) {
     return (dispatch, getState) => {
         const account = getState().account;
         try {
-            if (message.attachment.encryptedMessage) {
-                if (!message.attachment.encryptedMessage.data) {
+            if (m.attachment.encryptedMessage) {
+                if (!m.attachment.encryptedMessage.data) {
                     return console.log('empty message');
                 } else {
-                    var decoded = decryptMessage(message.attachment.encryptedMessage.data, {
-                        "nonce": message.attachment.encryptedMessage.nonce,
+                    var decoded = decryptMessage(m.attachment.encryptedMessage.data, {
+                        "nonce": m.attachment.encryptedMessage.nonce,
                         "account": account.account,
-                        "isText": message.attachment.encryptedMessage.isText,
-                        "isCompressed": message.attachment.encryptedMessage.isCompressed,
-                        "sharedKey": options.sharedKey
+                        "isText": m.attachment.encryptedMessage.isText,
+                        "isCompressed": m.attachment.encryptedMessage.isCompressed,
+                        "sharedKey": o.sharedKey
                     });
                 }
                 return decoded;
@@ -338,58 +333,56 @@ function tryToDecryptMessage(message, options) {
 
 };
 
-function decryptNote(message, options, secretPhrase) {
+function decryptNoteAPL(m, o, sp) {
 
     try {
-        if (!options.sharedKey) {
-            if (!options.privateKey) {
-                if (secretPhrase) {
-                    options.privateKey = converters.hexStringToByteArray(getPrivateKey(secretPhrase));
+        if (!o.sharedKey) {
+            if (!o.privateKey) {
+                if (sp) {
+                    o.privateKey = conv.hexStringToByteArray(getPrivateKeyAPL(sp));
                 }
             }
 
-            if (!options.publicKey) {
-                options.publicKey = converters.hexStringToByteArray(getPublicKey(options.account, true));
+            if (!o.publicKey) {
+                o.publicKey = conv.hexStringToByteArray(getPublicKeyAPL(o.account, true));
             }
         }
-        if (options.nonce) {
-            options.nonce = converters.hexStringToByteArray(options.nonce);
+        if (o.nonce) {
+            o.nonce = conv.hexStringToByteArray(o.nonce);
         }
 
-        return decryptData(converters.hexStringToByteArray(message), options);
+        return decryptDataStreamAPL(conv.hexStringToByteArray(m), o);
     } catch (err) {
         if (err.errorCode && err.errorCode < 3) {
             throw err;
-        } else {
-            // console.log(err.message);
         }
     }
 };
 
-function aesEncrypt(plaintext, options) {
-    var ivBytes = getRandomBytes(16);
+function aesEncryptAPL(pt, o) {
+    var ivBytes = getRandomBytesAPL(16);
 
     // CryptoJS likes WordArray parameters
-    var text = converters.byteArrayToWordArray(plaintext);
+    var text = conv.byteArrayToWordArrayAPL(pt);
     var sharedKey;
-    if (!options.sharedKey) {
-        sharedKey = getSharedSecret(options.privateKey, options.publicKey);
+    if (!o.sharedKey) {
+        sharedKey = getSharedSecret(o.privateKey, o.publicKey);
     } else {
-        sharedKey = options.sharedKey.slice(0); //clone
+        sharedKey = o.sharedKey.slice(0); //clone
     }
     for (var i = 0; i < 32; i++) {
-        sharedKey[i] ^= options.nonce[i];
+        sharedKey[i] ^= o.nonce[i];
     }
-    var key = CryptoJS.SHA256(converters.byteArrayToWordArray(sharedKey));
+    var key = CryptoJS.SHA256(conv.byteArrayToWordArrayAPL(sharedKey));
     var encrypted = CryptoJS.AES.encrypt(text, key, {
-        iv: converters.byteArrayToWordArray(ivBytes)
+        iv: conv.byteArrayToWordArrayAPL(ivBytes)
     });
-    var ivOut = converters.wordArrayToByteArray(encrypted.iv);
-    var ciphertextOut = converters.wordArrayToByteArray(encrypted.ciphertext);
+    var ivOut = conv.wordArrayToByteArrayAPL(encrypted.iv);
+    var ciphertextOut = conv.wordArrayToByteArrayAPL(encrypted.ciphertext);
     return ivOut.concat(ciphertextOut);
 }
 
-function encryptFile(file, options, callback) {
+function encryptFileAPL(f, o, c) {
     var r;
     try {
         r = new FileReader();
@@ -398,36 +391,36 @@ function encryptFile(file, options, callback) {
     }
     r.onload = function (e) {
         var bytes = e.target.result;
-        options.isText = false;
-        var encrypted = encryptData(bytes, options);
+        o.isText = false;
+        var encrypted = encryptDataAPL(bytes, o);
         var blobData = Uint8Array.from(encrypted.data);
         var blob = new Blob([ blobData ], { type: "application/octet-stream" });
-        callback({ file: blob, nonce: encrypted.nonce });
+        c({ file: blob, nonce: encrypted.nonce });
     };
-    r.readAsArrayBuffer(file);
+    r.readAsArrayBuffer(f);
 };
 
-function encryptData(plaintext, options) {
-    options.nonce = getRandomBytes(32);
-    if (!options.sharedKey) {
-        options.sharedKey = getSharedSecret(options.privateKey, options.publicKey);
+function encryptDataAPL(pt, o) {
+    o.nonce = getRandomBytesAPL(32);
+    if (!o.sharedKey) {
+        o.sharedKey = getSharedSecret(o.privateKey, o.publicKey);
     }
-    var compressedPlaintext = pako.gzip(new Uint8Array(plaintext));
-    var data = aesEncrypt(compressedPlaintext, options);
+    var compressedPlaintext = pako.gzip(new Uint8Array(pt));
+    var data = aesEncryptAPL(compressedPlaintext, o);
     return {
-        "nonce": options.nonce,
+        "nonce": o.nonce,
         "data": data
     };
 };
 
-function getRandomBytes(length) {
+function getRandomBytesAPL(l) {
     if (!window.crypto && !window.msCrypto && !crypto) {
         // throw {
         //     "errorCode": -1,
         //     "message": i18n.t("error_encryption_browser_support")
         // };
     }
-    var bytes = new Uint8Array(length);
+    var bytes = new Uint8Array(l);
     if (window.crypto) {
         //noinspection JSUnresolvedFunction
         window.crypto.getRandomValues(bytes);
@@ -435,23 +428,23 @@ function getRandomBytes(length) {
         //noinspection JSUnresolvedFunction
         window.msCrypto.getRandomValues(bytes);
     } else {
-        bytes = crypto.randomBytes(length);
+        bytes = crypto.randomBytes(l);
     }
     return bytes;
 }
 
-function getEncryptionKeys(options, secretPhrase){
-    if (!options.sharedKey) {
-        if (!options.privateKey) {
-            if (!secretPhrase) {
+function getEncryptionKeysAPl(o, sp){
+    if (!o.sharedKey) {
+        if (!o.privateKey) {
+            if (!sp) {
 
             }
 
-            options.privateKey = converters.hexStringToByteArray(getPrivateKey(secretPhrase));
+            o.privateKey = conv.hexStringToByteArray(getPrivateKeyAPL(sp));
         }
 
-        if (!options.publicKey) {
-            if (!options.account) {
+        if (!o.publicKey) {
+            if (!o.account) {
                 throw {
                     "message": 'error_account_id_not_specified',
                     "errorCode": 2
@@ -459,11 +452,11 @@ function getEncryptionKeys(options, secretPhrase){
             }
 
             try {
-                options.publicKey = converters.hexStringToByteArray(getPublicKey(options.account, true));
+                o.publicKey = conv.hexStringToByteArray(getPublicKeyAPL(o.account, true));
             } catch (err) {
                 var aplAddress = new AplAddress();
 
-                if (!aplAddress.set(options.account)) {
+                if (!aplAddress.set(o.account)) {
                     throw {
                         "message": 'error_invalid_account_id',
                         "errorCode": 3
@@ -475,77 +468,32 @@ function getEncryptionKeys(options, secretPhrase){
                     };
                 }
             }
-        } else if (typeof options.publicKey == "string") {
-            options.publicKey = converters.hexStringToByteArray(options.publicKey);
+        } else if (typeof o.publicKey == "string") {
+            o.publicKey = conv.hexStringToByteArray(o.publicKey);
         }
     }
-    return options;
+    return o;
 };
 
-function generatePublicKey (secretPhrase) {
+function generatePublicKeyAPL (sp) {
 
-    return getPublicKey(converters.stringToHexString(secretPhrase));
+    return getPublicKeyAPL(conv.stringToHexStringAPL(sp));
 };
 
 export default {
     getSharedSecretJava,
     getSharedSecret,
-    decryptData,
+    decryptDataStreamAPL: decryptDataStreamAPL,
     decryptMessage,
-    getPrivateKey,
-    getPublicKey,
+    getPrivateKeyAPL: getPrivateKeyAPL,
+    getPublicKeyAPL: getPublicKeyAPL,
     validatePassphrase,
-    tryToDecryptMessage,
-    encryptFile,
-    encryptData,
-    getEncryptionKeys,
-    generatePublicKey,
-    getAccountId,
-    getAccountIdAsync,
-    generatePassPhrase,
+    tryToDecryptMessageAPL: tryToDecryptMessageAPL,
+    encryptFileAPL: encryptFileAPL,
+    encryptDataAPL: encryptDataAPL,
+    getEncryptionKeysAPl: getEncryptionKeysAPl,
+    generatePublicKeyAPL: generatePublicKeyAPL,
+    getAccountIdAPL: getAccountIdAPL,
+    getAccountIdAsyncApl: getAccountIdAsyncApl,
+    generatePassPhraseAPL: generatePassPhraseAPL,
 }
-
-
-// function areByteArraysEqual(bytes1, bytes2) {
-//     if (bytes1.length !== bytes2.length) {
-//         return false;
-//     }
-//     for (let i = 0; i < bytes1.length; ++i) {
-//         if (bytes1[i] !== bytes2[i]) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-//
-// function curve25519_clamp(curve) {
-//     curve[0] &= 0xFFF8;
-//     curve[15] &= 0x7FFF;
-//     curve[15] |= 0x4000;
-//     return curve;
-// }
-//
-// function byteArrayToBigInteger(byteArray) {
-//     let value = new BigInteger("0", 10);
-//     let temp1, temp2;
-//     for (let i = byteArray.length - 1; i >= 0; i--) {
-//         temp1 = value.multiply(new BigInteger("256", 10));
-//         temp2 = temp1.add(new BigInteger(byteArray[i].toString(10), 10));
-//         value = temp2;
-//     }
-//     return value;
-// }
-//
-//
-// function encryptData(plaintext, options) {
-//     options.nonce = getRandomBytes(32);
-//     if (!options.sharedKey) {
-//         options.sharedKey = getSharedSecret(options.privateKey, options.publicKey);
-//     }
-//     let compressedPlaintext = pako.gzip(new Uint8Array(plaintext));
-//     let data = aesEncrypt(compressedPlaintext, options);
-//     return {
-//         "nonce": options.nonce,
-//         "data": data
-//     };
-// }

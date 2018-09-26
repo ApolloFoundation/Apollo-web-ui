@@ -34,7 +34,7 @@ class ApproveTransaction extends React.Component {
 
     handleFormSubmit = async (values) => {
         const {transaction} = this.props.modalData;
-        values.publicKey = await crypto.getPublicKey(values.secretPhrase);
+        values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
         const res = await this.props.submitForm(null, null, {
             ...values,
             transactionFullHash: transaction.fullHash,

@@ -46,7 +46,7 @@ function submitForm($modal, $btn, data, requestType) {
         }
 
         if (data.secretPhrase) {
-            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsync(data.secretPhrase)));
+            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
 
             console.log(isPassphrase);
 
@@ -174,7 +174,7 @@ function submitForm($modal, $btn, data, requestType) {
                 return;
             }
             try {
-                crypto.encryptFile(data.messageFile, data.encryptionKeys, function(encrypted) {
+                crypto.encryptFileAPL(data.messageFile, data.encryptionKeys, function(encrypted) {
                     data.messageFile = encrypted.file;
                     data.encryptedMessageNonce = converters.byteArrayToHexString(encrypted.nonce);
                     delete data.encryptionKeys;
@@ -332,7 +332,7 @@ function addMessageData(data, requestType) {
                     data.messageToEncryptToSelf = data.note_to_self;
                 } else {
                     encrypted = encryptNote(data.note_to_self, {
-                        "publicKey": converters.hexStringToByteArray(crypto.generatePublicKey(data.secretPhrase))
+                        "publicKey": converters.hexStringToByteArray(crypto.generatePublicKeyAPL(data.secretPhrase))
                     }, data.secretPhrase);
 
                     data.encryptToSelfMessageData = encrypted.message;
@@ -359,7 +359,7 @@ function getEncryptionKeys(options, secretPhrase){
 
             }
 
-            options.privateKey = converters.hexStringToByteArray(crypto.getPrivateKey(secretPhrase));
+            options.privateKey = converters.hexStringToByteArray(crypto.getPrivateKeyAPL(secretPhrase));
         }
 
         if (!options.publicKey) {
@@ -371,7 +371,7 @@ function getEncryptionKeys(options, secretPhrase){
             }
 
             try {
-                options.publicKey = converters.hexStringToByteArray(crypto.getPublicKey(options.account, true));
+                options.publicKey = converters.hexStringToByteArray(crypto.getPublicKeyAPL(options.account, true));
             } catch (err) {
                 var aplAddress = new AplAddress();
 
@@ -396,8 +396,8 @@ function getEncryptionKeys(options, secretPhrase){
 
 function encryptNote(message, options, secretPhrase) {
     try {
-        options = crypto.getEncryptionKeys(options, secretPhrase);
-        var encrypted = crypto.encryptData(converters.stringToByteArray(message), options);
+        options = crypto.getEncryptionKeysAPl(options, secretPhrase);
+        var encrypted = crypto.encryptDataAPL(converters.stringToByteArray(message), options);
         return {
             "message": converters.byteArrayToHexString(encrypted.data),
             "nonce": converters.byteArrayToHexString(encrypted.nonce)
@@ -674,8 +674,8 @@ function sendRequest(requestType, data, callback, options) {
 
         //gets account id from passphrase client side, used only for login.
         var accountId;
-        if (requestType == "getAccountId") {
-            accountId = dispatch(crypto.getAccountId()(data.secretPhrase));
+        if (requestType == "getAccountIdAPL") {
+            accountId = dispatch(crypto.getAccountIdAPL()(data.secretPhrase));
 
             var aplAddress = new AplAddress();
             var accountRS = "";

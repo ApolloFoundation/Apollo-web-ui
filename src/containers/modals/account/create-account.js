@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
-    getAccountIdAsync: (passPhrase) => dispatch(crypto.getAccountIdAsync(passPhrase)),
+    getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
     getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
 });
 
@@ -68,8 +68,8 @@ class CreateUser extends React.Component {
     };
 
     generatePassphrase = async () => {
-        const generatedPassphrase = crypto.generatePassPhrase();
-        const generatedAccount = store.dispatch(await this.props.getAccountIdAsync(generatedPassphrase.join(' ')));
+        const generatedPassphrase = crypto.generatePassPhraseAPL();
+        const generatedAccount = store.dispatch(await this.props.getAccountIdAsyncApl(generatedPassphrase.join(' ')));
 
         this.setState({
             ...this.state,

@@ -37,59 +37,59 @@ function stringToByteArray (str) {
 
     return bytes;
 };
-function wordArrayToByteArrayImpl (wordArray, isFirstByteHasSign) {
-    var len = wordArray.words.length;
+function wordArrayToByteArrayImplAPL (wordArrayStrim, isFirstByteHasSign) {
+    var len = wordArrayStrim.words.length;
     if (len == 0) {
         return new Array(0);
     }
-    if (wordArray.sigBytes < 0) {
-        wordArray.sigBytes = wordArray.sigBytes*-1
+    if (wordArrayStrim.sigBytes < 0) {
+        wordArrayStrim.sigBytes = wordArrayStrim.sigBytes*-1
     }
 
-    var byteArray = new Array(wordArray.sigBytes);
+    var byteArrayStrim = new Array(wordArrayStrim.sigBytes);
     var offset = 0,
         word, i;
     for (i = 0; i < len - 1; i++) {
-        word = wordArray.words[i];
-        byteArray[offset++] = isFirstByteHasSign ? word >> 24 : (word >> 24) & 0xff;
-        byteArray[offset++] = (word >> 16) & 0xff;
-        byteArray[offset++] = (word >> 8) & 0xff;
-        byteArray[offset++] = word & 0xff;
+        word = wordArrayStrim.words[i];
+        byteArrayStrim[offset++] = isFirstByteHasSign ? word >> 24 : (word >> 24) & 0xff;
+        byteArrayStrim[offset++] = (word >> 16) & 0xff;
+        byteArrayStrim[offset++] = (word >> 8) & 0xff;
+        byteArrayStrim[offset++] = word & 0xff;
     }
-    word = wordArray.words[len - 1];
-    byteArray[offset++] = isFirstByteHasSign ? word >> 24 : (word >> 24) & 0xff;
-    if (wordArray.sigBytes % 4 == 0) {
-        byteArray[offset++] = (word >> 16) & 0xff;
-        byteArray[offset++] = (word >> 8) & 0xff;
-        byteArray[offset++] = word & 0xff;
+    word = wordArrayStrim.words[len - 1];
+    byteArrayStrim[offset++] = isFirstByteHasSign ? word >> 24 : (word >> 24) & 0xff;
+    if (wordArrayStrim.sigBytes % 4 == 0) {
+        byteArrayStrim[offset++] = (word >> 16) & 0xff;
+        byteArrayStrim[offset++] = (word >> 8) & 0xff;
+        byteArrayStrim[offset++] = word & 0xff;
     }
-    if (wordArray.sigBytes % 4 > 1) {
-        byteArray[offset++] = (word >> 16) & 0xff;
+    if (wordArrayStrim.sigBytes % 4 > 1) {
+        byteArrayStrim[offset++] = (word >> 16) & 0xff;
     }
-    if (wordArray.sigBytes % 4 > 2) {
-        byteArray[offset++] = (word >> 8) & 0xff;
+    if (wordArrayStrim.sigBytes % 4 > 2) {
+        byteArrayStrim[offset++] = (word >> 8) & 0xff;
     }
-    return byteArray;
+    return byteArrayStrim;
 };
-function byteArrayToWordArray(byteArray) {
+function byteArrayToWordArrayAPL(btyArrAPL) {
     var i = 0,
         offset = 0,
-        word = 0,
-        len = byteArray.length;
+        wrdAPL = 0,
+        len = btyArrAPL.length;
     var words = new Uint32Array(((len / 4) | 0) + (len % 4 == 0 ? 0 : 1));
 
     while (i < (len - (len % 4))) {
-        words[offset++] = (byteArray[i++] << 24) | (byteArray[i++] << 16) | (byteArray[i++] << 8) | (byteArray[i++]);
+        words[offset++] = (btyArrAPL[i++] << 24) | (btyArrAPL[i++] << 16) | (btyArrAPL[i++] << 8) | (btyArrAPL[i++]);
     }
     if (len % 4 != 0) {
-        word = byteArray[i++] << 24;
+        wrdAPL = btyArrAPL[i++] << 24;
         if (len % 4 > 1) {
-            word = word | byteArray[i++] << 16;
+            wrdAPL = wrdAPL | btyArrAPL[i++] << 16;
         }
         if (len % 4 > 2) {
-            word = word | byteArray[i++] << 8;
+            wrdAPL = wrdAPL | btyArrAPL[i++] << 8;
         }
-        words[offset] = word;
+        words[offset] = wrdAPL;
     }
     var wordArray = new Object();
     wordArray.sigBytes = len;
@@ -97,132 +97,130 @@ function byteArrayToWordArray(byteArray) {
 
     return wordArray;
 }
-function byteArrayToHexString(bytes) {
+function byteArrayToHexStringAPL(bytesAPL) {
     let str = '';
-    for (var i = 0; i < bytes.length; ++i) {
-        if (bytes[i] < 0) {
-            bytes[i] += 256;
+    for (var i = 0; i < bytesAPL.length; ++i) {
+        if (bytesAPL[i] < 0) {
+            bytesAPL[i] += 256;
         }
-        str += nibbleToChar[bytes[i] >> 4] + nibbleToChar[bytes[i] & 0x0F];
+        str += nibbleToChar[bytesAPL[i] >> 4] + nibbleToChar[bytesAPL[i] & 0x0F];
     }
 
     return str;
 }
-function byteArrayToHexString(bytes) {
+function byteArrayToHexString(bytesStrim) {
      var str = '';
-     for (var i = 0; i < bytes.length; ++i) {
-         if (bytes[i] < 0) {
-             bytes[i] += 256;
+     for (var i = 0; i < bytesStrim.length; ++i) {
+         if (bytesStrim[i] < 0) {
+             bytesStrim[i] += 256;
          }
-         str += nibbleToChar[bytes[i] >> 4] + nibbleToChar[bytes[i] & 0x0F];
+         str += nibbleToChar[bytesStrim[i] >> 4] + nibbleToChar[bytesStrim[i] & 0x0F];
      }
 
      return str;
 }
-function stringToByteArray(str) {
-     str = unescape(encodeURIComponent(str)); //temporary
+function stringToByteArray(strAPL) {
+    strAPL = unescape(encodeURIComponent(strAPL)); //temporary
 
-     var bytes = new Array(str.length);
-     for (var i = 0; i < str.length; ++i)
-         bytes[i] = str.charCodeAt(i);
+     var bytesAPL = new Array(strAPL.length);
+     for (var i = 0; i < strAPL.length; ++i)
+         bytesAPL[i] = strAPL.charCodeAt(i);
 
-     return bytes;
+     return bytesAPL;
 }
-function hexStringToByteArray(str) {
-     var bytes = [];
+function hexStringToByteArray(strAPL) {
+     var bytesAPL = [];
      var i = 0;
-     if (0 !== str.length % 2) {
-         bytes.push(charToNibble[str.charAt(0)]);
+     if (0 !== strAPL.length % 2) {
+         bytesAPL.push(charToNibble[strAPL.charAt(0)]);
          ++i;
      }
 
-     for (; i < str.length - 1; i += 2)
-         bytes.push((charToNibble[str.charAt(i)] << 4) + charToNibble[str.charAt(i + 1)]);
+     for (; i < strAPL.length - 1; i += 2)
+         bytesAPL.push((charToNibble[strAPL.charAt(i)] << 4) + charToNibble[strAPL.charAt(i + 1)]);
 
-     return bytes;
+     return bytesAPL;
 }
-function hexStringToInt8ByteArray(str) {
-     var bytes = [];
+function hexStringToInt8ByteArray(strAPL) {
+     var bytesAPL = [];
      var i = 0;
-     if (0 !== str.length % 2) {
-         bytes.push(charToNibble[str.charAt(0)]);
+     if (0 !== strAPL.length % 2) {
+         bytesAPL.push(charToNibble[strAPL.charAt(0)]);
          ++i;
      }
 
-     for (; i < str.length - 1; i += 2)
-         bytes.push((charToNibble[str.charAt(i)] << 4) + charToNibble[str.charAt(i + 1)]);
+     for (; i < strAPL.length - 1; i += 2)
+         bytesAPL.push((charToNibble[strAPL.charAt(i)] << 4) + charToNibble[strAPL.charAt(i + 1)]);
 
-     var bytes = new Int8Array(bytes);
+     var bytesAPL = new Int8Array(bytesAPL);
 
-     return bytes;
+     return bytesAPL;
 }
-function stringToHexString(str) {
+function stringToHexStringAPL(str) {
     return byteArrayToHexString(stringToByteArray(str));
 }
-function hexStringToString(hex) {
-     return byteArrayToString(hexStringToByteArray(hex));
+function hexStringToStringAPL(hex) {
+     return byteArrayToStringAPL(hexStringToByteArray(hex));
 }
-function hexStringToInt8ByteArray(str) {
-     var bytes = [];
+function hexStringToInt8ByteArrayAPL(strAPL) {
+     var btssAPL = [];
      var i = 0;
-     if (0 !== str.length % 2) {
-         bytes.push(charToNibble[str.charAt(0)]);
+     if (0 !== strAPL.length % 2) {
+         btssAPL.push(charToNibble[strAPL.charAt(0)]);
          ++i;
      }
 
-     for (; i < str.length - 1; i += 2)
-         bytes.push((charToNibble[str.charAt(i)] << 4) + charToNibble[str.charAt(i + 1)]);
+     for (; i < strAPL.length - 1; i += 2)
+         btssAPL.push((charToNibble[strAPL.charAt(i)] << 4) + charToNibble[strAPL.charAt(i + 1)]);
 
-     var bytes = new Int8Array(bytes);
+     var btssAPL = new Int8Array(btssAPL);
 
-     return bytes;
+     return btssAPL;
  }
-function checkBytesToIntInput(bytes, numBytes, opt_startIndex) {
-     var startIndex = opt_startIndex || 0;
+function checkBytesToIntInputAPL(bytes, numBts, optStartIndex) {
+     var startIndex = optStartIndex || 0;
      if (startIndex < 0) {
          throw new Error('Start index should not be negative');
      }
 
-     if (bytes.length < startIndex + numBytes) {
-         throw new Error('Need at least ' + (numBytes) + ' bytes to convert to an integer');
+     if (bytes.length < startIndex + numBts) {
+         throw new Error('Need at least ' + (numBts) + ' bytes to convert to an integer');
      }
      return startIndex;
 }
 
-function byteArrayToBigIntegerHash(byteArray) {
+function byteArrayToBigIntegerHashAPL(btsArrayAPL) {
     var value = new BigInteger("0", 10);
-    for (var i = byteArray.length - 1; i >= 0; i--) {
-        value = value.multiply(new BigInteger("256", 10)).add(new BigInteger(byteArray[i].toString(10), 10));
+    for (var i = btsArrayAPL.length - 1; i >= 0; i--) {
+        value = value.multiply(new BigInteger("256", 10)).add(new BigInteger(btsArrayAPL[i].toString(10), 10));
     }
     return value;
 }
 
-
-function byteArrayToSignedShort(bytes, opt_startIndex) {
-     var index = this.checkBytesToIntInput(bytes, 2, opt_startIndex);
-     var value = bytes[index];
-     value += bytes[index + 1] << 8;
+function byteArrayToSignedShortAPL(bts, optStartIndex) {
+     var index = this.checkBytesToIntInputAPL(bts, 2, optStartIndex);
+     var value = bts[index];
+     value += bts[index + 1] << 8;
      return value;
 }
 
- // create a wordArray that is Big-Endian
-function byteArrayToWordArray(byteArray) {
+function byteArrayToWordArrayAPL(btsArrayAPL) {
      var i = 0,
          offset = 0,
          word = 0,
-         len = byteArray.length;
+         len = btsArrayAPL.length;
      var words = new Uint32Array(((len / 4) | 0) + (len % 4 == 0 ? 0 : 1));
 
      while (i < (len - (len % 4))) {
-         words[offset++] = (byteArray[i++] << 24) | (byteArray[i++] << 16) | (byteArray[i++] << 8) | (byteArray[i++]);
+         words[offset++] = (btsArrayAPL[i++] << 24) | (btsArrayAPL[i++] << 16) | (btsArrayAPL[i++] << 8) | (btsArrayAPL[i++]);
      }
      if (len % 4 != 0) {
-         word = byteArray[i++] << 24;
+         word = btsArrayAPL[i++] << 24;
          if (len % 4 > 1) {
-             word = word | byteArray[i++] << 16;
+             word = word | btsArrayAPL[i++] << 16;
          }
          if (len % 4 > 2) {
-             word = word | byteArray[i++] << 8;
+             word = word | btsArrayAPL[i++] << 8;
          }
          words[offset] = word;
      }
@@ -233,153 +231,135 @@ function byteArrayToWordArray(byteArray) {
      return wordArray;
  }
  // assumes wordArray is Big-Endian
-function wordArrayToByteArray(wordArray) {
-    return wordArrayToByteArrayImpl(wordArray, true);
+function wordArrayToByteArrayAPL(wordArrAPL) {
+    return wordArrayToByteArrayImplAPL(wordArrAPL, true);
 }
-function byteArrayToString(bytes, opt_startIndex, length) {
+function byteArrayToStringAPL(btsAPL, optStartIndex, length) {
      if (length == 0) {
          return "";
      }
 
-     if (opt_startIndex && length) {
-         var index = this.checkBytesToIntInput(bytes, parseInt(length, 10), parseInt(opt_startIndex, 10));
+     if (optStartIndex && length) {
+         var index = this.checkBytesToIntInputAPL(btsAPL, parseInt(length, 10), parseInt(optStartIndex, 10));
 
-         bytes = bytes.slice(opt_startIndex, opt_startIndex + length);
+         btsAPL = btsAPL.slice(optStartIndex, optStartIndex + length);
      }
 
-     return decodeURIComponent(escape(String.fromCharCode.apply(null, bytes)));
+     return decodeURIComponent(escape(String.fromCharCode.apply(null, btsAPL)));
  }
-function byteArrayToShortArray(byteArray) {
-     var shortArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+function byteArrayToShortArray(btsArrayAPL) {
+     var srtArrayAPL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
      var i;
      for (i = 0; i < 16; i++) {
-         shortArray[i] = byteArray[i * 2] | byteArray[i * 2 + 1] << 8;
+         srtArrayAPL[i] = btsArrayAPL[i * 2] | btsArrayAPL[i * 2 + 1] << 8;
      }
-     return shortArray;
+     return srtArrayAPL;
 }
-function shortArrayToByteArray(shortArray) {
-     var byteArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+function shortArrayToByteArray(srtArrayAPL) {
+     var btsArrayAPL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
      var i;
      for (i = 0; i < 16; i++) {
-         byteArray[2 * i] = shortArray[i] & 0xff;
-         byteArray[2 * i + 1] = shortArray[i] >> 8;
+         btsArrayAPL[2 * i] = srtArrayAPL[i] & 0xff;
+         btsArrayAPL[2 * i + 1] = srtArrayAPL[i] >> 8;
      }
 
-     return byteArray;
+     return btsArrayAPL;
 }
-function shortArrayToInt8ByteArray(shortArray) {
-     var byteArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+function shortArrayToInt8ByteArrayAPL(srtArrayAPL) {
+     var btsArrayAPL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
      var i;
      for (i = 0; i < 16; i++) {
-         byteArray[2 * i] = shortArray[i] & 0xff;
-         byteArray[2 * i + 1] = shortArray[i] >> 8;
+         btsArrayAPL[2 * i] = srtArrayAPL[i] & 0xff;
+         btsArrayAPL[2 * i + 1] = srtArrayAPL[i] >> 8;
      }
 
-     byteArray = new Int8Array(byteArray);
+     btsArrayAPL = new Int8Array(btsArrayAPL);
 
-     return byteArray;
+     return btsArrayAPL;
 }
-function shortArrayToHexString(ary) {
-     var res = "";
-     for (var i = 0; i < ary.length; i++) {
-         res += nibbleToChar[(ary[i] >> 4) & 0x0f] + nibbleToChar[ary[i] & 0x0f] + nibbleToChar[(ary[i] >> 12) & 0x0f] + nibbleToChar[(ary[i] >> 8) & 0x0f];
+function shortArrayToHexString(arrAPL) {
+     var rssAPL = "";
+     for (var i = 0; i < arrAPL.length; i++) {
+         rssAPL += nibbleToChar[(arrAPL[i] >> 4) & 0x0f] + nibbleToChar[arrAPL[i] & 0x0f] + nibbleToChar[(arrAPL[i] >> 12) & 0x0f] + nibbleToChar[(arrAPL[i] >> 8) & 0x0f];
      }
-     return res;
+     return rssAPL;
 }
 
-function shortArrayToByteArray(shortArray) {
-    var byteArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+function shortArrayToByteArrayAPL(srtArrayAPL) {
+    var btArrayAPL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var i;
     for (i = 0; i < 16; i++) {
-        byteArray[2 * i] = shortArray[i] & 0xff;
-        byteArray[2 * i + 1] = shortArray[i] >> 8;
+        btArrayAPL[2 * i] = srtArrayAPL[i] & 0xff;
+        btArrayAPL[2 * i + 1] = srtArrayAPL[i] >> 8;
     }
 
-    return byteArray;
+    return btArrayAPL;
 }
- /**
-  * Produces an array of the specified number of bytes to represent the integer
-  * value. Default output encodes ints in little endian format. Handles signed
-  * as well as unsigned integers. Due to limitations in JavaScript's number
-  * format, x cannot be a true 64 bit integer (8 bytes).
-  */
- function intToBytes_(x, numBytes, unsignedMax, opt_bigEndian) {
-     var signedMax = Math.floor(unsignedMax / 2);
-     var negativeMax = (signedMax + 1) * -1;
-     if (x != Math.floor(x) || x < negativeMax || x > unsignedMax) {
+
+ function intToBytesAPL(xAPl, numBtsAPL, unsignedMaxBytesAPL, optBigEndianAPL) {
+     var signedMaxAPLBts = Math.floor(unsignedMaxBytesAPL / 2);
+     var negativeMax = (signedMaxAPLBts + 1) * -1;
+     if (xAPl != Math.floor(xAPl) || xAPl < negativeMax || xAPl > unsignedMaxBytesAPL) {
          throw new Error(
-             x + ' is not a ' + (numBytes * 8) + ' bit integer');
+             xAPl + ' is not a ' + (numBtsAPL * 8) + ' bit integer');
      }
      var bytes = [];
      var current;
-     // Number type 0 is in the positive int range, 1 is larger than signed int,
-     // and 2 is negative int.
-     var numberType = x >= 0 && x <= signedMax ? 0 :
-         x > signedMax && x <= unsignedMax ? 1 : 2;
+     var numberType = xAPl >= 0 && xAPl <= signedMaxAPLBts ? 0 :
+         xAPl > signedMaxAPLBts && xAPl <= unsignedMaxBytesAPL ? 1 : 2;
      if (numberType == 2) {
-         x = (x * -1) - 1;
+         xAPl = (xAPl * -1) - 1;
      }
-     for (var i = 0; i < numBytes; i++) {
+     for (var i = 0; i < numBtsAPL; i++) {
          if (numberType == 2) {
-             current = 255 - (x % 256);
+             current = 255 - (xAPl % 256);
          } else {
-             current = x % 256;
+             current = xAPl % 256;
          }
 
-         if (opt_bigEndian) {
+         if (optBigEndianAPL) {
              bytes.unshift(current);
          } else {
              bytes.push(current);
          }
 
          if (numberType == 1) {
-             x = Math.floor(x / 256);
+             xAPl = Math.floor(xAPl / 256);
          } else {
-             x = x >> 8;
+             xAPl = xAPl >> 8;
          }
      }
      return bytes;
 
 }
-function int32ToBytes(x, opt_bigEndian) {
-     return intToBytes_(x, 4, 4294967295, opt_bigEndian);
+
+function int32ToBtsAPL(APLInit, optBigEndianAPL) {
+     return intToBytesAPL(APLInit, 4, 4294967295, optBigEndianAPL);
 }
- /**
-  * Based on https://groups.google.com/d/msg/crypto-js/TOb92tcJlU0/Eq7VZ5tpi-QJ
-  * Converts a word array to a Uint8Array.
-  * @param {WordArray} wordArray The word array.
-  * @return {Uint8Array} The Uint8Array.
-  */
-function wordArrayToByteArrayEx(wordArray) {
-    // Shortcuts
-    var words = wordArray.words;
-    var sigBytes = wordArray.sigBytes;
-    // Convert
-    var u8 = new Uint8Array(sigBytes);
+
+function wordArrayToByteArrayExAPL(wrdArrAPL) {
+    var wrds = wrdArrAPL.words;
+    var sigBytes = wrdArrAPL.sigBytes;
+    var u8APLStr = new Uint8Array(sigBytes);
     for (var i = 0; i < sigBytes; i++) {
-        var byte = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
-        u8[i]=byte;
+        var byte = (wrds[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+        u8APLStr[i]=byte;
     }
 
-    return u8;
+    return u8APLStr;
 }
- /**
-  * Converts a Uint8Array to a word array.
-  * @param {string} u8Str The Uint8Array.
-  * @return {WordArray} The word array.
-  */
-function byteArrayToWordArrayEx(u8arr) {
-    // Shortcut
-    var len = u8arr.length;
-    // Convert
-    var words = [];
-    for (var i = 0; i < len; i++) {
-        words[i >>> 2] |= (u8arr[i] & 0xff) << (24 - (i % 4) * 8);
+
+function byteArrayToWordArrayExAPL(u8arrAPLstring) {
+    var lenWord = u8arrAPLstring.length;
+    var wrds = [];
+    for (var i = 0; i < lenWord; i++) {
+        wrds[i >>> 2] |= (u8arrAPLstring[i] & 0xff) << (24 - (i % 4) * 8);
     }
-    return CryptoJS.lib.WordArray.create(words, len);
+    return CryptoJS.lib.WordArray.create(wrds, lenWord);
 }
-function byteArrayToBigInteger(bytes, opt_startIndex = 0) {
-    var index = checkBytesToIntInput(bytes, 8, opt_startIndex);
+
+function byteArrayToBigIntegerAPL(btsAPL, optStartIndexAPL = 0) {
+    var ind = checkBytesToIntInputAPL(btsAPL, 8, optStartIndexAPL);
 
     var value = new BigInteger("0", 10);
 
@@ -387,41 +367,41 @@ function byteArrayToBigInteger(bytes, opt_startIndex = 0) {
 
     for (var i = 7; i >= 0; i--) {
         temp1 = value.multiply(new BigInteger("256", 10));
-        temp2 = temp1.add(new BigInteger(bytes[opt_startIndex + i].toString(10), 10));
+        temp2 = temp1.add(new BigInteger(btsAPL[optStartIndexAPL + i].toString(10), 10));
         value = temp2;
     }
 
     return value;
 }
 
-function isRsAccount(accountId) {
+function isRsAccountAPL(accontIdAPL) {
     return (dispatch, getStore) => {
         const { account } = getStore();
-        return isRsAccountImpl(accountId, getRsAccountRegex(account.constants.accountPrefix));
+        return isRsAccImpAPL(accontIdAPL, getRsAccountRegexAPL(account.constants.accountPrefix));
     };
 }
 
-function getRsAccountRegex(accountPrefix, withoutSeparator) {
-    if (withoutSeparator) {
-        return new RegExp("^" + accountPrefix + "-[A-Z0-9]{17}", "i");
+function getRsAccountRegexAPL(accPrefix, withoutSep) {
+    if (withoutSep) {
+        return new RegExp("^" + accPrefix + "-[A-Z0-9]{17}", "i");
     }
     return new RegExp(ACCOUNT_REGEX_STR, "i");
 };
 
-function isRsAccountImpl(accountId, regex) {
-    regex = new RegExp(regex);
-    return regex.test(accountId);
+function isRsAccImpAPL(accountId, regularExpression) {
+    regularExpression = new RegExp(regularExpression);
+    return regularExpression.test(accountId);
 }
 
-function convertNumericToRSAccountFormat(accountId) {
+function convertNumericToRSAccountFormatAPL(accIdAPL) {
     return (dispatch) => {
-        const checkRsAccount = dispatch(isRsAccount(accountId));
+        const checkRsAccount = dispatch(isRsAccountAPL(accIdAPL));
         if (checkRsAccount) {
-            return accountId;
+            return accIdAPL;
         } else {
             var address = new AplAddress();
 
-            if (address.set(accountId)) {
+            if (address.set(accIdAPL)) {
                 return address.toString();
             } else {
                 return "";
@@ -430,55 +410,54 @@ function convertNumericToRSAccountFormat(accountId) {
     }
 }
 
-function convertFromHex16(hex) {
+function convertFromHex16APL(hexString) {
     var j;
-    var hexes = hex.match(/.{1,4}/g) || [];
-    var back = "";
-    for (j = 0; j < hexes.length; j++) {
-        back += String.fromCharCode(parseInt(hexes[j], 16));
+    var hexesStrings = hexString.match(/.{1,4}/g) || [];
+    var backWords = "";
+    for (j = 0; j < hexesStrings.length; j++) {
+        backWords += String.fromCharCode(parseInt(hexesStrings[j], 16));
     }
 
-    return back;
+    return backWords;
 };
 
 
-function byteArrayToString(bytes, opt_startIndex, length) {
-    if (length == 0) {
+function byteArrayToStringAPL(bytesArrays, optStartIndex, l) {
+    if (l == 0) {
         return "";
     }
 
-    if (opt_startIndex && length) {
-        var index = this.checkBytesToIntInput(bytes, parseInt(length, 10), parseInt(opt_startIndex, 10));
+    if (optStartIndex && l) {
+        var index = this.checkBytesToIntInputAPL(bytesArrays, parseInt(l, 10), parseInt(optStartIndex, 10));
 
-        bytes = bytes.slice(opt_startIndex, opt_startIndex + length);
+        bytesArrays = bytesArrays.slice(optStartIndex, optStartIndex + l);
     }
 
-    let result = String.fromCharCode.apply(null, bytes);
-    result = escape(result);
-    result = decodeURIComponent(result)
+    let r = String.fromCharCode.apply(null, bytesArrays);
+    r = escape(r);
+    r = decodeURIComponent(r)
 
-    return result;
+    return r;
 }
 
-function addEllipsis(str, length) {
-    if (!str || str == "" || str.length <= length) {
-        return str;
+function addEllipsisAPL(strLength, l) {
+    if (!strLength || strLength == "" || strLength.length <= l) {
+        return strLength;
     }
-    return str.substring(0, length) + "...";
+    return strLength.substring(0, l) + "...";
 };
 
-function convertFromHex8(hex) {
-    var hexStr = hex.toString(); //force conversion
+function convertFromHex8APL(hexArrayWords) {
+    var hexString = hexArrayWords.toString(); //force conversion
     var str = '';
-    for (var i = 0; i < hexStr.length; i += 2) {
-        str += String.fromCharCode(parseInt(hexStr.substr(i, 2), 16));
+    for (var i = 0; i < hexString.length; i += 2) {
+        str += String.fromCharCode(parseInt(hexString.substr(i, 2), 16));
     }
     return str;
 };
 
-function  getUtf8Bytes(str) {
-    //noinspection JSDeprecatedSymbols
-    var utf8 = unescape(encodeURIComponent(str));
+function  getUtf8BytesAPL(processingString) {
+    var utf8 = unescape(encodeURIComponent(processingString));
     var arr = [];
     for (var i = 0; i < utf8.length; i++) {
         arr[i] = utf8.charCodeAt(i);
@@ -486,48 +465,46 @@ function  getUtf8Bytes(str) {
     return arr;
 };
 
-function toEpochTime(currentTime) {
-    if (currentTime == undefined) {
-        currentTime = new Date();
+function toEpochTimeAPL(currentWalletTime) {
+    if (currentWalletTime == undefined) {
+        currentWalletTime = new Date();
     }
-    // if (1385294400000 == 0) {
-    //     throw "undefined epoch beginning";
-    // }
-    return Math.floor((currentTime - 1385294400000) / 1000);
+
+    return Math.floor((currentWalletTime - 1385294400000) / 1000);
 };
 
-function simpleHash(b1, b2) {
-    var sha256 = CryptoJS.algo.SHA256.create();
-    sha256.update(byteArrayToWordArray(b1));
-    if (b2) {
-        sha256.update(byteArrayToWordArray(b2));
+function simpleHashProceingAPL(stage1, stage2) {
+    var shaHash256 = CryptoJS.algo.SHA256.create();
+    shaHash256.update(byteArrayToWordArrayAPL(stage1));
+    if (stage2) {
+        shaHash256.update(byteArrayToWordArrayAPL(stage2));
     }
-    var hash = sha256.finalize();
-    return wordArrayToByteArrayImpl(hash, false);
+    var hash = shaHash256.finalize();
+    return wordArrayToByteArrayImplAPL(hash, false);
 }
 
-function signBytes(message, secretPhrase) {
-    var messageBytes = hexStringToByteArray(message);
-    var secretPhraseBytes = hexStringToByteArray(secretPhrase);
+function signBytesArrayAPL(messageToSign, sp) {
+    var messageBytes = hexStringToByteArray(messageToSign);
+    var secretPhraseBytes = hexStringToByteArray(sp);
 
-    var digest = simpleHash(secretPhraseBytes);
+    var digest = simpleHashProceingAPL(secretPhraseBytes);
     var s = curve25519.keygen(digest).s;
-    var m = simpleHash(messageBytes);
-    var x = simpleHash(m, s);
+    var m = simpleHashProceingAPL(messageBytes);
+    var x = simpleHashProceingAPL(m, s);
     var y = curve25519.keygen(x).p;
-    var h = simpleHash(m, y);
+    var h = simpleHashProceingAPL(m, y);
     var v = curve25519.sign(h, x, s);
     return byteArrayToHexString(v.concat(h));
 };
 
-function generateToken(message, secretPhrase) {
+function generateTokenAPL(messageToGenerate, sp) {
     return async () => {
-        var messageBytes = getUtf8Bytes(message);
-        var pubKeyBytes = hexStringToByteArray(await crypto.getPublicKey(stringToHexString(secretPhrase)));
+        var messageBytes = getUtf8BytesAPL(messageToGenerate);
+        var pubKeyBytes = hexStringToByteArray(await crypto.getPublicKeyAPL(stringToHexStringAPL(sp)));
         var token = pubKeyBytes;
 
         var tsb = [];
-        var ts = toEpochTime();
+        var ts = toEpochTimeAPL();
         tsb[0] = ts & 0xFF;
         tsb[1] = (ts >> 8) & 0xFF;
         tsb[2] = (ts >> 16) & 0xFF;
@@ -535,8 +512,8 @@ function generateToken(message, secretPhrase) {
 
         messageBytes = messageBytes.concat(pubKeyBytes, tsb);
         token = token.concat(tsb, hexStringToByteArray(
-            signBytes(byteArrayToHexString(messageBytes),
-                secretPhrase !== undefined ? stringToHexString(secretPhrase) : undefined)));
+            signBytesArrayAPL(byteArrayToHexString(messageBytes),
+                sp !== undefined ? stringToHexStringAPL(sp) : undefined)));
 
         var buf = "";
         for (var ptr = 0; ptr < 100; ptr += 5) {
@@ -546,7 +523,7 @@ function generateToken(message, secretPhrase) {
             nbr[2] = token[ptr+2] & 0xFF;
             nbr[3] = token[ptr+3] & 0xFF;
             nbr[4] = token[ptr+4] & 0xFF;
-            var number = byteArrayToBigIntegerHash(nbr);
+            var number = byteArrayToBigIntegerHashAPL(nbr);
             if (number < 32) {
                 buf += "0000000";
             } else if (number < 1024) {
@@ -570,22 +547,22 @@ function generateToken(message, secretPhrase) {
 
 export default {
     stringToByteArray,
-    wordArrayToByteArrayImpl,
-    byteArrayToWordArray,
+    wordArrayToByteArrayImplAPL: wordArrayToByteArrayImplAPL,
+    byteArrayToWordArrayAPL: byteArrayToWordArrayAPL,
     byteArrayToHexString,
     shortArrayToHexString,
     byteArrayToShortArray,
-    hexStringToInt8ByteArray,
+    hexStringToInt8ByteArray: hexStringToInt8ByteArrayAPL,
     hexStringToByteArray,
-    byteArrayToBigInteger,
-    stringToHexString,
-    convertNumericToRSAccountFormat,
-    wordArrayToByteArray,
-    hexStringToString,
-    convertFromHex16,
-    addEllipsis,
-    convertFromHex8,
-    byteArrayToString,
-    shortArrayToByteArray,
-    generateToken
+    byteArrayToBigIntegerAPL: byteArrayToBigIntegerAPL,
+    stringToHexStringAPL: stringToHexStringAPL,
+    convertNumericToRSAccountFormatAPL: convertNumericToRSAccountFormatAPL,
+    wordArrayToByteArrayAPL: wordArrayToByteArrayAPL,
+    hexStringToStringAPL: hexStringToStringAPL,
+    convertFromHex16APL: convertFromHex16APL,
+    addEllipsisAPL: addEllipsisAPL,
+    convertFromHex8APL: convertFromHex8APL,
+    byteArrayToStringAPL: byteArrayToStringAPL,
+    shortArrayToByteArrayAPL: shortArrayToByteArrayAPL,
+    generateTokenAPL: generateTokenAPL
 }
