@@ -153,7 +153,7 @@ class App extends React.Component {
                                 <Route exact path="/currencies" component={Currencies}/>
                                 <Route exact path="/marketplace/" component={Marketplace}/>
                                 <Route exact path="/my-products-for-sale" component={MyProductsForSale}/>
-                                <Route exact path="/my-panding-orders" component={MyPandingOrders}/>
+                                <Route exact path="/my-pending-orders" component={MyPandingOrders}/>
                                 <Route exact path="/my-completed-orders" component={MyCompletedOrders}/>
                                 <Route exact path="/marketplace/:tag" component={MarketplaceSearch}/>
                                 <Route exact path="/active-polls" component={Activepolls}/>

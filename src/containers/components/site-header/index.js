@@ -555,7 +555,7 @@ class SiteHeader extends React.Component {
                                                 <div className={"mobile-nav-item"}>
                                                     <AccordionItemTitle
                                                         className={`text ${this.getNavLinkClass(["/my-products-for-sale",
-                                                            "/my-panding-orders",
+                                                            "/my-pending-orders",
                                                             "/my-completed-orders"])}`}>
                                                         <i className="zmdi zmdi-label"/>Marketplace<span className="arrow"/>
                                                     </AccordionItemTitle>
@@ -564,7 +564,7 @@ class SiteHeader extends React.Component {
                                                             <a>Purchased Products</a>
                                                             <NavLink to="/my-products-for-sale">My products for
                                                                 sales</NavLink>
-                                                            <NavLink to="/my-panding-orders">My pending orders</NavLink>
+                                                            <NavLink to="/my-pending-orders">My pending orders</NavLink>
                                                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
                                                             <a
                                                                 onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List

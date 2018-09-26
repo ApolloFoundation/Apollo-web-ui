@@ -228,7 +228,7 @@ class Sidebar extends React.Component {
 							<li>
 								<NavLink to='/marketplace'
 								         className={`text ${this.getNavLinkClass(["/my-products-for-sale",
-									         "/my-panding-orders",
+									         "/my-pending-orders",
 									         "/my-completed-orders",
 										 	 "/purchased-products"])}`}>
 									Marketplace
@@ -239,7 +239,7 @@ class Sidebar extends React.Component {
 									<ul>
 										<li><NavLink to='/purchased-products'>Purchased products</NavLink></li>
 										<li><NavLink to='/my-products-for-sale'>My products for sales</NavLink></li>
-										<li><NavLink to='/my-panding-orders'>My pending orders</NavLink></li>
+										<li><NavLink to='/my-pending-orders'>My pending orders</NavLink></li>
 										<li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
 										<li><a onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
 											product for sale</a></li>
