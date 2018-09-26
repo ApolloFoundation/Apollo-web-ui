@@ -1445,7 +1445,16 @@ input {
 	box-sizing: border-box;
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
-	
+
+	.ball-pulse-sync {
+		transform: translateY(2px);
+
+		div {
+			height: 7px;
+			width: 7px;
+		}
+	}
+
 	&, & > * {
 		transition: all 0.3s ease-in-out;
 	}

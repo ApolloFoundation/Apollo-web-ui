@@ -3819,6 +3819,11 @@ input {
   box-sizing: border-box;
   z-index: 1;
   padding: 11px 11px 11px 9px; }
+  .btn .ball-pulse-sync {
+    transform: translateY(2px); }
+    .btn .ball-pulse-sync div {
+      height: 7px;
+      width: 7px; }
   .btn, .btn > * {
     transition: all 0.3s ease-in-out; }
   .btn.underscore.general .settings-bar {

@@ -495,7 +495,7 @@ class Dashboard extends React.Component {
 											</div>
 										</Link>
                                         <Link
-                                            to="/dashboard"
+                                            to="/aliases"
                                             className="general-info-item bottom-left"
                                         >
                                             <div className="top-bar">

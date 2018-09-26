@@ -53,10 +53,18 @@ class SendApollo extends React.Component {
             values.publicKey = await crypto.getPublicKeyAPL(this.props.account, true);
             delete values.secretPhrase;
         }
+        this.setState({
+            isPending: true
+        })
+
         const res = await this.props.submitForm( values, 'sendMoney');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
+
             if (res.broadcasted === false) {
                 this.props.setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
                     request: values,
@@ -298,18 +306,36 @@ class SendApollo extends React.Component {
 
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a
-                                        onClick={() => this.props.closeModal()}
+                                        onClick={() => {
+                                            this.props.closeModal()
+                                        }}
                                         className="btn round round-top-left"
                                     >
                                         Cancel
                                     </a>
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Submit
-                                    </button>
+
+                                    {
+                                        !!this.state.isPending ?
+                                            <div
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                <div className="ball-pulse-sync">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div> :
+                                            <button
+
+                                                type="submit"
+                                                name={'closeModal'}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                Submit
+                                            </button>
+                                    }
+
+
 
                                 </div>
                                 {/*<div className="btn-box align-buttons-inside absolute left-conner">
