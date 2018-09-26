@@ -192,7 +192,7 @@ class App extends React.Component {
                     </Switch>
                     {!this.props.loading &&
                         <div className="site-footer">
-                            Copyright © 2017-2018 Apollo Foundation. Apollo Version: 1.20.4 <br/>
+                            Copyright © 2017-2018 Apollo Foundation. Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
                         </div>
                     }
                 </div>
@@ -207,6 +207,7 @@ const mapStateToProps = state => ({
     loading: state.account.loading,
     blockPageBody: state.account.blockPageBody,
     constants: state.account.constants,
+    appState: state.account.blockchainStatus,
 
     // modals
     bodyModalType: state.modals.bodyModalType
