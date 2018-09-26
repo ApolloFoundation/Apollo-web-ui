@@ -804,8 +804,8 @@ class SiteHeader extends React.Component {
                                                     <div className="options-col">
                                                         <ul>
                                                             {/*<li><a onClick={() => this.props.setBodyModalType(null)} className="option">Refresh search index</a></li>*/}
-                                                            <li><a href="https://apollowallet.org/test" className="option">API
-                                                                console</a></li>
+                                                            {/*<li><a href="https://apollowallet.org/test" className="option">API*/}
+                                                                {/*console</a></li>*/}
                                                             {/*<li>*/}
                                                             {/*<a */}
                                                             {/*href="https://apollowallet.org/dbshell"*/}
