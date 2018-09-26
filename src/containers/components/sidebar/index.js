@@ -291,7 +291,7 @@ class Sidebar extends React.Component {
 									<ul>
 										<li>
 											<NavLink
-												exact={true}
+												// exact={true}
 												activeClassName="active"
 												to="/messenger"
 											>
