@@ -464,14 +464,14 @@ class SiteHeader extends React.Component {
                                                             <NavLink exact={true} activeClassName="active"
                                                                      to="/delete-history">Delete history</NavLink>
                                                             <NavLink exact={true} activeClassName="active" to="/my-assets">My
-                                                                Assets</NavLink>
+                                                                assets</NavLink>
                                                             <NavLink exact={true} activeClassName="active"
                                                                      to="/open-orders">Open orders</NavLink>
                                                             <NavLink exact={true} activeClassName="active"
                                                                      to="approval-request">Approval request</NavLink>
 
                                                             <a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue
-                                                                Assets</a>
+                                                                assets</a>
 
                                                         </div>
                                                     </AccordionItemBody>
@@ -559,13 +559,13 @@ class SiteHeader extends React.Component {
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
                                                             <a>Purchased Products</a>
-                                                            <NavLink to="/my-products-for-sale">My Products For
-                                                                Sales</NavLink>
-                                                            <NavLink to="/my-panding-orders">My Pending Orders</NavLink>
+                                                            <NavLink to="/my-products-for-sale">My products for
+                                                                sales</NavLink>
+                                                            <NavLink to="/my-panding-orders">My pending orders</NavLink>
                                                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
                                                             <a
                                                                 onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
-                                                                Product For Sale</a>
+                                                                product for sale</a>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>
@@ -582,8 +582,8 @@ class SiteHeader extends React.Component {
                                                     </AccordionItemTitle>
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
-                                                            <NavLink to="/active-shuffling">Active Shuffling</NavLink>
-                                                            <NavLink to="/finished-shuffling">Finished Shuffling</NavLink>
+                                                            <NavLink to="/active-shuffling">Active shuffling</NavLink>
+                                                            <NavLink to="/finished-shuffling">Finished shuffling</NavLink>
                                                             <NavLink to="/my-shuffling">My shuffling</NavLink>
 
                                                             <a onClick={this.props.setMopalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create

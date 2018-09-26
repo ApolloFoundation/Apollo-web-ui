@@ -150,14 +150,14 @@ class Sidebar extends React.Component {
 										<li><NavLink exact={true} activeClassName="active" to="/delete-history">Delete
 											history</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/my-assets">My
-											Assets</NavLink></li>
+											assets</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/open-orders">Open
 											orders</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/approval-request-assets">Approval
 											request</NavLink></li>
 										<li>
 											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue
-												Assets</a>
+												assets</a>
 										</li>
 									</ul>
 								</div>
@@ -178,10 +178,10 @@ class Sidebar extends React.Component {
 
 										<li><NavLink to="/my-currencies">My currencies</NavLink></li>
 										<li><NavLink to="/transfer-history-currency">Transfer history</NavLink></li>
-										<li><NavLink to="/exchange-history-currency">Exchange History</NavLink></li>
+										<li><NavLink to="/exchange-history-currency">Exchange history</NavLink></li>
 										<li>
 											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
-												Currencies</a>
+												currencies</a>
 										</li>
 									</ul>
 								</div>
@@ -237,12 +237,12 @@ class Sidebar extends React.Component {
 								</NavLink>
 								<div className="dropdown-menu">
 									<ul>
-										<li><NavLink to='/purchased-products'>Purchased Products</NavLink></li>
-										<li><NavLink to='/my-products-for-sale'>My Products For Sales</NavLink></li>
-										<li><NavLink to='/my-panding-orders'>My Pending Orders</NavLink></li>
+										<li><NavLink to='/purchased-products'>Purchased products</NavLink></li>
+										<li><NavLink to='/my-products-for-sale'>My products for sales</NavLink></li>
+										<li><NavLink to='/my-panding-orders'>My pending orders</NavLink></li>
 										<li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
 										<li><a onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
-											Product For Sale</a></li>
+											product for sale</a></li>
 									</ul>
 								</div>
 							</li>
@@ -257,8 +257,8 @@ class Sidebar extends React.Component {
 								</NavLink>
 								<div className="dropdown-menu">
 									<ul>
-										<li><NavLink to="/active-shuffling">Active Shuffling</NavLink></li>
-										<li><NavLink to="/finished-shuffling">Finished Shuffling</NavLink></li>
+										<li><NavLink to="/active-shuffling">Active shuffling</NavLink></li>
+										<li><NavLink to="/finished-shuffling">Finished shuffling</NavLink></li>
 										<li><NavLink to="/my-shuffling">My shuffling</NavLink></li>
 										<li>
 											<a onClick={this.props.setMopalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create

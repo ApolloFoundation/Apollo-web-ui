@@ -4563,7 +4563,8 @@ table td .btn, table th .btn {
   transition: all 0.3s ease-in-out;
   opacity: 1; }
   .overflow-menu.hidden {
-    opacity: 0; }
+    opacity: 0;
+    display: none; }
 
 .transaction-table {
   height: 100%;
