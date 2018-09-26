@@ -3059,6 +3059,11 @@ input {
   border-radius: 100%;
   border: 3px solid #333; }
 
+[data-notification].big-count:after {
+  right: -20px;
+  width: auto;
+  padding: 0 2px; }
+
 .blue-text {
   color: #00C8FF;
   font-weight: normal;
@@ -3237,7 +3242,8 @@ input {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between; }
+    justify-content: space-between;
+    overflow: hidden; }
     .form-group-app.devided .left-bar {
       width: 50%;
       margin: -35px 0 -70px -35px;

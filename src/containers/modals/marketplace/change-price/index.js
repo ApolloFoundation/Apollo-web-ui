@@ -9,7 +9,7 @@ import config from '../../../../config';
 
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
 import { Form, Text, Checkbox } from 'react-form';
-import InfoBox from '../../../components/info-box';
+import InputForm from '../../../components/input-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
@@ -111,18 +111,28 @@ class MarketplaceChangePrice extends React.Component {
                                     <div className="price">
                                         {this.state.goods.priceATM / 100000000} Apollo
                                     </div>
-                                    <div className="info-table">
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Date:</span></div>
-                                            <div className="t-cell">{this.props.formatTimestamp(this.state.goods.timestamp)}</div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Date:
+                                        </label>
+                                        <div className="col-sm-9">
+                                            {this.props.formatTimestamp(this.state.goods.timestamp)}
                                         </div>
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Seller:</span></div>
-                                            <div className="t-cell">{this.state.goods.sellerRS}</div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Seller:
+                                        </label>
+                                        <div className="col-sm-9">
+                                            {this.state.goods.sellerRS}
                                         </div>
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Quantity:</span></div>
-                                            <div className="t-cell">{this.state.goods.quantity}</div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Quantity:
+                                        </label>
+                                        <div className="col-sm-9">
+                                            {this.state.goods.quantity}
                                         </div>
                                     </div>
                                     <Form
@@ -131,50 +141,52 @@ class MarketplaceChangePrice extends React.Component {
 
                                             <form className="modal-form" onSubmit={submitForm}>
                                                 <div className="form-group-app no-padding-left no-padding-top">
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Current price</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                {
-                                                                    this.state.goods &&
-                                                                    <p>{(this.state.goods.priceATM / 100000000).toLocaleString('en')} APL</p>
-                                                                }
-                                                            </div>
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Current price
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            {
+                                                                this.state.goods &&
+                                                                <p>{(this.state.goods.priceATM / 100000000).toLocaleString('en')} APL</p>
+                                                            }
                                                         </div>
                                                     </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>New price</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                {
-                                                                    this.state.goods &&
-                                                                    <Text defaultValue={this.state.goods.priceATM / 100000000} type="number" field="priceATM" placeholder="Currency Name" min={1}/>
-                                                                }
-                                                            </div>
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            New price
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            {
+                                                                this.state.goods &&
+                                                                <InputForm
+                                                                    defaultValue={this.state.goods.priceATM / 100000000}
+                                                                    type="number"
+                                                                    field="priceATM"
+                                                                    placeholder="Currency Name"
+                                                                    minValue={1}
+                                                                    setValue={setValue}/>
+                                                            }
                                                         </div>
                                                     </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Fee</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text type="number" field='feeATM' placeholder="Minimum fee" />
-                                                            </div>
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Fee
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <InputForm
+                                                                type="float"
+                                                                field="feeATM"
+                                                                placeholder="Minimum fee"
+                                                                setValue={setValue}/>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Passphrase</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text type="password" field='secretPhrase' placeholder="Passphrase" />
-                                                            </div>
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                                         </div>
                                                     </div>
                                                     {/*<AdvancedSettings

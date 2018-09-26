@@ -281,7 +281,7 @@ class Sidebar extends React.Component {
 									}
 									{
 										this.props.notifications && this.props.notifications[1].notificationCount > 0 &&
-										<i className="zmdi zmdi-comments left"
+										<i className={`zmdi zmdi-comments left ${this.props.notifications[1].notificationCount > 99 && 'big-count'}`}
 										   data-notification={this.props.notifications[1].notificationCount}/>
 									}
 
