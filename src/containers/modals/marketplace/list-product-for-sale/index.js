@@ -197,19 +197,29 @@ class ListProductForSale extends React.Component {
                                                             let reader = new FileReader();
                                                             let file = e.target.files[0];
 
-                                                            reader.onloadend = () => {
+                                                            console.log(file);
+
+                                                            if (file.type === 'image/jpeg') {
+                                                                reader.onloadend = () => {
+                                                                    this.setState({
+                                                                        ...this.state,
+                                                                        file: file,
+                                                                        imagePreviewUrl: reader.result
+                                                                    });
+                                                                };
+
+                                                                setValue("messageIsText", false);
+                                                                setValue("messageIsPrunable", true);
+
+                                                                if(file) reader.readAsDataURL(file);
+                                                            } else {
+                                                                NotificationManager.error('You`r chosen image file is not allowed for uploading. Use only jpeg.', null, 5000)
+                                                                document.getElementById("file").value = "";
                                                                 this.setState({
-                                                                    ...this.state,
-                                                                    file: file,
-                                                                    imagePreviewUrl: reader.result
+                                                                    file: null,
+                                                                    imagePreviewUrl: null
                                                                 });
-                                                            };
-
-                                                            setValue("messageIsText", false);
-                                                            setValue("messageIsPrunable", true);
-
-                                                            if(file) reader.readAsDataURL(file);
-
+                                                            }
                                                         }}
                                                     />
                                                 </div>
