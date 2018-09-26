@@ -154,18 +154,28 @@ class MarketplacePurchase extends React.Component {
                                     <div className="price">
                                         {this.state.goods.priceATM / 100000000} Apollo
                                     </div>
-                                    <div className="info-table">
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Date:</span></div>
-                                            <div className="t-cell">{this.props.formatTimestamp(this.state.goods.timestamp)}</div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Date:
+                                        </label>
+                                        <div className="col-sm-9">
+                                            {this.props.formatTimestamp(this.state.goods.timestamp)}
                                         </div>
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Seller:</span></div>
-                                            <div className="t-cell">{this.state.goods.sellerRS}</div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Seller:
+                                        </label>
+                                        <div className="col-sm-9">
+                                            {this.state.goods.sellerRS}
                                         </div>
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Quantity:</span></div>
-                                            <div className="t-cell">{this.state.goods.quantity}</div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Quantity:
+                                        </label>
+                                        <div className="col-sm-9">
+                                            {this.state.goods.quantity}
                                         </div>
                                     </div>
                                     <Form
