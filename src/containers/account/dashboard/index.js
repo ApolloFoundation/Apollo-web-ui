@@ -494,17 +494,13 @@ class Dashboard extends React.Component {
 												shuffling
 											</div>
 										</Link>
-										<Link
+										<a
 											to="/dashboard"
 											className="general-info-item bottom-left"
+											style={{cursor: 'default'}}
 										>
-                                            <div className="top-bar">
-                                                {this.state.aliassesValue || 0}
-                                            </div>
-											<div className="bottom-bar">
-												Aliases
-											</div>
-										</Link>
+
+										</a>
 										<Link
 											to={'/data-storage'}
 											className="general-info-item bottom-right"
