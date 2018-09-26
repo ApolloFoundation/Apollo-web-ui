@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";

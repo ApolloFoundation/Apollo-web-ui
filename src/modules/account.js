@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import {getAccountDataAction} from '../actions/login/index';
 
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';

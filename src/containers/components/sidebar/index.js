@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import React from 'react';
 import {NavNavLink, NavLink, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
