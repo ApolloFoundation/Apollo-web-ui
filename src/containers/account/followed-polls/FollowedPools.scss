@@ -1,0 +1,74 @@
+.form-group-app {
+
+  .account-bar {
+    .information {
+      display: block;
+
+      & > * {
+        display: inline-block;
+      }
+      .title {
+        color: #333333;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 16px;
+      }
+      .content {
+        color: #00C8FF;
+        font-size: 14px;
+      }
+    }
+  }
+  .description-bar {
+    padding-top: 20px;
+    padding-bottom: 35px;
+
+    p {
+      color: #333333;
+      font-size: 14px;
+      line-height: 1.6;
+      width: 100%;
+    }
+  }
+  .btn {
+    //position: static;
+  }
+}
+
+svg {
+  //display: inline-block;
+  vertical-align: middle;
+  transform-origin: 50% 50%;
+  animation: scale .6s;
+  margin: 10px;
+  display: block;
+  float: right;
+  max-width: 100%;
+
+  text {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bolder;
+    font-size: 12px;
+  }
+}
+
+@keyframes scale {
+  from { transform: scale(.5); }
+  to { transform: scale(1); }
+}
+
+.pagination-nav {
+  position: absolute;
+  bottom: 13px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.disabled {
+  display: none !important;
+}
+
+.displayedText {
+  display: block !important;
+  text-shadow: 1px 1px 3px #000;
+}

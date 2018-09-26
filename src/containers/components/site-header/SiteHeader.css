@@ -1,0 +1,733 @@
+.page-header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 2;
+  background-color: #F5F5F5;
+  padding: 27px 40px 26px 40px;
+  width: calc(100% - 220px);
+  top: 0; }
+  @media (max-width: 1023px) {
+    .page-header {
+      padding-top: 30px;
+      padding-bottom: 30px; } }
+  @media (max-width: 760px) {
+    .page-header {
+      position: static;
+      width: 100% !important;
+      padding: 20px 15px 20px; } }
+  .page-header .page-title-box .page-title-box {
+    position: relative; }
+    .page-header .page-title-box .page-title-box .open-settings {
+      display: inline-block;
+      position: relative; }
+      .page-header .page-title-box .page-title-box .open-settings .settings-bar {
+        position: absolute;
+        top: calc(100% + 48px);
+        right: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        padding: 35px 0;
+        box-sizing: border-box;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+        width: 170px;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.3s ease-in-out;
+        z-index: 4; }
+        @media (max-width: 1024px) {
+          .page-header .page-title-box .page-title-box .open-settings .settings-bar {
+            top: calc(100% + 44px); } }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar.active {
+          opacity: 1;
+          transform: none;
+          visibility: visible; }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar .form-group-app {
+          cursor: auto;
+          padding: 35px 25px; }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section {
+          padding: 0; }
+          .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section i {
+            width: 20px; }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar .options-col {
+          width: 100%;
+          border-right: 1px solid #E6E6E6; }
+          .page-header .page-title-box .page-title-box .open-settings .settings-bar .options-col:last-child {
+            border: 0; }
+    .page-header .page-title-box .page-title-box > * {
+      vertical-align: middle; }
+    .page-header .page-title-box .page-title-box .title {
+      color: #333333;
+      font-family: "Roboto-Light";
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 1.2;
+      display: inline-block;
+      margin-right: 15px; }
+      @media (max-width: 1024px) {
+        .page-header .page-title-box .page-title-box .title {
+          font-size: 30px; } }
+      @media (max-width: 760px) {
+        .page-header .page-title-box .page-title-box .title {
+          font-size: 26px; } }
+    .page-header .page-title-box .page-title-box .breadcrumbs a {
+      color: #BBBBBB; }
+    .page-header .page-title-box .page-title-box .breadcrumbs strong a {
+      font-family: "Roboto-Bold"; }
+  .page-header .page-title-box .btn {
+    margin-top: 0;
+    position: relative; }
+    .page-header .page-title-box .btn .settings-bar {
+      position: absolute;
+      left: 0;
+      top: calc(100% - 40px); }
+  .page-header .logo {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 3; }
+    @media (max-width: 760px) {
+      .page-header .logo {
+        display: inline-flex; } }
+    .page-header .logo img {
+      height: 32px;
+      width: 32px; }
+  .page-header .user-search-box {
+    display: flex;
+    margin: 0 -15px;
+    height: 51px; }
+    @media (max-width: 760px) {
+      .page-header .user-search-box {
+        position: fixed;
+        z-index: 4;
+        height: 50px;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 0 90px;
+        margin: 0;
+        width: 100%;
+        background-color: #333333; } }
+    .page-header .user-search-box > * {
+      margin: auto; }
+    @media (max-width: 760px) {
+      .page-header .user-search-box .search-bar .zmdi {
+        color: #ffffff !important; } }
+    .page-header .user-search-box.searching .search-bar .user-account-actions .user-account-action {
+      z-index: -1; }
+    .page-header .user-search-box.searching .search-bar .searching-window {
+      visibility: visible;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1); }
+    .page-header .user-search-box .search-bar {
+      width: calc(100% - 230px);
+      transition: all 0.2s ease-in-out;
+      position: relative; }
+      .page-header .user-search-box .search-bar .searching-window {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease-in-out; }
+      .page-header .user-search-box .search-bar.searching input {
+        height: 41px; }
+      .page-header .user-search-box .search-bar .user-account-actions {
+        height: 41px;
+        display: flex;
+        justify-content: flex-end; }
+        .page-header .user-search-box .search-bar .user-account-actions > * {
+          margin: auto 0; }
+        .page-header .user-search-box .search-bar .user-account-actions .user-account-rs {
+          color: #BBBBBB;
+          font-family: "Roboto-Regular";
+          font-size: 12px;
+          line-height: 14px;
+          margin-right: 20px; }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-rs.blue-text {
+            color: #00c8ff; }
+        .page-header .user-search-box .search-bar .user-account-actions .user-account-action {
+          position: relative;
+          color: #333333;
+          font-size: 18px;
+          line-height: 30px;
+          margin-right: 40px; }
+          @media (max-width: 760px) {
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action {
+              color: #ffffff; } }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action:last-child {
+            margin-right: 15px; }
+          @media (max-width: 760px) {
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action--help {
+              display: none; } }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action.search-button {
+            z-index: 5 !important; }
+            @media (max-width: 760px) {
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action.search-button {
+                display: none; } }
+          @media (max-width: 760px) {
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action.settings {
+              margin-right: 20px; } }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.primary {
+            margin: 0; }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.underscore:after {
+            top: calc(100% + 39px); }
+          @media (max-width: 1024px) {
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.underscore.active:after {
+              top: calc(100% + 32px); } }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
+            position: absolute;
+            top: calc(100% + 42px);
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background: #fff;
+            padding: 35px 0;
+            box-sizing: border-box;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+            width: 760px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.3s ease-in-out;
+            z-index: 4; }
+            @media (max-width: 760px) {
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
+                padding: 30px 55px;
+                position: fixed !important;
+                background-color: #333333 !important;
+                height: calc(100vh - 50px) !important;
+                max-height: 100vh !important;
+                width: 100% !important;
+                top: 50px !important;
+                left: 0 !important;
+                right: 0 !important; } }
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
+              opacity: 1;
+              transform: none;
+              visibility: visible; }
+              @media (max-width: 1024px) {
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
+                  top: calc(100% + 35px); } }
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
+              width: 100%;
+              border-right: 1px solid #E6E6E6; }
+              @media (max-width: 760px) {
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
+                  border-bottom: 1px solid #777777;
+                  border-right: none;
+                  padding: 10px 0; } }
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col:last-child {
+                border: 0; }
+              @media (max-width: 760px) {
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li {
+                  text-align: left; } }
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li:last-child a {
+                margin-bottom: 0; }
+              .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
+                color: #333333;
+                font-family: "Roboto-Regular";
+                font-size: 12px;
+                line-height: 14px;
+                padding: 0 35px;
+                margin: 10px 0; }
+                @media (max-width: 760px) {
+                  .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
+                    color: #777777;
+                    padding: 0;
+                    margin-bottom: 0; } }
+    .page-header .user-search-box .user-box {
+      max-width: 230px;
+      width: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      cursor: pointer; }
+      @media (max-width: 1023px) {
+        .page-header .user-search-box .user-box {
+          width: auto; } }
+      .page-header .user-search-box .user-box .btn.filters {
+        min-height: 25px; }
+      .page-header .user-search-box .user-box .user-name {
+        display: flex;
+        align-items: center;
+        width: auto;
+        max-width: calc(100% - 70px); }
+        @media (max-width: 1023px) {
+          .page-header .user-search-box .user-box .user-name {
+            display: none; } }
+        .page-header .user-search-box .user-box .user-name i {
+          font-size: 16px;
+          margin-right: 15px; }
+      .page-header .user-search-box .user-box .name {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      .page-header .user-search-box .user-box .user-avatar {
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+        margin-left: 20px;
+        border: 1px solid #eee;
+        background-color: #eeeeee;
+        position: relative; }
+        .page-header .user-search-box .user-box .user-avatar .zmdi {
+          font-size: 30px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          margin-left: 1px;
+          color: #666666; }
+        @media (max-width: 760px) {
+          .page-header .user-search-box .user-box .user-avatar {
+            position: relative;
+            z-index: 2;
+            width: 24px;
+            height: 24px; }
+            .page-header .user-search-box .user-box .user-avatar .zmdi {
+              font-size: 20px;
+              margin: 0; } }
+      .page-header .user-search-box .user-box .settings-bar {
+        position: absolute;
+        top: calc(100% + 26px);
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        padding: 35px 0;
+        box-sizing: border-box;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+        width: 320px;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.3s ease-in-out;
+        z-index: 4;
+        overflow: auto;
+        max-height: calc(100vh - 120px); }
+        @media (max-width: 1024px) {
+          .page-header .user-search-box .user-box .settings-bar {
+            top: calc(100% + 26px); } }
+        @media (max-width: 760px) {
+          .page-header .user-search-box .user-box .settings-bar {
+            top: 50px; } }
+        .page-header .user-search-box .user-box .settings-bar.active {
+          opacity: 1;
+          transform: none;
+          visibility: visible; }
+        .page-header .user-search-box .user-box .settings-bar .options-col {
+          width: 100%;
+          border-right: 1px solid #E6E6E6; }
+          .page-header .user-search-box .user-box .settings-bar .options-col:last-child {
+            border: 0; }
+
+.zmdi-balance-wallet {
+  margin-top: 6px; }
+  .zmdi-balance-wallet .page-title-box .page-title-box {
+    position: relative; }
+    .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar {
+      position: absolute;
+      top: calc(100% + 45px);
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+      background: #fff;
+      padding: 35px 0;
+      box-sizing: border-box;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
+      width: 170px;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.3s ease-in-out;
+      z-index: 4;
+      cursor: auto; }
+      .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar.active {
+        opacity: 1;
+        transform: none;
+        visibility: visible; }
+      .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar .form-group-app {
+        padding: 35px 25px; }
+      .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar .input-section {
+        padding: 0; }
+        .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar .input-section i {
+          width: 20px; }
+      .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar .options-col {
+        width: 100%;
+        border-right: 1px solid #E6E6E6; }
+        .zmdi-balance-wallet .page-title-box .page-title-box .open-settings .settings-bar .options-col:last-child {
+          border: 0; }
+    .zmdi-balance-wallet .page-title-box .page-title-box > * {
+      vertical-align: middle; }
+    .zmdi-balance-wallet .page-title-box .page-title-box .title {
+      color: #333333;
+      font-family: "Roboto-Light";
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 60px;
+      display: inline-block;
+      margin-right: 15px; }
+    .zmdi-balance-wallet .page-title-box .page-title-box .breadcrumbs {
+      position: absolute;
+      top: calc(100% + -2px);
+      left: 3px; }
+      .zmdi-balance-wallet .page-title-box .page-title-box .breadcrumbs a {
+        color: #BBBBBB;
+        cursor: pointer; }
+      .zmdi-balance-wallet .page-title-box .page-title-box .breadcrumbs strong a {
+        font-family: "Roboto-Bold"; }
+  .zmdi-balance-wallet .page-title-box .btn {
+    margin-top: 0;
+    position: relative; }
+    .zmdi-balance-wallet .page-title-box .btn .settings-bar {
+      position: absolute;
+      left: 0;
+      top: calc(100% - 40px); }
+  .zmdi-balance-wallet .user-search-box {
+    display: flex;
+    margin: 0 -15px;
+    height: 51px; }
+    @media (max-width: 767px) {
+      .zmdi-balance-wallet .user-search-box {
+        display: none; } }
+    .zmdi-balance-wallet .user-search-box > * {
+      margin: auto; }
+    .zmdi-balance-wallet .user-search-box.searching .search-bar .user-account-actions .user-account-action {
+      z-index: -1; }
+    .zmdi-balance-wallet .user-search-box.searching .search-bar .searching-window {
+      visibility: visible;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1); }
+    .zmdi-balance-wallet .user-search-box .search-bar {
+      width: calc(100% - 230px);
+      transition: all 0.2s ease-in-out;
+      position: relative; }
+      .zmdi-balance-wallet .user-search-box .search-bar .searching-window {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+        padding-right: 35px; }
+      .zmdi-balance-wallet .user-search-box .search-bar.searching input {
+        height: 41px; }
+      .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions {
+        height: 41px;
+        display: flex;
+        justify-content: flex-end; }
+        .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions > * {
+          margin: auto 0; }
+        .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-rs {
+          color: #BBBBBB;
+          font-family: "Roboto-Regular";
+          font-size: 12px;
+          line-height: 14px;
+          margin-right: 20px;
+          cursor: auto; }
+        .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action {
+          position: relative;
+          color: #333333;
+          font-size: 18px;
+          line-height: 30px;
+          margin-right: 40px; }
+          .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action:last-child {
+            margin-right: 15px; }
+          .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action.search-button {
+            z-index: 5 !important; }
+          .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
+            position: absolute;
+            top: calc(100% + 48px);
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background: #fff;
+            padding: 35px 0;
+            box-sizing: border-box;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+            width: 760px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.3s ease-in-out;
+            z-index: 4;
+            cursor: auto; }
+            .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
+              opacity: 1;
+              transform: none;
+              visibility: visible; }
+            .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
+              width: 100%;
+              border-right: 1px solid #E6E6E6; }
+              .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col:last-child {
+                border: 0; }
+              .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li:last-child a {
+                margin-bottom: 0; }
+              .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
+                color: #333333;
+                font-family: "Roboto-Regular";
+                font-size: 12px;
+                line-height: 14px;
+                padding: 0 35px;
+                margin-bottom: 20px; }
+    .zmdi-balance-wallet .user-search-box .user-box {
+      width: 230px;
+      display: flex;
+      justify-content: flex-end;
+      cursor: pointer; }
+      .zmdi-balance-wallet .user-search-box .user-box > * {
+        margin: auto 0;
+        display: flex; }
+      .zmdi-balance-wallet .user-search-box .user-box .user-name {
+        position: relative; }
+        .zmdi-balance-wallet .user-search-box .user-box .user-name > * {
+          display: inline-block;
+          vertical-align: bottom;
+          margin: auto 0; }
+        .zmdi-balance-wallet .user-search-box .user-box .user-name i {
+          font-size: 16px;
+          margin-right: 15px; }
+      .zmdi-balance-wallet .user-search-box .user-box .user-avatar {
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+        margin-left: 30px;
+        border: 1px solid #eee;
+        background-color: #eeeeee; }
+        .zmdi-balance-wallet .user-search-box .user-box .user-avatar .zmdi {
+          font-size: 12px; }
+      .zmdi-balance-wallet .user-search-box .user-box .settings-bar {
+        position: absolute;
+        top: calc(100% + 30px);
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        padding: 35px 0;
+        box-sizing: border-box;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+        width: 320px;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.3s ease-in-out;
+        z-index: 4;
+        cursor: auto; }
+        .zmdi-balance-wallet .user-search-box .user-box .settings-bar.active {
+          opacity: 1;
+          transform: none;
+          visibility: visible; }
+        .zmdi-balance-wallet .user-search-box .user-box .settings-bar .options-col {
+          width: 100%;
+          border-right: 1px solid #E6E6E6; }
+          .zmdi-balance-wallet .user-search-box .user-box .settings-bar .options-col:last-child {
+            border: 0; }
+
+.close-menu-btn {
+  background-color: #666666;
+  font-size: 12px;
+  color: #ffffff;
+  line-height: 1.2;
+  padding: 5px 7px;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.2s; }
+  .close-menu-btn:hover {
+    background-color: #4d4d4d; }
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  left: auto;
+  top: 0;
+  bottom: 0;
+  background-color: #333333;
+  width: 100%;
+  padding: 65px 20px 20px;
+  overflow: auto;
+  max-height: 100%;
+  right: -100%;
+  z-index: 5;
+  opacity: 0;
+  transition: 0.2s; }
+  @media (max-width: 760px) {
+    .mobile-nav {
+      display: block; } }
+  .mobile-nav:after {
+    content: '';
+    background-color: #333333;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    height: 50px;
+    width: 100%;
+    right: -100%;
+    transition: 0.2s;
+    box-shadow: 0px 0px 9px 2px #333333; }
+  .mobile-nav.show {
+    right: 0;
+    opacity: 1; }
+    .mobile-nav.show:after {
+      right: 0; }
+  .mobile-nav .btn-block {
+    text-align: center; }
+
+.mobile-nav-item {
+  position: relative;
+  display: block;
+  margin-bottom: 25px;
+  cursor: pointer; }
+  .mobile-nav-item.active .text {
+    color: #ffffff; }
+  .mobile-nav-item.active .zmdi {
+    color: #00c8ff; }
+  .mobile-nav-item .zmdi {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 20px;
+    height: auto;
+    text-align: center;
+    color: #787878; }
+    .mobile-nav-item .zmdi:before {
+      font-size: 27px; }
+    .mobile-nav-item .zmdi.zmdi-view-dashboard {
+      margin-top: -1.5px; }
+  .mobile-nav-item .text {
+    position: relative;
+    display: flex;
+    font-size: 14px;
+    color: #787878;
+    padding: 0 40px; }
+    .mobile-nav-item .text[aria-selected="true"] .arrow {
+      border-color: #fff transparent transparent #fff; }
+    .mobile-nav-item .text.active {
+      color: #ffffff; }
+      .mobile-nav-item .text.active .zmdi {
+        color: #00c8ff; }
+  .mobile-nav-item .arrow {
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    margin-top: -1px;
+    transform: translate(0, -50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    border: 1px solid;
+    border-color: transparent #fff #fff transparent;
+    border-radius: 2px;
+    transition: 0.2s; }
+  .mobile-nav-item .item-dropdown {
+    display: block; }
+    .mobile-nav-item .item-dropdown a {
+      display: block;
+      padding: 0 40px;
+      color: #787878;
+      margin-top: 20px; }
+      .mobile-nav-item .item-dropdown a.active {
+        color: #ffffff; }
+
+.burger-mobile {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 15px;
+  width: 20px;
+  position: absolute;
+  transform: translate(0, -50%);
+  top: 50%;
+  right: 20px;
+  z-index: 6;
+  cursor: pointer; }
+  @media (max-width: 760px) {
+    .burger-mobile {
+      display: flex; } }
+  .burger-mobile.menu-open .line {
+    opacity: 0; }
+  .burger-mobile.menu-open:before {
+    top: 6px;
+    transform: rotate(45deg); }
+  .burger-mobile.menu-open:after {
+    bottom: 6px;
+    transform: rotate(-45deg); }
+  .burger-mobile:before, .burger-mobile:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    transition: 0.25s; }
+  .burger-mobile:before {
+    top: 0; }
+  .burger-mobile:after {
+    bottom: 0; }
+  .burger-mobile .line {
+    width: 100%;
+    height: 3px;
+    transition: 0.2s;
+    background-color: #fff; }
+
+.accordion__item,
+.accordion {
+  border: none !important; }
+
+.accordion__body {
+  padding: 0 !important;
+  display: block !important;
+  max-height: 900px;
+  overflow: hidden;
+  transition: 0.2s; }
+  .accordion__body--hidden {
+    max-height: 0; }
+
+@media (max-width: 760px) {
+  .account-body-modal {
+    background-color: #333333 !important;
+    height: calc(100vh - 50px);
+    max-height: 100vh !important;
+    width: 100% !important; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .form-group-app {
+    padding-left: 55px !important;
+    padding-right: 55px !important; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .input-section .row .col-md-6 {
+    max-width: 50%; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .form-title p {
+    color: #ffffff !important; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .image-button {
+    margin-left: -25px; } }
+
+@media (max-width: 760px) {
+  .account-body-modal .form-group-app {
+    background-color: #333333 !important; } }

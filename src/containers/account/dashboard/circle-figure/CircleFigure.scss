@@ -1,0 +1,26 @@
+@import '~react-circular-progressbar/dist/styles.css';
+
+text {
+  display: none;
+}
+
+svg {
+  margin: 0 !important;
+  animation: none !important;
+
+  &.Bitcoin {
+    .CircularProgressbar-path {
+      stroke: #0050FF !important;
+    }
+  }
+  &.Creed {
+    .CircularProgressbar-path {
+      stroke: #00C8FF !important;
+    }
+  }
+  &.MarioCoin {
+    .CircularProgressbar-path {
+      stroke: #00A0B4 !important;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
+import React from 'react';
+import uuid from 'uuid';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {connect} from 'react-redux';
+import {getTransactionAction} from "../../../../actions/transactions";
+import {getOrderInfoAction} from "../../../../actions/open-orders";
+class OrderItem extends React.Component {
+
+    state = {
+        orderInfo: {}
+    };
+
+    getTransactionInfo = async transaction => {
+        return await this.props.getTransactionAction({
+            transaction,
+            random: Math.random()
+        })
+    };
+
+    componentDidMount() {
+        this.getOrderInfo();
+    }
+
+    getOrderInfo = () => {
+        this.props.getOrderInfo(this.props.order.asset).then(res => {
+            console.warn("order", res);
+            this.setState({
+                orderInfo: res ? res : {}
+            })
+        });
+    };
+
+    render() {
+        const {orderInfo} = this.state;
+        return (
+            <tr key={uuid()}>
+
+                <td
+                    className="align-left blue-link-text"
+                >
+                    {orderInfo.name}
+                </td>
+
+                <td
+                    className="align-left"
+                >
+                    {this.props.order.quantityATU / Math.pow(10, this.props.order.decimals)}
+                </td>
+
+                <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  100000000) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
+
+                <td className="align-right">{(this.props.order.quantityATU * this.props.order.priceATM) /  100000000}</td>
+
+            </tr>
+        );
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
+    getOrderInfo: order => dispatch(getOrderInfoAction(order)),
+});
+
+export default connect(null, mapDispatchToProps)(OrderItem);

@@ -1,0 +1,53 @@
+.form-group-app .account-bar .information {
+  display: block; }
+  .form-group-app .account-bar .information > * {
+    display: inline-block; }
+  .form-group-app .account-bar .information .title {
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px; }
+  .form-group-app .account-bar .information .content {
+    color: #00C8FF;
+    font-size: 14px; }
+
+.form-group-app .description-bar {
+  padding-top: 20px;
+  padding-bottom: 35px; }
+  .form-group-app .description-bar p {
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.6;
+    width: 100%; }
+
+svg {
+  vertical-align: middle;
+  transform-origin: 50% 50%;
+  animation: scale .6s;
+  margin: 10px;
+  display: block;
+  float: right;
+  max-width: 100%; }
+  svg text {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bolder;
+    font-size: 12px; }
+
+@keyframes scale {
+  from {
+    transform: scale(0.5); }
+  to {
+    transform: scale(1); } }
+
+.pagination-nav {
+  position: absolute;
+  bottom: 13px;
+  left: 50%;
+  transform: translateX(-50%); }
+
+.disabled {
+  display: none !important; }
+
+.displayedText {
+  display: block !important;
+  text-shadow: 1px 1px 3px #000; }

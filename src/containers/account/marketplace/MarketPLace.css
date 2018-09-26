@@ -1,0 +1,420 @@
+.marketplace-container {
+  height: auto !important; }
+  .marketplace-container > .marketplace {
+    padding-top: 15px !important; }
+
+.site-content .page-content .page-body .marketplace .row > *.col-md-12, .site-content .page-content .page-body .marketplace .row > *.col-lg-12 {
+  height: auto !important; }
+
+.form-group-app.marketplace {
+  padding: 35px 0 !important; }
+
+.marketplace-item--full-width {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0; }
+  .marketplace-item--full-width:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: calc(100% - 60px);
+    height: 1px;
+    bottom: 0;
+    background-color: #e5e5e5; }
+    @media (max-width: 760px) {
+      .marketplace-item--full-width:after {
+        width: calc(100% - 40px); } }
+  .marketplace-item--full-width:nth-last-of-type(2):after {
+    display: none; }
+  .marketplace-item--full-width + .btn-box {
+    position: relative;
+    min-height: 46px; }
+
+.marketplace-item {
+  min-height: 325px;
+  position: relative;
+  z-index: 0;
+  padding: 0 !important;
+  height: calc(50% - 34px) !important;
+  transition-delay: 0.1s;
+  width: calc(25% - 15px);
+  margin: 0 7.5px 15px; }
+  .marketplace-item:nth-of-type(-n + 4) {
+    transition-delay: 0.3s; }
+  @media (max-width: 1320px) {
+    .marketplace-item {
+      width: calc(33.333% - 15px); } }
+  @media (max-width: 1200px) {
+    .marketplace-item {
+      width: calc(50% - 15px); } }
+  @media (max-width: 760px) {
+    .marketplace-item {
+      width: calc(100% - 15px);
+      height: auto !important;
+      min-height: auto; } }
+  .marketplace-item .marketplace.card {
+    width: 100%;
+    min-height: 100%;
+    bottom: auto; }
+    @media (max-width: 760px) {
+      .marketplace-item .marketplace.card {
+        left: 0;
+        right: 0;
+        position: relative;
+        min-height: auto;
+        margin-bottom: 0; } }
+  .marketplace-item:hover {
+    z-index: 1;
+    transition-delay: 0s; }
+
+.card .full-box .full-box-item {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between; }
+  .card .full-box .full-box-item > * {
+    width: auto !important; }
+  .card .full-box .full-box-item .align-right {
+    font-size: 24px; }
+
+.card .input-group-app {
+  width: 100%;
+  margin-bottom: 15px; }
+  .card .input-group-app > * {
+    display: table-cell; }
+
+.card.relative {
+  position: relative !important; }
+
+.card.product-box {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(../../../assets/blur-buildings-busy-861102.jpg); }
+
+.card .tags-block {
+  height: 100%;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: 0.2s; }
+
+.card.marketplace {
+  padding: 0;
+  border-radius: 3px;
+  height: auto;
+  max-height: 100%;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 7.5px;
+  right: 7.5px;
+  overflow: hidden; }
+  .card.marketplace:not(.card-fluid).hovered.active {
+    z-index: 4; }
+  .card.marketplace:not(.card-fluid).hovered .card {
+    overflow: visible; }
+  .card.marketplace:not(.card-fluid).hovered .price-box {
+    height: auto !important; }
+  .card.marketplace:not(.card-fluid).hovered:hover {
+    box-shadow: 1px 1px 35px 2px rgba(0, 0, 0, 0.5);
+    top: 0;
+    max-height: 700px; }
+    .card.marketplace:not(.card-fluid).hovered:hover .tags-block {
+      max-height: 400px;
+      opacity: 1; }
+    .card.marketplace:not(.card-fluid).hovered:hover .price-box .tags {
+      max-height: 100px; }
+  .card.marketplace:not(.card-fluid).hovered.is-last-row {
+    top: auto;
+    bottom: 0px;
+    margin-bottom: 0; }
+  .card.marketplace.card-fluid {
+    padding: 35px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    position: static;
+    height: auto;
+    min-height: auto;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+    border-radius: 0; }
+    @media (max-width: 760px) {
+      .card.marketplace.card-fluid {
+        padding: 20px; } }
+    .card.marketplace.card-fluid .cargo-owner {
+      display: flex;
+      align-items: center; }
+      .card.marketplace.card-fluid .cargo-owner span {
+        color: #00C8FF;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%; }
+    .card.marketplace.card-fluid .left-bar {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%; }
+    .card.marketplace.card-fluid .right-bar {
+      display: flex;
+      flex-wrap: wrap;
+      width: calc(100% - 170px); }
+      @media (max-width: 760px) {
+        .card.marketplace.card-fluid .right-bar {
+          width: 100%; } }
+    .card.marketplace.card-fluid .item {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%; }
+      @media (max-width: 1200px) {
+        .card.marketplace.card-fluid .item {
+          width: 40%;
+          min-height: auto; } }
+      @media (max-width: 760px) {
+        .card.marketplace.card-fluid .item {
+          width: 100%;
+          padding-right: 0;
+          flex-direction: row;
+          justify-content: flex-start; } }
+      .card.marketplace.card-fluid .item.cargo-major-details {
+        width: 25%;
+        padding-right: 30px; }
+        @media (max-width: 1200px) {
+          .card.marketplace.card-fluid .item.cargo-major-details {
+            width: 40%;
+            padding-right: 20px; } }
+        @media (max-width: 760px) {
+          .card.marketplace.card-fluid .item.cargo-major-details {
+            width: 100%;
+            padding-right: 0; } }
+      .card.marketplace.card-fluid .item.description {
+        width: 35%;
+        padding-right: 30px; }
+        @media (max-width: 1200px) {
+          .card.marketplace.card-fluid .item.description {
+            padding-right: 0;
+            width: 100%;
+            order: 3;
+            margin-top: 20px; } }
+        .card.marketplace.card-fluid .item.description .text {
+          max-height: 60px;
+          overflow: hidden; }
+      .card.marketplace.card-fluid .item.tags-links {
+        align-items: flex-end;
+        width: 40%;
+        text-align: right; }
+        @media (max-width: 1200px) {
+          .card.marketplace.card-fluid .item.tags-links {
+            width: 60%; } }
+        @media (max-width: 760px) {
+          .card.marketplace.card-fluid .item.tags-links {
+            width: 100%;
+            margin-top: 20px;
+            text-align: left; } }
+    .card.marketplace.card-fluid .top {
+      margin-bottom: 20px;
+      max-width: 100%;
+      width: 100%; }
+    .card.marketplace.card-fluid .bottom {
+      width: 100%; }
+    .card.marketplace.card-fluid .group {
+      width: 100%;
+      margin-bottom: 6px; }
+      .card.marketplace.card-fluid .group:last-of-type {
+        margin-bottom: 0; }
+    .card.marketplace.card-fluid .cargo-title {
+      width: 100%;
+      color: #333333;
+      font-size: 24px;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .card.marketplace.card-fluid .cargo-id {
+      color: #BBBBBB;
+      font-size: 12px;
+      line-height: 14px; }
+      .card.marketplace.card-fluid .cargo-id span {
+        margin-right: 7px; }
+      .card.marketplace.card-fluid .cargo-id a {
+        color: #00C8FF;
+        transition: 0.2s; }
+        .card.marketplace.card-fluid .cargo-id a:hover {
+          color: #00B6E9; }
+    .card.marketplace.card-fluid .amount {
+      color: #333333;
+      font-size: 36px;
+      line-height: 1;
+      font-weight: bold; }
+      .card.marketplace.card-fluid .amount small {
+        margin-left: 5px;
+        font-size: 18px; }
+    .card.marketplace.card-fluid .seller {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start; }
+      @media (max-width: 760px) {
+        .card.marketplace.card-fluid .seller {
+          justify-content: flex-start; } }
+      .card.marketplace.card-fluid .seller .name {
+        color: #333333;
+        font-size: 14px;
+        line-height: 16px;
+        text-align: right; }
+      .card.marketplace.card-fluid .seller .link-date {
+        padding-right: 10px;
+        padding-left: 5px;
+        max-width: calc(100% - 90px); }
+      .card.marketplace.card-fluid .seller .link {
+        color: #00C8FF;
+        font-size: 14px;
+        line-height: 16px;
+        text-align: right;
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 100%;
+        text-overflow: ellipsis; }
+      .card.marketplace.card-fluid .seller .date {
+        color: #BBBBBB;
+        font-size: 12px;
+        line-height: 14px;
+        text-align: right;
+        margin-top: 3px; }
+      .card.marketplace.card-fluid .seller .btn {
+        display: inline-block;
+        margin-top: -5px; }
+    .card.marketplace.card-fluid .card-avatar {
+      height: 100px;
+      width: 150px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-right: 20px;
+      cursor: pointer; }
+      @media (max-width: 760px) {
+        .card.marketplace.card-fluid .card-avatar {
+          width: 100%;
+          margin-right: 0;
+          margin-bottom: 14px; } }
+    .card.marketplace.card-fluid .price-box {
+      height: auto; }
+  .card.marketplace.filters {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between; }
+  .card.marketplace.tall-card .card-avatar {
+    height: 182px; }
+  .card.marketplace.tall-card .price-box {
+    height: 153px; }
+    .card.marketplace.tall-card .price-box .amount {
+      font-size: 36px; }
+    .card.marketplace.tall-card .price-box .currency {
+      color: #333333;
+      font-size: 18px;
+      font-weight: 500; }
+    .card.marketplace.tall-card .price-box .tags {
+      max-height: 0px;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out; }
+      @media (max-width: 760px) {
+        .card.marketplace.tall-card .price-box .tags {
+          max-height: 100%;
+          opacity: 1; } }
+      .card.marketplace.tall-card .price-box .tags.active {
+        max-height: 100px; }
+  .card.marketplace.tall-card .cargo-description .cargo-description {
+    color: #BBBBBB;
+    font-size: 12px;
+    padding-top: 15px; }
+  .card.marketplace.tall-card .cargo-owner-box {
+    padding-top: 15px; }
+    .card.marketplace.tall-card .cargo-owner-box .cargo-owner {
+      display: block; }
+      .card.marketplace.tall-card .cargo-owner-box .cargo-owner span {
+        color: #00C8FF;
+        font-size: 12px; }
+      .card.marketplace.tall-card .cargo-owner-box .cargo-owner .btn {
+        display: inline;
+        margin-left: 15px; }
+    .card.marketplace.tall-card .cargo-owner-box .publishing-date {
+      color: #BBBBBB;
+      font-size: 12px; }
+  .card.marketplace .search-bar .row {
+    margin: 0 -7.5px !important; }
+  .card.marketplace .filters-bar {
+    height: 100%;
+    margin-top: -15px; }
+    .card.marketplace .filters-bar .btn {
+      margin-top: 15px;
+      margin-right: 15px; }
+  .card.marketplace .card-avatar {
+    height: 120px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer; }
+    .card.marketplace .card-avatar.no-image {
+      background-size: 30% !important;
+      background-image: url(../../../assets/no-photo.svg) !important;
+      background-color: #eee !important;
+      width: 100%;
+      margin: auto; }
+  .card.marketplace .price-box {
+    padding: 15px;
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .card.marketplace .price-box .price-amount > * {
+      margin: 0 0 0 0;
+      display: inline-block;
+      vertical-align: bottom; }
+    .card.marketplace .price-box .price-amount .amount {
+      font-weight: 500;
+      font-size: 24px; }
+    .card.marketplace .price-box .price-amount .currency {
+      font-size: 12px;
+      margin-bottom: 3px;
+      margin-left: 4px; }
+    .card.marketplace .price-box .user {
+      width: 100%;
+      color: #777777;
+      font-size: 12px;
+      margin-top: 15px;
+      word-break: break-word; }
+
+@media (max-width: 1200px) {
+  .marketplace-row .marketplace-row-item {
+    margin-top: 15px;
+    width: 33.33%; } }
+
+@media (max-width: 760px) {
+  .marketplace-row .marketplace-row-item {
+    width: 100%; } }
+
+@media (max-width: 760px) {
+  .marketplace-row .marketplace-row-item > .card {
+    left: 0 !important;
+    right: 0 !important; } }
+
+@media (min-width: 760px) and (max-width: 1200px) {
+  .marketplace-row .marketplace-row-item:nth-of-type(-n + 3) {
+    margin-top: 0; } }
+
+.marketplace-preview .card.marketplace {
+  position: relative; }
+
+@media (max-width: 760px) {
+  .marketplace-preview .form-group-app .form-title {
+    padding-bottom: 0; } }
+
+@media (max-width: 760px) {
+  .marketplace-preview .marketplace-preview-item:nth-of-type(3) .card {
+    min-height: auto !important; } }

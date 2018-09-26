@@ -1,0 +1,49 @@
+.site-content .page-content .page-body > .login {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #F5F5F5;
+  background-image: url(../../../assets/background-main.jpeg);
+  background-size: cover;
+  background-position: top center;
+  z-index: 100;
+  min-height: 300px; }
+  .site-content .page-content .page-body > .login .form-group-app {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    height: auto; }
+    .site-content .page-content .page-body > .login .form-group-app .input-group-app label {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column; }
+
+.deprication-container .page-content {
+  position: absolute;
+  width: 100%;
+  max-width: 450px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.deprication-container .allowlist {
+  padding-top: 15px; }
+  .deprication-container .allowlist li {
+    line-height: 1.6;
+    padding-left: 20px;
+    position: relative; }
+    .deprication-container .allowlist li:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 6px;
+      width: 6px;
+      transform: translateY(-50%);
+      border-radius: 100%;
+      background-color: #00C8FF; }
