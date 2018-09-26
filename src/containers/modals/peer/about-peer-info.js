@@ -44,11 +44,11 @@ class AboutPeerInfo extends React.Component {
                                             <td>{peer.address}</td>
                                         </tr>
                                         <tr>
-                                            <td>translation:inbound:</td>
+                                            <td>Inbound</td>
                                             <td>{peer.inbound === undefined ? "" : peer.inbound.toString()}</td>
                                         </tr>
                                         <tr>
-                                            <td>translation:blockchain_state:</td>
+                                            <td>Blockchain state</td>
                                             <td>{peer.blockchainState}</td>
                                         </tr>
                                         <tr>

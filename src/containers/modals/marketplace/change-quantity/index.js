@@ -177,12 +177,12 @@ class MarketplaceChangeQuantity extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <AdvancedSettings
+                                                    {/*<AdvancedSettings
                                                         setValue={setValue}
                                                         getFormState={getFormState}
                                                         values={values}
                                                         advancedState={this.state.advancedState}
-                                                    />
+                                                    />*/}
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a
@@ -200,7 +200,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                                     </button>
 
                                                 </div>
-                                                <div className="btn-box align-buttons-inside absolute left-conner">
+                                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                                     <a
                                                         onClick={this.handleAdvancedState}
                                                         className="btn btn-right round round-top-right absolute"
@@ -208,7 +208,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                                     >
                                                         {this.state.advancedState ? "Basic" : "Advanced"}
                                                     </a>
-                                                </div>
+                                                </div>*/}
                                             </form>
                                         )}
                                     />

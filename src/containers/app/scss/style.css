@@ -245,7 +245,8 @@ input[type="number"] {
           margin-bottom: 20px; }
           .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar .btn {
             margin-top: 10px;
-            margin-right: 15px; }
+            margin-right: 15px;
+            height: max-content; }
       .site-content .page-content .page-body .my-transactions .transaction-table {
         height: calc(100% - 120px);
         min-height: 560px; }

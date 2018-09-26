@@ -64,34 +64,34 @@ class Transaction extends React.Component {
         if (this.props.block) {
             if (!this.state.transaction.encryptedTransaction) {
                 return (
-                    <tr key={uuid()}>
-                        <td  key={uuid()} className="blue-link-text">
+                    <tr>
+                        <td className="blue-link-text">
                             {this.props.index}
                         </td>
-                        <td  key={uuid()} className="blue-link-text">
+                        <td className="blue-link-text">
                             <a
                                 onClick={this.props.setTransactionInfo.bind(this, {transaction: this.state.transaction.transaction})}
                             >
                                 {this.props.formatTimestamp(this.state.transaction.timestamp)}
                             </a>
                         </td>
-                        <td  key={uuid()}>
+                        <td >
                             {formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}
                         </td>
-                        <td  key={uuid()} className="align-right">
+                        <td className="align-right">
                             {this.state.transaction.amountATM / 100000000}
                         </td>
-                        <td  key={uuid()} className="align-right">
+                        <td className="align-right">
                             {this.state.transaction.feeATM / 100000000}
                         </td>
-                        <td  key={uuid()} className="blue-link-text">
+                        <td className="blue-link-text">
                             <a
                                 onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.senderRS)}
                             >
                                 {this.state.transaction.senderRS}
                             </a>
                         </td>
-                        <td  key={uuid()} className="blue-link-text align-right">
+                        <td className="blue-link-text">
                             {
                                 this.props.transaction.recipientRS &&
                                 <a
@@ -153,7 +153,7 @@ class Transaction extends React.Component {
                             {
                                 this.props.isUnconfirmed && '-'
                             }
-                        </td>
+                        </td>Index
                     </tr>
                 );
             } else {

@@ -265,7 +265,7 @@ class CastPoll extends React.Component {
                                                 Cast vote
                                             </button>
                                         </div>
-                                        <div className="btn-box align-buttons-inside absolute left-conner">
+                                        {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                             <a
                                                 onClick={this.handleAdvancedState}
                                                 className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -279,7 +279,7 @@ class CastPoll extends React.Component {
                                             getFormState={getFormState}
                                             values={values}
                                             advancedState={this.state.advancedState}
-                                        />
+                                        />*/}
 
                                     </div>
                                 }

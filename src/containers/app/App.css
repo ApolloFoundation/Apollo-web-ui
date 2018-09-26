@@ -3240,10 +3240,11 @@ input {
     justify-content: space-between; }
     .form-group-app.devided .left-bar {
       width: 50%;
-      margin: -35px 0 -70px -35px; }
+      margin: -35px 0 -70px -35px;
+      border-right: 5px solid #E6E6E6; }
       .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
-        height: 400px; }
+        height: 300px; }
       .form-group-app.devided .left-bar .bottom-bar .description {
         padding: 35px;
         line-height: 1.6; }
@@ -3356,7 +3357,7 @@ input {
     margin: 0 -35px -70px;
     background-color: #ccc;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-position: center; }
     .form-group-app .marketplace-image.no-image {
       background-size: 30% !important;
@@ -3385,7 +3386,6 @@ input {
       font-size: 24px;
       word-break: break-word;
       line-height: 1.6;
-      margin-top: -10px;
       padding-right: 30px; }
     .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
@@ -3852,7 +3852,7 @@ input {
   .btn.underscore:after {
     content: '';
     position: absolute;
-    top: calc(100% + 47px);
+    top: calc(100% + 46px);
     z-index: 4;
     left: 0;
     width: 0%;
@@ -3860,6 +3860,9 @@ input {
     height: 3px;
     background-color: #00C8FF;
     transition: all 0.3s ease-in-out; }
+    @media (max-width: 1024px) {
+      .btn.underscore:after {
+        top: calc(100% + 42px); } }
   .btn.revert-content .to-revert {
     transform: rotateX(-180deg); }
   .btn.absolute {
@@ -4518,20 +4521,20 @@ table td .btn, table th .btn {
 .data-storage .transaction-table {
   height: auto; }
 
-.data-storage .search-bar {
+.data-storage .transactions-filters .search-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center; }
-  .data-storage .search-bar .input-group-app {
+  .data-storage .transactions-filters .search-bar .input-group-app {
     margin-right: 20px;
     width: calc(50% - 10px);
     max-width: 300px; }
     @media (max-width: 760px) {
-      .data-storage .search-bar .input-group-app {
+      .data-storage .transactions-filters .search-bar .input-group-app {
         width: 100%;
         margin-right: 0;
         margin-bottom: 10px; } }
-    .data-storage .search-bar .input-group-app:nth-of-type(2n) {
+    .data-storage .transactions-filters .search-bar .input-group-app:nth-of-type(2n) {
       margin-right: 0; }
 
 .no-followed-polls {
@@ -4550,6 +4553,25 @@ table td .btn, table th .btn {
   color: #BBBBBB; }
   .site-footer div > {
     height: auto; }
+
+.overflow-menu {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  animation: pulse 0.3s 1; }
+  .overflow-menu.hidden {
+    opacity: 0;
+    display: none; }
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(0, 0, 0, 0); }
+  100% {
+    background-color: rgba(0, 0, 0, 0.6); } }
 
 .transaction-table {
   height: 100%;
@@ -4675,7 +4697,8 @@ table td .btn, table th .btn {
       font-family: "Roboto-Bold";
       font-size: 12px;
       font-weight: bold;
-      line-height: 14px; }
+      line-height: 14px;
+      min-height: auto; }
       .transactions-filters .btn.filter.active {
         border: 1px solid #333333; }
 
@@ -5019,7 +5042,8 @@ input[type="number"] {
           margin-bottom: 20px; }
           .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar .btn {
             margin-top: 10px;
-            margin-right: 15px; }
+            margin-right: 15px;
+            height: max-content; }
       .site-content .page-content .page-body .my-transactions .transaction-table {
         height: calc(100% - 120px);
         min-height: 560px; }

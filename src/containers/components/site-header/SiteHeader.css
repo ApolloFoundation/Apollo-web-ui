@@ -3,7 +3,7 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   background-color: #F5F5F5;
   padding: 27px 40px 26px 40px;
   width: calc(100% - 220px);
@@ -19,39 +19,46 @@
       padding: 20px 15px 20px; } }
   .page-header .page-title-box .page-title-box {
     position: relative; }
-    .page-header .page-title-box .page-title-box .open-settings .settings-bar {
-      position: absolute;
-      top: calc(100% + 47px);
-      right: 0;
-      display: flex;
-      justify-content: space-around;
-      background: #fff;
-      padding: 35px 0;
-      box-sizing: border-box;
-      border-bottom-right-radius: 6px;
-      border-bottom-left-radius: 6px;
-      width: 170px;
-      visibility: hidden;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.3s ease-in-out;
-      z-index: 4; }
-      .page-header .page-title-box .page-title-box .open-settings .settings-bar.active {
-        opacity: 1;
-        transform: none;
-        visibility: visible; }
-      .page-header .page-title-box .page-title-box .open-settings .settings-bar .form-group-app {
-        cursor: auto;
-        padding: 35px 25px; }
-      .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section {
-        padding: 0; }
-        .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section i {
-          width: 20px; }
-      .page-header .page-title-box .page-title-box .open-settings .settings-bar .options-col {
-        width: 100%;
-        border-right: 1px solid #E6E6E6; }
-        .page-header .page-title-box .page-title-box .open-settings .settings-bar .options-col:last-child {
-          border: 0; }
+    .page-header .page-title-box .page-title-box .open-settings {
+      display: inline-block;
+      position: relative; }
+      .page-header .page-title-box .page-title-box .open-settings .settings-bar {
+        position: absolute;
+        top: calc(100% + 48px);
+        right: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        padding: 35px 0;
+        box-sizing: border-box;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+        width: 170px;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.3s ease-in-out;
+        z-index: 4; }
+        @media (max-width: 1024px) {
+          .page-header .page-title-box .page-title-box .open-settings .settings-bar {
+            top: calc(100% + 44px); } }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar.active {
+          opacity: 1;
+          transform: none;
+          visibility: visible; }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar .form-group-app {
+          cursor: auto;
+          padding: 35px 25px; }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section {
+          padding: 0; }
+          .page-header .page-title-box .page-title-box .open-settings .settings-bar .input-section i {
+            width: 20px; }
+        .page-header .page-title-box .page-title-box .open-settings .settings-bar .options-col {
+          width: 100%;
+          border-right: 1px solid #E6E6E6; }
+          .page-header .page-title-box .page-title-box .open-settings .settings-bar .options-col:last-child {
+            border: 0; }
     .page-header .page-title-box .page-title-box > * {
       vertical-align: middle; }
     .page-header .page-title-box .page-title-box .title {
@@ -140,8 +147,6 @@
         height: 41px;
         display: flex;
         justify-content: flex-end; }
-        .page-header .user-search-box .search-bar .user-account-actions .zmdi-settings {
-          transform: translate(0, -1px); }
         .page-header .user-search-box .search-bar .user-account-actions > * {
           margin: auto 0; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-rs {
@@ -174,9 +179,16 @@
           @media (max-width: 760px) {
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action.settings {
               margin-right: 20px; } }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.primary {
+            margin: 0; }
+          .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.underscore:after {
+            top: calc(100% + 39px); }
+          @media (max-width: 1024px) {
+            .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.underscore.active:after {
+              top: calc(100% + 32px); } }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
             position: absolute;
-            top: calc(100% + 47px);
+            top: calc(100% + 42px);
             right: 0;
             display: flex;
             justify-content: space-around;
@@ -193,11 +205,22 @@
             z-index: 4; }
             @media (max-width: 760px) {
               .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
-                padding: 30px 55px; } }
+                padding: 30px 55px;
+                position: fixed !important;
+                background-color: #333333 !important;
+                height: calc(100vh - 50px) !important;
+                max-height: 100vh !important;
+                width: 100% !important;
+                top: 50px !important;
+                left: 0 !important;
+                right: 0 !important; } }
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
               opacity: 1;
               transform: none;
               visibility: visible; }
+              @media (max-width: 1024px) {
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
+                  top: calc(100% + 35px); } }
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
               width: 100%;
               border-right: 1px solid #E6E6E6; }
@@ -286,7 +309,7 @@
         max-height: calc(100vh - 120px); }
         @media (max-width: 1024px) {
           .page-header .user-search-box .user-box .settings-bar {
-            top: calc(100% + 30px); } }
+            top: calc(100% + 26px); } }
         @media (max-width: 760px) {
           .page-header .user-search-box .user-box .settings-bar {
             top: 50px; } }
@@ -419,7 +442,7 @@
             z-index: 5 !important; }
           .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
             position: absolute;
-            top: calc(100% + 47px);
+            top: calc(100% + 48px);
             right: 0;
             display: flex;
             justify-content: space-around;

@@ -4,9 +4,8 @@ import {setModalData} from '../../../modules/modals';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import $ from 'jquery';
 
-import AdvancedSettings from '../../components/advanced-transaction-settings';
+import InputForm from '../../components/input-form';
 import AccountRS from '../../components/account-rs';
-import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
 import {issueAssetAction} from "../../../actions/assets";
@@ -97,14 +96,13 @@ class ComposeMessage extends React.Component {
                                     <p>Send message</p>
                                 </div>
                                 <div className="input-group-app form-group mb-15 display-block inline user">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Recipient</label>
-                                        </div>
-                                        <div className="col-md-9">
+                                    <div className="row form-group-white">
+                                        <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                            Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
+                                        </label>
+                                        <div className="col-sm-9">
                                             <div className="iconned-input-field">
                                                 <AccountRS
-                                                    value={''}
                                                     field={'recipient'}
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
@@ -113,34 +111,27 @@ class ComposeMessage extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Message</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <TextArea placeholder="Message" field="message" cols="30" rows="10" />
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label align-self-start">
+                                        Message
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <TextArea className="form-control" placeholder="Message" field="message" cols="30" rows="5" />
+                                    </div>
+                                </div>
+                                <div className="mobile-class row mb-15 form-group-white">
+                                    <div className="col-md-9 offset-md-3">
+                                        <div className="form-check custom-checkbox mb-2">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      defaultValue={true}
+                                                      field="messageToEncrypt"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Encrypt Message
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                        </div>
-                                        <div className="col-md-9 offset-md-3">
-                                            <div className="form-check custom-checkbox mb-2">
-                                                <Checkbox className="form-check-input custom-control-input"
-                                                          type="checkbox"
-                                                          field="messageToEncrypt"/>
-                                                <label className="form-check-label custom-control-label">
-                                                    Encrypt Message?
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 {/*<div className="input-group-app display-block offset-bottom">*/}
                                     {/*<div className="row">*/}
                                         {/*<div className="col-md-3">*/}
@@ -181,25 +172,27 @@ class ComposeMessage extends React.Component {
                                     {/*</div>*/}
                                 {/*</div>*/}
 
-
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Fee</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Fee" field="feeATM" type="number"/>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Fee
+                                    </label>
+                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            field="feeATM"
+                                            placeholder="Amount"
+                                            type={"float"}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Passphrase" field={'secretPhrase'} type="password"/>
-                                        </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                     </div>
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
@@ -218,7 +211,7 @@ class ComposeMessage extends React.Component {
                                     </a>
 
                                 </div>
-                                <div className="btn-box align-buttons-inside absolute left-conner">
+                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -232,7 +225,7 @@ class ComposeMessage extends React.Component {
                                     getFormState={getFormState}
                                     values={values}
                                     advancedState={this.state.advancedState}
-                                />
+                                />*/}
                             </div>
                         </form>
                     )}

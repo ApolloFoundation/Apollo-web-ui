@@ -215,12 +215,12 @@ class MarketplacePurchase extends React.Component {
                                                             <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
                                                         </div>
                                                     </div>
-                                                    <AdvancedSettings
+                                                    {/*<AdvancedSettings
                                                         setValue={setValue}
                                                         getFormState={getFormState}
                                                         values={values}
                                                         advancedState={this.state.advancedState}
-                                                    />
+                                                    />*/}
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a
@@ -238,7 +238,7 @@ class MarketplacePurchase extends React.Component {
                                                     </button>
 
                                                 </div>
-                                                <div className="btn-box align-buttons-inside absolute left-conner">
+                                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                                     {
                                                         this.state.advancedState &&
                                                         <a
@@ -259,7 +259,7 @@ class MarketplacePurchase extends React.Component {
                                                             Advanced
                                                         </a>
                                                     }
-                                                </div>
+                                                </div>*/}
                                             </form>
                                         )}
                                     />

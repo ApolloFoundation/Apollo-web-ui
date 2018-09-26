@@ -309,7 +309,7 @@ class Transactions extends React.Component {
                                         "active": this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isPhassing && !this.state.isUnconfirmed
                                     })}
                                     onClick={() => this.handleTransactinonFilters(null, null)}
-                                >All</div>
+                                >All types</div>
                                 <div
                                     className={classNames({
                                         "btn" : true,
@@ -452,7 +452,7 @@ class Transactions extends React.Component {
                                 </div>
 
                             </div>
-                            <div className="bottom-bar">
+                            {/*<div className="bottom-bar">
                                 <div
                                     className={classNames({
                                         "btn" : true,
@@ -463,7 +463,7 @@ class Transactions extends React.Component {
                                 >
                                     All types
                                 </div>
-                            </div>
+                            </div>*/}
                         </div>
                         <div className="transaction-table">
                             {

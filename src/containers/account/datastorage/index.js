@@ -249,7 +249,7 @@ class DataStorage extends React.Component {
 								<div
 									className="transactions-filters align-for-inputs"
 									style={{
-
+										paddingBottom: 0,
                                         display: 'block'
                                     }}
                                 >
@@ -270,7 +270,8 @@ class DataStorage extends React.Component {
                                                         'blue': params && params.split('=')[1] === el.tag
                                                     })}
                                                     style={{
-                                                        marginRight: 20
+                                                        marginRight: 20,
+														marginBottom: 20
                                                     }}
                                                 >
                                                     {el.tag} [{el.count}]

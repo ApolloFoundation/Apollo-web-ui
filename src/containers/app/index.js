@@ -192,7 +192,7 @@ class App extends React.Component {
                     </Switch>
                     {!this.props.loading &&
                         <div className="site-footer">
-                            Copyright © 2017-2018 Apollo Foundation. Apollo Version: 1.20.3 <br/>
+                            Copyright © 2017-2018 Apollo Foundation. Apollo Version: 1.20.4 <br/>
                         </div>
                     }
                 </div>

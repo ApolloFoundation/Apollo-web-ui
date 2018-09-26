@@ -417,7 +417,7 @@ class InfoAccount extends React.Component {
                                     {
                                         this.state.goods &&
                                         this.state.goods.goods &&
-                                        this.state.goods.goods.length &&
+                                        this.state.goods.goods.length > 0 &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
@@ -457,7 +457,7 @@ class InfoAccount extends React.Component {
                                     {
                                         this.state.goods &&
                                         this.state.goods.goods &&
-                                        !this.state.goods.goods.length &&
+                                        this.state.goods.goods.length === 0 &&
                                         <p>This user has no goods.</p>
                                     }
                                 </div>
