@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import {readFromLocalStorage} from "../../actions/localStorage";
 import {getLocale} from "../internationalisation";
 import {setSetings} from "../../modules/account";

@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import React from "react";
 import {startBlockPullingAction} from "../../actions/blocks/index";
 import store from '../../store'

@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import ChatItem from  './chat-item/index';

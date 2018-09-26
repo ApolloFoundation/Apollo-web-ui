@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import account from './account'

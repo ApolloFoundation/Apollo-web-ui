@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import { connect } from 'react-redux';
 import { Redirect } from  'react-router-dom';
 import crypto from '../../../helpers/crypto/crypto';

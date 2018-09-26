@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
 import {readFromLocalStorage, writeToLocalStorage} from "../actions/localStorage";
 
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
