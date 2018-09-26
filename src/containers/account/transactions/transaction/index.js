@@ -153,7 +153,7 @@ class Transaction extends React.Component {
                             {
                                 this.props.isUnconfirmed && '-'
                             }
-                        </td>Index
+                        </td>
                     </tr>
                 );
             } else {
