@@ -808,7 +808,7 @@ input {
 			font-size: 24px;
 			word-break: break-word;
 			line-height: 1.6;
-			margin-top: -10px;
+			//margin-top: -10px;
 			padding-right: 30px;
 		}
 		.form-sub-title {
@@ -2482,7 +2482,7 @@ table {
 	.transaction-table {
 		height: auto;
 	}
-	.search-bar {
+	.transactions-filters .search-bar {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
