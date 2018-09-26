@@ -165,7 +165,6 @@ class MarketplaceSearch extends React.Component {
                             className="row"
                             style={{
                                 position: 'relative',
-                                height: "100%",
                                 paddingBottom: 35
                             }}
                         >
