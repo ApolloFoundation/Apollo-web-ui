@@ -158,20 +158,8 @@ class SiteHeader extends React.Component {
         const userAvatar = e.target.closest('.user-avatar') || null;
         const name = e.target.closest('.name') || null;
 
-        console.log('++++++++++++++++++++++++++++');
-        console.log(parents);
-        console.log(btn);
-        console.log(userAvatar);
-        console.log(name);
-
         if (this.state.bodyModalType && !parents && !btn && !name && !userAvatar) {
             this.setState({bodyModalType: null})
-            console.log('-----------------------------');
-            console.log(parents);
-            console.log(btn);
-            console.log(userAvatar);
-            console.log(name);
-
         }
 
         const search = e.target.closest('.user-search-box') || null;
@@ -271,6 +259,50 @@ class SiteHeader extends React.Component {
                                                                     {
                                                                         this.state.forgingStatus &&
                                                                         this.state.forgingStatus.errorCode === 8 &&
+                                                                        <a
+                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                                                                            className="image-button danger"
+                                                                        >
+                                                                            <i className="zmdi zmdi-help"/>
+                                                                            <label>Unknown forging status</label>
+                                                                        </a>
+                                                                    }
+                                                                    {
+                                                                        this.state.forgingStatus &&
+                                                                        this.state.forgingStatus.errorCode === 4 &&
+                                                                        <a
+                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                                                                            className="image-button danger"
+                                                                        >
+                                                                            <i className="zmdi zmdi-help"/>
+                                                                            <label>Unknown forging status</label>
+                                                                        </a>
+                                                                    }
+                                                                    {
+                                                                        this.state.forgingStatus &&
+                                                                        this.state.forgingStatus.errorCode === 3 &&
+                                                                        <a
+                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                                                                            className="image-button danger"
+                                                                        >
+                                                                            <i className="zmdi zmdi-help"/>
+                                                                            <label>Unknown forging status</label>
+                                                                        </a>
+                                                                    }
+                                                                    {
+                                                                        this.state.forgingStatus &&
+                                                                        this.state.forgingStatus.errorCode === 2 &&
+                                                                        <a
+                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                                                                            className="image-button danger"
+                                                                        >
+                                                                            <i className="zmdi zmdi-help"/>
+                                                                            <label>Unknown forging status</label>
+                                                                        </a>
+                                                                    }
+                                                                    {
+                                                                        this.state.forgingStatus &&
+                                                                        this.state.forgingStatus.errorCode === 1 &&
                                                                         <a
                                                                             onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
                                                                             className="image-button danger"

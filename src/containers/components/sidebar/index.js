@@ -307,12 +307,12 @@ class Sidebar extends React.Component {
 									</ul>
 								</div>
 							</li>
-							{/*<li>*/}
-								{/*<NavLink className={"text"} exact={true} activeClassName="active" to="/aliases">*/}
-									{/*Aliases*/}
-									{/*<i className="zmdi zmdi-accounts left"/>*/}
-								{/*</NavLink>*/}
-							{/*</li>*/}
+							<li>
+								<NavLink className={"text"} exact={true} activeClassName="active" to="/aliases">
+									Aliases
+									<i className="zmdi zmdi-accounts left"/>
+								</NavLink>
+							</li>
 							<li>
 								{/*<NavLink exact={true} activeClassName="active"  to="/plugins">
                                     Plugins
