@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
@@ -46,7 +46,7 @@ class ListProductForSale extends React.Component {
     handleFormSubmit = async(values) => {
         // Todo: finish form validating
 
-        const res = await this.props.submitForm(null, null, values, 'dgsListing');
+        const res = await this.props.submitForm(values, 'dgsListing');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {

@@ -267,7 +267,7 @@ function aesDecryptStreamAPL(ivCiphertext, options) {
         };
     }
 
-    var ivCiphertext = conv.byteArrayToWordArrayAPL(ivCiphertext.slice(0, 16));
+    var iv = conv.byteArrayToWordArrayAPL(ivCiphertext.slice(0, 16));
     var ciphertext = conv.byteArrayToWordArrayAPL(ivCiphertext.slice(16));
 
     // shared key is use for two different purposes here

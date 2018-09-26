@@ -208,7 +208,7 @@ export function setForging(requestType) {
         };
 
 
-        return dispatch(submitForm.submitForm(null, null, requestType));
+        return dispatch(submitForm.submitForm( requestType));
     }
 }
 

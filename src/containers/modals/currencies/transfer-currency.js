@@ -32,7 +32,7 @@ class TransferCurrency extends React.Component {
             units: values.units * Math.pow(10, this.props.modalData.decimals)
         };
 
-        const res = await this.props.submitForm(null, null, values, 'transferCurrency');
+        const res = await this.props.submitForm( values, 'transferCurrency');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -190,7 +190,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });
 

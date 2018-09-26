@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     tryToDecryptMessageAPL: (data, options) => dispatch(crypto.tryToDecryptMessageAPL(data, options)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 class MessageItem extends React.Component {
@@ -46,7 +46,7 @@ class MessageItem extends React.Component {
 
     decryptMessage = async (data, passPhrase) => {
         if (passPhrase) {
-            const message = await this.props.submitForm(null, null, {
+            const message = await this.props.submitForm( {
                 requestType: 'readMessage',
                 secretPhrase: passPhrase,
                 transaction: this.props.transaction

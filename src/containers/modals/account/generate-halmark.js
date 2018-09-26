@@ -39,7 +39,7 @@ class GenerateHallmark extends React.Component {
         let res = null;
         switch (this.state.activeTab) {
             case 0://generate hallmark
-                res = await this.props.submitForm(null, null, {
+                res = await this.props.submitForm( {
                     host: values.hostGenerate,
                     weight: values.weightGenerate,
                     date: values.dateGenerate,
@@ -55,7 +55,7 @@ class GenerateHallmark extends React.Component {
                 }
                 break;
             case 1://parse hallmark
-                res = await this.props.submitForm(null, null, {
+                res = await this.props.submitForm( {
                     hallmark: values.hallmarkParse,
                     account: values.accountParse,
                     host: values.hostParse,
@@ -319,7 +319,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 
 });

@@ -20,7 +20,7 @@
   "account_details":"Tilin tiedot",
   "account_has_no_assets":"Tilillä ei ole arvokkeita",
   "account_has_no_currencies":"Tilllä ei ole saldoa",
-  "account_id":"Tilinumero",
+  "account_id_apl_adress":"Tilinumero",
   "account_info":"Tilin tiedot",
   "account_leasing":"Tilin vuokraus",
   "account_no_assets":"Tällä tilillä ei ole arvopapereita.",

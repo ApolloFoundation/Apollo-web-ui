@@ -41,7 +41,7 @@ class OfferCurrency extends React.Component {
             buyRateATM: values.buyRateATM   * Math.pow(10, 8 - this.props.modalData.decimals)
         };
 
-        const res = await this.props.submitForm(null, null, values, 'publishExchangeOffer');
+        const res = await this.props.submitForm( values, 'publishExchangeOffer');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -323,7 +323,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),

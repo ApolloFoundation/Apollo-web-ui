@@ -20,7 +20,7 @@
   "account_details":"Kontouppgifter",
   "account_has_no_assets":"",
   "account_has_no_currencies":"Kontot har inga valutor",
-  "account_id":"Konto-ID",
+  "account_id_apl_adress":"Konto-ID",
   "account_info":"Kontoinformation",
   "account_leasing":"Kontouthyrning",
   "account_no_assets":"Inga tillgångar funna på detta konto.",

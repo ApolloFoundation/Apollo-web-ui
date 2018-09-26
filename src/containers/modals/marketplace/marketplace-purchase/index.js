@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
     getDGSGoodAction: (requestParams) => dispatch(getDGSGoodAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 
@@ -87,7 +87,7 @@ class MarketplacePurchase extends React.Component {
             secretPhrase: values.secretPhrase
         };
 
-        const res = await this.props.submitForm(null, null, values, 'dgsPurchase');
+        const res = await this.props.submitForm( values, 'dgsPurchase');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {

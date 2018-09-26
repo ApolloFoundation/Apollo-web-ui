@@ -36,14 +36,10 @@ const configServer = config;
 
 let isLocalHost = false;
 
-function submitForm($modal, $btn, data, requestType) {
+function submitForm(data, requestType) {
     return async (dispatch, getState) => {
 
         const {account} = getState();
-
-        if (!$btn) {
-            // $btn = $modal.find("button.btn-primary:not([data-dismiss=modal])");
-        }
 
         if (data.secretPhrase) {
             const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
@@ -82,11 +78,9 @@ function submitForm($modal, $btn, data, requestType) {
             if (!output) {
                 return;
             } else if (output.error) {
-                // $form.find(".error_message").html(output.error.escapeHTML()).show();
                 if (formErrorFunction) {
                     formErrorFunction();
                 }
-                unlockForm($modal, $btn);
                 return;
             } else {
                 if (output.requestType) {
@@ -109,7 +103,6 @@ function submitForm($modal, $btn, data, requestType) {
                             type: "success"
                         });
                     }
-                    unlockForm($modal, $btn, !output.keepOpen);
                     return;
                 }
                 if (output.reload) {
@@ -170,7 +163,6 @@ function submitForm($modal, $btn, data, requestType) {
                 if (formErrorFunction) {
                     formErrorFunction(false, data);
                 }
-                unlockForm($modal, $btn);
                 return;
             }
             try {
@@ -179,34 +171,24 @@ function submitForm($modal, $btn, data, requestType) {
                     data.encryptedMessageNonce = converters.byteArrayToHexString(encrypted.nonce);
                     delete data.encryptionKeys;
 
-                    return sendRequest(requestType, data, function (response) {
-                        formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
-                            originalRequestType, formErrorFunction, errorMessage);
-                    })
+                    return sendRequest(requestType, data, function (response) {})
                 });
             } catch (err) {
                 $form.find(".error_message").html(String(err).escapeHTML()).show();
                 if (formErrorFunction) {
                     formErrorFunction(false, data);
                 }
-                unlockForm($modal, $btn);
             }
         } else {
             if (requestType === 'sendMoneyPrivate') {
                 data.deadline = '1440';
-                return sendRequest(requestType, data, function (response) {
-                    formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
-                        originalRequestType, formErrorFunction, errorMessage);
-                });
+                return sendRequest(requestType, data, function (response) {});
             } else {
 
 
 
                 return dispatch(
-                    sendRequest(requestType, data, function (response) {
-                    formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
-                        originalRequestType, formErrorFunction, errorMessage);
-                    })
+                    sendRequest(requestType, data, function (response) {})
                 );
             }
 
@@ -414,90 +396,6 @@ function encryptNote(message, options, secretPhrase) {
     }
 };
 
-function formResponse(response, data, requestType, $modal, $form, $btn, successMessage,
-                      originalRequestType, formErrorFunction, errorMessage) {
-    //todo check again.. response.error
-    var formCompleteFunction;
-
-
-    if (response.fullHash) {
-        unlockForm($modal, $btn);
-        if (data.calculateFee) {
-            updateFee($modal, response.transactionJSON.feeATM);
-            return;
-        }
-
-        if (!$modal.hasClass("modal-no-hide")) {
-            $modal.modal("hide");
-            $.growl(i18n.t("send_money_submitted"), {
-                "type": "success"
-            });
-        }
-
-        if (successMessage) {
-            $.growl(successMessage.escapeHTML(), {
-                type: "success"
-            });
-        }
-
-        formCompleteFunction = forms[originalRequestType + "Complete"];
-
-    } else if (response.errorCode) {
-        // $form.find(".error_message").html(util.escapeRespStr(response.errorDescription)).show();
-
-        if (formErrorFunction) {
-            formErrorFunction(response, data);
-        }
-
-        unlockForm($modal, $btn);
-    } else {
-
-        if (data.calculateFee) {
-            unlockForm($modal, $btn, false);
-
-            if (requestType === 'sendMoneyPrivate') {
-                var fee = $('#send_money_fee_info');
-                fee.val(convertToAPL(response.transactionJSON.feeATM));
-                var recalcIndicator = $("#" + $modal.attr('id').replace('_modal', '') + "_recalc");
-                recalcIndicator.hide();
-                return;
-            } else {
-                updateFee($modal, response.transactionJSON.feeATM);
-                return;
-            }
-        }
-        var sentToFunction = false;
-        if (!errorMessage) {
-            formCompleteFunction = forms[originalRequestType + "Complete"];
-
-            if (typeof formCompleteFunction === 'function') {
-                sentToFunction = true;
-                data.requestType = requestType;
-
-                unlockForm($modal, $btn);
-
-                if (!$modal.hasClass("modal-no-hide")) {
-
-                    $modal.modal("hide");
-                    /*                        $.growl(i18n.t("send_money_submitted"), {
-                                                "type": "success"
-                                            });*/
-                }
-                formCompleteFunction(response, data);
-            } else {
-                errorMessage = i18n.t("error_unknown");
-            }
-        }
-        if (!sentToFunction) {
-            unlockForm($modal, $btn, true);
-
-            $.growl("The private transaction has been submitted!", {
-                "type": "success"
-            });
-        }
-    }
-}
-
 function convertToAPL(amount, returnAsObject) {
     var negative = "";
     var mantissa = "";
@@ -535,27 +433,6 @@ function convertToAPL(amount, returnAsObject) {
     } else {
         return negative + amount + mantissa;
     }
-};
-
-function lockForm($modal) {
-    $modal.find("button").prop("disabled", true);
-    var $btn = $modal.find("button.btn-primary:not([data-dismiss=modal])");
-    if ($btn) {
-        $btn.button("loading");
-    }
-    $modal.modal("lock");
-    return $btn;
-};
-
-function unlockForm($modal, $btn, hide) {
-    // $modal.find("button").prop("disabled", false);
-    // if ($btn) {
-    //     $btn.button("reset");
-    // }
-    // $modal.modal("unlock");
-    // if (hide) {
-    //     $modal.modal("hide");
-    // }
 };
 
 function updateFee(modal, feeATM) {

@@ -35,7 +35,7 @@ class AddMonitor extends React.Component {
             amount: values.amount,
             threshold: values.threshold,
         };
-        const res = await this.props.submitForm(null, null, toSend, "startFundingMonitor");
+        const res = await this.props.submitForm( toSend, "startFundingMonitor");
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -159,7 +159,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
 

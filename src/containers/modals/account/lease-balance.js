@@ -64,7 +64,7 @@ class LeaseBalance extends React.Component {
             return;
         }
 
-        const lease = await this.props.submitForm(null, null, values,'leaseBalance');
+        const lease = await this.props.submitForm( values,'leaseBalance');
 
         if (lease) {
             if (lease.errorCode) {
@@ -313,7 +313,7 @@ const mapDispatchToProps = dispatch => ({
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     sendLeaseBalance: (requestParams) => dispatch(crypto.sendLeaseBalance(requestParams)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
 });
 

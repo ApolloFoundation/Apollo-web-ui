@@ -47,8 +47,7 @@ export function getSettings(isAccountSpecific) {
                 });
             }
 
-            // TODO implemenr internationalisation
-            // applySettings();
+        // TODO implemenr internationalisation  
         } else {
             async.waterfall([
                 function(callback) {

@@ -50,7 +50,7 @@ class CancelSaleAlias extends React.Component {
 			aliasName: this.state.alias.aliasName
 		};
 
-		const res = await this.props.submitForm(null, null, values, 'setAlias')
+		const res = await this.props.submitForm( values, 'setAlias')
 		if (res.errorCode) {
 			NotificationManager.error(res.errorDescription, 'Error', 5000)
 		} else {
@@ -272,7 +272,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	setModalData: (data) => dispatch(setModalData(data)),
-	submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+	submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 	getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
 	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });

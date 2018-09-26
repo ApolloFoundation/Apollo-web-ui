@@ -3,13 +3,7 @@ import {getState} from "../../modules/account";
 import BigInteger from 'big-integer';
 
 
-
-function getAccountMask(c) {
-
-    return;
-}
-
-function isNumericAccountImpl(account, regex) {
+function isNumericAccountImplAPL(account, regex) {
     return regex.test(account);
 };
 
@@ -18,7 +12,7 @@ function isNumericAccount(account) {
 
         const {account} = getState();
 
-        return isNumericAccountImpl(account, getNumericAccountRegex());
+        return isNumericAccountImplAPL(account, getNumericAccountRegex());
     }
 };
 
@@ -30,7 +24,7 @@ function isRsAccount(account) {
     return (dispatch, getState) => {
 
         const {account} = getState();
-        return isRsAccountImpl(account, getRsAccountRegex(account.constants.accountPrefix) ? getRsAccountRegex(account.constants.accountPrefix) : getRsAccountRegex("APL"));
+        return isRsAccountImpl(account, getRsAccountRegexAPL(account.constants.accountPrefix) ? getRsAccountRegexAPL(account.constants.accountPrefix) : getRsAccountRegexAPL("APL"));
     }
 };
 
@@ -38,7 +32,7 @@ function isRsAccountImpl(account, regex) {
     return regex.test(account);
 };
 
-function getRsAccountRegex(accountPrefix, withoutSeparator) {
+function getRsAccountRegexAPL(accountPrefix, withoutSeparator) {
     return (dispatch, getState) => {
         const {account} = getState();
 
@@ -50,7 +44,7 @@ function getRsAccountRegex(accountPrefix, withoutSeparator) {
 };
 
 function isFileEncryptionSupported() {
-    return navigator.userAgent.indexOf("JavaFX") >= 0; // When using JavaFX you cannot read the file to encrypt
+    return navigator.userAgent.indexOf("JavaFX") >= 0;
 };
 
 function isRequestTypeEnabled(requestType) {
@@ -69,8 +63,7 @@ function isRequirePost(requestType) {
 
         const {account} = getState();
         if (!account.constants.requestType[requestType]) {
-            // For requests invoked before the getConstants request returns
-            // we implicitly assume that they can use GET
+
             return false;
         }
         return true === account.requestType[requestType].requirePost;
@@ -90,8 +83,6 @@ function isRequireBlockchain(requestType) {
         const {account} = getState();
 
         if (!account.constants.constants.requestType[requestType]) {
-            // For requests invoked before the getConstants request returns,
-            // we implicitly assume that they do not require the blockchain
             return false;
         }
         return true == account.constants.requestType[requestType].requireBlockchain;
@@ -103,7 +94,7 @@ function calculateOrderTotal(quantityATU, priceATM) {
 }
 
 function formatQuantity(quantity, decimals, noEscaping, zeroPad) {
-    return format(convertToATUf(quantity, decimals, true), noEscaping, zeroPad);
+    return formatAPL(convertToATUf(quantity, decimals, true), noEscaping, zeroPad);
 }
 
 function convertToATUf(quantity, decimals, returnAsObject) {
@@ -142,12 +133,12 @@ function convertToATUf(quantity, decimals, returnAsObject) {
     }
 }
 
-function format(params, no_escaping, zeroPad) {
+function formatAPL(p, isEscaping, pad) {
     let zeros = "00000000";
     let amount;
     let mantissa;
-    if (typeof params !== "object") {
-        amount = String(params);
+    if (typeof p !== "object") {
+        amount = String(p);
         if (amount.indexOf(".") !== -1) {
             mantissa = amount.substr(amount.indexOf("."));
             amount = amount.replace(mantissa, "");
@@ -158,25 +149,25 @@ function format(params, no_escaping, zeroPad) {
         if (negative) {
             amount = amount.substring(1);
         }
-        params = {
+        p = {
             "amount": amount,
             "negative": negative,
             "mantissa": mantissa
         };
     }
 
-    amount = String(params.amount);
+    amount = String(p.amount);
     let digits = amount.split("").reverse();
     let formattedAmount = "";
     let locale = ".";
-    let formattedMantissa = params.mantissa.replace(".", locale.decimal);
-    if (zeroPad) {
+    let formattedMantissa = p.mantissa.replace(".", locale.decimal);
+    if (pad) {
         let mantissaLen = formattedMantissa.length;
         if (mantissaLen > 0) {
-            formattedMantissa += zeros.substr(0, zeroPad - mantissaLen + 1);
+            formattedMantissa += zeros.substr(0, pad - mantissaLen + 1);
         } else {
-            formattedMantissa += zeros.substr(0, zeroPad);
-            if (zeroPad !== 0) {
+            formattedMantissa += zeros.substr(0, pad);
+            if (pad !== 0) {
                 formattedMantissa = locale.decimal + formattedMantissa;
             }
         }
@@ -188,14 +179,14 @@ function format(params, no_escaping, zeroPad) {
         formattedAmount = digits[i] + formattedAmount;
     }
 
-    let output = (params.negative ? params.negative : "") + formattedAmount + formattedMantissa;
+    let output = (p.negative ? p.negative : "") + formattedAmount + formattedMantissa;
 
     return output;
 }
 
 function formatOrderPricePerWholeATU(price, decimals, zeroPad) {
     price = calculateOrderPricePerWholeATU(price, decimals, true);
-    return format(price, false, zeroPad);
+    return formatAPL(price, false, zeroPad);
 }
 
 function calculateOrderPricePerWholeATU(price, decimals, returnAsObject) {
@@ -206,48 +197,47 @@ function calculateOrderPricePerWholeATU(price, decimals, returnAsObject) {
     return convertToAPL(price.multiply(new BigInteger("" + Math.pow(10, decimals))), returnAsObject);
 };
 
-function convertToAPL(amount, returnAsObject) {
-    let negative = "";
-    let mantissa = "";
+function convertToAPL(a, isObject) {
+    let negativeres = "";
+    let mantissares = "";
 
-    if (typeof amount !== "object") {
-        amount = new BigInteger(String(amount));
+    if (typeof a !== "object") {
+        a = new BigInteger(String(a));
     }
 
-    if (amount.compareTo(BigInteger.ZERO) < 0) {
-        amount = amount.abs();
-        negative = "-";
+    if (a.compareTo(BigInteger.ZERO) < 0) {
+        a = a.abs();
+        negativeres = "-";
     }
 
-    var fractionalPart = amount.mod(new BigInteger("100000000")).toString();
-    amount = amount.divide(new BigInteger("100000000"));
+    var fractionalPart = a.mod(new BigInteger("100000000")).toString();
+    a = a.divide(new BigInteger("100000000"));
 
     if (fractionalPart && fractionalPart != "0") {
-        mantissa = ".";
+        mantissares = ".";
 
         for (var i = fractionalPart.length; i < 8; i++) {
-            mantissa += "0";
+            mantissares += "0";
         }
 
-        mantissa += fractionalPart.replace(/0+$/, "");
+        mantissares += fractionalPart.replace(/0+$/, "");
     }
 
-    amount = amount.toString();
+    a = a.toString();
 
-    if (returnAsObject) {
+    if (isObject) {
         return {
-            "negative": negative,
-            "amount": amount,
-            "mantissa": mantissa
+            "negative": negativeres,
+            "amount": a,
+            "mantissa": mantissares
         };
     } else {
-        return negative + amount + mantissa;
+        return negativeres + a + mantissares;
     }
 };
 
 
 export default {
-    getAccountMask,
     isNumericAccount,
     isRsAccount,
     calculateOrderTotal,

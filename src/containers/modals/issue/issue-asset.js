@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     issueAssetAction: (reqParams) => dispatch(issueAssetAction(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
@@ -56,7 +56,7 @@ class IssueAsset extends React.Component {
         };
 
         // Todo: finish form validating
-        const res = await this.props.submitForm(null, null, values, 'issueAsset');
+        const res = await this.props.submitForm( values, 'issueAsset');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {

@@ -93,7 +93,7 @@ class CreatePoll extends React.Component {
             return;
         }
 
-        const res = await this.props.submitForm(null, null, {
+        const res = await this.props.submitForm( {
             ...values,
             'create_poll_answers[]': values.answers[0],
             minBalanceModel: 0,
@@ -502,7 +502,7 @@ const mapDispatchToProps = dispatch => ({
     getBlockAction: (data) => dispatch(getBlockAction(data)),
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    submitForm: (modal, btn, data, requestType) => dispatch(submitForm.submitForm(modal, btn, data, requestType)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
