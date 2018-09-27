@@ -41,23 +41,41 @@ class SendApolloPrivate extends React.Component {
 
     async handleFormSubmit(values) {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+        
+
 
         if (!values.recipient) {
+            this.setState({
+                isPending: false
+            });
             NotificationManager.error('Recipient not specified.', 'Error', 5000);
             return;
         }
         if (!values.amountATM) {
+            this.setState({
+                isPending: false
+            });
             NotificationManager.error('Amount is required.', 'Error', 5000);
             return;
         }
         if (!values.feeATM) {
+            this.setState({
+                isPending: false
+            });
             NotificationManager.error('Fee not specified.', 'Error', 5000);
             return;
         }
         if (!isPassphrase) {
+            this.setState({
+                isPending: false
+            });
             NotificationManager.error('Incorrect secret phrase', 'Error', 5000);
             return;
         }
+
+        this.setState({
+            isPending: true
+        })
 
         this.props.sendPrivateTransaction(values);
         this.props.setBodyModalParamsAction(null, {});

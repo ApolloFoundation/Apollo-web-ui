@@ -163,7 +163,7 @@ class Dashboard extends React.Component {
 	initDashboard = (reqParams) => {
 		this.getAllTaggedData(reqParams);
 		this.getAccountAsset(reqParams);
-		// this.getAliasesCount(reqParams);
+		this.getAliasesCount(reqParams);
 		this.getCurrenciesCount(reqParams);
 		this.getMessagesCount(reqParams);
 		this.getActivePolls(reqParams);
@@ -257,7 +257,7 @@ class Dashboard extends React.Component {
 	getAliasesCount = async (requsetParams) => {
 		const aliasesCount = await this.props.getAliasesCountAction(requsetParams);
 
-		if (aliasesCount) {
+        if (aliasesCount) {
             this.setState({
 				aliassesValue: aliasesCount.numberOfAliases
 			})
@@ -494,13 +494,17 @@ class Dashboard extends React.Component {
 												shuffling
 											</div>
 										</Link>
-										<a
-											to="/dashboard"
-											className="general-info-item bottom-left"
-											style={{cursor: 'default'}}
-										>
-
-										</a>
+                                        <Link
+                                            to="/aliases"
+                                            className="general-info-item bottom-left"
+                                        >
+                                            <div className="top-bar">
+                                                {this.state.aliassesValue || 0}
+                                            </div>
+                                            <div className="bottom-bar">
+                                                Aliases
+                                            </div>
+                                        </Link>
 										<Link
 											to={'/data-storage'}
 											className="general-info-item bottom-right"

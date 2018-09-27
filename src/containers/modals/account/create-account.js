@@ -51,6 +51,9 @@ class CreateUser extends React.Component {
 
     handleFormSubmit = (values) => {
         if (values.secretPhrase === this.state.generatedPassphrase) {
+            this.setState({
+                isPending: true
+            })
             this.props.getAccountDataAction({
                 account: this.state.generatedAccount
             })
@@ -217,6 +220,30 @@ class CreateUser extends React.Component {
                                         >
                                             Create new Account
                                         </button>
+
+                                        {
+                                            !!this.state.isPending ?
+                                                <div
+                                                    style={{
+                                                        width: 121.5
+                                                    }}
+                                                    className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                >
+                                                    <div className="ball-pulse-sync">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div> :
+                                                <button
+
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                >
+                                                    Create new Account
+                                                </button>
+                                        }
 
                                     </div>
                                 </div>

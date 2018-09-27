@@ -60,9 +60,17 @@ class ComposeMessage extends React.Component {
             delete values.message;
         }
 
+        this.setState({
+            isPending: true
+        })
+
         // Todo: finish form validating
         const res = await this.props.submitForm( values, 'sendMessage');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
+
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.issueAssetAction(values);
@@ -202,13 +210,29 @@ class ComposeMessage extends React.Component {
                                     </div>
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Send message
-                                    </button>
+                                    {
+                                        !!this.state.isPending ?
+                                            <div
+                                                style={{
+                                                    width: 95.39
+                                                }}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                <div className="ball-pulse-sync">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div> :
+                                            <button
+
+                                                type="submit"
+                                                name={'closeModal'}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                Send message
+                                            </button>
+                                    }
                                     <a
                                         onClick={() => this.props.closeModal()}
                                         className="btn round round-top-left"

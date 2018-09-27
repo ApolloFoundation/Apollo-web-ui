@@ -33,11 +33,6 @@ class BuyCurrency extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-
-        console.log(this.props.decimals);
-
-        console.log(values);
-
         values = {
             ...values,
             ...this.props.modalData,
@@ -45,10 +40,15 @@ class BuyCurrency extends React.Component {
             units: this.props.modalData.units * (Math.pow(10, this.props.modalData.decimals))
         };
 
-        console.log(values);
+        this.setState({
+            isPending: true
+        })
 
         const res = await this.props.submitForm( values, 'currencyBuy');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -142,13 +142,31 @@ class BuyCurrency extends React.Component {
                                         >
                                             Cancel
                                         </a>
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Buy
-                                        </button>
+                                        {
+                                            !!this.state.isPending ?
+                                                <div
+                                                    style={{
+                                                        width: 56.25
+                                                    }}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    <div className="ball-pulse-sync">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div> :
+                                                <button
+                                                    style={{
+                                                        width: 56.25
+                                                    }}
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Buy
+                                                </button>
+                                        }
 
                                     </div>
                                     {/*<div className="btn-box align-buttons-inside absolute left-conner">

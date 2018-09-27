@@ -46,9 +46,14 @@ class OfferCurrency extends React.Component {
             sellRateATM: values.sellRateATM * Math.pow(10, 8 - this.props.modalData.decimals),
             buyRateATM: values.buyRateATM   * Math.pow(10, 8 - this.props.modalData.decimals)
         };
-
+        this.setState({
+            isPending: true
+        })
         const res = await this.props.submitForm( values, 'publishExchangeOffer');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -295,13 +300,32 @@ class OfferCurrency extends React.Component {
                                     />*/}
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Publish Exchange Offer
-                                        </button>
+
+                                        {
+                                            !!this.state.isPending ?
+                                                <div
+                                                    style={{
+                                                        width: 156.25
+                                                    }}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    <div className="ball-pulse-sync">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div> :
+                                                <button
+                                                    style={{
+                                                        width: 156.25
+                                                    }}
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Publish Exchange Offer
+                                                </button>
+                                        }
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
                                     {/*<div className="btn-box align-buttons-inside absolute left-conner">

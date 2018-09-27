@@ -33,14 +33,6 @@ class BuyAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        console.log(this.props.modalData.assetInfo.decimals);
-        console.log({
-            ...values,
-            asset: this.props.modalData.assetInfo.asset,
-            priceOrder: this.props.modalData.priceATM * (100000000 / Math.pow(10, this.props.modalData.assetInfo.decimals)),
-            quantityOrder: this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals)
-        });
-
 
         values = {
             ...values,
@@ -49,10 +41,16 @@ class BuyAsset extends React.Component {
             quantityOrder: (this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals))
         };
 
-        console.log(values);
+        this.setState({
+            isPending: true
+        })
 
         const res = await this.props.submitForm( values, 'placeBidOrder');
         if (res.errorCode) {
+
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -139,31 +137,34 @@ class BuyAsset extends React.Component {
                                         </div>
                                     </div>
 
-                                    {/*<AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        advancedState={this.state.advancedState}
-                                    />*/}
-
                                     <div className="btn-box align-buttons-inside absolute right-conner">
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Buy
-                                        </button>
+                                        {
+                                            !!this.state.isPending ?
+                                                <div
+                                                    style={{
+                                                        width: 100
+                                                    }}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    <div className="ball-pulse-sync">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div> :
+                                                <button
+                                                    style={{
+                                                        width: 100
+                                                    }}
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Submit
+                                                </button>
+                                        }
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
-                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-left round round-bottom-left round-top-right"
-                                        >
-                                            {this.state.advancedState ? "Basic" : "Advanced"}
-                                        </a>
-                                    </div>*/}
                                 </div>
                             }
                         </form>

@@ -132,7 +132,6 @@ class AboutPeerInfo extends React.Component {
                                 </div>
                             </div>
                             <a
-                                type="submit"
                                 className="btn btn-right round round-top-left round-bottom-right absolute"
                                 onClick={() => this.props.closeModal()}
                             >

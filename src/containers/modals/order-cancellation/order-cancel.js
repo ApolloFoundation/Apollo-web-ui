@@ -41,6 +41,11 @@ class OrderCancel extends React.Component {
 
     handleFormSubmit = async(values) => {
         const {modalData} = this.props;
+
+        this.setState({
+            isPending: true
+        })
+
         values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
         const res = await this.props.submitForm( {
             ...values,
@@ -50,6 +55,9 @@ class OrderCancel extends React.Component {
             phasingHashedSecretAlgorithm: 2,
         }, modalData.type);
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});

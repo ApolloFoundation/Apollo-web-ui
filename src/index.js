@@ -21,7 +21,7 @@ import {I18nextProvider} from 'react-i18next';
 import BlockSubscriber from "./containers/block-subscriber";
 
 const target = document.querySelector('#root');
-
+//
 console.warn  = function(message){};
 console.error = function(message){};
 console.log = function(message){};
