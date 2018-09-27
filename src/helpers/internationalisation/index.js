@@ -61,7 +61,7 @@ export function getLocale() {
                                 continue;
                             }
                             if (tokens[i].substring(0, separator) == lang) {
-                                account.logConsole("Language " + lang + " resolved to locale " + tokens[i]);
+                                // account.logConsole("Language " + lang + " resolved to locale " + tokens[i]);
                                 lang = tokens[i];
                                 break;
                             }
