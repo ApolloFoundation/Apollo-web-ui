@@ -76,7 +76,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
                     localStorage.setItem('APLContacts', JSON.stringify([values]));
                 }
 
-                document.location = '/dashboard';
+                // document.location = '/dashboard';
             }
         }
     };
