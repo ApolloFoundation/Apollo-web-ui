@@ -58,6 +58,10 @@ class EditAlias extends React.Component {
             aliasURI: values[this.state.inputType]
         };
 
+        this.setState({
+            isPending: true
+        })
+
         const res = await this.props.submitForm( values, 'setAlias');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
@@ -241,13 +245,31 @@ class EditAlias extends React.Component {
                                         >
                                             Cancel
                                         </a>
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Edit alias
-                                        </button>
+                                        {
+                                            !!this.state.isPending ?
+                                                <div
+                                                    style={{
+                                                        width: 100
+                                                    }}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    <div className="ball-pulse-sync">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div> :
+                                                <button
+                                                    style={{
+                                                        width: 100
+                                                    }}
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Edit alias
+                                                </button>
+                                        }
                                     </div>
                                     {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                         <a

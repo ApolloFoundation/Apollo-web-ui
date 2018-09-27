@@ -49,8 +49,15 @@ class JoinShuffling extends React.Component {
             recipientPublicKey: await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false)
         };
 
+        this.setState({
+            isPending: true
+        })
+
         const res = await this.props.submitForm( data, 'startShuffler');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -197,13 +204,31 @@ class JoinShuffling extends React.Component {
                                     >
                                         Cancel
                                     </a>
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Start Shuffling
-                                    </button>
+                                    {
+                                        !!this.state.isPending ?
+                                            <div
+                                                style={{
+                                                    width: 100
+                                                }}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                <div className="ball-pulse-sync">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div> :
+                                            <button
+                                                style={{
+                                                    width: 100
+                                                }}
+                                                type="submit"
+                                                name={'closeModal'}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                Start Shuffling
+                                            </button>
+                                    }
 
                                 </div>
                             </div>

@@ -158,6 +158,8 @@ class RawTransactionDetails extends React.Component {
                                         Close
                                     </a>
                                     {!result.signatureHash &&
+
+
                                         <button
                                             type="submit"
                                             name={'closeModal'}
@@ -165,6 +167,31 @@ class RawTransactionDetails extends React.Component {
                                         >
                                             Broadcast
                                         </button>
+                                    }
+                                    {
+                                        !!this.state.isPending ?
+                                            <div
+                                                style={{
+                                                    width: 56.25
+                                                }}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                <div className="ball-pulse-sync">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div> :
+                                            <button
+                                                style={{
+                                                    width: 56.25
+                                                }}
+                                                type="submit"
+                                                name={'closeModal'}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                Broadcast
+                                            </button>
                                     }
 
                                 </div>

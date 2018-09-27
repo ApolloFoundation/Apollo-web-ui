@@ -41,10 +41,7 @@ class SendApolloPrivate extends React.Component {
 
     async handleFormSubmit(values) {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
-        this.setState({
-            isPending: true
-        })
+        
 
 
         if (!values.recipient) {
@@ -75,6 +72,10 @@ class SendApolloPrivate extends React.Component {
             NotificationManager.error('Incorrect secret phrase', 'Error', 5000);
             return;
         }
+
+        this.setState({
+            isPending: true
+        })
 
         this.props.sendPrivateTransaction(values);
         this.props.setBodyModalParamsAction(null, {});

@@ -43,6 +43,11 @@ class GenerateHallmark extends React.Component {
             hallmark: false
         });
         let res = null;
+
+        this.setState({
+            isPending: true
+        })
+
         switch (this.state.activeTab) {
             case 0://generate hallmark
                 res = await this.props.submitForm( {
@@ -53,8 +58,14 @@ class GenerateHallmark extends React.Component {
                     feeATM: 0,
                 }, 'markHost');
                 if (res.errorCode) {
+                    this.setState({
+                        isPending: false
+                    })
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
+                    this.setState({
+                        isPending: false
+                    })
                     this.setState({
                         hallmark: res.hallmark
                     })
@@ -72,8 +83,14 @@ class GenerateHallmark extends React.Component {
                     random: Math.random()
                 }, 'decodeHallmark');
                 if (res.errorCode) {
+                    this.setState({
+                        isPending: false
+                    })
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
+                    this.setState({
+                        isPending: false
+                    })
                     NotificationManager.success("Hallmark parsed", null, 5000);
                     this.setState({parsedHallmark: res})
                 }
@@ -288,13 +305,31 @@ class GenerateHallmark extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="btn-box align-buttons-inside absolute right-conner">
-                                                <button
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    Parse
-                                                </button>
+
+                                                {
+                                                    !!this.state.isPending ?
+                                                        <div
+                                                            style={{
+                                                                width: 67.88
+                                                            }}
+                                                            className="btn btn-right blue round round-bottom-right"
+                                                        >
+                                                            <div className="ball-pulse-sync">
+                                                                <div></div>
+                                                                <div></div>
+                                                                <div></div>
+                                                            </div>
+                                                        </div> :
+                                                        <button
+
+                                                            type="submit"
+                                                            name={'closeModal'}
+                                                            className="btn btn-right blue round round-bottom-right"
+                                                        >
+                                                            Parse
+                                                        </button>
+                                                }
+
                                                 <a className="btn btn-right round round-top-left"
                                                    onClick={() => this.props.closeModal()}
                                                 >

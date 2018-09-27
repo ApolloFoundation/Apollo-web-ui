@@ -59,6 +59,10 @@ class CancelSell extends React.Component {
 
         };
 
+        this.setState({
+            isPending: true
+        })
+
         const res = await this.props.submitForm( values, 'sellAlias')
 
         if (res) {
@@ -82,6 +86,9 @@ class CancelSell extends React.Component {
                         }
                     }
             } else {
+                this.setState({
+                    isPending: false
+                })
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
             }
         }
@@ -191,13 +198,31 @@ class CancelSell extends React.Component {
                                                 >
                                                     Cancel
                                                 </a>
-                                                <button
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    Delete alias
-                                                </button>
+                                                {
+                                                    !!this.state.isPending ?
+                                                        <div
+                                                            style={{
+                                                                width: 70
+                                                            }}
+                                                            className="btn btn-right blue round round-bottom-right"
+                                                        >
+                                                            <div className="ball-pulse-sync">
+                                                                <div></div>
+                                                                <div></div>
+                                                                <div></div>
+                                                            </div>
+                                                        </div> :
+                                                        <button
+                                                            style={{
+                                                                width: 70
+                                                            }}
+                                                            type="submit"
+                                                            name={'closeModal'}
+                                                            className="btn btn-right blue round round-bottom-right"
+                                                        >
+                                                            Cancel alias sell
+                                                        </button>
+                                                }
                                             </div>
                                             {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                                 <a

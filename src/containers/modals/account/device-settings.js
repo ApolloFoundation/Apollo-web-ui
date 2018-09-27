@@ -44,6 +44,9 @@ class DeviceSettings extends React.Component {
     }
 
     handleFormSubmit(values) {
+        this.setState({
+            isPending: true
+        })
         this.props.saveSettings(values);
         this.props.setBodyModalParamsAction(null, {});
         NotificationManager.success('Settings has been saved!', null, 5000);
@@ -189,13 +192,30 @@ class DeviceSettings extends React.Component {
                                     </div>
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Set
-                                        </button>
+                                        {
+                                            !!this.state.isPending ?
+                                                <div
+                                                    style={{
+                                                        width: 38.25
+                                                    }}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    <div className="ball-pulse-sync">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div> :
+                                                <button
+
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Set
+                                                </button>
+                                        }
+
                                         <a onClick={() => this.props.closeModal()}
                                            className="btn btn-right round round-top-left">
                                             Cancel

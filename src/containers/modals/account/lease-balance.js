@@ -70,10 +70,17 @@ class LeaseBalance extends React.Component {
             return;
         }
 
+        this.setState({
+            isPending: true
+        })
+
         const lease = await this.props.submitForm( values,'leaseBalance');
 
         if (lease) {
             if (lease.errorCode) {
+                this.setState({
+                    isPending: false
+                })
                 NotificationManager.error(lease.errorDescription, 'Error', 5000)
             } else {
                 this.props.setBodyModalParamsAction(null, {});
@@ -270,13 +277,30 @@ class LeaseBalance extends React.Component {
                                 />*/}
 
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Send
-                                    </button>
+                                    {
+                                        !!this.state.isPending ?
+                                            <div
+                                                style={{
+                                                    width: 47.7
+                                                }}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                <div className="ball-pulse-sync">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div> :
+                                            <button
+
+                                                type="submit"
+                                                name={'closeModal'}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                Send
+                                            </button>
+                                    }
+
                                     <a
                                         onClick={() => this.props.closeModal()}
                                         className="btn round round-top-left"

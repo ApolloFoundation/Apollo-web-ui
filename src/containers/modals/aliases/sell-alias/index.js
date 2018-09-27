@@ -50,8 +50,15 @@ class SellAlias extends React.Component {
 
         };
 
+        this.setState({
+            isPending: true
+        })
+
         const res = await this.props.submitForm( values, 'sellAlias');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -403,13 +410,32 @@ class SellAlias extends React.Component {
                                                 >
                                                     Cancel
                                                 </a>
-                                                <button
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    Sell alias
-                                                </button>
+
+                                                {
+                                                    !!this.state.isPending ?
+                                                        <div
+                                                            style={{
+                                                                width: 100
+                                                            }}
+                                                            className="btn btn-right blue round round-bottom-right"
+                                                        >
+                                                            <div className="ball-pulse-sync">
+                                                                <div></div>
+                                                                <div></div>
+                                                                <div></div>
+                                                            </div>
+                                                        </div> :
+                                                        <button
+                                                            style={{
+                                                                width: 100
+                                                            }}
+                                                            type="submit"
+                                                            name={'closeModal'}
+                                                            className="btn btn-right blue round round-bottom-right"
+                                                        >
+                                                            Sell alias
+                                                        </button>
+                                                }
                                             </div>
                                             {/*<div className="btn-box align-buttononClick={this.handleAdvancedState}s-inside absolute left-conner">
                                                 <a

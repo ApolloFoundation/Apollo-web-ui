@@ -84,6 +84,10 @@ class CreatePoll extends React.Component {
             return;
         }
 
+        this.setState({
+            isPending: true
+        })
+
         let resultAnswers = {};
 
         if (values.answers) {
@@ -107,6 +111,9 @@ class CreatePoll extends React.Component {
             ...resultAnswers
         }, 'createPoll');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -468,13 +475,32 @@ class CreatePoll extends React.Component {
                                         >
                                             Cancel
                                         </a>
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Create poll
-                                        </button>
+                                        {
+                                            !!this.state.isPending ?
+                                                <div
+                                                    style={{
+                                                        width: 126.25
+                                                    }}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    <div className="ball-pulse-sync">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div> :
+                                                <button
+                                                    style={{
+                                                        width: 126.25
+                                                    }}
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Create poll
+                                                </button>
+                                        }
+
                                     </div>
                                     {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                         <a

@@ -37,8 +37,15 @@ class DeleteShares extends React.Component {
             quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)
         };
 
+        this.setState({
+            isPending: true
+        })
+
         const res = await this.props.submitForm( values, 'deleteAssetShares');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -125,13 +132,29 @@ class DeleteShares extends React.Component {
                                     />*/}
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            Delete
-                                        </button>
+                                        {
+                                            !!this.state.isPending ?
+                                                <div
+                                                    style={{
+                                                        width: 56.25
+                                                    }}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    <div className="ball-pulse-sync">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </div> :
+                                                <button
+
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right blue round round-bottom-right"
+                                                >
+                                                    Delete
+                                                </button>
+                                        }
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
                                     {/*<div className="btn-box align-buttons-inside absolute left-conner">

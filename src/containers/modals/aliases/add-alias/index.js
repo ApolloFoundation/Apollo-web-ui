@@ -47,8 +47,14 @@ class AddAlias extends React.Component {
 
 
     async handleFormSubmit(values) {
+        this.setState({
+            isPending: true
+        })
         const res = await this.props.submitForm( values, 'setAlias');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -231,6 +237,32 @@ class AddAlias extends React.Component {
                                     >
                                         Add alias
                                     </button>
+                                    {
+                                        !!this.state.isPending ?
+                                            <div
+                                                style={{
+                                                    width: 70.25
+                                                }}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                <div className="ball-pulse-sync">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div> :
+                                            <button
+                                                style={{
+                                                    width: 70.25
+                                                }}
+                                                type="submit"
+                                                name={'closeModal'}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                Add alias
+                                            </button>
+
+                                    }
                                 </div>
                                 {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                     <a

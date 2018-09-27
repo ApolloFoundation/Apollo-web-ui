@@ -89,8 +89,15 @@ class CastPoll extends React.Component {
             ...votes,
         };
 
+        this.setState({
+            isPending: true
+        })
+
         const res = await this.props.submitForm( values, 'castVote');
         if (res.errorCode) {
+            this.setState({
+                isPending: true
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -263,13 +270,32 @@ class CastPoll extends React.Component {
                                             >
                                                 Cancel
                                             </a>
-                                            <button
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Cast vote
-                                            </button>
+
+                                            {
+                                                !!this.state.isPending ?
+                                                    <div
+                                                        style={{
+                                                            width: 100
+                                                        }}
+                                                        className="btn btn-right blue round round-bottom-right"
+                                                    >
+                                                        <div className="ball-pulse-sync">
+                                                            <div></div>
+                                                            <div></div>
+                                                            <div></div>
+                                                        </div>
+                                                    </div> :
+                                                    <button
+                                                        style={{
+                                                            width: 100
+                                                        }}
+                                                        type="submit"
+                                                        name={'closeModal'}
+                                                        className="btn btn-right blue round round-bottom-right"
+                                                    >
+                                                        Cast vote
+                                                    </button>
+                                            }
                                         </div>
                                         {/*<div className="btn-box align-buttons-inside absolute left-conner">
                                             <a

@@ -317,6 +317,9 @@ class SendApollo extends React.Component {
                                     {
                                         !!this.state.isPending ?
                                             <div
+                                                style={{
+                                                    width: 56.25
+                                                }}
                                                 className="btn btn-right blue round round-bottom-right"
                                             >
                                                 <div className="ball-pulse-sync">

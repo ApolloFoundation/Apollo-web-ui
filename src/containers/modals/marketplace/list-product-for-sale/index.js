@@ -52,8 +52,16 @@ class ListProductForSale extends React.Component {
     handleFormSubmit = async(values) => {
         // Todo: finish form validating
 
+        this.setState({
+            isPending: true
+        })
+
         const res = await this.props.submitForm(values, 'dgsListing');
+
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -273,13 +281,30 @@ class ListProductForSale extends React.Component {
                                     </div>
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Put for sale
-                                    </button>
+                                    {
+                                        !!this.state.isPending ?
+                                            <div
+                                                style={{
+                                                    width: 77.64
+                                                }}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                <div className="ball-pulse-sync">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div> :
+                                            <button
+
+                                                type="submit"
+                                                name={'closeModal'}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                Put for sale
+                                            </button>
+                                    }
+
                                     <a
                                         onClick={() => this.props.closeModal()}
                                         className="btn round round-top-left"

@@ -61,9 +61,16 @@ class IssueAsset extends React.Component {
             quantityATU: values.quantityATU * Math.pow(10, values.decimals)
         };
 
+        this.setState({
+            isPending: true
+        })
+
         // Todo: finish form validating
         const res = await this.props.submitForm( values, 'issueAsset');
         if (res.errorCode) {
+            this.setState({
+                isPending: false
+            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.issueAssetAction(values);
@@ -163,13 +170,31 @@ class IssueAsset extends React.Component {
                                     </div>
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Issue asset
-                                    </button>
+                                    {
+                                        !!this.state.isPending ?
+                                            <div
+                                                style={{
+                                                    width: 116.25
+                                                }}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                <div className="ball-pulse-sync">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div> :
+                                            <button
+                                                style={{
+                                                    width: 116.25
+                                                }}
+                                                type="submit"
+                                                name={'closeModal'}
+                                                className="btn btn-right blue round round-bottom-right"
+                                            >
+                                                Issue asset
+                                            </button>
+                                    }
                                     <a
                                         onClick={() => this.props.closeModal()}
                                         className="btn round round-top-left"

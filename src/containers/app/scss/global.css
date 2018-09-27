@@ -1003,8 +1003,10 @@ input {
   z-index: 1;
   padding: 11px 11px 11px 9px; }
   .btn .ball-pulse-sync {
-    transform: translateY(2px); }
+    transform: translateY(2px);
+    text-align: center; }
     .btn .ball-pulse-sync div {
+      display: inline-block;
       height: 7px;
       width: 7px; }
   .btn, .btn > * {

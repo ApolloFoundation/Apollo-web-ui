@@ -1448,8 +1448,10 @@ input {
 
 	.ball-pulse-sync {
 		transform: translateY(2px);
+		text-align: center;
 
 		div {
+			display: inline-block;
 			height: 7px;
 			width: 7px;
 		}
