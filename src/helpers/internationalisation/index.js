@@ -60,8 +60,8 @@ export function getLocale() {
                             if (separator == -1) {
                                 continue;
                             }
-                            if (tokens[i].substring(0, separator) == lang) {
-                                account.logConsole("Language " + lang + " resolved to locale " + tokens[i]);
+                            if (tokens[i].substring(0, separatkor) == lang) {
+
                                 lang = tokens[i];
                                 break;
                             }
