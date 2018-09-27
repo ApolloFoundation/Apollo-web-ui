@@ -229,7 +229,7 @@ class CreateUser extends React.Component {
                                                     }}
                                                     className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                 >
-                                                    <div className="ball-pulse-sync">
+                                                    <div className="ball-pulse">
                                                         <div></div>
                                                         <div></div>
                                                         <div></div>

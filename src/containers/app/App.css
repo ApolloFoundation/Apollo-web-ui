@@ -2970,6 +2970,9 @@ input[type="number"]::-webkit-inner-spin-button {
   word-wrap: break-word;
   word-break: break-all; }
 
+.loader-box .ball-pulse div {
+  background-color: #00C8FF; }
+
 textarea {
   border: 1px solid #E5E5E5;
   border-radius: 6px;
@@ -3819,10 +3822,10 @@ input {
   box-sizing: border-box;
   z-index: 1;
   padding: 11px 11px 11px 9px; }
-  .btn .ball-pulse-sync {
+  .btn .ball-pulse {
     transform: translateY(2px);
     text-align: center; }
-    .btn .ball-pulse-sync div {
+    .btn .ball-pulse div {
       display: inline-block;
       height: 7px;
       width: 7px; }

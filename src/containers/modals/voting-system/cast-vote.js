@@ -279,7 +279,7 @@ class CastPoll extends React.Component {
                                                         }}
                                                         className="btn btn-right blue round round-bottom-right"
                                                     >
-                                                        <div className="ball-pulse-sync">
+                                                        <div className="ball-pulse">
                                                             <div></div>
                                                             <div></div>
                                                             <div></div>

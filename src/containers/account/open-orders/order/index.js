@@ -55,6 +55,7 @@ class OrderItem extends React.Component {
 
                 <td>{(this.props.order.quantityATU * this.props.order.priceATM) /  100000000}</td>
                 <td
+                    className={'align-right'}
                     onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props.order, type: this.props.type})}
                 >
                     Cancel
