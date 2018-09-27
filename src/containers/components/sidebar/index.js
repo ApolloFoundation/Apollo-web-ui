@@ -238,7 +238,7 @@ class Sidebar extends React.Component {
 									         "/my-completed-orders",
 										 	 "/purchased-products"])}`}>
 									Marketplace
-									<i className="zmdi zmdi-label left"/>
+                                    <i className="zmdi zmdi-label left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
 								<div className="dropdown-menu">

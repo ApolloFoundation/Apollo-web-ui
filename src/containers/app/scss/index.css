@@ -4902,15 +4902,18 @@ input[type="number"] {
           .site-content .page-content .page-body .card.transactions .transactions-dashboard.scroll {
             max-height: 300px; } }
       .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
-        height: 25%;
+        height: 33.33%;
+        padding: 20px 0;
         display: flex;
         box-sizing: border-box;
         border-bottom: 1px solid #E5E5E5; }
         @media (max-width: 760px) {
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
             height: auto;
-            margin-top: 20px;
-            padding-bottom: 5px; } }
+            margin-top: 20px; } }
+        .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item i {
+          color: #00C8FF;
+          font-size: 18px; }
         .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box {
           margin: auto 0;
           position: relative;
@@ -4929,6 +4932,19 @@ input[type="number"] {
             font-size: 12px;
             line-height: 14px;
             margin-top: 8px; }
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .arrow {
+            position: relative;
+            display: block;
+            margin-top: 3px;
+            margin-bottom: -5px; }
+            .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .arrow.danger i {
+              color: #e74c3c !important; }
+            .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .arrow.success i {
+              color: #2ecc71 !important; }
+            .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .arrow i {
+              transform: rotate(90deg);
+              color: #777777;
+              font-size: 20px; }
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-amount {
             color: #333333;
             font-family: "Roboto-Regular";

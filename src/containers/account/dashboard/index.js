@@ -16,7 +16,7 @@ import Transaction from './transaction';
 import uuid from 'uuid';
 import {formatTimestamp} from "../../../helpers/util/time";
 import {getBlockAction} from "../../../actions/blocks";
-import {getTransactionsAction} from "../../../actions/transactions";
+import {getTransactionAction, getTransactionsAction} from "../../../actions/transactions";
 import {getAccountCurrenciesAction} from "../../../actions/currencies";
 import {
 	getDGSGoodsCountAction,
@@ -69,7 +69,8 @@ const mapDispatchToProps = dispatch => ({
 	getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
     getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
     getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
-	getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
+    getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
+    getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
 
 });
 
@@ -352,6 +353,18 @@ class Dashboard extends React.Component {
 		}
 	};
 
+    getTransaction = async (data) => {
+        const reqParams = {
+            transaction: data,
+            account: this.props.account
+        };
+
+        const transaction = await this.props.getTransactionAction(reqParams);
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+        }
+    };
+
 	getNewsItem = (tweet) => {
 		let itemContent = '';
 		const post = tweet.retweeted_status ? tweet.retweeted_status : tweet;
@@ -530,7 +543,11 @@ class Dashboard extends React.Component {
 											this.state.transactions &&
 											this.state.transactions.map((el, index) => {
 												return (
-													<Transaction key={uuid()} {...el}/>
+													<Transaction
+                                                        getTransaction={this.getTransaction}
+														key={uuid()}
+														{...el}
+													/>
 												);
 											})
 										}
@@ -555,7 +572,8 @@ class Dashboard extends React.Component {
 																	type={el.quantityATU}
 																/>
 																<div
-																	className="amount">
+																	className="amount"
+																>
                                                                     {((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)} %
 																</div>
 																<div className="coin-name">{el.name}</div>
