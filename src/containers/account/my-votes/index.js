@@ -153,7 +153,12 @@ class MyVotes extends React.Component {
                                 </div>
                             </div> ||
                             <div className={'loader-box'}>
-                                <div className="ball-pulse">
+                                <div
+                                    style={{
+                                        paddingLeft: 47.5
+                                    }}
+                                    className="ball-pulse"
+                                >
                                     <div></div>
                                     <div></div>
                                     <div></div>

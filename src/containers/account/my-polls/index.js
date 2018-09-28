@@ -138,7 +138,12 @@ class MyVotes extends React.Component {
                         }
                         {
                             !this.state.myPolls &&
-                            <div className={'loader-box'}>
+                            <div
+                                className={'loader-box'}
+                                style={{
+                                    paddingLeft: 47.5
+                                }}
+                            >
                                 <div className="ball-pulse">
                                     <div></div>
                                     <div></div>

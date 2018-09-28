@@ -168,6 +168,9 @@ class MyMessages extends React.Component {
                 {
                     !this.state.messages &&
                     <div
+                        style={{
+                            paddingLeft: 47.5
+                        }}
                         className={'loader-box'}
                     >
                         <div className="ball-pulse">

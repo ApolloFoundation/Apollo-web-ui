@@ -210,6 +210,9 @@ class Messenger extends React.Component {
 										{
                                             !this.state.chats &&
                                             <div
+                                                style={{
+                                                    paddingLeft: 47.5
+                                                }}
                                                 className={'loader-box'}
                                             >
                                                 <div className="ball-pulse">
@@ -296,6 +299,9 @@ class Messenger extends React.Component {
                                     {
                                         !this.state.chatHistory &&
                                         <div
+                                            style={{
+                                                paddingLeft: 47.5
+                                            }}
                                             className={'loader-box'}
                                         >
                                             <div className="ball-pulse">

@@ -386,6 +386,9 @@ class Marketplace extends React.Component {
                                                 );
                                             }) ||
                                             <div
+                                                style={{
+                                                    paddingLeft: 47.5
+                                                }}
                                                 className={'loader-box'}
                                             >
                                                 <div className="ball-pulse">
@@ -421,6 +424,9 @@ class Marketplace extends React.Component {
                                                 );
                                             }) ||
                                             <div
+                                                style={{
+                                                    paddingLeft: 47.5
+                                                }}
                                                 className={'loader-box'}
                                             >
                                                 <div className="ball-pulse">

@@ -187,6 +187,9 @@ class Aliases extends React.Component {
                                 </div>
                             </div> ||
                             <div
+                                style={{
+                                    paddingLeft: 47.5
+                                }}
                                 className={'loader-box'}
                             >
                                 <div className="ball-pulse">

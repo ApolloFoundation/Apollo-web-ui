@@ -178,7 +178,7 @@ class Activepolls extends React.Component {
                                 </React.Fragment> ||
                                 <div
                                     style={{
-                                        paddingLeft: 35
+                                        paddingLeft: 47.5
                                     }}
                                     className={'loader-box'}
                                 >
@@ -235,7 +235,7 @@ class Activepolls extends React.Component {
                                 </div>   ||
                                 <div
                                     style={{
-                                        paddingLeft: 35
+                                        paddingLeft: 47.5
                                     }}
                                     className={'loader-box'}
                                 >

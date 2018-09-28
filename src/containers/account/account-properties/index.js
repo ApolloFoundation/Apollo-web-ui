@@ -159,7 +159,12 @@ class AccountProperties extends React.Component {
 
                                 </div>
                             </div> ||
-                            <div className={'loader-box'}>
+                            <div
+                                style={{
+                                    paddingLeft: 47.5
+                                }}
+                                className={'loader-box'}
+                            >
                                 <div className="ball-pulse">
                                     <div></div>
                                     <div></div>

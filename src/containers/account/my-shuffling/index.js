@@ -172,6 +172,9 @@ class MyShufling extends React.Component {
                             {
                                 !this.state.shufflings &&
                                 <div
+                                    style={{
+                                        paddingLeft: 47.5
+                                    }}
                                     className={'loader-box'}
                                 >
                                     <div className="ball-pulse">

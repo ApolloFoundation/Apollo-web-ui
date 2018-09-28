@@ -422,7 +422,9 @@ class Dashboard extends React.Component {
                                                 }
                                             </div>
                                         </React.Fragment>  ||
-                                        <div className={'loader-box white'}>
+                                        <div
+                                            className={'loader-box white'}
+										>
                                             <div className="ball-pulse">
                                                 <div></div>
                                                 <div></div>
@@ -463,7 +465,9 @@ class Dashboard extends React.Component {
                                                 </div>
                                             </Link>
                                         </div> ||
-                                        <div className={'loader-box white'}>
+                                        <div
+                                            className={'loader-box white'}
+										>
                                             <div className="ball-pulse">
                                                 <div></div>
                                                 <div></div>
@@ -494,7 +498,9 @@ class Dashboard extends React.Component {
                                                 </div>
                                             </Link>
                                         </div> ||
-                                        <div className={'loader-box white'}>
+                                        <div
+                                            className={'loader-box white'}
+										>
                                             <div className="ball-pulse">
                                                 <div></div>
                                                 <div></div>

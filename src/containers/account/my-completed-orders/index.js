@@ -107,6 +107,9 @@ class MyProductsForSale extends React.Component {
                         {
                             !this.state.getDGSGoods &&
                             <div
+                                style={{
+                                    paddingLeft: 47.5
+                                }}
                                 className={'loader-box'}
                             >
                                 <div className="ball-pulse">

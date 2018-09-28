@@ -164,6 +164,9 @@ class ActiveShufflings extends React.Component {
                             {
                                 !this.state.activeShuffling &&
                                 <div
+                                    style={{
+                                        paddingLeft: 47.5
+                                    }}
                                     className={'loader-box'}
                                 >
                                     <div className="ball-pulse">
@@ -212,6 +215,9 @@ class ActiveShufflings extends React.Component {
                                     </div>
                                 </div> ||
                                 <div
+                                    style={{
+                                        paddingLeft: 47.5
+                                    }}
                                     className={'loader-box'}
                                 >
                                     <div className="ball-pulse">

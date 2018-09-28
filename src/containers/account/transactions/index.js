@@ -535,7 +535,12 @@ class Transactions extends React.Component {
                                         </div>
                                     }
                                 </div> ||
-                                <div className={'loader-box'}>
+                                <div
+                                    className={'loader-box'}
+                                    style={{
+                                        paddingLeft: 47.5
+                                    }}
+                                >
                                     <div className="ball-pulse">
                                         <div></div>
                                         <div></div>
