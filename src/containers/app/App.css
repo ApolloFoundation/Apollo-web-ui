@@ -2970,6 +2970,9 @@ input[type="number"]::-webkit-inner-spin-button {
   word-wrap: break-word;
   word-break: break-all; }
 
+.loader-box.white .ball-pulse div {
+  background-color: #fff; }
+
 .loader-box .ball-pulse div {
   background-color: #00C8FF; }
 

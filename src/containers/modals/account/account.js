@@ -206,43 +206,54 @@ class InfoAccount extends React.Component {
                                     "active": this.state.activeTab === 0
                                 })}>
                                     <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent padding-vertical-padding">
-                                            <table>
-                                                <thead key={uuid()}>
-                                                <tr>
-                                                    <td>Index</td>
-                                                    <td>Date</td>
-                                                    <td>Type</td>
-                                                    <td className="align-right">Amount</td>
-                                                    <td className="align-right">Fee</td>
-                                                    <td>From</td>
-                                                    <td>To</td>
-                                                </tr>
-                                                </thead>
-                                                <tbody key={uuid()}>
-                                                {
-                                                    this.state.transactions &&
-                                                    this.state.transactions.transactions.map((el, index) => {
+                                        {
+                                            this.state.transactions &&
+                                            <div className="transaction-table-body transparent padding-vertical-padding">
+                                                <table>
+                                                    <thead key={uuid()}>
+                                                    <tr>
+                                                        <td>Index</td>
+                                                        <td>Date</td>
+                                                        <td>Type</td>
+                                                        <td className="align-right">Amount</td>
+                                                        <td className="align-right">Fee</td>
+                                                        <td>From</td>
+                                                        <td>To</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody key={uuid()}>
+                                                    {
+                                                        this.state.transactions &&
+                                                        this.state.transactions.transactions.map((el, index) => {
 
-                                                        return (
-                                                            <Transaction
-                                                                key={uuid()}
-                                                                block
-                                                                transaction = {el}
-                                                                index={index}
-                                                                setTransactionInfo={this.getTransaction}
-                                                            />
-                                                        )
-                                                    })
-                                                }
-                                                {
-                                                    this.state.transactions &&
-                                                    !this.state.transactions.transactions.length &&
-                                                    'No transactions in this account.'
-                                                }
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            return (
+                                                                <Transaction
+                                                                    key={uuid()}
+                                                                    block
+                                                                    transaction = {el}
+                                                                    index={index}
+                                                                    setTransactionInfo={this.getTransaction}
+                                                                />
+                                                            )
+                                                        })
+                                                    }
+                                                    {
+                                                        this.state.transactions &&
+                                                        !this.state.transactions.transactions.length &&
+                                                        'No transactions in this account.'
+                                                    }
+                                                    </tbody>
+                                                </table>
+                                            </div> ||
+                                            <div className={'loader-box'}>
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                        }
+
                                     </div>
                                 </div>
                                 <div className={classNames({

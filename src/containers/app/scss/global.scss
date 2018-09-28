@@ -213,6 +213,13 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .loader-box {
+	&.white {
+		.ball-pulse {
+			div {
+				background-color: #fff;
+			}
+		}
+	}
 	.ball-pulse {
 		div {
 			background-color: #00C8FF;
