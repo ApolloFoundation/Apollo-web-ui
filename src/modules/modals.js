@@ -13,6 +13,13 @@ export const SET_BODY_MODAL_DATA = 'SET_BODY_MODAL_DATA';
 export const SET_MODAL_CALLBACK = 'SET_MODAL_CALLBACK';
 export const SET_ALERT_DATA = 'SET_ALERT_DATA';
 
+
+
+export const SET_AMOUNT_WARNING = 'SET_AMOUNT_WARNING';
+export const SET_FEE_WARNING = 'SET_FEE_WARNING';
+export const SET_ASSET_WARNING = 'SET_ASSET_WARNING';
+export const SET_CURRENCY_WARNING = 'SET_CURRENCY_WARNING';
+
 const initialState = {
     modalType: null,
     bodyModalType: null,
@@ -20,6 +27,10 @@ const initialState = {
     modalCallback: null,
     alertStatus: null,
     alertMessage: null,
+    maxAmountWarningStage: 0,
+    maxFeeWarningStage: 0,
+    maxAssetTransferWarningStage: 0,
+    maxCurrencyTransferWarningStage: 0,
 };
 
 export default (state = initialState, action) => {
@@ -45,6 +56,28 @@ export default (state = initialState, action) => {
                 bodyModalType: action.payload
             };
 
+        case SET_AMOUNT_WARNING:
+            return {
+                ...state,
+                maxAmountWarningStage: action.payload,
+            }
+        case SET_FEE_WARNING:
+            return {
+                ...state,
+                maxFeeWarningStage: action.payload,
+            }
+        case SET_ASSET_WARNING:
+            return {
+                ...state,
+                maxAssetTransferWarningStage: action.payload,
+            }
+        case SET_CURRENCY_WARNING:
+            return {
+                ...state,
+                maxCurrencyTransferWarningStage: action.payload,
+            }
+        
+            
         case SET_ALERT_DATA:
             return {
                 ...state,

@@ -36,6 +36,7 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import {NotificationManager} from "react-notifications";
 import uuid from "uuid";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import accountSettings from "../../../modules/accountSettings";
 
 class SiteHeader extends React.Component {
     constructor(props) {
@@ -171,7 +172,13 @@ class SiteHeader extends React.Component {
     render() {
         return (
             <div>
-                <div className="page-header" onMouseDown={this.handleModal}>
+                <div
+                    style={{
+                        backgroundColor: this.props.settings.header !== '#F5F5F5' ? this.props.settings.header : '#F5F5F5'
+                    }}
+                    className="page-header"
+                    onMouseDown={this.handleModal}
+                >
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-6">
@@ -1072,7 +1079,8 @@ const mapStateToProps = state => ({
     forgedBalanceATM: state.account.forgedBalanceATM,
     moalTtype: state.modals.modalType,
     bodyModalType: state.modals.bodyModalType,
-    secretPhrase: state.account.passPhrase
+    secretPhrase: state.account.passPhrase,
+    settings: state.accountSettings
 });
 
 const mapDispatchToProps = dispatch => ({

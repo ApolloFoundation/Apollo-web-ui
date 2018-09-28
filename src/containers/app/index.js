@@ -181,7 +181,7 @@ class App extends React.Component {
                                 <Route exact path="/purchased-products" component={PurchasdProucts}/>
                                 {/*,<Route exact path="/plugins" component={Plugins}/>*/}
                                 <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
-                                {/*<Route exact path="/settings" component={Settings}/>*/}
+                                <Route exact path="/settings" component={Settings}/>
                                 <Route exact path="/trade-history" component={TradeHistory}/>
                                 <Route exact path="/exchange-history-currency" component={TradeHistoryCurrency}/>
                                 <Route exact path="/transfer-history" component={TransferHistory}/>

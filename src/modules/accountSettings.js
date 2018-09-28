@@ -74,9 +74,9 @@ export const getSavedAccountSettingsAction = () => dispatch => {
             maxCurrencyWarn: 10000,
             showFakeWarns: true,
 
-            header: "default",
-            sidebar: "default",
-            boxes: "default",
+            header: "#F5F5F5",
+            sidebar: "#F5F5F5",
+            boxes: "#F5F5F5",
         };
     }
     dispatch({
