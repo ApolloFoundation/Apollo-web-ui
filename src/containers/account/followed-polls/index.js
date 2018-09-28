@@ -45,7 +45,8 @@ class FollowedVotes extends React.Component {
             firstIndex: 0,
             lastIndex: 2,
             allVotesNumber: null,
-            colors: []
+            colors: [],
+            followedpolls: []
         };
 
         this.getpoll        = this.getpoll.bind(this);
@@ -199,9 +200,12 @@ class FollowedVotes extends React.Component {
 
             Promise.all(followedpolls)
                 .then((data) => {
-                    this.setState({
-                        followedpolls: data
-                    })
+                    console.log(data);
+                    if (!data.find((el) => {return el.errorCode})) {
+                        this.setState({
+                            followedpolls: data
+                        })
+                    }
                 })
         } else {
             this.setState({
@@ -256,52 +260,54 @@ class FollowedVotes extends React.Component {
                             <div className="followed-polls-item">
                                 <div className="left">
                                     <div className="card card-full-screen no-padding">
-                                        {
-                                            this.state.followedpolls && this.state.block &&
-                                            this.state.followedpolls.map((el, index)=> {
-                                                const blocksLeft = parseInt(el.finishHeight) - parseInt(this.state.block.height);
-                                                if (el.name) {
-                                                    return (
-                                                        <Link
-                                                            key={uuid()}
-                                                            to={'/followed-polls/' + el.poll}
-                                                            className={classNames({
-                                                                'chat-item': true,
-                                                                'active': el.poll === this.props.match.params.poll
-                                                            })}
-                                                            style={{
-                                                                display: 'block'
-                                                            }}
-                                                        >
-
-                                                            <div
-
-                                                                className="chat-box-item"
+                                        {console.log(this.state.followedpolls)}
+                                        <React.Fragment>
+                                            {
+                                                this.state.followedpolls && this.state.followedpolls.length > 0 && this.state.block &&
+                                                this.state.followedpolls.map((el, index)=> {
+                                                    const blocksLeft = parseInt(el.finishHeight) - parseInt(this.state.block.height);
+                                                    if (el.name) {
+                                                        return (
+                                                            <Link
+                                                                key={uuid()}
+                                                                to={'/followed-polls/' + el.poll}
+                                                                className={classNames({
+                                                                    'chat-item': true,
+                                                                    'active': el.poll === this.props.match.params.poll
+                                                                })}
+                                                                style={{
+                                                                    display: 'block'
+                                                                }}
                                                             >
-                                                                <div className="chat-box-rs">
-                                                                    {el.name}
-                                                                </div>
-                                                                <div className="chat-date">
-                                                                    {
-                                                                        blocksLeft > 0 &&
-                                                                        'Blocks left:' + blocksLeft
-                                                                    }
-                                                                    {
-                                                                        blocksLeft < 0 &&
-                                                                        'Poll has been finished ' + (blocksLeft * -1) + ' blocks ago'
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                        </Link>
 
-                                                    )
-                                                }
-                                            })
-                                        }
-                                        {
-                                            this.state.followedpolls && !this.state.followedpolls.length &&
-                                            <p className={"no-followed-polls"}>No followed polls</p>
-                                        }
+                                                                <div
+
+                                                                    className="chat-box-item"
+                                                                >
+                                                                    <div className="chat-box-rs">
+                                                                        {el.name}
+                                                                    </div>
+                                                                    <div className="chat-date">
+                                                                        {
+                                                                            blocksLeft > 0 &&
+                                                                            'Blocks left:' + blocksLeft
+                                                                        }
+                                                                        {
+                                                                            blocksLeft < 0 &&
+                                                                            'Poll has been finished ' + (blocksLeft * -1) + ' blocks ago'
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                        )
+                                                    }
+                                                })
+                                            }
+                                            {
+                                                    this.state.followedpolls.length === 0 &&
+                                                    <p className={"no-followed-polls"}>No followed polls</p>
+                                            }
+                                        </React.Fragment>
                                     </div>
                                 </div>
                                 {

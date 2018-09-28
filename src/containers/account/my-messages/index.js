@@ -166,6 +166,18 @@ class MyMessages extends React.Component {
                     </div>
                 }
                 {
+                    !this.state.messages &&
+                    <div
+                        className={'loader-box'}
+                    >
+                        <div className="ball-pulse">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                }
+                {
                     this.state.messages && !(!!this.state.messages.length) &&
                     <div className="page-body container-fluid">
                         <div>

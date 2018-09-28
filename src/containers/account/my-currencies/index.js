@@ -127,60 +127,75 @@ class MyMadedCurrencies extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Code</td>
-                                        <td>Name</td>
-                                        <td className="align-right">Units</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody key={uuid()}>
+                        {
+                            this.state.executedExchanges &&
+                            <div className="transaction-table">
+                                <div className="transaction-table-body">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td>Code</td>
+                                            <td>Name</td>
+                                            <td className="align-right">Units</td>
+                                            <td className="align-right">Actions</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody key={uuid()}>
+                                        {
+                                            this.state.executedExchanges &&
+                                            this.state.executedExchanges.map((el, index) => {
+                                                return (
+                                                    <MyCurrencytemItem
+                                                        key={uuid()}
+                                                        currency={el}
+                                                        setTransaction={this.getTransaction}
+                                                    />
+                                                );
+                                            })
+                                        }
+                                        </tbody>
+                                    </table>
                                     {
                                         this.state.executedExchanges &&
-                                        this.state.executedExchanges.map((el, index) => {
-                                            return (
-                                                <MyCurrencytemItem
-                                                    key={uuid()}
-                                                    currency={el}
-                                                    setTransaction={this.getTransaction}
-                                                />
-                                            );
-                                        })
-                                    }
-                                    </tbody>
-                                </table>
-                                {
-                                    this.state.executedExchanges &&
-                                    <div className="btn-box">
-                                        <a
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-left' : true,
-                                                'disabled' : this.state.page <= 1
-                                            })}
-                                            onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                        > Previous</a>
-                                        <div className='pagination-nav'>
-                                            <span>{this.state.firstIndex + 1}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.lastIndex + 1}</span>
+                                        <div className="btn-box">
+                                            <a
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-left' : true,
+                                                    'disabled' : this.state.page <= 1
+                                                })}
+                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                            >
+                                                Previous
+                                            </a>
+                                            <div className='pagination-nav'>
+                                                <span>{this.state.firstIndex + 1}</span>
+                                                <span>&hellip;</span>
+                                                <span>{this.state.lastIndex + 1}</span>
+                                            </div>
+                                            <a
+                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-right' : true,
+                                                    'disabled' : this.state.executedExchanges.length < 15
+                                                })}
+                                            >
+                                                Next
+                                            </a>
                                         </div>
-                                        <a
-                                            onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-right' : true,
-                                                'disabled' : this.state.executedExchanges.length < 15
-                                            })}
-                                        >Next</a>
-                                    </div>
-                                }
+                                    }
+                                </div>
+                            </div> ||
+                            <div className={'loader-box'}>
+                                <div className="ball-pulse">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
                             </div>
-                        </div>
+                        }
+
                     </div>
                 </div>
             </div>

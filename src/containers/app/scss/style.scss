@@ -135,6 +135,8 @@ input[type="number"] {
               display: flex;
               box-sizing: border-box;
               border-bottom: 1px solid #E5E5E5;
+              position: relative;
+
               @media (max-width: 760px) {
                 height: auto;
                 margin-top: 20px;
@@ -146,7 +148,6 @@ input[type="number"] {
               }
               .transaction-box {
                 margin: auto 0;
-                position: relative;
                 width: 100%;
 
                 .transaction-date {

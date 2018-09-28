@@ -31,7 +31,7 @@ class PurchasedProducts extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 7,
-            getDGSGoods: []
+            getDGSGoods: null
         };
     }
 
@@ -103,55 +103,72 @@ class PurchasedProducts extends React.Component {
                     pageTitle={'Purchased Products'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="account-ledger">
-                        {
-                            this.state.getDGSGoods &&
-                            this.state.getDGSGoods.map((el, index) => {
-                                return (
-                                    <div className="marketplace-item--full-width">
-	                                    <MarketplaceItem
-		                                    key={uuid()}
-		                                    tall={false}
-		                                    fluid={!this.state.isGrid}
-		                                    isHovered
-		                                    index={index}
-		                                    {...el}
-	                                    />
-                                    </div>
-                                );
-                            })
-                        }
-                        {
-                            this.state.getDGSGoods &&
-                            !(!!this.state.getDGSGoods.length) &&
+                    {
+                        this.state.getDGSGoods &&
+                        <div className="account-ledger">
+                            {
+                                this.state.getDGSGoods &&
+                                this.state.getDGSGoods.map((el, index) => {
+                                    return (
+                                        <div className="marketplace-item--full-width">
+                                            <MarketplaceItem
+                                                key={uuid()}
+                                                tall={false}
+                                                fluid={!this.state.isGrid}
+                                                isHovered
+                                                index={index}
+                                                {...el}
+                                            />
+                                        </div>
+                                    );
+                                })
+                            }
+                            {
+                                this.state.getDGSGoods &&
+                                !(!!this.state.getDGSGoods.length) &&
                                 <InfoBox default>
                                     No purchased products yet.
                                 </InfoBox>
-                        }
-                        <div className="btn-box">
-                            <a
-                                className={classNames({
-                                    'btn' : true,
-                                    'btn-left' : true,
-                                    'disabled' : this.state.page <= 1
-                                })}
-                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                            > Previous</a>
-                            <div className='pagination-nav'>
-                                <span>{this.state.firstIndex + 1}</span>
-                                <span>&hellip;</span>
-                                <span>{this.state.lastIndex + 1}</span>
+                            }
+                            <div className="btn-box">
+                                <a
+                                    className={classNames({
+                                        'btn' : true,
+                                        'btn-left' : true,
+                                        'disabled' : this.state.page <= 1
+                                    })}
+                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                >
+                                    Previous
+                                </a>
+                                <div className='pagination-nav'>
+                                    <span>{this.state.firstIndex + 1}</span>
+                                    <span>&hellip;</span>
+                                    <span>{this.state.lastIndex + 1}</span>
+                                </div>
+                                <a
+                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                    className={classNames({
+                                        'btn' : true,
+                                        'btn-right' : true,
+                                        'disabled' : this.state.getDGSGoods.length < 8
+                                    })}
+                                >
+                                    Next
+                                </a>
                             </div>
-                            <a
-                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                className={classNames({
-                                    'btn' : true,
-                                    'btn-right' : true,
-                                    'disabled' : this.state.getDGSGoods.length < 8
-                                })}
-                            >Next</a>
+                        </div> ||
+                        <div
+                            className={'loader-box'}
+                        >
+                            <div className="ball-pulse">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
                         </div>
-                    </div>
+                    }
+
                 </div>
             </div>
         );

@@ -534,6 +534,13 @@ class Transactions extends React.Component {
                                             >Next</a>
                                         </div>
                                     }
+                                </div> ||
+                                <div className={'loader-box'}>
+                                    <div className="ball-pulse">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
                                 </div>
 
                             }

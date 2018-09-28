@@ -4359,7 +4359,7 @@ input {
 
 .loader-container {
   position: absolute;
-  bottom: -20px;
+  bottom: 5px;
   right: 4px; }
   .loader-container span {
     color: #bbb;
@@ -4909,7 +4909,8 @@ input[type="number"] {
         padding: 20px 0;
         display: flex;
         box-sizing: border-box;
-        border-bottom: 1px solid #E5E5E5; }
+        border-bottom: 1px solid #E5E5E5;
+        position: relative; }
         @media (max-width: 760px) {
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item {
             height: auto;
@@ -4919,7 +4920,6 @@ input[type="number"] {
           font-size: 18px; }
         .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box {
           margin: auto 0;
-          position: relative;
           width: 100%; }
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-date {
             display: flex;

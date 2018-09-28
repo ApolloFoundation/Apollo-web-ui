@@ -22,7 +22,7 @@ class Aliases extends React.Component {
         super(props);
 
         this.state = {
-            aliases: [],
+            aliases: null,
             firstIndex: 0,
             lastIndex: 14,
             page: 1
@@ -129,18 +129,20 @@ class Aliases extends React.Component {
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="blocks">
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Aliases</td>
-                                        <td>URI</td>
-                                        <td>Status</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                        {
+                            this.state.aliases &&
+                            <div className="transaction-table">
+                                <div className="transaction-table-body">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td>Aliases</td>
+                                            <td>URI</td>
+                                            <td>Status</td>
+                                            <td className="align-right">Actions</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
                                         {
                                             this.state.aliases &&
                                             this.state.aliases.map((el, index) => {
@@ -157,33 +159,43 @@ class Aliases extends React.Component {
                                                 )
                                             })
                                         }
-                                    </tbody>
-                                </table>
-                                <div className="btn-box">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
+                                        </tbody>
+                                    </table>
+                                    <div className="btn-box">
+                                        <a
+                                            className={classNames({
+                                                'btn' : true,
+                                                'btn-left' : true,
+                                                'disabled' : this.state.page <= 1
+                                            })}
+                                            onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                        > Previous</a>
+                                        <div className='pagination-nav'>
+                                            <span>{this.state.firstIndex + 1}</span>
+                                            <span>&hellip;</span>
+                                            <span>{this.state.lastIndex + 1}</span>
+                                        </div>
+                                        <a
+                                            onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                            className={classNames({
+                                                'btn' : true,
+                                                'btn-right' : true,
+                                                'disabled' : this.state.aliases.length < 15
+                                            })}
+                                        >Next</a>
                                     </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.aliases.length < 15
-                                        })}
-                                    >Next</a>
+                                </div>
+                            </div> ||
+                            <div
+                                className={'loader-box'}
+                            >
+                                <div className="ball-pulse">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>

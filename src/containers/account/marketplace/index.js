@@ -373,6 +373,7 @@ class Marketplace extends React.Component {
                                     </div>
                                     <div className="row marketplace-row">
                                         {
+                                            !!this.state.getDGSGoods.length &&
                                             this.state.getDGSGoods.map((el, index) => {
                                                 return (
                                                     <div key={uuid()} className="marketplace-row-item col-xl-2">
@@ -383,7 +384,16 @@ class Marketplace extends React.Component {
                                                         />
                                                     </div>
                                                 );
-                                            })
+                                            }) ||
+                                            <div
+                                                className={'loader-box'}
+                                            >
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
                                         }
                                     </div>
                                 </div>
@@ -399,6 +409,7 @@ class Marketplace extends React.Component {
                                     </div>
                                     <div className="row marketplace-row">
                                         {
+                                            !!this.state.getDGSPurchases.length &&
                                             this.state.getDGSPurchases.map((el, index) => {
                                                 return (
                                                     <div key={uuid()} className="marketplace-row-item col-xl-2">
@@ -408,7 +419,16 @@ class Marketplace extends React.Component {
                                                         />
                                                     </div>
                                                 );
-                                            })
+                                            }) ||
+                                            <div
+                                                className={'loader-box'}
+                                            >
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
                                         }
                                     </div>
                                 </div>

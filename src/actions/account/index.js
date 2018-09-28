@@ -112,7 +112,7 @@ export function validateTokenAction(reqParams) {
 
 export function getNewsAction(reqParams) {
     return (dispatch) => {
-        return axios.get(config.api.localServerUrl + '/api/twitter')
+        return axios.get(config.api.localServerUrl)
             .then((res) => {
                 if (res.data.tweets) {
                     return res.data;

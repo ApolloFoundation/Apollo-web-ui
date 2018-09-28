@@ -15,7 +15,7 @@ import {BlockUpdater} from "../../block-subscriber";
 class DeleteHistory extends React.Component {
 
     state = {
-        deletes: [],
+        deletes: null,
     };
 
     componentWillMount() {
@@ -56,33 +56,43 @@ class DeleteHistory extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead key={uuid()}>
-                                    <tr>
-                                        <td className="align-left">Transaction</td>
-                                        <td>Asset</td>
-                                        <td className="align-left">Date</td>
-                                        <td className="align-right">Quantity</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody key={uuid()}>
-                                    {this.state.deletes.length > 0 ?
-                                        this.state.deletes.map(el => {
-                                            return (
-                                                <DeleteItem
-                                                    key={uuid()}
-                                                    delete={el}
-                                                />
-                                            )
-                                        }) : <p>No delete history</p>
-                                    }
-                                    </tbody>
-                                </table>
+                        {
+                            this.state.deletes &&
+                            <div className="transaction-table">
+                                <div className="transaction-table-body">
+                                    <table>
+                                        <thead key={uuid()}>
+                                        <tr>
+                                            <td className="align-left">Transaction</td>
+                                            <td>Asset</td>
+                                            <td className="align-left">Date</td>
+                                            <td className="align-right">Quantity</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody key={uuid()}>
+                                        {this.state.deletes.length > 0 ?
+                                            this.state.deletes.map(el => {
+                                                return (
+                                                    <DeleteItem
+                                                        key={uuid()}
+                                                        delete={el}
+                                                    />
+                                                )
+                                            }) : <p>No delete history</p>
+                                        }
+                                        </tbody>
+                                    </table>
 
+                                </div>
+                            </div>   ||
+                            <div className={'loader-box'}>
+                                <div className="ball-pulse">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>

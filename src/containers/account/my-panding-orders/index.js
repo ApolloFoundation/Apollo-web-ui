@@ -31,7 +31,7 @@ class MyProductsForSale extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 7,
-            getDGSGoods: []
+            getDGSGoods: null
         };
     }
 
@@ -142,7 +142,16 @@ class MyProductsForSale extends React.Component {
                                         })}
                                     >Next</a>
                                 </div>
-                            </React.Fragment>
+                            </React.Fragment> ||
+                            <div
+                                className={'loader-box'}
+                            >
+                                <div className="ball-pulse">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
                         }
                         {
                             this.state.getDGSGoods &&

@@ -161,42 +161,67 @@ class ActiveShufflings extends React.Component {
 
                                 </div>
                             }
+                            {
+                                !this.state.activeShuffling &&
+                                <div
+                                    className={'loader-box'}
+                                >
+                                    <div className="ball-pulse">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                         <div className="form-group-app offset-bottom height-auto no-padding">
                             <div className="form-title padding-left padding-top">
                                 <p>Finished Shufflings</p>
                             </div>
-                            <div className="transaction-table no-min-height">
-                                <div className="transaction-table-body offset-bottom">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Shuffling</td>
-                                            <td>Stage</td>
-                                            <td>Holding</td>
-                                            <td>Amount</td>
-                                            <td className="align-right">Participants</td>
-                                            <td className="align-right">Issuer</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.finishedShufflings &&
-                                            this.state.finishedShufflings.map((el, index) => {
-                                                return (
-                                                    <ShufflingItem
-                                                        key={uuid()}
-                                                        finished
-                                                        {...el}
-                                                        getTransaction={this.getTransaction}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
+                            {
+                                this.state.finishedShufflings &&
+                                <div className="transaction-table no-min-height">
+                                    <div className="transaction-table-body offset-bottom">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Shuffling</td>
+                                                <td>Stage</td>
+                                                <td>Holding</td>
+                                                <td>Amount</td>
+                                                <td className="align-right">Participants</td>
+                                                <td className="align-right">Issuer</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {
+                                                this.state.finishedShufflings &&
+                                                this.state.finishedShufflings.map((el, index) => {
+                                                    return (
+                                                        <ShufflingItem
+                                                            key={uuid()}
+                                                            finished
+                                                            {...el}
+                                                            getTransaction={this.getTransaction}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> ||
+                                <div
+                                    className={'loader-box'}
+                                >
+                                    <div className="ball-pulse">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
                                 </div>
-                            </div>
+                            }
+
                         </div>
                     </div>
                 </div>

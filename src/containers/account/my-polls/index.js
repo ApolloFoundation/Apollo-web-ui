@@ -137,6 +137,16 @@ class MyVotes extends React.Component {
                             </div>
                         }
                         {
+                            !this.state.myPolls &&
+                            <div className={'loader-box'}>
+                                <div className="ball-pulse">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        }
+                        {
                             this.state.myPolls &&
                             !(!!this.state.myPolls.length) &&
                             <InfoBox default>

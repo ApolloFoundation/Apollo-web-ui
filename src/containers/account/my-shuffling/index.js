@@ -29,7 +29,7 @@ class MyShufling extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 14,
-            blocks: []
+            blocks: null
         };
     }
 
@@ -167,7 +167,18 @@ class MyShufling extends React.Component {
                                         }
                                         </tbody>
                                     </table>
-
+                                </div>
+                            }
+                            {
+                                !this.state.shufflings &&
+                                <div
+                                    className={'loader-box'}
+                                >
+                                    <div className="ball-pulse">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
                                 </div>
                             }
                         </div>

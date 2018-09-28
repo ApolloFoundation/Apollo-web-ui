@@ -207,6 +207,18 @@ class Messenger extends React.Component {
 												);
 											})
 										}
+										{
+                                            !this.state.chats &&
+                                            <div
+                                                className={'loader-box'}
+                                            >
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+										}
 
 									</div>
 								</div>
@@ -281,6 +293,18 @@ class Messenger extends React.Component {
                                             }
 										</div>
 									}
+                                    {
+                                        !this.state.chatHistory &&
+                                        <div
+                                            className={'loader-box'}
+                                        >
+                                            <div className="ball-pulse">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    }
 								</div>
 							</div>
 

@@ -13,6 +13,7 @@ import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
+import InfoBox from '../../components/info-box'
 import {formatTimestamp} from "../../../helpers/util/time";
 
 const mapStateToProps = state => ({
@@ -118,38 +119,54 @@ class MyVotes extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
-                        <div className="transaction-table no-min-height">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Title</td>
-                                        <td>Description</td>
-                                        <td>Sender</td>
-                                        <td>Start date</td>
-                                        <td>Blocks left</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody  key={uuid()}>
-                                    {
-                                        this.state.myVotes &&
-                                        this.state.myVotes.map((el, index) => {
-                                            return (
-                                                <PoolItem
-                                                    key={uuid()}
-                                                    {...el}
-                                                    activepolls
-                                                    getTransaction={this.getTransaction}
-                                                />
-                                            );
-                                        })
-                                    }
-                                    </tbody>
-                                </table>
-
+                        {
+                            this.state.myVotes &&
+                            <div className="transaction-table no-min-height">
+                                <div className="transaction-table-body">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td>Title</td>
+                                            <td>Description</td>
+                                            <td>Sender</td>
+                                            <td>Start date</td>
+                                            <td>Blocks left</td>
+                                            <td className="align-right">Actions</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody  key={uuid()}>
+                                        {
+                                            this.state.myVotes &&
+                                            this.state.myVotes.map((el, index) => {
+                                                return (
+                                                    <PoolItem
+                                                        key={uuid()}
+                                                        {...el}
+                                                        activepolls
+                                                        getTransaction={this.getTransaction}
+                                                    />
+                                                );
+                                            })
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> ||
+                            <div className={'loader-box'}>
+                                <div className="ball-pulse">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
                             </div>
-                        </div>
+                        }
+                        {
+                            this.state.myVotes &&
+                            !(!!this.state.myVotes.length) &&
+                            <InfoBox default>
+                                No votes found.
+                            </InfoBox>
+                        }
                     </div>
                 </div>
             </div>

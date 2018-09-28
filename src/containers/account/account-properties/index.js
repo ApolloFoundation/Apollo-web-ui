@@ -158,6 +158,13 @@ class AccountProperties extends React.Component {
                                     </table>
 
                                 </div>
+                            </div> ||
+                            <div className={'loader-box'}>
+                                <div className="ball-pulse">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
                             </div>
                         }
                         {
