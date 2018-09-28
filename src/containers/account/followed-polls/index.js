@@ -324,7 +324,7 @@ class FollowedVotes extends React.Component {
                                                             </div>
                                                             <div className="account-bar">
                                                                 <div className="information">
-                                                                    <div className="title">Account:&nbsp;&nbsp;</div>
+                                                                    <div className="title">Account ID:&nbsp;&nbsp;</div>
                                                                     <div className="content">{this.state.poll.accountRS}</div>
                                                                 </div>
                                                                 <div className="information">

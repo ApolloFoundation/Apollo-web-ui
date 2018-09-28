@@ -694,7 +694,7 @@ class Dashboard extends React.Component {
 										<div className="form-group-app offset">
 											<div className="input-group-app lighten">
 												<label>Recipient</label>
-												<input placeholder={'Account'} ref={'recipient'} type="text"/>
+												<input placeholder={'Account ID'} ref={'recipient'} type="text"/>
 											</div>
 											<div className="input-group-app lighten">
 												<label>Amount</label>
