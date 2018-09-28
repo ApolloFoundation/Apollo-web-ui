@@ -78,7 +78,7 @@ class InfoTransactions extends React.Component {
                                                     <td>{this.state.entry.holdingType}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Account RS:	</td>
+                                                    <td>Account:	</td>
                                                     <td>{this.state.entry.accountRS}</td>
                                                 </tr>
                                                 <tr>

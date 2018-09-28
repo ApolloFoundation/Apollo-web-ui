@@ -181,7 +181,7 @@ class CancelSaleAlias extends React.Component {
                                                             field={'aliasURI'}
                                                             noContactList={true}
                                                             setValue={setValue}
-                                                            placeholder={'Account RS'}
+                                                            placeholder={'Account'}
                                                         />
                                                     </div>
                                                 </div>

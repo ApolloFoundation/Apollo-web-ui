@@ -210,7 +210,7 @@ class InfoAccount extends React.Component {
                                             this.state.transactions &&
                                             <div className="transaction-table-body transparent padding-vertical-padding">
                                                 <table>
-                                                    <thead key={uuid()}>
+                                                    <thead key={uuid()}>A
                                                     <tr>
                                                         <td>Index</td>
                                                         <td>Date</td>

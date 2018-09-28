@@ -705,7 +705,7 @@ class SiteHeader extends React.Component {
                                             <CopyToClipboard
                                                 text={this.props.accountRS}
                                                 onCopy={() => {
-                                                    NotificationManager.success('The account RS has been copied to clipboard.')
+                                                    NotificationManager.success('The account has been copied to clipboard.')
                                                 }}
                                             >
                                                 <a
@@ -907,7 +907,7 @@ class SiteHeader extends React.Component {
                                                         <CopyToClipboard
                                                             text={this.props.accountRS}
                                                             onCopy={() => {
-                                                                NotificationManager.success('The account RS has been copied to clipboard.')
+                                                                NotificationManager.success('The account has been copied to clipboard.')
                                                             }}
                                                         >
                                                             <a
@@ -925,7 +925,7 @@ class SiteHeader extends React.Component {
                                                         <CopyToClipboard
                                                             text={this.props.accountRS}
                                                             onCopy={() => {
-                                                                NotificationManager.success('The account RS has been copied to clipboard.')
+                                                                NotificationManager.success('The account has been copied to clipboard.')
                                                             }}
                                                         >
                                                             <a

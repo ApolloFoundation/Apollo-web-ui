@@ -65,7 +65,7 @@ class Login extends React.Component {
                                             "form-tab": true,
                                             "active": this.state.activeTab === 0
                                         })}>
-                                            <p>Enter by Account RS</p>
+                                            <p>Enter by Account</p>
                                         </a>
                                         <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                             "form-tab": true,
@@ -88,7 +88,7 @@ class Login extends React.Component {
                                                 <div className="input-group-app form-group display-block inline user offset-top mb-0">
                                                     <div className="row form-group-white">
                                                         <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                            Account RS
+                                                            Account
                                                         </label>
                                                         <div className="col-sm-9">
                                                             <div className="iconned-input-field">
