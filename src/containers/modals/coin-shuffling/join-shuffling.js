@@ -160,7 +160,7 @@ class JoinShuffling extends React.Component {
                                     <div className="col-sm-9">
                                         <Text className="form-control"
                                               field="recipientSecretPhrase"
-                                              placeholder="Recipient Passphrase"
+                                              placeholder="Account ID"
                                               onKeyUp={(e) => {
                                                   if (getFormState().values.recipientSecretPhrase !== '') {
                                                       this.setAccount(getFormState, setValue)
@@ -179,7 +179,7 @@ class JoinShuffling extends React.Component {
                                         <InputForm
                                             disabled={true}
                                             field="generatedAccount"
-                                            placeholder="Recipient Account"
+                                            placeholder="Account ID"
                                             setValue={setValue}/>
                                     </div>
                                 </div>
