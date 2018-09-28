@@ -346,7 +346,7 @@ class SellAlias extends React.Component {
                                                                 defaultValue={this.state.alias.accountRS}
                                                                 field={'recipient'}
                                                                 setValue={setValue}
-                                                                placeholder={'Amount'}
+                                                                placeholder={'Account ID'}
                                                             />
                                                         </div>
                                                     </div>
