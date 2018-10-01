@@ -345,70 +345,6 @@ class SiteHeader extends React.Component {
                                                     </div>
 
                                                 </div>
-                                                {/*<div className={classNames({
-                                                    "general": true,
-                                                    "open-settings": true,
-                                                    "mobile-btn": true
-                                                })}>
-                                                    <div
-                                                        onClick={this.showHideTitleForginMenu}
-                                                        className={classNames({
-                                                            "underscore": true,
-                                                            "btn": true,
-                                                            "icon-button": true,
-                                                            "filters": true,
-                                                            "active": this.state.showTitleForginMenu === true,
-                                                            "revert-content": this.state.showTitleForginMenu === true,
-                                                            "primary": true,
-                                                            "transparent": true,
-                                                        })}
-                                                    >
-                                                        <i className="to-revert zmdi zmdi-chevron-down"/>
-                                                    </div>
-                                                    <div className={classNames({
-                                                        "settings-bar": true,
-                                                        "active": this.state.bodyModalType === "FORGING_BODY_MODAL",
-                                                        "no-padding": true
-                                                    })}>
-                                                        <div className="form-group-app">
-                                                            <div className="form-body">
-                                                                <div className="input-section">
-                                                                    <div className="image-button success">
-                                                                        <i className="zmdi zmdi-check-circle"/>
-                                                                        <label>Connected</label>
-                                                                    </div>
-                                                                    <a
-                                                                        className="image-button  danger"
-                                                                    >
-                                                                        <i className="zmdi zmdi-close-circle"/>
-                                                                        <label>Not forging</label>
-                                                                    </a>
-                                                                    <a
-                                                                        className="image-button"
-                                                                    >
-                                                                        <i className="zmdi"/>
-                                                                        {
-                                                                            this.state.block &&
-                                                                            <label>Height: {this.state.block.height}</label>
-                                                                        }
-                                                                    </a>
-                                                                    <a
-                                                                        onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
-                                                                        className="image-button"
-                                                                    >
-                                                                        <i className="zmdi"/>
-                                                                        {
-                                                                            this.props.forgedBalanceATM &&
-                                                                            <label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
-                                                                        }
-                                                                    </a>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>*/}
                                             </React.Fragment>
                                         }
 
@@ -679,10 +615,6 @@ class SiteHeader extends React.Component {
                                                  className={"mobile-nav-item"}>
                                             <p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
                                         </NavLink>
-                                        {/*<NavLink exact={true} activeClassName="active" to="/plugins"
-									         className={"mobile-nav-item"}>
-										<p className="text">Plugins <i className="zmdi zmdi-input-power"/></p>
-									</NavLink>*/}
                                         <div className="btn-block">
                                             <div className="close-menu-btn" onClick={this.closeMenu}>
                                                 Close
@@ -794,17 +726,6 @@ class SiteHeader extends React.Component {
                                                                 </div>
                                                                 <div className="options-col">
                                                                     <ul>
-                                                                        {/*<li><a onClick={() => this.props.setBodyModalType(null)} className="option">Refresh search index</a></li>*/}
-                                                                        {/*<li><a href="https://apollowallet.org/test" className="option">API*/}
-                                                                            {/*console</a></li>*/}
-                                                                        {/*<li>*/}
-                                                                        {/*<a */}
-                                                                        {/*href="https://apollowallet.org/dbshell"*/}
-                                                                        {/*className="option"*/}
-                                                                        {/*>*/}
-                                                                        {/*Database shell*/}
-                                                                        {/*</a>*/}
-                                                                        {/*</li>*/}
                                                                         <li>
                                                                             <a
                                                                                 onClick={() => {
@@ -818,21 +739,6 @@ class SiteHeader extends React.Component {
                                                                         </li>
                                                                     </ul>
                                                                 </div>
-                                                                {/*<div className="options-col">*/}
-                                                                {/*<ul>*/}
-                                                                {/*/!**/}
-                                                                {/*<li><Link to="/plugins" className="option">Plugins</Link></li>*/}
-                                                                {/**!/*/}
-                                                                {/*/!*<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account*/}
-                                                                {/*settings</Link></li>*!/*/}
-                                                                {/*<li><a*/}
-                                                                {/*onClick={() => {*/}
-                                                                {/*this.props.setBodyModalType(null);*/}
-                                                                {/*return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');*/}
-                                                                {/*}}*/}
-                                                                {/*className="option">Device settings</a></li>*/}
-                                                                {/*</ul>*/}
-                                                                {/*</div>*/}
                                                             </div>
                                                         </div>
                                                         <a
@@ -1010,16 +916,6 @@ class SiteHeader extends React.Component {
                                                         </Link>
 
                                                     </div>
-                                                    {/*<div className="input-section">
-													<Link
-														to="/settings"
-														className="image-button"
-													>
-														<i className="zmdi zmdi-settings"/>
-														<label style={{cursor: 'pointer'}}>Settings</label>
-													</Link>
-
-												</div>*/}
                                                     <div className="input-section">
                                                         <div
                                                             onClick={() => logOutAction('simpleLogOut')}
