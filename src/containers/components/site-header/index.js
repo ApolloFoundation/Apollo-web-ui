@@ -74,10 +74,16 @@ class SiteHeader extends React.Component {
         return path.some(i => window.location.pathname === i) ? 'active' : '';
     };
 
-    setSearchStateToActive() {
+    setSearchStateToActive = (form) => {
         clearInterval(this.searchInterval);
-        this.setState({searching: true});
-    }
+        if (!this.state.searching) {
+
+            this.setState({searching: true});
+
+        } else {
+            if (form.value) this.handleSearchind(form);
+        }
+    };
 
     resetSearchStateToActive() {
         this.searchInterval = setTimeout(() => {
@@ -339,70 +345,6 @@ class SiteHeader extends React.Component {
                                                     </div>
 
                                                 </div>
-                                                {/*<div className={classNames({
-                                                    "general": true,
-                                                    "open-settings": true,
-                                                    "mobile-btn": true
-                                                })}>
-                                                    <div
-                                                        onClick={this.showHideTitleForginMenu}
-                                                        className={classNames({
-                                                            "underscore": true,
-                                                            "btn": true,
-                                                            "icon-button": true,
-                                                            "filters": true,
-                                                            "active": this.state.showTitleForginMenu === true,
-                                                            "revert-content": this.state.showTitleForginMenu === true,
-                                                            "primary": true,
-                                                            "transparent": true,
-                                                        })}
-                                                    >
-                                                        <i className="to-revert zmdi zmdi-chevron-down"/>
-                                                    </div>
-                                                    <div className={classNames({
-                                                        "settings-bar": true,
-                                                        "active": this.state.bodyModalType === "FORGING_BODY_MODAL",
-                                                        "no-padding": true
-                                                    })}>
-                                                        <div className="form-group-app">
-                                                            <div className="form-body">
-                                                                <div className="input-section">
-                                                                    <div className="image-button success">
-                                                                        <i className="zmdi zmdi-check-circle"/>
-                                                                        <label>Connected</label>
-                                                                    </div>
-                                                                    <a
-                                                                        className="image-button  danger"
-                                                                    >
-                                                                        <i className="zmdi zmdi-close-circle"/>
-                                                                        <label>Not forging</label>
-                                                                    </a>
-                                                                    <a
-                                                                        className="image-button"
-                                                                    >
-                                                                        <i className="zmdi"/>
-                                                                        {
-                                                                            this.state.block &&
-                                                                            <label>Height: {this.state.block.height}</label>
-                                                                        }
-                                                                    </a>
-                                                                    <a
-                                                                        onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
-                                                                        className="image-button"
-                                                                    >
-                                                                        <i className="zmdi"/>
-                                                                        {
-                                                                            this.props.forgedBalanceATM &&
-                                                                            <label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
-                                                                        }
-                                                                    </a>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>*/}
                                             </React.Fragment>
                                         }
 
@@ -673,10 +615,6 @@ class SiteHeader extends React.Component {
                                                  className={"mobile-nav-item"}>
                                             <p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
                                         </NavLink>
-                                        {/*<NavLink exact={true} activeClassName="active" to="/plugins"
-									         className={"mobile-nav-item"}>
-										<p className="text">Plugins <i className="zmdi zmdi-input-power"/></p>
-									</NavLink>*/}
                                         <div className="btn-block">
                                             <div className="close-menu-btn" onClick={this.closeMenu}>
                                                 Close
@@ -692,7 +630,7 @@ class SiteHeader extends React.Component {
 
                                         <Form
                                             onSubmit={values => this.handleSearchind(values)}
-                                            render={({submitForm}) => (
+                                            render={({submitForm, getFormState}) => (
                                                 <form onSubmit={submitForm}>
                                                     <Text
                                                         field={'value'}
@@ -703,165 +641,123 @@ class SiteHeader extends React.Component {
                                                         type="text"
                                                         placeholder="Enter Transaction/Account/Block ID"
                                                     />
+
+
+                                                    <div className="user-account-actions">
+                                                        <CopyToClipboard
+                                                            text={this.props.accountRS}
+                                                            onCopy={() => {
+                                                                NotificationManager.success('The account has been copied to clipboard.')
+                                                            }}
+                                                        >
+                                                            <a
+                                                                className="user-account-rs"
+                                                            >
+                                                                {this.props.accountRS}
+                                                            </a>
+                                                        </CopyToClipboard>
+
+                                                        <a
+                                                            className="user-account-action"
+                                                            onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+                                                        >
+                                                            <i className="zmdi zmdi-balance-wallet"/>
+                                                        </a>
+                                                        <div className={classNames({
+                                                            "settings": true,
+                                                            "open-settings": true,
+                                                            "user-account-action": true
+                                                        })}>
+                                                            <div
+                                                                onClick={() => this.setBodyModalType('SETTINGS_BODY_MODAL')}
+                                                                style={{height: 32}}
+                                                                className={classNames({
+                                                                    "underscore": true,
+                                                                    "btn": true,
+                                                                    "icon-button": true,
+                                                                    "filters": true,
+                                                                    "active": this.state.bodyModalType === "SETTINGS_BODY_MODAL",
+                                                                    "primary": true,
+                                                                    "transparent": true,
+                                                                })}
+                                                            >
+                                                                <i className="zmdi zmdi-settings"/>
+                                                            </div>
+                                                            <div className={classNames({
+                                                                "settings-bar": true,
+                                                                "settings-menu": true,
+                                                                "active": this.state.bodyModalType=== 'SETTINGS_BODY_MODAL'
+                                                            })}>
+                                                                <div className="options-col">
+                                                                    <ul>
+                                                                        <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/blocks">Blocks</Link></li>
+                                                                        <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/peers">Peers</Link></li>
+                                                                        <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/generators">Generators</Link></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div className="options-col">
+                                                                    <ul>
+                                                                        <li><a
+                                                                            onClick={() => {
+                                                                                this.setState({bodyModalType: null});
+                                                                                return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
+                                                                            }}
+                                                                            className="option">Generate token</a></li>
+                                                                        <li><a
+                                                                            onClick={() => {
+                                                                                this.setState({bodyModalType: null});
+                                                                                return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
+                                                                            }}
+                                                                            className="option">Generate hallmark</a></li>
+                                                                        <li><a
+                                                                            onClick={() => {
+                                                                                this.setState({bodyModalType: null});
+                                                                                return this.props.setBodyModalParamsAction('CALCULATE_CACHE');
+                                                                            }}
+                                                                            className="option">Calculate hash</a></li>
+                                                                        {/*<li><a
+                                                                        onClick={() => {
+                                                                            this.props.setBodyModalType(null);
+                                                                            return this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS');
+                                                                        }}
+                                                                        className="option">Transaction operations</a></li>*/}
+                                                                    </ul>
+
+                                                                </div>
+                                                                <div className="options-col">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a
+                                                                                onClick={() => {
+                                                                                    this.setState({bodyModalType: null});
+                                                                                    return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');
+                                                                                }}
+                                                                                className="option"
+                                                                            >
+                                                                                Device settings
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <a
+                                                            onClick={() => this.props.setMopalType('GENERAL_INFO')}
+                                                            className="user-account-action user-account-action--help"
+                                                        >
+                                                            <i className="zmdi zmdi-help"/>
+                                                        </a>
+                                                        <a
+                                                            className="user-account-action search-button"
+                                                            onClick={() => this.setSearchStateToActive(getFormState().values)}
+                                                        >
+                                                            <i className="zmdi zmdi-search"/>
+                                                        </a>
+                                                    </div>
                                                 </form>
                                             )}
                                         />
 
-
-                                        <div className="user-account-actions">
-                                            <CopyToClipboard
-                                                text={this.props.accountRS}
-                                                onCopy={() => {
-                                                    NotificationManager.success('The account has been copied to clipboard.')
-                                                }}
-                                            >
-                                                <a
-                                                    className="user-account-rs"
-                                                >
-                                                    {this.props.accountRS}
-                                                </a>
-                                            </CopyToClipboard>
-
-                                            <a
-                                                className="user-account-action"
-                                                onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
-                                            >
-                                                <i className="zmdi zmdi-balance-wallet"/>
-                                            </a>
-                                            <div className={classNames({
-                                                "settings": true,
-                                                "open-settings": true,
-                                                "user-account-action": true
-                                            })}>
-                                                <div
-                                                    onClick={() => this.setBodyModalType('SETTINGS_BODY_MODAL')}
-                                                    style={{height: 32}}
-                                                    className={classNames({
-                                                        "underscore": true,
-                                                        "btn": true,
-                                                        "icon-button": true,
-                                                        "filters": true,
-                                                        "active": this.state.bodyModalType === "SETTINGS_BODY_MODAL",
-                                                        "primary": true,
-                                                        "transparent": true,
-                                                    })}
-                                                >
-                                                    <i className="zmdi zmdi-settings"/>
-                                                </div>
-                                                <div className={classNames({
-                                                    "settings-bar": true,
-                                                    "settings-menu": true,
-                                                    "active": this.state.bodyModalType=== 'SETTINGS_BODY_MODAL'
-                                                })}>
-                                                    <div className="options-col">
-                                                        <ul>
-                                                            <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/blocks">Blocks</Link></li>
-                                                            <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/peers">Peers</Link></li>
-                                                            <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/generators">Generators</Link>
-                                                            </li>
-                                                            {/*<li>*/}
-                                                            {/*<Link */}
-                                                            {/*onClick={() => this.props.setBodyModalType(null)} */}
-                                                            {/*className="option" */}
-                                                            {/*to="/scheduled-transactions"*/}
-                                                            {/*>*/}
-                                                            {/*Scheduled transactions*/}
-                                                            {/*</Link>*/}
-                                                            {/*</li>*/}
-                                                            {/*<li>*/}
-                                                            {/*<Link */}
-                                                            {/*className="option" */}
-                                                            {/*onClick={() => this.props.setBodyModalType(null)} */}
-                                                            {/*to="/funding-monitors"*/}
-                                                            {/*>*/}
-                                                            {/*Monitors*/}
-                                                            {/*</Link>*/}
-                                                            {/*</li>*/}
-                                                        </ul>
-                                                    </div>
-                                                    <div className="options-col">
-                                                        <ul>
-                                                            <li><a
-                                                                onClick={() => {
-                                                                    this.setState({bodyModalType: null});
-                                                                    return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
-                                                                }}
-                                                                className="option">Generate token</a></li>
-                                                            <li><a
-                                                                onClick={() => {
-                                                                    this.setState({bodyModalType: null});
-                                                                    return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
-                                                                }}
-                                                                className="option">Generate hallmark</a></li>
-                                                            <li><a
-                                                                onClick={() => {
-                                                                    this.setState({bodyModalType: null});
-                                                                    return this.props.setBodyModalParamsAction('CALCULATE_CACHE');
-                                                                }}
-                                                                className="option">Calculate hash</a></li>
-                                                            {/*<li><a
-															onClick={() => {
-                                                                this.props.setBodyModalType(null);
-                                                                return this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS');
-                                                            }}
-															className="option">Transaction operations</a></li>*/}
-                                                        </ul>
-
-                                                    </div>
-                                                    <div className="options-col">
-                                                        <ul>
-                                                            {/*<li><a onClick={() => this.props.setBodyModalType(null)} className="option">Refresh search index</a></li>*/}
-                                                            {/*<li><a href="https://apollowallet.org/test" className="option">API*/}
-                                                                {/*console</a></li>*/}
-                                                            {/*<li>*/}
-                                                            {/*<a */}
-                                                            {/*href="https://apollowallet.org/dbshell"*/}
-                                                            {/*className="option"*/}
-                                                            {/*>*/}
-                                                            {/*Database shell*/}
-                                                            {/*</a>*/}
-                                                            {/*</li>*/}
-                                                            <li>
-                                                                <a
-                                                                    onClick={() => {
-                                                                        this.setState({bodyModalType: null});
-                                                                        return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');
-                                                                    }}
-                                                                    className="option"
-                                                                >
-                                                                    Device settings
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    {/*<div className="options-col">*/}
-                                                    {/*<ul>*/}
-                                                    {/*/!**/}
-                                                    {/*<li><Link to="/plugins" className="option">Plugins</Link></li>*/}
-                                                    {/**!/*/}
-                                                    {/*/!*<li><Link onClick={() => this.props.setBodyModalType(null)} to="/settings" className="option">Account*/}
-                                                    {/*settings</Link></li>*!/*/}
-                                                    {/*<li><a*/}
-                                                    {/*onClick={() => {*/}
-                                                    {/*this.props.setBodyModalType(null);*/}
-                                                    {/*return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');*/}
-                                                    {/*}}*/}
-                                                    {/*className="option">Device settings</a></li>*/}
-                                                    {/*</ul>*/}
-                                                    {/*</div>*/}
-                                                </div>
-                                            </div>
-                                            <a
-                                                onClick={() => this.props.setMopalType('GENERAL_INFO')}
-                                                className="user-account-action user-account-action--help"
-                                            >
-                                                <i className="zmdi zmdi-help"/>
-                                            </a>
-                                            <a className="user-account-action search-button"
-                                               onClick={this.setSearchStateToActive}>
-                                                <i className="zmdi zmdi-search"/>
-                                            </a>
-                                        </div>
                                     </div>
                                     <div className="user-box"
                                          onClick={this.setBodyModalType.bind(this, 'ACCOUNT_BODY_MODAL')}
@@ -1020,16 +916,6 @@ class SiteHeader extends React.Component {
                                                         </Link>
 
                                                     </div>
-                                                    {/*<div className="input-section">
-													<Link
-														to="/settings"
-														className="image-button"
-													>
-														<i className="zmdi zmdi-settings"/>
-														<label style={{cursor: 'pointer'}}>Settings</label>
-													</Link>
-
-												</div>*/}
                                                     <div className="input-section">
                                                         <div
                                                             onClick={() => logOutAction('simpleLogOut')}
