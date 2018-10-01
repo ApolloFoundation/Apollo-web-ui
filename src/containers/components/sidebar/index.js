@@ -287,8 +287,8 @@ class Sidebar extends React.Component {
 									</ul>
 								</div>
 							</li>
-							{
-                                this.props.settings.marketplaceSelection &&
+							{/*{*/}
+                                {/*this.props.settings.marketplaceSelection &&*/}
                                 <li>
                                     <NavLink
                                         style={{
@@ -319,7 +319,7 @@ class Sidebar extends React.Component {
                                         </ul>
                                     </div>
                                 </li>
-							}
+							{/*}*/}
 							<li>
 								<NavLink
                                     style={{

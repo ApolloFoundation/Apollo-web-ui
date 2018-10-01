@@ -18,6 +18,8 @@ import SideBar from '../components/sidebar'
 import ModalWindow from '../modals'
 import AlertBox from '../components/alert-box'
 
+import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../modules/accountSettings";
+
 // pages components
 import Dashboard from "../account/dashboard";
 import Login from "../account/login";
@@ -74,6 +76,8 @@ import {startBlockPullingAction} from '../../actions/blocks'
 import UnknownPage from '../account/404'
 class App extends React.Component {
     componentDidMount() {
+        this.props.getSavedAccountSettings();
+
         // this.props.startBlockPullingAction();
         getUpdateStatus();
         this.props.isLoggedIn();
@@ -223,6 +227,7 @@ const mapDispatchToProps = dispatch => ({
     isLoggedIn: () => dispatch(isLoggedIn()),
     setPageEvents: () => dispatch(setPageEvents()),
     getConstantsAction: () => dispatch(getConstantsAction()),
+    getSavedAccountSettings:   ()         => dispatch(getSavedAccountSettingsAction()),
 
     //modals
     setBodyModalType: () => dispatch(setBodyModalType()),
