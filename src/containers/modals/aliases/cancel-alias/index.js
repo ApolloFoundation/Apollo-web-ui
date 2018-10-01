@@ -181,7 +181,7 @@ class CancelSaleAlias extends React.Component {
                                                             field={'aliasURI'}
                                                             noContactList={true}
                                                             setValue={setValue}
-                                                            placeholder={'Account'}
+                                                            placeholder={'Account ID'}
                                                         />
                                                     </div>
                                                 </div>
@@ -250,7 +250,7 @@ class CancelSaleAlias extends React.Component {
                                                     }}
                                                     className="btn btn-right blue round round-bottom-right"
                                                 >
-                                                    <div className="ball-pulse">
+                                                    <div className="ball-pulse-sync">
                                                         <div></div>
                                                         <div></div>
                                                         <div></div>

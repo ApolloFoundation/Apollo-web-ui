@@ -142,7 +142,6 @@ class TransferAlias extends React.Component {
                                                     <AccountRS
                                                         field={'recipient'}
                                                         setValue={setValue}
-                                                        placeholder={'Recipient Account'}
                                                     />
                                                 </div>
                                             </div>

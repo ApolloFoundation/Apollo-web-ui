@@ -15,6 +15,7 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import AccountRS from '../../components/account-rs';
 import {Form, Text} from "react-form";
+import {getConstantsAction} from '../../../actions/login'
 
 class Login extends React.Component {
     constructor(props) {
@@ -24,6 +25,10 @@ class Login extends React.Component {
     state = {
         activeTab: 0
     };
+
+    componentDidMount () {
+        this.props.getConstantsAction();
+    }
 
     enterAccount = (values) => {
         this.props.getAccountAction({
@@ -65,7 +70,7 @@ class Login extends React.Component {
                                             "form-tab": true,
                                             "active": this.state.activeTab === 0
                                         })}>
-                                            <p>Enter by Account</p>
+                                            <p>Enter by Account ID</p>
                                         </a>
                                         <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                             "form-tab": true,
@@ -88,7 +93,7 @@ class Login extends React.Component {
                                                 <div className="input-group-app form-group display-block inline user offset-top mb-0">
                                                     <div className="row form-group-white">
                                                         <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                            Account
+                                                            Account ID
                                                         </label>
                                                         <div className="col-sm-9">
                                                             <div className="iconned-input-field">
@@ -96,6 +101,7 @@ class Login extends React.Component {
                                                                     value={''}
                                                                     field={'accountRS'}
                                                                     setValue={setValue}
+                                                                    placeholder={'Account ID'}
                                                                 />
                                                             </div>
                                                         </div>
@@ -160,8 +166,21 @@ class Login extends React.Component {
                                         )}
                                     />
                                 </div>
+
                             </div>
                         </div>
+                        <p
+                            style={{
+                                position: "absolute",
+                                bottom: "30px",
+                                color: 'white',
+                                width: '100%',
+                                textAlign: 'center',
+                                left: '0'
+                            }}
+                        >
+                            Copyright © 2017-2018 Apollo Foundation. Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -170,14 +189,16 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = state =>  ({
-    account: state.account
+    account: state.account,
+    appState: state.account.blockchainStatus
 });
 
 const mapDipatchToProps = dispatch => {
     return {
         getAccountAction: (requestParams) => dispatch(getAccountDataAction(requestParams)),
         getAccountDataBySecretPhrasseAction: (requestParams) => dispatch(getAccountDataBySecretPhrasseAction(requestParams)),
-        setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+        setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+        getConstantsAction: () => dispatch(getConstantsAction()),
     };
 };
 

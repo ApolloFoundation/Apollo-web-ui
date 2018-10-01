@@ -169,7 +169,7 @@ class AddAlias extends React.Component {
                                                     <AccountRS
                                                         field={'aliasURI'}
                                                         setValue={setValue}
-                                                        placeholder="Account"
+                                                        placeholder="Account ID"
                                                     />
                                                 </div>
                                             </div>
@@ -245,7 +245,7 @@ class AddAlias extends React.Component {
                                                 }}
                                                 className="btn btn-right blue round round-bottom-right"
                                             >
-                                                <div className="ball-pulse">
+                                                <div className="ball-pulse-sync">
                                                     <div></div>
                                                     <div></div>
                                                     <div></div>

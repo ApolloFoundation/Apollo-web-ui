@@ -118,6 +118,7 @@ class SendApollo extends React.Component {
                                                     field={'recipient'}
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
+                                                    placeholder={'Account ID'}
                                                 />
                                             </div>
                                         </div>

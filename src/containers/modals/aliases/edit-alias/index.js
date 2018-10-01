@@ -181,7 +181,7 @@ class EditAlias extends React.Component {
                                                         <div className="iconned-input-field">
                                                             <AccountRS
                                                                 field={'account'}
-                                                                placeholder={'Account'}
+                                                                placeholder={'Account ID'}
                                                                 setValue={setValue}
                                                             />
                                                         </div>
@@ -253,7 +253,7 @@ class EditAlias extends React.Component {
                                                     }}
                                                     className="btn btn-right blue round round-bottom-right"
                                                 >
-                                                    <div className="ball-pulse">
+                                                    <div className="ball-pulse-sync">
                                                         <div></div>
                                                         <div></div>
                                                         <div></div>
