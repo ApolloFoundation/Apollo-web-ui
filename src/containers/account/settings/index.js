@@ -35,11 +35,13 @@ class Settings extends React.Component {
         NotificationManager.success('Settings has been saved!');
     };
 
-    componentWillReceiveProps = (newState) => {
-        this.setState({
-            settings: newState.settings
-        });
-    }
+    componentWillReceiveProps = (newState, oldState) => {
+        if(newState.settings !== oldState.settings){
+            this.setState({
+                settings: newState.settings
+            });
+        }
+    };
 
     optionsYesNo = [
         {
