@@ -58,13 +58,13 @@ export const getSavedAccountSettingsAction = () => dispatch => {
             regFormat: "",
             use24h: true,
             maxDecimals: 2,
-            enablePlugins: false,
+            enablePlugins: true,
             showConsoleButton: false,
             adminPass: "",
 
             submitFormsEnter: false,
-            marketplaceSelection: false,
-            exchangeSection: false,
+            marketplaceSelection: true,
+            exchangeSection: true,
             animateForging: true,
             itemsToShow: 15,
 

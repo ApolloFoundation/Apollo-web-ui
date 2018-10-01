@@ -736,6 +736,12 @@ class SiteHeader extends React.Component {
                                                                             >
                                                                                 Device settings
                                                                             </a>
+                                                                            <Link
+                                                                                to="/settings"
+                                                                                className="option"
+                                                                            >
+                                                                                Settings
+                                                                            </Link>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
@@ -915,6 +921,15 @@ class SiteHeader extends React.Component {
                                                             <label style={{cursor: 'pointer'}}>Messages</label>
                                                         </Link>
 
+                                                    </div>
+                                                    <div className="input-section">
+                                                        <Link
+                                                            to="/settings"
+                                                            className="image-button"
+                                                        >
+                                                            <i className="zmdi zmdi-settings"/>
+                                                            <label style={{cursor: 'pointer'}}>Settings</label>
+                                                        </Link>
                                                     </div>
                                                     <div className="input-section">
                                                         <div
