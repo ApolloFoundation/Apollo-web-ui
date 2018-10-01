@@ -23,10 +23,6 @@ class Settings extends React.Component {
     componentDidMount() {
         this.props.getSavedAccountSettings();
         this.settingsLoaded = true;
-
-        this.setState({
-            settings: JSON.parse(localStorage.getItem('accountSettings'))
-        });
     }
 
     state = {
@@ -38,6 +34,12 @@ class Settings extends React.Component {
         getSavedAccountSettingsAction();
         NotificationManager.success('Settings has been saved!');
     };
+
+    componentWillReceiveProps = (newState) => {
+        this.setState({
+            settings: newState.settings
+        });
+    }
 
     optionsYesNo = [
         {
