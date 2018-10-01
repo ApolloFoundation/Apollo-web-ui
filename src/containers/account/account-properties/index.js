@@ -158,7 +158,10 @@ class AccountProperties extends React.Component {
                                     </table>
 
                                 </div>
-                            </div> ||
+                            </div>
+                        }
+                        {
+                            !this.state.properties &&
                             <div
                                 style={{
                                     paddingLeft: 47.5

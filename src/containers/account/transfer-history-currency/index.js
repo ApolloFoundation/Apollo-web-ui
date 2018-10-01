@@ -10,6 +10,7 @@ import TransferHistoryItem from './transfer-history-item'
 import classNames from "classnames";
 import uuid from "uuid";
 import {connect} from 'react-redux'
+import InfoBox from '../../components/info-box';
 
 import {getTransferHistory} from "../../../actions/currencies";
 import {setBodyModalParamsAction} from "../../../modules/modals";
@@ -121,62 +122,74 @@ class TransferHistoryCurrency extends React.Component {
                     <div className="scheduled-transactions">
                         {
                             this.state.transfers &&
-                            <div className="transaction-table">
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Transaction</td>
-                                            <td>Currency</td>
-                                            <td>Date</td>
-                                            <td className="align-right">Units</td>
-                                            <td>Recipient</td>
-                                            <td>Sender</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody key={uuid()}>
-                                        {
-                                            this.state.transfers &&
-                                            this.state.transfers.map((el, index) => {
-                                                return (
-                                                    <TransferHistoryItem
-                                                        key={uuid()}
-                                                        transfer={el}
-                                                        setTransaction={this.getTransaction}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
-                                    {
-                                        this.state.transfers &&
-                                        <div className="btn-box">
-                                            <a
-                                                className={classNames({
-                                                    'btn' : true,
-                                                    'btn-left' : true,
-                                                    'disabled' : this.state.page <= 1
-                                                })}
-                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                            > Previous</a>
-                                            <div className='pagination-nav'>
-                                                <span>{this.state.firstIndex + 1}</span>
-                                                <span>&hellip;</span>
-                                                <span>{this.state.lastIndex + 1}</span>
-                                            </div>
-                                            <a
-                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                className={classNames({
-                                                    'btn' : true,
-                                                    'btn-right' : true,
-                                                    'disabled' : this.state.transfers.length < 15
-                                                })}
-                                            >Next</a>
+                            <React.Fragment>
+                                {
+                                    !!this.state.transfers.length &&
+                                    <div className="transaction-table">
+                                        <div className="transaction-table-body">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <td>Transaction</td>
+                                                    <td>Currency</td>
+                                                    <td>Date</td>
+                                                    <td className="align-right">Units</td>
+                                                    <td>Recipient</td>
+                                                    <td>Sender</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody key={uuid()}>
+                                                {
+                                                    this.state.transfers &&
+                                                    this.state.transfers.map((el, index) => {
+                                                        return (
+                                                            <TransferHistoryItem
+                                                                key={uuid()}
+                                                                transfer={el}
+                                                                setTransaction={this.getTransaction}
+                                                            />
+                                                        );
+                                                    })
+                                                }
+                                                </tbody>
+                                            </table>
+                                            {
+                                                this.state.transfers &&
+                                                <div className="btn-box">
+                                                    <a
+                                                        className={classNames({
+                                                            'btn' : true,
+                                                            'btn-left' : true,
+                                                            'disabled' : this.state.page <= 1
+                                                        })}
+                                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                                    > Previous</a>
+                                                    <div className='pagination-nav'>
+                                                        <span>{this.state.firstIndex + 1}</span>
+                                                        <span>&hellip;</span>
+                                                        <span>{this.state.lastIndex + 1}</span>
+                                                    </div>
+                                                    <a
+                                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                        className={classNames({
+                                                            'btn' : true,
+                                                            'btn-right' : true,
+                                                            'disabled' : this.state.transfers.length < 15
+                                                        })}
+                                                    >Next</a>
+                                                </div>
+                                            }
                                         </div>
-                                    }
-                                </div>
-                            </div> ||
+                                    </div>
+                                }
+                                {
+                                    !(!!this.state.transfers.length) &&
+                                    <InfoBox default>
+                                        No transfers found.
+                                    </InfoBox>
+                                }
+
+                            </React.Fragment> ||
                             <div
                                 style={{
                                     paddingLeft: 47.5

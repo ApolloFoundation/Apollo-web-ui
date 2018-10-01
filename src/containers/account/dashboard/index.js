@@ -442,7 +442,7 @@ class Dashboard extends React.Component {
 									</div>
 									<div className="card-title">Assets Value</div>
 									{
-                                        this.state.assetsValue &&
+                                        (typeof this.state.assetsValue) === 'number' &&
                                         <div className="page-body-item-content">
                                             <Link
                                                 to={'/my-assets'}
@@ -464,10 +464,13 @@ class Dashboard extends React.Component {
                                                     {this.state.assetsCount} <span>Owned</span>
                                                 </div>
                                             </Link>
-                                        </div> ||
+                                        </div>
+									}
+									{
+										(typeof this.state.assetsValue) === 'object' &&
                                         <div
                                             className={'loader-box white'}
-										>
+                                        >
                                             <div className="ball-pulse">
                                                 <div></div>
                                                 <div></div>
@@ -485,7 +488,7 @@ class Dashboard extends React.Component {
 									</div>
 									<div className="card-title">Currencies Value</div>
 									{
-                                        this.state.currenciesCount &&
+                                        (typeof this.state.currenciesCount) === 'number' &&
                                         <div className="page-body-item-content">
                                             <Link
                                                 className="amount"
@@ -497,17 +500,20 @@ class Dashboard extends React.Component {
                                                     {this.state.currenciesCount} <span>Owned</span>
                                                 </div>
                                             </Link>
-                                        </div> ||
+                                        </div>
+									}
+                                    {
+                                        (typeof this.state.currenciesCount) === 'object' &&
                                         <div
                                             className={'loader-box white'}
-										>
+                                        >
                                             <div className="ball-pulse">
                                                 <div></div>
                                                 <div></div>
                                                 <div></div>
                                             </div>
                                         </div>
-									}
+                                    }
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -601,6 +607,13 @@ class Dashboard extends React.Component {
                                                 </div>
                                             </div>
 										}
+										{
+											!!this.state.transactions &&
+											!this.state.transactions.length &&
+											<p
+												style={{paddingTop: 27}}
+											>No transactions found.</p>
+										}
 									</div>
 								</div>
 							</div>
@@ -649,13 +662,18 @@ class Dashboard extends React.Component {
 												}
 											})
 										}
+										{
+                                            !!this.state.dashboardAssets &&
+                                            this.state.dashboardAssets.length === 0 &&
+											<p>No assets found.</p>
+										}
 									</div>
 								</div>
 								<div className="card decentralized-marketplace">
 									<div className="card-title">Decentralized Marketplace</div>
 									<div className="full-box">
 										{
-											this.state.pendingGoods && this.state.completedGoods &&
+											!!this.state.pendingGoods && !!this.state.completedGoods &&
 											<div className="full-box-item">
 
 											<div className="marketplace-box">
@@ -677,9 +695,10 @@ class Dashboard extends React.Component {
 												</div>
 											</div>
 										}
+										{console.log(this.state.pendingGoods)}
 										{
-											!this.state.pendingGoods &&
-											!this.state.completedGoods &&
+											typeof this.state.pendingGoods === 'undefined' &&
+											typeof this.state.completedGoods === 'undefined' &&
                                             <div className={'loader-box'}>
                                                 <div className="ball-pulse">
                                                     <div></div>
@@ -688,6 +707,14 @@ class Dashboard extends React.Component {
                                                 </div>
                                             </div>
 										}
+										{
+                                            this.state.pendingGoods === 0 &&
+											<p>No pending orders.</p>
+										}
+										{
+											this.state.completedGoods === 0 &&
+                                            <p>No completed orders.</p>
+                                        }
 
 									</div>
 									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
@@ -767,6 +794,16 @@ class Dashboard extends React.Component {
                                                     <div></div>
                                                 </div>
                                             </div>
+										}
+										{
+                                            !!this.state.polls &&
+											this.state.polls.length === 0 &&
+											<p
+												style={{
+													fontSize:13,
+													color: '#000'
+												}}
+											>No active polls.</p>
 										}
 									</div>
 									<button

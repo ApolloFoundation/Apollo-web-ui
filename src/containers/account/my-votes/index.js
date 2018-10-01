@@ -121,37 +121,50 @@ class MyVotes extends React.Component {
                     <div className="active-polls white-space">
                         {
                             this.state.myVotes &&
-                            <div className="transaction-table no-min-height">
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Title</td>
-                                            <td>Description</td>
-                                            <td>Sender</td>
-                                            <td>Start date</td>
-                                            <td>Blocks left</td>
-                                            <td className="align-right">Actions</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody  key={uuid()}>
-                                        {
-                                            this.state.myVotes &&
-                                            this.state.myVotes.map((el, index) => {
-                                                return (
-                                                    <PoolItem
-                                                        key={uuid()}
-                                                        {...el}
-                                                        activepolls
-                                                        getTransaction={this.getTransaction}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div> ||
+                            <React.Fragment>
+                                {
+                                    !!this.state.myVotes.length &&
+                                    <div className="transaction-table no-min-height">
+                                        <div className="transaction-table-body">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <td>Title</td>
+                                                    <td>Description</td>
+                                                    <td>Sender</td>
+                                                    <td>Start date</td>
+                                                    <td>Blocks left</td>
+                                                    <td className="align-right">Actions</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody  key={uuid()}>
+                                                {
+                                                    this.state.myVotes &&
+                                                    this.state.myVotes.map((el, index) => {
+                                                        return (
+                                                            <PoolItem
+                                                                key={uuid()}
+                                                                {...el}
+                                                                activepolls
+                                                                getTransaction={this.getTransaction}
+                                                            />
+                                                        );
+                                                    })
+                                                }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    !(!!this.state.myVotes.length) &&
+                                    <InfoBox default>
+                                        No votes found.
+                                    </InfoBox>
+
+                                }
+                            </React.Fragment>
+                             ||
                             <div className={'loader-box'}>
                                 <div
                                     style={{
@@ -164,13 +177,6 @@ class MyVotes extends React.Component {
                                     <div></div>
                                 </div>
                             </div>
-                        }
-                        {
-                            this.state.myVotes &&
-                            !(!!this.state.myVotes.length) &&
-                            <InfoBox default>
-                                No votes found.
-                            </InfoBox>
                         }
                     </div>
                 </div>
