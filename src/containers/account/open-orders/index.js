@@ -13,7 +13,7 @@ import {getBuyOrdersAction, getSellOrdersAction} from "../../../actions/open-ord
 import OrderItem from "./order";
 import {BlockUpdater} from "../../block-subscriber";
 import ContentHendler from '../../components/content-hendler'
-
+import ContentLoader from '../../components/content-loader'
 class OpenOrders extends React.Component {
 
     state = {
@@ -114,7 +114,7 @@ class OpenOrders extends React.Component {
                                                                         <td className="align-right">Actions</td>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody>
+                                                                    <tbody key={uuid()}>
                                                                     {
                                                                         this.state.sellOrders.map(el => {
                                                                             return (
@@ -132,7 +132,7 @@ class OpenOrders extends React.Component {
                                                         </div>
                                                 }
                                             </React.Fragment> ||
-                                            <ContentLoader/>
+                                            <ContentLoader noPaddingOnTheSides/>
                                         }
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@ class OpenOrders extends React.Component {
                                                                         <td className="align-right">Actions</td>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody>
+                                                                    <tbody key={uuid()}>
                                                                     {
                                                                         this.state.buyOrders.map(el => {
                                                                             return (
@@ -180,20 +180,8 @@ class OpenOrders extends React.Component {
                                                         </div>
                                                 }
                                             </React.Fragment> ||
-                                            <div
-                                                style={{
-                                                    paddingLeft: 47.5
-                                                }}
-                                                className={'loader-box'}
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
+                                            <ContentLoader noPaddingOnTheSides/>
                                         }
-
                                     </div>
                                 </div>
                             </div>
