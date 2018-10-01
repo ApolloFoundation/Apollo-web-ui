@@ -33,7 +33,7 @@ class MessageItem extends React.Component {
     }
 
     componentWillReceiveProps(newState) {
-        // this.tryToDecrypt(newState);
+        this.tryToDecrypt(newState);
     };
 
     componentDidMount() {
@@ -57,6 +57,8 @@ class MessageItem extends React.Component {
                 transaction: this.props.transaction
             }, 'readMessage')
 
+
+            console.log(message);
             if (message) {
                 this.setState({
                     message: message.decryptedMessage
