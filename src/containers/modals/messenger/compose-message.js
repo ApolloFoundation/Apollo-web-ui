@@ -62,7 +62,7 @@ class ComposeMessage extends React.Component {
 
         this.setState({
             isPending: true
-        })
+        });
 
         // Todo: finish form validating
         const res = await this.props.submitForm( values, 'sendMessage');

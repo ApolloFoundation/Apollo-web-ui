@@ -202,58 +202,6 @@ class Settings extends React.Component {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>Enable plugins</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <CustomSelect
-                                                                                options={this.optionsYesNo}
-                                                                                field="enablePlugins"
-                                                                                setValue={setValue}
-
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6">
-                                                                            <label></label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <div className="form-sub-title">Need restart of
-                                                                                client.
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>Show console log button</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <CustomSelect
-                                                                                field="showConsoleButton"
-                                                                                options={this.optionsYesNo}
-                                                                                setValue={setValue}
-
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>Administrator password</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <Text field="adminPass" className="form-control" type="password"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div className="page-settings-item">
@@ -273,19 +221,6 @@ class Settings extends React.Component {
                                                                                 setValue={setValue}
 
                                                                             />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6">
-                                                                            <label></label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <div className="form-sub-title">Be careful when choosing
-                                                                                to submit forms
-                                                                                via the enter key, submitting can't be undone.
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -423,7 +358,7 @@ class Settings extends React.Component {
                                                                                   type="number"
                                                                                   field="maxAssetWarn"/>
                                                                             <div className="input-group-append">
-                                                                                <span className="input-group-text">QNT</span>
+                                                                                <span className="input-group-text">Apollo</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -440,21 +375,6 @@ class Settings extends React.Component {
                                                                             <div className="input-group-append">
                                                                                 <span className="input-group-text">Units</span>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>Show fake warnings</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <CustomSelect
-                                                                                field="showFakeWarns"
-                                                                                options={this.optionsYesNo}
-                                                                                setValue={setValue}
-
-                                                                            />
                                                                         </div>
                                                                     </div>
                                                                 </div>
