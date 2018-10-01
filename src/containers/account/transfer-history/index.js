@@ -144,7 +144,7 @@ class ScheduledTransactions extends React.Component {
                                                 <td>Sender</td>
                                             </tr>
                                             </thead>
-                                            <tbody key={uuid()}>
+                                            <tbody>
                                             {
                                                 this.state.transfers &&
                                                 this.state.transfers.map((el, index) => {

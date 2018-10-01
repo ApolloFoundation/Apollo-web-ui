@@ -44,7 +44,7 @@ class FundingMonitors extends React.Component {
                                         <td>Action</td>
                                     </tr>
                                     </thead>
-                                    <tbody key={uuid()}>
+                                    <tbody>
 
                                     </tbody>
                                 </table>

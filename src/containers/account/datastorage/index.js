@@ -307,7 +307,7 @@ class DataStorage extends React.Component {
                                             <td className="align-right">Data</td>
                                         </tr>
                                         </thead>
-                                        <tbody key={uuid()}>
+                                        <tbody>
                                         {
                                             this.state.taggedData &&
                                             this.state.taggedData.map((el, index) => {

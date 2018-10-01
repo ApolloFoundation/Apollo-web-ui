@@ -121,7 +121,7 @@ class Finishedpolls extends React.Component {
                                             <td className="align-right">Actions</td>
                                         </tr>
                                         </thead>
-                                        <tbody key={uuid()}>
+                                        <tbody>
                                         {
                                             this.state.finishedpolls &&
                                             this.state.finishedpolls.map((el, index) => {

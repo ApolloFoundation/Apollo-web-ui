@@ -148,7 +148,7 @@ class MyMadedCurrencies extends React.Component {
                                                 <td className="align-right">Actions</td>
                                             </tr>
                                             </thead>
-                                            <tbody key={uuid()}>
+                                            <tbody>
                                             {
                                                 <div className="transaction-table">
                                                     <div className="transaction-table-body">
@@ -161,7 +161,7 @@ class MyMadedCurrencies extends React.Component {
                                                                 <td className="align-right">Actions</td>
                                                             </tr>
                                                             </thead>
-                                                            <tbody key={uuid()}>
+                                                            <tbody>
                                                             {
                                                                 this.state.executedExchanges.map((el, index) => {
                                                                     return (

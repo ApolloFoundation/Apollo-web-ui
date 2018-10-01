@@ -145,7 +145,7 @@ class TradeHistory extends React.Component {
                                                     <td>Seller</td>
                                                 </tr>
                                                 </thead>
-                                                <tbody key={uuid()}>
+                                                <tbody>
                                                 {
                                                     this.state.trades &&
                                                     this.state.trades.map((el, index) => {

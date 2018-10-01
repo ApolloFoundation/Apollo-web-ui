@@ -77,7 +77,7 @@ class DeleteHistory extends React.Component {
                                                 <td className="align-right">Quantity</td>
                                             </tr>
                                             </thead>
-                                            <tbody key={uuid()}>
+                                            <tbody>
                                             {
                                                 this.state.deletes.map(el => {
                                                     return (

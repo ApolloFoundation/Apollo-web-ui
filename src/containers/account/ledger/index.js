@@ -225,7 +225,7 @@ class Ledger extends React.Component {
                                                 <td className="align-right">Balance</td>
                                             </tr>
                                             </thead>
-                                            <tbody key={uuid()}>
+                                            <tbody>
                                             {
                                                 this.state.ledger.map((el, index) => {
                                                     return (

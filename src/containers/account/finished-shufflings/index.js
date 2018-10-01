@@ -118,7 +118,7 @@ class FinishedShufflings extends React.Component {
                                         <td className="align-right">Issuer</td>
                                     </tr>
                                     </thead>
-                                    <tbody key={uuid()}>
+                                    <tbody>
                                     {
                                         this.state.finishedShufflings &&
                                         this.state.finishedShufflings.map((el, index) => {

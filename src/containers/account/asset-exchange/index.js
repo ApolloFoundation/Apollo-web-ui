@@ -447,7 +447,7 @@ class AssetExchange extends React.Component {
                                                                         <td className="align-right">Total</td>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody key={uuid()}>
+                                                                    <tbody>
                                                                     {
                                                                         this.state.askOrders &&
                                                                         this.state.askOrders.length > 0 ?
@@ -623,7 +623,7 @@ class AssetExchange extends React.Component {
                                                                         <td className="align-right">Total</td>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody key={uuid()}>
+                                                                    <tbody>
                                                                     {
                                                                         this.state.bidOrders &&
                                                                         this.state.bidOrders.length > 0 ?

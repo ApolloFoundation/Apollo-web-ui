@@ -119,7 +119,7 @@ class MyProductsForSale extends React.Component {
                                                 <td className="align-right">Actions</td>
                                             </tr>
                                             </thead>
-                                            <tbody key={uuid()}>
+                                            <tbody>
                                             {
                                                 this.state.getDGSGoods.map((el, index) => {
                                                     return (

@@ -136,7 +136,7 @@ class Currencies extends React.Component {
                                         <td className="align-right">Actions</td>
                                     </tr>
                                     </thead>
-                                    <tbody key={uuid()}>
+                                    <tbody>
                                     {
                                         this.state.currencies &&
                                         this.state.currencies.map((el, index) => {

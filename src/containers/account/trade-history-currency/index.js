@@ -169,7 +169,7 @@ class TradeHistoryCurrency extends React.Component {
                                                 <td className="align-right">Amount</td>
                                             </tr>
                                             </thead>
-                                            <tbody key={uuid()}>
+                                            <tbody>
                                             {
                                                 this.state.executedExchanges &&
                                                 this.state.executedExchanges.map((el, index) => {

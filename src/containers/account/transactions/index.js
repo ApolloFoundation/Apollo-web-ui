@@ -491,7 +491,7 @@ class Transactions extends React.Component {
                                             <td className="align-right">Confirmations</td>
                                         </tr>
                                         </thead>
-                                        <tbody key={uuid()}>
+                                        <tbody>
                                         {
                                             this.state.transactions &&
                                             this.state.transactions.map((el, index) => {

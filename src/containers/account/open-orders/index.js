@@ -114,7 +114,7 @@ class OpenOrders extends React.Component {
                                                                         <td className="align-right">Actions</td>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody key={uuid()}>
+                                                                    <tbody>
                                                                     {
                                                                         this.state.sellOrders.map(el => {
                                                                             return (
@@ -162,7 +162,7 @@ class OpenOrders extends React.Component {
                                                                         <td className="align-right">Actions</td>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody key={uuid()}>
+                                                                    <tbody>
                                                                     {
                                                                         this.state.buyOrders.map(el => {
                                                                             return (

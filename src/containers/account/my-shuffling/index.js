@@ -152,7 +152,7 @@ class MyShufling extends React.Component {
                                                 <td className="align-right">Actions</td>
                                             </tr>
                                             </thead>
-                                            <tbody key={uuid()}>
+                                            <tbody>
                                             {
                                                 this.state.shufflings &&
                                                 this.state.shufflings.map((el, index) => {

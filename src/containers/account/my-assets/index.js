@@ -138,7 +138,7 @@ class MyAssets extends React.Component {
                                                 <td className="align-right">Action</td>
                                             </tr>
                                             </thead>
-                                            <tbody key={uuid()}>
+                                            <tbody>
                                             {
                                                 this.state.assets &&
                                                 this.state.assets.map((el, index) => {
