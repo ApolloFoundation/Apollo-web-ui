@@ -370,10 +370,19 @@ input {
     padding-left: 0;
     padding-right: 0; }
 
+.info-box.no-padding-on-the-sides p {
+  padding-left: 0;
+  padding-right: 0; }
+
+.info-box.no-padding-top p {
+  padding-top: 0; }
+
 .info-box p {
   word-wrap: break-word;
   word-break: break-all;
-  color: #000; }
+  color: #000;
+  padding-left: 40px;
+  padding-right: 40px; }
 
 .no-margin {
   margin: 0 !important; }

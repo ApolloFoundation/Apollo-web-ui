@@ -16,6 +16,8 @@ import {BlockUpdater} from "../../block-subscriber";
 import classNames from "classnames";
 import uuid from "uuid";
 import {getExchangesAction} from "../../../actions/exchange-booth";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -134,7 +136,7 @@ class Currencies extends React.Component {
                                         <td className="align-right">Actions</td>
                                     </tr>
                                     </thead>
-                                    <tbody key={uuid()}>
+                                    <tbody>
                                     {
                                         this.state.currencies &&
                                         this.state.currencies.map((el, index) => {
@@ -177,13 +179,7 @@ class Currencies extends React.Component {
                                 }
                             </div>
                         </div> ||
-                        <div className={'loader-box'}>
-                            <div className="ball-pulse">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
+                        <ContentLoader/>
                     }
 
                 </div>

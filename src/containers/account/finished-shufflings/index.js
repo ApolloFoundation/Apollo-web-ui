@@ -14,6 +14,8 @@ import {getFinishedShfflings} from '../../../actions/shuffling';
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToPropms = state => ({
     account: state.account.account
@@ -100,8 +102,10 @@ class FinishedShufflings extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="transaction-table">
-                        {
-                            this.state.finishedShufflings &&
+                        <ContentHendler
+                            items={this.state.finishedShufflings}
+                            emptyMessage={'No finished shuffling.'}
+                        >
                             <div className="transaction-table-body">
                                 <table>
                                     <thead>
@@ -114,7 +118,7 @@ class FinishedShufflings extends React.Component {
                                         <td className="align-right">Issuer</td>
                                     </tr>
                                     </thead>
-                                    <tbody key={uuid()}>
+                                    <tbody>
                                     {
                                         this.state.finishedShufflings &&
                                         this.state.finishedShufflings.map((el, index) => {
@@ -156,18 +160,8 @@ class FinishedShufflings extends React.Component {
                                         >Next</a>
                                     </div>
                                 }
-                            </div> ||
-                            <div
-                                className={'loader-box'}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
                             </div>
-                        }
-
+                        </ContentHendler>
                     </div>
                 </div>
             </div>

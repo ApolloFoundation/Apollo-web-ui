@@ -14,7 +14,9 @@ const InfoBox = (props) => (
             'danger': props.danger,
             'blue-info': props.info,
             'info': props.default,
-            'mt': props.mt
+            'mt': props.mt,
+            'no-padding-top': props.onPaddingTop,
+            'no-padding-on-the-sides': props.noPaddingOnTheSides
         })}>
         <p>
             {props.children}

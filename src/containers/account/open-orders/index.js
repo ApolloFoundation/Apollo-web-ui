@@ -12,7 +12,8 @@ import {connect} from "react-redux";
 import {getBuyOrdersAction, getSellOrdersAction} from "../../../actions/open-orders";
 import OrderItem from "./order";
 import {BlockUpdater} from "../../block-subscriber";
-
+import ContentHendler from '../../components/content-hendler'
+import ContentLoader from '../../components/content-loader'
 class OpenOrders extends React.Component {
 
     state = {
@@ -131,13 +132,7 @@ class OpenOrders extends React.Component {
                                                         </div>
                                                 }
                                             </React.Fragment> ||
-                                            <div className={'loader-box'}>
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
+                                            <ContentLoader noPaddingOnTheSides/>
                                         }
                                     </div>
                                 </div>
@@ -185,15 +180,8 @@ class OpenOrders extends React.Component {
                                                         </div>
                                                 }
                                             </React.Fragment> ||
-                                            <div className={'loader-box'}>
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
+                                            <ContentLoader noPaddingOnTheSides/>
                                         }
-
                                     </div>
                                 </div>
                             </div>

@@ -18,12 +18,15 @@ import {setAlert, setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import {getAskOrders, getBidOrders} from "../../../actions/marketplace";
 import uuid from "uuid";
+import InfoBox from '../../components/info-box';
 import DeleteItem from "../delete-history/deletes";
 import TradeHistoryItem from "../trade-history/trade-history-item";
 import {getTransactionAction} from "../../../actions/transactions";
 import OrderItem from "./order/index";
 import {BlockUpdater} from "../../block-subscriber";
 import {NotificationManager} from "react-notifications";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class AssetExchange extends React.Component {
     constructor(props) {
@@ -277,6 +280,7 @@ class AssetExchange extends React.Component {
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.accountAssets &&
+                                        !!this.state.accountAssets.length &&
                                         this.state.accountAssets.map((el, index) => {
                                             return (
                                                 <Link
@@ -299,6 +303,11 @@ class AssetExchange extends React.Component {
                                                 </Link>
                                             );
                                         })
+                                    }
+                                    {
+                                        this.state.accountAssets &&
+                                        !(!!this.state.accountAssets.length) &&
+                                        <p>No assets found.</p>
                                     }
                                 </div>
                             </div>
@@ -438,7 +447,7 @@ class AssetExchange extends React.Component {
                                                                         <td className="align-right">Total</td>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody key={uuid()}>
+                                                                    <tbody>
                                                                     {
                                                                         this.state.askOrders &&
                                                                         this.state.askOrders.length > 0 ?
@@ -614,7 +623,7 @@ class AssetExchange extends React.Component {
                                                                         <td className="align-right">Total</td>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody key={uuid()}>
+                                                                    <tbody>
                                                                     {
                                                                         this.state.bidOrders &&
                                                                         this.state.bidOrders.length > 0 ?
@@ -651,6 +660,7 @@ class AssetExchange extends React.Component {
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.accountAssets &&
+                                        !!this.state.accountAssets.length &&
                                         this.state.accountAssets.map((el, index) => {
                                             return (
                                                 <Link
@@ -672,6 +682,11 @@ class AssetExchange extends React.Component {
                                                 </Link>
                                             );
                                         })
+                                    }
+                                    {
+                                        this.state.accountAssets &&
+                                        !(!!this.state.accountAssets.length) &&
+                                        <InfoBox>No assets found.</InfoBox>
                                     }
                                 </div>
                             </div>

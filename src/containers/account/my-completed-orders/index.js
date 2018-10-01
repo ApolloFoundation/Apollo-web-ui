@@ -20,6 +20,7 @@ import InfoBox from "../../components/info-box"
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
+import ContentHendler from '../../components/content-hendler'
 
 class MyProductsForSale extends React.Component {
     constructor(props) {
@@ -106,15 +107,7 @@ class MyProductsForSale extends React.Component {
                     <div className="account-ledger">
                         {
                             !this.state.getDGSGoods &&
-                            <div
-                                className={'loader-box'}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            </div>
+                            <ContentLoader/>
                         }
                         {
                             this.state.getDGSGoods &&

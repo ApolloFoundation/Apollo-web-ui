@@ -20,6 +20,7 @@ import {getDGSGoodsAction,
         getDGSTagsAction,} from '../../../actions/marketplace'
 import './MarketPLace.css';
 import uuid from "uuid";
+import ContentLoader from '../../components/content-loader'
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -386,6 +387,9 @@ class Marketplace extends React.Component {
                                                 );
                                             }) ||
                                             <div
+                                                style={{
+                                                    paddingLeft: 47.5
+                                                }}
                                                 className={'loader-box'}
                                             >
                                                 <div className="ball-pulse">
@@ -420,15 +424,7 @@ class Marketplace extends React.Component {
                                                     </div>
                                                 );
                                             }) ||
-                                            <div
-                                                className={'loader-box'}
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
+                                            <ContentLoader/>
                                         }
                                     </div>
                                 </div>

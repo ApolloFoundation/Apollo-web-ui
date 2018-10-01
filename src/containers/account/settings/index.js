@@ -13,6 +13,7 @@ import CustomSelect from "../../components/select";
 import {NotificationManager} from "react-notifications";
 import store from '../../../store'
 import './Settings.css';
+import ContentLoader from '../../components/content-loader'
 
 class Settings extends React.Component {
 

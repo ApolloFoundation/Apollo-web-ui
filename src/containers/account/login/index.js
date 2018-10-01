@@ -15,6 +15,7 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import AccountRS from '../../components/account-rs';
 import {Form, Text} from "react-form";
+import ContentLoader from '../../components/content-loader'
 
 class Login extends React.Component {
     constructor(props) {

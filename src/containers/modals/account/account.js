@@ -221,7 +221,7 @@ class InfoAccount extends React.Component {
                                                         <td>To</td>
                                                     </tr>
                                                     </thead>
-                                                    <tbody key={uuid()}>
+                                                    <tbody>
                                                     {
                                                         this.state.transactions &&
                                                         this.state.transactions.transactions.map((el, index) => {
@@ -245,7 +245,12 @@ class InfoAccount extends React.Component {
                                                     </tbody>
                                                 </table>
                                             </div> ||
-                                            <div className={'loader-box'}>
+                                            <div
+                                                style={{
+                                                    paddingLeft: 47.5
+                                                }}
+                                                className={'loader-box'}
+                                            >
                                                 <div className="ball-pulse">
                                                     <div></div>
                                                     <div></div>
@@ -274,7 +279,7 @@ class InfoAccount extends React.Component {
                                                     <td className="align-right">Balance</td>
                                                 </tr>
                                                 </thead>
-                                                <tbody key={uuid()}>
+                                                <tbody>
                                                 {
                                                     this.state.account_ledger &&
                                                     this.state.account_ledger.entries.map((el, index) => {
@@ -310,7 +315,7 @@ class InfoAccount extends React.Component {
                                                         <td className="align-right">Percentage</td>
                                                     </tr>
                                                 </thead>
-                                                <tbody key={uuid()}>
+                                                <tbody>
                                                 {
                                                     this.state.assets &&
                                                     !(this.state.assets.assets) &&
@@ -351,7 +356,7 @@ class InfoAccount extends React.Component {
                                                             <td className="align-right">Total</td>
                                                         </tr>
                                                         </thead>
-                                                        <tbody key={uuid()}>
+                                                        <tbody>
                                                         {
                                                             this.state.trades &&
                                                             this.state.trades.trades.map((el, index) => {
@@ -401,7 +406,7 @@ class InfoAccount extends React.Component {
                                                             <td className="align-right">Units</td>
                                                         </tr>
                                                         </thead>
-                                                        <tbody key={uuid()}>
+                                                        <tbody>
                                                         {
                                                             this.state.currencies &&
                                                             this.state.currencies.accountCurrencies.map((el, index) => {
@@ -446,7 +451,7 @@ class InfoAccount extends React.Component {
                                                             <td className="align-right">QTY</td>
                                                         </tr>
                                                         </thead>
-                                                        <tbody key={uuid()}>
+                                                        <tbody>
                                                         {
                                                             this.state.goods &&
                                                             this.state.goods.goods.map((el, index) => {
@@ -495,7 +500,7 @@ class InfoAccount extends React.Component {
                                                             <td>URI</td>
                                                         </tr>
                                                         </thead>
-                                                        <tbody key={uuid()}>
+                                                        <tbody>
                                                         {
                                                             this.state.aliases &&
                                                             this.state.aliases.aliases.map((el, index) => {

@@ -19,7 +19,10 @@ import uuid from 'uuid';
 import {BlockUpdater} from "../../block-subscriber/index";
 import {formatTimestamp} from "../../../helpers/util/time";
 import {Link} from "react-router-dom";
+import InfoBox from '../../components/info-box'
 import crypto from "../../../helpers/crypto/crypto";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
 	account: state.account.account
@@ -182,34 +185,49 @@ class Messenger extends React.Component {
 									<div className="card card-full-screen no-padding scroll">
 										{
 											this.state.chats &&
-											this.state.chats.map((el, index) => {
+											<React.Fragment>
+												{
+                                                    !!this.state.chats.length &&
+                                                    this.state.chats.map((el, index) => {
 
-                                                return (
-													<Link
-														to={'/messenger/' + el.account}
-														key={uuid()}
-														style={{display: "block"}}
-														className={classNames({
-															"chat-item": true,
-															"active": el.account === this.props.match.params.chat
-														})}
-														// onClick={() => this.handleChatSelect(index)}
-													>
-														<div className="chat-box-item">
-															<div className="chat-box-rs">
-																{el.accountRS}
-															</div>
-															<div className="chat-date">
-																{this.props.formatTimestamp(el.lastMessageTime)}
-															</div>
-														</div>
-													</Link>
-												);
-											})
+                                                        return (
+                                                            <Link
+                                                                to={'/messenger/' + el.account}
+                                                                key={uuid()}
+                                                                style={{display: "block"}}
+                                                                className={classNames({
+                                                                    "chat-item": true,
+                                                                    "active": el.account === this.props.match.params.chat
+                                                                })}
+																// onClick={() => this.handleChatSelect(index)}
+                                                            >
+                                                                <div className="chat-box-item">
+                                                                    <div className="chat-box-rs">
+                                                                        {el.accountRS}
+                                                                    </div>
+                                                                    <div className="chat-date">
+                                                                        {this.props.formatTimestamp(el.lastMessageTime)}
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                        );
+                                                    })
+												}
+												{
+                                                    !(!!this.state.chats.length) &&
+													<InfoBox>
+														No messages found.
+													</InfoBox>
+                                                }
+											</React.Fragment>
 										}
 										{
                                             !this.state.chats &&
                                             <div
+                                                style={{
+                                                    paddingLeft: 47.5,
+													paddingTop: 20
+                                                }}
                                                 className={'loader-box'}
                                             >
                                                 <div className="ball-pulse">
@@ -227,6 +245,7 @@ class Messenger extends React.Component {
 								<div className="right-bar">
 									{
 										this.state.chatHistory &&
+										!!this.state.chatHistory.length &&
 										<div className="card card-full-screen no-padding">
 											<div className="chatting-box">
 
@@ -295,15 +314,7 @@ class Messenger extends React.Component {
 									}
                                     {
                                         !this.state.chatHistory &&
-                                        <div
-                                            className={'loader-box'}
-                                        >
-                                            <div className="ball-pulse">
-                                                <div></div>
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
+                                        <ContentLoader/>
                                     }
 								</div>
 							</div>

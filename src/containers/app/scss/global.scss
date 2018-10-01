@@ -519,10 +519,23 @@ input {
 			padding-right: 0;
 		}
 	}
+	&.no-padding-on-the-sides {
+		p {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+	&.no-padding-top {
+		p {
+			padding-top: 0;
+		}
+	}
 	p {
 		word-wrap: break-word;
 		word-break: break-all;
 		color: #000;
+		padding-left: 40px;
+		padding-right: 40px;
 	}
 }
 
