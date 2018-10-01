@@ -230,13 +230,7 @@ class AddAlias extends React.Component {
 	                                >
 		                                Cancel
 	                                </a>
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Add alias
-                                    </button>
+
                                     {
                                         !!this.state.isPending ?
                                             <div
@@ -252,16 +246,13 @@ class AddAlias extends React.Component {
                                                 </div>
                                             </div> :
                                             <button
-                                                style={{
-                                                    width: 70.25
-                                                }}
+
                                                 type="submit"
                                                 name={'closeModal'}
                                                 className="btn btn-right blue round round-bottom-right"
                                             >
                                                 Add alias
                                             </button>
-
                                     }
                                 </div>
                                 {/*<div className="btn-box align-buttons-inside absolute left-conner">
