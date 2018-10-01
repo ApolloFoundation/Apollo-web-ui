@@ -11,6 +11,8 @@ import uuid from 'uuid';
 import {getAccountPropertiesAction} from '../../../actions/account/index';
 import InfoBox from '../../components/info-box';
 import {setBodyModalParamsAction} from "../../../modules/modals";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -109,9 +111,10 @@ class AccountProperties extends React.Component {
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="funding-monitors">
-                        {
-                            this.state.properties &&
-                            !!this.state.properties.length &&
+                        <ContentHendler
+                            items={this.state.properties}
+                            emptyMessage={'No properties found.'}
+                        >
                             <div className="transaction-table">
                                 <div className="transaction-table-body">
                                     <table>
@@ -159,29 +162,7 @@ class AccountProperties extends React.Component {
 
                                 </div>
                             </div>
-                        }
-                        {
-                            !this.state.properties &&
-                            <div
-                                style={{
-                                    paddingLeft: 47.5
-                                }}
-                                className={'loader-box'}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            </div>
-                        }
-                        {
-                            this.state.properties &&
-                            !!(!this.state.properties.length) &&
-                            <InfoBox default>
-                                No properties found.
-                            </InfoBox>
-                        }
+                        </ContentHendler>
                     </div>
                 </div>
             </div>

@@ -14,6 +14,8 @@ import FinishedpollsItem from "./finished-pools-item";
 import classNames from "classnames";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 
 class Finishedpolls extends React.Component {
@@ -102,10 +104,14 @@ class Finishedpolls extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
-                        <div className="transaction-table no-min-height">
-                            <div className="transaction-table-body offset-bottom">
-                                <table>
-                                    <thead  key={uuid()}>
+                        <ContentHendler
+                            items={this.state.finishedpolls}
+                            emptyMessage={'No finished polls.'}
+                        >
+                            <div className="transaction-table no-min-height">
+                                <div className="transaction-table-body offset-bottom">
+                                    <table>
+                                        <thead  key={uuid()}>
                                         <tr key={uuid()}>
                                             <td>Title</td>
                                             <td>Description</td>
@@ -114,8 +120,8 @@ class Finishedpolls extends React.Component {
                                             <td>Blocks left</td>
                                             <td className="align-right">Actions</td>
                                         </tr>
-                                    </thead>
-                                    <tbody key={uuid()}>
+                                        </thead>
+                                        <tbody key={uuid()}>
                                         {
                                             this.state.finishedpolls &&
                                             this.state.finishedpolls.map((el, index) => {
@@ -129,36 +135,43 @@ class Finishedpolls extends React.Component {
                                                 );
                                             })
                                         }
-                                    </tbody>
-                                </table>
-                                {
-                                    this.state.finishedpolls &&
-                                    <div className="btn-box">
-                                        <a
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-left' : true,
-                                                'disabled' : this.state.page <= 1
-                                            })}
-                                            onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                        > Previous</a>
-                                        <div className='pagination-nav'>
-                                            <span>{this.state.firstIndex + 1}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.lastIndex + 1}</span>
+                                        </tbody>
+                                    </table>
+                                    {
+                                        this.state.finishedpolls &&
+                                        <div className="btn-box">
+                                            <a
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-left' : true,
+                                                    'disabled' : this.state.page <= 1
+                                                })}
+                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                            >
+                                                Previous
+                                            </a>
+                                            <div className='pagination-nav'>
+                                                <span>{this.state.firstIndex + 1}</span>
+                                                <span>&hellip;</span>
+                                                <span>{this.state.lastIndex + 1}</span>
+                                            </div>
+                                            <a
+                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-right' : true,
+                                                    'disabled' : this.state.finishedpolls.length < 15
+                                                })}
+                                            >
+                                                Next
+                                            </a>
                                         </div>
-                                        <a
-                                            onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-right' : true,
-                                                'disabled' : this.state.finishedpolls.length < 15
-                                            })}
-                                        >Next</a>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
-                        </div>
+
+                        </ContentHendler>
+
                     </div>
                 </div>
             </div>

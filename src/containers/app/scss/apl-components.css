@@ -140,13 +140,16 @@
     background-color: #e74c3c; }
     .info-box.danger p {
       color: #fff; }
+  .info-box.no-padding-on-the-sides {
+    padding-left: 0;
+    padding-right: 0; }
   .info-box.simple {
     background: transparent; }
     .info-box.simple p {
       padding-left: 0;
       padding-right: 0; }
   .info-box p {
-    padding: 18px 34px;
+    padding: 18px 40px;
     color: #000; }
 
 .modal-window {

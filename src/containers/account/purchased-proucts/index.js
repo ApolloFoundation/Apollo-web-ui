@@ -12,6 +12,7 @@ import MarketplaceTableItem from '../marketplace/marketplace-table-item';
 import SiteHeader from  '../../components/site-header'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
+import ContentHendler from '../../components/content-hendler'
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
 import MarketplaceItem from "../marketplace/marketplace-card";
@@ -21,6 +22,7 @@ import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
 import InfoBox from "../../components/info-box";
 import {BlockUpdater} from "../../block-subscriber";
+import ContentLoader from '../../components/content-loader'
 
 class PurchasedProducts extends React.Component {
     constructor(props) {
@@ -158,18 +160,7 @@ class PurchasedProducts extends React.Component {
                                 </a>
                             </div>
                         </div> ||
-                        <div
-                            style={{
-                                paddingLeft: 47.5
-                            }}
-                            className={'loader-box'}
-                        >
-                            <div className="ball-pulse">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
+                        <ContentLoader/>
                     }
 
                 </div>

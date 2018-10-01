@@ -19,6 +19,8 @@ import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
 import colorGenerator from "../../../helpers/colorGenerator";
 import uuid from "uuid";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 
 const mapStateToProps = state => ({

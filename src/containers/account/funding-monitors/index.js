@@ -9,6 +9,8 @@ import SiteHeader from '../../components/site-header'
 import uuid from "uuid";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {connect} from "react-redux";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class FundingMonitors extends React.Component {
     render() {

@@ -6,6 +6,7 @@
 
 import React from 'react';
 import SiteHeader from '../../components/site-header'
+import ContentLoader from '../../components/content-loader'
 
 class ScheduledTransactions extends React.Component {
     render () {

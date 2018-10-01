@@ -17,6 +17,8 @@ import {NotificationManager} from "react-notifications";
 import {BlockUpdater} from "../../block-subscriber";
 import InfoBox from '../../components/info-box';
 import uuid from "uuid";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class Aliases extends React.Component {
     constructor(props) {
@@ -130,10 +132,13 @@ class Aliases extends React.Component {
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="blocks">
-                        {
-                            this.state.aliases &&
+                        <ContentHendler
+                            items={this.state.aliases}
+                            emptyyMesasge={'No aliases found.'}
+                        >
                             <div className="transaction-table">
                                 {
+                                    this.state.aliases &&
                                     this.state.aliases.length !== 0 &&
                                     <div className="transaction-table-body">
                                         <table>
@@ -147,7 +152,6 @@ class Aliases extends React.Component {
                                             </thead>
                                             <tbody>
                                             {
-                                                this.state.aliases &&
                                                 this.state.aliases.map((el, index) => {
                                                     return (
                                                         <Alias
@@ -193,26 +197,8 @@ class Aliases extends React.Component {
                                         </div>
                                     </div>
                                 }
-                                {
-                                    this.state.aliases.length === 0 &&
-                                    <InfoBox default>
-                                        No aliases found.
-                                    </InfoBox>
-                                }
-                            </div> ||
-                            <div
-                                style={{
-                                    paddingLeft: 47.5
-                                }}
-                                className={'loader-box'}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
                             </div>
-                        }
+                        </ContentHendler>
                     </div>
                 </div>
             </div>

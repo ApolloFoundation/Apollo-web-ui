@@ -13,6 +13,8 @@ import MyAssetItem from './my-asset-item';
 import {getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {BlockUpdater} from "../../block-subscriber/index";
 import InfoBox from '../../components/info-box';
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 
 const mapStateToProps = state => ({
@@ -114,101 +116,78 @@ class MyAssets extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
-                        {
-                            !!this.state.assets &&
-                            <React.Fragment>
-                                {
-                                    !!this.state.assets.length &&
-                                    <div className="transaction-table">
-                                        <div className="transaction-table-body">
-                                            <table>
-                                                <thead>
-                                                <tr>
-                                                    <td>Asset</td>
-                                                    <td className="align-right">Quantity</td>
-                                                    <td className="align-right">Total Available</td>
-                                                    <td className="align-right">Percentage</td>
-                                                    <td className="align-right">Lowest Ask</td>
-                                                    <td className="align-right">Highest Bid</td>
-                                                    <td className="align-right">Value in Coin</td>
-                                                    <td className="align-right">Action</td>
-                                                </tr>
-                                                </thead>
-                                                <tbody key={uuid()}>
-                                                {
-                                                    this.state.assets &&
-                                                    this.state.assets.map((el, index) => {
-                                                        return (
-                                                            <MyAssetItem
-                                                                key={uuid()}
-                                                                transfer={el}
-                                                                setTransaction={this.getTransaction}
-                                                            />
-                                                        );
-                                                    })
-                                                }
-                                                </tbody>
-                                            </table>
+                        <ContentHendler
+                            items={this.state.assets}
+                            emptyMessage={'No assets found.'}
+                        >
+                            {
+                                !!this.state.assets &&
+                                !!this.state.assets.length &&
+                                <div className="transaction-table">
+                                    <div className="transaction-table-body">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Asset</td>
+                                                <td className="align-right">Quantity</td>
+                                                <td className="align-right">Total Available</td>
+                                                <td className="align-right">Percentage</td>
+                                                <td className="align-right">Lowest Ask</td>
+                                                <td className="align-right">Highest Bid</td>
+                                                <td className="align-right">Value in Coin</td>
+                                                <td className="align-right">Action</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody key={uuid()}>
                                             {
-                                                this.state.trades &&
-                                                <div className="btn-box">
-                                                    <a
-                                                        className={classNames({
-                                                            'btn' : true,
-                                                            'btn-left' : true,
-                                                            'disabled' : this.state.page <= 1
-                                                        })}
-                                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                    >
-                                                        Previous
-                                                    </a>
-                                                    <div className='pagination-nav'>
-                                                        <span>{this.state.firstIndex + 1}</span>
-                                                        <span>&hellip;</span>
-                                                        <span>{this.state.lastIndex + 1}</span>
-                                                    </div>
-                                                    <a
-                                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                        className={classNames({
-                                                            'btn' : true,
-                                                            'btn-right' : true,
-                                                            'disabled' : this.state.trades.length < 15
-                                                        })}
-                                                    >
-                                                        Next
-                                                    </a>
-                                                </div>
+                                                this.state.assets &&
+                                                this.state.assets.map((el, index) => {
+                                                    return (
+                                                        <MyAssetItem
+                                                            key={uuid()}
+                                                            transfer={el}
+                                                            setTransaction={this.getTransaction}
+                                                        />
+                                                    );
+                                                })
                                             }
-                                        </div>
+                                            </tbody>
+                                        </table>
+                                        {
+                                            this.state.trades &&
+                                            <div className="btn-box">
+                                                <a
+                                                    className={classNames({
+                                                        'btn' : true,
+                                                        'btn-left' : true,
+                                                        'disabled' : this.state.page <= 1
+                                                    })}
+                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                                >
+                                                    Previous
+                                                </a>
+                                                <div className='pagination-nav'>
+                                                    <span>{this.state.firstIndex + 1}</span>
+                                                    <span>&hellip;</span>
+                                                    <span>{this.state.lastIndex + 1}</span>
+                                                </div>
+                                                <a
+                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                    className={classNames({
+                                                        'btn' : true,
+                                                        'btn-right' : true,
+                                                        'disabled' : this.state.trades.length < 15
+                                                    })}
+                                                >
+                                                    Next
+                                                </a>
+                                            </div>
+                                        }
                                     </div>
-                                }
-                                {
-                                    !(!!this.state.assets.length) &&
-                                    <InfoBox default>
-                                        No transfers found.
-                                    </InfoBox>
-                                }
-                            </React.Fragment>
-                        }
-                        {
-                            console.log(this.state.assets)
-                        }
-                        {
-                            !this.state.assets &&
-                            <div
-                                style={{
-                                    paddingLeft: 47.5
-                                }}
-                                className={'loader-box'}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
                                 </div>
-                            </div>
-                        }
+                            }
 
+                        </ContentHendler>
                     </div>
                 </div>
             </div>

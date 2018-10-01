@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import {setBodyModalParamsAction, setMopalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
+import ContentLoader from '../../components/content-loader'
 
 import uuid from 'uuid';
 import {formatTimestamp} from "../../../helpers/util/time";
@@ -422,15 +423,7 @@ class Dashboard extends React.Component {
                                                 }
                                             </div>
                                         </React.Fragment>  ||
-                                        <div
-                                            className={'loader-box white'}
-										>
-                                            <div className="ball-pulse">
-                                                <div></div>
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
+                                        <ContentLoader white noPaddingOnTheSides/>
 									}
 								</div>
 							</div>
@@ -468,16 +461,8 @@ class Dashboard extends React.Component {
 									}
 									{
 										(typeof this.state.assetsValue) === 'object' &&
-                                        <div
-                                            className={'loader-box white'}
-                                        >
-                                            <div className="ball-pulse">
-                                                <div></div>
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-									}
+                                        <ContentLoader white noPaddingOnTheSides/>
+                                    }
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -504,15 +489,7 @@ class Dashboard extends React.Component {
 									}
                                     {
                                         (typeof this.state.currenciesCount) === 'object' &&
-                                        <div
-                                            className={'loader-box white'}
-                                        >
-                                            <div className="ball-pulse">
-                                                <div></div>
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
+                                        <ContentLoader white noPaddingOnTheSides/>
                                     }
 								</div>
 							</div>
@@ -612,7 +589,9 @@ class Dashboard extends React.Component {
 											!this.state.transactions.length &&
 											<p
 												style={{paddingTop: 27}}
-											>No transactions found.</p>
+											>
+												No transactions found.
+											</p>
 										}
 									</div>
 								</div>
@@ -622,13 +601,7 @@ class Dashboard extends React.Component {
 									<div className="card-title">Asset Portfolio</div>
 									{
                                         !this.state.dashboardAssets &&
-                                        <div className={'loader-box'}>
-                                            <div className="ball-pulse">
-                                                <div></div>
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
+                                        <ContentLoader noPaddingOnTheSides onPaddingTop/>
 									}
 									<div className="full-box">
 										{
@@ -699,14 +672,8 @@ class Dashboard extends React.Component {
 										{
 											typeof this.state.pendingGoods === 'undefined' &&
 											typeof this.state.completedGoods === 'undefined' &&
-                                            <div className={'loader-box'}>
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-										}
+                                            <ContentLoader noPaddingOnTheSides/>
+                                        }
 										{
                                             this.state.pendingGoods === 0 &&
 											<p>No pending orders.</p>
@@ -787,14 +754,8 @@ class Dashboard extends React.Component {
 										}
 										{
                                             !this.state.polls &&
-                                            <div className={'loader-box'}>
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-										}
+                                            <ContentLoader/>
+                                        }
 										{
                                             !!this.state.polls &&
 											this.state.polls.length === 0 &&
@@ -803,7 +764,9 @@ class Dashboard extends React.Component {
 													fontSize:13,
 													color: '#000'
 												}}
-											>No active polls.</p>
+											>
+												No active polls.
+											</p>
 										}
 									</div>
 									<button

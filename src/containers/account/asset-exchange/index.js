@@ -25,6 +25,8 @@ import {getTransactionAction} from "../../../actions/transactions";
 import OrderItem from "./order/index";
 import {BlockUpdater} from "../../block-subscriber";
 import {NotificationManager} from "react-notifications";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class AssetExchange extends React.Component {
     constructor(props) {
@@ -667,7 +669,6 @@ class AssetExchange extends React.Component {
                                                     to={"/asset-exchange/" + (el ? el.asset : "")}
                                                     className={classNames({
                                                         "chat-item": true,
-                                                        "active": this.state.asset.asset === (el ? el.asset : "")
                                                     })}
                                                 >
                                                     <div className="chat-box-item">

@@ -15,6 +15,8 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
 import InfoBox from '../../components/info-box'
 import {formatTimestamp} from "../../../helpers/util/time";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -119,65 +121,47 @@ class MyVotes extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
-                        {
-                            this.state.myVotes &&
-                            <React.Fragment>
-                                {
-                                    !!this.state.myVotes.length &&
-                                    <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body">
-                                            <table>
-                                                <thead>
-                                                <tr>
-                                                    <td>Title</td>
-                                                    <td>Description</td>
-                                                    <td>Sender</td>
-                                                    <td>Start date</td>
-                                                    <td>Blocks left</td>
-                                                    <td className="align-right">Actions</td>
-                                                </tr>
-                                                </thead>
-                                                <tbody  key={uuid()}>
-                                                {
-                                                    this.state.myVotes &&
-                                                    this.state.myVotes.map((el, index) => {
-                                                        return (
-                                                            <PoolItem
-                                                                key={uuid()}
-                                                                {...el}
-                                                                activepolls
-                                                                getTransaction={this.getTransaction}
-                                                            />
-                                                        );
-                                                    })
-                                                }
-                                                </tbody>
-                                            </table>
-                                        </div>
+                        <ContentHendler
+                            items={this.state.myVotes}
+                            emptyMessage={'No votes found.'}
+                        >
+                            {
+                                this.state.myVotes &&
+                                !!this.state.myVotes.length &&
+                                <div className="transaction-table no-min-height">
+                                    <div className="transaction-table-body">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Title</td>
+                                                <td>Description</td>
+                                                <td>Sender</td>
+                                                <td>Start date</td>
+                                                <td>Blocks left</td>
+                                                <td className="align-right">Actions</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody  key={uuid()}>
+                                            {
+                                                this.state.myVotes &&
+                                                this.state.myVotes.map((el, index) => {
+                                                    return (
+                                                        <PoolItem
+                                                            key={uuid()}
+                                                            {...el}
+                                                            activepolls
+                                                            getTransaction={this.getTransaction}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                            </tbody>
+                                        </table>
                                     </div>
-                                }
-                                {
-                                    !(!!this.state.myVotes.length) &&
-                                    <InfoBox default>
-                                        No votes found.
-                                    </InfoBox>
-
-                                }
-                            </React.Fragment>
-                             ||
-                            <div className={'loader-box'}>
-                                <div
-                                    style={{
-                                        paddingLeft: 47.5
-                                    }}
-                                    className="ball-pulse"
-                                >
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
                                 </div>
-                            </div>
-                        }
+
+                            }
+                        </ContentHendler>
                     </div>
                 </div>
             </div>

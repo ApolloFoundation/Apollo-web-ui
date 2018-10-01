@@ -21,6 +21,8 @@ import {formatTimestamp} from "../../../helpers/util/time";
 import {Link} from "react-router-dom";
 import InfoBox from '../../components/info-box'
 import crypto from "../../../helpers/crypto/crypto";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
 	account: state.account.account
@@ -312,18 +314,7 @@ class Messenger extends React.Component {
 									}
                                     {
                                         !this.state.chatHistory &&
-                                        <div
-                                            style={{
-                                                paddingLeft: 47.5
-                                            }}
-                                            className={'loader-box'}
-                                        >
-                                            <div className="ball-pulse">
-                                                <div></div>
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
+                                        <ContentLoader/>
                                     }
 								</div>
 							</div>

@@ -13,6 +13,8 @@ import Block from "../blocks/block";
 import uuid from "uuid";
 import classNames from "classnames";
 import Transaction from "./transaction/index";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class ApprovalRequests extends React.Component {
     state = {

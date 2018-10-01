@@ -21,6 +21,8 @@ import {Form, Text} from 'react-form';
 import classNames from 'classnames';
 import {Link} from 'react-router-dom';
 import {BlockUpdater} from "../../block-subscriber";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
 	account: state.account.account,
@@ -345,19 +347,8 @@ class DataStorage extends React.Component {
                                     {/*</div>*/}
                                 </div>
                             </div> ||
-                            <div
-                                style={{
-                                    paddingLeft: 47.5
-                                }}
-                                className={'loader-box'}
-							>
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            </div>
-						}
+                            <ContentLoader/>
+                        }
 
                     </div>
                 </div>

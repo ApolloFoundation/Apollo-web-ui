@@ -11,6 +11,8 @@ import classNames from "classnames";
 import uuid from "uuid";
 import {connect} from 'react-redux'
 import InfoBox from '../../components/info-box';
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 import {getTradesHistoryAction}   from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
@@ -144,98 +146,78 @@ class TradeHistoryCurrency extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
-                        {
-                            this.state.trades &&
-                            <React.Fragment>
-                                {
-                                    !!this.state.trades.length &&
-                                    <div className="transaction-table">
-                                        <div className="transaction-table-body">
-                                            <table>
-                                                <thead>
-                                                <tr>
-                                                    <td>Date</td>
-                                                    <td>Exchange Request</td>
-                                                    <td>Exchange Offer</td>
-                                                    <td>Code</td>
-                                                    <td>Seller</td>
-                                                    <td>Buyer</td>
-                                                    <td className="align-right">Units</td>
-                                                    <td className="align-right">Rate</td>
-                                                    <td className="align-right">Amount</td>
-                                                </tr>
-                                                </thead>
-                                                <tbody key={uuid()}>
-                                                {
-                                                    this.state.executedExchanges &&
-                                                    this.state.executedExchanges.map((el, index) => {
-                                                        return (
-                                                            <TradeHistoryItem
-                                                                key={uuid()}
-                                                                transfer={el}
-                                                                setTransaction={this.getTransaction}
-                                                            />
-                                                        );
-                                                    })
-                                                }
-                                                </tbody>
-                                            </table>
+                        <ContentHendler
+                            items={this.state.executedExchanges}
+                            emptyMessage={'No votes found.'}
+                        >
+                            {
+                                this.state.trades &&
+                                !!this.state.trades.length &&
+                                <div className="transaction-table">
+                                    <div className="transaction-table-body">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td>Exchange Request</td>
+                                                <td>Exchange Offer</td>
+                                                <td>Code</td>
+                                                <td>Seller</td>
+                                                <td>Buyer</td>
+                                                <td className="align-right">Units</td>
+                                                <td className="align-right">Rate</td>
+                                                <td className="align-right">Amount</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody key={uuid()}>
                                             {
                                                 this.state.executedExchanges &&
-                                                <div className="btn-box">
-                                                    <a
-                                                        className={classNames({
-                                                            'btn' : true,
-                                                            'btn-left' : true,
-                                                            'disabled' : this.state.page <= 1
-                                                        })}
-                                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                    >
-                                                        Previous
-                                                    </a>
-                                                    <div className='pagination-nav'>
-                                                        <span>{this.state.firstIndex + 1}</span>
-                                                        <span>&hellip;</span>
-                                                        <span>{this.state.lastIndex + 1}</span>
-                                                    </div>
-                                                    <a
-                                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                        className={classNames({
-                                                            'btn' : true,
-                                                            'btn-right' : true,
-                                                            'disabled' : this.state.executedExchanges.length < 15
-                                                        })}
-                                                    >
-                                                        Next
-                                                    </a>
-                                                </div>
+                                                this.state.executedExchanges.map((el, index) => {
+                                                    return (
+                                                        <TradeHistoryItem
+                                                            key={uuid()}
+                                                            transfer={el}
+                                                            setTransaction={this.getTransaction}
+                                                        />
+                                                    );
+                                                })
                                             }
-                                        </div>
+                                            </tbody>
+                                        </table>
+                                        {
+                                            this.state.executedExchanges &&
+                                            <div className="btn-box">
+                                                <a
+                                                    className={classNames({
+                                                        'btn' : true,
+                                                        'btn-left' : true,
+                                                        'disabled' : this.state.page <= 1
+                                                    })}
+                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                                >
+                                                    Previous
+                                                </a>
+                                                <div className='pagination-nav'>
+                                                    <span>{this.state.firstIndex + 1}</span>
+                                                    <span>&hellip;</span>
+                                                    <span>{this.state.lastIndex + 1}</span>
+                                                </div>
+                                                <a
+                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                    className={classNames({
+                                                        'btn' : true,
+                                                        'btn-right' : true,
+                                                        'disabled' : this.state.executedExchanges.length < 15
+                                                    })}
+                                                >
+                                                    Next
+                                                </a>
+                                            </div>
+                                        }
                                     </div>
-                                }
-                                {
-                                    !(!!this.state.trades.length) &&
-                                    <InfoBox default>
-                                        No transfers found.
-                                    </InfoBox>
-
-                                }
-                            </React.Fragment>
-                              ||
-                            <div
-                                style={{
-                                    paddingLeft: 47.5
-                                }}
-                                className={'loader-box'}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
                                 </div>
-                            </div>
-                        }
-
+                            }
+                        </ContentHendler>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,8 @@ import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
 import InfoBox from "../../components/info-box";
 import {BlockUpdater} from "../../block-subscriber/index";
-
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -472,9 +473,10 @@ class Transactions extends React.Component {
                             </div>*/}
                         </div>
                         <div className="transaction-table">
-                            {
-                                this.state.transactions &&
-                                !!this.state.transactions.length &&
+                            <ContentHendler
+                                items={this.state.transactions}
+                                emptyMessage={'No transactions found.'}
+                            >
                                 <div className="transaction-table-body">
                                     <table>
                                         <thead key={uuid()}>
@@ -534,29 +536,9 @@ class Transactions extends React.Component {
                                             >Next</a>
                                         </div>
                                     }
-                                </div> ||
-                                <div
-                                    className={'loader-box'}
-                                    style={{
-                                        paddingLeft: 47.5
-                                    }}
-                                >
-                                    <div className="ball-pulse">
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
                                 </div>
-
-                            }
-                            {
-                                this.state.transactions &&
-                                !(!!this.state.transactions.length) &&
-                                <InfoBox default>
-                                    No transactions found.
-                                </InfoBox>
-                            }
-                            </div>
+                            </ContentHendler>
+                        </div>
                     </div>
                 </div>
             </div>

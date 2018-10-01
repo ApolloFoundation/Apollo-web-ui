@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {getBuyOrdersAction, getSellOrdersAction} from "../../../actions/open-orders";
 import OrderItem from "./order";
 import {BlockUpdater} from "../../block-subscriber";
+import ContentHendler from '../../components/content-hendler'
 
 class OpenOrders extends React.Component {
 
@@ -131,18 +132,7 @@ class OpenOrders extends React.Component {
                                                         </div>
                                                 }
                                             </React.Fragment> ||
-                                            <div
-                                                style={{
-                                                    paddingLeft: 47.5
-                                                }}
-                                                className={'loader-box'}
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
+                                            <ContentLoader/>
                                         }
                                     </div>
                                 </div>

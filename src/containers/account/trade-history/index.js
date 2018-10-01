@@ -11,6 +11,8 @@ import classNames from "classnames";
 import uuid from "uuid";
 import {connect} from 'react-redux'
 import InfoBox from '../../components/info-box';
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 import {getTradesHistoryAction}   from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
@@ -181,7 +183,9 @@ class TradeHistory extends React.Component {
                                                             'btn-right' : true,
                                                             'disabled' : this.state.trades.length < 15
                                                         })}
-                                                    >Next</a>
+                                                    >
+                                                        Next
+                                                    </a>
                                                 </div>
                                             }
                                         </div>
@@ -198,18 +202,7 @@ class TradeHistory extends React.Component {
                         }
                         {
                             !this.state.trades &&
-                            <div
-                                style={{
-                                    paddingLeft: 47.5
-                                }}
-                                className={'loader-box'}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            </div>
+                            <ContentLoader/>
                         }
                     </div>
                 </div>

@@ -12,6 +12,7 @@ import {getGeneratorsAction} from "../../../actions/generators";
 import {formatTimestamp} from "../../../helpers/util/time";
 import Generator from "../../../actions/generators/generator";
 import uuid from "uuid";
+import ContentLoader from '../../components/content-loader'
 
 class Generators extends React.Component {
     state = {
