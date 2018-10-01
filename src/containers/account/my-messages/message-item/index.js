@@ -57,28 +57,12 @@ class MessageItem extends React.Component {
                 transaction: this.props.transaction
             }, 'readMessage')
 
-
-            console.log(message);
             if (message) {
                 this.setState({
                     message: message.decryptedMessage
                 });
             }
         }
-
-
-        // const privateKey = conv.hexStringToByteArray(crypto.getPrivateKeyAPL(passPhrase));
-        // let publicKey = await crypto.getPublicKeyAPL(this.props.sender, true);
-        //
-        // publicKey =  conv.hexStringToByteArray(publicKey);
-        //
-        // const sharedKey = crypto.getSharedSecret(privateKey, publicKey);
-        // let decrypted = this.props.tryToDecryptMessageAPL(data, {sharedKey: sharedKey});
-        // if (decrypted) {
-        //     this.setState({
-        //         message: decrypted.message
-        //     })
-        // }
     };
 
     render (){

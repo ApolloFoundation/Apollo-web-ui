@@ -287,39 +287,36 @@ class Sidebar extends React.Component {
 									</ul>
 								</div>
 							</li>
-							{/*{*/}
-                                {/*this.props.settings.marketplaceSelection &&*/}
-                                <li>
-                                    <NavLink
-                                        style={{
-                                            background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                        }}
-                                        to='/marketplace'
-                                        className={`text ${this.getNavLinkClass(["/my-products-for-sale",
-                                            "/my-pending-orders",
-                                            "/my-completed-orders",
-                                            "/purchased-products"])}`}>
-                                        Marketplace
-                                        <i className="zmdi zmdi-label left"/>
-                                        <i className="zmdi zmdi-chevron-right right"/>
-                                    </NavLink>
-                                    <div
-                                        style={{
-                                            background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                        }}
-                                        className="dropdown-menu"
-                                    >
-                                        <ul>
-                                            <li><NavLink to='/purchased-products'>Purchased products</NavLink></li>
-                                            <li><NavLink to='/my-products-for-sale'>My products for sales</NavLink></li>
-                                            <li><NavLink to='/my-pending-orders'>My pending orders</NavLink></li>
-                                            <li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
-                                            <li><a onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
-                                                product for sale</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-							{/*}*/}
+							<li>
+								<NavLink
+									style={{
+										background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
+									}}
+									to='/marketplace'
+									className={`text ${this.getNavLinkClass(["/my-products-for-sale",
+										"/my-pending-orders",
+										"/my-completed-orders",
+										"/purchased-products"])}`}>
+									Marketplace
+									<i className="zmdi zmdi-label left"/>
+									<i className="zmdi zmdi-chevron-right right"/>
+								</NavLink>
+								<div
+									style={{
+										background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
+									}}
+									className="dropdown-menu"
+								>
+									<ul>
+										<li><NavLink to='/purchased-products'>Purchased products</NavLink></li>
+										<li><NavLink to='/my-products-for-sale'>My products for sales</NavLink></li>
+										<li><NavLink to='/my-pending-orders'>My pending orders</NavLink></li>
+										<li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
+										<li><a onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
+											product for sale</a></li>
+									</ul>
+								</div>
+							</li>
 							<li>
 								<NavLink
                                     style={{
