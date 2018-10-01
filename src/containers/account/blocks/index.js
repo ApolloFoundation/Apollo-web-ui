@@ -17,6 +17,8 @@ import {getNextBlockGeneratorsAction} from '../../../actions/blocks'
 import {formatTimestamp} from "../../../helpers/util/time";
 import {getTime} from '../../../actions/login/index'
 import uuid from "uuid";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class Blocks extends React.Component {
 	constructor(props) {

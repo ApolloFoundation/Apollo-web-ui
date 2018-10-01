@@ -111,7 +111,7 @@ class InfoBlock extends React.Component {
                                                         <td>To</td>
                                                     </tr>
                                                     </thead>
-                                                    <tbody key={uuid()}>
+                                                    <tbody>
                                                     {
                                                         this.props.modalData.transactions &&
                                                         this.props.modalData.transactions.map((el, index) => {

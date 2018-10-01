@@ -29,6 +29,8 @@ import uuid from 'uuid'
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
 import {getTransactionAction} from "../../../actions/transactions";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class ExchangeBooth extends React.Component {
     constructor(props) {

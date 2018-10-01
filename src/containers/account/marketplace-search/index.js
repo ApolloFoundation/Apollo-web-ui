@@ -10,6 +10,8 @@ import {Link} from 'react-router-dom';
 import SiteHeader from '../../components/site-header/index';
 import MarketplaceItem from '../marketplace/marketplace-card'
 import {searchDGSGoodsAction} from "../../../actions/marketplace";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 import classNames from "classnames";
 
@@ -239,7 +241,9 @@ class MarketplaceSearch extends React.Component {
                                         style={{
                                             right: 0
                                         }}
-                                    >Next</a>
+                                    >
+                                        Next
+                                    </a>
                                 </div>
                             }
                         </div>

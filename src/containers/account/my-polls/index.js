@@ -15,6 +15,8 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import {Link} from 'react-router-dom';
 import InfoBox from '../../components/info-box';
 import {BlockUpdater} from "../../block-subscriber/index";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -99,10 +101,13 @@ class MyVotes extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
-
-                        {
-                            this.state.myPolls &&
-                            !!this.state.myPolls.length &&
+                        <ContentHendler
+                            items={this.state.myPolls}
+                            emptyMessage={'No polls found.'}
+                        >
+                            {
+                                this.state.myPolls &&
+                                !!this.state.myPolls.length &&
 
                                 <div className="transaction-table no-min-height">
                                     <div className="transaction-table-body">
@@ -134,30 +139,9 @@ class MyVotes extends React.Component {
                                             </tbody>
                                         </table>
                                     </div>
-                            </div>
-                        }
-                        {
-                            !this.state.myPolls &&
-                            <div
-                                className={'loader-box'}
-                                style={{
-                                    paddingLeft: 47.5
-                                }}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
                                 </div>
-                            </div>
-                        }
-                        {
-                            this.state.myPolls &&
-                            !(!!this.state.myPolls.length) &&
-                            <InfoBox default>
-                                No active polls yet.
-                            </InfoBox>
-                        }
+                            }
+                        </ContentHendler>
                     </div>
 
 

@@ -13,6 +13,8 @@ import SiteHeader from  '../../components/site-header'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
 import InfoBox from '../../components/info-box'
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
 import MarketplaceItem from "../marketplace/marketplace-card";
@@ -143,18 +145,7 @@ class MyProductsForSale extends React.Component {
                                     >Next</a>
                                 </div>
                             </React.Fragment> ||
-                            <div
-                                style={{
-                                    paddingLeft: 47.5
-                                }}
-                                className={'loader-box'}
-                            >
-                                <div className="ball-pulse">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            </div>
+                            <ContentLoader/>
                         }
                         {
                             this.state.getDGSGoods &&

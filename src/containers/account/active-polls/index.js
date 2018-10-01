@@ -16,6 +16,8 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import {Link} from 'react-router-dom';
 import InfoBox from '../../components/info-box';
 import {BlockUpdater} from "../../block-subscriber";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -132,73 +134,50 @@ class Activepolls extends React.Component {
                     <div className="active-polls white-space">
                         <div className="transaction-table no-min-height">
                             <div className="transaction-table-body">
-
-                        {
-                            this.state.activepolls &&
-                                <React.Fragment>
-                                    {
-                                        this.state.activepolls &&
-                                        !!this.state.activepolls.length &&
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Title</td>
-                                                <td>Description</td>
-                                                <td>Sender</td>
-                                                <td>Start date</td>
-                                                <td>Blocks left</td>
-                                                <td className="align-right">Actions</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody  key={uuid()}>
-                                            {
-                                                this.state.activepolls &&
-                                                this.state.activepolls.map((el, index) => {
-
-                                                    return (
-                                                        <PoolItem
-                                                            key={uuid()}
-                                                            {...el}
-                                                            activepolls
-                                                            getTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                    }
-                                    {
-                                        this.state.activepolls &&
-                                        !(!!this.state.activepolls.length) &&
-                                        <InfoBox default>
-                                            No active polls yet.
-                                        </InfoBox>
-                                    }
-                                </React.Fragment> ||
-                                <div
-                                    style={{
-                                        paddingLeft: 47.5
-                                    }}
-                                    className={'loader-box'}
+                                <ContentHendler
+                                    items={this.state.activepolls}
+                                    emptyMessage={'No active  polls.'}
                                 >
-                                    <div className="ball-pulse">
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
-                                </div>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td>Title</td>
+                                            <td>Description</td>
+                                            <td>Sender</td>
+                                            <td>Start date</td>
+                                            <td>Blocks left</td>
+                                            <td className="align-right">Actions</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody  key={uuid()}>
+                                        {
+                                            this.state.activepolls &&
+                                            this.state.activepolls.map((el, index) => {
 
-                            }
-                        </div>
+                                                return (
+                                                    <PoolItem
+                                                        key={uuid()}
+                                                        {...el}
+                                                        activepolls
+                                                        getTransaction={this.getTransaction}
+                                                    />
+                                                );
+                                            })
+                                        }
+                                        </tbody>
+                                    </table>
+                                </ContentHendler>
+                            </div>
                         </div>
 
                         <div className="form-group-app offset-bottom height-auto no-padding">
                             <div className="form-title padding-left padding-top">
                                 <p>Finished polls</p>
                             </div>
-                            {
-                                this.state.finishedpolls &&
+                            <ContentHendler
+                                items={this.state.finishedpolls}
+                                emptyMessage={'No finished polls.'}
+                            >
                                 <div className="transaction-table no-min-height">
                                     <div className="transaction-table-body offset-bottom">
                                         <table>
@@ -232,20 +211,8 @@ class Activepolls extends React.Component {
                                             <Link to="/finished-polls" className="btn btn-right blue" >View more</Link>
                                         </div>
                                     </div>
-                                </div>   ||
-                                <div
-                                    style={{
-                                        paddingLeft: 47.5
-                                    }}
-                                    className={'loader-box'}
-                                >
-                                    <div className="ball-pulse">
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
                                 </div>
-                            }
+                            </ContentHendler>
 
                         </div>
                     </div>
