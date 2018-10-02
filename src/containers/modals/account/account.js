@@ -206,43 +206,59 @@ class InfoAccount extends React.Component {
                                     "active": this.state.activeTab === 0
                                 })}>
                                     <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent padding-vertical-padding">
-                                            <table>
-                                                <thead key={uuid()}>
-                                                <tr>
-                                                    <td>Index</td>
-                                                    <td>Date</td>
-                                                    <td>Type</td>
-                                                    <td className="align-right">Amount</td>
-                                                    <td className="align-right">Fee</td>
-                                                    <td>From</td>
-                                                    <td>To</td>
-                                                </tr>
-                                                </thead>
-                                                <tbody key={uuid()}>
-                                                {
-                                                    this.state.transactions &&
-                                                    this.state.transactions.transactions.map((el, index) => {
+                                        {
+                                            this.state.transactions &&
+                                            <div className="transaction-table-body transparent padding-vertical-padding">
+                                                <table>
+                                                    <thead key={uuid()}>A
+                                                    <tr>
+                                                        <td>Index</td>
+                                                        <td>Date</td>
+                                                        <td>Type</td>
+                                                        <td className="align-right">Amount</td>
+                                                        <td className="align-right">Fee</td>
+                                                        <td>From</td>
+                                                        <td>To</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {
+                                                        this.state.transactions &&
+                                                        this.state.transactions.transactions.map((el, index) => {
 
-                                                        return (
-                                                            <Transaction
-                                                                key={uuid()}
-                                                                block
-                                                                transaction = {el}
-                                                                index={index}
-                                                                setTransactionInfo={this.getTransaction}
-                                                            />
-                                                        )
-                                                    })
-                                                }
-                                                {
-                                                    this.state.transactions &&
-                                                    !this.state.transactions.transactions.length &&
-                                                    'No transactions in this account.'
-                                                }
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            return (
+                                                                <Transaction
+                                                                    key={uuid()}
+                                                                    block
+                                                                    transaction = {el}
+                                                                    index={index}
+                                                                    setTransactionInfo={this.getTransaction}
+                                                                />
+                                                            )
+                                                        })
+                                                    }
+                                                    {
+                                                        this.state.transactions &&
+                                                        !this.state.transactions.transactions.length &&
+                                                        'No transactions in this account.'
+                                                    }
+                                                    </tbody>
+                                                </table>
+                                            </div> ||
+                                            <div
+                                                style={{
+                                                    paddingLeft: 47.5
+                                                }}
+                                                className={'loader-box'}
+                                            >
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                        }
+
                                     </div>
                                 </div>
                                 <div className={classNames({
@@ -263,7 +279,7 @@ class InfoAccount extends React.Component {
                                                     <td className="align-right">Balance</td>
                                                 </tr>
                                                 </thead>
-                                                <tbody key={uuid()}>
+                                                <tbody>
                                                 {
                                                     this.state.account_ledger &&
                                                     this.state.account_ledger.entries.map((el, index) => {
@@ -299,7 +315,7 @@ class InfoAccount extends React.Component {
                                                         <td className="align-right">Percentage</td>
                                                     </tr>
                                                 </thead>
-                                                <tbody key={uuid()}>
+                                                <tbody>
                                                 {
                                                     this.state.assets &&
                                                     !(this.state.assets.assets) &&
@@ -340,7 +356,7 @@ class InfoAccount extends React.Component {
                                                             <td className="align-right">Total</td>
                                                         </tr>
                                                         </thead>
-                                                        <tbody key={uuid()}>
+                                                        <tbody>
                                                         {
                                                             this.state.trades &&
                                                             this.state.trades.trades.map((el, index) => {
@@ -390,7 +406,7 @@ class InfoAccount extends React.Component {
                                                             <td className="align-right">Units</td>
                                                         </tr>
                                                         </thead>
-                                                        <tbody key={uuid()}>
+                                                        <tbody>
                                                         {
                                                             this.state.currencies &&
                                                             this.state.currencies.accountCurrencies.map((el, index) => {
@@ -435,7 +451,7 @@ class InfoAccount extends React.Component {
                                                             <td className="align-right">QTY</td>
                                                         </tr>
                                                         </thead>
-                                                        <tbody key={uuid()}>
+                                                        <tbody>
                                                         {
                                                             this.state.goods &&
                                                             this.state.goods.goods.map((el, index) => {
@@ -484,7 +500,7 @@ class InfoAccount extends React.Component {
                                                             <td>URI</td>
                                                         </tr>
                                                         </thead>
-                                                        <tbody key={uuid()}>
+                                                        <tbody>
                                                         {
                                                             this.state.aliases &&
                                                             this.state.aliases.aliases.map((el, index) => {

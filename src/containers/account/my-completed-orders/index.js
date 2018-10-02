@@ -20,6 +20,7 @@ import InfoBox from "../../components/info-box"
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
+import ContentHendler from '../../components/content-hendler'
 
 class MyProductsForSale extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class MyProductsForSale extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 14,
-            getDGSGoods: []
+            getDGSGoods: null
         };
     }
 
@@ -105,6 +106,10 @@ class MyProductsForSale extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
                         {
+                            !this.state.getDGSGoods &&
+                            <ContentLoader/>
+                        }
+                        {
                             this.state.getDGSGoods &&
                             !!this.state.getDGSGoods.length &&
                             this.state.getDGSGoods.map((el, index) => {
@@ -130,8 +135,20 @@ class MyProductsForSale extends React.Component {
                         {
                             this.state.getDGSGoods &&
                             (!!this.state.getDGSGoods.length) &&
-                            <div className="btn-box">
+                            <div
+                                style={{
+                                    paddingTop: 15,
+                                    marginBottom: 15,
+                                    height: 33,
+                                    position: 'static'
+                                }}
+                                className="btn-box"
+                            >
                                 <a
+                                    style={{
+                                        height: 33,
+                                        position: 'static'
+                                    }}
                                     className={classNames({
                                         'btn' : true,
                                         'btn-left' : true,
@@ -147,6 +164,10 @@ class MyProductsForSale extends React.Component {
                                     <span>{this.state.lastIndex + 1}</span>
                                 </div>
                                 <a
+                                    style={{
+                                        height: 33,
+                                        position: 'static'
+                                    }}
                                     onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                     className={classNames({
                                         'btn' : true,

@@ -9,7 +9,7 @@ const config = {};
 // API Gateway
 config.api = {
     serverUrl: 'https://apollowallet.org/apl?',
-    localServerUrl: 'https://apollowallet.org'
+    localServerUrl: 'http://apollocbradmin.firstbridge.work/api/client/twitter'
 };
 
 module.exports = config;

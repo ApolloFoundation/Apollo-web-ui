@@ -62,7 +62,7 @@ class ComposeMessage extends React.Component {
 
         this.setState({
             isPending: true
-        })
+        });
 
         // Todo: finish form validating
         const res = await this.props.submitForm( values, 'sendMessage');
@@ -218,7 +218,7 @@ class ComposeMessage extends React.Component {
                                                 }}
                                                 className="btn btn-right blue round round-bottom-right"
                                             >
-                                                <div className="ball-pulse-sync">
+                                                <div className="ball-pulse">
                                                     <div></div>
                                                     <div></div>
                                                     <div></div>

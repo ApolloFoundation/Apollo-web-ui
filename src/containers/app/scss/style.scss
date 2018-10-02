@@ -130,18 +130,24 @@ input[type="number"] {
               }
             }
             .transaction-item {
-              height: 25%;
+              height: 33.33%;
+              padding: 20px 0;
               display: flex;
               box-sizing: border-box;
               border-bottom: 1px solid #E5E5E5;
+              position: relative;
+
               @media (max-width: 760px) {
                 height: auto;
                 margin-top: 20px;
-                padding-bottom: 5px;
+                //padding-bottom: 5px;
+              }
+              i {
+                color: #00C8FF;
+                font-size: 18px;
               }
               .transaction-box {
                 margin: auto 0;
-                position: relative;
                 width: 100%;
 
                 .transaction-date {
@@ -159,6 +165,32 @@ input[type="number"] {
                   font-size: 12px;
                   line-height: 14px;
                   margin-top: 8px;
+                }
+                .arrow {
+                  position: relative;
+                  display: block;
+                  margin-top: 3px;
+                  margin-bottom: -5px;
+
+                  &.danger {
+                    i {
+                      color: #e74c3c !important;
+                    }
+                  }
+                  &.success {
+                    i {
+                      color: #2ecc71 !important;
+                    }
+                  }
+
+                  i {
+                    //position: absolute;
+                    //bottom: -50%;
+                    //right: 20px;
+                    transform: rotate(90deg);
+                    color: #777777;
+                    font-size: 20px;
+                  }
                 }
                 .transaction-amount {
                   color: #333333;

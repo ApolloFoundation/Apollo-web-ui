@@ -153,6 +153,12 @@ input[type="number"]::-webkit-inner-spin-button {
   word-wrap: break-word;
   word-break: break-all; }
 
+.loader-box.white .ball-pulse div {
+  background-color: #fff; }
+
+.loader-box .ball-pulse div {
+  background-color: #00C8FF; }
+
 textarea {
   border: 1px solid #E5E5E5;
   border-radius: 6px;
@@ -364,10 +370,19 @@ input {
     padding-left: 0;
     padding-right: 0; }
 
+.info-box.no-padding-on-the-sides p {
+  padding-left: 0;
+  padding-right: 0; }
+
+.info-box.no-padding-top p {
+  padding-top: 0; }
+
 .info-box p {
   word-wrap: break-word;
   word-break: break-all;
-  color: #000; }
+  color: #000;
+  padding-left: 40px;
+  padding-right: 40px; }
 
 .no-margin {
   margin: 0 !important; }
@@ -1002,10 +1017,10 @@ input {
   box-sizing: border-box;
   z-index: 1;
   padding: 11px 11px 11px 9px; }
-  .btn .ball-pulse-sync {
+  .btn .ball-pulse {
     transform: translateY(2px);
     text-align: center; }
-    .btn .ball-pulse-sync div {
+    .btn .ball-pulse div {
       display: inline-block;
       height: 7px;
       width: 7px; }
@@ -1539,7 +1554,7 @@ input {
 
 .loader-container {
   position: absolute;
-  bottom: -20px;
+  bottom: 5px;
   right: 4px; }
   .loader-container span {
     color: #bbb;

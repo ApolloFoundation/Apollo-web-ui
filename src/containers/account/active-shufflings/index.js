@@ -15,6 +15,8 @@ import {NotificationManager} from "react-notifications";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 const mapStateToPropms = state => ({
     account: state.account.account
@@ -121,14 +123,10 @@ class ActiveShufflings extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="transaction-table">
                         <div className="transaction-table no-min-height">
-                            {
-                                this.state.activeShuffling && !this.state.activeShuffling.length &&
-                                <div className="info-box info">
-                                    <p>After creating or joining a shuffling, you must keep your node online and your shuffler running, leaving enough funds in your account to cover the shuffling fees, until the shuffling completes! If you don't and miss your turn, you will be fined.</p>
-                                </div>
-                            }
-                            {
-                                this.state.activeShuffling && !!this.state.activeShuffling.length &&
+                            <ContentHendler
+                                items={this.state.activeShuffling}
+                                emptyMessage={'No active shuffling.'}
+                            >
                                 <div className="transaction-table-body">
                                     <table>
                                         <thead>
@@ -143,7 +141,7 @@ class ActiveShufflings extends React.Component {
                                             <td className="align-right">Status</td>
                                         </tr>
                                         </thead>
-                                        <tbody key={uuid()}>
+                                        <tbody>
                                         {
                                             this.state.activeShuffling &&
                                             this.state.activeShuffling.map((el, index) => {
@@ -160,43 +158,48 @@ class ActiveShufflings extends React.Component {
                                     </table>
 
                                 </div>
-                            }
+                            </ContentHendler>
                         </div>
                         <div className="form-group-app offset-bottom height-auto no-padding">
                             <div className="form-title padding-left padding-top">
                                 <p>Finished Shufflings</p>
                             </div>
-                            <div className="transaction-table no-min-height">
-                                <div className="transaction-table-body offset-bottom">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Shuffling</td>
-                                            <td>Stage</td>
-                                            <td>Holding</td>
-                                            <td>Amount</td>
-                                            <td className="align-right">Participants</td>
-                                            <td className="align-right">Issuer</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.finishedShufflings &&
-                                            this.state.finishedShufflings.map((el, index) => {
-                                                return (
-                                                    <ShufflingItem
-                                                        key={uuid()}
-                                                        finished
-                                                        {...el}
-                                                        getTransaction={this.getTransaction}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
+                            <ContentHendler
+                                items={this.state.finishedShufflings}
+                                emptyMessage={'No finished shuffling.'}
+                            >
+                                <div className="transaction-table no-min-height">
+                                    <div className="transaction-table-body offset-bottom">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Shuffling</td>
+                                                <td>Stage</td>
+                                                <td>Holding</td>
+                                                <td>Amount</td>
+                                                <td className="align-right">Participants</td>
+                                                <td className="align-right">Issuer</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {
+                                                this.state.finishedShufflings &&
+                                                this.state.finishedShufflings.map((el, index) => {
+                                                    return (
+                                                        <ShufflingItem
+                                                            key={uuid()}
+                                                            finished
+                                                            {...el}
+                                                            getTransaction={this.getTransaction}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            </ContentHendler>
                         </div>
                     </div>
                 </div>

@@ -12,11 +12,12 @@ import {Link} from "react-router-dom";
 import {setBodyModalParamsAction, setMopalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
+import ContentLoader from '../../components/content-loader'
 
 import uuid from 'uuid';
 import {formatTimestamp} from "../../../helpers/util/time";
 import {getBlockAction} from "../../../actions/blocks";
-import {getTransactionsAction} from "../../../actions/transactions";
+import {getTransactionAction, getTransactionsAction} from "../../../actions/transactions";
 import {getAccountCurrenciesAction} from "../../../actions/currencies";
 import {
 	getDGSGoodsCountAction,
@@ -69,7 +70,8 @@ const mapDispatchToProps = dispatch => ({
 	getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
     getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
     getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
-	getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
+    getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
+    getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
 
 });
 
@@ -352,6 +354,18 @@ class Dashboard extends React.Component {
 		}
 	};
 
+    getTransaction = async (data) => {
+        const reqParams = {
+            transaction: data,
+            account: this.props.account
+        };
+
+        const transaction = await this.props.getTransactionAction(reqParams);
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+        }
+    };
+
 	getNewsItem = (tweet) => {
 		let itemContent = '';
 		const post = tweet.retweeted_status ? tweet.retweeted_status : tweet;
@@ -382,29 +396,35 @@ class Dashboard extends React.Component {
 									<div className="arrow-block" onClick={this.position1}>
 										<div className="arrow"/>
 									</div>
-									<div className="page-body-item-content">
+									{
+                                        this.state.accountInfo && this.state.block &&
+                                        <React.Fragment>
+                                            <div className="page-body-item-content">
 
-										<div
-                                            onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
-											style={{cursor: 'pointer'}}
-											className="amount"
-										>
-											{this.state.accountInfo && Math.round(this.state.accountInfo.balanceATM / 100000000).toLocaleString('en')}
-											<span className="currency">
+                                                <div
+                                                    onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
+                                                    style={{cursor: 'pointer'}}
+                                                    className="amount"
+                                                >
+                                                    {this.state.accountInfo && Math.round(this.state.accountInfo.balanceATM / 100000000).toLocaleString('en')}
+                                                    <span className="currency">
 												&nbsp;APL
 											</span>
-										</div>
-										<div className="account-sub-titles">
-											{this.state.accountInfo && this.state.accountInfo.accountRS}
-										</div>
+                                                </div>
+                                                <div className="account-sub-titles">
+                                                    {this.state.accountInfo && this.state.accountInfo.accountRS}
+                                                </div>
 
-										{
-											this.state.block &&
-											<div className="account-sub-titles">
-												Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
-											</div>
-										}
-									</div>
+                                                {
+                                                    this.state.block &&
+                                                    <div className="account-sub-titles">
+                                                        Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
+                                                    </div>
+                                                }
+                                            </div>
+                                        </React.Fragment>  ||
+                                        <ContentLoader white noPaddingOnTheSides/>
+									}
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -414,28 +434,35 @@ class Dashboard extends React.Component {
 										<div className="arrow"/>
 									</div>
 									<div className="card-title">Assets Value</div>
-									<div className="page-body-item-content">
-										<Link
-											to={'/my-assets'}
-											style={{display: 'block'}}
-											className="amount"
-										>
-											<div className="text">
-												{Math.round(this.state.assetsValue).toLocaleString('en')}
-											</div>
-											{
-												Math.round(this.state.assetsValue) > 100000000000 &&
-												<div className="amount-tooltip">
-													<div className="amount-tooltip-text">
-														{Math.round(this.state.assetsValue).toLocaleString('en')}
-													</div>
-												</div>
-											}
-											<div className="owned">
-												{this.state.assetsCount} <span>Owned</span>
-											</div>
-										</Link>
-									</div>
+									{
+                                        (typeof this.state.assetsValue) === 'number' &&
+                                        <div className="page-body-item-content">
+                                            <Link
+                                                to={'/my-assets'}
+                                                style={{display: 'block'}}
+                                                className="amount"
+                                            >
+                                                <div className="text">
+                                                    {Math.round(this.state.assetsValue).toLocaleString('en')}
+                                                </div>
+                                                {
+                                                    Math.round(this.state.assetsValue) > 100000000000 &&
+                                                    <div className="amount-tooltip">
+                                                        <div className="amount-tooltip-text">
+                                                            {Math.round(this.state.assetsValue).toLocaleString('en')}
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div className="owned">
+                                                    {this.state.assetsCount} <span>Owned</span>
+                                                </div>
+                                            </Link>
+                                        </div>
+									}
+									{
+										(typeof this.state.assetsValue) === 'object' &&
+                                        <ContentLoader white noPaddingOnTheSides/>
+                                    }
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -445,18 +472,25 @@ class Dashboard extends React.Component {
 										<div className="arrow"/>
 									</div>
 									<div className="card-title">Currencies Value</div>
-									<div className="page-body-item-content">
-										<Link
-											className="amount"
-                                            to={'/my-currencies'}
-                                            style={{display: 'block'}}
-										>
-											{this.state.currenciesValue && Math.round(this.state.currenciesValue).toLocaleString('en')}
-											<div className="owned">
-												{this.state.currenciesCount} <span>Owned</span>
-											</div>
-										</Link>
-									</div>
+									{
+                                        (typeof this.state.currenciesCount) === 'number' &&
+                                        <div className="page-body-item-content">
+                                            <Link
+                                                className="amount"
+                                                to={'/my-currencies'}
+                                                style={{display: 'block'}}
+                                            >
+                                                {this.state.currenciesValue && Math.round(this.state.currenciesValue).toLocaleString('en')}
+                                                <div className="owned">
+                                                    {this.state.currenciesCount} <span>Owned</span>
+                                                </div>
+                                            </Link>
+                                        </div>
+									}
+                                    {
+                                        (typeof this.state.currenciesCount) === 'object' &&
+                                        <ContentLoader white noPaddingOnTheSides/>
+                                    }
 								</div>
 							</div>
 							<div className="page-body-item ">
@@ -530,9 +564,34 @@ class Dashboard extends React.Component {
 											this.state.transactions &&
 											this.state.transactions.map((el, index) => {
 												return (
-													<Transaction key={uuid()} {...el}/>
+													<Transaction
+                                                        getTransaction={this.getTransaction}
+														key={uuid()}
+														{...el}
+													/>
 												);
-											})
+											}) ||
+                                            <div
+												style={{
+													marginTop: 30
+												}}
+												className={'loader-box'}
+											>
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+										}
+										{
+											!!this.state.transactions &&
+											!this.state.transactions.length &&
+											<p
+												style={{paddingTop: 27}}
+											>
+												No transactions found.
+											</p>
 										}
 									</div>
 								</div>
@@ -540,6 +599,10 @@ class Dashboard extends React.Component {
 							<div className="page-body-item ">
 								<div className="card asset-portfolio">
 									<div className="card-title">Asset Portfolio</div>
+									{
+                                        !this.state.dashboardAssets &&
+                                        <ContentLoader noPaddingOnTheSides onPaddingTop/>
+									}
 									<div className="full-box">
 										{
 											this.state.dashboardAssets &&
@@ -555,7 +618,8 @@ class Dashboard extends React.Component {
 																	type={el.quantityATU}
 																/>
 																<div
-																	className="amount">
+																	className="amount"
+																>
                                                                     {((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)} %
 																</div>
 																<div className="coin-name">{el.name}</div>
@@ -571,30 +635,54 @@ class Dashboard extends React.Component {
 												}
 											})
 										}
+										{
+                                            !!this.state.dashboardAssets &&
+                                            this.state.dashboardAssets.length === 0 &&
+											<p>No assets found.</p>
+										}
 									</div>
 								</div>
 								<div className="card decentralized-marketplace">
 									<div className="card-title">Decentralized Marketplace</div>
 									<div className="full-box">
-										<div className="full-box-item">
+										{
+											!!this.state.pendingGoods && !!this.state.completedGoods &&
+											<div className="full-box-item">
+
 											<div className="marketplace-box">
-												<Link to={'/purchased-products'} className="digit">{this.state.numberOfGoods}</Link>
-												<div className="subtitle">Purchased products</div>
-											</div>
-											<div className="marketplace-box">
-												<div
-													className="digit">
-													<Link className="digit" to={'/my-pending-orders'}>
-                                                        {this.state.pendingGoods}
-													</Link>
-													/
-                                                    <Link className="digit" to={'/my-products-for-sale'}>
-                                                        {this.state.completedGoods}
-                                                    </Link>
+													<Link to={'/purchased-products'} className="digit">{this.state.numberOfGoods}</Link>
+													<div className="subtitle">Purchased products</div>
 												</div>
-												<div className="subtitle">Sales</div>
+												<div className="marketplace-box">
+													<div
+														className="digit">
+														<Link className="digit" to={'/my-pending-orders'}>
+															{this.state.pendingGoods}
+														</Link>
+														/
+														<Link className="digit" to={'/my-products-for-sale'}>
+															{this.state.completedGoods}
+														</Link>
+													</div>
+													<div className="subtitle">Sales</div>
+												</div>
 											</div>
-										</div>
+										}
+										{console.log(this.state.pendingGoods)}
+										{
+											typeof this.state.pendingGoods === 'undefined' &&
+											typeof this.state.completedGoods === 'undefined' &&
+                                            <ContentLoader noPaddingOnTheSides/>
+                                        }
+										{
+                                            this.state.pendingGoods === 0 &&
+											<p>No pending orders.</p>
+										}
+										{
+											this.state.completedGoods === 0 &&
+                                            <p>No completed orders.</p>
+                                        }
+
 									</div>
 									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
 								</div>
@@ -649,20 +737,36 @@ class Dashboard extends React.Component {
 									>
 										{
 											this.state.polls &&
-												this.state.polls.map((el) => {
-                                                    return (
-														<Link
-															key={uuid()}
-															style={{
-																display: 'block',
-																color: '#777777'
-															}}
-															to={'/followed-polls/' + el.poll}
-														>
-                                                            {el.name}
-														</Link>
-                                                    )
-                                                })
+											this.state.polls.map((el) => {
+												return (
+													<Link
+														key={uuid()}
+														style={{
+															display: 'block',
+															color: '#777777'
+														}}
+														to={'/followed-polls/' + el.poll}
+													>
+														{el.name}
+													</Link>
+												)
+											})
+										}
+										{
+                                            !this.state.polls &&
+                                            <ContentLoader/>
+                                        }
+										{
+                                            !!this.state.polls &&
+											this.state.polls.length === 0 &&
+											<p
+												style={{
+													fontSize:13,
+													color: '#000'
+												}}
+											>
+												No active polls.
+											</p>
 										}
 									</div>
 									<button

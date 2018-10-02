@@ -246,6 +246,10 @@
   &.warning {
 
   }
+  &.no-padding-on-the-sides {
+    padding-left: 0;
+    padding-right: 0;
+  }
   &.simple {
     background: transparent;
 
@@ -255,7 +259,7 @@
     }
   }
   p {
-    padding: 18px 34px;
+    padding: 18px 40px;
     color: #000;
   }
 }

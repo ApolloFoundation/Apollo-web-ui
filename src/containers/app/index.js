@@ -18,6 +18,8 @@ import SideBar from '../components/sidebar'
 import ModalWindow from '../modals'
 import AlertBox from '../components/alert-box'
 
+import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../modules/accountSettings";
+
 // pages components
 import Dashboard from "../account/dashboard";
 import Login from "../account/login";
@@ -74,6 +76,8 @@ import {startBlockPullingAction} from '../../actions/blocks'
 import UnknownPage from '../account/404'
 class App extends React.Component {
     componentDidMount() {
+        this.props.getSavedAccountSettings();
+
         // this.props.startBlockPullingAction();
         getUpdateStatus();
         this.props.isLoggedIn();
@@ -181,7 +185,7 @@ class App extends React.Component {
                                 <Route exact path="/purchased-products" component={PurchasdProucts}/>
                                 {/*,<Route exact path="/plugins" component={Plugins}/>*/}
                                 <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
-                                {/*<Route exact path="/settings" component={Settings}/>*/}
+                                <Route exact path="/settings" component={Settings}/>
                                 <Route exact path="/trade-history" component={TradeHistory}/>
                                 <Route exact path="/exchange-history-currency" component={TradeHistoryCurrency}/>
                                 <Route exact path="/transfer-history" component={TransferHistory}/>
@@ -223,6 +227,7 @@ const mapDispatchToProps = dispatch => ({
     isLoggedIn: () => dispatch(isLoggedIn()),
     setPageEvents: () => dispatch(setPageEvents()),
     getConstantsAction: () => dispatch(getConstantsAction()),
+    getSavedAccountSettings:   ()         => dispatch(getSavedAccountSettingsAction()),
 
     //modals
     setBodyModalType: () => dispatch(setBodyModalType()),

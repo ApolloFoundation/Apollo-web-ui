@@ -15,14 +15,17 @@ import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modal
 import {submitForm} from  '../../../helpers/forms/forms';
 import {NotificationManager} from "react-notifications";
 import {BlockUpdater} from "../../block-subscriber";
+import InfoBox from '../../components/info-box';
 import uuid from "uuid";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 class Aliases extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            aliases: [],
+            aliases: null,
             firstIndex: 0,
             lastIndex: 14,
             page: 1
@@ -129,61 +132,73 @@ class Aliases extends React.Component {
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="blocks">
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Aliases</td>
-                                        <td>URI</td>
-                                        <td>Status</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            this.state.aliases &&
-                                            this.state.aliases.map((el, index) => {
-                                                return (
-                                                    <Alias
-                                                        key={uuid()}
-                                                        editAlias={this.editAlias}
-                                                        sellAlias={this.sellAlias}
-                                                        cancelSaleAlias={this.cancelSaleAlias}
-                                                        transferAlias={this.transferAlias}
-                                                        deleteAlias={this.deleteAlias}
-                                                        {...el}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
-                                <div className="btn-box">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
+                        <ContentHendler
+                            items={this.state.aliases}
+                            emptyyMesasge={'No aliases found.'}
+                        >
+                            <div className="transaction-table">
+                                {
+                                    this.state.aliases &&
+                                    this.state.aliases.length !== 0 &&
+                                    <div className="transaction-table-body">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Aliases</td>
+                                                <td>URI</td>
+                                                <td>Status</td>
+                                                <td className="align-right">Actions</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {
+                                                this.state.aliases.map((el, index) => {
+                                                    return (
+                                                        <Alias
+                                                            key={uuid()}
+                                                            editAlias={this.editAlias}
+                                                            sellAlias={this.sellAlias}
+                                                            cancelSaleAlias={this.cancelSaleAlias}
+                                                            transferAlias={this.transferAlias}
+                                                            deleteAlias={this.deleteAlias}
+                                                            {...el}
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                            </tbody>
+                                        </table>
+                                        <div className="btn-box">
+                                            <a
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-left' : true,
+                                                    'disabled' : this.state.page <= 1
+                                                })}
+                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                            >
+                                                Previous
+                                            </a>
+                                            <div className='pagination-nav'>
+                                                <span>{this.state.firstIndex + 1}</span>
+                                                <span>&hellip;</span>
+                                                <span>{this.state.lastIndex + 1}</span>
+                                            </div>
+                                            <a
+                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-right' : true,
+                                                    'disabled' : this.state.aliases.length < 15
+                                                })}
+                                            >
+                                                Next
+                                            </a>
+                                        </div>
                                     </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.aliases.length < 15
-                                        })}
-                                    >Next</a>
-                                </div>
+                                }
                             </div>
-                        </div>
+                        </ContentHendler>
                     </div>
                 </div>
             </div>

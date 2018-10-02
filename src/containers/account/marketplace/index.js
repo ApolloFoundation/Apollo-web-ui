@@ -20,6 +20,7 @@ import {getDGSGoodsAction,
         getDGSTagsAction,} from '../../../actions/marketplace'
 import './MarketPLace.css';
 import uuid from "uuid";
+import ContentLoader from '../../components/content-loader'
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -373,6 +374,7 @@ class Marketplace extends React.Component {
                                     </div>
                                     <div className="row marketplace-row">
                                         {
+                                            !!this.state.getDGSGoods.length &&
                                             this.state.getDGSGoods.map((el, index) => {
                                                 return (
                                                     <div key={uuid()} className="marketplace-row-item col-xl-2">
@@ -383,7 +385,19 @@ class Marketplace extends React.Component {
                                                         />
                                                     </div>
                                                 );
-                                            })
+                                            }) ||
+                                            <div
+                                                style={{
+                                                    paddingLeft: 47.5
+                                                }}
+                                                className={'loader-box'}
+                                            >
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
                                         }
                                     </div>
                                 </div>
@@ -399,6 +413,7 @@ class Marketplace extends React.Component {
                                     </div>
                                     <div className="row marketplace-row">
                                         {
+                                            !!this.state.getDGSPurchases.length &&
                                             this.state.getDGSPurchases.map((el, index) => {
                                                 return (
                                                     <div key={uuid()} className="marketplace-row-item col-xl-2">
@@ -408,7 +423,8 @@ class Marketplace extends React.Component {
                                                         />
                                                     </div>
                                                 );
-                                            })
+                                            }) ||
+                                            <ContentLoader/>
                                         }
                                     </div>
                                 </div>

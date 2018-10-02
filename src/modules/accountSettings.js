@@ -58,13 +58,13 @@ export const getSavedAccountSettingsAction = () => dispatch => {
             regFormat: "",
             use24h: true,
             maxDecimals: 2,
-            enablePlugins: false,
+            enablePlugins: true,
             showConsoleButton: false,
             adminPass: "",
 
             submitFormsEnter: false,
-            marketplaceSelection: false,
-            exchangeSection: false,
+            marketplaceSelection: true,
+            exchangeSection: true,
             animateForging: true,
             itemsToShow: 15,
 
@@ -74,9 +74,9 @@ export const getSavedAccountSettingsAction = () => dispatch => {
             maxCurrencyWarn: 10000,
             showFakeWarns: true,
 
-            header: "default",
-            sidebar: "default",
-            boxes: "default",
+            header: "#F5F5F5",
+            sidebar: "#F5F5F5",
+            boxes: "#F5F5F5",
         };
     }
     dispatch({

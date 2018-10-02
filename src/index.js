@@ -13,6 +13,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import store, {history} from './store';
 import App from './containers/app';
 import i18n from './i18n';
+// import axios from 'axios';
 import closest from './helpers/closest';
 
 // import './index.css'
@@ -22,10 +23,19 @@ import BlockSubscriber from "./containers/block-subscriber";
 
 const target = document.querySelector('#root');
 //
-console.warn  = function(message){};
-console.error = function(message){};
-console.log = function(message){};
+// console.warn  = function(message){};
+// console.error = function(message){};
+// console.log = function(message){};
 
+
+// axios.interceptors.response.use(function (response) {
+//     console.log("------------  Ajax pending");
+//
+//
+//     return response;
+// }, function (error) {
+//     return Promise.reject(error);
+// });
 
 render(
     <Provider store={store}>

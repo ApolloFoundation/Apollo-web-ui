@@ -212,6 +212,21 @@ input[type="number"]::-webkit-inner-spin-button {
 	word-break: break-all;
 }
 
+.loader-box {
+	&.white {
+		.ball-pulse {
+			div {
+				background-color: #fff;
+			}
+		}
+	}
+	.ball-pulse {
+		div {
+			background-color: #00C8FF;
+		}
+	}
+}
+
 textarea {
 	border: 1px solid #E5E5E5;
 	border-radius: 6px;
@@ -504,10 +519,23 @@ input {
 			padding-right: 0;
 		}
 	}
+	&.no-padding-on-the-sides {
+		p {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+	&.no-padding-top {
+		p {
+			padding-top: 0;
+		}
+	}
 	p {
 		word-wrap: break-word;
 		word-break: break-all;
 		color: #000;
+		padding-left: 40px;
+		padding-right: 40px;
 	}
 }
 
@@ -1446,7 +1474,7 @@ input {
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
 
-	.ball-pulse-sync {
+	.ball-pulse {
 		transform: translateY(2px);
 		text-align: center;
 
@@ -2259,7 +2287,7 @@ input {
 
 .loader-container {
 	position: absolute;
-	bottom: -20px;
+	bottom: 5px;
 	right: 4px;
 
 	span {

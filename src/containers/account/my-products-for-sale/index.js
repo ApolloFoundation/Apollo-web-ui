@@ -13,6 +13,8 @@ import SiteHeader from  '../../components/site-header'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
 
@@ -99,55 +101,68 @@ class MyProductsForSale extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Name</td>
-                                        <td className="align-right">Quantity</td>
-                                        <td className="align-right">Price</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody key={uuid()}>
-                                    {
-                                        this.state.getDGSGoods.map((el, index) => {
-                                            return (
-                                                <MarketplaceTableItem
-                                                    key={uuid()}
-                                                    {...el}
-                                                />
-                                            );
-                                        })
-                                    }
-                                    </tbody>
-                                </table>
-                                <div className="btn-box">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
+                        <ContentHendler
+                            items={this.state.getDGSGoods}
+                            emptyMessage={'No assets found.'}
+                        >
+                            {
+                                this.state.getDGSGoods &&
+                                !!this.state.getDGSGoods.length &&
+                                <div className="transaction-table">
+                                    <div className="transaction-table-body">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td className="align-right">Quantity</td>
+                                                <td className="align-right">Price</td>
+                                                <td className="align-right">Actions</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {
+                                                this.state.getDGSGoods.map((el, index) => {
+                                                    return (
+                                                        <MarketplaceTableItem
+                                                            key={uuid()}
+                                                            {...el}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                            </tbody>
+                                        </table>
+                                        <div className="btn-box">
+                                            <a
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-left' : true,
+                                                    'disabled' : this.state.page <= 1
+                                                })}
+                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                            >
+                                                Previous
+                                            </a>
+                                            <div className='pagination-nav'>
+                                                <span>{this.state.firstIndex + 1}</span>
+                                                <span>&hellip;</span>
+                                                <span>{this.state.lastIndex + 1}</span>
+                                            </div>
+                                            <a
+                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                                className={classNames({
+                                                    'btn' : true,
+                                                    'btn-right' : true,
+                                                    'disabled' : this.state.getDGSGoods.length < 15
+                                                })}
+                                            >
+                                                Next
+                                            </a>
+                                        </div>
                                     </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.getDGSGoods.length < 15
-                                        })}
-                                    >Next</a>
                                 </div>
-                            </div>
-                        </div>
+                            }
+                        </ContentHendler>
                     </div>
                 </div>
             </div>

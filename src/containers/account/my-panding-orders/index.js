@@ -13,6 +13,8 @@ import SiteHeader from  '../../components/site-header'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
 import InfoBox from '../../components/info-box'
+import ContentLoader from '../../components/content-loader'
+import ContentHendler from '../../components/content-hendler'
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
 import MarketplaceItem from "../marketplace/marketplace-card";
@@ -31,7 +33,7 @@ class MyProductsForSale extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 7,
-            getDGSGoods: []
+            getDGSGoods: null
         };
     }
 
@@ -142,7 +144,8 @@ class MyProductsForSale extends React.Component {
                                         })}
                                     >Next</a>
                                 </div>
-                            </React.Fragment>
+                            </React.Fragment> ||
+                            <ContentLoader/>
                         }
                         {
                             this.state.getDGSGoods &&

@@ -16,6 +16,7 @@ import classNames from "classnames";
 import AccountRS from '../../components/account-rs';
 import {Form, Text} from "react-form";
 import {getConstantsAction} from '../../../actions/login'
+import ContentLoader from '../../components/content-loader'
 
 class Login extends React.Component {
     constructor(props) {
@@ -166,7 +167,6 @@ class Login extends React.Component {
                                         )}
                                     />
                                 </div>
-
                             </div>
                         </div>
                         <p
