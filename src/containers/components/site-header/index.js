@@ -639,7 +639,7 @@ class SiteHeader extends React.Component {
                                                         onMouseOver={this.setSearchStateToActive}
                                                         className={"searching-window"}
                                                         type="text"
-                                                        placeholder="Enter Transaction/Account/Block ID"
+                                                        placeholder="Enter Transaction/Account ID/Block ID"
                                                     />
 
 
