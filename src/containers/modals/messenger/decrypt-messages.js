@@ -14,6 +14,7 @@ import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
 
 import InfoBox from '../../components/info-box';
+import ModalFooter from '../../components/modal-footer'
 
 const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
@@ -98,7 +99,7 @@ class DecryptMessage extends React.Component {
                 <Form
                     onSubmit={values => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm
+                                 submitForm, setValue, values, getFormState
                              }) => (
                         <form className="modal-form"  onSubmit={submitForm}>
                             <div className="form-group-app">
@@ -107,16 +108,11 @@ class DecryptMessage extends React.Component {
                                 <div className="form-title">
                                     <p>Decrypt messages</p>
                                 </div>
-                                <div className="input-group-app">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
-                                        </div>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 {/*<div className="input-group-app">*/}
                                     {/*<div className="row">*/}
                                         {/*<div className="col-md-3">*/}

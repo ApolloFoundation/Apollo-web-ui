@@ -95,6 +95,8 @@ import ApproveTransaction from "./approve-transaction";
 
 import store from '../../store';
 
+//2fa
+import Confirm2FA from './2fa'
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -271,6 +273,10 @@ class ModalWindow extends React.Component {
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal}/>}
                 {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal}/>}
+
+                {/*Messages*/}
+                {this.props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={this.closeModal}/>}
+
             </div>
         );
     }

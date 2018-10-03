@@ -17,6 +17,7 @@ import {validateTokenAction} from "../../../actions/account";
 import {NotificationManager} from 'react-notifications';
 
 import QRCode from 'qrcode.react';
+import ModalFooter from '../../components/modal-footer'
 
 
 class TokenGenerationValidation extends React.Component {
@@ -137,16 +138,12 @@ class TokenGenerationValidation extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group-app block">
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Passphrase</label>
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <Text type="password" field={'secretPhrase'} placeholder="Passphrase"/>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <ModalFooter
+                                            setValue={setValue}
+                                            getFormState={getFormState}
+                                            values={values}
+                                        />
+
 
                                         <div className="btn-box align-buttons-inside absolute right-conner">
                                             <button

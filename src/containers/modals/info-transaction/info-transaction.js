@@ -12,6 +12,7 @@ import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
 import {formatTransactionType} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
+import ModalFooter from '../../components/modal-footer'
 
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {

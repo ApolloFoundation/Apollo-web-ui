@@ -15,6 +15,7 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {switchAccountAction} from "../../../actions/account";
 import {getAccountInfoAction} from "../../../actions/account";
 import Entry from '../../account/ledger/entry';
+import ModalFooter from '../../components/modal-footer'
 
 import QRCode from 'qrcode.react';
 

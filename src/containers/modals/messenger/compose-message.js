@@ -18,6 +18,7 @@ import {issueAssetAction} from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
+import ModalFooter from '../../components/modal-footer'
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -201,14 +202,11 @@ class ComposeMessage extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     {
                                         !!this.state.isPending ?

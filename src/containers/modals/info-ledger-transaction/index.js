@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import {getLedgerEntryAction} from '../../../actions/ledger/';
 import classNames from 'classnames';
+import ModalFooter from '../../components/modal-footer'
 
 class InfoTransactions extends React.Component {
     constructor(props) {

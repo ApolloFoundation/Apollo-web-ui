@@ -17,6 +17,7 @@ import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
+import ModalFooter from '../../components/modal-footer'
 
 class LeaseBalance extends React.Component {
     constructor(props) {
@@ -236,14 +237,11 @@ class LeaseBalance extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label htmlFor="secretPhrase" className="col-sm-3 col-form-label">
-                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <Text id="secretPhrase" className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 {
                                     this.state.passphraseStatus &&
                                     <InfoBox danger mt>

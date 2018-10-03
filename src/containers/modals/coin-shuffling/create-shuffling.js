@@ -18,6 +18,7 @@ import submitForm from "../../../helpers/forms/forms";
 import {getAssetAction} from "../../../actions/assets";
 import {getCurrencyAction} from "../../../actions/currencies";
 import crypto from "../../../helpers/crypto/crypto";
+import ModalFooter from '../../components/modal-footer'
 
 const holdingTypeData = [
     { value: 0, label: 'Apollo' },
@@ -293,14 +294,11 @@ class CreateShuffling extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 {/*<AdvancedSettings
                                     setValue={setValue}
                                     getFormState={getFormState}

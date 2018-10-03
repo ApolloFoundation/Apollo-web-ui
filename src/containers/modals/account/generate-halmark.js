@@ -13,6 +13,7 @@ import {Form, Text, TextArea} from 'react-form'
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import InfoBox from "../../components/info-box";
+import ModalFooter from '../../components/modal-footer'
 
 
 class GenerateHallmark extends React.Component {

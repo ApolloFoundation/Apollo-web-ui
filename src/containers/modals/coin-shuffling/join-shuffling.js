@@ -17,6 +17,7 @@ import {getShufflingAction} from "../../../actions/shuffling/";
 
 import store from '../../../store'
 import crypto from "../../../helpers/crypto/crypto";
+import ModalFooter from '../../components/modal-footer'
 
 
 class JoinShuffling extends React.Component {
@@ -183,14 +184,11 @@ class JoinShuffling extends React.Component {
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Passphrase
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 {/*<AdvancedSettings
                                     setValue={setValue}
                                     getFormState={getFormState}

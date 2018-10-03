@@ -12,6 +12,7 @@ import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
 import uuid from "uuid";
 import {formatTimestamp} from "../../../helpers/util/time";
+import ModalFooter from '../../components/modal-footer'
 
 
 class InfoBlock extends React.Component {

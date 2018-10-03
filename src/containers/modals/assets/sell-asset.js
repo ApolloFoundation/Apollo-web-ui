@@ -14,6 +14,7 @@ import {Form, Text} from 'react-form';
 import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+import ModalFooter from '../../components/modal-footer'
 
 class SellAsset extends React.Component {
     constructor(props) {
@@ -132,14 +133,11 @@ class SellAsset extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Secret Phrase
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                        </div>
-                                    </div>
+                                    <ModalFooter
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
+                                    />
 
                                     {/*<AdvancedSettings
                                         setValue={setValue}

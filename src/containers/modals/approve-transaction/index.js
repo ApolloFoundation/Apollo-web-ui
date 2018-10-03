@@ -18,6 +18,7 @@ import {NotificationManager} from "react-notifications";
 import {calculateFeeAction} from "../../../actions/forms";
 import crypto from "../../../helpers/crypto/crypto";
 import {formatTimestamp} from "../../../helpers/util/time";
+import ModalFooter from '../../components/modal-footer'
 
 class ApproveTransaction extends React.Component {
     constructor(props) {

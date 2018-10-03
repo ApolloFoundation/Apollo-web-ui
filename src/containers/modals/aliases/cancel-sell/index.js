@@ -17,6 +17,8 @@ import AccountRS from '../../../components/account-rs';
 import AdvancedSettings from '../../../components/advanced-transaction-settings';
 import InputForm from '../../../components/input-form';
 import {calculateFeeAction} from "../../../../actions/forms";
+import ModalFooter from '../../../components/modal-footer'
+
 
 const aliasTypeData = [
     { value: 'uri',     label: 'URI' },

@@ -15,6 +15,7 @@ import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
+import ModalFooter from '../../components/modal-footer'
 
 class AccountInfo extends React.Component {
     constructor(props) {
@@ -114,16 +115,12 @@ class AccountInfo extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Secret Phrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Secret Phrase'} type="password" field={'secretPhrase'}/>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <ModalFooter
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
+                                    />
+
 
                                     {/*<AdvancedSettings
                                         setValue={setValue}

@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-
+import {generateAccountAction} from '../../../actions/account'
 
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
@@ -19,6 +19,8 @@ import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
+import ContentLoader from '../../components/content-loader'
+import ModalFooter from '../../components/modal-footer'
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -41,22 +43,35 @@ class CreateUser extends React.Component {
         this.state = {
             generatedPassphrase: null,
             generatedAccount: null,
-            isValidating: false
+            isValidating: false,
+            isAccountLoaded: false
         }
-    }
+    };
 
     componentDidMount() {
+        this.generateAccount();
         this.generatePassphrase();
-    }
+    };
+
+    generateAccount = async () => {
+        const geneatedAccount = await generateAccountAction();
+
+        if (geneatedAccount) {
+            this.setState({
+                isAccountLoaded: true,
+                accountData: geneatedAccount
+            })
+        }
+    };
 
     handleFormSubmit = (values) => {
-        if (values.secretPhrase === this.state.generatedPassphrase) {
+        if (values.secretPhrase === this.state.accountData.passphrase) {
             this.setState({
                 isPending: true
-            })
+            });
             this.props.getAccountDataAction({
-                account: this.state.generatedAccount
-            })
+                account: this.state.accountData.accountRS
+            });
         } else {
             NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
         }
@@ -103,95 +118,123 @@ class CreateUser extends React.Component {
                                     <div className="form-title">
                                         <p>Create Your Wallet</p>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-12 mb-15">
-                                                <label>Your randomly generated passphrase is:</label>
-                                            </div>
-                                            <div className="col-md-12">
-                                                <div>
-                                                    <InfoBox info>
-                                                        {this.state.generatedPassphrase}
-                                                    </InfoBox>
+
+                                    {
+                                        this.state.isAccountLoaded &&
+                                        <React.Fragment>
+
+                                            <div className="input-group-app display-block offset-bottom">
+                                                <div className="row">
+                                                    <div className="col-md-12 mb-15">
+                                                        <label>Your randomly generated passphrase is:</label>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div>
+                                                            <InfoBox info>
+                                                                {this.state.accountData.passphrase}
+                                                            </InfoBox>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-12 mb-15">
-                                                <label>Write down this passphrase and store securely (order and
-                                                    capitalization matter). This passphrase will be needed to use your
-                                                    wallet.</label>
+                                            <div className="input-group-app display-block offset-bottom">
+                                                <div className="row">
+                                                    <div className="col-md-12 mb-15">
+                                                        <label>Write down this passphrase and store securely (order and
+                                                            capitalization matter). This passphrase will be needed to use your
+                                                            wallet.</label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-12 mb-15">
-                                                <label>Your public wallet address is:</label>
+                                            <div className="input-group-app display-block offset-bottom">
+                                                <div className="row">
+                                                    <div className="col-md-12 mb-15">
+                                                        <label>Your public wallet address is:</label>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div
+                                                            style={{
+                                                                width: "100%"
+                                                            }}
+                                                        >
+                                                            <InfoBox info>
+                                                                {this.state.accountData.accountRS}
+                                                            </InfoBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="col-md-12">
-                                                <div
-                                                    style={{
-                                                        width: "100%"
+
+                                            <div className="input-group-app display-block offset-bottom">
+                                                <div className="row">
+                                                    <div className="col-md-12 mb-15">
+                                                        <label>Your wallet`s public key is:</label>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div
+                                                            style={{
+                                                                width: "100%"
+                                                            }}
+                                                        >
+                                                            <InfoBox info>
+                                                                {this.state.accountData.publicKey}
+                                                            </InfoBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="input-group-app display-block offset-bottom">
+                                                <div className="row">
+                                                    <div className="col-md-12 mb-15">
+                                                        <label>Attention:</label>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div
+                                                            style={{
+                                                                width: "100%"
+                                                            }}
+                                                        >
+                                                            <InfoBox danger>
+                                                                <strong>Remember</strong> your generated passphrase and your public wallet address!
+                                                            </InfoBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="input-group-app display-block offset-bottom">
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        <Checkbox defaultValue={false} field="losePhrase"/> <label>I will not lose my
+                                                        passphrase</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="btn-box align-buttons-inside absolute right-conner">
+                                                <a
+                                                    onClick={() => {
+                                                        if (!getFormState().values.losePhrase) {
+                                                            NotificationManager.error('You have to verify that you will not lose your passphrase', 'Error', 7000);
+                                                            return;
+                                                        }
+                                                        this.setState({...this.state, isValidating: true})
                                                     }}
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                 >
-                                                    <InfoBox info>
-                                                        {this.state.generatedAccount}
-                                                    </InfoBox>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                    Next
+                                                </a>
 
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-12 mb-15">
-                                                <label>Attention:</label>
                                             </div>
-                                            <div className="col-md-12">
-                                                <div
-                                                    style={{
-                                                        width: "100%"
-                                                    }}
-                                                >
-                                                    <InfoBox danger>
-                                                        <strong>Remember!</strong> Anyone with this passphrase will have
-                                                        total control of your wallet.
-                                                    </InfoBox>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        </React.Fragment>
+                                        ||
+                                        <ContentLoader />
+                                    }
 
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <Checkbox defaultValue={false} field="losePhrase"/> <label>I will not lose my
-                                                passphrase</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="btn-box align-buttons-inside absolute right-conner">
-                                        <a
-                                            onClick={() => {
-                                                if (!getFormState().values.losePhrase) {
-                                                    NotificationManager.error('You have to verify that you will not lose your passphrase', 'Error', 7000);
-                                                    return;
-                                                }
-                                                this.setState({...this.state, isValidating: true})
-                                            }}
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                        >
-                                            Next
-                                        </a>
-
-                                    </div>
                                 </div>
                             }
                             {
@@ -200,17 +243,12 @@ class CreateUser extends React.Component {
                                     <div className="form-title">
                                         <p>Create Your Wallet</p>
                                     </div>
-                                    <div className="input-group-app block offset-bottom offset-top">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Secret Phrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <TextArea rows={5} type={'password'} field={'secretPhrase'}
-                                                          placeholder="Secret Phrase"/>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <ModalFooter
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
+                                    />
+
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
                                         <button

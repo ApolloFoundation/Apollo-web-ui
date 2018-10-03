@@ -16,6 +16,7 @@ import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
 
 import InfoBox from '../../components/info-box';
+import ModalFooter from '../../components/modal-footer'
 
 
 class PrivateTransactions extends React.Component {
@@ -74,16 +75,21 @@ class PrivateTransactions extends React.Component {
                                 <div className="form-title">
                                     <p>Confirm getting forging status</p>
                                 </div>
-                                <div className="input-group-app">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
-                                        </div>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
+                                {/*<div className="input-group-app">*/}
+                                    {/*<div className="row">*/}
+                                        {/*<div className="col-md-3">*/}
+                                            {/*<label>Passphrase</label>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="col-md-9">*/}
+                                            {/*<Text field="passphrase" placeholder='Secret phrase' type={'password'}/>*/}
+                                        {/*</div>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
 
                                 {
                                     this.state.passphraseStatus &&

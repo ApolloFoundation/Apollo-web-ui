@@ -19,6 +19,8 @@ import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
+import ModalFooter from '../../../components/modal-footer'
+
 
 
 const mapStateToProps = state => ({

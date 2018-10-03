@@ -18,6 +18,8 @@ import {getDGSGoodsAction, getDGSPurchasesAction}       from '../../actions/mark
 
 import {writeToLocalStorage} from "../localStorage";
 import {NotificationManager} from "react-notifications";
+import submitForm from '../../helpers/forms/forms'
+import store from '../../store'
 
 export function getAccountAction(reqParams) {
     return dispatch => {
@@ -140,3 +142,51 @@ export function getAccountPropertiesAction(reqParams) {
             })
     }
 }
+
+export const generateAccountAction = async () => {
+    return store.dispatch(await submitForm.submitForm({}, 'generateAccount'))
+};
+
+export const enable2FAActon = async (requestParams) => {
+    return await axios.get(config.api.serverUrl, {
+        params : {
+            requestType: 'enable2FA',
+            ...requestParams
+        }
+    })
+        .then((res) => {
+            if (res.data) {
+                return res.data
+            }
+        })
+};
+
+export const disable2FAActon = async (requestParams) => {
+    return await axios.get(config.api.serverUrl, {
+        params : {
+            requestType: 'disable2FA',
+            ...requestParams
+        }
+    })
+        .then((res) => {
+            if (res.data) {
+                return res.data
+            }
+        })
+};
+
+export const confirm2FAActon = async (requestParams) => {
+    return await axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'confirm2FA',
+            ...requestParams
+        }
+    })
+        .then((res) => {
+            if (res.data) {
+                return res.data
+            }
+        })
+};
+
+

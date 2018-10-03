@@ -13,6 +13,7 @@ import {Form, Text, TextArea} from 'react-form';
 
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+import ModalFooter from '../../components/modal-footer'
 
 class AddAccount extends React.Component {
     constructor(props) {

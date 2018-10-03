@@ -31,12 +31,14 @@ function submitForm(data, requestType) {
         if (data.secretPhrase) {
             const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
 
-            console.log(isPassphrase);
-
             if (account.accountRS !== isPassphrase) {
-                return {errorCode: 10, errorDescription: 'Incorrect secret phrase.'};
+                data.passphrase = data.secretPhrase;
+
+                delete data.secretPhrase;
             }
         }
+
+        data.sender = account.account
 
         var $form;
         var requestTypeKey;

@@ -16,6 +16,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
 import AccountRS from '../../../components/account-rs';
+import ModalFooter from '../../../components/modal-footer'
 
 const typeData = [
     { value: 'uri',     label: 'URI' },
@@ -226,14 +227,19 @@ class CancelSaleAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                        </div>
-                                    </div>
+                                    <ModalFooter
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
+                                    />
+                                    {/*<div className="form-group row form-group-white mb-15">*/}
+                                        {/*<label className="col-sm-3 col-form-label">*/}
+                                            {/*Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>*/}
+                                        {/*</label>*/}
+                                        {/*<div className="col-sm-9">*/}
+                                            {/*<Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>*/}
+                                        {/*</div>*/}
+                                    {/*</div>*/}
 
 									<div className="btn-box align-buttons-inside absolute right-conner align-right">
 										<a

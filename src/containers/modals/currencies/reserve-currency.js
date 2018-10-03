@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
+import ModalFooter from '../../components/modal-footer'
 
 class ReserveCurrency extends React.Component {
     constructor(props) {
