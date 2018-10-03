@@ -31,8 +31,6 @@ function submitForm(data, requestType) {
         if (data.secretPhrase) {
             const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
 
-            console.log(isPassphrase);
-
             if (account.accountRS !== isPassphrase) {
                 return {errorCode: 10, errorDescription: 'Incorrect secret phrase.'};
             }

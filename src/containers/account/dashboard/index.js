@@ -406,7 +406,7 @@ class Dashboard extends React.Component {
                                                     style={{cursor: 'pointer'}}
                                                     className="amount"
                                                 >
-                                                    {this.state.accountInfo && Math.round(this.state.accountInfo.balanceATM / 100000000).toLocaleString('en')}
+                                                    {(this.state.accountInfo && this.state.accountInfo.balanceATM) ? Math.round(this.state.accountInfo.balanceATM / 100000000).toLocaleString('en') : '0'}
                                                     <span className="currency">
 												&nbsp;APL
 											</span>
@@ -668,7 +668,6 @@ class Dashboard extends React.Component {
 												</div>
 											</div>
 										}
-										{console.log(this.state.pendingGoods)}
 										{
 											typeof this.state.pendingGoods === 'undefined' &&
 											typeof this.state.completedGoods === 'undefined' &&

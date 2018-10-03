@@ -47,7 +47,7 @@ export function getAccountInfoAction(account) {
             }
         })
             .then((res) => {
-                if (!res.data.errorCode) {
+                if (res.data) {
                     return res.data
                 }
             })

@@ -48,7 +48,6 @@ const ShufflingItem = (props) => (
                 <Link
                     to={'/asset-exchange/' + props.holding}
                 >
-                    {console.log(props)}
                     {props.holding} (Asset)
                 </Link>
             }

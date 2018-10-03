@@ -95,9 +95,6 @@ class Settings extends React.Component {
     ];
 
     render() {
-
-        console.log(this.state.settings);
-
         return (
             <div className="page-content">
                 <SiteHeader

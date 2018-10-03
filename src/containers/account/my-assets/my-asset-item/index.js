@@ -36,15 +36,11 @@ class MyAssetItem extends React.Component {
 
         if (askOrders) {
 
-            console.log(askOrders);
-
             let orders = Math.min(...askOrders.orders.map((el) => {
                 return el.priceATM
             }));
 
             orders = isFinite(orders) ? orders : null;
-
-            console.log(orders)
 
             this.setState({
                 lowestAskOrder : orders
@@ -60,15 +56,11 @@ class MyAssetItem extends React.Component {
 
             if (bidOrders) {
 
-                console.log(bidOrders);
-
                 let orders = Math.max(...bidOrders.orders.map((el) => {
                     return el.priceATM
                 }));
 
                 orders = isFinite(orders) ? orders : null;
-
-                console.log(orders);
 
                 this.setState({
                     highestBidOrder : orders
