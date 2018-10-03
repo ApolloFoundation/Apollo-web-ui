@@ -110,11 +110,18 @@ class Login extends React.Component {
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner">
                                                     <a
-                                                        className="btn btn-left round round-bottom-left round-top-right"
+                                                        className="btn btn-left round round-bottom-left"
                                                         onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
                                                     >
                                                         Create account
                                                     </a>
+                                                    <a
+                                                        className="btn btn-left round blue round-top-right"
+                                                        onClick={() => this.props.setBodyModalParamsAction('IMPORT_ACCOUNT')}
+                                                    >
+                                                        Import account
+                                                    </a>
+
                                                     <button
                                                         type="submit"
                                                         name={'closeModal'}

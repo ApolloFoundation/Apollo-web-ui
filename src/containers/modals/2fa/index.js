@@ -83,13 +83,16 @@ class Confirm2FA extends React.Component {
                                         </div>
                                         <div className="col-md-12">
                                             <div>
-                                                <img src={this.props.modalData.qrCodeUrl} alt=""/>
+                                                {
+                                                    this.props.modalData &&
+                                                    this.props.modalData.qrCodeUrl &&
+                                                    <img src={this.props.modalData.qrCodeUrl} alt=""/>
+                                                }
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {console.log(this.props.modalData)}
                                 <div className="input-group-app display-block">
                                     <div className="row">
                                         <div className="col-md-12 mb-15">
@@ -100,7 +103,10 @@ class Confirm2FA extends React.Component {
                                                 <InfoBox
                                                     info
                                                 >
-                                                    {this.props.modalData.secret}
+                                                    {
+                                                        this.props.modalData &&
+                                                        this.props.modalData.secret
+                                                    }
                                                 </InfoBox>
                                             </div>
                                         </div>

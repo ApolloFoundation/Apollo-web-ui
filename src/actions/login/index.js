@@ -25,8 +25,6 @@ export function getAccountDataAction(requestParams) {
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
                 NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
-            } else {
-                document.location = '/dashboard';
             }
         }
     };
