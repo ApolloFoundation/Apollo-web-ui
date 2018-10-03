@@ -133,9 +133,11 @@ class SiteHeader extends React.Component {
         }
 
         if (account) {
-            this.props.setModalData(account.account);
-            this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account);
-            return;
+            if (account.errorCode !== 4) {
+                this.props.setModalData(account.account);
+                this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account);
+                return;
+            }
         }
 
         NotificationManager.error('Invalid search properties.', null, 5000);
