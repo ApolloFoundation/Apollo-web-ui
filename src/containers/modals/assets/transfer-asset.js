@@ -34,8 +34,6 @@ class TransferAsset extends React.Component {
 
     handleFormSubmit = async(values) => {
 
-        console.log(this.props.modalData);
-
         values = {
             ...values,
             quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)

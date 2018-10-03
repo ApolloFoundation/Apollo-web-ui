@@ -44,7 +44,6 @@ class DecryptMessage extends React.Component {
 
     async handleFormSubmit(params) {
 
-        console.log(params);
         let passphrase = params.passphrase;
 
         const isPassed = await this.validatePassphrase(passphrase);

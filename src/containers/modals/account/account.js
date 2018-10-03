@@ -19,6 +19,7 @@ import Transaction from '../../account/transactions/transaction';
 import Entry from '../../account/ledger/entry';
 import Asset from '../../account/my-assets/my-asset-item/';
 import {getBlockAction} from "../../../actions/blocks";
+import ContentLoader from '../../components/content-loader'
 
 class InfoAccount extends React.Component {
     constructor(props) {
@@ -51,52 +52,55 @@ class InfoAccount extends React.Component {
     }
 
     componentDidMount() {
-        this.getAcccount({
-            account:    this.props.modalData,
-            firstIndex: 0,
-            lastIndex:  99
-        })
+        if (this.props.modalData) {
+            this.getAcccount({
+                account:    this.props.modalData,
+                firstIndex: 0,
+                lastIndex:  99
+            })
+        }
     }
 
     componentWillReceiveProps(newState) {
-        this.getAcccount({
-            account:    newState.modalData,
-            firstIndex: 0,
-            lastIndex:  99
-        })
+        if (newState.modalData) {
+            this.getAcccount({
+                account:    newState.modalData,
+                firstIndex: 0,
+                lastIndex:  99
+            })
+        }
     }
 
     // requets
     async getAcccount (requestParams){
-        if (this.props.modalData) {
-            const accountData = this.props.getAccountAction(requestParams);
+        const accountData = this.props.getAccountAction(requestParams);
 
-            if (accountData) {
-                this.setState({
-                    ...this.props,
-                    transactions:   await accountData['TRANSACTIONS'],
-                    account_ledger: await accountData['ACCOUNT_LEDGER'],
-                    assets:         await accountData['ASSETS'],
-                    trades:         await accountData['TRADES'],
-                    currencies:     await accountData['CURRENCIES'],
-                    goods:          await accountData['GOODS'],
-                    aliases:        await accountData['ALIASES'],
-                    account:        await accountData['ACCOUNT'],
-                }, () => {
-                    if (this.state.assets) {
-                        const accountAssets = this.state.assets.accountAssets;
-                        const assetsInfo    = this.state.assets.assets;
+        if (accountData) {
+            this.setState({
+                ...this.props,
+                transactions:   await accountData['TRANSACTIONS'],
+                account_ledger: await accountData['ACCOUNT_LEDGER'],
+                assets:         await accountData['ASSETS'],
+                trades:         await accountData['TRADES'],
+                currencies:     await accountData['CURRENCIES'],
+                goods:          await accountData['GOODS'],
+                aliases:        await accountData['ALIASES'],
+                account:        await accountData['ACCOUNT'],
+            }, () => {
+                if (this.state.assets) {
 
-                        const resultAsset = accountAssets.map((el, index) => {
-                            return {...(assetsInfo[index]), ...el}
-                        });
+                    const accountAssets = this.state.assets.accountAssets;
+                    const assetsInfo    = this.state.assets.assets;
 
-                        this.setState({
-                            assets: resultAsset
-                        })
-                    }
-                });
-            }
+                    const resultAsset = accountAssets.map((el, index) => {
+                        return {...(assetsInfo[index]), ...el}
+                    });
+
+                    this.setState({
+                        assets: resultAsset
+                    })
+                }
+            });
         }
     }
 
@@ -210,7 +214,7 @@ class InfoAccount extends React.Component {
                                             this.state.transactions &&
                                             <div className="transaction-table-body transparent padding-vertical-padding">
                                                 <table>
-                                                    <thead key={uuid()}>A
+                                                    <thead key={uuid()}>
                                                     <tr>
                                                         <td>Index</td>
                                                         <td>Date</td>
@@ -245,18 +249,7 @@ class InfoAccount extends React.Component {
                                                     </tbody>
                                                 </table>
                                             </div> ||
-                                            <div
-                                                style={{
-                                                    paddingLeft: 47.5
-                                                }}
-                                                className={'loader-box'}
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
+                                            <ContentLoader noPaddingOnTheSides/>
                                         }
 
                                     </div>

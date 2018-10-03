@@ -205,8 +205,6 @@ class ListProductForSale extends React.Component {
                                                             let reader = new FileReader();
                                                             let file = e.target.files[0];
 
-                                                            console.log(file);
-
                                                             if (file.type === 'image/jpeg' || file.type === 'image/png') {
                                                                 reader.onloadend = () => {
                                                                     this.setState({
