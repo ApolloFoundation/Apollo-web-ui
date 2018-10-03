@@ -85,13 +85,13 @@ const Transaction = (props) => (
                         Confirmation
                     </span>
                 {
-                    props.actualBlock < props.height &&
+                    props.actualBlock < props.height ?
                     <div className={'ball-pulse'}>
                         <div></div>
                         <div></div>
                         <div></div>
                     </div>
-                    ||
+                    :
                     props.confirmations
                 }
 
