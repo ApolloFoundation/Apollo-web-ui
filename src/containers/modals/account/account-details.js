@@ -110,30 +110,73 @@ class AccountDetails extends React.Component {
                                                         <td  className="no-brake">Numeric Account ID::</td>
                                                         <td>{this.state.account.account}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td className="no-brake">Balance::</td>
-                                                        <td>{(this.state.account.balanceATM / 100000000).toFixed(2)} Apollo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className="no-brake">Available Balance:</td>
-                                                        <td>{(this.state.account.unconfirmedBalanceATM / 100000000).toFixed(2)} Apollo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className="no-brake">Guaranteed Balance:</td>
-                                                        <td>{(this.state.account.guaranteedBalanceATM / 100000000).toFixed(2)} Apollo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className="no-brake">Effective Balance:</td>
-                                                        <td>{(this.state.account.effectiveBalanceAPL).toFixed(2)} Apollo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className="no-brake">Forged Balance:</td>
-                                                        <td>{(this.state.account.forgedBalanceATM / 100000000).toFixed(2)} Apollo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className="no-brake">Public Key:</td>
-                                                        <td className="word-brake">{this.state.account.publicKey}</td>
-                                                    </tr>
+                                                    {
+                                                        this.state.account.balanceATM ?
+                                                        <tr>
+                                                            <td className="no-brake">Balance:</td>
+                                                            <td>{(this.state.account.balanceATM / 100000000).toFixed(2)} Apollo</td>
+                                                        </tr> :
+                                                        <tr>
+                                                            <td className="no-brake">Balance:</td>
+                                                            <td>0 Apollo</td>
+                                                        </tr>
+                                                    }
+                                                    {
+                                                        this.state.account.unconfirmedBalanceATM ?
+                                                        <tr>
+                                                            <td className="no-brake">Available Balance:</td>
+                                                            <td>{(this.state.account.unconfirmedBalanceATM / 100000000).toFixed(2)} Apollo</td>
+                                                        </tr> :
+                                                        <tr>
+                                                            <td className="no-brake">Available Balance:</td>
+                                                            <td>0 Apollo</td>
+                                                        </tr>
+                                                    }
+                                                    {
+                                                        this.state.account.guaranteedBalanceATM ?
+                                                        <tr>
+                                                            <td className="no-brake">Guaranteed Balance:</td>
+                                                            <td>{(this.state.account.guaranteedBalanceATM / 100000000).toFixed(2)} Apollo</td>
+                                                        </tr> :
+                                                        <tr>
+                                                            <td className="no-brake">Guaranteed Balance:</td>
+                                                            <td>0 Apollo</td>
+                                                        </tr>
+                                                    }
+                                                    {
+                                                        this.state.account.effectiveBalanceAPL ?
+                                                        <tr>
+                                                            <td className="no-brake">Effective Balance:</td>
+                                                            <td>{(this.state.account.effectiveBalanceAPL).toFixed(2)} Apollo</td>
+                                                        </tr> :
+                                                        <tr>
+                                                            <td className="no-brake">Effective Balance:</td>
+                                                            <td>0 Apollo</td>
+                                                        </tr>
+                                                    }
+                                                    {
+                                                        this.state.account.forgedBalanceATM ?
+                                                        <tr>
+                                                            <td className="no-brake">Forged Balance:</td>
+                                                            <td>{(this.state.account.forgedBalanceATM / 100000000).toFixed(2)} Apollo</td>
+                                                        </tr> :
+                                                        <tr>
+                                                            <td className="no-brake">Forged Balance:</td>
+                                                            <td>0 Apollo</td>
+                                                        </tr>
+                                                    }
+                                                    {
+                                                        this.state.account.publicKey ?
+                                                        <tr>
+                                                            <td className="no-brake">Public Key:</td>
+                                                            <td className="word-brake">{this.state.account.publicKey}</td>
+                                                        </tr> :
+                                                        <tr>
+                                                            <td className="no-brake">Public Key:</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    }
+
                                                     <tr>
                                                         <td
                                                             className="no-brake"
