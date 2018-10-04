@@ -149,35 +149,14 @@ export const generateAccountAction = async () => {
 
 export const enable2FAActon = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'enable2FA'))
-
 };
 
 export const disable2FAActon = async (requestParams) => {
-    return await axios.get(config.api.serverUrl, {
-        params : {
-            requestType: 'disable2FA',
-            ...requestParams
-        }
-    })
-        .then((res) => {
-            if (res.data) {
-                return res.data
-            }
-        })
+    return store.dispatch(await submitForm.submitForm(requestParams, 'disable2FA'))
 };
 
 export const confirm2FAActon = async (requestParams) => {
-    return await axios.get(config.api.serverUrl, {
-        params: {
-            requestType: 'confirm2FA',
-            ...requestParams
-        }
-    })
-        .then((res) => {
-            if (res.data) {
-                return res.data
-            }
-        })
+    return store.dispatch(await submitForm.submitForm(requestParams, 'confirm2FA'))
 };
 
 export const importAccountAction = async (requestParams) => {

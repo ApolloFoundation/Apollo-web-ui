@@ -149,7 +149,7 @@ class Settings extends React.Component {
                 info2fa: status
             })
         }
-    }
+    };
 
     disable2fa = async (getFormState) => {
         const {values} = getFormState();
@@ -161,11 +161,11 @@ class Settings extends React.Component {
         });
 
         if (status.errorCode) {
-            NotificationManager.error('pizdec', null, 5000);
+            NotificationManager.error(status.errorDescription, null, 5000);
         } else {
-            NotificationManager.success('ok', null, 5000);
+            NotificationManager.success('2FA was successfully disabled.', null, 5000);
         }
-    }
+    };
 
     render() {
         return (
@@ -562,7 +562,7 @@ class Settings extends React.Component {
                                                                             >
                                                                                 <a className="no-margin btn static blue"
                                                                                    onClick={() => this.disable2fa(getFormState)}>
-                                                                                    Get Qr code
+                                                                                    Confirm disable
                                                                                 </a>
                                                                             </div>
                                                                         </div>

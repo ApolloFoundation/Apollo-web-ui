@@ -59,9 +59,13 @@ class Confirm2FA extends React.Component {
         const confirm = await confirm2FAActon(values);
 
         if (confirm) {
-
+            if (confirm.errorCode) {
+                NotificationManager.error(confirm.errorDescription, 'Error', 5000);
+            }
         } else {
-            // NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
+            this.props.setBodyModalParamsAction(null, {});
+
+            NotificationManager.success('2FA was successfully enabled!', null, 5000);
         }
     };
 
@@ -115,13 +119,13 @@ class Confirm2FA extends React.Component {
                                 <div className="input-group-app block offset-bottom">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Secret Phrase</label>
+                                            <label>2FA code</label>
                                         </div>
                                         <div className="col-md-9">
                                             <Text
                                                 type={'password'}
                                                 field={'code'}
-                                                placeholder="Secret Phrase"
+                                                placeholder="2FA code"
                                             />
                                         </div>
                                     </div>
@@ -135,31 +139,6 @@ class Confirm2FA extends React.Component {
                                     >
                                         Create new Account
                                     </button>
-
-                                    {
-                                        !!this.state.isPending ?
-                                            <div
-                                                style={{
-                                                    width: 121.5
-                                                }}
-                                                className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div> :
-                                            <button
-
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                            >
-                                                Create new Account
-                                            </button>
-                                    }
-
                                 </div>
                             </div>
 
