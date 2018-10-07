@@ -201,7 +201,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getBuyOrders: account => dispatch(getBuyOrdersAction(account)),
     getSellOrders: account => dispatch(getSellOrdersAction(account)),
-    getSpecificAccountAssetsAction: requestParams => dispatch(getSpecificAccountAssetsAction(requestParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OpenOrders);

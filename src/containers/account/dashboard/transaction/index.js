@@ -80,24 +80,19 @@ const Transaction = (props) => (
             </div>
 
             <div className="transaction-rs">{formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name)}</div>
-            <div className={'loader-container'}>
+            {
+                props.actualBlock < props.height &&
+                <div className={'loader-container'}>
                     <span>
                         Confirmation
                     </span>
-                {
-                    props.actualBlock < props.height ?
                     <div className={'ball-pulse'}>
                         <div></div>
                         <div></div>
                         <div></div>
                     </div>
-                    :
-                    props.confirmations
-                }
-
-            </div>
-
-
+                </div>
+            }
         </div>
     </a>
 );

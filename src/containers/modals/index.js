@@ -137,7 +137,7 @@ class ModalWindow extends React.Component {
         if (this.refs.modalWindow.childNodes.length) {
             setTimeout(() => {
                 document.querySelector('.modal-box').classList.add('active')
-            }, 10)
+            }, 100)
         }
     }
 
@@ -148,7 +148,7 @@ class ModalWindow extends React.Component {
         Object.values(modalWindow).map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active');
-            }, 10);
+            }, 100);
 
 
         });
@@ -156,13 +156,10 @@ class ModalWindow extends React.Component {
         Object.values(modalBox).map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active');
-            }, 10);
+            }, 100);
 
 
         });
-        // document.querySelector('.modal-window').classList.remove('active');
-
-
 
         setTimeout(() => {
             this.props.setMopalType(null);
