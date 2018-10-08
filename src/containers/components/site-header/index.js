@@ -116,23 +116,20 @@ class SiteHeader extends React.Component {
     }
 
     handleSearchind = async (values) => {
-        console.log(this.state.isSSearching);
-        if (!this.state.isSSearching) {
+        if (!this.state.isSearching) {
             this.setState({
-                isSSearching: true
+                isSearching: true
             })
 
             const transaction = await this.props.getTransactionAction({transaction: values.value});
             const block = await this.props.getBlockAction({block: values.value});
             const account = await this.props.getAccountInfoAction({account: values.value});
 
-            console.log(this.state.isSSearching);
-
             this.props.setBodyModalParamsAction(null);
 
             if (transaction) {
                 this.setState({
-                    isSSearching: false
+                    isSearching: false
                 })
 
                 this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
@@ -141,7 +138,7 @@ class SiteHeader extends React.Component {
 
             if (block) {
                 this.setState({
-                    isSSearching: false
+                    isSearching: false
                 })
 
                 this.props.setBodyModalParamsAction('INFO_BLOCK', block);
@@ -151,7 +148,7 @@ class SiteHeader extends React.Component {
             if (account) {
                 if (account.errorCode !== 4) {
                     this.setState({
-                        isSSearching: false
+                        isSearching: false
                     })
 
                     this.props.setModalData(account.account);
@@ -161,7 +158,7 @@ class SiteHeader extends React.Component {
             }
 
             this.setState({
-                isSSearching: false
+                isSearching: false
             })
 
             NotificationManager.error('Invalid search properties.', null, 5000);
