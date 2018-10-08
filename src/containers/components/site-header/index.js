@@ -121,47 +121,53 @@ class SiteHeader extends React.Component {
                 isSearching: true
             })
 
-            const transaction = await this.props.getTransactionAction({transaction: values.value});
-            const block = await this.props.getBlockAction({block: values.value});
-            const account = await this.props.getAccountInfoAction({account: values.value});
-
+            const transaction = this.props.getTransactionAction({transaction: values.value});
+            const block = this.props.getBlockAction({block: values.value});
+            const account = this.props.getAccountInfoAction({account: values.value});
             this.props.setBodyModalParamsAction(null);
 
-            if (transaction) {
-                this.setState({
-                    isSearching: false
-                })
+            Promise.all([transaction, block, account])
+                .then((data) => {
+                    const transaction = data[0];
+                    const block       = data[1];
+                    const account     = data[2];
 
-                this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-                return;
-            }
+                    if (transaction) {
+                        this.setState({
+                            isSearching: false
+                        })
 
-            if (block) {
-                this.setState({
-                    isSearching: false
-                })
+                        this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
+                        return;
+                    }
 
-                this.props.setBodyModalParamsAction('INFO_BLOCK', block);
-                return;
-            }
+                    if (block) {
+                        this.setState({
+                            isSearching: false
+                        })
 
-            if (account) {
-                if (account.errorCode !== 4) {
+                        this.props.setBodyModalParamsAction('INFO_BLOCK', block);
+                        return;
+                    }
+
+                    if (account) {
+                        if (account.errorCode !== 4) {
+                            this.setState({
+                                isSearching: false
+                            })
+
+                            this.props.setModalData(account.account);
+                            this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account);
+                            return;
+                        }
+                    }
+
                     this.setState({
                         isSearching: false
                     })
 
-                    this.props.setModalData(account.account);
-                    this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account);
-                    return;
-                }
-            }
-
-            this.setState({
-                isSearching: false
-            })
-
-            NotificationManager.error('Invalid search properties.', null, 5000);
+                    NotificationManager.error('Invalid search properties.', null, 5000);
+                });
         }
     };
 
