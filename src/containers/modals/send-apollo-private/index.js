@@ -107,9 +107,6 @@ class SendApolloPrivate extends React.Component {
     setConfirm = () => {
         this.setState({
             isPrivateTransactionAlert: true
-        }, () => {
-            console.log(2222);
-            console.log(this.state.isPrivateTransactionAlert);
         })
     };
 
