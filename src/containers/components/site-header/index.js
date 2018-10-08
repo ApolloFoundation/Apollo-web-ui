@@ -132,41 +132,30 @@ class SiteHeader extends React.Component {
                     const block       = data[1];
                     const account     = data[2];
 
-                    if (transaction) {
-                        this.setState({
-                            isSearching: false
-                        })
+                    const modals = ['INFO_TRANSACTION', 'INFO_BLOCK', 'INFO_ACCOUNT'];
 
-                        this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-                        return;
-                    }
-
-                    if (block) {
-                        this.setState({
-                            isSearching: false
-                        })
-
-                        this.props.setBodyModalParamsAction('INFO_BLOCK', block);
-                        return;
-                    }
-
-                    if (account) {
-                        if (account.errorCode !== 4) {
-                            this.setState({
-                                isSearching: false
-                            })
-
-                            this.props.setModalData(account.account);
-                            this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account);
-                            return;
+                    const result = [transaction, block, account].find((el, index) => {
+                        if (el) {
+                            if (index < 2) {
+                                this.props.setBodyModalParamsAction(modals[index], el);
+                                return el
+                            } else {
+                                if (el.account) {
+                                    this.props.setBodyModalParamsAction(modals[index], el.account);
+                                    return el
+                                }
+                            }
                         }
+                    });
+
+                    if (!result) {
+                        NotificationManager.error('Invalid search properties.', null, 5000);
                     }
 
                     this.setState({
                         isSearching: false
                     })
 
-                    NotificationManager.error('Invalid search properties.', null, 5000);
                 });
         }
     };
@@ -1011,6 +1000,7 @@ const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
     forgedBalanceATM: state.account.forgedBalanceATM,
     moalTtype: state.modals.modalType,
+    modalData: state.modals.modalData,
     bodyModalType: state.modals.bodyModalType,
     secretPhrase: state.account.passPhrase,
     settings: state.accountSettings
