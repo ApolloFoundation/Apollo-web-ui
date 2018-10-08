@@ -116,29 +116,48 @@ class SiteHeader extends React.Component {
     }
 
     handleSearchind = async (values) => {
-        const transaction = await this.props.getTransactionAction({transaction: values.value});
-        const block = await this.props.getBlockAction({block: values.value});
-        const account = await this.props.getAccountInfoAction({account: values.value});
+        if (!this.state.isSearching) {
+            this.setState({
+                isSearching: true
+            })
 
-        this.props.setBodyModalParamsAction(null);
+            const transaction = this.props.getTransactionAction({transaction: values.value});
+            const block = this.props.getBlockAction({block: values.value});
+            const account = this.props.getAccountInfoAction({account: values.value});
+            this.props.setBodyModalParamsAction(null);
 
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-            return;
+            Promise.all([transaction, block, account])
+                .then((data) => {
+                    const transaction = data[0];
+                    const block       = data[1];
+                    const account     = data[2];
+
+                    const modals = ['INFO_TRANSACTION', 'INFO_BLOCK', 'INFO_ACCOUNT'];
+
+                    const result = [transaction, block, account].find((el, index) => {
+                        if (el) {
+                            if (index < 2) {
+                                this.props.setBodyModalParamsAction(modals[index], el);
+                                return el
+                            } else {
+                                if (el.account) {
+                                    this.props.setBodyModalParamsAction(modals[index], el.account);
+                                    return el
+                                }
+                            }
+                        }
+                    });
+
+                    if (!result) {
+                        NotificationManager.error('Invalid search properties.', null, 5000);
+                    }
+
+                    this.setState({
+                        isSearching: false
+                    })
+
+                });
         }
-
-        if (block) {
-            this.props.setBodyModalParamsAction('INFO_BLOCK', block);
-            return;
-        }
-
-        if (account) {
-            this.props.setModalData(account.account);
-            this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account);
-            return;
-        }
-
-        NotificationManager.error('Invalid search properties.', null, 5000);
     };
 
     getBlock = async () => {
@@ -981,6 +1000,7 @@ const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
     forgedBalanceATM: state.account.forgedBalanceATM,
     moalTtype: state.modals.modalType,
+    modalData: state.modals.modalData,
     bodyModalType: state.modals.bodyModalType,
     secretPhrase: state.account.passPhrase,
     settings: state.accountSettings

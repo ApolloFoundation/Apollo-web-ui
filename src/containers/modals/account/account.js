@@ -524,19 +524,37 @@ class InfoAccount extends React.Component {
                                     <div className="flexible-grid">
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient: this.state.account.accountRS})}
-                                            className="btn btn-primary blue static"
+                                            className={classNames({
+                                                "btn": true,
+                                                "btn-primary": true,
+                                                "blue": true,
+                                                "static" : true,
+                                                "disabled": !this.state.account
+                                            })}
                                         >
                                             Send Apollo
                                         </a>
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient: this.state.account.accountRS})}
-                                            className="btn btn-primary blue static"
+                                            className={classNames({
+                                                "btn": true,
+                                                "btn-primary": true,
+                                                "blue": true,
+                                                "static" : true,
+                                                "disabled": !this.state.account
+                                            })}
                                         >
                                             Send a message
                                         </a>
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.state.account.accountRS)}
-                                            className="btn btn-primary blue static"
+                                            className={classNames({
+                                                "btn": true,
+                                                "btn-primary": true,
+                                                "blue": true,
+                                                "static" : true,
+                                                "disabled": !this.state.account
+                                            })}
                                         >
                                             Add as contact
                                         </a>
