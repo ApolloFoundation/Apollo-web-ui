@@ -98,7 +98,7 @@ class MyProductsForSale extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'My panging orders'}
+                    pageTitle={'My pending orders'}
                 />
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
