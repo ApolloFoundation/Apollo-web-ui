@@ -137,7 +137,7 @@ class Confirm2FA extends React.Component {
                                         name={'closeModal'}
                                         className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                     >
-                                        Create new Account
+                                        Confirm enable
                                     </button>
                                 </div>
                             </div>

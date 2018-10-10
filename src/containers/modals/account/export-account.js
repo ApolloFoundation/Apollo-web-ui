@@ -124,13 +124,13 @@ class ExportAccount extends React.Component {
 
                                     this.state && this.state.accountKeySeedData &&
                                     <CopyToClipboard
-                                        text={this.state.accountKeySeedData.keySeed}
+                                        text={this.state.accountKeySeedData.secretBytes}
                                         onCopy={() => {
                                             NotificationManager.success('The key seed has been copied to clipboard.')
                                         }}
                                     >
                                         <InfoBox info>
-                                            {this.state.accountKeySeedData.keySeed}
+                                            {this.state.accountKeySeedData.secretBytes}
                                         </InfoBox>
                                     </CopyToClipboard>
 

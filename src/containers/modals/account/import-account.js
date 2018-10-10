@@ -99,7 +99,7 @@ class ImportAccount extends React.Component {
                                                 Key Seed
                                             </label>
                                             <div className="col-sm-9">
-                                                <TextArea className="form-control" placeholder="Key Seed" field="keySeed" cols="30" rows="3" />
+                                                <TextArea className="form-control" placeholder="Key Seed" field="secretBytes" cols="30" rows="3" />
                                             </div>
                                         </div>
 
