@@ -120,54 +120,10 @@ class Ledger extends React.Component {
 
         const ledger = await this.props.getAccountLedgerAction(requestParams);
         if (ledger) {
-            if (ledger.serverPublicKey) {
-
-                // const serverPublicKey = crypto.getSharedSecretJava(conv.hexStringToByteArray(transactions.serverPublicKey))
-                const privateKey      = converters.hexStringToByteArray(this.state.privateKey);
-
-                const sharedKey = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(
-                    privateKey,
-                    converters.hexStringToByteArray(ledger.serverPublicKey)
-                )));
-
-                this.setState({
-                    ...this.props,
-                    ledger: ledger.entries,
-                    serverPublicKey: ledger.serverPublicKey,
-                    sharedKey : sharedKey
-                });
-            } else {
-                this.setState({
-                    ...this.props,
-                    ledger: ledger.entries
-                });
-            }
-        }
-    }
-
-    async getLedgerEntry (modaltype, ledgerId) {
-
-        const requestParams = {
-            ledgerId: ledgerId
-        };
-
-        const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
-
-        if (ledgerEntry) {
-            this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry)
-        }
-    }
-
-    async getTransaction (modaltype, ledgerId) {
-
-        const requestParams = {
-            ledgerId: ledgerId
-        };
-
-        const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
-
-        if (ledgerEntry) {
-            this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry)
+            this.setState({
+                ...this.props,
+                ledger: ledger.entries,
+            });
         }
     }
 
@@ -178,6 +134,61 @@ class Ledger extends React.Component {
         });
     }
 
+    async getLedgerEntry (modaltype, ledgerId, isPrivate) {
+
+        console.log(isPrivate);
+
+        const requestParams = {
+            ledgerId: ledgerId
+        };
+
+        if (isPrivate) {
+            const privateLedgerEntry = await this.props.getLedgerEntryAction({
+                ...requestParams,
+                passphrase: this.state.passphrase,
+                account: this.props.account
+            });
+
+            if (privateLedgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', privateLedgerEntry)
+            }
+
+        } else {
+            const ledgerEntry = await this.props.getLedgerEntryAction({
+                ...requestParams
+            });
+
+            if (ledgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry.ledgerId)
+            }
+        }
+    }
+
+    getTransaction  = async (modaltype, ledgerId, isPrivate) => {
+
+        let requestParams = {
+            transaction: ledgerId
+        };
+
+        console.log(isPrivate);
+
+        if (isPrivate) {
+            requestParams.passphrase = this.state.passphrase;
+            requestParams.account    = this.props.account;
+
+            const privateLedgerEntry = await this.props.getTransactionAction(requestParams);
+
+            if (privateLedgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_TRANSACTION', privateLedgerEntry)
+            }
+        } else {
+            const ledgerEntry = await this.props.getTransactionAction(requestParams);
+
+            if (ledgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_TRANSACTION', ledgerEntry)
+            }
+        }
+    }
 
     render () {
         return (

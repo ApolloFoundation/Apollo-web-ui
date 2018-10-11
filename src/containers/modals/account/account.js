@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import uuid from "uuid";
 import {getAccountAction}     from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
+import {getLedgerEntryAction} from "../../../actions/ledger";
 import {switchAccountAction}  from "../../../actions/account";
 import {formatTimestamp}      from '../../../helpers/util/time';
 import {Link}                 from "react-router-dom";
@@ -104,13 +105,47 @@ class InfoAccount extends React.Component {
     getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
 
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
-        }
+        this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
     };
 
-    setTransactionInfo(modalType, data) {
+    setTransactionInfo = (modalType, data, isPrivate) => {
+
+        console.log(data)
         this.getTransaction({
+            transaction: data,
+        });
+    }
+
+    getLedgerEntry = async (modaltype, ledgerId, isPrivate) => {
+
+        const requestParams = {
+            ledgerId: ledgerId
+        };
+
+        if (isPrivate) {
+            const privateLedgerEntry = await this.props.getLedgerEntryAction({
+                ...requestParams,
+                passphrase: this.state.passphrase,
+                account: this.props.account
+            });
+
+            if (privateLedgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', privateLedgerEntry)
+            }
+
+        } else {
+            const ledgerEntry = await this.props.getLedgerEntryAction({
+                ...requestParams
+            });
+
+            if (ledgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', requestParams.ledgerId)
+            }
+        }
+    }
+
+    setLedgerEntryInfo = (modalType, data) => {
+        this.getLedgerEntry({
             account: this.props.account,
             transaction: data
         });
@@ -233,7 +268,7 @@ class InfoAccount extends React.Component {
                                                                     block
                                                                     transaction = {el}
                                                                     index={index}
-                                                                    setTransactionInfo={this.getTransaction}
+                                                                    setTransactionInfo={this.setTransactionInfo}
                                                                 />
                                                             )
                                                         })
@@ -288,10 +323,8 @@ class InfoAccount extends React.Component {
                                                             <Entry
                                                                 key={uuid()}
                                                                 entry={el}
-                                                                publicKey= {this.state.serverPublicKey}
-                                                                privateKey={this.state.privateKey}
-                                                                sharedKey= {this.state.sharedKey}
                                                                 setLedgerEntryInfo={this.getLedgerEntry}
+                                                                setTransactionInfo={this.setTransactionInfo}
                                                             />
                                                         );
                                                     })
@@ -574,6 +607,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => setModalData(data),
+    getLedgerEntryAction: (data) => getLedgerEntryAction(data),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
