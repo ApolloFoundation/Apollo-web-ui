@@ -10,11 +10,7 @@ import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
 import {setModalData, setMopalType, setBodyModalParamsAction} from '../../../modules/modals';
 
-import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
-
-import InfoBox from '../../components/info-box';
-import ModalFooter from '../../components/modal-footer'
 
 
 class PrivateTransactions extends React.Component {
@@ -33,11 +29,15 @@ class PrivateTransactions extends React.Component {
     }
 
     async handleFormSubmit(params) {
-        let passphrase = params.passphrase;
+        const isPassphrase = await this.validatePassphrase(params.passphrase);
 
-        const data = {
-            passphrase: passphrase
+        var data = {
+            passphrase: params.passphrase
         };
+
+        if (isPassphrase) {
+            data.secretPhrase = params.passphrase;
+        }
 
         this.props.setModalData(data);
         this.props.setBodyModalParamsAction(null, null);

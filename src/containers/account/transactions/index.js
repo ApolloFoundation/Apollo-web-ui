@@ -80,7 +80,6 @@ class Transactions extends React.Component {
     }
 
     getPrivateTransactions = (data) => {
-        console.log(data);
 
         let reqParams = {
             type: this.state.type,
@@ -88,14 +87,14 @@ class Transactions extends React.Component {
             firstIndex:  this.state.firstIndex,
             lastIndex:   this.state.lastIndex,
             requestType: this.state.requestType,
-            passphrase:  data.passphrase
+            passphrase:  data.passphrase,
+            secretPhrase: data.passphrase
         };
 
         if (data.passphrase) {
             this.setState({
-                passphrase: data.passphrase
-            }, () => {
-                console.log(this.state.passphrase)
+                passphrase: data.passphrase,
+                secretPhrase: data.passphrase
             });
         }
 
@@ -103,18 +102,23 @@ class Transactions extends React.Component {
     };
 
     onPaginate = (page) => {
+
         let reqParams = {
             type: this.state.type,
             account:    this.props.account,
             page:       page,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1,
-            requestType: this.state.requestType
+            requestType: this.state.requestType,
+            secretPhrase: this.state.passphrase,
+            passphrase: this.state.passphrase
+
         };
 
         this.setState(reqParams, () => {
             this.getTransactions(reqParams, this.state.isUnconfirmed, this.state.isAll)
         });
+
     };
 
     async getTransactions (requestParams, all){
@@ -123,8 +127,6 @@ class Transactions extends React.Component {
 
         if (!this.state.isUnconfirmed && !this.state.isPhassing) {
             const transactions = await this.props.getTransactionsAction(params);
-
-            console.log(this.state);
 
             if (transactions) {
                 this.setState({
@@ -192,7 +194,8 @@ class Transactions extends React.Component {
             this.getTransaction({
                 account: this.props.account,
                 transaction: data,
-                passphrase: this.state.passphrase,
+                secretPhrase: this.state.passphrase,
+                passphrase: this.state.passphrase
             });
         } else {
             this.getTransaction({
@@ -250,8 +253,6 @@ class Transactions extends React.Component {
         }
 
         const next = () => {
-            console.log('...................');
-            console.log(this.state);
             this.setState({
                 ...this.state,
                 type: type,
@@ -266,6 +267,7 @@ class Transactions extends React.Component {
                     account:    this.props.account,
                     firstIndex: 0,
                     lastIndex:  14,
+                    secretPhrase: this.state.passphrase,
                     passphrase: this.state.passphrase,
                     requestType: requestType
                 }, requestType, all);
