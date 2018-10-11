@@ -62,53 +62,41 @@ class Transactions extends React.Component {
     }
 
     updateTransactionsData  = (newState)  => {
+        console.log(newState);
+
         this.setState({
             ...newState,
-            publicKey:  this.state.publicKey,
-            privateKey: this.state.privateKey,
-            sharedKey:  this.state.sharedKey
+            passphrase:  this.state.passphrase
+
         }, () => {
             this.getPrivateTransactions({
-                PublicKey: this.state.publicKey
+                passphrase:  this.state.passphrase
             });
         });
     };
 
     componentWillReceiveProps(newState) {
         this.updateTransactionsData(newState);
-        // this.setState({
-        //     ...newState,
-        //     publicKey:  this.state.publicKey,
-        //     privateKey: this.state.privateKey,
-        //     sharedKey:  this.state.sharedKey
-        // }, () => {
-        //     this.getPrivateTransactions({
-        //         PublicKey: this.state.publicKey
-        //     });
-        // });
     }
 
     getPrivateTransactions = (data) => {
+        console.log(data);
+
         let reqParams = {
             type: this.state.type,
-            account:    this.props.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex:  this.state.lastIndex,
-            requestType: this.state.requestType
-
+            account:     this.props.account,
+            firstIndex:  this.state.firstIndex,
+            lastIndex:   this.state.lastIndex,
+            requestType: this.state.requestType,
+            passphrase:  data.passphrase
         };
 
-        if (data && data.publicKey) {
+        if (data.passphrase) {
             this.setState({
-                ...this.props,
-                publicKey:  data.publicKey,
-                privateKey: data.privateKey
+                passphrase: data.passphrase
+            }, () => {
+                console.log(this.state.passphrase)
             });
-
-            reqParams.publicKey = data.publicKey;
-        }
-        if (data && data.PublicKey) {
-            reqParams.publicKey = data.PublicKey;
         }
 
         this.getTransactions(reqParams);
@@ -124,10 +112,6 @@ class Transactions extends React.Component {
             requestType: this.state.requestType
         };
 
-        if (this.state.publicKey) {
-            reqParams.publicKey = this.state.publicKey
-        }
-
         this.setState(reqParams, () => {
             this.getTransactions(reqParams, this.state.isUnconfirmed, this.state.isAll)
         });
@@ -140,29 +124,15 @@ class Transactions extends React.Component {
         if (!this.state.isUnconfirmed && !this.state.isPhassing) {
             const transactions = await this.props.getTransactionsAction(params);
 
+            console.log(this.state);
+
             if (transactions) {
-                if (transactions.serverPublicKey) {
-                    const privateKey = converters.hexStringToByteArray(this.state.privateKey);
-                    const sharedKey  = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(
-                        privateKey,
-                        converters.hexStringToByteArray(transactions.serverPublicKey)
-                    )));
-
-
-                    this.setState({
-                        ...this.props,
-                        transactions: transactions.transactions,
-                        serverPublicKey: transactions.serverPublicKey,
-                        sharedKey : sharedKey,
-                        isUnconfirmed: false
-                    });
-                } else {
-                    this.setState({
-                        ...this.props,
-                        transactions: transactions.transactions,
-                        isUnconfirmed: false
-                    });
-                }
+                this.setState({
+                    ...this.props,
+                    transactions: transactions.transactions,
+                    passphrase : params.passphrase,
+                    isUnconfirmed: false
+                },);
             }
         }
         if (this.state.isUnconfirmed) {
@@ -171,6 +141,8 @@ class Transactions extends React.Component {
         }
         if (this.state.isPhassing) {
             params.requestType = this.state.requestType;
+
+            console.log(params);
 
             const transactions = await this.props.getTransactionsAction(params);
 
@@ -212,22 +184,22 @@ class Transactions extends React.Component {
     getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
 
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
-        } else {
-            const privateTransaction = await this.props.getPrivateTransactionAction({...requestParams, publicKey: this.state.publicKey});
-
-            if (privateTransaction){
-                this.props.setBodyModalParamsAction('INFO_TRANSACTION', {privateTransaction, publicKey: this.state.publicKey,  privateKey: this.state.privateKey})
-            }
-        }
+        this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
     };
 
-    setTransactionInfo(modalType, data) {
-        this.getTransaction({
-            account: this.props.account,
-            transaction: data
-        });
+    setTransactionInfo(modalType, data, isPrivate) {
+        if (isPrivate) {
+            this.getTransaction({
+                account: this.props.account,
+                transaction: data,
+                passphrase: this.state.passphrase,
+            });
+        } else {
+            this.getTransaction({
+                account: this.props.account,
+                transaction: data,
+            });
+        }
     }
 
     handleTransactinonFilters = (type, subtype, requestType, all) => {
@@ -278,6 +250,8 @@ class Transactions extends React.Component {
         }
 
         const next = () => {
+            console.log('...................');
+            console.log(this.state);
             this.setState({
                 ...this.state,
                 type: type,
@@ -292,6 +266,7 @@ class Transactions extends React.Component {
                     account:    this.props.account,
                     firstIndex: 0,
                     lastIndex:  14,
+                    passphrase: this.state.passphrase,
                     requestType: requestType
                 }, requestType, all);
             });

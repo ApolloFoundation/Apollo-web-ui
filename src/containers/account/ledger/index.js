@@ -43,6 +43,7 @@ class Ledger extends React.Component {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
+            passphrase: this.state.passphrase,
             includeHoldingInfo: true
         });
     };
@@ -65,12 +66,10 @@ class Ledger extends React.Component {
     componentWillReceiveProps(newState) {
         this.setState({
             ...newState,
-            publicKey:  this.state.publicKey,
-            privateKey: this.state.privateKey,
-            sharedKey:  this.state.sharedKey
+            passphrase:  this.state.passphrase,
         }, () => {
             this.getAccountLedger({
-                PublicKey: this.state.publicKey,
+                passphrase:  this.state.passphrase,
                 account: this.props.account,
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex,
@@ -80,25 +79,21 @@ class Ledger extends React.Component {
     }
 
     getPrivateEntries = (data) => {
+        console.log(data);
+
         let reqParams = {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
-            includeHoldingInfo: true
+            includeHoldingInfo: true,
+            passphrase:  data.passphrase
         };
 
-        if (data && data.publicKey) {
+        if (data && data.passphrase) {
 
             this.setState({
-                ...this.props,
-                publicKey:  data.publicKey,
-                privateKey: data.privateKey
+                passphrase:  data.passphrase,
             });
-
-            reqParams.publicKey = data.publicKey;
-        }
-        if (data && data.PublicKey) {
-            reqParams.publicKey = data.PublicKey;
         }
 
         this.getAccountLedger(reqParams);
@@ -110,13 +105,9 @@ class Ledger extends React.Component {
             account: this.props.account,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1,
-            includeHoldingInfo: true
-
+            includeHoldingInfo: true,
+            passphrase:  this.state.passphrase,
         };
-
-        if (this.state.publicKey) {
-            reqParams.publicKey = this.state.publicKey
-        }
 
         this.setState(reqParams, () => {
             this.getAccountLedger(reqParams)
@@ -125,10 +116,7 @@ class Ledger extends React.Component {
 
     async getAccountLedger(requestParams) {
 
-        if (requestParams.PublicKey) {
-            requestParams.publicKey = requestParams.PublicKey;
-            delete requestParams.PublicKey;
-        }
+        console.log(requestParams);
 
         const ledger = await this.props.getAccountLedgerAction(requestParams);
         if (ledger) {

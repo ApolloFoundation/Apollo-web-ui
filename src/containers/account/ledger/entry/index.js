@@ -72,40 +72,37 @@ class Entry extends React.Component {
                                 style={{color: '#00C8FF'}}
                                 className="zmdi zmdi-info"
                             />
-                        </a>
-                    </td>
-                    <td className="align-right">
-                        {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" &&
-                        (this.state.entry.change / 100000000).toFixed(1)}
-                    </td>
-                    <td className="align-right">
-                        {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" && this.state.entry.balance > 0 &&
-                        (this.state.entry.balance / 100000000).toLocaleString('en')}
-                    </td>
-                    <td className="align-right">
-                        {this.state.entry.holdingInfo && this.state.entry.holdingInfo.name}
-                    </td>
-                    <td className="align-right">
-                        {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
-                        this.state.entry.holdingInfo && this.state.entry.holdingInfo.name &&
-                        (this.state.entry.change/1).toFixed(2)}
-                        {this.state.entry.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
-                        (this.state.entry.change/100000000).toFixed(2)}
-                    </td>
-                    <td className="align-right">
-                        {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
-                        this.state.entry.holdingInfo && this.state.entry.holdingInfo.name &&
-                        (this.state.entry.balance/1).toLocaleString('en')}
-                        {this.state.entry.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
-                        (this.state.entry.balance/100000000).toLocaleString('en')}
-                    </td>
-                </tr>
-            );
-        } else {
-            return (
-                <tr>encrypted</tr>
-            )
-        }
+                            </a>
+                        </td>
+                        <td className="align-right">
+                            {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" &&
+                            (this.state.entry.change / 100000000).toFixed(1)}
+                        </td>
+                        <td className="align-right">
+                            {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" && this.state.entry.balance > 0 &&
+                            (this.state.entry.balance / 100000000).toLocaleString('en')}
+                        </td>
+                        <td className="align-right">
+                            {this.state.entry.holdingInfo && this.state.entry.holdingInfo.name}
+                        </td>
+                        <td className="align-right">
+                            {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
+                            this.state.entry.holdingInfo && this.state.entry.holdingInfo.name &&
+                            (this.state.entry.change/1).toFixed(2)}
+                            {this.state.entry.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
+                            (this.state.entry.change/100000000).toFixed(2)}
+                        </td>
+                        <td className="align-right">
+                            {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
+                            this.state.entry.holdingInfo && this.state.entry.holdingInfo.name &&
+                            (this.state.entry.balance/1).toLocaleString('en')}
+                            {this.state.entry.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
+                            (this.state.entry.balance/100000000).toLocaleString('en')}
+                        </td>
+                    </tr>
+                }
+            </React.Fragment>
+        );
     }
 }
 

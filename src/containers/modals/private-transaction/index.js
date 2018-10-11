@@ -35,37 +35,8 @@ class PrivateTransactions extends React.Component {
     async handleFormSubmit(params) {
         let passphrase = params.passphrase;
 
-        const isPassed = await this.validatePassphrase(passphrase);
-        if (!isPassed) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            }, () => {
-
-            })
-        }
-
-        const privateKey = crypto.getPrivateKeyAPL(passphrase);
-        const publicKey  = this.props.publicKey;
-
-        var sharedKey;
-
-        sharedKey = crypto.getSharedSecretJava(
-            converters.hexStringToByteArray(crypto.getPrivateKeyAPL(passphrase)),
-            converters.hexStringToByteArray(this.props.publicKey)
-        );
-
-        sharedKey = new Uint8Array(sharedKey);
-
         const data = {
-            publicKey: publicKey,
-            privateKey: privateKey
+            passphrase: passphrase
         };
 
         this.props.setModalData(data);
@@ -87,18 +58,17 @@ class PrivateTransactions extends React.Component {
                             <div className="form-title">
                                 <p>Show private transactions</p>
                             </div>
-                            <ModalFooter
-                                setValue={setValue}
-                                getFormState={getFormState}
-                                values={values}
-                            />
+                            <div className="input-group-app">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <label>Passphrase</label>
+                                    </div>
+                                    <div className="col-md-9">
+                                        <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
+                                    </div>
+                                </div>
+                            </div>
 
-                            {
-                                this.state.passphraseStatus &&
-                                <InfoBox danger mt>
-                                    Incorect passphrase.
-                                </InfoBox>
-                            }
 
                             <button type="submit" className="btn btn-right">Enter</button>
                         </div>
