@@ -32,11 +32,36 @@ class InfoTransactions extends React.Component {
     }
 
     componentDidMount = () => {
-        this.getAccountLedgerEntry();
+        this.getAccountLedgerEntry(this.props);
     };
 
-    getAccountLedgerEntry = async () => {
-        const entry = await this.props.getLedgerEntryAction({ledgerId: this.props.modalData});
+    componentWillReceiveProps = (newState) => {
+        this.getAccountLedgerEntry(newState);
+    }
+
+    getAccountLedgerEntry = async (newState) => {
+
+        let params;
+
+        if (typeof newState.modalData === 'object') {
+
+            this.setState({
+                entry: newState.modalData
+            });
+
+            return;
+
+        } else {
+
+            params = {ledgerId: newState.modalData};
+
+        }
+
+        console.log(params);
+
+        const entry = await this.props.getLedgerEntryAction(params);
+
+        console.log(entry);
 
         if (entry) {
             this.setState({
