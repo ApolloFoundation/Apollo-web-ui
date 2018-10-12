@@ -107,7 +107,7 @@ class CreateUser extends React.Component {
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({submitForm, values, addValue, removeValue, getFormState}) => (
+                    render={({submitForm, values, addValue, removeValue, getFormState, setValue}) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             {
                                 !this.state.isValidating &&

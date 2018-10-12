@@ -105,7 +105,7 @@ class TokenGenerationValidation extends React.Component {
                             <Form
                                 onSubmit={(values) => this.handleFormSubmit(values)}
                                 render={({
-                                             submitForm, setValue
+                                             submitForm, setValue, values, getFormState
                                          }) => (
                                 <form
                                     className={classNames({

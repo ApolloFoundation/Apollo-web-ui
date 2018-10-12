@@ -66,7 +66,7 @@ class PrivateTransactions extends React.Component {
                 <Form
                     onSubmit={values => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm
+                                 submitForm, getFormState, setValue, values
                              }) => (
                         <form className="modal-form"  onSubmit={submitForm}>
                             <div className="form-group-app">
