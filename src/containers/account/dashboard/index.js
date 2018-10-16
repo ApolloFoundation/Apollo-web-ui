@@ -406,7 +406,12 @@ class Dashboard extends React.Component {
                                                     style={{cursor: 'pointer'}}
                                                     className="amount"
                                                 >
-                                                    {this.state.accountInfo && Math.round(this.state.accountInfo.balanceATM / 100000000).toLocaleString('en')}
+                                                    {
+                                                    	this.state.accountInfo &&
+														this.state.accountInfo.unconfirmedBalanceAPL &&
+														Math.round(this.state.accountInfo.unconfirmedBalanceAPL / 100000000).toLocaleString('en')
+                                                    	|| 0
+                                                    }
                                                     <span className="currency">
 												&nbsp;APL
 											</span>
