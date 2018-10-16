@@ -119,7 +119,7 @@ class ModalWindow extends React.Component {
 
         if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
 
-            if (!e.target.closest('.modal-window .modal-box')) {
+            if (!e.target.closest('.modal-window .modal-box') && !e.target.closest('.modal-window .area-hider')) {
                 Object.values(modalBox).map((el, index) => {
                     setTimeout(() => {
                         el.classList.remove('active');
@@ -133,6 +133,7 @@ class ModalWindow extends React.Component {
 
                 }, 300);
             }
+
 
         } else {
             modalWindow.classList.add('active');

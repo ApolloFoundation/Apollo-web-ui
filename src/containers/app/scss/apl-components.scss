@@ -340,6 +340,13 @@
     &.x-wide {
       max-width: 1000px !important;
     }
+    .area-hider {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
     .modal-form {
       //max-width: 480px;
       //margin-bottom: 20px;

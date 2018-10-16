@@ -35,6 +35,23 @@ function submitForm(data, requestType) {
                 data.passphrase = data.secretPhrase;
 
                 delete data.secretPhrase;
+            } else {
+                data.secretPhrase = data.secretPhrase;
+                delete data.passphrase;
+            }
+        }
+
+        if (data.passphrase) {
+            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.passphrase)));
+
+            if (account.accountRS !== isPassphrase) {
+                data.passphrase = data.passphrase;
+
+                delete data.secretPhrase;
+            } else {
+                data.secretPhrase = data.passphrase;
+
+                delete data.passphrase;
             }
         }
 
