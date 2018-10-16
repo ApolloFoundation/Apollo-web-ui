@@ -77,6 +77,8 @@ class Confirm2FA extends React.Component {
                     render={({submitForm, values, addValue, removeValue, getFormState}) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
+                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+
                                 <div className="form-title">
                                     <p>Confirm 2FA enabling</p>
                                 </div>
