@@ -49,7 +49,7 @@ export function getAccountInfoAction(account) {
             }
         })
             .then((res) => {
-                if (!res.data.errorCode) {
+                if (res.data.errorCode === 5) {
                     return res.data
                 }
             })

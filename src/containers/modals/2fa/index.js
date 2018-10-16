@@ -61,11 +61,15 @@ class Confirm2FA extends React.Component {
         if (confirm) {
             if (confirm.errorCode) {
                 NotificationManager.error(confirm.errorDescription, 'Error', 5000);
-            }
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
+            } else {
+                if (this.props.modalData.settingsReloader) {
+                    this.props.modalData.settingsReloader();
+                }
+                this.props.setBodyModalParamsAction(null, {});
+                this.props.closeModal();
 
-            NotificationManager.success('2FA was successfully enabled!', null, 5000);
+                NotificationManager.success('2FA was successfully enabled!', null, 5000);
+            }
         }
     };
 
