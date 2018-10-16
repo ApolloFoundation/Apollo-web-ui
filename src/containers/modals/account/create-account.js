@@ -25,6 +25,7 @@ import classNames from 'classnames';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
+    account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -54,6 +55,12 @@ class CreateUser extends React.Component {
         this.generateAccount();
         this.generatePassphrase();
     };
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.account) {
+            this.props.closeModal();
+        }
+    }
 
     handleTab = (e, index) => {
         e.preventDefault();
