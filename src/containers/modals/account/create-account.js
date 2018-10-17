@@ -205,9 +205,6 @@ class CreateUser extends React.Component {
                                                                     <Text field={'option'} type={'hidden'} defaultValue={0}/>
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
-                                                                            </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
                                                                                     <InfoBox info>
@@ -416,9 +413,6 @@ class CreateUser extends React.Component {
                                                                     <Text field={'option'} type={'hidden'} defaultValue={1}/>
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
-                                                                            </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
                                                                                     <InfoBox info>
