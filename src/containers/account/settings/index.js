@@ -18,6 +18,8 @@ import {enable2FAActon, disable2FAActon} from '../../../actions/account'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getAccountInfoAction} from "../../../actions/account";
 
+import {login} from '../../../modules/account'
+
 class Settings extends React.Component {
 
     settingsLoaded = false;
@@ -47,6 +49,7 @@ class Settings extends React.Component {
         const account = await this.props.getAccountInfoAction({account: props ? props.account : this.props.account});
 
         if (account) {
+            this.props.login(account);
             this.setState({
                 account
             })
@@ -295,9 +298,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getSavedAccountSettings:   ()         => dispatch(getSavedAccountSettingsAction()),
+    getSavedAccountSettings:   () =>           dispatch(getSavedAccountSettingsAction()),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    getAccountInfoAction: (account) =>        dispatch(getAccountInfoAction(account))
+    getAccountInfoAction: (account) =>        dispatch(getAccountInfoAction(account)),
+    login: (account) =>                       dispatch(login(account))
 
 });
 

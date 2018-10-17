@@ -122,6 +122,7 @@ export default (state = initialState, action) => {
 
 
 export const login = (reqParams) => {
+    console.log(reqParams);
     return dispatch => {
         dispatch({
             type: LOAD_ACCOUNT,
