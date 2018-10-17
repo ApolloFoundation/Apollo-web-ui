@@ -137,16 +137,23 @@ class Dashboard extends React.Component {
 	}
 
     getAccountInfo = async (reqParams) => {
-		const accountInfo = await this.props.getAccountInfo(reqParams);
 
-		if (accountInfo) {
+        console.log(reqParams);
+
+        const accountInfo = await this.props.getAccountInfo(reqParams);
+
+        console.log(accountInfo);
+
+        if (accountInfo || (accountInfo && accountInfo.errorCode === 4)) {
+            // console.log(accountInfo);
+            if (accountInfo.balanceATM) {}
 			this.setState({
                 accountInfo
 			})
 		} else {
             this.setState({
                 accountInfo: {
-                    balanceATM: 0,
+                    unconfirmedBalanceATM: 0,
                     accountRS: this.props.accountRS,
 				}
             })
@@ -406,10 +413,13 @@ class Dashboard extends React.Component {
                                                     style={{cursor: 'pointer'}}
                                                     className="amount"
                                                 >
+													{
+														console.log(this.state.accountInfo)
+													}
                                                     {
                                                     	this.state.accountInfo &&
-														this.state.accountInfo.unconfirmedBalanceAPL &&
-														Math.round(this.state.accountInfo.unconfirmedBalanceAPL / 100000000).toLocaleString('en')
+														this.state.accountInfo.unconfirmedBalanceATM &&
+														Math.round(this.state.accountInfo.unconfirmedBalanceATM / 100000000).toLocaleString('en')
                                                     	|| 0
                                                     }
                                                     <span className="currency">
