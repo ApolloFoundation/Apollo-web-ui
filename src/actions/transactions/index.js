@@ -124,10 +124,7 @@ export function sendPrivateTransaction(requestParams) {
 
         return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
                 .then((res) => {
-                    if (!res.data.errorCode) {
-                        return res.data;
-                    }
-                    return;
+                    return res.data;
                 })
                 .catch((err) => {
                     console.log(err);

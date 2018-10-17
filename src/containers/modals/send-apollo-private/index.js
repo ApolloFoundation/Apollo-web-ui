@@ -78,9 +78,18 @@ class SendApolloPrivate extends React.Component {
             isPending: true
         })
 
-        this.props.sendPrivateTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        NotificationManager.success('Private transaction has been submitted.', null, 5000)
+        const privateTransaction = await this.props.sendPrivateTransaction(values);
+
+        if (privateTransaction) {
+            if (privateTransaction.errorCode) {
+                NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
+
+            } else {
+                NotificationManager.success('Private transaction has been submitted.', null, 5000);
+                this.props.setBodyModalParamsAction(null, {});
+            }
+        }
+
     }
 
     handleTabChange(tab) {
