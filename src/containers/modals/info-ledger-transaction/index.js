@@ -57,11 +57,7 @@ class InfoTransactions extends React.Component {
 
         }
 
-        console.log(params);
-
         const entry = await this.props.getLedgerEntryAction(params);
-
-        console.log(entry);
 
         if (entry) {
             this.setState({

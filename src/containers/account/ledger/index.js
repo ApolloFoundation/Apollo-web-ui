@@ -79,8 +79,6 @@ class Ledger extends React.Component {
     }
 
     getPrivateEntries = (data) => {
-        console.log(data);
-
         let reqParams = {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
@@ -115,9 +113,6 @@ class Ledger extends React.Component {
     }
 
     async getAccountLedger(requestParams) {
-
-        console.log(requestParams);
-
         const ledger = await this.props.getAccountLedgerAction(requestParams);
         if (ledger) {
             this.setState({
@@ -135,9 +130,6 @@ class Ledger extends React.Component {
     }
 
     async getLedgerEntry (modaltype, ledgerId, isPrivate) {
-
-        console.log(isPrivate);
-
         const requestParams = {
             ledgerId: ledgerId
         };
@@ -169,8 +161,6 @@ class Ledger extends React.Component {
         let requestParams = {
             transaction: ledgerId
         };
-
-        console.log(isPrivate);
 
         if (isPrivate) {
             requestParams.passphrase = this.state.passphrase;

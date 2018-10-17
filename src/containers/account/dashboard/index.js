@@ -137,12 +137,7 @@ class Dashboard extends React.Component {
 	}
 
     getAccountInfo = async (reqParams) => {
-
-        console.log(reqParams);
-
         const accountInfo = await this.props.getAccountInfo(reqParams);
-
-        console.log(accountInfo);
 
         if (accountInfo || (accountInfo && accountInfo.errorCode === 4)) {
             // console.log(accountInfo);
@@ -413,9 +408,6 @@ class Dashboard extends React.Component {
                                                     style={{cursor: 'pointer'}}
                                                     className="amount"
                                                 >
-													{
-														console.log(this.state.accountInfo)
-													}
                                                     {
                                                     	this.state.accountInfo &&
 														this.state.accountInfo.unconfirmedBalanceATM &&
@@ -683,7 +675,6 @@ class Dashboard extends React.Component {
 												</div>
 											</div>
 										}
-										{console.log(this.state.pendingGoods)}
 										{
 											typeof this.state.pendingGoods === 'undefined' &&
 											typeof this.state.completedGoods === 'undefined' &&

@@ -202,7 +202,6 @@ class FollowedVotes extends React.Component {
 
             Promise.all(followedpolls)
                 .then((data) => {
-                    console.log(data);
                     if (!data.find((el) => {return el.errorCode})) {
                         this.setState({
                             followedpolls: data
@@ -262,7 +261,6 @@ class FollowedVotes extends React.Component {
                             <div className="followed-polls-item">
                                 <div className="left">
                                     <div className="card card-full-screen no-padding">
-                                        {console.log(this.state.followedpolls)}
                                         <React.Fragment>
                                             {
                                                 this.state.followedpolls && this.state.followedpolls.length > 0 && this.state.block &&

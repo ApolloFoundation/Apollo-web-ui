@@ -44,14 +44,9 @@ class Settings extends React.Component {
     };
 
     getAccountInfoAction = async (props) => {
-        console.log(props);
         const account = await this.props.getAccountInfoAction({account: props ? props.account : this.props.account});
 
-        console.log(account);
-
         if (account) {
-            console.log(account);
-
             this.setState({
                 account
             })

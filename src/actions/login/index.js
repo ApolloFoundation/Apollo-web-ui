@@ -45,8 +45,6 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
         const loginStatus = await makeLoginReq(dispatch, {account: dispatch(accountRS)});
 
         if (loginStatus) {
-            console.log(loginStatus);
-
             if (loginStatus.errorCode && !loginStatus.account) {
                 NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
             } else {

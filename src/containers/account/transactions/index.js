@@ -62,8 +62,6 @@ class Transactions extends React.Component {
     }
 
     updateTransactionsData  = (newState)  => {
-        console.log(newState);
-
         this.setState({
             ...newState,
             passphrase:  this.state.passphrase
@@ -143,8 +141,6 @@ class Transactions extends React.Component {
         }
         if (this.state.isPhassing) {
             params.requestType = this.state.requestType;
-
-            console.log(params);
 
             const transactions = await this.props.getTransactionsAction(params);
 
