@@ -12,7 +12,7 @@ import {setModalData, setMopalType, setBodyModalParamsAction} from '../../../mod
 import {setAccountPassphrase} from '../../../modules/account';
 import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
-
+import InputForm from '../../components/input-form'
 import InfoBox from '../../components/info-box';
 import ModalFooter from '../../components/modal-footer'
 
@@ -45,40 +45,25 @@ class DecryptMessage extends React.Component {
 
     async handleFormSubmit(params) {
 
-        console.log(params);
         let passphrase = params.passphrase;
-
         const isPassed = await this.validatePassphrase(passphrase);
-        if (!isPassed) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            }, () => {
-
-            })
-        }
-
-        if (params.isRememberPassphrase) {
-            localStorage.setItem('secretPhrase', JSON.stringify(params.passphrase))
-        }
 
         if (params.passphrase) {
-            delete params.sharedKey;
-            this.props.setAccountPassphrase(passphrase);
+            delete params.secretPhrase;
+            if (params.isRememberPassphrase) {
+                localStorage.setItem('secretPhrase', JSON.stringify(params.passphrase))
+            }
+            this.props.setAccountPassphrase(params.passphrase);
             this.closeModal();
         }
-        if (params.sharedKey) {
+        if (params.secretPhrase) {
             delete params.passphrase;
-            this.props.setAccountPassphrase(passphrase);
+            if (params.isRememberPassphrase) {
+                localStorage.setItem('secretPhrase', JSON.stringify(params.secretPhrase))
+            }
+            this.props.setAccountPassphrase(params.secretPhrase);
             this.closeModal();
         }
-        // this.props.setBodyModalParamsAction(null, null);
     }
 
     closeModal = () => {
@@ -108,27 +93,35 @@ class DecryptMessage extends React.Component {
                                 <div className="form-title">
                                     <p>Decrypt messages</p>
                                 </div>
-                                <ModalFooter
-                                    setValue={setValue}
-                                    getFormState={getFormState}
-                                    values={values}
-                                />
-                                {/*<div className="input-group-app">*/}
-                                    {/*<div className="row">*/}
-                                        {/*<div className="col-md-3">*/}
-                                        {/*</div>*/}
-                                        {/*<div className="col-md-9">*/}
-                                            {/*<div className="input-wrapper">*/}
-                                                {/*<div className="form-sub-actions">*/}
-                                                    {/*<div className="input-group-app align-middle display-block offset-bottom offset-top">*/}
-                                                        {/*<Checkbox style={{display: 'inline-block'}} type="checkbox" field="isRememberPassphrase"/>*/}
-                                                        {/*<label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>*/}
-                                                    {/*</div>*/}
-                                                {/*</div>*/}
-                                            {/*</div>*/}
-                                        {/*</div>*/}
-                                    {/*</div>*/}
-                                {/*</div>*/}
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                    </label>
+                                    <div className="col-sm-9">
+
+                                        <InputForm
+                                            type="password"
+                                            field="secretPhrase"
+                                            placeholder="Secret Phrase"
+                                            setValue={setValue}/>
+                                    </div>
+                                </div>
+                                <div className="input-group-app">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                        </div>
+                                        <div className="col-md-9">
+                                            <div className="input-wrapper">
+                                                <div className="form-sub-actions">
+                                                    <div className="input-group-app align-middle display-block offset-bottom offset-top">
+                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isRememberPassphrase"/>
+                                                        <label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 {/*<div className="input-group-app">*/}
                                     {/*<div className="row">*/}
                                         {/*<div className="col-md-3">*/}
