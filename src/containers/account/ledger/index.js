@@ -11,7 +11,7 @@ import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Entry from './entry'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
-import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
+import {setModalCallback, setBodyModalParamsAction, setMopalType} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions/";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
@@ -20,6 +20,7 @@ import {BlockUpdater} from "../../block-subscriber";
 import ContentLoader from '../../components/content-loader'
 import InfoBox from '../../components/info-box';
 import ContentHendler from '../../components/content-hendler'
+import {NotificationManager} from "react-notifications";
 
 class Ledger extends React.Component {
     constructor(props) {
@@ -121,10 +122,26 @@ class Ledger extends React.Component {
     async getAccountLedger(requestParams) {
         const ledger = await this.props.getAccountLedgerAction(requestParams);
         if (ledger) {
-            this.setState({
-                ...this.props,
-                ledger: ledger.entries,
-            });
+            if (ledger.errorCode) {
+                this.setState({
+                    isError: true
+                }, () => {
+                    NotificationManager.error(ledger.errorDescription, 'Error', 900000);
+                });
+            } else {
+                if (!this.state.isPrivate && !!ledger.serverPublicKey) {
+                    this.setState({
+                        isPrivate: true
+                    }, () => {
+                        NotificationManager.success('You are watching private entries.', null, 900000);
+                    })
+                }
+                this.setState({
+                    ...this.props,
+                    ledger: ledger.entries,
+                    isError: false
+                });
+            }
         }
     }
 
@@ -191,8 +208,23 @@ class Ledger extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Account ledger'}
-                    showPrivateTransactions={'ledger'}
-                />
+                >
+
+                    <a
+                        className={classNames({
+                            'btn': true,
+                            'primary': true,
+                            'disabled' : this.state.isPrivate
+                        })}
+                        onClick={() => {
+                            this.props.setMopalType('PrivateTransactions')
+
+                        }}
+                    >
+                        Show private transactions
+                    </a>
+
+                </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
                         <div className="info-box info">
@@ -221,21 +253,21 @@ class Ledger extends React.Component {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {
-                                                this.state.ledger.map((el, index) => {
-                                                    return (
-                                                        <Entry
-                                                            key={uuid()}
-                                                            entry={el}
-                                                            publicKey= {this.state.serverPublicKey}
-                                                            privateKey={this.state.privateKey}
-                                                            sharedKey= {this.state.sharedKey}
-                                                            setLedgerEntryInfo={this.getLedgerEntry}
-                                                            setTransactionInfo={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
+                                                {
+                                                    this.state.ledger.map((el, index) => {
+                                                        return (
+                                                            <Entry
+                                                                key={uuid()}
+                                                                entry={el}
+                                                                publicKey= {this.state.serverPublicKey}
+                                                                privateKey={this.state.privateKey}
+                                                                sharedKey= {this.state.sharedKey}
+                                                                setLedgerEntryInfo={this.getLedgerEntry}
+                                                                setTransactionInfo={this.getTransaction}
+                                                            />
+                                                        );
+                                                    })
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -278,12 +310,14 @@ class Ledger extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
+    publicKey : state.account.publicKey,
 
     // modals
     modalData: state.modals.modalData
 });
 
 const initMapDispatchToProps = dispatch => ({
+    setMopalType: (prevent) => dispatch(setMopalType(prevent)),
     getAccountLedgerAction: (requestParams) => dispatch(getAccountLedgerAction(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),

@@ -11,7 +11,7 @@ import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import {getTransactionsAction, getTransactionAction, getPrivateTransactionAction} from "../../../actions/transactions";
-import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
+import {setModalCallback, setBodyModalParamsAction, setMopalType} from "../../../modules/modals";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
 import crypto from "../../../helpers/crypto/crypto";
@@ -130,7 +130,6 @@ class Transactions extends React.Component {
         delete params.requestType;
 
         if (!this.state.isUnconfirmed && !this.state.isPhassing) {
-            console.log(params);
 
             const transactions = await this.props.getTransactionsAction(params);
 
@@ -140,13 +139,21 @@ class Transactions extends React.Component {
                         ...this.props,
                         transactions: transactions.transactions,
                         isUnconfirmed: false,
-                        isError: false
+                        isError: false,
                     });
+                    if (transactions.serverPublicKey && !this.state.isPrivate) {
+                        this.setState({
+                            isPrivate: true
+                        }, () => {
+                            NotificationManager.success('You are watching private transactions.', 'Error', 900000);
+                        })
+                    }
                 } else {
                     if (!this.state.isError) {
-                        NotificationManager.error(transactions.errorDescription, 'Error', 900000);
                         this.setState({
                             isError: true
+                        }, () => {
+                            NotificationManager.error(transactions.errorDescription, 'Error', 900000);
                         })
                     }
                 }
@@ -293,8 +300,21 @@ class Transactions extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Transactions'}
-                    showPrivateTransactions={'transactions'}
-                />
+                >
+                    <a
+                        className={classNames({
+                            'btn': true,
+                            'primary': true,
+                            'disabled' : this.state.isPrivate
+                        })}
+                        onClick={() => {
+                            this.props.setMopalType('PrivateTransactions')
+
+                        }}
+                    >
+                        Show private transactions
+                    </a>
+                </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="my-transactions">
                         <div className="transactions-filters">
@@ -538,13 +558,14 @@ class Transactions extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
-
+    publicKey: state.account.publicKey,
     // modals
     modalData: state.modals.modalData,
     modalType: state.modals.modalType
 });
 
 const initMapDispatchToProps = dispatch => ({
+    setMopalType: (prevent) => dispatch(setMopalType(prevent)),
     getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),

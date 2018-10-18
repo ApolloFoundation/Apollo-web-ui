@@ -18,9 +18,7 @@ export function getAccountLedgerAction(requestParams) {
             }
         })
             .then((res) => {
-                if (!res.data.errorCode) {
-                    return res.data
-                }
+                return res.data
             })
             .catch(() => {
 
