@@ -8,31 +8,35 @@ import axios from 'axios/index';
 // import fetch from 'fetch';
 import config from '../../config';
 import queryString from 'query-string';
+import {NotificationManager} from "react-notifications";
 
 export function getTransactionsAction(requestParams) {
     return dispatch => {
-        const requestType = (requestParams.passphrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
+        console.log(requestParams);
+        const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
 
         let params = requestParams;
 
         if (!params.requestType) {
             delete params.requestType;
         }
-
-        return axios.get(config.api.serverUrl, {
-            params : {
-                requestType: requestType,
-                ...requestParams
-            }
-        })
-            .then((res) => {
-                if (!res.data.errorCode) {
-                    return res.data
+        if (requestParams.account) {
+            return axios.get(config.api.serverUrl, {
+                params : {
+                    requestType: requestType,
+                    ...requestParams
                 }
             })
-            .catch(() => {
+                .then((res) => {
+                    if (!res.data.errorCode) {
+                        return res.data
+                    }
+                })
+                .catch(() => {
 
-            })
+                })
+        }
+
     }
 }
 

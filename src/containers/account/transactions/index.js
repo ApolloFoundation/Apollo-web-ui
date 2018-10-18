@@ -64,11 +64,10 @@ class Transactions extends React.Component {
     updateTransactionsData  = (newState)  => {
         this.setState({
             ...newState,
-            passphrase:  this.state.passphrase
 
         }, () => {
             this.getPrivateTransactions({
-                passphrase:  this.state.passphrase
+                ...this.state.passphrase
             });
         });
     };
@@ -78,29 +77,37 @@ class Transactions extends React.Component {
     }
 
     getPrivateTransactions = (data) => {
-
         let reqParams = {
             type: this.state.type,
             account:     this.props.account,
             firstIndex:  this.state.firstIndex,
             lastIndex:   this.state.lastIndex,
             requestType: this.state.requestType,
-            passphrase:  data.passphrase,
-            secretPhrase: data.passphrase
         };
 
-        if (data.passphrase) {
-            this.setState({
-                passphrase: data.passphrase,
-                secretPhrase: data.passphrase
-            });
-        }
+        if (data) {
+            if (Object.values(data)[0]) {
+                reqParams = {
+                    ...reqParams,
+                    ...data
+                }
+                this.setState({
+                    ...this.state,
+                    passphrase: data
+                }, () => {
+                    console.log(data);
 
-        this.getTransactions(reqParams);
+                    this.getTransactions(reqParams);
+                });
+            }
+            else {
+                this.getTransactions(reqParams);
+            }
+        }
     };
 
     onPaginate = (page) => {
-
+        console.log(this.state);
         let reqParams = {
             type: this.state.type,
             account:    this.props.account,
@@ -108,10 +115,10 @@ class Transactions extends React.Component {
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1,
             requestType: this.state.requestType,
-            secretPhrase: this.state.passphrase,
-            passphrase: this.state.passphrase
-
+            ...this.state.passphrase
         };
+
+        console.log(this.state.passphrase);
 
         this.setState(reqParams, () => {
             this.getTransactions(reqParams, this.state.isUnconfirmed, this.state.isAll)
@@ -124,14 +131,15 @@ class Transactions extends React.Component {
         delete params.requestType;
 
         if (!this.state.isUnconfirmed && !this.state.isPhassing) {
+            console.log(params);
+
             const transactions = await this.props.getTransactionsAction(params);
 
             if (transactions) {
                 this.setState({
                     ...this.props,
                     transactions: transactions.transactions,
-                    passphrase : params.passphrase,
-                    isUnconfirmed: false
+                    isUnconfirmed: false,
                 },);
             }
         }
@@ -140,6 +148,7 @@ class Transactions extends React.Component {
             this.getUnconfirmedTransactionsTransactions(params, all)
         }
         if (this.state.isPhassing) {
+            console.log(params);
             params.requestType = this.state.requestType;
 
             const transactions = await this.props.getTransactionsAction(params);
@@ -190,8 +199,6 @@ class Transactions extends React.Component {
             this.getTransaction({
                 account: this.props.account,
                 transaction: data,
-                secretPhrase: this.state.passphrase,
-                passphrase: this.state.passphrase
             });
         } else {
             this.getTransaction({
@@ -256,16 +263,17 @@ class Transactions extends React.Component {
                 page:       1,
                 firstIndex: 0,
                 lastIndex:  14,
-                requestType: requestType
+                requestType: requestType,
+                ...this.state.passphrase
+
             }, () => {
                 this.getTransactions({
                     type: this.state.type,
                     account:    this.props.account,
                     firstIndex: 0,
                     lastIndex:  14,
-                    secretPhrase: this.state.passphrase,
-                    passphrase: this.state.passphrase,
-                    requestType: requestType
+                    requestType: requestType,
+                    ...this.state.passphrase
                 }, requestType, all);
             });
         }

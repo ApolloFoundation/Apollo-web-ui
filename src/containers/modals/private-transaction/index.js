@@ -31,13 +31,18 @@ class PrivateTransactions extends React.Component {
     async handleFormSubmit(params) {
         const isPassphrase = await this.validatePassphrase(params.passphrase);
 
+        console.log(params);
+
         var data = {
             passphrase: params.passphrase
         };
 
         if (isPassphrase) {
+            delete data.passphrase;
             data.secretPhrase = params.passphrase;
         }
+
+        console.log(data);
 
         this.props.setModalData(data);
         this.props.setBodyModalParamsAction(null, null);

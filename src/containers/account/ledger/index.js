@@ -79,32 +79,38 @@ class Ledger extends React.Component {
     }
 
     getPrivateEntries = (data) => {
+        console.log(data);
+
         let reqParams = {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
             includeHoldingInfo: true,
-            passphrase:  data.passphrase
+            ...data
         };
 
-        if (data && data.passphrase) {
+        if (data) {
 
             this.setState({
-                passphrase:  data.passphrase,
+                passphrase:  data,
             });
         }
+
+        console.log(reqParams);
 
         this.getAccountLedger(reqParams);
     };
 
     onPaginate (page) {
+        console.log(this.state.passphrase);
+
         let reqParams = {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1,
             includeHoldingInfo: true,
-            passphrase:  this.state.passphrase,
+            ...this.state.passphrase,
         };
 
         this.setState(reqParams, () => {

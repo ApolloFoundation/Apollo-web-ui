@@ -9,7 +9,8 @@ import config from '../../config';
 
 export function getAccountLedgerAction(requestParams) {
     return dispatch => {
-        const requestType = (requestParams.passphrase) ? 'getPrivateAccountLedger' : 'getAccountLedger';
+        console.log(requestParams);
+        const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateAccountLedger' : 'getAccountLedger';
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: requestType,
