@@ -919,6 +919,11 @@ input {
 .input-group-app .input-icon {
   width: 32px;
   display: table-cell; }
+  .input-group-app .input-icon.text {
+    width: auto;
+    font-size: 12px; }
+    .input-group-app .input-icon.text.btn {
+      background: #00C8FF; }
   .input-group-app .input-icon i {
     margin: auto; }
 

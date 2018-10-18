@@ -1330,7 +1330,15 @@ input {
 	.input-icon {
 		width: 32px;
 		display: table-cell;
-		
+
+		&.text {
+			width: auto;
+			font-size: 12px;
+
+			&.btn {
+				background: #00C8FF;
+			}
+		}
 		i {
 			margin: auto;
 		}
