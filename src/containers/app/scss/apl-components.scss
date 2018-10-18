@@ -14,7 +14,7 @@
     min-height: auto;
     height: auto;
   }
- 
+
   .transaction-table-body {
     //min-width: 800px;
     width: 100%;
@@ -34,7 +34,7 @@
     &.padding-vertical-padding {
       padding: 40px 0;
     }
-    
+
     //.btn-box {
     //  min-width: 800px;
     //}
@@ -235,7 +235,7 @@
   }
   &.danger {
     background-color: #e74c3c;
-    
+
     p {
       color: #fff;
     }
@@ -261,6 +261,27 @@
   p {
     padding: 18px 40px;
     color: #000;
+
+    ul {
+      li {
+        padding: 0 0 0 15px;
+        display: block;
+        position: relative;
+        color: #fff;
+        line-height: 1.6;
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: 7px;
+          left: 0;
+          height: 6px;
+          width: 6px;
+          background: white;
+          border-radius: 100%;
+        }
+      }
+    }
   }
 }
 

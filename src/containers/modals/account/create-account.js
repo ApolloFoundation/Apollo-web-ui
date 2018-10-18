@@ -208,14 +208,24 @@ class CreateUser extends React.Component {
                                                                             <div className="col-md-12">
                                                                                 <div>
                                                                                     <InfoBox info>
-                                                                                        More secure that Online Wallet.
-                                                                                        Protected with passphrase,
-                                                                                        Can be used only on node, on which it was creted
-                                                                                        Can be exported/imported to other nodes
-                                                                                        Wallet encrypted on the node.
-                                                                                        To log in You must know Account ID and passphrase.
-                                                                                        2FA works full-functional only on Sure Wallets.
-                                                                                        After creaition, store passphrase and wallet ID in safe place.
+                                                                                        <ul className={'marked-list'}>
+                                                                                            <li>                                                                                        More secure that Online Wallet.
+                                                                                            </li>
+                                                                                            <li>                                                                                         Protected with passphrase,
+                                                                                            </li>
+                                                                                            <li>                                                                                        Can be used only on node, on which it was creted
+                                                                                            </li>
+                                                                                            <li>                                                                                        Can be exported/imported to other nodes
+                                                                                            </li>
+                                                                                            <li>                                                                                        Wallet encrypted on the node.
+                                                                                            </li>
+                                                                                            <li>                                                                                        To log in You must know Account ID and passphrase.
+                                                                                            </li>
+                                                                                            <li>                                                                                        2FA works full-functional only on Sure Wallets.
+                                                                                            </li>
+                                                                                            <li>                                                                                        After creaition, store passphrase and wallet ID in safe place.
+                                                                                            </li>
+                                                                                        </ul>
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -416,12 +426,18 @@ class CreateUser extends React.Component {
                                                                             <div className="col-md-12">
                                                                                 <div>
                                                                                     <InfoBox info>
-                                                                                        Online Wallet,
-                                                                                        Protected with passphrase,
-                                                                                        Allows You to log in into wallet on any Apollo node.
-                                                                                        Online Wallet users can log in to wallet using only passphrase.
-                                                                                        2FA for online wallets avaliable only on that nodes where it was enabled.
-                                                                                        After creaition, store passphrase in safe place.
+                                                                                        <ul>
+                                                                                            <li>                                                                                        Protected with passphrase,
+                                                                                            </li>
+                                                                                            <li>                                                                                        Allows You to log in into wallet on any Apollo node.
+                                                                                            </li>
+                                                                                            <li>                                                                                        Online Wallet users can log in to wallet using only passphrase.
+                                                                                            </li>
+                                                                                            <li>                                                                                        2FA for online wallets avaliable only on that nodes where it was enabled.
+                                                                                            </li>
+                                                                                            <li>                                                                                        After creaition, store passphrase in safe place.
+                                                                                            </li>
+                                                                                        </ul>
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
