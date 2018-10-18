@@ -19,6 +19,7 @@ import InfoBox from "../../components/info-box";
 import {BlockUpdater} from "../../block-subscriber/index";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
+import {NotificationManager} from "react-notifications";
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -95,8 +96,6 @@ class Transactions extends React.Component {
                     ...this.state,
                     passphrase: data
                 }, () => {
-                    console.log(data);
-
                     this.getTransactions(reqParams);
                 });
             }
@@ -136,11 +135,21 @@ class Transactions extends React.Component {
             const transactions = await this.props.getTransactionsAction(params);
 
             if (transactions) {
-                this.setState({
-                    ...this.props,
-                    transactions: transactions.transactions,
-                    isUnconfirmed: false,
-                },);
+                if (!transactions.errorCode) {
+                    this.setState({
+                        ...this.props,
+                        transactions: transactions.transactions,
+                        isUnconfirmed: false,
+                        isError: false
+                    });
+                } else {
+                    if (!this.state.isError) {
+                        NotificationManager.error(transactions.errorDescription, 'Error', 900000);
+                        this.setState({
+                            isError: true
+                        })
+                    }
+                }
             }
         }
         if (this.state.isUnconfirmed) {

@@ -12,7 +12,6 @@ import {NotificationManager} from "react-notifications";
 
 export function getTransactionsAction(requestParams) {
     return dispatch => {
-        console.log(requestParams);
         const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
 
         let params = requestParams;
@@ -28,9 +27,7 @@ export function getTransactionsAction(requestParams) {
                 }
             })
                 .then((res) => {
-                    if (!res.data.errorCode) {
-                        return res.data
-                    }
+                    return res.data
                 })
                 .catch(() => {
 
