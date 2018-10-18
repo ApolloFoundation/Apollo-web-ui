@@ -57,7 +57,11 @@ class MessageItem extends React.Component {
                 transaction: this.props.transaction
             }, 'readMessage')
 
+            console.log(message);
+
             if (message) {
+
+                console.log(message);
                 this.setState({
                     message: message.decryptedMessage
                 });
@@ -76,19 +80,28 @@ class MessageItem extends React.Component {
                     <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.recipient)}>{this.props.recipientRS}</a>
                 </td>
                 <td>
+                    {console.log(this.props)}
+                    {console.log(this.state.message)}
+                    {
+                        this.props.attachment.message !== 'undefined' && this.props.attachment.message
+                    }
                     {
                         this.state.message &&
+                        this.props.attachment.message === 'undefined' &&
                         <div><i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{this.state.message}</span></div>
 
                     }
                     {
                         this.state.message &&
                         !this.state.message.length &&
+                        this.props.attachment.message === 'undefined' &&
                         <div>Empty message</div>
-
                     }
                     {
-                        this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
+                        this.props.attachment.encryptedMessage &&
+                        !this.props.attachment.encryptedMessageHash &&
+                        !this.state.message &&
+                        this.props.attachment.message === 'undefined' &&
                         <div><i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;<span>Message is encrypted.</span></div>
                     }
                     {
@@ -97,7 +110,10 @@ class MessageItem extends React.Component {
 
                     }
                     {
-                        !this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
+                        !this.props.attachment.encryptedMessage &&
+                        !this.props.attachment.encryptedMessageHash &&
+                        !this.state.message &&
+                        this.props.attachment.message === 'undefined' &&
                         <div>{this.props.attachment.message}</div>
                     }
                 </td>

@@ -43,6 +43,7 @@ class ChatItem extends React.Component {
     }
 
     tryToDecrypt = (newState) => {
+        console.log(this.props);
         this.decryptMessage(this.props, newState.account.passPhrase)
 
         // if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
@@ -75,12 +76,13 @@ class ChatItem extends React.Component {
                 'incoming': this.props.account.account !== this.props.sender,
             })}>
                 <div className="message">
+                    {console.log(this.props.transaction)}
                     <p>
                         {
-                            this.props.message.message && this.props.message.message
+                            this.props.attachment.message !== 'undefined' && this.props.attachment.message
                         }
                         {
-                            this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message && !this.props.message.message &&
+                            this.props.attachment.message === 'undefined' && this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message && !this.props.message.message &&
                             [
                                 <a
                                     onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}

@@ -50,12 +50,6 @@ class ComposeMessage extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
-
         if (values.messageToEncrypt) {
             values.messageToEncrypt = values.message;
             delete values.message;
@@ -64,6 +58,7 @@ class ComposeMessage extends React.Component {
         this.setState({
             isPending: true
         });
+
 
         // Todo: finish form validating
         const res = await this.props.submitForm( values, 'sendMessage');
