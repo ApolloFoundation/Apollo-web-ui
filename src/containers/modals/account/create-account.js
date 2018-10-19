@@ -169,10 +169,12 @@ class CreateUser extends React.Component {
 
                                     <div className="form-tabulator active no-padding">
                                         <div className="form-tab-nav-box justify-left">
-                                            <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 0
-                                            })}>
+                                            <a
+                                                onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                                    "form-tab": true,
+                                                    "active": this.state.activeTab === 0
+                                                })}
+                                            >
                                                 <p>Sure wallet</p>
                                             </a>
                                             <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
@@ -201,7 +203,6 @@ class CreateUser extends React.Component {
                                                             <div className="form-title">
                                                                 <p>Create your SURE wallet</p>
                                                             </div>
-
                                                             {
                                                                 this.state.isAccountLoaded &&
                                                                 <React.Fragment>
@@ -212,7 +213,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <div>
-                                                                                    <InfoBox info>
+                                                                                    <InfoBox info nowrap>
                                                                                         <ul className={'marked-list'}>
                                                                                             <li>                                                                                        More secure that Online Wallet.
                                                                                             </li>
@@ -244,7 +245,7 @@ class CreateUser extends React.Component {
                                                                             </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
-                                                                                    <InfoBox info>
+                                                                                    <InfoBox info nowrap>
                                                                                         {this.state.accountData.passphrase}
                                                                                     </InfoBox>
                                                                                 </div>
@@ -272,7 +273,7 @@ class CreateUser extends React.Component {
                                                                                         width: "100%"
                                                                                     }}
                                                                                 >
-                                                                                    <InfoBox info>
+                                                                                    <InfoBox info nowrap>
                                                                                         {this.state.accountData.accountRS}
                                                                                     </InfoBox>
                                                                                 </div>
@@ -335,7 +336,7 @@ class CreateUser extends React.Component {
                                                                                         width: "100%"
                                                                                     }}
                                                                                 >
-                                                                                    <InfoBox danger>
+                                                                                    <InfoBox danger nowrap>
                                                                                         <strong>Remember</strong> your generated passphrase and your public wallet address!
                                                                                     </InfoBox>
                                                                                 </div>
@@ -455,7 +456,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <div>
-                                                                                    <InfoBox info>
+                                                                                    <InfoBox info nowrap>
                                                                                         <ul>
                                                                                             <li>                                                                                        Protected with passphrase,
                                                                                             </li>
@@ -481,7 +482,7 @@ class CreateUser extends React.Component {
                                                                             </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
-                                                                                    <InfoBox info>
+                                                                                    <InfoBox info nowrap>
                                                                                         {this.state.generatedPassphrase}
                                                                                     </InfoBox>
                                                                                 </div>
@@ -511,7 +512,7 @@ class CreateUser extends React.Component {
                                                                                         width: "100%"
                                                                                     }}
                                                                                 >
-                                                                                    <InfoBox info>
+                                                                                    <InfoBox info nowrap>
                                                                                         {this.state.generatedAccount}
                                                                                     </InfoBox>
                                                                                 </div>
@@ -530,7 +531,7 @@ class CreateUser extends React.Component {
                                                                                         width: "100%"
                                                                                     }}
                                                                                 >
-                                                                                    <InfoBox danger>
+                                                                                    <InfoBox danger nowrap>
                                                                                         <strong>Remember</strong> your generated passphrase and your public wallet address!
                                                                                     </InfoBox>
                                                                                 </div>

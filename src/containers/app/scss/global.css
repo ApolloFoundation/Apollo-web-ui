@@ -377,6 +377,9 @@ input {
 .info-box.no-padding-top p {
   padding-top: 0; }
 
+.info-box.nowrap p {
+  word-break: normal; }
+
 .info-box p {
   word-wrap: break-word;
   word-break: break-all;

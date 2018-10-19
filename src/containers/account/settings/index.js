@@ -153,11 +153,11 @@ class Settings extends React.Component {
                                                 <form className="modal-form" onSubmit={submitForm}>
                                                     <div className="form-group-app">
                                                         <div className="form-title">
-                                                            <p>2FA</p>
+                                                            <p>Two Factor Authentication (2FA)</p>
                                                             {
                                                                 !this.props.is2FA &&
                                                                 <div className="form-sub-title">
-                                                                    The 2FA currently disabled on this account. You can increase your wallet security with tthis option.
+                                                                    The 2FA currently disabled on this account. You can increase your wallet security with this option.
                                                                 </div>
                                                             }
                                                             {

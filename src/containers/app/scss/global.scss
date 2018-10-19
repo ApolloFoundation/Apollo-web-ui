@@ -530,6 +530,11 @@ input {
 			padding-top: 0;
 		}
 	}
+	&.nowrap {
+		p {
+			word-break: normal;
+		}
+	}
 	p {
 		word-wrap: break-word;
 		word-break: break-all;
