@@ -172,7 +172,7 @@ class InfoBlock extends React.Component {
                                                                                     className="iconned-input-field"
                                                                                     onSubmit={submitForm}
                                                                                 >
-                                                                                    <Text field="secretPhrase" placeholder="Title, description or Tag" />
+                                                                                    <Text field="secretPhrase" placeholder="Secret phrase" />
 
                                                                                     <button
                                                                                         className="input-icon text btn blue static"
