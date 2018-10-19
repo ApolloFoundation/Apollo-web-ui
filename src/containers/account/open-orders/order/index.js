@@ -10,6 +10,8 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getOrderInfoAction} from "../../../../actions/open-orders";
+import {Link} from 'react-router-dom'
+
 class OrderItem extends React.Component {
 
     state = {
@@ -40,12 +42,16 @@ class OrderItem extends React.Component {
         const {orderInfo} = this.state;
         return (
             <tr key={uuid()}>
+                {console.log(orderInfo.order)}
                 <td
                     className="align-left blue-link-text"
-                    onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', {})}
                 >
-                    {orderInfo.name}
-                    </td>
+                    <Link
+                        to={`/asset-exchange/${orderInfo.asset}`}
+                    >
+                        {orderInfo.name}
+                    </Link>
+                </td>
                 <td
                     className="align-left"
                 >
