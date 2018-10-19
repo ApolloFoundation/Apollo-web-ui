@@ -19,6 +19,7 @@ import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
+import {exportAccountAction} from '../../../actions/account'
 import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
@@ -75,16 +76,21 @@ class CreateUser extends React.Component {
         const geneatedAccount = await generateAccountAction();
 
         if (geneatedAccount) {
+            console.log(geneatedAccount);
+            const keySeed = await exportAccountAction({account: geneatedAccount.accountRS, passphrase: geneatedAccount.passphrase});
+
             this.setState({
                 isAccountLoaded: true,
-                accountData: geneatedAccount
+                accountData: geneatedAccount,
+                keySeed: keySeed
+            }, () => {
+                console.log(this.state);
             })
         }
     };
 
     handleFormSubmit = (values) => {
 
-        console.log(values);
         if (this.state.selectedOption === 0) {
             if (values.secretPhrase === this.state.accountData.passphrase) {
                 this.setState({
@@ -109,7 +115,6 @@ class CreateUser extends React.Component {
                 NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
             }
         }
-
     };
 
     handleAdvancedState = () => {
@@ -274,6 +279,31 @@ class CreateUser extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    {
+                                                                        this.state &&
+                                                                        this.state.keySeed &&
+                                                                        <div className="input-group-app display-block offset-bottom">
+                                                                            <div className="row">
+                                                                                <div className="col-md-12 mb-15">
+                                                                                    <label>Your generated key seed for this account is:</label>
+                                                                                </div>
+                                                                                <div className="col-md-12">
+                                                                                    <div
+                                                                                        style={{
+                                                                                            width: "100%"
+                                                                                        }}
+                                                                                    >
+                                                                                        <InfoBox info>
+                                                                                            {this.state.keySeed.secretBytes}
+                                                                                        </InfoBox>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+
+
+
 
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">

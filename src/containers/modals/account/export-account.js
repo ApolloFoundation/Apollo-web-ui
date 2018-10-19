@@ -59,20 +59,6 @@ class ExportAccount extends React.Component {
                 NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
             }
         }
-
-        // if (values.secretPhrase === this.state.accountData.passphrase) {
-        //
-        //     this.setState({
-        //         isPending: true
-        //     });
-        //
-        //     this.props.getAccountDataAction({
-        //         account: this.state.accountData.accountRS
-        //     });
-        //
-        // } else {
-        //     NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
-        // }
     };
 
     componentDidCatch(error, info) {

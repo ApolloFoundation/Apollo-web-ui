@@ -727,15 +727,15 @@ class SiteHeader extends React.Component {
                                                                                 Settings
                                                                             </Link>
 
-                                                                            <a
-                                                                                onClick={() => {
-                                                                                    this.setState({bodyModalType: null});
-                                                                                    return this.props.setBodyModalParamsAction('EXPORT_KEY_SEED');
-                                                                                }}
-                                                                                className="option"
-                                                                            >
-                                                                                Export Key Seed
-                                                                            </a>
+                                                                            {/*<a*/}
+                                                                                {/*onClick={() => {*/}
+                                                                                    {/*this.setState({bodyModalType: null});*/}
+                                                                                    {/*return this.props.setBodyModalParamsAction('EXPORT_KEY_SEED');*/}
+                                                                                {/*}}*/}
+                                                                                {/*className="option"*/}
+                                                                            {/*>*/}
+                                                                                {/*Export Key Seed*/}
+                                                                            {/*</a>*/}
                                                                         </li>
                                                                     </ul>
                                                                 </div>
