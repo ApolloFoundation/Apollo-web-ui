@@ -45,7 +45,7 @@ class Transaction extends React.Component {
         return (
             <tr key={uuid()}>
                 {
-                    this.props.transaction && this.props.constants &&
+                    this.props.transaction && this.props.constants && !this.props.block &&
                     <React.Fragment>
                         <td className="blue-link-text">
                             <a onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.props.transaction.transaction, (this.props.transaction.type === 0 && this.props.transaction.subtype === 1))}>
@@ -87,6 +87,41 @@ class Transaction extends React.Component {
                             {
                                 this.props.isUnconfirmed && '-'
                             }
+                        </td>
+                    </React.Fragment>
+                }
+                {
+                    this.props.block &&
+                    this.props.transaction &&
+                    <React.Fragment>
+                        <td  key={uuid()} className="blue-link-text">
+                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.props.transaction.transaction)}>{this.props.transaction.blockTimestamp}</a>
+                        </td>
+                        <td  key={uuid()}>
+                            {
+                                !!this.props.constants.transactionTypes[this.props.transaction.type] &&
+                                formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)
+                            }
+                        </td>
+                        <td  key={uuid()} className="align-right">
+                            {this.props.transaction.amountATM / 100000000}
+                        </td>
+                        <td  key={uuid()} className="align-right">
+                            {this.props.transaction.feeATM / 100000000}
+                        </td>
+                        <td  key={uuid()} className="blue-link-text">
+                            <a
+                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.transaction.sender)}
+                            >
+                                {this.props.transaction.senderRS}
+                            </a>
+                        </td>
+                        <td  key={uuid()} className="blue-link-text align-right">
+                            <a
+                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.transaction.recipient)}
+                            >
+                                {this.props.transaction.recipientRS}
+                            </a>
                         </td>
                     </React.Fragment>
                 }

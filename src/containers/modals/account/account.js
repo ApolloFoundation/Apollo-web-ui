@@ -246,9 +246,8 @@ class InfoAccount extends React.Component {
                                             this.state.transactions &&
                                             <div className="transaction-table-body transparent padding-vertical-padding">
                                                 <table>
-                                                    <thead key={uuid()}>A
+                                                    <thead key={uuid()}>
                                                     <tr>
-                                                        <td>Index</td>
                                                         <td>Date</td>
                                                         <td>Type</td>
                                                         <td className="align-right">Amount</td>
