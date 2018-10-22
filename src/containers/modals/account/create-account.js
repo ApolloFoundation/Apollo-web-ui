@@ -242,49 +242,97 @@ class CreateUser extends React.Component {
                                                                             <InfoBox info nowrap>
                                                                                 You can create your own custom passphrase or crete an account with randomly generated passphrase.
                                                                                 <br/>
-                                                                                <a
+                                                                                <div
+                                                                                    className="input-group-app display-block offset-bottom"
                                                                                     style={{marginTop: 18}}
-                                                                                    className={'btn lighten static'}
-                                                                                    onClick={() => this.generateAccount({})}
                                                                                 >
-                                                                                    Generate account
-                                                                                </a>
+                                                                                    <div className="row">
+                                                                                        <div className="col-md-12">
+                                                                                            <Checkbox
+                                                                                                field="isCustomPassphrase"
+                                                                                                onChange={(e) => {
+
+                                                                                                    if (e) {
+                                                                                                        this.setState({
+                                                                                                            isCustomPassphraseTextarea: true
+                                                                                                        });
+                                                                                                    } else {
+                                                                                                        this.setState({
+                                                                                                            isCustomPassphraseTextarea: false
+                                                                                                        });
+                                                                                                    }
+                                                                                                }}
+                                                                                            />
+                                                                                            <label
+                                                                                                style={{color: '#ecf0f1'}}
+                                                                                            >
+                                                                                                Use custom passphrase .
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                {/*<a*/}
+                                                                                    {/*style={{marginTop: 18}}*/}
+                                                                                    {/*className={'btn lighten static'}*/}
+                                                                                    {/*onClick={() => this.generateAccount({})}*/}
+                                                                                {/*>*/}
+                                                                                    {/*Generate account*/}
+                                                                                {/*</a>*/}
                                                                             </InfoBox>
                                                                         </div>
-
                                                                     </div>
-                                                                    <div className="row">
-                                                                        <div className="col-md-3">
-                                                                            <label>Your account pass phrase</label>
-                                                                        </div>
-                                                                        <div className="col-md-9">
+
+                                                                    {
+                                                                        this.state.isCustomPassphraseTextarea &&
+                                                                        <div className="row">
+                                                                            <div className="col-md-3">
+                                                                                <label>Your account pass phrase</label>
+                                                                            </div>
+                                                                            <div className="col-md-9">
                                                                             <TextArea
                                                                                 field={'newAccountpassphrse'}
                                                                                 placeholder={'Secret Phrase'}
                                                                             />
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                    }
                                                                 </div>
                                                             </div>
 
                                                             <div className="btn-box align-buttons-inside absolute right-conner">
-                                                                <a
-                                                                    onClick={() => {
-                                                                        const {values} = getFormState();
 
-                                                                        if (!values.newAccountpassphrse) {
-                                                                            NotificationManager.error('Passphrase not specified.');
-                                                                            return;
-                                                                        }
-                                                                        this.generateAccount({
-                                                                            passphrase: values.newAccountpassphrse
-                                                                        })
-                                                                    }}
-                                                                    name={'closeModal'}
-                                                                    className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                                                >
-                                                                    Create account
-                                                                </a>
+                                                                {
+                                                                    this.state.isCustomPassphraseTextarea &&
+                                                                    <a
+                                                                        onClick={() => {
+                                                                            const {values} = getFormState();
+
+                                                                            if (!values.newAccountpassphrse) {
+                                                                                NotificationManager.error('Passphrase not specified.');
+                                                                                return;
+                                                                            }
+                                                                            this.generateAccount({
+                                                                                passphrase: values.newAccountpassphrse
+                                                                            })
+                                                                        }}
+                                                                        name={'closeModal'}
+                                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                    >
+                                                                        Create account
+                                                                    </a>
+                                                                }
+                                                                {
+                                                                    !this.state.isCustomPassphraseTextarea &&
+                                                                    <a
+                                                                        onClick={() => {
+
+                                                                            this.generateAccount({})
+                                                                        }}
+                                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                    >
+                                                                        Create account
+                                                                    </a>
+                                                                }
                                                             </div>
                                                         </React.Fragment>
 
