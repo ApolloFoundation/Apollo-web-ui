@@ -83,7 +83,7 @@ class ExportAccount extends React.Component {
                                     <p>Export Account</p>
                                 </div>
                                 <InfoBox info>
-                                    Please enter your account key seed.
+                                    Please enter your account credentials.
                                 </InfoBox>
 
 
@@ -128,7 +128,7 @@ class ExportAccount extends React.Component {
                                         name={'closeModal'}
                                         className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                     >
-                                        Import
+                                        Export
                                     </button>
                                 </div>
                             </div>
