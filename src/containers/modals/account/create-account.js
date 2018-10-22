@@ -287,12 +287,12 @@ class CreateUser extends React.Component {
                                                                         this.state.isCustomPassphraseTextarea &&
                                                                         <div className="row">
                                                                             <div className="col-md-3">
-                                                                                <label>Your account pass phrase</label>
+                                                                                <label>Your account passphrase</label>
                                                                             </div>
                                                                             <div className="col-md-9">
                                                                             <TextArea
                                                                                 field={'newAccountpassphrse'}
-                                                                                placeholder={'Secret Phrase'}
+                                                                                placeholder={'Passphrase'}
                                                                             />
                                                                             </div>
                                                                         </div>
