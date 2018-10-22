@@ -167,3 +167,6 @@ export const exportAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'exportKey'))
 };
 
+export const removeAccountAction = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'deleteKey'))
+}

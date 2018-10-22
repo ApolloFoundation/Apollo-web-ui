@@ -10,6 +10,7 @@ import classNames from 'classnames';
 const InfoBox = (props) => (
     <div
         className={classNames({
+            'attention-left': props.attentionLeft,
             'nowrap': props.nowrap,
             'info-box': true,
             'danger': props.danger,
