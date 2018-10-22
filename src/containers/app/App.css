@@ -2898,6 +2898,8 @@ input[type="checkbox"] {
   border-radius: 3px;
   padding: 0 !important;
   position: relative; }
+  input[type="checkbox"].lighten:after {
+    background-image: url(../../assets/checked-lighten.svg); }
   input[type="checkbox"]:after {
     content: '';
     position: absolute;

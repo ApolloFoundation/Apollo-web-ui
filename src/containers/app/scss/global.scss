@@ -123,7 +123,13 @@ input[type="checkbox"] {
 	border-radius: 3px;
 	padding: 0 !important;
 	position: relative;
-	
+
+	&.lighten {
+		&:after {
+			background-image: url(../../assets/checked-lighten.svg);
+		}
+	}
+
 	&:after {
 		content: '';
 		position: absolute;

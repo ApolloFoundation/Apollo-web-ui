@@ -249,6 +249,7 @@ class CreateUser extends React.Component {
                                                                                     <div className="row">
                                                                                         <div className="col-md-12">
                                                                                             <Checkbox
+                                                                                                className={'lighten'}
                                                                                                 field="isCustomPassphrase"
                                                                                                 onChange={(e) => {
 
