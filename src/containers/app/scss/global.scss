@@ -1479,6 +1479,10 @@ input {
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
 
+	&.lighten {
+		background: #ecf0f1;
+		color: #00C8FF;
+	}
 	.ball-pulse {
 		transform: translateY(2px);
 		text-align: center;
@@ -1489,7 +1493,6 @@ input {
 			width: 7px;
 		}
 	}
-
 	&, & > * {
 		transition: all 0.3s ease-in-out;
 	}

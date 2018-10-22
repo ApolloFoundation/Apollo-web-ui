@@ -143,8 +143,8 @@ export function getAccountPropertiesAction(reqParams) {
     }
 }
 
-export const generateAccountAction = async () => {
-    return store.dispatch(await submitForm.submitForm({}, 'generateAccount'))
+export const generateAccountAction = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'generateAccount'))
 };
 
 export const enable2FAActon = async (requestParams) => {

@@ -48,12 +48,13 @@ class CreateUser extends React.Component {
             generatedPassphrase: null,
             generatedAccount: null,
             isValidating: false,
+            isCustomPassphrase: true,
             isAccountLoaded: false
         }
     };
 
     componentDidMount() {
-        this.generateAccount();
+        // this.generateAccount();
         this.generatePassphrase();
     };
 
@@ -72,8 +73,8 @@ class CreateUser extends React.Component {
         })
     }
 
-    generateAccount = async () => {
-        const geneatedAccount = await generateAccountAction();
+    generateAccount = async (requestParams) => {
+        const geneatedAccount = await generateAccountAction(requestParams);
 
         if (geneatedAccount) {
             console.log(geneatedAccount);
@@ -82,15 +83,16 @@ class CreateUser extends React.Component {
             this.setState({
                 isAccountLoaded: true,
                 accountData: geneatedAccount,
-                keySeed: keySeed
+                keySeed: keySeed,
+                isCustomPassphrase: false,
+
             }, () => {
                 console.log(this.state);
             })
         }
     };
 
-    handleFormSubmit = (values) => {
-
+    handleFormSubmit = async (values) => {
         if (this.state.selectedOption === 0) {
             if (values.secretPhrase === this.state.accountData.passphrase) {
                 this.setState({
@@ -138,9 +140,14 @@ class CreateUser extends React.Component {
         this.setState({
             ...this.state,
             generatedPassphrase: generatedPassphrase.join(' '),
-            generatedAccount: generatedAccount
+            generatedAccount: generatedAccount,
+            isRSAccountLoaded :true,
         })
     };
+
+    applyCustomPassphrase = async (requestParams) => {
+         this.generateAccount(requestParams);
+    }
 
     render() {
         return (
@@ -198,7 +205,92 @@ class CreateUser extends React.Component {
                                                     onSubmit={submitForm}
                                                 >
                                                     {
-                                                        !this.state.isValidating &&
+                                                        this.state.isCustomPassphrase &&
+                                                        <React.Fragment>
+                                                            <div className="form-group-app transparent">
+                                                                <div className="input-group-app display-block offset-bottom">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <div>
+                                                                                <InfoBox info nowrap>
+                                                                                    <ul className={'marked-list'}>
+                                                                                        <li>                                                                                        More secure that Online Wallet.
+                                                                                        </li>
+                                                                                        <li>                                                                                         Protected with passphrase,
+                                                                                        </li>
+                                                                                        <li>                                                                                        Can be used only on node, on which it was creted
+                                                                                        </li>
+                                                                                        <li>                                                                                        Can be exported/imported to other nodes
+                                                                                        </li>
+                                                                                        <li>                                                                                        Wallet encrypted on the node.
+                                                                                        </li>
+                                                                                        <li>                                                                                        To log in You must know Account ID and passphrase.
+                                                                                        </li>
+                                                                                        <li>                                                                                        2FA works full-functional only on Sure Wallets.
+                                                                                        </li>
+                                                                                        <li>                                                                                        After creaition, store passphrase and wallet ID in safe place.
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </InfoBox>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="input-group-app display-block offset-bottom">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <InfoBox info nowrap>
+                                                                                You can create your own custom passphrase or crete an account with randomly generated passphrase.
+                                                                                <br/>
+                                                                                <a
+                                                                                    style={{marginTop: 18}}
+                                                                                    className={'btn lighten static'}
+                                                                                    onClick={() => this.generateAccount({})}
+                                                                                >
+                                                                                    Generate account
+                                                                                </a>
+                                                                            </InfoBox>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="row">
+                                                                        <div className="col-md-3">
+                                                                            <label>Your account pass phrase</label>
+                                                                        </div>
+                                                                        <div className="col-md-9">
+                                                                            <TextArea
+                                                                                field={'newAccountpassphrse'}
+                                                                                placeholder={'Secret Phrase'}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="btn-box align-buttons-inside absolute right-conner">
+                                                                <a
+                                                                    onClick={() => {
+                                                                        const {values} = getFormState();
+
+                                                                        if (!values.newAccountpassphrse) {
+                                                                            NotificationManager.error('Passphrase not specified.');
+                                                                            return;
+                                                                        }
+                                                                        this.generateAccount({
+                                                                            passphrase: values.newAccountpassphrse
+                                                                        })
+                                                                    }}
+                                                                    name={'closeModal'}
+                                                                    className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                >
+                                                                    Create account
+                                                                </a>
+                                                            </div>
+                                                        </React.Fragment>
+
+                                                    }
+                                                    {
+                                                        !this.state.isCustomPassphrase &&
                                                         <div className="form-group-app transparent">
                                                             <div className="form-title">
                                                                 <p>Create your SURE wallet</p>
@@ -207,8 +299,8 @@ class CreateUser extends React.Component {
                                                                 this.state.isAccountLoaded &&
                                                                 <React.Fragment>
 
-
                                                                     <Text field={'option'} type={'hidden'} defaultValue={0}/>
+
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
                                                                             <div className="col-md-12">
@@ -449,7 +541,7 @@ class CreateUser extends React.Component {
                                                                 <p>Create your ONLINE wallet</p>
                                                             </div>
                                                             {
-                                                                this.state.isAccountLoaded &&
+                                                                this.state.isRSAccountLoaded &&
                                                                 <React.Fragment>
                                                                     <Text field={'option'} type={'hidden'} defaultValue={1}/>
                                                                     <div className="input-group-app display-block offset-bottom">

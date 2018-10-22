@@ -3837,6 +3837,9 @@ input {
   box-sizing: border-box;
   z-index: 1;
   padding: 11px 11px 11px 9px; }
+  .btn.lighten {
+    background: #ecf0f1;
+    color: #00C8FF; }
   .btn .ball-pulse {
     transform: translateY(2px);
     text-align: center; }
