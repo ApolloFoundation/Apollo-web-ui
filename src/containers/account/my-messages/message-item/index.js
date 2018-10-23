@@ -54,7 +54,8 @@ class MessageItem extends React.Component {
             const message = await this.props.submitForm( {
                 requestType: 'readMessage',
                 secretPhrase: passPhrase,
-                transaction: this.props.transaction
+                transaction: this.props.transaction,
+                createNoneTransactionMethod: true
             }, 'readMessage')
 
             if (message) {

@@ -55,7 +55,7 @@ function submitForm(data, requestType) {
             }
         }
 
-        data.sender = account.account
+        data.sender = account.account;
 
         var $form;
         var requestTypeKey;
@@ -76,6 +76,12 @@ function submitForm(data, requestType) {
 
         if (invalidElement) {
             return;
+        }
+
+
+        if (data.createNoneTransactionMethod) {
+            data.account = account.account;
+            delete data.sender;
         }
 
         if (Object.values(data).length) {
