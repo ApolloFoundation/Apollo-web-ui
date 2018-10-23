@@ -253,7 +253,7 @@ class ImportAccount extends React.Component {
 
                                             <div className="form-group row form-group-white mb-15">
                                                 <label className="col-sm-3 col-form-label">
-                                                    Account
+                                                    Secret phrase
                                                 </label>
                                                 <div className="col-sm-9">
                                                     <InputForm
