@@ -217,7 +217,7 @@ class CreateUser extends React.Component {
                                                                                     <ul className={'marked-list'}>
                                                                                         <li>The most secure Apollo Wallet</li>
                                                                                         <li>You can log in into this wallet using Account ID </li>
-                                                                                        <li>The wallet is encrypted (via Key Seed) on one device. You can export/import your Key Seed to use on other devices </li>
+                                                                                        <li>The wallet is encrypted (via Secret Key) on one device. You can export/import your Secret Key to use on other devices </li>
                                                                                         <li>2FA works from any device when you use your Vault.</li>
                                                                                     </ul>
                                                                                 </InfoBox>
@@ -347,7 +347,7 @@ class CreateUser extends React.Component {
                                                                                         <ul className={'marked-list'}>
                                                                                             <li>The most secure Apollo Wallet</li>
                                                                                             <li>You can log in into this wallet using Account ID </li>
-                                                                                            <li>The wallet is encrypted (via Key Seed) on one device. You can export/import your Key Seed to use on other devices </li>
+                                                                                            <li>The wallet is encrypted (via Secret Key) on one device. You can export/import your Secret Key to use on other devices </li>
                                                                                             <li>2FA works from any device when you use your Vault.</li>
                                                                                         </ul>
                                                                                     </InfoBox>
@@ -368,7 +368,7 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger nowrap>
-                                                                                        <strong>Remember</strong> to store your Account ID, passphrase, and Key Seed in the secured place.
+                                                                                        <strong>Remember</strong> to store your Account ID, passphrase, and Secret Key in the secured place.
                                                                                         Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>
@@ -425,7 +425,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <Checkbox defaultValue={false} field="losePhrase"/>
-                                                                                <label>I wrote down my Account ID, Passphrase and Key Seed. It is now stored in a secured place</label>
+                                                                                <label>I wrote down my Account ID, Passphrase and Secret Key. It is now stored in a secured place</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -557,7 +557,7 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger nowrap>
-                                                                                        <strong>Remember</strong>  to store your Account ID, passphrase, and Key Seed in the secured place.
+                                                                                        <strong>Remember</strong>  to store your Account ID, passphrase, and  Secret Key in the secured place.
                                                                                         Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>

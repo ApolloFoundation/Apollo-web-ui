@@ -119,17 +119,17 @@ class ImportAccount extends React.Component {
                                             <p>Import Account</p>
                                         </div>
                                         <InfoBox info>
-                                            Please enter your account key seed.
+                                            Please enter your account secret key.
                                         </InfoBox>
 
                                         <React.Fragment>
 
                                             <div className="form-group row form-group-grey mb-15">
                                                 <label className="col-sm-3 col-form-label align-self-start">
-                                                    Key Seed
+                                                    Secret Key
                                                 </label>
                                                 <div className="col-sm-9">
-                                                    <TextArea className="form-control" placeholder="Key Seed" field="secretBytes" cols="30" rows="3" />
+                                                    <TextArea className="form-control" placeholder="Secret Key" field="secretBytes" cols="30" rows="3" />
                                                 </div>
                                             </div>
 

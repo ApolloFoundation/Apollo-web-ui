@@ -755,7 +755,7 @@ class SiteHeader extends React.Component {
                                                                                 }}
                                                                                 className="option"
                                                                             >
-                                                                                Export Key Seed
+                                                                                Export Secret Key
                                                                             </a>
                                                                         </li>
                                                                     </ul>
