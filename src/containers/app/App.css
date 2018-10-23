@@ -3168,6 +3168,19 @@ input {
 .token {
   color: white; }
 
+.itatic {
+  font-style: italic; }
+
+.no-brake-word {
+  word-wrap: normal;
+  word-break: normal; }
+
+.info-box.attention-left {
+  border-left: 4px solid #00C8FF;
+  border-radius: 0; }
+  .info-box.attention-left p span {
+    color: #00C8FF; }
+
 .info-box.blue-info {
   background-color: #00C8FF; }
   .info-box.blue-info p {
@@ -3204,7 +3217,8 @@ input {
   word-break: break-all;
   color: #000;
   padding-left: 40px;
-  padding-right: 40px; }
+  padding-right: 40px;
+  line-height: 1.6; }
 
 .no-margin {
   margin: 0 !important; }
@@ -3842,6 +3856,12 @@ input {
   .btn.lighten {
     background: #ecf0f1;
     color: #00C8FF; }
+  .btn.success {
+    background: #27ae60;
+    color: #fff; }
+  .btn.danger {
+    background: #e74c3c;
+    color: #fff; }
   .btn .ball-pulse {
     transform: translateY(2px);
     text-align: center; }

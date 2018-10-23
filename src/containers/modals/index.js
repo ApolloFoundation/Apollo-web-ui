@@ -97,6 +97,7 @@ import store from '../../store';
 
 //2fa
 import Confirm2FA from './2fa'
+import DeleteAccountFromWebNode from './account/delete-account-from-node';
 
 //Login
 import ImportAccount from '../modals/account/import-account'
@@ -167,9 +168,6 @@ class ModalWindow extends React.Component {
 
 
         });
-        // document.querySelector('.modal-window').classList.remove('active');
-
-
 
         setTimeout(() => {
             this.props.setMopalType(null);
@@ -246,6 +244,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={this.closeModal}/>}
                 {this.props.modalType === 'IMPORT_ACCOUNT'              && <ImportAccount             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal}/>}
 
                 {/* Shuffling */}
                 {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.closeModal}/>}
