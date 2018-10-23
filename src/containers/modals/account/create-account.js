@@ -586,7 +586,7 @@ class CreateUser extends React.Component {
                                                                                             <CopyToClipboard
                                                                                                 text={
                                                                                                     `Secret Phrase: ${this.state.generatedPassphrase}\n` +
-                                                                                                    `Account ID: ${this.state.generatedPassphrase}\n`
+                                                                                                    `Account ID: ${this.state.generatedAccount}\n`
                                                                                                 }
                                                                                                 onCopy={() => {
                                                                                                     NotificationManager.success('The account data has been copied to clipboard.')
