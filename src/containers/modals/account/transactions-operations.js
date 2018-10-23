@@ -13,7 +13,6 @@ import {Checkbox, Form, Text, TextArea} from 'react-form'
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";
-import ModalFooter from '../../components/modal-footer'
 
 class TransactionOperations extends React.Component {
     constructor(props) {

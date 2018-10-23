@@ -21,7 +21,6 @@ import Entry from '../../account/ledger/entry';
 import Asset from '../../account/my-assets/my-asset-item/';
 import {getBlockAction} from "../../../actions/blocks";
 import ContentLoader from '../../components/content-loader'
-import ModalFooter from '../../components/modal-footer'
 
 class InfoAccount extends React.Component {
     constructor(props) {

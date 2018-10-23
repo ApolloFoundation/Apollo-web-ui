@@ -40,8 +40,6 @@ class LeaseBalance extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         if (!values.recipient) {
             this.setState({
                 ...this.props,

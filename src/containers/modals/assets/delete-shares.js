@@ -31,8 +31,6 @@ class DeleteShares extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        // const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         values = {
             ...values,
             quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)

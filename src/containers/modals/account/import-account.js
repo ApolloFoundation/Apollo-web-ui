@@ -7,20 +7,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import {generateAccountAction} from '../../../actions/account'
-
-import AdvancedSettings from '../../components/advanced-transaction-settings'
+import {NotificationManager} from 'react-notifications';
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
-import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
-import ContentLoader from '../../components/content-loader'
-import ModalFooter from '../../components/modal-footer'
 import {importAccountAction} from "../../../actions/account";
 import classNames from "classnames";
 import InputForm from "../../components/input-form";

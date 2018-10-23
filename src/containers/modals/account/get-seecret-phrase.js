@@ -6,17 +6,13 @@
 
 import React from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
-import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
 import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
 import {setAccountPassphrase} from '../../../modules/account';
 import {getForging} from "../../../actions/login"
-
-import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
 
 import InfoBox from '../../components/info-box';
-import ModalFooter from '../../components/modal-footer'
 
 
 class PrivateTransactions extends React.Component {

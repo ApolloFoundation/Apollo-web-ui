@@ -15,7 +15,6 @@ import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import CustomSelect from '../../components/select'
-import ModalFooter from '../../components/modal-footer'
 
 class HashCalculation extends React.Component {
     constructor(props) {

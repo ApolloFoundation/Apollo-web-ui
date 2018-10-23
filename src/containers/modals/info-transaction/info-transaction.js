@@ -8,11 +8,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
-import converters from "../../../helpers/converters";
-import crypto from "../../../helpers/crypto/crypto";
 import {formatTransactionType} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
-import ModalFooter from '../../components/modal-footer'
 
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {

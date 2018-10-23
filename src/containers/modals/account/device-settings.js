@@ -15,7 +15,6 @@ import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";
 import {getSavedSettingsAction, saveSettingsAction} from "../../../modules/settings";
 import {NotificationManager} from "react-notifications";
-import ModalFooter from '../../components/modal-footer'
 
 class DeviceSettings extends React.Component {
     constructor(props) {

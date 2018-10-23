@@ -17,9 +17,7 @@ import crypto from '../../../helpers/crypto/crypto';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
-import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
-import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import {exportAccountAction} from '../../../actions/account'
 import {CopyToClipboard} from 'react-copy-to-clipboard';

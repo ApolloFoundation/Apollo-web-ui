@@ -14,7 +14,6 @@ import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
 import InputForm from '../../components/input-form'
 import InfoBox from '../../components/info-box';
-import ModalFooter from '../../components/modal-footer'
 
 const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
@@ -45,8 +44,6 @@ class DecryptMessage extends React.Component {
 
     async handleFormSubmit(params) {
         let passphrase = params.passphrase;
-        const isPassed = await this.validatePassphrase(passphrase);
-
         if (params.passphrase) {
             delete params.secretPhrase;
             if (params.isRememberPassphrase) {

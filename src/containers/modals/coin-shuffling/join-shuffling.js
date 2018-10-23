@@ -38,8 +38,6 @@ class JoinShuffling extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         const data = {
             shufflingFullHash: this.props.modalData.broadcast ? this.props.modalData.broadcast.fullHash : this.state.shuffling.shufflingFullHash,
             recipientSecretPhrase: values.recipientSecretPhrase,
@@ -62,10 +60,6 @@ class JoinShuffling extends React.Component {
 
             NotificationManager.success('Shuffling Started!', null, 5000);
         }
-
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
     };
 
     getShuffling = async () => {

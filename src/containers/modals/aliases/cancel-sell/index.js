@@ -12,12 +12,8 @@ import { Form, Text } from 'react-form';
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import CustomSelect from '../../../components/select';
-import AccountRS from '../../../components/account-rs';
-import AdvancedSettings from '../../../components/advanced-transaction-settings';
 import InputForm from '../../../components/input-form';
 import {calculateFeeAction} from "../../../../actions/forms";
-import ModalFooter from '../../../components/modal-footer'
 
 
 const aliasTypeData = [

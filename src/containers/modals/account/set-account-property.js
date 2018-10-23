@@ -35,9 +35,6 @@ class SetAccountProperty extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
-
         const res = await this.props.submitForm( values, 'setAccountProperty');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)

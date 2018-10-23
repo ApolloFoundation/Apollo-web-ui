@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text} from 'react-form';
 import InputForm from '../../components/input-form'
 import {connect} from 'react-redux'
 

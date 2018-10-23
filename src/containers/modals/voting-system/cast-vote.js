@@ -65,8 +65,6 @@ class CastPoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         let votes = {};
 
         if (this.state.poll.maxRangeValue > 1) {

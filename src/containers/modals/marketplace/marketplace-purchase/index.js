@@ -81,11 +81,6 @@ class MarketplacePurchase extends React.Component {
             NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
             return;
         }
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
 
         values = {
             ...values,

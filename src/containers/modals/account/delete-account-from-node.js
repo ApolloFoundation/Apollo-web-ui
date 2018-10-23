@@ -22,7 +22,6 @@ import {getAccountDataAction} from "../../../actions/login";
 import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import {removeAccountAction} from '../../../actions/account'
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,

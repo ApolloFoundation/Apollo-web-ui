@@ -52,8 +52,6 @@ class IssueCurrency extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         let type;
 
         switch (values) {

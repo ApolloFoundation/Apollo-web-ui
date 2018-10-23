@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {NotificationManager} from 'react-notifications';
 import {generateAccountAction} from '../../../actions/account'
 
 import AdvancedSettings from '../../components/advanced-transaction-settings'

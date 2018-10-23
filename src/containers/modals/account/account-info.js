@@ -35,8 +35,6 @@ class AccountInfo extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         values = {
             ...values,
 

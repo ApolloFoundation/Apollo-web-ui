@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
-import ModalFooter from '../../components/modal-footer'
 
 class MandatoryApproval extends React.Component {
     constructor(props) {

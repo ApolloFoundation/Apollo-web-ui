@@ -34,9 +34,6 @@ class EnterAdminPassword extends React.Component {
     async handleFormSubmit(params) {
         let passphrase = params.passphrase;
 
-        const isPassed = await this.validatePassphrase(passphrase);
-
-
         const privateKey = crypto.getPrivateKeyAPL(passphrase);
         const publicKey  = this.props.publicKey;
 
