@@ -1,5 +1,5 @@
 {
-  "name": "react-redux-router",
+  "name": "web-wallet",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,7 +9,7 @@
     "babel-eslint": "^8.1.0",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
-    "babel-polyfill": "^7.0.0-beta.3",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-react-app": "^3.1.1",
     "babel-runtime": "6.26.0",
     "big-integer": "^1.6.32",
@@ -92,10 +92,11 @@
     "twitter": "^1.7.1",
     "url-loader": "0.6.2",
     "uuid": "^3.3.2",
-    "webpack": "3.8.1",
+    "webpack": "4.4.1",
     "webpack-dev-server": "2.9.4",
     "webpack-manifest-plugin": "1.3.2",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "react-scripts": "2.0.4"
   },
   "scripts": {
     "start": "react-scripts start & npm run watch-css",
@@ -109,6 +110,9 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "node-sass": "^4.9.4",
     "sass-loader": "^7.0.3"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
   },
   "jest": {
     "collectCoverageFrom": [

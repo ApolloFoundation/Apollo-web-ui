@@ -68,9 +68,7 @@ class CancelSell extends React.Component {
         const res = await this.props.submitForm( values, 'sellAlias')
 
         if (res) {
-            console.log(res);
             if (!res.errorCode && res.transactionJSON) {
-                console.log(res.transactionJSON);
 
                 const broadcast = await this.props.submitForm( {
                     transactionBytes: res.transactionBytes,

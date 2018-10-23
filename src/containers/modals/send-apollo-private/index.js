@@ -12,7 +12,7 @@ import AccountRS from '../../components/account-rs';
 import InputForm from '../../components/input-form';
 import crypto from  '../../../helpers/crypto/crypto';
 import {calculateFeeAction} from "../../../actions/forms";
-
+import classNames from 'classnames';
 
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
@@ -33,8 +33,9 @@ class SendApolloPrivate extends React.Component {
             passphraseStatus: false,
             recipientStatus: false,
             amountStatus: false,
-            feeStatus: false
-        }
+            feeStatus: false,
+            isPrivateTransactionAlert: false,
+        };
 
         this.handleTabChange = this.handleTabChange.bind(this);
         this.handleAdvancedState = this.handleAdvancedState.bind(this);
@@ -76,7 +77,7 @@ class SendApolloPrivate extends React.Component {
 
         this.setState({
             isPending: true
-        })
+        });
 
         const privateTransaction = await this.props.sendPrivateTransaction(values);
 
@@ -113,6 +114,12 @@ class SendApolloPrivate extends React.Component {
         }
     }
 
+    setConfirm = () => {
+        this.setState({
+            isPrivateTransactionAlert: true
+        })
+    };
+
     render() {
         return (
             <div className="modal-box">
@@ -128,6 +135,19 @@ class SendApolloPrivate extends React.Component {
                                 <div className="form-title">
                                     <p>Send Apollo</p>
                                 </div>
+                                {
+                                    !this.state.isPrivateTransactionAlert &&
+                                    <InfoBox info>
+                                        Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0 <br/>
+                                        <a
+                                            className={'btn static primary'}
+                                            style={{background: '#fff', color: '#00C8FF'}}
+                                            onClick={this.setConfirm}
+                                        >
+                                            I agree
+                                        </a>
+                                    </InfoBox>
+                                }
                                 <div className="input-group-app form-group mb-15 display-block inline user">
                                     <div className="row form-group-white">
                                         <label htmlFor="recipient" className="col-sm-3 col-form-label">
@@ -240,7 +260,14 @@ class SendApolloPrivate extends React.Component {
                                     <button
                                         type="submit"
                                         name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
+                                        className={classNames({
+                                            "btn" : true,
+                                            "btn-right" : true,
+                                            "blue" : true,
+                                            "round" : true,
+                                            "round-bottom-right" : true,
+                                            "blue-disabled": !this.state.isPrivateTransactionAlert
+                                        })}
                                     >
                                         Send
                                     </button>
