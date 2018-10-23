@@ -106,7 +106,6 @@ class Transactions extends React.Component {
     };
 
     onPaginate = (page) => {
-        console.log(this.state);
         let reqParams = {
             type: this.state.type,
             account:    this.props.account,
@@ -164,7 +163,6 @@ class Transactions extends React.Component {
             this.getUnconfirmedTransactionsTransactions(params, all)
         }
         if (this.state.isPhassing) {
-            console.log(params);
             params.requestType = this.state.requestType;
 
             const transactions = await this.props.getTransactionsAction(params);

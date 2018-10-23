@@ -57,11 +57,7 @@ class MessageItem extends React.Component {
                 transaction: this.props.transaction
             }, 'readMessage')
 
-            console.log(message);
-
             if (message) {
-
-                console.log(message);
                 this.setState({
                     message: message.decryptedMessage
                 });
@@ -80,8 +76,6 @@ class MessageItem extends React.Component {
                     <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.recipient)}>{this.props.recipientRS}</a>
                 </td>
                 <td>
-                    {console.log(this.props)}
-                    {console.log(this.state.message)}
                     {
                         this.props.attachment.message !== 'undefined' && this.props.attachment.message
                     }

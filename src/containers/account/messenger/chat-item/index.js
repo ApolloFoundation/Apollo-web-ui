@@ -43,7 +43,6 @@ class ChatItem extends React.Component {
     }
 
     tryToDecrypt = (newState) => {
-        console.log(this.props);
         this.decryptMessage(this.props, newState.account.passPhrase)
 
         // if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
