@@ -74,36 +74,35 @@ class InfoAccount extends React.Component {
     }
 
     // requets
-    async getAcccount (requestParams){
-        if (this.props.modalData) {
-            const accountData = this.props.getAccountAction(requestParams);
+    getAcccount = async (requestParams) => {
+        const accountData = this.props.getAccountAction(requestParams);
 
-            if (accountData) {
-                this.setState({
-                    ...this.props,
-                    transactions:   await accountData['TRANSACTIONS'],
-                    account_ledger: await accountData['ACCOUNT_LEDGER'],
-                    assets:         await accountData['ASSETS'],
-                    trades:         await accountData['TRADES'],
-                    currencies:     await accountData['CURRENCIES'],
-                    goods:          await accountData['GOODS'],
-                    aliases:        await accountData['ALIASES'],
-                    account:        await accountData['ACCOUNT'],
-                }, () => {
-                    if (this.state.assets) {
-                        const accountAssets = this.state.assets.accountAssets;
-                        const assetsInfo    = this.state.assets.assets;
+        if (accountData) {
+            this.setState({
+                ...this.props,
+                transactions:   await accountData['TRANSACTIONS'],
+                account_ledger: await accountData['ACCOUNT_LEDGER'],
+                assets:         await accountData['ASSETS'],
+                trades:         await accountData['TRADES'],
+                currencies:     await accountData['CURRENCIES'],
+                goods:          await accountData['GOODS'],
+                aliases:        await accountData['ALIASES'],
+                account:        await accountData['ACCOUNT'],
+            }, () => {
+                if (this.state.assets) {
 
-                        const resultAsset = accountAssets.map((el, index) => {
-                            return {...(assetsInfo[index]), ...el}
-                        });
+                    const accountAssets = this.state.assets.accountAssets;
+                    const assetsInfo    = this.state.assets.assets;
 
-                        this.setState({
-                            assets: resultAsset
-                        })
-                    }
-                });
-            }
+                    const resultAsset = accountAssets.map((el, index) => {
+                        return {...(assetsInfo[index]), ...el}
+                    });
+
+                    this.setState({
+                        assets: resultAsset
+                    })
+                }
+            });
         }
     }
 
