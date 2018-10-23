@@ -112,7 +112,7 @@ class CreateUser extends React.Component {
                     isPending: true
                 });
                 this.props.getAccountDataAction({
-                    account: this.state.accountData.accountRS
+                    account: this.state.generatedAccount
                 });
             } else {
                 NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
