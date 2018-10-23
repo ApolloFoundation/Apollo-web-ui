@@ -234,7 +234,7 @@ class ImportAccount extends React.Component {
 
                                         <div className="form-group-app">
                                             <div className="form-title">
-                                                <p>Create Your Wallet</p>
+                                                <p>Restore Your Wallet</p>
                                             </div>
 
                                             <div className="form-group row form-group-white mb-15">

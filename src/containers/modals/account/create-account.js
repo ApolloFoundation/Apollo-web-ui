@@ -398,9 +398,6 @@ class CreateUser extends React.Component {
                                                                                             Account ID: <span className={'itatic'}>{this.state.accountData.accountRS}</span>
                                                                                             <br/>
                                                                                             <br/>
-                                                                                            Key Seed: <span className={'itatic'}>{this.state.keySeed.secretBytes}</span>
-                                                                                            <br/>
-                                                                                            <br/>
                                                                                             Public Key: <span className={'itatic'}>{this.state.accountData.publicKey}</span>
                                                                                             <br/>
                                                                                             <br/>
@@ -408,7 +405,6 @@ class CreateUser extends React.Component {
                                                                                                 text={
                                                                                                     `Secret Phrase: ${this.state.accountData.passphrase}\n` +
                                                                                                     `Account ID: ${this.state.accountData.accountRS}\n` +
-                                                                                                    `Key Seed: ${this.state.keySeed.secretBytes}\n` +
                                                                                                     `Public Key: ${this.state.accountData.publicKey}\n`
                                                                                                 }
                                                                                                 onCopy={() => {
