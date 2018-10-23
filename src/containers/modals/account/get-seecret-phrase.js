@@ -38,20 +38,7 @@ class PrivateTransactions extends React.Component {
         let passphrase = params.passphrase;
 
         const isPassed = await this.validatePassphrase(passphrase);
-        if (!isPassed) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            }, () => {
 
-            })
-        }
 
         this.props.setAccountPassphrase(passphrase);
         this.props.getForging();

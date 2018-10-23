@@ -39,10 +39,7 @@ class JoinShuffling extends React.Component {
 
     handleFormSubmit = async(values) => {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
+
         const data = {
             shufflingFullHash: this.props.modalData.broadcast ? this.props.modalData.broadcast.fullHash : this.state.shuffling.shufflingFullHash,
             recipientSecretPhrase: values.recipientSecretPhrase,

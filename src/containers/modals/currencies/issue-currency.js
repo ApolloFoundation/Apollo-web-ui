@@ -54,11 +54,6 @@ class IssueCurrency extends React.Component {
     handleFormSubmit = async(values) => {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect secret phrase', 'Error', 5000);
-            return;
-        }
-
         let type;
 
         switch (values) {

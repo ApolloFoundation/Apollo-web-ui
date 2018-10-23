@@ -67,13 +67,6 @@ class SendApolloPrivate extends React.Component {
             NotificationManager.error('Fee not specified.', 'Error', 5000);
             return;
         }
-        if (!isPassphrase) {
-            this.setState({
-                isPending: false
-            });
-            NotificationManager.error('Incorrect secret phrase', 'Error', 5000);
-            return;
-        }
 
         this.setState({
             isPending: true

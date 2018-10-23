@@ -43,10 +43,7 @@ class TransactionOperations extends React.Component {
                     NotificationManager.error("Passphrase is required", "Error", 5000);
                     break;
                 }
-                if (!await this.props.validatePassphrase(values.signPassphrase)) {
-                    NotificationManager.error("Passphrase not valid", "Error", 5000);
-                    break;
-                }
+
                 const toSend = {
                     unsignedTransactionBytes: values.signBytes,
                     unsignedTransactionJSON: values.signJson,

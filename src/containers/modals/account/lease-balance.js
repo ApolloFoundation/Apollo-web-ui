@@ -66,10 +66,6 @@ class LeaseBalance extends React.Component {
                 feeStatus: false
             })
         }
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect secret phrase.', 'Error', 5000);
-            return;
-        }
 
         this.setState({
             isPending: true

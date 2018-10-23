@@ -67,18 +67,7 @@ class ReserveCurrency extends React.Component {
                 feeStatus: false
             })
         }
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
-        }
+
         this.setState({
             isPending: true
         })

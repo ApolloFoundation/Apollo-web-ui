@@ -35,20 +35,7 @@ class EnterAdminPassword extends React.Component {
         let passphrase = params.passphrase;
 
         const isPassed = await this.validatePassphrase(passphrase);
-        if (!isPassed) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            }, () => {
 
-            })
-        }
 
         const privateKey = crypto.getPrivateKeyAPL(passphrase);
         const publicKey  = this.props.publicKey;
