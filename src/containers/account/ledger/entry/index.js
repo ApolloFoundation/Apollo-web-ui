@@ -25,28 +25,6 @@ class Entry extends React.Component {
         }
     }
 
-    // getTransaction = async (transaction) => {
-    //
-    //     const requestParams = {
-    //         transaction: transaction
-    //     };
-    //
-    //     const transactionEntry = await this.props.getTransactionAction(requestParams);
-    //
-    //     console.log(transactionEntry);
-    //
-    //     if (transactionEntry) {
-    //         this.props.setBodyModalParamsAction('INFO_TRANSACTION', transactionEntry)
-    //     } else {
-    //         delete requestParams.passphrase;
-    //         const privateTransactionEntry = await this.props.getTransactionAction(requestParams);
-    //
-    //         if (privateTransactionEntry) {
-    //             this.props.setBodyModalParamsAction('INFO_BLOCK', privateTransactionEntry)
-    //         }
-    //     }
-    // };
-
     render () {
         return (
             <React.Fragment>

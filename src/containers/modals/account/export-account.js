@@ -44,11 +44,9 @@ class ExportAccount extends React.Component {
     };
 
     handleFormSubmit = async (values) => {
-        console.log(values);
         const accountKeySeedData = await exportAccountAction(values);
 
         if (accountKeySeedData) {
-            console.log(accountKeySeedData);
 
             if (!accountKeySeedData.errorCode) {
                 this.setState({

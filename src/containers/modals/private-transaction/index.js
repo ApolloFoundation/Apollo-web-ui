@@ -40,8 +40,6 @@ class PrivateTransactions extends React.Component {
             data.secretPhrase = params.passphrase;
         }
 
-        console.log(data);
-
         this.props.setModalData(data);
         this.props.setBodyModalParamsAction(null, null);
     }

@@ -80,7 +80,6 @@ class Ledger extends React.Component {
     }
 
     getPrivateEntries = (data) => {
-        console.log(data);
 
         let reqParams = {
             account: this.props.account,
@@ -97,13 +96,10 @@ class Ledger extends React.Component {
             });
         }
 
-        console.log(reqParams);
-
         this.getAccountLedger(reqParams);
     };
 
     onPaginate (page) {
-        console.log(this.state.passphrase);
 
         let reqParams = {
             page: page,

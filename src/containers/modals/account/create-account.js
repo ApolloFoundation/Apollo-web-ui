@@ -78,7 +78,6 @@ class CreateUser extends React.Component {
         const geneatedAccount = await generateAccountAction(requestParams);
 
         if (geneatedAccount) {
-            console.log(geneatedAccount);
             const keySeed = await exportAccountAction({account: geneatedAccount.accountRS, passphrase: geneatedAccount.passphrase});
 
             this.setState({
@@ -87,8 +86,6 @@ class CreateUser extends React.Component {
                 keySeed: keySeed,
                 isCustomPassphrase: false,
 
-            }, () => {
-                console.log(this.state);
             })
         }
     };

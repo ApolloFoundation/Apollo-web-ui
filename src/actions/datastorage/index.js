@@ -19,7 +19,6 @@ export function getAllTaggedDataAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -40,7 +39,6 @@ export function getDataTagsAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -61,7 +59,6 @@ export function searchTaggedDataAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -82,7 +79,6 @@ export function getAccountTaggedDataAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);

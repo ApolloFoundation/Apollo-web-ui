@@ -140,7 +140,6 @@ class Dashboard extends React.Component {
         const accountInfo = await this.props.getAccountInfo(reqParams);
 
         if (accountInfo || (accountInfo && accountInfo.errorCode === 4)) {
-            // console.log(accountInfo);
             if (accountInfo.balanceATM) {}
 			this.setState({
                 accountInfo

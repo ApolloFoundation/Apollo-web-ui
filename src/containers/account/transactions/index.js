@@ -116,8 +116,6 @@ class Transactions extends React.Component {
             ...this.state.passphrase
         };
 
-        console.log(this.state.passphrase);
-
         this.setState(reqParams, () => {
             this.getTransactions(reqParams, this.state.isUnconfirmed, this.state.isAll)
         });
