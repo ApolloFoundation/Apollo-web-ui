@@ -8,7 +8,7 @@ import React from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
 import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
-import {setModalData, setMopalType, setBodyModalParamsAction} from '../../../modules/modals';
+import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
 import {setAccountPassphrase} from '../../../modules/account';
 import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    setMopalType: (passphrase) => dispatch(setMopalType(passphrase)),
+    setModalType: (passphrase) => dispatch(setModalType(passphrase)),
     setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase))
@@ -71,7 +71,7 @@ class DecryptMessage extends React.Component {
         if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
             modalWindow.classList.remove('active');
             setTimeout(() => {
-                this.props.setMopalType(null);
+                this.props.setModalType(null);
 
             }, 300);
         }

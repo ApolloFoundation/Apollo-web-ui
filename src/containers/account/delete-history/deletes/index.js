@@ -6,7 +6,7 @@
 
 import React from 'react';
 import uuid from 'uuid';
-import {setBodyModalParamsAction, setMopalType} from "../../../../modules/modals";
+import {setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {getTransactionAction} from "../../../../actions/transactions";
@@ -38,7 +38,7 @@ class DeleteItem extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    setMopalType: (type) => dispatch(setMopalType(type)),
+    setModalType: (type) => dispatch(setModalType(type)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime))
 });

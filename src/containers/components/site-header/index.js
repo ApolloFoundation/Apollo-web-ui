@@ -10,7 +10,7 @@ import {Link, NavLink} from 'react-router-dom';
 import './SiteHeader.css';
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
-import {setMopalType, setBodyModalType, setBodyModalParamsAction} from "../../../modules/modals";
+import {setModalType, setBodyModalType, setBodyModalParamsAction} from "../../../modules/modals";
 import {logOutAction} from "../../../actions/login";
 import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
@@ -475,7 +475,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink exact={true} activeClassName="active"
                                                                      to="approval-request">Approval request</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_ASSET')}>Issue
                                                                 assets</a>
 
                                                         </div>
@@ -502,7 +502,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/exchange-history-currency">Approval
                                                                 requests</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
                                                                 Currencies</a>
 
                                                         </div>
@@ -527,7 +527,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/my-votes">My votes</NavLink>
                                                             <NavLink to="/my-polls">My polls</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}>Create
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}>Create
                                                                 poll</a>
 
                                                         </div>
@@ -545,7 +545,7 @@ class SiteHeader extends React.Component {
                                                         <div className="item-dropdown">
                                                             <NavLink to="/data-storage">Search</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File
                                                                 upload</a>
 
                                                         </div>
@@ -569,7 +569,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/my-pending-orders">My pending orders</NavLink>
                                                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
                                                             <a
-                                                                onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
+                                                                onClick={this.props.setModalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
                                                                 product for sale</a>
                                                         </div>
                                                     </AccordionItemBody>
@@ -591,7 +591,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/finished-shuffling">Finished shuffling</NavLink>
                                                             <NavLink to="/my-shuffling">My shuffling</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create
                                                                 shuffling</a>
 
                                                         </div>
@@ -664,7 +664,7 @@ class SiteHeader extends React.Component {
 
                                                         <a
                                                             className="user-account-action"
-                                                            onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+                                                            onClick={this.props.setModalType.bind(this, 'SEND_APOLLO')}
                                                         >
                                                             <i className="zmdi zmdi-balance-wallet"/>
                                                         </a>
@@ -763,7 +763,7 @@ class SiteHeader extends React.Component {
                                                             </div>
                                                         </div>
                                                         <a
-                                                            onClick={() => this.props.setMopalType('GENERAL_INFO')}
+                                                            onClick={() => this.props.setModalType('GENERAL_INFO')}
                                                             className="user-account-action user-account-action--help"
                                                         >
                                                             <i className="zmdi zmdi-help"/>
@@ -1002,7 +1002,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setPageEvents: (prevent) => dispatch(setPageEvents(prevent)),
-    setMopalType: (prevent) => dispatch(setMopalType(prevent)),
+    setModalType: (prevent) => dispatch(setModalType(prevent)),
     setBodyModalType: (prevent) => dispatch(setBodyModalType(prevent)),
     getAccountInfoAction: (reqParams) => dispatch(getAccountInfoAction(reqParams)),
     setForging: (reqParams) => dispatch(setForging(reqParams)),

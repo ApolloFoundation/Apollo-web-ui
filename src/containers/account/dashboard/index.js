@@ -9,7 +9,7 @@ import SiteHeader from '../../components/site-header'
 import CircleFigure from './circle-figure'
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import {setBodyModalParamsAction, setMopalType} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
 import ContentLoader from '../../components/content-loader'
@@ -56,7 +56,7 @@ const mapDispatchToProps = dispatch => ({
 	getMessages: (reqParams) => dispatch(getMessages(reqParams)),
 	getNewsAction: () => dispatch(getNewsAction()),
 	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-	setMopalType: (type) => dispatch(setMopalType(type)),
+	setModalType: (type) => dispatch(setModalType(type)),
 	formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
     getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
@@ -712,7 +712,7 @@ class Dashboard extends React.Component {
 										</div>
 									</div>
 									<a
-										onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO_PRIVATE')}
+										onClick={this.props.setModalType.bind(this, 'SEND_APOLLO_PRIVATE')}
 									    className="btn btn-left btn-simple"
 										style={{margin: '0 0 -7px 35px'}}
 									>
@@ -777,7 +777,7 @@ class Dashboard extends React.Component {
 									<button
 										className="btn btn-right gray round round-bottom-right round-top-left absolute "
 										data-modal="sendMoney"
-										onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}
+										onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}
 									>
 										Create poll&nbsp;
 										<i className="arrow zmdi zmdi-chevron-right"/>

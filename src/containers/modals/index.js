@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {SET_MODAL_DATA, setMopalType} from '../../modules/modals';
+import {SET_MODAL_DATA, setModalType} from '../../modules/modals';
 import classNames from 'classnames';
 
 // Modals
@@ -130,7 +130,7 @@ class ModalWindow extends React.Component {
                 });
                 modalWindow.classList.remove('active');
                 setTimeout(() => {
-                    this.props.setMopalType(null);
+                    this.props.setModalType(null);
 
                 }, 300);
             }
@@ -171,7 +171,7 @@ class ModalWindow extends React.Component {
         });
 
         setTimeout(() => {
-            this.props.setMopalType(null);
+            this.props.setModalType(null);
             store.dispatch({
                 type: 'SET_MODAL_DATA',
                 payload: null
@@ -225,7 +225,7 @@ class ModalWindow extends React.Component {
 
 
                 {/*Account*/}
-                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setMopalType} closeModal={this.closeModal}/>}
+                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setModalType} closeModal={this.closeModal}/>}
                 {this.props.modalType === 'MANDATORY_APPROVAL'          && <MandatoryApproval         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            closeModal={this.closeModal}/>}
                 {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              closeModal={this.closeModal}/>}
@@ -300,7 +300,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setMopalType : (modalType) => dispatch(setMopalType(modalType))
+    setModalType : (modalType) => dispatch(setModalType(modalType))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalWindow)

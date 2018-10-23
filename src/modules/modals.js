@@ -90,7 +90,7 @@ export default (state = initialState, action) => {
     }
 }
 
-export const setMopalType = (reqParams) => {
+export const setModalType = (reqParams) => {
     return dispatch => {
         if (reqParams) {
             document.querySelector('.modal-window').classList.add('active');

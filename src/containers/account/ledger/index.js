@@ -11,7 +11,7 @@ import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Entry from './entry'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
-import {setModalCallback, setBodyModalParamsAction, setMopalType} from "../../../modules/modals";
+import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions/";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
@@ -213,7 +213,7 @@ class Ledger extends React.Component {
                             'disabled' : this.state.isPrivate
                         })}
                         onClick={() => {
-                            this.props.setMopalType('PrivateTransactions')
+                            this.props.setModalType('PrivateTransactions')
 
                         }}
                     >
@@ -313,7 +313,7 @@ const mapStateToProps = state => ({
 });
 
 const initMapDispatchToProps = dispatch => ({
-    setMopalType: (prevent) => dispatch(setMopalType(prevent)),
+    setModalType: (prevent) => dispatch(setModalType(prevent)),
     getAccountLedgerAction: (requestParams) => dispatch(getAccountLedgerAction(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
