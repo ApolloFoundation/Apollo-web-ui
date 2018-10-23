@@ -68,6 +68,12 @@ class SendApolloPrivate extends React.Component {
             return;
         }
 
+        if (!isPassphrase) {
+            values.passphrase = values.secretPhrase;
+            values.sender = this.props.account;
+            delete values.secretPhrase;
+        }
+
         this.setState({
             isPending: true
         });
@@ -278,6 +284,7 @@ class SendApolloPrivate extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    account: state.account.account,
     modalData: state.modals.modalData,
     publicKey: state.account.publicKey
 });
