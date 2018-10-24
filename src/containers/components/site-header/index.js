@@ -16,12 +16,13 @@ import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
 import {switchAccountAction} from "../../../actions/account";
 import {setForging} from '../../../actions/login';
-
+import store from '../../../store';
 import {setModalData} from "../../../modules/modals";
 import {getAccountInfoAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {getBlockAction} from "../../../actions/blocks";
 import {getForging} from "../../../actions/login"
+import crypto from '../../../helpers/crypto/crypto';
 
 
 import {
@@ -119,7 +120,7 @@ class SiteHeader extends React.Component {
         if (!this.state.isSearching) {
             this.setState({
                 isSearching: true
-            })
+            });
 
             const transaction = this.props.getTransactionAction({transaction: values.value});
             const block = this.props.getBlockAction({block: values.value});
@@ -171,8 +172,11 @@ class SiteHeader extends React.Component {
     setForging = async (action) => {
         const forging = await this.props.setForging({requestType: action.requestType});
 
+        console.log(forging);
+
         if (forging) {
             const forgingStatus = await this.props.getForging();
+
 
             if (forgingStatus) {
                 this.setState({forgingStatus: forgingStatus});
@@ -1006,6 +1010,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalType: (prevent) => dispatch(setBodyModalType(prevent)),
     getAccountInfoAction: (reqParams) => dispatch(getAccountInfoAction(reqParams)),
     setForging: (reqParams) => dispatch(setForging(reqParams)),
+    validatePassphrse: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     setModalData: (reqParams) => dispatch(setModalData(reqParams)),

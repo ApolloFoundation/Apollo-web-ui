@@ -166,6 +166,8 @@ export function getForging(isPassphrase) {
             .then((isPassphrase) => {
                 console.log(isPassphrase);
 
+                console.log(passpPhrase);
+
                 dispatch({
                     type: 'SET_PASSPHRASE',
                     payload: passpPhrase
@@ -186,10 +188,13 @@ export function getForging(isPassphrase) {
                     };
                 }
 
+                console.log(requestParams);
+
                 return axios.get(config.api.serverUrl, {
                     params: requestParams
                 })
                     .then((res) => {
+                        console.log(res);
                         dispatch({
                             type: 'GET_FORGING',
                             payload: res.data
@@ -207,13 +212,41 @@ export function setForging(requestType) {
         //     type: 'SET_PASSPHRASE',
         //     payload: passpPhrase
         // });
-        requestType = {
-            ...requestType,
-            secretPhrase: passpPhrase
-        };
+
+        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
+
+        console.log(forgingStatus);
 
 
-        return dispatch(submitForm.submitForm( requestType));
+        return Promise.resolve(forgingStatus)
+            .then((isPassphrase) => {
+                console.log(isPassphrase);
+
+                dispatch({
+                    type: 'SET_PASSPHRASE',
+                    payload: passpPhrase
+                });
+
+                var requestParams;
+                console.log('pizdos');
+                if (isPassphrase) {
+                    requestParams = {
+                        ...requestType,
+                        secretPhrase: passpPhrase
+                    };
+                } else {
+                    requestParams = {
+                        ...requestType,
+                        passphrase: passpPhrase,
+                        account: account.account
+                    };
+                }
+
+                console.log(requestType);
+
+                return dispatch(submitForm.submitForm(requestParams, requestType.requestType));
+            })
+
     }
 }
 
