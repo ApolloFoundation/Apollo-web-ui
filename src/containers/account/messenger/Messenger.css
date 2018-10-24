@@ -19,6 +19,10 @@
       color: #BBBBBB;
       font-size: 12px; }
 
+.messenger .col-md-3,
+.messenger .col-md-9 {
+  max-height: 100%; }
+
 .messenger, .messenger a {
   min-height: auto !important;
   margin-bottom: 15px; }

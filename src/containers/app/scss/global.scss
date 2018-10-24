@@ -68,8 +68,7 @@ html {
 					
 					& > div {
 						height: 100%;
-
-
+						
 						&.site-footer {
 							height: auto;
 						}
@@ -128,13 +127,13 @@ input[type="checkbox"] {
 	border-radius: 3px;
 	padding: 0 !important;
 	position: relative;
-
+	
 	&.lighten {
 		&:after {
 			background-image: url(../../assets/checked-lighten.svg);
 		}
 	}
-
+	
 	&:after {
 		content: '';
 		position: absolute;
@@ -153,6 +152,10 @@ input[type="checkbox"] {
 			display: block;
 		}
 	}
+}
+
+.form-check-input {
+	cursor: pointer;
 }
 
 input[type="number"] {
@@ -513,7 +516,7 @@ input {
 	&.attention-left {
 		border-left: 4px solid #00C8FF;
 		border-radius: 0;
-
+		
 		p {
 			span {
 				color: #00C8FF;
@@ -1181,7 +1184,7 @@ input {
 			&:disabled {
 				background-color: #e5e5e5;
 				& + .input-group-append {
-					.input-group-text{
+					.input-group-text {
 						color: #747474;
 						background-color: #e5e5e5;
 					}
@@ -1509,7 +1512,7 @@ input {
 	box-sizing: border-box;
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
-
+	
 	&.lighten {
 		background: #ecf0f1;
 		color: #00C8FF;
@@ -1525,7 +1528,7 @@ input {
 	.ball-pulse {
 		transform: translateY(2px);
 		text-align: center;
-
+		
 		div {
 			display: inline-block;
 			height: 7px;
@@ -1702,7 +1705,7 @@ input {
 		letter-spacing: -0.1px;
 		margin-top: 15px;
 		position: static;
-
+		
 		&.bigger {
 			padding: 11px 10px 9px 10px;
 		}
@@ -1719,7 +1722,7 @@ input {
 		letter-spacing: -0.1px;
 		margin-top: 15px;
 		position: static;
-
+		
 		&.bigger {
 			padding: 11px 10px 9px 10px;
 		}
@@ -1830,7 +1833,7 @@ input {
 	}
 	&.header {
 		padding: 50px 35px;
-
+		
 		&.header-values {
 			padding: 30px 35px;
 		}
@@ -1954,11 +1957,11 @@ input {
 					box-shadow: 0px 0px 6px 1px rgba(#cccccc, 1);
 				}
 			}
-
+			
 			.currency {
 				font-size: 20px;
 			}
-
+			
 			.owned {
 				position: absolute;
 				top: 14px;
@@ -1969,7 +1972,7 @@ input {
 				line-height: 22px;
 				min-width: 38px;
 				text-align: right;
-
+				
 				//&:after {
 				//	content: 'Owned';
 				//	position: absolute;
@@ -2336,19 +2339,18 @@ input {
 	position: absolute;
 	bottom: 5px;
 	right: 4px;
-
+	
 	span {
 		color: #bbb;
 		display: inline-block;
 		transform: translateY(2px);
 		padding-right: 15px;
 	}
-
+	
 	& > div {
 		display: inline-block;
-
-
-		& >  {
+		
+		& > {
 			div {
 				height: 6px;
 				width: 6px;
@@ -2511,7 +2513,6 @@ table {
 		}
 	}
 	
-	
 }
 
 .exchange-booth {
@@ -2613,7 +2614,7 @@ table {
 	//margin-top: 15px;
 	background-color: #fff;
 	color: #BBBBBB;
-
+	
 	div > {
 		height: auto;
 	}
@@ -2642,6 +2643,7 @@ table {
 		background-color: rgba(0, 0, 0, 0.6);
 	}
 }
+
 //.add-alias {
 //	textarea {
 //		resize: vertical;
