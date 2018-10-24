@@ -2922,10 +2922,6 @@ input[type="checkbox"] {
 .form-check-input {
   cursor: pointer; }
 
-.position-relative {
-  position: relative;
-  z-index: 2; }
-
 input[type="number"] {
   position: relative; }
 
