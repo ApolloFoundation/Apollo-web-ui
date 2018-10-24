@@ -22,6 +22,7 @@ import classNames from 'classnames';
 import {Link} from 'react-router-dom';
 import {BlockUpdater} from "../../block-subscriber";
 import ContentLoader from '../../components/content-loader'
+import InfoBox from '../../components/info-box'
 import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
@@ -293,7 +294,7 @@ class DataStorage extends React.Component {
                         </div>
 						{
 							this.state.taggedData &&
-							this.state.taggedData.length &&
+							!!this.state.taggedData.length &&
                             <div className="transaction-table">
                                 <div className="transaction-table-body">
                                     <table>
@@ -322,33 +323,48 @@ class DataStorage extends React.Component {
                                         }
                                         </tbody>
                                     </table>
-                                    {/*<div className="btn-box">*/}
-                                    {/*<a*/}
-                                    {/*className={classNames({*/}
-                                    {/*'btn' : true,*/}
-                                    {/*'btn-left' : true,*/}
-                                    {/*'disabled' : this.state.page <= 1*/}
-                                    {/*})}*/}
-                                    {/*onClick={this.onPaginate.bind(this, this.state.page - 1)}*/}
-                                    {/*> Previous</a>*/}
-                                    {/*<div className='pagination-nav'>*/}
-                                    {/*<span>{this.state.firstIndex + 1}</span>*/}
-                                    {/*<span>&hellip;</span>*/}
-                                    {/*<span>{this.state.lastIndex + 1}</span>*/}
-                                    {/*</div>*/}
-                                    {/*<a*/}
-                                    {/*onClick={this.onPaginate.bind(this, this.state.page + 1)}*/}
-                                    {/*className={classNames({*/}
-                                    {/*'btn' : true,*/}
-                                    {/*'btn-right' : true,*/}
-                                    {/*'disabled' : this.state.ledger.length < 15*/}
-                                    {/*})}*/}
-                                    {/*>Next</a>*/}
-                                    {/*</div>*/}
+									{/*{*/}
+										{/*this.state.taggedData &&*/}
+										{/*this.state.taggedData.length &&*/}
+                                        {/*<div className="btn-box">*/}
+                                            {/*<a*/}
+                                                {/*className={classNames({*/}
+                                                    {/*'btn' : true,*/}
+                                                    {/*'btn-left' : true,*/}
+                                                    {/*'disabled' : this.state.page <= 1*/}
+                                                {/*})}*/}
+                                                {/*onClick={() => this.onPaginate(this.state.page - 1)}*/}
+                                            {/*> Previous</a>*/}
+                                            {/*<div className='pagination-nav'>*/}
+                                                {/*<span>{this.state.firstIndex + 1}</span>*/}
+                                                {/*<span>&hellip;</span>*/}
+                                                {/*<span>{this.state.lastIndex + 1}</span>*/}
+                                            {/*</div>*/}
+                                            {/*<a*/}
+                                                {/*onClick={() => this.onPaginate(this.state.page + 1)}*/}
+                                                {/*className={classNames({*/}
+                                                    {/*'btn' : true,*/}
+                                                    {/*'btn-right' : true,*/}
+                                                    {/*'disabled' : this.state.taggedData.length < 15*/}
+                                                {/*})}*/}
+                                            {/*>Next</a>*/}
+                                        {/*</div>*/}
+									{/*}*/}
+
                                 </div>
-                            </div> ||
-                            <ContentLoader/>
+                            </div>
                         }
+						{
+							this.state.taggedData &&
+							!this.state.taggedData.length &&
+								<InfoBox default>
+									No tagged data found.
+								</InfoBox>
+						}
+						{
+                            !this.state.taggedData &&
+							<ContentLoader />
+						}
 
                     </div>
                 </div>
