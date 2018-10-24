@@ -196,7 +196,7 @@ module.exports = {
             ],
           },
           {
-              test: '/\.scss$/',
+              test: /\.scss$/,
               loaders: [
                   require.resolve('style-loader'),
                   require.resolve('css-loader'),

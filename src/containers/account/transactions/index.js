@@ -142,7 +142,7 @@ class Transactions extends React.Component {
                         this.setState({
                             isPrivate: true
                         }, () => {
-                            NotificationManager.success('You are watching private transactions.', 'Error', 900000);
+                            NotificationManager.success('You are watching private transactions.', null, 900000);
                         })
                     }
                 } else {

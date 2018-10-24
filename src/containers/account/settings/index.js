@@ -250,7 +250,7 @@ class Settings extends React.Component {
                                                                         <div className="col-md-6">
                                                                             <Text className="form-control"
                                                                                   type="password"
-                                                                                  field="code"/>
+                                                                                  field="code2FA"/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
