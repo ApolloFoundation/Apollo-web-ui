@@ -130,7 +130,7 @@ class Confirm2FA extends React.Component {
                                         <div className="col-md-9">
                                             <Text
                                                 type={'password'}
-                                                field={'code'}
+                                                field={'code2FA'}
                                                 placeholder="2FA code"
                                             />
                                         </div>
