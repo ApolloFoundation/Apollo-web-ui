@@ -240,13 +240,12 @@ class Messenger extends React.Component {
 							</div>
 							<div className="col-md-9">
 								<div className="right-bar">
-									{
-										this.state.chatHistory &&
-										!!this.state.chatHistory.length &&
 										<div className="card card-full-screen no-padding">
 											<div className="chatting-box">
 
 												{
+                                                    this.state.chatHistory &&
+                                                    !!this.state.chatHistory.length &&
 													this.state.chatHistory.map((el, index) => {
 														const message = this.props.getMessage(el);
 
@@ -263,7 +262,6 @@ class Messenger extends React.Component {
 												}
 
 											</div>
-                                            {this.props.match.params.chat &&
                                             <Form
                                                 onSubmit={(values) => this.handleSendMessageFormSubmit(values)}
                                                 getApi={this.getFormApi}
@@ -315,9 +313,9 @@ class Messenger extends React.Component {
                                                     </form>
                                                 )}
                                             />
-                                            }
+
 										</div>
-									}
+
                                     {
                                         !this.state.chatHistory &&
                                         <ContentLoader/>
