@@ -275,6 +275,46 @@ input[type="number"] {
           font-family: "Roboto-Regular";
           font-size: 14px;
           line-height: 16px; }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box {
+          padding: 7px;
+          border: 1px solid #00C8FF;
+          cursor: pointer;
+          border-radius: 6px;
+          display: inline;
+          position: relative; }
+          .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box:hover .phasing-box__phasing-description {
+            visibility: visible;
+            opacity: 1;
+            transform: none; }
+          .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box .phasing-box__phasing-description {
+            border: 1px solid #666;
+            position: absolute;
+            top: 0;
+            right: calc(100% + 20px);
+            width: 300px;
+            background-color: #fff;
+            box-sizing: border-box;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            transform: scale(0.5); }
+            .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box .phasing-box__phasing-description:after {
+              content: '';
+              display: block;
+              height: 15px;
+              width: 15px;
+              border-top: 1px solid #666;
+              border-right: 1px solid #666;
+              transform: rotate(45deg);
+              position: absolute;
+              top: 10px;
+              right: -8px;
+              z-index: 2;
+              background: #fff; }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box__icon {
+          margin-right: 10px; }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box__result {
+          user-select: none; }
     .site-content .page-content .page-body .approval-request {
       padding: 35px;
       background-color: #fff;
