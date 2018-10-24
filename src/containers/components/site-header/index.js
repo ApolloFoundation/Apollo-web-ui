@@ -169,17 +169,29 @@ class SiteHeader extends React.Component {
         }
     };
 
+    setForgingWith2FA = (action) => {
+        return {
+            getStatus: action,
+            confirmStatus: (res) => {
+                this.setState({forgingStatus: res});
+            }
+        }
+    }
+
     setForging = async (action) => {
         const forging = await this.props.setForging({requestType: action.requestType});
 
-        console.log(forging);
-
         if (forging) {
-            const forgingStatus = await this.props.getForging();
+
+            if (forging.errorCode === 3) {
+                this.props.setBodyModalParamsAction('CONFIRM_2FA_FORGING', this.setForgingWith2FA(action.requestType))
+            } else {
+                const forgingStatus = await this.props.getForging();
 
 
-            if (forgingStatus) {
-                this.setState({forgingStatus: forgingStatus});
+                if (forgingStatus) {
+                    this.setState({forgingStatus: forgingStatus});
+                }
             }
         }
     };
