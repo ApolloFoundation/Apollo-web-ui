@@ -2915,6 +2915,13 @@ input[type="checkbox"] {
   input[type="checkbox"]:checked:after {
     display: block; }
 
+.form-check-input {
+  cursor: pointer; }
+
+.position-relative {
+  position: relative;
+  z-index: 2; }
+
 input[type="number"] {
   position: relative; }
 
