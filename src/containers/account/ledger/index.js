@@ -165,9 +165,7 @@ class Ledger extends React.Component {
             }
 
         } else {
-            const ledgerEntry = await this.props.getLedgerEntryAction({
-                ...requestParams
-            });
+            const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
 
             if (ledgerEntry) {
                 this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry.ledgerId)
