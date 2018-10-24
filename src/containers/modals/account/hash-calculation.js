@@ -135,7 +135,7 @@ class HashCalculation extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app offset-top display-block">
+                                <div className="input-group-app offset-top display-block position-relative">
                                     <div className="row">
                                         <div className="col-md-3"/>
                                         <div className="col-md-9">
