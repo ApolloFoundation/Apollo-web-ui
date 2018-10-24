@@ -25,7 +25,9 @@ import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
-	account: state.account.account
+	account: state.account.account,
+    is2FA: state.account.is2FA,
+
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -149,6 +151,7 @@ class Messenger extends React.Component {
             if (this.state.formApi) {
             	this.state.formApi.setValue('message', null);
             	this.state.formApi.setValue('secretPhrase', null);
+            	this.state.formApi.setValue('code2FA', null);
             }
         }
     };
@@ -296,8 +299,17 @@ class Messenger extends React.Component {
                                                                 field={'secretPhrase'}
                                                                 placeholder={'Secret Phrase'}
                                                                 type="password"/>
-                                                            <button type="submit" className="btn blue btn-primary">Send
-                                                                Message
+															{
+																this.props.is2FA &&
+                                                                <Text
+                                                                    className={"form-control"}
+                                                                    field={'code2FA'}
+                                                                    placeholder={'2FA Code'}
+                                                                    type="password"/>
+															}
+
+															<button type="submit" className="btn blue btn-primary">
+																Send Message
                                                             </button>
                                                         </div>
                                                     </form>
