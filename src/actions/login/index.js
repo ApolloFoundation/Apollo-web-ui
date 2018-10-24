@@ -16,6 +16,7 @@ import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
 import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
+import {setBodyModalParamsAction} from "../../modules/modals";
 import async from "../../helpers/util/async";
 
 export function getAccountDataAction(requestParams) {
@@ -231,7 +232,7 @@ export function setForging(requestType) {
     }
 }
 
-export function logOutAction(action) {
+export async function logOutAction(action) {
     switch (action) {
         case('simpleLogOut'):
             localStorage.removeItem("APLUserRS");
@@ -239,12 +240,36 @@ export function logOutAction(action) {
             document.location = '/';
             return;
         case('logOutStopForging'):
-            const forging = store.dispatch(setForging({requestType: 'stopForging'}));
+            const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
 
-            if (forging) {
-                localStorage.removeItem("APLUserRS");
-                document.location = '/';
+            console.log(forging);
+
+            const setForgingWith2FA = (action) => {
+                return {
+                    getStatus: action,
+                    confirmStatus: (res) => {
+                        localStorage.removeItem("APLUserRS");
+                        document.location = '/';
+                    }
+                }
+            };
+
+            if (forging.errorCode === 22 || forging.errorCode === 4) {
+                store.dispatch(setBodyModalParamsAction('ENTER_SECRET_PHRASE', null));
+                logOutAction(action)
             }
+            if (forging.errorCode === 3) {
+                store.dispatch(setBodyModalParamsAction('CONFIRM_2FA_FORGING', setForgingWith2FA('stopForging')));
+            }
+            if (!forging.errorCode){
+                if (forging) {
+                    localStorage.removeItem("APLUserRS");
+                    document.location = '/';
+                }
+            }
+
+
+
 
             return;
         case('logoutClearUserData'):
