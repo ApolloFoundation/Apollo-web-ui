@@ -25,8 +25,6 @@ export function getAccountDataAction(requestParams) {
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
                 NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
-            } else {
-                document.location = '/dashboard';
             }
         }
     };
@@ -141,26 +139,6 @@ function makeLoginReq(dispatch, requestParams) {
                 });
 
                 dispatch(login(res.data));
-
-                //
-                // if (localContacts) {
-                //     localContacts = JSON.parse(localContacts);
-                //
-                //     if (localContacts.indexOf(values) === -1) {
-                //         localContacts.push(values);
-                //         localStorage.setItem('APLContacts', JSON.stringify(localContacts));
-                //         NotificationManager.success('Added to contacts!', null, 5000);
-                //         this.props.closeModal()
-                //
-                //     } else {
-                //         NotificationManager.error('Already in contacts.', 'Error', 5000)
-                //
-                //     }
-                // } else {
-                //     console.log(res.data);
-                //     localStorage.setItem('APLContacts', JSON.stringify([values]));
-                // }
-
 
                 return res.data;
             } else {

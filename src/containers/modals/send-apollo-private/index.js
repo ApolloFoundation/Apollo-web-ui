@@ -17,6 +17,7 @@ import classNames from 'classnames';
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
+import ModalFooter from '../../components/modal-footer'
 
 class SendApolloPrivate extends React.Component {
     constructor(props) {
@@ -66,21 +67,29 @@ class SendApolloPrivate extends React.Component {
             NotificationManager.error('Fee not specified.', 'Error', 5000);
             return;
         }
+
         if (!isPassphrase) {
-            this.setState({
-                isPending: false
-            });
-            NotificationManager.error('Incorrect secret phrase', 'Error', 5000);
-            return;
+            values.passphrase = values.secretPhrase;
+            values.sender = this.props.account;
+            delete values.secretPhrase;
         }
 
         this.setState({
             isPending: true
         });
 
-        this.props.sendPrivateTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        NotificationManager.success('Private transaction has been submitted.', null, 5000)
+        const privateTransaction = await this.props.sendPrivateTransaction(values);
+
+        if (privateTransaction) {
+            if (privateTransaction.errorCode) {
+                NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
+
+            } else {
+                NotificationManager.success('Private transaction has been submitted.', null, 5000);
+                this.props.setBodyModalParamsAction(null, {});
+            }
+        }
+
     }
 
     handleTabChange(tab) {
@@ -210,14 +219,11 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 {
                                     this.state.passphraseStatus &&
                                     <InfoBox danger mt>
@@ -278,6 +284,7 @@ class SendApolloPrivate extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    account: state.account.account,
     modalData: state.modals.modalData,
     publicKey: state.account.publicKey
 });

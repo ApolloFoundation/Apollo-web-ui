@@ -37,9 +37,6 @@ export default class BlockSubscriber extends React.Component {
 
             const {account} = store.getState();
 
-            // console.log(account.actualBlock);
-
-            // console.warn("updateBlock prev curr", this.prevHeight, currHeight);
             if (currHeight > this.prevHeight) {
                 this.prevHeight = currHeight;
                 BlockUpdater.emit("data", currHeight);

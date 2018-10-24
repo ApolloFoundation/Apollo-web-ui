@@ -6,7 +6,7 @@
 
 import React from 'react';
 import uuid from 'uuid';
-import {setBodyModalParamsAction, setMopalType} from "../../../../modules/modals";
+import {setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
@@ -35,7 +35,6 @@ class MyAssetItem extends React.Component {
         const askOrders = await this.props.getAskOrders(this.state.transfer.asset);
 
         if (askOrders) {
-
             let orders = Math.min(...askOrders.orders.map((el) => {
                 return el.priceATM
             }));
@@ -166,7 +165,7 @@ class MyAssetItem extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    setMopalType: (type) => dispatch(setMopalType(type)),
+    setModalType: (type) => dispatch(setModalType(type)),
     getAskOrders: asset => getAskOrders(asset),
     getBidOrders: asset => getBidOrders(asset),
 });

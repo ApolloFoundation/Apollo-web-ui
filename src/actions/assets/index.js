@@ -20,7 +20,6 @@ export function getAssetsAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -51,7 +50,6 @@ export function getSpecificAccountAssetsAction(reqParams) {
 
 
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -74,7 +72,6 @@ export function getTransferHistory(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -97,7 +94,6 @@ export function getTradesHistoryAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -123,7 +119,6 @@ export function getAssetAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -145,7 +140,6 @@ export function getAccountAssetCountAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);
@@ -168,7 +162,6 @@ export function getAccountAssetsAction(reqParams) {
                 if (!res.data.errorCode) {
                     return res.data;
                 }
-                // console.log('Error: ', res.data.errorCode);
             })
             .catch((err) => {
                 console.log(err);

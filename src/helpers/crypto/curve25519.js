@@ -434,6 +434,7 @@ var mul_small = c255lmulasmall;
 /* Multiply two numbers.  The output is in reduced form, the inputs need not be. */
 var mul = c255lmulmodp;
 
+// var mulJava = mulJava;
 
 /* Square a number.  Optimization of  mul25519(x2, x, x)  */
 var sqr = c255lsqrmodp;

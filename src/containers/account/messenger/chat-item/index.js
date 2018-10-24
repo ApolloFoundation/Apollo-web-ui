@@ -54,12 +54,13 @@ class ChatItem extends React.Component {
         const message = await this.props.submitForm( {
             requestType: 'readMessage',
             secretPhrase: passPhrase,
-            transaction: this.props.transaction
+            transaction: this.props.transaction,
+            createNoneTransactionMethod: true
         }, 'readMessage')
 
         if (message) {
             this.setState({
-                message: message.decryptedMessage
+                message: message.decryptedMessage,
             });
         }
 
@@ -77,10 +78,10 @@ class ChatItem extends React.Component {
                 <div className="message">
                     <p>
                         {
-                            this.props.message.message && this.props.message.message
+                            this.props.attachment.message !== 'undefined' && this.props.attachment.message
                         }
                         {
-                            this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message && !this.props.message.message &&
+                            this.props.attachment.message === 'undefined' && this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message && !this.props.message.message &&
                             [
                                 <a
                                     onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
@@ -101,13 +102,17 @@ class ChatItem extends React.Component {
                             ]
                         }
                         {
-                            this.state.message && !this.props.message.message && !this.state.error &&
-                            [
+
+                            this.state.message &&
+                            !this.state.error  &&
+                            !this.props.message.message &&
+                            this.state.message !== 'false' &&
+                            <React.Fragment>
                                 <a className='action'>
                                     < i className="zmdi zmdi-lock-open" />
-                                </a>,
+                                </a>
                                 <span className="message-text">&nbsp;&nbsp;{this.state.message}</span>
-                            ]
+                            </React.Fragment>
                         }
                         {
                             this.state.error === 8 &&

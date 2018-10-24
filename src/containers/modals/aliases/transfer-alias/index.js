@@ -15,6 +15,8 @@ import submitForm from "../../../../helpers/forms/forms";
 import AdvancedSettings from '../../../components/advanced-transaction-settings';
 import AccountRS from '../../../components/account-rs';
 import InputForm from '../../../components/input-form';
+import ModalFooter from '../../../components/modal-footer'
+
 
 class TransferAlias extends React.Component {
     constructor(props) {
@@ -147,14 +149,14 @@ class TransferAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-	                                <div className="mobile-class form-group-grey row mb-15">
-		                                <div className="col-sm-9 offset-sm-3">
-			                                <a className="no-margin btn static blue"
-			                                   onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}>
-				                                Private transaction
-			                                </a>
-		                                </div>
-	                                </div>
+	                                {/*<div className="mobile-class form-group-grey row mb-15">*/}
+		                                {/*<div className="col-sm-9 offset-sm-3">*/}
+			                                {/*<a className="no-margin btn static blue"*/}
+			                                   {/*onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}>*/}
+				                                {/*Private transaction*/}
+			                                {/*</a>*/}
+		                                {/*</div>*/}
+	                                {/*</div>*/}
 	                                <div className="mobile-class row mb-15 form-group-white">
 		                                <div className="col-md-9 offset-md-3">
 			                                <div className="form-check custom-checkbox mb-2">
@@ -236,14 +238,11 @@ class TransferAlias extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                        </div>
-                                    </div>
+                                    <ModalFooter
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
+                                    />
 
                                     <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                         <a

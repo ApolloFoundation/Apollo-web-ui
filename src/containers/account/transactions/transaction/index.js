@@ -27,31 +27,6 @@ const mapDispatchToProps = dispatch => ({
 class Transaction extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            transaction: this.props.transaction
-        }
-    }
-
-    componentWillMount() {
-        if (this.props.transaction.encryptedTransaction) {
-            var options = {
-                publicKey  :  converters.hexStringToByteArray(this.props.publicKey),
-                privateKey :  converters.hexStringToByteArray(this.props.privateKey),
-            };
-
-            options.sharedKey = this.props.sharedKey;
-
-            var decrypted =  crypto.decryptDataStreamAPL(this.props.transaction.encryptedTransaction, options);
-            decrypted = decrypted.message;
-
-            decrypted = converters.hexStringToStringAPL(decrypted);
-            decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
-            decrypted = JSON.parse(decrypted);
-            this.setState({
-                transaction: decrypted
-            })
-        }
     }
 
     async getBlock(type, blockHeight) {
@@ -67,84 +42,37 @@ class Transaction extends React.Component {
     }
 
     render () {
-        if (this.props.block) {
-            if (!this.state.transaction.encryptedTransaction) {
-                return (
-                    <tr>
+        return (
+            <tr key={uuid()}>
+                {
+                    this.props.transaction && this.props.constants &&
+                    <React.Fragment>
                         <td className="blue-link-text">
-                            {this.props.index}
-                        </td>
-                        <td className="blue-link-text">
-                            <a
-                                onClick={this.props.setTransactionInfo.bind(this, {transaction: this.state.transaction.transaction})}
-                            >
-                                {this.props.formatTimestamp(this.state.transaction.timestamp)}
-                            </a>
-                        </td>
-                        <td >
-                            {formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}
-                        </td>
-                        <td className="align-right">
-                            {this.state.transaction.amountATM / 100000000}
-                        </td>
-                        <td className="align-right">
-                            {this.state.transaction.feeATM / 100000000}
-                        </td>
-                        <td className="blue-link-text">
-                            <a
-                                onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.senderRS)}
-                            >
-                                {this.state.transaction.senderRS}
-                            </a>
-                        </td>
-                        <td className="blue-link-text">
-                            {
-                                this.props.transaction.recipientRS &&
-                                <a
-                                    onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.recipientRS)}
-                                >
-                                    {this.props.transaction.recipientRS}
-                                </a>
-                            }
-                            {
-                                !this.props.transaction.recipientRS &&
-                                '-'
-                            }
-                        </td>
-                    </tr>
-                );
-            } else {
-                return (
-                    <tr key={uuid()}>ecrypted</tr>
-                )
-            }
-        } else {
-            if (!this.state.transaction.encryptedTransaction) {
-                return (
-                    <tr key={uuid()}>
-                        <td className="blue-link-text">
-                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.state.transaction.transaction)}>
-                                {this.props.formatTimestamp(this.state.transaction.timestamp)}
+                            <a onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.props.transaction.transaction, (this.props.transaction.type === 0 && this.props.transaction.subtype === 1))}>
+                                {this.props.formatTimestamp(this.props.transaction.timestamp)}
                             </a>
                         </td>
                         <td>
-                            {formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}
+                            {
+                                !!this.props.constants.transactionTypes[this.props.transaction.type] &&
+                                formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)
+                            }
                         </td>
                         <td className="align-right">
-                            {this.state.transaction.amountATM / 100000000}
+                            {this.props.transaction.amountATM / 100000000}
                         </td>
                         <td className="align-right">
-                            {this.state.transaction.feeATM / 100000000}
+                            {this.props.transaction.feeATM    / 100000000}
                         </td>
                         <td className="blue-link-text">
-                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.sender)}>{this.state.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
+                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
                         </td>
                         <td className="align-right">
                         </td>
                         <td className="align-right blue-link-text">
                             {
                                 !this.props.isUnconfirmed &&
-                                <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', this.state.transaction.height)}>{this.state.transaction.height}</a>
+                                <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', this.props.transaction.height)}>{this.props.transaction.height}</a>
                             }
                             {
                                 this.props.isUnconfirmed && '-'
@@ -154,20 +82,16 @@ class Transaction extends React.Component {
                         <td className="align-right">
                             {
                                 !this.props.isUnconfirmed &&
-                                <a>{this.state.transaction.confirmations}</a>
+                                <a>{this.props.transaction.confirmations}</a>
                             }
                             {
                                 this.props.isUnconfirmed && '-'
                             }
                         </td>
-                    </tr>
-                );
-            } else {
-                return (
-                    <tr key={uuid()}>ecrypted</tr>
-                )
-            }
-        }
+                    </React.Fragment>
+                }
+            </tr>
+        )
     }
 }
 

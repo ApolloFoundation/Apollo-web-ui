@@ -33,6 +33,16 @@ for (i = 10; i <= 15; ++i) {
     nibbleToChar.push(lowerChar);
 }
 
+
+// function stringToByteArray (str) {
+//     str = unescape(encodeURIComponent(str)); //temporary
+//
+//     var bytes = new Array(str.length);
+//     for (var i = 0; i < str.length; ++i)
+//         bytes[i] = str.charCodeAt(i);
+//
+//     return bytes;
+// };
 function wordArrayToByteArrayImplAPL (wordArrayStrim, isFirstByteHasSign) {
     var len = wordArrayStrim.words.length;
     if (len == 0) {
@@ -67,7 +77,32 @@ function wordArrayToByteArrayImplAPL (wordArrayStrim, isFirstByteHasSign) {
     }
     return byteArrayStrim;
 };
-
+// function byteArrayToWordArrayAPL(btyArrAPL) {
+//     var i = 0,
+//         offset = 0,
+//         wrdAPL = 0,
+//         len = btyArrAPL.length;
+//     var words = new Uint32Array(((len / 4) | 0) + (len % 4 == 0 ? 0 : 1));
+//
+//     while (i < (len - (len % 4))) {
+//         words[offset++] = (btyArrAPL[i++] << 24) | (btyArrAPL[i++] << 16) | (btyArrAPL[i++] << 8) | (btyArrAPL[i++]);
+//     }
+//     if (len % 4 != 0) {
+//         wrdAPL = btyArrAPL[i++] << 24;
+//         if (len % 4 > 1) {
+//             wrdAPL = wrdAPL | btyArrAPL[i++] << 16;
+//         }
+//         if (len % 4 > 2) {
+//             wrdAPL = wrdAPL | btyArrAPL[i++] << 8;
+//         }
+//         words[offset] = wrdAPL;
+//     }
+//     var wordArray = new Object();
+//     wordArray.sigBytes = len;
+//     wordArray.words = words;
+//
+//     return wordArray;
+// }
 function byteArrayToHexStringAPL(bytesAPL) {
     let str = '';
     for (var i = 0; i < bytesAPL.length; ++i) {
@@ -205,7 +240,19 @@ function byteArrayToWordArrayAPL(btsArrayAPL) {
 function wordArrayToByteArrayAPL(wordArrAPL) {
     return wordArrayToByteArrayImplAPL(wordArrAPL, true);
 }
-
+// function byteArrayToStringAPL(btsAPL, optStartIndex, length) {
+//      if (length == 0) {
+//          return "";
+//      }
+//
+//      if (optStartIndex && length) {
+//          var index = this.checkBytesToIntInputAPL(btsAPL, parseInt(length, 10), parseInt(optStartIndex, 10));
+//
+//          btsAPL = btsAPL.slice(optStartIndex, optStartIndex + length);
+//      }
+//
+//      return decodeURIComponent(escape(String.fromCharCode.apply(null, btsAPL)));
+//  }
 function byteArrayToShortArray(btsArrayAPL) {
      var srtArrayAPL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
      var i;

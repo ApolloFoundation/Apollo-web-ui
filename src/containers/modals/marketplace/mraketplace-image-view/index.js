@@ -12,9 +12,6 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
 import config from '../../../../config'
 
-import { Form, Text } from 'react-form';
-import InfoBox from '../../../components/info-box';
-
 const mapStateToProps = state => ({
     modalData: state.modals.modalData
 });

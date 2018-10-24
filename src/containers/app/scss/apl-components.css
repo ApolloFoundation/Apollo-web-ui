@@ -151,6 +151,21 @@
   .info-box p {
     padding: 18px 40px;
     color: #000; }
+    .info-box p ul li {
+      padding: 0 0 0 15px;
+      display: block;
+      position: relative;
+      color: #fff;
+      line-height: 1.6; }
+      .info-box p ul li:before {
+        content: '';
+        position: absolute;
+        top: 7px;
+        left: 0;
+        height: 6px;
+        width: 6px;
+        background: white;
+        border-radius: 100%; }
 
 .modal-window {
   position: fixed;
@@ -204,6 +219,12 @@
       max-width: 750px !important; }
     .modal-window .modal-box.x-wide {
       max-width: 1000px !important; }
+    .modal-window .modal-box .area-hider {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0; }
     .modal-window .modal-box .modal-form {
       min-width: 500px; }
       @media (max-width: 760px) {

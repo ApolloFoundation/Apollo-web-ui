@@ -18,6 +18,8 @@ import {getDGSGoodsAction, getDGSPurchasesAction}       from '../../actions/mark
 
 import {writeToLocalStorage} from "../localStorage";
 import {NotificationManager} from "react-notifications";
+import submitForm from '../../helpers/forms/forms'
+import store from '../../store'
 
 export function getAccountAction(reqParams) {
     return dispatch => {
@@ -47,7 +49,7 @@ export function getAccountInfoAction(account) {
             }
         })
             .then((res) => {
-                if (res.data) {
+                if (res.data || (res.data && res.data.errorCode === 5)) {
                     return res.data
                 }
             })
@@ -139,4 +141,32 @@ export function getAccountPropertiesAction(reqParams) {
                 console.log(err);
             })
     }
+}
+
+export const generateAccountAction = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'generateAccount'))
+};
+
+export const enable2FAActon = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'enable2FA'))
+};
+
+export const disable2FAActon = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'disable2FA'))
+};
+
+export const confirm2FAActon = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'confirm2FA'))
+};
+
+export const importAccountAction = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'importKey'))
+};
+
+export const exportAccountAction = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'exportKey'))
+};
+
+export const removeAccountAction = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'deleteKey'))
 }

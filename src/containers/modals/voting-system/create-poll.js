@@ -19,6 +19,7 @@ import {getAssetAction} from "../../../actions/assets";
 import {NotificationManager} from "react-notifications";
 import {calculateFeeAction} from "../../../actions/forms";
 import crypto from "../../../helpers/crypto/crypto";
+import ModalFooter from '../../components/modal-footer'
 
 const votingModelData = [
     { value: 0, label: 'Vote by Account' },
@@ -78,11 +79,6 @@ class CreatePoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
 
         this.setState({
             isPending: true
@@ -460,14 +456,11 @@ class CreatePoll extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Passphrase <i className="zmdi zmdi-portable-wifi-changes"/>
-                                        </label>
-                                        <div className="col-sm-9 mb-0 no-left-padding">
-                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                        </div>
-                                    </div>
+                                    <ModalFooter
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
+                                    />
                                     <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                         <a
                                             onClick={() => this.props.closeModal()}

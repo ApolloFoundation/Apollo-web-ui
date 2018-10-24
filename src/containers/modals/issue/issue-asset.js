@@ -18,6 +18,7 @@ import {issueAssetAction} from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
+import ModalFooter from '../../components/modal-footer'
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -49,12 +50,6 @@ class IssueAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
 
         values = {
             ...values,
@@ -159,16 +154,11 @@ class IssueAsset extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Passphrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Passphrase" field={'secretPhrase'} type="password"/>
-                                        </div>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     {
                                         !!this.state.isPending ?

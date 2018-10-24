@@ -123,7 +123,13 @@ input[type="checkbox"] {
 	border-radius: 3px;
 	padding: 0 !important;
 	position: relative;
-	
+
+	&.lighten {
+		&:after {
+			background-image: url(../../assets/checked-lighten.svg);
+		}
+	}
+
 	&:after {
 		content: '';
 		position: absolute;
@@ -489,7 +495,26 @@ input {
 	color: white;
 }
 
+.itatic {
+	font-style: italic;
+}
+
+.no-brake-word {
+	word-wrap: normal;
+	word-break: normal;
+}
+
 .info-box {
+	&.attention-left {
+		border-left: 4px solid #00C8FF;
+		border-radius: 0;
+
+		p {
+			span {
+				color: #00C8FF;
+			}
+		}
+	}
 	&.blue-info {
 		background-color: #00C8FF;
 		
@@ -530,12 +555,18 @@ input {
 			padding-top: 0;
 		}
 	}
+	&.nowrap {
+		p {
+			word-break: normal;
+		}
+	}
 	p {
 		word-wrap: break-word;
 		word-break: break-all;
 		color: #000;
 		padding-left: 40px;
 		padding-right: 40px;
+		line-height: 1.6;
 	}
 }
 
@@ -1474,6 +1505,18 @@ input {
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
 
+	&.lighten {
+		background: #ecf0f1;
+		color: #00C8FF;
+	}
+	&.success {
+		background: #27ae60;
+		color: #fff;
+	}
+	&.danger {
+		background: #e74c3c;
+		color: #fff;
+	}
 	.ball-pulse {
 		transform: translateY(2px);
 		text-align: center;
@@ -1484,7 +1527,6 @@ input {
 			width: 7px;
 		}
 	}
-
 	&, & > * {
 		transition: all 0.3s ease-in-out;
 	}

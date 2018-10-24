@@ -6,13 +6,10 @@
 
 import React from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
-import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
-import {setModalData, setMopalType, setBodyModalParamsAction} from '../../../modules/modals';
+import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
 import {setAccountPassphrase} from '../../../modules/account';
 import {getForging} from "../../../actions/login"
-
-import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
 
 import InfoBox from '../../components/info-box';
@@ -36,22 +33,6 @@ class PrivateTransactions extends React.Component {
     async handleFormSubmit(params) {
         let passphrase = params.passphrase;
 
-        const isPassed = await this.validatePassphrase(passphrase);
-        if (!isPassed) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            });
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            }, () => {
-
-            })
-        }
-
         this.props.setAccountPassphrase(passphrase);
         this.props.getForging();
         // this.props.setBodyModalParamsAction(null, null);
@@ -65,7 +46,7 @@ class PrivateTransactions extends React.Component {
                 <Form
                     onSubmit={values => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm
+                                 submitForm, getFormState, setValue, values
                              }) => (
                         <form className="modal-form"  onSubmit={submitForm}>
                             <div className="form-group-app">
@@ -74,6 +55,11 @@ class PrivateTransactions extends React.Component {
                                 <div className="form-title">
                                     <p>Confirm getting forging status</p>
                                 </div>
+                                {/*<ModalFooter*/}
+                                    {/*setValue={setValue}*/}
+                                    {/*getFormState={getFormState}*/}
+                                    {/*values={values}*/}
+                                {/*/>*/}
                                 <div className="input-group-app">
                                     <div className="row">
                                         <div className="col-md-3">
@@ -107,7 +93,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    setMopalType: (passphrase) => dispatch(setMopalType(passphrase)),
+    setModalType: (passphrase) => dispatch(setModalType(passphrase)),
     setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),

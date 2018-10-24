@@ -107,6 +107,7 @@ class InputForm extends React.Component {
                     placeholder={this.props.placeholder}
                     minLength={this.props.minLength}
                     disabled={this.props.disabled}
+                    type={this.props.type}
 
                     onKeyUp={this.handleChange}
                     onMouseUp={this.handleChange}

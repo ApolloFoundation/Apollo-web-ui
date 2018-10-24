@@ -41,6 +41,9 @@ class CustomSelect extends React.Component {
                         if (this.props.onChange) {
                             this.props.onChange(selectedOption.value);
                         }
+                        if (this.props.handler) {
+                            this.props.handler(selectedOption)
+                        }
                     }
                 }
                 theme={(theme) => ({

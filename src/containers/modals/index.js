@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {SET_MODAL_DATA, setMopalType} from '../../modules/modals';
+import {SET_MODAL_DATA, setModalType} from '../../modules/modals';
 import classNames from 'classnames';
 
 // Modals
@@ -95,6 +95,13 @@ import ApproveTransaction from "./approve-transaction";
 
 import store from '../../store';
 
+//2fa
+import Confirm2FA from './2fa'
+import DeleteAccountFromWebNode from './account/delete-account-from-node';
+
+//Login
+import ImportAccount from '../modals/account/import-account'
+import ExportAccount from '../modals/account/export-account'
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -113,7 +120,7 @@ class ModalWindow extends React.Component {
 
         if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
 
-            if (!e.target.closest('.modal-window .modal-box')) {
+            if (!e.target.closest('.modal-window .modal-box') && !e.target.closest('.modal-window .area-hider')) {
                 Object.values(modalBox).map((el, index) => {
                     setTimeout(() => {
                         el.classList.remove('active');
@@ -123,10 +130,11 @@ class ModalWindow extends React.Component {
                 });
                 modalWindow.classList.remove('active');
                 setTimeout(() => {
-                    this.props.setMopalType(null);
+                    this.props.setModalType(null);
 
                 }, 300);
             }
+
 
         } else {
             modalWindow.classList.add('active');
@@ -163,7 +171,7 @@ class ModalWindow extends React.Component {
         });
 
         setTimeout(() => {
-            this.props.setMopalType(null);
+            this.props.setModalType(null);
             store.dispatch({
                 type: 'SET_MODAL_DATA',
                 payload: null
@@ -217,7 +225,7 @@ class ModalWindow extends React.Component {
 
 
                 {/*Account*/}
-                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setMopalType} closeModal={this.closeModal}/>}
+                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setModalType} closeModal={this.closeModal}/>}
                 {this.props.modalType === 'MANDATORY_APPROVAL'          && <MandatoryApproval         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            closeModal={this.closeModal}/>}
                 {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              closeModal={this.closeModal}/>}
@@ -234,19 +242,27 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'ENTER_SECRET_PHRASE'         && <EnterSecretPhrase         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.closeModal}/>}
                 {this.props.modalType === 'DELETE_ACCOUNT_PROPERTY'     && <DeleteAccountProperty     closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={this.closeModal}/>}
+                {this.props.modalType === 'IMPORT_ACCOUNT'              && <ImportAccount             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal}/>}
 
                 {/* Shuffling */}
                 {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.closeModal}/>}
                 {this.props.modalType === 'START_SHUFFLING'             && <JoinShuffling             closeModal={this.closeModal}/>}
 
+
                 {/*Aliases */}
                 {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 closeModal={this.closeModal}/>}
+
+
                 {/*{this.props.modalType === 'CANCEL_SALE_ALIAS'           && <CancelSaleAlias           closeModal={this.closeModal}/>}*/}
                 {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CANCEL_SALE_ALIAS'           && <CancelSell                closeModal={this.closeModal}/>}
+
 
                 {/*Marketplace*/}
                 {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          closeModal={this.closeModal}/>}
@@ -258,17 +274,22 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'MARKETPLACE_GOODS_DELIVER'   && <MarketplaceDeliver        closeModal={this.closeModal}/>}
 
+
                 {/*Peers*/}
                 {this.props.modalType === 'ABOUT_PEER_INFO'             && <AboutPeerInfo             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CONNECT_PEER'                && <ConnectPeer               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'BLACKLIST_PEER'              && <BlacklistPeer             closeModal={this.closeModal}/>}
 
+
+                {/*Monitors*/}
                 {this.props.modalType === 'ADD_MONITOR'                 && <AddMonitor                closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CANCEL_ORDER'                && <OrderCancel               closeModal={this.closeModal}/>}
+
 
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal}/>}
                 {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal}/>}
+
             </div>
         );
     }
@@ -279,7 +300,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setMopalType : (modalType) => dispatch(setMopalType(modalType))
+    setModalType : (modalType) => dispatch(setModalType(modalType))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalWindow)

@@ -12,13 +12,10 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
-
-import AdvancedSettings from '../../../components/advanced-transaction-settings'
 import { Form, Text, TextArea, Checkbox } from 'react-form';
-import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
-import crypto from "../../../../helpers/crypto/crypto";
+
 
 
 const mapStateToProps = state => ({

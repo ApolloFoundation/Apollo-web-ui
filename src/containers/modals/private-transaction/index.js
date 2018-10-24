@@ -8,12 +8,9 @@ import React from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
 import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
-import {setModalData, setMopalType, setBodyModalParamsAction} from '../../../modules/modals';
+import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
 
-import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
-
-import InfoBox from '../../components/info-box';
 
 
 class PrivateTransactions extends React.Component {
@@ -32,40 +29,16 @@ class PrivateTransactions extends React.Component {
     }
 
     async handleFormSubmit(params) {
-        let passphrase = params.passphrase;
+        const isPassphrase = await this.validatePassphrase(params.passphrase);
 
-        const isPassed = await this.validatePassphrase(passphrase);
-        if (!isPassed) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            }, () => {
-
-            })
-        }
-
-        const privateKey = crypto.getPrivateKeyAPL(passphrase);
-        const publicKey  = this.props.publicKey;
-
-        var sharedKey;
-
-        sharedKey = crypto.getSharedSecretJava(
-            converters.hexStringToByteArray(crypto.getPrivateKeyAPL(passphrase)),
-            converters.hexStringToByteArray(this.props.publicKey)
-        );
-
-        sharedKey = new Uint8Array(sharedKey);
-
-        const data = {
-            publicKey: publicKey,
-            privateKey: privateKey
+        var data = {
+            passphrase: params.passphrase
         };
+
+        if (isPassphrase) {
+            delete data.passphrase;
+            data.secretPhrase = params.passphrase;
+        }
 
         this.props.setModalData(data);
         this.props.setBodyModalParamsAction(null, null);
@@ -97,12 +70,6 @@ class PrivateTransactions extends React.Component {
                                 </div>
                             </div>
 
-                            {
-                                this.state.passphraseStatus &&
-                                <InfoBox danger mt>
-                                    Incorect passphrase.
-                                </InfoBox>
-                            }
 
                             <button type="submit" className="btn btn-right">Enter</button>
                         </div>
@@ -119,7 +86,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    setMopalType: (passphrase) => dispatch(setMopalType(passphrase)),
+    setModalType: (passphrase) => dispatch(setModalType(passphrase)),
     setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
 });

@@ -17,6 +17,7 @@ import {getShufflingAction} from "../../../actions/shuffling/";
 
 import store from '../../../store'
 import crypto from "../../../helpers/crypto/crypto";
+import ModalFooter from '../../components/modal-footer'
 
 
 class JoinShuffling extends React.Component {
@@ -37,11 +38,6 @@ class JoinShuffling extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
         const data = {
             shufflingFullHash: this.props.modalData.broadcast ? this.props.modalData.broadcast.fullHash : this.state.shuffling.shufflingFullHash,
             recipientSecretPhrase: values.recipientSecretPhrase,
@@ -64,10 +60,6 @@ class JoinShuffling extends React.Component {
 
             NotificationManager.success('Shuffling Started!', null, 5000);
         }
-
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
     };
 
     getShuffling = async () => {
@@ -183,14 +175,11 @@ class JoinShuffling extends React.Component {
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Passphrase
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 {/*<AdvancedSettings
                                     setValue={setValue}
                                     getFormState={getFormState}

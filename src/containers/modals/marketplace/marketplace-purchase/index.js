@@ -19,6 +19,8 @@ import { Form, Text, Checkbox } from 'react-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
+import ModalFooter from '../../../components/modal-footer'
+
 
 
 const mapStateToProps = state => ({
@@ -77,11 +79,6 @@ class MarketplacePurchase extends React.Component {
     async handleFormSubmit(values) {
         if (!values.secretPhrase || values.secretPhrase.length === 0) {
             NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
-            return;
-        }
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
             return;
         }
 
@@ -231,14 +228,11 @@ class MarketplacePurchase extends React.Component {
                                                                 setValue={setValue}/>
                                                         </div>
                                                     </div>
-                                                    <div className="form-group row form-group-white mb-15">
-                                                        <label className="col-sm-3 col-form-label">
-                                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                                        </label>
-                                                        <div className="col-sm-9">
-                                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                                        </div>
-                                                    </div>
+                                                    <ModalFooter
+                                                        setValue={setValue}
+                                                        getFormState={getFormState}
+                                                        values={values}
+                                                    />
                                                     {/*<AdvancedSettings
                                                         setValue={setValue}
                                                         getFormState={getFormState}

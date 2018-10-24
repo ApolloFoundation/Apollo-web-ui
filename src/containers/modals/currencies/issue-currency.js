@@ -14,6 +14,7 @@ import submitForm from "../../../helpers/forms/forms";
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import CustomSelect from '../../components/select';
 import crypto from "../../../helpers/crypto/crypto";
+import ModalFooter from '../../components/modal-footer'
 
 const algorithmData = [
     {
@@ -51,13 +52,6 @@ class IssueCurrency extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect secret phrase', 'Error', 5000);
-            return;
-        }
-
         let type;
 
         switch (values) {
@@ -366,14 +360,11 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                    </label>
-                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     {
                                         !!this.state.isPending ?

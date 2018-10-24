@@ -27,16 +27,6 @@ const target = document.querySelector('#root');
 // console.error = function(message){};
 // console.log = function(message){};
 
-
-// axios.interceptors.response.use(function (response) {
-//     console.log("------------  Ajax pending");
-//
-//
-//     return response;
-// }, function (error) {
-//     return Promise.reject(error);
-// });
-
 render(
     <Provider store={store}>
         <BlockSubscriber>
