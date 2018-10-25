@@ -24,6 +24,10 @@ export const SAVE_SED_MODAL_STATE = 'SAVE_SED_MODAL_STATE';
 export const GO_BACK = 'GO_BACK';
 export const CLEAR_GO_BACK = 'CLEAR_GO_BACK';
 
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+
+export const OPEN_PREV_MODAL = 'OPEN_PREV_MODAL';
+
 const initialState = {
     modalType: null,
     bodyModalType: null,
@@ -36,7 +40,8 @@ const initialState = {
     maxAssetTransferWarningStage: 0,
     maxCurrencyTransferWarningStage: 0,
     savedValues: {},
-    backClicked: false
+    backClicked: false,
+	modalsHistory: []
 };
 
 export default (state = initialState, action) => {
@@ -47,41 +52,61 @@ export default (state = initialState, action) => {
                 modalCallback: action.payload
             };
         case SET_MODAL_TYPE:
+            const newArray = state.modalsHistory;
+            if(state.modalsHistory.length > 0){
+	            newArray[state.modalsHistory.length-1].value = state.savedValues;
+            }
             return {
                 ...state,
-                modalType: action.payload
+	            modalsHistory: [...newArray, {modalName: action.payload}],
+	            modalType: action.payload,
             };
+
+        case CLOSE_MODAL:
+            return {
+                ...state,
+	            modalsHistory: []
+            };
+
+        case OPEN_PREV_MODAL:
+            const modalsHistory = state.modalsHistory.splice(0,state.modalsHistory.length-1);
+            return {
+                ...state,
+	            modalsHistory: modalsHistory,
+	            modalType: modalsHistory[modalsHistory.length-1].modalName,
+            };
+
         case SET_MODAL_DATA:
             return {
                 ...state,
-                modalData: action.payload
+                modalData: action.payload,
             };
         case SET_BODY_MODAL_DATA:
             return {
                 ...state,
-                bodyModalType: action.payload
+                bodyModalType: action.payload,
             };
 
         case SET_AMOUNT_WARNING:
             return {
                 ...state,
                 maxAmountWarningStage: action.payload,
-            }
+            };
         case SET_FEE_WARNING:
             return {
                 ...state,
                 maxFeeWarningStage: action.payload,
-            }
+            };
         case SET_ASSET_WARNING:
             return {
                 ...state,
                 maxAssetTransferWarningStage: action.payload,
-            }
+            };
         case SET_CURRENCY_WARNING:
             return {
                 ...state,
                 maxCurrencyTransferWarningStage: action.payload,
-            }
+            };
         
             
         case SET_ALERT_DATA:
@@ -89,25 +114,25 @@ export default (state = initialState, action) => {
                 ...state,
                 alertStatus: action.payload.status,
                 alertMessage: action.payload.message
-            }
+            };
 
         case SAVE_SED_MODAL_STATE:
 	        return {
 		        ...state,
 		        savedValues: action.payload
-	        }
+	        };
 
         case GO_BACK:
 	        return {
 		        ...state,
 		        backClicked: true
-	        }
+	        };
 
         case CLEAR_GO_BACK:
 	        return {
 		        ...state,
 		        backClicked: false
-	        }
+	        };
 
         default:
             return state
@@ -128,9 +153,21 @@ export const goBack = () => dispatch => {
 	});
 };
 
+export const openPrevModal = () => dispatch => {
+	dispatch({
+		type: OPEN_PREV_MODAL
+	});
+};
+
 export const clearGoBack = () => dispatch => {
 	dispatch({
 		type: CLEAR_GO_BACK
+	});
+};
+
+export const closeModal = () => dispatch => {
+	dispatch({
+		type: CLOSE_MODAL
 	});
 };
 

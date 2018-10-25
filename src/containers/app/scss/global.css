@@ -602,16 +602,19 @@ input {
   .form-group-app .form-title {
     padding-bottom: 23px; }
     .form-group-app .form-title .backMy {
-      width: 25px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       background-repeat: no-repeat;
-      background-size: cover;
+      background-size: contain;
       background-position: left;
-      background-image: url(../../assets/left-arrow.svg);
+      background-image: url(../../assets/left-arrow1.svg);
       margin-right: 8px;
       cursor: pointer;
       display: inline-block;
-      vertical-align: middle; }
+      vertical-align: middle;
+      transition: 0.2s; }
+      .form-group-app .form-title .backMy:hover {
+        opacity: 0.7; }
     .form-group-app .form-title.inline > * {
       vertical-align: middle;
       display: inline-block; }

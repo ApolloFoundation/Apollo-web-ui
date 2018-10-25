@@ -20,10 +20,18 @@ class AccountRS extends React.Component {
                 mask: 'APL-****-****-****-*****',
                 value: this.props.defaultValue || ''
             },
-            isContacts: false
+            isContacts: false,
+            isUpdate: false
         };
         this.props.setValue(this.props.field, this.props.defaultValue);
     };
+
+    componentDidUpdate() {
+	    if(this.props.value && !this.state.isUpdate){
+		    this.setState({isUpdate: true}, ()=>this.setInputValue(this.props.value));
+	    }
+    }
+
 
     handleFillForm = (account) => {
         this.props.setValue(this.props.field, account);

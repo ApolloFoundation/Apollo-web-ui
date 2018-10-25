@@ -20,6 +20,8 @@ import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
 
+import BackForm from '../modal-form/modal-form-container';
+
 class SendApollo extends React.Component {
     constructor(props) {
         super(props);
@@ -37,8 +39,7 @@ class SendApollo extends React.Component {
             feeStatus: false
         };
 
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
-	    this.saveFormValues = this.saveFormValues.bind(this);
+	    this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
     async handleFormSubmit(values) {
@@ -90,35 +91,25 @@ class SendApollo extends React.Component {
         }
     }
 
-	saveFormValues() {
-        const formValues = this.formMy.store.getState().values;
-		this.props.saveSendModalState(formValues);
-    }
-
-	formMy;
-
     render() {
         return (
             <div className="modal-box">
-                <Form
-                    ref={(form) => this.formMy = form}
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                         submitForm, values, addValue, removeValue, setValue, getFormState, setAllValues
+                         submitForm, values, addValue, removeValue, setValue, getFormState, getValue,
                     }) => {
-	                        if(this.props.backClicked){
-		                        setTimeout(() => {
-			                        setAllValues(this.props.savedValues);
-			                        this.props.clearGoBack();
-		                        }, 0);
-	                        }
 	                    return (
-		                    <form className="modal-form modal-send-apollo" onSubmit={submitForm}>
+		                    <form className="modal-form modal-send-apollo" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
 			                    <div className="form-group-app">
 				                    <a onClick={() => this.props.closeModal()} className="exit"><i
 					                    className="zmdi zmdi-close"/></a>
 
 				                    <div className="form-title">
+					                    {this.props.modalsHistory.length > 1 &&
+						                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+					                    }
 					                    <p>Send Apollo</p>
 				                    </div>
 				                    <div className="input-group-app form-group mb-15 display-block inline user">
@@ -132,6 +123,7 @@ class SendApollo extends React.Component {
 									                    field={'recipient'}
 									                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
 									                    setValue={setValue}
+									                    value={getValue('recipient')}
 									                    placeholder={'Account ID'}
 								                    />
 							                    </div>
@@ -160,7 +152,6 @@ class SendApollo extends React.Component {
 						                    <a className="no-margin btn static blue"
 						                       onClick={() => {
 							                       this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE');
-							                       this.saveFormValues()
 						                       }}>
 							                    Private transaction
 						                    </a>
@@ -351,7 +342,7 @@ class SendApollo extends React.Component {
                     }}
                 >
 
-                </Form>
+                </BackForm>
             </div>
         );
     }
@@ -363,6 +354,7 @@ const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
 	savedValues: state.modals.savedValues,
 	backClicked: state.modals.backClicked,
+	modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction, setAlert, goBack} from '../../../modules/modals';
+import {setModalData, setBodyModalParamsAction, setAlert, goBack, openPrevModal} from '../../../modules/modals';
 import {sendPrivateTransaction} from '../../../actions/transactions';
 import AccountRS from '../../components/account-rs';
 import InputForm from '../../components/input-form';
@@ -17,7 +17,9 @@ import classNames from 'classnames';
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
-import ModalFooter from '../../components/modal-footer'
+import ModalFooter from '../../components/modal-footer';
+
+import BackForm from '../modal-form/modal-form-container';
 
 class SendApolloPrivate extends React.Component {
     constructor(props) {
@@ -119,15 +121,11 @@ class SendApolloPrivate extends React.Component {
         })
     };
 
-    onBackClicked = () => {
-        this.props.goBack();
-	    this.props.setBodyModalParamsAction('SEND_APOLLO');
-    };
 
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, values, addValue, removeValue, setValue, getFormState
@@ -137,7 +135,9 @@ class SendApolloPrivate extends React.Component {
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
-	                                <div className={"backMy"} onClick={() => this.onBackClicked()}></div>
+                                    {this.props.modalsHistory.length > 1 &&
+                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                    }
                                     <p>Send Apollo</p>
                                 </div>
                                 {
@@ -283,7 +283,7 @@ class SendApolloPrivate extends React.Component {
                     )}
                 >
 
-                </Form>
+                </BackForm>
             </div>
         );
     }
@@ -292,7 +292,8 @@ class SendApolloPrivate extends React.Component {
 const mapStateToProps = state => ({
     account: state.account.account,
     modalData: state.modals.modalData,
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+	modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -303,6 +304,7 @@ const mapDispatchToProps = dispatch => ({
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	goBack: () => dispatch(goBack()),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApolloPrivate);
