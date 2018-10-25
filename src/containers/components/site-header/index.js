@@ -720,12 +720,12 @@ class SiteHeader extends React.Component {
                                                                                 return this.props.setBodyModalParamsAction('CALCULATE_CACHE');
                                                                             }}
                                                                             className="option">Calculate hash</a></li>
-                                                                        {/*<li><a
+                                                                        {<li><a
                                                                         onClick={() => {
                                                                             this.props.setBodyModalType(null);
                                                                             return this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS');
                                                                         }}
-                                                                        className="option">Transaction operations</a></li>*/}
+                                                                        className="option">Transaction operations</a></li>}
                                                                     </ul>
 
                                                                 </div>
