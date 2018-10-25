@@ -44,7 +44,7 @@ class Ledger extends React.Component {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
-            passphrase: this.state.passphrase,
+            ...this.state.passphrase,
             includeHoldingInfo: true
         });
     };
@@ -70,7 +70,7 @@ class Ledger extends React.Component {
             passphrase:  this.state.passphrase,
         }, () => {
             this.getAccountLedger({
-                passphrase:  this.state.passphrase,
+                ...this.state.passphrase,
                 account: this.props.account,
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex,

@@ -42,7 +42,9 @@ class JoinShuffling extends React.Component {
             shufflingFullHash: this.props.modalData.broadcast ? this.props.modalData.broadcast.fullHash : this.state.shuffling.shufflingFullHash,
             recipientSecretPhrase: values.recipientSecretPhrase,
             secretPhrase: values.secretPhrase,
-            recipientPublicKey: await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false)
+            recipientPublicKey: await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false),
+            createNoneTransactionMethod: true,
+            code2FA: values.code2FA
         };
 
         this.setState({

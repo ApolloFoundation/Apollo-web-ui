@@ -98,6 +98,7 @@ import store from '../../store';
 //2fa
 import Confirm2FA from './2fa'
 import DeleteAccountFromWebNode from './account/delete-account-from-node';
+import Confirm2FAforging from './2fa/confirm-forging-with-2fa';
 
 //Login
 import ImportAccount from '../modals/account/import-account'
@@ -243,6 +244,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.closeModal}/>}
                 {this.props.modalType === 'DELETE_ACCOUNT_PROPERTY'     && <DeleteAccountProperty     closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CONFIRM_2FA_FORGING'         && <Confirm2FAforging         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'IMPORT_ACCOUNT'              && <ImportAccount             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal}/>}

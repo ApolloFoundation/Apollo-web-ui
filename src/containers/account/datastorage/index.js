@@ -99,12 +99,12 @@ class DataStorage extends React.Component {
 					return;
 				case('account'):
 					const accountTaggedData = await this.props.getAccountTaggedDataAction({account: value});
-					if (accountTaggedData) {
-						this.setState({
-							...this.state,
-							taggedData: accountTaggedData.data
-						})
-					}
+
+                    this.setState({
+                        ...this.state,
+                        taggedData: accountTaggedData ? accountTaggedData.data : []
+                    });
+
 					return;
 
 				case('query'):

@@ -25,7 +25,9 @@ import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
 const mapStateToProps = state => ({
-	account: state.account.account
+	account: state.account.account,
+    is2FA: state.account.is2FA,
+
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -149,6 +151,7 @@ class Messenger extends React.Component {
             if (this.state.formApi) {
             	this.state.formApi.setValue('message', null);
             	this.state.formApi.setValue('secretPhrase', null);
+            	this.state.formApi.setValue('code2FA', null);
             }
         }
     };
@@ -237,13 +240,12 @@ class Messenger extends React.Component {
 							</div>
 							<div className="col-md-9">
 								<div className="right-bar">
-									{
-										this.state.chatHistory &&
-										!!this.state.chatHistory.length &&
 										<div className="card card-full-screen no-padding">
 											<div className="chatting-box">
 
 												{
+                                                    this.state.chatHistory &&
+                                                    !!this.state.chatHistory.length &&
 													this.state.chatHistory.map((el, index) => {
 														const message = this.props.getMessage(el);
 
@@ -260,7 +262,6 @@ class Messenger extends React.Component {
 												}
 
 											</div>
-                                            {this.props.match.params.chat &&
                                             <Form
                                                 onSubmit={(values) => this.handleSendMessageFormSubmit(values)}
                                                 getApi={this.getFormApi}
@@ -296,16 +297,25 @@ class Messenger extends React.Component {
                                                                 field={'secretPhrase'}
                                                                 placeholder={'Secret Phrase'}
                                                                 type="password"/>
-                                                            <button type="submit" className="btn blue btn-primary">Send
-                                                                Message
+															{
+																this.props.is2FA &&
+                                                                <Text
+                                                                    className={"form-control"}
+                                                                    field={'code2FA'}
+                                                                    placeholder={'2FA Code'}
+                                                                    type="password"/>
+															}
+
+															<button type="submit" className="btn blue btn-primary">
+																Send Message
                                                             </button>
                                                         </div>
                                                     </form>
                                                 )}
                                             />
-                                            }
+
 										</div>
-									}
+
                                     {
                                         !this.state.chatHistory &&
                                         <ContentLoader/>
