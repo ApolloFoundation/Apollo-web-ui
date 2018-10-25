@@ -757,13 +757,17 @@ class SiteHeader extends React.Component {
                                                                             >
                                                                                 Device settings
                                                                             </a>
+
+                                                                        </li>
+                                                                        <li>
                                                                             <Link
                                                                                 to="/settings"
                                                                                 className="option"
                                                                             >
                                                                                 Settings
                                                                             </Link>
-
+                                                                        </li>
+                                                                        <li>
                                                                             <a
                                                                                 onClick={() => {
                                                                                     this.setState({bodyModalType: null});
