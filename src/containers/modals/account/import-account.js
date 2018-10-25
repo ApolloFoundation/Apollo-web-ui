@@ -18,6 +18,7 @@ import {getAccountDataAction} from "../../../actions/login";
 import {importAccountAction} from "../../../actions/account";
 import classNames from "classnames";
 import InputForm from "../../components/input-form";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
 const mapStateToProps = state => ({
     account: state.account.account,
@@ -134,45 +135,39 @@ class ImportAccount extends React.Component {
                                             </div>
 
                                             {
+                                                this.state &&
                                                 this.state.importAccount &&
-                                                <React.Fragment>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-12 mb-15">
-                                                                <label>Account RS:</label>
-                                                            </div>
-                                                            <div className="col-md-12">
-                                                                <div
-                                                                    style={{
-                                                                        width: "100%"
-                                                                    }}
-                                                                >
-                                                                    <InfoBox info>
-                                                                        {this.state.importAccount.accountRS}
-                                                                    </InfoBox>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-12 mb-15">
-                                                                <label>Secret Phrase</label>
-                                                            </div>
-                                                            <div className="col-md-12">
-                                                                <div
-                                                                    style={{
-                                                                        width: "100%"
-                                                                    }}
-                                                                >
-                                                                    <InfoBox info>
-                                                                        {this.state.importAccount.passphrase}
-                                                                    </InfoBox>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </React.Fragment>
+                                                <InfoBox attentionLeft>
+                                                    Secret Phrase:  <span className={'itatic'}>{this.state.importAccount.passphrase}</span>
+                                                    <br/>
+                                                    <br/>
+                                                    Account ID: <span className={'itatic'}>{this.state.importAccount.accountRS}</span>
+                                                    <br/>
+                                                    <br/>
+                                                    <CopyToClipboard
+                                                        text={
+                                                            `Secret Phrase: ${this.state.importAccount.passphrase}\n` +
+                                                            `Account ID: ${this.state.importAccount.accountRS}\n`
+                                                        }
+                                                        onCopy={() => {
+                                                            NotificationManager.success('The account data has been copied to clipboard.')
+                                                        }}
+                                                    >
+                                                        <a
+                                                            className="btn blue static"
+                                                        >
+                                                            Copy account data to clipboard.
+                                                        </a>
+                                                    </CopyToClipboard>
+                                                </InfoBox>
+                                            }
+                                            {
+                                                this.state &&
+                                                this.state.importAccount &&
+                                                <InfoBox danger>
+                                                    <strong>Remember</strong> to store your Account ID, passphrase, and Secret Key in the secured place.
+                                                    Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
+                                                </InfoBox>
                                             }
                                             <div className="btn-box align-buttons-inside absolute right-conner">
 
@@ -190,16 +185,13 @@ class ImportAccount extends React.Component {
                                                 {
                                                     this.state.isGenerated &&
                                                     <a
-                                                        onClick={() => this.goToValidation()}
+                                                        onClick={() => this.props.closeModal()}
                                                         name={'closeModal'}
-                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                        className="btn absolute btn-right default round round-top-left round-bottom-right"
                                                     >
-                                                        Next
+                                                        Close
                                                     </a>
                                                 }
-
-
-
 
                                             </div>
                                         </React.Fragment>

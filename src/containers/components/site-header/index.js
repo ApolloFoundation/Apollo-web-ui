@@ -724,12 +724,12 @@ class SiteHeader extends React.Component {
                                                                                 return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
                                                                             }}
                                                                             className="option">Generate token</a></li>
-                                                                        <li><a
-                                                                            onClick={() => {
-                                                                                this.setState({bodyModalType: null});
-                                                                                return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
-                                                                            }}
-                                                                            className="option">Generate hallmark</a></li>
+                                                                        {/*<li><a*/}
+                                                                            {/*onClick={() => {*/}
+                                                                                {/*this.setState({bodyModalType: null});*/}
+                                                                                {/*return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');*/}
+                                                                            {/*}}*/}
+                                                                            {/*className="option">Generate hallmark</a></li>*/}
                                                                         <li><a
                                                                             onClick={() => {
                                                                                 this.setState({bodyModalType: null});
