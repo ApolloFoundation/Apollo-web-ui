@@ -110,6 +110,11 @@ span {
 	display: flex;
 }
 
+.position-relative {
+	position: relative;
+	z-index: 2;
+}
+
 input[type="checkbox"] {
 	height: 16px;
 	width: 16px;
@@ -565,7 +570,7 @@ input {
 	}
 	p {
 		word-wrap: break-word;
-		word-break: break-all;
+		word-break: break-word;
 		color: #000;
 		padding-left: 40px;
 		padding-right: 40px;

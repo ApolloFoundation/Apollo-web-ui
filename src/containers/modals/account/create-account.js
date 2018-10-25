@@ -213,7 +213,7 @@ class CreateUser extends React.Component {
                                                                     <div className="row">
                                                                         <div className="col-md-12">
                                                                             <div>
-                                                                                <InfoBox info nowrap>
+                                                                                <InfoBox info>
                                                                                     <ul className={'marked-list'}>
                                                                                         <li>The most secure Apollo Wallet</li>
                                                                                         <li>You can log in into this wallet using Account ID </li>
@@ -228,7 +228,7 @@ class CreateUser extends React.Component {
                                                                 <div className="input-group-app display-block offset-bottom">
                                                                     <div className="row">
                                                                         <div className="col-md-12">
-                                                                            <InfoBox info nowrap>
+                                                                            <InfoBox info>
                                                                                 You can create your own custom passphrase or crete an account with randomly generated passphrase.
                                                                                 <br/>
                                                                                 <div
@@ -343,7 +343,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <div>
-                                                                                    <InfoBox info nowrap>
+                                                                                    <InfoBox info>
                                                                                         <ul className={'marked-list'}>
                                                                                             <li>The most secure Apollo Wallet</li>
                                                                                             <li>You can log in into this wallet using Account ID </li>
@@ -367,7 +367,7 @@ class CreateUser extends React.Component {
                                                                                         width: "100%"
                                                                                     }}
                                                                                 >
-                                                                                    <InfoBox danger nowrap>
+                                                                                    <InfoBox danger>
                                                                                         <strong>Remember</strong> to store your Account ID, passphrase, and Secret Key in the secured place.
                                                                                         Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                                                     </InfoBox>
@@ -389,7 +389,7 @@ class CreateUser extends React.Component {
                                                                                         this.state.accountData &&
                                                                                         this.state.keySeed.secretBytes &&
                                                                                         <InfoBox attentionLeft>
-                                                                                            Secret Phrase:  <span className={'itatic no-brake-word'}>{this.state.accountData.passphrase}</span>
+                                                                                            Secret Phrase:  <span className={'itatic'}>{this.state.accountData.passphrase}</span>
                                                                                             <br/>
                                                                                             <br/>
                                                                                             Account ID: <span className={'itatic'}>{this.state.accountData.accountRS}</span>
@@ -533,7 +533,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <div>
-                                                                                    <InfoBox info nowrap>
+                                                                                    <InfoBox info>
                                                                                         <ul>
                                                                                             <li>You can log in into this wallet using only passphrase</li>
                                                                                             <li>Available to use from any device </li>
@@ -556,7 +556,7 @@ class CreateUser extends React.Component {
                                                                                         width: "100%"
                                                                                     }}
                                                                                 >
-                                                                                    <InfoBox danger nowrap>
+                                                                                    <InfoBox danger>
                                                                                         <strong>Remember</strong>  to store your Account ID, passphrase, and  Secret Key in the secured place.
                                                                                         Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                                                     </InfoBox>
@@ -574,7 +574,7 @@ class CreateUser extends React.Component {
                                                                                 <div>
                                                                                     {
                                                                                         <InfoBox attentionLeft>
-                                                                                            Secret Phrase:  <span className={'itatic no-brake-word'}>{this.state.generatedPassphrase}</span>
+                                                                                            Secret Phrase:  <span className={'itatic'}>{this.state.generatedPassphrase}</span>
                                                                                             <br/>
                                                                                             <br/>
                                                                                             Account ID: <span className={'itatic'}>{this.state.generatedAccount}</span>

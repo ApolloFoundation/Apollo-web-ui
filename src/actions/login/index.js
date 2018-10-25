@@ -150,28 +150,51 @@ function makeLoginReq(dispatch, requestParams) {
         });
 }
 
-export function getForging() {
+export function getForging(isPassphrase) {
     return (dispatch, getState) => {
         const account = getState().account;
 
         const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
 
-        dispatch({
-            type: 'SET_PASSPHRASE',
-            payload: passpPhrase
-        });
+        console.log(crypto.validatePassphrase);
 
-        return axios.get(config.api.serverUrl, {
-            params: {
-                requestType: 'getForging',
-                secretPhrase: passpPhrase
-            }
-        })
-            .then((res) => {
+        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
+
+        console.log(forgingStatus);
+
+        Promise.resolve(forgingStatus)
+            .then((isPassphrase) => {
+                console.log(isPassphrase);
+
                 dispatch({
-                    type: 'GET_FORGING',
-                    payload: res.data
+                    type: 'SET_PASSPHRASE',
+                    payload: passpPhrase
+                });
+
+                let requestParams;
+
+                if (isPassphrase) {
+                    requestParams = {
+                        requestType: 'getForging',
+                        secretPhrase: passpPhrase
+                    };
+                } else {
+                    requestParams = {
+                        requestType: 'getForging',
+                        passphrase: passpPhrase,
+                        account: account.account
+                    };
+                }
+
+                return axios.get(config.api.serverUrl, {
+                    params: requestParams
                 })
+                    .then((res) => {
+                        dispatch({
+                            type: 'GET_FORGING',
+                            payload: res.data
+                        })
+                    })
             })
     }
 }
