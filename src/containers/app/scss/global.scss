@@ -849,7 +849,18 @@ input {
 	.form-title {
 		//padding-top: 30px;
 		padding-bottom: 23px;
-		
+		.backMy {
+			width: 25px;
+			height: 20px;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: left;
+			background-image: url(../../assets/left-arrow.svg);
+			margin-right: 8px;
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: middle;
+		}
 		&.inline {
 			& > * {
 				vertical-align: middle;
@@ -879,6 +890,8 @@ input {
 			line-height: 1.6;
 			//margin-top: -10px;
 			padding-right: 30px;
+			display: inline-block;
+			vertical-align: middle;
 		}
 		.form-sub-title {
 			margin-top: 10px;

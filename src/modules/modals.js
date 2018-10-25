@@ -20,6 +20,10 @@ export const SET_FEE_WARNING = 'SET_FEE_WARNING';
 export const SET_ASSET_WARNING = 'SET_ASSET_WARNING';
 export const SET_CURRENCY_WARNING = 'SET_CURRENCY_WARNING';
 
+export const SAVE_SED_MODAL_STATE = 'SAVE_SED_MODAL_STATE';
+export const GO_BACK = 'GO_BACK';
+export const CLEAR_GO_BACK = 'CLEAR_GO_BACK';
+
 const initialState = {
     modalType: null,
     bodyModalType: null,
@@ -31,6 +35,8 @@ const initialState = {
     maxFeeWarningStage: 0,
     maxAssetTransferWarningStage: 0,
     maxCurrencyTransferWarningStage: 0,
+    savedValues: {},
+    backClicked: false
 };
 
 export default (state = initialState, action) => {
@@ -85,10 +91,50 @@ export default (state = initialState, action) => {
                 alertMessage: action.payload.message
             }
 
+        case SAVE_SED_MODAL_STATE:
+	        return {
+		        ...state,
+		        savedValues: action.payload
+	        }
+
+        case GO_BACK:
+	        return {
+		        ...state,
+		        backClicked: true
+	        }
+
+        case CLEAR_GO_BACK:
+	        return {
+		        ...state,
+		        backClicked: false
+	        }
+
         default:
             return state
     }
 }
+
+
+export const saveSendModalState = (stateValues) => dispatch => {
+	dispatch({
+		type: SAVE_SED_MODAL_STATE,
+		payload: stateValues
+	});
+};
+
+export const goBack = () => dispatch => {
+	dispatch({
+		type: GO_BACK
+	});
+};
+
+export const clearGoBack = () => dispatch => {
+	dispatch({
+		type: CLEAR_GO_BACK
+	});
+};
+
+
 
 export const setModalType = (reqParams) => {
     return dispatch => {

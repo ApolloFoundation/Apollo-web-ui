@@ -2918,10 +2918,6 @@ input[type="checkbox"] {
 .form-check-input {
   cursor: pointer; }
 
-.position-relative {
-  position: relative;
-  z-index: 2; }
-
 input[type="number"] {
   position: relative; }
 
@@ -3418,6 +3414,17 @@ input {
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group-app .form-title {
     padding-bottom: 23px; }
+    .form-group-app .form-title .backMy {
+      width: 25px;
+      height: 20px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: left;
+      background-image: url(../../assets/left-arrow.svg);
+      margin-right: 8px;
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: middle; }
     .form-group-app .form-title.inline > * {
       vertical-align: middle;
       display: inline-block; }
@@ -3433,7 +3440,9 @@ input {
       font-size: 24px;
       word-break: break-word;
       line-height: 1.6;
-      padding-right: 30px; }
+      padding-right: 30px;
+      display: inline-block;
+      vertical-align: middle; }
     .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
   .form-group-app .form-sub-title {
