@@ -110,6 +110,11 @@ span {
 	display: flex;
 }
 
+.position-relative {
+	position: relative;
+	z-index: 2;
+}
+
 input[type="checkbox"] {
 	height: 16px;
 	width: 16px;

@@ -2886,6 +2886,10 @@ span.blue {
 .flex {
   display: flex; }
 
+.position-relative {
+  position: relative;
+  z-index: 2; }
+
 input[type="checkbox"] {
   height: 16px;
   width: 16px;
@@ -2917,10 +2921,6 @@ input[type="checkbox"] {
 
 .form-check-input {
   cursor: pointer; }
-
-.position-relative {
-  position: relative;
-  z-index: 2; }
 
 input[type="number"] {
   position: relative; }
