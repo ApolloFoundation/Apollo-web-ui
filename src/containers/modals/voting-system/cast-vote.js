@@ -92,8 +92,8 @@ class CastPoll extends React.Component {
         const res = await this.props.submitForm( values, 'castVote');
         if (res.errorCode) {
             this.setState({
-                isPending: true
-            })
+                isPending: false
+            });
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
