@@ -159,12 +159,6 @@ function submitForm(data, requestType) {
         if (data.doNotBroadcast || data.calculateFee) {
             data.broadcast = "false";
 
-            if (data.calculateFee) {
-                if (account.publicKey) {
-                    data.publicKey = account.publicKey;
-                    delete data.secretPhrase;
-                }
-            }
             if (data.doNotBroadcast) {
                 delete data.doNotBroadcast;
             }
@@ -279,9 +273,7 @@ function addMessageData(data, requestType) {
                         options.account = data.encryptedMessageRecipient;
                         delete data.encryptedMessageRecipient;
                     }
-                    if (data.recipientPublicKey) {
-                        options.publicKey = data.recipientPublicKey;
-                    }
+
                     if (data.messageFile) {
                         // We read the file data and encrypt it later
                         data.messageToEncryptIsText = "false";
@@ -824,6 +816,8 @@ function processAjaxRequest(requestType, data, callback, options) {
             type: 'SET_CURRENCY_WARNING',
             payload: 0
         });
+
+        delete data.publicKey;
 
         return $.ajax({
             url: url,

@@ -15,7 +15,7 @@ import config from '../../../../config';
 import { Form, Text, TextArea, Checkbox } from 'react-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
-import {ModalFooter} from '../../../components/modal-footer';
+import ModalFooter from '../../../components/modal-footer';
 
 
 
