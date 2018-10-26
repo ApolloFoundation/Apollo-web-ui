@@ -37,8 +37,7 @@ class ComposeMessage extends React.Component {
             amountStatus: false,
             feeStatus: false
         }
-        
-        console.log("22222222", this.props.modalsHistory);
+
     }
 
     handleFormSubmit = async(values) => {
