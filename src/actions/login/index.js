@@ -16,6 +16,7 @@ import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
 import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
+import {setBodyModalParamsAction} from "../../modules/modals";
 import async from "../../helpers/util/async";
 
 export function getAccountDataAction(requestParams) {
@@ -155,16 +156,10 @@ export function getForging(isPassphrase) {
         const account = getState().account;
 
         const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
-
-        console.log(crypto.validatePassphrase);
-
         const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
-
-        console.log(forgingStatus);
 
         Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
-                console.log(isPassphrase);
 
                 dispatch({
                     type: 'SET_PASSPHRASE',
@@ -207,17 +202,37 @@ export function setForging(requestType) {
         //     type: 'SET_PASSPHRASE',
         //     payload: passpPhrase
         // });
-        requestType = {
-            ...requestType,
-            secretPhrase: passpPhrase
-        };
 
+        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
 
-        return dispatch(submitForm.submitForm( requestType));
+        return Promise.resolve(forgingStatus)
+            .then((isPassphrase) => {
+                dispatch({
+                    type: 'SET_PASSPHRASE',
+                    payload: passpPhrase
+                });
+
+                var requestParams;
+                if (isPassphrase) {
+                    requestParams = {
+                        ...requestType,
+                        secretPhrase: passpPhrase
+                    };
+                } else {
+                    requestParams = {
+                        ...requestType,
+                        passphrase: passpPhrase,
+                        account: account.account
+                    };
+                }
+
+                return dispatch(submitForm.submitForm(requestParams, requestType.requestType));
+            })
+
     }
 }
 
-export function logOutAction(action) {
+export async function logOutAction(action) {
     switch (action) {
         case('simpleLogOut'):
             localStorage.removeItem("APLUserRS");
@@ -225,12 +240,36 @@ export function logOutAction(action) {
             document.location = '/';
             return;
         case('logOutStopForging'):
-            const forging = store.dispatch(setForging({requestType: 'stopForging'}));
+            const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
 
-            if (forging) {
-                localStorage.removeItem("APLUserRS");
-                document.location = '/';
+            console.log(forging);
+
+            const setForgingWith2FA = (action) => {
+                return {
+                    getStatus: action,
+                    confirmStatus: (res) => {
+                        localStorage.removeItem("APLUserRS");
+                        document.location = '/';
+                    }
+                }
+            };
+
+            if (forging.errorCode === 22 || forging.errorCode === 4) {
+                store.dispatch(setBodyModalParamsAction('ENTER_SECRET_PHRASE', null));
+                logOutAction(action)
             }
+            if (forging.errorCode === 3) {
+                store.dispatch(setBodyModalParamsAction('CONFIRM_2FA_FORGING', setForgingWith2FA('stopForging')));
+            }
+            if (!forging.errorCode){
+                if (forging) {
+                    localStorage.removeItem("APLUserRS");
+                    document.location = '/';
+                }
+            }
+
+
+
 
             return;
         case('logoutClearUserData'):

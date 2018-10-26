@@ -13,6 +13,8 @@ import {Checkbox, Form, Text, TextArea} from 'react-form'
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";
+import {signBytesArrayAPL} from "../../../helpers/converters";
+import QRCode from "qrcode.react";
 
 class TransactionOperations extends React.Component {
     constructor(props) {
@@ -20,6 +22,10 @@ class TransactionOperations extends React.Component {
 
         this.state = {
             activeTab: 0,
+            showSignature: false,
+            signedBytesSignature: "",
+            generatedQr: "",
+            form: {}
         };
 
         this.handleTab = this.handleTab.bind(this);
@@ -42,20 +48,31 @@ class TransactionOperations extends React.Component {
                     NotificationManager.error("Passphrase is required", "Error", 5000);
                     break;
                 }
-
-                const toSend = {
-                    unsignedTransactionBytes: values.signBytes,
-                    unsignedTransactionJSON: values.signJson,
-                    validate: values.signValidate,
-                    publicKey: this.props.publicKey,
-                    feeATM: 0,
-                    ecBlockHeight: 0
-                };
-                res = await this.props.submitForm( toSend, "signTransaction");
-                if (res.errorCode) {
-                    NotificationManager.error(res.errorDescription, "Error", 5000)
-                } else {
-                    NotificationManager.success("Transaction signed!", null, 5000);
+                this.setState({
+                    showSignature: false
+                });
+                if (values.signJson) {
+                    const toSend = {
+                        unsignedTransactionJSON: values.signJson,
+                        validate: values.signValidate,
+                        publicKey: this.props.publicKey,
+                        secretPhrase: values.signPassphrase,
+                        feeATM: 0,
+                        ecBlockHeight: 0
+                    };
+                    res = await this.props.submitForm(toSend, "signTransaction");
+                    if (res.errorCode) {
+                        NotificationManager.error(res.errorDescription, "Error", 5000)
+                    } else {
+                        NotificationManager.success("Transaction signed!", null, 5000);
+                    }
+                } else if (values.signBytes) {
+                    const signature = signBytesArrayAPL(values.signBytes, values.signPassphrase);
+                    this.state.form.setValue('signedBytesSignature', signature);
+                    this.setState({
+                        showSignature: true,
+                        signedBytesSignature: signature,
+                    });
                 }
                 break;
             case 1://broadcast
@@ -67,7 +84,7 @@ class TransactionOperations extends React.Component {
                     ecBlockId: 11255812614937856744,
                     ecBlockHeight: 0
                 };
-                res = await this.props.submitForm( toSendBroadcast, "broadcastTransaction");
+                res = await this.props.submitForm(toSendBroadcast, "broadcastTransaction");
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
@@ -81,7 +98,7 @@ class TransactionOperations extends React.Component {
                     feeATM: 0,
                     random: Math.random()
                 };
-                res = await this.props.submitForm( toSendParse, "parseTransaction");
+                res = await this.props.submitForm(toSendParse, "parseTransaction");
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
@@ -96,7 +113,7 @@ class TransactionOperations extends React.Component {
                     feeATM: 0,
                     random: Math.random()
                 };
-                res = await this.props.submitForm( toSendCalculate, "calculateFullHash");
+                res = await this.props.submitForm(toSendCalculate, "calculateFullHash");
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
@@ -106,13 +123,19 @@ class TransactionOperations extends React.Component {
         }
     };
 
+    getFormApi = formApi => {
+        this.setState({form: formApi})
+    };
+
     render() {
         return (
             <div className="modal-box wide">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
+                    getApi={this.getFormApi}
                     render={({
-                                 submitForm
+                                 submitForm,
+                                 setValue
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
@@ -202,6 +225,39 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        {this.state.showSignature &&
+                                        <React.Fragment>
+                                            <div className={'input-group-app block offset-bottom'}>
+                                                <div className={'row'}>
+                                                    <div className='col-md-3'>
+                                                        <label>Sinature</label>
+                                                    </div>
+                                                    <div className='col-md-9'>
+                                                        <TextArea
+                                                            rows="5"
+                                                            field={'signedBytesSignature'}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='block'>
+                                                <div className='row'>
+                                                    <div className='col-md-3'>
+                                                        <label>Transaction Signature QR code</label>
+                                                    </div>
+                                                    <div className='col-md-9'>
+                                                        <QRCode
+                                                            value={this.state.signedBytesSignature}
+                                                            size={128}
+                                                            bgColor={"#000000"}
+                                                            fgColor={"#fff"}
+                                                            level={"L"}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                        }
                                         <div className="btn-box align-buttons-inside absolute right-conner">
                                             <button
                                                 type="submit"

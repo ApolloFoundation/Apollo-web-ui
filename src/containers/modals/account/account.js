@@ -113,7 +113,7 @@ class InfoAccount extends React.Component {
         }
     };
 
-    setTransactionInfo(modalType, data) {
+    setTransactionInfo = (modalType, data) => {
         this.getTransaction({
             transaction: data,
         });

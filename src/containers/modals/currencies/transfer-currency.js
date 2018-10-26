@@ -77,7 +77,7 @@ class TransferCurrency extends React.Component {
                 <BackForm
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState, getValue }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             {
                                 this.props.modalData &&
@@ -116,6 +116,7 @@ class TransferCurrency extends React.Component {
                                                     <AccountRS
                                                         field={'recipient'}
                                                         setValue={setValue}
+                                                        value={getValue('recipient') || ''}
                                                     />
                                                 </div>
                                             </div>

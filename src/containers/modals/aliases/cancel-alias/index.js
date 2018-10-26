@@ -124,7 +124,7 @@ class CancelSaleAlias extends React.Component {
 					nameModal={this.props.nameModal}
 					onSubmit={(values) => this.handleFormSubmit(values)}
 					render={({
-						         submitForm, setValue, values, getFormState
+						         submitForm, setValue, values, getFormState, getValue
 					         }) => (
 						<form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
 							{
@@ -189,6 +189,7 @@ class CancelSaleAlias extends React.Component {
                                                             noContactList={true}
                                                             setValue={setValue}
                                                             placeholder={'Account ID'}
+                                                            value={getValue('recipient') || ''}
                                                         />
                                                     </div>
                                                 </div>

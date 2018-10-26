@@ -123,7 +123,7 @@ class Settings extends React.Component {
         const status =  await disable2FAActon({
             passphrase: values.passphrase,
             account:    values.account,
-            code:       values.code
+            code2FA:       values.code2FA
         });
 
         if (status.errorCode) {

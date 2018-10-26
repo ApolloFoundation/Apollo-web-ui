@@ -98,6 +98,7 @@ import store from '../../store';
 //2fa
 import Confirm2FA from './2fa'
 import DeleteAccountFromWebNode from './account/delete-account-from-node';
+import Confirm2FAforging from './2fa/confirm-forging-with-2fa';
 
 //Login
 import ImportAccount from '../modals/account/import-account'

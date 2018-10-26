@@ -52,7 +52,7 @@ class DeleteAccountProperty extends React.Component {
                 <BackForm
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState, getValue }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
@@ -74,6 +74,7 @@ class DeleteAccountProperty extends React.Component {
                                             noContactList={true}
                                             defaultValue={(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
                                             setValue={setValue}
+                                            value={getValue('recipient') || ''}
                                         />
                                     </div>
                                 </div>
@@ -88,6 +89,7 @@ class DeleteAccountProperty extends React.Component {
                                                     noContactList={true}
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipientRS) ? this.props.modalData.recipientRS : ''}
                                                     setValue={setValue}
+                                                    value={getValue('recipient') || ''}
                                                 />
                                         </div>
                                 </div>

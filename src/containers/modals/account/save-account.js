@@ -87,7 +87,7 @@ class AddAccount extends React.Component {
                 <BackForm
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue }) => (
+                    render={({ submitForm, values, addValue, removeValue, setValue, getValue }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
@@ -120,6 +120,7 @@ class AddAccount extends React.Component {
                                             placeholder="Account ID"
                                             defaultValue={this.props.modalData}
                                             setValue={setValue}
+                                            value={getValue('recipient') || ''}
                                         />
                                     </div>
                                 </div>

@@ -37,6 +37,8 @@ class ComposeMessage extends React.Component {
             amountStatus: false,
             feeStatus: false
         }
+        
+        console.log("22222222", this.props.modalsHistory);
     }
 
     handleFormSubmit = async(values) => {
@@ -88,7 +90,7 @@ class ComposeMessage extends React.Component {
                 <BackForm
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState, getValue }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
@@ -110,6 +112,7 @@ class ComposeMessage extends React.Component {
                                                     field={'recipient'}
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
+                                                    value={getValue('recipient') || ''}
                                                 />
                                             </div>
                                         </div>

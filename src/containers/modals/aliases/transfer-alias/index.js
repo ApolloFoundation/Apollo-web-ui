@@ -117,7 +117,7 @@ class TransferAlias extends React.Component {
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, setValue, values, getFormState
+                                 submitForm, setValue, values, getFormState, getValue
                              }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             {
@@ -149,6 +149,7 @@ class TransferAlias extends React.Component {
                                                     <AccountRS
                                                         field={'recipient'}
                                                         setValue={setValue}
+                                                        value={getValue('recipient') || ''}
                                                     />
                                                 </div>
                                             </div>

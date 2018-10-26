@@ -16,12 +16,13 @@ import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
 import {switchAccountAction} from "../../../actions/account";
 import {setForging} from '../../../actions/login';
-
+import store from '../../../store';
 import {setModalData} from "../../../modules/modals";
 import {getAccountInfoAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {getBlockAction} from "../../../actions/blocks";
 import {getForging} from "../../../actions/login"
+import crypto from '../../../helpers/crypto/crypto';
 
 
 import {
@@ -119,7 +120,7 @@ class SiteHeader extends React.Component {
         if (!this.state.isSearching) {
             this.setState({
                 isSearching: true
-            })
+            });
 
             const transaction = this.props.getTransactionAction({transaction: values.value});
             const block = this.props.getBlockAction({block: values.value});
@@ -168,14 +169,29 @@ class SiteHeader extends React.Component {
         }
     };
 
+    setForgingWith2FA = (action) => {
+        return {
+            getStatus: action,
+            confirmStatus: (res) => {
+                this.setState({forgingStatus: res});
+            }
+        }
+    }
+
     setForging = async (action) => {
         const forging = await this.props.setForging({requestType: action.requestType});
 
         if (forging) {
-            const forgingStatus = await this.props.getForging();
 
-            if (forgingStatus) {
-                this.setState({forgingStatus: forgingStatus});
+            if (forging.errorCode === 3) {
+                this.props.setBodyModalParamsAction('CONFIRM_2FA_FORGING', this.setForgingWith2FA(action.requestType))
+            } else {
+                const forgingStatus = await this.props.getForging();
+
+
+                if (forgingStatus) {
+                    this.setState({forgingStatus: forgingStatus});
+                }
             }
         }
     };
@@ -708,24 +724,24 @@ class SiteHeader extends React.Component {
                                                                                 return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
                                                                             }}
                                                                             className="option">Generate token</a></li>
-                                                                        <li><a
-                                                                            onClick={() => {
-                                                                                this.setState({bodyModalType: null});
-                                                                                return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
-                                                                            }}
-                                                                            className="option">Generate hallmark</a></li>
+                                                                        {/*<li><a*/}
+                                                                            {/*onClick={() => {*/}
+                                                                                {/*this.setState({bodyModalType: null});*/}
+                                                                                {/*return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');*/}
+                                                                            {/*}}*/}
+                                                                            {/*className="option">Generate hallmark</a></li>*/}
                                                                         <li><a
                                                                             onClick={() => {
                                                                                 this.setState({bodyModalType: null});
                                                                                 return this.props.setBodyModalParamsAction('CALCULATE_CACHE');
                                                                             }}
                                                                             className="option">Calculate hash</a></li>
-                                                                        {/*<li><a
+                                                                        {<li><a
                                                                         onClick={() => {
                                                                             this.props.setBodyModalType(null);
                                                                             return this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS');
                                                                         }}
-                                                                        className="option">Transaction operations</a></li>*/}
+                                                                        className="option">Transaction operations</a></li>}
                                                                     </ul>
 
                                                                 </div>
@@ -741,13 +757,17 @@ class SiteHeader extends React.Component {
                                                                             >
                                                                                 Device settings
                                                                             </a>
+
+                                                                        </li>
+                                                                        <li>
                                                                             <Link
                                                                                 to="/settings"
                                                                                 className="option"
                                                                             >
                                                                                 Settings
                                                                             </Link>
-
+                                                                        </li>
+                                                                        <li>
                                                                             <a
                                                                                 onClick={() => {
                                                                                     this.setState({bodyModalType: null});
@@ -1006,6 +1026,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalType: (prevent) => dispatch(setBodyModalType(prevent)),
     getAccountInfoAction: (reqParams) => dispatch(getAccountInfoAction(reqParams)),
     setForging: (reqParams) => dispatch(setForging(reqParams)),
+    validatePassphrse: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     setModalData: (reqParams) => dispatch(setModalData(reqParams)),

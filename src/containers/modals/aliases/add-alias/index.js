@@ -109,7 +109,7 @@ class AddAlias extends React.Component {
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, setValue, getFormState, values
+                                 submitForm, setValue, getFormState, values, getValue
                              }) => (
                         <form
                             className="modal-form add-alias"
@@ -178,6 +178,7 @@ class AddAlias extends React.Component {
                                                         field={'aliasURI'}
                                                         setValue={setValue}
                                                         placeholder="Account ID"
+                                                        value={getValue('recipient') || ''}
                                                     />
                                                 </div>
                                             </div>

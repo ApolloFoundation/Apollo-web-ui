@@ -135,7 +135,7 @@ class SendApolloPrivate extends React.Component {
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, values, addValue, removeValue, setValue, getFormState
+                                 submitForm, values, addValue, removeValue, setValue, getFormState, getValue
                              }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
@@ -171,6 +171,7 @@ class SendApolloPrivate extends React.Component {
                                                     field={'recipient'}
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
+                                                    value={getValue('recipient') || ''}
                                                 />
                                             </div>
                                         </div>

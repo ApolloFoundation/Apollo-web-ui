@@ -381,7 +381,7 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger>
-                                                                                        <strong>Remember</strong> to store your Account ID, passphrase, and Secret Key in the secured place.
+                                                                                        <strong>Remember</strong> to store your Account ID and passphrase in the secured place.
                                                                                         Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>
@@ -438,7 +438,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <Checkbox defaultValue={false} field="losePhrase"/>
-                                                                                <label>I wrote down my Account ID, Passphrase and Secret Key. It is now stored in a secured place</label>
+                                                                                <label>I wrote down my Account ID, Passphrase. It is now stored in a secured place</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -570,7 +570,7 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger>
-                                                                                        <strong>Remember</strong>  to store your Account ID, passphrase, and  Secret Key in the secured place.
+                                                                                        <strong>Remember</strong>  to store your Account ID and passphrase in the secured place.
                                                                                         Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>

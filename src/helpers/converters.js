@@ -489,7 +489,7 @@ function simpleHashProceingAPL(stage1, stage2) {
     return wordArrayToByteArrayImplAPL(hash, false);
 }
 
-function signBytesArrayAPL(messageToSign, sp) {
+export function signBytesArrayAPL(messageToSign, sp) {
     var messageBytes = hexStringToByteArray(messageToSign);
     var secretPhraseBytes = hexStringToByteArray(sp);
 
