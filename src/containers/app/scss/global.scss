@@ -14,6 +14,8 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 
 html, body {
 	background-color: #F5F5F5;
+	word-break: break-word;
+	
 }
 
 //*:focus, *:active, *:hover {
@@ -41,6 +43,7 @@ html, body {
 	overflow: visible;
 	-o-text-overflow: unset;
 	text-overflow: unset;
+	word-wrap: break-word;
 }
 
 .break-word {
@@ -2652,3 +2655,8 @@ table {
 //		resize: vertical;
 //	}
 //}
+
+.full-info td {
+	white-space: normal;
+	word-wrap: break-word;
+}
