@@ -155,7 +155,7 @@ class InfoLedgerTransaction extends React.Component {
                                     "active": this.state.activeTab === 2
                                 })}>
                                     <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent">
+                                        <div className="transaction-table-body transparent full-info">
                                             <table>
                                                 <tbody>
                                                 <tr>

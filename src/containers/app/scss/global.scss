@@ -14,6 +14,8 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 
 html, body {
 	background-color: #F5F5F5;
+	word-break: break-word;
+	word-wrap: break-word;
 }
 
 //*:focus, *:active, *:hover {
@@ -2649,3 +2651,7 @@ table {
 //		resize: vertical;
 //	}
 //}
+
+.full-info td {
+	white-space: normal;
+}
