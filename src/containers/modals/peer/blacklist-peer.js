@@ -6,11 +6,13 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {saveSendModalState, openPrevModal} from '../../../modules/modals';
 
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
+import BackForm from '../modal-form/modal-form-container';
 
 class BlacklistPeer extends React.Component {
     constructor(props) {
@@ -35,15 +37,19 @@ class BlacklistPeer extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({submitForm}) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                    render={({submitForm, values}) => (
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
+	                                {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                }
                                     <p>Blacklist Peer</p>
                                 </div>
 
@@ -94,7 +100,7 @@ class BlacklistPeer extends React.Component {
                     )}
                 >
 
-                </Form>
+                </BackForm>
             </div>
         );
     }
@@ -102,12 +108,15 @@ class BlacklistPeer extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+	modalsHistory: state.modals.modalsHistory,
 
 });
 
 const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlacklistPeer);

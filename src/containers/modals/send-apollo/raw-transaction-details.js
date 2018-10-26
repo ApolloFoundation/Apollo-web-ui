@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
+import {setModalData, setBodyModalParamsAction, setAlert, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
 import InputForm from '../../components/input-form';
@@ -15,6 +15,8 @@ import crypto from  '../../../helpers/crypto/crypto';
 
 import {Form, TextArea} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
+
+import BackForm from '../modal-form/modal-form-container';
 
 class RawTransactionDetails extends React.Component {
     constructor(props) {
@@ -45,18 +47,22 @@ class RawTransactionDetails extends React.Component {
         const {request, result} = this.props.modalData;
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, values, addValue, removeValue, setValue, getFormState
                     }) => (
-                        <form className="modal-form modal-send-apollo" onSubmit={submitForm}>
+                        <form className="modal-form modal-send-apollo" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             {request &&
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
+	                                {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                }
                                     <p>Raw Transaction Details</p>
                                 </div>
                                 {(!result.signatureHash && result.unsignedTransactionBytes) &&
@@ -201,7 +207,7 @@ class RawTransactionDetails extends React.Component {
                     )}
                 >
 
-                </Form>
+                </BackForm>
             </div>
         );
     }
@@ -210,7 +216,8 @@ class RawTransactionDetails extends React.Component {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     account: state.account.account,
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+	modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -220,7 +227,9 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
+    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RawTransactionDetails);

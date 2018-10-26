@@ -6,13 +6,15 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import InputForm from '../../components/input-form';
 import AccountRS from '../../components/account-rs';
 import {Form, Text, TextArea} from 'react-form';
 
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+
+import BackForm from '../modal-form/modal-form-container';
 
 class AddAccount extends React.Component {
     constructor(props) {
@@ -82,14 +84,18 @@ class AddAccount extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue, setValue }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+                                    {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                }
                                     <p>Add Contact</p>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
@@ -155,13 +161,16 @@ class AddAccount extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddAccount);

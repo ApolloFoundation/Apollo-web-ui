@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import InputForm from '../../components/input-form';
 import AccountRS from '../../components/account-rs';
 import {Form, Text, TextArea} from 'react-form';
@@ -16,6 +16,8 @@ import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 import {calculateFeeAction} from "../../../actions/forms";
 import ModalFooter from '../../components/modal-footer'
+
+import BackForm from '../modal-form/modal-form-container';
 
 class SetAccountProperty extends React.Component {
     constructor(props) {
@@ -67,14 +69,18 @@ class SetAccountProperty extends React.Component {
         const contactRS = this.props.modalData.setterRS || this.props.modalData.recipientRS || '';
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+                                    {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                }
                                     <p>{this.props.modalData.property ? 'Update' : 'Set'} Account Property</p>
                                 </div>
                                 {contactRS !== '' ?
@@ -192,7 +198,8 @@ class SetAccountProperty extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -200,7 +207,9 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
+    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetAccountProperty);

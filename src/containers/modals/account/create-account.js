@@ -14,7 +14,7 @@ import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
-import {setBodyModalParamsAction} from "../../../modules/modals";
+import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
@@ -25,9 +25,12 @@ import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
 import {CopyToClipboard} from "react-copy-to-clipboard";
 
+import BackForm from '../modal-form/modal-form-container';
+
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.account
+    account: state.account.account,
+    modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -38,6 +41,8 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
     getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 class CreateUser extends React.Component {
@@ -190,7 +195,8 @@ class CreateUser extends React.Component {
                                             </a>
                                         </div>
 
-                                        <Form
+                                        <BackForm
+	                                        nameModal={this.props.nameModal}
                                             onSubmit={(values) => this.handleFormSubmit(values)}
                                             render={({
                                                          submitForm, setValue, values, getFormState
@@ -200,6 +206,7 @@ class CreateUser extends React.Component {
                                                         "tab-body": true,
                                                         "active": this.state.activeTab === 0
                                                     })}
+                                                    onChange={() => this.props.saveSendModalState(values)}
                                                     onSubmit={submitForm}
                                                 >
                                                     {
@@ -207,6 +214,9 @@ class CreateUser extends React.Component {
                                                         <React.Fragment>
                                                             <div className="form-group-app transparent">
                                                                 <div className="form-title">
+	                                                                {this.props.modalsHistory.length > 1 &&
+	                                                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                                                }
                                                                     <p>Create your Vault</p>
                                                                 </div>
                                                                 <div className="input-group-app display-block offset-bottom">
@@ -331,6 +341,9 @@ class CreateUser extends React.Component {
                                                         !this.state.isCustomPassphrase &&
                                                         <div className="form-group-app transparent">
                                                             <div className="form-title">
+	                                                            {this.props.modalsHistory.length > 1 &&
+	                                                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                                            }
                                                                 <p>Create your Vault</p>
                                                             </div>
                                                             {
@@ -506,7 +519,7 @@ class CreateUser extends React.Component {
                                                 </form>
                                             )}
                                         >
-                                        </Form>
+                                        </BackForm>
                                         <Form
                                             onSubmit={(values) => this.handleValidateToken(values)}
                                             render={({

@@ -8,13 +8,14 @@ import React from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
 import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
-import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
+import {setModalData, setModalType, setBodyModalParamsAction, saveSendModalState, openPrevModal} from '../../../modules/modals';
 
 import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
 
 import InfoBox from '../../components/info-box';
 
+import BackForm from '../modal-form/modal-form-container';
 
 class EnterAdminPassword extends React.Component {
     constructor(props) {
@@ -58,16 +59,20 @@ class EnterAdminPassword extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={values => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm
+                                 submitForm, values
                              }) => (
-                        <form className="modal-form"  onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+                                    {this.props.modalsHistory.length > 1 &&
+	                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                    }
                                     <p>Enter admin password</p>
                                 </div>
                                 <div className="input-group-app">
@@ -98,14 +103,17 @@ class EnterAdminPassword extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     setModalType: (passphrase) => dispatch(setModalType(passphrase)),
     setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterAdminPassword);

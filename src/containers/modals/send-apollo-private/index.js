@@ -6,7 +6,13 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction, setAlert, goBack, openPrevModal} from '../../../modules/modals';
+import {
+	setModalData,
+	setBodyModalParamsAction,
+	setAlert,
+	openPrevModal,
+	saveSendModalState
+} from '../../../modules/modals';
 import {sendPrivateTransaction} from '../../../actions/transactions';
 import AccountRS from '../../components/account-rs';
 import InputForm from '../../components/input-form';
@@ -126,11 +132,12 @@ class SendApolloPrivate extends React.Component {
         return (
             <div className="modal-box">
                 <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, values, addValue, removeValue, setValue, getFormState
                              }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
@@ -303,8 +310,8 @@ const mapDispatchToProps = dispatch => ({
     sendPrivateTransaction: (requestParams) => dispatch(sendPrivateTransaction(requestParams)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-	goBack: () => dispatch(goBack()),
 	openPrevModal: () => dispatch(openPrevModal()),
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApolloPrivate);

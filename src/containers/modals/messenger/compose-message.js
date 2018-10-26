@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import $ from 'jquery';
 
@@ -20,18 +20,8 @@ import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import ModalFooter from '../../components/modal-footer'
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-});
+import BackForm from '../modal-form/modal-form-container';
 
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    issueAssetAction: (reqParams) => dispatch(issueAssetAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    setAlert: (type, message) => dispatch(setAlert(type, message)),
-    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase))
-});
 
 class ComposeMessage extends React.Component {
     constructor(props) {
@@ -95,14 +85,18 @@ class ComposeMessage extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+	                                {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                }
                                     <p>Send message</p>
                                 </div>
                                 <div className="input-group-app form-group mb-15 display-block inline user">
@@ -258,5 +252,22 @@ class ComposeMessage extends React.Component {
         );
     }
 }
+
+
+const mapStateToProps = state => ({
+	modalData: state.modals.modalData,
+	modalsHistory: state.modals.modalsHistory
+});
+
+const mapDispatchToProps = dispatch => ({
+	setModalData: (data) => dispatch(setModalData(data)),
+	submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+	issueAssetAction: (reqParams) => dispatch(issueAssetAction(reqParams)),
+	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	setAlert: (type, message) => dispatch(setAlert(type, message)),
+	validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComposeMessage);

@@ -29,6 +29,7 @@ class BackForm extends Component {
     render() {
         return(
 	        <Form
+		        nameModal={this.props.nameModal}
 		        onSubmit={(values) => this.props.onSubmit(values)}
 		        getApi={(value) => this.getForm(value)}
 		        render={(formApi) => this.props.render(formApi)}
@@ -45,7 +46,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	// saveSendModalState: (status) => dispatch(saveSendModalState(status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BackForm);

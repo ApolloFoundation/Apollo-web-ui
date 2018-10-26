@@ -352,8 +352,6 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     account: state.account.account,
     publicKey: state.account.publicKey,
-	savedValues: state.modals.savedValues,
-	backClicked: state.modals.backClicked,
 	modalsHistory: state.modals.modalsHistory
 });
 
@@ -366,7 +364,6 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
-    clearGoBack: (requestParams) => dispatch(clearGoBack(requestParams)),
 	saveSendModalState: (Params) => dispatch(saveSendModalState(Params))
 });
 

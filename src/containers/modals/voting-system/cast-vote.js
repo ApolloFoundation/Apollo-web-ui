@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import InputForm from '../../components/input-form';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import {Form, Text, Number, Checkbox} from 'react-form';
@@ -16,7 +16,9 @@ import {NotificationManager} from "react-notifications";
 import {getpollAction} from "../../../actions/polls";
 import uuid from "uuid";
 import crypto from "../../../helpers/crypto/crypto";
-import ModalFooter from '../../components/modal-footer'
+import ModalFooter from '../../components/modal-footer';
+
+import BackForm from '../modal-form/modal-form-container';
 
 class CastPoll extends React.Component {
     constructor(props) {
@@ -131,12 +133,14 @@ class CastPoll extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={
                         ({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                             <form
                                 className="modal-form"
+                                onChange={() => this.props.saveSendModalState(values)}
                                 onSubmit={submitForm}
                             >
                                 {
@@ -145,6 +149,9 @@ class CastPoll extends React.Component {
                                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                         <div className="form-title">
+	                                        {this.props.modalsHistory.length > 1 &&
+	                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                        }
                                             <p>Cast vote</p>
                                         </div>
                                         <div className="mobile-class form-group row form-group-white mb-15">
@@ -317,7 +324,8 @@ class CastPoll extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+	modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -327,6 +335,8 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getpollAction: (reqParams) => dispatch(getpollAction(reqParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CastPoll);
