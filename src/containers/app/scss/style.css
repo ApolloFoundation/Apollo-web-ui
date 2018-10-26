@@ -218,7 +218,8 @@ input[type="number"] {
             font-family: "Roboto-Regular";
             font-size: 12px;
             line-height: 14px;
-            width: 1px; }
+            width: 1px;
+            word-break: normal; }
     .site-content .page-content .page-body .card.active-polls .full-box {
       margin-top: 30px; }
       .site-content .page-content .page-body .card.active-polls .full-box p {
