@@ -165,7 +165,7 @@ class ImportAccount extends React.Component {
                                                 this.state &&
                                                 this.state.importAccount &&
                                                 <InfoBox danger>
-                                                    <strong>Remember</strong> to store your Account ID, passphrase, and Secret Key in the secured place.
+                                                    <strong>Remember</strong> to store your Account ID, passphrase, and Secret Key in a secured place.
                                                     Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                 </InfoBox>
                                             }
