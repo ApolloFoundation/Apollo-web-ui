@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import {setModalData, setBodyModalParamsAction, setAlert, saveSendModalState, clearGoBack} from '../../../modules/modals';
+import {setModalData, setBodyModalParamsAction, setAlert, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
 import AdvancedSettings from '../../components/advanced-transaction-settings';
@@ -364,7 +364,8 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
-	saveSendModalState: (Params) => dispatch(saveSendModalState(Params))
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: (Params) => dispatch(openPrevModal(Params))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApollo);

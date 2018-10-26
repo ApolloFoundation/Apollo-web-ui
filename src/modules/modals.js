@@ -71,6 +71,7 @@ export default (state = initialState, action) => {
         case OPEN_PREV_MODAL:
             const modalsHistory = state.modalsHistory.splice(0,state.modalsHistory.length-1);
             console.log("3333",modalsHistory);
+            console.log("3333",modalsHistory[modalsHistory.length-1].modalName);
             return {
                 ...state,
 	            modalsHistory: modalsHistory,

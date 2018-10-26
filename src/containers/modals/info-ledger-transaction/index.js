@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setModalData, openPrevModal} from '../../../modules/modals';
 import {getLedgerEntryAction} from '../../../actions/ledger/';
 
 class InfoTransactions extends React.Component {
@@ -76,6 +76,9 @@ class InfoTransactions extends React.Component {
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
+	                            {this.props.modalsHistory.length > 1 &&
+	                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                            }
                                 <p>Ledger <strong>{this.props.modalData.ledgerId}</strong> info</p>
                             </div>
 
@@ -147,12 +150,14 @@ class InfoTransactions extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    getLedgerEntryAction: (data) => dispatch(getLedgerEntryAction(data))
+    getLedgerEntryAction: (data) => dispatch(getLedgerEntryAction(data)),
+    openPrevModal: () => dispatch(openPrevModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoTransactions);
