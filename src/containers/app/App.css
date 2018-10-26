@@ -2828,8 +2828,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 
 html, body {
   background-color: #F5F5F5;
-  word-break: break-word;
-  word-wrap: break-word; }
+  word-break: break-word; }
 
 ::placeholder {
   color: #a6a6a6 !important;
@@ -2847,7 +2846,8 @@ html, body {
   white-space: normal;
   overflow: visible;
   -o-text-overflow: unset;
-  text-overflow: unset; }
+  text-overflow: unset;
+  word-wrap: break-word; }
 
 .break-word {
   word-break: break-word; }
@@ -4639,7 +4639,8 @@ table td .btn, table th .btn {
     background-color: rgba(0, 0, 0, 0.6); } }
 
 .full-info td {
-  white-space: normal; }
+  white-space: normal;
+  word-wrap: break-word; }
 
 .transaction-table {
   height: 100%;
@@ -5106,7 +5107,9 @@ input[type="number"] {
             color: #777777;
             font-family: "Roboto-Regular";
             font-size: 12px;
-            line-height: 14px; }
+            line-height: 14px;
+            width: 1px;
+            word-break: normal; }
     .site-content .page-content .page-body .card.active-polls .full-box {
       margin-top: 30px; }
       .site-content .page-content .page-body .card.active-polls .full-box p {
