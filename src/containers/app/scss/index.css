@@ -2827,7 +2827,9 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   font-family: "Roboto-Regular"; }
 
 html, body {
-  background-color: #F5F5F5; }
+  background-color: #F5F5F5;
+  word-break: break-word;
+  word-wrap: break-word; }
 
 ::placeholder {
   color: #a6a6a6 !important;
@@ -4635,6 +4637,9 @@ table td .btn, table th .btn {
     background-color: rgba(0, 0, 0, 0); }
   100% {
     background-color: rgba(0, 0, 0, 0.6); } }
+
+.full-info td {
+  white-space: normal; }
 
 .transaction-table {
   height: 100%;
