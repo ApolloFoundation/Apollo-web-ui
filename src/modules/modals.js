@@ -76,13 +76,19 @@ export default (state = initialState, action) => {
                 ...state,
 	            modalsHistory: modalsHistory,
 	            modalType: modalsHistory[modalsHistory.length-1].modalName,
+	            modalData: modalsHistory[modalsHistory.length-1].modalData,
             };
 
         case SET_MODAL_DATA:
-            return {
-                ...state,
-                modalData: action.payload,
-            };
+            const element = state.modalsHistory.pop();
+	        element.modalData = action.payload;
+
+	        // state.modalsHistory.pop();
+	        return {
+		        ...state,
+		        modalData: action.payload,
+		        modalsHistory: [...state.modalsHistory, element],
+	        };
         case SET_BODY_MODAL_DATA:
             return {
                 ...state,

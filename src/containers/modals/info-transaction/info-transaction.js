@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, openPrevModal} from '../../../modules/modals';
 import classNames from 'classnames';
 import {formatTransactionType} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
@@ -44,6 +44,10 @@ class InfoLedgerTransaction extends React.Component {
     }
 
     render() {
+        console.log("55555", this.state.transaction);
+	    // console.log("88888", this.props.constants.transactionTypes[this.state.transaction.type]);
+	    console.log("66666", this.props.constants.transactionTypes);
+	    // console.log("77777", this.state.transaction.type);
         return (
             <div className="modal-box wide">
                 {
@@ -54,6 +58,9 @@ class InfoLedgerTransaction extends React.Component {
                                 <i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
+	                            {this.props.modalsHistory.length > 1 &&
+	                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                            }
                                 <p>Transaction {this.state.transaction.transaction} Info</p>
                             </div>
 
@@ -289,13 +296,15 @@ class InfoLedgerTransaction extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    constants: state.account.constants
+    modalsHistory: state.modals.modalsHistory,
+    constants: state.account.constants,
 });
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
+    openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoLedgerTransaction);
