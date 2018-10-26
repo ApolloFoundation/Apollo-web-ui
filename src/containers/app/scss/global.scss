@@ -113,6 +113,9 @@ span {
 .position-relative {
 	position: relative;
 	z-index: 2;
+	& + .info-box {
+		margin-top: 30px;
+	}
 }
 
 input[type="checkbox"] {

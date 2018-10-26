@@ -2889,6 +2889,8 @@ span.blue {
 .position-relative {
   position: relative;
   z-index: 2; }
+  .position-relative + .info-box {
+    margin-top: 30px; }
 
 input[type="checkbox"] {
   height: 16px;
