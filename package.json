@@ -46,6 +46,7 @@
     "jsbn": "^1.1.0",
     "loaders.css": "^0.1.2",
     "material-design-iconic-font": "^2.2.0",
+    "mini-css-extract-plugin": "^0.4.4",
     "node-sass-chokidar": "^1.3.0",
     "npm-run-all": "^4.1.3",
     "object-assign": "4.1.1",
@@ -77,6 +78,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "^2.0.4",
     "react-select": "^2.0.0",
     "react-suber": "^1.0.4",
     "react-text-mask": "^5.4.3",
@@ -90,20 +92,17 @@
     "twitter": "^1.7.1",
     "url-loader": "0.6.2",
     "uuid": "^3.3.2",
-    "webpack": "3.8.1",
+    "webpack": "4.4.1",
     "webpack-dev-server": "2.9.4",
     "webpack-manifest-plugin": "1.3.2",
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
+    "start": "react-scripts start & npm run watch-css",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start-js": "node scripts/start.js",
-    "start-server": "node scripts/server.js",
-    "start": "npm-run-all -p watch-css start-js start-server",
-    "build-js": "node scripts/build.js",
-    "build": "npm-run-all build-css build-js",
-    "test": "node scripts/test.js --env=jsdom"
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
     "babel-plugin-transform-decorators": "^6.24.1",
@@ -155,5 +154,11 @@
   ],
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

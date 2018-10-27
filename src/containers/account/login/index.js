@@ -17,6 +17,7 @@ import AccountRS from '../../components/account-rs';
 import {Form, Text} from "react-form";
 import {getConstantsAction} from '../../../actions/login'
 import ContentLoader from '../../components/content-loader'
+import InfoBox from "../../components/info-box";
 
 class Login extends React.Component {
     constructor(props) {
@@ -110,11 +111,18 @@ class Login extends React.Component {
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner">
                                                     <a
-                                                        className="btn btn-left round round-bottom-left round-top-right"
+                                                        className="btn btn-left round round-bottom-left"
                                                         onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
                                                     >
                                                         Create account
                                                     </a>
+                                                    <a
+                                                        className="btn btn-left round blue round-top-right"
+                                                        onClick={() => this.props.setBodyModalParamsAction('IMPORT_ACCOUNT')}
+                                                    >
+                                                        Import account
+                                                    </a>
+
                                                     <button
                                                         type="submit"
                                                         name={'closeModal'}
@@ -138,6 +146,9 @@ class Login extends React.Component {
                                                 "tab-body": true,
                                                 "active": this.state.activeTab === 1
                                             })}>
+                                                <InfoBox info>
+                                                    This option works only for online wallets.
+                                                </InfoBox>
                                                 <div className="form-group row form-group-white offset-top mb-0">
                                                     <label className="col-sm-3 col-form-label">
                                                         Secret Phrase

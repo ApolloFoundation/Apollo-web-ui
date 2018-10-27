@@ -8,7 +8,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import {getLedgerEntryAction} from '../../../actions/ledger/';
-import classNames from 'classnames';
 
 class InfoTransactions extends React.Component {
     constructor(props) {
@@ -31,11 +30,32 @@ class InfoTransactions extends React.Component {
     }
 
     componentDidMount = () => {
-        this.getAccountLedgerEntry();
+        this.getAccountLedgerEntry(this.props);
     };
 
-    getAccountLedgerEntry = async () => {
-        const entry = await this.props.getLedgerEntryAction({ledgerId: this.props.modalData});
+    componentWillReceiveProps = (newState) => {
+        this.getAccountLedgerEntry(newState);
+    }
+
+    getAccountLedgerEntry = async (newState) => {
+
+        let params;
+
+        if (typeof newState.modalData === 'object') {
+
+            this.setState({
+                entry: newState.modalData
+            });
+
+            return;
+
+        } else {
+
+            params = {ledgerId: newState.modalData};
+
+        }
+
+        const entry = await this.props.getLedgerEntryAction(params);
 
         if (entry) {
             this.setState({

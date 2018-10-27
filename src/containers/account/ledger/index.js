@@ -11,7 +11,7 @@ import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Entry from './entry'
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
-import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
+import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions/";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
@@ -20,6 +20,7 @@ import {BlockUpdater} from "../../block-subscriber";
 import ContentLoader from '../../components/content-loader'
 import InfoBox from '../../components/info-box';
 import ContentHendler from '../../components/content-hendler'
+import {NotificationManager} from "react-notifications";
 
 class Ledger extends React.Component {
     constructor(props) {
@@ -43,6 +44,7 @@ class Ledger extends React.Component {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
+            ...this.state.passphrase,
             includeHoldingInfo: true
         });
     };
@@ -65,12 +67,10 @@ class Ledger extends React.Component {
     componentWillReceiveProps(newState) {
         this.setState({
             ...newState,
-            publicKey:  this.state.publicKey,
-            privateKey: this.state.privateKey,
-            sharedKey:  this.state.sharedKey
+            passphrase:  this.state.passphrase,
         }, () => {
             this.getAccountLedger({
-                PublicKey: this.state.publicKey,
+                ...this.state.passphrase,
                 account: this.props.account,
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex,
@@ -80,43 +80,35 @@ class Ledger extends React.Component {
     }
 
     getPrivateEntries = (data) => {
+
         let reqParams = {
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
-            includeHoldingInfo: true
+            includeHoldingInfo: true,
+            ...data
         };
 
-        if (data && data.publicKey) {
+        if (data) {
 
             this.setState({
-                ...this.props,
-                publicKey:  data.publicKey,
-                privateKey: data.privateKey
+                passphrase:  data,
             });
-
-            reqParams.publicKey = data.publicKey;
-        }
-        if (data && data.PublicKey) {
-            reqParams.publicKey = data.PublicKey;
         }
 
         this.getAccountLedger(reqParams);
     };
 
     onPaginate (page) {
+
         let reqParams = {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1,
-            includeHoldingInfo: true
-
+            includeHoldingInfo: true,
+            ...this.state.passphrase,
         };
-
-        if (this.state.publicKey) {
-            reqParams.publicKey = this.state.publicKey
-        }
 
         this.setState(reqParams, () => {
             this.getAccountLedger(reqParams)
@@ -124,62 +116,28 @@ class Ledger extends React.Component {
     }
 
     async getAccountLedger(requestParams) {
-
-        if (requestParams.PublicKey) {
-            requestParams.publicKey = requestParams.PublicKey;
-            delete requestParams.PublicKey;
-        }
-
         const ledger = await this.props.getAccountLedgerAction(requestParams);
         if (ledger) {
-            if (ledger.serverPublicKey) {
-
-                // const serverPublicKey = crypto.getSharedSecretJava(conv.hexStringToByteArray(transactions.serverPublicKey))
-                const privateKey      = converters.hexStringToByteArray(this.state.privateKey);
-
-                const sharedKey = converters.byteArrayToHexString(new Uint8Array(crypto.getSharedSecretJava(
-                    privateKey,
-                    converters.hexStringToByteArray(ledger.serverPublicKey)
-                )));
-
+            if (ledger.errorCode) {
+                this.setState({
+                    isError: true
+                }, () => {
+                    NotificationManager.error(ledger.errorDescription, 'Error', 900000);
+                });
+            } else {
+                if (!this.state.isPrivate && !!ledger.serverPublicKey) {
+                    this.setState({
+                        isPrivate: true
+                    }, () => {
+                        NotificationManager.success('You are watching private entries.', null, 900000);
+                    })
+                }
                 this.setState({
                     ...this.props,
                     ledger: ledger.entries,
-                    serverPublicKey: ledger.serverPublicKey,
-                    sharedKey : sharedKey
-                });
-            } else {
-                this.setState({
-                    ...this.props,
-                    ledger: ledger.entries
+                    isError: false
                 });
             }
-        }
-    }
-
-    async getLedgerEntry (modaltype, ledgerId) {
-
-        const requestParams = {
-            ledgerId: ledgerId
-        };
-
-        const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
-
-        if (ledgerEntry) {
-            this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry)
-        }
-    }
-
-    async getTransaction (modaltype, ledgerId) {
-
-        const requestParams = {
-            ledgerId: ledgerId
-        };
-
-        const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
-
-        if (ledgerEntry) {
-            this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry)
         }
     }
 
@@ -190,14 +148,77 @@ class Ledger extends React.Component {
         });
     }
 
+    async getLedgerEntry (modaltype, ledgerId, isPrivate) {
+        const requestParams = {
+            ledgerId: ledgerId
+        };
+
+        if (isPrivate) {
+            const privateLedgerEntry = await this.props.getLedgerEntryAction({
+                ...requestParams,
+                passphrase: this.state.passphrase,
+                account: this.props.account
+            });
+
+            if (privateLedgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', privateLedgerEntry)
+            }
+
+        } else {
+            const ledgerEntry = await this.props.getLedgerEntryAction(requestParams);
+
+            if (ledgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerEntry.ledgerId)
+            }
+        }
+    }
+
+    getTransaction  = async (modaltype, ledgerId, isPrivate) => {
+
+        let requestParams = {
+            transaction: ledgerId
+        };
+
+        if (isPrivate) {
+            requestParams.passphrase = this.state.passphrase;
+            requestParams.account    = this.props.account;
+
+            const privateLedgerEntry = await this.props.getTransactionAction(requestParams);
+
+            if (privateLedgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_TRANSACTION', privateLedgerEntry)
+            }
+        } else {
+            const ledgerEntry = await this.props.getTransactionAction(requestParams);
+
+            if (ledgerEntry) {
+                this.props.setBodyModalParamsAction('INFO_TRANSACTION', ledgerEntry)
+            }
+        }
+    }
 
     render () {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Account ledger'}
-                    showPrivateTransactions={'ledger'}
-                />
+                >
+
+                    <a
+                        className={classNames({
+                            'btn': true,
+                            'primary': true,
+                            'disabled' : this.state.isPrivate
+                        })}
+                        onClick={() => {
+                            this.props.setModalType('PrivateTransactions')
+
+                        }}
+                    >
+                        Show private transactions
+                    </a>
+
+                </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="account-ledger">
                         <div className="info-box info">
@@ -226,21 +247,21 @@ class Ledger extends React.Component {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {
-                                                this.state.ledger.map((el, index) => {
-                                                    return (
-                                                        <Entry
-                                                            key={uuid()}
-                                                            entry={el}
-                                                            publicKey= {this.state.serverPublicKey}
-                                                            privateKey={this.state.privateKey}
-                                                            sharedKey= {this.state.sharedKey}
-                                                            setLedgerEntryInfo={this.getLedgerEntry}
-                                                            setTransactionInfo={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
+                                                {
+                                                    this.state.ledger.map((el, index) => {
+                                                        return (
+                                                            <Entry
+                                                                key={uuid()}
+                                                                entry={el}
+                                                                publicKey= {this.state.serverPublicKey}
+                                                                privateKey={this.state.privateKey}
+                                                                sharedKey= {this.state.sharedKey}
+                                                                setLedgerEntryInfo={this.getLedgerEntry}
+                                                                setTransactionInfo={this.getTransaction}
+                                                            />
+                                                        );
+                                                    })
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -283,12 +304,14 @@ class Ledger extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
+    publicKey : state.account.publicKey,
 
     // modals
     modalData: state.modals.modalData
 });
 
 const initMapDispatchToProps = dispatch => ({
+    setModalType: (prevent) => dispatch(setModalType(prevent)),
     getAccountLedgerAction: (requestParams) => dispatch(getAccountLedgerAction(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),

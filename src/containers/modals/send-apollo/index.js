@@ -14,6 +14,7 @@ import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
 import crypto from  '../../../helpers/crypto/crypto';
 import AccountRS from '../../components/account-rs';
+import ModalFooter from '../../components/modal-footer'
 
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
@@ -44,24 +45,20 @@ class SendApollo extends React.Component {
             NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
             return;
         }
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
+
         if (values.doNotSign) {
             values.publicKey = await crypto.getPublicKeyAPL(this.props.account, true);
             delete values.secretPhrase;
         }
         this.setState({
             isPending: true
-        })
+        });
 
         const res = await this.props.submitForm( values, 'sendMoney');
         if (res.errorCode) {
             this.setState({
                 isPending: false
-            })
+            });
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
 
@@ -251,14 +248,13 @@ class SendApollo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
+
                                 {this.state.advancedState &&
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
@@ -272,30 +268,6 @@ class SendApollo extends React.Component {
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                }
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect passphrase.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.recipientStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect recipient.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.amountStatus &&
-                                    <InfoBox danger mt>
-                                        Missing amount.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.feeStatus &&
-                                    <InfoBox danger mt>
-                                        Missing fee.
-                                    </InfoBox>
                                 }
 
                                 {/*<AdvancedSettings

@@ -8,8 +8,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
-import converters from "../../../helpers/converters";
-import crypto from "../../../helpers/crypto/crypto";
 import {formatTransactionType} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
 
@@ -36,64 +34,24 @@ class InfoLedgerTransaction extends React.Component {
     componentWillReceiveProps(newState) {
         this.setState({
             transaction: newState.modalData
-        }, () => {
-            if (this.state.transaction.privateTransaction && this.state.transaction.privateTransaction.encryptedTransaction) {
-                var options = {
-                    publicKey  :  converters.hexStringToByteArray(this.state.transaction.privateTransaction.serverPublicKey),
-                    privateKey :  converters.hexStringToByteArray(this.state.transaction.privateKey),
-                };
-
-                const sharedKey  = new Uint8Array(crypto.getSharedSecretJava(
-                    options.privateKey,
-                    options.publicKey
-                ));
-
-                options.sharedKey = sharedKey;
-
-                var decrypted =  crypto.decryptDataStreamAPL(this.state.transaction.privateTransaction.encryptedTransaction, options);
-                decrypted = decrypted.message;
-
-                decrypted = converters.hexStringToStringAPL(decrypted);
-                decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
-                decrypted = JSON.parse(decrypted);
-                this.setState({
-                    transaction: decrypted
-                })
-            }
         })
     }
 
     componentDidMount() {
-        if (this.state.transaction) {
-            if (this.state.transaction.encryptedTransaction) {
-                var options = {
-                    publicKey  :  converters.hexStringToByteArray(this.props.publicKey),
-                    privateKey :  converters.hexStringToByteArray(this.props.privateKey),
-                };
-
-                options.sharedKey = this.props.sharedKey;
-
-                var decrypted =  crypto.decryptDataStreamAPL(this.props.transaction.encryptedTransaction, options);
-                decrypted = decrypted.message;
-
-                decrypted = converters.hexStringToStringAPL(decrypted);
-                decrypted = decrypted.slice(0, decrypted.lastIndexOf('}') + 1);
-                decrypted = JSON.parse(decrypted);
-                this.setState({
-                    transaction: decrypted
-                })
-            }
-        }
+        this.setState({
+            transaction: this.props.modalData
+        })
     }
 
     render() {
         return (
             <div className="modal-box wide">
                 {
-                    this.state.transaction && !this.state.transaction.privateTransaction &&
+                    this.state.transaction && this.props.constants.transactionTypes[this.state.transaction.type] &&
                     <form className="modal-form">
                         <div className="form-group-app">
-                            <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                            <a onClick={() => this.props.closeModal()} className="exit">
+                                <i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
                                 <p>Transaction {this.state.transaction.transaction} Info</p>
@@ -197,7 +155,7 @@ class InfoLedgerTransaction extends React.Component {
                                     "active": this.state.activeTab === 2
                                 })}>
                                     <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent">
+                                        <div className="transaction-table-body transparent full-info">
                                             <table>
                                                 <tbody>
                                                 <tr>

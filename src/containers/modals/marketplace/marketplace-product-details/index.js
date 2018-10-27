@@ -13,8 +13,6 @@ import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 
-import { Form, Text } from 'react-form';
-import InfoBox from '../../../components/info-box';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData

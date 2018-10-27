@@ -158,7 +158,6 @@ class AssetExchange extends React.Component {
 		}
 	}
     handleBuyFormSubmit = async (values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
         if (!values.quantityATU) {
             this.setState({
                 ...this.props,
@@ -181,18 +180,6 @@ class AssetExchange extends React.Component {
             this.setState({
                 ...this.props,
                 feeStatus: false
-            })
-        }
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
             })
         }
         if (!values.priceATM) {

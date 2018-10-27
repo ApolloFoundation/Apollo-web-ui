@@ -12,6 +12,7 @@ import InfoBox from '../../components/info-box'
 import {NotificationManager} from "react-notifications";
 import {Form, Text} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
+import ModalFooter from '../../components/modal-footer'
 
 class DeleteShares extends React.Component {
     constructor(props) {
@@ -30,8 +31,6 @@ class DeleteShares extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        // const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         values = {
             ...values,
             quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)
@@ -113,16 +112,11 @@ class DeleteShares extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Secret Phrase</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Secret Phrase'} type="password" field={'secretPhrase'}/>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <ModalFooter
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
+                                    />
 
                                     {/*<AdvancedSettings
                                         setValue={setValue}

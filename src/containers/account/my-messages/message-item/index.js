@@ -54,7 +54,8 @@ class MessageItem extends React.Component {
             const message = await this.props.submitForm( {
                 requestType: 'readMessage',
                 secretPhrase: passPhrase,
-                transaction: this.props.transaction
+                transaction: this.props.transaction,
+                createNoneTransactionMethod: true
             }, 'readMessage')
 
             if (message) {
@@ -77,18 +78,25 @@ class MessageItem extends React.Component {
                 </td>
                 <td>
                     {
+                        this.props.attachment.message !== 'undefined' && this.props.attachment.message
+                    }
+                    {
                         this.state.message &&
+                        this.props.attachment.message === 'undefined' &&
                         <div><i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{this.state.message}</span></div>
 
                     }
                     {
                         this.state.message &&
                         !this.state.message.length &&
+                        this.props.attachment.message === 'undefined' &&
                         <div>Empty message</div>
-
                     }
                     {
-                        this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
+                        this.props.attachment.encryptedMessage &&
+                        !this.props.attachment.encryptedMessageHash &&
+                        !this.state.message &&
+                        this.props.attachment.message === 'undefined' &&
                         <div><i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;<span>Message is encrypted.</span></div>
                     }
                     {
@@ -97,7 +105,10 @@ class MessageItem extends React.Component {
 
                     }
                     {
-                        !this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
+                        !this.props.attachment.encryptedMessage &&
+                        !this.props.attachment.encryptedMessageHash &&
+                        !this.state.message &&
+                        this.props.attachment.message === 'undefined' &&
                         <div>{this.props.attachment.message}</div>
                     }
                 </td>

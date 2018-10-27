@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction} from '../../../modules/modals';
 import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
-import uuid from "uuid";
 import {getAccountAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {switchAccountAction} from "../../../actions/account";

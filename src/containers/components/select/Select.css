@@ -1,25 +1,35 @@
 .form-custom-select {
   width: 100%;
-  height: 30px;
+  height: 32px;
   box-sizing: content-box;
   padding-top: 0 !important;
   background-color: #e5e5e5;
   border-radius: 5px; }
-  .form-custom-select > div {
+  .form-custom-select span {
+    background-color: transparent; }
+  .form-custom-select .custom-select-box__control {
     background-color: #e5e5e5 !important;
     border: none !important;
     box-shadow: none !important;
     height: 32px;
     min-height: 32px;
     border-radius: 5px; }
-    .form-custom-select > div > div > div {
-      font-size: 11px;
-      color: #515151; }
-    .form-custom-select > div svg {
-      width: 18px;
-      height: 17px;
-      color: #515151; }
-    .form-custom-select > div:nth-child(3) > div {
-      margin-top: 3px; }
-  .form-custom-select span {
-    background-color: transparent; }
+  .form-custom-select .custom-select-box__placeholder {
+    font-size: 11px;
+    color: #515151; }
+  .form-custom-select svg {
+    width: 18px;
+    height: 17px;
+    color: #515151; }
+  .form-custom-select:nth-child(3) > div {
+    margin-top: 3px; }
+
+.custom-select-box__menu {
+  border: 0px solid transparent !important;
+  font-size: 11px;
+  border-radius: 4px;
+  margin-top: 0px !important;
+  box-shadow: none !important; }
+  .custom-select-box__menu div {
+    border-radius: 4px;
+    background-color: #f1f1f1; }

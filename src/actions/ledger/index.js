@@ -9,21 +9,24 @@ import config from '../../config';
 
 export function getAccountLedgerAction(requestParams) {
     return dispatch => {
-        const requestType = (requestParams.publicKey) ? 'getPrivateAccountLedger' : 'getAccountLedger';
-        return axios.get(config.api.serverUrl, {
-            params : {
-                requestType: requestType,
-                ...requestParams
-            }
-        })
-            .then((res) => {
-                if (!res.data.errorCode) {
-                    return res.data
+
+        const condition = requestParams.passphrase || requestParams.secretPhrase;
+        const requestType = (condition) ? 'getPrivateAccountLedger' : 'getAccountLedger';
+
+
+        console.log(requestParams);
+            return axios.get(config.api.serverUrl, {
+                params : {
+                    requestType: requestType,
+                    ...requestParams
                 }
             })
-            .catch(() => {
+                .then((res) => {
+                    return res.data
+                })
+                .catch(() => {
 
-            })
+                })
     }
 }
 
@@ -31,7 +34,7 @@ export function getLedgerEntryAction(requestParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
             params : {
-                requestType: 'getAccountLedgerEntry',
+                requestType: (requestParams.passphrase) ? 'getPrivateAccountLedgerEntry' : 'getAccountLedgerEntry',
                 ...requestParams
             }
         })

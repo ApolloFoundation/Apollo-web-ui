@@ -54,22 +54,28 @@ class AccountRS extends React.Component {
             value: value.toUpperCase()
         };
 
-        this.props.setValue(this.props.field, value);
+
+        this.props.setValue(this.props.field, value.indexOf('APL-') === -1 ? 'APl-' + value : value);
         this.setState({inputValue: newState});
     };
 
     onChange = (event) => {
         let value;
 
-        if (event.clipboardData) {
+        if (event.type === 'paste') {
             value = event.clipboardData.getData('text/plain');
+
             if (value.includes('APL-') && value.indexOf('APL-') === 0) {
                 value = value.replace('APL-', '');
+
                 this.setInputValue(value);
             }
         } else {
             value = event.target.value;
-            this.setInputValue(value);
+            if (value.indexOf('APL-APL') === -1) {
+
+                this.setInputValue(value);
+            }
         }
         // event.stopPropagation();
     };
@@ -84,7 +90,7 @@ class AccountRS extends React.Component {
                                placeholder={this.props.placeholder || 'Account ID'}
                                ref={'input'}
                                value={this.state.inputValue.value}
-                               // onPaste={this.onChange}
+                               onPaste={this.onChange}
                                onChange={this.onChange}
                     />
                 }

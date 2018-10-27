@@ -15,6 +15,7 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 import {calculateFeeAction} from "../../../actions/forms";
+import ModalFooter from '../../components/modal-footer'
 
 class SetAccountProperty extends React.Component {
     constructor(props) {
@@ -34,13 +35,6 @@ class SetAccountProperty extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
-
         const res = await this.props.submitForm( values, 'setAccountProperty');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
@@ -162,14 +156,19 @@ class SetAccountProperty extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
-                                    </div>
-                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
+                                {/*<div className="form-group row form-group-white mb-15">*/}
+                                    {/*<label className="col-sm-3 col-form-label">*/}
+                                        {/*Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>*/}
+                                    {/*</label>*/}
+                                    {/*<div className="col-sm-9">*/}
+                                        {/*<Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
 
                                 <div className="btn-box align-buttons-inside absolute right-conner">
                                     <button

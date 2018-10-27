@@ -8,39 +8,42 @@ import axios from 'axios/index';
 // import fetch from 'fetch';
 import config from '../../config';
 import queryString from 'query-string';
+import {NotificationManager} from "react-notifications";
 
 export function getTransactionsAction(requestParams) {
     return dispatch => {
-        const requestType = (requestParams.publicKey) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
+        const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
 
         let params = requestParams;
 
         if (!params.requestType) {
             delete params.requestType;
         }
-
-        return axios.get(config.api.serverUrl, {
-            params : {
-                requestType: requestType,
-                ...requestParams
-            }
-        })
-            .then((res) => {
-                if (!res.data.errorCode) {
-                    return res.data
+        if (requestParams.account) {
+            return axios.get(config.api.serverUrl, {
+                params : {
+                    requestType: requestType,
+                    ...requestParams
                 }
             })
-            .catch(() => {
+                .then((res) => {
+                    return res.data
+                })
+                .catch(() => {
 
-            })
+                })
+        }
+
     }
 }
 
 export function getTransactionAction(requestParams) {
     return dispatch => {
+        const requestType = requestParams.passphrase ? 'getPrivateTransaction' : 'getTransaction';
+
         return axios.get(config.api.serverUrl, {
             params : {
-                requestType: 'getTransaction',
+                requestType: requestType,
                 ...requestParams
             }
         })
@@ -122,10 +125,7 @@ export function sendPrivateTransaction(requestParams) {
 
         return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
                 .then((res) => {
-                    if (!res.data.errorCode) {
-                        return res.data;
-                    }
-                    return;
+                    return res.data;
                 })
                 .catch((err) => {
                     console.log(err);

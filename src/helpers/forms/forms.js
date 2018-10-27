@@ -32,9 +32,30 @@ function submitForm(data, requestType) {
             const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
 
             if (account.accountRS !== isPassphrase) {
-                return {errorCode: 10, errorDescription: 'Incorrect secret phrase.'};
+                data.passphrase = data.secretPhrase;
+
+                delete data.secretPhrase;
+            } else {
+                data.secretPhrase = data.secretPhrase;
+                delete data.passphrase;
             }
         }
+
+        if (data.passphrase) {
+            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.passphrase)));
+
+            if (account.accountRS !== isPassphrase) {
+                data.passphrase = data.passphrase;
+
+                delete data.secretPhrase;
+            } else {
+                data.secretPhrase = data.passphrase;
+
+                delete data.passphrase;
+            }
+        }
+
+        data.sender = account.account;
 
         var $form;
         var requestTypeKey;
@@ -55,6 +76,12 @@ function submitForm(data, requestType) {
 
         if (invalidElement) {
             return;
+        }
+
+
+        if (data.createNoneTransactionMethod) {
+            data.account = account.account;
+            delete data.sender;
         }
 
         if (Object.values(data).length) {
@@ -132,123 +159,10 @@ function submitForm(data, requestType) {
         if (data.doNotBroadcast || data.calculateFee) {
             data.broadcast = "false";
 
-            if (data.calculateFee) {
-                if (account.publicKey) {
-                    data.publicKey = account.publicKey;
-                    delete data.secretPhrase;
-                }
-            }
             if (data.doNotBroadcast) {
                 delete data.doNotBroadcast;
             }
         }
-
-        // if (requestType === 'transferAsset') {
-        //     if (data.quantityATU > accountSettings.maxAssetWarn) {
-        //         NotificationManager.warning('You are willing to increase your asset transfer limit. Are you sure in this action?', 'Warning', 100000);
-        //
-        //         if (modals.maxAssetTransferWarningStage === 0) {
-        //             dispatch({
-        //                 type: 'SET_ASSET_WARNING',
-        //                 payload: 1
-        //             });
-        //             return {errorCode: '1', errorDescription: 'Increased Limit'};
-        //         }
-        //         if (modals.maxAssetTransferWarningStage === 1) {
-        //
-        //         }
-        //     }
-        //
-        // }
-        //
-        // if (requestType === 'transferCurrency') {
-        //     if (data.quantityATU > accountSettings.maxCurrencyWarn) {
-        //         NotificationManager.warning('You are willing to increase your currency transfer limit. Are you sure in this action?', 'Warning', 100000);
-        //
-        //         if (modals.maxCurrencyTransferWarningStage === 0) {
-        //             dispatch({
-        //                 type: 'SET_CURRENCY_WARNING',
-        //                 payload: 1
-        //             });
-        //             return {errorCode: '1', errorDescription: 'Increased Limit'};
-        //         }
-        //         if (modals.maxCurrencyTransferWarningStage === 1) {
-        //
-        //         }
-        //     }
-        // }
-        //
-        // if (data.feeAPL > accountSettings.maxFeeWarn) {
-        //     NotificationManager.warning('You are willing to increase your fee limit. Are you sure in this action?', 'Warning', 100000);
-        //
-        //
-        //     console.log(modals.maxAssetTransferWarningStage);
-        //
-        //     if (modals.maxFeeWarningStage === 0) {
-        //         dispatch({
-        //             type: 'SET_FEE_WARNING',
-        //             payload: 1
-        //         });
-        //         return {errorCode: '1', errorDescription: 'Increased Limit'};
-        //     }
-        //     if (modals.maxFeeWarningStage === 1) {
-        //
-        //     }
-        // }
-        //
-        // if (data.amountATM > accountSettings.maxAmountWarn) {
-        //     NotificationManager.warning('You are willing to increase your payment limit. Are you sure in this action?', 'Warning', 100000);
-        //
-        //
-        //     console.log(modals.maxAssetTransferWarningStage);
-        //
-        //     if (modals.maxAmountWarningStage === 0) {
-        //         dispatch({
-        //             type: 'SET_AMOUNT_WARNING',
-        //             payload: 1
-        //         });
-        //         return {errorCode: '1', errorDescription: 'Increased Limit'};
-        //     }
-        //     if (modals.maxAmountWarningStage === 1) {
-        //
-        //     }
-        // }
-        //
-        // if (data.amountAPL > accountSettings.maxAmountWarn) {
-        //     NotificationManager.warning('You are willing to increase your payment limit. Are you sure in this action?', 'Warning', 100000);
-        //
-        //
-        //     console.log(modals.maxAssetTransferWarningStage);
-        //
-        //     if (modals.maxAmountWarningStage === 0) {
-        //         dispatch({
-        //             type: 'SET_AMOUNT_WARNING',
-        //             payload: 1
-        //         });
-        //         return {errorCode: '1', errorDescription: 'Increased Limit'};
-        //     }
-        //     if (modals.maxAmountWarningStage === 1) {
-        //
-        //     }
-        // }
-        //
-        // if (data.feeATM > accountSettings.maxFeeWarn) {
-        //     NotificationManager.warning('You are willing to increase your fee limit. Are you sure in this action?', 'Warning', 100000);
-        //
-        //
-        //     console.log(modals.maxAssetTransferWarningStage);
-        //
-        //     if (modals.maxFeeWarningStage === 0) {
-        //         dispatch({
-        //             type: 'SET_FEE_WARNING',
-        //             payload: 1
-        //         });
-        //         return {errorCode: '1', errorDescription: 'Increased Limit'};
-        //     }
-        //     if (modals.maxFeeWarningStage === 1) {
-        //
-        //     }
-        // }
 
         if (data.messageFile && data.encrypt_message) {
             if (!util.isFileEncryptionSupported()) {
@@ -359,9 +273,7 @@ function addMessageData(data, requestType) {
                         options.account = data.encryptedMessageRecipient;
                         delete data.encryptedMessageRecipient;
                     }
-                    if (data.recipientPublicKey) {
-                        options.publicKey = data.recipientPublicKey;
-                    }
+
                     if (data.messageFile) {
                         // We read the file data and encrypt it later
                         data.messageToEncryptIsText = "false";
@@ -904,6 +816,8 @@ function processAjaxRequest(requestType, data, callback, options) {
             type: 'SET_CURRENCY_WARNING',
             payload: 0
         });
+
+        delete data.publicKey;
 
         return $.ajax({
             url: url,

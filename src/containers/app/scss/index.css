@@ -2827,7 +2827,9 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   font-family: "Roboto-Regular"; }
 
 html, body {
-  background-color: #F5F5F5; }
+  background-color: #F5F5F5;
+  word-break: break-word;
+  word-wrap: break-word; }
 
 ::placeholder {
   color: #a6a6a6 !important;
@@ -2886,6 +2888,10 @@ span.blue {
 .flex {
   display: flex; }
 
+.position-relative {
+  position: relative;
+  z-index: 2; }
+
 input[type="checkbox"] {
   height: 16px;
   width: 16px;
@@ -2898,6 +2904,8 @@ input[type="checkbox"] {
   border-radius: 3px;
   padding: 0 !important;
   position: relative; }
+  input[type="checkbox"].lighten:after {
+    background-image: url(../../assets/checked-lighten.svg); }
   input[type="checkbox"]:after {
     content: '';
     position: absolute;
@@ -2912,6 +2920,9 @@ input[type="checkbox"] {
     display: none; }
   input[type="checkbox"]:checked:after {
     display: block; }
+
+.form-check-input {
+  cursor: pointer; }
 
 input[type="number"] {
   position: relative; }
@@ -3166,6 +3177,19 @@ input {
 .token {
   color: white; }
 
+.itatic {
+  font-style: italic; }
+
+.no-brake-word {
+  word-wrap: normal;
+  word-break: normal; }
+
+.info-box.attention-left {
+  border-left: 4px solid #00C8FF;
+  border-radius: 0; }
+  .info-box.attention-left p span {
+    color: #00C8FF; }
+
 .info-box.blue-info {
   background-color: #00C8FF; }
   .info-box.blue-info p {
@@ -3194,12 +3218,16 @@ input {
 .info-box.no-padding-top p {
   padding-top: 0; }
 
+.info-box.nowrap p {
+  word-break: normal; }
+
 .info-box p {
   word-wrap: break-word;
-  word-break: break-all;
+  word-break: break-word;
   color: #000;
   padding-left: 40px;
-  padding-right: 40px; }
+  padding-right: 40px;
+  line-height: 1.6; }
 
 .no-margin {
   margin: 0 !important; }
@@ -3834,6 +3862,15 @@ input {
   box-sizing: border-box;
   z-index: 1;
   padding: 11px 11px 11px 9px; }
+  .btn.lighten {
+    background: #ecf0f1;
+    color: #00C8FF; }
+  .btn.success {
+    background: #27ae60;
+    color: #fff; }
+  .btn.danger {
+    background: #e74c3c;
+    color: #fff; }
   .btn .ball-pulse {
     transform: translateY(2px);
     text-align: center; }
@@ -4601,6 +4638,9 @@ table td .btn, table th .btn {
   100% {
     background-color: rgba(0, 0, 0, 0.6); } }
 
+.full-info td {
+  white-space: normal; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
@@ -4754,6 +4794,21 @@ table td .btn, table th .btn {
   .info-box p {
     padding: 18px 40px;
     color: #000; }
+    .info-box p ul li {
+      padding: 0 0 0 15px;
+      display: block;
+      position: relative;
+      color: #fff;
+      line-height: 1.6; }
+      .info-box p ul li:before {
+        content: '';
+        position: absolute;
+        top: 7px;
+        left: 0;
+        height: 6px;
+        width: 6px;
+        background: white;
+        border-radius: 100%; }
 
 .modal-window {
   position: fixed;
@@ -4807,6 +4862,12 @@ table td .btn, table th .btn {
       max-width: 750px !important; }
     .modal-window .modal-box.x-wide {
       max-width: 1000px !important; }
+    .modal-window .modal-box .area-hider {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0; }
     .modal-window .modal-box .modal-form {
       min-width: 500px; }
       @media (max-width: 760px) {
@@ -5045,8 +5106,7 @@ input[type="number"] {
             color: #777777;
             font-family: "Roboto-Regular";
             font-size: 12px;
-            line-height: 14px;
-            width: 1px; }
+            line-height: 14px; }
     .site-content .page-content .page-body .card.active-polls .full-box {
       margin-top: 30px; }
       .site-content .page-content .page-body .card.active-polls .full-box p {
