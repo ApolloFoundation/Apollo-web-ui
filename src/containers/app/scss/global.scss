@@ -1008,6 +1008,7 @@ input {
 			
 			.form-tab {
 				display: flex;
+				align-items: center;
 				width: 54px;
 				height: 32px;
 				border-top-left-radius: 6px;
@@ -1017,7 +1018,7 @@ input {
 					background-color: #F5F5F5;
 				}
 				p {
-					font-size: 13px !important;
+					font-size: 14px !important;
 				}
 				& > * {
 					margin: auto;

@@ -47,7 +47,6 @@ class Entry extends React.Component {
                                 onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT')}
                             >
                             <span
-                                style={{color: '#00C8FF'}}
                                 className="zmdi zmdi-info"
                             />
                             </a>

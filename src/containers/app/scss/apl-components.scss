@@ -53,6 +53,13 @@
       //    position: static !important;
       //  }
       //}
+      .zmdi-info{
+        color: #333333;
+        transition: 0.2s;
+        &:hover{
+          color: #242424;
+        }
+      }
       thead {
         padding: 35px 0;
 

@@ -692,6 +692,7 @@ input {
           padding: 0 15px; }
       .form-group-app .form-tabulator .form-tab-nav-box .form-tab {
         display: flex;
+        align-items: center;
         width: 54px;
         height: 32px;
         border-top-left-radius: 6px;
@@ -699,7 +700,7 @@ input {
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab.active {
           background-color: #F5F5F5; }
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab p {
-          font-size: 13px !important; }
+          font-size: 14px !important; }
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab > * {
           margin: auto;
           font-size: 14px; }

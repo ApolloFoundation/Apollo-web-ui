@@ -169,7 +169,7 @@ class InfoAccount extends React.Component {
                                 {
                                     this.state.account &&
                                     <React.Fragment>
-                                        <p>Info {this.state.account.accountRS} Account</p>
+                                        <p>Account {this.state.account.accountRS} info</p>
                                         {
                                             this.props.account !== this.state.account.account &&
                                             <a
@@ -307,6 +307,7 @@ class InfoAccount extends React.Component {
                                                     <td className="align-right">Balance</td>
                                                 </tr>
                                                 </thead>
+                                                {console.log("9999", this.state.account_ledger)}
                                                 <tbody>
                                                 {
                                                     this.state.account_ledger &&
