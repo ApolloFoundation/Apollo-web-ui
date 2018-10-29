@@ -259,7 +259,6 @@ class InfoAccount extends React.Component {
                                                     <tr>
 	                                                    <td>Date</td>
 	                                                    <td>Type</td>
-                                                        {/*<td>Index</td>*/}
                                                         <td className="align-right">Amount</td>
                                                         <td className="align-right">Fee</td>
                                                         <td>From</td>
