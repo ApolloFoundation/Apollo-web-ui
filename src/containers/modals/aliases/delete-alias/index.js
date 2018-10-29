@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
 import classNames from 'classnames';
 
 import { Form, Text } from 'react-form';
@@ -17,6 +17,7 @@ import submitForm from "../../../../helpers/forms/forms";
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
 import ModalFooter from '../../../components/modal-footer'
 
+import BackForm from '../../modal-form/modal-form-container';
 
 class DeleteAlias extends React.Component {
     constructor(props) {
@@ -111,18 +112,22 @@ class DeleteAlias extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, setValue, values, getFormState
                              }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             {
                                 this.state.alias &&
                                 <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
+                                        {this.props.modalsHistory.length > 1 &&
+                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                        }
                                         <p>Delete Alias</p>
                                     </div>
                                     <div className="form-group row form-group-white mb-15">
@@ -219,14 +224,15 @@ class DeleteAlias extends React.Component {
                     )}
                 >
 
-                </Form>
+                </BackForm>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -234,6 +240,8 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteAlias);

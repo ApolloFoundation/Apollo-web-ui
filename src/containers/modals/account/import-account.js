@@ -11,7 +11,7 @@ import {NotificationManager} from 'react-notifications';
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
-import {setBodyModalParamsAction} from "../../../modules/modals";
+import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import {getAccountDataAction} from "../../../actions/login";
@@ -20,9 +20,12 @@ import classNames from "classnames";
 import InputForm from "../../components/input-form";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 
+import BackForm from '../modal-form/modal-form-container';
+
 const mapStateToProps = state => ({
     account: state.account.account,
     modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -33,6 +36,8 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
     getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 class ImportAccount extends React.Component {
@@ -107,16 +112,20 @@ class ImportAccount extends React.Component {
                 <div className="modal-box">
                     {
                         !this.state.isValidating &&
-                        <Form
+                        <BackForm
+	                        nameModal={this.props.nameModal}
                             onSubmit={(values) => this.handleFormSubmit(values)}
                             render={({submitForm, values, addValue, removeValue, getFormState}) => (
-                                <form className="modal-form" onSubmit={submitForm}>
+                                <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
 
                                     <div className="form-group-app">
                                         <a onClick={() => this.props.closeModal()} className="exit"><i
                                             className="zmdi zmdi-close"/></a>
 
                                         <div className="form-title">
+	                                        {this.props.modalsHistory.length > 1 &&
+	                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                        }
                                             <p>Import Account</p>
                                         </div>
                                         <InfoBox info>
