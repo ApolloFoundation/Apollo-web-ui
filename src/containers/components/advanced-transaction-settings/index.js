@@ -105,8 +105,6 @@ class AdvancedSettings extends React.Component {
     };
 
     addAccount = (tabIndex) => {
-        console.log(tabIndex);
-        console.log(this.state.accounts);
         this.setState({
             accounts: {
                 ...this.state.accounts,
@@ -131,7 +129,6 @@ class AdvancedSettings extends React.Component {
                 if (setValue) {
                     setValue('phasingWhitelisted', list)
                 }
-                console.log(this.state.accounts)
             })
         }
     };

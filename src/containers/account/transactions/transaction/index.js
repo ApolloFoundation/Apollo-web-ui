@@ -63,7 +63,6 @@ class Transaction extends React.Component {
 
     handleMouseOver = (selector) => {
         const el = document.querySelector(`[data-transaction="${selector}"]`);
-        console.log(el);
         if (el) {
             el.classList.add('active');
         }

@@ -42,7 +42,6 @@ class OrderItem extends React.Component {
         const {orderInfo} = this.state;
         return (
             <tr key={uuid()}>
-                {console.log(orderInfo.order)}
                 <td
                     className="align-left blue-link-text"
                 >

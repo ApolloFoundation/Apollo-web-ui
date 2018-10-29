@@ -71,7 +71,6 @@ class InfoBlock extends React.Component {
         const privateTransactions = await getPrivateTransactions(requestParams);
 
         if (privateTransactions) {
-            console.log(privateTransactions);
             if (!privateTransactions.errorCode) {
                 this.setState({
                     privateTransactions: privateTransactions.transactions

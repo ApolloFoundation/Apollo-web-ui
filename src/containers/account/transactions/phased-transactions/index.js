@@ -29,15 +29,12 @@ class PhasedTransactionsHints extends React.Component {
 
                 Promise.all(phasingTransactionInfo)
                     .then((data) => {
-                        console.log(data);
                         this.setState({
                             phased,
                             phasingTransactionInfo: data.map( el => {
                                 return el.polls[0]
                             }),
                             lastTransaction: this.props.transactions[0].transaction
-                        }, () => {
-                            console.log(this.state.phasingTransactionInfo)
                         })
                     });
             }
@@ -46,8 +43,6 @@ class PhasedTransactionsHints extends React.Component {
 
     getPhasingTransactionInfo = async (transaction) => {
         let phasing = await getPhasingTransactionVoters({transaction: transaction});
-
-        console.log(phasing);
 
         return phasing
     }
@@ -59,20 +54,18 @@ class PhasedTransactionsHints extends React.Component {
                     this.state.phased &&
                     !!this.state.phased.length &&
                     this.state.phased.map((el, index) => {
-                        console.log(index);
                         const transactionId = `transaction-${el.transaction}`;
                         const sidebar = document.getElementById('sidebar-menu').getBoundingClientRect();
                         let position = document.getElementById(transactionId);
 
                         if (position) {
                             position = position.getBoundingClientRect()
-                            console.log(this.state.phasingTransactionInfo);
                             return (
                                 <div
                                     className="phased-transaction"
                                     data-transaction={transactionId}
                                     style={{
-                                        top: position.top,
+                                        top: position.top + window.pageYOffset,
                                         left: position.left - sidebar.width - 315
                                     }}
                                 >
