@@ -620,7 +620,7 @@ input {
     margin: 0 -35px -70px;
     background-color: #ccc;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center; }
     .form-group-app .marketplace-image.no-image {
       background-size: 30% !important;
