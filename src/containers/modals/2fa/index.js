@@ -14,7 +14,7 @@ import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
-import {setBodyModalParamsAction} from "../../../modules/modals";
+import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
@@ -22,8 +22,11 @@ import {getAccountDataAction} from "../../../actions/login";
 import ContentLoader from '../../components/content-loader'
 import {confirm2FAActon} from '../../../actions/account'
 
+import BackForm from '../modal-form/modal-form-container';
+
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -34,6 +37,8 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
     getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 class Confirm2FA extends React.Component {
@@ -76,14 +81,18 @@ class Confirm2FA extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({submitForm, values, addValue, removeValue, getFormState}) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+                                    {this.props.modalsHistory.length > 1 &&
+                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                    }
                                     <p>Confirm 2FA enabling</p>
                                 </div>
                                 <div className="input-group-app display-block offset-bottom">

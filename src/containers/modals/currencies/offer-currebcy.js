@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
@@ -16,7 +16,9 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
 import {getAccountCurrenciesAction} from "../../../actions/currencies";
-import ModalFooter from '../../components/modal-footer'
+import ModalFooter from '../../components/modal-footer';
+
+import BackForm from '../modal-form/modal-form-container';
 
 class OfferCurrency extends React.Component {
     constructor(props) {
@@ -114,10 +116,11 @@ class OfferCurrency extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             {
                                 this.props.modalData &&
 
@@ -125,6 +128,9 @@ class OfferCurrency extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
+                                        {this.props.modalsHistory.length > 1 &&
+                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                        }
                                         <p>Offer Currency</p>
                                     </div>
                                     <Text
@@ -346,7 +352,8 @@ class OfferCurrency extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.account
+    account: state.account.account,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -355,6 +362,8 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 
 });
 

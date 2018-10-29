@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
 import AccountRS from '../../components/account-rs';
@@ -18,7 +18,9 @@ import submitForm from "../../../helpers/forms/forms";
 import {getAssetAction} from "../../../actions/assets";
 import {getCurrencyAction} from "../../../actions/currencies";
 import crypto from "../../../helpers/crypto/crypto";
-import ModalFooter from '../../components/modal-footer'
+import ModalFooter from '../../components/modal-footer';
+
+import BackForm from '../modal-form/modal-form-container';
 
 const holdingTypeData = [
     { value: 0, label: 'Apollo' },
@@ -141,16 +143,20 @@ class CreateShuffling extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, setValue, values, getFormState
                              }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+	                                {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                }
                                     <p>Create shuffling</p>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
@@ -355,6 +361,7 @@ class CreateShuffling extends React.Component {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     account: state.account.account,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -365,6 +372,8 @@ const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateShuffling);
