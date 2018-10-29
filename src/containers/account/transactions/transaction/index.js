@@ -41,7 +41,25 @@ class Transaction extends React.Component {
         }
     }
 
+    handleMouseOver = (selector) => {
+        const el = document.querySelector(`[data-transaction="${selector}"]`);
+        console.log(el);
+        if (el) {
+            el.classList.add('active');
+        }
+    }
+
+    handleMouseOut = (selector) => {
+        const el = document.querySelector(`[data-transaction="${selector}"]`)
+
+        if (el) {
+            el.classList.remove('active');
+        }
+    }
+
+
     render () {
+        const id = `transaction-${this.props.transaction.transaction}`;
         return (
             <tr key={uuid()}>
                 {

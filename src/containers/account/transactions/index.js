@@ -12,14 +12,12 @@ import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import {getTransactionsAction, getTransactionAction, getPrivateTransactionAction} from "../../../actions/transactions";
 import {setModalCallback, setBodyModalParamsAction, setMopalType} from "../../../modules/modals";
-import curve25519 from "../../../helpers/crypto/curve25519";
-import converters from "../../../helpers/converters";
-import crypto from "../../../helpers/crypto/crypto";
 import InfoBox from "../../components/info-box";
 import {BlockUpdater} from "../../block-subscriber/index";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 import {NotificationManager} from "react-notifications";
+import PhasedTransactionsHints from './phased-transactions'
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -106,7 +104,6 @@ class Transactions extends React.Component {
     };
 
     onPaginate = (page) => {
-        console.log(this.state);
         let reqParams = {
             type: this.state.type,
             account:    this.props.account,
@@ -117,7 +114,6 @@ class Transactions extends React.Component {
             ...this.state.passphrase
         };
 
-        console.log(this.state.passphrase);
 
         this.setState(reqParams, () => {
             this.getTransactions(reqParams, this.state.isUnconfirmed, this.state.isAll)
@@ -316,7 +312,9 @@ class Transactions extends React.Component {
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
+
                     <div className="my-transactions">
+
                         <div className="transactions-filters">
                             <div className="top-bar">
                                 <div
@@ -549,6 +547,12 @@ class Transactions extends React.Component {
                                 </div>
                             </ContentHendler>
                         </div>
+                        {
+                            this.state.transactions &&
+                            <PhasedTransactionsHints
+                                transactions={this.state.transactions}
+                            />
+                        }
                     </div>
                 </div>
             </div>

@@ -387,6 +387,35 @@ input {
 .no-margin {
   margin: 0 !important; }
 
+.phased-transaction {
+  position: absolute; }
+  .phased-transaction.active .phasing-box__phasing-description {
+    transform: none;
+    opacity: 1;
+    visibility: visible; }
+  .phased-transaction .phasing-box__phasing-description {
+    border: 1px solid #666;
+    width: 300px;
+    background-color: #fff;
+    box-sizing: border-box;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.5); }
+    .phased-transaction .phasing-box__phasing-description:after {
+      content: '';
+      display: block;
+      height: 15px;
+      width: 15px;
+      border-top: 1px solid #666;
+      border-right: 1px solid #666;
+      transform: rotate(45deg);
+      position: absolute;
+      top: 10px;
+      right: -7px;
+      z-index: 2;
+      background: #fff; }
+
 .no-padding {
   padding: 0 !important; }
 
