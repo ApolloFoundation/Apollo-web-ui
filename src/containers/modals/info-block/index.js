@@ -193,7 +193,7 @@ class InfoBlock extends React.Component {
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
 
                                                     <table>
-                                                        <thead key={uuid()}>
+                                                        <thead>
                                                         <tr>
                                                             <td>Date</td>
                                                             <td>Type</td>

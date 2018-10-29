@@ -32,9 +32,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class AdvancedSettings extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     state = {
         activeTab: 0,

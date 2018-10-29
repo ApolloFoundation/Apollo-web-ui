@@ -45,9 +45,7 @@ class PhasedTransactionsHints extends React.Component {
     }
 
     getPhasingTransactionInfo = async (transaction) => {
-        let phasing = await getPhasingTransactionVoters({transaction: transaction});
-
-        return phasing
+        return await getPhasingTransactionVoters({transaction: transaction});
     }
 
     render () {

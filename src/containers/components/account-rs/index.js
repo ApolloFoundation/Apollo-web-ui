@@ -71,8 +71,6 @@ class AccountRS extends React.Component {
     onChange = (event) => {
         let value;
 
-        console.log(22222);
-
         if (event.type === 'paste') {
             value = event.clipboardData.getData('text/plain');
 
