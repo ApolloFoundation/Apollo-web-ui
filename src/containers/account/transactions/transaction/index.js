@@ -43,8 +43,6 @@ class Transaction extends React.Component {
         if (phasing) {
             this.setState({
                 phasing: phasing.polls[0]
-            }, () => {
-                // console.log(this.state.phasing);
             })
         }
     }
