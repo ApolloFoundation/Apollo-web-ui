@@ -147,3 +147,16 @@ export function formatTransactionType(str){
     str = str.toLowerCase(); //add space between camelCase text
     return (str).toUpperCase();
 }
+
+export const getPhasingTransactionVoters = (requestParams) => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getPhasingPolls',
+            countVotes: true,
+            ...requestParams
+        }
+    })
+        .then((res)  => {
+            return res.data;
+        })
+}

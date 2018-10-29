@@ -418,7 +418,28 @@ input[type="number"] {
 
                     }
                     &.phasing {
+                      .phasing-box {
+                        padding: 7px;
+                        border: 1px solid #00C8FF;
+                        cursor: pointer;
+                        border-radius: 6px;
+                        display: inline;
+                        position: relative;
 
+                        &:hover {
+                          .phasing-box__phasing-description {
+                            visibility: visible;
+                            opacity: 1;
+                            transform: none;
+                          }
+                        }
+                      }
+                      .phasing-box__icon {
+                        margin-right: 10px;
+                      }
+                      .phasing-box__result {
+                        user-select: none;
+                      }
                     }
                     &.height {
 

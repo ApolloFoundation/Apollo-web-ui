@@ -11,7 +11,7 @@ import converters from '../../../../helpers/converters';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
-import {formatTransactionType} from "../../../../actions/transactions";
+import {formatTransactionType, getPhasingTransactionVoters} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
 
 const mapStateToProps = state => ({
@@ -27,6 +27,26 @@ const mapDispatchToProps = dispatch => ({
 class Transaction extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount () {
+        if (this.props.transaction.phased) {
+            this.getPhasingTransactionInfo();
+
+        }
+    }
+
+    getPhasingTransactionInfo = async () => {
+        let phasing = await getPhasingTransactionVoters({transaction: this.props.transaction.transaction});
+
+
+        if (phasing) {
+            this.setState({
+                phasing: phasing.polls[0]
+            }, () => {
+                // console.log(this.state.phasing);
+            })
+        }
     }
 
     async getBlock(type, blockHeight) {
@@ -85,7 +105,25 @@ class Transaction extends React.Component {
                         <td className="blue-link-text">
                             <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
                         </td>
-                        <td className="align-right">
+                        <td className="align-right phasing">
+                            {
+                                this.state &&
+                                this.state.phasing &&
+                                <div className="phasing-box"
+                                     onMouseOver={() => this.handleMouseOver(id)}
+                                     onMouseOut={()  => this.handleMouseOut(id)}
+                                     id={id}
+                                >
+                                    <spna className="phasing-box__icon">
+                                        <i className={'zmdi zmdi-accounts-alt'}></i>
+                                    </spna>
+                                    <span className="phasing-box__result">
+                                        {this.state.phasing.result} / {this.state.phasing.quorum}
+                                    </span>
+                                </div>
+                            }
+
+
                         </td>
                         <td className="align-right blue-link-text">
                             {
