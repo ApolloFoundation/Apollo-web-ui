@@ -166,7 +166,8 @@ class InfoBlock extends React.Component {
                                                                                      }) => (
                                                                                 <form
                                                                                     style={{
-                                                                                        height: 33
+                                                                                        height: 33,
+                                                                                        "word-break": "normal"
                                                                                     }}
                                                                                     className="iconned-input-field"
                                                                                     onSubmit={submitForm}
