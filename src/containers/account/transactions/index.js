@@ -11,7 +11,6 @@ import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import {getTransactionsAction, getTransactionAction, getPrivateTransactionAction} from "../../../actions/transactions";
-import {setModalCallback, setBodyModalParamsAction, setMopalType} from "../../../modules/modals";
 import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
 import curve25519 from "../../../helpers/crypto/curve25519";
 import converters from "../../../helpers/converters";
