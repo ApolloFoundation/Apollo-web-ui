@@ -14,9 +14,6 @@ import {Form, Text} from 'react-form';
 import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import ModalFooter from '../../components/modal-footer';
-
-import BackForm from '../modal-form/modal-form-container';
 import ModalFooter from '../../components/modal-footer'
 import {getCurrencyAction} from "../../../actions/currencies";
 import BackForm from '../modal-form/modal-form-container';
