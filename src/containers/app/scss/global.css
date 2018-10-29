@@ -417,6 +417,35 @@ input {
 .no-margin {
   margin: 0 !important; }
 
+.phased-transaction {
+  position: absolute; }
+  .phased-transaction.active .phasing-box__phasing-description {
+    transform: none;
+    opacity: 1;
+    visibility: visible; }
+  .phased-transaction .phasing-box__phasing-description {
+    border: 1px solid #666;
+    width: 300px;
+    background-color: #fff;
+    box-sizing: border-box;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.5); }
+    .phased-transaction .phasing-box__phasing-description:after {
+      content: '';
+      display: block;
+      height: 15px;
+      width: 15px;
+      border-top: 1px solid #666;
+      border-right: 1px solid #666;
+      transform: rotate(45deg);
+      position: absolute;
+      top: 10px;
+      right: -7px;
+      z-index: 2;
+      background: #fff; }
+
 .no-padding {
   padding: 0 !important; }
 
@@ -605,6 +634,20 @@ input {
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group-app .form-title {
     padding-bottom: 23px; }
+    .form-group-app .form-title .backMy {
+      width: 16px;
+      height: 16px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: left;
+      background-image: url(../../assets/left-arrow1.svg);
+      margin-right: 8px;
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: middle;
+      transition: 0.2s; }
+      .form-group-app .form-title .backMy:hover {
+        opacity: 0.7; }
     .form-group-app .form-title.inline > * {
       vertical-align: middle;
       display: inline-block; }
@@ -620,7 +663,9 @@ input {
       font-size: 24px;
       word-break: break-word;
       line-height: 1.6;
-      padding-right: 30px; }
+      padding-right: 30px;
+      display: inline-block;
+      vertical-align: middle; }
     .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
   .form-group-app .form-sub-title {
@@ -950,6 +995,11 @@ input {
 .input-group-app .input-icon {
   width: 32px;
   display: table-cell; }
+  .input-group-app .input-icon.text {
+    width: auto;
+    font-size: 12px; }
+    .input-group-app .input-icon.text.btn {
+      background: #00C8FF; }
   .input-group-app .input-icon i {
     margin: auto; }
 
@@ -1611,7 +1661,6 @@ input {
 table tr > td {
   white-space: nowrap;
   max-width: 300px;
-  overflow: hidden;
   text-overflow: ellipsis;
   min-width: 70px; }
 

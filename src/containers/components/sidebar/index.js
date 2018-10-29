@@ -68,7 +68,10 @@ class Sidebar extends React.Component {
 					"hover": this.state.isHover
 				})}
 			>
-				<div className="menu-bar-container">
+				<div
+					className="menu-bar-container"
+					id={'sidebar-menu'}
+				>
 					<NavLink
 						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}

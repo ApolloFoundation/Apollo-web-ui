@@ -93,6 +93,7 @@ class InfoAccount extends React.Component {
 
                     const accountAssets = this.state.assets.accountAssets;
                     const assetsInfo    = this.state.assets.assets;
+
                     const resultAsset = accountAssets.map((el, index) => {
                         return {...(assetsInfo[index]), ...el}
                     });
@@ -491,7 +492,7 @@ class InfoAccount extends React.Component {
                                                             this.state.goods &&
                                                             this.state.goods.goods.map((el, index) => {
                                                                 return (
-                                                                    <tr key={uuid()} className={"marketplace-tab-item"}>
+                                                                    <tr className={"marketplace-tab-item"}>
                                                                         <td
                                                                             className={'blue-link-text'}
                                                                         >
@@ -612,7 +613,6 @@ class InfoAccount extends React.Component {
                                         >
                                             Add as contact
                                         </a>
-
                                     </div>
                                 </div>
 

@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
+import {setModalData, setBodyModalParamsAction, setAlert, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
 import AdvancedSettings from '../../components/advanced-transaction-settings';
@@ -19,6 +19,8 @@ import ModalFooter from '../../components/modal-footer'
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
+
+import BackForm from '../modal-form/modal-form-container';
 
 class SendApollo extends React.Component {
     constructor(props) {
@@ -37,7 +39,7 @@ class SendApollo extends React.Component {
             feeStatus: false
         };
 
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
+	    this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
     async handleFormSubmit(values) {
@@ -92,243 +94,255 @@ class SendApollo extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                         submitForm, values, addValue, removeValue, setValue, getFormState
-                    }) => (
-                        <form className="modal-form modal-send-apollo" onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                         submitForm, values, addValue, removeValue, setValue, getFormState, getValue,
+                    }) => {
+	                    return (
+		                    <form className="modal-form modal-send-apollo" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+			                    <div className="form-group-app">
+				                    <a onClick={() => this.props.closeModal()} className="exit"><i
+					                    className="zmdi zmdi-close"/></a>
 
-                                <div className="form-title">
-                                    <p>Send Apollo</p>
-                                </div>
-                                <div className="input-group-app form-group mb-15 display-block inline user">
-                                    <div className="row form-group-white">
-                                        <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                            Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <div className="iconned-input-field">
-                                                <AccountRS
-                                                    field={'recipient'}
-                                                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
-                                                    setValue={setValue}
-                                                    placeholder={'Account ID'}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Amount
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                        <InputForm
-                                            defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
-                                            field="amountAPL"
-                                            placeholder="Amount"
-                                            type={"number"}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="mobile-class form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3">
-                                        <a className="no-margin btn static blue"
-                                           onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}>
-                                            Private transaction
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="mobile-class row mb-15 form-group-white">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-2">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                      type="checkbox"
-                                                      field="add_message"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add a message?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    getFormState().values.add_message &&
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label align-self-start">
-                                            Message
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <TextArea className="form-control" placeholder="Message" field="message" cols="30" rows="5" />
-                                        </div>
-                                    </div>
-                                }
-                                {
-                                    getFormState().values.add_message &&
-                                    <div className="mobile-class row mb-15 form-group-white">
-                                        <div className="col-md-9 offset-md-3">
-                                            <div className="form-check custom-checkbox mb-2">
-                                                <Checkbox className="form-check-input custom-control-input"
-                                                          type="checkbox"
-                                                          defaultValue={true}
-                                                          field="encrypt_message"/>
-                                                <label className="form-check-label custom-control-label">
-                                                    Encrypt Message
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                {
-                                    getFormState().values.add_message &&
-                                    <div className="mobile-class row mb-15 form-group-white">
-                                        <div className="col-md-9 offset-md-3">
-                                            <div className="form-check custom-checkbox mb-2">
-                                                <Checkbox className="form-check-input custom-control-input"
-                                                          type="checkbox"
-                                                          defaultValue={false}
-                                                          field="permanent_message"/>
-                                                <label className="form-check-label custom-control-label">
-                                                    Message is Never Deleted
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
+				                    <div className="form-title">
+					                    {this.props.modalsHistory.length > 1 &&
+						                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+					                    }
+					                    <p>Send Apollo</p>
+				                    </div>
+				                    <div className="input-group-app form-group mb-15 display-block inline user">
+					                    <div className="row form-group-white">
+						                    <label htmlFor="recipient" className="col-sm-3 col-form-label">
+							                    Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
+						                    </label>
+						                    <div className="col-sm-9">
+							                    <div className="iconned-input-field">
+								                    <AccountRS
+									                    field={'recipient'}
+									                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
+									                    setValue={setValue}
+									                    value={getValue('recipient') || ''}
+									                    placeholder={'Account ID'}
+								                    />
+							                    </div>
+						                    </div>
+					                    </div>
+				                    </div>
+				                    <div className="form-group row form-group-white mb-15">
+					                    <label className="col-sm-3 col-form-label">
+						                    Amount
+					                    </label>
+					                    <div
+						                    className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+						                    <InputForm
+							                    defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+							                    field="amountAPL"
+							                    placeholder="Amount"
+							                    type={"number"}
+							                    setValue={setValue}/>
+						                    <div className="input-group-append">
+							                    <span className="input-group-text">Apollo</span>
+						                    </div>
+					                    </div>
+				                    </div>
+				                    <div className="mobile-class form-group-grey row mb-15">
+					                    <div className="col-sm-9 offset-sm-3">
+						                    <a className="no-margin btn static blue"
+						                       onClick={() => {
+							                       this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE');
+						                       }}>
+							                    Private transaction
+						                    </a>
+					                    </div>
+				                    </div>
+				                    <div className="mobile-class row mb-15 form-group-white">
+					                    <div className="col-md-9 offset-md-3">
+						                    <div className="form-check custom-checkbox mb-2">
+							                    <Checkbox className="form-check-input custom-control-input"
+							                              type="checkbox"
+							                              field="add_message"/>
+							                    <label className="form-check-label custom-control-label">
+								                    Add a message?
+							                    </label>
+						                    </div>
+					                    </div>
+				                    </div>
+				                    {
+					                    getFormState().values.add_message &&
+					                    <div className="form-group row form-group-white mb-15">
+						                    <label className="col-sm-3 col-form-label align-self-start">
+							                    Message
+						                    </label>
+						                    <div className="col-sm-9">
+							                    <TextArea className="form-control" placeholder="Message" field="message"
+							                              cols="30" rows="5"/>
+						                    </div>
+					                    </div>
+				                    }
+				                    {
+					                    getFormState().values.add_message &&
+					                    <div className="mobile-class row mb-15 form-group-white">
+						                    <div className="col-md-9 offset-md-3">
+							                    <div className="form-check custom-checkbox mb-2">
+								                    <Checkbox className="form-check-input custom-control-input"
+								                              type="checkbox"
+								                              defaultValue={true}
+								                              field="encrypt_message"/>
+								                    <label className="form-check-label custom-control-label">
+									                    Encrypt Message
+								                    </label>
+							                    </div>
+						                    </div>
+					                    </div>
+				                    }
+				                    {
+					                    getFormState().values.add_message &&
+					                    <div className="mobile-class row mb-15 form-group-white">
+						                    <div className="col-md-9 offset-md-3">
+							                    <div className="form-check custom-checkbox mb-2">
+								                    <Checkbox className="form-check-input custom-control-input"
+								                              type="checkbox"
+								                              defaultValue={false}
+								                              field="permanent_message"/>
+								                    <label className="form-check-label custom-control-label">
+									                    Message is Never Deleted
+								                    </label>
+							                    </div>
+						                    </div>
+					                    </div>
+				                    }
 
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Fee
-                                        <span
-                                            onClick={async () => {
-                                                if (!getFormState().values.recipient) {
-                                                    NotificationManager.error('Recipient is required.', 'Error', 5000);
-                                                    return;
-                                                }
-                                                if (!getFormState().values.amountAPL) {
-                                                    NotificationManager.error('Amount is required.', 'Error', 5000);
-                                                    return;
-                                                }
-                                                const requestParams = {
-                                                    requestType: 'sendMoney',
-                                                    deadline: '1440',
-                                                    amountATM: parseInt(getFormState().values.amountAPL) * 100000000,
-                                                    recipient: getFormState().values.recipient,
-                                                    publicKey: this.props.publicKey,
-                                                    feeATM: 0
-                                                };
-                                                const fee = await this.props.calculateFeeAction(requestParams);
-                                                if (!fee.errorCode) {
-                                                    setValue("feeAPL", fee.transactionJSON.feeATM / 100000000);
-                                                } else {
-                                                    NotificationManager.error(fee.errorDescription, 'Error', 5000);
-                                                }
-                                            }
-                                            }
-                                            style={{paddingRight: 0}}
-                                            className="calculate-fee"
+				                    <div className="form-group row form-group-white mb-15">
+					                    <label className="col-sm-3 col-form-label">
+						                    Fee
+						                    <span
+							                    onClick={async () => {
+								                    if (!getFormState().values.recipient) {
+									                    NotificationManager.error('Recipient is required.', 'Error', 5000);
+									                    return;
+								                    }
+								                    if (!getFormState().values.amountAPL) {
+									                    NotificationManager.error('Amount is required.', 'Error', 5000);
+									                    return;
+								                    }
+								                    const requestParams = {
+									                    requestType: 'sendMoney',
+									                    deadline: '1440',
+									                    amountATM: parseInt(getFormState().values.amountAPL) * 100000000,
+									                    recipient: getFormState().values.recipient,
+									                    publicKey: this.props.publicKey,
+									                    feeATM: 0
+								                    };
+								                    const fee = await this.props.calculateFeeAction(requestParams);
+								                    if (!fee.errorCode) {
+									                    setValue("feeAPL", fee.transactionJSON.feeATM / 100000000);
+								                    } else {
+									                    NotificationManager.error(fee.errorDescription, 'Error', 5000);
+								                    }
+							                    }
+							                    }
+							                    style={{paddingRight: 0}}
+							                    className="calculate-fee"
+						                    >
+                                                Calculate
+                                            </span>
+					                    </label>
+					                    <div
+						                    className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+						                    <InputForm
+							                    defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+							                    field="feeAPL"
+							                    placeholder="Amount"
+							                    type={"float"}
+							                    setValue={setValue}/>
+						                    <div className="input-group-append">
+							                    <span className="input-group-text">Apollo</span>
+						                    </div>
+					                    </div>
+				                    </div>
+
+				                    <ModalFooter
+					                    setValue={setValue}
+					                    getFormState={getFormState}
+					                    values={values}
+				                    />
+
+				                    {this.state.advancedState &&
+				                    <div className="form-group row form-group-white mb-15">
+					                    <label className="col-sm-3 col-form-label">
+						                    Deadline (hours)
+					                    </label>
+					                    <div className="col-sm-9">
+						                    <InputForm
+							                    field="deadline"
+							                    placeholder="Deadline"
+							                    type={"number"}
+							                    setValue={setValue}/>
+					                    </div>
+				                    </div>
+				                    }
+
+				                    {/*<AdvancedSettings
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                        values={values}
+                                        advancedState={this.state.advancedState}
+                                    />*/}
+
+				                    <div className="btn-box align-buttons-inside absolute right-conner align-right">
+					                    <a
+						                    onClick={() => {
+							                    this.props.closeModal()
+						                    }}
+						                    className="btn round round-top-left"
+					                    >
+						                    Cancel
+					                    </a>
+
+					                    {
+						                    !!this.state.isPending ?
+							                    <div
+								                    style={{
+									                    width: 56.25
+								                    }}
+								                    className="btn btn-right blue round round-bottom-right"
+							                    >
+								                    <div className="ball-pulse">
+									                    <div></div>
+									                    <div></div>
+									                    <div></div>
+								                    </div>
+							                    </div> :
+							                    <button
+
+								                    type="submit"
+								                    name={'closeModal'}
+								                    className="btn btn-right blue round round-bottom-right"
+							                    >
+								                    Submit
+							                    </button>
+					                    }
+
+
+				                    </div>
+				                    {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                        <a
+                                            onClick={this.handleAdvancedState}
+                                            className="btn btn-right round round-bottom-left round-top-right absolute"
+                                            style={{left : 0, right: 'auto'}}
                                         >
-                                            Calculate
-                                        </span>
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                        <InputForm
-                                            defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
-                                            field="feeAPL"
-                                            placeholder="Amount"
-                                            type={"float"}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <ModalFooter
-                                    setValue={setValue}
-                                    getFormState={getFormState}
-                                    values={values}
-                                />
-
-                                {this.state.advancedState &&
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Deadline (hours)
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <InputForm
-                                            field="deadline"
-                                            placeholder="Deadline"
-                                            type={"number"}
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                }
-
-                                {/*<AdvancedSettings
-                                    setValue={setValue}
-                                    getFormState={getFormState}
-                                    values={values}
-                                    advancedState={this.state.advancedState}
-                                />*/}
-
-                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <a
-                                        onClick={() => {
-                                            this.props.closeModal()
-                                        }}
-                                        className="btn round round-top-left"
-                                    >
-                                        Cancel
-                                    </a>
-
-                                    {
-                                        !!this.state.isPending ?
-                                            <div
-                                                style={{
-                                                    width: 56.25
-                                                }}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div> :
-                                            <button
-
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Submit
-                                            </button>
-                                    }
-
-
-
-                                </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
-                                    <a
-                                        onClick={this.handleAdvancedState}
-                                        className="btn btn-right round round-bottom-left round-top-right absolute"
-                                        style={{left : 0, right: 'auto'}}
-                                    >
-                                        {this.state.advancedState ? "Basic" : "Advanced"}
-                                    </a>
-                                </div>*/}
-                            </div>
-                        </form>
-                    )}
+                                            {this.state.advancedState ? "Basic" : "Advanced"}
+                                        </a>
+                                    </div>*/}
+			                    </div>
+		                    </form>
+	                    );
+                    }}
                 >
 
-                </Form>
+                </BackForm>
             </div>
         );
     }
@@ -337,7 +351,8 @@ class SendApollo extends React.Component {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     account: state.account.account,
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+	modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -348,7 +363,9 @@ const mapDispatchToProps = dispatch => ({
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),
-    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
+    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: (Params) => dispatch(openPrevModal(Params))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApollo);

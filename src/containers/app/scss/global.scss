@@ -588,6 +588,43 @@ input {
 	margin: 0 !important;
 }
 
+.phased-transaction {
+  position: absolute;
+
+  &.active {
+    .phasing-box__phasing-description {
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  .phasing-box__phasing-description {
+    border: 1px solid #666;
+    width: 300px;
+    background-color: #fff;
+    box-sizing: border-box;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.5);
+
+    &:after {
+      content: '';
+      display: block;
+      height: 15px;
+      width:  15px;
+      border-top: 1px solid #666;
+      border-right: 1px solid #666;
+      transform: rotate(45deg);
+      position: absolute;
+      top: 10px;
+      right: -7px;
+      z-index: 2;
+      background: #fff;
+    }
+  }
+}
+
 .no-padding {
 	padding: 0 !important;
 }
@@ -860,7 +897,22 @@ input {
 	.form-title {
 		//padding-top: 30px;
 		padding-bottom: 23px;
-		
+		.backMy {
+			width: 16px;
+			height: 16px;
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: left;
+			background-image: url(../../assets/left-arrow1.svg);
+			margin-right: 8px;
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: middle;
+			transition: 0.2s;
+			&:hover {
+				opacity: 0.7;
+			}
+		}
 		&.inline {
 			& > * {
 				vertical-align: middle;
@@ -890,6 +942,8 @@ input {
 			line-height: 1.6;
 			//margin-top: -10px;
 			padding-right: 30px;
+			display: inline-block;
+			vertical-align: middle;
 		}
 		.form-sub-title {
 			margin-top: 10px;
@@ -1376,7 +1430,15 @@ input {
 	.input-icon {
 		width: 32px;
 		display: table-cell;
-		
+
+		&.text {
+			width: auto;
+			font-size: 12px;
+
+			&.btn {
+				background: #00C8FF;
+			}
+		}
 		i {
 			margin: auto;
 		}
@@ -2371,7 +2433,7 @@ table {
 	tr > td {
 		white-space: nowrap;
 		max-width: 300px;
-		overflow: hidden;
+		//overflow: hidden;
 		text-overflow: ellipsis;
 		min-width: 70px;
 	}
