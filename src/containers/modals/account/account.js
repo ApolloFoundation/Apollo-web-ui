@@ -17,6 +17,7 @@ import {formatTimestamp}      from '../../../helpers/util/time';
 import {Link}                 from "react-router-dom";
 
 import Transaction from '../../account/transactions/transaction';
+import ModalTransaction from '../../account/modalTransactions/transaction';
 import Entry from '../../account/ledger/entry';
 import Asset from '../../account/my-assets/my-asset-item/';
 import {getBlockAction} from "../../../actions/blocks";
@@ -92,7 +93,6 @@ class InfoAccount extends React.Component {
 
                     const accountAssets = this.state.assets.accountAssets;
                     const assetsInfo    = this.state.assets.assets;
-
                     const resultAsset = accountAssets.map((el, index) => {
                         return {...(assetsInfo[index]), ...el}
                     });
@@ -103,7 +103,9 @@ class InfoAccount extends React.Component {
                 }
             });
         }
-    }
+
+        console.log("777", this.state.transactions);
+    };
 
     getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
@@ -184,6 +186,11 @@ class InfoAccount extends React.Component {
                                         }
                                     </React.Fragment>
                                 }
+	                            {
+		                            this.state.account &&
+		                            <div className={"account-balance-text"}>Account has a balance
+			                            of <strong>{this.state.account.unconfirmedBalanceATM} Apollo</strong></div>
+	                            }
 
                             </div>
 
@@ -251,22 +258,26 @@ class InfoAccount extends React.Component {
                                                 <table>
                                                     <thead key={uuid()}>
                                                     <tr>
-                                                        <td>Index</td>
-                                                        <td>Date</td>
-                                                        <td>Type</td>
+	                                                    <td>Date</td>
+	                                                    <td>Type</td>
+                                                        {/*<td>Index</td>*/}
                                                         <td className="align-right">Amount</td>
                                                         <td className="align-right">Fee</td>
                                                         <td>From</td>
                                                         <td>To</td>
+                                                        <td>Height</td>
+                                                        <td>Confirmations</td>
+
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+
                                                     {
                                                         this.state.transactions &&
                                                         this.state.transactions.transactions.map((el, index) => {
 
                                                             return (
-                                                                <Transaction
+                                                                <ModalTransaction
                                                                     key={uuid()}
                                                                     block
                                                                     transaction = {el}
@@ -472,10 +483,10 @@ class InfoAccount extends React.Component {
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
                                                     <table>
                                                         <thead>
-                                                        <tr>
+                                                        <tr className={"marketplace-tab-item"}>
                                                             <td>Item</td>
-                                                            <td>Price</td>
-                                                            <td className="align-right">QTY</td>
+                                                            <td className={"text-align-right"}>Price</td>
+                                                            <td className="align-right text-align-right">QTY</td>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -483,7 +494,7 @@ class InfoAccount extends React.Component {
                                                             this.state.goods &&
                                                             this.state.goods.goods.map((el, index) => {
                                                                 return (
-                                                                    <tr key={uuid()}>
+                                                                    <tr key={uuid()} className={"marketplace-tab-item"}>
                                                                         <td
                                                                             className={'blue-link-text'}
                                                                         >
@@ -491,8 +502,8 @@ class InfoAccount extends React.Component {
                                                                                 {el.name}
                                                                             </a>
                                                                         </td>
-                                                                        <td>{el.priceATM / 100000000}</td>
-                                                                        <td className="align-right">{el.quantity}</td>
+                                                                        <td className={"text-align-right"}>{el.priceATM / 100000000}</td>
+                                                                        <td className="align-right text-align-right">{el.quantity}</td>
                                                                     </tr>
                                                                 );
                                                             })
@@ -568,6 +579,18 @@ class InfoAccount extends React.Component {
                                         >
                                             Send Apollo
                                         </a>
+	                                    <a
+		                                    onClick={() => this.props.setBodyModalParamsAction('SEND_CURRENCY', this.state.account.accountRS)}
+		                                    className={classNames({
+			                                    "btn": true,
+			                                    "btn-primary": true,
+			                                    "blue": true,
+			                                    "static" : true,
+			                                    "disabled": !this.state.account
+		                                    })}
+	                                    >
+		                                    Send currency
+	                                    </a>
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient: this.state.account.accountRS})}
                                             className={classNames({
@@ -592,6 +615,7 @@ class InfoAccount extends React.Component {
                                         >
                                             Add as contact
                                         </a>
+
                                     </div>
                                 </div>
 

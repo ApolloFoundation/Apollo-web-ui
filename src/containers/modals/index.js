@@ -33,6 +33,7 @@ import DeviceSettings from './account/device-settings';
 import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
 import SaveAccount from './account/save-account';
+import SendCurrency from './account/send-currency';
 import EnterAdminPassword from './admin-password';
 import EnterSecretPhrase from './account/get-seecret-phrase';
 import SetAccountProperty from './account/set-account-property';
@@ -239,6 +240,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'CREATE_USER'                 && <CreateUser                closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SEND_CURRENCY'               && <SendCurrency               closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ADMIN_PASSWORD'              && <EnterAdminPassword        closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ENTER_SECRET_PHRASE'         && <EnterSecretPhrase         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.closeModal}/>}

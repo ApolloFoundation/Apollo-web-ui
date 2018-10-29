@@ -240,7 +240,8 @@
           margin-bottom: 0; } }
       .modal-window .modal-box .modal-form table {
         min-width: 100%;
-        padding: 0; }
+        padding: 0;
+        border-collapse: collapse; }
       .modal-window .modal-box .modal-form .form-group-app {
         padding-bottom: 69px;
         position: relative; }

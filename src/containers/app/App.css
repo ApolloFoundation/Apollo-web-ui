@@ -4887,7 +4887,8 @@ table td .btn, table th .btn {
           margin-bottom: 0; } }
       .modal-window .modal-box .modal-form table {
         min-width: 100%;
-        padding: 0; }
+        padding: 0;
+        border-collapse: collapse; }
       .modal-window .modal-box .modal-form .form-group-app {
         padding-bottom: 69px;
         position: relative; }
@@ -5334,3 +5335,20 @@ input[type="number"] {
 
 .site-content .page-body {
   z-index: -1; }
+
+.marketplace-tab-item td:nth-of-type(1) {
+  width: 52%; }
+
+.text-align-right {
+  text-align: right; }
+
+.text-align-left {
+  text-align: left; }
+
+.account-balance-text {
+  display: block !important;
+  color: #bbbbbb;
+  font-size: 12px;
+  line-height: 14px; }
+  .account-balance-text strong {
+    font-family: "Roboto-Bold"; }
