@@ -22,6 +22,10 @@ class PhasedTransactionsHints extends React.Component {
                 return el.phased
             });
 
+            this.setState({
+                lastTransaction: this.props.transactions[0].transaction
+            })
+
             if (phased.length) {
                 const phasingTransactionInfo = phased.map((el, index) => {
                     return this.getPhasingTransactionInfo(el.transaction);
@@ -34,7 +38,6 @@ class PhasedTransactionsHints extends React.Component {
                             phasingTransactionInfo: data.map( el => {
                                 return el.polls[0]
                             }),
-                            lastTransaction: this.props.transactions[0].transaction
                         })
                     });
             }
