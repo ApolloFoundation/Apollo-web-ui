@@ -15,6 +15,7 @@ import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer'
+import {getCurrencyAction} from "../../../actions/currencies";
 
 class TransferCurrency extends React.Component {
     constructor(props) {
@@ -31,6 +32,10 @@ class TransferCurrency extends React.Component {
             feeStatus: false
         }
 
+    }
+
+    componentDidMount = () => {
+        this.getCurrency({code: this.props.modalData.code})
     }
 
     handleFormSubmit = async(values) => {
@@ -69,7 +74,19 @@ class TransferCurrency extends React.Component {
         }
     };
 
+    getCurrency = async (reqParams) => {
+        const result = await this.props.getCurrencyAction(reqParams);
+
+        if (result) {
+            this.setState({ currency: result.currency });
+        } else {
+            this.setState({ currency: '-' });
+        }
+    };
+
     render() {
+        const code = this.props.modalData.currency;
+
         return (
             <div className="modal-box">
                 <Form
@@ -85,19 +102,20 @@ class TransferCurrency extends React.Component {
                                     <div className="form-title">
                                         <p>Transfer Currency</p>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
+                                    <div className="form-group row form-group-grey mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Currency
                                         </label>
-                                        <div className="col-sm-9">
-                                            <Text
-                                                type="hidden"
-                                                className="form-control"
-                                                field="currency"
-                                                placeholder="Account"
-                                                defaultValue={this.props.modalData.currency}
-                                                aria-describedby="amountText"/>
-                                            <p>{this.props.modalData.code}</p>
+                                        <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                            <InputForm
+                                                field="phasingHoldingCurrencyCode"
+                                                placeholder="Code"
+                                                defaultValue={this.props.modalData.code}
+                                                onChange={(code) => this.getCurrency({code})}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">ID: {this.state.currency}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="input-group-app form-group mb-15 display-block inline user">
@@ -220,6 +238,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
+    getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 });

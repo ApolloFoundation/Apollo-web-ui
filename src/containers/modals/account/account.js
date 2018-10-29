@@ -578,7 +578,7 @@ class InfoAccount extends React.Component {
                                             Send Apollo
                                         </a>
 	                                    <a
-		                                    onClick={() => this.props.setBodyModalParamsAction('SEND_CURRENCY', this.state.account.accountRS)}
+		                                    onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', this.state.account.accountRS)}
 		                                    className={classNames({
 			                                    "btn": true,
 			                                    "btn-primary": true,
