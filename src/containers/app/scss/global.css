@@ -1661,6 +1661,7 @@ input {
 table tr > td {
   white-space: nowrap;
   max-width: 300px;
+  overflow: hidden;
   text-overflow: ellipsis;
   min-width: 70px; }
 
