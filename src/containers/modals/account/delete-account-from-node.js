@@ -17,10 +17,11 @@ import crypto from '../../../helpers/crypto/crypto';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
+import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
+import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
-import {exportAccountAction} from '../../../actions/account'
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {removeAccountAction} from '../../../actions/account'
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -36,24 +37,21 @@ const mapDispatchToProps = dispatch => ({
     getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
 });
 
-class ExportAccount extends React.Component {
+class DeleteAccountFromWebNode extends React.Component {
     constructor(props) {
         super(props);
     };
 
     handleFormSubmit = async (values) => {
-        const accountKeySeedData = await exportAccountAction(values);
+        const accountKeySeedData = await removeAccountAction(values);
 
-        if (accountKeySeedData) {
+        if (!accountKeySeedData.errorCode) {
 
-            if (!accountKeySeedData.errorCode) {
-                this.setState({
-                    accountKeySeedData
-                })
+            NotificationManager.success('Your account was successfully removed from this web mode.', null, 5000);
+            this.props.closeModal();
 
-            } else {
-                NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
-            }
+        } else {
+            NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
         }
     };
 
@@ -76,15 +74,15 @@ class ExportAccount extends React.Component {
                                     className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
-                                    <p>Export Account</p>
+                                    <p>Delete account from this web node</p>
                                 </div>
-                                <InfoBox info>
-                                    Please enter your account credentials.
+                                <InfoBox info danger nowrap>
+                                    <strong>Attention!!!</strong><br/>
+                                    Make a backup of your secret key. You will loose access to your account and funds if you will not backup it.
                                 </InfoBox>
 
-
                                 <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label align-self-start">
+                                    <label className="col-sm-3 col-form-label">
                                         Account ID
                                     </label>
                                     <div className="col-sm-9">
@@ -102,52 +100,13 @@ class ExportAccount extends React.Component {
                                     values={values}
                                 />
 
-                                {
-
-                                    this.state && this.state.accountKeySeedData &&
-                                    <React.Fragment>
-                                        <CopyToClipboard
-                                            text={this.state.accountKeySeedData.secretBytes}
-                                            onCopy={() => {
-                                                NotificationManager.success('The Secret key has been copied to clipboard.')
-                                            }}
-                                        >
-                                            <InfoBox info>
-                                                {this.state.accountKeySeedData.secretBytes}
-                                            </InfoBox>
-                                        </CopyToClipboard>
-                                        <InfoBox info nowrap>
-                                            Also you can delete account from this web node to make sure that nobody will access to your wallet. If you will delete your account you will not be able to access it unless import it again. <br/>
-                                            Do you want to delete it?
-                                            <br/>
-                                            <a
-                                                style={{marginTop: 18, marginRight: 18}}
-                                                onClick={() => this.props.setBodyModalParamsAction('DELETE_ACCOUNT_FROM_NODE', null)}
-                                                className={'btn danger static'}
-                                            >
-                                                Yes
-                                            </a>
-                                            <a
-                                                style={{marginTop: 18}}
-                                                onClick={() => this.props.closeModal()}
-                                                className={'btn success static'}
-                                            >
-                                                No
-                                            </a>
-
-                                        </InfoBox>
-                                    </React.Fragment>
-
-
-                                }
-
                                 <div className="btn-box align-buttons-inside absolute right-conner">
                                     <button
                                         type="submit"
                                         name={'closeModal'}
                                         className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                     >
-                                        Export
+                                        Delete
                                     </button>
                                 </div>
                             </div>
@@ -159,4 +118,4 @@ class ExportAccount extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExportAccount);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteAccountFromWebNode);

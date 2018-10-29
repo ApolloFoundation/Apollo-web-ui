@@ -45,7 +45,6 @@ class SendApollo extends React.Component {
             NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
             return;
         }
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
 
         if (values.doNotSign) {
             values.publicKey = await crypto.getPublicKeyAPL(this.props.account, true);

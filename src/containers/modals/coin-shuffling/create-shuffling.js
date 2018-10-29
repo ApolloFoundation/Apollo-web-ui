@@ -47,11 +47,6 @@ class CreateShuffling extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
 
         values = {
             ...values,
@@ -73,7 +68,8 @@ class CreateShuffling extends React.Component {
             NotificationManager.success('Shuffling Created!', null, 5000);
             const broadcast = await this.props.submitForm( {
                 transactionBytes: res.transactionBytes || res.unsignedTransactionBytes,
-                prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), "version.ShufflingCreation": 1})
+                prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), "version.ShufflingCreation": 1}),
+                createNoneTransactionMethod: true
             }, 'broadcastTransaction');
             if (broadcast.errorCode) {
                 NotificationManager.error(broadcast.errorDescription, 'Error', 5000)

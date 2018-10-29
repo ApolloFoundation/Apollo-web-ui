@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {SET_MODAL_DATA, setMopalType} from '../../modules/modals';
+import {SET_MODAL_DATA, setModalType} from '../../modules/modals';
 import classNames from 'classnames';
 
 // Modals
@@ -97,6 +97,8 @@ import store from '../../store';
 
 //2fa
 import Confirm2FA from './2fa'
+import DeleteAccountFromWebNode from './account/delete-account-from-node';
+import Confirm2FAforging from './2fa/confirm-forging-with-2fa';
 
 //Login
 import ImportAccount from '../modals/account/import-account'
@@ -129,7 +131,7 @@ class ModalWindow extends React.Component {
                 });
                 modalWindow.classList.remove('active');
                 setTimeout(() => {
-                    this.props.setMopalType(null);
+                    this.props.setModalType(null);
 
                 }, 300);
             }
@@ -141,10 +143,11 @@ class ModalWindow extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.refs.modalWindow.childNodes.length) {
+        const modalBox = document.querySelector('.modal-box');
+        if (this.refs.modalWindow.childNodes.length && modalBox) {
             setTimeout(() => {
-                document.querySelector('.modal-box').classList.add('active')
-            }, 10)
+                modalBox.classList.add('active')
+            }, 100)
         }
     }
 
@@ -155,7 +158,7 @@ class ModalWindow extends React.Component {
         Object.values(modalWindow).map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active');
-            }, 10);
+            }, 100);
 
 
         });
@@ -163,16 +166,13 @@ class ModalWindow extends React.Component {
         Object.values(modalBox).map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active');
-            }, 10);
+            }, 100);
 
 
         });
-        // document.querySelector('.modal-window').classList.remove('active');
-
-
 
         setTimeout(() => {
-            this.props.setMopalType(null);
+            this.props.setModalType(null);
             store.dispatch({
                 type: 'SET_MODAL_DATA',
                 payload: null
@@ -226,7 +226,7 @@ class ModalWindow extends React.Component {
 
 
                 {/*Account*/}
-                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setMopalType} closeModal={this.closeModal}/>}
+                {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setModalType} closeModal={this.closeModal}/>}
                 {this.props.modalType === 'MANDATORY_APPROVAL'          && <MandatoryApproval         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            closeModal={this.closeModal}/>}
                 {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              closeModal={this.closeModal}/>}
@@ -244,8 +244,10 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.closeModal}/>}
                 {this.props.modalType === 'DELETE_ACCOUNT_PROPERTY'     && <DeleteAccountProperty     closeModal={this.closeModal}/>}
                 {this.props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={this.closeModal}/>}
+                {this.props.modalType === 'CONFIRM_2FA_FORGING'         && <Confirm2FAforging         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'IMPORT_ACCOUNT'              && <ImportAccount             closeModal={this.closeModal}/>}
                 {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal}/>}
+                {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal}/>}
 
                 {/* Shuffling */}
                 {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.closeModal}/>}
@@ -300,7 +302,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setMopalType : (modalType) => dispatch(setMopalType(modalType))
+    setModalType : (modalType) => dispatch(setModalType(modalType))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalWindow)

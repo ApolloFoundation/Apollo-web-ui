@@ -7,7 +7,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
 import InfoBox from '../../components/info-box';
 import {Form, Text, TextArea} from 'react-form';
@@ -34,7 +33,6 @@ class UploadFile extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        // const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
         this.setState({
             isPending: true
         })

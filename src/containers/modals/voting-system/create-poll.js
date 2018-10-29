@@ -79,11 +79,6 @@ class CreatePoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
 
         this.setState({
             isPending: true

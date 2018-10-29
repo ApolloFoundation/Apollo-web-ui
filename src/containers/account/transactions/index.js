@@ -12,6 +12,10 @@ import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import {getTransactionsAction, getTransactionAction, getPrivateTransactionAction} from "../../../actions/transactions";
 import {setModalCallback, setBodyModalParamsAction, setMopalType} from "../../../modules/modals";
+import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
+import curve25519 from "../../../helpers/crypto/curve25519";
+import converters from "../../../helpers/converters";
+import crypto from "../../../helpers/crypto/crypto";
 import InfoBox from "../../components/info-box";
 import {BlockUpdater} from "../../block-subscriber/index";
 import ContentLoader from '../../components/content-loader'
@@ -141,7 +145,7 @@ class Transactions extends React.Component {
                         this.setState({
                             isPrivate: true
                         }, () => {
-                            NotificationManager.success('You are watching private transactions.', 'Error', 900000);
+                            NotificationManager.success('You are watching private transactions.', null, 900000);
                         })
                     }
                 } else {
@@ -160,7 +164,6 @@ class Transactions extends React.Component {
             this.getUnconfirmedTransactionsTransactions(params, all)
         }
         if (this.state.isPhassing) {
-            console.log(params);
             params.requestType = this.state.requestType;
 
             const transactions = await this.props.getTransactionsAction(params);
@@ -304,7 +307,7 @@ class Transactions extends React.Component {
                             'disabled' : this.state.isPrivate
                         })}
                         onClick={() => {
-                            this.props.setMopalType('PrivateTransactions')
+                            this.props.setModalType('PrivateTransactions')
 
                         }}
                     >
@@ -569,7 +572,7 @@ const mapStateToProps = state => ({
 });
 
 const initMapDispatchToProps = dispatch => ({
-    setMopalType: (prevent) => dispatch(setMopalType(prevent)),
+    setModalType: (prevent) => dispatch(setModalType(prevent)),
     getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),

@@ -12,12 +12,8 @@ import { Form, Text } from 'react-form';
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import CustomSelect from '../../../components/select';
-import AccountRS from '../../../components/account-rs';
-import AdvancedSettings from '../../../components/advanced-transaction-settings';
 import InputForm from '../../../components/input-form';
 import {calculateFeeAction} from "../../../../actions/forms";
-import ModalFooter from '../../../components/modal-footer'
 
 
 const aliasTypeData = [
@@ -68,9 +64,7 @@ class CancelSell extends React.Component {
         const res = await this.props.submitForm( values, 'sellAlias')
 
         if (res) {
-            console.log(res);
             if (!res.errorCode && res.transactionJSON) {
-                console.log(res.transactionJSON);
 
                 const broadcast = await this.props.submitForm( {
                     transactionBytes: res.transactionBytes,

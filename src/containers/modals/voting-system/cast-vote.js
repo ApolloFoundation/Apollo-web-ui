@@ -65,11 +65,6 @@ class CastPoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
         let votes = {};
 
         if (this.state.poll.maxRangeValue > 1) {
@@ -97,8 +92,8 @@ class CastPoll extends React.Component {
         const res = await this.props.submitForm( values, 'castVote');
         if (res.errorCode) {
             this.setState({
-                isPending: true
-            })
+                isPending: false
+            });
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});

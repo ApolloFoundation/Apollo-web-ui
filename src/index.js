@@ -23,19 +23,9 @@ import BlockSubscriber from "./containers/block-subscriber";
 
 const target = document.querySelector('#root');
 //
-// console.warn  = function(message){};
-// console.error = function(message){};
-// console.log = function(message){};
-
-
-// axios.interceptors.response.use(function (response) {
-//     console.log("------------  Ajax pending");
-//
-//
-//     return response;
-// }, function (error) {
-//     return Promise.reject(error);
-// });
+console.warn  = function(message){};
+console.error = function(message){};
+console.log = function(message){};
 
 render(
     <Provider store={store}>

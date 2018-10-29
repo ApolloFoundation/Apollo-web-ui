@@ -15,7 +15,6 @@ import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import CustomSelect from '../../components/select'
-import ModalFooter from '../../components/modal-footer'
 
 class HashCalculation extends React.Component {
     constructor(props) {
@@ -136,11 +135,13 @@ class HashCalculation extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app offset-top display-block">
+                                <div className="input-group-app offset-top display-block position-relative">
                                     <div className="row">
-                                        <div className="col-md-3"/>
+	                                    <div className="col-md-3 pr-0">
+		                                    <label>Hash algorithm</label>
+	                                    </div>
                                         <div className="col-md-9">
-                                            <div className="input-group-app align-middle display-block offset-bottom" style={{width: "100%"}}>
+                                            <div className="input-group-app align-middle display-block" style={{width: "100%"}}>
                                                 <CustomSelect
                                                     field={'alg'}
                                                     setValue={setValue}

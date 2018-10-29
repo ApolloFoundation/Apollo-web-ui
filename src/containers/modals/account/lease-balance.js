@@ -40,8 +40,6 @@ class LeaseBalance extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         if (!values.recipient) {
             this.setState({
                 ...this.props,
@@ -65,10 +63,6 @@ class LeaseBalance extends React.Component {
                 ...this.props,
                 feeStatus: false
             })
-        }
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect secret phrase.', 'Error', 5000);
-            return;
         }
 
         this.setState({

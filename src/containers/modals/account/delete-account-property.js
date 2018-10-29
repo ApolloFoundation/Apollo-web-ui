@@ -34,13 +34,6 @@ class DeleteAccountProperty extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
-
         const res = await this.props.submitForm( values, 'deleteAccountProperty');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)

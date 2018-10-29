@@ -19,7 +19,7 @@ import InfoBox from '../../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
-import ModalFooter from '../../../components/modal-footer'
+import ModalFooter from '../../../components/modal-footer';
 
 
 
@@ -149,16 +149,11 @@ class MarketplaceDelete extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Passphrase</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text type="password" field='secretPhrase' placeholder="Passphrase" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <ModalFooter
+                                                        setValue={setValue}
+                                                        getFormState={getFormState}
+                                                        values={values}
+                                                    />
                                                     {/*<AdvancedSettings
                                                         setValue={setValue}
                                                         getFormState={getFormState}

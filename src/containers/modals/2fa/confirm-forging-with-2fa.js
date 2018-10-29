@@ -8,15 +8,16 @@ import React from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
 import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
+import submitForm from '../../../helpers/forms/forms'
 import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
-
-import curve25519 from '../../../helpers/crypto/curve25519'
+import store from '../../../store'
 import crypto from  '../../../helpers/crypto/crypto';
+import {NotificationManager} from "react-notifications";
+import {getForging} from "../../../actions/login";
 
-import InfoBox from '../../components/info-box';
 
 
-class EnterAdminPassword extends React.Component {
+class Confirm2FAforging extends React.Component {
     constructor(props) {
         super(props);
 
@@ -32,27 +33,41 @@ class EnterAdminPassword extends React.Component {
     }
 
     async handleFormSubmit(params) {
-        let passphrase = params.passphrase;
 
-        const privateKey = crypto.getPrivateKeyAPL(passphrase);
-        const publicKey  = this.props.publicKey;
 
-        var sharedKey;
+        const {account, passphrase}  = this.props
+        const action = this.props.action.getStatus;
 
-        sharedKey = crypto.getSharedSecretJava(
-            converters.hexStringToByteArray(crypto.getPrivateKeyAPL(passphrase)),
-            converters.hexStringToByteArray(this.props.publicKey)
-        );
+        console.log(this.props.action.getStatus);
 
-        sharedKey = new Uint8Array(sharedKey);
-
-        const data = {
-            publicKey: publicKey,
-            privateKey: privateKey
+        const requestParams = {
+            requestType: action,
+            passphrase: passphrase,
+            account: account,
+            ...params
         };
+        //
+        // console.log(requestParams);
+        //
+        const forging = await store.dispatch(await submitForm.submitForm(requestParams, action));
 
-        this.props.setModalData(data);
-        this.props.setBodyModalParamsAction(null, null);
+        if (forging) {
+            if (!forging.errorCode) {
+                const forgingStatus = await this.props.getForging();
+
+                if (action === 'startForging') {
+
+                    NotificationManager.success('Forging has been started.', null, 5000);
+                } else {
+                    NotificationManager.success('Forging has been stopped.', null, 5000);
+                }
+
+                this.props.action.confirmStatus(forgingStatus);
+                this.props.closeModal();
+            } else {
+                NotificationManager.error(forging.errorDescription, 'Error', 5000);
+            }
+        }
     }
 
     render() {
@@ -68,25 +83,27 @@ class EnterAdminPassword extends React.Component {
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
-                                    <p>Enter admin password</p>
+                                    {
+                                        this.props.action &&
+                                        this.props.action.getStatus === 'startForging' ?
+                                            <p>Confirm start forging</p>
+                                            :
+                                            <p>Confirm stop forging</p>
+
+                                    }
+
                                 </div>
                                 <div className="input-group-app">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Admin password</label>
+                                            <label>2FA code</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text field="adminPassword" placeholder='Admin password' type={'password'}/>
+                                            <Text field="code2FA" placeholder='2FA Code' type={'password'}/>
                                         </div>
                                     </div>
                                 </div>
 
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorect admin password.
-                                    </InfoBox>
-                                }
 
                                 <button type="submit" className="btn btn-right">Enter</button>
                             </div>
@@ -98,14 +115,18 @@ class EnterAdminPassword extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    publicKey: state.account.publicKey
+    action: state.modals.modalData,
+    passphrase: state.account.passPhrase,
+    account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     setModalType: (passphrase) => dispatch(setModalType(passphrase)),
     setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
+    getForging: (reqParams) => dispatch(getForging(reqParams)),
+
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EnterAdminPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(Confirm2FAforging);

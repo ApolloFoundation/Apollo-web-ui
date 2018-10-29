@@ -20,7 +20,7 @@ import Transaction from '../../account/transactions/transaction';
 import Entry from '../../account/ledger/entry';
 import Asset from '../../account/my-assets/my-asset-item/';
 import {getBlockAction} from "../../../actions/blocks";
-import ModalFooter from '../../components/modal-footer'
+import ContentLoader from '../../components/content-loader'
 
 class InfoAccount extends React.Component {
     constructor(props) {
@@ -53,64 +53,67 @@ class InfoAccount extends React.Component {
     }
 
     componentDidMount() {
-        this.getAcccount({
-            account:    this.props.modalData,
-            firstIndex: 0,
-            lastIndex:  99
-        })
+        if (this.props.modalData) {
+            this.getAcccount({
+                account:    this.props.modalData,
+                firstIndex: 0,
+                lastIndex:  99
+            })
+        }
     }
 
     componentWillReceiveProps(newState) {
-        this.getAcccount({
-            account:    newState.modalData,
-            firstIndex: 0,
-            lastIndex:  99
-        })
+        if (newState.modalData) {
+            this.getAcccount({
+                account:    newState.modalData,
+                firstIndex: 0,
+                lastIndex:  99
+            })
+        }
     }
 
     // requets
-    async getAcccount (requestParams){
-        if (this.props.modalData) {
-            const accountData = this.props.getAccountAction(requestParams);
+    getAcccount = async (requestParams) => {
+        const accountData = this.props.getAccountAction(requestParams);
 
-            if (accountData) {
-                this.setState({
-                    ...this.props,
-                    transactions:   await accountData['TRANSACTIONS'],
-                    account_ledger: await accountData['ACCOUNT_LEDGER'],
-                    assets:         await accountData['ASSETS'],
-                    trades:         await accountData['TRADES'],
-                    currencies:     await accountData['CURRENCIES'],
-                    goods:          await accountData['GOODS'],
-                    aliases:        await accountData['ALIASES'],
-                    account:        await accountData['ACCOUNT'],
-                }, () => {
-                    if (this.state.assets) {
-                        const accountAssets = this.state.assets.accountAssets;
-                        const assetsInfo    = this.state.assets.assets;
+        if (accountData) {
+            this.setState({
+                ...this.props,
+                transactions:   await accountData['TRANSACTIONS'],
+                account_ledger: await accountData['ACCOUNT_LEDGER'],
+                assets:         await accountData['ASSETS'],
+                trades:         await accountData['TRADES'],
+                currencies:     await accountData['CURRENCIES'],
+                goods:          await accountData['GOODS'],
+                aliases:        await accountData['ALIASES'],
+                account:        await accountData['ACCOUNT'],
+            }, () => {
+                if (this.state.assets) {
 
-                        const resultAsset = accountAssets.map((el, index) => {
-                            return {...(assetsInfo[index]), ...el}
-                        });
+                    const accountAssets = this.state.assets.accountAssets;
+                    const assetsInfo    = this.state.assets.assets;
 
-                        this.setState({
-                            assets: resultAsset
-                        })
-                    }
-                });
-            }
+                    const resultAsset = accountAssets.map((el, index) => {
+                        return {...(assetsInfo[index]), ...el}
+                    });
+
+                    this.setState({
+                        assets: resultAsset
+                    })
+                }
+            });
         }
     }
 
     getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
 
-        this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+        if (transaction) {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+        }
     };
 
-    setTransactionInfo = (modalType, data, isPrivate) => {
-
-        console.log(data)
+    setTransactionInfo = (modalType, data) => {
         this.getTransaction({
             transaction: data,
         });
@@ -280,18 +283,7 @@ class InfoAccount extends React.Component {
                                                     </tbody>
                                                 </table>
                                             </div> ||
-                                            <div
-                                                style={{
-                                                    paddingLeft: 47.5
-                                                }}
-                                                className={'loader-box'}
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
+                                            <ContentLoader noPaddingOnTheSides/>
                                         }
 
                                     </div>
@@ -564,19 +556,37 @@ class InfoAccount extends React.Component {
                                     <div className="flexible-grid">
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient: this.state.account.accountRS})}
-                                            className="btn btn-primary blue static"
+                                            className={classNames({
+                                                "btn": true,
+                                                "btn-primary": true,
+                                                "blue": true,
+                                                "static" : true,
+                                                "disabled": !this.state.account
+                                            })}
                                         >
                                             Send Apollo
                                         </a>
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient: this.state.account.accountRS})}
-                                            className="btn btn-primary blue static"
+                                            className={classNames({
+                                                "btn": true,
+                                                "btn-primary": true,
+                                                "blue": true,
+                                                "static" : true,
+                                                "disabled": !this.state.account
+                                            })}
                                         >
                                             Send a message
                                         </a>
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.state.account.accountRS)}
-                                            className="btn btn-primary blue static"
+                                            className={classNames({
+                                                "btn": true,
+                                                "btn-primary": true,
+                                                "blue": true,
+                                                "static" : true,
+                                                "disabled": !this.state.account
+                                            })}
                                         >
                                             Add as contact
                                         </a>

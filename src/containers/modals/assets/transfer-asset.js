@@ -7,8 +7,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
 import {Form, Text} from 'react-form';
 
 import AccountRS from '../../components/account-rs';
@@ -34,8 +32,6 @@ class TransferAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-
-        console.log(this.props.modalData);
 
         values = {
             ...values,

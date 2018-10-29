@@ -10,18 +10,19 @@ import {Link, NavLink} from 'react-router-dom';
 import './SiteHeader.css';
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
-import {setMopalType, setBodyModalType, setBodyModalParamsAction} from "../../../modules/modals";
+import {setModalType, setBodyModalType, setBodyModalParamsAction} from "../../../modules/modals";
 import {logOutAction} from "../../../actions/login";
 import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
 import {switchAccountAction} from "../../../actions/account";
 import {setForging} from '../../../actions/login';
-
+import store from '../../../store';
 import {setModalData} from "../../../modules/modals";
 import {getAccountInfoAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {getBlockAction} from "../../../actions/blocks";
 import {getForging} from "../../../actions/login"
+import crypto from '../../../helpers/crypto/crypto';
 
 
 import {
@@ -116,27 +117,48 @@ class SiteHeader extends React.Component {
     }
 
     handleSearchind = async (values) => {
-        const transaction = await this.props.getTransactionAction({transaction: values.value});
-        const block = await this.props.getBlockAction({block: values.value});
-        const account = await this.props.getAccountInfoAction({account: values.value});
+        if (!this.state.isSearching) {
+            this.setState({
+                isSearching: true
+            });
 
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-            return;
+            const transaction = this.props.getTransactionAction({transaction: values.value});
+            const block = this.props.getBlockAction({block: values.value});
+            const account = this.props.getAccountInfoAction({account: values.value});
+            this.props.setBodyModalParamsAction(null);
+
+            Promise.all([transaction, block, account])
+                .then((data) => {
+                    const transaction = data[0];
+                    const block       = data[1];
+                    const account     = data[2];
+
+                    const modals = ['INFO_TRANSACTION', 'INFO_BLOCK', 'INFO_ACCOUNT'];
+
+                    const result = [transaction, block, account].find((el, index) => {
+                        if (el) {
+                            if (index < 2) {
+                                this.props.setBodyModalParamsAction(modals[index], el);
+                                return el
+                            } else {
+                                if (el.account) {
+                                    this.props.setBodyModalParamsAction(modals[index], el.account);
+                                    return el
+                                }
+                            }
+                        }
+                    });
+
+                    if (!result) {
+                        NotificationManager.error('Invalid search properties.', null, 5000);
+                    }
+
+                    this.setState({
+                        isSearching: false
+                    })
+
+                });
         }
-
-        if (block) {
-            this.props.setBodyModalParamsAction('INFO_BLOCK', block);
-            return;
-        }
-
-        if (account) {
-            this.props.setModalData(account.account);
-            this.props.setBodyModalParamsAction('INFO_ACCOUNT', account.account);
-            return;
-        }
-
-        NotificationManager.error('Invalid search properties.', null, 5000);
     };
 
     getBlock = async () => {
@@ -147,14 +169,29 @@ class SiteHeader extends React.Component {
         }
     };
 
+    setForgingWith2FA = (action) => {
+        return {
+            getStatus: action,
+            confirmStatus: (res) => {
+                this.setState({forgingStatus: res});
+            }
+        }
+    }
+
     setForging = async (action) => {
         const forging = await this.props.setForging({requestType: action.requestType});
 
         if (forging) {
-            const forgingStatus = await this.props.getForging();
 
-            if (forgingStatus) {
-                this.setState({forgingStatus: forgingStatus});
+            if (forging.errorCode === 3) {
+                this.props.setBodyModalParamsAction('CONFIRM_2FA_FORGING', this.setForgingWith2FA(action.requestType))
+            } else {
+                const forgingStatus = await this.props.getForging();
+
+
+                if (forgingStatus) {
+                    this.setState({forgingStatus: forgingStatus});
+                }
             }
         }
     };
@@ -454,7 +491,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink exact={true} activeClassName="active"
                                                                      to="approval-request">Approval request</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_ASSET')}>Issue
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_ASSET')}>Issue
                                                                 assets</a>
 
                                                         </div>
@@ -481,7 +518,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/exchange-history-currency">Approval
                                                                 requests</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
                                                                 Currencies</a>
 
                                                         </div>
@@ -506,7 +543,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/my-votes">My votes</NavLink>
                                                             <NavLink to="/my-polls">My polls</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_POLL')}>Create
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}>Create
                                                                 poll</a>
 
                                                         </div>
@@ -524,7 +561,7 @@ class SiteHeader extends React.Component {
                                                         <div className="item-dropdown">
                                                             <NavLink to="/data-storage">Search</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File
                                                                 upload</a>
 
                                                         </div>
@@ -548,7 +585,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/my-pending-orders">My pending orders</NavLink>
                                                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
                                                             <a
-                                                                onClick={this.props.setMopalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
+                                                                onClick={this.props.setModalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
                                                                 product for sale</a>
                                                         </div>
                                                     </AccordionItemBody>
@@ -570,7 +607,7 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/finished-shuffling">Finished shuffling</NavLink>
                                                             <NavLink to="/my-shuffling">My shuffling</NavLink>
 
-                                                            <a onClick={this.props.setMopalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create
                                                                 shuffling</a>
 
                                                         </div>
@@ -643,7 +680,7 @@ class SiteHeader extends React.Component {
 
                                                         <a
                                                             className="user-account-action"
-                                                            onClick={this.props.setMopalType.bind(this, 'SEND_APOLLO')}
+                                                            onClick={this.props.setModalType.bind(this, 'SEND_APOLLO')}
                                                         >
                                                             <i className="zmdi zmdi-balance-wallet"/>
                                                         </a>
@@ -687,24 +724,24 @@ class SiteHeader extends React.Component {
                                                                                 return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
                                                                             }}
                                                                             className="option">Generate token</a></li>
-                                                                        <li><a
-                                                                            onClick={() => {
-                                                                                this.setState({bodyModalType: null});
-                                                                                return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
-                                                                            }}
-                                                                            className="option">Generate hallmark</a></li>
+                                                                        {/*<li><a*/}
+                                                                            {/*onClick={() => {*/}
+                                                                                {/*this.setState({bodyModalType: null});*/}
+                                                                                {/*return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');*/}
+                                                                            {/*}}*/}
+                                                                            {/*className="option">Generate hallmark</a></li>*/}
                                                                         <li><a
                                                                             onClick={() => {
                                                                                 this.setState({bodyModalType: null});
                                                                                 return this.props.setBodyModalParamsAction('CALCULATE_CACHE');
                                                                             }}
                                                                             className="option">Calculate hash</a></li>
-                                                                        {/*<li><a
+                                                                        {<li><a
                                                                         onClick={() => {
                                                                             this.props.setBodyModalType(null);
                                                                             return this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS');
                                                                         }}
-                                                                        className="option">Transaction operations</a></li>*/}
+                                                                        className="option">Transaction operations</a></li>}
                                                                     </ul>
 
                                                                 </div>
@@ -720,13 +757,17 @@ class SiteHeader extends React.Component {
                                                                             >
                                                                                 Device settings
                                                                             </a>
+
+                                                                        </li>
+                                                                        <li>
                                                                             <Link
                                                                                 to="/settings"
                                                                                 className="option"
                                                                             >
                                                                                 Settings
                                                                             </Link>
-
+                                                                        </li>
+                                                                        <li>
                                                                             <a
                                                                                 onClick={() => {
                                                                                     this.setState({bodyModalType: null});
@@ -734,7 +775,7 @@ class SiteHeader extends React.Component {
                                                                                 }}
                                                                                 className="option"
                                                                             >
-                                                                                Export Key Seed
+                                                                                Export Secret Key
                                                                             </a>
                                                                         </li>
                                                                     </ul>
@@ -742,7 +783,7 @@ class SiteHeader extends React.Component {
                                                             </div>
                                                         </div>
                                                         <a
-                                                            onClick={() => this.props.setMopalType('GENERAL_INFO')}
+                                                            onClick={() => this.props.setModalType('GENERAL_INFO')}
                                                             className="user-account-action user-account-action--help"
                                                         >
                                                             <i className="zmdi zmdi-help"/>
@@ -973,6 +1014,7 @@ const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
     forgedBalanceATM: state.account.forgedBalanceATM,
     moalTtype: state.modals.modalType,
+    modalData: state.modals.modalData,
     bodyModalType: state.modals.bodyModalType,
     secretPhrase: state.account.passPhrase,
     settings: state.accountSettings
@@ -980,10 +1022,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setPageEvents: (prevent) => dispatch(setPageEvents(prevent)),
-    setMopalType: (prevent) => dispatch(setMopalType(prevent)),
+    setModalType: (prevent) => dispatch(setModalType(prevent)),
     setBodyModalType: (prevent) => dispatch(setBodyModalType(prevent)),
     getAccountInfoAction: (reqParams) => dispatch(getAccountInfoAction(reqParams)),
     setForging: (reqParams) => dispatch(setForging(reqParams)),
+    validatePassphrse: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     setModalData: (reqParams) => dispatch(setModalData(reqParams)),

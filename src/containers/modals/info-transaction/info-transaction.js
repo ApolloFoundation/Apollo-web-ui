@@ -8,11 +8,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import classNames from 'classnames';
-import converters from "../../../helpers/converters";
-import crypto from "../../../helpers/crypto/crypto";
 import {formatTransactionType} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
-import ModalFooter from '../../components/modal-footer'
 
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {
@@ -158,7 +155,7 @@ class InfoLedgerTransaction extends React.Component {
                                     "active": this.state.activeTab === 2
                                 })}>
                                     <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent">
+                                        <div className="transaction-table-body transparent full-info">
                                             <table>
                                                 <tbody>
                                                 <tr>

@@ -15,7 +15,6 @@ import crypto from  '../../../helpers/crypto/crypto';
 
 import {Form, TextArea} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
-import ModalFooter from '../../components/modal-footer'
 
 class RawTransactionDetails extends React.Component {
     constructor(props) {

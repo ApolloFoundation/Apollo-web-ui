@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {NotificationManager} from 'react-notifications';
 import {generateAccountAction} from '../../../actions/account'
 
 import AdvancedSettings from '../../components/advanced-transaction-settings'
@@ -19,9 +19,11 @@ import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
+import {exportAccountAction} from '../../../actions/account'
 import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -47,12 +49,13 @@ class CreateUser extends React.Component {
             generatedPassphrase: null,
             generatedAccount: null,
             isValidating: false,
+            isCustomPassphrase: true,
             isAccountLoaded: false
         }
     };
 
     componentDidMount() {
-        this.generateAccount();
+        // this.generateAccount();
         this.generatePassphrase();
     };
 
@@ -71,20 +74,23 @@ class CreateUser extends React.Component {
         })
     }
 
-    generateAccount = async () => {
-        const geneatedAccount = await generateAccountAction();
+    generateAccount = async (requestParams) => {
+        const geneatedAccount = await generateAccountAction(requestParams);
 
         if (geneatedAccount) {
+            const keySeed = await exportAccountAction({account: geneatedAccount.accountRS, passphrase: geneatedAccount.passphrase});
+
             this.setState({
                 isAccountLoaded: true,
-                accountData: geneatedAccount
+                accountData: geneatedAccount,
+                keySeed: keySeed,
+                isCustomPassphrase: false,
+
             })
         }
     };
 
-    handleFormSubmit = (values) => {
-
-        console.log(values);
+    handleFormSubmit = async (values) => {
         if (this.state.selectedOption === 0) {
             if (values.secretPhrase === this.state.accountData.passphrase) {
                 this.setState({
@@ -103,13 +109,12 @@ class CreateUser extends React.Component {
                     isPending: true
                 });
                 this.props.getAccountDataAction({
-                    account: this.state.accountData.accountRS
+                    account: this.state.generatedAccount
                 });
             } else {
                 NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
             }
         }
-
     };
 
     handleAdvancedState = () => {
@@ -133,9 +138,14 @@ class CreateUser extends React.Component {
         this.setState({
             ...this.state,
             generatedPassphrase: generatedPassphrase.join(' '),
-            generatedAccount: generatedAccount
+            generatedAccount: generatedAccount,
+            isRSAccountLoaded :true,
         })
     };
+
+    applyCustomPassphrase = async (requestParams) => {
+         this.generateAccount(requestParams);
+    }
 
     render() {
         return (
@@ -159,16 +169,18 @@ class CreateUser extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
-                                        <p>Create new wallet</p>
+                                        <p>Create new Wallet</p>
                                     </div>
 
                                     <div className="form-tabulator active no-padding">
                                         <div className="form-tab-nav-box justify-left">
-                                            <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 0
-                                            })}>
-                                                <p>Sure wallet</p>
+                                            <a
+                                                onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                                    "form-tab": true,
+                                                    "active": this.state.activeTab === 0
+                                                })}
+                                            >
+                                                <p>Vault</p>
                                             </a>
                                             <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                                 "form-tab": true,
@@ -191,103 +203,153 @@ class CreateUser extends React.Component {
                                                     onSubmit={submitForm}
                                                 >
                                                     {
-                                                        !this.state.isValidating &&
-                                                        <div className="form-group-app transparent">
-                                                            <div className="form-title">
-                                                                <p>Create your SURE wallet</p>
+                                                        this.state.isCustomPassphrase &&
+                                                        <React.Fragment>
+                                                            <div className="form-group-app transparent">
+                                                                <div className="form-title">
+                                                                    <p>Create your Vault</p>
+                                                                </div>
+                                                                <div className="input-group-app display-block offset-bottom">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <div>
+                                                                                <InfoBox info>
+                                                                                    <ul className={'marked-list'}>
+                                                                                        <li>The most secure Apollo Wallet</li>
+                                                                                        <li>You can log in into this wallet using Account ID </li>
+                                                                                        <li>The wallet is encrypted (via Secret Key) on one device. You can export/import your Secret Key to use on other devices </li>
+                                                                                        <li>2FA works from any device when you use your Vault.</li>
+                                                                                    </ul>
+                                                                                </InfoBox>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="input-group-app display-block offset-bottom">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <InfoBox info>
+                                                                                You can create your own custom passphrase or crete an account with randomly generated passphrase.
+                                                                                <br/>
+                                                                                <div
+                                                                                    className="input-group-app display-block offset-bottom"
+                                                                                    style={{marginTop: 18}}
+                                                                                >
+                                                                                    <div className="row">
+                                                                                        <div className="col-md-12">
+                                                                                            <Checkbox
+                                                                                                className={'lighten'}
+                                                                                                field="isCustomPassphrase"
+                                                                                                onChange={(e) => {
+
+                                                                                                    if (e) {
+                                                                                                        this.setState({
+                                                                                                            isCustomPassphraseTextarea: true
+                                                                                                        });
+                                                                                                    } else {
+                                                                                                        this.setState({
+                                                                                                            isCustomPassphraseTextarea: false
+                                                                                                        });
+                                                                                                    }
+                                                                                                }}
+                                                                                            />
+                                                                                            <label
+                                                                                                style={{color: '#ecf0f1'}}
+                                                                                            >
+                                                                                                Use custom passphrase .
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                {/*<a*/}
+                                                                                    {/*style={{marginTop: 18}}*/}
+                                                                                    {/*className={'btn lighten static'}*/}
+                                                                                    {/*onClick={() => this.generateAccount({})}*/}
+                                                                                {/*>*/}
+                                                                                    {/*Generate account*/}
+                                                                                {/*</a>*/}
+                                                                            </InfoBox>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    {
+                                                                        this.state.isCustomPassphraseTextarea &&
+                                                                        <div className="row">
+                                                                            <div className="col-md-3">
+                                                                                <label>Your account passphrase</label>
+                                                                            </div>
+                                                                            <div className="col-md-9">
+                                                                            <TextArea
+                                                                                field={'newAccountpassphrse'}
+                                                                                placeholder={'Passphrase'}
+                                                                            />
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
                                                             </div>
 
+                                                            <div className="btn-box align-buttons-inside absolute right-conner">
+
+                                                                {
+                                                                    this.state.isCustomPassphraseTextarea &&
+                                                                    <a
+                                                                        onClick={() => {
+                                                                            const {values} = getFormState();
+
+                                                                            if (!values.newAccountpassphrse) {
+                                                                                NotificationManager.error('Passphrase not specified.');
+                                                                                return;
+                                                                            }
+                                                                            this.generateAccount({
+                                                                                passphrase: values.newAccountpassphrse
+                                                                            })
+                                                                        }}
+                                                                        name={'closeModal'}
+                                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                    >
+                                                                        Create account
+                                                                    </a>
+                                                                }
+                                                                {
+                                                                    !this.state.isCustomPassphraseTextarea &&
+                                                                    <a
+                                                                        onClick={() => {
+
+                                                                            this.generateAccount({})
+                                                                        }}
+                                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                    >
+                                                                        Create account
+                                                                    </a>
+                                                                }
+                                                            </div>
+                                                        </React.Fragment>
+
+                                                    }
+                                                    {
+                                                        !this.state.isCustomPassphrase &&
+                                                        <div className="form-group-app transparent">
+                                                            <div className="form-title">
+                                                                <p>Create your Vault</p>
+                                                            </div>
                                                             {
                                                                 this.state.isAccountLoaded &&
                                                                 <React.Fragment>
 
-
                                                                     <Text field={'option'} type={'hidden'} defaultValue={0}/>
+
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <div>
                                                                                     <InfoBox info>
                                                                                         <ul className={'marked-list'}>
-                                                                                            <li>                                                                                        More secure that Online Wallet.
-                                                                                            </li>
-                                                                                            <li>                                                                                         Protected with passphrase,
-                                                                                            </li>
-                                                                                            <li>                                                                                        Can be used only on node, on which it was creted
-                                                                                            </li>
-                                                                                            <li>                                                                                        Can be exported/imported to other nodes
-                                                                                            </li>
-                                                                                            <li>                                                                                        Wallet encrypted on the node.
-                                                                                            </li>
-                                                                                            <li>                                                                                        To log in You must know Account ID and passphrase.
-                                                                                            </li>
-                                                                                            <li>                                                                                        2FA works full-functional only on Sure Wallets.
-                                                                                            </li>
-                                                                                            <li>                                                                                        After creaition, store passphrase and wallet ID in safe place.
-                                                                                            </li>
+                                                                                            <li>The most secure Apollo Wallet</li>
+                                                                                            <li>You can log in into this wallet using Account ID </li>
+                                                                                            <li>The wallet is encrypted (via Secret Key) on one device. You can export/import your Secret Key to use on other devices </li>
+                                                                                            <li>2FA works from any device when you use your Vault.</li>
                                                                                         </ul>
-                                                                                    </InfoBox>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div className="input-group-app display-block offset-bottom">
-                                                                        <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
-                                                                            </div>
-                                                                            <div className="col-md-12">
-                                                                                <div>
-                                                                                    <InfoBox info>
-                                                                                        {this.state.accountData.passphrase}
-                                                                                    </InfoBox>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="input-group-app display-block offset-bottom">
-                                                                        <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>Write down this passphrase and store securely (order and
-                                                                                    capitalization matter). This passphrase will be needed to use your
-                                                                                    wallet.</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div className="input-group-app display-block offset-bottom">
-                                                                        <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>Your public wallet address is:</label>
-                                                                            </div>
-                                                                            <div className="col-md-12">
-                                                                                <div
-                                                                                    style={{
-                                                                                        width: "100%"
-                                                                                    }}
-                                                                                >
-                                                                                    <InfoBox info>
-                                                                                        {this.state.accountData.accountRS}
-                                                                                    </InfoBox>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div className="input-group-app display-block offset-bottom">
-                                                                        <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>Your wallet`s public key is:</label>
-                                                                            </div>
-                                                                            <div className="col-md-12">
-                                                                                <div
-                                                                                    style={{
-                                                                                        width: "100%"
-                                                                                    }}
-                                                                                >
-                                                                                    <InfoBox info>
-                                                                                        {this.state.accountData.publicKey}
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -306,7 +368,8 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger>
-                                                                                        <strong>Remember</strong> your generated passphrase and your public wallet address!
+                                                                                        <strong>Remember</strong> to store your Account ID and passphrase in the secured place.
+                                                                                        Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -315,9 +378,54 @@ class CreateUser extends React.Component {
 
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
+                                                                            <div className="col-md-12 mb-15">
+                                                                                <label>Your randomly generated passphrase is:</label>
+                                                                            </div>
                                                                             <div className="col-md-12">
-                                                                                <Checkbox defaultValue={false} field="losePhrase"/> <label>I will not lose my
-                                                                                passphrase</label>
+                                                                                <div>
+                                                                                    {
+                                                                                        this.state &&
+                                                                                        this.state.keySeed &&
+                                                                                        this.state.accountData &&
+                                                                                        this.state.keySeed.secretBytes &&
+                                                                                        <InfoBox attentionLeft>
+                                                                                            Secret Phrase:  <span className={'itatic'}>{this.state.accountData.passphrase}</span>
+                                                                                            <br/>
+                                                                                            <br/>
+                                                                                            Account ID: <span className={'itatic'}>{this.state.accountData.accountRS}</span>
+                                                                                            <br/>
+                                                                                            <br/>
+                                                                                            Public Key: <span className={'itatic'}>{this.state.accountData.publicKey}</span>
+                                                                                            <br/>
+                                                                                            <br/>
+                                                                                            <CopyToClipboard
+                                                                                                text={
+                                                                                                    `Secret Phrase: ${this.state.accountData.passphrase}\n` +
+                                                                                                    `Account ID: ${this.state.accountData.accountRS}\n` +
+                                                                                                    `Public Key: ${this.state.accountData.publicKey}\n`
+                                                                                                }
+                                                                                                onCopy={() => {
+                                                                                                    NotificationManager.success('The account data has been copied to clipboard.')
+                                                                                                }}
+                                                                                            >
+                                                                                                <a
+                                                                                                    className="btn blue static"
+                                                                                                >
+                                                                                                    Copy account data to clipboard.
+                                                                                                </a>
+                                                                                            </CopyToClipboard>
+                                                                                        </InfoBox>
+                                                                                    }
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="input-group-app display-block offset-bottom">
+                                                                        <div className="row">
+                                                                            <div className="col-md-12">
+                                                                                <Checkbox defaultValue={false} field="losePhrase"/>
+                                                                                <label>I wrote down my Account ID, Passphrase. It is now stored in a secured place</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -326,7 +434,7 @@ class CreateUser extends React.Component {
                                                                         <a
                                                                             onClick={() => {
                                                                                 if (!getFormState().values.losePhrase) {
-                                                                                    NotificationManager.error('You have to verify that you will not lose your passphrase', 'Error', 7000);
+                                                                                    NotificationManager.error('You have to verify that you stored your private data', 'Error', 7000);
                                                                                     return;
                                                                                 }
                                                                                 this.setState({...this.state, isValidating: true, selectedOption: 0})
@@ -415,10 +523,10 @@ class CreateUser extends React.Component {
                                                         !this.state.isValidating &&
                                                         <div className="form-group-app transparent">
                                                             <div className="form-title">
-                                                                <p>Create your ONLINE wallet</p>
+                                                                <p>Create your Online Wallet</p>
                                                             </div>
                                                             {
-                                                                this.state.isAccountLoaded &&
+                                                                this.state.isRSAccountLoaded &&
                                                                 <React.Fragment>
                                                                     <Text field={'option'} type={'hidden'} defaultValue={1}/>
                                                                     <div className="input-group-app display-block offset-bottom">
@@ -427,62 +535,10 @@ class CreateUser extends React.Component {
                                                                                 <div>
                                                                                     <InfoBox info>
                                                                                         <ul>
-                                                                                            <li>                                                                                        Protected with passphrase,
-                                                                                            </li>
-                                                                                            <li>                                                                                        Allows You to log in into wallet on any Apollo node.
-                                                                                            </li>
-                                                                                            <li>                                                                                        Online Wallet users can log in to wallet using only passphrase.
-                                                                                            </li>
-                                                                                            <li>                                                                                        2FA for online wallets avaliable only on that nodes where it was enabled.
-                                                                                            </li>
-                                                                                            <li>                                                                                        After creaition, store passphrase in safe place.
-                                                                                            </li>
+                                                                                            <li>You can log in into this wallet using only passphrase</li>
+                                                                                            <li>Available to use from any device </li>
+                                                                                            <li> 2FA is available only on the device where it was enabled</li>
                                                                                         </ul>
-                                                                                    </InfoBox>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div className="input-group-app display-block offset-bottom">
-                                                                        <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
-                                                                            </div>
-                                                                            <div className="col-md-12">
-                                                                                <div>
-                                                                                    <InfoBox info>
-                                                                                        {this.state.generatedPassphrase}
-                                                                                    </InfoBox>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="input-group-app display-block offset-bottom">
-                                                                        <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>
-                                                                                    Write down this passphrase and store securely (order and
-                                                                                    capitalization matter). This passphrase will be needed to use your
-                                                                                    wallet.
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div className="input-group-app display-block offset-bottom">
-                                                                        <div className="row">
-                                                                            <div className="col-md-12 mb-15">
-                                                                                <label>Your public wallet address is:</label>
-                                                                            </div>
-                                                                            <div className="col-md-12">
-                                                                                <div
-                                                                                    style={{
-                                                                                        width: "100%"
-                                                                                    }}
-                                                                                >
-                                                                                    <InfoBox info>
-                                                                                        {this.state.generatedAccount}
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -501,7 +557,8 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger>
-                                                                                        <strong>Remember</strong> your generated passphrase and your public wallet address!
+                                                                                        <strong>Remember</strong>  to store your Account ID and passphrase in the secured place.
+                                                                                        Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -510,9 +567,47 @@ class CreateUser extends React.Component {
 
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
+                                                                            <div className="col-md-12 mb-15">
+                                                                                <label>Your randomly generated passphrase is:</label>
+                                                                            </div>
                                                                             <div className="col-md-12">
-                                                                                <Checkbox defaultValue={false} field="losePhrase"/> <label>I will not lose my
-                                                                                passphrase</label>
+                                                                                <div>
+                                                                                    {
+                                                                                        <InfoBox attentionLeft>
+                                                                                            Secret Phrase:  <span className={'itatic'}>{this.state.generatedPassphrase}</span>
+                                                                                            <br/>
+                                                                                            <br/>
+                                                                                            Account ID: <span className={'itatic'}>{this.state.generatedAccount}</span>
+                                                                                            <br/>
+                                                                                            <br/>
+                                                                                            <CopyToClipboard
+                                                                                                text={
+                                                                                                    `Secret Phrase: ${this.state.generatedPassphrase}\n` +
+                                                                                                    `Account ID: ${this.state.generatedAccount}\n`
+                                                                                                }
+                                                                                                onCopy={() => {
+                                                                                                    NotificationManager.success('The account data has been copied to clipboard.')
+                                                                                                }}
+                                                                                            >
+                                                                                                <a
+                                                                                                    className="btn blue static"
+                                                                                                >
+                                                                                                    Copy account data to clipboard.
+                                                                                                </a>
+                                                                                            </CopyToClipboard>
+                                                                                        </InfoBox>
+                                                                                    }
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div className="input-group-app display-block offset-bottom">
+                                                                        <div className="row">
+                                                                            <div className="col-md-12">
+                                                                                <Checkbox defaultValue={false} field="losePhrase"/>
+                                                                                <label>I wrote down my Passphrase. It is now stored in the secured place.</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -521,7 +616,7 @@ class CreateUser extends React.Component {
                                                                         <a
                                                                             onClick={() => {
                                                                                 if (!getFormState().values.losePhrase) {
-                                                                                    NotificationManager.error('You have to verify that you will not lose your passphrase', 'Error', 7000);
+                                                                                    NotificationManager.error('You have to verify that you stored your private data.', 'Error', 7000);
                                                                                     return;
                                                                                 }
                                                                                 this.setState({...this.state, isValidating: true, selectedOption: 1})

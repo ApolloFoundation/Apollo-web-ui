@@ -8,8 +8,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
-import ModalFooter from '../../components/modal-footer'
 
 class ReserveCurrency extends React.Component {
     constructor(props) {
@@ -29,8 +27,6 @@ class ReserveCurrency extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-
         if (!values.recipient) {
             this.setState({
                 ...this.props,
@@ -67,18 +63,7 @@ class ReserveCurrency extends React.Component {
                 feeStatus: false
             })
         }
-        if (!isPassphrase) {
-            this.setState({
-                ...this.props,
-                passphraseStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                passphraseStatus: false
-            })
-        }
+
         this.setState({
             isPending: true
         })

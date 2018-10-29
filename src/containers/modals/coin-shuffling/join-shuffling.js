@@ -38,16 +38,13 @@ class JoinShuffling extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        if (!isPassphrase) {
-            NotificationManager.error('Incorrect Pass Phrase.', 'Error', 5000);
-            return;
-        }
         const data = {
             shufflingFullHash: this.props.modalData.broadcast ? this.props.modalData.broadcast.fullHash : this.state.shuffling.shufflingFullHash,
             recipientSecretPhrase: values.recipientSecretPhrase,
             secretPhrase: values.secretPhrase,
-            recipientPublicKey: await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false)
+            recipientPublicKey: await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false),
+            createNoneTransactionMethod: true,
+            code2FA: values.code2FA
         };
 
         this.setState({
@@ -65,10 +62,6 @@ class JoinShuffling extends React.Component {
 
             NotificationManager.success('Shuffling Started!', null, 5000);
         }
-
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
     };
 
     getShuffling = async () => {

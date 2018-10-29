@@ -8,7 +8,7 @@ import React from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
 import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
-import {setModalData, setMopalType, setBodyModalParamsAction} from '../../../modules/modals';
+import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
 
 import crypto from  '../../../helpers/crypto/crypto';
 
@@ -31,8 +31,6 @@ class PrivateTransactions extends React.Component {
     async handleFormSubmit(params) {
         const isPassphrase = await this.validatePassphrase(params.passphrase);
 
-        console.log(params);
-
         var data = {
             passphrase: params.passphrase
         };
@@ -41,8 +39,6 @@ class PrivateTransactions extends React.Component {
             delete data.passphrase;
             data.secretPhrase = params.passphrase;
         }
-
-        console.log(data);
 
         this.props.setModalData(data);
         this.props.setBodyModalParamsAction(null, null);
@@ -90,7 +86,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    setMopalType: (passphrase) => dispatch(setMopalType(passphrase)),
+    setModalType: (passphrase) => dispatch(setModalType(passphrase)),
     setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
 });

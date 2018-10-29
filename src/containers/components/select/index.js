@@ -34,6 +34,7 @@ class CustomSelect extends React.Component {
             <Select
                 styles={this.customStyles}
                 className={'form-custom-select'}
+                classNamePrefix={'custom-select-box'}
                 options={this.props.options}
                 defaultValue={this.props.defaultValue}
                 onChange={(selectedOption) => {

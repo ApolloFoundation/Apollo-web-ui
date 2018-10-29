@@ -19,7 +19,6 @@ import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
-import ModalFooter from '../../components/modal-footer'
 
 class AddMonitor extends React.Component {
     constructor(props) {
@@ -31,9 +30,7 @@ class AddMonitor extends React.Component {
         if (!values.phrase) {
             NotificationManager.error("Passphrase is a required field", "Error", 5000);
         }
-        if (!await this.props.validatePassphrase(values.phrase)) {
-            NotificationManager.error("Incorrect passphrase", "Error", 5000);
-        }
+
         const toSend = {
             property: values.property,
             interval: values.interval,

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text} from 'react-form';
 import InputForm from '../../components/input-form'
 import {connect} from 'react-redux'
 
@@ -39,7 +38,7 @@ class ModalFooter extends React.Component {
                         <div className="col-sm-9">
                             <InputForm
                                 type="password"
-                                field="code"
+                                field="code2FA"
                                 placeholder="2FA code"
                                 setValue={setValue}
                             />

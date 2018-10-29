@@ -43,7 +43,6 @@ class ChatItem extends React.Component {
     }
 
     tryToDecrypt = (newState) => {
-        console.log(this.props);
         this.decryptMessage(this.props, newState.account.passPhrase)
 
         // if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
@@ -55,12 +54,13 @@ class ChatItem extends React.Component {
         const message = await this.props.submitForm( {
             requestType: 'readMessage',
             secretPhrase: passPhrase,
-            transaction: this.props.transaction
+            transaction: this.props.transaction,
+            createNoneTransactionMethod: true
         }, 'readMessage')
 
         if (message) {
             this.setState({
-                message: message.decryptedMessage
+                message: message.decryptedMessage,
             });
         }
 
@@ -76,7 +76,6 @@ class ChatItem extends React.Component {
                 'incoming': this.props.account.account !== this.props.sender,
             })}>
                 <div className="message">
-                    {console.log(this.props.transaction)}
                     <p>
                         {
                             this.props.attachment.message !== 'undefined' && this.props.attachment.message
@@ -103,13 +102,17 @@ class ChatItem extends React.Component {
                             ]
                         }
                         {
-                            this.state.message && !this.props.message.message && !this.state.error &&
-                            [
+
+                            this.state.message &&
+                            !this.state.error  &&
+                            !this.props.message.message &&
+                            this.state.message !== 'false' &&
+                            <React.Fragment>
                                 <a className='action'>
                                     < i className="zmdi zmdi-lock-open" />
-                                </a>,
+                                </a>
                                 <span className="message-text">&nbsp;&nbsp;{this.state.message}</span>
-                            ]
+                            </React.Fragment>
                         }
                         {
                             this.state.error === 8 &&

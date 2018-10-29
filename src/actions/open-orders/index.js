@@ -66,13 +66,8 @@ export const getBuyOrdersAction = account => dispatch => axios.get(config.api.se
         });
 
         return {assets: await Promise.all(assets), orders: res.data.bidOrders};
-            // .then((assets) => {
-            //
-            //     console.log(assets);
-            //      assets;
-            // });
+
     }
-    // console.log('Error: ', res.data.errorCode);
     if (!res.data.errorCode) {
         return res.data
     }
@@ -90,7 +85,6 @@ export const getClearBuyOrdersAction = account => dispatch => axios.get(config.a
     if (!res.data.errorCode) {
         return res.data.bidOrders
     }
-    // console.log('Error: ', res.data.errorCode);
     if (!res.data.errorCode) {
         return res.data
     }
