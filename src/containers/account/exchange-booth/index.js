@@ -537,7 +537,7 @@ class ExchangeBooth extends React.Component {
                                                         <div className="form-title">
                                                             <p>Sell {this.state.code}</p>
                                                             <div className="form-sub-title">
-                                                                balance: <strong>{!!this.state.accountCurrency && !!this.state.accountCurrency.unconfirmedUnits ? (this.state.accountCurrency.unconfirmedUnits / 100000000).toLocaleString('en') : 0} {this.state.code}</strong>
+                                                                balance: <strong>{!!this.state.accountCurrency && !!this.state.accountCurrency.unconfirmedUnits ? (this.state.accountCurrency.unconfirmedUnits / Math.pow(10, this.state.accountCurrency.decimals)).toLocaleString('en') : 0} {this.state.code}</strong>
                                                             </div>
                                                         </div>
                                                         <div
