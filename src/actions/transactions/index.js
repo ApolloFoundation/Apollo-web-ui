@@ -37,6 +37,23 @@ export function getTransactionsAction(requestParams) {
     }
 }
 
+export const getPrivateTransactions = (requestParams) => {
+    const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
+
+    return axios.get(config.api.serverUrl, {
+        params : {
+            requestType: requestType,
+            ...requestParams
+        }
+    })
+        .then((res) => {
+            return res.data
+        })
+        .catch(() => {
+
+        })
+}
+
 export function getTransactionAction(requestParams) {
     return dispatch => {
         const requestType = requestParams.passphrase ? 'getPrivateTransaction' : 'getTransaction';
@@ -100,14 +117,6 @@ export function sendTransactionAction(requestParams) {
             .catch((err) => {
                 console.log(err);
             })
-        // axios.post(config.api.serverUrl , {
-        //     params : {
-        //         requestType: 'sendMoney'
-        //     },
-        //     body: {
-        //         ...requestParams
-        //     }
-        // })
     }
 }
 
@@ -137,4 +146,17 @@ export function formatTransactionType(str){
     str = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2');
     str = str.toLowerCase(); //add space between camelCase text
     return (str).toUpperCase();
+}
+
+export const getPhasingTransactionVoters = (requestParams) => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getPhasingPolls',
+            countVotes: true,
+            ...requestParams
+        }
+    })
+        .then((res)  => {
+            return res.data;
+        })
 }

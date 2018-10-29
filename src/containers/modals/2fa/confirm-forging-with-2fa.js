@@ -33,12 +33,8 @@ class Confirm2FAforging extends React.Component {
     }
 
     async handleFormSubmit(params) {
-
-
         const {account, passphrase}  = this.props
         const action = this.props.action.getStatus;
-
-        console.log(this.props.action.getStatus);
 
         const requestParams = {
             requestType: action,

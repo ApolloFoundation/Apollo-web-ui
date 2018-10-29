@@ -32,15 +32,26 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class AdvancedSettings extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeTab: 0,
-            currency: '-',
-            block: null
-        };
 
-    }
+    state = {
+        activeTab: 0,
+        currency: '-',
+        block: null,
+        accounts: {
+            5: [
+                ''
+            ],
+            2: [
+                ''
+            ],
+            3: [
+                ''
+            ],
+            4: [
+                ''
+            ]
+        }
+    };
 
     handleFormSubmit = (values) => {
         Object.keys(values).map((el) => {
@@ -87,6 +98,35 @@ class AdvancedSettings extends React.Component {
     handleAddNote = (value) => {
         if (value === false) {
             this.props.setValue('note_to_self', '');
+        }
+    };
+
+    addAccount = (tabIndex) => {
+        this.setState({
+            accounts: {
+                ...this.state.accounts,
+                [tabIndex] : [...this.state.accounts[tabIndex], '']
+            }
+        })
+    };
+
+    setListValue = (i, j, setValue) => {
+        return (value) => {
+
+            let list = this.state.accounts[i];
+
+            list[j] = value;
+
+            this.setState({
+                accounts: {
+                    ...this.state.accounts,
+                    [i]: list
+                }
+            }, () => {
+                if (setValue) {
+                    setValue('phasingWhitelisted', list)
+                }
+            })
         }
     };
 
@@ -375,29 +415,40 @@ class AdvancedSettings extends React.Component {
                                         2018/06/19 09:32 am
                                     </div>*/}
                                 </div>
-                                <div className="input-group-app form-group mb-15 display-block inline user">
-                                    <div className="row form-group-grey">
-                                        <label className="col-sm-3 col-form-label">
-                                            Accounts (whitelist)
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <div className="iconned-input-field">
-                                                <AccountRS
-                                                    value={''}
-                                                    field={'phasingWhitelisted'}
-                                                    setValue={setValue}
-                                                />
+                                {
+                                    this.state.accounts[2] &&
+                                    this.state.accounts[2].map((el, index) => {
+                                        return (
+                                            <div className="input-group-app form-group mb-15 display-block inline user">
+                                                <div className="row form-group-grey">
+                                                    <label className="col-sm-3 col-form-label">
+                                                        Accounts (whitelist)
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <div className="iconned-input-field">
+                                                            <AccountRS
+                                                                value={''}
+                                                                field={'phasingWhitelisted'}
+                                                                setValue={setValue}
+                                                                exportAccountList={this.setListValue(2, index)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/*<div className="form-group-grey row mb-15">
+                                        );
+                                    })
+                                }
+                                <div className="form-group-grey row mb-15">
                                     <div className="col-sm-9 offset-sm-3">
-                                        <a className="no-margin btn static blue">
+                                        <a
+                                            onClick={() => this.addAccount(2)}
+                                            className="no-margin btn static blue"
+                                        >
                                             Add account
                                         </a>
                                     </div>
-                                </div>*/}
+                                </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Min balance type
@@ -518,29 +569,40 @@ class AdvancedSettings extends React.Component {
                                         2018/06/19 09:32 am
                                     </div>*/}
                                 </div>
-                                <div className="input-group-app form-group mb-15 display-block inline user">
-                                    <div className="row form-group-grey">
-                                        <label className="col-sm-3 col-form-label">
-                                            Accounts (whitelist)
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <div className="iconned-input-field">
-                                                <AccountRS
-                                                    value={''}
-                                                    field={'phasingWhitelisted'}
-                                                    setValue={setValue}
-                                                />
+                                {
+                                    this.state.accounts[3] &&
+                                    this.state.accounts[3].map((el, index) => {
+                                        return (
+                                            <div className="input-group-app form-group mb-15 display-block inline user">
+                                                <div className="row form-group-grey">
+                                                    <label className="col-sm-3 col-form-label">
+                                                        Accounts (whitelist)
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <div className="iconned-input-field">
+                                                            <AccountRS
+                                                                value={''}
+                                                                field={'phasingWhitelisted'}
+                                                                setValue={setValue}
+                                                                exportAccountList={this.setListValue(3, index, this.props.setValue)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/*<div className="form-group-grey row mb-15">
+                                        );
+                                    })
+                                }
+                                <div className="form-group-grey row mb-15">
                                     <div className="col-sm-9 offset-sm-3">
-                                        <a className="no-margin btn static blue">
+                                        <a
+                                            onClick={() => this.addAccount(3)}
+                                            className="no-margin btn static blue"
+                                        >
                                             Add account
                                         </a>
                                     </div>
-                                </div>*/}
+                                </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Min balance type
@@ -674,29 +736,40 @@ class AdvancedSettings extends React.Component {
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="input-group-app form-group mb-15 display-block inline user">
-                                    <div className="row form-group-grey">
-                                        <label className="col-sm-3 col-form-label">
-                                            Accounts (whitelist)
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <div className="iconned-input-field">
-                                                <AccountRS
-                                                    value={''}
-                                                    field={'phasingWhitelisted'}
-                                                    setValue={setValue}
-                                                />
+                                {
+                                    this.state.accounts[4] &&
+                                    this.state.accounts[4].map((el, index) => {
+                                        return (
+                                            <div className="input-group-app form-group mb-15 display-block inline user">
+                                                <div className="row form-group-grey">
+                                                    <label className="col-sm-3 col-form-label">
+                                                        Accounts (whitelist)
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <div className="iconned-input-field">
+                                                            <AccountRS
+                                                                value={''}
+                                                                field={'phasingWhitelisted'}
+                                                                setValue={setValue}
+                                                                exportAccountList={this.setListValue(4, index)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/*<div className="form-group-grey row mb-15">
+                                        );
+                                    })
+                                }
+                                <div className="form-group-grey row mb-15">
                                     <div className="col-sm-9 offset-sm-3">
-                                        <a className="no-margin btn static blue">
+                                        <a
+                                            onClick={() => this.addAccount(4)}
+                                            className="no-margin btn static blue"
+                                        >
                                             Add account
                                         </a>
                                     </div>
-                                </div>*/}
+                                </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Min balance type
@@ -831,29 +904,40 @@ class AdvancedSettings extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app form-group mb-15 display-block inline user">
-                                    <div className="row form-group-grey">
-                                        <label className="col-sm-3 col-form-label">
-                                            Accounts (whitelist)
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <div className="iconned-input-field">
-                                                <AccountRS
-                                                    value={''}
-                                                    field={'phasingWhitelisted'}
-                                                    setValue={setValue}
-                                                />
+                                {
+                                    this.state.accounts[5] &&
+                                    this.state.accounts[5].map((el, index) => {
+                                        return (
+                                            <div className="input-group-app form-group mb-15 display-block inline user">
+                                                <div className="row form-group-grey">
+                                                    <label className="col-sm-3 col-form-label">
+                                                        Accounts (whitelist)
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <div className="iconned-input-field">
+                                                            <AccountRS
+                                                                value={''}
+                                                                field={'phasingWhitelisted'}
+                                                                setValue={setValue}
+                                                                exportAccountList={this.setListValue(5, index)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/*<div className="form-group-grey row mb-15">
+                                        );
+                                    })
+                                }
+                                <div className="form-group-grey row mb-15">
                                     <div className="col-sm-9 offset-sm-3">
-                                        <a className="no-margin btn static blue">
+                                        <a
+                                            onClick={() => this.addAccount(5)}
+                                            className="no-margin btn static blue"
+                                        >
                                             Add account
                                         </a>
                                     </div>
-                                </div>*/}
+                                </div>
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Min balance type

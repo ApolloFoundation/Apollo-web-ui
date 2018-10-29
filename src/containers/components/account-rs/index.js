@@ -36,6 +36,11 @@ class AccountRS extends React.Component {
     handleFillForm = (account) => {
         this.props.setValue(this.props.field, account);
         this.refs.input.value = account;
+
+        if (this.props.exportAccountList) {
+            this.props.exportAccountList(account)
+        }
+
         this.setState({
             isContacts: false,
             inputValue: {
@@ -65,6 +70,10 @@ class AccountRS extends React.Component {
 
         this.props.setValue(this.props.field, value.indexOf('APL-') === -1 ? 'APl-' + value : value);
         this.setState({inputValue: newState});
+
+        if (this.props.exportAccountList) {
+            this.props.exportAccountList(newState.value)
+        }
     };
 
     onChange = (event) => {
@@ -93,13 +102,13 @@ class AccountRS extends React.Component {
             <React.Fragment>
                 {this.state.inputValue &&
                     <InputMask className="form-control"
-                               disabled={this.props.disabled}
-                               mask={this.state.inputValue.mask}
-                               placeholder={this.props.placeholder || 'Account ID'}
-                               ref={'input'}
-                               value={this.state.inputValue.value}
-                               onPaste={this.onChange}
-                               onChange={this.onChange}
+                        disabled={this.props.disabled}
+                        mask={this.state.inputValue.mask}
+                        placeholder={this.props.placeholder || 'Account ID'}
+                        ref={'input'}
+                        value={this.state.inputValue.value}
+                        onPaste={this.onChange}
+                        onChange={this.onChange}
                     />
                 }
                 {!this.props.noContactList &&
