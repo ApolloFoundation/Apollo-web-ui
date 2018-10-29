@@ -23,9 +23,9 @@ import BlockSubscriber from "./containers/block-subscriber";
 
 const target = document.querySelector('#root');
 //
-// console.warn  = function(message){};
-// console.error = function(message){};
-// console.log = function(message){};
+console.warn  = function(message){};
+console.error = function(message){};
+console.log = function(message){};
 
 render(
     <Provider store={store}>

@@ -104,7 +104,6 @@ class InfoAccount extends React.Component {
             });
         }
 
-        console.log("777", this.state.transactions);
     };
 
     getTransaction = async (requestParams) => {
@@ -318,7 +317,6 @@ class InfoAccount extends React.Component {
                                                     <td className="align-right">Balance</td>
                                                 </tr>
                                                 </thead>
-                                                {console.log("9999", this.state.account_ledger)}
                                                 <tbody>
                                                 {
                                                     this.state.account_ledger &&
