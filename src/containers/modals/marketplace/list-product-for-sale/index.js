@@ -230,6 +230,18 @@ class ListProductForSale extends React.Component {
                                                             }
                                                         }}
                                                     />
+                                                    <div className={'input-file-area'}>
+                                                        <div className="input-file-name">
+                                                            {
+                                                                this.state.file &&
+                                                                this.state.file.name
+                                                            }
+                                                            {
+                                                                !this.state.file &&
+                                                                '-'
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
