@@ -1617,9 +1617,9 @@ input[type="file"] {
       padding: 0; } }
   .page-body-item .card {
     transition: 0.2s;
-    min-height: 215px; }
+    min-height: 252px; }
     .page-body-item .card.card-tall {
-      min-height: 445px; }
+      min-height: 520px; }
       @media (max-width: 760px) {
         .page-body-item .card.card-tall {
           min-height: auto; } }
