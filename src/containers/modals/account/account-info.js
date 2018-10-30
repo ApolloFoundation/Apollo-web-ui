@@ -110,7 +110,7 @@ class AccountInfo extends React.Component {
                                                 <label>Fee</label>
                                             </div>
                                             <div className="col-md-9">
-                                                <Text placeholder={'Amount'} type="number" field={'feeATM'}/>
+                                                <Text placeholder={'Amount'} type="tel" field={'feeATM'}/>
                                             </div>
                                         </div>
                                     </div>

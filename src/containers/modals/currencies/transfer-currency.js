@@ -144,7 +144,7 @@ class TransferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent no-left-padding">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="units"
                                                 placeholder="Utils"
                                                 setValue={setValue}/>

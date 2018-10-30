@@ -243,7 +243,7 @@ class IssueCurrency extends React.Component {
                                             </label>
                                             <div className="col-sm-9">
                                                 <InputForm
-                                                    type="number"
+                                                    type="tel"
                                                     field="minReservePerUnitATM"
                                                     placeholder="Minimum Amount Per Unit"
                                                     setValue={setValue}/>
@@ -255,7 +255,7 @@ class IssueCurrency extends React.Component {
                                             </label>
                                             <div className="col-sm-9">
                                                 <InputForm
-                                                    type="number"
+                                                    type="tel"
                                                     field="reserveSupply"
                                                     placeholder="Number of Units"
                                                     setValue={setValue}/>
@@ -272,7 +272,7 @@ class IssueCurrency extends React.Component {
                                             </label>
                                             <div className="col-sm-9">
                                                 <InputForm
-                                                    type="number"
+                                                    type="tel"
                                                     field="minDifficulty"
                                                     placeholder="Minimum Difficulty"
                                                     setValue={setValue}/>
@@ -284,7 +284,7 @@ class IssueCurrency extends React.Component {
                                             </label>
                                             <div className="col-sm-9">
                                                 <InputForm
-                                                    type="number"
+                                                    type="tel"
                                                     field="maxDifficulty"
                                                     placeholder="Maximum Difficulty"
                                                     setValue={setValue}/>
@@ -311,7 +311,7 @@ class IssueCurrency extends React.Component {
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            type="number"
+                                            type="tel"
                                             field="initialSupply"
                                             placeholder="Initial Supply"
                                             setValue={setValue}/>
@@ -323,7 +323,7 @@ class IssueCurrency extends React.Component {
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            type="number"
+                                            type="tel"
                                             field="maxSupply"
                                             placeholder="Total Supply"
                                             setValue={setValue}/>
@@ -335,7 +335,7 @@ class IssueCurrency extends React.Component {
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            type="number"
+                                            type="tel"
                                             field="decimals"
                                             placeholder="Decimals"
                                             setValue={setValue}/>

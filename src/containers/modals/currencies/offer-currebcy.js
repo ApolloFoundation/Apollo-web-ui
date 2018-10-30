@@ -158,7 +158,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="initialBuySupply"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -173,7 +173,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="totalBuyLimit"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -188,7 +188,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="buyRateATM"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -203,7 +203,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="initialSellSupply"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -218,7 +218,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="totalSellLimit"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -233,7 +233,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="sellRateATM"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -248,7 +248,7 @@ class OfferCurrency extends React.Component {
                                             {
                                                 this.state.block &&
                                                 <InputForm
-                                                    type={"number"}
+                                                    type={"tel"}
                                                     field="expirationHeight"
                                                     placeholder="Finish height"
                                                     defaultValue={this.state.block.height + 10000}

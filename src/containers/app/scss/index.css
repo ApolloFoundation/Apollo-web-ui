@@ -2926,6 +2926,7 @@ input[type="checkbox"] {
 .form-check-input {
   cursor: pointer; }
 
+input[type="tel"],
 input[type="number"] {
   position: relative; }
 
@@ -2981,7 +2982,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .word-brake {
   word-wrap: break-word;
-  word-break: break-all; }
+  word-break: break-word;
+  display: block; }
 
 .loader-box.white .ball-pulse div {
   background-color: #fff; }
@@ -4986,6 +4988,7 @@ input {
   border-radius: 3px;
   padding: 10px 20px; }
 
+input[type="tel"],
 input[type="number"] {
   width: 100%;
   border: 1px solid #E5E5E5;

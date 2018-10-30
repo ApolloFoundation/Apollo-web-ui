@@ -182,7 +182,7 @@ class CreateShuffling extends React.Component {
                                             defaultValue={0}
                                             field="shufflingAmountAPL"
                                             placeholder="Amount"
-                                            type={"number"}
+                                            type={"tel"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">Apollo</span>
@@ -235,7 +235,7 @@ class CreateShuffling extends React.Component {
                                                 defaultValue={0}
                                                 field="amountATUf"
                                                 placeholder="Quantity"
-                                                type={"number"}
+                                                type={"tel"}
                                                 setValue={setValue}/>
                                         </div>
                                     </div>
@@ -251,7 +251,7 @@ class CreateShuffling extends React.Component {
                                                 defaultValue={this.state.block.height}
                                                 field="finishHeight"
                                                 placeholder="Register Until"
-                                                type={"number"}
+                                                type={"tel"}
                                                 step={500}
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
@@ -267,7 +267,7 @@ class CreateShuffling extends React.Component {
                                     <div className="col-sm-9 mb-0">
                                         <InputForm
                                             field="participantCount"
-                                            type={"number"}
+                                            type={"tel"}
                                             placeholder="Participant Count"
                                             setValue={setValue}/>
                                     </div>

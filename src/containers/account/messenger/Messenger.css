@@ -198,11 +198,7 @@
   .followed-polls-item .right {
     width: 66.66%;
     display: flex;
-    flex-direction: column; }
-    @media (max-width: 1023px) {
-      .followed-polls-item .right {
-        flex-wrap: wrap;
-        flex-direction: row; } }
+    flex-wrap: wrap; }
     @media (max-width: 760px) {
       .followed-polls-item .right {
         width: 100%; } }
@@ -216,8 +212,7 @@
         .followed-polls-item .right .card {
           margin-bottom: 15px !important; } }
       .followed-polls-item .right .card:last-of-type {
-        margin-bottom: 0 !important;
-        height: 100%; }
+        margin-bottom: 0 !important; }
         @media (max-width: 1023px) {
           .followed-polls-item .right .card:last-of-type {
             height: auto;
@@ -228,7 +223,8 @@
             margin-bottom: 15px !important; } }
         @media (max-width: 760px) {
           .followed-polls-item .right .card:last-of-type {
-            position: static; } }
+            position: relative;
+            top: 0; } }
       .followed-polls-item .right .card .form-group-app {
         margin-bottom: 15px; }
   .followed-polls-item svg {

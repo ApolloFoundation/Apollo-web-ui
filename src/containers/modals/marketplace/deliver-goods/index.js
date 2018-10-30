@@ -177,7 +177,7 @@ class MarketplaceDeliver extends React.Component {
                                                             <div
                                                                 className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                 <Text
-                                                                    type={'number'}
+                                                                    type={'tel'}
                                                                     field="discountATM"
                                                                     placeholder='Recipient'
                                                                     className={"form-control"}
@@ -199,7 +199,7 @@ class MarketplaceDeliver extends React.Component {
                                                                 <label>Fee</label>
                                                             </div>
                                                             <div className="col-md-9">
-                                                                <Text type="number" field='feeATM' placeholder="Minimum fee" />
+                                                                <Text type="tel" field='feeATM' placeholder="Minimum fee" />
                                                             </div>
                                                         </div>
                                                     </div>

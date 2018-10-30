@@ -170,7 +170,7 @@ class ListProductForSale extends React.Component {
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            type={"number"}
+                                            type={"tel"}
                                             field="priceATM"
                                             placeholder="Price"
                                             setValue={setValue}/>
@@ -182,7 +182,7 @@ class ListProductForSale extends React.Component {
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            type={"number"}
+                                            type={"tel"}
                                             field="quantity"
                                             placeholder="Quantity"
                                             setValue={setValue}/>

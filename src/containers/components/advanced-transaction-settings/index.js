@@ -297,7 +297,7 @@ class AdvancedSettings extends React.Component {
                                         {
                                             this.state.block &&
                                             <InputForm
-                                                type="number"
+                                                type="tel"
                                                 field="phasingFinishHeight"
                                                 defaultValue={this.state.block.height}
                                                 placeholder="Finish height"
@@ -386,7 +386,7 @@ class AdvancedSettings extends React.Component {
                                     </label>
                                     <div className="col-sm-9 mb-0">
                                         <InputForm
-                                            type="number"
+                                            type="tel"
                                             field="phasingQuorum"
                                             placeholder="Number of accounts"
                                             setValue={setValue}/>
@@ -398,7 +398,7 @@ class AdvancedSettings extends React.Component {
                                         {
                                             this.state.block &&
                                             <InputForm
-                                                type="number"
+                                                type="tel"
                                                 field="phasingFinishHeight"
                                                 defaultValue={this.state.block.height}
                                                 placeholder="Finish height"
@@ -537,7 +537,7 @@ class AdvancedSettings extends React.Component {
                                     <div
                                         className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
                                         <InputForm
-                                            type="number"
+                                            type="tel"
                                             field="phasingQuorumAPL"
                                             placeholder="Amount"
                                             setValue={setValue}/>
@@ -552,7 +552,7 @@ class AdvancedSettings extends React.Component {
                                         {
                                             this.state.block &&
                                             <InputForm
-                                                type="number"
+                                                type="tel"
                                                 field="phasingFinishHeight"
                                                 defaultValue={this.state.block.height}
                                                 placeholder="Finish height"
@@ -708,7 +708,7 @@ class AdvancedSettings extends React.Component {
                                         {
                                             this.state.block &&
                                             <InputForm
-                                                type="number"
+                                                type="tel"
                                                 field="phasingFinishHeight"
                                                 defaultValue={this.state.block.height}
                                                 placeholder="Finish height"
@@ -872,7 +872,7 @@ class AdvancedSettings extends React.Component {
                                         {
                                             this.state.block &&
                                             <InputForm
-                                                type="number"
+                                                type="tel"
                                                 field="phasingFinishHeight"
                                                 defaultValue={this.state.block.height}
                                                 placeholder="Finish height"
@@ -1025,7 +1025,7 @@ class AdvancedSettings extends React.Component {
                                         {
                                             this.state.block &&
                                             <InputForm
-                                                type="number"
+                                                type="tel"
                                                 field="phasingFinishHeight"
                                                 defaultValue={this.state.block.height}
                                                 placeholder="Finish height"
@@ -1124,7 +1124,7 @@ class AdvancedSettings extends React.Component {
                                         {
                                             this.state.block &&
                                             <InputForm
-                                                type="number"
+                                                type="tel"
                                                 field="phasingFinishHeight"
                                                 defaultValue={this.state.block.height}
                                                 placeholder="Finish height"

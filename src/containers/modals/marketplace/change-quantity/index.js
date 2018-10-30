@@ -174,7 +174,7 @@ class MarketplaceChangeQuantity extends React.Component {
                                                                 this.state.goods &&
                                                                 <InputForm
                                                                     defaultValue={this.state.goods.quantity}
-                                                                    type="number"
+                                                                    type="tel"
                                                                     field="quantity"
                                                                     minValue={1}
                                                                     setValue={setValue}/>

@@ -140,7 +140,7 @@ class SendApollo extends React.Component {
 							                    defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
 							                    field="amountAPL"
 							                    placeholder="Amount"
-							                    type={"number"}
+							                    type={"tel"}
 							                    setValue={setValue}/>
 						                    <div className="input-group-append">
 							                    <span className="input-group-text">Apollo</span>
@@ -278,7 +278,7 @@ class SendApollo extends React.Component {
 						                    <InputForm
 							                    field="deadline"
 							                    placeholder="Deadline"
-							                    type={"number"}
+							                    type={"tel"}
 							                    setValue={setValue}/>
 					                    </div>
 				                    </div>

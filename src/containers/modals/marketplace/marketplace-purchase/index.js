@@ -196,7 +196,7 @@ class MarketplacePurchase extends React.Component {
                                                         <div className="col-sm-9">
                                                             <InputForm
                                                                 defaultValue={1}
-                                                                type="number"
+                                                                type="tel"
                                                                 field="quantity"
                                                                 placeholder="Currency Name"
                                                                 minValue={1}
@@ -210,7 +210,7 @@ class MarketplacePurchase extends React.Component {
                                                         <div className="col-sm-9">
                                                             <InputForm
                                                                 defaultValue={168}
-                                                                type="number"
+                                                                type="tel"
                                                                 field="deliveryDeadlineTimestamp"
                                                                 placeholder="Currency Code"
                                                                 setValue={setValue}/>
