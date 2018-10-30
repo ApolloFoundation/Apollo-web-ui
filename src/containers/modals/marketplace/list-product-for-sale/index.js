@@ -234,11 +234,7 @@ class ListProductForSale extends React.Component {
                                                         <div className="input-file-name">
                                                             {
                                                                 this.state.file &&
-                                                                this.state.file.name
-                                                            }
-                                                            {
-                                                                !this.state.file &&
-                                                                '-'
+                                                                this.state.file.name ? this.state.file.name : '-'
                                                             }
                                                         </div>
                                                     </div>
