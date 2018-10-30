@@ -656,15 +656,17 @@ input[type="file"] {
     background-position: left;
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group-app .form-title {
-    padding-bottom: 23px; }
+    padding-bottom: 23px;
+    display: flex;
+    flex-direction: row; }
     .form-group-app .form-title .backMy {
+      margin: auto 8px auto 0;
       width: 16px;
       height: 16px;
       background-repeat: no-repeat;
       background-size: contain;
       background-position: left;
       background-image: url(../../assets/left-arrow1.svg);
-      margin-right: 8px;
       cursor: pointer;
       display: inline-block;
       vertical-align: middle;

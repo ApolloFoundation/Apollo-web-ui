@@ -924,18 +924,22 @@ input[type="file"] {
 	.form-title {
 		//padding-top: 30px;
 		padding-bottom: 23px;
+		display: flex;
+		flex-direction: row;
+
 		.backMy {
+			margin: auto 8px auto 0;
 			width: 16px;
 			height: 16px;
 			background-repeat: no-repeat;
 			background-size: contain;
 			background-position: left;
 			background-image: url(../../assets/left-arrow1.svg);
-			margin-right: 8px;
 			cursor: pointer;
 			display: inline-block;
 			vertical-align: middle;
 			transition: 0.2s;
+
 			&:hover {
 				opacity: 0.7;
 			}
