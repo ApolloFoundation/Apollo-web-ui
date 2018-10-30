@@ -163,7 +163,7 @@ class ReserveCurrency extends React.Component {
                                     </div> :
                                     <button
                                         style={{
-                                            width: 100
+                                            width: 200
                                         }}
                                         type="submit"
                                         name={'closeModal'}
