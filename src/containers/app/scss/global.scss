@@ -1382,6 +1382,11 @@ input[type="file"] {
 			display: inline-block;
 		}
 	}
+	&.align-top {
+		label {
+			align-self: flex-start;
+		}
+	}
 	.row {
 		margin-right: -15px !important;
 		margin-left: -15px !important;
@@ -2623,6 +2628,19 @@ table {
 
 .custom-checkbox {
 	padding-left: 16px;
+	&.single {
+		display: flex;
+
+		input[type="checkbox"] {
+			margin: 0;
+
+		}
+		.form-check-label::before,
+		.form-check-label::after {
+			display: none;
+
+		}
+	}
 	.custom-control-input {
 		z-index: 1;
 		position: absolute;
@@ -2650,6 +2668,7 @@ table {
 		box-shadow: none;
 		cursor: pointer;
 	}
+
 	label.custom-control-label {
 		padding-left: 10px;
 		color: #333333;
