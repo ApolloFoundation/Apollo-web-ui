@@ -687,7 +687,7 @@ input[type="file"] {
       word-break: break-word;
       line-height: 1.6;
       padding-right: 30px;
-      display: inline-block;
+      display: block;
       vertical-align: middle; }
     .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
