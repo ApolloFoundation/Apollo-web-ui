@@ -189,7 +189,7 @@ class InfoAccount extends React.Component {
 	                            {
 		                            this.state.account &&
 		                            <div className={"account-balance-text"}>Account has a balance
-			                            of <strong>{this.state.account.unconfirmedBalanceATM} Apollo</strong></div>
+			                            of <strong>{Math.round(this.state.account.unconfirmedBalanceATM / Math.pow(10, 8))} Apollo</strong></div>
 	                            }
 
                             </div>
