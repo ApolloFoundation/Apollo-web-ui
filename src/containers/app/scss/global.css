@@ -670,7 +670,9 @@ input[type="file"] {
       cursor: pointer;
       display: inline-block;
       vertical-align: middle;
-      transition: 0.2s; }
+      transition: 0.2s;
+      float: left;
+      margin-top: 10px; }
       .form-group-app .form-title .backMy:hover {
         opacity: 0.7; }
     .form-group-app .form-title.inline > * {
