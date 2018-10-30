@@ -703,11 +703,11 @@ class Dashboard extends React.Component {
 											</div>
 											<div className="input-group-app lighten">
 												<label>Amount</label>
-												<input placeholder={'Amount'} ref={'amountATM'} type={'number'}/>
+												<input placeholder={'Amount'} ref={'amountATM'} type={'tel'}/>
 											</div>
 											<div className="input-group-app lighten">
 												<label>Fee</label>
-												<input placeholder={'Amount'} ref={'feeATM'} type={'number'}/>
+												<input placeholder={'Amount'} ref={'feeATM'} type={'tel'}/>
 											</div>
 										</div>
 									</div>

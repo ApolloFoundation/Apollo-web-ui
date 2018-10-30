@@ -176,7 +176,7 @@ class MarketplaceChangePrice extends React.Component {
                                                                 this.state.goods &&
                                                                 <InputForm
                                                                     defaultValue={this.state.goods.priceATM / 100000000}
-                                                                    type="number"
+                                                                    type="tel"
                                                                     field="priceATM"
                                                                     placeholder="Currency Name"
                                                                     minValue={1}

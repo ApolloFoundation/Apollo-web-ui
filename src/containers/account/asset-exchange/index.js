@@ -340,7 +340,7 @@ class AssetExchange extends React.Component {
                                                                         <InputForm
                                                                             field="quantity"
                                                                             placeholder="Quantity"
-                                                                            type={"number"}
+                                                                            type={"tel"}
                                                                             onChange={() => this.handleTotalValue(setValue, getFormState)}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
@@ -359,7 +359,7 @@ class AssetExchange extends React.Component {
                                                                         <InputForm
                                                                             field="priceATM"
                                                                             placeholder="Quantity"
-                                                                            type={"number"}
+                                                                            type={"tel"}
                                                                             onChange={() => this.handleTotalValue(setValue, getFormState)}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
@@ -378,7 +378,7 @@ class AssetExchange extends React.Component {
                                                                         <InputForm
                                                                             field="total"
                                                                             placeholder="Price"
-                                                                            type={"number"}
+                                                                            type={"tel"}
                                                                             disabled={true}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
@@ -517,7 +517,7 @@ class AssetExchange extends React.Component {
                                                                         <InputForm
                                                                             field="quantity"
                                                                             placeholder="Quantity"
-                                                                            type={"number"}
+                                                                            type={"tel"}
                                                                             onChange={() => this.handleTotalValue(setValue, getFormState)}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
@@ -536,7 +536,7 @@ class AssetExchange extends React.Component {
                                                                         <InputForm
                                                                             field="priceATM"
                                                                             placeholder="Quantity"
-                                                                            type={"number"}
+                                                                            type={"tel"}
                                                                             onChange={() => this.handleTotalValue(setValue, getFormState)}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
@@ -555,7 +555,7 @@ class AssetExchange extends React.Component {
                                                                         <InputForm
                                                                             field="total"
                                                                             placeholder="Price"
-                                                                            type={"number"}
+                                                                            type={"tel"}
                                                                             disabled={true}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">

@@ -153,7 +153,7 @@ class LeaseBalance extends React.Component {
                                         Period
                                     </label>
                                     <div className="col-sm-9">
-                                        <Text className="form-control" type={'number'} field="period" placeholder="Period" />
+                                        <Text className="form-control" type={'tel'} field="period" placeholder="Period" />
                                     </div>
                                 </div>
                                 <div className="mobile-class row form-group-grey">
@@ -224,7 +224,7 @@ class LeaseBalance extends React.Component {
                                               className="form-control"
                                               value={this.state.feeATM}
                                               placeholder="Minimum fee"
-                                              type={"number"}
+                                              type={"tel"}
                                               aria-describedby="feeATMText" />
                                         <div className="input-group-append">
                                             <span className="input-group-text" id="feeATMText">Apollo</span>

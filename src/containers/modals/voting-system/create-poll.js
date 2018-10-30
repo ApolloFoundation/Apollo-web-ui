@@ -322,7 +322,7 @@ class CreatePoll extends React.Component {
                                                             getFormState().values.votingModel === 0}
                                                 field="minBalance"
                                                 placeholder=""
-                                                type={"number"}
+                                                type={"tel"}
                                                 defaultValue={0}
                                                 setValue={setValue}/>
                                         </div>
@@ -333,7 +333,7 @@ class CreatePoll extends React.Component {
                                             {
                                                 this.state.block &&
                                                 <InputForm
-                                                    type="number"
+                                                    type="tel"
                                                     field="finishHeight"
                                                     defaultValue={parseInt(this.state.block.height) + 10000}
                                                     placeholder="Finish height"
@@ -406,7 +406,7 @@ class CreatePoll extends React.Component {
                                         <div className="col-sm-3">
                                             <InputForm
                                                 defaultValue={1}
-                                                type="number"
+                                                type="tel"
                                                 field="minNumberOfOptions"
                                                 placeholder=""
                                                 setValue={setValue}/>
@@ -417,7 +417,7 @@ class CreatePoll extends React.Component {
                                         <div className="col-sm-3">
                                             <InputForm
                                                 defaultValue={1}
-                                                type="number"
+                                                type="tel"
                                                 field="maxNumberOfOptions"
                                                 placeholder=""
                                                 setValue={setValue}/>
@@ -430,7 +430,7 @@ class CreatePoll extends React.Component {
                                         <div className="col-sm-3">
                                             <InputForm
                                                 defaultValue={0}
-                                                type="number"
+                                                type="tel"
                                                 field="minRangeValue"
                                                 placeholder=""
                                                 setValue={setValue}/>
@@ -441,7 +441,7 @@ class CreatePoll extends React.Component {
                                         <div className="col-sm-3">
                                             <InputForm
                                                 defaultValue={1}
-                                                type="number"
+                                                type="tel"
                                                 field="maxRangeValue"
                                                 placeholder=""
                                                 setValue={setValue}/>

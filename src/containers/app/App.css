@@ -2926,6 +2926,7 @@ input[type="checkbox"] {
 .form-check-input {
   cursor: pointer; }
 
+input[type="tel"],
 input[type="number"] {
   position: relative; }
 
@@ -4964,6 +4965,7 @@ input {
   border-radius: 3px;
   padding: 10px 20px; }
 
+input[type="tel"],
 input[type="number"] {
   width: 100%;
   border: 1px solid #E5E5E5;

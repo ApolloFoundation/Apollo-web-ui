@@ -186,7 +186,7 @@ class SellAlias extends React.Component {
                                                 </label>
                                                 <div className="col-sm-9">
                                                     <InputForm
-                                                        type={'number'}
+                                                        type={'tel'}
                                                         field="priceAPL"
                                                         placeholder="Price"
                                                         setValue={setValue}/>
@@ -365,7 +365,7 @@ class SellAlias extends React.Component {
                                                 </label>
                                                 <div className="col-sm-9">
                                                     <InputForm
-                                                        type={'number'}
+                                                        type={'tel'}
                                                         field="priceAPL"
                                                         placeholder="Price"
                                                         setValue={setValue}/>

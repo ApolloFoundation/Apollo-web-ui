@@ -109,6 +109,7 @@ input[type="checkbox"] {
 .form-check-input {
   cursor: pointer; }
 
+input[type="tel"],
 input[type="number"] {
   position: relative; }
 

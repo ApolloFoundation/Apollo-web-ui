@@ -94,7 +94,7 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="amount" placeholder="Amount" type="number"/>
+                                                <Text field="amount" placeholder="Amount" type="tel"/>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +107,7 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="threshold" placeholder="Threshold" type="number"/>
+                                                <Text field="threshold" placeholder="Threshold" type="tel"/>
                                             </div>
                                         </div>
                                     </div>
@@ -120,7 +120,7 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="interval" placeholder="Interval" type="number"/>
+                                                <Text field="interval" placeholder="Interval" type="tel"/>
                                             </div>
                                         </div>
                                     </div>
