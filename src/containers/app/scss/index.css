@@ -3505,7 +3505,8 @@ input[type="file"] {
       line-height: 1.6;
       padding-right: 30px;
       display: block;
-      vertical-align: middle; }
+      vertical-align: middle;
+      word-wrap: break-word; }
     .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
   .form-group-app .form-sub-title {
