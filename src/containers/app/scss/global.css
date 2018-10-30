@@ -189,6 +189,27 @@ input {
   input.not-active {
     pointer-events: none; }
 
+input[type="file"] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0; }
+
+.input-file-area {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 0 5px 5px 0;
+  border-color: #e5e5e5;
+  border: 1px solid #E5E5E5;
+  background-color: transparent;
+  display: flex; }
+  .input-file-area .input-file-name {
+    padding-left: 12px;
+    margin: auto 0;
+    font-size: 11px; }
+
 .contacts-list {
   position: absolute;
   top: 100%;
@@ -965,7 +986,8 @@ input {
     .input-group-app.search .input-icon.text i, .input-group-app.user .input-icon.text i {
       font-style: normal;
       font-size: 11px;
-      padding: 0 10px; }
+      padding: 8px 10px;
+      white-space: pre; }
 
 .input-group-app.search .iconned-input-field, .input-group-app.user .iconned-input-field {
   display: flex;

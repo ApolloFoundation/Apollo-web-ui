@@ -14,7 +14,6 @@ import {Form, Text, TextArea} from 'react-form';
 import submitForm from '../../../helpers/forms/forms';
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer';
-
 import BackForm from '../modal-form/modal-form-container';
 
 class UploadFile extends React.Component {
@@ -143,6 +142,8 @@ class UploadFile extends React.Component {
                                                             let reader = new FileReader();
                                                             let file = e.target.files[0];
 
+                                                            console.log(file);
+
                                                             reader.onloadend = () => {
                                                                 this.setState({
                                                                     ...this.state,
@@ -158,6 +159,18 @@ class UploadFile extends React.Component {
 
                                                         }}
                                                     />
+                                                    <div className={'input-file-area'}>
+                                                        <div className="input-file-name">
+                                                            {
+                                                                this.state.file &&
+                                                                this.state.file.name
+                                                            }
+                                                            {
+                                                                !this.state.file &&
+                                                                '-'
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,7 +211,7 @@ class UploadFile extends React.Component {
                                         !!this.state.isPending ?
                                             <div
                                                 style={{
-                                                    width: 56.25
+                                                    width: 80.25
                                                 }}
                                                 className="btn btn-right blue round round-bottom-right"
                                             >
@@ -210,7 +223,7 @@ class UploadFile extends React.Component {
                                             </div> :
                                             <button
                                                 style={{
-                                                    width: 56.25
+                                                    width: 80.25
                                                 }}
                                                 type="submit"
                                                 name={'closeModal'}
