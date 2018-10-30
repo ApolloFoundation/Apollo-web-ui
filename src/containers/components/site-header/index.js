@@ -963,7 +963,7 @@ class SiteHeader extends React.Component {
                                                             className="image-button"
                                                         >
                                                             <i className="zmdi zmdi-settings"/>
-                                                            <label style={{cursor: 'pointer'}}>Settings</label>
+                                                            <label style={{cursor: 'pointer'}}>Account settings</label>
                                                         </Link>
                                                     </div>
                                                     <div className="input-section">
