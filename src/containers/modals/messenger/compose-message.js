@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import $ from 'jquery';
+import AdvancedSettings from '../../components/advanced-transaction-settings';
 
 import InputForm from '../../components/input-form';
 import AccountRS from '../../components/account-rs';
@@ -230,7 +231,7 @@ class ComposeMessage extends React.Component {
                                     </a>
 
                                 </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -244,7 +245,7 @@ class ComposeMessage extends React.Component {
                                     getFormState={getFormState}
                                     values={values}
                                     advancedState={this.state.advancedState}
-                                />*/}
+                                />
                             </div>
                         </form>
                     )}

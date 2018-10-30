@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
-
+import AdvancedSettings from '../../components/advanced-transaction-settings';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer';
@@ -143,12 +143,12 @@ class SellAsset extends React.Component {
                                         values={values}
                                     />
 
-                                    {/*<AdvancedSettings
+                                    <AdvancedSettings
                                         setValue={setValue}
                                         getFormState={getFormState}
                                         values={values}
                                         advancedState={this.state.advancedState}
-                                    />*/}
+                                    />
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
 
@@ -177,14 +177,14 @@ class SellAsset extends React.Component {
                                         }
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
-                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                    <div className="btn-box align-buttons-inside absolute left-conner">
                                         <a
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-left round round-bottom-left round-top-right"
                                         >
                                             {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
-                                    </div>*/}
+                                    </div>
                                 </div>
                             }
                         </form>

@@ -10,6 +10,7 @@ import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModa
 import InputForm from '../../components/input-form';
 import InfoBox from '../../components/info-box';
 import {Form, Text, TextArea} from 'react-form';
+import AdvancedSettings from '../../components/advanced-transaction-settings';
 
 import submitForm from '../../../helpers/forms/forms';
 import {NotificationManager} from "react-notifications";
@@ -230,14 +231,14 @@ class UploadFile extends React.Component {
                                     }
 
                                 </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
                                         className="btn btn-left round round-bottom-left round-top-right"
                                     >
                                         {this.state.advancedState ? "Basic" : "Advanced"}
                                     </a>
-                                </div>*/}
+                                </div>
 
 
                                 {
@@ -265,13 +266,12 @@ class UploadFile extends React.Component {
                                     </InfoBox>
                                 }
 
-                                {/*<AdvancedSettings
+                                <AdvancedSettings
                                     setValue={setValue}
                                     getFormState={getFormState}
                                     values={values}
                                     advancedState={this.state.advancedState}
-                                />*/}
-
+                                />
                             </div>
                         </form>
                     )}
