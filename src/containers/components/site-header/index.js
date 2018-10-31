@@ -715,6 +715,7 @@ class SiteHeader extends React.Component {
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/peers">Peers</Link></li>
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/generators">Generators</Link></li>
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/funding-monitors">Monitors</Link></li>
+                                                                        <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/scheduled-transactions">Scheduled transactions</Link></li>
                                                                     </ul>
                                                                 </div>
                                                                 <div className="options-col">
@@ -725,12 +726,12 @@ class SiteHeader extends React.Component {
                                                                                 return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
                                                                             }}
                                                                             className="option">Generate token</a></li>
-                                                                        {/*<li><a*/}
-                                                                            {/*onClick={() => {*/}
-                                                                                {/*this.setState({bodyModalType: null});*/}
-                                                                                {/*return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');*/}
-                                                                            {/*}}*/}
-                                                                            {/*className="option">Generate hallmark</a></li>*/}
+                                                                        <li><a
+                                                                            onClick={() => {
+                                                                                this.setState({bodyModalType: null});
+                                                                                return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
+                                                                            }}
+                                                                            className="option">Generate hallmark</a></li>
                                                                         <li><a
                                                                             onClick={() => {
                                                                                 this.setState({bodyModalType: null});
