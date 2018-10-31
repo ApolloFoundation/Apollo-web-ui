@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import {connect} from 'react-redux'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getScheduledTransactions} from "../../../actions/scheduled-transactions";
+import ContentHendler from "../../components/content-hendler";
 
 const mapStateToProps = state => ({
     adminPassword: state.account.adminPassword,
@@ -35,7 +36,7 @@ class ScheduledTransactions extends React.Component {
                 account: this.props.account
             })
         }
-    }
+    };
 
     componentDidMount = () => {
         if (this.props.adminPassword) {
@@ -50,20 +51,22 @@ class ScheduledTransactions extends React.Component {
                 }
             })
         }
-    }
+    };
 
     getScheduledTransactions = async (reqParams) => {
-        const monitors = await getScheduledTransactions(reqParams);
+        const scheduledTransactions = await getScheduledTransactions(reqParams);
 
-        if (monitors && !monitors.errorCode) {
+        console.log(scheduledTransactions);
+
+        if (scheduledTransactions && !scheduledTransactions.errorCode) {
             this.setState({
-                monitors: monitors.monitors,
+                scheduledTransactions: scheduledTransactions.scheduledTransactions,
                 isLoaded: true
             })
         }
-        if (monitors && monitors.errorCode) {
+        if (scheduledTransactions && scheduledTransactions.errorCode) {
             this.setState({
-                monitors,
+                scheduledTransactions,
                 isLoaded: true
             })
         }
@@ -94,12 +97,18 @@ class ScheduledTransactions extends React.Component {
 
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
-                        <div className="info-box info">
-                            <p>Incorrect "adminPassword" (locked, too many incorrect password attempts)</p>
-                        </div>
-                        <div className="approval-request white-space">
-                            <div className="alert">No current approval requests.</div>
-                        </div>
+                        <ContentHendler
+                            items={this.state.scheduledTransactions}
+                            emptyMessage={'No schedules found.'}
+                        >
+                            <div className="transaction-table">
+                                <div className="transaction-table-body">
+                                    <table>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </ContentHendler>
                     </div>
                 </div>
             </div>
