@@ -23,4 +23,18 @@ svg {
       stroke: #00A0B4 !important;
     }
   }
+  &.Downloader {
+    height: 70px;
+    float: none;
+    width: auto;
+    padding: 10px;
+
+    .CircularProgressbar-path {
+      stroke: #00A0B4 !important;
+    }
+    text {
+      display: block;
+      font-size: 12px;
+    }
+  }
 }

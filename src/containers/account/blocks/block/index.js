@@ -33,7 +33,7 @@ class Block extends React.Component {
                 <td className="align-right">{this.props.block.totalAmountATM / 100000000}</td>
                 <td className="align-right">{this.props.block.totalFeeATM    / 100000000}</td>
                 <td className="align-right">
-                    {this.props.block.transactions.length}
+                    {this.props.block.numberOfTransactions}
                 </td>
                 <td className="blue-link-text">
                     <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.block.generator)}>{this.props.block.generatorRS}</a>

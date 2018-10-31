@@ -17,7 +17,7 @@ class PhasedTransactionsHints extends React.Component {
 
     getPostionOfphasedTransactions = () => {
 
-        if (this.props.transactions && this.props.transactions[0].transaction !== this.state.lastTransaction) {
+        if (this.props.transactions && this.props.transactions[0] && this.props.transactions[0].transaction !== this.state.lastTransaction) {
             const phased = this.props.transactions.filter((el, index) => {
                 return el.phased
             });
