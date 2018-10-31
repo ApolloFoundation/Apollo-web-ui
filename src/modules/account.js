@@ -35,6 +35,7 @@ const initialState = {
     unconfirmedBalanceATM: null,
     loading: true,
     blockPageBody: false,
+    isLocalhost: window.location.hostname === 'localhost',
     mobileSettings: {
         is_check_remember_me: false,
         is_store_remembered_passphrase: (window["cordova"] !== undefined), // too early to use feature detection
