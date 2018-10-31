@@ -19,16 +19,15 @@ class ConnectPeer extends React.Component {
 
     handleFormSubmit = async (values) => {
         const toSend = {
-            adminPassword: values.adminPass,
+            adminPassword: values.adminPassword,
             peer: this.props.modalData || values.peer,
-            publicKey: this.props.publicKey,
-            ecBlockHeight: 0
         };
         const res = await this.props.submitForm( toSend, "addPeer");
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             NotificationManager.success('Peer has been conected!', null, 5000);
+            this.props.closeModal();
         }
     };
 

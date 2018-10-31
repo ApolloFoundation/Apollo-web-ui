@@ -35,16 +35,14 @@ class Peers extends React.Component {
     componentDidMount() {
         this.initPeersPage();
         this.getPeers();
-        BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
-            this.getPeers();
-        });
-
     }
 
+    peersPageUpdater = setInterval(() => {
+        this.getPeers();
+    }, 4000);
+
     componentWillUnmount() {
-        BlockUpdater.removeAllListeners('data');
+        clearInterval(this.peersPageUpdater)
     }
 
     initPeersPage = async () => {
