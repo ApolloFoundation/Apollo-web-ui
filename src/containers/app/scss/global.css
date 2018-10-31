@@ -1909,3 +1909,6 @@ table td .btn, table th .btn {
 .full-info td {
   white-space: normal;
   word-wrap: break-word; }
+
+.form-control {
+  min-height: 32px; }

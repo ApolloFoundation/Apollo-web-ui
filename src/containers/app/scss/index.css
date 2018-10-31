@@ -4727,6 +4727,9 @@ table td .btn, table th .btn {
   white-space: normal;
   word-wrap: break-word; }
 
+.form-control {
+  min-height: 32px; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
