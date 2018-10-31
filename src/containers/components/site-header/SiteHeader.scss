@@ -145,6 +145,7 @@
 	.user-search-box {
 		display: flex;
 		margin: 0 -15px;
+		align-items: center;
 		height: 51px;
 		//overflow: hidden;
 		@media (max-width: 760px) {
@@ -205,6 +206,7 @@
 			.user-account-actions {
 				height: 41px;
 				display: flex;
+				align-items: center;
 				justify-content: flex-end;
 				& > * {
 					margin: auto 0;
@@ -342,7 +344,7 @@
 		}
 		.user-box {
 			max-width: 230px;
-			width: auto;
+			width: 100%;
 			display: flex;
 			//flex-wrap: wrap;
 			align-items: center;
@@ -371,6 +373,7 @@
 				}
 			}
 			.name {
+				width: auto;
 				max-width: 100%;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -391,7 +394,7 @@
 					top: 50%;
 					left: 50%;
 					transform: translate(-50%, -50%);
-					margin-left: 1px;
+					//margin-left: 1px;
 					color: #666666;
 				}
 
@@ -592,6 +595,7 @@
 				height: 41px;
 				display: flex;
 				justify-content: flex-end;
+				align-items: center;
 				
 				& > * {
 					margin: auto 0;

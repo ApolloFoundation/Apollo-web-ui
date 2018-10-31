@@ -29,7 +29,8 @@
     display: none; }
   .marketplace-item--full-width + .btn-box {
     position: relative;
-    min-height: 46px; }
+    height: 33px;
+    margin-top: 15px; }
 
 .marketplace-item {
   min-height: 325px;
@@ -363,9 +364,7 @@
     .card.marketplace .card-avatar.no-image {
       background-size: 30% !important;
       background-image: url(../../../assets/no-photo.svg) !important;
-      background-color: #eee !important;
-      width: 100%;
-      margin: auto; }
+      background-color: #eee !important; }
   .card.marketplace .price-box {
     padding: 15px;
     height: 85px;
@@ -420,3 +419,18 @@
 @media (max-width: 760px) {
   .marketplace-preview .marketplace-preview-item:nth-of-type(3) .card {
     min-height: auto !important; } }
+
+.marketplace-btn-box {
+  position: relative;
+  z-index: 2;
+  height: 33px;
+  margin-top: 15px; }
+  .marketplace-btn-box:after {
+    content: '';
+    display: table;
+    clear: both; }
+  .marketplace-btn-box .pagination-nav {
+    bottom: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
