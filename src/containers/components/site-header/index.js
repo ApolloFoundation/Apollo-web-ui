@@ -574,6 +574,7 @@ class SiteHeader extends React.Component {
                                                     <AccordionItemTitle
                                                         className={`text ${this.getNavLinkClass(["/my-products-for-sale",
                                                             "/my-pending-orders",
+                                                            "/recent-listing",
                                                             "/my-completed-orders"])}`}>
                                                         <i className="zmdi zmdi-label"/>Marketplace<span className="arrow"/>
                                                     </AccordionItemTitle>
