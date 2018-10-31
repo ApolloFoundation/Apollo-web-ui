@@ -57,7 +57,8 @@
 	}
 	& + .btn-box {
 		position: relative;
-		min-height: 46px;
+		height: 33px;
+		margin-top: 15px;
 	}
 }
 
@@ -496,8 +497,8 @@
 				background-size: 30% !important;
 				background-image: url(../../../assets/no-photo.svg) !important;
 				background-color: #eee !important;
-				width: 100%;
-				margin: auto;
+				//width: 100%;
+				//margin: auto;
 			}
 		}
 		.price-box {
@@ -579,5 +580,26 @@
 				}
 			}
 		}
+	}
+}
+
+.my-complete-orders {
+
+}
+.marketplace-btn-box {
+	position: relative;
+	z-index: 2;
+	height: 33px;
+	margin-top: 15px;
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+	.pagination-nav {
+		bottom: 0;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 }

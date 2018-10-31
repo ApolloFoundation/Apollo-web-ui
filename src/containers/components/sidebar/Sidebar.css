@@ -72,6 +72,15 @@
       min-height: calc(100vh - 100px);
       position: relative;
       z-index: 3; }
+      .menu-bar .menu-bar-container nav:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        background-color: #333333; }
       .menu-bar .menu-bar-container nav a {
         text-decoration: none !important; }
       .menu-bar .menu-bar-container nav ul li {

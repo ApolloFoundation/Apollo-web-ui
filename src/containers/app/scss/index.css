@@ -3706,7 +3706,8 @@ input[type="file"] {
       letter-spacing: 0.2px;
       font-size: 11.5px;
       border-radius: 5px;
-      padding: 0.25rem 25px 0.2rem 0.5rem; }
+      padding: 0.25rem 25px 0.2rem 0.5rem;
+      min-height: 32px; }
       .form-group-app .form-group-white .form-controlselect {
         background-color: #e5e5e5; }
       .form-group-app .form-group-white .form-control:focus {
@@ -3794,6 +3795,10 @@ input[type="file"] {
 .input-group-app textarea {
   width: 100%; }
 
+.input-group-app.search i, .input-group-app.user i {
+  margin: 0 !important;
+  padding: 0 !important; }
+
 .input-group-app.search input, .input-group-app.user input {
   display: block; }
 
@@ -3805,6 +3810,8 @@ input[type="file"] {
   text-align: center;
   cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 3px; }
   .input-group-app.search .input-icon.text, .input-group-app.user .input-icon.text {
     width: auto; }
@@ -4712,7 +4719,7 @@ table td .btn, table th .btn {
 .overflow-menu {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
   transition: all 0.3s ease-in-out;
