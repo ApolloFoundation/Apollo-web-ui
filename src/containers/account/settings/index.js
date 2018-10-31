@@ -17,7 +17,6 @@ import ContentLoader from '../../components/content-loader';
 import {enable2FAActon, disable2FAActon} from '../../../actions/account'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getAccountInfoAction} from "../../../actions/account";
-
 import {login} from '../../../modules/account'
 
 class Settings extends React.Component {
@@ -296,52 +295,55 @@ class Settings extends React.Component {
                                         />
 
                                 </div>
-                                <div className="page-settings-item full-height">
-                                    <Form
-                                        onSubmit={(values) => this.handleGeneralSettingFormSubmit(values)}
-                                        render={({submitForm, values, addValue, removeValue, getFormState}) => (
-                                            <form className="modal-form" onSubmit={submitForm}>
-                                                <div className="form-group-app">
-                                                    <div className="form-title">
-                                                        <p>General</p>
-                                                    </div>
-                                                    <div className="input-group-app">
-                                                        <div className="row">
-                                                            <div className="col-md-6 align-items-center">
-                                                                <label>Admin password</label>
-                                                            </div>
-                                                            <div className="col-md-6 pl-0">
-                                                                <Text
-                                                                    className="form-control"
-                                                                    type="text"
-                                                                    field="adminPassword"
-                                                                    defaultValue={this.state.adminPassword}
-                                                                />
-                                                            </div>
-
+                                {
+                                    this.props.isLocalhost &&
+                                    <div className="page-settings-item full-height">
+                                        <Form
+                                            onSubmit={(values) => this.handleGeneralSettingFormSubmit(values)}
+                                            render={({submitForm, values, addValue, removeValue, getFormState}) => (
+                                                <form className="modal-form" onSubmit={submitForm}>
+                                                    <div className="form-group-app">
+                                                        <div className="form-title">
+                                                            <p>General</p>
                                                         </div>
-                                                        <div className="row">
-                                                            <div className="mobile-class form-group-grey row mb-15">
-                                                                <div
-                                                                    style={{
-                                                                        marginTop: 15,
-                                                                        paddingLeft: 0
-                                                                    }}
-                                                                    className="col-sm-6 offset-sm-6"
-                                                                >
-                                                                    <button className="no-margin btn static blue">
-                                                                        Save
-                                                                    </button>
+                                                        <div className="input-group-app">
+                                                            <div className="row">
+                                                                <div className="col-md-6 align-items-center">
+                                                                    <label>Admin password</label>
+                                                                </div>
+                                                                <div className="col-md-6 pl-0">
+                                                                    <Text
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        field="adminPassword"
+                                                                        defaultValue={this.state.adminPassword}
+                                                                    />
+                                                                </div>
+
+                                                            </div>
+                                                            <div className="row">
+                                                                <div className="mobile-class form-group-grey row mb-15">
+                                                                    <div
+                                                                        style={{
+                                                                            marginTop: 15,
+                                                                            paddingLeft: 0
+                                                                        }}
+                                                                        className="col-sm-6 offset-sm-6"
+                                                                    >
+                                                                        <button className="no-margin btn static blue">
+                                                                            Save
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </form>
-                                        )}
-                                    />
+                                                </form>
+                                            )}
+                                        />
 
-                                </div>
+                                    </div>
+                                }
                             </div>
 
                         </div>
@@ -355,7 +357,8 @@ class Settings extends React.Component {
 const mapStateToProps = state => ({
     settings: state.accountSettings,
     is2FA: state.account.is2FA,
-    account: state.account.account
+    account: state.account.account,
+    isLocalhost: state.account.isLocalhost
 });
 
 const mapDispatchToProps = dispatch => ({
