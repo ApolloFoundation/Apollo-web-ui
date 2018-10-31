@@ -26,6 +26,7 @@ class Settings extends React.Component {
     valuesSet = false;
 
     componentDidMount() {
+        this.getAdminPassword();
         this.props.getSavedAccountSettings();
         this.getAccountInfoAction(this.props);
         this.settingsLoaded = true;
@@ -61,6 +62,7 @@ class Settings extends React.Component {
         getSavedAccountSettingsAction();
         NotificationManager.success('Settings has been saved!');
     };
+
 
     componentWillReceiveProps = (newState, oldState) => {
         this.getAccountInfoAction(newState);
@@ -134,6 +136,24 @@ class Settings extends React.Component {
         }
     };
 
+    getAdminPassword = () => {
+        const adminPassword = localStorage.getItem('adminPassword');
+
+        if (adminPassword) {
+            this.setState({
+                adminPassword: JSON.parse(adminPassword)
+            });
+        }
+    };
+
+    handleGeneralSettingFormSubmit = (values) => {
+        const adminPassword = JSON.stringify(values.adminPassword);
+
+        if (adminPassword) {
+            localStorage.setItem('adminPassword', adminPassword);
+        }
+    };
+
     render() {
         return (
             <div className="page-content">
@@ -144,144 +164,185 @@ class Settings extends React.Component {
                     <div className="account-settings" style={{padding: 0}}>
                         <div className="row" style={{padding: 0, width: '100%'}}>
 
-                            <React.Fragment>
-                                <div className="page-settings-body">
-                                    <div className="page-settings-item">
-                                        <Form
-                                            onSubmit={(values) => this.handleFormSubmit(values)}
-                                            render={({submitForm, values, addValue, removeValue, getFormState}) => (
-                                                <form className="modal-form" onSubmit={submitForm}>
-                                                    <div className="form-group-app">
-                                                        <div className="form-title">
-                                                            <p>Two Factor Authentication (2FA)</p>
-                                                            {
-                                                                !this.props.is2FA &&
-                                                                <div className="form-sub-title">
-                                                                    The 2FA currently disabled on this account. You can increase your wallet security with this option.
-                                                                </div>
-                                                            }
-                                                            {
-                                                                this.props.is2FA &&
-                                                                <div className="form-sub-title">
-                                                                    The 2FA currently enabled on this account.
-                                                                </div>
-                                                            }
-                                                        </div>
-
-
+                            <div className="page-settings-body">
+                                <div className="page-settings-item">
+                                    <Form
+                                        onSubmit={(values) => this.handleFormSubmit(values)}
+                                        render={({submitForm, values, addValue, removeValue, getFormState}) => (
+                                            <form className="modal-form" onSubmit={submitForm}>
+                                                <div className="form-group-app">
+                                                    <div className="form-title">
+                                                        <p>Two Factor Authentication (2FA)</p>
                                                         {
-                                                            this.state.account &&
-                                                            !this.state.account.is2FA &&
-                                                            <React.Fragment>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>Account ID</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <Text className="form-control"
-                                                                                  type="text"
-                                                                                  field="account"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>Pass phrase</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <Text className="form-control"
-                                                                                  type="password"
-                                                                                  field="passphrase"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="mobile-class form-group-grey row mb-15">
-                                                                    <div
-                                                                        style={{
-                                                                            marginTop: 15,
-                                                                            paddingLeft: 0
-                                                                        }}
-                                                                        className="col-sm-6 offset-sm-6"
-                                                                    >
-                                                                        <a className="no-margin btn static blue"
-                                                                           onClick={() => this.getQRCode(getFormState)}>
-                                                                            Get Qr code
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </React.Fragment>
+                                                            !this.props.is2FA &&
+                                                            <div className="form-sub-title">
+                                                                The 2FA currently disabled on this account. You can increase your wallet security with this option.
+                                                            </div>
                                                         }
-
                                                         {
-                                                            this.state.account &&
-                                                            this.state.account.is2FA &&
-                                                            <React.Fragment>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>Account ID</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <Text className="form-control"
-                                                                                  type="text"
-                                                                                  field="account"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>Pass phrase</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <Text className="form-control"
-                                                                                  type="password"
-                                                                                  field="passphrase"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="input-group-app">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6 align-items-center">
-                                                                            <label>2FA code</label>
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                            <Text className="form-control"
-                                                                                  type="password"
-                                                                                  field="code2FA"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="mobile-class form-group-grey row mb-15">
-                                                                    <div
-                                                                        style={{
-                                                                            marginTop: 15,
-                                                                            paddingLeft: 0
-                                                                        }}
-                                                                        className="col-sm-6 offset-sm-6"
-                                                                    >
-                                                                        <a className="no-margin btn static blue"
-                                                                           onClick={() => this.disable2fa(getFormState)}>
-                                                                            Confirm disable
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </React.Fragment>
+                                                            this.props.is2FA &&
+                                                            <div className="form-sub-title">
+                                                                The 2FA currently enabled on this account.
+                                                            </div>
                                                         }
-
                                                     </div>
-                                                </form>
-                                                )}
-                                            />
 
-                                    </div>
+
+                                                    {
+                                                        this.state.account &&
+                                                        !this.state.account.is2FA &&
+                                                        <React.Fragment>
+                                                            <div className="input-group-app">
+                                                                <div className="row">
+                                                                    <div className="col-md-6 align-items-center">
+                                                                        <label>Account ID</label>
+                                                                    </div>
+                                                                    <div className="col-md-6">
+                                                                        <Text className="form-control"
+                                                                              type="text"
+                                                                              field="account"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="input-group-app">
+                                                                <div className="row">
+                                                                    <div className="col-md-6 align-items-center">
+                                                                        <label>Pass phrase</label>
+                                                                    </div>
+                                                                    <div className="col-md-6">
+                                                                        <Text className="form-control"
+                                                                              type="password"
+                                                                              field="passphrase"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="mobile-class form-group-grey row mb-15">
+                                                                <div
+                                                                    style={{
+                                                                        marginTop: 15,
+                                                                        paddingLeft: 0
+                                                                    }}
+                                                                    className="col-sm-6 offset-sm-6"
+                                                                >
+                                                                    <a className="no-margin btn static blue"
+                                                                       onClick={() => this.getQRCode(getFormState)}>
+                                                                        Get Qr code
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </React.Fragment>
+                                                    }
+
+                                                    {
+                                                        this.state.account &&
+                                                        this.state.account.is2FA &&
+                                                        <React.Fragment>
+                                                            <div className="input-group-app">
+                                                                <div className="row">
+                                                                    <div className="col-md-6 align-items-center">
+                                                                        <label>Account ID</label>
+                                                                    </div>
+                                                                    <div className="col-md-6">
+                                                                        <Text className="form-control"
+                                                                              type="text"
+                                                                              field="account"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="input-group-app">
+                                                                <div className="row">
+                                                                    <div className="col-md-6 align-items-center">
+                                                                        <label>Pass phrase</label>
+                                                                    </div>
+                                                                    <div className="col-md-6">
+                                                                        <Text className="form-control"
+                                                                              type="password"
+                                                                              field="passphrase"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="input-group-app">
+                                                                <div className="row">
+                                                                    <div className="col-md-6 align-items-center">
+                                                                        <label>2FA code</label>
+                                                                    </div>
+                                                                    <div className="col-md-6">
+                                                                        <Text className="form-control"
+                                                                              type="password"
+                                                                              field="code2FA"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="mobile-class form-group-grey row mb-15">
+                                                                <div
+                                                                    style={{
+                                                                        marginTop: 15,
+                                                                        paddingLeft: 0
+                                                                    }}
+                                                                    className="col-sm-6 offset-sm-6"
+                                                                >
+                                                                    <a className="no-margin btn static blue"
+                                                                       onClick={() => this.disable2fa(getFormState)}>
+                                                                        Confirm disable
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </React.Fragment>
+                                                    }
+
+                                                </div>
+                                            </form>
+                                            )}
+                                        />
+
                                 </div>
-                            </React.Fragment>
+                                <div className="page-settings-item full-height">
+                                    <Form
+                                        onSubmit={(values) => this.handleGeneralSettingFormSubmit(values)}
+                                        render={({submitForm, values, addValue, removeValue, getFormState}) => (
+                                            <form className="modal-form" onSubmit={submitForm}>
+                                                <div className="form-group-app">
+                                                    <div className="form-title">
+                                                        <p>General</p>
+                                                    </div>
+                                                    <div className="input-group-app">
+                                                        <div className="row">
+                                                            <div className="col-md-6 align-items-center">
+                                                                <label>Admin password</label>
+                                                            </div>
+                                                            <div className="col-md-6 pl-0">
+                                                                <Text
+                                                                    className="form-control"
+                                                                    type="text"
+                                                                    field="adminPassword"
+                                                                    defaultValue={this.state.adminPassword}
+                                                                />
+                                                            </div>
 
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="mobile-class form-group-grey row mb-15">
+                                                                <div
+                                                                    style={{
+                                                                        marginTop: 15,
+                                                                        paddingLeft: 0
+                                                                    }}
+                                                                    className="col-sm-6 offset-sm-6"
+                                                                >
+                                                                    <button className="no-margin btn static blue">
+                                                                        Save
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        )}
+                                    />
 
-
+                                </div>
+                            </div>
 
                         </div>
                     </div>

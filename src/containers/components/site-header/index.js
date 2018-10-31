@@ -714,6 +714,7 @@ class SiteHeader extends React.Component {
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/blocks">Blocks</Link></li>
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/peers">Peers</Link></li>
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/generators">Generators</Link></li>
+                                                                        <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/funding-monitors">Monitors</Link></li>
                                                                     </ul>
                                                                 </div>
                                                                 <div className="options-col">
