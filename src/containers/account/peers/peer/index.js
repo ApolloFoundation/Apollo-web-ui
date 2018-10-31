@@ -47,4 +47,4 @@ const Peer = (props) => (
     </tr>
 );
 
-export default connect(null ,mapDispatchToProps)(Peer);
+export default connect(mapStateToProps ,mapDispatchToProps)(Peer);
