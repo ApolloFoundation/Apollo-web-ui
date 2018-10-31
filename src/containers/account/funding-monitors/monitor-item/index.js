@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {startMonitor, stopMonitor} from "../../../../actions/monitors";
-
+import {NotificationManager} from 'react-notifications'
 const mapStateToProps  = state => ({
     adminPassword: state.account.adminPassword
 })
@@ -10,6 +10,22 @@ const mapStateToProps  = state => ({
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction : (type, value) => dispatch(setBodyModalParamsAction(type, value))
 });
+
+const stopMonitorAction = (props) => {
+    const monitor = stopMonitor({
+        account: props.accountRS,
+        property: props.property,
+        adminPassword: props.adminPassword,
+        feeATM: 0
+    })
+
+    if (monitor && !monitor.errorCode) {
+        NotificationManager.success('The funding monitor has been stopped.', null, 5000);
+        setTimeout(() => {
+            props.reloadCallback()
+        }, 1000)
+    }
+}
 
 const MonitorItem = (props) => (
     <tr>
@@ -47,12 +63,7 @@ const MonitorItem = (props) => (
             </a>
             <a
                 className={'btn primary default'}
-                onClick={() => stopMonitor({
-                    account: props.accountRS,
-                    property: props.property,
-                    adminPassword: props.adminPassword,
-                    feeATM: 0
-                })}
+                onClick={() => stopMonitorAction(props)}
             >
                 Stop
             </a>

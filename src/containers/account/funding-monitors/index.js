@@ -37,13 +37,18 @@ class FundingMonitors extends React.Component {
             this.getFundingMointors({
                 adminPassword: this.props.adminPassword
             })
+        } else {
+            this.setState({
+                monitors: {
+                    errorCode: 3
+                }
+            })
         }
+
     }
 
     getFundingMointors = async (reqParams) => {
         const monitors = await getFundingMonitorsAction(reqParams);
-
-        console.log(monitors);
 
         if (monitors && !monitors.errorCode) {
             this.setState({
@@ -146,7 +151,10 @@ class FundingMonitors extends React.Component {
                                             {
                                                 this.state.monitors.map((el) => {
                                                     return (
-                                                        <MonitorItem {...el}/>
+                                                        <MonitorItem
+                                                            reloadCallback={this.reloadFundingMonitors}
+                                                            {...el}
+                                                        />
                                                     );
                                                 })
                                             }
