@@ -11,3 +11,13 @@ svg {
     stroke: #00C8FF !important; }
   svg.MarioCoin .CircularProgressbar-path {
     stroke: #00A0B4 !important; }
+  svg.Downloader {
+    height: 70px;
+    float: none;
+    width: auto;
+    padding: 10px; }
+    svg.Downloader .CircularProgressbar-path {
+      stroke: #00A0B4 !important; }
+    svg.Downloader text {
+      display: block;
+      font-size: 12px; }

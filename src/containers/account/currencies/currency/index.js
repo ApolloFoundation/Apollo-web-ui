@@ -28,7 +28,7 @@ const Currency = (props) => (
         <td className="align-right">
             <div className="btn-box inline">
                 <Link to={"/exchange-booth/" + props.code} className="btn primary blue">Exchange</Link>
-                {/*<a onClick={() => props.setBodyModalParamsAction('RESERVE_CURRENCY', null)} className="btn primary blue">Reserve</a>*/}
+                <a onClick={() => props.setBodyModalParamsAction('RESERVE_CURRENCY', null)} className="btn primary default">Reserve</a>
             </div>
         </td>
     </tr>

@@ -387,7 +387,9 @@
       color: #777777;
       font-size: 12px;
       margin-top: 15px;
-      word-break: break-word; }
+      word-break: break-word;
+      word-wrap: break-word;
+      display: block; }
 
 @media (max-width: 1200px) {
   .marketplace-row .marketplace-row-item {

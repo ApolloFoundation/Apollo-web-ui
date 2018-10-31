@@ -714,6 +714,13 @@ class SiteHeader extends React.Component {
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/blocks">Blocks</Link></li>
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/peers">Peers</Link></li>
                                                                         <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/generators">Generators</Link></li>
+                                                                        {
+                                                                            this.props.isLocalhost &&
+                                                                            <React.Fragment>
+                                                                                <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/funding-monitors">Monitors</Link></li>
+                                                                                <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/scheduled-transactions">Scheduled transactions</Link></li>
+                                                                            </React.Fragment>
+                                                                        }
                                                                     </ul>
                                                                 </div>
                                                                 <div className="options-col">
@@ -724,12 +731,12 @@ class SiteHeader extends React.Component {
                                                                                 return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
                                                                             }}
                                                                             className="option">Generate token</a></li>
-                                                                        {/*<li><a*/}
-                                                                            {/*onClick={() => {*/}
-                                                                                {/*this.setState({bodyModalType: null});*/}
-                                                                                {/*return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');*/}
-                                                                            {/*}}*/}
-                                                                            {/*className="option">Generate hallmark</a></li>*/}
+                                                                        <li><a
+                                                                            onClick={() => {
+                                                                                this.setState({bodyModalType: null});
+                                                                                return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
+                                                                            }}
+                                                                            className="option">Generate hallmark</a></li>
                                                                         <li><a
                                                                             onClick={() => {
                                                                                 this.setState({bodyModalType: null});
@@ -1017,7 +1024,8 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     bodyModalType: state.modals.bodyModalType,
     secretPhrase: state.account.passPhrase,
-    settings: state.accountSettings
+    settings: state.accountSettings,
+    isLocalhost: state.account.isLocalhost
 });
 
 const mapDispatchToProps = dispatch => ({

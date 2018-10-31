@@ -6,6 +6,8 @@
 
 import axios from 'axios';
 import config from '../../config';
+import store from "../../store";
+import submitForm from "../../helpers/forms/forms";
 
 export function getPeersAction(requestParams) {
     return dispatch => {
@@ -58,3 +60,7 @@ export function getPeersInfoAction() {
         }
     }
 }
+
+export const addPeerAction = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'addPeer'))
+};

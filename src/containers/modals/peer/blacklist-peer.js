@@ -31,6 +31,7 @@ class BlacklistPeer extends React.Component {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             NotificationManager.success('Peer has been blacklisted!', null, 5000);
+            this.props.closeModal();
         }
     };
 

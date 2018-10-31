@@ -6,6 +6,7 @@
 
 import React from "react";
 import {startBlockPullingAction} from "../../actions/blocks/index";
+import {loadBlockchainStatus} from "../../actions/login/index";
 import store from '../../store'
 
 
@@ -26,22 +27,33 @@ export default class BlockSubscriber extends React.Component {
 
 
     updateBlock = async () => {
-        const blockData = await startBlockPullingAction();
-        if (blockData) {
-            const currHeight = blockData.height;
+        let blockData = startBlockPullingAction();
+        let blockChainStatus = store.dispatch(loadBlockchainStatus());
 
-            store.dispatch({
-                type: 'SET_ACTUAL_BLOCK',
-                payload: currHeight
+        Promise.all([blockData, blockChainStatus])
+            .then((data) => {
+
+                blockData = data[0];
+                blockChainStatus = data[1];
+
+                console.log(data);
+
+                if (blockData) {
+                    const currHeight = blockData.height;
+
+                    store.dispatch({
+                        type: 'SET_ACTUAL_BLOCK',
+                        payload: currHeight
+                    });
+
+                    const {account} = store.getState();
+
+                    if (currHeight > this.prevHeight) {
+                        this.prevHeight = currHeight;
+                        BlockUpdater.emit("data", currHeight);
+                    }
+                }
             });
-
-            const {account} = store.getState();
-
-            if (currHeight > this.prevHeight) {
-                this.prevHeight = currHeight;
-                BlockUpdater.emit("data", currHeight);
-            }
-        }
     };
 
     componentWillUnmount() {

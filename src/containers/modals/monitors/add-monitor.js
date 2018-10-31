@@ -47,6 +47,9 @@ class AddMonitor extends React.Component {
         } else {
             NotificationManager.success('Monitor has been started!', null, 5000);
             this.props.closeModal();
+            setTimeout(() => {
+                this.props.modalData()
+            }, 1000);
         }
     };
 
@@ -167,6 +170,7 @@ class AddMonitor extends React.Component {
 
 const mapStateToProps = state => ({
 	modalsHistory: state.modals.modalsHistory,
+	modalData: state.modals.modalData,
 });
 
 const mapDispatchToProps = dispatch => ({

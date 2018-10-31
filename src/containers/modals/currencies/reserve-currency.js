@@ -163,7 +163,7 @@ class ReserveCurrency extends React.Component {
                                     </div> :
                                     <button
                                         style={{
-                                            width: 100
+                                            width: 200
                                         }}
                                         type="submit"
                                         name={'closeModal'}
@@ -181,7 +181,7 @@ class ReserveCurrency extends React.Component {
                             </a>
 
                         </div>
-                        {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                        <div className="btn-box align-buttons-inside absolute left-conner">
                             <a
                                 onClick={this.handleAdvancedState}
                                 className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -189,10 +189,10 @@ class ReserveCurrency extends React.Component {
                             >
                                 Advanced
                             </a>
-                        </div>*/}
+                        </div>
                         {/*<AdvancedSettings*/}
-                            {/*setState={setValue}                                     */}
-                            {/*advancedState={this.state.advancedState}                                 */}
+                            {/*setState={setValue}*/}
+                            {/*advancedState={this.state.advancedState}*/}
                         {/*/>*/}
                     </div>
                 </form>

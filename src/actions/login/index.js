@@ -311,6 +311,7 @@ export function loadBlockchainStatus() {
                         type: "LOAD_BLOCKCHAIN_STATUS",
                         payload: res.data
                     });
+                    return res.data;
                 }
             })
             .catch((err) => {

@@ -233,12 +233,12 @@ class MarketplacePurchase extends React.Component {
                                                         getFormState={getFormState}
                                                         values={values}
                                                     />
-                                                    {/*<AdvancedSettings
+                                                    <AdvancedSettings
                                                         setValue={setValue}
                                                         getFormState={getFormState}
                                                         values={values}
                                                         advancedState={this.state.advancedState}
-                                                    />*/}
+                                                    />
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a

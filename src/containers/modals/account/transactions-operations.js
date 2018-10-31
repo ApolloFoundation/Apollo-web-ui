@@ -15,6 +15,7 @@ import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";
 import {signBytesArrayAPL} from "../../../helpers/converters";
 import QRCode from "qrcode.react";
+import AccountRS from "../../components/account-rs";
 
 class TransactionOperations extends React.Component {
     constructor(props) {
@@ -178,49 +179,48 @@ class TransactionOperations extends React.Component {
                                         "tab-body": true,
                                         "active": this.state.activeTab === 0
                                     })}>
-                                        <div className="input-group-app block offset-bottom offset-top">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Unsigned Transaction Bytes</label>
-                                                </div>
-                                                <div className="col-md-9">
+                                        <div className="input-group-app align-top form-group mb-15 pl-0 display-block inline user">
+                                            <div className="row form-group-white">
+                                                <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                    Unsigned Transaction Bytes <i className="zmdi zmdi-upload"/>
+                                                </label>
+                                                <div className="col-sm-9">
                                                     <TextArea rows={5} type="textarea" field={'signBytes'}
                                                               placeholder="Unsigned Transaction Bytes"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group-app block offset-bottom">
-
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Unsigned Transaction JSON</label>
-                                                </div>
-                                                <div className="col-md-9">
+                                        <div className="input-group-app align-top form-group mb-15 pl-0 display-block inline user">
+                                            <div className="row form-group-white">
+                                                <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                    Unsigned Transaction JSON <i className="zmdi zmdi-portable-wifi-changes"/>
+                                                </label>
+                                                <div className="col-sm-9">
                                                     <TextArea rows={5} field={'signJson'}
                                                               placeholder="Unsigned Transaction JSON"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group-app block offset-bottom">
 
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Validate</label>
-                                                </div>
-                                                <div className="col-md-9">
+                                        <div className="mobile-class row mb-15 form-group-white">
+                                            <div className="col-md-9 offset-md-3 pl-0">
+                                                <div className="form-check custom-checkbox single">
                                                     <Checkbox style={{display: 'inline-block'}} type="checkbox"
                                                               field="signValidate"/>
+                                                    <label className="form-check-label custom-control-label">
+                                                        Validate
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group-app block offset-bottom">
 
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <label>Passphrase</label>
-                                                </div>
-                                                <div className="col-md-9">
+
+                                        <div className="input-group-app form-group mb-15 pl-0 display-block inline user">
+                                            <div className="row form-group-white">
+                                                <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                    Passphrase <i className="zmdi zmdi-portable-wifi-changes"/>
+                                                </label>
+                                                <div className="col-sm-9">
                                                     <Text type="password" field={'signPassphrase'}/>
                                                 </div>
                                             </div>
@@ -405,6 +405,23 @@ class TransactionOperations extends React.Component {
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
+                                        {
+                                            this.state.activeTab === 0 &&
+                                                'Sign Transaction'
+                                        }
+                                        {
+                                            this.state.activeTab === 1 &&
+                                                'Broadcast'
+                                        }
+                                        {
+                                            this.state.activeTab === 2 &&
+                                                'Parse Transaction'
+                                        }
+                                        {
+                                            this.state.activeTab === 3 &&
+                                                'Calculate Full Hash'
+                                        }
+
                                         Generate
                                     </button>
                                     <a onClick={() => this.props.closeModal()}

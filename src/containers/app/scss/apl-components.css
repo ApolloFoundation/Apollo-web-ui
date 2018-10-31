@@ -156,6 +156,8 @@
   .info-box p {
     padding: 18px 40px;
     color: #000; }
+    .info-box p a {
+      color: #00C8FF; }
     .info-box p ul li {
       padding: 0 0 0 15px;
       display: block;

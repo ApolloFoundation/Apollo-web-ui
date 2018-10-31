@@ -17,7 +17,7 @@ import {NotificationContainer} from 'react-notifications';
 import SideBar from '../components/sidebar'
 import ModalWindow from '../modals'
 import AlertBox from '../components/alert-box'
-
+import BlocksDownloader from '../components/blocks-downloader';
 import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../modules/accountSettings";
 
 // pages components
@@ -133,10 +133,13 @@ class App extends React.Component {
                     })}
                     onClick={(e) => this.handleModal(e)}
                 >
+                    {
+                        this.props.isLocalhost &&
+                        this.props.blockchainStatus &&
+                        this.props.blockchainStatus.isDownloading &&
+                        <BlocksDownloader />
+                    }
                     <Switch>
-                        {this.props.account}
-
-
                         <Route exact path="/login" render={() => (
                             !!this.props.account ? (
                                 <Redirect to="/dashboard"/>
@@ -220,6 +223,8 @@ const mapStateToProps = state => ({
     appState: state.account.blockchainStatus,
 
     // modals
+    isLocalhost: state.account.isLocalhost,
+    blockchainStatus: state.account.blockchainStatus,
     bodyModalType: state.modals.bodyModalType
 });
 

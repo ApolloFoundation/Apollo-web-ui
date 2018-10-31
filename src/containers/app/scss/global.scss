@@ -936,6 +936,8 @@ input[type="file"] {
 			display: inline-block;
 			vertical-align: middle;
 			transition: 0.2s;
+			float: left;
+			margin-top: 10px;
 			&:hover {
 				opacity: 0.7;
 			}
@@ -1379,6 +1381,11 @@ input[type="file"] {
 	&.inline {
 		label {
 			display: inline-block;
+		}
+	}
+	&.align-top {
+		label {
+			align-self: flex-start;
 		}
 	}
 	.row {
@@ -2365,11 +2372,12 @@ input[type="file"] {
 	.card {
 		//margin: 15px;
 		transition: 0.2s;
-		min-height: 215px;
+		min-height: 252px;
 		//height: calc(100% - 15px);
 		
 		&.card-tall {
-			min-height: 445px;
+			min-height: 520px;
+
 			@media (max-width: 760px) {
 				min-height: auto;
 			}
@@ -2624,6 +2632,19 @@ table {
 
 .custom-checkbox {
 	padding-left: 16px;
+	&.single {
+		display: flex;
+
+		input[type="checkbox"] {
+			margin: 0;
+
+		}
+		.form-check-label::before,
+		.form-check-label::after {
+			display: none;
+
+		}
+	}
 	.custom-control-input {
 		z-index: 1;
 		position: absolute;
@@ -2651,6 +2672,7 @@ table {
 		box-shadow: none;
 		cursor: pointer;
 	}
+
 	label.custom-control-label {
 		padding-left: 10px;
 		color: #333333;

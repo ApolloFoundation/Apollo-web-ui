@@ -193,7 +193,7 @@ class IssueAsset extends React.Component {
                                     </a>
 
                                 </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                <div className="btn-box align-buttons-inside absolute left-conner">
                                     {
                                         this.state.advancedState &&
                                         <a
@@ -221,7 +221,7 @@ class IssueAsset extends React.Component {
                                     getFormState={getFormState}
                                     values={values}
                                     advancedState={this.state.advancedState}
-                                />*/}
+                                />
                             </div>
                         </form>
                     )}

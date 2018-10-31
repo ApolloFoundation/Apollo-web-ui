@@ -14,6 +14,7 @@ import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
 import {calculateFeeAction} from "../../../../actions/forms";
+import AdvancedSettings from '../../../components/advanced-transaction-settings';
 
 import BackForm from '../../modal-form/modal-form-container';
 
@@ -225,7 +226,7 @@ class CancelSell extends React.Component {
                                                         </button>
                                                 }
                                             </div>
-                                            {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                            <div className="btn-box align-buttons-inside absolute left-conner">
                                                 <a
                                                     onClick={this.handleAdvancedState}
                                                     className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -239,7 +240,7 @@ class CancelSell extends React.Component {
                                                 getFormState={getFormState}
                                                 values={values}
                                                 advancedState={this.state.advancedState}
-                                            />*/}
+                                            />
                                         </div>
                                     }
                                 </form>

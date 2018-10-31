@@ -201,20 +201,20 @@ class MarketplaceChangePrice extends React.Component {
                                                         getFormState={getFormState}
                                                         values={values}
                                                     />
-                                                    {/*<div className="form-group row form-group-white mb-15">*/}
-                                                        {/*<label className="col-sm-3 col-form-label">*/}
-                                                            {/*Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>*/}
-                                                        {/*</label>*/}
-                                                        {/*<div className="col-sm-9">*/}
-                                                            {/*<Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>*/}
-                                                        {/*</div>*/}
-                                                    {/*</div>*/}
-                                                    {/*<AdvancedSettings
+                                                    <div className="form-group row form-group-white mb-15">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>
+                                                        </div>
+                                                    </div>
+                                                    <AdvancedSettings
                                                         setValue={setValue}
                                                         getFormState={getFormState}
                                                         values={values}
                                                         advancedState={this.state.advancedState}
-                                                    />*/}
+                                                    />
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a

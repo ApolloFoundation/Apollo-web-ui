@@ -668,7 +668,9 @@ input[type="file"] {
       cursor: pointer;
       display: inline-block;
       vertical-align: middle;
-      transition: 0.2s; }
+      transition: 0.2s;
+      float: left;
+      margin-top: 10px; }
       .form-group-app .form-title .backMy:hover {
         opacity: 0.7; }
     .form-group-app .form-title.inline > * {
@@ -963,6 +965,9 @@ input[type="file"] {
 
 .input-group-app.inline label {
   display: inline-block; }
+
+.input-group-app.align-top label {
+  align-self: flex-start; }
 
 .input-group-app .row {
   margin-right: -15px !important;
@@ -1622,9 +1627,9 @@ input[type="file"] {
       padding: 0; } }
   .page-body-item .card {
     transition: 0.2s;
-    min-height: 215px; }
+    min-height: 252px; }
     .page-body-item .card.card-tall {
-      min-height: 445px; }
+      min-height: 520px; }
       @media (max-width: 760px) {
         .page-body-item .card.card-tall {
           min-height: auto; } }
@@ -1815,6 +1820,13 @@ table td .btn, table th .btn {
 
 .custom-checkbox {
   padding-left: 16px; }
+  .custom-checkbox.single {
+    display: flex; }
+    .custom-checkbox.single input[type="checkbox"] {
+      margin: 0; }
+    .custom-checkbox.single .form-check-label::before,
+    .custom-checkbox.single .form-check-label::after {
+      display: none; }
   .custom-checkbox .custom-control-input {
     z-index: 1;
     position: absolute;

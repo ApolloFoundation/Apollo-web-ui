@@ -7,6 +7,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+const mapStateToProps = state => ({
+    isLocalhost: state.account.isLocalhost
+})
+
+
 const mapDispatchToProps = dispatch => ({
 
 })
@@ -32,10 +37,14 @@ const Peer = (props) => (
         <td className="align-right">{props.application} {props.version}</td>
         <td className="blue-link-text">{props.platform}</td>
         <td className="align-right">{props.services.map((el, index) => {if (index !== 0) {return ', ' + el} else {return el}})}</td>
-        <td className="align-right"><a className="btn primary blue" onClick={props.onConnectClick}>Connect</a>
-            <a  onClick={props.onBlacklistClick} className="btn primary">Blacklist</a>
-        </td>
+        {
+            props.isLocalhost &&
+            <td className="align-right">
+                <a className="btn primary blue" onClick={props.onConnectClick}>Connect</a>
+                <a  onClick={props.onBlacklistClick} className="btn primary">Blacklist</a>
+            </td>
+        }
     </tr>
 );
 
-export default connect(null ,mapDispatchToProps)(Peer);
+export default connect(mapStateToProps ,mapDispatchToProps)(Peer);

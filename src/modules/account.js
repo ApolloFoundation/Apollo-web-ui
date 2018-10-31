@@ -17,6 +17,7 @@ export const SET_PASSPHRASE = 'SET_PASSPHRASE';
 export const LOAD_BLOCKCHAIN_STATUS = 'LOAD_BLOCKCHAIN_STATUS';
 export const GET_FORGING = 'GET_FORGING';
 export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
+export const SET_ADMIN_PASSWORD = 'SET_ADMIN_PASSWORD';
 
 const initialState = {
     settings: null,
@@ -34,6 +35,7 @@ const initialState = {
     unconfirmedBalanceATM: null,
     loading: true,
     blockPageBody: false,
+    isLocalhost: window.location.hostname === 'localhost',
     mobileSettings: {
         is_check_remember_me: false,
         is_store_remembered_passphrase: (window["cordova"] !== undefined), // too early to use feature detection
@@ -103,6 +105,19 @@ export default (state = initialState, action) => {
                 ...state,
                 currentBlock: action.payload
             };
+
+        case SET_ADMIN_PASSWORD:
+            const adminPassword = localStorage.getItem('adminPassword');
+
+
+            if (adminPassword) {
+
+                return {
+                    ...state,
+                    adminPassword: JSON.parse(adminPassword)
+                }
+            }
+
         case LOAD_BLOCKCHAIN_STATUS:
             return {
                 ...state,
@@ -142,7 +157,6 @@ export const setSetings = (settings) => {
             type: SET_SETTINGS,
             payload: settings
         });
-
     }
 };
 
@@ -172,6 +186,9 @@ export const endLoad = () => {
 			type: END_LOAD,
             payload: null
 		});
+        dispatch({
+            type: SET_ADMIN_PASSWORD
+        })
 	}
 };
 
