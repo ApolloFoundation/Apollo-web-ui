@@ -89,14 +89,9 @@ class SetAccountProperty extends React.Component {
                                             Recipient
                                         </label>
                                         <div className="col-sm-9">
-                                            <AccountRS
-                                                field={'recipient'}
-                                                disabled={true}
-                                                noContactList={true}
-                                                defaultValue={contactRS}
-                                                setValue={setValue}
-                                                value={getValue('recipient') || ''}
-                                            />
+                                            <span>
+                                                {(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
+                                            </span>
                                         </div>
                                     </div>
                                     :
@@ -122,12 +117,9 @@ class SetAccountProperty extends React.Component {
                                         Property
                                     </label>
                                     <div className="col-sm-9">
-                                        <InputForm
-                                            field="property"
-                                            defaultValue={(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
-                                            disabled={(this.props.modalData && this.props.modalData.property)}
-                                            placeholder="Property"
-                                            setValue={setValue}/>
+                                        <span>
+                                            {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
