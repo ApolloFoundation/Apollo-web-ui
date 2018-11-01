@@ -63,7 +63,6 @@
       vertical-align: middle; }
     .page-header .page-title-box .page-title-box .title {
       color: #333333;
-      font-family: "Roboto-Light";
       font-size: 36px;
       font-weight: 300;
       line-height: 1.2;
@@ -78,7 +77,7 @@
     .page-header .page-title-box .page-title-box .breadcrumbs a {
       color: #BBBBBB; }
     .page-header .page-title-box .page-title-box .breadcrumbs strong a {
-      font-family: "Roboto-Bold"; }
+      font-weight: 700; }
   .page-header .page-title-box .btn {
     margin-top: 0;
     position: relative; }
@@ -153,7 +152,6 @@
           margin: auto 0; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-rs {
           color: #BBBBBB;
-          font-family: "Roboto-Regular";
           font-size: 12px;
           line-height: 14px;
           margin-right: 20px; }
@@ -240,7 +238,6 @@
                 margin-bottom: 0; }
               .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
                 color: #333333;
-                font-family: "Roboto-Regular";
                 font-size: 12px;
                 line-height: 14px;
                 padding: 0 35px;
@@ -379,7 +376,6 @@
       vertical-align: middle; }
     .zmdi-balance-wallet .page-title-box .page-title-box .title {
       color: #333333;
-      font-family: "Roboto-Light";
       font-size: 36px;
       font-weight: 300;
       line-height: 60px;
@@ -393,7 +389,7 @@
         color: #BBBBBB;
         cursor: pointer; }
       .zmdi-balance-wallet .page-title-box .page-title-box .breadcrumbs strong a {
-        font-family: "Roboto-Bold"; }
+        font-weight: 700; }
   .zmdi-balance-wallet .page-title-box .btn {
     margin-top: 0;
     position: relative; }
@@ -441,7 +437,6 @@
           margin: auto 0; }
         .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-rs {
           color: #BBBBBB;
-          font-family: "Roboto-Regular";
           font-size: 12px;
           line-height: 14px;
           margin-right: 20px;
@@ -487,7 +482,6 @@
                 margin-bottom: 0; }
               .zmdi-balance-wallet .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
                 color: #333333;
-                font-family: "Roboto-Regular";
                 font-size: 12px;
                 line-height: 14px;
                 padding: 0 35px;

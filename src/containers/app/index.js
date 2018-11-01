@@ -67,7 +67,7 @@ import FinishedShufflings from "../account/finished-shufflings";
 import MyMessages from "../account/my-messages";
 import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
-import style from './App.css';
+import './App.css';
 
 import {getUpdateStatus} from '../../actions/login/index'
 

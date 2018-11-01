@@ -84,36 +84,24 @@ class AccountInfo extends React.Component {
 	                                    }
                                         <p>Set Account Info</p>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Name</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Your name'} field={'name'}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Description</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <TextArea placeholder="Message" field="message" cols="30" rows="10" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Fee</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Amount'} type="tel" field={'feeATM'}/>
-                                            </div>
-                                        </div>
-                                    </div>
+	                                <div className="form-group row form-group-white mb-15">
+		                                <label className={'col-sm-3 col-form-label'}>Name</label>
+		                                <div className="col-sm-9">
+			                                <Text className={"form-control"} placeholder={'Your name'} field={'name'}/>
+		                                </div>
+	                                </div>
+	                                <div className="form-group row form-group-white mb-15">
+		                                <label className={'col-sm-3 col-form-label'}>Description</label>
+		                                <div className="col-md-9">
+			                                <TextArea className={"form-control"} placeholder="Message" field="message" cols="6" rows="10"/>
+		                                </div>
+	                                </div>
+	                                <div className="form-group row form-group-white mb-15">
+		                                <label className={'col-sm-3 col-form-label'}>Fee</label>
+		                                <div className="col-md-9">
+			                                <Text className={"form-control"} placeholder={'Amount'} type="tel" field={'feeATM'}/>
+		                                </div>
+	                                </div>
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}
