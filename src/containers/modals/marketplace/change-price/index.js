@@ -203,7 +203,7 @@ class MarketplaceChangePrice extends React.Component {
                                                     />
                                                     <div className="form-group row form-group-white mb-15">
                                                         <label className="col-sm-3 col-form-label">
-                                                            Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                                            Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                                                         </label>
                                                         <div className="col-sm-9">
                                                             <Text className="form-control" field="secretPhrase" placeholder="Secret Phrase" type={'password'}/>

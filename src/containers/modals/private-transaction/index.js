@@ -68,7 +68,7 @@ class PrivateTransactions extends React.Component {
                             <div className="input-group-app">
                                 <div className="row">
                                     <div className="col-md-3">
-                                        <label>Passphrase</label>
+                                        <label>Secret phrase</label>
                                     </div>
                                     <div className="col-md-9">
                                         <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>

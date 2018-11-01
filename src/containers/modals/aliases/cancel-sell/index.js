@@ -185,7 +185,7 @@ class CancelSell extends React.Component {
                                             <div className="input-group-app offset-top display-block">
                                                 <div className="row">
                                                     <div className="col-md-3">
-                                                        <label>Passphrase</label>
+                                                        <label>Secret Phrase</label>
                                                     </div>
                                                     <div className="col-md-9">
                                                         <Text field="secretPhrase" placeholder="secretPhrase"  type={'password'}/>

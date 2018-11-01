@@ -207,10 +207,10 @@ class MarketplaceDeliver extends React.Component {
                                                     <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
                                                             <div className="col-md-3">
-                                                                <label>Passphrase</label>
+                                                                <label>Secret phrase</label>
                                                             </div>
                                                             <div className="col-md-9">
-                                                                <Text type="password" field='secretPhrase' placeholder="Passphrase" />
+                                                                <Text type="password" field='secretPhrase' placeholder="Secret Phrase" />
                                                             </div>
                                                         </div>
                                                     </div>

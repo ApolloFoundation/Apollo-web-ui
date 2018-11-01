@@ -206,7 +206,7 @@ class Settings extends React.Component {
                                                             <div className="input-group-app">
                                                                 <div className="row">
                                                                     <div className="col-md-6 align-items-center">
-                                                                        <label>Pass phrase</label>
+                                                                        <label>Secret phrase</label>
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <Text className="form-control"
@@ -251,7 +251,7 @@ class Settings extends React.Component {
                                                             <div className="input-group-app">
                                                                 <div className="row">
                                                                     <div className="col-md-6 align-items-center">
-                                                                        <label>Pass phrase</label>
+                                                                        <label>Secret phrase</label>
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <Text className="form-control"

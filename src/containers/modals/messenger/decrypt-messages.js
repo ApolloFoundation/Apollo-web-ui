@@ -100,7 +100,7 @@ class DecryptMessage extends React.Component {
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
-                                        Passphrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                        Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                                     </label>
                                     <div className="col-sm-9">
 
@@ -120,7 +120,7 @@ class DecryptMessage extends React.Component {
                                                 <div className="form-sub-actions">
                                                     <div className="input-group-app align-middle display-block offset-bottom offset-top">
                                                         <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isRememberPassphrase"/>
-                                                        <label style={{display: 'inline-block'}}>Remember passphrase for decryption</label>
+                                                        <label style={{display: 'inline-block'}}>Remember secret phrase for decryption</label>
                                                     </div>
                                                 </div>
                                             </div>

@@ -86,7 +86,7 @@ class ImportAccount extends React.Component {
             return;
         }
         if (values.passphrase !== this.state.importAccount.passphrase) {
-            NotificationManager.error('Your entered passphrase do not match the generated one', 'Error', 5000);
+            NotificationManager.error('Your entered secret phrase do not match the generated one', 'Error', 5000);
             return;
         }
 
@@ -174,8 +174,8 @@ class ImportAccount extends React.Component {
                                                 this.state &&
                                                 this.state.importAccount &&
                                                 <InfoBox danger>
-                                                    <strong>Remember</strong> to store your Account ID, passphrase, and Secret Key in a secured place.
-                                                    Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
+                                                    <strong>Remember</strong> to store your Account ID, secret phrase, and Secret Key in a secured place.
+                                                    Make sure to write down this secret phrase and store it securely (the secret phrase is order and case sensitive). This secret phrase is needed to use your wallet.
                                                 </InfoBox>
                                             }
                                             <div className="btn-box align-buttons-inside absolute right-conner">

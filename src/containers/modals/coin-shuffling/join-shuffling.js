@@ -82,8 +82,8 @@ class JoinShuffling extends React.Component {
         this.setRegisterUntil();
         this.getShuffling();
 
-        NotificationManager.warning('Your passphrase will be sent to the server!', 'Warning', 30000);
-        NotificationManager.warning('Use a strong recipient passphrase and do not forget it !', 'Warning', 30000);
+        NotificationManager.warning('Your secret phrase will be sent to the server!', 'Warning', 30000);
+        NotificationManager.warning('Use a strong recipient secret phrase and do not forget it !', 'Warning', 30000);
         NotificationManager.info('After creating or joining a shuffling, you must keep your node online and your shuffler running, leaving enough funds in your account to cover the shuffling fees, until the shuffling completes! If you don\'t and miss your turn, you will be fined.', 'Attention', 30000);
 
     };
@@ -154,7 +154,7 @@ class JoinShuffling extends React.Component {
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
-                                        Recipient Passphrase
+                                        Recipient secret phrase
                                     </label>
                                     <div className="col-sm-9">
                                         <Text className="form-control"

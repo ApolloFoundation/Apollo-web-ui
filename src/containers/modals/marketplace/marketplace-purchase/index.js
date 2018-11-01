@@ -78,7 +78,7 @@ class MarketplacePurchase extends React.Component {
 
     async handleFormSubmit(values) {
         if (!values.secretPhrase || values.secretPhrase.length === 0) {
-            NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
 
