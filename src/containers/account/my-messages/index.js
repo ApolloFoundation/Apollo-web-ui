@@ -105,7 +105,7 @@ class MyMessages extends React.Component {
         }) : null;
 
         if (newMessages && messages) {
-            const comparation = this.compareArrays(newMessages, messages)
+            const comparation = this.isArraysEqual(newMessages, messages)
 
             return comparation;
         } else {
@@ -116,10 +116,10 @@ class MyMessages extends React.Component {
     /*
     * Returns true if every element of array are equal
     * */
-    compareArrays = (a, b) => {
+    isArraysEqual = (a, b) => {
         let result = true;
 
-        result = a.some((el, index) => {
+        result = a.every((el, index) => {
             return el === b[index]
         })
 
