@@ -327,15 +327,15 @@ class SendApollo extends React.Component {
 
 
 				                    </div>
-				                    <div className="btn-box align-buttons-inside absolute left-conner">
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-right round round-bottom-left round-top-right absolute"
-                                            style={{left : 0, right: 'auto'}}
-                                        >
-                                            {this.state.advancedState ? "Basic" : "Advanced"}
-                                        </a>
-                                    </div>
+				                    {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
+                                        {/*<a*/}
+                                            {/*onClick={this.handleAdvancedState}*/}
+                                            {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
+                                            {/*style={{left : 0, right: 'auto'}}*/}
+                                        {/*>*/}
+                                            {/*{this.state.advancedState ? "Basic" : "Advanced"}*/}
+                                        {/*</a>*/}
+                                    {/*</div>*/}
 			                    </div>
 		                    </form>
 	                    );

@@ -193,29 +193,29 @@ class IssueAsset extends React.Component {
                                     </a>
 
                                 </div>
-                                <div className="btn-box align-buttons-inside absolute left-conner">
-                                    {
-                                        this.state.advancedState &&
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-right round round-bottom-left round-top-right absolute"
-                                            style={{left : 0, right: 'auto'}}
-                                        >
-                                            Basic
-                                        </a>
-                                    }
-                                    {
-                                        !this.state.advancedState &&
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-right round round-bottom-left round-top-right absolute"
-                                            style={{left : 0, right: 'auto'}}
-                                        >
-                                            Advanced
-                                        </a>
-                                    }
+                                {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
+                                    {/*{*/}
+                                        {/*this.state.advancedState &&*/}
+                                        {/*<a*/}
+                                            {/*onClick={this.handleAdvancedState}*/}
+                                            {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
+                                            {/*style={{left : 0, right: 'auto'}}*/}
+                                        {/*>*/}
+                                            {/*Basic*/}
+                                        {/*</a>*/}
+                                    {/*}*/}
+                                    {/*{*/}
+                                        {/*!this.state.advancedState &&*/}
+                                        {/*<a*/}
+                                            {/*onClick={this.handleAdvancedState}*/}
+                                            {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
+                                            {/*style={{left : 0, right: 'auto'}}*/}
+                                        {/*>*/}
+                                            {/*Advanced*/}
+                                        {/*</a>*/}
+                                    {/*}*/}
 
-                                </div>
+                                {/*</div>*/}
                                 <AdvancedSettings
                                     setValue={setValue}
                                     getFormState={getFormState}
