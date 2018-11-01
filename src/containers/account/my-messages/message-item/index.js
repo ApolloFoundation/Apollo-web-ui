@@ -51,7 +51,7 @@ class MessageItem extends React.Component {
 
     decryptMessage = async (data, passPhrase) => {
         if (passPhrase) {
-            const message = await this.props.submitForm( {
+            const message = await this.props.submitForm({
                 requestType: 'readMessage',
                 secretPhrase: passPhrase,
                 transaction: this.props.transaction,
@@ -66,7 +66,7 @@ class MessageItem extends React.Component {
         }
     };
 
-    render (){
+    render() {
         return (
             <tr>
                 <td className="blue-link-text">{this.props.formatTimestamp(this.props.timestamp)}</td>
@@ -83,7 +83,8 @@ class MessageItem extends React.Component {
                     {
                         this.state.message &&
                         this.props.attachment.message === 'undefined' &&
-                        <div><i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{this.state.message}</span></div>
+                        <div><i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{this.state.message}</span>
+                        </div>
 
                     }
                     {
@@ -97,11 +98,13 @@ class MessageItem extends React.Component {
                         !this.props.attachment.encryptedMessageHash &&
                         !this.state.message &&
                         this.props.attachment.message === 'undefined' &&
-                        <div><i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;<span>Message is encrypted.</span></div>
+                        <div><i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;
+                            <span>Message is encrypted.</span></div>
                     }
                     {
-                        (this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message  &&
-                        <div><i className="zmdi zmdi-scissors"/>&nbsp;&nbsp;&nbsp;<span>Message is prunated.</span></div>
+                        (this.props.attachment.encryptedMessageHash || (this.props.attachment.encryptedMessage && this.props.attachment.encryptedMessageHash)) && !this.state.message &&
+                        <div><i className="zmdi zmdi-scissors"/>&nbsp;&nbsp;&nbsp;<span>Message is prunated.</span>
+                        </div>
 
                     }
                     {
@@ -121,7 +124,15 @@ class MessageItem extends React.Component {
                         >
                             Decrypt
                         </a>
-
+                    }
+                    {
+                        this.state.message &&
+                        <a
+                            onClick={() => this.props.setBodyModalParamsAction('SHARE_MESSAGE')}
+                            className="btn primary blue static"
+                        >
+                            Share
+                        </a>
                     }
                 </td>
             </tr>
