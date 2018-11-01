@@ -404,7 +404,7 @@ class Dashboard extends React.Component {
 
                                                 <div
                                                     onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
-                                                    style={{cursor: 'pointer'}}
+                                                    style={{cursor: 'pointer', paddingRight: 0}}
                                                     className="amount"
                                                 >
                                                     {
