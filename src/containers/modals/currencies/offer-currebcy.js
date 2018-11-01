@@ -42,6 +42,7 @@ class OfferCurrency extends React.Component {
 
         values = {
             ...values,
+            currency: this.props.modalData.currency,
             initialBuySupply: values.initialBuySupply * Math.pow(10, this.props.modalData.decimals),
             totalBuyLimit: values.totalBuyLimit * Math.pow(10, this.props.modalData.decimals),
             totalSellLimit: values.totalSellLimit * Math.pow(10, this.props.modalData.decimals),
