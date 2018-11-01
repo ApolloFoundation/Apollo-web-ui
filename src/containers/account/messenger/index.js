@@ -70,9 +70,6 @@ class Messenger extends React.Component {
         this.getChats({
             account: this.props.account,
         });
-        this.setState({
-            chatHistory: [],
-        });
 
         if (newState.match.params.chat) {
             const chatHistory = await getChatHistoryAction({account2: newState.match.params.chat})
@@ -156,7 +153,59 @@ class Messenger extends React.Component {
         }
     };
 
-	render (){
+
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const newMessages = nextState.chatHistory ? nextState.chatHistory.map((el) => {
+            return el.transaction
+        }) : null;
+
+        const messages = this.state.chatHistory ? this.state.chatHistory.map((el) => {
+            return el.transaction
+        }) : null;
+
+        const newChat = nextState.chats ? nextState.chats.map((el) => {
+            return el.accountRS
+        }) : null;
+
+        const chats = this.state.chats ? this.state.chats.map((el) => {
+
+            return el.accountRS
+        }) : null;
+
+        if ((newMessages && messages && newChat && chats)) {
+            const comparation = this.isArraysEqual(newMessages, messages);
+            const comparationchats = this.isArraysEqual(newChat, chats);
+
+			if (comparation) return true;
+			if (comparationchats) return true;
+        }
+
+        if (this.props.match.params.chat !== nextProps.match.params.chat) {
+            return true;
+        }
+
+        if ((!messages ) && (!chats)) {
+            return true;
+		}
+    }
+
+    /*
+    * Returns true if every element of array are equal
+    * */
+    isArraysEqual = (a, b) => {
+        let result = true;
+		if (a && b) {
+            result = a.every((el, index) => {
+                return el === b[index]
+            })
+
+            return !result
+		} else {
+			return false
+		}
+    }
+
+    render (){
 		if (this.state.chatHistory) {
 			this.state.chatHistory.map((el, index) => {
 				this.props.getMessage(el)

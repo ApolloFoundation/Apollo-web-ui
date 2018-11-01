@@ -36,8 +36,6 @@ export default class BlockSubscriber extends React.Component {
                 blockData = data[0];
                 blockChainStatus = data[1];
 
-                console.log(data);
-
                 if (blockData) {
                     const currHeight = blockData.height;
 
