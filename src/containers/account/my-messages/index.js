@@ -95,6 +95,37 @@ class MyMessages extends React.Component {
         });
     }
 
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const newMessages = nextState.messages ? nextState.messages.map((el) => {
+            return el.transaction
+        }) : null;
+
+        const messages = this.state.messages ? this.state.messages.map((el) => {
+            return el.transaction
+        }) : null;
+
+        if (newMessages && messages) {
+            const comparation = this.compareArrays(newMessages, messages)
+
+            return comparation;
+        } else {
+            return true;
+        }
+    }
+
+    /*
+    * Returns true if every element of array are equal
+    * */
+    compareArrays = (a, b) => {
+        let result = true;
+
+        result = a.some((el, index) => {
+            return el === b[index]
+        })
+
+        return !result
+    }
+
     render () {
         return (
             <div className="page-content">
