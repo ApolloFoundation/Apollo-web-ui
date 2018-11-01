@@ -131,7 +131,10 @@ class UploadFile extends React.Component {
                                     <div className="col-md-9">
                                         <div className="iconned-input-field">
                                             <div className="input-group-app search">
-                                                <div className="iconned-input-field">
+                                                <div
+                                                    style={{height: 32}}
+                                                    className="iconned-input-field"
+                                                >
                                                     <div className="input-icon text"><i className="">Browse&hellip;</i></div>
                                                     <input
                                                         id="file"
