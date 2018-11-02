@@ -152,8 +152,8 @@ class AccountDetails extends React.Component {
                                                             <QRCode value={this.state.account.accountRS} size={50}/></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="no-brake">Passphrase QR Code:</td>
-                                                        <td>Passphrase Not Available</td>
+                                                        <td className="no-brake">Secret phrase QR Code:</td>
+                                                        <td>Secret phrase Not Available</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Paper Wallet:</td>

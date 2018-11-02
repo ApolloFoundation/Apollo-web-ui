@@ -28,7 +28,7 @@ class AddMonitor extends React.Component {
     handleFormSubmit = async values => {
         console.warn("values", values);
         if (!values.phrase) {
-            NotificationManager.error("Passphrase is a required field", "Error", 5000);
+            NotificationManager.error("Secret phrase is a required field", "Error", 5000);
         }
 
         const toSend = {
@@ -65,7 +65,7 @@ class AddMonitor extends React.Component {
                                 </div>
 
                                 <InfoBox danger mt>
-                                    Your passphrase will be sent to the server!
+                                    Your secret phrase will be sent to the server!
                                 </InfoBox>
 
                                 <div className="input-group-app offset-top display-block inline">
@@ -123,7 +123,7 @@ class AddMonitor extends React.Component {
                                 <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Passphrase</label>
+                                            <label>Secret phrase</label>
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">

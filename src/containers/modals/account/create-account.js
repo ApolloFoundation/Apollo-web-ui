@@ -568,7 +568,7 @@ class CreateUser extends React.Component {
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
                                                                             <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
+                                                                                <label>Your randomly generated secret phrase is:</label>
                                                                             </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
