@@ -1317,7 +1317,6 @@ input {
       font-family: "Roboto-Regular";
       font-size: 36px;
       line-height: 1;
-      padding-right: 50px;
       position: relative;
       margin: 15px 0; }
       @media (max-width: 1850px) {
@@ -1326,6 +1325,13 @@ input {
       @media (max-width: 1660px) {
         .card.header .amount {
           font-size: 24px; } }
+      @media (max-width: 1440px) {
+        .card.header .amount {
+          font-size: 18px; }
+          .card.header .amount .currency {
+            font-size: 11px !important; }
+          .card.header .amount .owned {
+            font-size: 20px !important; } }
       .card.header .amount .text {
         overflow: hidden;
         width: 100%;
@@ -1584,6 +1590,9 @@ input {
       .page-body-item .show-hide-content .page-body-item-content {
         max-height: 1000px;
         opacity: 1; } }
+  @media (max-width: 1440px) {
+    .page-body-item .page-body-item-content .amount {
+      font-size: 20px; } }
   @media (max-width: 760px) {
     .page-body-item .page-body-item-content {
       max-height: 0;
