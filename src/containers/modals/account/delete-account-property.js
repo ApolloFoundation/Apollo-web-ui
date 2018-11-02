@@ -49,6 +49,11 @@ class DeleteAccountProperty extends React.Component {
     render() {
         return (
             <div className="modal-box">
+
+                {console.log(this.props.modalData)}
+                {console.log((this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : '')}
+
+
                 <BackForm
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
@@ -61,49 +66,36 @@ class DeleteAccountProperty extends React.Component {
 	                                {this.props.modalsHistory.length > 1 &&
 	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
 	                                }
-                                    <p>Set Account Property</p>
+                                    <p>Delete Account Property</p>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Setter
                                     </label>
                                     <div className="col-sm-9">
-                                        <AccountRS
-                                            field={'setter'}
-                                            disabled={true}
-                                            noContactList={true}
-                                            defaultValue={(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
-                                            setValue={setValue}
-                                            value={getValue('recipient') || ''}
-                                        />
+                                        <span>
+                                            {(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Recipient
-                                        </label>
-                                        <div className="col-sm-9">
-                                                <AccountRS
-                                                    field={'recipient'}
-                                                    disabled={true}
-                                                    noContactList={true}
-                                                    defaultValue={(this.props.modalData && this.props.modalData.recipientRS) ? this.props.modalData.recipientRS : ''}
-                                                    setValue={setValue}
-                                                    value={getValue('recipient') || ''}
-                                                />
-                                        </div>
+                                    <label className="col-sm-3 col-form-label">
+                                        Recipient
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <span>
+                                            {(this.props.modalData && this.props.modalData.recipientRS) ? this.props.modalData.recipientRS : ''}
+                                        </span>
+                                    </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Property
                                     </label>
                                     <div className="col-sm-9">
-                                        <InputForm
-                                            field="property"
-                                            defaultValue={(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
-                                            disabled={true}
-                                            placeholder="Property"
-                                            setValue={setValue}/>
+                                        <span>
+                                            {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">

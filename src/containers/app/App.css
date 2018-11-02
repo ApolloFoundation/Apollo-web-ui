@@ -2,7 +2,6 @@
 @import url(~material-design-iconic-font/dist/css/material-design-iconic-font.min.css);
 @import url(~loaders.css/loaders.min.css);
 @import url(~react-notifications/lib/notifications.css);
-@import url(~roboto-fontface/css/roboto/roboto-fontface.css);
 .align-baseline {
   vertical-align: baseline !important; }
 
@@ -2816,6 +2815,90 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
     text-decoration: none;
     background-color: #1d2124; }
 
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Regular.eot");
+  src: url("../../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Regular.woff2") format("woff2"), url("../../fonts/Roboto-Regular.woff") format("woff"), url("../../fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Light.eot");
+  src: url("../../fonts/Roboto-Light.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Light.woff2") format("woff2"), url("../../fonts/Roboto-Light.woff") format("woff"), url("../../fonts/Roboto-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Italic.eot");
+  src: url("../../fonts/Roboto-Italic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Italic.woff2") format("woff2"), url("../../fonts/Roboto-Italic.woff") format("woff"), url("../../fonts/Roboto-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Thin.eot");
+  src: url("../../fonts/Roboto-Thin.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Thin.woff2") format("woff2"), url("../../fonts/Roboto-Thin.woff") format("woff"), url("../../fonts/Roboto-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-MediumItalic.eot");
+  src: url("../../fonts/Roboto-MediumItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-MediumItalic.woff2") format("woff2"), url("../../fonts/Roboto-MediumItalic.woff") format("woff"), url("../../fonts/Roboto-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-LightItalic.eot");
+  src: url("../../fonts/Roboto-LightItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-LightItalic.woff2") format("woff2"), url("../../fonts/Roboto-LightItalic.woff") format("woff"), url("../../fonts/Roboto-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Bold.eot");
+  src: url("../../fonts/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Bold.woff2") format("woff2"), url("../../fonts/Roboto-Bold.woff") format("woff"), url("../../fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-BoldItalic.eot");
+  src: url("../../fonts/Roboto-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-BoldItalic.woff2") format("woff2"), url("../../fonts/Roboto-BoldItalic.woff") format("woff"), url("../../fonts/Roboto-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Black.eot");
+  src: url("../../fonts/Roboto-Black.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Black.woff2") format("woff2"), url("../../fonts/Roboto-Black.woff") format("woff"), url("../../fonts/Roboto-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-BlackItalic.eot");
+  src: url("../../fonts/Roboto-BlackItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-BlackItalic.woff2") format("woff2"), url("../../fonts/Roboto-BlackItalic.woff") format("woff"), url("../../fonts/Roboto-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-ThinItalic.eot");
+  src: url("../../fonts/Roboto-ThinItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-ThinItalic.woff2") format("woff2"), url("../../fonts/Roboto-ThinItalic.woff") format("woff"), url("../../fonts/Roboto-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Medium.eot");
+  src: url("../../fonts/Roboto-Medium.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Medium.woff2") format("woff2"), url("../../fonts/Roboto-Medium.woff") format("woff"), url("../../fonts/Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal; }
+
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   margin: 0;
   padding: 0;
@@ -2823,12 +2906,13 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   font-weight: normal;
   text-decoration: none;
   list-style: none;
-  color: #333333;
-  font-family: "Roboto-Regular"; }
+  color: #333333; }
 
 html, body {
   background-color: #F5F5F5;
-  word-break: break-word; }
+  word-break: break-word;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400; }
 
 ::placeholder {
   color: #a6a6a6 !important;
@@ -2998,13 +3082,11 @@ textarea {
   background-color: #F5F5F5;
   padding: 10px 20px;
   box-sizing: border-box;
-  font-size: 13px;
-  font-family: "Roboto-Regular"; }
+  font-size: 13px; }
 
 input {
   padding: 10px 20px;
-  font-size: 13px;
-  font-family: "Roboto-Regular"; }
+  font-size: 13px; }
   input.not-active {
     pointer-events: none; }
 
@@ -3091,7 +3173,7 @@ input[type="file"] {
   top: -10px;
   right: -10px;
   color: #333;
-  font-family: 'Roboto-Bold';
+  font-weight: 700;
   font-size: 11px;
   height: 21px;
   width: 21px;
@@ -3099,12 +3181,14 @@ input[type="file"] {
   text-align: center;
   background-color: #00C8FF;
   border-radius: 100%;
-  border: 3px solid #333; }
+  border: 3px solid #333;
+  font-family: 'Roboto', sans-serif; }
 
 [data-notification].big-count:after {
   right: -20px;
   width: auto;
-  padding: 0 2px; }
+  padding: 0 2px;
+  font-family: 'Roboto', sans-serif; }
 
 .blue-text {
   color: #00C8FF;
@@ -3501,7 +3585,6 @@ input[type="file"] {
       padding-top: 30px; }
     .form-group-app .form-title p {
       color: #333333;
-      font-family: "Roboto-Regular";
       font-size: 24px;
       word-break: break-word;
       line-height: 1.6;
@@ -3513,7 +3596,6 @@ input[type="file"] {
       margin-top: 10px; }
   .form-group-app .form-sub-title {
     color: #BBBBBB;
-    font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 19px;
     margin-top: -12px; }
@@ -3679,7 +3761,6 @@ input[type="file"] {
       border-left: none; }
     .form-group-app .form-group-grey .calculate-fee {
       color: #00C8FF;
-      font-family: "Roboto-Regular";
       font-size: 10px;
       line-height: 14px;
       padding-left: 5px;
@@ -3761,7 +3842,6 @@ input[type="file"] {
       border: 1px solid #e5e5e5; }
     .form-group-app .form-group-white .calculate-fee {
       color: #00C8FF;
-      font-family: "Roboto-Regular";
       font-size: 10px;
       line-height: 14px;
       padding-left: 5px;
@@ -3840,7 +3920,6 @@ input[type="file"] {
 .input-group-app .calculate-fee {
   display: inline-block;
   color: #00C8FF;
-  font-family: "Roboto-Regular";
   font-size: 12px;
   line-height: 14px;
   padding-right: 20px;
@@ -3862,7 +3941,6 @@ input[type="file"] {
 
 .input-group-app label {
   display: table-cell;
-  font-family: "Roboto-Regular";
   line-height: 14px;
   padding: 0 0 0 5px;
   font-size: 13.5px;
@@ -4046,7 +4124,6 @@ input[type="file"] {
     background-color: transparent !important; }
   .btn.btn-simple {
     color: #BBBBBB;
-    font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 14px;
     bottom: 10px;
@@ -4072,7 +4149,6 @@ input[type="file"] {
     border-radius: 6px;
     font-size: 12px;
     min-height: 25px;
-    font-weight: 100;
     letter-spacing: -0.1px;
     margin-top: 15px;
     position: static; }
@@ -4197,7 +4273,6 @@ input[type="file"] {
     .card.header.medium-padding {
       padding: 35px 22.5px; }
     .card.header .card-title {
-      font-family: "Roboto-Regular";
       font-size: 16px;
       line-height: 18px;
       color: #fff; }
@@ -4219,7 +4294,6 @@ input[type="file"] {
       width: 100%; }
     .card.header .amount {
       color: #FFFFFF;
-      font-family: "Roboto-Regular";
       font-size: 36px;
       line-height: 1;
       padding-right: 50px;
@@ -4336,14 +4410,14 @@ input[type="file"] {
       font-size: 12px; }
   .card .card-title {
     color: #333333;
-    font-family: "Roboto-Regular";
     font-size: 16px;
-    line-height: 18px; }
+    line-height: 18px;
+    font-weight: 400; }
   .card .card-title-date {
     color: #FFFFFF;
-    font-family: "Roboto-Regular";
     font-size: 24px;
-    margin-top: 19px; }
+    margin-top: 19px;
+    font-weight: 400; }
   .card .full-box {
     position: absolute;
     top: 38px;
@@ -4386,10 +4460,10 @@ input[type="file"] {
       background-color: #fff; }
   .card .input-group-app label {
     color: #777777;
-    font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 14px;
-    padding-right: 20px; }
+    padding-right: 20px;
+    font-weight: 400; }
 
 .page-body.white-space {
   background-color: #fff;
@@ -4405,6 +4479,15 @@ input[type="file"] {
       height: auto;
       padding: 15px 20px;
       min-height: 0; } }
+  @media (max-width: 1440px) {
+    .page-body-top .page-body-item .card .general-info .general-info-item .top-bar {
+      font-size: 16px; }
+    .page-body-top .page-body-item .card .amount {
+      font-size: 19px; }
+      .page-body-top .page-body-item .card .amount .currency {
+        font-size: 14px; }
+      .page-body-top .page-body-item .card .amount .owned {
+        font-size: 16px; } }
   @media (max-width: 1230px) {
     .page-body-top {
       height: auto;
@@ -4742,6 +4825,12 @@ table td .btn, table th .btn {
 .form-control {
   min-height: 32px; }
 
+.height-auto {
+  height: auto !important; }
+
+.marketplace-preview {
+  margin-bottom: 30px; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
@@ -4779,7 +4868,7 @@ table td .btn, table th .btn {
         padding: 35px 0; }
         .transaction-table .transaction-table-body table thead tr td {
           color: #333333;
-          font-family: "Roboto-Bold";
+          font-weight: 700;
           font-size: 14px;
           line-height: 16px;
           padding: 0 0 20px 15px; }
@@ -4801,7 +4890,6 @@ table td .btn, table th .btn {
           padding: 20px 0 20px 15px; }
           .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
             color: #00C8FF;
-            font-family: "Roboto-Regular";
             font-size: 14px;
             line-height: 16px; }
           .transaction-table .transaction-table-body table tbody tr td.blue-text {
@@ -4868,9 +4956,8 @@ table td .btn, table th .btn {
       border-radius: 3px;
       background-color: #F5F5F5;
       color: #333333;
-      font-family: "Roboto-Bold";
+      font-weight: 700;
       font-size: 12px;
-      font-weight: bold;
       line-height: 14px;
       min-height: auto; }
       .transactions-filters .btn.filter.active {
@@ -5112,15 +5199,15 @@ input[type="number"] {
             align-items: center;
             justify-content: space-between;
             color: #BBBBBB;
-            font-family: "Roboto-Regular";
-            font-size: 12px;
-            line-height: 14px; }
-          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-rs {
-            color: #777777;
-            font-family: "Roboto-Regular";
             font-size: 12px;
             line-height: 14px;
-            margin-top: 8px; }
+            font-weight: 400; }
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-rs {
+            color: #777777;
+            font-size: 12px;
+            line-height: 14px;
+            margin-top: 8px;
+            font-weight: 400; }
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .arrow {
             position: relative;
             display: block;
@@ -5136,7 +5223,7 @@ input[type="number"] {
               font-size: 20px; }
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-amount {
             color: #333333;
-            font-family: "Roboto-Regular";
+            font-weight: 400;
             font-size: 16px;
             line-height: 14px;
             margin-left: 6px; }
@@ -5175,15 +5262,15 @@ input[type="number"] {
               width: 100%; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .amount {
             color: #333333;
-            font-family: "Roboto-Regular";
             font-size: 17px;
             margin-right: 15px;
-            min-width: 70px; }
+            min-width: 70px;
+            font-weight: 400; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .coin-name {
             color: #777777;
-            font-family: "Roboto-Regular";
             font-size: 12px;
-            line-height: 14px; }
+            line-height: 14px;
+            font-weight: 400; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .more {
             height: 30px;
             margin: auto 0 auto auto; }
@@ -5209,12 +5296,12 @@ input[type="number"] {
           width: 50%; }
           .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item .marketplace-box .digit {
             color: #333333;
-            font-family: "Roboto-Regular";
+            font-weight: 400;
             font-size: 36px;
             line-height: 60px; }
           .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item .marketplace-box .subtitle {
             color: #777777;
-            font-family: "Roboto-Regular";
+            font-weight: 400;
             font-size: 12px;
             line-height: 14px;
             width: 1px;
@@ -5223,7 +5310,7 @@ input[type="number"] {
       margin-top: 30px; }
       .site-content .page-content .page-body .card.active-polls .full-box p {
         color: #777777;
-        font-family: "Roboto-Regular";
+        font-weight: 400;
         font-size: 12px;
         line-height: 14px;
         margin-bottom: 30px; }
@@ -5232,7 +5319,7 @@ input[type="number"] {
       .site-content .page-content .page-body .card.apollo-news .card-news-content {
         margin-top: 30px;
         color: #777777;
-        font-family: "Roboto-Regular";
+        font-weight: 400;
         font-size: 12px;
         line-height: 18px; }
     .site-content .page-content .page-body .card .full-box {
@@ -5272,9 +5359,9 @@ input[type="number"] {
             min-height: auto; } }
         .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
           color: #00C8FF;
-          font-family: "Roboto-Regular";
           font-size: 14px;
-          line-height: 16px; }
+          line-height: 16px;
+          font-weight: 400; }
         .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box {
           padding: 7px;
           border: 1px solid #00C8FF;
@@ -5297,7 +5384,7 @@ input[type="number"] {
       overflow: auto; }
       .site-content .page-content .page-body .approval-request .alert {
         color: #333333;
-        font-family: "Roboto-Regular";
+        font-weight: 400;
         font-size: 14px;
         line-height: 16px; }
     .site-content .page-content .page-body .account-ledger {
@@ -5310,13 +5397,27 @@ input[type="number"] {
         width: auto;
         margin-left: -7.5px;
         margin-right: -7.5px; }
+        .site-content .page-content .page-body .blocks .row .col-md-6 {
+          padding-left: 7.5px;
+          padding-right: 7.5px; }
     .site-content .page-content .page-body .scheduled-transactions {
       display: flex;
       flex-direction: column; }
       .site-content .page-content .page-body .scheduled-transactions .approval-request {
         height: 100%; }
-    .site-content .page-content .page-body .peers .transaction-table td .btn {
-      margin: 0 0 0 15px; }
+    .site-content .page-content .page-body .peers {
+      display: block; }
+      .site-content .page-content .page-body .peers .row {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+        width: auto;
+        margin-left: -12.5px;
+        margin-right: -12.5px; }
+        .site-content .page-content .page-body .peers .row .col-md-6 {
+          padding-left: 7.5px;
+          padding-right: 7.5px; }
+      .site-content .page-content .page-body .peers .transaction-table td .btn {
+        margin: 0 0 0 15px; }
     .site-content .page-content .page-body .open-orders {
       padding: 0; }
       .site-content .page-content .page-body .open-orders .row {
@@ -5465,4 +5566,4 @@ input[type="number"] {
   font-size: 12px;
   line-height: 14px; }
   .account-balance-text strong {
-    font-family: "Roboto-Bold"; }
+    font-weight: 700; }

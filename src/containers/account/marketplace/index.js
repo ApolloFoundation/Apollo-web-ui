@@ -214,6 +214,28 @@ class Marketplace extends React.Component {
         }
     };
 
+    shouldComponentUpdate = (nextProps, nextState) => {
+
+
+        return true;
+    }
+
+    /*
+    * Returns true if every element of array are equal
+    * */
+    isArraysEqual = (a, b) => {
+        let result = true;
+        if (a && b) {
+            result = a.every((el, index) => {
+                return el === b[index]
+            })
+
+            return !result
+        } else {
+            return false
+        }
+    }
+
     render () {
         return (
             <div className="page-content">
@@ -365,8 +387,8 @@ class Marketplace extends React.Component {
                             </div>
                             {
                                 this.state.getDGSGoods &&
-                                <div className="form-group-app transparent marketplace no-padding-bottom">
-                                    <div className="form-title padding-left offset-bottom">
+                                <div className="form-group-app transparent marketplace no-padding-bottom height-auto">
+                                    <div className="form-title padding-left">
                                         <p>
                                             Recent listings&nbsp;&nbsp;
                                             <Link to="/recent-listing" className="btn primary static">View more</Link>
@@ -404,8 +426,8 @@ class Marketplace extends React.Component {
                             }
                             {
                                 this.state.getDGSPurchases &&
-                                <div className="form-group-app transparent marketplace no-padding-bottom">
-                                    <div className="form-title padding-left offset-bottom">
+                                <div className="form-group-app transparent marketplace no-padding-bottom height-auto">
+                                    <div className="form-title padding-left">
                                         <p>
                                             Recent purchases&nbsp;&nbsp;
                                             <Link to="/purchased-products" className="btn primary static">View more</Link>

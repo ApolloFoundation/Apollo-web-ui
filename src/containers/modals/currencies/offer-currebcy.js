@@ -42,6 +42,7 @@ class OfferCurrency extends React.Component {
 
         values = {
             ...values,
+            currency: this.props.modalData.currency,
             initialBuySupply: values.initialBuySupply * Math.pow(10, this.props.modalData.decimals),
             totalBuyLimit: values.totalBuyLimit * Math.pow(10, this.props.modalData.decimals),
             totalSellLimit: values.totalSellLimit * Math.pow(10, this.props.modalData.decimals),
@@ -332,14 +333,14 @@ class OfferCurrency extends React.Component {
                                         }
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
-                                    <div className="btn-box align-buttons-inside absolute left-conner">
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-left round round-bottom-left round-top-right"
-                                        >
-                                            {this.state.advancedState ? "Basic" : "Advanced"}
-                                        </a>
-                                    </div>
+                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
+                                        {/*<a*/}
+                                            {/*onClick={this.handleAdvancedState}*/}
+                                            {/*className="btn btn-left round round-bottom-left round-top-right"*/}
+                                        {/*>*/}
+                                            {/*{this.state.advancedState ? "Basic" : "Advanced"}*/}
+                                        {/*</a>*/}
+                                    {/*</div>*/}
                                 </div>
                             }
                         </form>
