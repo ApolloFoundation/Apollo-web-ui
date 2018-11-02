@@ -698,15 +698,27 @@ class Dashboard extends React.Component {
 									<div className="full-box">
 										<div className="form-group-app offset">
 											<div className="input-group-app lighten">
-												<label>Recipient</label>
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Recipient
+												</label>
 												<input placeholder={'Account ID'} ref={'recipient'} type="text"/>
 											</div>
 											<div className="input-group-app lighten">
-												<label>Amount</label>
+												<label
+                                                    style={{"word-break": 'normal'}}
+                                                >
+													Amount
+												</label>
 												<input placeholder={'Amount'} ref={'amountATM'} type={'number'}/>
 											</div>
 											<div className="input-group-app lighten">
-												<label>Fee</label>
+												<label
+                                                    style={{"word-break": 'normal'}}
+                                                >
+													Fee
+												</label>
 												<input placeholder={'Amount'} ref={'feeATM'} type={'number'}/>
 											</div>
 										</div>
