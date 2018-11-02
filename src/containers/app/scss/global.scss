@@ -2274,7 +2274,7 @@ input {
 		//height: calc(100% - 15px);
 		
 		&.card-tall {
-			min-height: 445px;
+			min-height: 520px;
 			@media (max-width: 760px) {
 				min-height: auto;
 			}
