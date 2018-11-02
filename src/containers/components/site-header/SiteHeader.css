@@ -274,7 +274,8 @@
       .page-header .user-search-box .user-box .name {
         max-width: 100%;
         overflow: hidden;
-        text-overflow: ellipsis; }
+        text-overflow: ellipsis;
+        white-space: pre; }
       .page-header .user-search-box .user-box .user-avatar {
         height: 50px;
         width: 50px;

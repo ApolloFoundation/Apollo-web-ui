@@ -4248,6 +4248,9 @@ input {
       color: #FFFFFF;
       font-size: 24px;
       padding-bottom: 5px; }
+      @media (max-width: 1440px) {
+        .card .general-info-item .top-bar {
+          font-size: 18px; } }
     .card .general-info-item .bottom-bar {
       width: 60px;
       color: #FFFFFF;
