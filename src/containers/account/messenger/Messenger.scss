@@ -67,10 +67,9 @@
 				.message-box {
 					display: block;
 					width: 100%;
-					margin-bottom: 15px;
-					&:last-child {
-						padding-top: 20px;
-					}
+					//&:last-child {
+					//	padding-top: 20px;
+					//}
 					&.incoming {
 						text-align: left;
 						.message {
@@ -142,6 +141,7 @@
 						font-size: 14px;
 						position: relative;
 						border-radius: 6px;
+						margin-bottom: 15px;
 						float: none !important;
 						p {
 							word-break: break-word;

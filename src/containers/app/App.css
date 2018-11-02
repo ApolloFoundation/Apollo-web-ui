@@ -4121,7 +4121,7 @@ input[type="file"] {
   .btn .no-border {
     border: 0; }
   .btn.transparent {
-    background-color: rgba(255, 255, 255, 0) !important; }
+    background-color: transparent !important; }
   .btn.btn-simple {
     color: #BBBBBB;
     font-size: 12px;

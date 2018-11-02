@@ -734,7 +734,7 @@ class Dashboard extends React.Component {
 								<div className="card active-polls">
 									<div className="card-title">Active Polls</div>
 									<div
-										className="full-box block"
+										className="full-box block word-brake"
 										style={{
                                             display: 'flex',
                                             paddingBottom: '50px'
