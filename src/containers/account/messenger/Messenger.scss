@@ -58,23 +58,23 @@
 			
 			.chatting-box {
 				display: flex;
-				flex-direction: column-reverse;
+				flex-wrap: wrap;
+				flex-direction: row-reverse;
 				justify-content: flex-start;
 				height: 100%;
 				overflow-y: auto;
 				padding: 0 30px;
-				
 				.message-box {
 					display: block;
-					margin-bottom: 0;
-					
+					width: 100%;
+					margin-bottom: 15px;
 					&:last-child {
 						padding-top: 20px;
 					}
 					&.incoming {
+						text-align: left;
 						.message {
 							background: #E5E5E5;
-							float: left;
 							
 							&:after {
 								display: none !important;
@@ -87,9 +87,9 @@
 						}
 					}
 					&.outgoing {
+						text-align: right;
 						.message {
 							background: #00C8FF;
-							float: right;
 							
 							&:after {
 								background: #00C8FF;
@@ -134,7 +134,7 @@
 						}
 					}
 					.message {
-						margin-bottom: 15px;
+						display: inline-block;
 						padding: 10px;
 						max-width: 480px;
 						color: #333333;
@@ -142,9 +142,11 @@
 						font-size: 14px;
 						position: relative;
 						border-radius: 6px;
-						
+						float: none !important;
 						p {
 							word-break: break-word;
+							word-wrap: break-word;
+							display: block;
 							& > * {
 								vertical-align: middle;
 							}
@@ -224,7 +226,7 @@
 						}
 					}
 					input {
-						width: 100%;
+						width: calc(100% - 260px);
 						margin-left: 15px;
 						padding: 6px 20px;
 					}
