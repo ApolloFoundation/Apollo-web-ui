@@ -1881,7 +1881,7 @@ input[type="file"] {
 		border: 0;
 	}
 	&.transparent {
-		background-color: transparent !important;
+		background-color: rgba(255,255,255, 0) !important;
 	}
 	&.btn-simple {
 		color: #BBBBBB;

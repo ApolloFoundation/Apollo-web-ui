@@ -4121,7 +4121,7 @@ input[type="file"] {
   .btn .no-border {
     border: 0; }
   .btn.transparent {
-    background-color: transparent !important; }
+    background-color: rgba(255, 255, 255, 0) !important; }
   .btn.btn-simple {
     color: #BBBBBB;
     font-size: 12px;
@@ -4853,7 +4853,7 @@ table td .btn, table th .btn {
     .transaction-table .transaction-table-body.padding-only-top {
       padding: 35px 0 0 0; }
     .transaction-table .transaction-table-body.transparent {
-      background-color: transparent !important; }
+      background-color: rgba(255, 255, 255, 0) !important; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
     .transaction-table .transaction-table-body table {
