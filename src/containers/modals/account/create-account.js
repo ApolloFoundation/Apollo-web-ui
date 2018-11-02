@@ -14,7 +14,7 @@ import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
-import {setBodyModalParamsAction} from "../../../modules/modals";
+import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
@@ -25,9 +25,12 @@ import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
 import {CopyToClipboard} from "react-copy-to-clipboard";
 
+import BackForm from '../modal-form/modal-form-container';
+
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.account
+    account: state.account.account,
+    modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -38,6 +41,8 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
     getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 class CreateUser extends React.Component {
@@ -190,7 +195,8 @@ class CreateUser extends React.Component {
                                             </a>
                                         </div>
 
-                                        <Form
+                                        <BackForm
+	                                        nameModal={this.props.nameModal}
                                             onSubmit={(values) => this.handleFormSubmit(values)}
                                             render={({
                                                          submitForm, setValue, values, getFormState
@@ -200,6 +206,7 @@ class CreateUser extends React.Component {
                                                         "tab-body": true,
                                                         "active": this.state.activeTab === 0
                                                     })}
+                                                    onChange={() => this.props.saveSendModalState(values)}
                                                     onSubmit={submitForm}
                                                 >
                                                     {
@@ -207,6 +214,9 @@ class CreateUser extends React.Component {
                                                         <React.Fragment>
                                                             <div className="form-group-app transparent">
                                                                 <div className="form-title">
+	                                                                {this.props.modalsHistory.length > 1 &&
+	                                                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                                                }
                                                                     <p>Create your Vault</p>
                                                                 </div>
                                                                 <div className="input-group-app display-block offset-bottom">
@@ -229,7 +239,7 @@ class CreateUser extends React.Component {
                                                                     <div className="row">
                                                                         <div className="col-md-12">
                                                                             <InfoBox info>
-                                                                                You can create your own custom passphrase or create an account with a randomly generated passphrase.
+                                                                                You can create your own custom secret phrase or create an account with a randomly generated secret phrase.
                                                                                 <br/>
                                                                                 <div
                                                                                     className="input-group-app display-block offset-bottom"
@@ -256,7 +266,7 @@ class CreateUser extends React.Component {
                                                                                             <label
                                                                                                 style={{color: '#ecf0f1'}}
                                                                                             >
-                                                                                                Use custom passphrase .
+                                                                                                Use custom secret phrase .
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
@@ -276,12 +286,12 @@ class CreateUser extends React.Component {
                                                                         this.state.isCustomPassphraseTextarea &&
                                                                         <div className="row">
                                                                             <div className="col-md-3">
-                                                                                <label>Your account passphrase</label>
+                                                                                <label>Your account secret phrase</label>
                                                                             </div>
                                                                             <div className="col-md-9">
                                                                             <TextArea
                                                                                 field={'newAccountpassphrse'}
-                                                                                placeholder={'Passphrase'}
+                                                                                placeholder={'Secret phrase'}
                                                                             />
                                                                             </div>
                                                                         </div>
@@ -298,7 +308,7 @@ class CreateUser extends React.Component {
                                                                             const {values} = getFormState();
 
                                                                             if (!values.newAccountpassphrse) {
-                                                                                NotificationManager.error('Passphrase not specified.');
+                                                                                NotificationManager.error('Secret phrase not specified.');
                                                                                 return;
                                                                             }
                                                                             this.generateAccount({
@@ -331,6 +341,9 @@ class CreateUser extends React.Component {
                                                         !this.state.isCustomPassphrase &&
                                                         <div className="form-group-app transparent">
                                                             <div className="form-title">
+	                                                            {this.props.modalsHistory.length > 1 &&
+	                                                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                                            }
                                                                 <p>Create your Vault</p>
                                                             </div>
                                                             {
@@ -368,8 +381,8 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger>
-                                                                                        <strong>Remember</strong> to store your Account ID and passphrase in a secured place.
-                                                                                        Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
+                                                                                        <strong>Remember</strong> to store your Account ID and secret phrase in a secured place.
+                                                                                        Make sure to write down this secret phrase and store it securely (the secret phrase is order and case sensitive). This secret phrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -379,7 +392,7 @@ class CreateUser extends React.Component {
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
                                                                             <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
+                                                                                <label>Your randomly generated secret phrase is:</label>
                                                                             </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
@@ -425,7 +438,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <Checkbox defaultValue={false} field="losePhrase"/>
-                                                                                <label>I wrote down my Account ID, Passphrase. It is now stored in a secured place</label>
+                                                                                <label>I wrote down my Account ID, secret phrase. It is now stored in a secured place</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -506,7 +519,7 @@ class CreateUser extends React.Component {
                                                 </form>
                                             )}
                                         >
-                                        </Form>
+                                        </BackForm>
                                         <Form
                                             onSubmit={(values) => this.handleValidateToken(values)}
                                             render={({
@@ -535,7 +548,7 @@ class CreateUser extends React.Component {
                                                                                 <div>
                                                                                     <InfoBox info>
                                                                                         <ul>
-                                                                                            <li>You can log in to this wallet using only passphrase</li>
+                                                                                            <li>You can log in to this wallet using only secret phrase</li>
                                                                                             <li>Available to use from any device </li>
                                                                                             <li> 2FA is available only on the device where it was enabled</li>
                                                                                         </ul>
@@ -557,8 +570,8 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger>
-                                                                                        <strong>Remember</strong>  to store your Account ID and passphrase in a secured place.
-                                                                                        Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
+                                                                                        <strong>Remember</strong>  to store your Account ID and secret phrase in a secured place.
+                                                                                        Make sure to write down this secret phrase and store it securely (the secret phrase is order and case sensitive). This secret phrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -568,7 +581,7 @@ class CreateUser extends React.Component {
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
                                                                             <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
+                                                                                <label>Your randomly generated secret phrase is:</label>
                                                                             </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
@@ -607,7 +620,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <Checkbox defaultValue={false} field="losePhrase"/>
-                                                                                <label>I wrote down my Passphrase. It is now stored in a secured place.</label>
+                                                                                <label>I wrote down my secret phrase. It is now stored in a secured place.</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>

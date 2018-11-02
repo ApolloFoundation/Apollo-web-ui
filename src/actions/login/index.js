@@ -242,8 +242,6 @@ export async function logOutAction(action) {
         case('logOutStopForging'):
             const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
 
-            console.log(forging);
-
             const setForgingWith2FA = (action) => {
                 return {
                     getStatus: action,
@@ -313,6 +311,7 @@ export function loadBlockchainStatus() {
                         type: "LOAD_BLOCKCHAIN_STATUS",
                         payload: res.data
                     });
+                    return res.data;
                 }
             })
             .catch((err) => {

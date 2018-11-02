@@ -78,7 +78,7 @@ class MarketplacePurchase extends React.Component {
 
     async handleFormSubmit(values) {
         if (!values.secretPhrase || values.secretPhrase.length === 0) {
-            NotificationManager.error('Pass Phrase is required.', 'Error', 5000);
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
 
@@ -196,7 +196,7 @@ class MarketplacePurchase extends React.Component {
                                                         <div className="col-sm-9">
                                                             <InputForm
                                                                 defaultValue={1}
-                                                                type="number"
+                                                                type="tel"
                                                                 field="quantity"
                                                                 placeholder="Currency Name"
                                                                 minValue={1}
@@ -210,7 +210,7 @@ class MarketplacePurchase extends React.Component {
                                                         <div className="col-sm-9">
                                                             <InputForm
                                                                 defaultValue={168}
-                                                                type="number"
+                                                                type="tel"
                                                                 field="deliveryDeadlineTimestamp"
                                                                 placeholder="Currency Code"
                                                                 setValue={setValue}/>
@@ -233,12 +233,12 @@ class MarketplacePurchase extends React.Component {
                                                         getFormState={getFormState}
                                                         values={values}
                                                     />
-                                                    {/*<AdvancedSettings
+                                                    <AdvancedSettings
                                                         setValue={setValue}
                                                         getFormState={getFormState}
                                                         values={values}
                                                         advancedState={this.state.advancedState}
-                                                    />*/}
+                                                    />
                                                 </div>
                                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                     <a

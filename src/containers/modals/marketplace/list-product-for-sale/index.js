@@ -170,7 +170,7 @@ class ListProductForSale extends React.Component {
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            type={"number"}
+                                            type={"tel"}
                                             field="priceATM"
                                             placeholder="Price"
                                             setValue={setValue}/>
@@ -182,7 +182,7 @@ class ListProductForSale extends React.Component {
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            type={"number"}
+                                            type={"tel"}
                                             field="quantity"
                                             placeholder="Quantity"
                                             setValue={setValue}/>
@@ -195,7 +195,10 @@ class ListProductForSale extends React.Component {
                                     <div className="col-sm-9">
                                         <div className="iconned-input-field">
                                             <div className="input-group-app search">
-                                                <div className="iconned-input-field">
+                                                <div
+                                                    style={{height: 32}}
+                                                    className="iconned-input-field"
+                                                >
                                                     <div className="input-icon text"><i className="">Browse&hellip;</i></div>
                                                     <input
                                                         id="file"
@@ -230,6 +233,14 @@ class ListProductForSale extends React.Component {
                                                             }
                                                         }}
                                                     />
+                                                    <div className={'input-file-area'}>
+                                                        <div className="input-file-name">
+                                                            {
+                                                                this.state.file &&
+                                                                this.state.file.name ? this.state.file.name : '-'
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -310,7 +321,7 @@ class ListProductForSale extends React.Component {
                                     </a>
 
                                 </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -324,7 +335,7 @@ class ListProductForSale extends React.Component {
                                     getFormState={getFormState}
                                     values={values}
                                     advancedState={this.state.advancedState}
-                                />*/}
+                                />
                             </div>
                         </form>
                     )}

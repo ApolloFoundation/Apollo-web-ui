@@ -40,7 +40,8 @@ class MyProductsForSale extends React.Component {
             seller: this.props.account,
             requestType: 'getDGSPurchases',
             firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
+            lastIndex: this.state.lastIndex,
+            completed: true
         });
         BlockUpdater.on("data", data => {
             console.warn("height in dashboard", data);
@@ -75,7 +76,7 @@ class MyProductsForSale extends React.Component {
     onPaginate (page) {
         let reqParams = {
             page: page,
-            account: this.props.account,
+            seller: this.props.account,
             requestType: 'getDGSPurchases',
             completed: true,
             firstIndex: page * 15 - 15,

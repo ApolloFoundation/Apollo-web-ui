@@ -129,7 +129,6 @@ class ResentMarketplaceListing extends React.Component {
                             })}
                             style={{
                                 position: 'relative',
-                                height: "100%",
                             }}
                         >
                             {
@@ -157,7 +156,7 @@ class ResentMarketplaceListing extends React.Component {
                             {
                                 this.state.getDGSGoods &&
                                 <div
-                                    className="btn-box relative padding-bottom"
+                                    className="btn-box relative"
                                     style={{
                                         position: "relative",
                                         height: 37,
@@ -168,6 +167,7 @@ class ResentMarketplaceListing extends React.Component {
                                         className={classNames({
                                             'btn' : true,
                                             'btn-left' : true,
+                                            'static' : true,
                                             'disabled' : this.state.page <= 1
                                         })}
                                         style={{
@@ -198,6 +198,7 @@ class ResentMarketplaceListing extends React.Component {
                                         className={classNames({
                                             'btn' : true,
                                             'btn-right' : true,
+                                            'static' : true,
                                             'disabled' : this.state.getDGSGoods.length < 8
                                         })}
                                         style={{

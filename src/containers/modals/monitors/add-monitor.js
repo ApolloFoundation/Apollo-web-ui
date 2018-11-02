@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
+import {setModalData, setBodyModalParamsAction, setAlert, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import {sendTransactionAction} from '../../../actions/transactions';
 import {calculateFeeAction} from "../../../actions/forms";
 import AdvancedSettings from '../../components/advanced-transaction-settings';
@@ -20,6 +20,8 @@ import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 
+import BackForm from '../modal-form/modal-form-container';
+
 class AddMonitor extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +30,7 @@ class AddMonitor extends React.Component {
     handleFormSubmit = async values => {
         console.warn("values", values);
         if (!values.phrase) {
-            NotificationManager.error("Passphrase is a required field", "Error", 5000);
+            NotificationManager.error("Secret phrase is a required field", "Error", 5000);
         }
 
         const toSend = {
@@ -45,22 +47,29 @@ class AddMonitor extends React.Component {
         } else {
             NotificationManager.success('Monitor has been started!', null, 5000);
             this.props.closeModal();
+            setTimeout(() => {
+                this.props.modalData()
+            }, 1000);
         }
     };
 
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, values, addValue, removeValue, setValue, getFormState
                              }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+	                                {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                }
                                     <p>Start Funding Monitor</p>
                                 </div>
 
@@ -88,7 +97,7 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="amount" placeholder="Amount" type="number"/>
+                                                <Text field="amount" placeholder="Amount" type="tel"/>
                                             </div>
                                         </div>
                                     </div>
@@ -101,7 +110,7 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="threshold" placeholder="Threshold" type="number"/>
+                                                <Text field="threshold" placeholder="Threshold" type="tel"/>
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +123,7 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="interval" placeholder="Interval" type="number"/>
+                                                <Text field="interval" placeholder="Interval" type="tel"/>
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +132,7 @@ class AddMonitor extends React.Component {
                                 <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Passphrase</label>
+                                            <label>Secret phrase</label>
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
@@ -153,18 +162,22 @@ class AddMonitor extends React.Component {
                     )}
                 >
 
-                </Form>
+                </BackForm>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
+	modalsHistory: state.modals.modalsHistory,
+	modalData: state.modals.modalData,
 });
 
 const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddMonitor);

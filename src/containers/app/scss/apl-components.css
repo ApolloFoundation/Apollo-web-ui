@@ -26,6 +26,11 @@
     .transaction-table .transaction-table-body table {
       width: 100%;
       padding: 0 35px; }
+      .transaction-table .transaction-table-body table .zmdi-info {
+        color: #333333;
+        transition: 0.2s; }
+        .transaction-table .transaction-table-body table .zmdi-info:hover {
+          color: #242424; }
       .transaction-table .transaction-table-body table thead {
         padding: 35px 0; }
         .transaction-table .transaction-table-body table thead tr td {
@@ -151,6 +156,8 @@
   .info-box p {
     padding: 18px 40px;
     color: #000; }
+    .info-box p a {
+      color: #00C8FF; }
     .info-box p ul li {
       padding: 0 0 0 15px;
       display: block;
@@ -235,7 +242,8 @@
           margin-bottom: 0; } }
       .modal-window .modal-box .modal-form table {
         min-width: 100%;
-        padding: 0; }
+        padding: 0;
+        border-collapse: collapse; }
       .modal-window .modal-box .modal-form .form-group-app {
         padding-bottom: 69px;
         position: relative; }

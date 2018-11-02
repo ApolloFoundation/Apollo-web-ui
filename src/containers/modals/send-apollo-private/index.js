@@ -6,7 +6,13 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
+import {
+	setModalData,
+	setBodyModalParamsAction,
+	setAlert,
+	openPrevModal,
+	saveSendModalState
+} from '../../../modules/modals';
 import {sendPrivateTransaction} from '../../../actions/transactions';
 import AccountRS from '../../components/account-rs';
 import InputForm from '../../components/input-form';
@@ -17,7 +23,9 @@ import classNames from 'classnames';
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
-import ModalFooter from '../../components/modal-footer'
+import ModalFooter from '../../components/modal-footer';
+
+import BackForm from '../modal-form/modal-form-container';
 
 class SendApolloPrivate extends React.Component {
     constructor(props) {
@@ -119,19 +127,24 @@ class SendApolloPrivate extends React.Component {
         })
     };
 
+
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, values, addValue, removeValue, setValue, getFormState
+                                 submitForm, values, addValue, removeValue, setValue, getFormState, getValue
                              }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+                                    {this.props.modalsHistory.length > 1 &&
+                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                    }
                                     <p>Send Apollo</p>
                                 </div>
                                 {
@@ -158,6 +171,7 @@ class SendApolloPrivate extends React.Component {
                                                     field={'recipient'}
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
+                                                    value={getValue('recipient') || ''}
                                                 />
                                             </div>
                                         </div>
@@ -172,7 +186,7 @@ class SendApolloPrivate extends React.Component {
                                             defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
                                             field="amountATM"
                                             placeholder="Amount"
-                                            type={"number"}
+                                            type={"tel"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">Apollo</span>
@@ -277,7 +291,7 @@ class SendApolloPrivate extends React.Component {
                     )}
                 >
 
-                </Form>
+                </BackForm>
             </div>
         );
     }
@@ -286,7 +300,8 @@ class SendApolloPrivate extends React.Component {
 const mapStateToProps = state => ({
     account: state.account.account,
     modalData: state.modals.modalData,
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+	modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -296,6 +311,8 @@ const mapDispatchToProps = dispatch => ({
     sendPrivateTransaction: (requestParams) => dispatch(sendPrivateTransaction(requestParams)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+	openPrevModal: () => dispatch(openPrevModal()),
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApolloPrivate);

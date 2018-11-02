@@ -319,7 +319,7 @@ class FollowedVotes extends React.Component {
                                                 <div className="col-md-7">
                                                     <div className="right-bar">
                                                         <div className="form-group-app">
-                                                            <div className="form-title">
+                                                            <div className="form-title word-brake">
                                                                 <p>{this.state.poll.name}</p>
                                                             </div>
                                                             <div className="account-bar">

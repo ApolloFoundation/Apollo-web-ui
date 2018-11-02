@@ -38,7 +38,7 @@ render(
                         </Switch>
                     </BrowserRouter>
                 </I18nextProvider>
-            </ConnectedRouter>k
+            </ConnectedRouter>
         </BlockSubscriber>
     </Provider>,
     target

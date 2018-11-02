@@ -57,7 +57,8 @@
 	}
 	& + .btn-box {
 		position: relative;
-		min-height: 46px;
+		height: 33px;
+		margin-top: 15px;
 	}
 }
 
@@ -315,10 +316,9 @@
 				width: 100%;
 				color: #333333;
 				font-size: 24px;
-				line-height: 1;
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
+				line-height: 1.6;
+				word-wrap: break-word;
+				word-break: break-word;
 			}
 			.cargo-id {
 				color: #BBBBBB;
@@ -496,8 +496,8 @@
 				background-size: 30% !important;
 				background-image: url(../../../assets/no-photo.svg) !important;
 				background-color: #eee !important;
-				width: 100%;
-				margin: auto;
+				//width: 100%;
+				//margin: auto;
 			}
 		}
 		.price-box {
@@ -531,7 +531,8 @@
 				font-size: 12px;
 				margin-top: 15px;
 				word-break: break-word;
-
+				word-wrap: break-word;
+				display: block;
 			}
 		}
 	}
@@ -578,5 +579,26 @@
 				}
 			}
 		}
+	}
+}
+
+.my-complete-orders {
+
+}
+.marketplace-btn-box {
+	position: relative;
+	z-index: 2;
+	height: 33px;
+	margin-top: 15px;
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+	.pagination-nav {
+		bottom: 0;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 }

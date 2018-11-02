@@ -117,7 +117,9 @@ class MessageItem extends React.Component {
                 </td>
                 <td className="align-right btn-box inline">
                     {
-                        this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message &&
+                        this.props.attachment.encryptedMessage &&
+                        !this.props.attachment.encryptedMessageHash &&
+                        this.props.attachment.message === 'undefined' &&
                         <a
                             onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
                             className="btn primary blue static"

@@ -16,6 +16,10 @@
   padding: 0 7.5px 0px;
   position: relative;
   max-width: 100%; }
+  .page-settings-item.full-height .modal-form {
+    height: 100%; }
+  .page-settings-item.full-height .form-group-app {
+    height: 100%; }
   @media (max-width: 1230px) {
     .page-settings-item {
       min-width: 50%;

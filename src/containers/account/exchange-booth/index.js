@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
 import {getCurrencyAction, getAllCurrenciesAction} from "../../../actions/currencies";
 import classNames from "classnames";
 import {BlockUpdater} from "../../block-subscriber";
-import {setBodyModalParamsAction} from "../../../modules/modals";
+import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
 import {
     getAccountExchangeAction,
     getBuyOffersAction,
@@ -29,8 +29,10 @@ import uuid from 'uuid'
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
 import {getTransactionAction} from "../../../actions/transactions";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
+import ContentLoader from '../../components/content-loader';
+import ContentHendler from '../../components/content-hendler';
+
+import BackForm from '../../modals/modal-form/modal-form-container';
 
 class ExchangeBooth extends React.Component {
     constructor(props) {
@@ -336,11 +338,15 @@ class ExchangeBooth extends React.Component {
                                             </div>
                                         </div>
                                         <div className="card ballance auto-height medium-padding">
-                                            <Form
+                                            <BackForm
+	                                            nameModal={this.props.nameModal}
                                                 onSubmit={(values) => this.handleMinimumBuyRate(values)}
                                                 render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                                                    <form onSubmit={submitForm} className="form-group-app">
+                                                    <form onSubmit={submitForm} onChange={() => this.props.saveSendModalState(values)} className="form-group-app">
                                                         <div className="form-title">
+                                                            {this.props.modalsHistory.length > 1 &&
+                                                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                                            }
                                                             <p>Buy {this.state.code}</p>
                                                             <div className="form-sub-title">
                                                                 balance: <strong>{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')} Apollo</strong>
@@ -531,7 +537,7 @@ class ExchangeBooth extends React.Component {
                                                         <div className="form-title">
                                                             <p>Sell {this.state.code}</p>
                                                             <div className="form-sub-title">
-                                                                balance: <strong>{!!this.state.accountCurrency && !!this.state.accountCurrency.unconfirmedUnits ? (this.state.accountCurrency.unconfirmedUnits / 100000000).toLocaleString('en') : 0} {this.state.code}</strong>
+                                                                balance: <strong>{!!this.state.accountCurrency && !!this.state.accountCurrency.unconfirmedUnits ? (this.state.accountCurrency.unconfirmedUnits / Math.pow(10, this.state.accountCurrency.decimals)).toLocaleString('en') : 0} {this.state.code}</strong>
                                                             </div>
                                                         </div>
                                                         <div
@@ -848,7 +854,8 @@ class ExchangeBooth extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.accountRS,
-    balanceATM: state.account.balanceATM
+    balanceATM: state.account.balanceATM,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -863,6 +870,8 @@ const mapDispatchToProps = dispatch => ({
     getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeBooth);

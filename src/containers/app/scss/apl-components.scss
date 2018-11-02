@@ -53,6 +53,13 @@
       //    position: static !important;
       //  }
       //}
+      .zmdi-info{
+        color: #333333;
+        transition: 0.2s;
+        &:hover{
+          color: #242424;
+        }
+      }
       thead {
         padding: 35px 0;
 
@@ -262,6 +269,9 @@
     padding: 18px 40px;
     color: #000;
 
+    a {
+      color: #00C8FF;
+    }
     ul {
       li {
         padding: 0 0 0 15px;
@@ -382,6 +392,7 @@
       table {
         min-width: 100%;
         padding: 0;
+        border-collapse: collapse;
       }
 
       .form-group-app {

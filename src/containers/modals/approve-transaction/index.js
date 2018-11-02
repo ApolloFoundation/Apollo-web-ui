@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
 import {Form, Text, Number} from 'react-form';
@@ -18,6 +18,8 @@ import {NotificationManager} from "react-notifications";
 import {calculateFeeAction} from "../../../actions/forms";
 import crypto from "../../../helpers/crypto/crypto";
 import {formatTimestamp} from "../../../helpers/util/time";
+
+import BackForm from '../modal-form/modal-form-container';
 
 class ApproveTransaction extends React.Component {
     constructor(props) {
@@ -72,18 +74,23 @@ class ApproveTransaction extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={
                         ({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
                             <form
                                 className="modal-form"
+                                 onChange={() => this.props.saveSendModalState(values)}
                                 onSubmit={submitForm}
                             >
                                 <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i
                                         className="zmdi zmdi-close"/></a>
                                     <div className="form-title">
+                                        {this.props.modalsHistory.length > 1 &&
+	                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                    }
                                         <p>Approve Transaction</p>
                                     </div>
                                     <p>Transaction ID {this.props.modalData.transaction.transaction} ({this.props.formatTimestamp(this.props.modalData.transaction.timestamp)})</p>
@@ -126,7 +133,7 @@ class ApproveTransaction extends React.Component {
                                             Approve
                                         </button>
                                     </div>
-                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                    <div className="btn-box align-buttons-inside absolute left-conner">
                                         <a
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -140,7 +147,7 @@ class ApproveTransaction extends React.Component {
                                         getFormState={getFormState}
                                         values={values}
                                         advancedState={this.state.advancedState}
-                                    />*/}
+                                    />
                                 </div>
                             </form>
                         )}
@@ -151,7 +158,8 @@ class ApproveTransaction extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -163,6 +171,8 @@ const mapDispatchToProps = dispatch => ({
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApproveTransaction);

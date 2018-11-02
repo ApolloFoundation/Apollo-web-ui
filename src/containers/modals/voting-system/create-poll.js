@@ -7,7 +7,7 @@
 import React from 'react';
 import uuid from 'uuid';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import CustomSelect from '../../components/select';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
@@ -19,7 +19,9 @@ import {getAssetAction} from "../../../actions/assets";
 import {NotificationManager} from "react-notifications";
 import {calculateFeeAction} from "../../../actions/forms";
 import crypto from "../../../helpers/crypto/crypto";
-import ModalFooter from '../../components/modal-footer'
+import ModalFooter from '../../components/modal-footer';
+
+import BackForm from '../modal-form/modal-form-container';
 
 const votingModelData = [
     { value: 0, label: 'Vote by Account' },
@@ -180,18 +182,23 @@ class CreatePoll extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={
                         ({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
                             <form
                                 className="modal-form"
                                 onSubmit={submitForm}
+                                onChange={() => this.props.saveSendModalState(values)}
                             >
                                 <div className="form-group-app">
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
+	                                    {this.props.modalsHistory.length > 1 &&
+	                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                    }
                                         <p>Create Poll</p>
                                     </div>
                                     <div className="form-group row form-group-white mb-15">
@@ -315,7 +322,7 @@ class CreatePoll extends React.Component {
                                                             getFormState().values.votingModel === 0}
                                                 field="minBalance"
                                                 placeholder=""
-                                                type={"number"}
+                                                type={"tel"}
                                                 defaultValue={0}
                                                 setValue={setValue}/>
                                         </div>
@@ -326,7 +333,7 @@ class CreatePoll extends React.Component {
                                             {
                                                 this.state.block &&
                                                 <InputForm
-                                                    type="number"
+                                                    type="tel"
                                                     field="finishHeight"
                                                     defaultValue={parseInt(this.state.block.height) + 10000}
                                                     placeholder="Finish height"
@@ -399,7 +406,7 @@ class CreatePoll extends React.Component {
                                         <div className="col-sm-3">
                                             <InputForm
                                                 defaultValue={1}
-                                                type="number"
+                                                type="tel"
                                                 field="minNumberOfOptions"
                                                 placeholder=""
                                                 setValue={setValue}/>
@@ -410,7 +417,7 @@ class CreatePoll extends React.Component {
                                         <div className="col-sm-3">
                                             <InputForm
                                                 defaultValue={1}
-                                                type="number"
+                                                type="tel"
                                                 field="maxNumberOfOptions"
                                                 placeholder=""
                                                 setValue={setValue}/>
@@ -423,7 +430,7 @@ class CreatePoll extends React.Component {
                                         <div className="col-sm-3">
                                             <InputForm
                                                 defaultValue={0}
-                                                type="number"
+                                                type="tel"
                                                 field="minRangeValue"
                                                 placeholder=""
                                                 setValue={setValue}/>
@@ -434,7 +441,7 @@ class CreatePoll extends React.Component {
                                         <div className="col-sm-3">
                                             <InputForm
                                                 defaultValue={1}
-                                                type="number"
+                                                type="tel"
                                                 field="maxRangeValue"
                                                 placeholder=""
                                                 setValue={setValue}/>
@@ -495,7 +502,7 @@ class CreatePoll extends React.Component {
                                         }
 
                                     </div>
-                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                    <div className="btn-box align-buttons-inside absolute left-conner">
                                         <a
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -509,7 +516,7 @@ class CreatePoll extends React.Component {
                                         getFormState={getFormState}
                                         values={values}
                                         advancedState={this.state.advancedState}
-                                    />*/}
+                                    />
                                 </div>
                             </form>
                         )}
@@ -520,7 +527,8 @@ class CreatePoll extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -532,6 +540,8 @@ const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePoll);

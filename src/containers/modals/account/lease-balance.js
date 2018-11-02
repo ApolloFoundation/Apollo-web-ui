@@ -153,7 +153,7 @@ class LeaseBalance extends React.Component {
                                         Period
                                     </label>
                                     <div className="col-sm-9">
-                                        <Text className="form-control" type={'number'} field="period" placeholder="Period" />
+                                        <Text className="form-control" type={'tel'} field="period" placeholder="Period" />
                                     </div>
                                 </div>
                                 <div className="mobile-class row form-group-grey">
@@ -224,7 +224,7 @@ class LeaseBalance extends React.Component {
                                               className="form-control"
                                               value={this.state.feeATM}
                                               placeholder="Minimum fee"
-                                              type={"number"}
+                                              type={"tel"}
                                               aria-describedby="feeATMText" />
                                         <div className="input-group-append">
                                             <span className="input-group-text" id="feeATMText">Apollo</span>
@@ -261,12 +261,12 @@ class LeaseBalance extends React.Component {
                                     </InfoBox>
                                 }
 
-                                {/*<AdvancedSettings
+                                <AdvancedSettings
                                     setValue={setValue}
                                     getFormState={getFormState}
                                     values={values}
                                     advancedState={this.state.advancedState}
-                                />*/}
+                                />
 
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     {
@@ -301,7 +301,7 @@ class LeaseBalance extends React.Component {
                                     </a>
 
                                 </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -309,7 +309,7 @@ class LeaseBalance extends React.Component {
                                     >
                                         {this.state.advancedState ? "Basic" : "Advanced"}
                                     </a>
-                                </div>*/}
+                                </div>
 
                             </div>
                         </form>

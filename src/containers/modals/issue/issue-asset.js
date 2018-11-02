@@ -130,7 +130,7 @@ class IssueAsset extends React.Component {
                                             <label>Quantity</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Quantity" field="quantityATU" type="number"/>
+                                            <Text placeholder="Quantity" field="quantityATU" type="tel"/>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@ class IssueAsset extends React.Component {
                                             <label>Decimals</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Decimals" field="decimals" type="number" min={0} max={8}/>
+                                            <Text placeholder="Decimals" field="decimals" type="tel" min={0} max={8}/>
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@ class IssueAsset extends React.Component {
                                             <label>Fee</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <Text placeholder="Fee" field="feeATM" type="number"/>
+                                            <Text placeholder="Fee" field="feeATM" type="tel"/>
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@ class IssueAsset extends React.Component {
                                     </a>
 
                                 </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                <div className="btn-box align-buttons-inside absolute left-conner">
                                     {
                                         this.state.advancedState &&
                                         <a
@@ -221,7 +221,7 @@ class IssueAsset extends React.Component {
                                     getFormState={getFormState}
                                     values={values}
                                     advancedState={this.state.advancedState}
-                                />*/}
+                                />
                             </div>
                         </form>
                     )}

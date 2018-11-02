@@ -11,7 +11,7 @@ import converters from '../../../../helpers/converters';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
-import {formatTransactionType} from "../../../../actions/transactions";
+import {formatTransactionType, getPhasingTransactionVoters} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
 
 const mapStateToProps = state => ({
@@ -29,6 +29,24 @@ class Transaction extends React.Component {
         super(props);
     }
 
+    componentDidMount () {
+        if (this.props.transaction.phased) {
+            this.getPhasingTransactionInfo();
+
+        }
+    }
+
+    getPhasingTransactionInfo = async () => {
+        let phasing = await getPhasingTransactionVoters({transaction: this.props.transaction.transaction});
+
+
+        if (phasing) {
+            this.setState({
+                phasing: phasing.polls[0]
+            })
+        }
+    }
+
     async getBlock(type, blockHeight) {
         const requestParams = {
             height: blockHeight
@@ -41,11 +59,28 @@ class Transaction extends React.Component {
         }
     }
 
+    handleMouseOver = (selector) => {
+        const el = document.querySelector(`[data-transaction="${selector}"]`);
+        if (el) {
+            el.classList.add('active');
+        }
+    }
+
+    handleMouseOut = (selector) => {
+        const el = document.querySelector(`[data-transaction="${selector}"]`)
+
+        if (el) {
+            el.classList.remove('active');
+        }
+    }
+
+
     render () {
+        const id = `transaction-${this.props.transaction.transaction}`;
         return (
             <tr key={uuid()}>
                 {
-                    this.props.transaction && this.props.constants &&
+                    this.props.transaction && this.props.constants && !this.props.block &&
                     <React.Fragment>
                         <td className="blue-link-text">
                             <a onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.props.transaction.transaction, (this.props.transaction.type === 0 && this.props.transaction.subtype === 1))}>
@@ -67,7 +102,25 @@ class Transaction extends React.Component {
                         <td className="blue-link-text">
                             <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
                         </td>
-                        <td className="align-right">
+                        <td className="align-right phasing">
+                            {
+                                this.state &&
+                                this.state.phasing &&
+                                <div className="phasing-box"
+                                     onMouseOver={() => this.handleMouseOver(id)}
+                                     onMouseOut={()  => this.handleMouseOut(id)}
+                                     id={id}
+                                >
+                                    <spna className="phasing-box__icon">
+                                        <i className={'zmdi zmdi-accounts-alt'}></i>
+                                    </spna>
+                                    <span className="phasing-box__result">
+                                        {this.state.phasing.result} / {this.state.phasing.quorum}
+                                    </span>
+                                </div>
+                            }
+
+
                         </td>
                         <td className="align-right blue-link-text">
                             {
@@ -87,6 +140,41 @@ class Transaction extends React.Component {
                             {
                                 this.props.isUnconfirmed && '-'
                             }
+                        </td>
+                    </React.Fragment>
+                }
+                {
+                    this.props.block &&
+                    this.props.transaction &&
+                    <React.Fragment>
+                        <td className="blue-link-text">
+                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.props.transaction.transaction)}>{this.props.transaction.blockTimestamp}</a>
+                        </td>
+                        <td>
+                            {
+                                !!this.props.constants.transactionTypes[this.props.transaction.type] &&
+                                formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)
+                            }
+                        </td>
+                        <td className="align-right">
+                            {this.props.transaction.amountATM / 100000000}
+                        </td>
+                        <td className="align-right">
+                            {this.props.transaction.feeATM / 100000000}
+                        </td>
+                        <td className="blue-link-text">
+                            <a
+                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.transaction.sender)}
+                            >
+                                {this.props.transaction.senderRS}
+                            </a>
+                        </td>
+                        <td className="blue-link-text align-right">
+                            <a
+                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.transaction.recipient)}
+                            >
+                                {this.props.transaction.recipientRS}
+                            </a>
                         </td>
                     </React.Fragment>
                 }

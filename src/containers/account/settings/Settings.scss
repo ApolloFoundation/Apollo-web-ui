@@ -24,6 +24,14 @@
   position: relative;
   max-width: 100%;
 
+  &.full-height {
+    .modal-form {
+      height: 100%;
+    }
+    .form-group-app {
+      height: 100%;
+    }
+  }
   @media (max-width: 1230px) {
     min-width: 50%;
     height: auto;

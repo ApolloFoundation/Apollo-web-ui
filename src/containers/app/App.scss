@@ -1,44 +1,70 @@
 @import "./scss/index.scss";
 
-
 .site-content {
-  .container {
-    h1 {
-      color: #f00;
-    }
-  }
+	.container {
+		h1 {
+			color: #f00;
+		}
+	}
 }
 
 .site-content {
-  &.overflow-content {
-    .page-content {
-      .page-header {
-        .user-search-box {
-          .search-bar {
-            .user-account-actions {
-              .user-account-action {
-                .settings-bar {
-                  transform: none;
-                  opacity: 1;
-                  visibility: visible;
-                }
-              }
-            }
-          }
-        }
-      }
-      .page-body {
-        //overflow: hidden;
+	&.overflow-content {
+		.page-content {
+			.page-header {
+				.user-search-box {
+					.search-bar {
+						.user-account-actions {
+							.user-account-action {
+								.settings-bar {
+									transform: none;
+									opacity: 1;
+									visibility: visible;
+								}
+							}
+						}
+					}
+				}
+			}
+			.page-body {
+				//overflow: hidden;
+				
+				&:after {
+					opacity: 1;
+					visibility: visible;
+					transition: all 0.3s ease-in-out;
+				}
+			}
+		}
+	}
+	.page-body {
+		z-index: -1;
+	}
+	
+}
 
-        &:after {
-          opacity: 1;
-          visibility: visible;
-          transition: all 0.3s ease-in-out;
-        }
-      }
-    }
-  }
-  .page-body {
-    z-index: -1;
-  }
+.marketplace-tab-item {
+	td {
+		&:nth-of-type(1) {
+			width: 52%;
+		}
+	}
+}
+
+.text-align-right {
+	text-align: right;
+}
+
+.text-align-left {
+	text-align: left;
+}
+
+.account-balance-text {
+	display: block !important;
+	color: #bbbbbb;
+	font-size: 12px;
+	line-height: 14px;
+	strong {
+		font-family: "Roboto-Bold";
+	}
 }

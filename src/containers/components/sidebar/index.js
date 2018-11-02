@@ -68,7 +68,10 @@ class Sidebar extends React.Component {
 					"hover": this.state.isHover
 				})}
 			>
-				<div className="menu-bar-container">
+				<div
+					className="menu-bar-container"
+					id={'sidebar-menu'}
+				>
 					<NavLink
 						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
@@ -296,6 +299,7 @@ class Sidebar extends React.Component {
 									className={`text ${this.getNavLinkClass(["/my-products-for-sale",
 										"/my-pending-orders",
 										"/my-completed-orders",
+										"/recent-listing",
 										"/purchased-products"])}`}>
 									Marketplace
 									<i className="zmdi zmdi-label left"/>

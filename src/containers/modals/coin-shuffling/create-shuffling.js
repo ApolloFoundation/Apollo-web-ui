@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
 import AccountRS from '../../components/account-rs';
@@ -18,7 +18,9 @@ import submitForm from "../../../helpers/forms/forms";
 import {getAssetAction} from "../../../actions/assets";
 import {getCurrencyAction} from "../../../actions/currencies";
 import crypto from "../../../helpers/crypto/crypto";
-import ModalFooter from '../../components/modal-footer'
+import ModalFooter from '../../components/modal-footer';
+
+import BackForm from '../modal-form/modal-form-container';
 
 const holdingTypeData = [
     { value: 0, label: 'Apollo' },
@@ -141,16 +143,20 @@ class CreateShuffling extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, setValue, values, getFormState
                              }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
+	                                {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                }
                                     <p>Create shuffling</p>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
@@ -176,7 +182,7 @@ class CreateShuffling extends React.Component {
                                             defaultValue={0}
                                             field="shufflingAmountAPL"
                                             placeholder="Amount"
-                                            type={"number"}
+                                            type={"tel"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">Apollo</span>
@@ -229,7 +235,7 @@ class CreateShuffling extends React.Component {
                                                 defaultValue={0}
                                                 field="amountATUf"
                                                 placeholder="Quantity"
-                                                type={"number"}
+                                                type={"tel"}
                                                 setValue={setValue}/>
                                         </div>
                                     </div>
@@ -245,7 +251,7 @@ class CreateShuffling extends React.Component {
                                                 defaultValue={this.state.block.height}
                                                 field="finishHeight"
                                                 placeholder="Register Until"
-                                                type={"number"}
+                                                type={"tel"}
                                                 step={500}
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
@@ -261,7 +267,7 @@ class CreateShuffling extends React.Component {
                                     <div className="col-sm-9 mb-0">
                                         <InputForm
                                             field="participantCount"
-                                            type={"number"}
+                                            type={"tel"}
                                             placeholder="Participant Count"
                                             setValue={setValue}/>
                                     </div>
@@ -295,12 +301,12 @@ class CreateShuffling extends React.Component {
                                     getFormState={getFormState}
                                     values={values}
                                 />
-                                {/*<AdvancedSettings
+                                <AdvancedSettings
                                     setValue={setValue}
                                     getFormState={getFormState}
                                     values={values}
                                     advancedState={this.state.advancedState}
-                                />*/}
+                                />
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a
                                         onClick={() => this.props.closeModal()}
@@ -334,7 +340,7 @@ class CreateShuffling extends React.Component {
                                             </button>
                                     }
                                 </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                <div className="btn-box align-buttons-inside absolute left-conner">
                                     <a
                                         onClick={this.handleAdvancedState}
                                         className="btn btn-right round round-bottom-left round-top-right absolute"
@@ -342,7 +348,7 @@ class CreateShuffling extends React.Component {
                                     >
                                         {this.state.advancedState ? "Basic" : "Advanced"}
                                     </a>
-                                </div>*/}
+                                </div>
                             </div>
                         </form>
                     )}
@@ -355,6 +361,7 @@ class CreateShuffling extends React.Component {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     account: state.account.account,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -365,6 +372,8 @@ const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateShuffling);

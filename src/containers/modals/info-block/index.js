@@ -6,20 +6,26 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {getTransactionAction} from '../../../actions/transactions/';
+import {getTransactionAction, getPrivateTransactions} from '../../../actions/transactions/';
 import {setModalData, setBodyModalParamsAction} from '../../../modules/modals';
 import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
 import uuid from "uuid";
 import {formatTimestamp} from "../../../helpers/util/time";
-
+import ModalFooter from '../../components/modal-footer'
+import {Form, Text} from "react-form";
+import crypto from "../../../helpers/crypto/crypto";
+import {NotificationManager} from "react-notifications";
 
 class InfoBlock extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeTab: 0
+            activeTab: 0,
+            privateTransactions: null,
+            secretPhrase: null,
+            isShowPassphrase: false
         };
 
         this.handleTab      = this.handleTab.bind(this);
@@ -45,6 +51,42 @@ class InfoBlock extends React.Component {
         }
     }
 
+    showPrivateTransactions = async (secretPhrase) => {
+        const isPassPhrease = await this.props.validatePassphrase(secretPhrase.secretPhrase);
+
+        let data;
+
+        if (isPassPhrease) {
+            data = {secretPhrase: secretPhrase.secretPhrase};
+        } else {
+            data = {passphrase: secretPhrase.secretPhrase};
+        }
+
+        const requestParams = {
+            ...secretPhrase,
+            height: this.props.modalData.height,
+            ...data
+        };
+
+        const privateTransactions = await getPrivateTransactions(requestParams);
+
+        if (privateTransactions) {
+            if (!privateTransactions.errorCode) {
+                this.setState({
+                    privateTransactions: privateTransactions.transactions
+                })
+            } else {
+                NotificationManager.error(privateTransactions.errorDescription, 'Error', 5000)
+            }
+        }
+    };
+
+    handleSohwPassphrase = () => {
+        this.setState({
+            isShowPassphrase: !this.state.isShowPassphrase
+        })
+    };
+
 
     // TODO: migrate timesamp, migrate account to RS
 
@@ -53,7 +95,7 @@ class InfoBlock extends React.Component {
             <div className="modal-box x-wide">
                 {
                     this.props.modalData &&
-                    <form className="modal-form">
+                    <div className="modal-form">
                         <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
@@ -96,42 +138,110 @@ class InfoBlock extends React.Component {
                                     {
                                         this.props.modalData.transactions &&
                                         !!this.props.modalData.transactions.length &&
-                                        <div className="transaction-table no-min-height">
-                                            <div className="transaction-table-body transparent padding-vertical-padding">
+                                        <React.Fragment>
 
-                                                <table>
-                                                    <thead key={uuid()}>
-                                                    <tr>
-                                                        <td>Index</td>
-                                                        <td>Date</td>
-                                                        <td>Type</td>
-                                                        <td className="align-right">Amount</td>
-                                                        <td className="align-right">Fee</td>
-                                                        <td>From</td>
-                                                        <td>To</td>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    {
-                                                        this.props.modalData.transactions &&
-                                                        this.props.modalData.transactions.map((el, index) => {
+                                            <div className="modal-form transparent">
+                                                <div className="form-group-app transparent no-padding-bottom no-padding-left">
+                                                    <div className="input-group-app">
+                                                        <div className="row">
+                                                            <div className="col-md-3">
+                                                                <a
+                                                                    style={{
+                                                                        height: 33
+                                                                    }}
+                                                                    className={'btn blue static'}
+                                                                    onClick={() => this.handleSohwPassphrase()}
+                                                                >
+                                                                    Show private transactions
+                                                                </a>
+                                                            </div>
+                                                            <div className="col-md-9">
+                                                                {
+                                                                    this.state.isShowPassphrase &&
+                                                                    <div className="input-group-app search tabled">
+                                                                        <Form
+                                                                            onSubmit={(values) => this.showPrivateTransactions(values)}
+                                                                            render={({
+                                                                                         submitForm, values, addValue, removeValue, setValue, getFormState
+                                                                                     }) => (
+                                                                                <form
+                                                                                    style={{
+                                                                                        height: 33,
+                                                                                        "word-break": "normal"
+                                                                                    }}
+                                                                                    className="iconned-input-field"
+                                                                                    onSubmit={submitForm}
+                                                                                >
+                                                                                    <Text field="secretPhrase" placeholder="Secret phrase" />
 
-                                                            return (
-                                                                <Transaction
-                                                                    key={uuid()}
-                                                                    block
-                                                                    transaction = {el}
-                                                                    index={index}
-                                                                    setTransactionInfo={this.getTransaction}
-                                                                />
-                                                            )
-                                                        })
-                                                    }
-
-                                                    </tbody>
-                                                </table>
+                                                                                    <button
+                                                                                        className="input-icon text btn blue static"
+                                                                                    >
+                                                                                        Submit
+                                                                                    </button>
+                                                                                </form>
+                                                                            )}
+                                                                        />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+
+                                            <div className="transaction-table no-min-height">
+                                                <div className="transaction-table-body transparent padding-vertical-padding">
+
+                                                    <table>
+                                                        <thead>
+                                                        <tr>
+                                                            <td>Date</td>
+                                                            <td>Type</td>
+                                                            <td className="align-right">Amount</td>
+                                                            <td className="align-right">Fee</td>
+                                                            <td>From</td>
+                                                            <td>To</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {
+                                                            !this.state.privateTransactions &&
+                                                            this.props.modalData.transactions &&
+                                                            this.props.modalData.transactions.map((el, index) => {
+
+                                                                return (
+                                                                    <Transaction
+                                                                        key={uuid()}
+                                                                        block
+                                                                        transaction = {el}
+                                                                        index={index}
+                                                                        setTransactionInfo={this.getTransaction}
+                                                                    />
+                                                                )
+                                                            })
+                                                        }
+                                                        {
+                                                            this.state.privateTransactions &&
+                                                            this.state.privateTransactions.map((el, index) => {
+
+                                                                return (
+                                                                    <Transaction
+                                                                        key={uuid()}
+                                                                        block
+                                                                        transaction = {el}
+                                                                        index={index}
+                                                                        setTransactionInfo={this.getTransaction}
+                                                                    />
+                                                                )
+                                                            })
+                                                        }
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
                                     }
 
                                 </div>
@@ -243,7 +353,7 @@ class InfoBlock extends React.Component {
                                 </a>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 }
             </div>
         );
@@ -255,6 +365,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     setModalData: (data) => dispatch(setModalData(data)),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),

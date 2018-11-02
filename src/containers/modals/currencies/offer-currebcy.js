@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
@@ -16,7 +16,9 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
 import {getAccountCurrenciesAction} from "../../../actions/currencies";
-import ModalFooter from '../../components/modal-footer'
+import ModalFooter from '../../components/modal-footer';
+
+import BackForm from '../modal-form/modal-form-container';
 
 class OfferCurrency extends React.Component {
     constructor(props) {
@@ -114,10 +116,11 @@ class OfferCurrency extends React.Component {
     render() {
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             {
                                 this.props.modalData &&
 
@@ -125,6 +128,9 @@ class OfferCurrency extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
+                                        {this.props.modalsHistory.length > 1 &&
+                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                        }
                                         <p>Offer Currency</p>
                                     </div>
                                     <Text
@@ -152,7 +158,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="initialBuySupply"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -167,7 +173,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="totalBuyLimit"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -182,7 +188,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="buyRateATM"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -197,7 +203,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="initialSellSupply"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -212,7 +218,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="totalSellLimit"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -227,7 +233,7 @@ class OfferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="sellRateATM"
                                                 placeholder="Amount"
                                                 setValue={setValue}/>
@@ -242,7 +248,7 @@ class OfferCurrency extends React.Component {
                                             {
                                                 this.state.block &&
                                                 <InputForm
-                                                    type={"number"}
+                                                    type={"tel"}
                                                     field="expirationHeight"
                                                     placeholder="Finish height"
                                                     defaultValue={this.state.block.height + 10000}
@@ -290,12 +296,12 @@ class OfferCurrency extends React.Component {
                                         values={values}
                                     />
 
-                                    {/*<AdvancedSettings
+                                    <AdvancedSettings
                                         setValue={setValue}
                                         getFormState={getFormState}
                                         values={values}
                                         advancedState={this.state.advancedState}
-                                    />*/}
+                                    />
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
 
@@ -326,14 +332,14 @@ class OfferCurrency extends React.Component {
                                         }
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
-                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                    <div className="btn-box align-buttons-inside absolute left-conner">
                                         <a
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-left round round-bottom-left round-top-right"
                                         >
                                             {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
-                                    </div>*/}
+                                    </div>
                                 </div>
                             }
                         </form>
@@ -346,7 +352,8 @@ class OfferCurrency extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.account
+    account: state.account.account,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -355,6 +362,8 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 
 });
 

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
@@ -15,6 +15,8 @@ import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer'
+import {getCurrencyAction} from "../../../actions/currencies";
+import BackForm from '../modal-form/modal-form-container';
 
 class TransferCurrency extends React.Component {
     constructor(props) {
@@ -31,6 +33,10 @@ class TransferCurrency extends React.Component {
             feeStatus: false
         }
 
+    }
+
+    componentDidMount = () => {
+        this.getCurrency({code: this.props.modalData.code})
     }
 
     handleFormSubmit = async(values) => {
@@ -69,13 +75,26 @@ class TransferCurrency extends React.Component {
         }
     };
 
+    getCurrency = async (reqParams) => {
+        const result = await this.props.getCurrencyAction(reqParams);
+
+        if (result) {
+            this.setState({ currency: result.currency });
+        } else {
+            this.setState({ currency: '-' });
+        }
+    };
+
     render() {
+        const code = this.props.modalData.currency;
+
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
+	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
+                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState, getValue }) => (
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             {
                                 this.props.modalData &&
 
@@ -83,21 +102,25 @@ class TransferCurrency extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
+                                        {this.props.modalsHistory.length > 1 &&
+	                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                                    }
                                         <p>Transfer Currency</p>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
+                                    <div className="form-group row form-group-grey mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Currency
                                         </label>
-                                        <div className="col-sm-9">
-                                            <Text
-                                                type="hidden"
-                                                className="form-control"
-                                                field="currency"
-                                                placeholder="Account"
-                                                defaultValue={this.props.modalData.currency}
-                                                aria-describedby="amountText"/>
-                                            <p>{this.props.modalData.code}</p>
+                                        <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                            <InputForm
+                                                field="phasingHoldingCurrencyCode"
+                                                placeholder="Code"
+                                                defaultValue={this.props.modalData.code}
+                                                onChange={(code) => this.getCurrency({code})}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">ID: {this.state.currency}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="input-group-app form-group mb-15 display-block inline user">
@@ -121,7 +144,7 @@ class TransferCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent no-left-padding">
                                             <InputForm
-                                                type={"number"}
+                                                type={"tel"}
                                                 field="units"
                                                 placeholder="Utils"
                                                 setValue={setValue}/>
@@ -160,12 +183,12 @@ class TransferCurrency extends React.Component {
                                         getFormState={getFormState}
                                         values={values}
                                     />
-                                    {/*<AdvancedSettings
+                                    <AdvancedSettings
                                         setValue={setValue}
                                         getFormState={getFormState}
                                         values={values}
                                         advancedState={this.state.advancedState}
-                                    />*/}
+                                    />
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
 
@@ -196,14 +219,14 @@ class TransferCurrency extends React.Component {
                                         }
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
-                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">
+                                    <div className="btn-box align-buttons-inside absolute left-conner">
                                         <a
                                             onClick={this.handleAdvancedState}
                                             className="btn btn-left round round-bottom-left round-top-right"
                                         >
                                             {this.state.advancedState ? "Basic" : "Advanced"}
                                         </a>
-                                    </div>*/}
+                                    </div>
                                 </div>
                             }
                         </form>
@@ -215,13 +238,17 @@ class TransferCurrency extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
+    getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransferCurrency);

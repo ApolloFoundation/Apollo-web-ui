@@ -47,7 +47,6 @@ class Entry extends React.Component {
                                 onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT')}
                             >
                             <span
-                                style={{color: '#00C8FF'}}
                                 className="zmdi zmdi-info"
                             />
                             </a>
@@ -56,7 +55,7 @@ class Entry extends React.Component {
                             {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" &&
                             (this.state.entry.change / 100000000).toFixed(1)}
                         </td>
-                        <td className="align-right">
+                        <td className="">
                             {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" && this.state.entry.balance > 0 &&
                             (this.state.entry.balance / 100000000).toLocaleString('en')}
                         </td>

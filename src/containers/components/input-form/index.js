@@ -23,7 +23,7 @@ class InputForm extends React.Component {
 
     validateInput = (value) => {
         if (!value.target) {
-            if (this.props.type === "number") {
+            if (this.props.type === "tel") {
                 value = value.replace(/[^\d]/g,"");
 
                 if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
@@ -49,7 +49,7 @@ class InputForm extends React.Component {
         } else {
             value = value.target.value;
 
-            if (this.props.type === "number") {
+            if (this.props.type === "tel") {
                 value = value.replace(/[^\d]/g,"");
             } else if (this.props.type === "float") {
                 value = value.replace(",", ".");
@@ -116,7 +116,7 @@ class InputForm extends React.Component {
 
 
                 />
-                {(this.props.type === "number" || this.props.type === "float") &&
+                {(this.props.type === "tel" || this.props.type === "float") &&
                 <div className="input-number-wrap">
                     <div className="input-number-up" onClick={this.handleClickUp}/>
                     <div className="input-number-down" onClick={this.handleClickDown}/>

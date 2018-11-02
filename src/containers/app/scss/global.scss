@@ -164,6 +164,7 @@ input[type="checkbox"] {
 	cursor: pointer;
 }
 
+input[type="tel"],
 input[type="number"] {
 	position: relative;
 }
@@ -229,7 +230,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .word-brake {
 	word-wrap: break-word;
-	word-break: break-all;
+	word-break: break-word;
+	display: block;
 }
 
 .loader-box {
@@ -265,6 +267,31 @@ input {
 	
 	&.not-active {
 		pointer-events: none;
+	}
+}
+
+input[type="file"] {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+}
+
+.input-file-area {
+	width: 100%;
+	border: 1px solid;
+	border-radius: 0 5px 5px 0;
+	border-color: #e5e5e5;
+	border: 1px solid #E5E5E5;
+	background-color: transparent;
+	display: flex;
+
+	.input-file-name {
+		padding-left: 12px;
+		margin: auto 0;
+		font-size: 11px;
 	}
 }
 
@@ -588,6 +615,43 @@ input {
 	margin: 0 !important;
 }
 
+.phased-transaction {
+	position: absolute;
+	
+	&.active {
+		.phasing-box__phasing-description {
+			transform: none;
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+	.phasing-box__phasing-description {
+		border: 1px solid #666;
+		width: 300px;
+		background-color: #fff;
+		box-sizing: border-box;
+		visibility: hidden;
+		opacity: 0;
+		transition: all 0.3s ease-in-out;
+		transform: scale(0.5);
+		
+		&:after {
+			content: '';
+			display: block;
+			height: 15px;
+			width: 15px;
+			border-top: 1px solid #666;
+			border-right: 1px solid #666;
+			transform: rotate(45deg);
+			position: absolute;
+			top: 10px;
+			right: -7px;
+			z-index: 2;
+			background: #fff;
+		}
+	}
+}
+
 .no-padding {
 	padding: 0 !important;
 }
@@ -841,7 +905,7 @@ input {
 		margin: 0 -35px -70px;
 		background-color: #ccc;
 		background-repeat: no-repeat;
-		background-size: cover;
+		background-size: contain;
 		background-position: center;
 		
 		&.no-image {
@@ -860,7 +924,24 @@ input {
 	.form-title {
 		//padding-top: 30px;
 		padding-bottom: 23px;
-		
+		.backMy {
+			width: 16px;
+			height: 16px;
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: left;
+			background-image: url(../../assets/left-arrow1.svg);
+			margin-right: 8px;
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: middle;
+			transition: 0.2s;
+			float: left;
+			margin-top: 10px;
+			&:hover {
+				opacity: 0.7;
+			}
+		}
 		&.inline {
 			& > * {
 				vertical-align: middle;
@@ -890,6 +971,9 @@ input {
 			line-height: 1.6;
 			//margin-top: -10px;
 			padding-right: 30px;
+			display: block;
+			vertical-align: middle;
+			word-wrap: break-word;
 		}
 		.form-sub-title {
 			margin-top: 10px;
@@ -1008,6 +1092,7 @@ input {
 			
 			.form-tab {
 				display: flex;
+				align-items: center;
 				width: 54px;
 				height: 32px;
 				border-top-left-radius: 6px;
@@ -1017,7 +1102,7 @@ input {
 					background-color: #F5F5F5;
 				}
 				p {
-					font-size: 13px !important;
+					font-size: 14px !important;
 				}
 				& > * {
 					margin: auto;
@@ -1181,6 +1266,7 @@ input {
 			font-size: 11.5px;
 			border-radius: 5px;
 			padding: 0.25rem 25px 0.2rem 0.5rem;
+			min-height: 32px;
 			&select {
 				background-color: #e5e5e5;
 			}
@@ -1297,6 +1383,11 @@ input {
 			display: inline-block;
 		}
 	}
+	&.align-top {
+		label {
+			align-self: flex-start;
+		}
+	}
 	.row {
 		margin-right: -15px !important;
 		margin-left: -15px !important;
@@ -1314,7 +1405,8 @@ input {
 	}
 	&.search, &.user {
 		i {
-		
+			margin: 0 !important;
+			padding: 0 !important;
 		}
 		input {
 			display: block;
@@ -1327,6 +1419,8 @@ input {
 			text-align: center;
 			cursor: pointer;
 			display: flex;
+			align-items: center;
+			justify-content: center;
 			border-radius: 3px;
 			
 			&.text {
@@ -1335,8 +1429,8 @@ input {
 				i {
 					font-style: normal;
 					font-size: 11px;
-					padding: 0 10px;
-					
+					padding: 8px 10px;
+					white-space: pre;
 				}
 			}
 		}
@@ -1376,6 +1470,14 @@ input {
 		width: 32px;
 		display: table-cell;
 		
+		&.text {
+			width: auto;
+			font-size: 12px;
+			
+			&.btn {
+				background: #00C8FF;
+			}
+		}
 		i {
 			margin: auto;
 		}
@@ -2270,11 +2372,12 @@ input {
 	.card {
 		//margin: 15px;
 		transition: 0.2s;
-		min-height: 215px;
+		min-height: 252px;
 		//height: calc(100% - 15px);
 		
 		&.card-tall {
-			min-height: 445px;
+			min-height: 520px;
+
 			@media (max-width: 760px) {
 				min-height: auto;
 			}
@@ -2529,6 +2632,19 @@ table {
 
 .custom-checkbox {
 	padding-left: 16px;
+	&.single {
+		display: flex;
+
+		input[type="checkbox"] {
+			margin: 0;
+
+		}
+		.form-check-label::before,
+		.form-check-label::after {
+			display: none;
+
+		}
+	}
 	.custom-control-input {
 		z-index: 1;
 		position: absolute;
@@ -2556,6 +2672,7 @@ table {
 		box-shadow: none;
 		cursor: pointer;
 	}
+
 	label.custom-control-label {
 		padding-left: 10px;
 		color: #333333;
@@ -2629,7 +2746,7 @@ table {
 .overflow-menu {
 	position: absolute;
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.6);
 	z-index: 1;
 	transition: all 0.3s ease-in-out;
@@ -2659,4 +2776,24 @@ table {
 .full-info td {
 	white-space: normal;
 	word-wrap: break-word;
+}
+
+//.followed-polls-item-title p {
+//	max-height: 75px;
+//	overflow: hidden;
+//	text-overflow: ellipsis;
+//}
+//
+//.followed-polls-item-description {
+//	padding-bottom: 0 !important;
+//}
+//
+//.followed-polls-item-description p {
+//	max-height: 50px;
+//	overflow: hidden;
+//	text-overflow: ellipsis;
+//}
+
+.form-control {
+	min-height: 32px;
 }

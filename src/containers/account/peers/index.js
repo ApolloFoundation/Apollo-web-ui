@@ -15,6 +15,10 @@ import uuid from "uuid";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+const mapStateToProps = state => ({
+    isLocalhost: state.account.isLocalhost
+})
+
 const mapDispatchToProps = dispatch => ({
     getPeersAction: (requestParams) => dispatch(getPeersAction(requestParams)),
     getPeerAction: peerAddress => dispatch(getPeerAction(peerAddress)),
@@ -35,16 +39,14 @@ class Peers extends React.Component {
     componentDidMount() {
         this.initPeersPage();
         this.getPeers();
-        BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
-            this.getPeers();
-        });
-
     }
 
+    peersPageUpdater = setInterval(() => {
+        this.getPeers();
+    }, 4000);
+
     componentWillUnmount() {
-        BlockUpdater.removeAllListeners('data');
+        clearInterval(this.peersPageUpdater)
     }
 
     initPeersPage = async () => {
@@ -81,11 +83,14 @@ class Peers extends React.Component {
                 <SiteHeader
                     pageTitle={'Peers'}
                 >
-                    <a className="btn primary"
-                       onClick={() => this.connectPeer()}
-                    >
-                        Add peer
-                    </a>
+                    {
+                        this.props.isLocalhost &&
+                        <a className="btn primary"
+                           onClick={() => this.connectPeer()}
+                        >
+                            Add peer
+                        </a>
+                    }
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="peers">
@@ -139,7 +144,10 @@ class Peers extends React.Component {
                                             <td className="align-right">Application</td>
                                             <td>Platform</td>
                                             <td className="align-right">Services</td>
-                                            <td className="align-right">Actions</td>
+                                            {
+                                                this.props.isLocalhost &&
+                                                <td className="align-right">Actions</td>
+                                            }
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -167,4 +175,4 @@ class Peers extends React.Component {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Peers);
+export default connect(mapStateToProps, mapDispatchToProps)(Peers);

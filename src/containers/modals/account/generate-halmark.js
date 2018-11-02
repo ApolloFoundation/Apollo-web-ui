@@ -195,12 +195,12 @@ class GenerateHallmark extends React.Component {
 
                                                 <div className="row">
                                                     <div className="col-md-3">
-                                                        <label>Passphrase</label>
+                                                        <label>Secret phrase</label>
                                                     </div>
                                                     <div className="col-md-9">
                                                         <Text type="password"
                                                               field={'passphraseGenerate'}
-                                                              placeholder="Passphrase"/>
+                                                              placeholder="Secret phrase"/>
                                                     </div>
                                                 </div>
                                             </div>

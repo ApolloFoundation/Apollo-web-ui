@@ -13,8 +13,6 @@ export function getAccountLedgerAction(requestParams) {
         const condition = requestParams.passphrase || requestParams.secretPhrase;
         const requestType = (condition) ? 'getPrivateAccountLedger' : 'getAccountLedger';
 
-
-        console.log(requestParams);
             return axios.get(config.api.serverUrl, {
                 params : {
                     requestType: requestType,
