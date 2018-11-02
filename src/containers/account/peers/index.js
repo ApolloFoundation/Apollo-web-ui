@@ -133,7 +133,7 @@ class Peers extends React.Component {
                             </div>
                         </div>
                         <div className="transaction-table">
-                            <div className="transaction-table-body" style={{'margin-top': '15px'}}>
+                            <div className="transaction-table-body">
                                 <table>
                                     <thead>
                                         <tr>

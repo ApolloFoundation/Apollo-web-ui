@@ -5397,13 +5397,27 @@ input[type="number"] {
         width: auto;
         margin-left: -7.5px;
         margin-right: -7.5px; }
+        .site-content .page-content .page-body .blocks .row .col-md-6 {
+          padding-left: 7.5px;
+          padding-right: 7.5px; }
     .site-content .page-content .page-body .scheduled-transactions {
       display: flex;
       flex-direction: column; }
       .site-content .page-content .page-body .scheduled-transactions .approval-request {
         height: 100%; }
-    .site-content .page-content .page-body .peers .transaction-table td .btn {
-      margin: 0 0 0 15px; }
+    .site-content .page-content .page-body .peers {
+      display: block; }
+      .site-content .page-content .page-body .peers .row {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+        width: auto;
+        margin-left: -12.5px;
+        margin-right: -12.5px; }
+        .site-content .page-content .page-body .peers .row .col-md-6 {
+          padding-left: 7.5px;
+          padding-right: 7.5px; }
+      .site-content .page-content .page-body .peers .transaction-table td .btn {
+        margin: 0 0 0 15px; }
     .site-content .page-content .page-body .open-orders {
       padding: 0; }
       .site-content .page-content .page-body .open-orders .row {
