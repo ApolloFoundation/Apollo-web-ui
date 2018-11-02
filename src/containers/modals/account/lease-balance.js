@@ -239,7 +239,7 @@ class LeaseBalance extends React.Component {
                                 {
                                     this.state.passphraseStatus &&
                                     <InfoBox danger mt>
-                                        Incorrect passphrase.
+                                        Incorrect secret phrase.
                                     </InfoBox>
                                 }
                                 {

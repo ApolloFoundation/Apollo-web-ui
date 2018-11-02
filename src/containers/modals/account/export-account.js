@@ -117,7 +117,7 @@ class ExportAccount extends React.Component {
                                             </InfoBox>
                                         </CopyToClipboard>
                                         <InfoBox info nowrap>
-                                            Also you can delete account from this web node to make sure that nobody will access to your wallet. If you will delete your account you will not be able to access it unless import it again. <br/>
+                                            Also you can delete account from this web node to make sure that nobody will access to your wallet. If you delete your account you will not be able to access it unless import it again. <br/>
                                             Do you want to delete it?
                                             <br/>
                                             <a
