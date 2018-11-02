@@ -174,7 +174,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+                    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
 	openPrevModal: () => dispatch(openPrevModal())

@@ -29,11 +29,12 @@ export default class ApproveByAccountBody extends React.Component {
     render() {
         return (
             <Form
+                getApi={form => this.props.setApi(form)}
                 render={({
                              submitForm, values, addValue, removeValue, setValue, getFormState
                          }) =>
                     <React.Fragment>
-                        <div className="form-group row form-group-grey mb-15">
+                        <div className="form-group row form-group-white mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Number of accounts
                             </label>
@@ -86,12 +87,12 @@ export default class ApproveByAccountBody extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row form-group-grey mb-15">
+                        <div className="form-group row form-group-white mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Minimum and maximum phasing durations
                             </label>
-                            <div className="col-sm-9">
-                                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                            <div className="col-sm-3">
+                                <div className="input-group input-group-text-transparent input-group-sm">
                                     <InputForm
                                         defaultValue={""}
                                         field="minDuration"
@@ -102,7 +103,7 @@ export default class ApproveByAccountBody extends React.Component {
                                         <span className="input-group-text">Blocks</span>
                                     </div>
                                 </div>
-                                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                <div className="input-group input-group-text-transparent input-group-sm">
                                     <InputForm
                                         defaultValue={""}
                                         field="maxDuration"
@@ -115,12 +116,12 @@ export default class ApproveByAccountBody extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row form-group-grey mb-15">
+                        <div className="form-group row form-group-white mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Max pending transactions fees
                             </label>
-                            <div className="col-sm-9">
-                                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                            <div className="col-sm-3">
+                                <div className="input-group input-group-text-transparent input-group-sm">
                                     <InputForm
                                         defaultValue={""}
                                         field="maxFees"
@@ -133,11 +134,11 @@ export default class ApproveByAccountBody extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row">
+                        <div className="form-group mb-15 form-group-white row">
                             <label className="col-sm-3 col-form-label">
                                 Fee
                             </label>
-                            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                            <div className="col-sm-3 input-group input-group-text-transparent input-group-sm">
                                 <InputForm
                                     defaultValue={''}
                                     field="fee"

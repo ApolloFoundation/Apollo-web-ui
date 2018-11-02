@@ -28,22 +28,25 @@ export default class ApproveWithAssetBody extends React.Component {
     render() {
         return (
             <Form
+                getApi={form => this.props.setApi(form)}
                 render={({
                              submitForm, values, addValue, removeValue, setValue, getFormState
                          }) =>
                     <React.Fragment>
-                        <div className="form-group row form-group-grey mb-15">
+                        <div className="form-group form-group-white row mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Asset Quantity
                             </label>
-                            <InputForm
-                                defaultValue={""}
-                                field="assetQuantity"
-                                placeholder="Asset Quantity"
-                                type={"number"}
-                                setValue={setValue}/>
-                            <div className="input-group-append">
-                                <span className="input-group-text">Quantity</span>
+                            <div className="col-sm-3 input-group input-group-text-transparent input-group-sm">
+                                <InputForm
+                                    defaultValue={""}
+                                    field="assetQuantity"
+                                    placeholder="Asset Quantity"
+                                    type={"number"}
+                                    setValue={setValue}/>
+                                <div className="input-group-append">
+                                    <span className="input-group-text">Quantity</span>
+                                </div>
                             </div>
                         </div>
                         <div className="input-group-app form-group mb-15 display-block inline user">
@@ -51,14 +54,14 @@ export default class ApproveWithAssetBody extends React.Component {
                                 <label className="col-sm-3 col-form-label">
                                     Accounts (whitelist)
                                 </label>
-                                <div className="col-sm-9">
+                                <div className="col-sm-3">
                                     <div className="iconned-input-field">
                                         {this.renderAccounts(setValue)}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group-grey row mb-15">
+                        {/* <div className="form-group-grey row mb-15">
                             <div className="col-sm-9 offset-sm-3">
                                 <a className="no-margin btn static blue"
                                    onClick={() => {
@@ -70,12 +73,12 @@ export default class ApproveWithAssetBody extends React.Component {
                                     Add account
                                 </a>
                             </div>
-                        </div>
+                        </div>*/}
                         <div className="form-group row form-group-grey mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Min balance type
                             </label>
-                            <div className="col-sm-9 mb-0">
+                            <div className="col-sm-3">
                                 <div className="form-group-select">
                                     <CustomSelect
                                         className="form-control"
@@ -87,12 +90,12 @@ export default class ApproveWithAssetBody extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row form-group-grey mb-15">
+                        <div className="form-group row form-group-white mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Minimum and maximum phasing durations
                             </label>
-                            <div className="col-sm-9 mb-0">
-                                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                            <div className="col-sm-3">
+                                <div className="input-group input-group-text-transparent input-group-sm">
                                     <InputForm
                                         defaultValue={""}
                                         field="minDuration"
@@ -103,7 +106,7 @@ export default class ApproveWithAssetBody extends React.Component {
                                         <span className="input-group-text">Blocks</span>
                                     </div>
                                 </div>
-                                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                <div className="input-group input-group-text-transparent input-group-sm">
                                     <InputForm
                                         defaultValue={""}
                                         field="maxDuration"
@@ -116,12 +119,12 @@ export default class ApproveWithAssetBody extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row form-group-grey mb-15">
+                        <div className="form-group row form-group-white mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Max pending transactions fees
                             </label>
-                            <div className="col-sm-9 mb-0">
-                                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                            <div className="col-sm-3">
+                                <div className="input-group input-group-text-transparent input-group-sm">
                                     <InputForm
                                         defaultValue={""}
                                         field="maxFees"
@@ -134,11 +137,11 @@ export default class ApproveWithAssetBody extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row">
+                        <div className="form-group mb-15 form-group-white row">
                             <label className="col-sm-3 col-form-label">
                                 Fee
                             </label>
-                            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                            <div className="col-sm-3 input-group input-group-text-transparent input-group-sm">
                                 <InputForm
                                     defaultValue={''}
                                     field="fee"
