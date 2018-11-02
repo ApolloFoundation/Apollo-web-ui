@@ -44,10 +44,7 @@
       padding: 0 30px; }
       .messenger .right-bar .card .chatting-box .message-box, .messenger a .right-bar .card .chatting-box .message-box {
         display: block;
-        width: 100%;
-        margin-bottom: 15px; }
-        .messenger .right-bar .card .chatting-box .message-box:last-child, .messenger a .right-bar .card .chatting-box .message-box:last-child {
-          padding-top: 20px; }
+        width: 100%; }
         .messenger .right-bar .card .chatting-box .message-box.incoming, .messenger a .right-bar .card .chatting-box .message-box.incoming {
           text-align: left; }
           .messenger .right-bar .card .chatting-box .message-box.incoming .message, .messenger a .right-bar .card .chatting-box .message-box.incoming .message {
@@ -89,6 +86,7 @@
           font-size: 14px;
           position: relative;
           border-radius: 6px;
+          margin-bottom: 15px;
           float: none !important; }
           .messenger .right-bar .card .chatting-box .message-box .message p, .messenger a .right-bar .card .chatting-box .message-box .message p {
             word-break: break-word;

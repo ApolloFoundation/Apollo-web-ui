@@ -362,6 +362,9 @@ input[type="number"]::-webkit-inner-spin-button {
 	word-wrap: break-word;
 	word-break: break-word;
 	display: block;
+	a, p {
+		display: block;
+	}
 }
 
 .loader-box {
