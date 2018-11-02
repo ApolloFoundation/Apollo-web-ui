@@ -4853,7 +4853,7 @@ table td .btn, table th .btn {
     .transaction-table .transaction-table-body.padding-only-top {
       padding: 35px 0 0 0; }
     .transaction-table .transaction-table-body.transparent {
-      background-color: transparent; }
+      background-color: transparent !important; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
     .transaction-table .transaction-table-body table {
