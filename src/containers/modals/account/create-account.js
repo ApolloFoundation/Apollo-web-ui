@@ -24,6 +24,12 @@ import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import ReactDOM from 'react-dom';
+import QRCode from 'qrcode.react';
+
+
+import jsPDF from 'jspdf';
+import PdfDoc from '../../../pdf/account-credentials';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -50,8 +56,35 @@ class CreateUser extends React.Component {
             generatedAccount: null,
             isValidating: false,
             isCustomPassphrase: true,
-            isAccountLoaded: false
+            isAccountLoaded: false,
+            tinggi:11.69,
+            lebar:'08.27',
         }
+    };
+
+    generatePDF = (credentials) => {
+        // e.preventDefault();
+
+        let doc = new jsPDF({
+            // orientation: 'landscape',
+            unit: 'in',
+            // format: [4, 2]  // tinggi, lebar
+            format: [this.state.tinggi, this.state.lebar]
+        });
+
+        // TODO: migrate to QR code
+
+        doc.setFontSize(15);
+        doc.text('The apollo wallet`s account credentials:', 0.5, 0.5);
+        doc.setFontSize(10);
+        credentials.forEach((el, index) => {
+            doc.text(`${el.name}: ${el.value}`, 0.5, 0.8 + (0.3 * index))
+        });
+
+        // doc.addImage( qr, 'SVG', 0.5, 2, 2.5, 2.5)
+        // format: (image_file, 'image_type', X_init, Y_init, X_fin, Y_fin)
+
+        doc.save('apollo-account-credentials')
     };
 
     componentDidMount() {
@@ -413,7 +446,18 @@ class CreateUser extends React.Component {
                                                                                                 >
                                                                                                     Copy account data to clipboard.
                                                                                                 </a>
+
                                                                                             </CopyToClipboard>
+                                                                                            <a
+                                                                                                className="btn blue static"
+                                                                                                onClick={() => this.generatePDF([
+                                                                                                    {name: 'Account ID', value: this.state.accountData.accountRS},
+                                                                                                    {name: 'Secret Phrase', value: this.state.accountData.passphrase},
+                                                                                                    {name: 'Public Key', value: this.state.accountData.publicKey},
+                                                                                                ])}
+                                                                                            >
+                                                                                                Save as pdf
+                                                                                            </a>
                                                                                         </InfoBox>
                                                                                     }
 
