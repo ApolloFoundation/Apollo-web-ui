@@ -180,13 +180,13 @@ class CreateUser extends React.Component {
                                                     "active": this.state.activeTab === 0
                                                 })}
                                             >
-                                                <p>Vault</p>
+                                                <p>Vault Wallet</p>
                                             </a>
                                             <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                                 "form-tab": true,
                                                 "active": this.state.activeTab === 1
                                             })}>
-                                                <p>Online wallet</p>
+                                                <p>Standard wallet</p>
                                             </a>
                                         </div>
 
