@@ -62,6 +62,9 @@ class CreateUser extends React.Component {
         }
     };
 
+    /*
+    * First element of array accepts an account ID
+    * */
     generatePDF = (credentials) => {
         // e.preventDefault();
 
@@ -84,7 +87,7 @@ class CreateUser extends React.Component {
         // doc.addImage( qr, 'SVG', 0.5, 2, 2.5, 2.5)
         // format: (image_file, 'image_type', X_init, Y_init, X_fin, Y_fin)
 
-        doc.save('apollo-account-credentials')
+        doc.save(`apollo-wallet-${credentials[0].value}`)
     };
 
     componentDidMount() {
@@ -448,6 +451,8 @@ class CreateUser extends React.Component {
                                                                                                 </a>
 
                                                                                             </CopyToClipboard>
+                                                                                            <br/>
+                                                                                            <br/>
                                                                                             <a
                                                                                                 className="btn blue static"
                                                                                                 onClick={() => this.generatePDF([
@@ -456,7 +461,7 @@ class CreateUser extends React.Component {
                                                                                                     {name: 'Public Key', value: this.state.accountData.publicKey},
                                                                                                 ])}
                                                                                             >
-                                                                                                Save as pdf
+                                                                                                Save account credentials as pdf
                                                                                             </a>
                                                                                         </InfoBox>
                                                                                     }
@@ -638,7 +643,19 @@ class CreateUser extends React.Component {
                                                                                                 >
                                                                                                     Copy account data to clipboard.
                                                                                                 </a>
+
                                                                                             </CopyToClipboard>
+                                                                                            <br/>
+                                                                                            <br/>
+                                                                                            <a
+                                                                                                className="btn blue static"
+                                                                                                onClick={() => this.generatePDF([
+                                                                                                    {name: 'Account ID', value: this.state.generatedAccount},
+                                                                                                    {name: 'Secret Phrase', value: this.state.generatedPassphrase},
+                                                                                                ])}
+                                                                                            >
+                                                                                                Save account credentials as pdf
+                                                                                            </a>
                                                                                         </InfoBox>
                                                                                     }
 
