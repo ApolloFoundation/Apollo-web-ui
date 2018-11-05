@@ -106,11 +106,11 @@ class AccountDetails extends React.Component {
                                                         <td className="blue-text">{this.state.account.accountRS}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td  className="no-brake">Numeric Account ID::</td>
+                                                        <td  className="no-brake">Numeric Account ID:</td>
                                                         <td>{this.state.account.account}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="no-brake">Balance::</td>
+                                                        <td className="no-brake">Balance:</td>
                                                         <td>{(this.state.account.balanceATM / 100000000).toFixed(2)} Apollo</td>
                                                     </tr>
                                                     <tr>
