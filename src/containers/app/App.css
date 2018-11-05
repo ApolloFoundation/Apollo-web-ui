@@ -3068,6 +3068,8 @@ input[type="number"]::-webkit-inner-spin-button {
   word-wrap: break-word;
   word-break: break-word;
   display: block; }
+  .word-brake a, .word-brake p {
+    display: block; }
 
 .loader-box.white .ball-pulse div {
   background-color: #fff; }
@@ -4121,7 +4123,7 @@ input[type="file"] {
   .btn .no-border {
     border: 0; }
   .btn.transparent {
-    background-color: transparent !important; }
+    background-color: rgba(255, 255, 255, 0) !important; }
   .btn.btn-simple {
     color: #BBBBBB;
     font-size: 12px;

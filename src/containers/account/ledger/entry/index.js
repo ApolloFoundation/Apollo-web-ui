@@ -25,6 +25,14 @@ class Entry extends React.Component {
         }
     }
 
+	showInfo = () => {
+		if (this.state.entry.eventType === "BLOCK_GENERATED") {
+			this.props.setBlockInfo('INFO_BLOCK', this.state.entry.height);
+		} else {
+			this.props.setTransactionInfo('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT');
+		}
+	};
+
     render () {
         return (
             <React.Fragment>
@@ -44,7 +52,7 @@ class Entry extends React.Component {
                             {i18n.t(this.state.entry.eventType.toLowerCase())}
                             &nbsp;&nbsp;
                             <a
-                                onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT')}
+	                            onClick={this.showInfo}
                             >
                             <span
                                 className="zmdi zmdi-info"
