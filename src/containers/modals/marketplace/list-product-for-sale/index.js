@@ -237,7 +237,9 @@ class ListProductForSale extends React.Component {
                                                         <div className="input-file-name">
                                                             {
                                                                 this.state.file &&
-                                                                this.state.file.name ? this.state.file.name : '-'
+                                                                this.state.file.name ?
+                                                                    this.state.file.name :
+                                                                    <span className={"no-file-selected"}>No file selected</span>
                                                             }
                                                         </div>
                                                     </div>
@@ -260,7 +262,9 @@ class ListProductForSale extends React.Component {
                                         }
                                         {
                                             this.state.imagePreviewUrl &&
-                                            <img className="preview-image" src={this.state.imagePreviewUrl} alt=""/>
+                                                <div className="preview-image-container">
+	                                                <div className="preview-image" style={{backgroundImage: `url(${this.state.imagePreviewUrl})`}}/>
+                                                </div>
                                         }
                                     </div>
                                 </div>
