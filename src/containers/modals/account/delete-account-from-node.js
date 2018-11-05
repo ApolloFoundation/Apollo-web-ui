@@ -124,7 +124,7 @@ class DeleteAccountFromWebNode extends React.Component {
                                 </InfoBox>
                                 <InfoBox info danger nowrap>
                                     <strong>Attention!!!</strong><br/>
-                                    Make a backup of your secret key. You will loose access to your account and funds if you will not backup it.
+                                    Make a backup of your secret key. You will loose access to your account and funds if you do not have a backup.
                                 </InfoBox>
 
                                 <div className="form-group row form-group-grey mb-15">
