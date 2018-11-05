@@ -57,6 +57,7 @@ class CreateUser extends React.Component {
             isValidating: false,
             isCustomPassphrase: true,
             isAccountLoaded: false,
+            isCustomPassphraseForStandardWallet: false,
             tinggi:11.69,
             lebar:'08.27',
         }
@@ -92,7 +93,7 @@ class CreateUser extends React.Component {
 
     componentDidMount() {
         // this.generateAccount();
-        this.generatePassphrase();
+        // this.generatePassphrase();
     };
 
     componentWillReceiveProps(newProps) {
@@ -167,15 +168,16 @@ class CreateUser extends React.Component {
         }
     };
 
-    generatePassphrase = async () => {
-        const generatedPassphrase = crypto.generatePassPhraseAPL();
-        const generatedAccount = store.dispatch(await this.props.getAccountIdAsyncApl(generatedPassphrase.join(' ')));
+    generatePassphrase = async (passphrase) => {
+        const generatedPassphrase = passphrase ? passphrase : crypto.generatePassPhraseAPL();
+        const generatedAccount = store.dispatch(await this.props.getAccountIdAsyncApl(passphrase ? passphrase : generatedPassphrase.join(' ')));
 
         this.setState({
             ...this.state,
-            generatedPassphrase: generatedPassphrase.join(' '),
+            generatedPassphrase: passphrase ? passphrase : generatedPassphrase.join(' '),
             generatedAccount: generatedAccount,
             isRSAccountLoaded :true,
+            isCustomPassphraseForStandardWallet :true,
         })
     };
 
@@ -573,10 +575,128 @@ class CreateUser extends React.Component {
                                                     onSubmit={submitForm}
                                                 >
                                                     {
-                                                        !this.state.isValidating &&
+                                                        !this.state.isCustomPassphraseForStandardWallet &&
+                                                        <React.Fragment>
+                                                            <div className="form-group-app transparent">
+                                                                <div className="form-title">
+                                                                    <p>Create Your Standard wallet</p>
+                                                                </div>
+                                                                <div className="input-group-app display-block offset-bottom">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <div>
+                                                                                <InfoBox info>
+                                                                                    <ul>
+                                                                                        <li>You can log in to this wallet using only your secret phrase</li>
+                                                                                        <li>Available to use from any device </li>
+                                                                                        <li>2FA is available only on the device where it was enabled</li>
+                                                                                    </ul>
+                                                                                </InfoBox>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="input-group-app display-block offset-bottom">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <InfoBox info>
+                                                                                You can create your own custom secret phrase or create an account with a randomly generated secret phrase.
+                                                                                <br/>
+                                                                                <div
+                                                                                    className="input-group-app display-block offset-bottom"
+                                                                                    style={{marginTop: 18}}
+                                                                                >
+                                                                                    <div className="row">
+                                                                                        <div className="col-md-12">
+                                                                                            <Checkbox
+                                                                                                className={'lighten'}
+                                                                                                field="isCustomPassphrase"
+                                                                                                onChange={(e) => {
+
+                                                                                                    if (e) {
+                                                                                                        this.setState({
+                                                                                                            isCustomPassphraseTextarea: true
+                                                                                                        });
+                                                                                                    } else {
+                                                                                                        this.setState({
+                                                                                                            isCustomPassphraseTextarea: false
+                                                                                                        });
+                                                                                                    }
+                                                                                                }}
+                                                                                            />
+                                                                                            <label
+                                                                                                style={{color: '#ecf0f1'}}
+                                                                                            >
+                                                                                                Use custom secret phrase.
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                {/*<a*/}
+                                                                                {/*style={{marginTop: 18}}*/}
+                                                                                {/*className={'btn lighten static'}*/}
+                                                                                {/*onClick={() => this.generateAccount({})}*/}
+                                                                                {/*>*/}
+                                                                                {/*Generate account*/}
+                                                                                {/*</a>*/}
+                                                                            </InfoBox>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    {
+                                                                        this.state.isCustomPassphraseTextarea &&
+                                                                        <div className="row">
+                                                                            <div className="col-md-3">
+                                                                                <label>Your account secret phrase</label>
+                                                                            </div>
+                                                                            <div className="col-md-9">
+                                                                            <TextArea
+                                                                                field={'newAccountpassphrse'}
+                                                                                placeholder={'Secret Phrase'}
+                                                                            />
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="btn-box align-buttons-inside absolute right-conner">
+
+                                                                {
+                                                                    this.state.isCustomPassphraseTextarea &&
+                                                                    <a
+                                                                        onClick={() => {
+                                                                            const {values} = getFormState();
+
+                                                                            if (!values.newAccountpassphrse) {
+                                                                                NotificationManager.error('Secret Phrase not specified.');
+                                                                                return;
+                                                                            }
+                                                                            this.generatePassphrase(values.newAccountpassphrse)
+                                                                        }}
+                                                                        name={'closeModal'}
+                                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                    >
+                                                                        Create account
+                                                                    </a>
+                                                                }
+                                                                {
+                                                                    !this.state.isCustomPassphraseTextarea &&
+                                                                    <a
+                                                                        onClick={() => this.generatePassphrase()}
+                                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                    >
+                                                                        Create account
+                                                                    </a>
+                                                                }
+                                                            </div>
+                                                        </React.Fragment>
+                                                    }
+                                                    {
+                                                        this.state.isCustomPassphraseForStandardWallet &&
                                                         <div className="form-group-app transparent">
                                                             <div className="form-title">
-                                                                <p>Create your Online Wallet</p>
+                                                                <p>Create Your Standard Wallet</p>
                                                             </div>
                                                             {
                                                                 this.state.isRSAccountLoaded &&
