@@ -153,6 +153,7 @@ class DeviceSettings extends React.Component {
                                             <InputForm
                                                 field="remote_node_port"
                                                 placeholder=""
+                                                type="number"
                                                 setValue={setValue}/>
                                         </div>
                                     </div>
@@ -176,6 +177,7 @@ class DeviceSettings extends React.Component {
                                             <InputForm
                                                 field="validators_count"
                                                 placeholder=""
+                                                type="number"
                                                 setValue={setValue}/>
                                         </div>
                                     </div>
@@ -186,6 +188,7 @@ class DeviceSettings extends React.Component {
                                         <div className="col-sm-9">
                                             <InputForm
                                                 field="bootstrap_nodes_count"
+                                                type="number"
                                                 placeholder=""
                                                 setValue={setValue}/>
                                         </div>
