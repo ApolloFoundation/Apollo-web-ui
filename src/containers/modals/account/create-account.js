@@ -207,19 +207,19 @@ class CreateUser extends React.Component {
 
                                     <div className="form-tabulator active no-padding">
                                         <div className="form-tab-nav-box justify-left">
+                                            <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                                "form-tab": true,
+                                                "active": this.state.activeTab === 0
+                                            })}>
+                                                <p>Standard wallet</p>
+                                            </a>
                                             <a
-                                                onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                                onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                                     "form-tab": true,
-                                                    "active": this.state.activeTab === 0
+                                                    "active": this.state.activeTab === 1
                                                 })}
                                             >
                                                 <p>Vault Wallet</p>
-                                            </a>
-                                            <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 1
-                                            })}>
-                                                <p>Standard wallet</p>
                                             </a>
                                         </div>
 
@@ -231,7 +231,7 @@ class CreateUser extends React.Component {
                                                 <form
                                                     className={classNames({
                                                         "tab-body": true,
-                                                        "active": this.state.activeTab === 0
+                                                        "active": this.state.activeTab === 1
                                                     })}
                                                     onSubmit={submitForm}
                                                 >
@@ -565,7 +565,7 @@ class CreateUser extends React.Component {
                                                 <form
                                                     className={classNames({
                                                         "tab-body": true,
-                                                        "active": this.state.activeTab === 1
+                                                        "active": this.state.activeTab === 0
                                                     })}
                                                     onSubmit={submitForm}
                                                 >
