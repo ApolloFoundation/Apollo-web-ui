@@ -22,7 +22,6 @@ import RawTransactionDetails from './send-apollo/raw-transaction-details';
 // Account
 import InfoAccount from './account/account';
 import CreateUser from './account/create-account';
-import MandatoryApproval from './account/mandatory-approval';
 import AccountDetails from './account/account-details';
 import LeaseBalance from './account/lease-balance';
 import TokenGenerationValidation from './account/token-generation-validation';
@@ -86,9 +85,11 @@ import MarketplaceDeliver from './marketplace/deliver-goods/';
 // Messenger
 import DecryptMessage from './messenger/decrypt-messages';
 import ComposeMessage from './messenger/compose-message';
+import ShareMessage from "./messenger/share-message";
 import AboutPeerInfo from "./peer/about-peer-info";
 import ConnectPeer from "./peer/connect-peer";
 import BlacklistPeer from "./peer/blacklist-peer";
+import MandatoryApproval from "./mandatory-approval/index";
 import AddMonitor from "./monitors/add-monitor";
 import OrderCancel from "./order-cancellation/order-cancel";
 import ApproveTransaction from "./approve-transaction";
@@ -295,7 +296,7 @@ class ModalWindow extends React.Component {
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal} nameModal={'DECRYPT_MESSAGES'}/>}
                 {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
-
+                {/*{this.props.modalType === 'SHARE_MESSAGE'             && <ShareMessage            closeModal={this.closeModal}/>}*/}
             </div>
         );
     }

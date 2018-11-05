@@ -84,12 +84,12 @@ class AccountDetails extends React.Component {
                                     })}>
                                         <span className="pre">Account Leasing</span>
                                     </a>
-                                    {/*<a onClick={(e) => this.handleTab(e, 2)} className={classNames({
+                                    {<a onClick={(e) => this.handleTab(e, 2)} className={classNames({
                                         "form-tab": true,
                                         "active": this.state.activeTab === 2
                                     })}>
                                         <span className="pre">Account Control</span>
-                                    </a>*/}
+                                    </a>}
 
                                 </div>
 
@@ -106,11 +106,11 @@ class AccountDetails extends React.Component {
                                                         <td className="blue-text">{this.state.account.accountRS}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td  className="no-brake">Numeric Account ID::</td>
+                                                        <td  className="no-brake">Numeric Account ID:</td>
                                                         <td>{this.state.account.account}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="no-brake">Balance::</td>
+                                                        <td className="no-brake">Balance:</td>
                                                         <td>{(this.state.account.balanceATM / 100000000).toFixed(2)} Apollo</td>
                                                     </tr>
                                                     <tr>
@@ -123,7 +123,7 @@ class AccountDetails extends React.Component {
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Effective Balance:</td>
-                                                        <td>{(this.state.account.effectiveBalanceAPL).toFixed(2)} Apollo</td>
+                                                        <td>{this.state.account.effectiveBalanceAPL ? (this.state.account.effectiveBalanceAPL).toFixed(2) : 0} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Forged Balance:</td>
@@ -180,7 +180,7 @@ class AccountDetails extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                {/*<div className={classNames({
+                                {<div className={classNames({
                                     "tab-body": true,
                                     "active": this.state.activeTab === 2
                                 })}>
@@ -194,7 +194,7 @@ class AccountDetails extends React.Component {
                                             </a>
                                         </div>
                                     </div>
-                                </div>*/}
+                                </div>}
 
                             </div>
                             <div className="btn-box align-buttons-inside absolute right-conner">
