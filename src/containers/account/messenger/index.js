@@ -139,7 +139,7 @@ class Messenger extends React.Component {
 		}, 'sendMessage');
 
         if (res.errorCode === 4) {
-            NotificationManager.error('Message length should not bu grater than 100 symbols.', 'Error', 5000);
+            NotificationManager.error('Message length should not be grater than 100 symbols.', 'Error', 5000);
             return;
         }
         if (res.errorCode === 6) {
