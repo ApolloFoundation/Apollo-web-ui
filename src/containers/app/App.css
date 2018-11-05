@@ -3879,7 +3879,7 @@ input[type="file"] {
 
 .input-group-app.search i, .input-group-app.user i {
   margin: 0 !important;
-  padding: 0 !important; }
+  padding: 0 7px !important; }
 
 .input-group-app.search input, .input-group-app.user input {
   display: block; }
@@ -3954,14 +3954,18 @@ input[type="file"] {
   border-radius: 3px 0 0 3px;
   padding: 7px 20px; }
 
-.preview-image {
-  padding: 0;
-  max-width: 150px;
-  height: 100px;
+.preview-image-container {
+  padding: 5px;
   border-radius: 6px;
   border: 1px solid #E5E5E5;
+  width: 150px; }
+
+.preview-image {
+  padding: 0;
+  width: 100%;
+  height: 100px;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center; }
 
 .btn-box {
@@ -4832,6 +4836,11 @@ table td .btn, table th .btn {
 
 .marketplace-preview {
   margin-bottom: 30px; }
+
+.no-file-selected {
+  color: #999999;
+  font-size: 12px;
+  line-height: 14px; }
 
 .transaction-table {
   height: 100%;
