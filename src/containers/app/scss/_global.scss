@@ -1535,7 +1535,7 @@ input[type="file"] {
 	&.search, &.user {
 		i {
 			margin: 0 !important;
-			padding: 0 !important;
+			padding: 0 7px !important;
 		}
 		input {
 			display: block;
@@ -1628,14 +1628,19 @@ input[type="file"] {
 	}
 }
 
-.preview-image {
-	padding: 0;
-	max-width: 150px;
-	height: 100px;
+.preview-image-container{
+	padding: 5px;
 	border-radius: 6px;
 	border: 1px solid #E5E5E5;
+	width: 150px;
+}
+
+.preview-image {
+	padding: 0;
+	width: 100%;
+	height: 100px;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: contain;
 	background-position: center;
 }
 
@@ -1884,7 +1889,7 @@ input[type="file"] {
 		border: 0;
 	}
 	&.transparent {
-		background-color: rgba(255,255,255, 0) !important;
+		background-color: rgba(255, 255, 255, 0) !important;
 	}
 	&.btn-simple {
 		color: #BBBBBB;
@@ -2464,7 +2469,7 @@ input[type="file"] {
 				}
 				.amount {
 					font-size: 19px;
-
+					
 					.currency {
 						font-size: 14px;
 					}
@@ -2474,7 +2479,7 @@ input[type="file"] {
 				}
 			}
 		}
-
+		
 	}
 	@media (max-width: 1230px) {
 		height: auto;
@@ -2952,4 +2957,10 @@ table {
 
 .marketplace-preview {
 	margin-bottom: 30px;
+}
+
+.no-file-selected {
+	color: #999999;
+	font-size: 12px;
+	line-height: 14px;
 }
