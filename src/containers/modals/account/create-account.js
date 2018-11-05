@@ -319,6 +319,9 @@ class CreateUser extends React.Component {
                                                                                 placeholder={'Secret Phrase'}
                                                                             />
                                                                             </div>
+                                                                            <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                                                                Alphanumeric Characters Only
+                                                                            </div>
                                                                         </div>
                                                                     }
                                                                 </div>
@@ -649,6 +652,9 @@ class CreateUser extends React.Component {
                                                                                 field={'newAccountpassphrse'}
                                                                                 placeholder={'Secret Phrase'}
                                                                             />
+                                                                            </div>
+                                                                            <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                                                                Alphanumeric Characters Only
                                                                             </div>
                                                                         </div>
                                                                     }
