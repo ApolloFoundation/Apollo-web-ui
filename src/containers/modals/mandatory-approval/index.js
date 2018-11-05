@@ -62,42 +62,152 @@ class MandatoryApprovalModal extends React.Component {
     };
 
     submitNoApproval = async toSend => {
-        console.warn(toSend);
         if (!toSend.secretPhrase || toSend.secretPhrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
 
-        const res = await this.props.submitForm(toSend, "setPhasingOnlyControl");
+        const mappedRequestBody = {
+            controlVotingModel: -1,
+            controlMinDuration: null,
+            controlMaxDuration: null,
+            phased: false,
+            phasingLinkedFullHash: null,
+            phasingHashedSecret: null,
+            phasingHashedSecretAlgorithm: 2,
+            publicKey: this.props.publicKey,
+            secretPhrase: toSend.secretPhrase,
+            feeATM: toSend.fee,
+            controlMaxFees: 0,
+            ...toSend
+        };
+        const res = await this.props.submitForm(mappedRequestBody, "setPhasingOnlyControl");
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
-            NotificationManager.success('Monitor has been started!', null, 5000);
-            this.props.closeModal();
-            setTimeout(() => {
-                this.props.modalData()
-            }, 1000);
+            NotificationManager.success('Control has been setup!', null, 5000);
         }
     };
 
-    submitApproveByAcc = toSend => {
-        console.warn(toSend);
+    submitApproveByAcc = async toSend => {
+        if (!toSend.secretPhrase || toSend.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
+        }
 
+        const mappedRequestBody = {
+            controlQuorum: toSend.phasingQuorum,
+            controlMinBalanceModel: toSend.phasingMinBalanceModel,
+            controlVotingModel: 0,
+            controlMinDuration: toSend.minDuration,
+            controlMaxDuration: toSend.maxDuration,
+            deadline: 1440,
+            phased: false,
+            secretPhrase: toSend.secretPhrase,
+            phasingLinkedFullHash: null,
+            phasingHashedSecret: null,
+            phasingHashedSecretAlgorithm: 2,
+            publicKey: this.props.publicKey,
+            feeATM: toSend.fee,
+            controlMaxFees: toSend.maxFees,
+            ...toSend
+        };
+        const res = await this.props.submitForm(mappedRequestBody, "setPhasingOnlyControl");
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            NotificationManager.success('Control has been setup!', null, 5000);
+        }
     };
 
-    submitApproveByBalance = toSend => {
-        console.warn(toSend);
+    submitApproveByBalance = async toSend => {
+        if (!toSend.secretPhrase || toSend.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
+        }
 
+        const object = {
+            controlWhitelisted: toSend.phasingWhitelisted,
+            controlMinBalanceModel: toSend.phasingMinBalanceModel,
+            controlVotingModel: 1,
+            controlMinDuration: toSend.minDuration,
+            controlMaxDuration: toSend.maxDuration,
+            deadline: 1440,
+            phased: false,
+            phasingHashedSecretAlgorithm: 2,
+            publicKey: this.props.publicKey,
+            secretPhrase: toSend.secretPhrase,
+            feeATM: toSend.fee,
+            controlQuorum: toSend.amount,
+            controlMaxFees: toSend.maxFees,
+        };
+        const res = await this.props.submitForm(object, "setPhasingOnlyControl");
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            NotificationManager.success('Control has been setup!', null, 5000);
+        }
     };
 
-    submitApproveWithAsset = toSend => {
-        console.warn(toSend);
+    submitApproveWithAsset = async toSend => {
+        if (!toSend.secretPhrase || toSend.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
+        }
 
+        const object = {
+            controlQuorumATUf: toSend.assetQuantity,
+            controlHolding: "",
+            controlWhitelisted: 1,
+            controlMinBalanceModel: 0,
+            controlVotingModel: 0,
+            controlMinDuration: toSend.minDuration,
+            controlMaxDuration: toSend.maxDuration,
+            deadline: 1440,
+            phased: false,
+            phasingHashedSecretAlgorithm: 2,
+            publicKey: this.props.publicKey,
+            feeATM: toSend.fee,
+            controlMaxFees: toSend.maxFees,
+            secretPhrase: toSend.secretPhrase,
+        };
+        const res = await this.props.submitForm(object, "setPhasingOnlyControl");
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            NotificationManager.success('Control has been setup!', null, 5000);
+        }
     };
 
-    submitApproveWithCurrency = toSend => {
-        console.warn(toSend);
+    submitApproveWithCurrency = async toSend => {
 
+        if (!toSend.secretPhrase || toSend.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
+        }
+
+        const object = {
+            controlWhitelisted: 1,
+        controlMinBalanceModel: 0,
+        controlVotingModel: 3,
+        controlMinDuration: toSend.minDuration,
+        controlMaxDuration: toSend.maxDuration,
+        deadline: 1440,
+        phased: false,
+                phasingHashedSecretAlgorithm: 2,
+        publicKey: this.props.publicKey,
+        feeATM: toSend.fee,
+        controlMaxFees: toSend.maxFees,
+            secretPhrase: toSend.secretPhrase,
+            controlQuorum: toSend.currencyUnits,
+        }
+
+        const res = await this.props.submitForm(object, "setPhasingOnlyControl");
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            NotificationManager.success('Control has been setup!', null, 5000);
+        }
     };
 
     setNoApprovalFormApi = api => {
@@ -192,7 +302,7 @@ class MandatoryApprovalModal extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+    publicKey: state.account.publicKey
 });
 
 const mapDispatchToProps = dispatch => ({

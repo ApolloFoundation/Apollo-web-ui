@@ -7,9 +7,6 @@ import ModalFooter from "../../../components/modal-footer";
 
 const minBalanceType = [
     {value: '0', label: 'No min balance necessary'},
-    {value: '1', label: 'Account Balance'},
-    {value: '2', label: 'Asset Balance'},
-    {value: '3', label: 'Currency Balance'}
 ];
 
 export default class ApproveByBalanceBody extends React.Component {
@@ -40,7 +37,7 @@ export default class ApproveByBalanceBody extends React.Component {
                             <div className="col-sm-3 input-group input-group-text-transparent input-group-sm">
                                 <InputForm
                                     defaultValue={''}
-                                    field="fee"
+                                    field="amount"
                                     placeholder="Amount"
                                     type="number"
                                     setValue={setValue}/>

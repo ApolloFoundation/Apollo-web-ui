@@ -123,7 +123,7 @@ class AccountDetails extends React.Component {
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Effective Balance:</td>
-                                                        <td>{(this.state.account.effectiveBalanceAPL).toFixed(2)} Apollo</td>
+                                                        <td>{this.state.account.effectiveBalanceAPL ? (this.state.account.effectiveBalanceAPL).toFixed(2) : 0} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Forged Balance:</td>

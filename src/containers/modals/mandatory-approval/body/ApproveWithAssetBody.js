@@ -7,9 +7,7 @@ import ModalFooter from "../../../components/modal-footer";
 
 const minBalanceType = [
     {value: '0', label: 'No min balance necessary'},
-    {value: '1', label: 'Account Balance'},
-    {value: '2', label: 'Asset Balance'},
-    {value: '3', label: 'Currency Balance'}
+    {value: '1', label: 'Min balance of asset quantity required'},
 ];
 
 export default class ApproveWithAssetBody extends React.Component {
