@@ -166,7 +166,7 @@ class UploadFile extends React.Component {
                                                         <div className="input-file-name">
                                                             {
                                                                 this.state.file &&
-                                                                this.state.file.name ? this.state.file.name : '-'
+                                                                this.state.file.name ? this.state.file.name : <span className={"no-file-selected"}>No file selected</span>
                                                             }
                                                         </div>
                                                     </div>
