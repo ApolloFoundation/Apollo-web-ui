@@ -465,7 +465,7 @@ class CreateUser extends React.Component {
                                                                                                     {name: 'Public Key', value: this.state.accountData.publicKey},
                                                                                                 ])}
                                                                                             >
-                                                                                                Print Account
+                                                                                                Print Wallet
                                                                                             </a>
                                                                                         </InfoBox>
                                                                                     }
@@ -779,7 +779,7 @@ class CreateUser extends React.Component {
                                                                                                     {name: 'Secret Phrase', value: this.state.generatedPassphrase},
                                                                                                 ])}
                                                                                             >
-                                                                                                Print Account
+                                                                                                Print Wallet
                                                                                             </a>
                                                                                         </InfoBox>
                                                                                     }
