@@ -91,11 +91,6 @@ class CreateUser extends React.Component {
         doc.save(`apollo-wallet-${credentials[0].value}`)
     };
 
-    componentDidMount() {
-        // this.generateAccount();
-        // this.generatePassphrase();
-    };
-
     componentWillReceiveProps(newProps) {
         if (newProps.account) {
             this.props.closeModal();
@@ -467,7 +462,7 @@ class CreateUser extends React.Component {
                                                                                                     {name: 'Public Key', value: this.state.accountData.publicKey},
                                                                                                 ])}
                                                                                             >
-                                                                                                Save account credentials as pdf
+                                                                                                Print Account
                                                                                             </a>
                                                                                         </InfoBox>
                                                                                     }
@@ -579,7 +574,7 @@ class CreateUser extends React.Component {
                                                         <React.Fragment>
                                                             <div className="form-group-app transparent">
                                                                 <div className="form-title">
-                                                                    <p>Create Your Standard wallet</p>
+                                                                    <p>Create Your Standard Wallet</p>
                                                                 </div>
                                                                 <div className="input-group-app display-block offset-bottom">
                                                                     <div className="row">
@@ -778,7 +773,7 @@ class CreateUser extends React.Component {
                                                                                                     {name: 'Secret Phrase', value: this.state.generatedPassphrase},
                                                                                                 ])}
                                                                                             >
-                                                                                                Save account credentials as pdf
+                                                                                                Print Account
                                                                                             </a>
                                                                                         </InfoBox>
                                                                                     }
