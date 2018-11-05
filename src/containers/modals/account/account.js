@@ -325,6 +325,7 @@ class InfoAccount extends React.Component {
                                                             <Entry
                                                                 key={uuid()}
                                                                 entry={el}
+                                                                setBlockInfo={this.getBlock}
                                                                 setLedgerEntryInfo={this.getLedgerEntry}
                                                                 setTransactionInfo={this.setTransactionInfo}
                                                             />
@@ -359,6 +360,7 @@ class InfoAccount extends React.Component {
                                                         return (
                                                             <Asset
                                                                 key={uuid()}
+                                                                closeModal={this.props.closeModal}
                                                                 info
                                                                 transfer={el}
                                                                 setLedgerEntryInfo={this.getLedgerEntry}
@@ -630,6 +632,19 @@ class InfoAccount extends React.Component {
             </div>
         );
     }
+    
+	getBlock = async (type, blockHeight) => {
+		const requestParams = {
+			height: blockHeight
+		};
+
+		const block = await this.props.getBlockAction(requestParams);
+
+		if (block) {
+			this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+		}
+	}
+
 }
 
 const mapStateToProps = state => ({

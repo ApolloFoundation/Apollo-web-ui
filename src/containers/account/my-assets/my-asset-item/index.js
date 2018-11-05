@@ -6,11 +6,11 @@
 
 import React from 'react';
 import uuid from 'uuid';
-import {setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
+import {closeModal, setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
-
+import store from '../../../../store'
 class MyAssetItem extends React.Component {
     constructor(props) {
         super(props);
@@ -68,14 +68,19 @@ class MyAssetItem extends React.Component {
         }
     };
 
-
+    close = () => {
+	    if (this.props.closeModal) {
+	        this.props.closeModal();
+        };
+    };
 
     render () {
-        if (this.state.transfer) {
+
+	    if (this.state.transfer) {
             return (
                 <tr key={uuid()}>
-                    <td className="blue-link-text">
-                        <Link to={"/asset-exchange/" + this.state.transfer.asset}>{this.state.transfer.name}</Link>
+                    <td className="blue-link-text" >
+                        <Link onClick={this.close} to={"/asset-exchange/" + this.state.transfer.asset}>{this.state.transfer.name}</Link>
                     </td>
                     <td className="align-right">
                         {(this.state.transfer.unconfirmedQuantityATU / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {

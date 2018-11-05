@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getTransactionAction, getPrivateTransactions} from '../../../actions/transactions/';
-import {setModalData, setBodyModalParamsAction} from '../../../modules/modals';
+import {setModalData, setBodyModalParamsAction, openPrevModal} from '../../../modules/modals';
 import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
 import uuid from "uuid";
@@ -100,6 +100,9 @@ class InfoBlock extends React.Component {
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">
+	                            {this.props.modalsHistory.length > 1 &&
+	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                            }
                                 <p>Block {this.props.modalData.block} ({this.props.modalData.height})</p>
                             </div>
 
@@ -361,7 +364,8 @@ class InfoBlock extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+	modalsHistory: state.modals.modalsHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -370,6 +374,7 @@ const mapDispatchToProps = dispatch => ({
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
+	openPrevModal: (Params) => dispatch(openPrevModal(Params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoBlock);
