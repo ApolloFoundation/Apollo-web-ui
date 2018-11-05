@@ -22,6 +22,7 @@ import {getAccountDataAction} from "../../../actions/login";
 import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import {removeAccountAction} from '../../../actions/account'
+import jsPDF from "jspdf";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -40,6 +41,11 @@ const mapDispatchToProps = dispatch => ({
 class DeleteAccountFromWebNode extends React.Component {
     constructor(props) {
         super(props);
+    };
+
+    state  ={
+        tinggi:11.69,
+        lebar:'08.27',
     };
 
     handleFormSubmit = async (values) => {
@@ -61,6 +67,31 @@ class DeleteAccountFromWebNode extends React.Component {
         // You can also log the error to an error reporting service
     }
 
+    generatePDF = (credentials) => {
+        // e.preventDefault();
+
+        let doc = new jsPDF({
+            // orientation: 'landscape',
+            unit: 'in',
+            // format: [4, 2]  // tinggi, lebar
+            format: [this.state.tinggi, this.state.lebar]
+        });
+
+        // TODO: migrate to QR code
+
+        doc.setFontSize(15);
+        doc.text('The apollo wallet`s secret key:', 0.5, 0.5);
+        doc.setFontSize(10);
+        credentials.forEach((el, index) => {
+            doc.text(`${el.name}: ${el.value}`, 0.5, 0.8 + (0.3 * index))
+        });
+
+        // doc.addImage( qr, 'SVG', 0.5, 2, 2.5, 2.5)
+        // format: (image_file, 'image_type', X_init, Y_init, X_fin, Y_fin)
+
+        doc.save(`apollo-wallet-${credentials[0].value}`)
+    };
+
     render() {
         return (
             <div className="modal-box">
@@ -74,11 +105,26 @@ class DeleteAccountFromWebNode extends React.Component {
                                     className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
-                                    <p>Delete account from this web node</p>
+                                    <p>Delete Account From This Web Node</p>
                                 </div>
+
+                                <InfoBox attentionLeft>
+                                    Secret Key:  <span className={'itatic'}>{this.props.modalData[1].value}</span>
+                                    <br/>
+                                    <br/>
+                                    Account ID: <span className={'itatic'}>{this.props.modalData[0].value}</span>
+                                    <br/>
+                                    <br/>
+                                    <a
+                                        className="btn blue static"
+                                        onClick={() => this.generatePDF(this.props.modalData)}
+                                    >
+                                        Print Secret Key
+                                    </a>
+                                </InfoBox>
                                 <InfoBox info danger nowrap>
                                     <strong>Attention!!!</strong><br/>
-                                    Make a backup of your secret key. You will loose access to your account and funds if you will not backup it.
+                                    Make a backup of your secret key. You will lose access to your account and funds if you do not have a backup.
                                 </InfoBox>
 
                                 <div className="form-group row form-group-grey mb-15">

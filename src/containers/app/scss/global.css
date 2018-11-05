@@ -11,8 +11,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 
 html, body {
   background-color: #F5F5F5;
-  word-break: break-word;
-  word-wrap: break-word; }
+  word-break: break-word; }
 
 ::placeholder {
   color: #a6a6a6 !important;
@@ -30,7 +29,8 @@ html, body {
   white-space: normal;
   overflow: visible;
   -o-text-overflow: unset;
-  text-overflow: unset; }
+  text-overflow: unset;
+  word-wrap: break-word; }
 
 .break-word {
   word-break: break-word; }
@@ -74,6 +74,8 @@ span.blue {
 .position-relative {
   position: relative;
   z-index: 2; }
+  .position-relative + .info-box {
+    margin-top: 30px; }
 
 input[type="checkbox"] {
   height: 16px;
@@ -1315,7 +1317,6 @@ input {
       font-family: "Roboto-Regular";
       font-size: 36px;
       line-height: 1;
-      padding-right: 50px;
       position: relative;
       margin: 15px 0; }
       @media (max-width: 1850px) {
@@ -1324,6 +1325,13 @@ input {
       @media (max-width: 1660px) {
         .card.header .amount {
           font-size: 24px; } }
+      @media (max-width: 1440px) {
+        .card.header .amount {
+          font-size: 18px; }
+          .card.header .amount .currency {
+            font-size: 11px !important; }
+          .card.header .amount .owned {
+            font-size: 20px !important; } }
       .card.header .amount .text {
         overflow: hidden;
         width: 100%;
@@ -1423,6 +1431,9 @@ input {
       color: #FFFFFF;
       font-size: 24px;
       padding-bottom: 5px; }
+      @media (max-width: 1440px) {
+        .card .general-info-item .top-bar {
+          font-size: 18px; } }
     .card .general-info-item .bottom-bar {
       width: 60px;
       color: #FFFFFF;
@@ -1537,9 +1548,9 @@ input {
       padding: 0; } }
   .page-body-item .card {
     transition: 0.2s;
-    min-height: 215px; }
+    min-height: 252px; }
     .page-body-item .card.card-tall {
-      min-height: 445px; }
+      min-height: 520px; }
       @media (max-width: 760px) {
         .page-body-item .card.card-tall {
           min-height: auto; } }
@@ -1582,6 +1593,9 @@ input {
       .page-body-item .show-hide-content .page-body-item-content {
         max-height: 1000px;
         opacity: 1; } }
+  @media (max-width: 1440px) {
+    .page-body-item .page-body-item-content .amount {
+      font-size: 20px; } }
   @media (max-width: 760px) {
     .page-body-item .page-body-item-content {
       max-height: 0;
@@ -1822,4 +1836,5 @@ table td .btn, table th .btn {
     background-color: rgba(0, 0, 0, 0.6); } }
 
 .full-info td {
-  white-space: normal; }
+  white-space: normal;
+  word-wrap: break-word; }

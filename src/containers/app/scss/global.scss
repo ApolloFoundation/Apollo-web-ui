@@ -15,7 +15,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 html, body {
 	background-color: #F5F5F5;
 	word-break: break-word;
-	word-wrap: break-word;
+	
 }
 
 //*:focus, *:active, *:hover {
@@ -43,6 +43,7 @@ html, body {
 	overflow: visible;
 	-o-text-overflow: unset;
 	text-overflow: unset;
+	word-wrap: break-word;
 }
 
 .break-word {
@@ -115,6 +116,9 @@ span {
 .position-relative {
 	position: relative;
 	z-index: 2;
+	& + .info-box {
+		margin-top: 30px;
+	}
 }
 
 input[type="checkbox"] {
@@ -1889,7 +1893,6 @@ input {
 			font-family: "Roboto-Regular";
 			font-size: 36px;
 			line-height: 1;
-			padding-right: 50px;
 			position: relative;
 			margin: 15px 0;
 			@media (max-width: 1850px) {
@@ -1897,6 +1900,16 @@ input {
 			}
 			@media (max-width: 1660px) {
 				font-size: 24px;
+			}
+			@media (max-width: 1440px) {
+				font-size: 18px;
+
+				.currency {
+					font-size: 11px !important;
+				}
+				.owned {
+					font-size: 20px !important;
+				}
 			}
 			.text {
 				overflow: hidden;
@@ -2093,6 +2106,10 @@ input {
 			color: #FFFFFF;
 			font-size: 24px;
 			padding-bottom: 5px;
+
+			@media(max-width: 1440px) {
+				font-size: 18px;
+			}
 		}
 		.bottom-bar {
 			width: 60px;
@@ -2266,11 +2283,11 @@ input {
 	.card {
 		//margin: 15px;
 		transition: 0.2s;
-		min-height: 215px;
+		min-height: 252px;
 		//height: calc(100% - 15px);
 		
 		&.card-tall {
-			min-height: 445px;
+			min-height: 520px;
 			@media (max-width: 760px) {
 				min-height: auto;
 			}
@@ -2328,6 +2345,11 @@ input {
 		}
 	}
 	.page-body-item-content {
+		@media (max-width: 1440px) {
+			.amount {
+				font-size: 20px
+			}
+		}
 		@media (max-width: 760px) {
 			max-height: 0;
 			opacity: 0;
@@ -2654,4 +2676,5 @@ table {
 
 .full-info td {
 	white-space: normal;
+	word-wrap: break-word;
 }

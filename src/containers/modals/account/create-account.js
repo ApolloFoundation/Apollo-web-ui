@@ -24,6 +24,12 @@ import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import ReactDOM from 'react-dom';
+import QRCode from 'qrcode.react';
+
+
+import jsPDF from 'jspdf';
+import PdfDoc from '../../../pdf/account-credentials';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -50,13 +56,39 @@ class CreateUser extends React.Component {
             generatedAccount: null,
             isValidating: false,
             isCustomPassphrase: true,
-            isAccountLoaded: false
+            isAccountLoaded: false,
+            isCustomPassphraseForStandardWallet: false,
+            tinggi:11.69,
+            lebar:'08.27',
         }
     };
 
-    componentDidMount() {
-        // this.generateAccount();
-        this.generatePassphrase();
+    /*
+    * First element of array accepts an account ID
+    * */
+    generatePDF = (credentials) => {
+        // e.preventDefault();
+
+        let doc = new jsPDF({
+            // orientation: 'landscape',
+            unit: 'in',
+            // format: [4, 2]  // tinggi, lebar
+            format: [this.state.tinggi, this.state.lebar]
+        });
+
+        // TODO: migrate to QR code
+
+        doc.setFontSize(15);
+        doc.text('The apollo wallet`s account credentials:', 0.5, 0.5);
+        doc.setFontSize(10);
+        credentials.forEach((el, index) => {
+            doc.text(`${el.name}: ${el.value}`, 0.5, 0.8 + (0.3 * index))
+        });
+
+        // doc.addImage( qr, 'SVG', 0.5, 2, 2.5, 2.5)
+        // format: (image_file, 'image_type', X_init, Y_init, X_fin, Y_fin)
+
+        doc.save(`apollo-wallet-${credentials[0].value}`)
     };
 
     componentWillReceiveProps(newProps) {
@@ -131,15 +163,16 @@ class CreateUser extends React.Component {
         }
     };
 
-    generatePassphrase = async () => {
-        const generatedPassphrase = crypto.generatePassPhraseAPL();
-        const generatedAccount = store.dispatch(await this.props.getAccountIdAsyncApl(generatedPassphrase.join(' ')));
+    generatePassphrase = async (passphrase) => {
+        const generatedPassphrase = passphrase ? passphrase : crypto.generatePassPhraseAPL();
+        const generatedAccount = store.dispatch(await this.props.getAccountIdAsyncApl(passphrase ? passphrase : generatedPassphrase.join(' ')));
 
         this.setState({
             ...this.state,
-            generatedPassphrase: generatedPassphrase.join(' '),
+            generatedPassphrase: passphrase ? passphrase : generatedPassphrase.join(' '),
             generatedAccount: generatedAccount,
             isRSAccountLoaded :true,
+            isCustomPassphraseForStandardWallet :true,
         })
     };
 
@@ -169,24 +202,24 @@ class CreateUser extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
-                                        <p>Create new Wallet</p>
+                                        <p>Create New Wallet</p>
                                     </div>
 
                                     <div className="form-tabulator active no-padding">
                                         <div className="form-tab-nav-box justify-left">
+                                            <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                                "form-tab": true,
+                                                "active": this.state.activeTab === 0
+                                            })}>
+                                                <p>Standard wallet</p>
+                                            </a>
                                             <a
-                                                onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                                onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                                     "form-tab": true,
-                                                    "active": this.state.activeTab === 0
+                                                    "active": this.state.activeTab === 1
                                                 })}
                                             >
-                                                <p>Vault</p>
-                                            </a>
-                                            <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 1
-                                            })}>
-                                                <p>Online wallet</p>
+                                                <p>Vault Wallet</p>
                                             </a>
                                         </div>
 
@@ -198,7 +231,7 @@ class CreateUser extends React.Component {
                                                 <form
                                                     className={classNames({
                                                         "tab-body": true,
-                                                        "active": this.state.activeTab === 0
+                                                        "active": this.state.activeTab === 1
                                                     })}
                                                     onSubmit={submitForm}
                                                 >
@@ -215,10 +248,12 @@ class CreateUser extends React.Component {
                                                                             <div>
                                                                                 <InfoBox info>
                                                                                     <ul className={'marked-list'}>
-                                                                                        <li>The most secure Apollo Wallet</li>
-                                                                                        <li>You can log in into this wallet using Account ID </li>
-                                                                                        <li>The wallet is encrypted (via Secret Key) on one device. You can export/import your Secret Key to use on other devices </li>
+                                                                                        <li>The most secure Apollo Wallet.</li>
+                                                                                        <li>You can log in ot this wallet using your Account ID.</li>
+                                                                                        <li>The wallet is encrypted (via Secret Key) on one device.</li>
+                                                                                        <li>You can export/import your Secret Key to use on other devices.</li>
                                                                                         <li>2FA works from any device when you use your Vault.</li>
+                                                                                        <li>If you loose your device before export your security key you will not be able to access your wallet.</li>
                                                                                     </ul>
                                                                                 </InfoBox>
                                                                             </div>
@@ -229,7 +264,7 @@ class CreateUser extends React.Component {
                                                                     <div className="row">
                                                                         <div className="col-md-12">
                                                                             <InfoBox info>
-                                                                                You can create your own custom passphrase or crete an account with randomly generated passphrase.
+                                                                                You can create your own custom secret phrase or create an account with a randomly generated secret phrase.
                                                                                 <br/>
                                                                                 <div
                                                                                     className="input-group-app display-block offset-bottom"
@@ -256,7 +291,7 @@ class CreateUser extends React.Component {
                                                                                             <label
                                                                                                 style={{color: '#ecf0f1'}}
                                                                                             >
-                                                                                                Use custom passphrase .
+                                                                                                Use custom secret phrase.
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
@@ -276,13 +311,16 @@ class CreateUser extends React.Component {
                                                                         this.state.isCustomPassphraseTextarea &&
                                                                         <div className="row">
                                                                             <div className="col-md-3">
-                                                                                <label>Your account passphrase</label>
+                                                                                <label>Your account secret phrase</label>
                                                                             </div>
                                                                             <div className="col-md-9">
                                                                             <TextArea
                                                                                 field={'newAccountpassphrse'}
-                                                                                placeholder={'Passphrase'}
+                                                                                placeholder={'Secret Phrase'}
                                                                             />
+                                                                            </div>
+                                                                            <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                                                                Alphanumeric Characters Only
                                                                             </div>
                                                                         </div>
                                                                     }
@@ -298,7 +336,7 @@ class CreateUser extends React.Component {
                                                                             const {values} = getFormState();
 
                                                                             if (!values.newAccountpassphrse) {
-                                                                                NotificationManager.error('Passphrase not specified.');
+                                                                                NotificationManager.error('Secret Phrase not specified.');
                                                                                 return;
                                                                             }
                                                                             this.generateAccount({
@@ -345,10 +383,12 @@ class CreateUser extends React.Component {
                                                                                 <div>
                                                                                     <InfoBox info>
                                                                                         <ul className={'marked-list'}>
-                                                                                            <li>The most secure Apollo Wallet</li>
-                                                                                            <li>You can log in into this wallet using Account ID </li>
-                                                                                            <li>The wallet is encrypted (via Secret Key) on one device. You can export/import your Secret Key to use on other devices </li>
+                                                                                            <li>The most secure Apollo Wallet.</li>
+                                                                                            <li>You can log in ot this wallet using your Account ID.</li>
+                                                                                            <li>The wallet is encrypted (via Secret Key) on one device.</li>
+                                                                                            <li>You can export/import your Secret Key to use on other devices.</li>
                                                                                             <li>2FA works from any device when you use your Vault.</li>
+                                                                                            <li>If you loose your device before export your security key you will not be able to access your wallet.</li>
                                                                                         </ul>
                                                                                     </InfoBox>
                                                                                 </div>
@@ -368,8 +408,8 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger>
-                                                                                        <strong>Remember</strong> to store your Account ID and passphrase in the secured place.
-                                                                                        Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
+                                                                                        <strong>Remember</strong> to store your Account ID and secret phrase in a secured place.
+                                                                                        Make sure to write down this secret phrase and store it securely (the secret phrase is order and case sensitive). This secret phrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -379,7 +419,7 @@ class CreateUser extends React.Component {
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
                                                                             <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
+                                                                                <label>Your randomly generated secret phrase is:</label>
                                                                             </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
@@ -413,7 +453,20 @@ class CreateUser extends React.Component {
                                                                                                 >
                                                                                                     Copy account data to clipboard.
                                                                                                 </a>
+
                                                                                             </CopyToClipboard>
+                                                                                            <br/>
+                                                                                            <br/>
+                                                                                            <a
+                                                                                                className="btn blue static"
+                                                                                                onClick={() => this.generatePDF([
+                                                                                                    {name: 'Account ID', value: this.state.accountData.accountRS},
+                                                                                                    {name: 'Secret Phrase', value: this.state.accountData.passphrase},
+                                                                                                    {name: 'Public Key', value: this.state.accountData.publicKey},
+                                                                                                ])}
+                                                                                            >
+                                                                                                Print Wallet
+                                                                                            </a>
                                                                                         </InfoBox>
                                                                                     }
 
@@ -425,7 +478,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <Checkbox defaultValue={false} field="losePhrase"/>
-                                                                                <label>I wrote down my Account ID, Passphrase. It is now stored in a secured place</label>
+                                                                                <label>I wrote down my Account ID, Secret phrase. It is now stored in a secured place</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -473,7 +526,7 @@ class CreateUser extends React.Component {
                                                                     name={'closeModal'}
                                                                     className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                                 >
-                                                                    Create new Account
+                                                                    Create New Account
                                                                 </button>
 
                                                                 {
@@ -496,7 +549,7 @@ class CreateUser extends React.Component {
                                                                             name={'closeModal'}
                                                                             className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                                         >
-                                                                            Create new Account
+                                                                            Create New Account
                                                                         </button>
                                                                 }
 
@@ -515,15 +568,136 @@ class CreateUser extends React.Component {
                                                 <form
                                                     className={classNames({
                                                         "tab-body": true,
-                                                        "active": this.state.activeTab === 1
+                                                        "active": this.state.activeTab === 0
                                                     })}
                                                     onSubmit={submitForm}
                                                 >
                                                     {
-                                                        !this.state.isValidating &&
+                                                        !this.state.isCustomPassphraseForStandardWallet &&
+                                                        <React.Fragment>
+                                                            <div className="form-group-app transparent">
+                                                                <div className="form-title">
+                                                                    <p>Create Your Standard Wallet</p>
+                                                                </div>
+                                                                <div className="input-group-app display-block offset-bottom">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <div>
+                                                                                <InfoBox info>
+                                                                                    <ul>
+                                                                                        <li>You can log in to this wallet using only your secret phrase</li>
+                                                                                        <li>Available to use from any device </li>
+                                                                                        <li>2FA is available only on the device where it was enabled</li>
+                                                                                    </ul>
+                                                                                </InfoBox>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="input-group-app display-block offset-bottom">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <InfoBox info>
+                                                                                You can create your own custom secret phrase or create an account with a randomly generated secret phrase.
+                                                                                <br/>
+                                                                                <div
+                                                                                    className="input-group-app display-block offset-bottom"
+                                                                                    style={{marginTop: 18}}
+                                                                                >
+                                                                                    <div className="row">
+                                                                                        <div className="col-md-12">
+                                                                                            <Checkbox
+                                                                                                className={'lighten'}
+                                                                                                field="isCustomPassphrase"
+                                                                                                onChange={(e) => {
+
+                                                                                                    if (e) {
+                                                                                                        this.setState({
+                                                                                                            isCustomPassphraseTextarea: true
+                                                                                                        });
+                                                                                                    } else {
+                                                                                                        this.setState({
+                                                                                                            isCustomPassphraseTextarea: false
+                                                                                                        });
+                                                                                                    }
+                                                                                                }}
+                                                                                            />
+                                                                                            <label
+                                                                                                style={{color: '#ecf0f1'}}
+                                                                                            >
+                                                                                                Use custom secret phrase.
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                {/*<a*/}
+                                                                                {/*style={{marginTop: 18}}*/}
+                                                                                {/*className={'btn lighten static'}*/}
+                                                                                {/*onClick={() => this.generateAccount({})}*/}
+                                                                                {/*>*/}
+                                                                                {/*Generate account*/}
+                                                                                {/*</a>*/}
+                                                                            </InfoBox>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    {
+                                                                        this.state.isCustomPassphraseTextarea &&
+                                                                        <div className="row">
+                                                                            <div className="col-md-3">
+                                                                                <label>Your account secret phrase</label>
+                                                                            </div>
+                                                                            <div className="col-md-9">
+                                                                            <TextArea
+                                                                                field={'newAccountpassphrse'}
+                                                                                placeholder={'Secret Phrase'}
+                                                                            />
+                                                                            </div>
+                                                                            <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
+                                                                                Alphanumeric Characters Only
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="btn-box align-buttons-inside absolute right-conner">
+
+                                                                {
+                                                                    this.state.isCustomPassphraseTextarea &&
+                                                                    <a
+                                                                        onClick={() => {
+                                                                            const {values} = getFormState();
+
+                                                                            if (!values.newAccountpassphrse) {
+                                                                                NotificationManager.error('Secret Phrase not specified.');
+                                                                                return;
+                                                                            }
+                                                                            this.generatePassphrase(values.newAccountpassphrse)
+                                                                        }}
+                                                                        name={'closeModal'}
+                                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                    >
+                                                                        Create account
+                                                                    </a>
+                                                                }
+                                                                {
+                                                                    !this.state.isCustomPassphraseTextarea &&
+                                                                    <a
+                                                                        onClick={() => this.generatePassphrase()}
+                                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                    >
+                                                                        Create account
+                                                                    </a>
+                                                                }
+                                                            </div>
+                                                        </React.Fragment>
+                                                    }
+                                                    {
+                                                        this.state.isCustomPassphraseForStandardWallet &&
                                                         <div className="form-group-app transparent">
                                                             <div className="form-title">
-                                                                <p>Create your Online Wallet</p>
+                                                                <p>Create Your Standard Wallet</p>
                                                             </div>
                                                             {
                                                                 this.state.isRSAccountLoaded &&
@@ -535,9 +709,9 @@ class CreateUser extends React.Component {
                                                                                 <div>
                                                                                     <InfoBox info>
                                                                                         <ul>
-                                                                                            <li>You can log in into this wallet using only passphrase</li>
+                                                                                            <li>You can log in to this wallet using only your secret phrase</li>
                                                                                             <li>Available to use from any device </li>
-                                                                                            <li> 2FA is available only on the device where it was enabled</li>
+                                                                                            <li>2FA is available only on the device where it was enabled</li>
                                                                                         </ul>
                                                                                     </InfoBox>
                                                                                 </div>
@@ -557,8 +731,8 @@ class CreateUser extends React.Component {
                                                                                     }}
                                                                                 >
                                                                                     <InfoBox danger>
-                                                                                        <strong>Remember</strong>  to store your Account ID and passphrase in the secured place.
-                                                                                        Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
+                                                                                        <strong>Remember</strong>  to store your Account ID and secret phrase in a secured place.
+                                                                                        Make sure to write down this secret phrase and store it securely (the secret phrase is order and case sensitive). This secret phrase is needed to use your wallet.
                                                                                     </InfoBox>
                                                                                 </div>
                                                                             </div>
@@ -568,7 +742,7 @@ class CreateUser extends React.Component {
                                                                     <div className="input-group-app display-block offset-bottom">
                                                                         <div className="row">
                                                                             <div className="col-md-12 mb-15">
-                                                                                <label>Your randomly generated passphrase is:</label>
+                                                                                <label>Your randomly generated secret phrase is:</label>
                                                                             </div>
                                                                             <div className="col-md-12">
                                                                                 <div>
@@ -594,7 +768,19 @@ class CreateUser extends React.Component {
                                                                                                 >
                                                                                                     Copy account data to clipboard.
                                                                                                 </a>
+
                                                                                             </CopyToClipboard>
+                                                                                            <br/>
+                                                                                            <br/>
+                                                                                            <a
+                                                                                                className="btn blue static"
+                                                                                                onClick={() => this.generatePDF([
+                                                                                                    {name: 'Account ID', value: this.state.generatedAccount},
+                                                                                                    {name: 'Secret Phrase', value: this.state.generatedPassphrase},
+                                                                                                ])}
+                                                                                            >
+                                                                                                Print Wallet
+                                                                                            </a>
                                                                                         </InfoBox>
                                                                                     }
 
@@ -607,7 +793,7 @@ class CreateUser extends React.Component {
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <Checkbox defaultValue={false} field="losePhrase"/>
-                                                                                <label>I wrote down my Passphrase. It is now stored in the secured place.</label>
+                                                                                <label>I wrote down my secret phrase. It is now stored in a secured place.</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -683,7 +869,7 @@ class CreateUser extends React.Component {
                                                     name={'closeModal'}
                                                     className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                 >
-                                                    Create new Account
+                                                    Create New Account
                                                 </button>
 
                                                 {
@@ -706,7 +892,7 @@ class CreateUser extends React.Component {
                                                             name={'closeModal'}
                                                             className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                         >
-                                                            Create new Account
+                                                            Create New Account
                                                         </button>
                                                 }
 

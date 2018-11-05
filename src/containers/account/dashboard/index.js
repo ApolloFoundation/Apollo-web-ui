@@ -380,6 +380,32 @@ class Dashboard extends React.Component {
 		          target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
 	};
 
+	handleChangeValue = (value, operation) => {
+        if (!this.state[value] && operation === '+') {
+            this.setState({
+                [value]: 1
+            })
+            return;
+        }
+
+        if (this.state[value] > 0) {
+            if (operation === '+') {
+
+                this.setState({
+                    [value]: parseInt(this.state[value]) + 1
+                })
+                return;
+            }
+
+            if (operation === '-') {
+                this.setState({
+                    [value]: this.state[value] - 1
+                })
+                return;
+            }
+        }
+    }
+
 	render() {
 		return (
 			<div className="page-content">
@@ -698,16 +724,85 @@ class Dashboard extends React.Component {
 									<div className="full-box">
 										<div className="form-group-app offset">
 											<div className="input-group-app lighten">
-												<label>Recipient</label>
-												<input placeholder={'Account ID'} ref={'recipient'} type="text"/>
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Recipient
+												</label>
+												<input
+                                                    placeholder={'Account ID'}
+                                                    ref={'recipient'}
+                                                    type="text"
+
+                                                />
 											</div>
 											<div className="input-group-app lighten">
-												<label>Amount</label>
-												<input placeholder={'Amount'} ref={'amountATM'} type={'number'}/>
+												<label
+                                                    style={{"word-break": 'normal'}}
+                                                >
+													Amount
+												</label>
+                                                <div>
+                                                <div  style={{position: 'relative'}}>
+                                                    <input
+                                                        placeholder={'Amount'}
+                                                        ref={'amountATM'}
+                                                        type={'text'}
+                                                        value={this.state.amountPreValue ? this.state.amountPreValue : ''}
+                                                        onChange={(e) => {
+                                                            let amountPreValue = e.target.value;
+
+                                                            if (/^\d+$/.test(amountPreValue) || !amountPreValue) {
+
+                                                                this.setState({
+                                                                    amountPreValue
+                                                                })
+                                                            } else {
+                                                                e.stopPropagation();
+
+                                                            }
+                                                        }}
+                                                    />
+                                                    <div className="input-number-wrap" style={{display: 'flex', height: 33}}>
+                                                        <div className="input-number-up" onClick={() => this.handleChangeValue('amountPreValue','+')}/>
+                                                        <div className="input-number-down" onClick={() => this.handleChangeValue('amountPreValue','-')}/>
+                                                    </div>
+                                                    </div>
+                                                </div>
 											</div>
-											<div className="input-group-app lighten">
-												<label>Fee</label>
-												<input placeholder={'Amount'} ref={'feeATM'} type={'number'}/>
+											<div className="input-group-app lighten" style={{position: 'relative'}}>
+												<label
+                                                    style={{"word-break": 'normal'}}
+                                                >
+													Fee
+												</label>
+                                                <div>
+                                                <div  style={{position: 'relative'}}>
+                                                    <input
+                                                        placeholder={'Amount'}
+                                                        ref={'feeATM'}
+                                                        type={'text'}
+                                                        value={this.state.amountfeeATM ? this.state.amountfeeATM : ''}
+                                                        onChange={(e) => {
+                                                            let amountfeeATM = e.target.value;
+
+                                                            if (/^\d+$/.test(amountfeeATM) || !amountfeeATM) {
+
+                                                                this.setState({
+                                                                    amountfeeATM
+                                                                })
+                                                            } else {
+                                                                e.stopPropagation();
+
+                                                            }
+                                                        }}
+                                                    />
+                                                    <div className="input-number-wrap" style={{display: 'flex', height: 33}}>
+                                                        <div className="input-number-up" onClick={() => this.handleChangeValue('amountfeeATM','+')}/>
+                                                        <div className="input-number-down" onClick={() => this.handleChangeValue('amountfeeATM','-')}/>
+                                                    </div>
+                                                </div>
+                                                </div>
 											</div>
 										</div>
 									</div>

@@ -45,7 +45,7 @@ class TransactionOperations extends React.Component {
         switch (this.state.activeTab) {
             case 0:
                 if (!values.signPassphrase) {
-                    NotificationManager.error("Passphrase is required", "Error", 5000);
+                    NotificationManager.error("Secret phrase is required", "Error", 5000);
                     break;
                 }
                 this.setState({
@@ -218,7 +218,7 @@ class TransactionOperations extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-md-3">
-                                                    <label>Passphrase</label>
+                                                    <label>Secret phrase</label>
                                                 </div>
                                                 <div className="col-md-9">
                                                     <Text type="password" field={'signPassphrase'}/>
