@@ -72,7 +72,7 @@ class Login extends React.Component {
                                             "form-tab": true,
                                             "active": this.state.activeTab === 0
                                         })}>
-                                            <p>Login with by Account ID</p>
+                                            <p>Login with Account ID</p>
                                         </a>
                                         <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                             "form-tab": true,

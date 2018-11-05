@@ -205,7 +205,7 @@ class CreateUser extends React.Component {
                                     <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                     <div className="form-title">
-                                        <p>Create new Wallet</p>
+                                        <p>Create New Wallet</p>
                                     </div>
 
                                     <div className="form-tabulator active no-padding">
@@ -251,10 +251,12 @@ class CreateUser extends React.Component {
                                                                             <div>
                                                                                 <InfoBox info>
                                                                                     <ul className={'marked-list'}>
-                                                                                        <li>The most secure Apollo Wallet</li>
-                                                                                        <li>You can log in ot this wallet using your Account ID </li>
-                                                                                        <li>The wallet is encrypted (via Secret Key) on one device. You can export/import your Secret Key to use on other devices </li>
+                                                                                        <li>The most secure Apollo Wallet.</li>
+                                                                                        <li>You can log in ot this wallet using your Account ID.</li>
+                                                                                        <li>The wallet is encrypted (via Secret Key) on one device.</li>
+                                                                                        <li>You can export/import your Secret Key to use on other devices.</li>
                                                                                         <li>2FA works from any device when you use your Vault.</li>
+                                                                                        <li>If you loose your device before export your security key you will not be able to access your wallet.</li>
                                                                                     </ul>
                                                                                 </InfoBox>
                                                                             </div>
@@ -381,10 +383,12 @@ class CreateUser extends React.Component {
                                                                                 <div>
                                                                                     <InfoBox info>
                                                                                         <ul className={'marked-list'}>
-                                                                                            <li>The most secure Apollo Wallet</li>
-                                                                                            <li>You can log in to this wallet using your Account ID </li>
-                                                                                            <li>The wallet is encrypted (via Secret Key) on one device. You can export/import your Secret Key to use on other devices </li>
+                                                                                            <li>The most secure Apollo Wallet.</li>
+                                                                                            <li>You can log in ot this wallet using your Account ID.</li>
+                                                                                            <li>The wallet is encrypted (via Secret Key) on one device.</li>
+                                                                                            <li>You can export/import your Secret Key to use on other devices.</li>
                                                                                             <li>2FA works from any device when you use your Vault.</li>
+                                                                                            <li>If you loose your device before export your security key you will not be able to access your wallet.</li>
                                                                                         </ul>
                                                                                     </InfoBox>
                                                                                 </div>
@@ -522,7 +526,7 @@ class CreateUser extends React.Component {
                                                                     name={'closeModal'}
                                                                     className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                                 >
-                                                                    Create new Account
+                                                                    Create New Account
                                                                 </button>
 
                                                                 {
@@ -545,7 +549,7 @@ class CreateUser extends React.Component {
                                                                             name={'closeModal'}
                                                                             className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                                         >
-                                                                            Create new Account
+                                                                            Create New Account
                                                                         </button>
                                                                 }
 
@@ -584,9 +588,9 @@ class CreateUser extends React.Component {
                                                                                 <div>
                                                                                     <InfoBox info>
                                                                                         <ul>
-                                                                                            <li>You can log in to this wallet using only secret phrase</li>
+                                                                                            <li>You can log in to this wallet using only your secret phrase</li>
                                                                                             <li>Available to use from any device </li>
-                                                                                            <li> 2FA is available only on the device where it was enabled</li>
+                                                                                            <li>2FA is available only on the device where it was enabled</li>
                                                                                         </ul>
                                                                                     </InfoBox>
                                                                                 </div>
@@ -744,7 +748,7 @@ class CreateUser extends React.Component {
                                                     name={'closeModal'}
                                                     className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                 >
-                                                    Create new Account
+                                                    Create New Account
                                                 </button>
 
                                                 {
@@ -767,7 +771,7 @@ class CreateUser extends React.Component {
                                                             name={'closeModal'}
                                                             className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                         >
-                                                            Create new Account
+                                                            Create New Account
                                                         </button>
                                                 }
 
