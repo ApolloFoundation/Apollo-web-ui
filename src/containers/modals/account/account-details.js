@@ -14,8 +14,10 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {switchAccountAction} from "../../../actions/account";
 import {getAccountInfoAction} from "../../../actions/account";
 import Entry from '../../account/ledger/entry';
+import QR from 'qrcode';
 
 import QRCode from 'qrcode.react';
+import jsPDF from "jspdf";
 
 
 class AccountDetails extends React.Component {
@@ -24,6 +26,8 @@ class AccountDetails extends React.Component {
 
         this.state = {
             activeTab: 0,
+            tinggi:11.69,
+            lebar:'08.27',
         };
 
     }
@@ -56,6 +60,38 @@ class AccountDetails extends React.Component {
     // requets
 
     // TODO: migrate timesamp, migrate account to RS
+
+    generatePDFStandard = (credentials) => {
+        // e.preventDefault();
+
+        let doc = new jsPDF({
+            // orientation: 'landscape',
+            unit: 'in',
+            // format: [4, 2]  // tinggi, lebar
+            format: [this.state.tinggi, this.state.lebar]
+        });
+
+        var qrcode;
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+
+        doc.setFontSize(15);
+        doc.text('Apollo Paper Wallet', 0.5, 0.5);
+        doc.setFontSize(10);
+
+        doc.text(`${yyyy}/${mm}/${dd}`, 0.5, 0.8 + (0.3))
+        doc.text(`${credentials[0].name}:`, 0.5, 0.8 + (0.3 * 2))
+        doc.text(`${credentials[0].value}`, 0.5, 0.8 + (0.3 * 3))
+
+        QR.toDataURL(credentials[0].value, function (err, url) {
+            doc.addImage( url, 'SVG', 0.5, 1.9, 1.9, 1.9)
+        })
+
+        doc.save(`apollo-wallet-${credentials[0].value}`)
+    };
 
     render() {
         return (
@@ -109,68 +145,30 @@ class AccountDetails extends React.Component {
                                                         <td  className="no-brake">Numeric Account ID::</td>
                                                         <td>{this.state.account.account}</td>
                                                     </tr>
-
                                                     <tr>
-                                                        <td className="no-brake">Balance:</td>
-                                                        <td>
-                                                            {
-                                                                this.state.account.balanceATM ?
-                                                                (this.state.account.balanceATM / 100000000).toFixed(2) : 0
-                                                            }
-                                                            &nbsp;Apollo
-                                                        </td>
+                                                        <td className="no-brake">Balance::</td>
+                                                        <td>{this.state.account.balanceATM ? (this.state.account.balanceATM / 100000000).toFixed(2) : '0'} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Available Balance:</td>
-                                                        <td>
-                                                            {
-                                                                this.state.account.unconfirmedBalanceATM ?
-
-                                                                (this.state.account.unconfirmedBalanceATM / 100000000).toFixed(2) : 0
-                                                            }
-                                                            &nbsp;Apollo
-                                                        </td>
+                                                        <td>{this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / 100000000).toFixed(2) : '0'} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Guaranteed Balance:</td>
-                                                        <td>
-                                                            {
-                                                                this.state.account.guaranteedBalanceATM ?
-                                                                (this.state.account.guaranteedBalanceATM / 100000000).toFixed(2) : 0
-                                                            }
-                                                            &nbsp;Apollo
-                                                        </td>
+                                                        <td>{this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / 100000000).toFixed(2) : '0'} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Effective Balance:</td>
-                                                        <td>
-                                                            {
-                                                                this.state.account.effectiveBalanceAPL ?
-                                                                (this.state.account.effectiveBalanceAPL / 100000000).toFixed(2) : 0
-                                                            }
-                                                            &nbsp;Apollo
-                                                        </td>
+                                                        <td>{this.state.account.effectiveBalanceAPL ? (this.state.account.effectiveBalanceAPL).toFixed(2) : '0'} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Forged Balance:</td>
-                                                        <td>
-                                                            {
-                                                                this.state.account.forgedBalanceATM ?
-                                                                (this.state.account.forgedBalanceATM / 100000000).toFixed(2) : 0
-                                                            }
-                                                            &nbsp;Apollo
-                                                        </td>
+                                                        <td>{this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / 100000000).toFixed(2) : '0'} Apollo</td>
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Public Key:</td>
-                                                        <td>
-                                                            {
-                                                                this.state.account.publicKey ?
-                                                                (this.state.account.publicKey) : '-'
-                                                            }
-                                                        </td>
+                                                        <td className="word-brake">{this.state.account.publicKey ? this.state.account.publicKey : '-'}</td>
                                                     </tr>
-
                                                     <tr>
                                                         <td
                                                             className="no-brake"
@@ -195,7 +193,15 @@ class AccountDetails extends React.Component {
                                                     </tr>
                                                     <tr>
                                                         <td className="no-brake">Paper Wallet:</td>
-                                                        <td><a className="btn primary">Print</a></td>
+                                                        <td>
+                                                            <a className="btn primary"
+                                                               onClick={() => this.generatePDFStandard([
+                                                                   {name: 'Account ID', value: this.state.account.accountRS},
+                                                               ])}
+                                                            >
+                                                                Print
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
