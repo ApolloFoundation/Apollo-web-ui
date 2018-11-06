@@ -86,8 +86,6 @@ class AccountDetails extends React.Component {
         doc.text(`${credentials[0].name}:`, 0.5, 0.8 + (0.3 * 2))
         doc.text(`${credentials[0].value}`, 0.5, 0.8 + (0.3 * 3))
 
-        console.log(credentials[0].value);
-
         QR.toDataURL(credentials[0].value, function (err, url) {
             doc.addImage( url, 'SVG', 0.5, 1.9, 1.9, 1.9)
         })
