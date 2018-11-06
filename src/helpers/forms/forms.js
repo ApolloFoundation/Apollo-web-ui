@@ -128,28 +128,16 @@ function submitForm(data, requestType) {
             data.deadline = 1440;
         }
 
-        try {
-            if (data.feeATM) {
-                data.feeATM = data.feeATM * 100000000
-            }
-        } catch (err) {
-            console.log(err);
+        if (data.feeATM && $.isNumeric(data.feeATM)) {
+            data.feeATM = data.feeATM * 100000000
         }
 
-        try {
-            if (data.amountATM) {
-                data.amountATM = data.amountATM * 100000000
-            }
-        } catch (err) {
-            console.log(err);
+        if (data.amountATM && $.isNumeric(data.amountATM)) {
+            data.amountATM = data.amountATM * 100000000
         }
 
-        try {
-            if (data.priceATM) {
-                data.priceATM = data.priceATM * 100000000
-            }
-        } catch (err) {
-            console.log(err);
+        if (data.priceATM && $.isNumeric(data.priceATM)) {
+            data.priceATM = data.priceATM * 100000000
         }
 
         if (data.priceOrder) {
