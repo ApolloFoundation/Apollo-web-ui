@@ -135,15 +135,9 @@ class Messenger extends React.Component {
 			feeATM: 4
 		}, 'sendMessage');
 
-        if (res.errorCode === 4) {
-            NotificationManager.error('Message length should not bu grater than 100 symbols.', 'Error', 5000);
-            return;
-        }
-        if (res.errorCode === 6) {
-            NotificationManager.error('Incorrect secret phrase.', 'Error', 5000);
-			return;
-        }
-		if (!res.errorCode) {
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000);
+        } else {
             NotificationManager.success('Message has been submitted!', null, 5000);
             if (this.state.formApi) {
             	this.state.formApi.setValue('message', null);
