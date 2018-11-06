@@ -204,7 +204,6 @@ class MyMessages extends React.Component {
                         </div>
                         : <div className="page-body container-fluid page">
                             <InfoBox>
-                                {}
                                 No messages found.
                             </InfoBox></div>
                 }
