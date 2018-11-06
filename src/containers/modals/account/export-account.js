@@ -116,7 +116,7 @@ class ExportAccount extends React.Component {
 
 
                                 <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label align-self-start">
+                                    <label className="col-sm-3 col-form-label">
                                         Account ID
                                     </label>
                                     <div className="col-sm-9">
