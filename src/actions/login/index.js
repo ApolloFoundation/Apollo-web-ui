@@ -103,7 +103,12 @@ export function getUpdateStatus() {
         .then((res) => {
             if (res.data ) {
                 if (!res.data.isUpdate) {
-                    NotificationManager.info('You are using up to date version', null, 900000);
+                    let flag = localStorage.getItem('updateFlag');
+
+                    if (!flag) {
+                        NotificationManager.info('You are using up to date version', null, 900000);
+                        localStorage.setItem('updateFlag', true)
+                    }
                 }
                 if (res.data.isUpdate) {
                     NotificationManager.error('You current version is expired. Available new version: ' + res.data.level, 'Attention', 900000);

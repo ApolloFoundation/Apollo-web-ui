@@ -22,6 +22,7 @@ import ModalFooter from '../../components/modal-footer'
 import {exportAccountAction} from '../../../actions/account'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import jsPDF from "jspdf";
+import QRCode from "qrcode";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -82,17 +83,34 @@ class ExportAccount extends React.Component {
 
         // TODO: migrate to QR code
 
+
+        var qrcode;
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+
         doc.setFontSize(15);
-        doc.text('The apollo wallet`s secret key:', 0.5, 0.5);
+        doc.text('The apollo wallet`s secret key', 0.5, 0.5);
         doc.setFontSize(10);
-        credentials.forEach((el, index) => {
-            doc.text(`${el.name}: ${el.value}`, 0.5, 0.8 + (0.3 * index))
-        });
 
-        // doc.addImage( qr, 'SVG', 0.5, 2, 2.5, 2.5)
-        // format: (image_file, 'image_type', X_init, Y_init, X_fin, Y_fin)
+        doc.text(`${yyyy}/${mm}/${dd}`, 0.5, 0.8 + (0.3))
+        doc.text(`${credentials[0].name}:`, 0.5, 0.8 + (0.3 * 2))
+        doc.text(`${credentials[0].value}`, 0.5, 0.8 + (0.3 * 3))
 
-        doc.save(`apollo-wallet-${credentials[0].value}`)
+        QRCode.toDataURL(credentials[0].value, function (err, url) {
+            doc.addImage( url, 'SVG', 0.5, 1.9, 1.9, 1.9)
+        })
+
+        doc.text(`${credentials[1].name}:`, 0.5, 0.8 + (0.3 * 11))
+        doc.text(`${credentials[1].value}`, 0.5, 0.8 + (0.3 * 12))
+
+        QRCode.toDataURL(credentials[1].value, function (err, url) {
+            doc.addImage( url, 'SVG', 0.5, 4.8, 1.9, 1.9)
+        })
+
+        doc.save(`apollo-wallet-secret-key-${credentials[0].value}`)
     };
 
     render() {
@@ -116,7 +134,7 @@ class ExportAccount extends React.Component {
 
 
                                 <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label align-self-start">
+                                    <label className="col-sm-3 col-form-label">
                                         Account ID
                                     </label>
                                     <div className="col-sm-9">

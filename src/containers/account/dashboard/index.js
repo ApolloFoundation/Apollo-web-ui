@@ -753,10 +753,11 @@ class Dashboard extends React.Component {
                                                             let amountPreValue = e.target.value;
 
                                                             if (/^\d+$/.test(amountPreValue) || !amountPreValue) {
-
-                                                                this.setState({
-                                                                    amountPreValue
-                                                                })
+                                                            	if (amountPreValue !== '0') {
+                                                                    this.setState({
+                                                                        amountPreValue
+                                                                    })
+																}
                                                             } else {
                                                                 e.stopPropagation();
 
@@ -787,10 +788,11 @@ class Dashboard extends React.Component {
                                                             let amountfeeATM = e.target.value;
 
                                                             if (/^\d+$/.test(amountfeeATM) || !amountfeeATM) {
-
-                                                                this.setState({
-                                                                    amountfeeATM
-                                                                })
+                                                                if (amountfeeATM !== '0') {
+                                                                    this.setState({
+                                                                        amountfeeATM
+                                                                    })
+                                                                }
                                                             } else {
                                                                 e.stopPropagation();
 
