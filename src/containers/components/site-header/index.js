@@ -23,7 +23,6 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {getBlockAction} from "../../../actions/blocks";
 import {getForging} from "../../../actions/login"
 import crypto from '../../../helpers/crypto/crypto';
-import $ from 'jquery';
 
 import {
     Accordion,
