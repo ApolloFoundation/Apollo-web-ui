@@ -8,7 +8,7 @@ const config = {};
 
 // API Gateway
 config.api = {
-    serverUrl:  '/apl?',
+	serverUrl:  'http://localhost:6876/apl?',
     localServerUrl: 'https://apollowallet.org/api/twitter'
 };
 

@@ -101,7 +101,7 @@ const MarketplaceItem = (props, history) => (
                             APL
                         </div>
                     </div>
-                    <div className="cargo-description">
+                    <div className="cargo-title-description">
                         <a
                             onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
                             className="cargo-title cursor-pointer"

@@ -190,6 +190,15 @@
 						}
 					}
 					
+					.cargo-title-description {
+						.cargo-title {
+							max-height: 500px;
+						}
+						.cargo-description {
+							white-space: normal;
+						}
+					}
+					
 				}
 				&.is-last-row {
 					top: auto;
@@ -439,18 +448,30 @@
 					}
 				}
 			}
-			.cargo-description {
+			.cargo-title-description {
 				.cargo-title {
-				
+					display: block;
+					word-wrap: break-word;
+					font-size: 13px;
+					overflow: hidden;
+					max-height: 31px;
+					transition: 0.1s;
+					
 				}
 				.cargo-description {
+					display: block;
+					word-wrap: break-word;
+					white-space: nowrap;
+					overflow: hidden;
+					-ms-text-overflow: ellipsis;
+					text-overflow: ellipsis;
 					color: #BBBBBB;
 					font-size: 12px;
-					padding-top: 15px;
+					padding-top: 12px;
 				}
 			}
 			.cargo-owner-box {
-				padding-top: 15px;
+				padding-top: 12px;
 				
 				.cargo-owner {
 					display: block;
