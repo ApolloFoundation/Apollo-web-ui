@@ -138,7 +138,7 @@ class HashCalculation extends React.Component {
                                 <div className="input-group-app offset-top display-block position-relative">
                                     <div className="row">
 	                                    <div className="col-md-3 pr-0">
-		                                    <label>Hash algorithm</label>
+		                                    <label className={"nowrap"}>Hash algorithm</label>
 	                                    </div>
                                         <div className="col-md-9">
                                             <div className="input-group-app align-middle display-block" style={{width: "100%"}}>
