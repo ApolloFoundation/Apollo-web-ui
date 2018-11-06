@@ -28,7 +28,7 @@ export default class NoApprovalBody extends React.Component {
                                 defaultValue={''}
                                 field="fee"
                                 placeholder="Amount"
-                                type="number"
+                                type="float"
                                 setValue={setValue}/>
                             <div className="input-group-append">
                                 <span className="input-group-text">Apollo</span>

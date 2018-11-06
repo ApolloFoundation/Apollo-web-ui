@@ -24,7 +24,7 @@ class InputForm extends React.Component {
     validateInput = (value) => {
         if (!value.target) {
             if (this.props.type === "tel") {
-                value = value.replace(/[^\d]/g,"");
+                value = value.replace(/[^\d]/g, "");
 
                 if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
                     value = this.props.maxValue;
@@ -36,7 +36,16 @@ class InputForm extends React.Component {
                 value = value.replace(",", ".");
                 if (value === '.') value = '0.';
                 value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
-
+                if (value.indexOf('.') !== 1)
+                    if (value.length !== 1)
+                        if (value.indexOf("0.") === 0)
+                            value = value.replace("0.", "");
+                if (value.indexOf('.') === 0)
+                    value = value.replace(".", "0.");
+                if (/^0[0-9]/.test(value)) {
+                    console.log("you are cool");
+                    value = value.replace(/0+/, "");
+                }
                 if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
                     value = this.props.maxValue;
                 }
@@ -50,7 +59,7 @@ class InputForm extends React.Component {
             value = value.target.value;
 
             if (this.props.type === "tel") {
-                value = value.replace(/[^\d]/g,"");
+                value = value.replace(/[^\d]/g, "");
             } else if (this.props.type === "float") {
                 value = value.replace(",", ".");
                 if (value === '.') value = '0.';
@@ -60,7 +69,7 @@ class InputForm extends React.Component {
             }
         }
         if (this.props.onChange) this.props.onChange(value);
-        this.setState({ value });
+        this.setState({value});
         return value;
     };
 
