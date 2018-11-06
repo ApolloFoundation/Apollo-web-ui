@@ -127,6 +127,10 @@
       opacity: 1; }
     .card.marketplace:not(.card-fluid).hovered:hover .price-box .tags {
       max-height: 100px; }
+    .card.marketplace:not(.card-fluid).hovered:hover .cargo-title-description .cargo-title {
+      max-height: 500px; }
+    .card.marketplace:not(.card-fluid).hovered:hover .cargo-title-description .cargo-description {
+      white-space: normal; }
   .card.marketplace:not(.card-fluid).hovered.is-last-row {
     top: auto;
     bottom: 0px;
@@ -328,12 +332,25 @@
           opacity: 1; } }
       .card.marketplace.tall-card .price-box .tags.active {
         max-height: 100px; }
-  .card.marketplace.tall-card .cargo-description .cargo-description {
+  .card.marketplace.tall-card .cargo-title-description .cargo-title {
+    display: block;
+    word-wrap: break-word;
+    font-size: 13px;
+    overflow: hidden;
+    max-height: 31px;
+    transition: 0.1s; }
+  .card.marketplace.tall-card .cargo-title-description .cargo-description {
+    display: block;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
     color: #BBBBBB;
     font-size: 12px;
-    padding-top: 15px; }
+    padding-top: 12px; }
   .card.marketplace.tall-card .cargo-owner-box {
-    padding-top: 15px; }
+    padding-top: 12px; }
     .card.marketplace.tall-card .cargo-owner-box .cargo-owner {
       display: block; }
       .card.marketplace.tall-card .cargo-owner-box .cargo-owner span {

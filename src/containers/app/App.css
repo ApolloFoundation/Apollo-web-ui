@@ -4845,6 +4845,9 @@ table td .btn, table th .btn {
 .mt-20 {
   margin-top: 20px; }
 
+.nowrap {
+  white-space: nowrap; }
+
 .transaction-table {
   height: 100%;
   width: 100%;

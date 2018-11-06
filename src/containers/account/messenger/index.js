@@ -48,7 +48,8 @@ class Messenger extends React.Component {
 	state = {
 		chats: null,
 		selectedChat: null,
-		chatHistory: null
+		chatHistory: null,
+		textareaCount: 0
 	};
 
 	componentDidMount () {
@@ -88,11 +89,11 @@ class Messenger extends React.Component {
 		let chats = await getChatsAction(reqParams);
 		let correctChatsAccounts = await this.props.getChats(reqParams);
 
-		chats = chats.chats.map((el, index) => {
-			return {...el, ...correctChatsAccounts[index]}
-		});
-
         if (chats) {
+	        chats = chats.chats.map((el, index) => {
+		        return {...el, ...correctChatsAccounts[index]}
+	        });
+
 			this.setState({
 				...this.state,
 				chats: chats,
@@ -313,11 +314,19 @@ class Messenger extends React.Component {
                                                          }) => (
                                                     <form className="compose-message-box" onSubmit={submitForm}>
                                                         <div className="top-bar">
+	                                                        <div className={"textareaCount"}>
+		                                                        {this.state.textareaCount > 100 ?
+			                                                        <div className={"textareaCount-message"}>Message is too long</div> :
+			                                                        <div><div className={'textareaCount-text'}>{100 - this.state.textareaCount}</div>/100</div>
+		                                                        }
+	                                                        </div>
 															<TextArea
                                                                 className={"form-control"}
                                                                 field={'message'}
                                                                 rows="2"
-                                                                placeholder={'Message'}/>
+                                                                placeholder={'Message'} 
+                                                                onChange={(text) => this.setState({textareaCount: text.length})}
+															/>
                                                         </div>
                                                         <div className="bottom-bar">
                                                             <div className="encrypt-message-box">
