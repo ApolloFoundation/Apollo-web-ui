@@ -146,8 +146,7 @@ class MyMessages extends React.Component {
                 </SiteHeader>
                 {this.state.isLoading ? <ContentLoader/> :
                     this.state.messages.length > 0 ?
-                        <div className="page-body container-fluid"
-                             style={{'minHeight': '100vh', 'paddingTop': '120px'}}>
+                        <div className="page-body container-fluid page">
                             <div className="account-ledger">
                                 <div className="transaction-table message-table">
                                     <div className="transaction-table-body">
@@ -203,8 +202,7 @@ class MyMessages extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        : <div className="page-body container-fluid"
-                               style={{'minHeight': '100vh', 'paddingTop': '120px'}}>
+                        : <div className="page-body container-fluid page">
                             <InfoBox>
                                 {}
                                 No messages found.
