@@ -14,6 +14,7 @@ import {formatTimestamp} from "../../../../helpers/util/time";
 import {formatTransactionType, getPhasingTransactionVoters} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
 
+
 const mapStateToProps = state => ({
     constants: state.account.constants
 });
@@ -76,6 +77,7 @@ class Transaction extends React.Component {
 
 
     render () {
+        console.log('3333', this.props.transaction);
         const id = `transaction-${this.props.transaction.transaction}`;
         return (
             <tr key={uuid()}>
@@ -147,8 +149,13 @@ class Transaction extends React.Component {
                     this.props.block &&
                     this.props.transaction &&
                     <React.Fragment>
+                        <td>
+                            {this.props.transaction.transactionIndex}
+                        </td>
                         <td className="blue-link-text">
-                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.props.transaction.transaction)}>{this.props.transaction.blockTimestamp}</a>
+                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.props.transaction.transaction)}>
+                                {this.props.formatTimestamp(this.props.transaction.blockTimestamp)}
+                            </a>
                         </td>
                         <td>
                             {
@@ -169,7 +176,7 @@ class Transaction extends React.Component {
                                 {this.props.transaction.senderRS}
                             </a>
                         </td>
-                        <td className="blue-link-text align-right">
+                        <td className="blue-link-text">
                             <a
                                 onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.transaction.recipient)}
                             >
