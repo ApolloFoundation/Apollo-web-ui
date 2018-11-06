@@ -49,7 +49,7 @@ class InfoBlock extends React.Component {
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
         }
-    }
+    };
 
     showPrivateTransactions = async (secretPhrase) => {
         const isPassPhrease = await this.props.validatePassphrase(secretPhrase.secretPhrase);
@@ -91,6 +91,7 @@ class InfoBlock extends React.Component {
     // TODO: migrate timesamp, migrate account to RS
 
     render() {
+        console.log('222', this.state.privateTransactions);
         return (
             <div className="modal-box x-wide">
                 {
@@ -103,7 +104,7 @@ class InfoBlock extends React.Component {
 	                            {this.props.modalsHistory.length > 1 &&
 	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
 	                            }
-                                <p>Block {this.props.modalData.block} ({this.props.modalData.height})</p>
+                                <p>Block {this.props.modalData.block} ({this.props.modalData.height}) info</p>
                             </div>
 
                             <div className="form-tabulator active">
@@ -144,7 +145,7 @@ class InfoBlock extends React.Component {
                                         <React.Fragment>
 
                                             <div className="modal-form transparent">
-                                                <div className="form-group-app transparent no-padding-bottom no-padding-left">
+                                                <div className="transparent mt-20">
                                                     <div className="input-group-app">
                                                         <div className="row">
                                                             <div className="col-md-3">
@@ -199,6 +200,7 @@ class InfoBlock extends React.Component {
                                                     <table>
                                                         <thead>
                                                         <tr>
+                                                            <td>Index</td>
                                                             <td>Date</td>
                                                             <td>Type</td>
                                                             <td className="align-right">Amount</td>
