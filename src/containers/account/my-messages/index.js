@@ -33,7 +33,8 @@ class MyMessages extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 14,
-            messages: null
+            messages: [],
+            isLoading: false,
         };
     }
 
@@ -71,12 +72,16 @@ class MyMessages extends React.Component {
     };
 
     getMessages = async (reqParams) => {
+        this.setState({
+            isLoading: true
+        });
         const messages = await this.props.getMessages(reqParams);
 
         if (messages && this.props.account) {
             this.setState({
                 ...this.state,
-                messages: messages.transactions
+                messages: messages.transactions,
+                isLoading: false
             })
         }
     };
@@ -86,7 +91,7 @@ class MyMessages extends React.Component {
             account: this.props.account,
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex: page * 15 - 1
         };
 
 
@@ -126,7 +131,7 @@ class MyMessages extends React.Component {
         return !result
     }
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
@@ -139,13 +144,10 @@ class MyMessages extends React.Component {
                         Compose message
                     </a>
                 </SiteHeader>
-                <ContentHendler
-                    items={this.state.messages}
-                    emptyMessage={'No messages found.'}
-                >
-                    {
-                        this.state.messages && !!this.state.messages.length &&
-                        <div className="page-body container-fluid" style={{'minHeight': '100vh', 'paddingTop': '120px'}}>
+                {this.state.isLoading ? <ContentLoader/> :
+                    this.state.messages.length > 0 ?
+                        <div className="page-body container-fluid"
+                             style={{'minHeight': '100vh', 'paddingTop': '120px'}}>
                             <div className="account-ledger">
                                 <div className="transaction-table message-table">
                                     <div className="transaction-table-body">
@@ -175,9 +177,9 @@ class MyMessages extends React.Component {
                                         <div className="btn-box">
                                             <a
                                                 className={classNames({
-                                                    'btn' : true,
-                                                    'btn-left' : true,
-                                                    'disabled' : this.state.page <= 1
+                                                    'btn': true,
+                                                    'btn-left': true,
+                                                    'disabled': this.state.page <= 1
                                                 })}
                                                 onClick={this.onPaginate.bind(this, this.state.page - 1)}
                                             > Previous</a>
@@ -189,9 +191,9 @@ class MyMessages extends React.Component {
                                             <a
                                                 onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                                 className={classNames({
-                                                    'btn' : true,
-                                                    'btn-right' : true,
-                                                    'disabled' : this.state.messages.length < 15
+                                                    'btn': true,
+                                                    'btn-right': true,
+                                                    'disabled': this.state.messages.length < 15
                                                 })}
                                             >
                                                 Next
@@ -201,9 +203,13 @@ class MyMessages extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    }
-                </ContentHendler>
-
+                        : <div className="page-body container-fluid"
+                               style={{'minHeight': '100vh', 'paddingTop': '120px'}}>
+                            <InfoBox>
+                                {}
+                                No messages found.
+                            </InfoBox></div>
+                }
             </div>
         );
     }
