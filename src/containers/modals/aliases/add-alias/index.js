@@ -159,6 +159,7 @@ class AddAlias extends React.Component {
                                         </label>
                                         <div className="col-sm-9">
                                             <InputForm
+                                                type={"text"}
                                                 field="aliasURI"
                                                 placeholder="http://"
                                                 setValue={setValue}/>
