@@ -486,7 +486,7 @@ class AdvancedSettings extends React.Component {
                                     <div
                                         className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
                                         <InputForm
-                                            type="number"
+                                            type="float"
                                             field="phasingQuorumAPL"
                                             placeholder="Amount"
                                             setValue={setValue}/>
