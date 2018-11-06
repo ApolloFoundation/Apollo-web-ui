@@ -249,7 +249,7 @@ class CreateUser extends React.Component {
                                                                                 <InfoBox info>
                                                                                     <ul className={'marked-list'}>
                                                                                         <li>The most secure Apollo Wallet.</li>
-                                                                                        <li>You can log in ot this wallet using your Account ID.</li>
+                                                                                        <li>You can log in to this wallet using your Account ID.</li>
                                                                                         <li>The wallet is encrypted (via Secret Key) on one device.</li>
                                                                                         <li>You can export/import your Secret Key to use on other devices.</li>
                                                                                         <li>2FA works from any device when you use your Vault.</li>
@@ -311,7 +311,7 @@ class CreateUser extends React.Component {
                                                                         this.state.isCustomPassphraseTextarea &&
                                                                         <div className="row">
                                                                             <div className="col-md-3">
-                                                                                <label>Your account secret phrase</label>
+                                                                                <label style={{padding: 0}}>Your account secret phrase</label>
                                                                             </div>
                                                                             <div className="col-md-9">
                                                                             <TextArea
@@ -384,7 +384,7 @@ class CreateUser extends React.Component {
                                                                                     <InfoBox info>
                                                                                         <ul className={'marked-list'}>
                                                                                             <li>The most secure Apollo Wallet.</li>
-                                                                                            <li>You can log in ot this wallet using your Account ID.</li>
+                                                                                            <li>You can log in to this wallet using your Account ID.</li>
                                                                                             <li>The wallet is encrypted (via Secret Key) on one device.</li>
                                                                                             <li>You can export/import your Secret Key to use on other devices.</li>
                                                                                             <li>2FA works from any device when you use your Vault.</li>
@@ -645,7 +645,7 @@ class CreateUser extends React.Component {
                                                                         this.state.isCustomPassphraseTextarea &&
                                                                         <div className="row">
                                                                             <div className="col-md-3">
-                                                                                <label>Your account secret phrase</label>
+                                                                                <label style={{padding: 0}}>Your account secret phrase</label>
                                                                             </div>
                                                                             <div className="col-md-9">
                                                                             <TextArea
