@@ -12,9 +12,9 @@ class InputForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.defaultValue || ''
+            value: props.defaultValue || ''
         };
-        this.props.setValue(this.props.field, this.props.defaultValue || '');
+        props.setValue(props.field, props.defaultValue || '');
     };
 
     handleChange = (value) => {
@@ -122,7 +122,8 @@ class InputForm extends React.Component {
                     onMouseUp={this.handleChange}
                     onMouseDown={this.handleChange}
                     onChange={this.handleChange}
-
+                    onBlur={this.props.onBlur ? this.props.onBlur : () => {
+                    }}
 
                 />
                 {(this.props.type === "tel" || this.props.type === "float") &&
