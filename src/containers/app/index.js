@@ -45,6 +45,7 @@ import AssetExchange from '../account/asset-exchange'
 import Aliases from '../account/aliases'
 import DeleteHistory from '../account/delete-history'
 import FundingMonitors from '../account/funding-monitors'
+import FundingMonitorsStatus from '../account/funding-monitors-status'
 import MyAssets from '../account/my-assets'
 import OpenOrders from '../account/open-orders'
 import Peers from '../account/peers'
@@ -181,6 +182,7 @@ class App extends React.Component {
                                 <Route exact path="/aliases" component={Aliases}/>
                                 <Route exact path="/delete-history" component={DeleteHistory}/>
                                 <Route exact path="/funding-monitors" component={FundingMonitors}/>
+                                <Route exact path="/funding-monitors/:account/:property" component={FundingMonitorsStatus}/>
                                 <Route exact path="/my-assets" component={MyAssets}/>
                                 <Route exact path="/my-currencies" component={MyMadedCurrencies}/>
                                 <Route exact path="/open-orders" component={OpenOrders}/>

@@ -21,8 +21,9 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 
 import BackForm from '../modal-form/modal-form-container';
+import InputForm from "../../components/input-form";
 
-class AddMonitor extends React.Component {
+class RemoveMonitor extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -34,14 +35,11 @@ class AddMonitor extends React.Component {
         }
 
         const toSend = {
-            property: values.property,
-            interval: values.interval,
-            secretPhrase: values.phrase,
-            feeATM: 0,
-            amount: values.amount,
-            threshold: values.threshold,
+            ...values,
+            property:  this.props.modalData.property,
+            recipient: this.props.modalData.recipient,
         };
-        const res = await this.props.submitForm( toSend, "startFundingMonitor");
+        const res = await this.props.submitForm( toSend, "deleteAccountProperty");
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
@@ -57,7 +55,7 @@ class AddMonitor extends React.Component {
         return (
             <div className="modal-box">
                 <BackForm
-	                nameModal={this.props.nameModal}
+                    nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, values, addValue, removeValue, setValue, getFormState
@@ -67,10 +65,10 @@ class AddMonitor extends React.Component {
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
-	                                {this.props.modalsHistory.length > 1 &&
-	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                }
-                                    <p>Start Funding Monitor</p>
+                                    {this.props.modalsHistory.length > 1 &&
+                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                    }
+                                    <p>Remove Funding Monitor</p>
                                 </div>
 
                                 <InfoBox danger mt>
@@ -83,8 +81,8 @@ class AddMonitor extends React.Component {
                                             <label>Control Property</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text field="property" placeholder="Property" />
+                                            <div className="input-wrapper" style={{alignSelf: "center"}}>
+                                                {this.props.modalData.property ? this.props.modalData.property : '?'}
                                             </div>
                                         </div>
                                     </div>
@@ -97,38 +95,28 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="amount" placeholder="Amount" type="tel"/>
+                                                {this.props.modalData.recipient ? this.props.modalData.recipient : '?'}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Threshold</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text field="threshold" placeholder="Threshold" type="tel"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Interval</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text field="interval" placeholder="Interval" type="tel"/>
-                                            </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Fee
+                                    </label>
+                                    <div
+                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                            field="feeAPL"
+                                            placeholder="Amount"
+                                            type={"float"}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
@@ -136,7 +124,7 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="phrase" type="password"/>
+                                                <Text field="secretPhrase" type="password"/>
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +141,7 @@ class AddMonitor extends React.Component {
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
-                                        Start
+                                        Remove
                                     </button>
 
                                 </div>
@@ -169,15 +157,15 @@ class AddMonitor extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	modalsHistory: state.modals.modalsHistory,
-	modalData: state.modals.modalData,
+    modalsHistory: state.modals.modalsHistory,
+    modalData: state.modals.modalData,
 });
 
 const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal())
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+    openPrevModal: () => dispatch(openPrevModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddMonitor);
+export default connect(mapStateToProps, mapDispatchToProps)(RemoveMonitor);
