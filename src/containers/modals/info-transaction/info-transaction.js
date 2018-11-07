@@ -90,21 +90,43 @@ class InfoLedgerTransaction extends React.Component {
                                     <div className="transaction-table no-min-height">
                                         <div className="transaction-table-body transparent">
                                             {
-                                                this.state.transaction && this.props.constants.transactionTypes &&
-                                                <table>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>Type:</td>
-                                                        <td>{formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>From:</td>
-                                                        <td>{this.state.transaction.senderRS}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>To:</td>
-                                                        <td>{this.state.transaction.recipientRS}</td>
-                                                    </tr>
+	                                            this.state.transaction && this.props.constants.transactionTypes &&
+	                                            <table>
+		                                            <tbody>
+		                                            <tr>
+			                                            <td>Type:</td>
+			                                            <td>{formatTransactionType(this.props.constants.transactionTypes[this.state.transaction.type].subtypes[this.state.transaction.subtype].name)}</td>
+		                                            </tr>
+		                                            {this.state.transaction.fullHash &&
+		                                            <tr>
+			                                            <td>Hash:</td>
+			                                            <td>{this.state.transaction.fullHash}</td>
+		                                            </tr>
+		                                            }
+		                                            <tr>
+			                                            <td>From:</td>
+			                                            <td>{this.state.transaction.senderRS}</td>
+		                                            </tr>
+		                                            {this.state.transaction.recipientRS &&
+		                                            <tr>
+			                                            <td>To:</td>
+			                                            <td>{this.state.transaction.recipientRS}</td>
+		                                            </tr>
+		                                            }
+		                                            {this.state.transaction.fullHash &&
+		                                            <tr>
+			                                            <td>Hash:</td>
+			                                            <td>{this.state.transaction.fullHash}</td>
+		                                            </tr>
+		                                            }
+		                                            {this.state.transaction.fullHash &&
+		                                            <tr>
+			                                            <td>Hash:</td>
+			                                            <td>{this.state.transaction.fullHash}</td>
+		                                            </tr>
+		                                            }
+
+		                                            {console.log("5555", this.state.transaction)}
                                                     </tbody>
                                                 </table>
                                             }
