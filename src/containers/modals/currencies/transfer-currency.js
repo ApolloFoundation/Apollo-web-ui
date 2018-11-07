@@ -133,6 +133,7 @@ class TransferCurrency extends React.Component {
                                                     <AccountRS
                                                         field={'recipient'}
                                                         setValue={setValue}
+                                                        value={getValue('recipient') || ''}
                                                     />
                                                 </div>
                                             </div>
