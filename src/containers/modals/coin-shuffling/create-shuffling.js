@@ -182,7 +182,7 @@ class CreateShuffling extends React.Component {
                                             defaultValue={0}
                                             field="shufflingAmountAPL"
                                             placeholder="Amount"
-                                            type={"tel"}
+                                            type={"float"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">Apollo</span>

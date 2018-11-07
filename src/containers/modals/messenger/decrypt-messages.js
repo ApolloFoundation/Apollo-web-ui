@@ -100,7 +100,7 @@ class DecryptMessage extends React.Component {
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
-                                        Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                        Secret Phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                                     </label>
                                     <div className="col-sm-9">
 

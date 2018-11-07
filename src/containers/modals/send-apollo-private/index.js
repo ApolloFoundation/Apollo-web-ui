@@ -127,7 +127,6 @@ class SendApolloPrivate extends React.Component {
         })
     };
 
-
     render() {
         return (
             <div className="modal-box">
@@ -186,7 +185,7 @@ class SendApolloPrivate extends React.Component {
                                             defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
                                             field="amountATM"
                                             placeholder="Amount"
-                                            type={"tel"}
+                                            type={"float"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
                                             <span className="input-group-text">Apollo</span>
@@ -241,7 +240,7 @@ class SendApolloPrivate extends React.Component {
                                 {
                                     this.state.passphraseStatus &&
                                     <InfoBox danger mt>
-                                        Incorrect passphrase.
+                                        Incorrect secret phrase.
                                     </InfoBox>
                                 }
                                 {

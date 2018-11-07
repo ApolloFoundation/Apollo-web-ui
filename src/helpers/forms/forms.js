@@ -128,16 +128,16 @@ function submitForm(data, requestType) {
             data.deadline = 1440;
         }
 
-        if (data.feeATM) {
-            data.feeATM = data.feeATM + '00000000'
+        if (data.feeATM && $.isNumeric(data.feeATM)) {
+            data.feeATM = data.feeATM * 100000000
         }
 
-        if (data.amountATM) {
-            data.amountATM = data.amountATM + '00000000'
+        if (data.amountATM && $.isNumeric(data.amountATM)) {
+            data.amountATM = data.amountATM * 100000000
         }
 
-        if (data.priceATM) {
-            data.priceATM = data.priceATM + '00000000'
+        if (data.priceATM && $.isNumeric(data.priceATM)) {
+            data.priceATM = data.priceATM * 100000000
         }
 
         if (data.priceOrder) {

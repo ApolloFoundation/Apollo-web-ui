@@ -62,7 +62,6 @@ class Settings extends React.Component {
         NotificationManager.success('Settings has been saved!');
     };
 
-
     componentWillReceiveProps = (newState, oldState) => {
         this.getAccountInfoAction(newState);
         if(newState.settings !== oldState.settings){

@@ -25,6 +25,9 @@ class InputForm extends React.Component {
         if (!value.target) {
             if (this.props.type === "tel") {
                 value = value.replace(/[^\d]/g,"");
+                if (/^0+/.test(value)) {
+                    value = value.replace(/0+/, "");
+                }
 
                 if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
                     value = this.props.maxValue;
@@ -36,7 +39,23 @@ class InputForm extends React.Component {
                 value = value.replace(",", ".");
                 if (value === '.') value = '0.';
                 value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
-
+                if (value.indexOf('.') !== 1)
+                    if (value.length !== 1)
+                        if (value.indexOf("0.") === 0)
+                            value = value.replace("0.", "");
+                if (value.indexOf('.') === 0)
+                    value = value.replace(".", "0.");
+                if (/^0[0-9]/.test(value)) {
+                    value = value.replace(/0+/, "");
+                }
+                if (value.includes(".")) {
+                    let fract = value.substring(value.indexOf("."));
+                    value = value.substring(0, value.indexOf("."));
+                    if (fract.length > 9) {
+                        fract = fract.substring(0, 9);
+                    }
+                    value += fract;
+                }
                 if (this.props.maxValue !== undefined && parseFloat(value) > parseFloat(this.props.maxValue)) {
                     value = this.props.maxValue;
                 }

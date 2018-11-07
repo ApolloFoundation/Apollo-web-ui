@@ -324,7 +324,7 @@ class Messenger extends React.Component {
                                                                 className={"form-control"}
                                                                 field={'message'}
                                                                 rows="2"
-                                                                placeholder={'Message'} 
+                                                                placeholder={'Message'}
                                                                 onChange={(text) => this.setState({textareaCount: text.length})}
 															/>
                                                         </div>
