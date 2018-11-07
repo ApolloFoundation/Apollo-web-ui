@@ -344,7 +344,7 @@ const mapDispatchToProps = dispatch => ({
 	setAlert: (status, message) => dispatch(setAlert(status, message)),
 	submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 	setModalData: (data) => dispatch(setModalData(data)),
-	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
 	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),

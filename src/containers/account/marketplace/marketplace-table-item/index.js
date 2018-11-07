@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 const MarketplaceTableItem = (props) => (

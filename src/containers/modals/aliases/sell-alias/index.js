@@ -467,7 +467,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SellAlias);

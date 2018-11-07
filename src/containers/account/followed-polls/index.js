@@ -32,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
     getPollVotesAction: (reqParams) => dispatch(getPollVotesAction(reqParams)),
     getPollResultAction: (reqParams) => dispatch(getPollResultAction(reqParams)),
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class FollowedVotes extends React.Component {

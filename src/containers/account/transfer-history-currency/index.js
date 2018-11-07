@@ -28,7 +28,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getTransferHistory: (requestParams) => dispatch(getTransferHistory(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class TransferHistoryCurrency extends React.Component {

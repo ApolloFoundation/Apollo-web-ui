@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
 
 const mapDisatchToProps = dispatch => ({
     getAccountPropertiesAction: (requsetParams) => dispatch(getAccountPropertiesAction(requsetParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 })
 
 class AccountProperties extends React.Component {

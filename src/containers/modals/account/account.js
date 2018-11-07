@@ -656,7 +656,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => setModalData(data),
     getLedgerEntryAction: (data) => getLedgerEntryAction(data),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 
     // getAccountData

@@ -24,7 +24,7 @@ const mapStateToPropms = state => ({
 const mapDispatchToProps = dispatch => ({
     getFinishedShfflings: (reqParams) => dispatch(getFinishedShfflings(reqParams)),
     getTransactionAction: (type, data) => dispatch(getTransactionAction(type, data)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class FinishedShufflings extends React.Component {

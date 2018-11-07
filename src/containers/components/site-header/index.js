@@ -1041,7 +1041,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (reqParams) => dispatch(setModalData(reqParams)),
     getForging: (reqParams) => dispatch(getForging(reqParams)),
     switchAccountAction: (requestParams) => dispatch(switchAccountAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 

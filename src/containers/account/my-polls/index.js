@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
     getMyPollsAction: (reqParams) => dispatch(getMyPollsAction(reqParams)),
     getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
     getVoteAction:     (requestParams) => dispatch(getVoteAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 

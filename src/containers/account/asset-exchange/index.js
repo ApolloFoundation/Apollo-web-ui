@@ -697,7 +697,7 @@ const mapDispatchToProps = dispatch => ({
     buyAssetAction: (requestParams) => dispatch(buyAssetAction(requestParams)),
     setAlert: (status, message) => dispatch(setAlert(status, message)),
     sellAssetAction: (requestParams) => dispatch(sellAssetAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
 

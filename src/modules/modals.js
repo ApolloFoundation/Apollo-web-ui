@@ -9,6 +9,7 @@ import config from '../config'
 
 export const SET_MODAL_TYPE = 'SET_MODAL_TYPE';
 export const SET_MODAL_DATA = 'SET_MODAL_DATA';
+export const SET_MODAL_VALUE = 'SET_MODAL_VALUE';
 export const SET_BODY_MODAL_DATA = 'SET_BODY_MODAL_DATA';
 export const SET_MODAL_CALLBACK = 'SET_MODAL_CALLBACK';
 export const SET_ALERT_DATA = 'SET_ALERT_DATA';
@@ -61,7 +62,11 @@ export default (state = initialState, action) => {
 	            modalsHistory: [...newArray, {modalName: action.payload}],
 	            modalType: action.payload,
             };
-
+	    case SET_MODAL_VALUE:
+		    state.modalsHistory[state.modalsHistory.length-1].value = action.payload;
+		    return {
+			    ...state,
+		    };
         case CLOSE_MODAL:
             return {
                 ...state,
@@ -210,7 +215,7 @@ export const setBodyModalType = (reqParams) => {
     }
 };
 
-export const setBodyModalParamsAction = (type, data) => {
+export const setBodyModalParamsAction = (type, data, valueForModal) => {
     return dispatch => {
         dispatch({
             type: SET_MODAL_TYPE,
@@ -220,6 +225,10 @@ export const setBodyModalParamsAction = (type, data) => {
             type: SET_MODAL_DATA,
             payload: data
         });
+        dispatch({
+		    type: SET_MODAL_VALUE,
+		    payload: valueForModal
+	    });
     }
 };
 

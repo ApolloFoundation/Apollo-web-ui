@@ -331,7 +331,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getBlockAction: (data) => dispatch(getBlockAction(data)),
     setModalData: (data) => dispatch(setModalData(data)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getpollAction: (reqParams) => dispatch(getpollAction(reqParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),

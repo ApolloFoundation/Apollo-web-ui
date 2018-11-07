@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
 	getChats: (reqParams) => dispatch(getChats(reqParams)),
     getChatsAction: (reqParams) => dispatch(getChatsAction(reqParams)),
     getMessage: (transaction) => dispatch(getMessage(transaction)),
-	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),

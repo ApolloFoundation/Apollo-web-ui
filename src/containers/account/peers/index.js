@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
     getPeersAction: (requestParams) => dispatch(getPeersAction(requestParams)),
     getPeerAction: peerAddress => dispatch(getPeerAction(peerAddress)),
     getPeersInfoAction: (requestParams) => dispatch(getPeersInfoAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class Peers extends React.Component {

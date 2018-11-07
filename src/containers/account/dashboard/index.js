@@ -36,45 +36,6 @@ import {getActiveShfflings, getShufflingAction} from "../../../actions/shuffling
 import {getpollsAction} from "../../../actions/polls";
 import {getAccountInfoAction} from "../../../actions/account";
 
-const mapStateToProps = state => ({
-	account: state.account.account,
-	accountRS: state.account.accountRS,
-	balanceATM: state.account.balanceATM,
-	description: state.account.description,
-	forgedBalanceATM: state.account.forgedBalanceATM,
-	name: state.account.name,
-	publicKey: state.account.publicKey,
-	requestProcessingTime: state.account.requestProcessingTime,
-	unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
-	assets: state.account.assetBalances,
-	blockchainStatus: state.account.blockchainStatus
-});
-
-const mapDispatchToProps = dispatch => ({
-	reloadAccount: acc => dispatch(reloadAccountAction(acc)),
-    getAccountInfo: reqParams => dispatch(getAccountInfoAction(reqParams)),
-	getMessages: (reqParams) => dispatch(getMessages(reqParams)),
-	getNewsAction: () => dispatch(getNewsAction()),
-	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-	setModalType: (type) => dispatch(setModalType(type)),
-	formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
-    getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
-    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
-	getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
-	getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
-	getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
-	getAccountAssetsAction: (requestParams) => dispatch(getAccountAssetsAction(requestParams)),
-	getAliasesCountAction: (requestParams) => dispatch(getAliasesCountAction(requestParams)),
-	getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
-	getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
-	getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
-    getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
-    getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
-    getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
-    getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
-
-});
-
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
@@ -88,7 +49,8 @@ class Dashboard extends React.Component {
             taggedData: null,
 			firstIndex: 0,
 			lastIndex: 14,
-			newsItem: 0
+			newsItem: 0,
+			formValue: {}
 		};
 		this.position1 = this.position1.bind(this);
 		this.position2 = this.position2.bind(this);
@@ -378,6 +340,18 @@ class Dashboard extends React.Component {
 		if (media) itemContent += `<div class='post-image' style="background-image: url('${media}')"></div>`;
 		return <a className="post-item" href={`https://twitter.com/${post.user.screen_name}/status/${post.id_str}`}
 		          target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
+	};
+
+	accountIdChange = (el) => {
+		this.state.formValue = {...this.state.formValue, recipient: el.target.value};
+	};
+
+	amountChange = (el) => {
+		this.state.formValue = {...this.state.formValue, amountAPL: el.target.value, amountATM: el.target.value};
+	};
+
+	feeAtmChange = (el) => {
+		this.state.formValue = {...this.state.formValue, feeAPL: el.target.value, feeATM: el.target.value};
 	};
 
 	render() {
@@ -699,20 +673,20 @@ class Dashboard extends React.Component {
 										<div className="form-group-app offset">
 											<div className="input-group-app lighten">
 												<label>Recipient</label>
-												<input placeholder={'Account ID'} ref={'recipient'} type="text"/>
+												<input placeholder={'Account ID'} onChange={this.accountIdChange} type="text"/>
 											</div>
 											<div className="input-group-app lighten">
 												<label>Amount</label>
-												<input placeholder={'Amount'} ref={'amountATM'} type={'tel'}/>
+												<input placeholder={'Amount'} onChange={this.amountChange} type={'tel'}/>
 											</div>
 											<div className="input-group-app lighten">
 												<label>Fee</label>
-												<input placeholder={'Amount'} ref={'feeATM'} type={'tel'}/>
+												<input placeholder={'Amount'} onChange={this.feeAtmChange} type={'tel'}/>
 											</div>
 										</div>
 									</div>
 									<a
-										onClick={this.props.setModalType.bind(this, 'SEND_APOLLO_PRIVATE')}
+										onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {}, this.state.formValue)}
 									    className="btn btn-left btn-simple"
 										style={{margin: '0 0 -7px 35px'}}
 									>
@@ -721,11 +695,7 @@ class Dashboard extends React.Component {
 									<button
 										className="btn btn-right gray round round-bottom-right round-top-left absolute"
 										data-modal="sendMoney"
-										onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {
-											recipient: this.refs.recipient.value,
-											amountATM: this.refs.amountATM.value,
-											feeATM: this.refs.feeATM.value
-										})}
+										onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {}, this.state.formValue)}
 									>
 										Send&nbsp;
 										<i className="arrow zmdi zmdi-chevron-right"/>
@@ -842,5 +812,44 @@ class Dashboard extends React.Component {
 	}
 }
 
+const mapStateToProps = state => ({
+	account: state.account.account,
+	accountRS: state.account.accountRS,
+	balanceATM: state.account.balanceATM,
+	description: state.account.description,
+	forgedBalanceATM: state.account.forgedBalanceATM,
+	name: state.account.name,
+	publicKey: state.account.publicKey,
+	requestProcessingTime: state.account.requestProcessingTime,
+	unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
+	assets: state.account.assetBalances,
+	blockchainStatus: state.account.blockchainStatus,
+	savedValues: state.modals.savedValues,
+	modalsHistory: state.modals.modalsHistory,
+});
+
+const mapDispatchToProps = dispatch => ({
+	reloadAccount: acc => dispatch(reloadAccountAction(acc)),
+	getAccountInfo: reqParams => dispatch(getAccountInfoAction(reqParams)),
+	getMessages: (reqParams) => dispatch(getMessages(reqParams)),
+	getNewsAction: () => dispatch(getNewsAction()),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+	setModalType: (type) => dispatch(setModalType(type)),
+	formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
+	getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
+	getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
+	getDGSGoodsCountAction: (reqParams) => dispatch(getDGSGoodsCountAction(reqParams)),
+	getDGSPendingPurchases: (reqParams) => dispatch(getDGSPendingPurchases(reqParams)),
+	getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
+	getAccountAssetsAction: (requestParams) => dispatch(getAccountAssetsAction(requestParams)),
+	getAliasesCountAction: (requestParams) => dispatch(getAliasesCountAction(requestParams)),
+	getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
+	getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
+	getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
+	getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
+	getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
+	getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
+	getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
