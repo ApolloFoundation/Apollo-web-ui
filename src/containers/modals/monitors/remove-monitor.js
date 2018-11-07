@@ -143,13 +143,11 @@ class RemoveMonitor extends React.Component {
                                     >
                                         Remove
                                     </button>
-
                                 </div>
                             </div>
                         </form>
                     )}
                 >
-
                 </BackForm>
             </div>
         );

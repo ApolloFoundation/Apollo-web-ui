@@ -46,10 +46,10 @@ const MonitorItem = (props) => (
         <td
             className={'align-right'}
         >
-            {props.amount ? props.amount : '?'}
+            {props.amount ? props.amount/100000000 : '?'}
         </td>
         <td>
-            {props.threshold ? props.threshold : '?'}
+            {props.threshold ? props.threshold/100000000 : '?'}
         </td>
         <td>
             {props.interval ? props.interval : '?'}

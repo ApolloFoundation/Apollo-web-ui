@@ -15,6 +15,7 @@ import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 import classNames from "classnames";
 import FundingMonitorItem from "./funding-monitor-status-item";
+import {Link} from 'react-router-dom';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -63,6 +64,8 @@ class FundingMonitorsStatus extends React.Component {
                 properties: properties.properties,
                 recipientRS: properties.recipientRS,
                 incoming: true
+            }, () => {
+                console.log(this.state);
             })
         }
     };
@@ -82,35 +85,56 @@ class FundingMonitorsStatus extends React.Component {
                 <SiteHeader
                     pageTitle={'Funding Monitor Status'}
                 >
-                    <a
+                    <Link
+                        to={'/funding-monitors'}
                         className={classNames({
                             'btn': true,
                             'primary': true,
                             'disabled' : this.state.isPrivate
                         })}
-                        onClick={() => {
-                            this.props.setModalType('PrivateTransactions')
 
-                        }}
                     >
                         Funding monitors
-                    </a>
+                    </Link>
                     <a
                         className={classNames({
                             'btn': true,
                             'primary': true,
                             'disabled' : this.state.isPrivate
                         })}
+                        style={{marginLeft: 10}}
                         onClick={() => {
-                            this.props.setBodyModalParamsAction('ADD_MONITORED_ACCOUNT')
-
+                            this.props.setBodyModalParamsAction('ADD_MONITORED_ACCOUNT', {
+                                property: this.props.match.params.property
+                            })
                         }}
                     >
                         Add Monitored Account
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <div className="funding-monitors">
+
+                    <div className="my-transactions">
+                        <div className="transactions-filters" style={{paddingTop: 0}}>
+                            <div className="monitors-table">
+                                <tr>
+                                    <td>Account: </td>
+                                    <td>
+                                        <a
+                                            onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.match.params.account)}
+                                        >
+                                            {this.props.match.params.account}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Property: </td>
+                                    <td>
+                                        {this.props.match.params.property}
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
                         <ContentHendler
                             items={this.state.properties}
                             emptyMessage={'No properties found.'}

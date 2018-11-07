@@ -5342,6 +5342,18 @@ input[type="number"] {
       .site-content .page-content .page-body .my-transactions .transactions-filters {
         min-height: 120px;
         padding-left: 40px; }
+        .site-content .page-content .page-body .my-transactions .transactions-filters .monitors-table {
+          display: table;
+          width: 100%;
+          max-width: 300px;
+          padding: 15px;
+          background-color: #fff;
+          border-radius: 6px;
+          border: 1px solid #efefef; }
+          .site-content .page-content .page-body .my-transactions .transactions-filters .monitors-table tr td {
+            padding: 5px; }
+            .site-content .page-content .page-body .my-transactions .transactions-filters .monitors-table tr td a {
+              color: #00C8FF; }
         .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar {
           display: flex;
           flex-wrap: wrap;
