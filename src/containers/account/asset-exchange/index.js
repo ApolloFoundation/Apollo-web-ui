@@ -578,7 +578,7 @@ class AssetExchange extends React.Component {
                                                                                 "blue-disabled": !(!!getFormState().values.total)
                                                                             })}
                                                                         >
-                                                                            Sell (APL > {this.state.asset.name})
+                                                                            Sell ({this.state.asset.name} > APL)
                                                                         </button>
                                                                     </div>
                                                                 </div>

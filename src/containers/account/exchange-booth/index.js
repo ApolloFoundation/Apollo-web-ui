@@ -485,7 +485,7 @@ class ExchangeBooth extends React.Component {
                                                                             'blue': true,
                                                                         })}
                                                                     >
-                                                                        Buy ({this.state.code} > {this.state.code})
+                                                                        Buy (APL > {this.state.code})
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -663,7 +663,7 @@ class ExchangeBooth extends React.Component {
                                                                         'blue': true,
                                                                     })}
                                                                     >
-                                                                        Sell ({this.state.code} > {this.state.code})
+                                                                        Sell ({this.state.code} > APL)
                                                                     </button>
                                                                 </div>
                                                             </div>
