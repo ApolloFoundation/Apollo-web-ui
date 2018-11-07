@@ -127,7 +127,6 @@ class SendApolloPrivate extends React.Component {
         })
     };
 
-
     render() {
         return (
             <div className="modal-box">
@@ -241,7 +240,7 @@ class SendApolloPrivate extends React.Component {
                                 {
                                     this.state.passphraseStatus &&
                                     <InfoBox danger mt>
-                                        Incorrect passphrase.
+                                        Incorrect secret phrase.
                                     </InfoBox>
                                 }
                                 {

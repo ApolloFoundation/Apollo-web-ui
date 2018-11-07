@@ -72,13 +72,13 @@ class Login extends React.Component {
                                             "form-tab": true,
                                             "active": this.state.activeTab === 0
                                         })}>
-                                            <p>Enter by Account ID</p>
+                                            <p>Login with Account ID</p>
                                         </a>
                                         <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                             "form-tab": true,
                                             "active": this.state.activeTab === 1
                                         })}>
-                                            <p>Enter by Secret Phrase</p>
+                                            <p>Login with Secret Phrase</p>
                                         </a>
                                     </div>
                                     <Form
@@ -147,7 +147,7 @@ class Login extends React.Component {
                                                 "active": this.state.activeTab === 1
                                             })}>
                                                 <InfoBox info>
-                                                    This option works only for online wallets.
+                                                    This option works only for standard wallets.
                                                 </InfoBox>
                                                 <div className="form-group row form-group-white offset-top mb-0">
                                                     <label className="col-sm-3 col-form-label">

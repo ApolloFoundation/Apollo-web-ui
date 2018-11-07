@@ -418,11 +418,17 @@ input[type="file"] {
 	border: 1px solid #E5E5E5;
 	background-color: transparent;
 	display: flex;
-	
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+
 	.input-file-name {
 		padding-left: 12px;
 		margin: auto 0;
 		font-size: 11px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
 	}
 }
 

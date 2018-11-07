@@ -5324,19 +5324,3 @@ input[type="number"] {
           display: none; }
       .menu-bar .menu-bar-container nav ul li .dropdown-menu a {
         font-size: 13px; } }
-
-.site-content .container h1 {
-  color: #f00; }
-
-.site-content.overflow-content .page-content .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
-  transform: none;
-  opacity: 1;
-  visibility: visible; }
-
-.site-content.overflow-content .page-content .page-body:after {
-  opacity: 1;
-  visibility: visible;
-  transition: all 0.3s ease-in-out; }
-
-.site-content .page-body {
-  z-index: -1; }

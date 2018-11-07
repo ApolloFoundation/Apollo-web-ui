@@ -113,7 +113,7 @@ class DeviceSettings extends React.Component {
                                                           type="checkbox"
                                                           field="is_store_remembered_passphrase"/>
                                                 <label className="form-check-label custom-control-label">
-                                                    Store remembered passphrase
+                                                    Store remembered secret phrase
                                                 </label>
                                             </div>
                                             <div className="form-check custom-checkbox mb-15">
