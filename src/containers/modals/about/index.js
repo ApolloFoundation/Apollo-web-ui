@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class AboutApollo extends React.Component {

@@ -368,7 +368,7 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setModalData: (data) => dispatch(setModalData(data)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),

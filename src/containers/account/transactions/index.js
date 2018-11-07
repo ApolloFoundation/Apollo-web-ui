@@ -575,7 +575,7 @@ const initMapDispatchToProps = dispatch => ({
     getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getPrivateTransactionAction: (data) => dispatch(getPrivateTransactionAction(data)),
 
 });

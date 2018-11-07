@@ -234,7 +234,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	getBlocksAction: (requestParams) => dispatch(getBlocksAction(requestParams)),
 	getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
-	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 	getTime: () => dispatch(getTime())
 })

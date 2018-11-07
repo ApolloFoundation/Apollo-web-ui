@@ -865,7 +865,7 @@ const mapDispatchToProps = dispatch => ({
     getAccountExchanges: (currency, account) => dispatch(getAccountExchangeAction(currency, account)),
     getExchanges: currency => dispatch(getExchangesAction(currency)),
 
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
     getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),

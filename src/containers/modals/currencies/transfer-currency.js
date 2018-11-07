@@ -246,7 +246,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
 	openPrevModal: () => dispatch(openPrevModal()),
 });

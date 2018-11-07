@@ -197,7 +197,7 @@ const mapStateToProps = state => ({
 
 const initMapDispatchToProps = dispatch => ({
     getDGSGoodsAction: (reqParams) => dispatch(getDGSGoodsAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 export default connect(

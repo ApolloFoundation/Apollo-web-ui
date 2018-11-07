@@ -208,7 +208,7 @@ const mapDipatchToProps = dispatch => {
     return {
         getAccountAction: (requestParams) => dispatch(getAccountDataAction(requestParams)),
         getAccountDataBySecretPhrasseAction: (requestParams) => dispatch(getAccountDataBySecretPhrasseAction(requestParams)),
-        setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+        setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
         getConstantsAction: () => dispatch(getConstantsAction()),
     };
 };

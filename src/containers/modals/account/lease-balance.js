@@ -331,7 +331,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setAlert: (status, message) => dispatch(setAlert(status, message)),
     setModalData: (data) => dispatch(setModalData(data)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     sendLeaseBalance: (requestParams) => dispatch(crypto.sendLeaseBalance(requestParams)),

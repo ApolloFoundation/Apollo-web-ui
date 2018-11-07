@@ -212,7 +212,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     // submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 

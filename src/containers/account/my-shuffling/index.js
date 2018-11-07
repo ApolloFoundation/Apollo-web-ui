@@ -185,7 +185,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams)),
     getAccountShufflingsAction : (requestParams) => dispatch(getAccountShufflingsAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
 })

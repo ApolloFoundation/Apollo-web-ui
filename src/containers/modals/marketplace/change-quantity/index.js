@@ -31,7 +31,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     getDGSGoodAction: (requestParams) => dispatch(getDGSGoodAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });

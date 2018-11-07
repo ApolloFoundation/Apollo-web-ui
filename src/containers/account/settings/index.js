@@ -363,7 +363,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getSavedAccountSettings:   () =>           dispatch(getSavedAccountSettingsAction()),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getAccountInfoAction: (account) =>        dispatch(getAccountInfoAction(account)),
     login: (account) =>                       dispatch(login(account))
 

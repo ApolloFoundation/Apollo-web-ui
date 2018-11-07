@@ -189,7 +189,7 @@ const mapStateToProps = state => ({
 const initMapDispatchToProps = dispatch => ({
     getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 export default connect(
