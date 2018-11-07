@@ -13,6 +13,9 @@ import InfoBox from '../../components/info-box';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
+import classNames from "classnames";
+import FundingMonitorItem from "./funding-monitor-status-item";
+import {Link} from 'react-router-dom';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -20,10 +23,10 @@ const mapStateToProps = state => ({
 
 const mapDisatchToProps = dispatch => ({
     getAccountPropertiesAction: (requsetParams) => dispatch(getAccountPropertiesAction(requsetParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
 })
 
-class AccountProperties extends React.Component {
+class FundingMonitorsStatus extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -39,18 +42,19 @@ class AccountProperties extends React.Component {
     };
 
     componentDidMount() {
-        this.getAccountPropertiesIncoming(this.props);
+        this.getAccountProperties(this.props);
     }
 
     componentWillReceiveProps (newState) {
-        if (this.state.incoming) this.getAccountPropertiesIncoming(newState);
-        else this.getAccountPropertiesOutgoing(newState);
+        this.getAccountProperties(newState);
     }
 
-    getAccountPropertiesIncoming = async (newState) => {
+    getAccountProperties = async (newState) => {
         if (!newState) newState = this.props;
+
         const properties = await this.props.getAccountPropertiesAction({
-            recipient: newState.account,
+            setter: newState.match.params.account,
+            property: newState.match.params.property,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
         });
@@ -60,23 +64,8 @@ class AccountProperties extends React.Component {
                 properties: properties.properties,
                 recipientRS: properties.recipientRS,
                 incoming: true
-            })
-        }
-    };
-
-    getAccountPropertiesOutgoing = async (newState) => {
-        if (!newState) newState = this.props;
-        const properties = await this.props.getAccountPropertiesAction({
-            setter: newState.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex,
-        });
-
-        if (properties) {
-            this.setState({
-                properties: properties.properties,
-                setterRS: properties.setterRS,
-                incoming: false
+            }, () => {
+                console.log(this.state);
             })
         }
     };
@@ -94,23 +83,58 @@ class AccountProperties extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Account properties'}
+                    pageTitle={'Funding Monitor Status'}
                 >
-                    <a className={`btn ${this.state.incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
-                       onClick={() => this.getAccountPropertiesIncoming()}>
-                        Incoming
-                    </a>
-                    <a className={`btn ${this.state.incoming ? 'outline-transparent' : 'outline-primary'} mr-1`}
-                       onClick={() => this.getAccountPropertiesOutgoing()}>
-                        Outgoing
-                    </a>
-                    <a className="btn primary"
-                       onClick={this.setProperty}>
-                        Set
+                    <Link
+                        to={'/funding-monitors'}
+                        className={classNames({
+                            'btn': true,
+                            'primary': true,
+                            'disabled' : this.state.isPrivate
+                        })}
+
+                    >
+                        Funding monitors
+                    </Link>
+                    <a
+                        className={classNames({
+                            'btn': true,
+                            'primary': true,
+                            'disabled' : this.state.isPrivate
+                        })}
+                        style={{marginLeft: 10}}
+                        onClick={() => {
+                            this.props.setBodyModalParamsAction('ADD_MONITORED_ACCOUNT', {
+                                property: this.props.match.params.property
+                            })
+                        }}
+                    >
+                        Add Monitored Account
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <div className="funding-monitors">
+
+                    <div className="my-transactions">
+                        <div className="transactions-filters" style={{paddingTop: 0}}>
+                            <div className="monitors-table">
+                                <tr>
+                                    <td>Account: </td>
+                                    <td>
+                                        <a
+                                            onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.match.params.account)}
+                                        >
+                                            {this.props.match.params.account}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Property: </td>
+                                    <td>
+                                        {this.props.match.params.property}
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
                         <ContentHendler
                             items={this.state.properties}
                             emptyMessage={'No properties found.'}
@@ -132,34 +156,12 @@ class AccountProperties extends React.Component {
                                             this.state.properties.length &&
                                             this.state.properties.map((el) => {
                                                 return (
-                                                    <tr key={uuid()}>
-                                                        <td className="blue-link-text">
-                                                            <a
-                                                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.setter)}
-                                                            >
-                                                                {this.state.incoming ? el.setterRS : el.recipientRS}
-                                                            </a>
-                                                        </td>
-                                                        <td>{el.property}</td>
-                                                        <td>{el.value}</td>
-                                                        <td className="align-right">
-                                                            <div className="btn-box inline">
-                                                                {(this.state.recipientRS === el.setterRS || !this.state.incoming) &&
-                                                                <a onClick={() => this.setProperty(el)}
-                                                                   className="btn primary blue">Update</a>
-                                                                }
-                                                                <a onClick={() => this.deleteProperty(el)}
-                                                                   className="btn primary">Delete</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    <FundingMonitorItem {...el}/>
                                                 )
                                             })
                                         }
-
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </ContentHendler>
@@ -170,4 +172,4 @@ class AccountProperties extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDisatchToProps)(AccountProperties);
+export default connect(mapStateToProps, mapDisatchToProps)(FundingMonitorsStatus);

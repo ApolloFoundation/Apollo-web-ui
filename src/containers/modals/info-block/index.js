@@ -374,7 +374,7 @@ const mapDispatchToProps = dispatch => ({
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     setModalData: (data) => dispatch(setModalData(data)),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
 	openPrevModal: (Params) => dispatch(openPrevModal(Params)),
 });

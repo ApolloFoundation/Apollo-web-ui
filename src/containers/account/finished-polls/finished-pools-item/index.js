@@ -11,7 +11,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {Link} from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 

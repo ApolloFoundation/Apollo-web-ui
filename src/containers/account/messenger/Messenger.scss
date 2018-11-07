@@ -189,6 +189,7 @@
 				
 				.top-bar {
 					width: 100%;
+					position: relative;
 					
 					textarea {
 						width: 100%;
@@ -378,4 +379,23 @@
 .page {
 	min-height: 100vh;
 	padding-top: 120px;
+}
+
+.textareaCount {
+	position: absolute;
+	right: 14px;
+	top: 4px;
+	font-size: 11px;
+	color: #a0a0a0;
+	z-index: 2;
+	pointer-events: none;
+}
+
+.textareaCount-message {
+	color: #780000;
+}
+
+.textareaCount-text{
+	display: inline;
+	color: #780000;
 }

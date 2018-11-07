@@ -71,7 +71,7 @@ class OrderItem extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     getOrderInfo: order => dispatch(getOrderInfoAction(order)),
 });

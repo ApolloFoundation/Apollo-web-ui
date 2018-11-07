@@ -1,95 +1,84 @@
-/******************************************************************************
- * Copyright © 2018 Apollo Foundation                                         *
- *                                                                            *
- ******************************************************************************/
-
-
 import React from 'react';
+import BackForm from "../modal-form/modal-form-container";
+import {Text} from "react-form";
 import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction, setAlert, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import {sendTransactionAction} from '../../../actions/transactions';
-import {calculateFeeAction} from "../../../actions/forms";
-import AdvancedSettings from '../../components/advanced-transaction-settings';
-import classNames from 'classnames';
-import crypto from  '../../../helpers/crypto/crypto';
-import InputMask from 'react-input-mask';
-import AccountRS from '../../components/account-rs';
+import submitForm from '../../../helpers/forms/forms';
 
-import {Form, Text, TextArea, Checkbox} from 'react-form';
-import InfoBox from '../../components/info-box';
-import {NotificationManager} from "react-notifications";
-import submitForm from "../../../helpers/forms/forms";
+const mapStateToProps = state => ({
+    modalData : state.modals.modalData
+})
 
-import BackForm from '../modal-form/modal-form-container';
+const mapDispatchToProps = dispatch => ({
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType))
+})
 
-class AddMonitor extends React.Component {
-    constructor(props) {
-        super(props);
+class AddMonitoredAccount extends React.Component {
+
+
+    handleFormSubmit = async (values) => {
+
+        values = {
+            ...values,
+            property: this.props.modalData.property ? this.props.modalData.property : ''
+        }
+
+        this.props.submitForm(values, 'setAccountProperty')
+            .then((data) => {
+                console.log(data);
+            })
     }
 
-    handleFormSubmit = async values => {
-        console.warn("values", values);
-        if (!values.phrase) {
-            NotificationManager.error("Secret phrase is a required field", "Error", 5000);
-        }
 
-        const toSend = {
-            property: values.property,
-            interval: values.interval,
-            secretPhrase: values.phrase,
-            feeATM: 0,
-            amount: values.amount,
-            threshold: values.threshold,
-        };
-        const res = await this.props.submitForm( toSend, "startFundingMonitor");
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            NotificationManager.success('Monitor has been started!', null, 5000);
-            this.props.closeModal();
-            setTimeout(() => {
-                this.props.modalData()
-            }, 1000);
-        }
-    };
-
-    render() {
+    render () {
         return (
             <div className="modal-box">
                 <BackForm
-	                nameModal={this.props.nameModal}
+                    nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, values, addValue, removeValue, setValue, getFormState
                              }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+                        <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                                 <div className="form-title">
-	                                {this.props.modalsHistory.length > 1 &&
-	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                }
+                                    {
+                                        this.props.modalsHistory &&
+                                        this.props.modalsHistory.length > 1 &&
+                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                    }
                                     <p>Start Funding Monitor</p>
                                 </div>
-
-                                <InfoBox danger mt>
-                                    Your secret phrase will be sent to the server!
-                                </InfoBox>
 
                                 <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Control Property</label>
+                                            <label>Property</label>
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="property" placeholder="Property" />
+                                                {this.props.modalData.property ? this.props.modalData.property : '?'}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="input-group-app offset-top display-block inline">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Recipient</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <div className="input-wrapper">
+                                                <Text
 
+                                                    field={'recipient'}
+                                                    placeholder={'Recipient Account'}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
@@ -97,12 +86,15 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="amount" placeholder="Amount" type="tel"/>
+                                                <Text
+
+                                                    field={'amount'}
+                                                    placeholder={'Amount'}
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
@@ -110,12 +102,15 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="threshold" placeholder="Threshold" type="tel"/>
+                                                <Text
+
+                                                    field={'threshold'}
+                                                    placeholder={'Threshold'}
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
@@ -123,20 +118,42 @@ class AddMonitor extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="interval" placeholder="Interval" type="tel"/>
+                                                <Text
+
+                                                    field={'interval'}
+                                                    placeholder={'Interval'}
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="input-group-app offset-top display-block inline">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label>Secret phrase</label>
+                                            <label>Fee</label>
                                         </div>
                                         <div className="col-md-9">
                                             <div className="input-wrapper">
-                                                <Text field="phrase" type="password"/>
+                                                <Text
+                                                    field={'feeAPL'}
+                                                    placeholder={'Amount'}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group-app offset-top display-block inline">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <label>Secret Phrase</label>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <div className="input-wrapper">
+                                                <Text
+
+                                                    field={'secretPhrase'}
+                                                    placeholder={'Secret Phrase'}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -153,31 +170,16 @@ class AddMonitor extends React.Component {
                                         name={'closeModal'}
                                         className="btn btn-right blue round round-bottom-right"
                                     >
-                                        Start
+                                        Add
                                     </button>
-
                                 </div>
                             </div>
                         </form>
-                    )}
-                >
-
-                </BackForm>
+                        )}
+                    />
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({
-	modalsHistory: state.modals.modalsHistory,
-	modalData: state.modals.modalData,
-});
-
-const mapDispatchToProps = dispatch => ({
-                    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddMonitor);
+export default connect(mapStateToProps, mapDispatchToProps)(AddMonitoredAccount);

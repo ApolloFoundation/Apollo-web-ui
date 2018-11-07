@@ -91,6 +91,8 @@ import ConnectPeer from "./peer/connect-peer";
 import BlacklistPeer from "./peer/blacklist-peer";
 import MandatoryApproval from "./mandatory-approval/index";
 import AddMonitor from "./monitors/add-monitor";
+import RemoveMonitor from "./monitors/remove-monitor";
+import AddMonitoredAccount from "./monitors/add-monitored-account";
 import OrderCancel from "./order-cancellation/order-cancel";
 import ApproveTransaction from "./approve-transaction";
 
@@ -290,6 +292,8 @@ class ModalWindow extends React.Component {
 
                 {/*Monitors*/}
                 {this.props.modalType === 'ADD_MONITOR'                 && <AddMonitor                closeModal={this.closeModal} nameModal={'ADD_MONITOR'}/>}
+                {this.props.modalType === 'ADD_MONITORED_ACCOUNT'       && <AddMonitoredAccount       closeModal={this.closeModal} nameModal={'ADD_MONITORED_ACCOUNT'}/>}
+                {this.props.modalType === 'REMOVE_MONITOR'              && <RemoveMonitor             closeModal={this.closeModal} nameModal={'REMOVE_MONITOR'}/>}
                 {this.props.modalType === 'CANCEL_ORDER'                && <OrderCancel               closeModal={this.closeModal} nameModal={'CANCEL_ORDER'}/>}
 
 

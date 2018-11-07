@@ -122,7 +122,8 @@
       height: auto;
       padding: 0 30px 20px 30px; }
       .messenger .right-bar .card .compose-message-box .top-bar, .messenger a .right-bar .card .compose-message-box .top-bar {
-        width: 100%; }
+        width: 100%;
+        position: relative; }
         .messenger .right-bar .card .compose-message-box .top-bar textarea, .messenger a .right-bar .card .compose-message-box .top-bar textarea {
           width: 100%;
           max-width: 100%;
@@ -260,3 +261,23 @@
   left: 0;
   top: 50%;
   transform: translate(0, -50%); }
+
+.page {
+  min-height: 100vh;
+  padding-top: 120px; }
+
+.textareaCount {
+  position: absolute;
+  right: 14px;
+  top: 4px;
+  font-size: 11px;
+  color: #a0a0a0;
+  z-index: 2;
+  pointer-events: none; }
+
+.textareaCount-message {
+  color: #780000; }
+
+.textareaCount-text {
+  display: inline;
+  color: #780000; }

@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
     getTradesHistoryAction: (requestParams) => dispatch(getTradesHistoryAction(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     getExchanges: currency => dispatch(getAccountExchangesAction(currency)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class TradeHistoryCurrency extends React.Component {

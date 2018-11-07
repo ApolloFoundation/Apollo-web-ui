@@ -32,7 +32,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	getTransactionAction: (type, data) => dispatch(getTransactionAction(type, data)),
-	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
 	getDataTagsAction: (reqParams) => dispatch(getDataTagsAction(reqParams)),
 	getAccountTaggedDataAction: (reqParams) => dispatch(getAccountTaggedDataAction(reqParams)),

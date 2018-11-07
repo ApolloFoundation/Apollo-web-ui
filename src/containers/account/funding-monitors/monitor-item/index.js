@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {startMonitor, stopMonitor} from "../../../../actions/monitors";
 import {NotificationManager} from 'react-notifications'
@@ -45,10 +46,10 @@ const MonitorItem = (props) => (
         <td
             className={'align-right'}
         >
-            {props.amount ? props.amount : '?'}
+            {props.amount ? props.amount/100000000 : '?'}
         </td>
         <td>
-            {props.threshold ? props.threshold : '?'}
+            {props.threshold ? props.threshold/100000000 : '?'}
         </td>
         <td>
             {props.interval ? props.interval : '?'}
@@ -56,11 +57,12 @@ const MonitorItem = (props) => (
         <td
             className={'align-right btn-box inline'}
         >
-            <a
+            <Link
+                to={`/funding-monitors/${props.accountRS}/${props.property}`}
                 className={'btn primary blue'}
             >
                 Status
-            </a>
+            </Link>
             <a
                 className={'btn primary default'}
                 onClick={() => stopMonitorAction(props)}

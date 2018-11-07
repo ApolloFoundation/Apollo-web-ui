@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getBlockAction: (data) => dispatch(getBlockAction(data)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime))
 });
@@ -77,7 +77,6 @@ class Transaction extends React.Component {
 
 
     render () {
-        console.log('3333', this.props.transaction);
         const id = `transaction-${this.props.transaction.transaction}`;
         return (
             <tr key={uuid()}>

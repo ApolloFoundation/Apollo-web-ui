@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     getExchanges: currency => dispatch(getAccountExchangesAction(currency)),
     getAccountCurrenciesAction: (requestParams) => dispatch(getAccountCurrenciesAction(requestParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class MyMadedCurrencies extends React.Component {

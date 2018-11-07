@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     issueAssetAction: (reqParams) => dispatch(issueAssetAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase))
 });

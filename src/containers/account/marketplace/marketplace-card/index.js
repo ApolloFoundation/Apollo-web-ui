@@ -14,7 +14,7 @@ import uuid from 'uuid';
 import config from '../../../../config';
 
 const mapDispatchToProps = dispatch => ({
-	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
@@ -101,7 +101,7 @@ const MarketplaceItem = (props, history) => (
                             APL
                         </div>
                     </div>
-                    <div className="cargo-description">
+                    <div className="cargo-title-description">
                         <a
                             onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
                             className="cargo-title cursor-pointer"

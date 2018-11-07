@@ -169,7 +169,7 @@ class MyAssetItem extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     setModalType: (type) => dispatch(setModalType(type)),
     getAskOrders: asset => getAskOrders(asset),
     getBidOrders: asset => getBidOrders(asset),

@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
     getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
     getFinishedShfflings: (reqParams) => dispatch(getFinishedShfflings(reqParams)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class ActiveShufflings extends React.Component {

@@ -247,7 +247,7 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     loadSavedSettings: () => dispatch(getSavedSettingsAction()),
     saveSettings: settings => dispatch(saveSettingsAction(settings)),
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceSettings);

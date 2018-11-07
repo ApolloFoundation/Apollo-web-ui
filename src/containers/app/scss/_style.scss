@@ -370,6 +370,25 @@ input[type="number"] {
           min-height: 120px;
           padding-left: 40px;
 
+          .monitors-table {
+            display: table;
+            width: 100%;
+            max-width: 300px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 6px;
+            border: 1px solid #efefef;
+
+            tr {
+              td {
+                padding: 5px;
+
+                a {
+                  color: #00C8FF;
+                }
+              }
+            }
+          }
           .top-bar {
             display: flex;
             flex-wrap: wrap;

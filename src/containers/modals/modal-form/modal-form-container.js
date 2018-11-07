@@ -22,8 +22,6 @@ class BackForm extends Component {
 				this.state.form.setAllValues(myModal.value);
 			}
 		}
-
-
 	};
 
     render() {
