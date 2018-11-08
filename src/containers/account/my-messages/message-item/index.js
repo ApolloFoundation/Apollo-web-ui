@@ -120,6 +120,7 @@ class MessageItem extends React.Component {
                         this.props.attachment.encryptedMessage &&
                         !this.props.attachment.encryptedMessageHash &&
                         this.props.attachment.message === 'undefined' &&
+                        !this.state.message &&
                         <a
                             onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
                             className="btn primary blue static"
