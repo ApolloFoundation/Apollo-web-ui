@@ -13,6 +13,8 @@ import {connect} from 'react-redux'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getScheduledTransactions} from "../../../actions/scheduled-transactions";
 import ContentHendler from "../../components/content-hendler";
+import classNames from "classnames";
+import TransactionItem from '../transactions/transaction';
 
 const mapStateToProps = state => ({
     adminPassword: state.account.adminPassword,
@@ -72,13 +74,31 @@ class ScheduledTransactions extends React.Component {
         }
     }
 
+    reloadSceduledTransactions = () => {
+
+        this.getScheduledTransactions({
+            adminPassword: this.props.adminPassword
+        })
+    }
 
     render () {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Scheduled transactions'}
-                />
+                >
+                    <a
+                        className={classNames({
+                            'btn': true,
+                            'primary': true,
+                            'disabled' : this.state.isPrivate
+                        })}
+                        onClick={() => this.props.setBodyModalParamsAction('SCHEDULE_CURRENCY', this.reloadSceduledTransactions)}
+                    >
+                        Schedule currency
+                    </a>
+                </SiteHeader>
+
 
                 {
                     this.state.scheduledTransactions &&
@@ -104,7 +124,32 @@ class ScheduledTransactions extends React.Component {
                             <div className="transaction-table">
                                 <div className="transaction-table-body">
                                     <table>
+                                        <thead>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td>Type</td>
+                                                <td className="align-right">Amount</td>
+                                                <td className="align-right">Fee</td>
+                                                <td>Account</td>
+                                                <td className="align-right">Height</td>
+                                                <td className="align-right">Actions</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {
+                                            this.state.scheduledTransactions &&
+                                            this.state.scheduledTransactions.length > 0 &&
+                                            this.state.scheduledTransactions.map((el, index) => {
+                                                return (
+                                                    <TransactionItem
+                                                        transaction={el}
+                                                        isScheduled={true}
+                                                    />
+                                                )
+                                            })
 
+                                        }
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

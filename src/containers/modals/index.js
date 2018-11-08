@@ -108,6 +108,9 @@ import Confirm2FAforging from './2fa/confirm-forging-with-2fa';
 import ImportAccount from '../modals/account/import-account'
 import ExportAccount from '../modals/account/export-account'
 
+// scheduled transactins
+import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-currency'
+
 class ModalWindow extends React.Component {
     constructor(props) {
         super(props);
@@ -215,6 +218,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'BUY_ASSET'                   && <BuyAssets                 closeModal={this.closeModal} nameModal={'BUY_ASSET'}/>}
                 {this.props.modalType === 'SELL_ASSET'                  && <SellAssets                closeModal={this.closeModal} nameModal={'SELL_ASSET'}/>}
 
+
                 {/* Currency */}
                 {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             closeModal={this.closeModal} nameModal={'ISSUE_CURRENCIES'}/>}
                 {this.props.modalType === 'TRANSFER_CURRENCY'           && <TransferCurrency          closeModal={this.closeModal} nameModal={'TRANSFER_CURRENCY'}/>}
@@ -255,6 +259,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal} nameModal={'EXPORT_KEY_SEED'}/>}
                 {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal} nameModal={'DELETE_ACCOUNT_FROM_NODE'}/>}
                 {this.props.modalType === 'CONFIRM_2FA_FORGING'         && <Confirm2FAforging         closeModal={this.closeModal}/>}
+
 
                 {/* Shuffling */}
                 {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.closeModal} nameModal={'ISSUE_CREATE_SHUFFLING'}/>}
@@ -301,6 +306,8 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal} nameModal={'DECRYPT_MESSAGES'}/>}
                 {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
                 {/*{this.props.modalType === 'SHARE_MESSAGE'             && <ShareMessage            closeModal={this.closeModal}/>}*/}
+
+                {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency          closeModal={this.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
             </div>
         );
     }
