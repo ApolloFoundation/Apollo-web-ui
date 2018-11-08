@@ -148,8 +148,8 @@ class MyMessages extends React.Component {
                     this.state.isLoading ? <ContentLoader/> :
                     this.state.messages &&
                     this.state.messages.length > 0 ?
-                        <div className="page-body container-fluid page"  style={{minHeight: '100vh'}}>
-                            <div className="account-ledger" style={{minHeight: '100vh'}}>
+                        <div className="page-body container-fluid page">
+                            <div className="account-ledger">
                                 <div className="transaction-table message-table">
                                     <div className="transaction-table-body">
                                         <table>
