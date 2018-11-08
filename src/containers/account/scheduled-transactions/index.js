@@ -13,6 +13,10 @@ import {connect} from 'react-redux'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getScheduledTransactions} from "../../../actions/scheduled-transactions";
 import ContentHendler from "../../components/content-hendler";
+import classNames from "classnames";
+import TransactionItem from '../transactions/transaction';
+import submitForm from "../../../helpers/forms/forms";
+import {NotificationManager} from "react-notifications";
 
 const mapStateToProps = state => ({
     adminPassword: state.account.adminPassword,
@@ -21,6 +25,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 class ScheduledTransactions extends React.Component {
@@ -72,13 +77,45 @@ class ScheduledTransactions extends React.Component {
         }
     }
 
+    reloadSceduledTransactions = () => {
+
+        this.getScheduledTransactions({
+            adminPassword: this.props.adminPassword
+        })
+    }
+
+    deleteScheduledTransaction = async (transaction) => {
+        const deleteTransacrtio = await this.props.submitForm({adminPassword : this.props.adminPassword , transaction}, 'deleteScheduledTransaction');
+
+        if (deleteTransacrtio) {
+            if (deleteTransacrtio.errorCode) {
+                NotificationManager.error(deleteTransacrtio.errorDescription, 'Error', 5000);
+
+            } else {
+                NotificationManager.success('Scheduled transaction has been deleted!', null, 5000);
+                this.reloadSceduledTransactions();
+            }
+        }
+    }
 
     render () {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Scheduled transactions'}
-                />
+                >
+                    <a
+                        className={classNames({
+                            'btn': true,
+                            'primary': true,
+                            'disabled' : this.state.isPrivate
+                        })}
+                        onClick={() => this.props.setBodyModalParamsAction('SCHEDULE_CURRENCY', this.reloadSceduledTransactions)}
+                    >
+                        Schedule currency
+                    </a>
+                </SiteHeader>
+
 
                 {
                     this.state.scheduledTransactions &&
@@ -104,7 +141,33 @@ class ScheduledTransactions extends React.Component {
                             <div className="transaction-table">
                                 <div className="transaction-table-body">
                                     <table>
+                                        <thead>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td>Type</td>
+                                                <td className="align-right">Amount</td>
+                                                <td className="align-right">Fee</td>
+                                                <td>Account</td>
+                                                <td className="align-right">Height</td>
+                                                <td className="align-right">Actions</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {
+                                            this.state.scheduledTransactions &&
+                                            this.state.scheduledTransactions.length > 0 &&
+                                            this.state.scheduledTransactions.map((el, index) => {
+                                                return (
+                                                    <TransactionItem
+                                                        transaction={el}
+                                                        isScheduled={true}
+                                                        deleteSheduledTransaction={this.deleteScheduledTransaction}
+                                                    />
+                                                )
+                                            })
 
+                                        }
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
