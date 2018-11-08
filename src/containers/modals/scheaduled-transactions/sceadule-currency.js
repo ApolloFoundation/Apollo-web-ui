@@ -27,8 +27,6 @@ class ScheaduleCurrency extends React.Component {
 
     handleFormSubmit = async (values) => {
 
-        console.log(values);
-
         values = {
             ...values,
             broadcast: false,
@@ -39,7 +37,6 @@ class ScheaduleCurrency extends React.Component {
         const scheduledTransaction = await this.props.submitForm(values, 'scheduleCurrencyBuy');
 
         if (scheduledTransaction) {
-            console.log(scheduledTransaction);
             if (scheduledTransaction.errorCode) {
                 NotificationManager.error(scheduledTransaction.errorDescription, 'Error', 5000)
             } else {

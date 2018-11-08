@@ -13,6 +13,7 @@ import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {formatTransactionType, getPhasingTransactionVoters} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
+import config from "../../../../config";
 
 
 const mapStateToProps = state => ({
@@ -137,15 +138,31 @@ class Transaction extends React.Component {
                             }
                         </td>
 
-                        <td className="align-right">
-                            {
-                                !this.props.isUnconfirmed &&
-                                <a>{this.props.transaction.confirmations}</a>
-                            }
-                            {
-                                this.props.isUnconfirmed && '-'
-                            }
-                        </td>
+                        {
+                            !this.props.isScheduled &&
+                            <td className="align-right">
+                                {
+                                    !this.props.isUnconfirmed &&
+                                    <a>{this.props.transaction.confirmations}</a>
+                                }
+                                {
+                                    this.props.isUnconfirmed && '-'
+                                }
+                            </td>
+                        }
+                        {
+                            this.props.isScheduled &&
+                            <td className="align-right">
+                                <div className="btn-box inline">
+                                    <a
+                                        onClick={() => this.props.deleteSheduledTransaction(this.props.transaction.transaction)}
+                                        className="btn primary default"
+                                    >
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        }
                     </React.Fragment>
                 }
                 {

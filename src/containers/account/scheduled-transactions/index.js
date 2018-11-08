@@ -15,6 +15,8 @@ import {getScheduledTransactions} from "../../../actions/scheduled-transactions"
 import ContentHendler from "../../components/content-hendler";
 import classNames from "classnames";
 import TransactionItem from '../transactions/transaction';
+import submitForm from "../../../helpers/forms/forms";
+import {NotificationManager} from "react-notifications";
 
 const mapStateToProps = state => ({
     adminPassword: state.account.adminPassword,
@@ -23,6 +25,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 class ScheduledTransactions extends React.Component {
@@ -79,6 +82,20 @@ class ScheduledTransactions extends React.Component {
         this.getScheduledTransactions({
             adminPassword: this.props.adminPassword
         })
+    }
+
+    deleteScheduledTransaction = async (transaction) => {
+        const deleteTransacrtio = await this.props.submitForm({adminPassword : this.props.adminPassword , transaction}, 'deleteScheduledTransaction');
+
+        if (deleteTransacrtio) {
+            if (deleteTransacrtio.errorCode) {
+                NotificationManager.error(deleteTransacrtio.errorDescription, 'Error', 5000);
+
+            } else {
+                NotificationManager.success('Scheduled transaction has been deleted!', null, 5000);
+                this.reloadSceduledTransactions();
+            }
+        }
     }
 
     render () {
@@ -144,6 +161,7 @@ class ScheduledTransactions extends React.Component {
                                                     <TransactionItem
                                                         transaction={el}
                                                         isScheduled={true}
+                                                        deleteSheduledTransaction={this.deleteScheduledTransaction}
                                                     />
                                                 )
                                             })
