@@ -33,7 +33,7 @@ class MyMessages extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 14,
-            messages: [],
+            messages: null,
             isLoading: false,
         };
     }
@@ -144,10 +144,12 @@ class MyMessages extends React.Component {
                         Compose message
                     </a>
                 </SiteHeader>
-                {this.state.isLoading ? <ContentLoader/> :
+                {
+                    this.state.isLoading ? <ContentLoader/> :
+                    this.state.messages &&
                     this.state.messages.length > 0 ?
-                        <div className="page-body container-fluid page">
-                            <div className="account-ledger">
+                        <div className="page-body container-fluid page"  style={{minHeight: '100vh'}}>
+                            <div className="account-ledger" style={{minHeight: '100vh'}}>
                                 <div className="transaction-table message-table">
                                     <div className="transaction-table-body">
                                         <table>
