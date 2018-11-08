@@ -65,6 +65,8 @@ class InfoTransactionTable extends Component {
 
 						{modalTypeName === "EFFECTIVE BALANCE LEASING" && <EffectiveBalanceLeasing transaction={this.props.transaction}/>}
 
+						{modalTypeName === "EFFECTIVE BALANCE LEASING" && <EffectiveBalanceLeasing transaction={this.props.transaction}/>}
+
 
 						{console.log("5555", this.props.transaction)}
 						</tbody>

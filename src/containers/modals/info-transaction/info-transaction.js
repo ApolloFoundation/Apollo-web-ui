@@ -89,7 +89,7 @@ class InfoLedgerTransaction extends React.Component {
                                     "active": this.state.activeTab === 0
                                 })}>
                                     <div className="transaction-table no-min-height">
-                                        <InfoTransactionTable transaction={this.state.transaction}/>
+                                        <InfoTransactionTable transaction={this.state.transaction} constants={this.props.constants}/>
                                     </div>
                                 </div>
                                 <div className={classNames({
