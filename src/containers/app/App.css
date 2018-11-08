@@ -2,7 +2,6 @@
 @import url(~material-design-iconic-font/dist/css/material-design-iconic-font.min.css);
 @import url(~loaders.css/loaders.min.css);
 @import url(~react-notifications/lib/notifications.css);
-@import url(~roboto-fontface/css/roboto/roboto-fontface.css);
 .align-baseline {
   vertical-align: baseline !important; }
 
@@ -2816,6 +2815,90 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
     text-decoration: none;
     background-color: #1d2124; }
 
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Regular.eot");
+  src: url("../../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Regular.woff2") format("woff2"), url("../../fonts/Roboto-Regular.woff") format("woff"), url("../../fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Light.eot");
+  src: url("../../fonts/Roboto-Light.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Light.woff2") format("woff2"), url("../../fonts/Roboto-Light.woff") format("woff"), url("../../fonts/Roboto-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Italic.eot");
+  src: url("../../fonts/Roboto-Italic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Italic.woff2") format("woff2"), url("../../fonts/Roboto-Italic.woff") format("woff"), url("../../fonts/Roboto-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Thin.eot");
+  src: url("../../fonts/Roboto-Thin.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Thin.woff2") format("woff2"), url("../../fonts/Roboto-Thin.woff") format("woff"), url("../../fonts/Roboto-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-MediumItalic.eot");
+  src: url("../../fonts/Roboto-MediumItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-MediumItalic.woff2") format("woff2"), url("../../fonts/Roboto-MediumItalic.woff") format("woff"), url("../../fonts/Roboto-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-LightItalic.eot");
+  src: url("../../fonts/Roboto-LightItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-LightItalic.woff2") format("woff2"), url("../../fonts/Roboto-LightItalic.woff") format("woff"), url("../../fonts/Roboto-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Bold.eot");
+  src: url("../../fonts/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Bold.woff2") format("woff2"), url("../../fonts/Roboto-Bold.woff") format("woff"), url("../../fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-BoldItalic.eot");
+  src: url("../../fonts/Roboto-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-BoldItalic.woff2") format("woff2"), url("../../fonts/Roboto-BoldItalic.woff") format("woff"), url("../../fonts/Roboto-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Black.eot");
+  src: url("../../fonts/Roboto-Black.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Black.woff2") format("woff2"), url("../../fonts/Roboto-Black.woff") format("woff"), url("../../fonts/Roboto-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-BlackItalic.eot");
+  src: url("../../fonts/Roboto-BlackItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-BlackItalic.woff2") format("woff2"), url("../../fonts/Roboto-BlackItalic.woff") format("woff"), url("../../fonts/Roboto-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-ThinItalic.eot");
+  src: url("../../fonts/Roboto-ThinItalic.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-ThinItalic.woff2") format("woff2"), url("../../fonts/Roboto-ThinItalic.woff") format("woff"), url("../../fonts/Roboto-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../../fonts/Roboto-Medium.eot");
+  src: url("../../fonts/Roboto-Medium.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Medium.woff2") format("woff2"), url("../../fonts/Roboto-Medium.woff") format("woff"), url("../../fonts/Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal; }
+
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   margin: 0;
   padding: 0;
@@ -2823,12 +2906,13 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   font-weight: normal;
   text-decoration: none;
   list-style: none;
-  color: #333333;
-  font-family: "Roboto-Regular"; }
+  color: #333333; }
 
 html, body {
   background-color: #F5F5F5;
-  word-break: break-word; }
+  word-break: break-word;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400; }
 
 ::placeholder {
   color: #a6a6a6 !important;
@@ -2926,6 +3010,7 @@ input[type="checkbox"] {
 .form-check-input {
   cursor: pointer; }
 
+input[type="tel"],
 input[type="number"] {
   position: relative; }
 
@@ -2981,7 +3066,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .word-brake {
   word-wrap: break-word;
-  word-break: break-all; }
+  word-break: break-word;
+  display: block; }
+  .word-brake a, .word-brake p {
+    display: block; }
 
 .loader-box.white .ball-pulse div {
   background-color: #fff; }
@@ -2996,15 +3084,40 @@ textarea {
   background-color: #F5F5F5;
   padding: 10px 20px;
   box-sizing: border-box;
-  font-size: 13px;
-  font-family: "Roboto-Regular"; }
+  font-size: 13px; }
 
 input {
   padding: 10px 20px;
-  font-size: 13px;
-  font-family: "Roboto-Regular"; }
+  font-size: 13px; }
   input.not-active {
     pointer-events: none; }
+
+input[type="file"] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0; }
+
+.input-file-area {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 0 5px 5px 0;
+  border-color: #e5e5e5;
+  border: 1px solid #E5E5E5;
+  background-color: transparent;
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre; }
+  .input-file-area .input-file-name {
+    padding-left: 12px;
+    margin: auto 0;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre; }
 
 .contacts-list {
   position: absolute;
@@ -3068,7 +3181,7 @@ input {
   top: -10px;
   right: -10px;
   color: #333;
-  font-family: 'Roboto-Bold';
+  font-weight: 700;
   font-size: 11px;
   height: 21px;
   width: 21px;
@@ -3076,12 +3189,14 @@ input {
   text-align: center;
   background-color: #00C8FF;
   border-radius: 100%;
-  border: 3px solid #333; }
+  border: 3px solid #333;
+  font-family: 'Roboto', sans-serif; }
 
 [data-notification].big-count:after {
   right: -20px;
   width: auto;
-  padding: 0 2px; }
+  padding: 0 2px;
+  font-family: 'Roboto', sans-serif; }
 
 .blue-text {
   color: #00C8FF;
@@ -3233,6 +3348,35 @@ input {
 
 .no-margin {
   margin: 0 !important; }
+
+.phased-transaction {
+  position: absolute; }
+  .phased-transaction.active .phasing-box__phasing-description {
+    transform: none;
+    opacity: 1;
+    visibility: visible; }
+  .phased-transaction .phasing-box__phasing-description {
+    border: 1px solid #666;
+    width: 300px;
+    background-color: #fff;
+    box-sizing: border-box;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.5); }
+    .phased-transaction .phasing-box__phasing-description:after {
+      content: '';
+      display: block;
+      height: 15px;
+      width: 15px;
+      border-top: 1px solid #666;
+      border-right: 1px solid #666;
+      transform: rotate(45deg);
+      position: absolute;
+      top: 10px;
+      right: -7px;
+      z-index: 2;
+      background: #fff; }
 
 .no-padding {
   padding: 0 !important; }
@@ -3408,7 +3552,7 @@ input {
     margin: 0 -35px -70px;
     background-color: #ccc;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center; }
     .form-group-app .marketplace-image.no-image {
       background-size: 30% !important;
@@ -3422,6 +3566,22 @@ input {
     background-image: url(../../assets/brand-logo.png) !important; }
   .form-group-app .form-title {
     padding-bottom: 23px; }
+    .form-group-app .form-title .backMy {
+      width: 16px;
+      height: 16px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: left;
+      background-image: url(../../assets/left-arrow1.svg);
+      margin-right: 8px;
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: middle;
+      transition: 0.2s;
+      float: left;
+      margin-top: 10px; }
+      .form-group-app .form-title .backMy:hover {
+        opacity: 0.7; }
     .form-group-app .form-title.inline > * {
       vertical-align: middle;
       display: inline-block; }
@@ -3433,16 +3593,17 @@ input {
       padding-top: 30px; }
     .form-group-app .form-title p {
       color: #333333;
-      font-family: "Roboto-Regular";
       font-size: 24px;
       word-break: break-word;
       line-height: 1.6;
-      padding-right: 30px; }
+      padding-right: 30px;
+      display: block;
+      vertical-align: middle;
+      word-wrap: break-word; }
     .form-group-app .form-title .form-sub-title {
       margin-top: 10px; }
   .form-group-app .form-sub-title {
     color: #BBBBBB;
-    font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 19px;
     margin-top: -12px; }
@@ -3509,6 +3670,7 @@ input {
           padding: 0 15px; }
       .form-group-app .form-tabulator .form-tab-nav-box .form-tab {
         display: flex;
+        align-items: center;
         width: 54px;
         height: 32px;
         border-top-left-radius: 6px;
@@ -3516,7 +3678,7 @@ input {
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab.active {
           background-color: #F5F5F5; }
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab p {
-          font-size: 13px !important; }
+          font-size: 14px !important; }
         .form-group-app .form-tabulator .form-tab-nav-box .form-tab > * {
           margin: auto;
           font-size: 14px; }
@@ -3607,7 +3769,6 @@ input {
       border-left: none; }
     .form-group-app .form-group-grey .calculate-fee {
       color: #00C8FF;
-      font-family: "Roboto-Regular";
       font-size: 10px;
       line-height: 14px;
       padding-left: 5px;
@@ -3634,7 +3795,8 @@ input {
       letter-spacing: 0.2px;
       font-size: 11.5px;
       border-radius: 5px;
-      padding: 0.25rem 25px 0.2rem 0.5rem; }
+      padding: 0.25rem 25px 0.2rem 0.5rem;
+      min-height: 32px; }
       .form-group-app .form-group-white .form-controlselect {
         background-color: #e5e5e5; }
       .form-group-app .form-group-white .form-control:focus {
@@ -3688,7 +3850,6 @@ input {
       border: 1px solid #e5e5e5; }
     .form-group-app .form-group-white .calculate-fee {
       color: #00C8FF;
-      font-family: "Roboto-Regular";
       font-size: 10px;
       line-height: 14px;
       padding-left: 5px;
@@ -3710,6 +3871,9 @@ input {
 .input-group-app.inline label {
   display: inline-block; }
 
+.input-group-app.align-top label {
+  align-self: flex-start; }
+
 .input-group-app .row {
   margin-right: -15px !important;
   margin-left: -15px !important; }
@@ -3718,6 +3882,10 @@ input {
 
 .input-group-app textarea {
   width: 100%; }
+
+.input-group-app.search i, .input-group-app.user i {
+  margin: 0 !important;
+  padding: 0 7px !important; }
 
 .input-group-app.search input, .input-group-app.user input {
   display: block; }
@@ -3730,13 +3898,16 @@ input {
   text-align: center;
   cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 3px; }
   .input-group-app.search .input-icon.text, .input-group-app.user .input-icon.text {
     width: auto; }
     .input-group-app.search .input-icon.text i, .input-group-app.user .input-icon.text i {
       font-style: normal;
       font-size: 11px;
-      padding: 0 10px; }
+      padding: 8px 10px;
+      white-space: pre; }
 
 .input-group-app.search .iconned-input-field, .input-group-app.user .iconned-input-field {
   display: flex;
@@ -3757,7 +3928,6 @@ input {
 .input-group-app .calculate-fee {
   display: inline-block;
   color: #00C8FF;
-  font-family: "Roboto-Regular";
   font-size: 12px;
   line-height: 14px;
   padding-right: 20px;
@@ -3766,6 +3936,11 @@ input {
 .input-group-app .input-icon {
   width: 32px;
   display: table-cell; }
+  .input-group-app .input-icon.text {
+    width: auto;
+    font-size: 12px; }
+    .input-group-app .input-icon.text.btn {
+      background: #00C8FF; }
   .input-group-app .input-icon i {
     margin: auto; }
 
@@ -3774,7 +3949,6 @@ input {
 
 .input-group-app label {
   display: table-cell;
-  font-family: "Roboto-Regular";
   line-height: 14px;
   padding: 0 0 0 5px;
   font-size: 13.5px;
@@ -3786,14 +3960,18 @@ input {
   border-radius: 3px 0 0 3px;
   padding: 7px 20px; }
 
-.preview-image {
-  padding: 0;
-  max-width: 150px;
-  height: 100px;
+.preview-image-container {
+  padding: 5px;
   border-radius: 6px;
   border: 1px solid #E5E5E5;
+  width: 150px; }
+
+.preview-image {
+  padding: 0;
+  width: 100%;
+  height: 100px;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center; }
 
 .btn-box {
@@ -3955,10 +4133,9 @@ input {
   .btn .no-border {
     border: 0; }
   .btn.transparent {
-    background-color: transparent !important; }
+    background-color: rgba(255, 255, 255, 0) !important; }
   .btn.btn-simple {
     color: #BBBBBB;
-    font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 14px;
     bottom: 10px;
@@ -3984,7 +4161,6 @@ input {
     border-radius: 6px;
     font-size: 12px;
     min-height: 25px;
-    font-weight: 100;
     letter-spacing: -0.1px;
     margin-top: 15px;
     position: static; }
@@ -4109,7 +4285,6 @@ input {
     .card.header.medium-padding {
       padding: 35px 22.5px; }
     .card.header .card-title {
-      font-family: "Roboto-Regular";
       font-size: 16px;
       line-height: 18px;
       color: #fff; }
@@ -4131,9 +4306,9 @@ input {
       width: 100%; }
     .card.header .amount {
       color: #FFFFFF;
-      font-family: "Roboto-Regular";
       font-size: 36px;
       line-height: 1;
+      padding-right: 50px;
       position: relative;
       margin: 15px 0; }
       @media (max-width: 1850px) {
@@ -4142,13 +4317,6 @@ input {
       @media (max-width: 1660px) {
         .card.header .amount {
           font-size: 24px; } }
-      @media (max-width: 1440px) {
-        .card.header .amount {
-          font-size: 18px; }
-          .card.header .amount .currency {
-            font-size: 11px !important; }
-          .card.header .amount .owned {
-            font-size: 20px !important; } }
       .card.header .amount .text {
         overflow: hidden;
         width: 100%;
@@ -4248,23 +4416,20 @@ input {
       color: #FFFFFF;
       font-size: 24px;
       padding-bottom: 5px; }
-      @media (max-width: 1440px) {
-        .card .general-info-item .top-bar {
-          font-size: 18px; } }
     .card .general-info-item .bottom-bar {
       width: 60px;
       color: #FFFFFF;
       font-size: 12px; }
   .card .card-title {
     color: #333333;
-    font-family: "Roboto-Regular";
     font-size: 16px;
-    line-height: 18px; }
+    line-height: 18px;
+    font-weight: 400; }
   .card .card-title-date {
     color: #FFFFFF;
-    font-family: "Roboto-Regular";
     font-size: 24px;
-    margin-top: 19px; }
+    margin-top: 19px;
+    font-weight: 400; }
   .card .full-box {
     position: absolute;
     top: 38px;
@@ -4307,10 +4472,10 @@ input {
       background-color: #fff; }
   .card .input-group-app label {
     color: #777777;
-    font-family: "Roboto-Regular";
     font-size: 12px;
     line-height: 14px;
-    padding-right: 20px; }
+    padding-right: 20px;
+    font-weight: 400; }
 
 .page-body.white-space {
   background-color: #fff;
@@ -4326,6 +4491,15 @@ input {
       height: auto;
       padding: 15px 20px;
       min-height: 0; } }
+  @media (max-width: 1440px) {
+    .page-body-top .page-body-item .card .general-info .general-info-item .top-bar {
+      font-size: 16px; }
+    .page-body-top .page-body-item .card .amount {
+      font-size: 19px; }
+      .page-body-top .page-body-item .card .amount .currency {
+        font-size: 14px; }
+      .page-body-top .page-body-item .card .amount .owned {
+        font-size: 16px; } }
   @media (max-width: 1230px) {
     .page-body-top {
       height: auto;
@@ -4410,9 +4584,6 @@ input {
       .page-body-item .show-hide-content .page-body-item-content {
         max-height: 1000px;
         opacity: 1; } }
-  @media (max-width: 1440px) {
-    .page-body-item .page-body-item-content .amount {
-      font-size: 20px; } }
   @media (max-width: 760px) {
     .page-body-item .page-body-item-content {
       max-height: 0;
@@ -4561,6 +4732,13 @@ table td .btn, table th .btn {
 
 .custom-checkbox {
   padding-left: 16px; }
+  .custom-checkbox.single {
+    display: flex; }
+    .custom-checkbox.single input[type="checkbox"] {
+      margin: 0; }
+    .custom-checkbox.single .form-check-label::before,
+    .custom-checkbox.single .form-check-label::after {
+      display: none; }
   .custom-checkbox .custom-control-input {
     z-index: 1;
     position: absolute;
@@ -4656,6 +4834,26 @@ table td .btn, table th .btn {
   white-space: normal;
   word-wrap: break-word; }
 
+.form-control {
+  min-height: 32px; }
+
+.height-auto {
+  height: auto !important; }
+
+.marketplace-preview {
+  margin-bottom: 30px; }
+
+.no-file-selected {
+  color: #999999;
+  font-size: 12px;
+  line-height: 14px; }
+
+.mt-20 {
+  margin-top: 20px; }
+
+.nowrap {
+  white-space: nowrap; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
@@ -4678,17 +4876,22 @@ table td .btn, table th .btn {
     .transaction-table .transaction-table-body.padding-only-top {
       padding: 35px 0 0 0; }
     .transaction-table .transaction-table-body.transparent {
-      background-color: transparent; }
+      background-color: rgba(255, 255, 255, 0) !important; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
     .transaction-table .transaction-table-body table {
       width: 100%;
       padding: 0 35px; }
+      .transaction-table .transaction-table-body table .zmdi-info {
+        color: #333333;
+        transition: 0.2s; }
+        .transaction-table .transaction-table-body table .zmdi-info:hover {
+          color: #242424; }
       .transaction-table .transaction-table-body table thead {
         padding: 35px 0; }
         .transaction-table .transaction-table-body table thead tr td {
           color: #333333;
-          font-family: "Roboto-Bold";
+          font-weight: 700;
           font-size: 14px;
           line-height: 16px;
           padding: 0 0 20px 15px; }
@@ -4710,7 +4913,6 @@ table td .btn, table th .btn {
           padding: 20px 0 20px 15px; }
           .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
             color: #00C8FF;
-            font-family: "Roboto-Regular";
             font-size: 14px;
             line-height: 16px; }
           .transaction-table .transaction-table-body table tbody tr td.blue-text {
@@ -4777,9 +4979,8 @@ table td .btn, table th .btn {
       border-radius: 3px;
       background-color: #F5F5F5;
       color: #333333;
-      font-family: "Roboto-Bold";
+      font-weight: 700;
       font-size: 12px;
-      font-weight: bold;
       line-height: 14px;
       min-height: auto; }
       .transactions-filters .btn.filter.active {
@@ -4809,6 +5010,8 @@ table td .btn, table th .btn {
   .info-box p {
     padding: 18px 40px;
     color: #000; }
+    .info-box p a {
+      color: #00C8FF; }
     .info-box p ul li {
       padding: 0 0 0 15px;
       display: block;
@@ -4893,7 +5096,8 @@ table td .btn, table th .btn {
           margin-bottom: 0; } }
       .modal-window .modal-box .modal-form table {
         min-width: 100%;
-        padding: 0; }
+        padding: 0;
+        border-collapse: collapse; }
       .modal-window .modal-box .modal-form .form-group-app {
         padding-bottom: 69px;
         position: relative; }
@@ -4919,6 +5123,7 @@ input {
   border-radius: 3px;
   padding: 10px 20px; }
 
+input[type="tel"],
 input[type="number"] {
   width: 100%;
   border: 1px solid #E5E5E5;
@@ -5017,15 +5222,15 @@ input[type="number"] {
             align-items: center;
             justify-content: space-between;
             color: #BBBBBB;
-            font-family: "Roboto-Regular";
-            font-size: 12px;
-            line-height: 14px; }
-          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-rs {
-            color: #777777;
-            font-family: "Roboto-Regular";
             font-size: 12px;
             line-height: 14px;
-            margin-top: 8px; }
+            font-weight: 400; }
+          .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-rs {
+            color: #777777;
+            font-size: 12px;
+            line-height: 14px;
+            margin-top: 8px;
+            font-weight: 400; }
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .arrow {
             position: relative;
             display: block;
@@ -5041,8 +5246,8 @@ input[type="number"] {
               font-size: 20px; }
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-amount {
             color: #333333;
-            font-family: "Roboto-Regular";
-            font-size: 13px;
+            font-weight: 400;
+            font-size: 16px;
             line-height: 14px;
             margin-left: 6px; }
     .site-content .page-content .page-body .card.asset-portfolio .card-title {
@@ -5080,15 +5285,15 @@ input[type="number"] {
               width: 100%; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .amount {
             color: #333333;
-            font-family: "Roboto-Regular";
             font-size: 17px;
             margin-right: 15px;
-            min-width: 70px; }
+            min-width: 70px;
+            font-weight: 400; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .coin-name {
             color: #777777;
-            font-family: "Roboto-Regular";
             font-size: 12px;
-            line-height: 14px; }
+            line-height: 14px;
+            font-weight: 400; }
           .site-content .page-content .page-body .card.asset-portfolio .full-box .full-box-item.coin .coin-data .more {
             height: 30px;
             margin: auto 0 auto auto; }
@@ -5114,12 +5319,12 @@ input[type="number"] {
           width: 50%; }
           .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item .marketplace-box .digit {
             color: #333333;
-            font-family: "Roboto-Regular";
+            font-weight: 400;
             font-size: 36px;
             line-height: 60px; }
           .site-content .page-content .page-body .card.decentralized-marketplace .full-box .full-box-item .marketplace-box .subtitle {
             color: #777777;
-            font-family: "Roboto-Regular";
+            font-weight: 400;
             font-size: 12px;
             line-height: 14px;
             width: 1px;
@@ -5128,7 +5333,7 @@ input[type="number"] {
       margin-top: 30px; }
       .site-content .page-content .page-body .card.active-polls .full-box p {
         color: #777777;
-        font-family: "Roboto-Regular";
+        font-weight: 400;
         font-size: 12px;
         line-height: 14px;
         margin-bottom: 30px; }
@@ -5137,7 +5342,7 @@ input[type="number"] {
       .site-content .page-content .page-body .card.apollo-news .card-news-content {
         margin-top: 30px;
         color: #777777;
-        font-family: "Roboto-Regular";
+        font-weight: 400;
         font-size: 12px;
         line-height: 18px; }
     .site-content .page-content .page-body .card .full-box {
@@ -5160,6 +5365,18 @@ input[type="number"] {
       .site-content .page-content .page-body .my-transactions .transactions-filters {
         min-height: 120px;
         padding-left: 40px; }
+        .site-content .page-content .page-body .my-transactions .transactions-filters .monitors-table {
+          display: table;
+          width: 100%;
+          max-width: 300px;
+          padding: 15px;
+          background-color: #fff;
+          border-radius: 6px;
+          border: 1px solid #efefef; }
+          .site-content .page-content .page-body .my-transactions .transactions-filters .monitors-table tr td {
+            padding: 5px; }
+            .site-content .page-content .page-body .my-transactions .transactions-filters .monitors-table tr td a {
+              color: #00C8FF; }
         .site-content .page-content .page-body .my-transactions .transactions-filters .top-bar {
           display: flex;
           flex-wrap: wrap;
@@ -5177,9 +5394,24 @@ input[type="number"] {
             min-height: auto; } }
         .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
           color: #00C8FF;
-          font-family: "Roboto-Regular";
           font-size: 14px;
-          line-height: 16px; }
+          line-height: 16px;
+          font-weight: 400; }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box {
+          padding: 7px;
+          border: 1px solid #00C8FF;
+          cursor: pointer;
+          border-radius: 6px;
+          display: inline;
+          position: relative; }
+          .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box:hover .phasing-box__phasing-description {
+            visibility: visible;
+            opacity: 1;
+            transform: none; }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box__icon {
+          margin-right: 10px; }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.phasing .phasing-box__result {
+          user-select: none; }
     .site-content .page-content .page-body .approval-request {
       padding: 35px;
       background-color: #fff;
@@ -5187,7 +5419,7 @@ input[type="number"] {
       overflow: auto; }
       .site-content .page-content .page-body .approval-request .alert {
         color: #333333;
-        font-family: "Roboto-Regular";
+        font-weight: 400;
         font-size: 14px;
         line-height: 16px; }
     .site-content .page-content .page-body .account-ledger {
@@ -5200,13 +5432,27 @@ input[type="number"] {
         width: auto;
         margin-left: -7.5px;
         margin-right: -7.5px; }
+        .site-content .page-content .page-body .blocks .row .col-md-6 {
+          padding-left: 7.5px;
+          padding-right: 7.5px; }
     .site-content .page-content .page-body .scheduled-transactions {
       display: flex;
       flex-direction: column; }
       .site-content .page-content .page-body .scheduled-transactions .approval-request {
         height: 100%; }
-    .site-content .page-content .page-body .peers .transaction-table td .btn {
-      margin: 0 0 0 15px; }
+    .site-content .page-content .page-body .peers {
+      display: block; }
+      .site-content .page-content .page-body .peers .row {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+        width: auto;
+        margin-left: -12.5px;
+        margin-right: -12.5px; }
+        .site-content .page-content .page-body .peers .row .col-md-6 {
+          padding-left: 7.5px;
+          padding-right: 7.5px; }
+      .site-content .page-content .page-body .peers .transaction-table td .btn {
+        margin: 0 0 0 15px; }
     .site-content .page-content .page-body .open-orders {
       padding: 0; }
       .site-content .page-content .page-body .open-orders .row {
@@ -5229,7 +5475,6 @@ input[type="number"] {
     .page-header .user-search-box {
       justify-content: flex-end; }
       .page-header .user-search-box .search-bar {
-        width: calc(100% - 7.5px);
         margin: auto; }
         .page-header .user-search-box .search-bar .user-account-actions .user-account-rs {
           display: none; }
@@ -5340,3 +5585,20 @@ input[type="number"] {
 
 .site-content .page-body {
   z-index: -1; }
+
+.marketplace-tab-item td:nth-of-type(1) {
+  width: 52%; }
+
+.text-align-right {
+  text-align: right; }
+
+.text-align-left {
+  text-align: left; }
+
+.account-balance-text {
+  display: block !important;
+  color: #bbbbbb;
+  font-size: 12px;
+  line-height: 14px; }
+  .account-balance-text strong {
+    font-weight: 700; }
