@@ -139,6 +139,41 @@ function convertToATUf(quantity, decimals, returnAsObject) {
     }
 }
 
+function convertToATM(currency) {
+    currency = String(currency);
+
+    let parts = currency.split(".");
+
+    let amount = parts[0];
+
+    //no fractional part
+    let fraction;
+    if (parts.length == 1) {
+        fraction = "00000000";
+    } else if (parts.length == 2) {
+        if (parts[1].length <= 8) {
+            fraction = parts[1];
+        } else {
+            fraction = parts[1].substring(0, 8);
+        }
+    }
+
+    for (let i = fraction.length; i < 8; i++) {
+        fraction += "0";
+    }
+
+    let result = amount + "" + fraction;
+
+    //remove leading zeroes
+    result = result.replace(/^0+/, "");
+
+    if (result === "") {
+        result = "0";
+    }
+
+    return result;
+}
+
 function formatAPL(p, isEscaping, pad) {
     let zeros = "00000000";
     let amount;
@@ -211,12 +246,12 @@ function convertToAPL(a, isObject) {
         a = new BigInteger(String(a));
     }
 
-    if (a.compareTo(BigInteger.ZERO) < 0) {
+    if (a < 0) {
         a = a.abs();
         negativeres = "-";
     }
 
-    var fractionalPart = a.mod(new BigInteger("100000000")).toString();
+    let fractionalPart = a.mod(new BigInteger("100000000")).toString();
     a = a.divide(new BigInteger("100000000"));
 
     if (fractionalPart && fractionalPart != "0") {
@@ -242,6 +277,41 @@ function convertToAPL(a, isObject) {
     }
 };
 
+function amountToPrecision(amount, decimals) {
+    amount = String(amount);
+
+    let parts = amount.split(".");
+
+    if (parts.length == 1) {
+        return parts[0];
+    } else if (parts.length == 2) {
+        let fraction = parts[1];
+        fraction = fraction.replace(/0+$/, "");
+
+        if (fraction.length > decimals) {
+            fraction = fraction.substring(0, decimals);
+        }
+
+        return parts[0] + "." + fraction;
+    } else {
+    }
+}
+
+function resolverReservePerUnit(decimals, reserveSupply, amount) {
+    const resSupply = convertToATUf(reserveSupply, decimals);
+    const amountATM = convertToATM(amount);
+    let unitAmountATM = new BigInteger(amountATM);
+    if (resSupply !== "0") {
+        unitAmountATM = unitAmountATM.divide(new BigInteger(resSupply));
+    }
+    const roundUnitAmountATM = convertToATM(amountToPrecision(convertToAPL(unitAmountATM), decimals));
+    const reserveCurrencyTotal = convertToAPL(roundUnitAmountATM);
+    const reserveCurrencyAmount = convertToAPL(new BigInteger(roundUnitAmountATM).multiply(new BigInteger(resSupply)).toString());
+    return {
+        total: reserveCurrencyTotal,
+        amount: reserveCurrencyAmount
+    }
+}
 
 export default {
     isNumericAccount,
@@ -253,5 +323,6 @@ export default {
     isFileEncryptionSupported,
     escapeRespStr,
     isRequirePost,
+    resolverReservePerUnit,
     isRequireBlockchain
 }

@@ -112,7 +112,6 @@ class SendApollo extends React.Component {
 								<div className="form-group-app">
 									<a onClick={() => this.props.closeModal()} className="exit"><i
 										className="zmdi zmdi-close"/></a>
-
 									<div className="form-title">
 										{this.props.modalsHistory.length > 1 &&
 										<div className={"backMy"} onClick={() => {

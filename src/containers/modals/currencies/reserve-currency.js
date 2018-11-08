@@ -8,6 +8,15 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
+import InputForm from "../../components/input-form";
+import ModalFooter from "../../components/modal-footer";
+import ButtonWrapper from "../mandatory-approval/components/ModalFooter";
+import {Form} from "react-form";
+import utils from "../../../../src/helpers/util/utils";
+import SubmitButton from "../mandatory-approval/components/SubmitButton";
+import CancelButton from "../mandatory-approval/components/CancelButton";
+import {NotificationManager} from "react-notifications";
+import submitForm from "../../../helpers/forms/forms";
 
 class ReserveCurrency extends React.Component {
     constructor(props) {
@@ -16,60 +25,33 @@ class ReserveCurrency extends React.Component {
         this.state = {
             activeTab: 0,
             advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
+            reserve: 0,
         }
 
     }
 
-    handleFormSubmit = async(values) => {
-        if (!values.recipient) {
-            this.setState({
-                ...this.props,
-                recipientStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                recipientStatus: false
-            })
-        }
-        if (!values.amountATM) {
-            this.setState({
-                ...this.props,
-                amountStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                amountStatus: false
-            })
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            })
+    handleFormSubmit = async (values) => {
+        if (!values.secretPhrase || values.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
         }
 
-        this.setState({
-            isPending: true
-        })
-        this.props.sendTransaction(values);
-        this.props.setBodyModalParamsAction(null, {});
-        this.props.setAlert('success', 'Transaction has been submitted!');
+        const toSend = {
+            currency: this.props.modalData.currency,
+            decimals: this.props.modalData.decimals,
+            amountPerUnitATM: this.state.reserve,
+            deadline: 1440,
+            phased: false,
+            phasingHashedSecretAlgorithm: 2,
+            secretPhrase: values.secretPhrase,
+            feeATM: values.fee,
+        };
+
+        const res = await this.props.submitForm(toSend, "currencyReserveIncrease");
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            NotificationManager.success('Reserve has been increased!', null, 5000);
+        }
     };
 
     handleAdvancedState = () => {
@@ -87,113 +69,129 @@ class ReserveCurrency extends React.Component {
     };
 
     render() {
+        const modalData = this.props.modalData;
+        console.log(modalData);
         return (
             <div className="modal-box">
-                <form className="modal-form" onSubmit={this.handleFormSubmit.bind(this)}>
+                <form className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
 
                         <div className="form-title">
-                            <p>Reserve Currency</p>
+                            <p>Reserve Currency - {modalData.code}</p>
+                            <br/>
                         </div>
-                        <div className="input-group-app display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Asset</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                        <div className="form-group form-group-white row mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Reserve supply
+                            </label>
+                            <div
+                                className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
+                                {modalData.reserveSupply}
                             </div>
                         </div>
-                        <div className="input-group-app display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Recipient</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                        <div className="form-group form-group-white row mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Initial supply included
+                            </label>
+                            <div
+                                className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
+                                {modalData.initialSupply}
                             </div>
                         </div>
-                        <div className="input-group-app display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Quantity</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                        <div className="form-group form-group-white row mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Target reserve
+                            </label>
+                            <div
+                                className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
+                                {modalData.minReservePerUnitATM}
                             </div>
                         </div>
-                        <div className="input-group-app display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Fee</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
+                        <div className="form-group form-group-white row mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Current reserve
+                            </label>
+                            <div
+                                className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
+                                {modalData.currentReservePerUnitATM}
                             </div>
                         </div>
-                        <div className="input-group-app display-block offset-bottom">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label>Secret phrase</label>
-                                </div>
-                                <div className="col-md-9">
-                                    <input ref={'passphrase'} type="text" name={'passphrase'}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                            {
-                                !!this.state.isPending ?
+                        <Form
+                            getApi={form => {
+                            }}
+                            onSubmit={values => this.handleFormSubmit(values)}
+                            render={({
+                                         submitForm, values, addValue, removeValue, setValue, getFormState
+                                     }) => <React.Fragment>
+                                <div className="form-group form-group-white row mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Amount to reserve
+                                    </label>
                                     <div
-                                        style={{
-                                            width: 100
-                                        }}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        <div className="ball-pulse">
-                                            <div></div>
-                                            <div></div>
-                                            <div></div>
+                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            defaultValue={''}
+                                            field="amount"
+                                            placeholder="Amount"
+                                            type="tel"
+                                            onBlur={() => {
+                                                const amount = values.amount;
+                                                const decimals = modalData.decimals;
+                                                const result = utils.resolverReservePerUnit(decimals, modalData.reserveSupply, amount);
+                                                setValue("amount", result.amount);
+                                                this.setState({
+                                                    reserve: result.total,
+                                                })
+                                            }}
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
                                         </div>
-                                    </div> :
-                                    <button
-                                        style={{
-                                            width: 200
-                                        }}
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Reserve Currency
-                                    </button>
-                            }
-
-                            <a
-                                onClick={() => this.props.closeModal()}
-                                className="btn round round-top-left"
-                            >
-                                Cancel
-                            </a>
-
-                        </div>
-                        {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
-                            {/*<a*/}
-                                {/*onClick={this.handleAdvancedState}*/}
-                                {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
-                                {/*style={{left : 0, right: 'auto'}}*/}
-                            {/*>*/}
-                                {/*Advanced*/}
-                            {/*</a>*/}
-                        {/*</div>*/}
-                        {/*<AdvancedSettings*/}
-                            {/*setState={setValue}*/}
-                            {/*advancedState={this.state.advancedState}*/}
-                        {/*/>*/}
+                                    </div>
+                                </div>
+                                <div className="form-group form-group-white row mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Reserve per unit
+                                    </label>
+                                    <div
+                                        className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
+                                        {this.state.reserve}
+                                    </div>
+                                </div>
+                                <div className="form-group form-group-white row mb-15">
+                                    <label className="col-sm-3 col-form-label">
+                                        Fee
+                                    </label>
+                                    <div
+                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <InputForm
+                                            defaultValue={''}
+                                            field="fee"
+                                            placeholder="Minimum fee"
+                                            type="float"
+                                            setValue={setValue}/>
+                                        <div className="input-group-append">
+                                            <span className="input-group-text">Apollo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ModalFooter
+                                    setValue={setValue}
+                                    getFormState={getFormState}
+                                    values={values}
+                                />
+                                <ButtonWrapper>
+                                    <SubmitButton
+                                        text={"Reserve"}
+                                        submit={() => submitForm()}
+                                    />
+                                    <CancelButton
+                                        close={this.props.closeModal}
+                                    />
+                                </ButtonWrapper>
+                            </React.Fragment>}
+                        />
                     </div>
                 </form>
             </div>
@@ -206,7 +204,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
+    setModalData: (data) => dispatch(setModalData(data)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReserveCurrency);

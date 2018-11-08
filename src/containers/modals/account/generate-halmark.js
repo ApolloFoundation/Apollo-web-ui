@@ -22,7 +22,7 @@ class GenerateHallmark extends React.Component {
         this.state = {
             activeTab: 0,
             hallmark: false,
-
+            nowDate: this.getNowDate(),
             parsedHallmark: false,
         };
 
@@ -36,6 +36,21 @@ class GenerateHallmark extends React.Component {
             ...this.props,
             activeTab: index
         })
+    }
+
+    getNowDate = () => {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        mm = mm > 9 ? mm : `0${mm}`;
+        dd = dd > 9 ? dd : `0${dd}`;
+
+        return {
+            viewDate: `${yyyy}.${mm}.${dd}`,
+            postDate: `${yyyy}-${mm}-${dd}`
+        }
     }
 
     handleFormSubmit = async values => {
@@ -101,6 +116,7 @@ class GenerateHallmark extends React.Component {
     set = false;
 
     render() {
+
         return (
             <div className="modal-box">
                 <Form
@@ -182,11 +198,11 @@ class GenerateHallmark extends React.Component {
                                                         <label>Date</label>
                                                     </div>
                                                     <div className="col-md-9">
+                                                        {this.state.nowDate.viewDate}
                                                         <Text
-                                                            type="date"
-                                                            pattern="\d{1,2}/\d{1,2}/\d{4}"
+                                                            type="hidden"
                                                             field={'dateGenerate'}
-                                                            placeholder="Date [YYYY/MM/DD]"
+                                                            defaultValue={this.state.nowDate.postDate}
                                                         />
                                                     </div>
                                                 </div>
@@ -204,6 +220,11 @@ class GenerateHallmark extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            {this.state.hallmark ? <InfoBox info>
+                                                {this.state.hallmark}
+                                            </InfoBox> : null}
+
                                             <div className="btn-box align-buttons-inside absolute right-conner">
                                                 <button
                                                     type="submit"
@@ -339,11 +360,6 @@ class GenerateHallmark extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
-                                {this.state.hallmark ? <InfoBox info>
-                                    {this.state.hallmark}
-                                </InfoBox> : null}
-
                             </form>
                         );
                     }}

@@ -33,7 +33,7 @@ class MyMessages extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 14,
-            messages: [],
+            messages: null,
             isLoading: false,
         };
     }
@@ -144,7 +144,9 @@ class MyMessages extends React.Component {
                         Compose message
                     </a>
                 </SiteHeader>
-                {this.state.isLoading ? <ContentLoader/> :
+                {
+                    this.state.isLoading ? <ContentLoader/> :
+                    this.state.messages &&
                     this.state.messages.length > 0 ?
                         <div className="page-body container-fluid page">
                             <div className="account-ledger">
@@ -203,9 +205,12 @@ class MyMessages extends React.Component {
                             </div>
                         </div>
                         : <div className="page-body container-fluid page">
-                            <InfoBox>
-                                No messages found.
-                            </InfoBox></div>
+                              <div>
+                                  <InfoBox default>
+                                      No messages found.
+                                  </InfoBox>
+                              </div>
+                         </div>
                 }
             </div>
         );
