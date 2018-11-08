@@ -4854,6 +4854,9 @@ table td .btn, table th .btn {
 .nowrap {
   white-space: nowrap; }
 
+.bold {
+  font-weight: bold; }
+
 .transaction-table {
   height: 100%;
   width: 100%;

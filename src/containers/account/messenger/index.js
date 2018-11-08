@@ -282,30 +282,33 @@ class Messenger extends React.Component {
 									</div>
 								</div>
 							</div>
-							<div className="col-md-9">
-								<div className="right-bar">
-										<div className="card card-full-screen no-padding">
-											<div className="chatting-box">
+							{
+								this.state.chats &&
+								!!this.state.chats.length &&
+                                <div className="col-md-9">
+                                    <div className="right-bar">
+                                        <div className="card card-full-screen no-padding">
+                                            <div className="chatting-box">
 
-												{
+                                                {
                                                     this.state.chatHistory &&
                                                     !!this.state.chatHistory.length &&
-													this.state.chatHistory.map((el, index) => {
-														const message = this.props.getMessage(el);
+                                                    this.state.chatHistory.map((el, index) => {
+                                                        const message = this.props.getMessage(el);
 
-														return (
-															<ChatItem
-																key={uuid()}
-																{...this.props}
-																{...el}
-																message={message}
-																messageFormat={message.format}
-															/>
-														);
-													})
-												}
+                                                        return (
+                                                            <ChatItem
+                                                                key={uuid()}
+                                                                {...this.props}
+                                                                {...el}
+                                                                message={message}
+                                                                messageFormat={message.format}
+                                                            />
+                                                        );
+                                                    })
+                                                }
 
-											</div>
+                                            </div>
                                             <Form
                                                 onSubmit={(values) => this.handleSendMessageFormSubmit(values)}
                                                 getApi={this.getFormApi}
@@ -314,19 +317,19 @@ class Messenger extends React.Component {
                                                          }) => (
                                                     <form className="compose-message-box" onSubmit={submitForm}>
                                                         <div className="top-bar">
-	                                                        <div className={"textareaCount"}>
-		                                                        {this.state.textareaCount > 100 ?
-			                                                        <div className={"textareaCount-message"}>Message is too long</div> :
-			                                                        <div><div className={'textareaCount-text'}>{100 - this.state.textareaCount}</div>/100</div>
-		                                                        }
-	                                                        </div>
-															<TextArea
+                                                            <div className={"textareaCount"}>
+                                                                {this.state.textareaCount > 100 ?
+                                                                    <div className={"textareaCount-message"}>Message is too long</div> :
+                                                                    <div><div className={'textareaCount-text'}>{100 - this.state.textareaCount}</div>/100</div>
+                                                                }
+                                                            </div>
+                                                            <TextArea
                                                                 className={"form-control"}
                                                                 field={'message'}
                                                                 rows="2"
                                                                 placeholder={'Message'}
                                                                 onChange={(text) => this.setState({textareaCount: text.length})}
-															/>
+                                                            />
                                                         </div>
                                                         <div className="bottom-bar">
                                                             <div className="encrypt-message-box">
@@ -349,32 +352,32 @@ class Messenger extends React.Component {
                                                                 field={'secretPhrase'}
                                                                 placeholder={'Secret Phrase'}
                                                                 type="password"/>
-															{
-																this.props.is2FA &&
+                                                            {
+                                                                this.props.is2FA &&
                                                                 <Text
                                                                     className={"form-control"}
                                                                     field={'code2FA'}
                                                                     placeholder={'2FA Code'}
                                                                     type="password"/>
-															}
+                                                            }
 
-															<button type="submit" className="btn blue btn-primary">
-																Send Message
+                                                            <button type="submit" className="btn blue btn-primary">
+                                                                Send Message
                                                             </button>
                                                         </div>
                                                     </form>
                                                 )}
                                             />
 
-										</div>
+                                        </div>
 
-                                    {
-                                        !this.state.chatHistory &&
-                                        <ContentLoader/>
-                                    }
-								</div>
-							</div>
-
+                                        {
+                                            !this.state.chatHistory &&
+                                            <ContentLoader/>
+                                        }
+                                    </div>
+                                </div>
+							}
 						</div>
 					</div>
 				</div>

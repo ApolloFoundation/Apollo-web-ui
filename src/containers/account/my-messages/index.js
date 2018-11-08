@@ -203,9 +203,12 @@ class MyMessages extends React.Component {
                             </div>
                         </div>
                         : <div className="page-body container-fluid page">
-                            <InfoBox>
-                                No messages found.
-                            </InfoBox></div>
+                              <div>
+                                  <InfoBox default>
+                                      No messages found.
+                                  </InfoBox>
+                              </div>
+                         </div>
                 }
             </div>
         );
