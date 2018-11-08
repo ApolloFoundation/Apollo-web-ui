@@ -17,6 +17,7 @@ import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer';
 
 import BackForm from '../modal-form/modal-form-container';
+import BigInteger from "big-integer";
 
 const algorithmData = [
     {
@@ -36,6 +37,16 @@ const algorithmData = [
         value: "25"
     }
 ];
+
+const typeValues = {
+    1: 1,
+    2: 2,
+    3: 4,
+    4: 8,
+    5: 16,
+    6: 32,
+};
+
 class IssueCurrency extends React.Component {
     constructor(props) {
         super(props);
@@ -53,55 +64,48 @@ class IssueCurrency extends React.Component {
 
     }
 
-    handleFormSubmit = async(values) => {
-        let type;
-
-        switch (values) {
-            case(values.type1):
-                type = 1;
-                delete values.type1;
-                return;
-            case(values.type2):
-                type = 2;
-                delete values.type2;
-                return;
-            case(values.type3):
-                type = 3;
-                delete values.type3;
-                return;
-            case(values.type4):
-                type = 4;
-                delete values.type4;
-                return;
-            case(values.type5):
-                type = 5;
-                delete values.type5;
-                return;
-            case(values.type6):
-                type = 6;
-                delete values.type6;
-                return;
-
-            default:
-                type = 1;
-                delete values.type1;
+    handleFormSubmit = async values => {
+        if (!values.secretPhrase || values.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
         }
+        let type = 0;
+
+        if (values.type1) type += typeValues[1];
+        if (values.type2) type += typeValues[2];
+        if (values.type3) type += typeValues[3];
+        if (values.type4) type += typeValues[4];
+        if (values.type5) type += typeValues[5];
+        if (values.type6) type += typeValues[6];
 
         values = {
-            ...values,
+            name: values.name,
+            code: values.code,
+            description: values.description,
+            minReservePerUnitATM: !values.type3 ? null : new BigInteger(values.minReservePerUnitATM).multiply(new BigInteger("" + Math.pow(10, values.decimals))),
+            reserveSupply: !values.type3 ? null : values.reserveSupply,
+            minDifficulty: !values.type5 ? null : values.minDifficulty,
+            maxDifficulty: !values.type5 ? null : values.maxDifficulty,
+            algorithm: !values.type5 ? null : values.algorithm,
+            decimals: values.decimals,
+            deadline: 1440,
+            phased: false,
+            issuanceHeight: values.height,
+            publicKey: this.props.publicKey,
+            feeAPL: values.feeAPL,
             maxSupply: values.maxSupply * Math.pow(10, values.decimals),
             initialSupply: values.initialSupply * Math.pow(10, values.decimals),
-            type: type
-
+            secretPhrase: values.secretPhrase,
+            type
         };
         this.setState({
             isPending: true
-        })
-        const res = await this.props.submitForm( values, 'issueCurrency');
+        });
+        const res = await this.props.submitForm(values, 'issueCurrency');
         if (res.errorCode) {
             this.setState({
                 isPending: false
-            })
+            });
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -128,18 +132,19 @@ class IssueCurrency extends React.Component {
         return (
             <div className="modal-box">
                 <BackForm
-	                nameModal={this.props.nameModal}
+                    nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                    render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
 
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)}
+                              onSubmit={submitForm}>
                             <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                <a onClick={() => this.props.closeModal()} className="exit"><i
+                                    className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
                                     {this.props.modalsHistory.length > 1 &&
-	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                }
+                                    <div className={"backMy"} onClick={() => this.props.openPrevModal()}/>}
                                     <p>Issue Currency</p>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
@@ -172,7 +177,7 @@ class IssueCurrency extends React.Component {
                                         <TextArea className="form-control"
                                                   placeholder="Description"
                                                   field="description"
-                                                  cols="30" rows="5" />
+                                                  cols="30" rows="5"/>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
@@ -189,41 +194,41 @@ class IssueCurrency extends React.Component {
                                                 Exchangeable
                                             </label>
                                         </div>
-                                        {/*<div className="form-check custom-checkbox mb-15">*/}
-                                            {/*<Checkbox className="form-check-input custom-control-input"*/}
-                                                      {/*type="checkbox"*/}
-                                                      {/*field="type2"/>*/}
-                                            {/*<label className="form-check-label custom-control-label">*/}
-                                                {/*Controllable*/}
-                                            {/*</label>*/}
-                                        {/*</div>*/}
-                                        {/*<div className="form-check custom-checkbox mb-15">*/}
-                                            {/*<Checkbox className="form-check-input custom-control-input"*/}
-                                                      {/*type="checkbox"*/}
-                                                      {/*field="type3"/>*/}
-                                            {/*<label className="form-check-label custom-control-label">*/}
-                                                {/*Reservable*/}
-                                            {/*</label>*/}
-                                        {/*</div>*/}
-                                        {/*<div className="form-check custom-checkbox mb-15">*/}
-                                            {/*<Checkbox className="form-check-input custom-control-input"*/}
-                                                      {/*type="checkbox"*/}
-                                                      {/*onChange={(value) => {*/}
-                                                          {/*if(value) setValue('type3', true);*/}
-                                                      {/*}}*/}
-                                                      {/*field="type4"/>*/}
-                                            {/*<label className="form-check-label custom-control-label">*/}
-                                                {/*Claimable*/}
-                                            {/*</label>*/}
-                                        {/*</div>*/}
-                                        {/*<div className="form-check custom-checkbox mb-15">*/}
-                                            {/*<Checkbox className="form-check-input custom-control-input"*/}
-                                                      {/*type="checkbox"*/}
-                                                      {/*field="type5"/>*/}
-                                            {/*<label className="form-check-label custom-control-label">*/}
-                                                {/*Mintable*/}
-                                            {/*</label>*/}
-                                        {/*</div>*/}
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type2"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Controllable
+                                            </label>
+                                        </div>
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type3"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Reservable
+                                            </label>
+                                        </div>
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      onChange={(value) => {
+                                                          if (value) setValue('type3', true);
+                                                      }}
+                                                      field="type4"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Claimable
+                                            </label>
+                                        </div>
+                                        <div className="form-check custom-checkbox mb-15">
+                                            <Checkbox className="form-check-input custom-control-input"
+                                                      type="checkbox"
+                                                      field="type5"/>
+                                            <label className="form-check-label custom-control-label">
+                                                Mintable
+                                            </label>
+                                        </div>
                                         <div className="form-check custom-checkbox mb-15">
                                             <Checkbox className="form-check-input custom-control-input"
                                                       type="checkbox"
@@ -343,6 +348,18 @@ class IssueCurrency extends React.Component {
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
+                                        Activation Height
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <InputForm
+                                            type="tel"
+                                            field="height"
+                                            placeholder="Activation height"
+                                            setValue={setValue}/>
+                                    </div>
+                                </div>
+                                <div className="form-group row form-group-white mb-15">
+                                    <label className="col-sm-3 col-form-label">
                                         Fee
                                         <span
                                             onClick={async () => {
@@ -355,7 +372,8 @@ class IssueCurrency extends React.Component {
                                             Calculate
                                         </span>
                                     </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
+                                    <div
+                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
                                         <InputForm
                                             field="feeAPL"
                                             placeholder="Minimum fee"
@@ -406,13 +424,13 @@ class IssueCurrency extends React.Component {
 
                                 </div>
                                 {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
-                                    {/*<a*/}
-                                        {/*onClick={this.handleAdvancedState}*/}
-                                        {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
-                                        {/*style={{left : 0, right: 'auto'}}*/}
-                                    {/*>*/}
-                                        {/*{this.state.advancedState ? "Basic" : "Advanced"}*/}
-                                    {/*</a>*/}
+                                {/*<a*/}
+                                {/*onClick={this.handleAdvancedState}*/}
+                                {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
+                                {/*style={{left : 0, right: 'auto'}}*/}
+                                {/*>*/}
+                                {/*{this.state.advancedState ? "Basic" : "Advanced"}*/}
+                                {/*</a>*/}
                                 {/*</div>*/}
                                 <AdvancedSettings
                                     setValue={setValue}
@@ -432,6 +450,7 @@ class IssueCurrency extends React.Component {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,
+    publicKey: state.account.publicKey
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -440,7 +459,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
+    openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssueCurrency);
