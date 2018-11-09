@@ -125,3 +125,30 @@ export const getExchangesByExchangeRequest = (reqParams) => {
         })
 }
 
+export const getExchangesByOfferRequest = (reqParams) => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getExchangesByOffer',
+            ...reqParams
+        }
+    })
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            }
+        })
+}
+
+export const getOfferRequest = (reqParams) => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getOffer',
+            ...reqParams
+        }
+    })
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            }
+        })
+}

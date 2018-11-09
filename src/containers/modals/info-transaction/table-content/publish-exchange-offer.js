@@ -1,14 +1,15 @@
 import React, {Component} from "react";
 import {getShufflingAction} from "../../../../actions/shuffling";
 import {connect} from 'react-redux';
-import {getCurrencyAction, getExchangesByExchangeRequest} from "../../../../actions/currencies";
+import {getCurrencyAction, getExchangesByOfferRequest, getOfferRequest} from "../../../../actions/currencies";
 import {formatTimestamp} from "../../../../helpers/util/time";
 
 
-class BuyCurrency extends Component {
+class CurrencyExchangeOffer extends Component {
 
     componentDidMount = () => {
         this.getCurrency();
+        this.getOfferRequest();
         this.getExchangeOffers();
     }
 
@@ -25,10 +26,10 @@ class BuyCurrency extends Component {
                 currency
             });
         }
-    };
+    }
 
     getExchangeOffers = async () => {
-        const exchanges = await getExchangesByExchangeRequest({transaction: this.props.transaction.transaction});
+        const exchanges = await getExchangesByOfferRequest({offer: this.props.transaction.transaction});
 
         console.log(exchanges);
 
@@ -38,7 +39,20 @@ class BuyCurrency extends Component {
                 exchanges: exchanges.exchanges
             });
         }
-    };
+    }
+
+    getOfferRequest = async () => {
+        const exchanges = await getOfferRequest({offer: this.props.transaction.transaction});
+
+        console.log(exchanges);
+
+        if (exchanges) {
+            this.setState({
+                ...this.state,
+                exchanges: exchanges.exchanges
+            });
+        }
+    }
 
     getUnitsFromExchanges = (exchanges) => {
         if (exchanges && this.state.currency) {
@@ -51,7 +65,7 @@ class BuyCurrency extends Component {
 
             return sum / Math.pow(10, this.state.currency.decimals);
         }
-    };
+    }
 
     getTotalFromExchanges = (exchanges) => {
         if (exchanges && this.state.currency) {
@@ -64,7 +78,7 @@ class BuyCurrency extends Component {
 
             return sum;
         }
-    };
+    }
 
     render() {
         const unitExchanges = this.getUnitsFromExchanges(this.state.exchanges);
@@ -87,23 +101,33 @@ class BuyCurrency extends Component {
                     this.state.currency.code &&
                     this.props.transaction &&
                     <tr>
-                        <td>Units:</td>
-                        <td>{this.props.transaction.attachment.units / Math.pow(10, this.state.currency.decimals)}</td>
+                        <td>Buy Supply:</td>
+                        <td>{this.props.transaction.attachment.totalBuyLimit / Math.pow(10, this.state.currency.decimals)} (initial : {this.props.transaction.attachment.initialBuySupply / Math.pow(10, this.state.currency.decimals)})</td>
                     </tr>
                 }
-                {/*{*/}
-                    {/*this.state.currency.code &&*/}
-                    {/*<tr>*/}
-                        {/*<td>Rate:</td>*/}
-                        {/*<td>{this.state.currency.code}</td>*/}
-                    {/*</tr>*/}
-                {/*}*/}
                 {
                     this.state.currency &&
                     this.props.transaction.timestamp &&
                     <tr>
-                        <td>Date:</td>
-                        <td>{this.props.transaction.timestamp}</td>
+                        <td>Buy Limit:</td>
+                        <td>{this.props.transaction.attachment.totalBuyLimit / Math.pow(10, this.state.currency.decimals)} (initial : {this.props.transaction.attachment.initialBuySupply / Math.pow(10, this.state.currency.decimals)})</td>
+                    </tr>
+                }
+                {
+                    this.state.currency &&
+                    this.state.currency.code &&
+                    this.props.transaction &&
+                    <tr>
+                        <td>Sell Supply:</td>
+                        <td>{this.props.transaction.attachment.totalSellLimit / Math.pow(10, this.state.currency.decimals)} (initial : {this.props.transaction.attachment.initialSellSupply / Math.pow(10, this.state.currency.decimals)})</td>
+                    </tr>
+                }
+                {
+                    this.state.currency &&
+                    this.props.transaction.timestamp &&
+                    <tr>
+                        <td>Sell Limit:</td>
+                        <td>{this.props.transaction.attachment.totalSellLimit / Math.pow(10, this.state.currency.decimals)} (initial : {this.props.transaction.attachment.initialSellSupply / Math.pow(10, this.state.currency.decimals)})</td>
                     </tr>
                 }
                 {
@@ -117,12 +141,12 @@ class BuyCurrency extends Component {
                                 <div className={'transaction-table-body transparent no-border-top'}>
                                     <table>
                                         <thead>
-                                            <tr>
-                                                <td style={{padding: '20px 0 20px '}}>Date</td>
-                                                <td>Units</td>
-                                                <td>Rate</td>
-                                                <td>Total</td>
-                                            </tr>
+                                        <tr>
+                                            <td style={{padding: '20px 0 20px '}}>Date</td>
+                                            <td>Units</td>
+                                            <td>Rate</td>
+                                            <td>Total</td>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         {
@@ -161,7 +185,7 @@ class BuyCurrency extends Component {
                     this.state.exchanges.length &&
                     <tr>
                         <td>Total Exchanged:</td>
-                        <td>{totalExchanges}</td>
+                        <td>{totalExchanges} Apollo</td>
                     </tr>
                 }
 
@@ -182,4 +206,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuyCurrency)
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyExchangeOffer)

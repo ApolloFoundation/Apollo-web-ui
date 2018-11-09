@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 
 import CurrencyIssuance from "./table-content/currency-issuance";
 import BuyCurrency from "./table-content/exchange-buy";
+import CurrencyExchangeOffer from "./table-content/publish-exchange-offer";
 import ShufflingCreation from "./table-content/shuffling-creation";
 import ShufflingRegistarion from "./table-content/shuffling-registration";
 import ShufflingVerification from "./table-content/shuffling-verification";
@@ -49,6 +50,8 @@ class InfoTransactionTable extends Component {
 						{modalTypeName === "CURRENCY ISSUANCE" && <CurrencyIssuance transaction={this.props.transaction}/>}
 
 						{modalTypeName === "EXCHANGE BUY" && <BuyCurrency transaction={this.props.transaction}/>}
+
+						{modalTypeName === "PUBLISH EXCHANGE OFFER" && <CurrencyExchangeOffer transaction={this.props.transaction}/>}
 
 						{modalTypeName === "SHUFFLING CREATION" && <ShufflingCreation transaction={this.props.transaction}/>}
 
