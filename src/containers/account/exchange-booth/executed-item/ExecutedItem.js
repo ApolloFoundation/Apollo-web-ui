@@ -30,13 +30,13 @@ class ExecutedItem extends React.Component {
                     {(exchange.units    / Math.pow(10, this.props.decimals)).toFixed(8)}
                 </td>
                 <td className="align-right">
-                    {((exchange.rateATM  / Math.pow(10, 8)) * Math.pow(10, this.props.decimals).toFixed(8)).toLocaleString('en', {
+                    {((exchange.rateATM  / Math.pow(10, 8)) * Math.pow(10, this.props.decimals)).toLocaleString('en', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     })}
                 </td>
                 <td className="align-right">
-                    {(((exchange.rateATM / Math.pow(10, 8)) * exchange.units / Math.pow(10, this.props.decimals)) * Math.pow(10, this.props.decimals).toFixed(8)).toLocaleString('ru', {
+                    {(((exchange.rateATM / Math.pow(10, 8)) * exchange.units / Math.pow(10, this.props.decimals)) * Math.pow(10, this.props.decimals)).toLocaleString('ru', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     })}
