@@ -17,7 +17,11 @@ import AliasDelete from "./table-content/alias-delete";
 import VoteCasting from "./table-content/vote-casting";
 import ArbitraryMessage from "./table-content/arbitrary-message";
 import EffectiveBalanceLeasing from "./table-content/effective-balance-leasing";
-
+import AliasAssignment from "./table-content/alias-assignment";
+import AccountInfo from "./table-content/account-info";
+import PollCreation from "./table-content/poll-creation";
+import AliasSell from "./table-content/alias-sell";
+import PhasingVoteCasting from "./table-content/phasing-vote-casting";
 
 
 class InfoTransactionTable extends Component {
@@ -26,6 +30,7 @@ class InfoTransactionTable extends Component {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
 
 		console.log('22222', modalTypeName);
+		console.log("yayayay", this.props.transaction);
 
 		return (
 			<div className="transaction-table-body transparent">
@@ -71,7 +76,15 @@ class InfoTransactionTable extends Component {
 
 						{modalTypeName === "EFFECTIVE BALANCE LEASING" && <EffectiveBalanceLeasing transaction={this.props.transaction}/>}
 
-						{modalTypeName === "EFFECTIVE BALANCE LEASING" && <EffectiveBalanceLeasing transaction={this.props.transaction}/>}
+						{modalTypeName === "ALIAS ASSIGNMENT" && <AliasAssignment transaction={this.props.transaction}/>}
+
+						{modalTypeName === "ACCOUNT INFO" && <AccountInfo transaction={this.props.transaction}/>}
+
+						{modalTypeName === "POLL CREATION" && <PollCreation transaction={this.props.transaction}/>}
+
+						{modalTypeName === "ALIAS SELL" && <AliasSell transaction={this.props.transaction}/>}
+
+						{modalTypeName === "PHASING VOTE CASTING" && <PhasingVoteCasting transaction={this.props.transaction}/>}
 
 
 						{console.log("5555", this.props.transaction)}
