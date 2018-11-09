@@ -597,7 +597,7 @@ class AssetExchange extends React.Component {
                                                     {
                                                         this.state.bidOrders &&
                                                         this.state.bidOrders.length === 0 ?  <div className="info-box simple">
-                                                                <p>No buy offersfor this aaset.</p>
+                                                                <p>No buy offers for this asset.</p>
                                                             </div>:
                                                         <div className="transaction-table">
                                                             <div className="transaction-table-body">
