@@ -410,6 +410,17 @@ input[type="number"] {
           }
 
           .transaction-table-body {
+            &.no-border-top {
+              table {
+                thead {
+                  tr {
+                    td {
+                      border: 0;
+                    }
+                  }
+                }
+              }
+            }
             table {
               tbody {
                 tr {
