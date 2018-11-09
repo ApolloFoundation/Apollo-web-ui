@@ -20,6 +20,11 @@ import AccountInfo from "./table-content/account-info";
 import PollCreation from "./table-content/poll-creation";
 import AliasSell from "./table-content/alias-sell";
 import PhasingVoteCasting from "./table-content/phasing-vote-casting";
+import DigitalGoodsDelisting from "./table-content/digital-goods-delisting";
+import DigitalGoodsPurchase from "./table-content/digital-goods-purchase";
+import DigitalGoodsPriceChange from "./table-content/digital-goods-price-change";
+import DigitalGoodsListing from "./table-content/digital-goods-listing";
+import DigitalGoodsQuantityChange from "./table-content/digital-goods-quantity-change";
 
 
 class InfoTransactionTable extends Component {
@@ -40,9 +45,6 @@ class InfoTransactionTable extends Component {
 							<td>Type:</td>
 							<td>{formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)}</td>
 						</tr>
-
-
-
 
 						{modalTypeName === "CURRENCY ISSUANCE" && <CurrencyIssuance transaction={this.props.transaction}/>}
 
@@ -80,8 +82,16 @@ class InfoTransactionTable extends Component {
 
 						{modalTypeName === "PHASING VOTE CASTING" && <PhasingVoteCasting transaction={this.props.transaction}/>}
 
+						{modalTypeName === "DIGITAL GOODS DELISTING" && <DigitalGoodsDelisting transaction={this.props.transaction}/>}
 
-						{console.log("5555", this.props.transaction)}
+						{modalTypeName === "DIGITAL GOODS PURCHASE" && <DigitalGoodsPurchase transaction={this.props.transaction}/>}
+
+						{modalTypeName === "DIGITAL GOODS PRICE CHANGE" && <DigitalGoodsPriceChange transaction={this.props.transaction}/>}
+
+						{modalTypeName === "DIGITAL GOODS LISTING" && <DigitalGoodsListing transaction={this.props.transaction}/>}
+
+						{modalTypeName === "DIGITAL GOODS QUANTITY CHANGE" && <DigitalGoodsQuantityChange transaction={this.props.transaction}/>}
+
 						</tbody>
 					</table>
 				}
