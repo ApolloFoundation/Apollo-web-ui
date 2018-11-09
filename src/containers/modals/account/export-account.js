@@ -57,6 +57,7 @@ class ExportAccount extends React.Component {
     handleFormSubmit = async (values) => {
         const accountKeySeedData = await exportAccountAction(values);
 
+
         if (accountKeySeedData) {
 
             if (!accountKeySeedData.errorCode) {
@@ -135,7 +136,7 @@ class ExportAccount extends React.Component {
 	                                {this.props.modalsHistory.length > 1 &&
 	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
 	                                }
-                                    <p>Export Account</p>
+                                    <p>Export Secret Key</p>
                                 </div>
                                 <InfoBox info>
                                     Please enter your account credentials.
@@ -203,16 +204,22 @@ class ExportAccount extends React.Component {
                                             <br/>
                                             <a
                                                 style={{marginTop: 18, marginRight: 18}}
-                                                onClick={() => this.props.setBodyModalParamsAction('DELETE_ACCOUNT_FROM_NODE', [
-                                                    {
-                                                        value: this.props.account,
-                                                        name: 'Account ID'
-                                                    },
-                                                    {
-                                                        value: this.state.accountKeySeedData.secretBytes,
-                                                        name: 'Secret Key'
+                                                onClick={() => {
+                                                    if (getFormState().values.isConfirmed) {
+                                                        this.props.setBodyModalParamsAction('DELETE_ACCOUNT_FROM_NODE', [
+                                                            {
+                                                                value: this.props.account,
+                                                                name: 'Account ID'
+                                                            },
+                                                            {
+                                                                value: this.state.accountKeySeedData.secretBytes,
+                                                                name: 'Secret Key'
+                                                            }
+                                                        ])
+                                                    } else {
+                                                        NotificationManager.error('Please confirm your that you had stored your secret key in secured place.' , null, 10000)
                                                     }
-                                                ])}
+                                                }}
                                                 className={'btn danger static'}
                                             >
                                                 Yes
@@ -231,15 +238,46 @@ class ExportAccount extends React.Component {
 
                                 }
 
-                                <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                    >
-                                        Export
-                                    </button>
-                                </div>
+                                {
+                                    this.state && this.state.accountKeySeedData &&
+                                    <div className="mobile-class row mb-15 form-group-white">
+                                        <div className="col-md-12">
+                                            <div className="form-check custom-checkbox mb-2">
+                                                <Checkbox className="form-check-input custom-control-input"
+                                                          type="checkbox"
+                                                          field="isConfirmed"/>
+                                                <label className="form-check-label custom-control-label">
+                                                    I store my secret key in secure place
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                {
+                                    this.state && this.state.accountKeySeedData &&
+                                    <div className="btn-box align-buttons-inside absolute right-conner">
+                                        <a
+                                            onClick={() => this.props.closeModal()}
+                                            className="btn absolute btn-right default round round-top-left round-bottom-right"
+                                        >
+                                            Cancel
+                                        </a>
+                                    </div>
+                                }
+                                {
+                                    this.state && !this.state.accountKeySeedData &&
+                                    <div className="btn-box align-buttons-inside absolute right-conner">
+                                        <button
+                                            type="submit"
+                                            name={'closeModal'}
+                                            className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                        >
+                                            Export
+                                        </button>
+                                    </div>
+                                }
+
                             </div>
                         </form>
                     )}

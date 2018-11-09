@@ -3336,7 +3336,7 @@ input[type="file"] {
   padding-top: 0; }
 
 .info-box.nowrap p {
-  word-break: normal; }
+  word-break: unset; }
 
 .info-box p {
   word-wrap: break-word;
@@ -4852,7 +4852,7 @@ table td .btn, table th .btn {
   margin-top: 20px; }
 
 .nowrap {
-  white-space: nowrap; }
+  white-space: unset; }
 
 .bold {
   font-weight: bold; }
