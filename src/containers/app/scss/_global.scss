@@ -737,7 +737,7 @@ input[type="file"] {
 	}
 	&.nowrap {
 		p {
-			word-break: normal;
+			word-break: unset;
 		}
 	}
 	p {
@@ -2976,7 +2976,7 @@ table {
 }
 
 .nowrap {
-	white-space: nowrap;
+	white-space: unset;
 }
 .bold {
 	font-weight: bold;
