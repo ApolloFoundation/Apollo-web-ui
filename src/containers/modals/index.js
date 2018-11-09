@@ -43,6 +43,7 @@ import TransferAsset from './assets/transfer-asset';
 import DeleteShares from './assets/delete-shares';
 import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
+import AssetDistribution from './assets/view-asset-distribution';
 import BuyCurrency from './currencies/confirm-buy-request';
 import SellCurrency from './currencies/confirm-sell-request';
 
@@ -217,6 +218,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'ISSUE_ASSET'                 && <IssueAsset                closeModal={this.closeModal} nameModal={'ISSUE_ASSET'}/>}
                 {this.props.modalType === 'BUY_ASSET'                   && <BuyAssets                 closeModal={this.closeModal} nameModal={'BUY_ASSET'}/>}
                 {this.props.modalType === 'SELL_ASSET'                  && <SellAssets                closeModal={this.closeModal} nameModal={'SELL_ASSET'}/>}
+                {this.props.modalType === 'VIEW_ASSET_DISTRIBUTION'     && <AssetDistribution         closeModal={this.closeModal} nameModal={'VIEW_ASSET_DISTRIBUTION'}/>}
 
 
                 {/* Currency */}

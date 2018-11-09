@@ -315,6 +315,17 @@ class AssetExchange extends React.Component {
                                                 <div className="row">
                                                     <div className="col-md-6">
                                                         <div className="card-title medium">{this.state.asset.name}</div>
+                                                        <a
+                                                            onClick={() => {
+                                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
+                                                                    asset: this.props.match.params.asset,
+                                                                    decimals: this.state.asset.decimals,
+                                                                    totalAvailable: this.state.asset.quantityATU
+                                                                })
+                                                            }}
+                                                        >
+                                                            View Account Distribution
+                                                        </a>
                                                     </div>
                                                     <div className="col-md-6 flex">
                                                         <div
