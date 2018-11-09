@@ -3,11 +3,13 @@ import {formatTransactionType} from "../../../actions/transactions";
 import {connect} from "react-redux";
 
 import CurrencyIssuance from "./table-content/currency-issuance";
+import BuyCurrency from "./table-content/exchange-buy";
 import ShufflingCreation from "./table-content/shuffling-creation";
 import ShufflingRegistarion from "./table-content/shuffling-registration";
 import ShufflingVerification from "./table-content/shuffling-verification";
 import ShufflingProcessing from "./table-content/shuffling-processing";
 import OrdinaryPayment from "./table-content/ordinary-payment";
+import PrivatePayment from "./table-content/private-payment";
 import TargetDataUpload from "./table-content/target-data-upload";
 import AccountProperty from "./table-content/account-property";
 import AccountPropertyDelete from "./table-content/account-property-delete";
@@ -41,6 +43,8 @@ class InfoTransactionTable extends Component {
 
 						{modalTypeName === "CURRENCY ISSUANCE" && <CurrencyIssuance transaction={this.props.transaction}/>}
 
+						{modalTypeName === "EXCHANGE BUY" && <BuyCurrency transaction={this.props.transaction}/>}
+
 						{modalTypeName === "SHUFFLING CREATION" && <ShufflingCreation transaction={this.props.transaction}/>}
 
 						{modalTypeName === "SHUFFLING REGISTRATION" && <ShufflingRegistarion transaction={this.props.transaction}/>}
@@ -50,6 +54,8 @@ class InfoTransactionTable extends Component {
 						{modalTypeName === "SHUFFLING PROCESSING" && <ShufflingProcessing transaction={this.props.transaction}/>}
 
 						{modalTypeName === "ORDINARY PAYMENT" && <OrdinaryPayment transaction={this.props.transaction}/>}
+
+						{modalTypeName === "PRIVATE PAYMENT" && <PrivatePayment transaction={this.props.transaction}/>}
 
 						{modalTypeName === "TAGGED DATA UPLOAD" && <TargetDataUpload transaction={this.props.transaction}/>}
 

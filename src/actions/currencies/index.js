@@ -111,3 +111,17 @@ export function getTransferHistory(reqParams) {
     }
 }
 
+export const getExchangesByExchangeRequest = (reqParams) => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getExchangesByExchangeRequest',
+            ...reqParams
+        }
+    })
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            }
+        })
+}
+
