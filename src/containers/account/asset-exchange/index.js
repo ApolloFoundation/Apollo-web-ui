@@ -244,11 +244,12 @@ class AssetExchange extends React.Component {
     handleTotalValue = (setValue, getFormState) => {
         const {values} = getFormState();
 
-        let result = (bigInteger(values.quantity).multiply(bigInteger(values.priceATM)));
 
         if (values.quantity && values.priceATM) {
+            let result = (bigInteger(values.quantity).multiply(bigInteger(values.priceATM)));
 
-            if (Array.isArray(result)) {
+
+            if (result && Array.isArray(result.value)) {
                 result = result.value.reverse().reduce((a,b) => {return a.toString()+b.toString()})
             } else {
                 result = result.value;
