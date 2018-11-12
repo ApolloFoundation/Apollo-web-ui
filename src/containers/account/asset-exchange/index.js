@@ -27,6 +27,7 @@ import {BlockUpdater} from "../../block-subscriber";
 import {NotificationManager} from "react-notifications";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
+import bigInteger from 'big-integer'
 
 class AssetExchange extends React.Component {
     constructor(props) {
@@ -157,6 +158,7 @@ class AssetExchange extends React.Component {
 				})
 		}
 	}
+
     handleBuyFormSubmit = async (values) => {
         if (!values.quantityATU) {
             this.setState({
@@ -209,8 +211,6 @@ class AssetExchange extends React.Component {
         this.props.setAlert('success', 'The buy order has been submitted.');
     };
 
-
-
     async getTransaction(data) {
         const reqParams = {
             transaction: data,
@@ -244,14 +244,22 @@ class AssetExchange extends React.Component {
     handleTotalValue = (setValue, getFormState) => {
         const {values} = getFormState();
 
+
         if (values.quantity && values.priceATM) {
-            setValue('total', values.quantity * values.priceATM);
+            let result = (bigInteger(values.quantity).multiply(bigInteger(values.priceATM)));
+
+
+            if (result && Array.isArray(result.value)) {
+                result = result.value.reverse().reduce((a,b) => {return a.toString()+b.toString()})
+            } else {
+                result = result.value;
+            }
+
+            setValue('total', (result).toString());
         } else {
             setValue('total', 0);
         }
     };
-
-
 
     render() {
         return (
@@ -597,7 +605,7 @@ class AssetExchange extends React.Component {
                                                     {
                                                         this.state.bidOrders &&
                                                         this.state.bidOrders.length === 0 ?  <div className="info-box simple">
-                                                                <p>No buy offersfor this aaset.</p>
+                                                                <p>No buy offers for this asset.</p>
                                                             </div>:
                                                         <div className="transaction-table">
                                                             <div className="transaction-table-body">

@@ -13,6 +13,7 @@ import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {formatTransactionType, getPhasingTransactionVoters} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
+import config from "../../../../config";
 
 
 const mapStateToProps = state => ({
@@ -103,26 +104,30 @@ class Transaction extends React.Component {
                         <td className="blue-link-text">
                             <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
                         </td>
-                        <td className="align-right phasing">
-                            {
-                                this.state &&
-                                this.state.phasing &&
-                                <div className="phasing-box"
-                                     onMouseOver={() => this.handleMouseOver(id)}
-                                     onMouseOut={()  => this.handleMouseOut(id)}
-                                     id={id}
-                                >
-                                    <spna className="phasing-box__icon">
-                                        <i className={'zmdi zmdi-accounts-alt'}></i>
-                                    </spna>
-                                    <span className="phasing-box__result">
+                        {
+                            !this.props.isScheduled &&
+                            <td className="align-right phasing">
+                                {
+                                    this.state &&
+                                    this.state.phasing &&
+                                    <div className="phasing-box"
+                                         onMouseOver={() => this.handleMouseOver(id)}
+                                         onMouseOut={()  => this.handleMouseOut(id)}
+                                         id={id}
+                                    >
+                                        <spna className="phasing-box__icon">
+                                            <i className={'zmdi zmdi-accounts-alt'}></i>
+                                        </spna>
+                                        <span className="phasing-box__result">
                                         {this.state.phasing.result} / {this.state.phasing.quorum}
                                     </span>
-                                </div>
-                            }
+                                    </div>
+                                }
 
 
-                        </td>
+                            </td>
+                        }
+
                         <td className="align-right blue-link-text">
                             {
                                 !this.props.isUnconfirmed &&
@@ -133,15 +138,31 @@ class Transaction extends React.Component {
                             }
                         </td>
 
-                        <td className="align-right">
-                            {
-                                !this.props.isUnconfirmed &&
-                                <a>{this.props.transaction.confirmations}</a>
-                            }
-                            {
-                                this.props.isUnconfirmed && '-'
-                            }
-                        </td>
+                        {
+                            !this.props.isScheduled &&
+                            <td className="align-right">
+                                {
+                                    !this.props.isUnconfirmed &&
+                                    <a>{this.props.transaction.confirmations}</a>
+                                }
+                                {
+                                    this.props.isUnconfirmed && '-'
+                                }
+                            </td>
+                        }
+                        {
+                            this.props.isScheduled &&
+                            <td className="align-right">
+                                <div className="btn-box inline">
+                                    <a
+                                        onClick={() => this.props.deleteSheduledTransaction(this.props.transaction.transaction)}
+                                        className="btn primary default"
+                                    >
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        }
                     </React.Fragment>
                 }
                 {

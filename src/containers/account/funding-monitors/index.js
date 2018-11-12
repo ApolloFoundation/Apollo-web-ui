@@ -65,6 +65,7 @@ class FundingMonitors extends React.Component {
     }
 
     reloadFundingMonitors = () => {
+
         this.getFundingMointors({
             adminPassword: this.props.adminPassword
         })
