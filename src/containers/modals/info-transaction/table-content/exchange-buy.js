@@ -87,13 +87,6 @@ class BuyCurrency extends Component {
                         <td>{this.props.transaction.attachment.units / Math.pow(10, this.state.currency.decimals)}</td>
                     </tr>
                 }
-                {/*{*/}
-                    {/*this.state.currency.code &&*/}
-                    {/*<tr>*/}
-                        {/*<td>Rate:</td>*/}
-                        {/*<td>{this.state.currency.code}</td>*/}
-                    {/*</tr>*/}
-                {/*}*/}
                 {
                     this.state.currency &&
                     this.props.transaction.timestamp &&

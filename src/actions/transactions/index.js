@@ -56,7 +56,7 @@ export const getTransactionsID = (requestParams) => {
 			})
 	}
 }
-// ab23eec4db8f928890b73cc4bd130f3c336101382d2dc1a783d5586ff831096d
+
 export const getPrivateTransactions = (requestParams) => {
     const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
 
