@@ -23,10 +23,10 @@ export default class ShufflingProcessing extends Component {
 		            <td>{this.props.transaction.attachment.data.map(item => <div>{item}</div>)}</td>
 	            </tr>
 	            }
-	            {this.props.transaction.attachment.hasOwnProperty("shufflingStateHash") &&
+	            {this.props.transaction.attachment.hasOwnProperty("hash") &&
 	            <tr>
 		            <td>Hash:</td>
-		            <td>{this.props.transaction.attachment.shufflingStateHash}</td>
+		            <td>{this.props.transaction.attachment.hash}</td>
 	            </tr>
 	            }
             </React.Fragment>

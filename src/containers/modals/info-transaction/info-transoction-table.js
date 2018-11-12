@@ -20,6 +20,7 @@ import AccountInfo from "./table-content/account-info";
 import PollCreation from "./table-content/poll-creation";
 import AliasSell from "./table-content/alias-sell";
 import PhasingVoteCasting from "./table-content/phasing-vote-casting";
+import ShufflingRecipients from "./table-content/shuffling-recipients";
 
 
 class InfoTransactionTable extends Component {
@@ -53,6 +54,8 @@ class InfoTransactionTable extends Component {
 						{modalTypeName === "SHUFFLING VERIFICATION" && <ShufflingVerification transaction={this.props.transaction}/>}
 
 						{modalTypeName === "SHUFFLING PROCESSING" && <ShufflingProcessing transaction={this.props.transaction}/>}
+
+						{modalTypeName === "SHUFFLING RECIPIENTS" && <ShufflingRecipients transaction={this.props.transaction}/>}
 
 						{modalTypeName === "ORDINARY PAYMENT" && <OrdinaryPayment transaction={this.props.transaction}/>}
 

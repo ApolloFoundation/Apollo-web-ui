@@ -2,6 +2,18 @@ import React, {Component} from "react";
 import {getShufflingAction} from "../../../../actions/shuffling";
 import {connect} from "react-redux";
 
+function Stage (number) {
+	if(number === "0"){
+	    return 'Registration';
+	}else if (number === "1") {
+	    return 'Processing';
+	}else if (number === "4") {
+	    return 'Expired';
+	}else if (number === "5") {
+	    return 'Done';
+	}
+
+}
 
 class ShufflingCreation extends Component {
 	constructor(props) {
@@ -13,12 +25,13 @@ class ShufflingCreation extends Component {
 	}
 
 	getShuffling = async () => {
-		const shuffling2 = await this.props.getShufflingAction({
-			shuffling2: this.props.modalData
+		const shuffling = await this.props.getShufflingAction({
+			shuffling: this.props.transaction.transaction
 		});
-		if (shuffling2) {
+		console.log(9999, shuffling);
+		if (shuffling) {
 			this.setState({
-				shuffling: shuffling2
+				shuffling
 			});
 		}
 	};
@@ -48,16 +61,22 @@ class ShufflingCreation extends Component {
 		            <td>{this.props.transaction.attachment.amount / 100000000} Apollo</td>
 	            </tr>
 	            }
+	            {this.props.transaction.attachment.hasOwnProperty("holding") &&
+	            <tr>
+		            <td>Stage:</td>
+		            <td>{Stage(this.props.transaction.attachment.holding)}</td>
+	            </tr>
+	            }
 	            {this.props.transaction.attachment.hasOwnProperty("participantCount") &&
 	            <tr>
 		            <td>Count:</td>
-		            <td>1/{this.props.transaction.attachment.participantCount}</td>
+		            <td>{this.state.shuffling && this.state.shuffling.registrantCount}/{this.props.transaction.attachment.participantCount}</td>
 	            </tr>
 	            }
 	            {
 	            <tr>
 		            <td>Blocks Remaining:</td>
-		            <td>{this.state.shuffling}</td>
+		            <td>{this.state.shufflings && this.state.shufflings.blocksRemaining ? this.state.shufflings.blocksRemaining : 0}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.senderRS &&

@@ -2960,7 +2960,7 @@ table {
 .height-auto {
 	height: auto !important;
 }
-
+сергей
 .marketplace-preview {
 	margin-bottom: 30px;
 }
@@ -2980,4 +2980,15 @@ table {
 }
 .bold {
 	font-weight: bold;
+}
+
+.table-item {
+	border-bottom: 1px solid #E5E5E5;
+	padding-bottom: 14px;
+	margin-bottom: 14px;
+	&:last-of-type {
+		border-bottom: 1px solid rgba(#fff, 0);
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
 }

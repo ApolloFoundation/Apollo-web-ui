@@ -53,10 +53,10 @@ export default class TargetDataUpload extends Component {
 		            <td>{this.props.transaction.attachment.filename}</td>
 	            </tr>
 	            }
-	            {this.props.transaction.attachment.hasOwnProperty("tags") &&
+	            {this.props.transaction.attachment.hasOwnProperty("data") &&
 	            <tr>
 		            <td>Data Size:</td>
-		            <td>{this.props.transaction.attachment.tags}</td>
+		            <td>{(this.props.transaction.attachment.data.length)/2}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.transaction &&
