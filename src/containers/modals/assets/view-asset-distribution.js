@@ -27,7 +27,7 @@ class AssetDistribution extends React.Component {
         }
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.getAccountAssets();
     }
 
@@ -52,7 +52,7 @@ class AssetDistribution extends React.Component {
             <div className="modal-box x-wide">
                 <div className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
 
                         <div className="form-title">
                             <p>Asset Distribution</p>
@@ -63,11 +63,11 @@ class AssetDistribution extends React.Component {
 
                                 <table>
                                     <thead>
-                                        <tr>
-                                            <td>Account</td>
-                                            <td>Quantity</td>
-                                            <td className="align-right">Percentage</td>
-                                        </tr>
+                                    <tr>
+                                        <td>Account</td>
+                                        <td>Quantity</td>
+                                        <td className="align-right">Percentage</td>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                     {
@@ -80,22 +80,11 @@ class AssetDistribution extends React.Component {
                                                     <td
                                                         className={'blue-link-text'}
                                                     >
-                                                        {
-                                                            index === 0 &&
-                                                                <a
-                                                                    className={'blue-link-text'}
-                                                                    onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.account)}
-                                                                >
-                                                                    Ásset Issuer
-                                                                </a>
-                                                                ||
-                                                                <a
-                                                                    className={'blue-link-text'}
-                                                                    onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.account)}
-                                                                >
-                                                                    {el.accountRS}
-                                                                </a>
-                                                        }
+                                                        <a
+                                                            className={'blue-link-text'}
+                                                            onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.account)}>
+                                                            {el.accountRS}
+                                                        </a>
                                                     </td>
 
                                                     <td>{el.quantityATU / Math.pow(10, this.props.modalData.decimals)}</td>
