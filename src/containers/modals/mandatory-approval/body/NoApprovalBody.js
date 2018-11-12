@@ -6,7 +6,6 @@ import ModalFooter from "../../../components/modal-footer";
 
 export default class NoApprovalBody extends React.Component {
     render() {
-        console.log("WTF BOYS");
         return (
             <Form
                 getApi={form => {
