@@ -331,7 +331,7 @@ class InfoLedgerTransaction extends React.Component {
                                                                     <table>
                                                                         <thead>
                                                                         <tr>
-                                                                            <td style={{padding: '20px 0 20px '}}>Account</td>
+                                                                            <td style={{padding: '20px 0 20px', border: 0}}>Account</td>
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
