@@ -18,8 +18,6 @@ class CurrencyExchangeOffer extends Component {
     getCurrency = async () => {
         const currency = await this.props.getCurrencyAction({currency: this.props.transaction.attachment.currency});
 
-        console.log(currency);
-
         if (currency) {
             this.setState({
                 ...this.state,
@@ -31,8 +29,6 @@ class CurrencyExchangeOffer extends Component {
     getExchangeOffers = async () => {
         const exchanges = await getExchangesByOfferRequest({offer: this.props.transaction.transaction});
 
-        console.log(exchanges);
-
         if (exchanges) {
             this.setState({
                 ...this.state,
@@ -43,8 +39,6 @@ class CurrencyExchangeOffer extends Component {
 
     getOfferRequest = async () => {
         const exchanges = await getOfferRequest({offer: this.props.transaction.transaction});
-
-        console.log(exchanges);
 
         if (exchanges) {
             this.setState({

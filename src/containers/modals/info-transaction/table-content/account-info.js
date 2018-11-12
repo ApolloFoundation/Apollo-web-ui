@@ -3,7 +3,6 @@ import React, {Component} from "react";
 export default class AccountInfo extends Component {
     render() {
         const attachment = this.props.transaction.attachment || {};
-        console.log("yayaya", this.props.transaction);
         return (
             <React.Fragment>
                 {attachment.name &&

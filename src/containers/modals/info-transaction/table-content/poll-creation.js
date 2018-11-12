@@ -10,7 +10,6 @@ const votingModelData = [
 export default class PollCreation extends Component {
     render() {
         const atch = this.props.transaction.attachment;
-        console.log("yayaya", this.props.transaction);
         return (
             <React.Fragment>
                 {atch.name &&

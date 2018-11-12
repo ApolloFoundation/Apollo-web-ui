@@ -64,8 +64,6 @@ class FundingMonitorsStatus extends React.Component {
                 properties: properties.properties,
                 recipientRS: properties.recipientRS,
                 incoming: true
-            }, () => {
-                console.log(this.state);
             })
         }
     };

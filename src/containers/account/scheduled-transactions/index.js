@@ -56,8 +56,6 @@ class ScheduledTransactions extends React.Component {
     getScheduledTransactions = async (reqParams) => {
         const scheduledTransactions = await getScheduledTransactions(reqParams);
 
-        console.log(scheduledTransactions);
-
         if (scheduledTransactions && !scheduledTransactions.errorCode) {
             this.setState({
                 scheduledTransactions: scheduledTransactions.scheduledTransactions,
