@@ -32,7 +32,7 @@ export function getSpecificAccountAssetsAction(reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
             params: {
-                requestType: 'getDividendHistory',
+                requestType: 'getAccountAssets',
                 includeAssetInf: true,
                 ...reqParams
             }
@@ -169,7 +169,7 @@ export function getAccountAssetsAction(reqParams) {
 
         return axios.get(config.api.serverUrl, {
             params: {
-                requestType: 'getDividendHistory',
+                requestType: 'getAccountAssets',
                 includeAssetInfo: true,
                 ...reqParams
             }

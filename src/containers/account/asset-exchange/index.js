@@ -92,8 +92,7 @@ class AssetExchange extends React.Component {
         if (assets) {
 
             const accountAssets = assets.accountAssets;
-            const assetsInfo    = assets.assets;
-
+            const assetsInfo = assets.assets;
 
 
             const result = accountAssets.map((el, index) => {
@@ -112,7 +111,7 @@ class AssetExchange extends React.Component {
         const buyOrders = await this.props.getBidOrders(assetName.asset);
         if (buyOrders) {
             const assets = buyOrders.assets;
-            const  orders = buyOrders.orders;
+            const orders = buyOrders.orders;
 
             const result = assets.map((el, index) => {
                 const asset = orders[index];
@@ -127,7 +126,7 @@ class AssetExchange extends React.Component {
         const buyOrders = await this.props.getAskOrders(assetName.asset);
         if (buyOrders) {
             const assets = buyOrders.assets;
-            const  orders = buyOrders.orders;
+            const orders = buyOrders.orders;
 
             const result = assets.map((el, index) => {
                 const asset = orders[index];
@@ -138,26 +137,26 @@ class AssetExchange extends React.Component {
         }
     };
 
-	async getAssets() {
-		if (this.props.assetBalances) {
-			let assets = this.props.assetBalances.map(async (el, index) => {
-				return this.props.getAssetAction({
-					asset: el ? el.asset : ""
-				})
-			});
-			Promise.all(assets)
-				.then((data) => {
+    async getAssets() {
+        if (this.props.assetBalances) {
+            let assets = this.props.assetBalances.map(async (el, index) => {
+                return this.props.getAssetAction({
+                    asset: el ? el.asset : ""
+                })
+            });
+            Promise.all(assets)
+                .then((data) => {
 
-					this.setState({
-						...this.props,
-						assets: data,
-					})
-				})
-				.catch((err) => {
-					console.log(err);
-				})
-		}
-	}
+                    this.setState({
+                        ...this.props,
+                        assets: data,
+                    })
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }
 
     handleBuyFormSubmit = async (values) => {
         if (!values.quantityATU) {
@@ -250,7 +249,9 @@ class AssetExchange extends React.Component {
 
 
             if (result && Array.isArray(result.value)) {
-                result = result.value.reverse().reduce((a,b) => {return a.toString()+b.toString()})
+                result = result.value.reverse().reduce((a, b) => {
+                    return a.toString() + b.toString()
+                })
             } else {
                 result = result.value;
             }
@@ -330,12 +331,22 @@ class AssetExchange extends React.Component {
                                                             onClick={() => {
                                                                 this.props.setBodyModalParamsAction('VIEW_ASSET_DIVIDEND_HISTORY', {
                                                                     asset: this.props.match.params.asset,
-                                                                    decimals: this.state.asset.decimals,
-                                                                    totalAvailable: this.state.asset.quantityATU
                                                                 })
                                                             }}>
                                                             View Asset Dividend History
                                                         </a>
+                                                        <br/>
+                                                        {this.state.asset &&
+                                                        this.state.asset.account === this.props.account ?
+                                                            <a
+                                                                onClick={() => {
+                                                                    this.props.setBodyModalParamsAction('PAY_DIVIDENDS', {
+                                                                        asset: this.props.match.params.asset,
+                                                                    })
+                                                                }}>
+                                                                Pay Dividends
+                                                            </a> : null
+                                                        }
                                                     </div>
                                                     <div className="col-md-6 flex">
                                                         <div
@@ -346,9 +357,11 @@ class AssetExchange extends React.Component {
 
                                             <Form
                                                 onSubmit={(values) => this.handleBuyOrders(values)}
-                                                render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                                                render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
 
-                                                    <form style={{height: 'auto'}} className="card ballance card-medium medium-padding full-height" onSubmit={submitForm}>
+                                                    <form style={{height: 'auto'}}
+                                                          className="card ballance card-medium medium-padding full-height"
+                                                          onSubmit={submitForm}>
                                                         <div className="form-group-app">
                                                             <div className="form-title">
                                                                 <p>Buy {this.state.asset.name}</p>
@@ -365,7 +378,8 @@ class AssetExchange extends React.Component {
                                                                     <div className="col-md-3 pl-0">
                                                                         <label>Quantity</label>
                                                                     </div>
-                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                         <InputForm
                                                                             field="quantity"
                                                                             placeholder="Quantity"
@@ -373,7 +387,8 @@ class AssetExchange extends React.Component {
                                                                             onChange={() => this.handleTotalValue(setValue, getFormState)}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
-                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                            <span className="input-group-text"
+                                                                                  id="amountText">{this.state.asset.name}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -384,7 +399,8 @@ class AssetExchange extends React.Component {
                                                                     <div className="col-md-3 pl-0">
                                                                         <label>Price</label>
                                                                     </div>
-                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                         <InputForm
                                                                             field="priceATM"
                                                                             placeholder="Quantity"
@@ -392,7 +408,8 @@ class AssetExchange extends React.Component {
                                                                             onChange={() => this.handleTotalValue(setValue, getFormState)}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
-                                                                            <span className="input-group-text" id="amountText">APL / {this.state.asset.name}</span>
+                                                                            <span className="input-group-text"
+                                                                                  id="amountText">APL / {this.state.asset.name}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -411,7 +428,8 @@ class AssetExchange extends React.Component {
                                                                             disabled={true}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
-                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                            <span className="input-group-text"
+                                                                                  id="amountText">{this.state.asset.name}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -442,45 +460,47 @@ class AssetExchange extends React.Component {
                                             />
 
 
-                                            <div className="card ballance card-tiny medium-padding" style={{marginBottom: 0}}>
+                                            <div className="card ballance card-tiny medium-padding"
+                                                 style={{marginBottom: 0}}>
                                                 <div className="form-group-app">
                                                     <div className="form-title">
                                                         <p>Offers to sell {this.state.asset.name}</p>
                                                     </div>
                                                     {
                                                         this.state.askOrders &&
-                                                        this.state.askOrders.length === 0 ? <div className="info-box simple">
-                                                            <p>No buy offers for this asset.</p>
-                                                        </div>:
-                                                        <div className="transaction-table">
-                                                            <div className="transaction-table-body">
-                                                                <table>
-                                                                    <thead key={uuid()}>
-                                                                    <tr>
-                                                                        <td className="align-left">Asset</td>
-                                                                        <td>Quantity</td>
-                                                                        <td className="align-left">Price</td>
-                                                                        <td className="align-right">Total</td>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                    {
-                                                                        this.state.askOrders &&
-                                                                        this.state.askOrders.length > 0 ?
-                                                                        this.state.askOrders.map(el => {
-                                                                            return (
-                                                                                <OrderItem
-                                                                                    key={uuid()}
-                                                                                    order={el}
-                                                                                />
-                                                                            )
-                                                                        }) : <p>No delete history</p>
-                                                                    }
-                                                                    </tbody>
-                                                                </table>
+                                                        this.state.askOrders.length === 0 ?
+                                                            <div className="info-box simple">
+                                                                <p>No buy offers for this asset.</p>
+                                                            </div> :
+                                                            <div className="transaction-table">
+                                                                <div className="transaction-table-body">
+                                                                    <table>
+                                                                        <thead key={uuid()}>
+                                                                        <tr>
+                                                                            <td className="align-left">Asset</td>
+                                                                            <td>Quantity</td>
+                                                                            <td className="align-left">Price</td>
+                                                                            <td className="align-right">Total</td>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {
+                                                                            this.state.askOrders &&
+                                                                            this.state.askOrders.length > 0 ?
+                                                                                this.state.askOrders.map(el => {
+                                                                                    return (
+                                                                                        <OrderItem
+                                                                                            key={uuid()}
+                                                                                            order={el}
+                                                                                        />
+                                                                                    )
+                                                                                }) : <p>No delete history</p>
+                                                                        }
+                                                                        </tbody>
+                                                                    </table>
 
-                                                            </div>
-                                                        </div>}
+                                                                </div>
+                                                            </div>}
                                                 </div>
                                             </div>
 
@@ -505,7 +525,8 @@ class AssetExchange extends React.Component {
                                                     </div>
                                                     <div className="full-box-item">
                                                         <div className='box'>
-                                                            <div className="card-title bold small">Total available:</div>
+                                                            <div className="card-title bold small">Total available:
+                                                            </div>
                                                             <div
                                                                 className="card-title description small"
                                                             >
@@ -515,21 +536,26 @@ class AssetExchange extends React.Component {
                                                         </div>
                                                         <div className='box'>
                                                             <div
-                                                                className="card-title bold small">Asset decimals</div>
-                                                            <div className="card-title description small">{this.state.asset.decimals}</div>
+                                                                className="card-title bold small">Asset decimals
+                                                            </div>
+                                                            <div
+                                                                className="card-title description small">{this.state.asset.decimals}</div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <Form
                                                 onSubmit={(values) => this.handleSellOrders(values)}
-                                                render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                                                render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
 
-                                                    <form style={{height: 'auto'}} className="card ballance card-medium medium-padding full-height" onSubmit={submitForm}>
+                                                    <form style={{height: 'auto'}}
+                                                          className="card ballance card-medium medium-padding full-height"
+                                                          onSubmit={submitForm}>
                                                         <div className="form-group-app">
                                                             <div className="form-title">
                                                                 <p>Sell {this.state.asset.name}</p>
-                                                                {this.state.asset.balanceATU && <div className="form-sub-title">
+                                                                {this.state.asset.balanceATU &&
+                                                                <div className="form-sub-title">
                                                                     balance: <strong>{(this.state.asset.balanceATU / Math.pow(10, this.state.asset.decimals)).toLocaleString('en', {
                                                                     minimumFractionDigits: this.state.asset.decimals,
                                                                     maximumFractionDigits: this.state.asset.decimals
@@ -542,7 +568,8 @@ class AssetExchange extends React.Component {
                                                                     <div className="col-md-3 pl-0">
                                                                         <label>Quantity</label>
                                                                     </div>
-                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                         <InputForm
                                                                             field="quantity"
                                                                             placeholder="Quantity"
@@ -550,7 +577,8 @@ class AssetExchange extends React.Component {
                                                                             onChange={() => this.handleTotalValue(setValue, getFormState)}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
-                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                            <span className="input-group-text"
+                                                                                  id="amountText">{this.state.asset.name}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -561,7 +589,8 @@ class AssetExchange extends React.Component {
                                                                     <div className="col-md-3 pl-0">
                                                                         <label>Price</label>
                                                                     </div>
-                                                                    <div className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
                                                                         <InputForm
                                                                             field="priceATM"
                                                                             placeholder="Quantity"
@@ -569,7 +598,8 @@ class AssetExchange extends React.Component {
                                                                             onChange={() => this.handleTotalValue(setValue, getFormState)}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
-                                                                            <span className="input-group-text" id="amountText">APL / {this.state.asset.name}</span>
+                                                                            <span className="input-group-text"
+                                                                                  id="amountText">APL / {this.state.asset.name}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -588,7 +618,8 @@ class AssetExchange extends React.Component {
                                                                             disabled={true}
                                                                             setValue={setValue}/>
                                                                         <div className="input-group-append">
-                                                                            <span className="input-group-text" id="amountText">{this.state.asset.name}</span>
+                                                                            <span className="input-group-text"
+                                                                                  id="amountText">{this.state.asset.name}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -618,45 +649,47 @@ class AssetExchange extends React.Component {
                                                 )}
                                             />
 
-                                            <div className="card assets card-tiny medium-padding" style={{marginBottom: 0}}>
+                                            <div className="card assets card-tiny medium-padding"
+                                                 style={{marginBottom: 0}}>
                                                 <div className="form-group-app">
                                                     <div className="form-title">
                                                         <p>Offers to buy {this.state.asset.name}</p>
                                                     </div>
                                                     {
                                                         this.state.bidOrders &&
-                                                        this.state.bidOrders.length === 0 ?  <div className="info-box simple">
+                                                        this.state.bidOrders.length === 0 ?
+                                                            <div className="info-box simple">
                                                                 <p>No buy offers for this asset.</p>
-                                                            </div>:
-                                                        <div className="transaction-table">
-                                                            <div className="transaction-table-body">
-                                                                <table>
-                                                                    <thead key={uuid()}>
-                                                                    <tr>
-                                                                        <td className="align-left">Asset</td>
-                                                                        <td>Quantity</td>
-                                                                        <td className="align-left">Price</td>
-                                                                        <td className="align-right">Total</td>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                    {
-                                                                        this.state.bidOrders &&
-                                                                        this.state.bidOrders.length > 0 ?
-                                                                        this.state.bidOrders.map(el => {
-                                                                            return (
-                                                                                <OrderItem
-                                                                                    key={uuid()}
-                                                                                    order={el}
-                                                                                />
-                                                                            )
-                                                                        }) : <p>No delete history</p>
-                                                                    }
-                                                                    </tbody>
-                                                                </table>
+                                                            </div> :
+                                                            <div className="transaction-table">
+                                                                <div className="transaction-table-body">
+                                                                    <table>
+                                                                        <thead key={uuid()}>
+                                                                        <tr>
+                                                                            <td className="align-left">Asset</td>
+                                                                            <td>Quantity</td>
+                                                                            <td className="align-left">Price</td>
+                                                                            <td className="align-right">Total</td>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {
+                                                                            this.state.bidOrders &&
+                                                                            this.state.bidOrders.length > 0 ?
+                                                                                this.state.bidOrders.map(el => {
+                                                                                    return (
+                                                                                        <OrderItem
+                                                                                            key={uuid()}
+                                                                                            order={el}
+                                                                                        />
+                                                                                    )
+                                                                                }) : <p>No delete history</p>
+                                                                        }
+                                                                        </tbody>
+                                                                    </table>
 
+                                                                </div>
                                                             </div>
-                                                        </div>
                                                     }
 
                                                 </div>

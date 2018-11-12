@@ -112,6 +112,7 @@ import ExportAccount from '../modals/account/export-account'
 // scheduled transactins
 import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-currency'
 import AssetDividendHistory from "./assets/view-asset-dividend-history";
+import PayDividends from "./assets/pay-dividends";
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -221,6 +222,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'SELL_ASSET'                  && <SellAssets                closeModal={this.closeModal} nameModal={'SELL_ASSET'}/>}
                 {this.props.modalType === 'VIEW_ASSET_DISTRIBUTION'     && <AssetDistribution         closeModal={this.closeModal} nameModal={'VIEW_ASSET_DISTRIBUTION'}/>}
                 {this.props.modalType === 'VIEW_ASSET_DIVIDEND_HISTORY' && <AssetDividendHistory      closeModal={this.closeModal} nameModal={'VIEW_ASSET_DIVIDEND_HISTORY'}/>}
+                {this.props.modalType === 'PAY_DIVIDENDS'               && <PayDividends              closeModal={this.closeModal} nameModal={'PAY_DIVIDENDS'}/>}
 
 
                 {/* Currency */}
