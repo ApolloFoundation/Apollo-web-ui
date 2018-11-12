@@ -5405,6 +5405,8 @@ input[type="number"] {
           .site-content .page-content .page-body .my-transactions .transaction-table {
             height: auto;
             min-height: auto; } }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body.no-border-top table thead tr td {
+          border: 0; }
         .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
           color: #00C8FF;
           font-size: 14px;

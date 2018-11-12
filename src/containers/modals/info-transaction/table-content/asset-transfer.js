@@ -4,7 +4,8 @@ import {getAssetAction} from "../../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getTransactionAction} from "../../../../actions/transactions";
 
-class AssetDelete extends Component {
+// this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
+class AssetTransfer extends Component {
 	componentDidMount = () => {
 		this.getCurrency();
 		if(this.props.transaction.attachment.asset){
@@ -40,7 +41,8 @@ class AssetDelete extends Component {
 	};
 
     render() {
-        return(
+
+	    return(
             <React.Fragment>
 	            {this.props.transaction.attachment.hasOwnProperty("asset") &&
 	            <tr>
@@ -66,6 +68,12 @@ class AssetDelete extends Component {
 		            <td className="blue-link-text"><a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a></td>
 	            </tr>
 	            }
+	            {this.props.transaction.recipientRS &&
+	            <tr>
+		            <td>Recipient:</td>
+		            <td className="blue-link-text"><a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.recipientRS}</a></td>
+	            </tr>
+	            }
             </React.Fragment>
         );
     }
@@ -82,4 +90,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssetDelete)
+export default connect(mapStateToProps, mapDispatchToProps)(AssetTransfer)
