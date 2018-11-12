@@ -326,6 +326,16 @@ class AssetExchange extends React.Component {
                                                         >
                                                             View Account Distribution
                                                         </a>
+                                                        <a
+                                                            onClick={() => {
+                                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DIVIDEND_HISTORY', {
+                                                                    asset: this.props.match.params.asset,
+                                                                    decimals: this.state.asset.decimals,
+                                                                    totalAvailable: this.state.asset.quantityATU
+                                                                })
+                                                            }}>
+                                                            View Asset Dividend History
+                                                        </a>
                                                     </div>
                                                     <div className="col-md-6 flex">
                                                         <div
