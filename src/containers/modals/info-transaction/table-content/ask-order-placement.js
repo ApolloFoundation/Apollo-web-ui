@@ -1,11 +1,16 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {getAssetAction} from "../../../../actions/assets";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {getTransactionAction} from "../../../../actions/transactions";
 
 
 class AskOrderPlacement extends Component {
 	componentDidMount = () => {
 		this.getCurrency();
+		if(this.props.transaction.attachment.asset){
+			this.getTransaction(this.props.transaction.attachment.asset);
+		}
 	};
 
 	state = {};
@@ -21,13 +26,27 @@ class AskOrderPlacement extends Component {
 		}
 	};
 
+	getTransaction = async (data) => {
+		const reqParams = {
+			transaction: data,
+			account: this.props.account
+		};
+
+		const transaction = await this.props.getTransactionAction(reqParams);
+
+		if (transaction) {
+			this.setState({transactionAsset: transaction});
+		}
+
+	};
+
     render() {
         return(
             <React.Fragment>
 	            {this.props.transaction.attachment.hasOwnProperty("asset") &&
 	            <tr>
 		            <td>Asset:</td>
-		            <td>{this.props.transaction.attachment.asset}</td>
+		            <td className="blue-link-text"><a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_TRANSACTION', this.state.transactionAsset)}>{this.props.transaction.attachment.asset}</a></td>
 	            </tr>
 	            }
 	            {this.state.asset &&
@@ -45,7 +64,11 @@ class AskOrderPlacement extends Component {
 	            {this.props.transaction.senderRS &&
 	            <tr>
 		            <td>Sender:</td>
-		            <td>{this.props.transaction.senderRS}</td>
+		            <td className={"blue-link-text"}>
+			            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>
+				            {this.props.transaction.senderRS}
+			            </a>
+		            </td>
 	            </tr>
 	            }
             </React.Fragment>
@@ -59,6 +82,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	getAssetAction: (reqParams) => dispatch(getAssetAction(reqParams)),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+	getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
 });
 
 

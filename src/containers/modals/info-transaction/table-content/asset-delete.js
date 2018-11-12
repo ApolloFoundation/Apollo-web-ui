@@ -7,9 +7,7 @@ import {getTransactionAction} from "../../../../actions/transactions";
 class AssetDelete extends Component {
 	componentDidMount = () => {
 		this.getCurrency();
-		if(this.props.transaction.attachment.asset){
-			this.getTransaction(this.props.transaction.attachment.asset);
-		}
+
 	};
 
 	state = {};

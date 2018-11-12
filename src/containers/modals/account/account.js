@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction} from '../../../modules/modals';
+import {setModalData, setBodyModalParamsAction, openPrevModal} from '../../../modules/modals';
 import classNames from 'classnames';
 import uuid from "uuid";
 import {getAccountAction}     from "../../../actions/account";
@@ -168,6 +168,9 @@ class InfoAccount extends React.Component {
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title inline">
+	                            {this.props.modalsHistory.length > 1 &&
+	                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+	                            }
                                 {
                                     this.state.account &&
                                     <React.Fragment>
@@ -649,6 +652,7 @@ class InfoAccount extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
+	modalsHistory: state.modals.modalsHistory,
     account: state.account.account
 });
 
@@ -656,13 +660,14 @@ const mapDispatchToProps = dispatch => ({
     setModalData: (data) => setModalData(data),
     getLedgerEntryAction: (data) => getLedgerEntryAction(data),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
+	openPrevModal: () => dispatch(openPrevModal()),
 
-    // getAccountData
+	// getAccountData
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
-    getAccountAction:  (requestParams) => dispatch(getAccountAction(requestParams)),
-    switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
+	getAccountAction:  (requestParams) => dispatch(getAccountAction(requestParams)),
+	switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
 
 
 });

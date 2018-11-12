@@ -43,9 +43,6 @@ class InfoTransactionTable extends Component {
 	render() {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
 
-		console.log('22222', modalTypeName);
-		console.log("yayayay", this.props.transaction);
-
 		return (
 			<div className="transaction-table-body transparent">
 				{

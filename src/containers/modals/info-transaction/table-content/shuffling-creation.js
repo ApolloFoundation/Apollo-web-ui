@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {getShufflingAction} from "../../../../actions/shuffling";
 import {connect} from "react-redux";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 function Stage (number) {
 	if(number === "0"){
@@ -28,7 +29,6 @@ class ShufflingCreation extends Component {
 		const shuffling = await this.props.getShufflingAction({
 			shuffling: this.props.transaction.transaction
 		});
-		console.log(9999, shuffling);
 		if (shuffling) {
 			this.setState({
 				shuffling
@@ -82,7 +82,11 @@ class ShufflingCreation extends Component {
 	            {this.props.transaction.senderRS &&
 	            <tr>
 		            <td>Issuer:</td>
-		            <td>{this.props.transaction.senderRS}</td>
+		            <td className={"blue-link-text"}>
+			            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>
+				            {this.props.transaction.senderRS}
+			            </a>
+		            </td>
 	            </tr>
 	            }
 	            {this.props.transaction.recipientRS &&
@@ -108,6 +112,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	getShufflingAction: (reqParams) => dispatch(getShufflingAction(reqParams)),
 });
 
