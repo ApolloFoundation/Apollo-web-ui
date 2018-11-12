@@ -766,15 +766,15 @@ class SiteHeader extends React.Component {
                                                                 <div className="options-col">
                                                                     <ul>
                                                                         <li>
-                                                                            <a
-                                                                                onClick={() => {
-                                                                                    this.setState({bodyModalType: null});
-                                                                                    return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');
-                                                                                }}
-                                                                                className="option"
-                                                                            >
-                                                                                Device settings
-                                                                            </a>
+                                                                            {/*<a*/}
+                                                                                {/*onClick={() => {*/}
+                                                                                    {/*this.setState({bodyModalType: null});*/}
+                                                                                    {/*return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');*/}
+                                                                                {/*}}*/}
+                                                                                {/*className="option"*/}
+                                                                            {/*>*/}
+                                                                                {/*Device settings*/}
+                                                                            {/*</a>*/}
 
                                                                         </li>
                                                                         <li>

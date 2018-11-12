@@ -37,6 +37,8 @@ import AssetIssuance from "./table-content/asset-issuance";
 import AskOrderPlacement from "./table-content/ask-order-placement";
 import BigOrderPlacement from "./table-content/big-order-placement";
 
+import CriticalUpdate from "./table-content/critical-update";
+
 
 class InfoTransactionTable extends Component {
 
@@ -121,6 +123,13 @@ class InfoTransactionTable extends Component {
 						{modalTypeName === "BID ORDER PLACEMENT" && <BigOrderPlacement transaction={this.props.transaction}/>}
 
 						{modalTypeName === "ASK ORDER PLACEMENT" && <AskOrderPlacement transaction={this.props.transaction}/>}
+
+
+						{modalTypeName === "CRITICAL UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
+
+						{modalTypeName === "IMPORTANT UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
+
+						{modalTypeName === "MINOR UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
 
 						</tbody>
 					</table>
