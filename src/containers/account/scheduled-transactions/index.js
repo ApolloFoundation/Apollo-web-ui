@@ -73,14 +73,14 @@ class ScheduledTransactions extends React.Component {
                 isLoaded: true
             })
         }
-    }
+    };
 
     reloadSceduledTransactions = () => {
 
         this.getScheduledTransactions({
             adminPassword: this.props.adminPassword
         })
-    }
+    };
 
     deleteScheduledTransaction = async (transaction) => {
         const deleteTransacrtio = await this.props.submitForm({adminPassword : this.props.adminPassword , transaction}, 'deleteScheduledTransaction');
@@ -94,7 +94,7 @@ class ScheduledTransactions extends React.Component {
                 this.reloadSceduledTransactions();
             }
         }
-    }
+    };
 
     render () {
         return (

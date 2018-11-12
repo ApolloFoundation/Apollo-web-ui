@@ -42,7 +42,8 @@ class Settings extends React.Component {
     }
 
     state = {
-        settings: null
+        settings: null,
+        adminPassword: localStorage.getItem('adminPassword') ? JSON.parse(localStorage.getItem('adminPassword')) : ''
     };
 
     getAccountInfoAction = async (props) => {
@@ -149,6 +150,7 @@ class Settings extends React.Component {
 
         if (adminPassword) {
             localStorage.setItem('adminPassword', adminPassword);
+            NotificationManager.success('Admin password has been successfully saved!', null, 5000);
         }
     };
 
@@ -313,7 +315,7 @@ class Settings extends React.Component {
                                                                 <div className="col-md-6 pl-0">
                                                                     <Text
                                                                         className="form-control"
-                                                                        type="text"
+                                                                        type="password"
                                                                         field="adminPassword"
                                                                         defaultValue={this.state.adminPassword}
                                                                     />
