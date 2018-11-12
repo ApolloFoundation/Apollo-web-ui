@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import {formatTransactionType} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
 import InfoTransactionTable from "./info-transoction-table"
+import {getAccountInfoAction} from "../../../actions/account";
 
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {
@@ -35,13 +36,37 @@ class InfoLedgerTransaction extends React.Component {
     componentWillReceiveProps(newState) {
         this.setState({
             transaction: newState.modalData
+        }, () => {
+            if (this.state.transaction && this.state.transaction.phased) {
+                this.getWhiteListOfTransaction();
+            }
         })
+
     }
 
     componentDidMount() {
         this.setState({
             transaction: this.props.modalData
+        }, () => {
+            if (this.state.transaction && this.state.transaction.phased) {
+                this.getWhiteListOfTransaction();
+            }
         })
+    }
+
+    getWhiteListOfTransaction = () => {
+        const whitelist = this.state.transaction.attachment.phasingWhitelist.map((el) => {
+            return this.props.getAccountInfoAction({
+                account: el
+            })
+        })
+
+        Promise.all(whitelist)
+            .then((data) => {
+                this.setState({
+                    whitelist: data
+                })
+            })
     }
 
     render() {
@@ -81,6 +106,16 @@ class InfoLedgerTransaction extends React.Component {
                                     })}>
                                         <span className="pre">Transactions Details</span>
                                     </a>
+                                    {
+                                        this.state.transaction &&
+                                        this.state.transaction.phased &&
+                                        <a onClick={(e) => this.handleTab(e, 3)} className={classNames({
+                                            "form-tab": true,
+                                            "active": this.state.activeTab === 3
+                                        })}>
+                                            <span className="pre">Phasing Details</span>
+                                        </a>
+                                    }
 
                                 </div>
 
@@ -246,13 +281,97 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Height:</td>
-                                                    <td>{this.state.transaction.height}</td>
+                                                    <td>{this.state.transaction ? this.state.transaction.height : '-'}</td>
                                                 </tr>
 
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div className={classNames({
+                                    "tab-body": true,
+                                    "active": this.state.activeTab === 3
+                                })}>
+                                    {
+                                        this.state.transaction &&
+                                        this.state.transaction.attachment &&
+                                        this.state.transaction.phased &&
+                                        <div className="transaction-table no-min-height">
+                                            <div className="transaction-table-body transparent full-info">
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Phasing Finish Height:</td>
+                                                        <td>{this.state.transaction.attachment.phasingFinishHeight}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Voting Model:</td>
+                                                        <td>
+                                                            {this.state.transaction.attachment.phasingVotingModel === 0 && 'ACCOUNT'}
+                                                            {this.state.transaction.attachment.phasingVotingModel === 1 && 'ACCOUNT BALANCE'}
+                                                            {this.state.transaction.attachment.phasingVotingModel === 2 && 'ASSET BALANCE'}
+                                                            {this.state.transaction.attachment.phasingVotingModel === 3 && 'CURRENCY BALANCE'}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Quorum:</td>
+                                                        <td>{this.state.transaction.attachment.phasingQuorum}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Minimum Balance:</td>
+                                                        <td>{this.state.transaction.attachment.phasingMinBalance}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Whitelist:</td>
+                                                        <td>
+                                                            <div className={'transaction-table no-min-height'}>
+                                                                <div className={'transaction-table-body transparent no-border-top'}>
+                                                                    <table>
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <td style={{padding: '20px 0 20px '}}>Account</td>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {
+                                                                            this.state.whitelist &&
+                                                                            this.state.whitelist.map((el) => {
+                                                                                return (
+                                                                                    <tr>
+                                                                                        <td className={'blue-link-text'}>
+                                                                                            <a
+                                                                                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.account)}
+                                                                                            >
+                                                                                                {el.accountRS}
+                                                                                            </a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                );
+                                                                            })
+                                                                        }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Minimum Balance Model:</td>
+                                                        <td>{this.state.transaction.attachment.phasingMinBalanceModel === 0 && 'NONE'}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Full Hash:</td>
+                                                        <td>{this.state.transaction.attachment.phasingWhitelist ? this.state.transaction.attachment.phasingWhitelist : '-'}</td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <div className="btn-box align-buttons-inside absolute right-conner">
@@ -282,6 +401,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
     openPrevModal: () => dispatch(openPrevModal()),
+    getAccountInfoAction: (account) => dispatch(getAccountInfoAction(account)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoLedgerTransaction);
