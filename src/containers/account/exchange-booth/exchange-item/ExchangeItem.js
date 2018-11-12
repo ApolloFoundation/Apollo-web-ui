@@ -20,7 +20,7 @@ class ExchangeItem extends React.Component {
                         exchange.subtype === 5 ? 'buy' : 'sell'
                     }
                 </td>
-                <td className="align-right">{(parseInt(exchange.units) / Math.pow(10, this.props.decimals))}</td>
+                <td className="align-right">{(parseInt(exchange.units) / Math.pow(10, this.props.decimals)).toFixed(8)}</td>
                 <td className="align-right">{((exchange.rateATM / 100000000) * Math.pow(10, this.props.decimals)).toFixed(2)}</td>
                 <td className="align-right">{(((parseInt(exchange.units) / Math.pow(10, this.props.decimals))) * ((exchange.rateATM / 100000000))* Math.pow(10, this.props.decimals)).toFixed(2)}</td>
             </tr>
