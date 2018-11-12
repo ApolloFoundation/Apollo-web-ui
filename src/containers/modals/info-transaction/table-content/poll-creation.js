@@ -69,7 +69,6 @@ export default class PollCreation extends Component {
                     <td>Voting Model:</td>
                     <td>{votingModelData[atch.votingModel]}</td>
                 </tr>
-                {this.renderOptions(atch.options)}
                 <tr>
                     <td>Sender:</td>
                     <td>{this.props.transaction.senderRS}</td>
