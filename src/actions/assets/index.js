@@ -127,6 +127,22 @@ export function getAssetAction(reqParams) {
     }
 }
 
+export function getDividendsHistory(reqParams) {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getAssetDividends',
+            ...reqParams
+        }})
+        .then(res => {
+            if (!res.data.errorCode) {
+                return res.data;
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        })
+}
+
 export function getAccountAssetCountAction(reqParams) {
     return (dispatch, getState) => {
 

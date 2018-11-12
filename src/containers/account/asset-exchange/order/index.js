@@ -29,7 +29,6 @@ class OrderItem extends React.Component {
 
     getOrderInfo = () => {
         this.props.getOrderInfo(this.props.order.asset).then(res => {
-            console.warn("order", res);
             this.setState({
                 orderInfo: res ? res : {}
             })

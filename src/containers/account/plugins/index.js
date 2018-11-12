@@ -28,8 +28,6 @@ class Plugins extends React.Component {
             account: this.props.account
         });
         BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
             this.getPlugins({
                 account: this.props.account
             });
