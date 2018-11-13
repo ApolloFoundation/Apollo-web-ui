@@ -19,7 +19,6 @@ class BuyCurrency extends Component {
 
         if (currency) {
             this.setState({
-                ...this.state,
                 currency
             });
         }
@@ -30,7 +29,6 @@ class BuyCurrency extends Component {
 
         if (exchanges) {
             this.setState({
-                ...this.state,
                 exchanges: exchanges.exchanges
             });
         }
@@ -103,11 +101,11 @@ class BuyCurrency extends Component {
                         <td>Exchanges:</td>
                         <td>
                             <div className={'transaction-table no-min-height'}>
-                                <div className={'transaction-table-body transparent no-border-top'}>
+                                <div className={'transaction-table-body transparent no-border-top no-padding'}>
                                     <table>
                                         <thead>
                                             <tr>
-                                                <td style={{padding: '20px 0 20px '}}>Date</td>
+                                                <td>Date</td>
                                                 <td>Units</td>
                                                 <td>Rate</td>
                                                 <td>Total</td>

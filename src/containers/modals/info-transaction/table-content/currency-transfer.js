@@ -17,7 +17,6 @@ class CurrencyTransfer extends Component {
 
         if (currency) {
             this.setState({
-                ...this.state,
                 currency
             });
         }

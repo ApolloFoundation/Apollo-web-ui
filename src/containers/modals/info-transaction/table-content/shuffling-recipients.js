@@ -25,7 +25,6 @@ class ShufflingRecipients extends Component {
 		Promise.all(accounts)
 			.then(data => {
 					this.setState({
-						...this.state,
 						recipients: data
 					});
 				}
@@ -50,7 +49,6 @@ class ShufflingRecipients extends Component {
 		const shuffling = await this.props.getShufflingAction({shuffling: this.props.transaction.attachment.shuffling});
 		if (shuffling) {
 			this.setState({
-				...this.state,
 				shuffling
 			});
 		}

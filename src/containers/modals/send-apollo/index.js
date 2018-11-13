@@ -86,12 +86,10 @@ class SendApollo extends React.Component {
 	handleAdvancedState() {
 		if (this.state.advancedState) {
 			this.setState({
-				...this.props,
 				advancedState: false
 			})
 		} else {
 			this.setState({
-				...this.props,
 				advancedState: true
 			})
 		}

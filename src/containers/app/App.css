@@ -4891,6 +4891,9 @@ table td .btn, table th .btn {
       background-color: rgba(255, 255, 255, 0) !important; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
+    .transaction-table .transaction-table-body.no-padding table thead tr td {
+      padding: 20px 0 20px !important;
+      border: 0 !important; }
     .transaction-table .transaction-table-body table {
       width: 100%;
       padding: 0 35px; }

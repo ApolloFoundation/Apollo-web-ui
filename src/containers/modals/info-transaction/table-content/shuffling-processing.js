@@ -33,7 +33,6 @@ class ShufflingProcessing extends Component {
 		const shuffling = await this.props.getShufflingAction({shuffling: this.props.transaction.attachment.shuffling});
 		if (shuffling) {
 			this.setState({
-				...this.state,
 				shuffling
 			});
 		}

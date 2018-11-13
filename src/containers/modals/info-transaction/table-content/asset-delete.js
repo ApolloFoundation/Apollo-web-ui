@@ -17,7 +17,6 @@ class AssetDelete extends Component {
 
 		if (asset) {
 			this.setState({
-				...this.state,
 				asset
 			});
 		}

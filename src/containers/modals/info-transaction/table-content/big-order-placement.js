@@ -20,7 +20,6 @@ class BigOrderPlacement extends Component {
 
 		if (asset) {
 			this.setState({
-				...this.state,
 				asset
 			});
 		}
@@ -52,7 +51,7 @@ class BigOrderPlacement extends Component {
 	            {this.state.asset &&
 	            <tr>
 		            <td>Asset Name:</td>
-		            <td>{this.state.asset && this.state.asset.name}</td>
+		            <td>{this.state.asset.name}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("quantityQNT") &&

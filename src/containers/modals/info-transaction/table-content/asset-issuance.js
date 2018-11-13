@@ -16,7 +16,6 @@ class AssetIssuance extends Component {
 
 		if (asset) {
 			this.setState({
-				...this.state,
 				asset
 			});
 		}

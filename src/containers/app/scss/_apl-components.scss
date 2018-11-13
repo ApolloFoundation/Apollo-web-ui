@@ -34,6 +34,18 @@
     &.padding-vertical-padding {
       padding: 40px 0;
     }
+    &.no-padding {
+      table {
+        thead {
+          tr {
+            td {
+              padding: 20px 0 20px !important;
+              border: 0 !important;
+            }
+          }
+        }
+      }
+    }
 
     //.btn-box {
     //  min-width: 800px;
