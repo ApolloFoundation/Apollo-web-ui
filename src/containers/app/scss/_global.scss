@@ -411,24 +411,25 @@ input[type="file"] {
 }
 
 .input-file-area {
-	width: 100%;
+	width: calc(100% - 59px);
 	border: 1px solid;
 	border-radius: 0 5px 5px 0;
 	border-color: #e5e5e5;
 	border: 1px solid #E5E5E5;
 	background-color: transparent;
 	display: flex;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre;
-
+	align-items: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: pre;
+	
 	.input-file-name {
 		padding-left: 12px;
 		margin: auto 0;
 		font-size: 11px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: pre;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: pre;
 	}
 }
 
@@ -1735,6 +1736,15 @@ input[type="file"] {
 			display: none;
 		}
 	}
+	&.bg-f {
+		background-color: #fff;
+		.btn-left {
+			margin-left: 0;
+		}
+	}
+	&.mt-15 {
+		margin-top: 15px;
+	}
 }
 
 .flexible-grid {
@@ -2978,6 +2988,7 @@ table {
 .nowrap {
 	white-space: unset;
 }
+
 .bold {
 	font-weight: bold;
 }

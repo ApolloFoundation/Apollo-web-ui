@@ -3101,13 +3101,14 @@ input[type="file"] {
   opacity: 0; }
 
 .input-file-area {
-  width: 100%;
+  width: calc(100% - 59px);
   border: 1px solid;
   border-radius: 0 5px 5px 0;
   border-color: #e5e5e5;
   border: 1px solid #E5E5E5;
   background-color: transparent;
   display: flex;
+  align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: pre; }
@@ -4023,6 +4024,12 @@ input[type="file"] {
     border-radius: 0; }
   .btn-box .btn.disabled {
     display: none; }
+  .btn-box.bg-f {
+    background-color: #fff; }
+    .btn-box.bg-f .btn-left {
+      margin-left: 0; }
+  .btn-box.mt-15 {
+    margin-top: 15px; }
 
 .flexible-grid {
   display: flex;
