@@ -1016,11 +1016,14 @@ class SiteHeader extends React.Component {
                                     </div>
                                 </div>
                                 <div className="network-overview">
-                                    <a
-                                        onClick={() => this.props.setBodyModalParamsAction('INFO_NETWORK')}
-                                    >
-                                        network
-                                    </a>
+                                    {
+                                        this.props.appState &&
+                                        <a
+                                            onClick={() => this.props.setBodyModalParamsAction('INFO_NETWORK')}
+                                        >
+                                            {this.props.appState.chainName}
+                                        </a>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -1045,6 +1048,7 @@ const mapStateToProps = state => ({
     bodyModalType: state.modals.bodyModalType,
     secretPhrase: state.account.passPhrase,
     settings: state.accountSettings,
+    appState: state.account.blockchainStatus,
     isLocalhost: state.account.isLocalhost
 });
 
