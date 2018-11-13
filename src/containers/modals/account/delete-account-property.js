@@ -50,10 +50,6 @@ class DeleteAccountProperty extends React.Component {
         return (
             <div className="modal-box">
 
-                {console.log(this.props.modalData)}
-                {console.log((this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : '')}
-
-
                 <BackForm
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}

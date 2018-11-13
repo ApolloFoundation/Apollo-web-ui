@@ -4857,6 +4857,15 @@ table td .btn, table th .btn {
 .bold {
   font-weight: bold; }
 
+.table-item {
+  border-bottom: 1px solid #E5E5E5;
+  padding-bottom: 14px;
+  margin-bottom: 14px; }
+  .table-item:last-of-type {
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+    padding-bottom: 0;
+    margin-bottom: 0; }
+
 .transaction-table {
   height: 100%;
   width: 100%;
@@ -4882,6 +4891,9 @@ table td .btn, table th .btn {
       background-color: rgba(255, 255, 255, 0) !important; }
     .transaction-table .transaction-table-body.padding-vertical-padding {
       padding: 40px 0; }
+    .transaction-table .transaction-table-body.no-padding table thead tr td {
+      padding: 20px 0 20px !important;
+      border: 0 !important; }
     .transaction-table .transaction-table-body table {
       width: 100%;
       padding: 0 35px; }
@@ -5395,6 +5407,8 @@ input[type="number"] {
           .site-content .page-content .page-body .my-transactions .transaction-table {
             height: auto;
             min-height: auto; } }
+        .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body.no-border-top table thead tr td {
+          border: 0; }
         .site-content .page-content .page-body .my-transactions .transaction-table .transaction-table-body table tbody tr td.blue-link-text a {
           color: #00C8FF;
           font-size: 14px;

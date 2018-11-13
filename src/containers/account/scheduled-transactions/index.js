@@ -30,23 +30,23 @@ const mapDispatchToProps = dispatch => ({
 
 class ScheduledTransactions extends React.Component {
     state = {
-        scheduledTransactions: null
+        scheduledTransactions: null,
+        adminPassword: localStorage.getItem('adminPassword') ? JSON.parse(localStorage.getItem('adminPassword')) : ''
     }
 
     componentDidUpdate = () => {
-
-        if (!this.state.isLoaded && this.props.account &&  this.props.adminPassword) {
+        if (!this.state.isLoaded && this.props.account &&  (this.state.adminPassword || this.state.adminPassword === '')) {
             this.getScheduledTransactions({
-                adminPassword: this.props.adminPassword,
+                adminPassword: this.state.adminPassword,
                 account: this.props.account
             })
         }
     };
 
     componentDidMount = () => {
-        if (this.props.adminPassword) {
+        if (this.state.adminPassword) {
             this.getScheduledTransactions({
-                adminPassword: this.props.adminPassword,
+                adminPassword: this.state.adminPassword,
                 account: this.props.account
             })
         } else {
@@ -61,31 +61,30 @@ class ScheduledTransactions extends React.Component {
     getScheduledTransactions = async (reqParams) => {
         const scheduledTransactions = await getScheduledTransactions(reqParams);
 
-        console.log(scheduledTransactions);
-
         if (scheduledTransactions && !scheduledTransactions.errorCode) {
             this.setState({
                 scheduledTransactions: scheduledTransactions.scheduledTransactions,
                 isLoaded: true
             })
         }
+
         if (scheduledTransactions && scheduledTransactions.errorCode) {
             this.setState({
                 scheduledTransactions,
                 isLoaded: true
             })
         }
-    }
+    };
 
     reloadSceduledTransactions = () => {
 
         this.getScheduledTransactions({
-            adminPassword: this.props.adminPassword
+            adminPassword: this.state.adminPassword
         })
-    }
+    };
 
     deleteScheduledTransaction = async (transaction) => {
-        const deleteTransacrtio = await this.props.submitForm({adminPassword : this.props.adminPassword , transaction}, 'deleteScheduledTransaction');
+        const deleteTransacrtio = await this.props.submitForm({adminPassword : this.state.adminPassword , transaction}, 'deleteScheduledTransaction');
 
         if (deleteTransacrtio) {
             if (deleteTransacrtio.errorCode) {
@@ -96,7 +95,7 @@ class ScheduledTransactions extends React.Component {
                 this.reloadSceduledTransactions();
             }
         }
-    }
+    };
 
     render () {
         return (
@@ -116,24 +115,22 @@ class ScheduledTransactions extends React.Component {
                     </a>
                 </SiteHeader>
 
-
-                {
-                    this.state.scheduledTransactions &&
-                    this.state.scheduledTransactions.errorCode &&
-                    this.state.scheduledTransactions.errorCode === 3 &&
-                    <InfoBox default>
-                        An admin password was not specified. Please set an admin password on the
-                        <Link
-                            to={'/settings'}
-                        >
-                            &nbsp;settings&nbsp;
-                        </Link>
-                        page.
-                    </InfoBox>
-                }
-
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
+                        {
+                            this.state.scheduledTransactions &&
+                            this.state.scheduledTransactions.errorCode &&
+                            this.state.scheduledTransactions.errorCode === 3 &&
+                            <InfoBox default>
+                                An admin password was not specified. Please set an admin password on the
+                                <Link
+                                    to={'/settings'}
+                                >
+                                    &nbsp;settings&nbsp;
+                                </Link>
+                                page.
+                            </InfoBox>
+                        }
                         <ContentHendler
                             items={this.state.scheduledTransactions}
                             emptyMessage={'No schedules found.'}

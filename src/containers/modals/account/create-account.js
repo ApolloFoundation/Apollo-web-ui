@@ -24,12 +24,10 @@ import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
 import {CopyToClipboard} from "react-copy-to-clipboard";
-import ReactDOM from 'react-dom';
 // import QRCode from 'qrcode.react';
 import QRCode from 'qrcode';
 
 import jsPDF from 'jspdf';
-import PdfDoc from '../../../pdf/account-credentials';
 
 import BackForm from '../modal-form/modal-form-container';
 

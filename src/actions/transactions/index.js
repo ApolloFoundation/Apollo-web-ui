@@ -37,6 +37,26 @@ export function getTransactionsAction(requestParams) {
     }
 }
 
+export const getTransactionsID = (requestParams) => {
+
+	return dispatch => {
+		return axios.get(config.api.serverUrl, {
+			params: {
+				requestType: 'getAccountId',
+				...requestParams
+			}
+		})
+			.then((res) => {
+				if (!res.data.errorCode) {
+					return res.data
+				}
+			})
+			.catch(() => {
+
+			})
+	}
+}
+
 export const getPrivateTransactions = (requestParams) => {
     const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
 

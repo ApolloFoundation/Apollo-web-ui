@@ -131,7 +131,6 @@ class JoinShuffling extends React.Component {
     };
 
     handleVaultWalletCondition = async (condition) => {
-        console.log(condition);
         if (condition) {
             const vaultWallet = await generateAccountAction({});
 
