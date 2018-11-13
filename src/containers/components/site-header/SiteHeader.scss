@@ -985,6 +985,17 @@
 	}
 }
 
+.network-overview {
+	position: absolute;
+	bottom: -8px;
+	right: 74px;
+
+	a {
+		text-decoration: underline;
+		color: #00c8ff;
+	}
+}
+
 //.settings-menu{
 //	@media (max-width: 760px) {
 //		background-color: #333333 !important;
