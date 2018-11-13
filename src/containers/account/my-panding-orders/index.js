@@ -121,7 +121,7 @@ class MyProductsForSale extends React.Component {
                                         );
                                     })
                                 }
-                                <div className="btn-box">
+                                <div className="btn-box relative right-conner align-right mt-15">
                                     <a
                                         className={classNames({
                                             'btn' : true,

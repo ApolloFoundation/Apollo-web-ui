@@ -138,13 +138,7 @@ class MyProductsForSale extends React.Component {
                             this.state.getDGSGoods &&
                             (!!this.state.getDGSGoods.length) &&
                             <div
-                                style={{
-                                    paddingTop: 15,
-                                    marginBottom: 15,
-                                    height: 33,
-                                    position: 'static'
-                                }}
-                                className="btn-box"
+                                className="btn-box relative right-conner align-right mt-15"
                             >
                                 <a
                                     style={{
