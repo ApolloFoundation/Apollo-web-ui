@@ -159,12 +159,12 @@
 			width: 100%;
 			background-color: #333333;
 		}
-		& > * {
-			margin: auto;
-			@media (max-width: 760px) {
-				margin: 0 !important;
-			}
-		}
+		//& > * {
+		//	margin: auto;
+			//@media (max-width: 760px) {
+			//	margin: 0 !important;
+			//}
+		//}
 		.search-bar .zmdi {
 			@media (max-width: 760px) {
 				color: #ffffff !important;
