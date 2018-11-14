@@ -121,7 +121,7 @@
       margin: auto; }
       @media (max-width: 760px) {
         .page-header .user-search-box > * {
-          margin: 0; } }
+          margin: 0 !important; } }
     @media (max-width: 760px) {
       .page-header .user-search-box .search-bar .zmdi {
         color: #ffffff !important; } }
