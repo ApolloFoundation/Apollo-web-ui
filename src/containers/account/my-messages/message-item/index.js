@@ -131,7 +131,11 @@ class MessageItem extends React.Component {
                     {
                         this.state.message &&
                         <a
-                            onClick={() => this.props.setBodyModalParamsAction('SHARE_MESSAGE')}
+                            onClick={() => this.props.setBodyModalParamsAction('SHARE_MESSAGE', {
+                                transaction: this.props.transaction,
+                                attachment: this.props.attachment,
+                                message: this.state.message
+                            })}
                             className="btn primary blue static"
                         >
                             Share

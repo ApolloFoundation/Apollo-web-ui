@@ -18,6 +18,7 @@ export const LOAD_BLOCKCHAIN_STATUS = 'LOAD_BLOCKCHAIN_STATUS';
 export const GET_FORGING = 'GET_FORGING';
 export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 export const SET_ADMIN_PASSWORD = 'SET_ADMIN_PASSWORD';
+export const SET_SHARE_MESSAGE = "SET_SHARE_MESSAGE";
 
 const initialState = {
     settings: null,
@@ -35,6 +36,8 @@ const initialState = {
     unconfirmedBalanceATM: null,
     loading: true,
     blockPageBody: false,
+    isShareMessage: false,
+    shareMessageTransaction: "",
     isLocalhost: window.location.hostname === 'localhost',
     mobileSettings: {
         is_check_remember_me: false,
@@ -123,8 +126,14 @@ export default (state = initialState, action) => {
                 ...state,
                 blockchainStatus: action.payload
             };
+        case SET_SHARE_MESSAGE:
+            return {
+                ...state,
+                isShareMessage: action.payload.isShareMessage,
+                shareMessageTransaction: action.payload.shareMessageTransaction,
+            };
         case 'SET_ACTUAL_BLOCK':
-        return {
+            return {
                 ...state,
                 actualBlock: action.payload
             };
@@ -171,26 +180,31 @@ export const updateStoreNotifications = (notifications) => {
 };
 
 export const startLoad = () => {
-	return dispatch => {
+    return dispatch => {
         dispatch({
-			type: START_LOAD,
+            type: START_LOAD,
             payload: null
-		});
+        });
 
-	}
+    }
 };
 
 export const endLoad = () => {
-	return dispatch => {
+    return dispatch => {
         dispatch({
-			type: END_LOAD,
+            type: END_LOAD,
             payload: null
-		});
+        });
         dispatch({
             type: SET_ADMIN_PASSWORD
         })
-	}
+    }
 };
+
+export const setShareMessage = payload => ({
+    type: SET_SHARE_MESSAGE,
+    payload
+});
 
 
 /*

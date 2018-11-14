@@ -3,9 +3,11 @@ import {connect} from "react-redux";
 import {Checkbox, Form, Text} from "react-form";
 import InputForm from "../../components/input-form";
 import ModalFooter from "../../components/modal-footer";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 
 class ShareMessage extends React.Component {
     render() {
+        const data = this.props.modalData;
         return (
             <div className="modal-box">
                 <Form
@@ -20,23 +22,11 @@ class ShareMessage extends React.Component {
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label align-self-start">
-                                        Shared key
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <Text
-                                            field="sharedKey"
-                                            type="text"
-                                            disabled
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label align-self-start">
                                         Transaction
                                     </label>
                                     <div className="col-sm-9">
-                                        <a href="#">
-                                            1234546543221
+                                        <a onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', data.transaction)}>
+                                            {data.transaction}
                                         </a>
                                     </div>
                                 </div>
@@ -45,8 +35,10 @@ class ShareMessage extends React.Component {
                                         Share Link
                                     </label>
                                     <div className="col-sm-9">
-                                        <a href="https://en.wikipedia.org/wiki/Blockchain" target="_blank">
-                                            https://en.wikipedia.org/wiki/Blockchain
+                                        <a href={`${window.location.host}?isShareMessage=true&account=${this.props.account}&transaction=${data.transaction}`}
+                                           rel="noopener noreferrer"
+                                           target="_blank">
+                                            {`${window.location.host}?isShareMessage=true&account=${this.props.account}&transaction=${data.transaction}`}
                                         </a>
                                     </div>
                                 </div>
@@ -59,8 +51,13 @@ class ShareMessage extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    modalData: state.modals.modalData,
+    account: state.account.accountRS
+});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShareMessage);

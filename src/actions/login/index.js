@@ -121,7 +121,7 @@ export const reloadAccountAction = acc => dispatch => {
     makeLoginReq(dispatch, {account: acc});
 };
 
-function makeLoginReq(dispatch, requestParams) {
+export function makeLoginReq(dispatch, requestParams) {
     dispatch(startLoad());
     return axios.get(config.api.serverUrl, {
         params: {
@@ -152,6 +152,7 @@ function makeLoginReq(dispatch, requestParams) {
             }
         })
         .catch(function (err) {
+            console.error("WTF", err);
             NotificationManager.error('Can not connect to server', 'Error', 900000);
         });
 }
