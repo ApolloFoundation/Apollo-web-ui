@@ -8,30 +8,32 @@ import axios from 'axios';
 import config from '../../config';
 import queryString from 'query-string';
 
-import {getTransactionsAction}   from '../../actions/transactions/';
-import {getAccountLedgerAction}  from '../../actions/ledger/';
-import {getAliasesAction}        from '../../actions/currencies/';
-import {getAssetsAction, getSpecificAccountAssetsAction}         from '../../actions/assets';
-import {getTradesAction}         from '../../actions/trade-history';
-import {getAccountCurrenciesAction}  from '../../actions/currencies';
-import {getDGSGoodsAction, getDGSPurchasesAction}       from '../../actions/marketplace';
+import {getTransactionsAction} from '../../actions/transactions/';
+import {getAccountLedgerAction} from '../../actions/ledger/';
+import {getAliasesAction} from '../../actions/currencies/';
+import {getAssetsAction, getSpecificAccountAssetsAction} from '../../actions/assets';
+import {getTradesAction} from '../../actions/trade-history';
+import {getAccountCurrenciesAction} from '../../actions/currencies';
+import {getDGSGoodsAction, getDGSPurchasesAction} from '../../actions/marketplace';
 
 import {writeToLocalStorage} from "../localStorage";
 import {NotificationManager} from "react-notifications";
 import submitForm from '../../helpers/forms/forms'
 import store from '../../store'
+import {makeLoginReq} from "../login";
+import {setShareMessage} from "../../modules/account";
 
 export function getAccountAction(reqParams) {
     return dispatch => {
         return {
-            'TRANSACTIONS':   dispatch(getTransactionsAction(reqParams)),
+            'TRANSACTIONS': dispatch(getTransactionsAction(reqParams)),
             'ACCOUNT_LEDGER': dispatch(getAccountLedgerAction(reqParams)),
-            'ASSETS':         dispatch(getSpecificAccountAssetsAction(reqParams)),
-            'TRADES':         dispatch(getTradesAction(reqParams)),
-            'CURRENCIES':     dispatch(getAccountCurrenciesAction(reqParams)),
-            'GOODS':          dispatch(getDGSGoodsAction({seller: reqParams.account})),
-            'ALIASES':        dispatch(getAliasesAction(reqParams)),
-            'ACCOUNT':        dispatch(getAccountInfoAction(reqParams)),
+            'ASSETS': dispatch(getSpecificAccountAssetsAction(reqParams)),
+            'TRADES': dispatch(getTradesAction(reqParams)),
+            'CURRENCIES': dispatch(getAccountCurrenciesAction(reqParams)),
+            'GOODS': dispatch(getDGSGoodsAction({seller: reqParams.account})),
+            'ALIASES': dispatch(getAliasesAction(reqParams)),
+            'ACCOUNT': dispatch(getAccountInfoAction(reqParams)),
         }
     }
 }
@@ -140,6 +142,13 @@ export function getAccountPropertiesAction(reqParams) {
             .catch((err) => {
                 console.log(err);
             })
+    }
+}
+
+export function loginWithShareMessage(account, transaction) {
+    return dispatch => {
+        dispatch(setShareMessage({isShareMessage: true, shareMessageTransaction: transaction}));
+        makeLoginReq(dispatch, {account})
     }
 }
 
