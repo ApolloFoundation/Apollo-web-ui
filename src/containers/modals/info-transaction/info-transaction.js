@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData, openPrevModal} from '../../../modules/modals';
 import classNames from 'classnames';
-import {formatTransactionType} from "../../../actions/transactions";
+import {formatTransactionType, getTransactionAction} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
 import InfoTransactionTable from "./info-transoction-table"
 import {getAccountInfoAction} from "../../../actions/account";
@@ -33,9 +33,13 @@ class InfoLedgerTransaction extends React.Component {
         })
     }
 
-    componentWillReceiveProps(newState) {
+    async componentWillReceiveProps(newState) {
+        let transaction = newState.modalData;
+        if (typeof transaction !== "object") {
+            transaction = await this.props.getTransaction({transaction});
+        }
         this.setState({
-            transaction: newState.modalData
+            transaction
         }, () => {
             if (this.state.transaction && this.state.transaction.phased) {
                 this.getWhiteListOfTransaction();
@@ -44,9 +48,13 @@ class InfoLedgerTransaction extends React.Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        let transaction = this.props.modalData;
+        if (typeof transaction !== "object") {
+           transaction = await this.props.getTransaction({transaction});
+        }
         this.setState({
-            transaction: this.props.modalData
+            transaction
         }, () => {
             if (this.state.transaction && this.state.transaction.phased) {
                 this.getWhiteListOfTransaction();
@@ -401,6 +409,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
     openPrevModal: () => dispatch(openPrevModal()),
+    getTransaction: transaction => dispatch(getTransactionAction(transaction)),
     getAccountInfoAction: (account) => dispatch(getAccountInfoAction(account)),
 });
 

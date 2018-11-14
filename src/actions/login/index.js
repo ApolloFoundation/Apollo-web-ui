@@ -121,7 +121,7 @@ export const reloadAccountAction = acc => dispatch => {
     makeLoginReq(dispatch, {account: acc});
 };
 
-function makeLoginReq(dispatch, requestParams) {
+export function makeLoginReq(dispatch, requestParams) {
     dispatch(startLoad());
     return axios.get(config.api.serverUrl, {
         params: {

@@ -313,7 +313,7 @@ class ModalWindow extends React.Component {
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal} nameModal={'DECRYPT_MESSAGES'}/>}
                 {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
-                {/*{this.props.modalType === 'SHARE_MESSAGE'             && <ShareMessage            closeModal={this.closeModal}/>}*/}
+                {this.props.modalType === 'SHARE_MESSAGE'             && <ShareMessage            closeModal={this.closeModal}/>}
 
                 {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency          closeModal={this.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
             </div>

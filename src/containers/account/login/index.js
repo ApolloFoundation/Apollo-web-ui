@@ -5,25 +5,17 @@
 
 
 import { connect } from 'react-redux';
-import { Redirect } from  'react-router-dom';
-import crypto from '../../../helpers/crypto/crypto';
 import React from 'react';
 import './Login.css'
-import account from "../../../modules/account";
 import { getAccountDataAction, getAccountDataBySecretPhrasseAction } from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import AccountRS from '../../components/account-rs';
 import {Form, Text} from "react-form";
 import {getConstantsAction} from '../../../actions/login'
-import ContentLoader from '../../components/content-loader'
 import InfoBox from "../../components/info-box";
 
 class Login extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         activeTab: 0
     };

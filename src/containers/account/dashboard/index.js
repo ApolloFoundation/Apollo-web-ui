@@ -76,6 +76,9 @@ class Dashboard extends React.Component {
 
 	componentDidMount() {
 		BlockUpdater.on("data", this.listener);
+		if (this.props.isShareMessage) {
+			setTimeout(() => this.props.setBodyModalParamsAction("INFO_TRANSACTION", this.props.shareMessageTransaction), 500);
+		}
     }
 
 	dashBoardinterval = setInterval(() => {
@@ -826,6 +829,8 @@ const mapStateToProps = state => ({
 	blockchainStatus: state.account.blockchainStatus,
 	savedValues: state.modals.savedValues,
 	modalsHistory: state.modals.modalsHistory,
+	isShareMessage: state.account.isShareMessage,
+	shareMessageTransaction: state.account.shareMessageTransaction,
 });
 
 const mapDispatchToProps = dispatch => ({
