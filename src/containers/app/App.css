@@ -4626,6 +4626,9 @@ table td .btn, table th .btn {
 
 .assets-exchange > .row {
   position: relative; }
+  @media (min-width: 768px) {
+    .assets-exchange > .row {
+      min-height: calc(100vh - 135px) !important; } }
 
 @media (min-width: 768px) {
   .assets-exchange .right-col {
@@ -4637,6 +4640,9 @@ table td .btn, table th .btn {
     top: 0;
     bottom: 0;
     height: 100%; } }
+
+.assets-exchange .one-col {
+  max-height: calc(100vh - 135px); }
 
 .assets-exchange .row {
   align-items: stretch; }

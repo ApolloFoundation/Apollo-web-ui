@@ -2656,6 +2656,9 @@ table {
 .assets-exchange {
 	& > .row {
 		position: relative;
+		@media (min-width: 768px) {
+			min-height: calc(100vh - 135px) !important;
+		}
 	}
 	.right-col {
 		@media (min-width: 768px) {
@@ -2669,6 +2672,9 @@ table {
 			bottom: 0;
 			height: 100%;
 		}
+	}
+	.one-col{
+		max-height: calc(100vh - 135px);
 	}
 	.row {
 		//min-height: 100%;

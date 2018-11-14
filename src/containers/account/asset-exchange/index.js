@@ -713,7 +713,7 @@ class AssetExchange extends React.Component {
                     !this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-3 p-0">
+                            <div className="col-md-3 p-0 one-col">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.accountAssets &&
