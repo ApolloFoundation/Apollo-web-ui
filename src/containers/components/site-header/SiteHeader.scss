@@ -161,6 +161,9 @@
 		}
 		& > * {
 			margin: auto;
+			@media (max-width: 760px) {
+				margin: 0;
+			}
 		}
 		.search-bar .zmdi {
 			@media (max-width: 760px) {

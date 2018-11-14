@@ -272,7 +272,7 @@ class AssetExchange extends React.Component {
                     this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-3 p-0">
+                            <div className="col-md-3 p-0 left-col">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.accountAssets &&
@@ -309,49 +309,56 @@ class AssetExchange extends React.Component {
                             </div>
                             {
                                 this.props.match.params &&
-                                <div className="col-md-9 p-0">
+                                <div className="col-md-9 p-0 right-col">
                                     <div className="row">
                                         <div className="col-xl-6 col-md-12 pr-0">
                                             <div className="card header ballance card-tiny medium-padding">
                                                 <div className="row">
                                                     <div className="col-md-6">
                                                         <div className="card-title medium">{this.state.asset.name}</div>
-                                                        <a
-                                                            onClick={() => {
-                                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
-                                                                    asset: this.props.match.params.asset,
-                                                                    decimals: this.state.asset.decimals,
-                                                                    totalAvailable: this.state.asset.quantityATU
-                                                                })
-                                                            }}
-                                                        >
-                                                            View Account Distribution
-                                                        </a>
-                                                        <a
-                                                            onClick={() => {
-                                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DIVIDEND_HISTORY', {
-                                                                    asset: this.props.match.params.asset,
-                                                                })
-                                                            }}>
-                                                            View Asset Dividend History
-                                                        </a>
-                                                        <br/>
-                                                        {this.state.asset &&
-                                                        this.state.asset.account === this.props.account ?
-                                                            <a
-                                                                onClick={() => {
-                                                                    this.props.setBodyModalParamsAction('PAY_DIVIDENDS', {
-                                                                        asset: this.props.match.params.asset,
-                                                                    })
-                                                                }}>
-                                                                Pay Dividends
-                                                            </a> : null
-                                                        }
+
                                                     </div>
                                                     <div className="col-md-6 flex">
                                                         <div
                                                             className="card-title small break-word">{this.state.asset.description}</div>
                                                     </div>
+	                                                <div className="asset-btns-block">
+		                                                <a
+			                                                className={"btn static blue"}
+			                                                onClick={() => {
+				                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
+					                                                asset: this.props.match.params.asset,
+					                                                decimals: this.state.asset.decimals,
+					                                                totalAvailable: this.state.asset.quantityATU
+				                                                })
+			                                                }}
+		                                                >
+			                                                View Account Distribution
+		                                                </a>
+		                                                <a
+			                                                className={"btn static blue"}
+			                                                onClick={() => {
+				                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DIVIDEND_HISTORY', {
+					                                                asset: this.props.match.params.asset,
+				                                                })
+			                                                }}>
+			                                                View Asset Dividend History
+		                                                </a>
+		                                                <br/>
+		                                                {this.state.asset &&
+		                                                this.state.asset.account === this.props.account ?
+			                                                <a
+				                                                className={"btn static blue"}
+				                                                onClick={() => {
+					                                                this.props.setBodyModalParamsAction('PAY_DIVIDENDS', {
+						                                                asset: this.props.match.params.asset,
+					                                                })
+				                                                }}>
+				                                                Pay Dividends
+			                                                </a> : null
+		                                                }
+	                                                </div>
+
                                                 </div>
                                             </div>
 
@@ -695,6 +702,7 @@ class AssetExchange extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             }

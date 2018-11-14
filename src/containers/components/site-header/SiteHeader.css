@@ -119,6 +119,9 @@
         background-color: #333333; } }
     .page-header .user-search-box > * {
       margin: auto; }
+      @media (max-width: 760px) {
+        .page-header .user-search-box > * {
+          margin: 0; } }
     @media (max-width: 760px) {
       .page-header .user-search-box .search-bar .zmdi {
         color: #ffffff !important; } }

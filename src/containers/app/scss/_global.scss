@@ -2654,9 +2654,21 @@ table {
 }
 
 .assets-exchange {
-	//max-height: calc(100vh);
 	& > .row {
-		//min-height: 810px !important;
+		position: relative;
+	}
+	.right-col {
+		@media (min-width: 768px) {
+			margin-left: 25%;
+		}
+	}
+	.left-col {
+		@media (min-width: 768px) {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			height: 100%;
+		}
 	}
 	.row {
 		//min-height: 100%;
@@ -3001,5 +3013,16 @@ table {
 		border-bottom: 1px solid rgba(#fff, 0);
 		padding-bottom: 0;
 		margin-bottom: 0;
+	}
+}
+
+.asset-btns-block {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 0 15px;
+	.btn {
+		margin-top: 10px;
+		margin-right: 10px;
 	}
 }
