@@ -5478,7 +5478,8 @@ input[type="number"] {
     .site-content .page-content .page-body .account-ledger {
       display: flex;
       flex-direction: column;
-      padding: 0 7.5px; }
+      padding: 0 7.5px;
+      overflow: hidden; }
     .site-content .page-content .page-body .blocks {
       padding: 0 7.5px; }
       .site-content .page-content .page-body .blocks .row {
