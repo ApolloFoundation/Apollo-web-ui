@@ -79,7 +79,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
     };
 }
 
-export function isLoggedIn() {
+export function isLoggedIn(history) {
     return dispatch => {
         let account = JSON.parse(readFromLocalStorage('APLUserRS'));
 
@@ -89,7 +89,7 @@ export function isLoggedIn() {
             });
         } else {
             if (document.location.pathname !== '/login')
-                document.location.href = '/login';
+                history.push('/login');
         }
     };
 }
