@@ -1332,6 +1332,8 @@ input {
             font-size: 11px !important; }
           .card.header .amount .owned {
             font-size: 20px !important; } }
+      .card.header .amount.time {
+        font-size: 22px; }
       .card.header .amount .text {
         overflow: hidden;
         width: 100%;

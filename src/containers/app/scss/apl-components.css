@@ -2,7 +2,7 @@
   height: 100%;
   width: 100%;
   min-height: 560px; }
-  @media (max-width: 1025px) {
+  @media (max-width: 1200px) {
     .transaction-table {
       height: auto;
       min-height: auto; } }
