@@ -732,3 +732,11 @@
 @media (max-width: 760px) {
   .account-body-modal .form-group-app {
     background-color: #333333 !important; } }
+
+.network-overview {
+  position: absolute;
+  bottom: -8px;
+  right: 110px; }
+  .network-overview a {
+    text-decoration: underline;
+    color: #00c8ff; }
