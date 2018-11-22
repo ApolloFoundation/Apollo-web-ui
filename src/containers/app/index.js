@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route, Switch, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import classNames from 'classnames';
 import {isLoggedIn, getConstantsAction} from '../../actions/login';
 import {setPageEvents, loadConstants} from '../../modules/account' ;
@@ -87,7 +87,7 @@ class App extends React.Component {
         // this.props.startBlockPullingAction();
         getUpdateStatus();
         if (!this.shareMessage) {
-            this.props.isLoggedIn();
+            this.props.isLoggedIn(this.props.history);
         }
         this.props.getConstantsAction();
         this.handleModal = this.handleModal.bind(this);
@@ -249,7 +249,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    isLoggedIn: () => dispatch(isLoggedIn()),
+    isLoggedIn: (history) => dispatch(isLoggedIn(history)),
     setPageEvents: () => dispatch(setPageEvents()),
     getConstantsAction: () => dispatch(getConstantsAction()),
     getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
@@ -260,4 +260,4 @@ const mapDispatchToProps = dispatch => ({
     startBlockPullingAction: () => dispatch(startBlockPullingAction())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
