@@ -984,6 +984,17 @@
 		@media (max-width: 760px) {
 			background-color: #333333 !important;
 		}
+	}	
+}
+
+.network-overview {
+	position: absolute;
+	bottom: -8px;
+	right: 110px;
+
+	a {
+		text-decoration: underline;
+		color: #00c8ff;
 	}
 }
 
