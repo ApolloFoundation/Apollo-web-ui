@@ -296,6 +296,8 @@ input[type="number"] {
         width: auto;
         margin-left: -7.5px;
         margin-right: -7.5px; }
+      .site-content .page-content .page-body .blocks .card {
+        height: 100%; }
     .site-content .page-content .page-body .scheduled-transactions {
       display: flex;
       flex-direction: column; }
