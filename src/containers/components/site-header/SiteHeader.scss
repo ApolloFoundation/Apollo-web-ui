@@ -988,9 +988,8 @@
 }
 
 .network-overview {
-	position: absolute;
-	bottom: -8px;
-	right: 110px;
+	text-align: right;
+	margin-top: 15px;
 
 	a {
 		text-decoration: underline;
