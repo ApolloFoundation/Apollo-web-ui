@@ -14,6 +14,7 @@ import crypto from  '../../../helpers/crypto/crypto';
 import {calculateFeeAction} from "../../../actions/forms";
 import classNames from 'classnames';
 
+import {Checkbox} from 'react-form';
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
@@ -119,6 +120,12 @@ class SendApolloPrivate extends React.Component {
         })
     };
 
+    handleUseMixer = (e) => {
+        this.setState({
+            useMixer: e
+        })
+    }
+
     render() {
         return (
             <div className="modal-box">
@@ -179,6 +186,43 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="mobile-class row mb-15 form-group-white">
+                                    <div className="col-md-9 offset-md-3">
+                                        <div className="form-check custom-checkbox">
+                                            <Checkbox 
+                                                onChange={(e) => this.handleUseMixer(e)}
+                                                className="form-check-input custom-control-input"
+                                                type="checkbox"
+                                                field="isMixer"
+                                            />
+                                            <label className="form-check-label custom-control-label">
+                                                Use Mixer
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {
+                                    this.state.useMixer &&
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Mixing time
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                            <InputForm
+                                                defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+                                                field="amountATM"
+                                                placeholder="Amount"
+                                                type={"float"}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">Seconds</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                
 
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
