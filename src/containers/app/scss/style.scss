@@ -55,7 +55,7 @@ input[type="number"] {
       position: relative;
       display: flex;
       flex-wrap: wrap;
-      padding: 120px 7.5px 15px;
+      padding: 135px 7.5px 15px;
       min-height: 100%;
       z-index: 0;
       @media(max-width: 760px) {
@@ -459,6 +459,9 @@ input[type="number"] {
           width: auto;
           margin-left: -7.5px;
           margin-right: -7.5px;
+        }
+        .card {
+          height: 100%;
         }
         //margin: 0 -7.5px;
       }

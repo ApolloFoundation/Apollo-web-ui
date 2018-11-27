@@ -38,7 +38,7 @@ input[type="number"] {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    padding: 120px 7.5px 15px;
+    padding: 135px 7.5px 15px;
     min-height: 100%;
     z-index: 0; }
     @media (max-width: 760px) {
@@ -296,6 +296,8 @@ input[type="number"] {
         width: auto;
         margin-left: -7.5px;
         margin-right: -7.5px; }
+      .site-content .page-content .page-body .blocks .card {
+        height: 100%; }
     .site-content .page-content .page-body .scheduled-transactions {
       display: flex;
       flex-direction: column; }

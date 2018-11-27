@@ -3919,7 +3919,7 @@ input {
   .btn.underscore:after {
     content: '';
     position: absolute;
-    top: calc(100% + 46px);
+    top: calc(100% + 69px);
     z-index: 4;
     left: 0;
     width: 0%;
@@ -3929,7 +3929,7 @@ input {
     transition: all 0.3s ease-in-out; }
     @media (max-width: 1024px) {
       .btn.underscore:after {
-        top: calc(100% + 42px); } }
+        top: calc(100% + 75px); } }
   .btn.revert-content .to-revert {
     transform: rotateX(-180deg); }
   .btn.absolute {
@@ -4149,6 +4149,8 @@ input {
             font-size: 11px !important; }
           .card.header .amount .owned {
             font-size: 20px !important; } }
+      .card.header .amount.time {
+        font-size: 22px; }
       .card.header .amount .text {
         overflow: hidden;
         width: 100%;
@@ -4660,7 +4662,7 @@ table td .btn, table th .btn {
   height: 100%;
   width: 100%;
   min-height: 560px; }
-  @media (max-width: 1025px) {
+  @media (max-width: 1200px) {
     .transaction-table {
       height: auto;
       min-height: auto; } }
@@ -4942,7 +4944,7 @@ input[type="number"] {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    padding: 120px 7.5px 15px;
+    padding: 135px 7.5px 15px;
     min-height: 100%;
     z-index: 0; }
     @media (max-width: 760px) {
@@ -5200,6 +5202,8 @@ input[type="number"] {
         width: auto;
         margin-left: -7.5px;
         margin-right: -7.5px; }
+      .site-content .page-content .page-body .blocks .card {
+        height: 100%; }
     .site-content .page-content .page-body .scheduled-transactions {
       display: flex;
       flex-direction: column; }
