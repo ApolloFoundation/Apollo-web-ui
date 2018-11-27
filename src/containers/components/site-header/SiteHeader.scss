@@ -27,7 +27,7 @@
 
 				.settings-bar {
 					position: absolute;
-					top: calc(100% + 48px);
+					top: calc(100% + 71px);
 					right: 0;
 					left: 0;
 					display: flex;
@@ -44,7 +44,7 @@
 					transition: all 0.3s ease-in-out;
 					z-index: 4;
 					@media (max-width: 1024px) {
-						top: calc(100% + 44px);
+						top: calc(100% + 78px);
 					}
 					&.active {
 						opacity: 1;
@@ -256,17 +256,17 @@
 					}
 					.btn.underscore {
 						&:after {
-							top: calc(100% + 39px);
+							top: calc(100% + 61px);
 						}
 						@media (max-width: 1024px) {
 							&.active:after {
-								top: calc(100% + 32px);
+								top: calc(100% + 66px);
 							}
 						}
 					}
 					.settings-bar {
 						position: absolute;
-						top: calc(100% + 42px);
+						top: calc(100% + 65px);
 						right: 0;
 						display: flex;
 						justify-content: space-around;
@@ -298,7 +298,7 @@
 							transform: none;
 							visibility: visible;
 							@media (max-width: 1024px) {
-								top: calc(100% + 35px);
+								top: calc(100% + 69px);
 							}
 						}
 						.options-col {
@@ -985,6 +985,15 @@
 		@media (max-width: 760px) {
 			background-color: #333333 !important;
 		}
+	}	
+}
+
+.network-overview {
+	text-align: right;
+	margin-top: 15px;
+
+	a {
+		color: #00c8ff;
 	}
 }
 

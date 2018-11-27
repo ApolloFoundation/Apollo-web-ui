@@ -36,6 +36,7 @@ import {getActiveShfflings, getShufflingAction} from "../../../actions/shuffling
 import {getpollsAction} from "../../../actions/polls";
 import {getAccountInfoAction} from "../../../actions/account";
 
+
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
@@ -403,7 +404,13 @@ class Dashboard extends React.Component {
                                                     <div className="account-sub-titles">
                                                         Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
                                                     </div>
-                                                }
+												}
+												{
+													this.props.blockTime &&
+													<div className="account-sub-titles">
+														Estimated Block Generation Time :&nbsp;{this.props.blockTime} s
+													</div>
+												}
                                             </div>
                                         </React.Fragment>  ||
                                         <ContentLoader white noPaddingOnTheSides/>
