@@ -591,8 +591,7 @@ class SiteHeader extends React.Component {
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
                                                             <a>Purchased Products</a>
-                                                            <NavLink to="/my-products-for-sale">My products for
-                                                                sales</NavLink>
+                                                            <NavLink to="/my-products-for-sale">My products for sale</NavLink>
                                                             <NavLink to="/my-pending-orders">My pending orders</NavLink>
                                                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
                                                             <a

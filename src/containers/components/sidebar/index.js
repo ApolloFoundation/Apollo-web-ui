@@ -313,7 +313,7 @@ class Sidebar extends React.Component {
 								>
 									<ul>
 										<li><NavLink to='/purchased-products'>Purchased products</NavLink></li>
-										<li><NavLink to='/my-products-for-sale'>My products for sales</NavLink></li>
+										<li><NavLink to='/my-products-for-sale'>My products for sale</NavLink></li>
 										<li><NavLink to='/my-pending-orders'>My pending orders</NavLink></li>
 										<li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
 										<li><a onClick={this.props.setModalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
