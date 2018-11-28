@@ -4125,7 +4125,7 @@ input[type="file"] {
     transition: all 0.3s ease-in-out; }
     @media (max-width: 1024px) {
       .btn.underscore:after {
-        top: calc(100% + 42px); } }
+        top: calc(100% + 75px); } }
   .btn.revert-content .to-revert {
     transform: rotateX(-180deg); }
   .btn.absolute {
