@@ -36,10 +36,6 @@ import {getActiveShfflings, getShufflingAction} from "../../../actions/shuffling
 import {getpollsAction} from "../../../actions/polls";
 import {getAccountInfoAction} from "../../../actions/account";
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5246fa7111512d29b1e56746e5359cb05806939a
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
