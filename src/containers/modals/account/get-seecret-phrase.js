@@ -87,7 +87,7 @@ class PrivateTransactions extends React.Component {
                                                     field="isSavePassphrase"/>
                                                 <label
                                                     className="form-check-label custom-control-label">
-                                                    Remember secret phrase?
+                                                    Keep forging?
                                                 </label>
                                             </div>
                                         </div>
