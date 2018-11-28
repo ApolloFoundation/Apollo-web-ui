@@ -28,7 +28,7 @@ const target = document.querySelector('#root');
 // console.log = function(message){};
 
 (function(){
-    if (localStorage.getItem('isDesctop')) {
+    if (localStorage.getItem('isDesktop')) {
         document.getElementById('root').classList.add('isDesctop')
     }
 })();
