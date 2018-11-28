@@ -33,6 +33,11 @@ class PrivateTransactions extends React.Component {
     async handleFormSubmit(params) {
         let passphrase = params.passphrase;
 
+        if (params.isSavePassphrase) {
+            localStorage.setItem('secretPhrase', JSON.stringify(passphrase.toString()));
+            delete params.isSavePassphrase;
+        }
+
         this.props.setAccountPassphrase(passphrase);
         this.props.getForging();
         // this.props.setBodyModalParamsAction(null, null);
@@ -67,6 +72,24 @@ class PrivateTransactions extends React.Component {
                                         </div>
                                         <div className="col-md-9">
                                             <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="input-group-app">
+                                    <div className="row">
+                                        <div className={'col-md-9 offset-md-3'}>
+                                            <div
+                                                className="form-check custom-checkbox encrypt-message-checkbox offset-top"
+                                            >
+                                                <Checkbox
+                                                    className="form-check-input custom-control-input"
+                                                    type="checkbox"
+                                                    field="isSavePassphrase"/>
+                                                <label
+                                                    className="form-check-label custom-control-label">
+                                                    Remember secret phrase?
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

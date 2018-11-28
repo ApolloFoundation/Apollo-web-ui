@@ -159,10 +159,8 @@ export function makeLoginReq(dispatch, requestParams) {
 export function getForging(isPassphrase) {
     return (dispatch, getState) => {
         const account = getState().account;
-
         const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
         const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
-
         Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
 

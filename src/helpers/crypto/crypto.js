@@ -109,6 +109,7 @@ const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(a
         const accountRS = getStore().account.accountRS;
 
         const isAccount = await dispatch(getAccountIdAPL(passphrase, true));
+    
         resolve(accountRS === isAccount);
     });
 
