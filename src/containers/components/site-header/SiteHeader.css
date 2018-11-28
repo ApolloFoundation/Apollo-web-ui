@@ -24,7 +24,7 @@
       position: relative; }
       .page-header .page-title-box .page-title-box .open-settings .settings-bar {
         position: absolute;
-        top: calc(100% + 48px);
+        top: calc(100% + 71px);
         right: 0;
         left: 0;
         display: flex;
@@ -42,7 +42,7 @@
         z-index: 4; }
         @media (max-width: 1024px) {
           .page-header .page-title-box .page-title-box .open-settings .settings-bar {
-            top: calc(100% + 44px); } }
+            top: calc(100% + 78px); } }
         .page-header .page-title-box .page-title-box .open-settings .settings-bar.active {
           opacity: 1;
           transform: none;
@@ -180,13 +180,13 @@
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.primary {
             margin: 0; }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.underscore:after {
-            top: calc(100% + 39px); }
+            top: calc(100% + 61px); }
           @media (max-width: 1024px) {
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .btn.underscore.active:after {
-              top: calc(100% + 32px); } }
+              top: calc(100% + 66px); } }
           .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar {
             position: absolute;
-            top: calc(100% + 42px);
+            top: calc(100% + 65px);
             right: 0;
             display: flex;
             justify-content: space-around;
@@ -218,7 +218,7 @@
               visibility: visible; }
               @media (max-width: 1024px) {
                 .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar.active {
-                  top: calc(100% + 35px); } }
+                  top: calc(100% + 69px); } }
             .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col {
               width: 100%;
               border-right: 1px solid #E6E6E6; }
@@ -729,9 +729,8 @@
     background-color: #333333 !important; } }
 
 .network-overview {
-  position: absolute;
-  bottom: -8px;
-  right: 74px; }
+  text-align: right;
+  margin-top: 15px; }
   .network-overview a {
     text-decoration: underline;
     color: #00c8ff; }

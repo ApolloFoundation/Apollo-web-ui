@@ -59,7 +59,7 @@ class DeleteAccountFromWebNode extends React.Component {
 
         if (!accountKeySeedData.errorCode) {
 
-            NotificationManager.success('Your account was successfully removed from this web mode.', null, 5000);
+            NotificationManager.success('Your account was successfully removed from this web node.', null, 5000);
             this.props.closeModal();
 
         } else {

@@ -403,7 +403,13 @@ class Dashboard extends React.Component {
                                                     <div className="account-sub-titles">
                                                         Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
                                                     </div>
-                                                }
+												}
+												{
+													this.props.blockTime &&
+													<div className="account-sub-titles">
+														Estimated Block Generation Time :&nbsp;{this.props.blockTime} s
+													</div>
+												}
                                             </div>
                                         </React.Fragment>  ||
                                         <ContentLoader white noPaddingOnTheSides/>
@@ -675,15 +681,27 @@ class Dashboard extends React.Component {
 									<div className="full-box">
 										<div className="form-group-app offset">
 											<div className="input-group-app lighten">
-												<label>Recipient</label>
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Recipient
+												</label>
 												<input placeholder={'Account ID'} onChange={this.accountIdChange} type="text"/>
 											</div>
 											<div className="input-group-app lighten">
-												<label>Amount</label>
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Amount
+												</label>
 												<input placeholder={'Amount'} onChange={this.amountChange} type={'tel'}/>
 											</div>
 											<div className="input-group-app lighten">
-												<label>Fee</label>
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Fee
+												</label>
 												<input placeholder={'Amount'} onChange={this.feeAtmChange} type={'tel'}/>
 											</div>
 										</div>

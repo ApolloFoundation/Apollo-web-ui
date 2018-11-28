@@ -27,6 +27,12 @@ const target = document.querySelector('#root');
 // console.error = function(message){};
 // console.log = function(message){};
 
+(function(){
+    if (localStorage.getItem('isDesctop')) {
+        document.getElementById('root').classList.add('isDesctop')
+    }
+})();
+
 render(
     <Provider store={store}>
         <BlockSubscriber>

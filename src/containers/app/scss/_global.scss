@@ -148,6 +148,24 @@ html, body {
 	font-weight: 400;
 }
 
+
+// These styles counted only for desctop version
+#root {
+	&.isDesctop {
+		.form-group {
+			transform: translateY(1px)
+		}
+		.input-icon {
+			height: 33px;
+			transform: translateY(2px);
+		}
+		.input-group-append {
+			height: 32px; 
+			transform: translateY(2px);
+		}
+	}
+}
+
 //*:focus, *:active, *:hover {
 //  box-shadow: none !important;
 //  -webkit-box-shadow: none !important;
@@ -1853,7 +1871,7 @@ input[type="file"] {
 		&:after {
 			content: '';
 			position: absolute;
-			top: calc(100% + 46px);
+			top: calc(100% + 69px);
 			z-index: 4;
 			left: 0;
 			width: 0%;
@@ -2148,6 +2166,19 @@ input[type="file"] {
 			}
 			@media (max-width: 1660px) {
 				font-size: 24px;
+			}
+			@media (max-width: 1440px) {
+				font-size: 18px;
+
+				.currency {
+					font-size: 11px !important;
+				}
+				.owned {
+					font-size: 20px !important;
+				}
+			}
+			&.time {
+				font-size: 22px
 			}
 			.text {
 				overflow: hidden;
