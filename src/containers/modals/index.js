@@ -266,9 +266,6 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal} nameModal={'EXPORT_KEY_SEED'}/>}
                 {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal} nameModal={'DELETE_ACCOUNT_FROM_NODE'}/>}
                 {this.props.modalType === 'CONFIRM_2FA_FORGING'         && <Confirm2FAforging         closeModal={this.closeModal}/>}
-                {this.props.modalType === 'IMPORT_ACCOUNT'              && <ImportAccount             closeModal={this.closeModal}/>}
-                {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal}/>}
-                {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal}/>}
                 {this.props.modalType === 'INFO_NETWORK'                && <ChainProps                closeModal={this.closeModal}/>}
 
                 {/* Shuffling */}

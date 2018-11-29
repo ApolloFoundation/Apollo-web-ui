@@ -148,6 +148,24 @@ html, body {
 	font-weight: 400;
 }
 
+
+// These styles counted only for desctop version
+#root {
+	&.isDesctop {
+		.form-group {
+			transform: translateY(1px)
+		}
+		.input-icon {
+			height: 33px;
+			transform: translateY(2px);
+		}
+		.input-group-append {
+			height: 32px; 
+			transform: translateY(2px);
+		}
+	}
+}
+
 //*:focus, *:active, *:hover {
 //  box-shadow: none !important;
 //  -webkit-box-shadow: none !important;

@@ -729,15 +729,9 @@
     background-color: #333333 !important; } }
 
 .network-overview {
-<<<<<<< HEAD
   position: absolute;
   bottom: -8px;
   right: 74px; }
   .network-overview a {
     text-decoration: underline;
-=======
-  text-align: right;
-  margin-top: 15px; }
-  .network-overview a {
->>>>>>> 5370f5cf07fe19f3be2e0edef2262809c5d5bad5
     color: #00c8ff; }

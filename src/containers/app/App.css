@@ -2914,6 +2914,17 @@ html, body {
   font-family: "Roboto", sans-serif;
   font-weight: 400; }
 
+#root.isDesctop .form-group {
+  transform: translateY(1px); }
+
+#root.isDesctop .input-icon {
+  height: 33px;
+  transform: translateY(2px); }
+
+#root.isDesctop .input-group-append {
+  height: 32px;
+  transform: translateY(2px); }
+
 ::placeholder {
   color: #a6a6a6 !important;
   font-size: 0.875rem;
@@ -5306,8 +5317,8 @@ input[type="number"] {
               font-size: 20px; }
           .site-content .page-content .page-body .card.transactions .transactions-dashboard .transaction-item .transaction-box .transaction-amount {
             color: #333333;
-            font-weight: 400;
-            font-size: 16px;
+            font-family: "Roboto-Regular";
+            font-size: 13px;
             line-height: 14px;
             margin-left: 6px; }
     .site-content .page-content .page-body .card.asset-portfolio .card-title {
@@ -5495,14 +5506,6 @@ input[type="number"] {
         width: auto;
         margin-left: -7.5px;
         margin-right: -7.5px; }
-<<<<<<< HEAD
-        .site-content .page-content .page-body .blocks .row .col-md-6 {
-          padding-left: 7.5px;
-          padding-right: 7.5px; }
-=======
-      .site-content .page-content .page-body .blocks .card {
-        height: 100%; }
->>>>>>> 5370f5cf07fe19f3be2e0edef2262809c5d5bad5
     .site-content .page-content .page-body .scheduled-transactions {
       display: flex;
       flex-direction: column; }

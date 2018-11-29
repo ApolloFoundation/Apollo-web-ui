@@ -36,7 +36,6 @@ import {getActiveShfflings, getShufflingAction} from "../../../actions/shuffling
 import {getpollsAction} from "../../../actions/polls";
 import {getAccountInfoAction} from "../../../actions/account";
 
-
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
@@ -682,15 +681,27 @@ class Dashboard extends React.Component {
 									<div className="full-box">
 										<div className="form-group-app offset">
 											<div className="input-group-app lighten">
-												<label>Recipient</label>
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Recipient
+												</label>
 												<input placeholder={'Account ID'} onChange={this.accountIdChange} type="text"/>
 											</div>
 											<div className="input-group-app lighten">
-												<label>Amount</label>
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Amount
+												</label>
 												<input placeholder={'Amount'} onChange={this.amountChange} type={'tel'}/>
 											</div>
 											<div className="input-group-app lighten">
-												<label>Fee</label>
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Fee
+												</label>
 												<input placeholder={'Amount'} onChange={this.feeAtmChange} type={'tel'}/>
 											</div>
 										</div>
