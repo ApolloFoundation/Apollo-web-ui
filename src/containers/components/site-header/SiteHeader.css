@@ -729,9 +729,15 @@
     background-color: #333333 !important; } }
 
 .network-overview {
+<<<<<<< HEAD
+  text-align: right;
+  margin-top: 15px; }
+  .network-overview a {
+=======
   position: absolute;
   bottom: -8px;
   right: 74px; }
   .network-overview a {
     text-decoration: underline;
+>>>>>>> 03c6ed72ef170f855cd42df0c303994f90149931
     color: #00c8ff; }

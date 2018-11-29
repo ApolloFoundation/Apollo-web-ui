@@ -268,6 +268,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'CONFIRM_2FA_FORGING'         && <Confirm2FAforging         closeModal={this.closeModal}/>}
                 {this.props.modalType === 'INFO_NETWORK'                && <ChainProps                closeModal={this.closeModal}/>}
 
+
                 {/* Shuffling */}
                 {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.closeModal} nameModal={'ISSUE_CREATE_SHUFFLING'}/>}
                 {this.props.modalType === 'START_SHUFFLING'             && <JoinShuffling             closeModal={this.closeModal} nameModal={'START_SHUFFLING'}/>}
