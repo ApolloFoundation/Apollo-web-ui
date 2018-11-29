@@ -35,8 +35,20 @@ class InfoLedgerTransaction extends React.Component {
 
     async componentWillReceiveProps(newState) {
         let transaction = newState.modalData;
+
         if (typeof transaction !== "object") {
             transaction = await this.props.getTransaction({transaction});
+            
+            if (!transaction.errorCode) {
+                this.setState({
+                    transaction
+                });
+            }
+           
+        } else {
+            this.setState({
+                transaction
+            })
         }
         this.setState({
             transaction
@@ -50,8 +62,21 @@ class InfoLedgerTransaction extends React.Component {
 
     async componentDidMount() {
         let transaction = this.props.modalData;
+
         if (typeof transaction !== "object") {
-           transaction = await this.props.getTransaction({transaction});
+            transaction = await this.props.getTransaction({transaction});
+ 
+            if (!transaction.errorCode) {
+                this.setState({
+                    transaction
+                }); 
+            }
+        } else {
+            if (!transaction.errorCode) {
+                this.setState({
+                    transaction
+                });
+            }
         }
         this.setState({
             transaction
@@ -399,6 +424,7 @@ class InfoLedgerTransaction extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    modalType: state.modals.modalType,
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,
     constants: state.account.constants,
