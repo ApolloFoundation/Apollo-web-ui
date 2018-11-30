@@ -98,7 +98,12 @@ class SiteHeader extends React.Component {
 
     componentDidMount() {
         this.getBlock();
-        this.getForging();
+    }
+
+    componentDidUpdate = () => {
+        if (!this.state.forgingStatus && this.props.account) {
+            this.getForging();
+        }
     }
 
     getForging = async () => {
@@ -186,14 +191,11 @@ class SiteHeader extends React.Component {
 
     setForging = async (action) => {
         const forging = await this.props.setForging({requestType: action.requestType});
-
         if (forging) {
-
             if (forging.errorCode === 3) {
                 this.props.setBodyModalParamsAction('CONFIRM_2FA_FORGING', this.setForgingWith2FA(action.requestType))
             } else {
                 const forgingStatus = await this.props.getForging();
-
 
                 if (forgingStatus) {
                     this.setState({forgingStatus: forgingStatus});
@@ -589,8 +591,7 @@ class SiteHeader extends React.Component {
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
                                                             <a>Purchased Products</a>
-                                                            <NavLink to="/my-products-for-sale">My products for
-                                                                sales</NavLink>
+                                                            <NavLink to="/my-products-for-sale">My products for sale</NavLink>
                                                             <NavLink to="/my-pending-orders">My pending orders</NavLink>
                                                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
                                                             <a

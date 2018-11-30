@@ -78,8 +78,11 @@ const Transaction = (props) => (
                     <i className="zmdi zmdi-circle-o left"/>
                 }
             </div>
-
-            <div className="transaction-rs">{formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name)}</div>
+            
+            {
+                props.constants.transactionTypes &&
+                <div className="transaction-rs">{formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name)}</div>  
+            }
             <div className={'loader-container'}>
                     <span>
                         Confirmation
