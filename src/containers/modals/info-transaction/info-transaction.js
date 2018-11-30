@@ -57,11 +57,11 @@ class InfoLedgerTransaction extends React.Component {
         } 
     }
 
-    async componentWillReceiveProps(newState) {
+    componentWillReceiveProps(newState) {
         this.processTransaction(newState);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.processTransaction(this.props);
     }
 
