@@ -46,7 +46,7 @@ class InfoLedgerTransaction extends React.Component {
             })
         }
 
-        if (typeof transaction !== "object") {
+        if (typeof transaction === "string" || typeof transaction === "number" ) {
             transaction = await this.props.getTransaction({transaction});
             
             if (!transaction.errorCode) {
