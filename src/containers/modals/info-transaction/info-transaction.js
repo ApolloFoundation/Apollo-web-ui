@@ -33,8 +33,8 @@ class InfoLedgerTransaction extends React.Component {
         })
     }
 
-    async componentWillReceiveProps(newState) {
-        let transaction = newState.modalData;
+    processTransaction = async (props) => {
+        let transaction = props.modalData;
 
         if (typeof transaction !== "object") {
             transaction = await this.props.getTransaction({transaction});
@@ -57,34 +57,14 @@ class InfoLedgerTransaction extends React.Component {
                 this.getWhiteListOfTransaction();
             }
         })
+    }
 
+    async componentWillReceiveProps(newState) {
+        this.processTransaction(newState);
     }
 
     async componentDidMount() {
-        let transaction = this.props.modalData;
-
-        if (typeof transaction !== "object") {
-            transaction = await this.props.getTransaction({transaction});
- 
-            if (!transaction.errorCode) {
-                this.setState({
-                    transaction
-                }); 
-            }
-        } else {
-            if (!transaction.errorCode) {
-                this.setState({
-                    transaction
-                });
-            }
-        }
-        this.setState({
-            transaction
-        }, () => {
-            if (this.state.transaction && this.state.transaction.phased) {
-                this.getWhiteListOfTransaction();
-            }
-        })
+        this.processTransaction(this.props);
     }
 
     getWhiteListOfTransaction = () => {
