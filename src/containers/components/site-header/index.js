@@ -779,6 +779,13 @@ class SiteHeader extends React.Component {
 
                                                                         </li>
                                                                         <li>
+                                                                            <a
+                                                                                href='/test'
+                                                                            >
+                                                                                API Console
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
                                                                             <Link
                                                                                 to="/settings"
                                                                                 className="option"
