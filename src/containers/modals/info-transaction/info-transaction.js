@@ -34,27 +34,16 @@ class InfoLedgerTransaction extends React.Component {
     }
 
     processTransaction = async (props) => {
-        let transaction = props.modalData;
+        const transaction = (props.modalData instanceof Object) ? props.modalData : await this.props.getTransaction({transaction});
 
-        const storeTransaction = (transaction) => {
-            this.setState({
-                transaction
-            }, () => {
+        if (transaction && !transaction.errorCode) {
+            this.setState({transaction}, () => {
+                
                 if (this.state.transaction && this.state.transaction.phased) {
                     this.getWhiteListOfTransaction();
                 }
-            })
+            });
         }
-
-        if (typeof transaction === "string" || typeof transaction === "number" ) {
-            transaction = await this.props.getTransaction({transaction});
-            
-            if (!transaction.errorCode) {
-                storeTransaction(transaction);
-            }  
-        } else {
-            storeTransaction(transaction);
-        } 
     }
 
     componentWillReceiveProps(newState) {
