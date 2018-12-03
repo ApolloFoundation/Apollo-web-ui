@@ -33,33 +33,25 @@ class InfoLedgerTransaction extends React.Component {
         })
     }
 
-    async componentWillReceiveProps(newState) {
-        let transaction = newState.modalData;
-        if (typeof transaction !== "object") {
-            transaction = await this.props.getTransaction({transaction});
-        }
-        this.setState({
-            transaction
-        }, () => {
-            if (this.state.transaction && this.state.transaction.phased) {
-                this.getWhiteListOfTransaction();
-            }
-        })
+    processTransaction = async (props) => {
+        const transaction = (props.modalData instanceof Object) ? props.modalData : await this.props.getTransaction({transaction});
 
+        if (transaction && !transaction.errorCode) {
+            this.setState({transaction}, () => {
+                
+                if (this.state.transaction && this.state.transaction.phased) {
+                    this.getWhiteListOfTransaction();
+                }
+            });
+        }
     }
 
-    async componentDidMount() {
-        let transaction = this.props.modalData;
-        if (typeof transaction !== "object") {
-           transaction = await this.props.getTransaction({transaction});
-        }
-        this.setState({
-            transaction
-        }, () => {
-            if (this.state.transaction && this.state.transaction.phased) {
-                this.getWhiteListOfTransaction();
-            }
-        })
+    componentWillReceiveProps(newState) {
+        this.processTransaction(newState);
+    }
+
+    componentDidMount() {
+        this.processTransaction(this.props);
     }
 
     getWhiteListOfTransaction = () => {
@@ -399,6 +391,7 @@ class InfoLedgerTransaction extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    modalType: state.modals.modalType,
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,
     constants: state.account.constants,
