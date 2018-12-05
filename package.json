@@ -24,6 +24,7 @@
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
+    "electron": "^3.0.10",
     "eslint": "^4.14.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
@@ -74,7 +75,6 @@
     "react-form-data": "^0.2.3",
     "react-forms": "^1.0.0-rc6",
     "react-i18next": "^7.10.1",
-    "react-input-file": "^0.2.6",
     "react-input-mask": "^2.0.3",
     "react-lines-ellipsis": "^0.13.2",
     "react-maskedinput": "^4.0.1",
@@ -102,19 +102,39 @@
     "webpack-manifest-plugin": "1.3.2",
     "whatwg-fetch": "2.0.3"
   },
+  "homepage": "./",
+  "main": "src/start.js",
   "scripts": {
     "start-js": "react-scripts start",
-    "start": "npm-run-all -p build-css start-js watch-css",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test",
     "build-css": "node-sass-chokidar src -o src",
-    "watch-css": "node-sass-chokidar src -o src --watch --recursive"
+    "watch-css": "node-sass-chokidar src -o src --watch --recursive",
+    "create-desktop-mac": "electron-packager . apollo-web-wallet --platform=mas --out=desktop-builds",
+    "create-desktop-win32": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=x64 --icon=public/favicon.ico --prune=true --out=desktop-builds --version-string.CompanyName=FB --version-string.FileDescription=\"Apollo Desktop\" --version-string.ProductName=\"Apollo Web Wallet\"",
+    "create-desktop-linux": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=public/favicon.ico --prune=true --out=desktop-builds",
+    "create-desktop" : "npm run create-desktop-mac && npm run create-desktop-win32 && npm run create-desktop-linux",
+    "start": "nf start -p 3000",
+    "electron": "electron .",
+    "electron-start": "node src/start-react",
+    "react-start": "BROWSER=none react-scripts start",
+    "pack": "build --dir",
+    "dist": "npm run build && build"
   },
   "devDependencies": {
     "babel-plugin-transform-decorators": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.3"
+  },
+  "build": {
+    "appId": "com.electron.electron-with-create-react-app",
+    "win": {
+      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+    },
+    "directories": {
+      "buildResources": "public"
+    }
   },
   "jest": {
     "collectCoverageFrom": [
