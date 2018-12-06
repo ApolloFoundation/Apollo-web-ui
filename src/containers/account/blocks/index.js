@@ -162,13 +162,20 @@ class Blocks extends React.Component {
 							</div>
 							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
 								<div className="card header coins single">
-									<div className="card-title">Block Generation Time</div>
-									{
-										this.state.blocks[0] &&
-										<div className="amount time">{this.props.formatTimestamp(this.state.blocks[0].timestamp)}</div>
+								{
+										this.props.blockTime &&
+										<React.Fragment>
+											<div className="card-title">Transaction Time</div>
+											<div className="amount">{this.props.blockTime} s</div>
+										</React.Fragment>
 									}
-									<div className="card-title">Estimated Block Generation Time</div>
-									<div className="amount">{this.props.blockTime} s</div>
+									{
+										this.state.blockGenerateTime &&
+										<React.Fragment>
+											<div className="card-title">Average Block Creating Frequency</div>
+											<div className="amount">{this.state.blockGenerateTime} s</div>
+										</React.Fragment>
+									}
 								</div>
 							</div>
 						</div>
