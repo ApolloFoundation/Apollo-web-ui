@@ -2437,7 +2437,9 @@ input[type="button"].btn-block {
   white-space: nowrap;
   background-color: #e9ecef;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem; }
+  border-radius: 0.25rem;
+  height: 33px;
+  margin: auto; }
   .input-group-text input[type="radio"],
   .input-group-text input[type="checkbox"] {
     margin-top: 0; }
