@@ -1692,6 +1692,7 @@ input[type="file"] {
 	&.inline {
 		display: inline-block;
 		position: static !important;
+		height: auto;
 		//margin-right: -15px;
 		
 		& > * {
@@ -1791,6 +1792,9 @@ input[type="file"] {
 	padding: 11px 11px 11px 9px;
 	margin: 0;
 
+	&.oversized {
+		margin: 5px 5px 5px 0;
+	}
 	&.lighten {
 		background: #ecf0f1;
 		color: #00C8FF;

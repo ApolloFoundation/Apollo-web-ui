@@ -4004,7 +4004,8 @@ input[type="file"] {
     text-align: left; }
   .btn-box.inline {
     display: inline-block;
-    position: static !important; }
+    position: static !important;
+    height: auto; }
     .btn-box.inline > * {
       display: inline;
       margin-left: 15px; }
@@ -4066,6 +4067,8 @@ input[type="file"] {
   z-index: 1;
   padding: 11px 11px 11px 9px;
   margin: 0; }
+  .btn.oversized {
+    margin: 5px 5px 5px 0; }
   .btn.lighten {
     background: #ecf0f1;
     color: #00C8FF; }
