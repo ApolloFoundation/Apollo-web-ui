@@ -58,6 +58,22 @@ export function getTransactionAction(requestParams) {
     }
 }
 
+export const getMixerAccount = () => {
+    return axios.get(config.api.mixerUrl)
+        .then((res) => {
+            res = res.data;
+
+            if (res && res.id && res.rsId && res.publicKey) {
+                return res
+            } else {
+                throw "Mixer error. Bad credentials.";
+            }
+        })
+        .catch((e) => {
+            throw e;
+        })
+}
+
 export function getPrivateTransactionAction(requestParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {

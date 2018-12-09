@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
-import {sendPrivateTransaction} from '../../../actions/transactions';
+import {sendPrivateTransaction, getMixerAccount} from '../../../actions/transactions';
 import AccountRS from '../../components/account-rs';
 import InputForm from '../../components/input-form';
 import crypto from  '../../../helpers/crypto/crypto';
