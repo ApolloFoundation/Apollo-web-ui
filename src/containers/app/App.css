@@ -3373,9 +3373,8 @@ input[type="file"] {
   box-sizing: border-box;
   transition: all 0.3s ease-in-out;
   transform: scale(0.5); }
-  .phased-transaction .phasing-box__phasing-description:after {
+  .phased-transaction .phasing-box__phasing-description::after {
     content: '';
-    display: block;
     height: 15px;
     width: 15px;
     border-top: 1px solid #666;
