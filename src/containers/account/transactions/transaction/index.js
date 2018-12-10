@@ -111,9 +111,10 @@ class Transaction extends React.Component {
                                     this.state &&
                                     this.state.phasing &&
                                     <div className="phasing-box"
-                                         onMouseOver={() => this.handleMouseOver(id)}
-                                         onMouseOut={()  => this.handleMouseOut(id)}
-                                         id={id}
+                                        style={{zIndex: 12}}
+                                        data-custom
+                                        data-custom-at="top"
+                                        data-cat-id={JSON.stringify(this.props.transaction)}
                                     >
                                         <spna className="phasing-box__icon">
                                             <i className={'zmdi zmdi-accounts-alt'}></i>

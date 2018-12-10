@@ -73,6 +73,7 @@
     "react-form": "^3.5.6",
     "react-form-data": "^0.2.3",
     "react-forms": "^1.0.0-rc6",
+    "react-hint": "^3.2.0",
     "react-i18next": "^7.10.1",
     "react-input-file": "^0.2.6",
     "react-input-mask": "^2.0.3",

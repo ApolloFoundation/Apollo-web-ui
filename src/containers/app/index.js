@@ -13,10 +13,12 @@ import {setPageEvents, loadConstants} from '../../modules/account' ;
 import {setBodyModalType} from '../../modules/modals' ;
 import PageLoader from '../components/page-loader/page-loader';
 import {NotificationContainer} from 'react-notifications';
+import ReactHintFactory from 'react-hint';
+
 // components
-import SideBar from '../components/sidebar'
-import ModalWindow from '../modals'
-import AlertBox from '../components/alert-box'
+import SideBar from '../components/sidebar';
+import ModalWindow from '../modals';
+import AlertBox from '../components/alert-box';
 import BlocksDownloader from '../components/blocks-downloader';
 import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../modules/accountSettings";
 
@@ -77,6 +79,8 @@ import {startBlockPullingAction} from '../../actions/blocks'
 import UnknownPage from '../account/404'
 import {loginWithShareMessage} from "../../actions/account";
 
+const ReactHint = ReactHintFactory(React)
+
 class App extends React.Component {
 
     shareMessage = false;
@@ -94,6 +98,10 @@ class App extends React.Component {
         this.setState({
             isMounted: true
         })
+
+
+        // Hints settings
+        window.ReactHint = ReactHint;
     }
 
     state = {
@@ -127,12 +135,28 @@ class App extends React.Component {
         }
     };
 
+    onRenderContent = (target, content) => {
+        const {catId} = target.dataset
+ 
+        return  <div className="custom-hint__content">
+                    <span>Render</span>
+                </div>
+    }
+
     render() {
         return (
             <div>
                 <NotificationContainer/>
                 <ModalWindow/>
                 <AlertBox/>
+                <ReactHint 
+                    persist
+                    attribute="data-custom"
+                    className="custom-hint"
+                    events={{hover: true}}
+                    onRenderContent={this.onRenderContent}
+                    ref={(ref) => this.instance = ref} 
+                />
                 <header>
                     {
                         this.props.location.pathname !== "/login" &&
@@ -157,6 +181,7 @@ class App extends React.Component {
                         this.props.blockchainStatus.isDownloading &&
                         <BlocksDownloader/>
                     }
+                    
                     <Switch>
                         <Route exact path="/login" render={() => (
                             !!this.props.account ? (

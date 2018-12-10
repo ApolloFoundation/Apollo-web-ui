@@ -202,6 +202,11 @@ html, body {
 	color: #a6a6a6 !important;
 }
 
+.custom-hint {
+	position: absolute;
+	z-index: 10;
+}
+
 html {
 	height: 100%;
 	
@@ -774,22 +779,11 @@ input[type="file"] {
 }
 
 .phased-transaction {
-	position: absolute;
-	
-	&.active {
-		.phasing-box__phasing-description {
-			transform: none;
-			opacity: 1;
-			visibility: visible;
-		}
-	}
 	.phasing-box__phasing-description {
 		border: 1px solid #666;
 		width: 300px;
 		background-color: #fff;
 		box-sizing: border-box;
-		visibility: hidden;
-		opacity: 0;
 		transition: all 0.3s ease-in-out;
 		transform: scale(0.5);
 		
