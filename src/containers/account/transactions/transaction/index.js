@@ -114,7 +114,7 @@ class Transaction extends React.Component {
                                         style={{zIndex: 12}}
                                         data-custom
                                         data-custom-at="top"
-                                        data-cat-id={JSON.stringify(this.props.transaction)}
+                                        data-cat-id={JSON.stringify({...this.props.transaction, ...this.state.phasing})}
                                     >
                                         <spna className="phasing-box__icon">
                                             <i className={'zmdi zmdi-accounts-alt'}></i>

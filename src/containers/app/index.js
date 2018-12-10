@@ -136,10 +136,54 @@ class App extends React.Component {
     };
 
     onRenderContent = (target, content) => {
-        const {catId} = target.dataset
+        let {catId} = target.dataset
+        catId = JSON.parse(catId);
  
         return  <div className="custom-hint__content">
-                    <span>Render</span>
+                    <div
+                        className="phased-transaction"
+                    >
+                        <div className="phasing-box__phasing-description">
+                            <table>
+                                <tbody>
+                                {
+                                    catId &&
+                                    <React.Fragment>
+                                        <tr>
+                                            <td>Accounts: </td>
+                                            <td>{catId.quorum}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Votes: </td>
+                                            <td>{catId.result}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Percentage: </td>
+                                            <td>
+                                                {
+                                                    (catId.result / catId.quorum) * 100
+                                                } %
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Finish Height</td>
+                                            <td>{catId.finishHeight}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Approved: </td>
+                                            <td>
+                                                {
+                                                    catId.approved ? 'Yes' : 'No'
+                                                }
+                                            </td>
+                                        </tr>
+                                    </React.Fragment>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
     }
 

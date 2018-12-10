@@ -20,7 +20,6 @@ import {BlockUpdater} from "../../block-subscriber/index";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 import {NotificationManager} from "react-notifications";
-import PhasedTransactionsHints from './phased-transactions'
 
 class Transactions extends React.Component {
     constructor(props) {
@@ -549,12 +548,6 @@ class Transactions extends React.Component {
                                 </div>
                             </ContentHendler>
                         </div>
-                        {
-                            this.state.transactions &&
-                            <PhasedTransactionsHints
-                                transactions={this.state.transactions}
-                            />
-                        }
                     </div>
                 </div>
             </div>
