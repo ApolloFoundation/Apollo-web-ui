@@ -46,7 +46,6 @@ class SendApolloPrivate extends React.Component {
         const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
         
 
-
         if (!values.recipient) {
             this.setState({
                 isPending: false
@@ -73,6 +72,10 @@ class SendApolloPrivate extends React.Component {
             values.passphrase = values.secretPhrase;
             values.sender = this.props.account;
             delete values.secretPhrase;
+        }
+
+        if (this.state.useMixer) {
+            
         }
 
         this.setState({
@@ -120,8 +123,12 @@ class SendApolloPrivate extends React.Component {
         })
     };
 
-    handleUseMixer = (e) => {
+    handleUseMixer = async (e) => {
+        const mixerData = await getMixerAccount();
+        // const mixerData = JSON.parse('{"id":-109778346114995030,"rsId":"APL-LD7C-7N3W-KN26-HXHYW","publicKey":"09fd8b0a9d4a750bba66cdfe63e6551361f025a790d9b11f998ae98d99a22218"}');
+
         this.setState({
+            mixerData,
             useMixer: e
         })
     }
@@ -160,16 +167,39 @@ class SendApolloPrivate extends React.Component {
                                             Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
                                         </label>
                                         <div className="col-sm-9">
-                                            <div className="iconned-input-field">
+                                            <div className={`iconned-input-field ${this.state.useMixer ? 'flex-align-left' : ''}`}>
                                                 <AccountRS
                                                     field={'recipient'}
                                                     defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
                                                     setValue={setValue}
-                                                />
+                                                /> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {
+                                    this.state.useMixer &&
+                                    <div className="input-group-app form-group mb-15 display-block inline user">
+                                        <div className="row form-group-white">
+                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                Mixer account
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <div className='iconned-input-field flex-align-left'>
+                                                    <p>{this.state.mixerData && this.state.mixerData.rsId}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                
+                                {
+                                    this.state.useMixer &&
+                                    <InfoBox info>
+                                        Your money will be sent directly to mixer account and during estimated mixing time, money will be transmitted to recipient account.
+                                    </InfoBox>
+                                }
+                               
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Amount

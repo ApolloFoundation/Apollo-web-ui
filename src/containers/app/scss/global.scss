@@ -113,6 +113,10 @@ span {
 	display: flex;
 }
 
+.flex-align-left {
+	justify-content: flex-start !important;
+}
+
 .position-relative {
 	position: relative;
 	z-index: 2;

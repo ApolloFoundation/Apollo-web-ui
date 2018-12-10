@@ -59,6 +59,9 @@ export function getTransactionAction(requestParams) {
 }
 
 export const getMixerAccount = () => {
+    console.log(2)
+
+
     return axios.get(config.api.mixerUrl)
         .then((res) => {
             res = res.data;
@@ -70,6 +73,8 @@ export const getMixerAccount = () => {
             }
         })
         .catch((e) => {
+            console.log(3)
+
             throw e;
         })
 }
