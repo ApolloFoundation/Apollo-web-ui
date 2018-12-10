@@ -139,6 +139,7 @@ export function makeLoginReq(dispatch, requestParams) {
                 writeToLocalStorage('APLUserRS', res.data.accountRS);
                 dispatch(updateNotifications())(res.data.accountRS);
                 dispatch(getForging());
+                dispatch(getConstantsAction());
                 dispatch({
                     type: 'SET_PASSPHRASE',
                     payload: JSON.parse(localStorage.getItem('secretPhrase'))
