@@ -787,9 +787,8 @@ input[type="file"] {
 		transition: all 0.3s ease-in-out;
 		transform: translateY(-15px);
 
-		&:after {
+		&::after {
 			content: '';
-			display: block;
 			height: 15px;
 			width: 15px;
 			border-bottom: 1px solid #666;
