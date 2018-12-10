@@ -128,7 +128,7 @@ class MessageItem extends React.Component {
                             Decrypt
                         </a>
                     }
-                    {
+                    {/* {
                         this.state.message &&
                         <a
                             onClick={() => this.props.setBodyModalParamsAction('SHARE_MESSAGE', {
@@ -140,7 +140,7 @@ class MessageItem extends React.Component {
                         >
                             Share
                         </a>
-                    }
+                    } */}
                 </td>
             </tr>
         );
