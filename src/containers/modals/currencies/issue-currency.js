@@ -83,7 +83,7 @@ class IssueCurrency extends React.Component {
             code: values.code,
             description: values.description,
             minReservePerUnitATM: !values.type3 ? null : new BigInteger(values.minReservePerUnitATM).multiply(new BigInteger("" + Math.pow(10, values.decimals))),
-            reserveSupply: !values.type3 ? null : values.reserveSupply,
+            reserveSupply: !values.type3 ? null : values.reserveSupply * Math.pow(10, values.decimals),
             minDifficulty: !values.type5 ? null : values.minDifficulty,
             maxDifficulty: !values.type5 ? null : values.maxDifficulty,
             algorithm: !values.type5 ? null : values.algorithm,
@@ -310,18 +310,35 @@ class IssueCurrency extends React.Component {
                                         </div>
                                     </React.Fragment>
                                 }
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Initial Supply
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <InputForm
-                                            type="tel"
-                                            field="initialSupply"
-                                            placeholder="Initial Supply"
-                                            setValue={setValue}/>
+                                {
+                                    !!getFormState().values.type3 && 
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Initial Supply
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <Text
+                                                type={'hidden'}
+                                                field={'initialSupply'}
+                                                defaultValue={0}    
+                                            />
+                                            <p>0</p>
+                                        </div>
+                                    </div> || 
+                                        <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Initial Supply
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <InputForm
+                                                type="tel"
+                                                field="initialSupply"
+                                                placeholder="Initial Supply"
+                                                setValue={setValue}/>
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Total Supply
