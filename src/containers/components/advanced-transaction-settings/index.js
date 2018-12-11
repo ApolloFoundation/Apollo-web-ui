@@ -70,8 +70,6 @@ class AdvancedSettings extends React.Component {
     };
 
     handleFormSubmit = (values) => {
-        console.log(values)
-
         Object.keys(values).map((el) => {
             this.props.setValue(el, values[el]);
         });
@@ -149,8 +147,6 @@ class AdvancedSettings extends React.Component {
     };
 
     getAsset =  async (values) => {
-        console.log(values)
-
         const asset = await this.props.getAssetAction(values);
 
         if (asset) {
