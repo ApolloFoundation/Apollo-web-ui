@@ -31,7 +31,8 @@ class ScheaduleCurrency extends React.Component {
             ...values,
             broadcast: false,
             currency: this.state.currency,
-            adminPassword: this.props.adminPassword
+            adminPassword: this.props.adminPassword,
+            units: values.units * Math.pow(10, this.state.currencyDecimals)
         };
 
         const scheduledTransaction = await this.props.submitForm(values, 'scheduleCurrencyBuy');
@@ -55,7 +56,7 @@ class ScheaduleCurrency extends React.Component {
         const result = await this.props.getCurrencyAction(reqParams);
 
         if (result) {
-            this.setState({ currency: result.currency });
+            this.setState({ currency: result.currency, currencyDecimals: result.decimals });
             setValue('holding', result.currency);
             setValue('create_poll_ms_id', result.currency);
         } else {
@@ -64,8 +65,6 @@ class ScheaduleCurrency extends React.Component {
             setValue('create_poll_ms_id', '');
         }
     }
-
-
 
     render(){
         return (

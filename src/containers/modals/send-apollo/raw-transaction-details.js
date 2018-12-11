@@ -24,6 +24,10 @@ class RawTransactionDetails extends React.Component {
 
     }
 
+    state = {
+        isPending: true
+    };
+
     async handleFormSubmit(values) {
         let data = {
             feeATM: 0,
@@ -174,39 +178,12 @@ class RawTransactionDetails extends React.Component {
                                             Broadcast
                                         </button>
                                     }
-                                    {
-                                        !!this.state.isPending ?
-                                            <div
-                                                style={{
-                                                    width: 56.25
-                                                }}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div> :
-                                            <button
-                                                style={{
-                                                    width: 56.25
-                                                }}
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Broadcast
-                                            </button>
-                                    }
-
                                 </div>
                             </div>
                             }
                         </form>
                     )}
                 >
-
                 </BackForm>
             </div>
         );

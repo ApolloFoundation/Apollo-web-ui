@@ -13,13 +13,28 @@ import CustomSelect from '../../components/select';
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {getBlockAction} from "../../../actions/blocks";
 import {getCurrencyAction} from "../../../actions/currencies";
+import {getAssetAction} from "../../../actions/assets";
 
 const minBalanceType = [
     { value: '0', label: 'No min balance necessary' },
-    { value: '1', label: 'Account Balance' },
-    { value: '2', label: 'Asset Balance' },
-    { value: '3', label: 'Currency Balance' }
+    { value: '1', label: 'Min balance required' },
+    { value: '2', label: 'Min balance of asset quantity required' },
+    { value: '3', label: 'Min balance of currency units required' }
 ];
+const phasingMinBalanceModel = [
+    { value: '0', label: 'No min balance necessary' },
+    { value: '1', label: 'Min balance required' },
+];
+const phasingMinAssetModel = [
+    { value: '0', label: 'No min balance necessary' },
+    { value: '1', label: 'Min balance of asset quantity required' },
+];
+const phasingMinCurrencyModel = [
+    { value: '0', label: 'No min balance necessary' },
+    { value: '1', label: 'Min balance of currency units required' },
+];
+
+
 const hashAlgorithm = [
     { value: '2', label: 'SHA256' },
     { value: '6', label: 'RIPEMD160' },
@@ -28,7 +43,8 @@ const hashAlgorithm = [
 
 const mapDispatchToProps = dispatch => ({
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
-    getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams))
+    getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
+    getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams))
 });
 
 class AdvancedSettings extends React.Component {
@@ -130,8 +146,25 @@ class AdvancedSettings extends React.Component {
         }
     };
 
+    getAsset =  async (values) => {
+        const asset = await this.props.getAssetAction(values);
+
+        if (asset) {
+            this.setState({
+                asset
+            })
+        } else {
+            this.setState({
+                asset: null
+            })
+        }
+    }
+
     render () {
         const setValue = this.props.setValue;
+
+        const {getFormState}  = this.props;
+
         return (
             <div
                 className={classNames({
@@ -215,8 +248,11 @@ class AdvancedSettings extends React.Component {
                         <i className={'zmdi zmdi-help'} />
                     </a>
 
-                </div>
-                <div
+                </div>     
+                
+                {
+                    this.state.activeTab === 0 &&
+                    <div
                     className={classNames({
                         "tab-body": true,
                         "active": this.state.activeTab === 0
@@ -283,8 +319,11 @@ class AdvancedSettings extends React.Component {
                         </div>
                         }
                     </div>
-                </div>
-                <div
+                </div>       
+                }
+                {
+                    this.state.activeTab === 1 &&
+                    <div
                     className={classNames({
                         "tab-body": true,
                         "active": this.state.activeTab === 1
@@ -373,7 +412,10 @@ class AdvancedSettings extends React.Component {
                         }
                     </div>
                 </div>
-                <div
+                }
+                {
+                    this.state.activeTab === 2 &&
+                    <div
                     className={classNames({
                         "tab-body": true,
                         "active": this.state.activeTab === 2
@@ -465,6 +507,61 @@ class AdvancedSettings extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        {
+                            getFormState().values.phasingMinBalanceModel >= 1 &&
+                            <div className="form-group row form-group-grey mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Minimum Balance 
+                                </label>
+                                <div
+                                    className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
+                                    <InputForm
+                                        type="tel"
+                                        field="phasingMinBalanceAPL"
+                                        placeholder="Amount"
+                                        setValue={setValue}/>
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">APL</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {
+                            getFormState().values.phasingMinBalanceModel == 3 &&
+                            <div className="form-group row form-group-grey mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Currency
+                                </label>
+                                <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                    <InputForm
+                                        field="phasingHoldingCurrencyCode"
+                                        placeholder="Code"
+                                        onChange={(code) => this.getCurrency({code})}
+                                        setValue={setValue}/>
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">ID: {this.state.currency}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {
+                            getFormState().values.phasingMinBalanceModel == 2 &&
+                            <div className="form-group row form-group-grey mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Asset ID
+                                </label>
+                                <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                                    <InputForm
+                                        field="phasingHoldingCurrencyCode"
+                                        placeholder="Asset"
+                                        onChange={(asset) => this.getAsset({asset})}
+                                        setValue={setValue}/>
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">Asset: {this.state.asset ? this.state.asset.name : '-'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         <div className="form-group row form-group-grey mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Referenced transaction hash
@@ -523,7 +620,10 @@ class AdvancedSettings extends React.Component {
                         }
                     </div>
                 </div>
-                <div
+                }
+                {
+                    this.state.activeTab === 3 &&
+                    <div
                     className={classNames({
                         "tab-body": true,
                         "active": this.state.activeTab === 3
@@ -612,13 +712,32 @@ class AdvancedSettings extends React.Component {
                                     <CustomSelect
                                         className="form-control"
                                         field={'phasingMinBalanceModel'}
-                                        defaultValue={minBalanceType[0]}
+                                        defaultValue={phasingMinBalanceModel[0]}
                                         setValue={setValue}
-                                        options={minBalanceType}
+                                        options={phasingMinBalanceModel}
                                     />
                                 </div>
                             </div>
                         </div>
+                        {
+                            getFormState().values.phasingMinBalanceModel === '1' &&
+                            <div className="form-group row form-group-grey mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Minimum Balance 
+                                </label>
+                                <div
+                                    className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
+                                    <InputForm
+                                        type="tel"
+                                        field="phasingMinBalanceAPL"
+                                        placeholder="Amount"
+                                        setValue={setValue}/>
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">APL</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         <div className="form-group row form-group-grey mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Referenced transaction hash
@@ -677,7 +796,10 @@ class AdvancedSettings extends React.Component {
                         }
                     </div>
                 </div>
-                <div
+                }
+                {
+                    this.state.activeTab === 4 &&
+                    <div
                     className={classNames({
                         "tab-body": true,
                         "active": this.state.activeTab === 4
@@ -779,13 +901,32 @@ class AdvancedSettings extends React.Component {
                                     <CustomSelect
                                         className="form-control"
                                         field={'phasingMinBalanceModel'}
-                                        defaultValue={minBalanceType[0]}
+                                        defaultValue={phasingMinAssetModel[0]}
                                         setValue={setValue}
-                                        options={minBalanceType}
+                                        options={phasingMinAssetModel}
                                     />
                                 </div>
                             </div>
                         </div>
+                        {
+                            getFormState().values.phasingMinBalanceModel === '1' &&
+                            <div className="form-group row form-group-grey mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Minimum Balance 
+                                </label>
+                                <div
+                                    className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
+                                    <InputForm
+                                        type="tel"
+                                        field="phasingMinBalanceAPL"
+                                        placeholder="Amount"
+                                        setValue={setValue}/>
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">APL</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         <div className="form-group row form-group-grey mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Referenced transaction hash
@@ -844,7 +985,10 @@ class AdvancedSettings extends React.Component {
                         }
                     </div>
                 </div>
-                <div
+                }
+                {
+                    this.state.activeTab === 5 &&
+                    <div
                     className={classNames({
                         "tab-body": true,
                         "active": this.state.activeTab === 5
@@ -947,13 +1091,32 @@ class AdvancedSettings extends React.Component {
                                     <CustomSelect
                                         className="form-control"
                                         field={'phasingMinBalanceModel'}
-                                        defaultValue={minBalanceType[0]}
+                                        defaultValue={phasingMinCurrencyModel[0]}
                                         setValue={setValue}
-                                        options={minBalanceType}
+                                        options={phasingMinCurrencyModel}
                                     />
                                 </div>
                             </div>
                         </div>
+                        {
+                            getFormState().values.phasingMinBalanceModel === '1' &&
+                            <div className="form-group row form-group-grey mb-15">
+                                <label className="col-sm-3 col-form-label">
+                                    Minimum Balance 
+                                </label>
+                                <div
+                                    className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
+                                    <InputForm
+                                        type="tel"
+                                        field="phasingMinBalanceAPL"
+                                        placeholder="Amount"
+                                        setValue={setValue}/>
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">APL</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         <div className="form-group row form-group-grey mb-15">
                             <label className="col-sm-3 col-form-label">
                                 Referenced transaction hash
@@ -1012,7 +1175,10 @@ class AdvancedSettings extends React.Component {
                         }
                     </div>
                 </div>
-                <div
+                }
+                {
+                    this.state.activeTab === 6 &&
+                    <div
                     className={classNames({
                         "tab-body": true,
                         "active": this.state.activeTab === 6
@@ -1110,8 +1276,11 @@ class AdvancedSettings extends React.Component {
                         </div>
                         }
                     </div>
-                </div>
-                <div
+                </div> 
+                }
+                {
+                    this.state.activeTab === 7 &&
+                    <div
                     className={classNames({
                         "tab-body": true,
                         "active": this.state.activeTab === 7
@@ -1226,6 +1395,8 @@ class AdvancedSettings extends React.Component {
                         }
                     </div>
                 </div>
+            
+                }
             </div>
 
         );
