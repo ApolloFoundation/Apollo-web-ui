@@ -781,6 +781,7 @@ class SiteHeader extends React.Component {
                                                                         <li>
                                                                             <a
                                                                                 href='/test'
+                                                                                className="option"
                                                                             >
                                                                                 API Console
                                                                             </a>

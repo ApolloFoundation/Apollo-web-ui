@@ -407,7 +407,7 @@ class Dashboard extends React.Component {
 												{
 													this.props.blockTime &&
 													<div className="account-sub-titles">
-														Estimated Block Generation Time :&nbsp;{this.props.blockTime} s
+														Transaction Time :&nbsp;{this.props.blockTime} s
 													</div>
 												}
                                             </div>
