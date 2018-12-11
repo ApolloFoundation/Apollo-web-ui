@@ -46,7 +46,7 @@ class CurrencyExchangeOffer extends Component {
     }
 
     getUnitsFromExchanges = (exchanges) => {
-        if (exchanges && this.state.currency) {
+        if (exchanges && this.state.currency && this.state.currency.length) {
             let sum = exchanges.map((el) => {
                 return el.units;
             })
@@ -59,7 +59,7 @@ class CurrencyExchangeOffer extends Component {
     }
 
     getTotalFromExchanges = (exchanges) => {
-        if (exchanges && this.state.currency) {
+        if (exchanges && this.state.currency && this.state.currency.length) {
             let sum = exchanges.map((el) => {
                 return parseInt(el.units / Math.pow(10, this.state.currency.decimals)) * parseInt(el.rateATM / Math.pow(10, this.state.currency.decimals));
             })
