@@ -63,7 +63,7 @@ class Entry extends React.Component {
                             {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" &&
                             (this.state.entry.change / 100000000).toFixed(1)}
                         </td>
-                        <td className="">
+                        <td className="align-right">
                             {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" && this.state.entry.balance > 0 &&
                             (this.state.entry.balance / 100000000).toLocaleString('en')}
                         </td>
