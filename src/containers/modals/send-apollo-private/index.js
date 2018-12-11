@@ -75,12 +75,23 @@ class SendApolloPrivate extends React.Component {
         }
 
         if (this.state.useMixer) {
+            values.messageToEncrypt = JSON.stringify({
+                name: "REQUEST_MIXING",
+                epicId: values.recipient,
+                approximateMixingDuration: values.duration  // Minutes 
+            });
+
+            values.recipient = values.mixerAccount;
+            values.recipientPublicKey = values.mixerPublicKey;
             
+            delete values.mixerAccount;
         }
 
         this.setState({
             isPending: true
         });
+
+        console.log(values)
 
         const privateTransaction = await this.props.sendPrivateTransaction(values);
 
@@ -93,7 +104,6 @@ class SendApolloPrivate extends React.Component {
                 this.props.setBodyModalParamsAction(null, {});
             }
         }
-
     }
 
     handleTabChange(tab) {
@@ -125,8 +135,11 @@ class SendApolloPrivate extends React.Component {
 
     handleUseMixer = async (e) => {
         const mixerData = await getMixerAccount();
-        // const mixerData = JSON.parse('{"id":-109778346114995030,"rsId":"APL-LD7C-7N3W-KN26-HXHYW","publicKey":"09fd8b0a9d4a750bba66cdfe63e6551361f025a790d9b11f998ae98d99a22218"}');
+        
+        const mixerAccount = mixerData.rsId;
 
+        mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`)
+        console.log(mixerData.rsId)
         this.setState({
             mixerData,
             useMixer: e
@@ -139,8 +152,8 @@ class SendApolloPrivate extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm, values, addValue, removeValue, setValue, getFormState
-                             }) => (
+                                submitForm, values, addValue, removeValue, setValue, getFormState
+                            }) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
@@ -186,6 +199,16 @@ class SendApolloPrivate extends React.Component {
                                             </label>
                                             <div className="col-sm-9">
                                                 <div className='iconned-input-field flex-align-left'>
+                                                    <Text
+                                                        type="hidden"
+                                                        field="mixerAccount"
+                                                        defaultValue={this.state.mixerData && this.state.mixerData.rsId}
+                                                    />
+                                                    <Text
+                                                        type="hidden"
+                                                        field="mixerPublicKey"
+                                                        defaultValue={this.state.mixerData && this.state.mixerData.publicKey}
+                                                    />
                                                     <p>{this.state.mixerData && this.state.mixerData.rsId}</p>
                                                 </div>
                                             </div>
@@ -242,8 +265,8 @@ class SendApolloPrivate extends React.Component {
                                         <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                             <InputForm
                                                 defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
-                                                field="amountATM"
-                                                placeholder="Amount"
+                                                field="duration"
+                                                placeholder="Duration"
                                                 type={"float"}
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
@@ -360,7 +383,8 @@ class SendApolloPrivate extends React.Component {
 const mapStateToProps = state => ({
     account: state.account.account,
     modalData: state.modals.modalData,
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+    accountPrefix: state.account.constants ? state.account.constants.accountPrefix : ''
 });
 
 const mapDispatchToProps = dispatch => ({
