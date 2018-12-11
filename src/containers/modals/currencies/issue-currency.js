@@ -311,7 +311,7 @@ class IssueCurrency extends React.Component {
                                     </React.Fragment>
                                 }
                                 {
-                                    !!getFormState().values.type3 && 
+                                    !!getFormState().values.type4 && 
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Initial Supply
