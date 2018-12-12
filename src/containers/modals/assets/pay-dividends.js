@@ -42,7 +42,7 @@ class PayDividends extends React.Component {
             deadline: 1440,
             phased: false,
             asset: this.props.modalData.asset,
-            amountATMPerATU: values.shareAmount,
+            amountATMPerATU: values.shareAmount * Math.pow(10, 7),
             secretPhrase: values.secretPhrase,
             feeATM: values.feeATM,
         };

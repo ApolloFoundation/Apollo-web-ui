@@ -74,15 +74,16 @@ class AssetDividendHistory extends React.Component {
                                                             className={'blue-link-text'}>
                                                             <a
                                                                 className={'blue-link-text'}
-                                                                onClick={() => this.props.setBodyModalParamsAction('TRANSACTION_INFO', el.timestamp)}>
-                                                                {formatTimestamp(el.timestamp)}
+                                                                onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', el.asset)}>
+                                                                {this.props.formatTimestamp(el.timestamp)}
+                                                                {el.asset}
                                                             </a>
                                                         </td>
 
-                                                        <td>{el.dividendHeight}</td>
+                                                        <td className="align-right">{el.dividendHeight}</td>
                                                         <td>{el.totalDividend / 100000000}</td>
                                                         <td>{el.numberOfAccounts}</td>
-                                                        <td>{el.amountATMPerATU / 100000000}</td>
+                                                        <td>{el.amountATMPerATU / 1000000}</td>
                                                     </tr>
                                                 )
                                             })
@@ -119,7 +120,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     openPrevModal: (Params) => dispatch(openPrevModal(Params)),
 });
 
