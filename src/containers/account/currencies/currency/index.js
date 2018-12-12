@@ -25,7 +25,10 @@ class Currency extends React.Component {
                 <td className="align-right">
                     <div className="btn-box inline">
                         <Link to={"/exchange-booth/" + this.props.code} className="btn primary blue">Exchange</Link>
-                        <a onClick={() => this.props.setBodyModalParamsAction('RESERVE_CURRENCY', this.props)} className="btn primary default">Reserve</a>
+                        {
+                            this.props.types.indexOf('RESERVABLE') !== -1 &&
+                            <a onClick={() => this.props.setBodyModalParamsAction('RESERVE_CURRENCY', this.props)} className="btn primary default">Reserve</a>
+                        }
                     </div>
                 </td>
             </tr>
