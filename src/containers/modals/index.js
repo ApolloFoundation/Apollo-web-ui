@@ -53,6 +53,8 @@ import TransferCurrency from './currencies/transfer-currency'
 import OfferCurrency from './currencies/offer-currebcy'
 import ReserveCurrency from './currencies/reserve-currency'
 import IssueCurrency from './currencies/issue-currency';
+import ClaimCurrency from './currencies/claim-currency';
+
 
 // Voting system
 import CreatePoll from './voting-system/create-poll';
@@ -232,6 +234,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'OFFER_CURRENCY'              && <OfferCurrency             closeModal={this.closeModal} nameModal={'OFFER_CURRENCY'}/>}
                 {this.props.modalType === 'BUY_CURRENCY'                && <BuyCurrency               closeModal={this.closeModal} nameModal={'BUY_CURRENCY'}/>}
                 {this.props.modalType === 'SELL_CURRENCY'               && <SellCurrency              closeModal={this.closeModal} nameModal={'SELL_CURRENCY'}/>}
+                {this.props.modalType === 'CLAIM_CURRENCY'              && <ClaimCurrency             closeModal={this.closeModal} nameModal={'CLAIM_CURRENCY'}/>}
 
 
                 {/* Voting */}
