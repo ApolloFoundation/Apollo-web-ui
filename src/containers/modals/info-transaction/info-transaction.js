@@ -34,8 +34,7 @@ class InfoLedgerTransaction extends React.Component {
     }
 
     processTransaction = async (props) => {
-        const transaction = (props.modalData instanceof Object) ? props.modalData : await this.props.getTransaction({transaction});
-
+        const transaction = (props.modalData instanceof Object) ? props.modalData : await this.props.getTransaction({transaction : props.modalData});
         if (transaction && !transaction.errorCode) {
             this.setState({transaction}, () => {
                 
@@ -73,7 +72,7 @@ class InfoLedgerTransaction extends React.Component {
         return (
             <div className="modal-box wide">
                 {
-                    this.state.transaction && this.props.constants.transactionTypes[this.state.transaction.type] &&
+                    this.state.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.state.transaction.type] &&
                     <form className="modal-form">
                         <div className="form-group-app">
                             <a onClick={() => this.props.closeModal()} className="exit">

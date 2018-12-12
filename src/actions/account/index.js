@@ -22,6 +22,7 @@ import submitForm from '../../helpers/forms/forms'
 import store from '../../store'
 import {makeLoginReq} from "../login";
 import {setShareMessage} from "../../modules/account";
+import { setBodyModalParamsAction } from '../../modules/modals';
 
 export function getAccountAction(reqParams) {
     return dispatch => {
@@ -149,6 +150,7 @@ export function loginWithShareMessage(account, transaction) {
     return dispatch => {
         dispatch(setShareMessage({isShareMessage: true, shareMessageTransaction: transaction}));
         makeLoginReq(dispatch, {account})
+        dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction))
     }
 }
 
