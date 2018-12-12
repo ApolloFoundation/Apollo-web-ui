@@ -1110,7 +1110,7 @@ input {
   .btn.underscore:after {
     content: '';
     position: absolute;
-    top: calc(100% + 46px);
+    top: calc(100% + 69px);
     z-index: 4;
     left: 0;
     width: 0%;
@@ -1120,7 +1120,7 @@ input {
     transition: all 0.3s ease-in-out; }
     @media (max-width: 1024px) {
       .btn.underscore:after {
-        top: calc(100% + 42px); } }
+        top: calc(100% + 75px); } }
   .btn.revert-content .to-revert {
     transform: rotateX(-180deg); }
   .btn.absolute {

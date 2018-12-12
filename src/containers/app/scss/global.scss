@@ -1616,7 +1616,7 @@ input {
 		&:after {
 			content: '';
 			position: absolute;
-			top: calc(100% + 46px);
+			top: calc(100% + 69px);
 			z-index: 4;
 			left: 0;
 			width: 0%;
@@ -1625,7 +1625,7 @@ input {
 			background-color: #00C8FF;
 			transition: all 0.3s ease-in-out;
 			@media (max-width: 1024px) {
-				top: calc(100% + 42px);
+				top: calc(100% + 75px);
 			}
 		}
 	}
