@@ -61,8 +61,12 @@ class MyMadedCurrencies extends React.Component {
         });
     }
 
-    getExchanges = async newState => {
-        const exchanges = (await this.props.getAccountCurrenciesAction({account: newState.accountRS}));
+    getExchanges = async (newState , index) => {
+        const exchanges = (await this.props.getAccountCurrenciesAction({
+            account: newState.accountRS, 
+            firstIndex: index ? index.firstIndex : null, 
+            lastIndex: index ? index.lastIndex: null
+        }));
 
         if (exchanges) {
             this.setState({
@@ -94,7 +98,11 @@ class MyMadedCurrencies extends React.Component {
         };
 
         this.setState(reqParams, () => {
-            this.getAssets(reqParams)
+            console.log(this.state.firstIndex)
+            this.getExchanges(this.props, {
+                firstIndex: this.state.firstIndex,
+                lastIndex:  this.state.lastIndex
+            })
         });
     };
 
