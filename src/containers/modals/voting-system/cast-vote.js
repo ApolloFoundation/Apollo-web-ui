@@ -20,6 +20,8 @@ import ModalFooter from '../../components/modal-footer';
 
 import BackForm from '../modal-form/modal-form-container';
 
+import $ from 'jquery';
+
 class CastPoll extends React.Component {
     constructor(props) {
         super(props);
@@ -181,20 +183,25 @@ class CastPoll extends React.Component {
                                                             <div key={uuid()} className={"mb-15"}>
                                                                 <p>
                                                                     {this.state.votes[el]}
-                                                                    <span
-                                                                        className="badge badge-pill badge-primary float-right">
-                                                                    {this.state.voteOptions[el]}
+                                                                    <span className="badge badge-pill badge-primary float-right">
+                                                                        {this.state.voteOptions[el]}
                                                                     </span>
                                                                 </p>
                                                                 <input type="range" className="custom-range"
-                                                                       max={this.state.poll.maxRangeValue}
-                                                                       min={this.state.poll.minRangeValue}
-                                                                       defaultValue={this.state.voteOptions[el] || this.state.poll.minRangeValue}
-                                                                       onMouseUp={(event) => this.setState({
-                                                                           voteOptions: {
-                                                                               [`${el}`]: event.target.value,
-                                                                           }
-                                                                       })}
+                                                                    max={this.state.poll.maxRangeValue}
+                                                                    min={this.state.poll.minRangeValue}
+                                                                    value={this.state.voteOptions[el] || this.state.poll.minRangeValue}
+                                                                    onMouseDown={(event) => {
+                                                                        const width = Math.round(((this.state.poll.maxRangeValue - this.state.poll.minRangeValue) 
+                                                                        * (event.pageX - $(event.target).offset().left) / $(event.target).width())    
+                                                                        + this.state.poll.minRangeValue)
+
+                                                                        this.setState({
+                                                                            voteOptions: {
+                                                                                [`${el}`]: width,
+                                                                            }
+                                                                        })
+                                                                    }}
                                                                 />
                                                             </div>
                                                         )}
