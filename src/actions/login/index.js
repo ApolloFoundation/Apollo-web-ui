@@ -236,22 +236,38 @@ export function setForging(requestType) {
     }
 }
 
-export async function logOutAction(action) {
+export async function logOutAction(action, history) {
+    console.log('history', history);
+    const {dispatch} = store;
+
     switch (action) {
         case('simpleLogOut'):
             localStorage.removeItem("APLUserRS");
             localStorage.removeItem("secretPhrase");
-            document.location = '/';
+            dispatch(login({account: null, accountRS: null}));
+
+            history.push('/login');
             return;
         case('logOutStopForging'):
             const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
+            const {account} = store.getState();
+
+            if (!account.balanceATM || (account.balanceATM / 100000000) < 1000) {
+                localStorage.removeItem("APLUserRS");
+                dispatch(login({account: null, accountRS: null}));
+
+                history.push('/login');
+                return;
+            }
 
             const setForgingWith2FA = (action) => {
                 return {
                     getStatus: action,
                     confirmStatus: (res) => {
                         localStorage.removeItem("APLUserRS");
-                        document.location = '/';
+                        dispatch(login({account: null, accountRS: null}));
+
+                        history.push('/login');
                     }
                 }
             };
@@ -263,23 +279,24 @@ export async function logOutAction(action) {
             if (forging.errorCode === 3) {
                 store.dispatch(setBodyModalParamsAction('CONFIRM_2FA_FORGING', setForgingWith2FA('stopForging')));
             }
+            
             if (!forging.errorCode){
                 if (forging) {
                     localStorage.removeItem("APLUserRS");
-                    document.location = '/';
+                    dispatch(login({account: null, accountRS: null}));
+
+                    history.push('/login');
                 }
             }
-
-
-
 
             return;
         case('logoutClearUserData'):
             localStorage.clear();
-            document.location = '/';
+            dispatch(login({account: null, accountRS: null}));
+
+            history.push('/login');            
             return;
     }
-
 }
 
 export function getConstantsAction() {
