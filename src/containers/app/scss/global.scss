@@ -1,4 +1,10 @@
 @import "~roboto-fontface/css/roboto/roboto-fontface.css";
+@mixin safariButtonALign() {
+	height: 33px;
+	margin: auto;
+}
+  
+
 
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 	margin: 0;
@@ -1328,6 +1334,7 @@ input {
 			cursor: pointer;
 			display: flex;
 			border-radius: 3px;
+			@include safariButtonALign();
 			
 			&.text {
 				width: auto;
@@ -1414,6 +1421,7 @@ input {
 
 .btn-box {
 	width: 100%;
+	height: 33px;
 	//min-height: 32px;
 	&.under-table {
 		transform: translate(0, 0px);
@@ -1430,6 +1438,7 @@ input {
 	&.inline {
 		display: inline-block;
 		position: static !important;
+		height: auto;
 		//margin-right: -15px;
 		
 		& > * {
@@ -1518,7 +1527,11 @@ input {
 	box-sizing: border-box;
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
-	
+	@include safariButtonALign();
+
+	&.oversized {
+			margin: 5px 5px 5px 0;
+	}
 	&.lighten {
 		background: #ecf0f1;
 		color: #00C8FF;
