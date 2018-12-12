@@ -76,7 +76,6 @@ class AssetDividendHistory extends React.Component {
                                                                 className={'blue-link-text'}
                                                                 onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', el.assetDividend)}>
                                                                 {this.props.formatTimestamp(el.timestamp)}
-                                                                {el.asset}
                                                             </a>
                                                         </td>
 
