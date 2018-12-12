@@ -1051,8 +1051,8 @@ input {
   box-sizing: border-box;
   z-index: 1;
   padding: 11px 11px 11px 9px;
-  margin: 0;
-  height: 33px; }
+  height: 33px;
+  margin: auto; }
   .btn.oversized {
     margin: 5px 5px 5px 0; }
   .btn.lighten {

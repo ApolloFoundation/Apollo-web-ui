@@ -101,8 +101,7 @@
   background-color: $input-group-addon-bg;
   border: $input-border-width solid $input-group-addon-border-color;
   @include border-radius($input-border-radius);
-  height: 33px;
-  margin: auto;
+  @include safariButtonALign();
   
   // Nuke default margins from checkboxes and radios to vertically center within.
   input[type="radio"],
