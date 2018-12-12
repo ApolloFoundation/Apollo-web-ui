@@ -196,7 +196,7 @@ class App extends React.Component {
                                 <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 <Route exact path="/my-messages" component={MyMessages}/>
                                 <Route exact path="/generators" component={Generators}/>
-                                {/*<Route path="*" exact={true} component={UnknownPage}/>*/}
+                                <Route exact path="/index.html" component={Dashboard}/>
                             </React.Fragment>
                         }
                     </Switch>
