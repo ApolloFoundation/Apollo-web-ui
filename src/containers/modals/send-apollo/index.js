@@ -58,6 +58,12 @@ class SendApollo extends React.Component {
 			values.publicKey = await crypto.getPublicKeyAPL(this.props.account, true);
 			delete values.secretPhrase;
 		}
+
+		if (values.phasingFinishHeight) {
+			values.phased = true;
+			values.phasingVotingModel= -1;
+		}
+
 		this.setState({
 			isPending: true
 		});

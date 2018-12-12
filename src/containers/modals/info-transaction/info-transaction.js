@@ -55,18 +55,20 @@ class InfoLedgerTransaction extends React.Component {
     }
 
     getWhiteListOfTransaction = () => {
-        const whitelist = this.state.transaction.attachment.phasingWhitelist.map((el) => {
-            return this.props.getAccountInfoAction({
-                account: el
-            })
-        })
-
-        Promise.all(whitelist)
-            .then((data) => {
-                this.setState({
-                    whitelist: data
+        if (this.state.transaction && this.state.transaction.attachment.phasingWhitelist) {
+            const whitelist = this.state.transaction.attachment.phasingWhitelist.map((el) => {
+                return this.props.getAccountInfoAction({
+                    account: el
                 })
             })
+    
+            Promise.all(whitelist)
+                .then((data) => {
+                    this.setState({
+                        whitelist: data
+                    })
+                }) 
+        }
     }
 
     render() {

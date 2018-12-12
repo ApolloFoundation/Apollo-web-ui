@@ -70,6 +70,7 @@ class AdvancedSettings extends React.Component {
     };
 
     handleFormSubmit = (values) => {
+
         Object.keys(values).map((el) => {
             this.props.setValue(el, values[el]);
         });
