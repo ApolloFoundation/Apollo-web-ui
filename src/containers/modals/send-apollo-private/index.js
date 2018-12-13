@@ -13,6 +13,8 @@ import InputForm from '../../components/input-form';
 import crypto from  '../../../helpers/crypto/crypto';
 import {calculateFeeAction} from "../../../actions/forms";
 import classNames from 'classnames';
+import submitForm from "../../../helpers/forms/forms";
+import store from '../../../store';
 
 import {Checkbox} from 'react-form';
 import {Form, Text} from 'react-form';
@@ -43,9 +45,6 @@ class SendApolloPrivate extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        
-
         if (!values.recipient) {
             this.setState({
                 isPending: false
@@ -68,12 +67,6 @@ class SendApolloPrivate extends React.Component {
             return;
         }
 
-        if (!isPassphrase) {
-            values.passphrase = values.secretPhrase;
-            values.sender = this.props.account;
-            delete values.secretPhrase;
-        }
-
         if (this.state.useMixer) {
             values.messageToEncrypt = JSON.stringify({
                 name: "REQUEST_MIXING",
@@ -91,12 +84,12 @@ class SendApolloPrivate extends React.Component {
             isPending: true
         });
 
-        console.log(values)
+        const privateTransaction = store.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'));
 
-        const privateTransaction = await this.props.sendPrivateTransaction(values);
+        console.log(privateTransaction);
 
         if (privateTransaction) {
-            if (privateTransaction.errorCode) {
+            if (privateTransaction.responseJSON && privateTransaction.responseJSON.errorCode) {
                 NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
 
             } else {
@@ -394,6 +387,7 @@ const mapDispatchToProps = dispatch => ({
     sendPrivateTransaction: (requestParams) => dispatch(sendPrivateTransaction(requestParams)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApolloPrivate);

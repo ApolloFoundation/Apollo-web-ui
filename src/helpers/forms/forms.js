@@ -29,8 +29,11 @@ function submitForm(data, requestType) {
         const {modals} = getState();
 
         if (data.secretPhrase) {
-            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
-
+            let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
+                isPassphrase = isPassphrase.split('-');
+                isPassphrase[0] = account.constants.accountPrefix;
+                isPassphrase = isPassphrase.join('-');
+        
             if (account.accountRS !== isPassphrase) {
                 data.passphrase = data.secretPhrase;
 
@@ -42,7 +45,10 @@ function submitForm(data, requestType) {
         }
 
         if (data.passphrase) {
-            const isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.passphrase)));
+            let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.passphrase)));
+                isPassphrase = isPassphrase.split('-');
+                isPassphrase[0] = account.constants.accountPrefix;
+                isPassphrase = isPassphrase.join('-');
 
             if (account.accountRS !== isPassphrase) {
                 data.passphrase = data.passphrase;
