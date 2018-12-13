@@ -13,6 +13,7 @@ import AdvancedSettings from '../../components/advanced-transaction-settings';
 import {CustomInputForm} from '../../components/form-components/textual-input';
 import {FormRowText} from '../../components/form-components/form-row-text';
 import {FeeCalc} from '../../components/form-components/fee-calc'
+import {SubmitFormButton} from '../../components/form-components/submit-button'
 import {saveSendModalState, openPrevModal} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 
@@ -138,31 +139,7 @@ class ClaimCurrency extends React.Component {
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
 
-                                        {
-                                            !!this.state.isPending ?
-                                                <div
-                                                    style={{
-                                                        width: 156.25
-                                                    }}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    <div className="ball-pulse">
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div></div>
-                                                    </div>
-                                                </div> :
-                                                <button
-                                                    style={{
-                                                        width: 156.25
-                                                    }}
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    Claim Currency
-                                                </button>
-                                        }
+                                        <SubmitFormButton text="Claim Currency" loading={this.state.isPending}/>
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
                                     <div className="btn-box align-buttons-inside absolute left-conner">

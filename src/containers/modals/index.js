@@ -280,9 +280,6 @@ class ModalWindow extends React.Component {
                 {/*Aliases */}
                 {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={this.closeModal} nameModal={'EDIT_ALIAS'}/>}
                 {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 closeModal={this.closeModal} nameModal={'SELL_ALIAS'}/>}
-
-
-                {/*{this.props.modalType === 'CANCEL_SALE_ALIAS'           && <CancelSaleAlias           closeModal={this.closeModal} nameModal={}'CANCEL_SALE_ALIAS'}*/}/>}
                 {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={this.closeModal} nameModal={'TRANSFER_ALIAS'}/>}
                 {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={this.closeModal} nameModal={'DELETE_ALIAS'}/>}
                 {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={this.closeModal} nameModal={'ADD_ALIAS'}/>}
@@ -316,9 +313,8 @@ class ModalWindow extends React.Component {
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal} nameModal={'DECRYPT_MESSAGES'}/>}
                 {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
-                {this.props.modalType === 'SHARE_MESSAGE'             && <ShareMessage            closeModal={this.closeModal}/>}
-
-                {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency          closeModal={this.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
+                {this.props.modalType === 'SHARE_MESSAGE'               && <ShareMessage              closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency         closeModal={this.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
             </div>
         );
     }
