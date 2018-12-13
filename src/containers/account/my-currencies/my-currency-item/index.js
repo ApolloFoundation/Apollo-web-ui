@@ -43,6 +43,12 @@ class MyCurrencytemItem extends React.Component {
                             >
                                 Offer
                             </a>
+                            <a
+                                onClick={() => this.props.setBodyModalParamsAction('CLAIM_CURRENCY', this.state.transfer.currency)}
+                                className="btn primary blue"
+                            >
+                                Claim
+                            </a>
                         </div>
                     </td>
                 </tr>

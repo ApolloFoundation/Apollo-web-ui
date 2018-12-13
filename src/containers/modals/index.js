@@ -53,6 +53,8 @@ import TransferCurrency from './currencies/transfer-currency'
 import OfferCurrency from './currencies/offer-currebcy'
 import ReserveCurrency from './currencies/reserve-currency'
 import IssueCurrency from './currencies/issue-currency';
+import ClaimCurrency from './currencies/claim-currency';
+
 
 // Voting system
 import CreatePoll from './voting-system/create-poll';
@@ -232,6 +234,7 @@ class ModalWindow extends React.Component {
                 {this.props.modalType === 'OFFER_CURRENCY'              && <OfferCurrency             closeModal={this.closeModal} nameModal={'OFFER_CURRENCY'}/>}
                 {this.props.modalType === 'BUY_CURRENCY'                && <BuyCurrency               closeModal={this.closeModal} nameModal={'BUY_CURRENCY'}/>}
                 {this.props.modalType === 'SELL_CURRENCY'               && <SellCurrency              closeModal={this.closeModal} nameModal={'SELL_CURRENCY'}/>}
+                {this.props.modalType === 'CLAIM_CURRENCY'              && <ClaimCurrency             closeModal={this.closeModal} nameModal={'CLAIM_CURRENCY'}/>}
 
 
                 {/* Voting */}
@@ -277,9 +280,6 @@ class ModalWindow extends React.Component {
                 {/*Aliases */}
                 {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={this.closeModal} nameModal={'EDIT_ALIAS'}/>}
                 {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 closeModal={this.closeModal} nameModal={'SELL_ALIAS'}/>}
-
-
-                {/*{this.props.modalType === 'CANCEL_SALE_ALIAS'           && <CancelSaleAlias           closeModal={this.closeModal} nameModal={}'CANCEL_SALE_ALIAS'}*/}/>}
                 {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={this.closeModal} nameModal={'TRANSFER_ALIAS'}/>}
                 {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={this.closeModal} nameModal={'DELETE_ALIAS'}/>}
                 {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={this.closeModal} nameModal={'ADD_ALIAS'}/>}
@@ -313,9 +313,8 @@ class ModalWindow extends React.Component {
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal} nameModal={'DECRYPT_MESSAGES'}/>}
                 {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
-                {this.props.modalType === 'SHARE_MESSAGE'             && <ShareMessage            closeModal={this.closeModal}/>}
-
-                {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency          closeModal={this.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
+                {this.props.modalType === 'SHARE_MESSAGE'               && <ShareMessage              closeModal={this.closeModal}/>}
+                {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency         closeModal={this.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
             </div>
         );
     }
