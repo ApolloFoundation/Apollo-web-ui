@@ -10,7 +10,6 @@ export const FeeCalc = ({setValue, }) => {
                     onClick={async () => {
                         setValue("feeAPL", 1);
                     }}
-                    style={{paddingRight: 0}}
                     className="calculate-fee"
                 >
                 Calculate
