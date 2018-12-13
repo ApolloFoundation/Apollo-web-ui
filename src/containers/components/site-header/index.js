@@ -6,7 +6,7 @@
 
 import React from "react";
 import {connect} from 'react-redux';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, withRouter} from 'react-router-dom';
 import './SiteHeader.css';
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
@@ -997,13 +997,13 @@ class SiteHeader extends React.Component {
                                                     </div>
                                                     <div className="input-section">
                                                         <div
-                                                            onClick={() => logOutAction('simpleLogOut')}
+                                                            onClick={() => logOutAction('simpleLogOut', this.props.history)}
                                                             className="image-button">
                                                             <i className="zmdi zmdi-power"/>
                                                             <label style={{cursor: 'pointer'}}>Logout</label>
                                                         </div>
                                                         <div
-                                                            onClick={() => logOutAction('logOutStopForging')}
+                                                            onClick={() => logOutAction('logOutStopForging', this.props.history)}
                                                             className="image-button"
                                                         >
                                                             <i className="zmdi zmdi-pause-circle"/>
@@ -1011,7 +1011,7 @@ class SiteHeader extends React.Component {
                                                                 forging</label>
                                                         </div>
                                                         <div
-                                                            onClick={() => logOutAction('logoutClearUserData')}
+                                                            onClick={() => logOutAction('logoutClearUserData', this.props.history)}
                                                             className="image-button"
                                                         >
                                                             <i className="zmdi zmdi-close-circle"/>
@@ -1077,4 +1077,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SiteHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SiteHeader));

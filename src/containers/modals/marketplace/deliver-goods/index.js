@@ -107,7 +107,6 @@ class MarketplaceDeliver extends React.Component {
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                         {
-
                             this.state.goods &&
                             <React.Fragment>
                                 <div className="left-bar">
@@ -163,7 +162,7 @@ class MarketplaceDeliver extends React.Component {
                                                             <div className="col-md-9">
                                                                 <TextArea
                                                                     field="goodsToEncrypt"
-                                                                    placeholder="Currency Name"
+                                                                    placeholder="Description"
                                                                     min={1}
                                                                 />
                                                             </div>
@@ -176,20 +175,20 @@ class MarketplaceDeliver extends React.Component {
                                                                 <label>Discount</label>
                                                             </div>
                                                             <div
-                                                                className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                className="col-md-9 input-group input-group-text-transparent">
                                                                 <Text
                                                                     type={'tel'}
                                                                     field="discountATM"
-                                                                    placeholder='Recipient'
+                                                                    placeholder='Amount'
                                                                     className={"form-control"}
                                                                 />
                                                                 <div className="input-group-append">
-                                                                        <span
-                                                                            className="input-group-text"
-                                                                            id="discountATM"
-                                                                        >
-                                                                            Apollo
-                                                                        </span>
+                                                                    <span
+                                                                        className="input-group-text"
+                                                                        id="discountATM"
+                                                                    >
+                                                                        Apollo
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -201,16 +200,6 @@ class MarketplaceDeliver extends React.Component {
                                                             </div>
                                                             <div className="col-md-9">
                                                                 <Text type="tel" field='feeATM' placeholder="Minimum fee" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Secret phrase</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text type="password" field='secretPhrase' placeholder="Secret Phrase" />
                                                             </div>
                                                         </div>
                                                     </div>

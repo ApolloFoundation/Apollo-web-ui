@@ -68,16 +68,14 @@ class ExchangeBooth extends React.Component {
     };
     // requestType=getAccountCurrencies&account=APL-NZKH-MZRE-2CTT-98NPZ&currency=15796105555746164961&includeCurrencyInfo=true&random=0.9501498326661535
     componentDidMount() {
-        if (this.state.currency) {
             this.getAccountCurrency(
                 {
                     requestType : 'getAccountCurrencies',
                     account: this.props.account,
                     includeCurrencyInfo: true,
-                    currency: this.state.currency.currency
+                    code: this.props.match.params.currency
                 }
             );
-        }
         this.getCurrency({code: this.props.match.params.currency});
         this.getCurrencies();
         BlockUpdater.on("data", this.listener);
@@ -104,7 +102,7 @@ class ExchangeBooth extends React.Component {
 
     getAccountCurrency = async (reqParams) => {
         let accountCurrency = await this.props.getCurrencyAction(reqParams);
-
+        
         if (accountCurrency) {
             accountCurrency = accountCurrency.accountCurrencies.find((el) => {
                 return el.code === this.props.match.params.currency
