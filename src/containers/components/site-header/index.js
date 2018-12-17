@@ -1031,8 +1031,16 @@ class SiteHeader extends React.Component {
                                 </div>
                                 <div className="network-overview">
                                     {
+                                        window.innerWidth &&
+                                        this.props.children &&
+                                        <div className="media-page-actions">
+                                            {this.props.children}
+                                        </div>
+                                    }
+                                    {
                                         this.props.appState &&
                                         <a
+                                            className="mt-3"
                                             onClick={() => this.props.setBodyModalParamsAction('INFO_NETWORK')}
                                         >
                                             {this.props.appState.chainName}

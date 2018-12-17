@@ -990,10 +990,13 @@
 
 .network-overview {
 	text-align: right;
-	margin-top: 15px;
 
 	a {
 		color: #00c8ff;
+	}
+	
+	@media(max-width: 768px) {
+		text-align: left;
 	}
 }
 

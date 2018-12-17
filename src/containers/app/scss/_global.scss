@@ -1978,6 +1978,10 @@ input[type="file"] {
 .btn-box {
 	height: 33px;
 	//min-height: 32px;
+
+	&.wide {
+		width: 100%;
+	}
 	&.under-table {
 		transform: translate(0, 0px);
 		@media (max-width: 1024px) {

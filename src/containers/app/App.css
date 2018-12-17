@@ -4208,6 +4208,8 @@ input[type="file"] {
 
 .btn-box {
   height: 33px; }
+  .btn-box.wide {
+    width: 100%; }
   .btn-box.under-table {
     transform: translate(0, 0px); }
     @media (max-width: 1024px) {
