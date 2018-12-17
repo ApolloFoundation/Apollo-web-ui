@@ -1938,17 +1938,9 @@ input[type="file"] {
 		}
 		&.round-bottom-right {
 			border-bottom-right-radius: 6px;
-
-			@media(max-width: 768px) {
-				border-bottom-right-radius: 0;
-			}
 		}
 		&.round-bottom-left {
 			border-bottom-left-radius: 6px;
-
-			@media(max-width: 768px) {
-				border-bottom-left-radius: 0;
-			}
 		}
 		&.round-top-right {
 			border-top-right-radius: 6px;
@@ -2070,6 +2062,13 @@ input[type="file"] {
 
 		@media(max-width: 768px) {
 			position: static;
+
+			&.round-bottom-right {
+				border-bottom-right-radius: 0;
+			}
+			&.round-bottom-left {
+				border-bottom-left-radius: 0;
+			}
 		}
 	}
 	&.bg-f {
