@@ -98,7 +98,6 @@ class MyMadedCurrencies extends React.Component {
         };
 
         this.setState(reqParams, () => {
-            console.log(this.state.firstIndex)
             this.getExchanges(this.props, {
                 firstIndex: this.state.firstIndex,
                 lastIndex:  this.state.lastIndex

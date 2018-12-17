@@ -237,7 +237,6 @@ export function setForging(requestType) {
 }
 
 export async function logOutAction(action, history) {
-    console.log('history', history);
     const {dispatch} = store;
 
     switch (action) {
