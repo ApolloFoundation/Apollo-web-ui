@@ -406,6 +406,10 @@
       word-break: break-word;
       word-wrap: break-word;
       display: block; }
+  @media (max-width: 768px) {
+    .card.marketplace {
+      left: 0;
+      right: 0; } }
 
 @media (max-width: 1200px) {
   .marketplace-row .marketplace-row-item {
