@@ -83,8 +83,6 @@ class SendApolloPrivate extends React.Component {
             isPending: true
         });
 
-        console.log(this.props.dispatch);
-
         const privateTransaction = this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'));
 
         if (privateTransaction) {
