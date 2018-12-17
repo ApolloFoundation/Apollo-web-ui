@@ -8,7 +8,7 @@ const config = {};
 
 // API Gateway
 config.api = {
-    serverUrl: 'http://localhost:6876/apl?',
+    serverUrl: 'https://apollowallet.org/apl?',
     localServerUrl: 'https://apollocurrency.com/api/client/twitter'
 };
 
