@@ -236,8 +236,32 @@
 						margin-left: 15px;
 						white-space: pre;
 					}
+
+					@media(max-width: 768px) {
+						flex-direction: column;
+
+						.input-group-app {
+							padding-bottom: 15px;
+							width: 100%;
+						}
+						.encrypt-message-box {
+							width: 100%;							
+						}
+						input {
+							margin: 0 0 15px 0;	
+							width: 100%;						
+						}
+						.btn {
+							width: 100%;
+							margin: 0;
+						}
+					}
 				}
 			}
+		}
+		
+		@media (max-width: 768px) {
+			height: calc(100vh - 168px);
 		}
 	}
 }

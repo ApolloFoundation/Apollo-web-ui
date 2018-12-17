@@ -200,6 +200,14 @@ class Messenger extends React.Component {
 	// 	}
     // }
 
+    goBack = () => {
+        this.setState({
+            chatHistory: null 
+        }, () => {
+            this.props.history.push('/messenger')
+        });
+    }
+
     render (){
 		if (this.state.chatHistory) {
 			this.state.chatHistory.map((el, index) => {
@@ -221,72 +229,94 @@ class Messenger extends React.Component {
 				<div className="page-body container-fluid flexible-height overflow-hidden">
 					<div className="messenger">
 						<div className="row">
-							<div className="col-md-3">
-								<div className="left-bar">
-									<div className="card card-full-screen no-padding scroll">
-										{
-											this.state.chats &&
-											<React.Fragment>
-												{
-                                                    !!this.state.chats.length &&
-                                                    this.state.chats.map((el, index) => {
-
-                                                        return (
-                                                            <Link
-                                                                to={'/messenger/' + el.account}
-                                                                key={uuid()}
-                                                                style={{display: "block"}}
-                                                                className={classNames({
-                                                                    "chat-item": true,
-                                                                    "active": el.account === this.props.match.params.chat
-                                                                })}
-																// onClick={() => this.handleChatSelect(index)}
-                                                            >
-                                                                <div className="chat-box-item">
-                                                                    <div className="chat-box-rs">
-                                                                        {el.accountRS}
+                            {
+                                (window.innerWidth > 768 ||
+                                (window.innerWidth < 768 && !(this.state.chatHistory && this.state.chatHistory.length))) &&
+                                <div className="col-md-3">
+                                    <div className="left-bar">
+                                        <div className="card card-full-screen no-padding scroll">
+                                            {
+                                                this.state.chats &&
+                                                <React.Fragment>
+                                                    {
+                                                        !!this.state.chats.length &&
+                                                        this.state.chats.map((el, index) => {
+    
+                                                            return (
+                                                                <Link
+                                                                    to={'/messenger/' + el.account}
+                                                                    key={uuid()}
+                                                                    style={{display: "block"}}
+                                                                    className={classNames({
+                                                                        "chat-item": true,
+                                                                        "active": el.account === this.props.match.params.chat
+                                                                    })}
+                                                                    // onClick={() => this.handleChatSelect(index)}
+                                                                >
+                                                                    <div className="chat-box-item">
+                                                                        <div className="chat-box-rs">
+                                                                            {el.accountRS}
+                                                                        </div>
+                                                                        <div className="chat-date">
+                                                                            {this.props.formatTimestamp(el.lastMessageTime)}
+                                                                        </div>
                                                                     </div>
-                                                                    <div className="chat-date">
-                                                                        {this.props.formatTimestamp(el.lastMessageTime)}
-                                                                    </div>
-                                                                </div>
-                                                            </Link>
-                                                        );
-                                                    })
-												}
-												{
-                                                    !(!!this.state.chats.length) &&
-													<InfoBox>
-														No messages found.
-													</InfoBox>
-                                                }
-											</React.Fragment>
-										}
-										{
-                                            !this.state.chats &&
-                                            <div
-                                                style={{
-                                                    paddingLeft: 47.5,
-													paddingTop: 20
-                                                }}
-                                                className={'loader-box'}
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
+                                                                </Link>
+                                                            );
+                                                        })
+                                                    }
+                                                    {
+                                                        !(!!this.state.chats.length) &&
+                                                        <InfoBox>
+                                                            No messages found.
+                                                        </InfoBox>
+                                                    }
+                                                </React.Fragment>
+                                            }
+                                            {
+                                                !this.state.chats &&
+                                                <div
+                                                    style={{
+                                                        paddingLeft: 47.5,
+                                                        paddingTop: 20
+                                                    }}
+                                                    className={'loader-box'}
+                                                >
+                                                    <div className="ball-pulse">
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
                                                 </div>
-                                            </div>
-										}
+                                            }
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            {
+                                ((window.innerWidth > 768 
+                                  && this.state.chats &&
+                                  !!this.state.chats.length) || 
 
-									</div>
-								</div>
-							</div>
-							{
-								this.state.chats &&
-								!!this.state.chats.length &&
+                                  ((window.innerWidth < 768 && 
+                                    (this.state.chatHistory && 
+                                     this.state.chatHistory.length)) &&
+                                  this.state.chats &&
+                                  !!this.state.chats.length)) &&
+
                                 <div className="col-md-9">
                                     <div className="right-bar">
+                                        {
+                                            window.innerWidth < 768 &&
+                                            this.state.chatHistory &&
+                                            <div className="col-xl-6 col-md-12 pr-0">
+                                                <a onClick={this.goBack} className="btn primary mb-3">
+                                                    <i class="zmdi zmdi-arrow-left" /> &nbsp;
+                                                    Back to list
+                                                </a>
+                                            </div>
+                                        }
                                         <div className="card card-full-screen no-padding">
                                             <div className="chatting-box">
 
