@@ -263,6 +263,14 @@ class ExchangeBooth extends React.Component {
         return limit;
     };
 
+    goBack = () => {
+        this.setState({
+           asset: null 
+        }, () => {
+            this.props.history.push('/currencies')
+        });
+    }
+
     render() {
         return (
             <div className="page-content">
@@ -293,37 +301,49 @@ class ExchangeBooth extends React.Component {
                     this.state.currency &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-3 p-0">
-                                <div className="card card-full-screen no-padding scroll">
-                                    {
-                                        this.state.currencies &&
-                                        this.state.currencies.map((el, index) => {
-                                            return (
-                                                <Link
-                                                    key={uuid()}
-                                                    style={{display: 'block'}}
-                                                    to={"/exchange-booth/" + (el ? el.code : "")}
-                                                    className={classNames({
-                                                        "chat-item": true,
-                                                        "active": this.state.currency === (el ? el.currency : "")
-                                                    })}
-                                                >
-                                                    <div className="chat-box-item">
-                                                        <div className="chat-box-rs">
-                                                            {el ? el.name : ""}
+                            {
+                                window.innerWidth > 768 &&
+                                <div className="col-md-3 p-0">
+                                    <div className="card card-full-screen no-padding scroll">
+                                        {
+                                            this.state.currencies &&
+                                            this.state.currencies.map((el, index) => {
+                                                return (
+                                                    <Link
+                                                        key={uuid()}
+                                                        style={{display: 'block'}}
+                                                        to={"/exchange-booth/" + (el ? el.code : "")}
+                                                        className={classNames({
+                                                            "chat-item": true,
+                                                            "active": this.state.currency === (el ? el.currency : "")
+                                                        })}
+                                                    >
+                                                        <div className="chat-box-item">
+                                                            <div className="chat-box-rs">
+                                                                {el ? el.name : ""}
+                                                            </div>
+                                                            <div className="chat-date">
+                                                                Current Supply:&nbsp;{el.currentSupply / Math.pow(10, el.decimals)}
+                                                            </div>
                                                         </div>
-                                                        <div className="chat-date">
-                                                            Current Supply:&nbsp;{el.currentSupply / Math.pow(10, el.decimals)}
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            );
-                                        })
-                                    }
+                                                    </Link>
+                                                );
+                                            })
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            }
                             <div className="col-md-9 p-0">
                                 <div className="row">
+                                    {
+                                        window.innerWidth < 768 &&
+                                        <div className="col-xl-6 col-md-12 pr-0">
+                                            <a onClick={this.goBack} className="btn primary mb-3">
+                                                <i class="zmdi zmdi-arrow-left" /> &nbsp;
+                                                Back to list
+                                            </a>
+                                        </div>
+                                    }
                                     <div className="col-xl-6 col-md-12 pr-0">
                                         <div className="card header ballance medium-padding">
                                             <div className="row">
