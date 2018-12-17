@@ -433,7 +433,7 @@ class SiteHeader extends React.Component {
                                     "searching": this.state.searching
                                 })}>
                                     {/*TODO : fix site header search animation*/}
-                                    <a className="logo" href={"/"}><img src="./apollo-logo.svg"/></a>
+                                    <Link className="logo" to={"/"}><img src="/apollo-logo.svg"/></Link>
                                     <div className={`burger-mobile ${this.state.menuShow ? "menu-open" : ""}`}
                                          onClick={this.showMenu}>
                                         <div className="line"/>

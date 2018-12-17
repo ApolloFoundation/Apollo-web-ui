@@ -72,17 +72,17 @@ class Sidebar extends React.Component {
 					className="menu-bar-container"
 					id={'sidebar-menu'}
 				>
-					<NavLink
+					<Link
 						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
 						className="site-logo"
 						style={{
 							background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
 						}}
-						exact={true} activeClassName="active" to="/"
+						to="/"
 					>
 						<img src="/apollo-logo.svg"/>
-					</NavLink>
+					</Link>
 
 					<nav
 						className={"header-nav"}
