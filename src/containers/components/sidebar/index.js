@@ -81,7 +81,7 @@ class Sidebar extends React.Component {
 						}}
 						to="/"
 					>
-						<img src="/apollo-logo.svg"/>
+						<img src="https://apollowallet.org/apollo-logo.svg"/>
 					</Link>
 
 					<nav

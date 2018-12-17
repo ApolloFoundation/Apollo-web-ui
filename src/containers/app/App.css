@@ -3298,7 +3298,7 @@ input[type="file"] {
   .site-logo:hover img {
     opacity: 0.7; }
   .site-logo.page-loader-image {
-    mask-image: url("~/apollo-logo.svg");
+    mask-image: url("https://apollowallet.org/apollo-logo.svg");
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: 40px 40px;
