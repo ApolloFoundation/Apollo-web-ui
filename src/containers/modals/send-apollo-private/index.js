@@ -83,7 +83,9 @@ class SendApolloPrivate extends React.Component {
             isPending: true
         });
 
-        const privateTransaction = this.proips.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'));
+        console.log(this.props.dispatch);
+
+        const privateTransaction = this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'));
 
         if (privateTransaction) {
             if (privateTransaction.responseJSON && privateTransaction.responseJSON.errorCode) {
@@ -384,6 +386,7 @@ const mapDispatchToProps = dispatch => ({
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+    dispatch: dispatch
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApolloPrivate);
