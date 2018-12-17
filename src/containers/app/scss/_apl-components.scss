@@ -413,6 +413,11 @@
           height: auto;
         }
       }
+      @media(max-width: 768px) {
+        .btn-box {
+          height: 38px;          
+        }
+      }
     }
   }
 }
