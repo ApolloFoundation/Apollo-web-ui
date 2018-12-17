@@ -1976,7 +1976,6 @@ input[type="file"] {
 
 
 .btn-box {
-	width: 100%;
 	height: 33px;
 	//min-height: 32px;
 	&.under-table {
@@ -2079,9 +2078,6 @@ input[type="file"] {
 	}
 	&.mt-15 {
 		margin-top: 15px;
-	}
-	&.width-auto {
-		width: auto;
 	}
 }
 
