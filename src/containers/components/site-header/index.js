@@ -590,7 +590,7 @@ class SiteHeader extends React.Component {
                                                     </AccordionItemTitle>
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
-                                                            <NavLink to="/marketplace">Marketplace</NavLink>
+                                                            {window.innerHeight < 768 && <NavLink to="/marketplace">Marketplace</NavLink>}
 
                                                             <NavLink to="/purchased-products">Purchased Products</NavLink>
                                                             <NavLink to="/my-products-for-sale">My products for sale</NavLink>
