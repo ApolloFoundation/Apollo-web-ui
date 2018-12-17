@@ -59,10 +59,13 @@ export function getAccountInfoAction(account) {
     }
 }
 
-export function switchAccountAction(account) {
+export function switchAccountAction(account, history) {
     return dispatch => {
-        writeToLocalStorage('APLUserRS', account);
-        document.location.href = '/';
+        makeLoginReq(dispatch, {account})
+        if (history) history.push('/dashboard')
+
+        // Closing current modal window
+        dispatch(setBodyModalParamsAction())
     }
 }
 

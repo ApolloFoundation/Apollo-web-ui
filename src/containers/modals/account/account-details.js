@@ -13,6 +13,7 @@ import {getAccountAction} from "../../../actions/account";
 import {getTransactionAction} from "../../../actions/transactions";
 import {switchAccountAction} from "../../../actions/account";
 import {getAccountInfoAction} from "../../../actions/account";
+import {withRouter} from 'react-router-dom';
 import Entry from '../../account/ledger/entry';
 import QR from 'qrcode';
 
@@ -268,9 +269,9 @@ const mapDispatchToProps = dispatch => ({
     getAccountInfoAction: (account) => dispatch(getAccountInfoAction(account)),
     // getAccountData
     getAccountAction:  (requestParams) => dispatch(getAccountAction(requestParams)),
-    switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
+    switchAccountAction:  (requestParams, history) => dispatch(switchAccountAction(requestParams, history)),
 
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountDetails);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AccountDetails));

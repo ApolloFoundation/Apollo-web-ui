@@ -488,6 +488,9 @@ class SiteHeader extends React.Component {
                                                     </AccordionItemTitle>
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
+                                                            <NavLink exact={true} activeClassName="active" to="/asset-exchange">
+                                                                Asset exchange
+                                                            </NavLink>
                                                             <NavLink exact={true} activeClassName="active"
                                                                      to="/trade-history">Trade history</NavLink>
                                                             <NavLink exact={true} activeClassName="active"
@@ -956,7 +959,7 @@ class SiteHeader extends React.Component {
                                                                             return (
                                                                                 <li key={uuid()}>
                                                                                     <a
-                                                                                        onClick={() => this.props.switchAccountAction(el.accountRS)}
+                                                                                        onClick={() => this.props.switchAccountAction(el.accountRS, this.props.history)}
                                                                                     >
                                                                                         {el.name}
                                                                                     </a>
@@ -1074,7 +1077,7 @@ const mapDispatchToProps = dispatch => ({
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     setModalData: (reqParams) => dispatch(setModalData(reqParams)),
     getForging: (reqParams) => dispatch(getForging(reqParams)),
-    switchAccountAction: (requestParams) => dispatch(switchAccountAction(requestParams)),
+    switchAccountAction: (requestParams, history) => dispatch(switchAccountAction(requestParams, history)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 

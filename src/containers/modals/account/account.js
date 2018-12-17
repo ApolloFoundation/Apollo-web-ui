@@ -14,7 +14,7 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {getLedgerEntryAction} from "../../../actions/ledger";
 import {switchAccountAction}  from "../../../actions/account";
 import {formatTimestamp}      from '../../../helpers/util/time';
-import {Link}                 from "react-router-dom";
+import {Link, withRouter}     from "react-router-dom";
 
 import Transaction from '../../account/transactions/transaction';
 import ModalTransaction from '../../account/modalTransactions/transaction';
@@ -175,10 +175,11 @@ class InfoAccount extends React.Component {
                                     this.state.account &&
                                     <React.Fragment>
                                         <p>Account {this.state.account.accountRS} info</p>
+                                        {console.log(this.props.history)}
                                         {
                                             this.props.account !== this.state.account.account &&
                                             <a
-                                                onClick={() => this.props.switchAccountAction(this.state.account.accountRS)}
+                                                onClick={() => this.props.switchAccountAction(this.state.account.accountRS, this.props.history)}
                                                 className="btn primary static"
                                                 style={{
                                                     margin: '0 0 0 30px'
@@ -667,9 +668,9 @@ const mapDispatchToProps = dispatch => ({
 	// getAccountData
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
 	getAccountAction:  (requestParams) => dispatch(getAccountAction(requestParams)),
-	switchAccountAction:  (requestParams) => dispatch(switchAccountAction(requestParams)),
+	switchAccountAction:  (requestParams, history) => dispatch(switchAccountAction(requestParams, history)),
 
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoAccount);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InfoAccount));

@@ -4183,14 +4183,8 @@ input[type="file"] {
       border-top-left-radius: 6px; }
     .btn.round.round-bottom-right {
       border-bottom-right-radius: 6px; }
-      @media (max-width: 768px) {
-        .btn.round.round-bottom-right {
-          border-bottom-right-radius: 0; } }
     .btn.round.round-bottom-left {
       border-bottom-left-radius: 6px; }
-      @media (max-width: 768px) {
-        .btn.round.round-bottom-left {
-          border-bottom-left-radius: 0; } }
     .btn.round.round-top-right {
       border-top-right-radius: 6px; }
   .btn.block {
@@ -4213,7 +4207,6 @@ input[type="file"] {
     visibility: hidden; }
 
 .btn-box {
-  width: 100%;
   height: 33px; }
   .btn-box.under-table {
     transform: translate(0, 0px); }
@@ -4265,16 +4258,17 @@ input[type="file"] {
     display: none; }
   @media (max-width: 768px) {
     .btn-box .btn {
-      position: static; } }
+      position: static; }
+      .btn-box .btn.round-bottom-right {
+        border-bottom-right-radius: 0; }
+      .btn-box .btn.round-bottom-left {
+        border-bottom-left-radius: 0; } }
   .btn-box.bg-f {
     background-color: #fff; }
     .btn-box.bg-f .btn-left {
       margin-left: 0; }
   .btn-box.mt-15 {
     margin-top: 15px; }
-  @media (max-width: 768px) {
-    .btn-box {
-      height: 38px; } }
 
 .input-block {
   width: 300px; }
@@ -5207,6 +5201,9 @@ table td .btn, table th .btn {
           .modal-window .modal-box .modal-form .form-group-app {
             border-radius: 0;
             height: auto; } }
+      @media (max-width: 768px) {
+        .modal-window .modal-box .modal-form .btn-box {
+          height: 38px; } }
 
 .btn {
   display: inline-block;
