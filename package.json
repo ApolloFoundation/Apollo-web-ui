@@ -107,7 +107,7 @@
   "homepage": "./",
   "main": "src/start.js",
   "scripts": {
-    "start-js": "react-scripts start",
+    "start-js": "react-scripts start && npm run watch-css",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test",
     "build-css": "node-sass-chokidar src -o src",
