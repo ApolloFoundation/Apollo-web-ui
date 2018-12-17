@@ -81,19 +81,17 @@ class AccountRS extends React.Component {
 
     render () {
 
-        console.log(this.props.constants ? this.props.constants.accountPrefix : '');
-        console.log(this.props.constants);
         return (
             <React.Fragment>
                 {this.state.inputValue &&
                     <InputMask className="form-control"
-                               disabled={this.props.disabled}
-                               mask={this.state.inputValue.mask}
-                               placeholder={this.props.placeholder || 'Account ID'}
-                               ref={'input'}
-                               value={this.state.inputValue.value}
-                               onPaste={this.onChange}
-                               onChange={this.onChange}
+                        disabled={this.props.disabled}
+                        mask={this.state.inputValue.mask}
+                        placeholder={this.props.placeholder || 'Account ID'}
+                        ref={'input'}
+                        value={this.state.inputValue.value}
+                        onPaste={this.onChange}
+                        onChange={this.onChange}
                     />
                 }
                 {!this.props.noContactList &&

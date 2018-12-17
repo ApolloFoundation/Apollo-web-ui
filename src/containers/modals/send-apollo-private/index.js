@@ -14,7 +14,6 @@ import crypto from  '../../../helpers/crypto/crypto';
 import {calculateFeeAction} from "../../../actions/forms";
 import classNames from 'classnames';
 import submitForm from "../../../helpers/forms/forms";
-import store from '../../../store';
 
 import {Checkbox} from 'react-form';
 import {Form, Text} from 'react-form';
@@ -84,9 +83,7 @@ class SendApolloPrivate extends React.Component {
             isPending: true
         });
 
-        const privateTransaction = store.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'));
-
-        console.log(privateTransaction);
+        const privateTransaction = this.proips.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'));
 
         if (privateTransaction) {
             if (privateTransaction.responseJSON && privateTransaction.responseJSON.errorCode) {
@@ -132,7 +129,6 @@ class SendApolloPrivate extends React.Component {
         const mixerAccount = mixerData.rsId;
 
         mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`)
-        console.log(mixerData.rsId)
         this.setState({
             mixerData,
             useMixer: e
