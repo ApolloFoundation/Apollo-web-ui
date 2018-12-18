@@ -262,6 +262,14 @@ class AssetExchange extends React.Component {
         }
     };
 
+    goBack = () => {
+        this.setState({
+           asset: null 
+        }, () => {
+            this.props.history.push('/asset-exchange')
+        });
+    }
+
     render() {
         return (
             <div className="page-content">
@@ -272,45 +280,57 @@ class AssetExchange extends React.Component {
                     this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-3 p-0 left-col">
-                                <div className="card card-full-screen no-padding scroll">
-                                    {
-                                        this.state.accountAssets &&
-                                        !!this.state.accountAssets.length &&
-                                        this.state.accountAssets.map((el, index) => {
-                                            return (
-                                                <Link
-                                                    key={uuid()}
-                                                    style={{display: 'block'}}
-                                                    to={"/asset-exchange/" + (el ? el.asset : "")}
-                                                    className={classNames({
-                                                        "chat-item": true,
-                                                        "active": this.state.asset.asset === (el ? el.asset : "")
-                                                    })}
-                                                >
-                                                    <div className="chat-box-item">
-                                                        <div className="chat-box-rs">
-                                                            {el ? el.name : ""}
+                            {
+                                window.innerWidth > 768 &&
+                                <div className="col-md-3 p-0 left-col">
+                                    <div className="card card-full-screen no-padding scroll">
+                                        {
+                                            this.state.accountAssets &&
+                                            !!this.state.accountAssets.length &&
+                                            this.state.accountAssets.map((el, index) => {
+                                                return (
+                                                    <Link
+                                                        key={uuid()}
+                                                        style={{display: 'block'}}
+                                                        to={"/asset-exchange/" + (el ? el.asset : "")}
+                                                        className={classNames({
+                                                            "chat-item": true,
+                                                            "active": this.state.asset.asset === (el ? el.asset : "")
+                                                        })}
+                                                    >
+                                                        <div className="chat-box-item">
+                                                            <div className="chat-box-rs">
+                                                                {el ? el.name : ""}
+                                                            </div>
+                                                            <div className="chat-date">
+                                                                Quantity:&nbsp;{(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)}
+                                                            </div>
                                                         </div>
-                                                        <div className="chat-date">
-                                                            Quantity:&nbsp;{(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)}
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            );
-                                        })
-                                    }
-                                    {
-                                        this.state.accountAssets &&
-                                        !(!!this.state.accountAssets.length) &&
-                                        <p>No assets found.</p>
-                                    }
+                                                    </Link>
+                                                );
+                                            })
+                                        }
+                                        {
+                                            this.state.accountAssets &&
+                                            !(!!this.state.accountAssets.length) &&
+                                            <p>No assets found.</p>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            }
                             {
                                 this.props.match.params &&
                                 <div className="col-md-9 p-0 right-col">
                                     <div className="row">
+                                        {
+                                            window.innerWidth < 768 &&
+                                            <div className="col-xl-6 col-md-12 pr-0">
+                                                <a onClick={this.goBack} className="btn primary mb-3">
+                                                    <i class="zmdi zmdi-arrow-left" /> &nbsp;
+                                                    Back to list
+                                                </a>
+                                            </div>
+                                        }
                                         <div className="col-xl-6 col-md-12 pr-0">
                                             <div className="card header ballance card-tiny medium-padding">
                                                 <div className="row">

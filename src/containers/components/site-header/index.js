@@ -243,10 +243,12 @@ class SiteHeader extends React.Component {
                                         {
                                             this.props.dashboardPage &&
                                             <React.Fragment>
-                                                <div className={classNames({
-                                                    "general": true,
-                                                    "open-settings": true
-                                                })}>
+                                                <div 
+                                                    className={classNames({
+                                                        "general": true,
+                                                        "open-settings": true
+                                                    })}
+                                                >
                                                     <div
                                                         onClick={(e) => this.setBodyModalType('FORGING_BODY_MODAL', e)}
                                                         className={classNames({
@@ -433,7 +435,7 @@ class SiteHeader extends React.Component {
                                     "searching": this.state.searching
                                 })}>
                                     {/*TODO : fix site header search animation*/}
-                                    <a className="logo" href={"/"}><img src="./apollo-logo.svg"/></a>
+                                    <Link className="logo" to={"/"}><img src="https://apollowallet.org/apollo-logo.svg"/></Link>
                                     <div className={`burger-mobile ${this.state.menuShow ? "menu-open" : ""}`}
                                          onClick={this.showMenu}>
                                         <div className="line"/>
@@ -488,6 +490,9 @@ class SiteHeader extends React.Component {
                                                     </AccordionItemTitle>
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
+                                                            <NavLink exact={true} activeClassName="active" to="/asset-exchange">
+                                                                Asset exchange
+                                                            </NavLink>
                                                             <NavLink exact={true} activeClassName="active"
                                                                      to="/trade-history">Trade history</NavLink>
                                                             <NavLink exact={true} activeClassName="active"
@@ -590,7 +595,9 @@ class SiteHeader extends React.Component {
                                                     </AccordionItemTitle>
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
-                                                            <a>Purchased Products</a>
+                                                            {window.innerHeight < 768 && <NavLink to="/marketplace">Marketplace</NavLink>}
+
+                                                            <NavLink to="/purchased-products">Purchased Products</NavLink>
                                                             <NavLink to="/my-products-for-sale">My products for sale</NavLink>
                                                             <NavLink to="/my-pending-orders">My pending orders</NavLink>
                                                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
@@ -954,7 +961,7 @@ class SiteHeader extends React.Component {
                                                                             return (
                                                                                 <li key={uuid()}>
                                                                                     <a
-                                                                                        onClick={() => this.props.switchAccountAction(el.accountRS)}
+                                                                                        onClick={() => this.props.switchAccountAction(el.accountRS, this.props.history)}
                                                                                     >
                                                                                         {el.name}
                                                                                     </a>
@@ -1026,8 +1033,16 @@ class SiteHeader extends React.Component {
                                 </div>
                                 <div className="network-overview">
                                     {
+                                        window.innerWidth &&
+                                        this.props.children &&
+                                        <div className="media-page-actions">
+                                            {this.props.children}
+                                        </div>
+                                    }
+                                    {
                                         this.props.appState &&
                                         <a
+                                            className="mt-3"
                                             onClick={() => this.props.setBodyModalParamsAction('INFO_NETWORK')}
                                         >
                                             {this.props.appState.chainName}
@@ -1072,7 +1087,7 @@ const mapDispatchToProps = dispatch => ({
     getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
     setModalData: (reqParams) => dispatch(setModalData(reqParams)),
     getForging: (reqParams) => dispatch(getForging(reqParams)),
-    switchAccountAction: (requestParams) => dispatch(switchAccountAction(requestParams)),
+    switchAccountAction: (requestParams, history) => dispatch(switchAccountAction(requestParams, history)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 

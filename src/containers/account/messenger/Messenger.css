@@ -159,6 +159,23 @@
           position: relative;
           margin-left: 15px;
           white-space: pre; }
+        @media (max-width: 768px) {
+          .messenger .right-bar .card .compose-message-box .bottom-bar, .messenger a .right-bar .card .compose-message-box .bottom-bar {
+            flex-direction: column; }
+            .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app {
+              padding-bottom: 15px;
+              width: 100%; }
+            .messenger .right-bar .card .compose-message-box .bottom-bar .encrypt-message-box, .messenger a .right-bar .card .compose-message-box .bottom-bar .encrypt-message-box {
+              width: 100%; }
+            .messenger .right-bar .card .compose-message-box .bottom-bar input, .messenger a .right-bar .card .compose-message-box .bottom-bar input {
+              margin: 0 0 15px 0;
+              width: 100%; }
+            .messenger .right-bar .card .compose-message-box .bottom-bar .btn, .messenger a .right-bar .card .compose-message-box .bottom-bar .btn {
+              width: 100%;
+              margin: 0; } }
+  @media (max-width: 768px) {
+    .messenger .right-bar, .messenger a .right-bar {
+      height: calc(100vh - 168px); } }
 
 .followed-polls-container {
   min-height: 100%; }

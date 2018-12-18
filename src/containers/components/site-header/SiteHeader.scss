@@ -46,6 +46,11 @@
 					@media (max-width: 1024px) {
 						top: calc(100% + 78px);
 					}
+					@media (max-width: 768px) {
+						top: calc(100% + 63px);
+						left: auto; 
+					}
+					
 					&.active {
 						opacity: 1;
 						transform: none;
@@ -990,10 +995,21 @@
 
 .network-overview {
 	text-align: right;
-	margin-top: 15px;
 
 	a {
 		color: #00c8ff;
+	}
+	.media-page-actions {
+		display: none;
+	}
+	
+	@media(max-width: 1024px) {
+		.media-page-actions {
+			display: block;
+		}
+	}
+	@media(max-width: 768px) {
+		text-align: left;
 	}
 }
 

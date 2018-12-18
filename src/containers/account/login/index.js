@@ -101,7 +101,7 @@ class Login extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                                <div className="btn-box align-buttons-inside absolute right-conner wide">
                                                     <a
                                                         className="btn btn-left round round-bottom-left"
                                                         onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
@@ -150,7 +150,7 @@ class Login extends React.Component {
                                                               placeholder="Secret Phrase" type={'password'}/>
                                                     </div>
                                                 </div>
-                                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                                <div className="btn-box align-buttons-inside absolute right-conner wide">
                                                     <a
                                                         className="btn btn-left round round-bottom-left round-top-right"
                                                         onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
