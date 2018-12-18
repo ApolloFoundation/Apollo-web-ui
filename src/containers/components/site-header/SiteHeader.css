@@ -43,6 +43,10 @@
         @media (max-width: 1024px) {
           .page-header .page-title-box .page-title-box .open-settings .settings-bar {
             top: calc(100% + 78px); } }
+        @media (max-width: 768px) {
+          .page-header .page-title-box .page-title-box .open-settings .settings-bar {
+            top: calc(100% + 63px);
+            left: auto; } }
         .page-header .page-title-box .page-title-box .open-settings .settings-bar.active {
           opacity: 1;
           transform: none;
@@ -732,6 +736,11 @@
   text-align: right; }
   .network-overview a {
     color: #00c8ff; }
+  .network-overview .media-page-actions {
+    display: none; }
+  @media (max-width: 1024px) {
+    .network-overview .media-page-actions {
+      display: block; } }
   @media (max-width: 768px) {
     .network-overview {
       text-align: left; } }

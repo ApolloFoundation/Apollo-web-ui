@@ -4753,10 +4753,6 @@ table td .btn, table th .btn {
   .transactions-title .btn.primary:not(.icon-button) {
     display: none !important; } }
 
-@media (max-width: 760px) {
-  .transactions-title .btn.icon-button {
-    display: none !important; } }
-
 .transactions-title .btn.icon-button.mobile-btn {
   display: none !important; }
   @media (max-width: 760px) {
@@ -4773,6 +4769,13 @@ table td .btn, table th .btn {
   .transactions-title .btn.icon-button .settings-bar {
     transition: 0.2s;
     position: static;
+    display: none !important; } }
+
+.transactions-title .btn.icon-button.FORGING_BODY_MODAL {
+  display: inline-block !important; }
+
+@media (max-width: 760px) {
+  .transactions-title .btn.icon-button {
     display: none !important; } }
 
 .transactions-title .mobile-form-group-app {
@@ -5083,6 +5086,9 @@ table td .btn, table th .btn {
       min-height: auto; }
       .transactions-filters .btn.filter.active {
         border: 1px solid #333333; }
+  @media (max-width: 768px) {
+    .transactions-filters {
+      padding: 0 25px !important; } }
 
 .info-box {
   border-radius: 3px;

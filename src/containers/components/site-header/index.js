@@ -243,10 +243,12 @@ class SiteHeader extends React.Component {
                                         {
                                             this.props.dashboardPage &&
                                             <React.Fragment>
-                                                <div className={classNames({
-                                                    "general": true,
-                                                    "open-settings": true
-                                                })}>
+                                                <div 
+                                                    className={classNames({
+                                                        "general": true,
+                                                        "open-settings": true
+                                                    })}
+                                                >
                                                     <div
                                                         onClick={(e) => this.setBodyModalType('FORGING_BODY_MODAL', e)}
                                                         className={classNames({

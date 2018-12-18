@@ -2822,9 +2822,6 @@ table {
 		}
 	}
 	.btn.icon-button {
-		@media (max-width: 760px) {
-			display: none !important;
-		}
 		&.mobile-btn {
 			display: none !important;
 			@media (max-width: 760px) {
@@ -2846,6 +2843,12 @@ table {
 				position: static;
 				display: none !important;
 			}
+		}
+		&.FORGING_BODY_MODAL {
+			display: inline-block !important;
+		}
+		@media (max-width: 760px) {
+			display: none !important;
 		}
 	}
 	.mobile-form-group-app {
