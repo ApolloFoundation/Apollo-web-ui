@@ -13,10 +13,11 @@ const ContentHendler = (props) => (
         {
             props.items &&
             props.items.length === 0 &&
-            <InfoBox default>
-                {props.emptyMessage}
-            </InfoBox>
-
+            <div>
+                <InfoBox default>
+                    {props.emptyMessage}
+                </InfoBox>
+            </div>
         }
         {
             !props.items &&
