@@ -8,7 +8,7 @@ const config = {};
 
 // API Gateway
 config.api = {
-    serverUrl: 'https://apolloface-reactdev.firstbridge.work/apl?',
+    serverUrl: 'http://51.15.114.68:6876/apl?',
     localServerUrl: 'https://apollocurrency.com/api/client/twitter'
 };
 
