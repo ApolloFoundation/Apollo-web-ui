@@ -204,7 +204,7 @@ class UploadFile extends React.Component {
                                             </div> :
                                             <button
                                                 style={{
-                                                    width: 56.25
+                                                    width: 70
                                                 }}
                                                 type="submit"
                                                 name={'closeModal'}
