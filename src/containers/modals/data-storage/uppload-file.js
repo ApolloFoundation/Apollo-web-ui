@@ -192,7 +192,7 @@ class UploadFile extends React.Component {
                                         !!this.state.isPending ?
                                             <div
                                                 style={{
-                                                    width: 56.25
+                                                    width: 70
                                                 }}
                                                 className="btn btn-right blue round round-bottom-right"
                                             >
