@@ -1517,8 +1517,8 @@ input {
 	box-sizing: border-box;
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
-	@include safariButtonALign();
-
+	margin: 0;
+	
 	&.oversized {
 			margin: 5px 5px 5px 0;
 	}
