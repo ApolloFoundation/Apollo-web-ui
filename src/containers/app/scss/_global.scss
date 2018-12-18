@@ -1762,17 +1762,6 @@ input[type="file"] {
 	}
 }
 
-.flexible-grid {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	& > * {
-		margin-top: 15px !important;
-		margin-right: 15px !important;
-	}
-}
-
 // btn
 .btn {
 	position: absolute;
@@ -2044,6 +2033,17 @@ input[type="file"] {
 		display: inline-block !important;
 		background-color: #e1e1e1 !important;
 		pointer-events: none;
+	}
+}
+
+.flexible-grid {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	& > * {
+		margin-top: 15px;
+		margin-right: 15px;
 	}
 }
 
