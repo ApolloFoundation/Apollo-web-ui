@@ -122,17 +122,7 @@ input[type="radio"] {
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  background: url(../../assets/number-arrows.png) no-repeat center center;
-  background-size: contain;
-  width: 9px;
-  margin-right: 6px;
-  opacity: 1;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  cursor: pointer; }
+  -webkit-appearance: none; }
 
 .input-text-wrap {
   display: flex;
@@ -1114,7 +1104,7 @@ input {
   .btn.underscore:after {
     content: '';
     position: absolute;
-    top: calc(100% + 46px);
+    top: calc(100% + 69px);
     z-index: 4;
     left: 0;
     width: 0%;
@@ -1124,7 +1114,7 @@ input {
     transition: all 0.3s ease-in-out; }
     @media (max-width: 1024px) {
       .btn.underscore:after {
-        top: calc(100% + 42px); } }
+        top: calc(100% + 75px); } }
   .btn.revert-content .to-revert {
     transform: rotateX(-180deg); }
   .btn.absolute {
