@@ -893,6 +893,7 @@ input[type="file"] {
 				.marketplace-image {
 					margin: 0;
 					height: 300px;
+					margin: 0;
 				}
 			}
 			.bottom-bar {
@@ -900,6 +901,10 @@ input[type="file"] {
 					padding: 35px;
 					line-height: 1.6;
 				}
+			}
+			@media(max-width: 768px) {
+				width: 100%;
+				margin: 0;
 			}
 		}
 		.right-bar {
@@ -915,6 +920,14 @@ input[type="file"] {
 			.info-table {
 				padding-bottom: 30px;
 			}
+			@media(max-width: 768px) {
+				width: 100%;
+				padding: 35px 35px 69px 35px;
+			}
+		}
+		@media(max-width: 768px) {
+			flex-direction: column;
+			padding: 0;
 		}
 	}
 	&.about {
