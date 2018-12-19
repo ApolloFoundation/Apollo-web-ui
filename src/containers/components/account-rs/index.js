@@ -15,6 +15,7 @@ class AccountRS extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            prefix: this.props.constants ? this.props.constants.accountPrefix : '',
             contacts: JSON.parse(localStorage.getItem('APLContacts')),
             inputValue: {
                 mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
@@ -49,29 +50,30 @@ class AccountRS extends React.Component {
 
     setInputValue = (value) => {
         const newState = {
-            mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
+            mask: `${this.state.prefix}-****-****-****-*****`,
             value: value.toUpperCase()
         };
 
 
-        this.props.setValue(this.props.field, value.indexOf(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`) === -1 ? 'APl-' + value : value);
+        this.props.setValue(this.props.field, value.indexOf(`${this.state.prefix}-`) === -1 ? 'APl-' + value : value);
         this.setState({inputValue: newState});
     };
 
     onChange = (event) => {
         let value;
+        const {prefix} = this.state;
 
         if (event.type === 'paste') {
             value = event.clipboardData.getData('text/plain');
 
-            if (value.includes(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`) && value.indexOf(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`) === 0) {
-                value = value.replace(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`, '');
+            if (value.includes(`${prefix}-`) && value.indexOf(`${prefix}-`) === 0) {
+                value = value.replace(`${prefix}-`, '');
 
                 this.setInputValue(value);
             }
         } else {
             value = event.target.value;
-            if (value.indexOf('APL-APL') === -1) {
+            if (value.indexOf(`${prefix}-${prefix}`) === -1) {
 
                 this.setInputValue(value);
             }
