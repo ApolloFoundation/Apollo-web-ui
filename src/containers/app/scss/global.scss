@@ -1,134 +1,10 @@
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-Regular.eot');
-	src: url('../../fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-Regular.woff2') format('woff2'),
-	url('../../fonts/Roboto-Regular.woff') format('woff'),
-	url('../../fonts/Roboto-Regular.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
+@import "~roboto-fontface/css/roboto/roboto-fontface.css";
+@mixin safariButtonALign() {
+	height: 33px;
+	margin: auto;
 }
+  
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-Light.eot');
-	src: url('../../fonts/Roboto-Light.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-Light.woff2') format('woff2'),
-	url('../../fonts/Roboto-Light.woff') format('woff'),
-	url('../../fonts/Roboto-Light.ttf') format('truetype');
-	font-weight: 300;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-Italic.eot');
-	src: url('../../fonts/Roboto-Italic.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-Italic.woff2') format('woff2'),
-	url('../../fonts/Roboto-Italic.woff') format('woff'),
-	url('../../fonts/Roboto-Italic.ttf') format('truetype');
-	font-weight: normal;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-Thin.eot');
-	src: url('../../fonts/Roboto-Thin.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-Thin.woff2') format('woff2'),
-	url('../../fonts/Roboto-Thin.woff') format('woff'),
-	url('../../fonts/Roboto-Thin.ttf') format('truetype');
-	font-weight: 100;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-MediumItalic.eot');
-	src: url('../../fonts/Roboto-MediumItalic.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-MediumItalic.woff2') format('woff2'),
-	url('../../fonts/Roboto-MediumItalic.woff') format('woff'),
-	url('../../fonts/Roboto-MediumItalic.ttf') format('truetype');
-	font-weight: 500;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-LightItalic.eot');
-	src: url('../../fonts/Roboto-LightItalic.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-LightItalic.woff2') format('woff2'),
-	url('../../fonts/Roboto-LightItalic.woff') format('woff'),
-	url('../../fonts/Roboto-LightItalic.ttf') format('truetype');
-	font-weight: 300;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-Bold.eot');
-	src: url('../../fonts/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-Bold.woff2') format('woff2'),
-	url('../../fonts/Roboto-Bold.woff') format('woff'),
-	url('../../fonts/Roboto-Bold.ttf') format('truetype');
-	font-weight: bold;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-BoldItalic.eot');
-	src: url('../../fonts/Roboto-BoldItalic.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-BoldItalic.woff2') format('woff2'),
-	url('../../fonts/Roboto-BoldItalic.woff') format('woff'),
-	url('../../fonts/Roboto-BoldItalic.ttf') format('truetype');
-	font-weight: bold;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-Black.eot');
-	src: url('../../fonts/Roboto-Black.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-Black.woff2') format('woff2'),
-	url('../../fonts/Roboto-Black.woff') format('woff'),
-	url('../../fonts/Roboto-Black.ttf') format('truetype');
-	font-weight: 900;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-BlackItalic.eot');
-	src: url('../../fonts/Roboto-BlackItalic.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-BlackItalic.woff2') format('woff2'),
-	url('../../fonts/Roboto-BlackItalic.woff') format('woff'),
-	url('../../fonts/Roboto-BlackItalic.ttf') format('truetype');
-	font-weight: 900;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-ThinItalic.eot');
-	src: url('../../fonts/Roboto-ThinItalic.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-ThinItalic.woff2') format('woff2'),
-	url('../../fonts/Roboto-ThinItalic.woff') format('woff'),
-	url('../../fonts/Roboto-ThinItalic.ttf') format('truetype');
-	font-weight: 100;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-Medium.eot');
-	src: url('../../fonts/Roboto-Medium.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-Medium.woff2') format('woff2'),
-	url('../../fonts/Roboto-Medium.woff') format('woff'),
-	url('../../fonts/Roboto-Medium.ttf') format('truetype');
-	font-weight: 500;
-	font-style: normal;
-}
 
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 	margin: 0;
@@ -139,31 +15,13 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 	list-style: none;
 	//color: #101010;
 	color: #333333;
+	font-family: "Roboto-Regular";
 }
 
 html, body {
 	background-color: #F5F5F5;
 	word-break: break-word;
-	font-family: "Roboto", sans-serif;
-	font-weight: 400;
-}
-
-
-// These styles counted only for desctop version
-#root {
-	&.isDesctop {
-		.form-group {
-			transform: translateY(1px)
-		}
-		.input-icon {
-			height: 33px;
-			transform: translateY(2px);
-		}
-		.input-group-append {
-			height: 32px; 
-			transform: translateY(2px);
-		}
-	}
+	
 }
 
 //*:focus, *:active, *:hover {
@@ -200,11 +58,6 @@ html, body {
 
 ::-ms-input-placeholder {
 	color: #a6a6a6 !important;
-}
-
-.custom-hint {
-	position: absolute;
-	z-index: 10;
 }
 
 html {
@@ -317,7 +170,6 @@ input[type="checkbox"] {
 	cursor: pointer;
 }
 
-input[type="tel"],
 input[type="number"] {
 	position: relative;
 }
@@ -330,16 +182,6 @@ input[type="radio"] {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
-	background: url(../../assets/number-arrows.png) no-repeat center center;
-	background-size: contain;
-	width: 9px;
-	margin-right: 6px;
-	opacity: 1;
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	cursor: pointer;
 }
 
 .input-text-wrap {
@@ -383,11 +225,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .word-brake {
 	word-wrap: break-word;
-	word-break: break-word;
-	display: block;
-	a, p {
-		display: block;
-	}
+	word-break: break-all;
 }
 
 .loader-box {
@@ -413,46 +251,16 @@ textarea {
 	padding: 10px 20px;
 	box-sizing: border-box;
 	font-size: 13px;
+	font-family: "Roboto-Regular";
 }
 
 input {
 	padding: 10px 20px;
 	font-size: 13px;
+	font-family: "Roboto-Regular";
 	
 	&.not-active {
 		pointer-events: none;
-	}
-}
-
-input[type="file"] {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	opacity: 0;
-}
-
-.input-file-area {
-	width: calc(100% - 59px);
-	border: 1px solid;
-	border-radius: 0 5px 5px 0;
-	border-color: #e5e5e5;
-	border: 1px solid #E5E5E5;
-	background-color: transparent;
-	display: flex;
-	align-items: center;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: pre;
-	
-	.input-file-name {
-		padding-left: 12px;
-		margin: auto 0;
-		font-size: 11px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: pre;
 	}
 }
 
@@ -541,7 +349,7 @@ input[type="file"] {
 		top: -10px;
 		right: -10px;
 		color: #333;
-		font-weight: 700;
+		font-family: 'Roboto-Bold';
 		font-size: 11px;
 		height: 21px;
 		width: 21px;
@@ -550,14 +358,12 @@ input[type="file"] {
 		background-color: #00C8FF;
 		border-radius: 100%;
 		border: 3px solid #333;
-		font-family: 'Roboto', sans-serif;
 	}
 	&.big-count {
 		&:after {
 			right: -20px;
 			width: auto;
 			padding: 0 2px;
-			font-family: 'Roboto', sans-serif;
 		}
 	}
 }
@@ -680,7 +486,7 @@ input[type="file"] {
 	}
 	
 	&.page-loader-image {
-		mask-image: url("https://apollowallet.org/apollo-logo.svg");
+		mask-image: url("~/apollo-logo.svg");
 		mask-repeat: no-repeat;
 		mask-position: center;
 		mask-size: 40px 40px;
@@ -761,7 +567,7 @@ input[type="file"] {
 	}
 	&.nowrap {
 		p {
-			word-break: unset;
+			word-break: normal;
 		}
 	}
 	p {
@@ -776,31 +582,6 @@ input[type="file"] {
 
 .no-margin {
 	margin: 0 !important;
-}
-
-.phased-transaction {
-	.phasing-box__phasing-description {
-		border: 1px solid #666;
-		width: 300px;
-		background-color: #fff;
-		box-sizing: border-box;
-		transition: all 0.3s ease-in-out;
-		transform: translateY(-15px);
-
-		&::after {
-			content: '';
-			height: 15px;
-			width: 15px;
-			border-bottom: 1px solid #666;
-			border-right: 1px solid #666;
-			transform: rotate(45deg) translateX(-50%);
-			position: absolute;
-			left: 50%;
-			bottom: -14px;
-			z-index: 2;
-			background: #fff;
-		}
-	}
 }
 
 .no-padding {
@@ -1056,7 +837,7 @@ input[type="file"] {
 		margin: 0 -35px -70px;
 		background-color: #ccc;
 		background-repeat: no-repeat;
-		background-size: contain;
+		background-size: cover;
 		background-position: center;
 		
 		&.no-image {
@@ -1075,24 +856,7 @@ input[type="file"] {
 	.form-title {
 		//padding-top: 30px;
 		padding-bottom: 23px;
-		.backMy {
-			width: 16px;
-			height: 16px;
-			background-repeat: no-repeat;
-			background-size: contain;
-			background-position: left;
-			background-image: url(../../assets/left-arrow1.svg);
-			margin-right: 8px;
-			cursor: pointer;
-			display: inline-block;
-			vertical-align: middle;
-			transition: 0.2s;
-			float: left;
-			margin-top: 10px;
-			&:hover {
-				opacity: 0.7;
-			}
-		}
+		
 		&.inline {
 			& > * {
 				vertical-align: middle;
@@ -1116,14 +880,12 @@ input[type="file"] {
 		}
 		p {
 			color: #333333;
+			font-family: "Roboto-Regular";
 			font-size: 24px;
 			word-break: break-word;
 			line-height: 1.6;
 			//margin-top: -10px;
 			padding-right: 30px;
-			display: block;
-			vertical-align: middle;
-			word-wrap: break-word;
 		}
 		.form-sub-title {
 			margin-top: 10px;
@@ -1137,6 +899,7 @@ input[type="file"] {
 	}
 	.form-sub-title {
 		color: #BBBBBB;
+		font-family: "Roboto-Regular";
 		font-size: 12px;
 		line-height: 19px;
 		margin-top: -12px;
@@ -1225,7 +988,6 @@ input[type="file"] {
 			flex-direction: row;
 			justify-content: space-between;
 			position: absolute;
-			overflow-x: auto;
 			bottom: 100%;
 			right: 20px;
 			left: 20px;
@@ -1242,7 +1004,6 @@ input[type="file"] {
 			
 			.form-tab {
 				display: flex;
-				align-items: center;
 				width: 54px;
 				height: 32px;
 				border-top-left-radius: 6px;
@@ -1252,7 +1013,7 @@ input[type="file"] {
 					background-color: #F5F5F5;
 				}
 				p {
-					font-size: 14px !important;
+					font-size: 13px !important;
 				}
 				& > * {
 					margin: auto;
@@ -1384,6 +1145,7 @@ input[type="file"] {
 		}
 		.calculate-fee {
 			color: #00C8FF;
+			font-family: "Roboto-Regular";
 			font-size: 10px;
 			line-height: 14px;
 			padding-left: 5px;
@@ -1415,7 +1177,6 @@ input[type="file"] {
 			font-size: 11.5px;
 			border-radius: 5px;
 			padding: 0.25rem 25px 0.2rem 0.5rem;
-			min-height: 32px;
 			&select {
 				background-color: #e5e5e5;
 			}
@@ -1496,6 +1257,7 @@ input[type="file"] {
 		}
 		.calculate-fee {
 			color: #00C8FF;
+			font-family: "Roboto-Regular";
 			font-size: 10px;
 			line-height: 14px;
 			padding-left: 5px;
@@ -1531,11 +1293,6 @@ input[type="file"] {
 			display: inline-block;
 		}
 	}
-	&.align-top {
-		label {
-			align-self: flex-start;
-		}
-	}
 	.row {
 		margin-right: -15px !important;
 		margin-left: -15px !important;
@@ -1553,8 +1310,7 @@ input[type="file"] {
 	}
 	&.search, &.user {
 		i {
-			margin: 0 !important;
-			padding: 0 7px !important;
+		
 		}
 		input {
 			display: block;
@@ -1567,11 +1323,8 @@ input[type="file"] {
 			text-align: center;
 			cursor: pointer;
 			display: flex;
-			align-items: center;
-			justify-content: center;
 			border-radius: 3px;
-			height: 33px;
-			margin: auto;
+			@include safariButtonALign();
 			
 			&.text {
 				width: auto;
@@ -1579,8 +1332,8 @@ input[type="file"] {
 				i {
 					font-style: normal;
 					font-size: 11px;
-					padding: 8px 10px;
-					white-space: pre;
+					padding: 0 10px;
+					
 				}
 			}
 		}
@@ -1610,6 +1363,7 @@ input[type="file"] {
 	.calculate-fee {
 		display: inline-block;
 		color: #00C8FF;
+		font-family: "Roboto-Regular";
 		font-size: 12px;
 		line-height: 14px;
 		padding-right: 20px;
@@ -1619,14 +1373,6 @@ input[type="file"] {
 		width: 32px;
 		display: table-cell;
 		
-		&.text {
-			width: auto;
-			font-size: 12px;
-			
-			&.btn {
-				background: #00C8FF;
-			}
-		}
 		i {
 			margin: auto;
 		}
@@ -1636,6 +1382,7 @@ input[type="file"] {
 	}
 	label {
 		display: table-cell;
+		font-family: "Roboto-Regular";
 		line-height: 14px;
 		padding: 0 0 0 5px;
 		font-size: 13.5px;
@@ -1649,19 +1396,14 @@ input[type="file"] {
 	}
 }
 
-.preview-image-container {
-	padding: 5px;
-	border-radius: 6px;
-	border: 1px solid #E5E5E5;
-	width: 150px;
-}
-
 .preview-image {
 	padding: 0;
-	width: 100%;
+	max-width: 150px;
 	height: 100px;
+	border-radius: 6px;
+	border: 1px solid #E5E5E5;
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: cover;
 	background-position: center;
 }
 
@@ -1754,6 +1496,17 @@ input[type="file"] {
 	}
 }
 
+.flexible-grid {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	& > * {
+		margin-top: 15px;
+		margin-right: 15px;
+	}
+}
+
 // btn
 .btn {
 	background-color: #666666;
@@ -1763,24 +1516,8 @@ input[type="file"] {
 	box-sizing: border-box;
 	z-index: 1;
 	padding: 11px 11px 11px 9px;
-	margin: 0;
+	@include safariButtonALign();
 
-	&.under-table {
-		transform: translate(0, 0px);
-		@media (max-width: 1024px) {
-			transform: translate(0, -17px);
-		}
-	}
-	&.loading {
-		pointer-events: none;
-
-		.button-loader {
-			visibility: visible;
-		}
-		.button-text {
-			visibility: hidden;
-		}
-	}
 	&.oversized {
 		margin: 5px 5px 5px 0;
 	}
@@ -1920,10 +1657,11 @@ input[type="file"] {
 		border: 0;
 	}
 	&.transparent {
-		background-color: rgba(255, 255, 255, 0) !important;
+		background-color: transparent !important;
 	}
 	&.btn-simple {
 		color: #BBBBBB;
+		font-family: "Roboto-Regular";
 		font-size: 12px;
 		line-height: 14px;
 		bottom: 10px;
@@ -1954,7 +1692,7 @@ input[type="file"] {
 		border-radius: 6px;
 		font-size: 12px;
 		min-height: 25px;
-		//font-weight: 100;
+		font-weight: 100;
 		letter-spacing: -0.1px;
 		margin-top: 15px;
 		position: static;
@@ -2041,31 +1779,6 @@ input[type="file"] {
 		background-color: #e1e1e1 !important;
 		pointer-events: none;
 	}
-	&.submit-button {
-		& > * {
-			transition: 0s;
-		}
-	}
-
-	.button-loader {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		visibility: hidden;
-	}
-}
-
-
-.flexible-grid {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	& > * {
-		margin-top: 15px;
-		margin-right: 15px;
-	}
 }
 
 .input-block {
@@ -2149,6 +1862,7 @@ input[type="file"] {
 			padding: 35px 22.5px;
 		}
 		.card-title {
+			font-family: "Roboto-Regular";
 			font-size: 16px;
 			line-height: 18px;
 			color: #fff;
@@ -2178,9 +1892,9 @@ input[type="file"] {
 		.amount {
 			//margin-top: 20px;
 			color: #FFFFFF;
+			font-family: "Roboto-Regular";
 			font-size: 36px;
 			line-height: 1;
-			padding-right: 50px;
 			position: relative;
 			margin: 15px 0;
 			@media (max-width: 1850px) {
@@ -2397,6 +2111,10 @@ input[type="file"] {
 			color: #FFFFFF;
 			font-size: 24px;
 			padding-bottom: 5px;
+
+			@media(max-width: 1440px) {
+				font-size: 18px;
+			}
 		}
 		.bottom-bar {
 			width: 60px;
@@ -2406,15 +2124,15 @@ input[type="file"] {
 	}
 	.card-title {
 		color: #333333;
+		font-family: "Roboto-Regular";
 		font-size: 16px;
 		line-height: 18px;
-		font-weight: 400;
 	}
 	.card-title-date {
 		color: #FFFFFF;
+		font-family: "Roboto-Regular";
 		font-size: 24px;
 		margin-top: 19px;
-		font-weight: 400;
 	}
 	.amount {
 	
@@ -2494,10 +2212,10 @@ input[type="file"] {
 		}
 		label {
 			color: #777777;
+			font-family: "Roboto-Regular";
 			font-size: 12px;
 			line-height: 14px;
 			padding-right: 20px;
-			font-weight: 400;
 		}
 	}
 }
@@ -2525,30 +2243,6 @@ input[type="file"] {
 				min-height: 0;
 			}
 		}
-	}
-	@media (max-width: 1440px) {
-		.page-body-item {
-			.card {
-				.general-info {
-					.general-info-item {
-						.top-bar {
-							font-size: 16px;
-						}
-					}
-				}
-				.amount {
-					font-size: 19px;
-					
-					.currency {
-						font-size: 14px;
-					}
-					.owned {
-						font-size: 16px;
-					}
-				}
-			}
-		}
-		
 	}
 	@media (max-width: 1230px) {
 		height: auto;
@@ -2599,7 +2293,6 @@ input[type="file"] {
 		
 		&.card-tall {
 			min-height: 520px;
-			
 			@media (max-width: 760px) {
 				min-height: auto;
 			}
@@ -2657,6 +2350,11 @@ input[type="file"] {
 		}
 	}
 	.page-body-item-content {
+		@media (max-width: 1440px) {
+			.amount {
+				font-size: 20px
+			}
+		}
 		@media (max-width: 760px) {
 			max-height: 0;
 			opacity: 0;
@@ -2707,27 +2405,9 @@ table {
 }
 
 .assets-exchange {
+	//max-height: calc(100vh);
 	& > .row {
-		position: relative;
-		@media (min-width: 768px) {
-			min-height: calc(100vh - 135px) !important;
-		}
-	}
-	.right-col {
-		@media (min-width: 768px) {
-			margin-left: 25%;
-		}
-	}
-	.left-col {
-		@media (min-width: 768px) {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			height: 100%;
-		}
-	}
-	.one-col{
-		max-height: calc(100vh - 135px);
+		//min-height: 810px !important;
 	}
 	.row {
 		//min-height: 100%;
@@ -2805,6 +2485,9 @@ table {
 		}
 	}
 	.btn.icon-button {
+		@media (max-width: 760px) {
+			display: none !important;
+		}
 		&.mobile-btn {
 			display: none !important;
 			@media (max-width: 760px) {
@@ -2826,12 +2509,6 @@ table {
 				position: static;
 				display: none !important;
 			}
-		}
-		&.FORGING_BODY_MODAL {
-			display: inline-block !important;
-		}
-		@media (max-width: 760px) {
-			display: none !important;
 		}
 	}
 	.mobile-form-group-app {
@@ -2875,19 +2552,6 @@ table {
 
 .custom-checkbox {
 	padding-left: 16px;
-	&.single {
-		display: flex;
-		
-		input[type="checkbox"] {
-			margin: 0;
-			
-		}
-		.form-check-label::before,
-		.form-check-label::after {
-			display: none;
-			
-		}
-	}
 	.custom-control-input {
 		z-index: 1;
 		position: absolute;
@@ -2915,7 +2579,6 @@ table {
 		box-shadow: none;
 		cursor: pointer;
 	}
-	
 	label.custom-control-label {
 		padding-left: 10px;
 		color: #333333;
@@ -3019,72 +2682,4 @@ table {
 .full-info td {
 	white-space: normal;
 	word-wrap: break-word;
-}
-
-//.followed-polls-item-title p {
-//	max-height: 75px;
-//	overflow: hidden;
-//	text-overflow: ellipsis;
-//}
-//
-//.followed-polls-item-description {
-//	padding-bottom: 0 !important;
-//}
-//
-//.followed-polls-item-description p {
-//	max-height: 50px;
-//	overflow: hidden;
-//	text-overflow: ellipsis;
-//}
-
-.form-control {
-	min-height: 32px;
-}
-
-.height-auto {
-	height: auto !important;
-}
-
-.marketplace-preview {
-	margin-bottom: 30px;
-}
-
-.no-file-selected {
-	color: #999999;
-	font-size: 12px;
-	line-height: 14px;
-}
-
-.mt-20 {
-	margin-top: 20px;
-}
-
-.nowrap {
-	white-space: unset;
-}
-
-.bold {
-	font-weight: bold;
-}
-
-.table-item {
-	border-bottom: 1px solid #E5E5E5;
-	padding-bottom: 14px;
-	margin-bottom: 14px;
-	&:last-of-type {
-		border-bottom: 1px solid rgba(#fff, 0);
-		padding-bottom: 0;
-		margin-bottom: 0;
-	}
-}
-
-.asset-btns-block {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	padding: 0 15px;
-	.btn {
-		margin-top: 10px;
-		margin-right: 10px;
-	}
 }
