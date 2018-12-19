@@ -73,6 +73,16 @@ class SendApolloPrivate extends React.Component {
                 approximateMixingDuration: values.duration  // Minutes 
             });
 
+            if (values.amountATM < 100) {
+                NotificationManager.error('Minimal amountATM shold exceed 100 Apollo while using mixer.', 'Error', 5000);
+                return;
+            }
+
+            if (values.duration < 15) {
+                NotificationManager.error('Mixing duration should exceed 15 minutes.', 'Error', 5000);
+                return;
+            }
+
             values.recipient = values.mixerAccount;
             values.recipientPublicKey = values.mixerPublicKey;
             
@@ -83,17 +93,17 @@ class SendApolloPrivate extends React.Component {
             isPending: true
         });
 
-        const privateTransaction = this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'));
+        this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'))
+            .done((privateTransaction) => {
+                if (privateTransaction && privateTransaction.errorCode) {
+                    NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
+    
+                } else {
+                    NotificationManager.success('Private transaction has been submitted.', null, 5000);
+                    this.props.setBodyModalParamsAction(null, {});
+                }
+            })
 
-        if (privateTransaction) {
-            if (privateTransaction.responseJSON && privateTransaction.responseJSON.errorCode) {
-                NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
-
-            } else {
-                NotificationManager.success('Private transaction has been submitted.', null, 5000);
-                this.props.setBodyModalParamsAction(null, {});
-            }
-        }
     }
 
     handleTabChange(tab) {
@@ -259,7 +269,7 @@ class SendApolloPrivate extends React.Component {
                                                 type={"float"}
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
-                                                <span className="input-group-text">Seconds</span>
+                                                <span className="input-group-text">Minutes</span>
                                             </div>
                                         </div>
                                     </div>
