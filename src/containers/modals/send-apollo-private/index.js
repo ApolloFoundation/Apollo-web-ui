@@ -43,6 +43,19 @@ class SendApolloPrivate extends React.Component {
         this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
+    componentDidMount = async () => {
+        const mixerData = await getMixerAccount();
+        
+        const mixerAccount = mixerData.rsId;
+
+        mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`)
+
+        this.setState({
+            mixerData
+        })
+
+    }
+
     async handleFormSubmit(values) {
         if (!values.recipient) {
             this.setState({
@@ -73,6 +86,16 @@ class SendApolloPrivate extends React.Component {
                 approximateMixingDuration: values.duration  // Minutes 
             });
 
+            if (values.amountATM < 100) {
+                NotificationManager.error('Minimal amountATM shold exceed 100 Apollo while using mixer.', 'Error', 5000);
+                return;
+            }
+
+            if (values.duration < 15) {
+                NotificationManager.error('Mixing duration should exceed 15 minutes.', 'Error', 5000);
+                return;
+            }
+
             values.recipient = values.mixerAccount;
             values.recipientPublicKey = values.mixerPublicKey;
             
@@ -83,17 +106,17 @@ class SendApolloPrivate extends React.Component {
             isPending: true
         });
 
-        const privateTransaction = this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'));
+        this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'))
+            .done((privateTransaction) => {
+                if (privateTransaction && privateTransaction.errorCode) {
+                    NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
+    
+                } else {
+                    NotificationManager.success('Private transaction has been submitted.', null, 5000);
+                    this.props.setBodyModalParamsAction(null, {});
+                }
+            })
 
-        if (privateTransaction) {
-            if (privateTransaction.responseJSON && privateTransaction.responseJSON.errorCode) {
-                NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
-
-            } else {
-                NotificationManager.success('Private transaction has been submitted.', null, 5000);
-                this.props.setBodyModalParamsAction(null, {});
-            }
-        }
     }
 
     handleTabChange(tab) {
@@ -124,13 +147,8 @@ class SendApolloPrivate extends React.Component {
     };
 
     handleUseMixer = async (e) => {
-        const mixerData = await getMixerAccount();
         
-        const mixerAccount = mixerData.rsId;
-
-        mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`)
         this.setState({
-            mixerData,
             useMixer: e
         })
     }
@@ -228,22 +246,26 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="mobile-class row mb-15 form-group-white">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox">
-                                            <Checkbox 
-                                                onChange={(e) => this.handleUseMixer(e)}
-                                                className="form-check-input custom-control-input"
-                                                type="checkbox"
-                                                field="isMixer"
-                                            />
-                                            <label className="form-check-label custom-control-label">
-                                                Use Mixer
-                                            </label>
+                                
+                                {
+                                    this.state.mixerData && 
+                                    <div className="mobile-class row mb-15 form-group-white">
+                                        <div className="col-md-9 offset-md-3">
+                                            <div className="form-check custom-checkbox">
+                                                <Checkbox 
+                                                    onChange={(e) => this.handleUseMixer(e)}
+                                                    className="form-check-input custom-control-input"
+                                                    type="checkbox"
+                                                    field="isMixer"
+                                                />
+                                                <label className="form-check-label custom-control-label">
+                                                    Use Mixer
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
+                                
 
                                 {
                                     this.state.useMixer &&
@@ -259,7 +281,7 @@ class SendApolloPrivate extends React.Component {
                                                 type={"float"}
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
-                                                <span className="input-group-text">Seconds</span>
+                                                <span className="input-group-text">Minutes</span>
                                             </div>
                                         </div>
                                     </div>
