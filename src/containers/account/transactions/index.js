@@ -519,7 +519,8 @@ class Transactions extends React.Component {
                                         }
                                         </tbody>
                                     </table>
-                                    {
+                                </div>
+                                {
                                         this.state.transactions &&
                                         <div className="btn-box">
                                             <a
@@ -545,7 +546,6 @@ class Transactions extends React.Component {
                                             >Next</a>
                                         </div>
                                     }
-                                </div>
                             </ContentHendler>
                         </div>
                     </div>
