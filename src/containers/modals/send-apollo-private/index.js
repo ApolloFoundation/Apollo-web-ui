@@ -43,6 +43,19 @@ class SendApolloPrivate extends React.Component {
         this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
+    componentDidMount = async () => {
+        const mixerData = await getMixerAccount();
+        
+        const mixerAccount = mixerData.rsId;
+
+        mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`)
+
+        this.setState({
+            mixerData
+        })
+
+    }
+
     async handleFormSubmit(values) {
         if (!values.recipient) {
             this.setState({
@@ -134,13 +147,8 @@ class SendApolloPrivate extends React.Component {
     };
 
     handleUseMixer = async (e) => {
-        const mixerData = await getMixerAccount();
         
-        const mixerAccount = mixerData.rsId;
-
-        mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`)
         this.setState({
-            mixerData,
             useMixer: e
         })
     }
@@ -238,22 +246,26 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="mobile-class row mb-15 form-group-white">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox">
-                                            <Checkbox 
-                                                onChange={(e) => this.handleUseMixer(e)}
-                                                className="form-check-input custom-control-input"
-                                                type="checkbox"
-                                                field="isMixer"
-                                            />
-                                            <label className="form-check-label custom-control-label">
-                                                Use Mixer
-                                            </label>
+                                
+                                {
+                                    this.state.mixerData && 
+                                    <div className="mobile-class row mb-15 form-group-white">
+                                        <div className="col-md-9 offset-md-3">
+                                            <div className="form-check custom-checkbox">
+                                                <Checkbox 
+                                                    onChange={(e) => this.handleUseMixer(e)}
+                                                    className="form-check-input custom-control-input"
+                                                    type="checkbox"
+                                                    field="isMixer"
+                                                />
+                                                <label className="form-check-label custom-control-label">
+                                                    Use Mixer
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
+                                
 
                                 {
                                     this.state.useMixer &&
