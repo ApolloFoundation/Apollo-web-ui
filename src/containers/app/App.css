@@ -3449,10 +3449,15 @@ input[type="file"] {
       border-right: 5px solid #E6E6E6; }
       .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
-        height: 300px; }
+        height: 300px;
+        margin: 0; }
       .form-group-app.devided .left-bar .bottom-bar .description {
         padding: 35px;
         line-height: 1.6; }
+      @media (max-width: 768px) {
+        .form-group-app.devided .left-bar {
+          width: 100%;
+          margin: 0; } }
     .form-group-app.devided .right-bar {
       width: 50%; }
       .form-group-app.devided .right-bar .price {
@@ -3463,6 +3468,14 @@ input[type="file"] {
         line-height: 18px; }
       .form-group-app.devided .right-bar .info-table {
         padding-bottom: 30px; }
+      @media (max-width: 768px) {
+        .form-group-app.devided .right-bar {
+          width: 100%;
+          padding: 35px 35px 69px 35px; } }
+    @media (max-width: 768px) {
+      .form-group-app.devided {
+        flex-direction: column;
+        padding: 0; } }
   .form-group-app.about .left-bar {
     width: 200px;
     margin: 0; }
