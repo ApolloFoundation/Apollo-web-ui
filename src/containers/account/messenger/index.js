@@ -57,8 +57,6 @@ class Messenger extends React.Component {
             this.updateChatData(this.props);
         }
         BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
             this.updateChatData(this.props);
         });
 	};
@@ -205,7 +203,14 @@ class Messenger extends React.Component {
             chatHistory: null 
         }, () => {
             this.props.history.push('/messenger')
+            this.handleChatLoading(false)
         });
+    }
+
+    handleChatLoading = (action) => {
+        this.setState({
+            isChatLoading: action
+        })
     }
 
     render (){
@@ -234,9 +239,9 @@ class Messenger extends React.Component {
                                 (window.innerWidth < 768 && !(this.state.chatHistory && this.state.chatHistory.length))) &&
                                 <div className="col-md-3">
                                     <div className="left-bar">
-                                        <div className="card card-full-screen no-padding scroll">
+                                        <div className={`card card-full-screen no-padding scroll ${this.state.isChatLoading ? 'loading' : ''}`}>
                                             {
-                                                this.state.chats &&
+                                                (this.state.chats && !this.state.isChatLoading) &&
                                                 <React.Fragment>
                                                     {
                                                         !!this.state.chats.length &&
@@ -247,6 +252,7 @@ class Messenger extends React.Component {
                                                                     to={'/messenger/' + el.account}
                                                                     key={uuid()}
                                                                     style={{display: "block"}}
+                                                                    onClick={() => this.handleChatLoading(true)}
                                                                     className={classNames({
                                                                         "chat-item": true,
                                                                         "active": el.account === this.props.match.params.chat
@@ -274,7 +280,7 @@ class Messenger extends React.Component {
                                                 </React.Fragment>
                                             }
                                             {
-                                                !this.state.chats &&
+                                                (!this.state.chats || this.state.isChatLoading) &&
                                                 <div
                                                     style={{
                                                         paddingLeft: 47.5,
@@ -289,7 +295,7 @@ class Messenger extends React.Component {
                                                     </div>
                                                 </div>
                                             }
-    
+
                                         </div>
                                     </div>
                                 </div>
