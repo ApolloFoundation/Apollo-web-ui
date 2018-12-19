@@ -539,7 +539,7 @@ class CreateUser extends React.Component {
                                                                                             <br/>
                                                                                             <br/>
                                                                                             <a
-                                                                                                className="btn blue static"
+                                                                                                className="btn blue static hide-media"
                                                                                                 onClick={() => this.generatePDF([
                                                                                                     {name: 'Account ID', value: this.state.accountData.accountRS},
                                                                                                     {name: 'Secret Phrase', value: this.state.accountData.passphrase},
@@ -853,7 +853,7 @@ class CreateUser extends React.Component {
                                                                                             <br/>
                                                                                             <br/>
                                                                                             <a
-                                                                                                className="btn blue static"
+                                                                                                className="btn blue static hide-media"
                                                                                                 onClick={() => this.generatePDFStandard([
                                                                                                     {name: 'Account ID', value: this.state.generatedAccount},
                                                                                                     {name: 'Secret Phrase', value: this.state.generatedPassphrase},

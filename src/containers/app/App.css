@@ -5684,6 +5684,10 @@ input[type="number"] {
       .menu-bar .menu-bar-container nav ul li .dropdown-menu a {
         font-size: 13px; } }
 
+@media (max-width: 768px) {
+  .hide-media {
+    display: none !important; } }
+
 .site-content .container h1 {
   color: #f00; }
 

@@ -195,7 +195,7 @@ class AccountDetails extends React.Component {
                                                     <tr>
                                                         <td className="no-brake">Paper Wallet:</td>
                                                         <td>
-                                                            <a className="btn primary"
+                                                            <a className="btn primary hide-media"
                                                                onClick={() => this.generatePDFStandard([
                                                                    {name: 'Account ID', value: this.state.account.accountRS},
                                                                ])}

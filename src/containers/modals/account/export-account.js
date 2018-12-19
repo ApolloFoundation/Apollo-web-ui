@@ -180,7 +180,7 @@ class ExportAccount extends React.Component {
                                                 <br/>
                                                 <br/>
                                                 <a
-                                                    className="btn blue static"
+                                                    className="btn blue static hide-media"
                                                     onClick={() => this.generatePDF([
                                                         {
                                                             value: this.props.account,
