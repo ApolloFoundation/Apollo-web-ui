@@ -28,7 +28,7 @@ const DataStorageItem  = props => (
             <div className="btn-box inline">
                 <a
                     onClick={() => props.editAlias}
-                    className="btn primary blue"
+                    className="btn primary blue hide-media"
                     href={config.api.serverUrl + "requestType=downloadTaggedData&transaction=" + props.transaction + "&retrieve=true"}
                 >
                     Download
