@@ -83,7 +83,9 @@ class Slice extends React.Component {
         this.animate();
     }
     animate() {
-        this.draw(0);
+        var p = this.props;
+
+        this.draw(p.angle);
     }
 
     draw(s) {
@@ -109,11 +111,7 @@ class Slice extends React.Component {
 
         this.setState({path: path.join(' ')});
 
-        if (s < p.angle) {
-            setTimeout(function () {
-                self.draw(s + step)
-            }, 16);
-        } else if (p.showLabel) {
+        if (p.showLabel) {
             c = getAnglePoint(p.startAngle, p.startAngle + (p.angle / 2), (p.radius / 2 + p.trueHole / 2), p.radius, p.radius);
 
             this.setState({
