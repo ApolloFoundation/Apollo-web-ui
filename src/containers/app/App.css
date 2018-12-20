@@ -3437,6 +3437,12 @@ input[type="file"] {
   height: calc(100% - 15px); }
   .form-group-app .form-control:focus {
     box-shadow: none; }
+  @media (max-width: 768px) {
+    .form-group-app.media-tab {
+      display: flex;
+      flex-direction: column; }
+      .form-group-app.media-tab .form-tabulator {
+        height: 100%; } }
   .form-group-app.devided {
     display: flex;
     flex-direction: row;
@@ -3691,7 +3697,8 @@ input[type="file"] {
         .form-group-app .form-tabulator .form-tab-nav-box.justify-left .form-tab {
           margin-right: 15px;
           width: auto;
-          padding: 0 15px; }
+          padding: 0 15px;
+          white-space: pre; }
       .form-group-app .form-tabulator .form-tab-nav-box .form-tab {
         display: flex;
         align-items: center;

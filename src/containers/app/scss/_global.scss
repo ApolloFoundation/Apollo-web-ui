@@ -876,7 +876,16 @@ input[type="file"] {
 	.form-control:focus {
 		box-shadow: none;
 	}
-	
+	&.media-tab {
+		@media(max-width: 768px) {
+			display: flex;
+			flex-direction: column;
+
+			.form-tabulator {
+				height: 100%;
+			}
+		}
+	}
 	&.devided {
 		display: flex;
 		flex-direction: row;
@@ -1250,6 +1259,7 @@ input[type="file"] {
 					margin-right: 15px;
 					width: auto;
 					padding: 0 15px;
+					white-space: pre;
 				}
 			}
 			
