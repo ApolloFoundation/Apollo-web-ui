@@ -175,7 +175,6 @@ class InfoAccount extends React.Component {
                                     this.state.account &&
                                     <React.Fragment>
                                         <p>Account {this.state.account.accountRS} info</p>
-                                        {console.log(this.props.history)}
                                         {
                                             this.props.account !== this.state.account.account &&
                                             <a
