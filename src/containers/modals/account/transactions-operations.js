@@ -139,7 +139,7 @@ class TransactionOperations extends React.Component {
                                  setValue
                              }) => (
                         <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group-app">
+                            <div className="form-group-app media-tab">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
 
@@ -258,19 +258,7 @@ class TransactionOperations extends React.Component {
                                             </div>
                                         </React.Fragment>
                                         }
-                                        <div className="btn-box align-buttons-inside absolute right-conner">
-                                            <button
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Generate
-                                            </button>
-                                            <a onClick={() => this.props.closeModal()}
-                                               className="btn btn-right round round-top-left">
-                                                Cancel
-                                            </a>
-                                        </div>
+                                        
                                     </div>
                                     <div className={classNames({
                                         "tab-body": true,
@@ -300,19 +288,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="btn-box align-buttons-inside absolute right-conner">
-                                            <button
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Generate
-                                            </button>
-                                            <a onClick={() => this.props.closeModal()}
-                                               className="btn btn-right round round-top-left">
-                                                Cancel
-                                            </a>
-                                        </div>
+                                        
                                     </div>
                                     <div className={classNames({
                                         "tab-body": true,
@@ -343,19 +319,7 @@ class TransactionOperations extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="btn-box align-buttons-inside absolute right-conner">
-                                            <button
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Generate
-                                            </button>
-                                            <a onClick={() => this.props.closeModal()}
-                                               className="btn btn-right round round-top-left">
-                                                Cancel
-                                            </a>
-                                        </div>
+                                       
                                     </div>
                                     <div className={classNames({
                                         "tab-body": true,
@@ -421,8 +385,6 @@ class TransactionOperations extends React.Component {
                                             this.state.activeTab === 3 &&
                                                 'Calculate Full Hash'
                                         }
-
-                                        Generate
                                     </button>
                                     <a onClick={() => this.props.closeModal()}
                                        className="btn btn-right round round-top-left">
