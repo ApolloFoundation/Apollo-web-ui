@@ -164,7 +164,7 @@ class InfoAccount extends React.Component {
                 {
                     this.props.modalData &&
                     <form className="modal-form">
-                        <div className="form-group-app">
+                        <div className="form-group-app media-tab">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title inline">
