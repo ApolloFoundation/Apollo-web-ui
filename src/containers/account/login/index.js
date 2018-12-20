@@ -46,6 +46,21 @@ class Login extends React.Component {
     };
 
     render() {
+
+        const copyrights = (isMedia) => 
+            <p
+                style={{
+                    position: "absolute",
+                    bottom: `${isMedia ? '-30px' : '30px'}`,
+                    color: 'white',
+                    width: '100%',
+                    textAlign: 'center',
+                    left: '0'
+                }}
+            >
+                Copyright © 2017-2018 Apollo Foundation. Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
+            </p>
+
         return (
             <div className="page-content">
                 <div className="page-body container-fluid">
@@ -132,58 +147,57 @@ class Login extends React.Component {
                                         render={({
                                                      submitForm
                                                  }) => (
-                                            <form
-                                                onSubmit={submitForm}
-                                                className={classNames({
-                                                "tab-body": true,
-                                                "active": this.state.activeTab === 1
-                                            })}>
-                                                <InfoBox info>
-                                                    This option works only for standard wallets.
-                                                </InfoBox>
-                                                <div className="form-group row form-group-white offset-top mb-0">
-                                                    <label className="col-sm-3 col-form-label">
-                                                        Secret Phrase
-                                                    </label>
-                                                    <div className="col-sm-9 mb-0 no-left-padding">
-                                                        <Text className="form-control" field="secretPhrase"
-                                                              placeholder="Secret Phrase" type={'password'}/>
+                                            <React.Fragment>
+                                                <form
+                                                    onSubmit={submitForm}
+                                                    className={classNames({
+                                                    "tab-body": true,
+                                                    "active": this.state.activeTab === 1
+                                                })}>
+                                                    <InfoBox info>
+                                                        This option works only for standard wallets.
+                                                    </InfoBox>
+                                                    <div className="form-group row form-group-white offset-top mb-0">
+                                                        <label className="col-sm-3 col-form-label">
+                                                            Secret Phrase
+                                                        </label>
+                                                        <div className="col-sm-9 mb-0 no-left-padding">
+                                                            <Text className="form-control" field="secretPhrase"
+                                                                placeholder="Secret Phrase" type={'password'}/>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="btn-box align-buttons-inside absolute right-conner wide">
-                                                    <a
-                                                        className="btn btn-left round round-bottom-left round-top-right"
-                                                        onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
-                                                    >
-                                                        Create account
-                                                    </a>
-                                                    <button
-                                                        type="submit"
-                                                        name={'closeModal'}
-                                                        className="btn btn-right blue round round-bottom-right round-top-left"
-                                                    >
-                                                        Enter
-                                                    </button>
+                                                    <div className="btn-box align-buttons-inside absolute right-conner wide">
+                                                        <a
+                                                            className="btn btn-left round round-bottom-left round-top-right"
+                                                            onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
+                                                        >
+                                                            Create account
+                                                        </a>
+                                                        <button
+                                                            type="submit"
+                                                            name={'closeModal'}
+                                                            className="btn btn-right blue round round-bottom-right round-top-left"
+                                                        >
+                                                            Enter
+                                                        </button>
 
-                                                </div>
-                                            </form>
+                                                    </div>
+                                                </form>
+                                                {
+                                                    window.innerWidth < 768 &&
+                                                    copyrights(true)
+                                                }
+                                            </React.Fragment>
+                                            
                                         )}
                                     />
                                 </div>
                             </div>
                         </div>
-                        <p
-                            style={{
-                                position: "absolute",
-                                bottom: "30px",
-                                color: 'white',
-                                width: '100%',
-                                textAlign: 'center',
-                                left: '0'
-                            }}
-                        >
-                            Copyright © 2017-2018 Apollo Foundation. Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
-                        </p>
+                        {
+                            window.innerWidth > 768 &&
+                            copyrights(false)
+                        }
                     </div>
                 </div>
             </div>

@@ -602,21 +602,13 @@ class CreateUser extends React.Component {
 
 
                                                             <div className="btn-box align-buttons-inside absolute right-conner">
-                                                                <button
-                                                                    type="submit"
-                                                                    name={'closeModal'}
-                                                                    className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                                                >
-                                                                    Create New Account
-                                                                </button>
-
                                                                 {
                                                                     !!this.state.isPending ?
                                                                         <div
                                                                             style={{
                                                                                 width: 121.5
                                                                             }}
-                                                                            className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                            className="btn btn-right blue round round-top-left round-bottom-right"
                                                                         >
                                                                             <div className="ball-pulse">
                                                                                 <div></div>
@@ -628,12 +620,19 @@ class CreateUser extends React.Component {
 
                                                                             type="submit"
                                                                             name={'closeModal'}
-                                                                            className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                                            className="btn btn-right blue round round-top-left round-bottom-right"
                                                                         >
                                                                             Create New Account
                                                                         </button>
                                                                 }
-
+                                                                <button
+                                                                    type="button"
+                                                                    name={'closeModal'}
+                                                                    className="btn btn-right round round-top-left"
+                                                                    onClick={() => this.setState({isValidating: false})}
+                                                                >
+                                                                    Back
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     }
@@ -926,13 +925,12 @@ class CreateUser extends React.Component {
                                          }) => (
                                     <form
                                         className={classNames({
-                                            "tab-body": true,
+                                            "form-group-app": true,
                                             "active": this.state.activeTab === 0
                                         })}
                                         onSubmit={submitForm}
                                     >
 
-                                        <div className="form-group-app">
                                             <div className="form-title">
                                                 <p>Create Your Wallet</p>
                                             </div>
@@ -944,13 +942,7 @@ class CreateUser extends React.Component {
 
 
                                             <div className="btn-box align-buttons-inside absolute right-conner">
-                                                <button
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                                >
-                                                    Create New Account
-                                                </button>
+                                                
 
                                                 {
                                                     !!this.state.isPending ?
@@ -958,7 +950,7 @@ class CreateUser extends React.Component {
                                                             style={{
                                                                 width: 121.5
                                                             }}
-                                                            className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                            className="btnbtn-right blue round round-bottom-right"
                                                         >
                                                             <div className="ball-pulse">
                                                                 <div></div>
@@ -970,14 +962,21 @@ class CreateUser extends React.Component {
 
                                                             type="submit"
                                                             name={'closeModal'}
-                                                            className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                            className="btn btn-right blue round round-bottom-right"
                                                         >
                                                             Create New Account
                                                         </button>
                                                 }
+                                                <button
+                                                    type="button"
+                                                    name={'closeModal'}
+                                                    className="btn btn-right round round-top-left"
+                                                    onClick={() => this.setState({isValidating: false})}
+                                                >
+                                                    Back
+                                                </button>
 
                                             </div>
-                                        </div>
 
                                     </form>
                                 )}

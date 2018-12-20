@@ -22,10 +22,6 @@
       display: flex;
       justify-content: center;
       flex-direction: column; }
-  @media (max-width: 768px) {
-    .site-content .page-content .page-body > .login {
-      min-height: 568px;
-      overflow-y: scroll; } }
 
 .deprication-container .page-content {
   position: absolute;
