@@ -42,7 +42,8 @@ class TransferCurrency extends React.Component {
     handleFormSubmit = async(values) => {
         values = {
             ...values,
-            units: values.units * Math.pow(10, this.props.modalData.decimals)
+            currency: this.state.currency,
+            units: values.units * Math.pow(10, this.state.decimals)
         };
 
         this.setState({
@@ -79,7 +80,7 @@ class TransferCurrency extends React.Component {
         const result = await this.props.getCurrencyAction(reqParams);
 
         if (result) {
-            this.setState({ currency: result.currency });
+            this.setState({ currency: result.currency, decimals: result.decimals });
         } else {
             this.setState({ currency: '-' });
         }

@@ -12,7 +12,7 @@ import {isLoggedIn, getConstantsAction} from '../../actions/login';
 import {setPageEvents, loadConstants} from '../../modules/account' ;
 import {setBodyModalType} from '../../modules/modals' ;
 import PageLoader from '../components/page-loader/page-loader';
-import {NotificationContainer} from 'react-notifications';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import ReactHintFactory from 'react-hint';
 
 // components
@@ -102,6 +102,14 @@ class App extends React.Component {
 
         // Hints settings
         window.ReactHint = ReactHint;
+
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            document.addEventListener("backbutton", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false );
+        }
     }
 
     state = {
