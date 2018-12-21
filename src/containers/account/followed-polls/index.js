@@ -402,10 +402,15 @@ class FollowedVotes extends React.Component {
 
                                                                                     return (
                                                                                         <tr key={uuid()}>
-                                                                                            <td><div className="color-box" style={{background: 'linear-gradient(' + this.state.colors[index].startColorGradient + ', ' + this.state.colors[index].stopColorGradient + ')'}}/></td>
-                                                                                            <td>{el}</td>
-                                                                                            <td className="align-right">{this.state.pollResults.results[index].result > 100000000 ? this.state.pollResults.results[index].result / 100000000 : this.state.pollResults.results[index].result}</td>
-                                                                                            <td className="align-right">{this.state.pollResults.results[index].weight > 100000000 ? this.state.pollResults.results[index].weight / 100000000 : this.state.pollResults.results[index].weight}</td>
+                                                                                        {
+                                                                                            this.state.colors && this.state.colors[index] &&
+                                                                                            <React.Fragment>
+                                                                                                <td><div className="color-box" style={{background: 'linear-gradient(' + this.state.colors[index].startColorGradient + ', ' + this.state.colors[index].stopColorGradient + ')'}}/></td>
+                                                                                                <td>{el}</td>
+                                                                                                <td className="align-right">{this.state.pollResults.results[index].result > 100000000 ? this.state.pollResults.results[index].result / 100000000 : this.state.pollResults.results[index].result}</td>
+                                                                                                <td className="align-right">{this.state.pollResults.results[index].weight > 100000000 ? this.state.pollResults.results[index].weight / 100000000 : this.state.pollResults.results[index].weight}</td>
+                                                                                            </React.Fragment>
+                                                                                        }
                                                                                         </tr>
                                                                                     );
                                                                                 })
