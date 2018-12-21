@@ -81,7 +81,6 @@ class CreatePoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
-
         this.setState({
             isPending: true
         })
@@ -103,6 +102,7 @@ class CreatePoll extends React.Component {
 
         const res = await this.props.submitForm( {
             ...values,
+            votingModel : values.votingModel ? values.votingModel : 0,
             'create_poll_answers[]': values.answers[0],
             minBalanceModel: 0,
             minBalanceType: 0,
