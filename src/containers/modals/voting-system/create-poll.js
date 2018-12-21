@@ -102,7 +102,7 @@ class CreatePoll extends React.Component {
 
         const res = await this.props.submitForm( {
             ...values,
-            votingModel : values.votingModel ? values.votingModel : 0,
+            votingModel : values.votingModel || 0,
             'create_poll_answers[]': values.answers[0],
             minBalanceModel: 0,
             minBalanceType: 0,
