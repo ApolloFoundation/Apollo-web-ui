@@ -527,15 +527,12 @@ class SiteHeader extends React.Component {
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
                                                             <NavLink to="/currencies">Currencies</NavLink>
+                                                            <NavLink to="/my-currencies">My Currencies</NavLink>
                                                             <NavLink to="/my-shuffling">Exchange history</NavLink>
-                                                            <NavLink to="/transfer-history-currency">Transfer
-                                                                history</NavLink>
-                                                            <NavLink to="/exchange-history-currency">Approval
-                                                                requests</NavLink>
-
+                                                            <NavLink to="/transfer-history-currency">Transfer history</NavLink>
                                                             <a onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
-                                                                Currencies</a>
-
+                                                                Currencies
+                                                            </a>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>

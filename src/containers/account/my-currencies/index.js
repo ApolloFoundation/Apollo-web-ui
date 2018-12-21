@@ -226,7 +226,8 @@ class MyMadedCurrencies extends React.Component {
                                             }
                                             </tbody>
                                         </table>
-                                        {
+                                    </div>
+                                    {
                                             this.state.executedExchanges &&
                                             <div className="btn-box">
                                                 <a
@@ -256,7 +257,6 @@ class MyMadedCurrencies extends React.Component {
                                                 </a>
                                             </div>
                                         }
-                                    </div>
                                 </div>
                             }
                         </ContentHendler>
