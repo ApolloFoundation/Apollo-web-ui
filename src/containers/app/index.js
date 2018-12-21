@@ -86,6 +86,7 @@ class App extends React.Component {
         this.setState({
             isMounted: true
         })
+        this.props.loadConstants();
     }
 
     state = {
@@ -228,7 +229,7 @@ const mapDispatchToProps = dispatch => ({
     setPageEvents: () => dispatch(setPageEvents()),
     getConstantsAction: () => dispatch(getConstantsAction()),
     getSavedAccountSettings:   ()         => dispatch(getSavedAccountSettingsAction()),
-
+    loadConstants: () => dispatch(loadConstants()),
     //modals
     setBodyModalType: () => dispatch(setBodyModalType()),
     startBlockPullingAction: () => dispatch(startBlockPullingAction())

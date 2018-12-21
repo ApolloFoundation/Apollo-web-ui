@@ -50,18 +50,17 @@ class AccountRS extends React.Component {
 
     setInputValue = (value) => {
         const newState = {
-            mask: `${this.state.prefix}-****-****-****-*****`,
+            mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
             value: value.toUpperCase()
         };
 
-
-        this.props.setValue(this.props.field, value.indexOf(`${this.state.prefix}-`) === -1 ? 'APl-' + value : value);
+        this.props.setValue(this.props.field, value.indexOf(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`) === -1 ? 'APl-' + value : value);
         this.setState({inputValue: newState});
     };
 
     onChange = (event) => {
         let value;
-        const {prefix} = this.state;
+        const prefix = this.props.constants ? this.props.constants.accountPrefix : '';
 
         if (event.type === 'paste') {
             value = event.clipboardData.getData('text/plain');
@@ -73,16 +72,15 @@ class AccountRS extends React.Component {
             }
         } else {
             value = event.target.value;
-            if (value.indexOf(`${prefix}-${prefix}`) === -1) {
+            value = value.replace('undefined-', '-')
 
+            if (value.indexOf(`${prefix}-${prefix}`) === -1) {
                 this.setInputValue(value);
             }
         }
-        // event.stopPropagation();
     };
 
     render () {
-
         return (
             <React.Fragment>
                 {this.state.inputValue &&
