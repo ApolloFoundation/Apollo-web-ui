@@ -4761,7 +4761,7 @@ table td .btn, table th .btn {
       white-space: normal; } }
 
 @media (max-width: 1024px) {
-  .transactions-title .btn.primary:not(.icon-button) {
+  .transactions-title .btn {
     display: none !important; } }
 
 .transactions-title .btn.icon-button.mobile-btn {

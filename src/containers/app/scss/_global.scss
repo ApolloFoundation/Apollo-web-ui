@@ -2822,7 +2822,7 @@ table {
 			white-space: normal;
 		}
 	}
-	.btn.primary:not(.icon-button) {
+	.btn {
 		@media (max-width: 1024px) {
 			display: none !important;
 		}
