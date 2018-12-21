@@ -203,15 +203,18 @@ class Transactions extends React.Component {
 
     getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
-
+        console.log(this.state);
         this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
     };
 
     setTransactionInfo(modalType, data, isPrivate) {
+        console.log(isPrivate)
         if (isPrivate) {
             this.getTransaction({
                 account: this.props.account,
                 transaction: data,
+                secretPhrase: this.state.passphrase ? this.state.passphrase.secretPhrase : null,
+                passphrase: this.state.secretPhrase ? this.state.secretPhrase.passphrase : null
             });
         } else {
             this.getTransaction({
