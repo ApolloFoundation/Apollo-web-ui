@@ -117,6 +117,17 @@ class SetAccountProperty extends React.Component {
                                         Property
                                     </label>
                                     <div className="col-sm-9">
+                                        {
+                                            (this.props.modalData && this.props.modalData.property) ?
+                                            <span>
+                                                {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
+                                            </span> :
+                                            <InputForm
+                                                field="property"
+                                                placeholder="Property"
+                                                setValue={setValue}
+                                            />
+                                        }
                                         <span>
                                             {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
                                         </span>
