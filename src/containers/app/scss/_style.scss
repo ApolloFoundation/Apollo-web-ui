@@ -398,6 +398,10 @@ input[type="number"] {
               margin-top: 10px;
               margin-right: 15px;
               height: max-content;
+
+              &.active {
+                border-color: #101010;                 
+              }
             }
           }
         }
