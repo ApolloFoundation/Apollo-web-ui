@@ -203,7 +203,6 @@ class Transactions extends React.Component {
 
     getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
-
         this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
     };
 
@@ -212,6 +211,8 @@ class Transactions extends React.Component {
             this.getTransaction({
                 account: this.props.account,
                 transaction: data,
+                secretPhrase: this.state.passphrase ? this.state.passphrase.secretPhrase : null,
+                passphrase: this.state.secretPhrase ? this.state.secretPhrase.passphrase : null
             });
         } else {
             this.getTransaction({
