@@ -63,7 +63,7 @@ export default class TargetDataUpload extends Component {
 	            <tr>
 		            <td>Link:</td>
 		            <td>
-			            <a href={`/apl?requestType=downloadTaggedData&amp;transaction=${this.props.transaction.transaction}&amp;retrieve=true`} className={"btn static"}>Download</a>
+			            <a href={`/apl?requestType=downloadTaggedData&amp;transaction=${this.props.transaction.transaction}&amp;retrieve=true`} className={"btn static hide-media"}>Download</a>
 			            </td>
 	            </tr>
 	            }
