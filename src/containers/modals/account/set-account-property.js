@@ -120,7 +120,7 @@ class SetAccountProperty extends React.Component {
                                         {
                                             (this.props.modalData && this.props.modalData.property) ?
                                             <span>
-                                                {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
+                                                {this.props.modalData.property}
                                             </span> :
                                             <InputForm
                                                 field="property"
@@ -128,9 +128,6 @@ class SetAccountProperty extends React.Component {
                                                 setValue={setValue}
                                             />
                                         }
-                                        <span>
-                                            {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
-                                        </span>
                                     </div>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
