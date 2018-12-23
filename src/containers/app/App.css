@@ -4980,6 +4980,10 @@ table td .btn, table th .btn {
     border-radius: 3px;
     position: relative;
     overflow-x: auto; }
+    .transaction-table .transaction-table-body.wrap-collumns table tbody tr td {
+      word-wrap: break-word;
+      word-break: break-word;
+      white-space: normal; }
     .transaction-table .transaction-table-body.offset-bottom {
       padding-bottom: 75px; }
     .transaction-table .transaction-table-body.padding-only-top {
