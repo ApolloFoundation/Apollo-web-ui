@@ -672,7 +672,7 @@ class Dashboard extends React.Component {
                                         }
 
 									</div>
-									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
+									<Link to="/marketplace" className="btn btn-left btn-simple absolute">Marketplace</Link>
 								</div>
 							</div>
 							<div className="page-body-item ">
