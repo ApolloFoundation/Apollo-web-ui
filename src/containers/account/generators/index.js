@@ -64,19 +64,19 @@ class Generators extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="blocks">
                         <div className="row">
-                            <div className="col-md-6 col-lg-3">
+                            <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
                                 <div className="card header ballance single">
                                     <div className="card-title">Last Block</div>
                                     <div className="amount">{this.state.lastBlockTime}</div>
                                 </div>
                             </div>
-                            <div className="col-md-6 col-lg-3">
+                            <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
                                 <div className="card header assets single">
                                     <div className="card-title">Height</div>
                                     <div className="amount">{this.state.height}</div>
                                 </div>
                             </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
                                 <div className="card header currencies single">
                                     <div className="card-title">Active Forgers</div>
                                     <div className="amount">{this.state.activeForgers}</div>
