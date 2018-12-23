@@ -482,6 +482,7 @@ class SiteHeader extends React.Component {
                                                         className={`text ${this.getNavLinkClass(["/trade-history",
                                                             "/transfer-history",
                                                             "/delete-history",
+                                                            "/asset-exchange",
                                                             "/my-assets",
                                                             "/open-orders",
                                                             "approval-request"])}`}>
@@ -503,8 +504,8 @@ class SiteHeader extends React.Component {
                                                                 assets</NavLink>
                                                             <NavLink exact={true} activeClassName="active"
                                                                      to="/open-orders">Open orders</NavLink>
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="approval-request">Approval request</NavLink>
+                                                            {/* <NavLink exact={true} activeClassName="active"
+                                                                     to="approval-request">Approval request</NavLink> */}
 
                                                             <a onClick={this.props.setModalType.bind(this, 'ISSUE_ASSET')}>Issue
                                                                 assets</a>
@@ -517,8 +518,9 @@ class SiteHeader extends React.Component {
                                             <AccordionItem>
                                                 <div className={"mobile-nav-item"}>
                                                     <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/currencies",
-                                                            "/my-shuffling",
+                                                        className={`text ${this.getNavLinkClass([
+                                                            "/currencies",
+                                                            "/my-currencies",
                                                             "/transfer-history-currency",
                                                             "/exchange-history-currency"])}`}>
                                                         <i className="zmdi zmdi-money"/>Currency system<span
@@ -528,10 +530,10 @@ class SiteHeader extends React.Component {
                                                         <div className="item-dropdown">
                                                             <NavLink to="/currencies">Currencies</NavLink>
                                                             <NavLink to="/my-currencies">My Currencies</NavLink>
-                                                            <NavLink to="/my-shuffling">Exchange history</NavLink>
+                                                            <NavLink to="/exchange-history-currency">Exchange history</NavLink>
                                                             <NavLink to="/transfer-history-currency">Transfer history</NavLink>
-                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
-                                                                Currencies
+                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}>
+                                                                Issue Currencies
                                                             </a>
                                                         </div>
                                                     </AccordionItemBody>
@@ -609,7 +611,8 @@ class SiteHeader extends React.Component {
                                             <AccordionItem>
                                                 <div className={"mobile-nav-item"}>
                                                     <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/active-shuffling",
+                                                        className={`text ${this.getNavLinkClass([
+                                                            "/active-shuffling",
                                                             "/finished-shuffling",
                                                             "/my-shuffling"])}`}>
                                                         <i className="zmdi zmdi-circle-o"/>Coin shuffling
