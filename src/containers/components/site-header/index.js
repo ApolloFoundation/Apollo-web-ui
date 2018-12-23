@@ -782,7 +782,7 @@ class SiteHeader extends React.Component {
                                                                             {/*</a>*/}
 
                                                                         </li>
-                                                                        <li>
+                                                                        <li className={'hide-media'}>
                                                                             <a
                                                                                 href='/test'
                                                                                 className="option"
@@ -790,6 +790,7 @@ class SiteHeader extends React.Component {
                                                                                 API Console
                                                                             </a>
                                                                         </li>
+                                                                        
                                                                         <li>
                                                                             <Link
                                                                                 to="/settings"
