@@ -2624,7 +2624,7 @@ input[type="file"] {
 			min-height: 520px;
 			
 			@media (max-width: 760px) {
-				min-height: auto;
+				min-height: 360px;
 			}
 		}
 		//.card-title {
