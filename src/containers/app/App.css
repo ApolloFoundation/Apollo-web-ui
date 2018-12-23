@@ -4898,6 +4898,9 @@ table td .btn, table th .btn {
   color: #BBBBBB; }
   .site-footer div > {
     height: auto; }
+  @media (max-width: 768px) {
+    .site-footer {
+      text-align: center; } }
 
 .overflow-menu {
   position: absolute;

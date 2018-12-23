@@ -3007,6 +3007,9 @@ table {
 	div > {
 		height: auto;
 	}
+	@media(max-width: 768px) {
+		text-align: center;
+	}
 }
 
 .overflow-menu {
