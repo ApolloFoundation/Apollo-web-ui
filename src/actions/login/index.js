@@ -17,6 +17,7 @@ import {updateStoreNotifications} from "../../modules/account";
 import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
 import {setBodyModalParamsAction} from "../../modules/modals";
+import {setAccountPassphrase} from '../../modules/account';
 import async from "../../helpers/util/async";
 
 export function getAccountDataAction(requestParams) {
@@ -244,7 +245,8 @@ export async function logOutAction(action, history) {
             localStorage.removeItem("APLUserRS");
             localStorage.removeItem("secretPhrase");
             dispatch(login({account: null, accountRS: null}));
-
+            dispatch(setAccountPassphrase(null))
+            
             history.push('/login');
             return;
         case('logOutStopForging'):
@@ -291,9 +293,12 @@ export async function logOutAction(action, history) {
             return;
         case('logoutClearUserData'):
             localStorage.clear();
+            dispatch(setAccountPassphrase(null))
             dispatch(login({account: null, accountRS: null}));
 
             history.push('/login');            
+            return;
+        default:
             return;
     }
 }
