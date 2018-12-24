@@ -13,6 +13,7 @@ import {setBodyModalParamsAction, setModalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
 import ContentLoader from '../../components/content-loader'
+import AccountRS from '../../components/account-rs';
 
 import uuid from 'uuid';
 import {formatTimestamp} from "../../../helpers/util/time";
@@ -346,7 +347,7 @@ class Dashboard extends React.Component {
 	};
 
 	accountIdChange = (el) => {
-		this.state.formValue = {...this.state.formValue, recipient: el.target.value};
+		this.state.formValue = {...this.state.formValue, recipient: el};
 	};
 
 	amountChange = (el) => {
@@ -686,7 +687,11 @@ class Dashboard extends React.Component {
 												>
 													Recipient
 												</label>
-												<input placeholder={'Account ID'} onChange={this.accountIdChange} type="text"/>
+												<AccountRS 
+													plsceholder="Account ID"
+													onChange={this.accountIdChange}
+													noContactList
+												/>
 											</div>
 											<div className="input-group-app lighten">
 												<label
@@ -707,7 +712,9 @@ class Dashboard extends React.Component {
 										</div>
 									</div>
 									<a
-										onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {}, this.state.formValue)}
+										onClick={() => {
+											this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {}, this.state.formValue)
+										}}
 									    className="btn btn-left btn-simple"
 										style={{margin: '0 0 -7px 35px'}}
 									>
