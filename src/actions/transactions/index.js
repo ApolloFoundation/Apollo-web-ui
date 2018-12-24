@@ -39,7 +39,8 @@ export function getTransactionsAction(requestParams) {
 
 export function getTransactionAction(requestParams) {
     return dispatch => {
-        const requestType = requestParams.passphrase ? 'getPrivateTransaction' : 'getTransaction';
+        console.log(requestParams);
+        const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateTransaction' : 'getTransaction';
 
         return axios.get(config.api.serverUrl, {
             params : {
