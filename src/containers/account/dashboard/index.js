@@ -47,6 +47,7 @@ const mapStateToProps = state => ({
 	requestProcessingTime: state.account.requestProcessingTime,
 	unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
 	assets: state.account.assetBalances,
+	blockTime: state.account.blockchainStatus ? state.account.blockchainStatus.blockTime : null,
 	blockchainStatus: state.account.blockchainStatus
 });
 
@@ -452,7 +453,13 @@ class Dashboard extends React.Component {
                                                     <div className="account-sub-titles">
                                                         Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
                                                     </div>
-                                                }
+												}
+												{
+													this.props.blockTime &&
+													<div className="account-sub-titles">
+														Transaction Time :&nbsp;{this.props.blockTime} s
+													</div>
+												}
                                             </div>
                                         </React.Fragment>  ||
                                         <ContentLoader white noPaddingOnTheSides/>

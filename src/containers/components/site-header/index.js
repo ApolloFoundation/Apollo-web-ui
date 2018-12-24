@@ -779,6 +779,14 @@ class SiteHeader extends React.Component {
                                                                         </li>
                                                                         <li>
                                                                             <a
+                                                                                href='/test'
+                                                                                className="option"
+                                                                            >
+                                                                                API Console
+                                                                             </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a
                                                                                 onClick={() => {
                                                                                     this.setState({bodyModalType: null});
                                                                                     return this.props.setBodyModalParamsAction('EXPORT_KEY_SEED');
@@ -1007,6 +1015,16 @@ class SiteHeader extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="network-overview">
+                                    {
+                                        this.props.appState &&
+                                        <a
+                                            onClick={() => this.props.setBodyModalParamsAction('INFO_NETWORK')}
+                                        >
+                                            {this.props.appState.chainName}
+                                        </a>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1029,7 +1047,9 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     bodyModalType: state.modals.bodyModalType,
     secretPhrase: state.account.passPhrase,
-    settings: state.accountSettings
+    settings: state.accountSettings,
+    appState: state.account.blockchainStatus,
+    isLocalhost: state.account.isLocalhost
 });
 
 const mapDispatchToProps = dispatch => ({

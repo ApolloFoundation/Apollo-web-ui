@@ -142,32 +142,44 @@ class Blocks extends React.Component {
 				<div className="page-body container-fluid">
 					<div className="blocks">
 						<div className="row">
-							<div className="col-md-6 col-lg-3">
+							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
 								<div className="card header ballance single">
 									<div className="card-title">AVG. Amount Per Block</div>
 									<div className="amount">{this.state.avgAmount}</div>
 								</div>
 							</div>
-							<div className="col-md-6 col-lg-3">
+							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
 								<div className="card header assets single">
 									<div className="card-title">AVG. Fee Per Block</div>
 									<div className="amount">{this.state.avgFee}</div>
 								</div>
 							</div>
-							<div className="col-sm-12 col-md-6 col-lg-3">
+							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
 								<div className="card header currencies single">
 									<div className="card-title">Transactions Per Hour</div>
 									<div className="amount">{this.state.transactionPerHour}</div>
 								</div>
 							</div>
-							<div className="col-md-6 col-lg-3">
+							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
 								<div className="card header coins single">
-									<div className="card-title">Block Generation Time</div>
-									<div className="amount">{this.state.blockGenerateTime}s</div>
+								{
+										this.props.blockTime &&
+										<React.Fragment>
+											<div className="card-title">Transaction Time</div>
+											<div className="amount">{this.props.blockTime} s</div>
+										</React.Fragment>
+									}
+									{
+										this.state.blockGenerateTime &&
+										<React.Fragment>
+											<div className="card-title">Average Block Creating Frequency</div>
+											<div className="amount">{this.state.blockGenerateTime} s</div>
+										</React.Fragment>
+									}
 								</div>
 							</div>
 						</div>
-						<div className="transaction-table">
+						<div className="transaction-table no-min-height">
 							<div className="transaction-table-body">
 								<table>
 									<thead>
@@ -228,7 +240,8 @@ class Blocks extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	account: state.account.account
+	account: state.account.account,
+	blockTime: state.account.blockchainStatus ? state.account.blockchainStatus.blockTime : null
 });
 
 const mapDispatchToProps = dispatch => ({

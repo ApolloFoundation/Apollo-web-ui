@@ -4,6 +4,7 @@
 @import '~react-notifications/lib/notifications.css';
 //@import "~bootstrap/dist/css/bootstrap.min.css";
 
+@import "global.scss";
 @import "bootstrap/mixins";
 @import "bootstrap/functions";
 @import "bootstrap/variables";
@@ -13,7 +14,6 @@
 @import "bootstrap/custom-forms";
 @import "bootstrap/badge";
 
-@import "global.scss";
 @import "apl-components.scss";
 @import "style.scss";
 @import "media.scss";
