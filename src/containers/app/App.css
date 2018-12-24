@@ -5728,6 +5728,13 @@ input[type="number"] {
 .site-content .page-body {
   z-index: -1; }
 
+@media (max-width: 768px) {
+  .site-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; } }
+
 .marketplace-tab-item td:nth-of-type(1) {
   width: 52%; }
 

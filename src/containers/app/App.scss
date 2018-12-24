@@ -40,7 +40,12 @@
 	.page-body {
 		z-index: -1;
 	}
-	
+	@media(max-width: 768px) {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
 }
 
 .marketplace-tab-item {
