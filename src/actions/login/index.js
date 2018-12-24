@@ -165,7 +165,6 @@ export function getForging(isPassphrase) {
 
         Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
-
                 dispatch({
                     type: 'SET_PASSPHRASE',
                     payload: passpPhrase
