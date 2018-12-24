@@ -306,7 +306,7 @@ class App extends React.Component {
                     {!this.props.loading &&
                     <div className="site-footer">
                         Copyright © 2017-2018 Apollo Foundation.
-                        {window.innerWidth < 768 && <br/>}
+                        <br className={'show-media hide-desktop'}/>
                         Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
                     </div>
                     }

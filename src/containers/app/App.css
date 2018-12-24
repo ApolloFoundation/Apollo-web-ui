@@ -2947,6 +2947,14 @@ html, body {
   text-overflow: unset;
   word-wrap: break-word; }
 
+@media (max-width: 768px) {
+  .show-media {
+    display: inline; } }
+
+@media (min-width: 768px) {
+  .hide-desktop {
+    display: none; } }
+
 .break-word {
   word-break: break-word; }
 
