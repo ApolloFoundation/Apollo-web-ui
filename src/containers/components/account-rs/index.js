@@ -69,9 +69,7 @@ class AccountRS extends React.Component {
         if (event.type === 'paste') {
             value = event.clipboardData.getData('text/plain');
             
-            console.log(value)
             value = value.replaceAll('\n','');
-            console.log(value)
             
             if (value.includes(`${prefix}-`) && value.indexOf(`${prefix}-`) === 0) {
                 value = value.replace(`${prefix}-`, '');
