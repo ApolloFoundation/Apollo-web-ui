@@ -72,6 +72,7 @@ import style from './App.css';
 import {getUpdateStatus} from '../../actions/login/index'
 
 import {startBlockPullingAction} from '../../actions/blocks'
+import './window';
 
 import UnknownPage from '../account/404'
 class App extends React.Component {
