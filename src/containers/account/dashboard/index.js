@@ -546,7 +546,7 @@ class Dashboard extends React.Component {
 						</div>
 						<div className="page-body-bottom">
 							<div className="page-body-item ">
-								<div className="card card-tall transactions">
+								<div className="card card-tall transactions media-min-height">
 									<div className="card-title">Transactions</div>
 									<div className="transactions-dashboard scroll">
 										{
@@ -672,7 +672,7 @@ class Dashboard extends React.Component {
                                         }
 
 									</div>
-									<Link to="/marketplace" className="btn btn-left btn-simple">Marketplace</Link>
+									<Link to="/marketplace" className="btn btn-left btn-simple absolute">Marketplace</Link>
 								</div>
 							</div>
 							<div className="page-body-item ">

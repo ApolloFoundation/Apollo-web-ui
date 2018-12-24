@@ -194,6 +194,18 @@ html, body {
 	word-wrap: break-word;
 }
 
+.show-media {
+	@media(max-width: 768px) {
+		display: inline;
+	}
+}
+
+.hide-desktop {
+	@media(min-width: 768px) {
+		display: none;
+	}
+}
+
 .break-word {
 	word-break: break-word;
 }
@@ -2624,7 +2636,7 @@ input[type="file"] {
 			min-height: 520px;
 			
 			@media (max-width: 760px) {
-				min-height: auto;
+				min-height: 360px;
 			}
 		}
 		//.card-title {
@@ -3006,6 +3018,9 @@ table {
 	
 	div > {
 		height: auto;
+	}
+	@media(max-width: 768px) {
+		text-align: center;
 	}
 }
 

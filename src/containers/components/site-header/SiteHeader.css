@@ -120,7 +120,15 @@
         padding: 0 90px;
         margin: 0;
         width: 100%;
-        background-color: #333333; } }
+        background-color: #333333; }
+        .page-header .user-search-box:after {
+          content: "";
+          position: absolute;
+          bottom: 100%;
+          height: 100px;
+          left: 0;
+          right: 0;
+          background-color: #333333; } }
     @media (max-width: 760px) {
       .page-header .user-search-box .search-bar .zmdi {
         color: #ffffff !important; } }

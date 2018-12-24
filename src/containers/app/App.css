@@ -2947,6 +2947,14 @@ html, body {
   text-overflow: unset;
   word-wrap: break-word; }
 
+@media (max-width: 768px) {
+  .show-media {
+    display: inline; } }
+
+@media (min-width: 768px) {
+  .hide-desktop {
+    display: none; } }
+
 .break-word {
   word-break: break-word; }
 
@@ -4609,7 +4617,7 @@ input[type="file"] {
       min-height: 520px; }
       @media (max-width: 760px) {
         .page-body-item .card.card-tall {
-          min-height: auto; } }
+          min-height: 360px; } }
   .page-body-item .arrow-block {
     display: none;
     position: absolute;
@@ -4898,6 +4906,9 @@ table td .btn, table th .btn {
   color: #BBBBBB; }
   .site-footer div > {
     height: auto; }
+  @media (max-width: 768px) {
+    .site-footer {
+      text-align: center; } }
 
 .overflow-menu {
   position: absolute;
