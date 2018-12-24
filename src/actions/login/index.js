@@ -240,8 +240,6 @@ export function setForging(requestType) {
 export async function logOutAction(action, history) {
     const {dispatch, getState} = store;
 
-    const {account} = getState()
-
     switch (action) {
         case('simpleLogOut'):
             localStorage.removeItem("APLUserRS");
@@ -258,8 +256,6 @@ export async function logOutAction(action, history) {
             if (!account.balanceATM || (account.balanceATM / 100000000) < 1000) {
                 localStorage.removeItem("APLUserRS");
                 dispatch(login({account: null, accountRS: null}));
-                
-                console.log(account);
 
                 history.push('/login');
                 return;
