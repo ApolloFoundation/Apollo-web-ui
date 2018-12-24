@@ -238,7 +238,7 @@ export function setForging(requestType) {
 }
 
 export async function logOutAction(action, history) {
-    const {dispatch, getState} = store;
+    const {dispatch} = store;
 
     switch (action) {
         case('simpleLogOut'):
