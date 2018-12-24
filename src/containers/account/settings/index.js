@@ -96,6 +96,11 @@ class Settings extends React.Component {
     getQRCode = async (getFormState) => {
         const {values} = getFormState();
 
+        if (!values.account) {
+            NotificationManager.error('Account ID is not specified.', 'Error', 5000);
+            return;
+        } 
+
         const status =  await enable2FAActon({
             passphrase: values.passphrase,
             account:    values.account
@@ -120,6 +125,11 @@ class Settings extends React.Component {
 
     disable2fa = async (getFormState) => {
         const {values} = getFormState();
+
+        if (!values.account) {
+            NotificationManager.error('Account ID is not specified.', 'Error', 5000);
+            return;
+        } 
 
         const status =  await disable2FAActon({
             passphrase: values.passphrase,
