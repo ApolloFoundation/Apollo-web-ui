@@ -4,7 +4,7 @@
 	margin: auto;
 }
   
-input {
+input[type="text"], input[type="float"], input[type="number"], input[type="tel"] {
 	height: 34px !important;
 }
 

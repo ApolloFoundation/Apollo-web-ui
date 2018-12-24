@@ -1,5 +1,5 @@
 @import url(~roboto-fontface/css/roboto/roboto-fontface.css);
-input {
+input[type="text"], input[type="float"], input[type="number"], input[type="tel"] {
   height: 34px !important; }
 
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
