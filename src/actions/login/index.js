@@ -17,6 +17,7 @@ import {updateStoreNotifications} from "../../modules/account";
 import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
 import {setBodyModalParamsAction} from "../../modules/modals";
+import {setAccountPassphrase} from '../../modules/account';
 import async from "../../helpers/util/async";
 
 export function getAccountDataAction(requestParams) {
@@ -237,14 +238,19 @@ export function setForging(requestType) {
 }
 
 export async function logOutAction(action, history) {
-    const {dispatch} = store;
+    const {dispatch, getState} = store;
+
+    const {account} = getState()
 
     switch (action) {
         case('simpleLogOut'):
             localStorage.removeItem("APLUserRS");
             localStorage.removeItem("secretPhrase");
             dispatch(login({account: null, accountRS: null}));
-
+            dispatch({
+                type: 'SET_PASSPHRASE',
+                payload: null
+            });
             history.push('/login');
             return;
         case('logOutStopForging'):
@@ -254,6 +260,8 @@ export async function logOutAction(action, history) {
             if (!account.balanceATM || (account.balanceATM / 100000000) < 1000) {
                 localStorage.removeItem("APLUserRS");
                 dispatch(login({account: null, accountRS: null}));
+                
+                console.log(account);
 
                 history.push('/login');
                 return;
@@ -291,9 +299,15 @@ export async function logOutAction(action, history) {
             return;
         case('logoutClearUserData'):
             localStorage.clear();
+            dispatch({
+                type: 'SET_PASSPHRASE',
+                payload: null
+            });
             dispatch(login({account: null, accountRS: null}));
 
             history.push('/login');            
+            return;
+        default:
             return;
     }
 }
