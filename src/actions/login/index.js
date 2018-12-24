@@ -247,10 +247,8 @@ export async function logOutAction(action, history) {
             localStorage.removeItem("APLUserRS");
             localStorage.removeItem("secretPhrase");
             dispatch(login({account: null, accountRS: null}));
-            dispatch({
-                type: 'SET_PASSPHRASE',
-                payload: null
-            });
+            dispatch(setAccountPassphrase(null))
+            
             history.push('/login');
             return;
         case('logOutStopForging'):
@@ -299,10 +297,7 @@ export async function logOutAction(action, history) {
             return;
         case('logoutClearUserData'):
             localStorage.clear();
-            dispatch({
-                type: 'SET_PASSPHRASE',
-                payload: null
-            });
+            dispatch(setAccountPassphrase(null))
             dispatch(login({account: null, accountRS: null}));
 
             history.push('/login');            
