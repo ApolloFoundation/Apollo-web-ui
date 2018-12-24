@@ -92,13 +92,20 @@ class SendApolloPrivate extends React.Component {
             }
 
             if (values.duration < 15) {
-                NotificationManager.error('Mixing duration should exceed 15 minutes.', 'Error', 5000);
+                NotificationManager.error('Mixing duration should downplay 15 minutes.', 'Error', 5000);
+                return;
+            }
+
+            if (values.duration > 11000) {
+                NotificationManager.error('Mixing duration should exceed 11000 minutes.', 'Error', 5000);
                 return;
             }
 
             values.recipient = values.mixerAccount;
             values.recipientPublicKey = values.mixerPublicKey;
             
+            console.log(values)
+
             delete values.mixerAccount;
         }
 
@@ -199,30 +206,19 @@ class SendApolloPrivate extends React.Component {
                                 </div>
                                 {
                                     this.state.useMixer &&
-                                    <div className="input-group-app form-group mb-15 display-block inline user">
-                                        <div className="row form-group-white">
-                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                Mixer account
-                                            </label>
-                                            <div className="col-sm-9">
-                                                <div className='iconned-input-field flex-align-left'>
-                                                    <Text
-                                                        type="hidden"
-                                                        field="mixerAccount"
-                                                        defaultValue={this.state.mixerData && this.state.mixerData.rsId}
-                                                    />
-                                                    <Text
-                                                        type="hidden"
-                                                        field="mixerPublicKey"
-                                                        defaultValue={this.state.mixerData && this.state.mixerData.publicKey}
-                                                    />
-                                                    <p>{this.state.mixerData && this.state.mixerData.rsId}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <React.Fragment>
+                                        <Text
+                                            type="hidden"
+                                            field="mixerAccount"
+                                            defaultValue={this.state.mixerData && this.state.mixerData.rsId}
+                                        />
+                                        <Text
+                                            type="hidden"
+                                            field="mixerPublicKey"
+                                            defaultValue={this.state.mixerData && this.state.mixerData.publicKey}
+                                        />
+                                    </React.Fragment>
                                 }
-                                
                                 {
                                     this.state.useMixer &&
                                     <InfoBox info>
