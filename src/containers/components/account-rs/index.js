@@ -18,23 +18,30 @@ class AccountRS extends React.Component {
             contacts: JSON.parse(localStorage.getItem('APLContacts')),
             inputValue: {
                 mask: 'APL-****-****-****-*****',
-                value: this.props.defaultValue || ''
+                value: (!this.props.noDefaultValue && this.props.defaultValue) ? this.props.defaultValue : ''
             },
             isContacts: false,
             isUpdate: false
         };
-        this.props.setValue(this.props.field, this.props.defaultValue);
+        if (this.props.setValue) {
+            this.props.setValue(this.props.field, this.props.defaultValue);
+        }
     };
-
-    componentDidUpdate() {
-	    if(this.props.value && !this.state.isUpdate){
-		    this.setState({isUpdate: true}, ()=>this.setInputValue(this.props.value));
-	    }
+    componentWillReceiveProps = (newProps) => {
+        if (newProps.defaultValue) {
+            this.setState({
+                inputValue: {
+                    mask: 'APL-****-****-****-*****',
+                    value: newProps.defaultValue || ''
+                },
+            })
+        }
+            
     }
-
-
     handleFillForm = (account) => {
-        this.props.setValue(this.props.field, account);
+        if (this.props.setValue) {
+            this.props.setValue(this.props.field, account);            
+        }
         this.refs.input.value = account;
 
         if (this.props.exportAccountList) {
@@ -60,17 +67,20 @@ class AccountRS extends React.Component {
         }
     };
 
-
     setInputValue = (value) => {
         const newState = {
             mask: 'APL-****-****-****-*****',
             value: value.toUpperCase()
         };
 
-
-        this.props.setValue(this.props.field, value.indexOf('APL-') === -1 ? 'APl-' + value : value);
+        if (this.props.setValue) {
+            this.props.setValue(this.props.field, value.indexOf('APL-') === -1 ? 'APl-' + value : value);
+        }
         this.setState({inputValue: newState});
 
+        /* 
+         * This peace is needed special for advanced settings 
+         * */
         if (this.props.exportAccountList) {
             this.props.exportAccountList(newState.value)
         }
@@ -83,6 +93,8 @@ class AccountRS extends React.Component {
             value = event.clipboardData.getData('text/plain');
 
             if (value.includes('APL-') && value.indexOf('APL-') === 0) {
+                if (this.props.onChange && !this.props.noDefaultValue) this.props.onChange(value)
+
                 value = value.replace('APL-', '');
 
                 this.setInputValue(value);
@@ -90,10 +102,13 @@ class AccountRS extends React.Component {
         } else {
             value = event.target.value;
             if (value.indexOf('APL-APL') === -1) {
+                if (this.props.onChange) this.props.onChange(value)
 
                 this.setInputValue(value);
             }
         }
+
+
         // event.stopPropagation();
     };
 

@@ -133,10 +133,11 @@ class SendApollo extends React.Component {
 												<div className="iconned-input-field">
 													<AccountRS
 														field={'recipient'}
-														defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
+														defaultValue={values.recipient || ''}
 														setValue={setValue}
 														value={getValue('recipient') || ''}
 														placeholder={'Account ID'}
+														noDefaultValue
 													/>
 												</div>
 											</div>
