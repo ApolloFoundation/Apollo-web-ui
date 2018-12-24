@@ -123,6 +123,16 @@ class Messenger extends React.Component {
             return;
         }
 
+        if (values.message.length > 100) {
+            NotificationManager.error('Message is too long.', 'Error', 5000);
+            return;
+        }
+
+        if (values.message.length <= 0) {
+            NotificationManager.error('Can not send empty message.', 'Error', 5000);
+            return;
+        }
+
 		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
         // delete values.secretPhrase;
 
