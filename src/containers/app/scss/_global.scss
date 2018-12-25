@@ -1702,9 +1702,16 @@ input[type="file"] {
 
 // components
 
+.unset-text-overflow {
+	text-overflow: unset;
+	max-width: fit-content;
+}
+
 .btn-box {
 	width: 100%;
 	height: 33px;
+	text-overflow: unset;		
+
 	//min-height: 32px;
 	&.under-table {
 		transform: translate(0, 0px);
@@ -1781,6 +1788,9 @@ input[type="file"] {
 			position: relative;
 			border-radius: 0;
 		}
+	}
+	& > * {
+		text-overflow: unset;		
 	}
 	.btn {
 		&.disabled {

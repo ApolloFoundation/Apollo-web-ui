@@ -76,7 +76,7 @@ class InfoLedgerTransaction extends React.Component {
                 {
                     this.state.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.state.transaction.type] &&
                     <form className="modal-form">
-                        <div className="form-group-app">
+                        <div className="form-group-app media-tab">
                             <a onClick={() => this.props.closeModal()} className="exit">
                                 <i className="zmdi zmdi-close" /></a>
 

@@ -11,8 +11,16 @@ export default class AliasSell extends Component {
                 </tr>
                 <tr>
                     <td>Price:</td>
-                    <td>{atch.priceATM}</td>
+                    <td>{atch.priceATM / Math.pow(10, 8)}</td>
                 </tr>
+                {
+                    this.props.transaction.attachment.message && 
+                    <tr>
+                        <td>Public Messgae:</td>
+                        <td>{this.props.transaction.attachment.message}</td>
+                    </tr>
+                }
+                
                 <tr>
                     <td>Recipient:</td>
                     <td>{this.props.transaction.recipientRS}</td>
