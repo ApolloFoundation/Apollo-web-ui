@@ -3812,6 +3812,17 @@ input[type="file"] {
       line-height: 14px;
       padding-left: 5px;
       cursor: pointer; }
+    @media (max-width: 768px) {
+      .form-group-app .form-group-grey {
+        flex-wrap: wrap;
+        margin-top: 7px; }
+        .form-group-app .form-group-grey .col-form-label {
+          margin-bottom: 7px; }
+        .form-group-app .form-group-grey .iconned-input-field {
+          padding-right: 15px; }
+        .form-group-app .form-group-grey > * {
+          padding-left: 0;
+          padding-right: 0; } }
   .form-group-app .form-group-white {
     margin-bottom: 8px;
     align-items: center;
@@ -3893,6 +3904,17 @@ input[type="file"] {
       line-height: 14px;
       padding-left: 5px;
       cursor: pointer; }
+    @media (max-width: 768px) {
+      .form-group-app .form-group-white {
+        flex-wrap: wrap;
+        margin-top: 7px; }
+        .form-group-app .form-group-white .col-form-label {
+          margin-bottom: 7px; }
+        .form-group-app .form-group-white .iconned-input-field {
+          padding-right: 15px; }
+        .form-group-app .form-group-white > * {
+          padding-left: 0;
+          padding-right: 0; } }
   .form-group-app .btn {
     font-size: 11px; }
   .form-group-app .mb-15 {

@@ -55,6 +55,12 @@ function submitForm(data, requestType) {
             }
         }
 
+        if (data.encrypt_message) {
+            data.messageToEncrypt = data.message;
+            delete data.message;
+            delete data.encrypt_message;
+        }
+
         data.sender = account.account;
 
         var $form;

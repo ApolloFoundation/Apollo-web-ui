@@ -1424,6 +1424,21 @@ input[type="file"] {
 			padding-left: 5px;
 			cursor: pointer;
 		}
+		@media(max-width: 768px) {
+			flex-wrap: wrap;
+			margin-top: 7px;
+			
+			.col-form-label {
+				margin-bottom: 7px;
+			}
+			.iconned-input-field {
+				padding-right: 15px;
+			}
+			& > * {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
 	}
 	.form-group-white {
 		margin-bottom: 8px;
@@ -1535,6 +1550,22 @@ input[type="file"] {
 			line-height: 14px;
 			padding-left: 5px;
 			cursor: pointer;
+		}
+
+		@media(max-width: 768px) {
+			flex-wrap: wrap;
+			margin-top: 7px;
+			
+			.col-form-label {
+				margin-bottom: 7px;
+			}
+			.iconned-input-field {
+				padding-right: 15px;
+			}
+			& > * {
+				padding-left: 0;
+				padding-right: 0;
+			}
 		}
 	}
 	.btn {
