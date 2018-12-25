@@ -100,7 +100,7 @@ class InfoTransactionTable extends Component {
 		}
     };
 
-	tdecryptMessageComponent = () => 
+	decryptMessageComponent = () => 
 		<div className="modal-form transparent">
 			<div className="transparent">
 				<div className="input-group-app">
