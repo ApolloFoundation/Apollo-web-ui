@@ -220,6 +220,7 @@ export const setPageEvents = (prevent) => {
 };
 
 export const setAccountPassphrase = (passPhrase) => {
+    console.log(passPhrase);
     return dispatch => {
         dispatch({
             type: SET_PASSPHRASE,

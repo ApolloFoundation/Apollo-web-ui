@@ -1,7 +1,12 @@
 import React, {Component} from "react";
 import {formatTransactionType} from "../../../actions/transactions";
 import {connect} from "react-redux";
-import {readMessageAction} from '../../../../actions/messager/'
+import {readMessageAction} from '../../../actions/messager/'
+import crypto from  '../../../helpers/crypto/crypto';
+import {setBodyModalParamsAction} from '../../../modules/modals';
+import {Form, Text} from 'react-form';
+import {NotificationManager} from 'react-notifications';
+import {setAccountPassphrase} from '../../../modules/account';
 
 import CurrencyIssuance from "./table-content/currency-issuance";
 import BuyCurrency from "./table-content/exchange-buy";
@@ -44,20 +49,105 @@ import CriticalUpdate from "./table-content/critical-update";
 class InfoTransactionTable extends Component {
 
 	componentDidMount = async () => {
-		console.log(this.props.secretPhrase)
-		this.readMessage({
-			transaction: this.props.transaction.transaction,
-		})
+		const {secretPhrase, transaction} = this.props;
+
+		const readMessage = (ptivate) => {
+
+			this.readMessage({
+				transaction:  transaction.transaction,
+				passphrase:  !ptivate ? secretPhrase : null,
+				secretPhrase: ptivate  ? secretPhrase : null
+			})
+		}
+
+		if (await this.validatePassphrase(secretPhrase)) {
+			readMessage('vault');
+		} else {
+			readMessage();
+		}
+	}
+
+	state = {};
+
+	validatePassphrase = async (secretPhrase) => {
+		return await this.props.validatePassphrase(secretPhrase);
 	}
 
 	readMessage = async (requestParams) => {
 		const message = await this.props.readMessageAction(requestParams)
 
-		console.log(message)
+		if (message && message.decryptedMessage && !message.errorCode) {
+			this.setState({
+				message: message
+			})
+		} 
 	}
+
+	showPrivateTransactions = async ({secretPhrase}) => {
+		const {transaction} = this.props;
+
+        const isPassPhrease = await this.props.validatePassphrase(secretPhrase);
+
+		const message = await this.props.readMessageAction({
+			transaction:  transaction.transaction,
+			passphrase:  !isPassPhrease ? secretPhrase : null,
+			secretPhrase: isPassPhrease ? secretPhrase : null
+		})
+
+		if (message) {
+
+			if (message.decryptedMessage) {
+				this.props.setAccountPassphrase(secretPhrase)
+	
+				this.setState({
+					message
+				})
+			} else {
+				NotificationManager.error('Incorrect Secret Phrase.', 'Error', 5000)
+			}
+		}
+    };
 
 	render() {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
+		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase} = this.props; 
+
+		const decryptMessageComponent = () => 
+			<div className="modal-form transparent">
+				<div className="transparent">
+					<div className="input-group-app">
+						<div className="row">
+							<div className="col-md-9">
+								<div className="input-group-app search tabled">
+									<Form
+										onSubmit={(values) => this.showPrivateTransactions(values)}
+										render={({
+													submitForm, values, addValue, removeValue, setValue, getFormState
+												}) => (
+											<form
+												style={{
+													height: 33,
+													"word-break": "normal"
+												}}
+												className="iconned-input-field"
+												onSubmit={submitForm}
+											>
+												<Text field="secretPhrase" placeholder="Secret phrase" type="password"/>
+
+												<button
+													className="input-icon text btn blue static"
+												>
+													Submit
+												</button>
+											</form>
+										)}
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		return (
 			<div className="transaction-table-body transparent wrap-collumns">
@@ -146,12 +236,30 @@ class InfoTransactionTable extends Component {
 						{modalTypeName === "MINOR UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
 
 						{
-							this.props.transaction.attachment.message && 
+							message && 
 							<tr>
 								<td>Public Messgae:</td>
 								<td>{this.props.transaction.attachment.message}</td>
 							</tr>
-						}   
+						} 
+						{
+							encryptedMessage && 
+							this.state.message && 
+							<tr>
+								<td>Decrypted Messgae:</td>
+								<td>{this.state.message.decryptedMessage}</td>
+							</tr>
+						}
+						{
+							encryptedMessage && 
+							!this.state.message && 
+							<tr>
+								<td>Encrypted Messgae:</td>
+								<td>
+									{decryptMessageComponent()}
+								</td>
+							</tr>
+						}
 
 						</tbody>
 					</table>
@@ -162,11 +270,14 @@ class InfoTransactionTable extends Component {
 }
 
 const mapStateToProps = state => ({
-	secretPhrase: state.account.secretPhrase
+	secretPhrase: state.account.passPhrase
 });
 
 const mapDispatchToProps = dispatch => ({
-	readMessageAction : (requestParams) => dispatch(readMessageAction(requestParams))
+	readMessageAction : (requestParams) => dispatch(readMessageAction(requestParams)),
+	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+	setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),	
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoTransactionTable);
