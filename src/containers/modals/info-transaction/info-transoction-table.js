@@ -50,21 +50,13 @@ class InfoTransactionTable extends Component {
 
 	componentDidMount = async () => {
 		const {secretPhrase, transaction} = this.props;
+		const isPassphrase = await this.validatePassphrase(secretPhrase);
 
-		const readMessage = (ptivate) => {
-
-			this.readMessage({
-				transaction:  transaction.transaction,
-				passphrase:  !ptivate ? secretPhrase : null,
-				secretPhrase: ptivate  ? secretPhrase : null
-			})
-		}
-
-		if (await this.validatePassphrase(secretPhrase)) {
-			readMessage(true);
-		} else {
-			readMessage();
-		}
+		this.readMessage({
+			transaction:  transaction.transaction,
+			passphrase:  !isPassphrase ? secretPhrase : null,
+			secretPhrase: isPassphrase  ? secretPhrase : null
+		});
 	}
 
 	state = {};
@@ -108,46 +100,46 @@ class InfoTransactionTable extends Component {
 		}
     };
 
-	render() {
-		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
-		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase} = this.props; 
+	tdecryptMessageComponent = () => 
+		<div className="modal-form transparent">
+			<div className="transparent">
+				<div className="input-group-app">
+					<div className="row">
+						<div className="col-md-9">
+							<div className="input-group-app search tabled">
+								<Form
+									onSubmit={(values) => this.showPrivateTransactions(values)}
+									render={({
+												submitForm, values, addValue, removeValue, setValue, getFormState
+											}) => (
+										<form
+											style={{
+												height: 33,
+												"word-break": "normal"
+											}}
+											className="iconned-input-field"
+											onSubmit={submitForm}
+										>
+											<Text field="secretPhrase" placeholder="Secret phrase" type="password"/>
 
-		const decryptMessageComponent = () => 
-			<div className="modal-form transparent">
-				<div className="transparent">
-					<div className="input-group-app">
-						<div className="row">
-							<div className="col-md-9">
-								<div className="input-group-app search tabled">
-									<Form
-										onSubmit={(values) => this.showPrivateTransactions(values)}
-										render={({
-													submitForm, values, addValue, removeValue, setValue, getFormState
-												}) => (
-											<form
-												style={{
-													height: 33,
-													"word-break": "normal"
-												}}
-												className="iconned-input-field"
-												onSubmit={submitForm}
+											<button
+												className="input-icon text btn blue static"
 											>
-												<Text field="secretPhrase" placeholder="Secret phrase" type="password"/>
-
-												<button
-													className="input-icon text btn blue static"
-												>
-													Submit
-												</button>
-											</form>
-										)}
-									/>
-								</div>
+												Submit
+											</button>
+										</form>
+									)}
+								/>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+
+	render() {
+		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
+		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase} = this.props; 
 
 		return (
 			<div className="transaction-table-body transparent wrap-collumns">
@@ -256,7 +248,7 @@ class InfoTransactionTable extends Component {
 							<tr>
 								<td>Encrypted Messgae:</td>
 								<td>
-									{decryptMessageComponent()}
+									{this.decryptMessageComponent()}
 								</td>
 							</tr>
 						}
