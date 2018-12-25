@@ -61,7 +61,7 @@ class InfoTransactionTable extends Component {
 		}
 
 		if (await this.validatePassphrase(secretPhrase)) {
-			readMessage('vault');
+			readMessage(true);
 		} else {
 			readMessage();
 		}
