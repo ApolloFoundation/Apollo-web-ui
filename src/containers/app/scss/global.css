@@ -1,4 +1,7 @@
 @import url(~roboto-fontface/css/roboto/roboto-fontface.css);
+input[type="text"], input[type="float"], input[type="number"], input[type="tel"] {
+  height: 34px !important; }
+
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   margin: 0;
   padding: 0;
@@ -71,6 +74,9 @@ span.blue {
 .flex {
   display: flex; }
 
+.flex-align-left {
+  justify-content: flex-start !important; }
+
 .position-relative {
   position: relative;
   z-index: 2; }
@@ -118,17 +124,7 @@ input[type="radio"] {
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  background: url(../../assets/number-arrows.png) no-repeat center center;
-  background-size: contain;
-  width: 9px;
-  margin-right: 6px;
-  opacity: 1;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  cursor: pointer; }
+  -webkit-appearance: none; }
 
 .input-text-wrap {
   display: flex;
@@ -902,40 +898,45 @@ input {
 .input-group-app textarea {
   width: 100%; }
 
-.input-group-app.search input, .input-group-app.user input {
-  display: block; }
-
-.input-group-app.search .input-icon, .input-group-app.user .input-icon {
-  border: 1px solid #E5E5E5;
-  background: #E5E5E5;
-  font-size: 18px;
-  vertical-align: middle;
-  text-align: center;
-  cursor: pointer;
-  display: flex;
-  border-radius: 3px; }
-  .input-group-app.search .input-icon.text, .input-group-app.user .input-icon.text {
-    width: auto; }
-    .input-group-app.search .input-icon.text i, .input-group-app.user .input-icon.text i {
-      font-style: normal;
-      font-size: 11px;
-      padding: 0 10px; }
-
-.input-group-app.search .iconned-input-field, .input-group-app.user .iconned-input-field {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-around; }
-  .input-group-app.search .iconned-input-field i, .input-group-app.user .iconned-input-field i {
-    margin: auto;
-    padding-bottom: 3px; }
-  .input-group-app.search .iconned-input-field *:nth-child(2), .input-group-app.user .iconned-input-field *:nth-child(2) {
-    border-left: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-top-left-radius: 0 !important; }
-  .input-group-app.search .iconned-input-field *:nth-child(1), .input-group-app.user .iconned-input-field *:nth-child(1) {
-    border-bottom-right-radius: 0 !important;
-    border-top-right-radius: 0 !important; }
+.input-group-app.search, .input-group-app.user {
+  height: 33px; }
+  .input-group-app.search input, .input-group-app.user input {
+    display: block; }
+  .input-group-app.search .input-icon, .input-group-app.user .input-icon {
+    border: 1px solid #E5E5E5;
+    background: #E5E5E5;
+    font-size: 18px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    border-radius: 3px;
+    height: 34px;
+    margin: auto; }
+    .input-group-app.search .input-icon.text, .input-group-app.user .input-icon.text {
+      width: auto; }
+      .input-group-app.search .input-icon.text i, .input-group-app.user .input-icon.text i {
+        font-style: normal;
+        font-size: 11px;
+        padding: 0 10px;
+        white-space: pre; }
+  .input-group-app.search .iconned-input-field, .input-group-app.user .iconned-input-field {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around; }
+    .input-group-app.search .iconned-input-field input, .input-group-app.user .iconned-input-field input {
+      height: 33px; }
+    .input-group-app.search .iconned-input-field i, .input-group-app.user .iconned-input-field i {
+      margin: auto;
+      padding-bottom: 3px; }
+    .input-group-app.search .iconned-input-field *:nth-child(2), .input-group-app.user .iconned-input-field *:nth-child(2) {
+      border-left: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important; }
+    .input-group-app.search .iconned-input-field *:nth-child(1), .input-group-app.user .iconned-input-field *:nth-child(1) {
+      border-bottom-right-radius: 0 !important;
+      border-top-right-radius: 0 !important; }
 
 .input-group-app .calculate-fee {
   display: inline-block;
@@ -980,7 +981,8 @@ input {
   background-position: center; }
 
 .btn-box {
-  width: 100%; }
+  width: 100%;
+  height: 33px; }
   .btn-box.under-table {
     transform: translate(0, 0px); }
     @media (max-width: 1024px) {
@@ -992,7 +994,8 @@ input {
     text-align: left; }
   .btn-box.inline {
     display: inline-block;
-    position: static !important; }
+    position: static !important;
+    height: auto; }
     .btn-box.inline > * {
       display: inline;
       margin-left: 15px; }
@@ -1046,7 +1049,10 @@ input {
   border-radius: 3px;
   box-sizing: border-box;
   z-index: 1;
-  padding: 11px 11px 11px 9px; }
+  padding: 11px 11px 11px 9px;
+  margin: 0; }
+  .btn.oversized {
+    margin: 5px 5px 5px 0; }
   .btn.lighten {
     background: #ecf0f1;
     color: #00C8FF; }

@@ -383,7 +383,7 @@ function byteArrayToBigIntegerAPL(btsAPL, optStartIndexAPL = 0) {
 function isRsAccountAPL(accontIdAPL) {
     return (dispatch, getStore) => {
         const { account } = getStore();
-        return isRsAccImpAPL(accontIdAPL, getRsAccountRegexAPL(account.constants.accountPrefix));
+        if (account.constants) return isRsAccImpAPL(accontIdAPL, getRsAccountRegexAPL(account.constants.accountPrefix));
     };
 }
 

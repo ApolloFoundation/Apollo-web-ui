@@ -134,7 +134,7 @@ class Aliases extends React.Component {
                     <div className="blocks">
                         <ContentHendler
                             items={this.state.aliases}
-                            emptyyMesasge={'No aliases found.'}
+                            emptyMessage={'No aliases found.'}
                         >
                             <div className="transaction-table">
                                 {

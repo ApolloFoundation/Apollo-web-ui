@@ -29,7 +29,6 @@ import ReactDOM from 'react-dom';
 import QRCode from 'qrcode';
 
 import jsPDF from 'jspdf';
-import PdfDoc from '../../../pdf/account-credentials';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,

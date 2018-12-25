@@ -72,6 +72,7 @@ import style from './App.css';
 import {getUpdateStatus} from '../../actions/login/index'
 
 import {startBlockPullingAction} from '../../actions/blocks'
+import './window';
 
 import UnknownPage from '../account/404'
 class App extends React.Component {
@@ -86,6 +87,7 @@ class App extends React.Component {
         this.setState({
             isMounted: true
         })
+        this.props.loadConstants();
     }
 
     state = {
@@ -196,7 +198,7 @@ class App extends React.Component {
                                 <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 <Route exact path="/my-messages" component={MyMessages}/>
                                 <Route exact path="/generators" component={Generators}/>
-                                {/*<Route path="*" exact={true} component={UnknownPage}/>*/}
+                                <Route exact path="/index.html" render={() => <Redirect to="/dashboard"/>}/>
                             </React.Fragment>
                         }
                     </Switch>
@@ -228,7 +230,7 @@ const mapDispatchToProps = dispatch => ({
     setPageEvents: () => dispatch(setPageEvents()),
     getConstantsAction: () => dispatch(getConstantsAction()),
     getSavedAccountSettings:   ()         => dispatch(getSavedAccountSettingsAction()),
-
+    loadConstants: () => dispatch(loadConstants()),
     //modals
     setBodyModalType: () => dispatch(setBodyModalType()),
     startBlockPullingAction: () => dispatch(startBlockPullingAction())

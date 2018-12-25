@@ -39,7 +39,7 @@ export function getTransactionsAction(requestParams) {
 
 export function getTransactionAction(requestParams) {
     return dispatch => {
-        const requestType = requestParams.passphrase ? 'getPrivateTransaction' : 'getTransaction';
+        const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateTransaction' : 'getTransaction';
 
         return axios.get(config.api.serverUrl, {
             params : {
@@ -56,6 +56,22 @@ export function getTransactionAction(requestParams) {
 
             })
     }
+}
+
+export const getMixerAccount = () => {
+    return axios.get(config.api.mixerUrl)
+        .then((res) => {
+            res = res.data;
+
+            if (res && res.id && res.rsId && res.publicKey) {
+                return res
+            } else {
+                throw "Mixer error. Bad credentials.";
+            }
+        })
+        .catch((e) => {
+            throw e;
+        })
 }
 
 export function getPrivateTransactionAction(requestParams) {
