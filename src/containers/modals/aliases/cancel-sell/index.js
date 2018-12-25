@@ -17,6 +17,7 @@ import {calculateFeeAction} from "../../../../actions/forms";
 import AdvancedSettings from '../../../components/advanced-transaction-settings';
 
 import BackForm from '../../modal-form/modal-form-container';
+import ModalFooter from '../../../components/modal-footer';
 
 const aliasTypeData = [
     { value: 'uri',     label: 'URI' },
@@ -160,38 +161,11 @@ class CancelSell extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="form-group row form-group-white mb-15">
-                                                <label className="col-sm-3 col-form-label">
-                                                    Fee
-                                                    <span
-                                                        onClick={async () => {
-                                                            setValue("feeAPL", 1);
-                                                        }}
-                                                        style={{paddingRight: 0}}
-                                                        className="calculate-fee"
-                                                    >Calculate</span>
-                                                </label>
-                                                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                                    <InputForm
-                                                        field="feeAPL"
-                                                        placeholder="Minimum fee"
-                                                        type={"float"}
-                                                        setValue={setValue}/>
-                                                    <div className="input-group-append">
-                                                        <span className="input-group-text">Apollo</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app offset-top display-block">
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Secret Phrase</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text field="secretPhrase" placeholder="secretPhrase"  type={'password'}/>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <ModalFooter
+                                                setValue={setValue}
+                                                getFormState={getFormState}
+                                                values={values}
+                                            />
 
                                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                 <a
@@ -204,7 +178,7 @@ class CancelSell extends React.Component {
                                                     !!this.state.isPending ?
                                                         <div
                                                             style={{
-                                                                width: 70
+                                                                width: 130
                                                             }}
                                                             className="btn btn-right blue round round-bottom-right"
                                                         >
@@ -216,7 +190,7 @@ class CancelSell extends React.Component {
                                                         </div> :
                                                         <button
                                                             style={{
-                                                                width: 70
+                                                                width: 130
                                                             }}
                                                             type="submit"
                                                             name={'closeModal'}

@@ -121,7 +121,7 @@ class SellAlias extends React.Component {
                 <div className="modal-form">
                     {
                         this.state.alias &&
-                        <div className="form-group-app">
+                        <div className="form-group-app media-tab">
                             <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
                             <div className="form-title">

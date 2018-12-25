@@ -41,7 +41,7 @@ const Alias = (props) => (
             <td>REGISTERED</td>
         }
 
-        <td className="align-right">
+        <td className="align-right unset-text-overflow">
             <div className="btn-box inline">
                 <a
                     onClick={() => props.setBodyModalParamsAction('EDIT_ALIAS', props.alias)}
