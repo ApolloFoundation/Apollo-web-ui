@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {formatTransactionType} from "../../../actions/transactions";
 import {connect} from "react-redux";
+import {readMessageAction} from '../../../../actions/messager/'
 
 import CurrencyIssuance from "./table-content/currency-issuance";
 import BuyCurrency from "./table-content/exchange-buy";
@@ -41,6 +42,19 @@ import CriticalUpdate from "./table-content/critical-update";
 
 
 class InfoTransactionTable extends Component {
+
+	componentDidMount = async () => {
+		console.log(this.props.secretPhrase)
+		this.readMessage({
+			transaction: this.props.transaction.transaction,
+		})
+	}
+
+	readMessage = async (requestParams) => {
+		const message = await this.props.readMessageAction(requestParams)
+
+		console.log(message)
+	}
 
 	render() {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
@@ -131,6 +145,14 @@ class InfoTransactionTable extends Component {
 
 						{modalTypeName === "MINOR UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
 
+						{
+							this.props.transaction.attachment.message && 
+							<tr>
+								<td>Public Messgae:</td>
+								<td>{this.props.transaction.attachment.message}</td>
+							</tr>
+						}   
+
 						</tbody>
 					</table>
 				}
@@ -140,9 +162,11 @@ class InfoTransactionTable extends Component {
 }
 
 const mapStateToProps = state => ({
+	secretPhrase: state.account.secretPhrase
 });
 
 const mapDispatchToProps = dispatch => ({
+	readMessageAction : (requestParams) => dispatch(readMessageAction(requestParams))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoTransactionTable);
