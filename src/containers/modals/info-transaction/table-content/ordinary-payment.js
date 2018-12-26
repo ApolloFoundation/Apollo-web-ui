@@ -35,12 +35,6 @@ export default class OrdinaryPayment extends Component {
 		            <td>{this.props.transaction.fullHash}</td>
 	            </tr>
 	            }
-	            {this.props.transaction.attachment.hasOwnProperty("message") &&
-	            <tr>
-		            <td>Public Message:</td>
-		            <td>{this.props.transaction.attachment.message}</td>
-	            </tr>
-	            }
             </React.Fragment>
         );
     }

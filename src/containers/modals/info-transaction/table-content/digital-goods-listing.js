@@ -22,10 +22,6 @@ export default class DigitalGoodsListing extends Component {
                     <td>Quantity:</td>
                     <td>{atch.quantity}</td>
                 </tr>
-                <tr>
-                    <td>Public Message:</td>
-                    <td>{atch.messageIsText ? atch.message : "Binary data"}</td>
-                </tr>
             </React.Fragment>
         );
     }

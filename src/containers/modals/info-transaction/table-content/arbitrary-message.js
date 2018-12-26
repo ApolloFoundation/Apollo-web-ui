@@ -5,12 +5,6 @@ export default class ArbitraryMessage extends Component {
     render() {
         return(
             <React.Fragment>
-	            {this.props.transaction.attachment.hasOwnProperty("message") &&
-	            <tr>
-		            <td>Public Message:</td>
-		            <td>{this.props.transaction.attachment.message}</td>
-	            </tr>
-	            }
 	            {this.props.transaction.senderRS &&
 	            <tr>
 		            <td>From:</td>

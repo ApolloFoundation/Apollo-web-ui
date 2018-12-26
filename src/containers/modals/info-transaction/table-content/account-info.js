@@ -19,13 +19,6 @@ export default class AccountInfo extends Component {
                         <td>{attachment.description}</td>
                     </tr>
                 }
-                {
-                    attachment.messageIsText &&
-                    <tr>
-                        <td>Public Message:</td>
-                        <td rowSpan="3">{attachment.message}</td>
-                    </tr>
-                }
             </React.Fragment>
         );
     }
