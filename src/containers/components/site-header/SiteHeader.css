@@ -252,6 +252,11 @@
                 line-height: 14px;
                 padding: 0 35px;
                 margin: 10px 0; }
+                .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option.active {
+                  color: #00c8ff; }
+                  @media (max-width: 768px) {
+                    .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option.active {
+                      color: #fff; } }
                 @media (max-width: 760px) {
                   .page-header .user-search-box .search-bar .user-account-actions .user-account-action .settings-bar .options-col ul li .option {
                     color: #777777;

@@ -730,14 +730,14 @@ class SiteHeader extends React.Component {
                                                             })}>
                                                                 <div className="options-col">
                                                                     <ul>
-                                                                        <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/blocks">Blocks</Link></li>
-                                                                        <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/peers">Peers</Link></li>
-                                                                        <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/generators">Generators</Link></li>
+                                                                        <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/blocks">Blocks</NavLink></li>
+                                                                        <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/peers">Peers</NavLink></li>
+                                                                        <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/generators">Generators</NavLink></li>
                                                                         {
                                                                             this.props.isLocalhost &&
                                                                             <React.Fragment>
-                                                                                <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/funding-monitors">Monitors</Link></li>
-                                                                                <li><Link onClick={() => this.setState({bodyModalType: null})} className="option" to="/scheduled-transactions">Scheduled transactions</Link></li>
+                                                                                <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/funding-monitors">Monitors</NavLink></li>
+                                                                                <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/scheduled-transactions">Scheduled transactions</NavLink></li>
                                                                             </React.Fragment>
                                                                         }
                                                                     </ul>
@@ -795,12 +795,13 @@ class SiteHeader extends React.Component {
                                                                         </li>
                                                                         
                                                                         <li>
-                                                                            <Link
+                                                                            <NavLink
+                                                                                activeClass={'active'}
                                                                                 to="/settings"
                                                                                 className="option"
                                                                             >
                                                                                 Settings
-                                                                            </Link>
+                                                                            </NavLink>
                                                                         </li>
                                                                         <li>
                                                                             <a
@@ -985,23 +986,25 @@ class SiteHeader extends React.Component {
                                                             <i className="zmdi zmdi-account"/>
                                                             <label style={{cursor: 'pointer'}}>Details</label>
                                                         </a>
-                                                        <Link
+                                                        <NavLink
+                                                            activeClassName={'active'}
                                                             to="/messenger"
                                                             className="image-button"
                                                         >
                                                             <i className="zmdi zmdi-comments"/>
                                                             <label style={{cursor: 'pointer'}}>Messages</label>
-                                                        </Link>
+                                                        </NavLink>
 
                                                     </div>
                                                     <div className="input-section">
-                                                        <Link
+                                                        <NavLink
+                                                            activeClassName={'active'}
                                                             to="/settings"
                                                             className="image-button"
                                                         >
                                                             <i className="zmdi zmdi-settings"/>
                                                             <label style={{cursor: 'pointer'}}>Account settings</label>
-                                                        </Link>
+                                                        </NavLink>
                                                     </div>
                                                     <div className="input-section">
                                                         <div
