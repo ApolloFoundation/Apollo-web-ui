@@ -10,6 +10,7 @@ import {setModalData} from '../../../modules/modals';
 import {NotificationManager} from 'react-notifications';
 import {generateAccountAction} from '../../../actions/account'
 
+import BackForm from '../../modals/modal-form/modal-form-container';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
@@ -28,8 +29,6 @@ import {CopyToClipboard} from "react-copy-to-clipboard";
 import QRCode from 'qrcode';
 
 import jsPDF from 'jspdf';
-
-import BackForm from '../modal-form/modal-form-container';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,

@@ -133,11 +133,12 @@ class Activepolls extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
                         <div className="transaction-table no-min-height">
-                            <div className="transaction-table-body">
                                 <ContentHendler
                                     items={this.state.activepolls}
                                     emptyMessage={'No active  polls.'}
                                 >
+                                    <div className="transaction-table-body">
+
                                     <table>
                                         <thead>
                                         <tr>
@@ -166,8 +167,9 @@ class Activepolls extends React.Component {
                                         }
                                         </tbody>
                                     </table>
+                                </div>
+
                                 </ContentHendler>
-                            </div>
                         </div>
 
                         <div className="form-group-app offset-bottom height-auto no-padding">

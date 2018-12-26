@@ -13,13 +13,15 @@ import {
 	openPrevModal,
 	saveSendModalState
 } from '../../../modules/modals';
-import {sendPrivateTransaction} from '../../../actions/transactions';
+import {sendPrivateTransaction, getMixerAccount} from '../../../actions/transactions';
 import AccountRS from '../../components/account-rs';
 import InputForm from '../../components/input-form';
 import crypto from  '../../../helpers/crypto/crypto';
 import {calculateFeeAction} from "../../../actions/forms";
 import classNames from 'classnames';
+import submitForm from "../../../helpers/forms/forms";
 
+import {Checkbox} from 'react-form';
 import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
@@ -49,11 +51,20 @@ class SendApolloPrivate extends React.Component {
         this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
-    async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
+    componentDidMount = async () => {
+        const mixerData = await getMixerAccount();
         
+        const mixerAccount = mixerData.rsId;
 
+        mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`)
 
+        this.setState({
+            mixerData
+        })
+
+    }
+
+    async handleFormSubmit(values) {
         if (!values.recipient) {
             this.setState({
                 isPending: false
@@ -76,27 +87,50 @@ class SendApolloPrivate extends React.Component {
             return;
         }
 
-        if (!isPassphrase) {
-            values.passphrase = values.secretPhrase;
-            values.sender = this.props.account;
-            delete values.secretPhrase;
+        if (this.state.useMixer) {
+            values.messageToEncrypt = JSON.stringify({
+                name: "REQUEST_MIXING",
+                epicId: values.recipient,
+                approximateMixingDuration: values.duration  // Minutes 
+            });
+
+            if (values.amountATM < 100) {
+                NotificationManager.error('Minimal amountATM shold exceed 100 Apollo while using mixer.', 'Error', 5000);
+                return;
+            }
+
+            if (values.duration < 15) {
+                NotificationManager.error('Mixing duration should downplay 15 minutes.', 'Error', 5000);
+                return;
+            }
+
+            if (values.duration > 11000) {
+                NotificationManager.error('Mixing duration should exceed 11000 minutes.', 'Error', 5000);
+                return;
+            }
+
+            values.recipient = values.mixerAccount;
+            values.recipientPublicKey = values.mixerPublicKey;
+            
+            console.log(values)
+
+            delete values.mixerAccount;
         }
 
         this.setState({
             isPending: true
         });
 
-        const privateTransaction = await this.props.sendPrivateTransaction(values);
-
-        if (privateTransaction) {
-            if (privateTransaction.errorCode) {
-                NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
-
-            } else {
-                NotificationManager.success('Private transaction has been submitted.', null, 5000);
-                this.props.setBodyModalParamsAction(null, {});
-            }
-        }
+        this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'))
+            .done((privateTransaction) => {
+                if (privateTransaction && privateTransaction.errorCode) {
+                    NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
+    
+                } else {
+                    NotificationManager.success('Private transaction has been submitted.', null, 5000);
+                    this.props.setBodyModalParamsAction(null, {});
+                }
+            })
 
     }
 
@@ -127,6 +161,13 @@ class SendApolloPrivate extends React.Component {
         })
     };
 
+    handleUseMixer = async (e) => {
+        
+        this.setState({
+            useMixer: e
+        })
+    }
+
     render() {
         return (
             <div className="modal-box">
@@ -137,6 +178,7 @@ class SendApolloPrivate extends React.Component {
                                  submitForm, values, addValue, removeValue, setValue, getFormState, getValue
                              }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+                            {console.log(values)}
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 
@@ -165,10 +207,10 @@ class SendApolloPrivate extends React.Component {
                                             Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
                                         </label>
                                         <div className="col-sm-9">
-                                            <div className="iconned-input-field">
+                                            <div className={`iconned-input-field ${this.state.useMixer ? 'flex-align-left' : ''}`}>
                                                 <AccountRS
                                                     field={'recipient'}
-                                                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
+                                                    defaultValue={values.recipient || ''}
                                                     setValue={setValue}
                                                     value={getValue('recipient') || ''}
                                                 />
@@ -176,6 +218,28 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                {
+                                    this.state.useMixer &&
+                                    <React.Fragment>
+                                        <Text
+                                            type="hidden"
+                                            field="mixerAccount"
+                                            defaultValue={this.state.mixerData && this.state.mixerData.rsId}
+                                        />
+                                        <Text
+                                            type="hidden"
+                                            field="mixerPublicKey"
+                                            defaultValue={this.state.mixerData && this.state.mixerData.publicKey}
+                                        />
+                                    </React.Fragment>
+                                }
+                                {
+                                    this.state.useMixer &&
+                                    <InfoBox info>
+                                        Your money will be sent directly to mixer account and during estimated mixing time, money will be transmitted to recipient account.
+                                    </InfoBox>
+                                }
+                               
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Amount
@@ -192,6 +256,44 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                {
+                                    this.state.mixerData && 
+                                    <div className="mobile-class row mb-15 form-group-white">
+                                        <div className="col-md-9 offset-md-3">
+                                            <div className="form-check custom-checkbox">
+                                                <Checkbox 
+                                                    onChange={(e) => this.handleUseMixer(e)}
+                                                    className="form-check-input custom-control-input"
+                                                    type="checkbox"
+                                                    field="isMixer"
+                                                />
+                                                <label className="form-check-label custom-control-label">
+                                                    Use Mixer
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    this.state.useMixer &&
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Mixing time
+                                        </label>
+                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                            <InputForm
+                                                defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+                                                field="duration"
+                                                placeholder="Duration"
+                                                type={"float"}
+                                                setValue={setValue}/>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">Minutes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                
 
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
@@ -300,7 +402,9 @@ const mapStateToProps = state => ({
     account: state.account.account,
     modalData: state.modals.modalData,
     publicKey: state.account.publicKey,
-	modalsHistory: state.modals.modalsHistory
+    modalsHistory: state.modals.modalsHistory,
+    accountPrefix: state.account.constants ? state.account.constants.accountPrefix : ''
+    
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -311,7 +415,9 @@ const mapDispatchToProps = dispatch => ({
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	openPrevModal: () => dispatch(openPrevModal()),
-	saveSendModalState: (Params) => dispatch(saveSendModalState(Params))
+	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+    dispatch: dispatch
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApolloPrivate);

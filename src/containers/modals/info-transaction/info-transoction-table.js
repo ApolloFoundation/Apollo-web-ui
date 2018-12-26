@@ -230,7 +230,7 @@ class InfoTransactionTable extends Component {
 						{
 							message && 
 							<tr>
-								<td>Public Messgae:</td>
+								<td>Public Message:</td>
 								<td>{this.props.transaction.attachment.message}</td>
 							</tr>
 						} 

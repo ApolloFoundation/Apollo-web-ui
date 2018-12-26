@@ -165,7 +165,6 @@ export function getForging(isPassphrase) {
         const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
         Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
-
                 dispatch({
                     type: 'SET_PASSPHRASE',
                     payload: passpPhrase
@@ -273,7 +272,7 @@ export async function logOutAction(action, history) {
                 }
             };
 
-            if (forging.errorCode === 22 || forging.errorCode === 4) {
+            if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8) {
                 store.dispatch(setBodyModalParamsAction('ENTER_SECRET_PHRASE', null));
                 logOutAction(action)
             }
@@ -288,9 +287,8 @@ export async function logOutAction(action, history) {
 
                     history.push('/login');
                 }
+                return;
             }
-
-            return;
         case('logoutClearUserData'):
             localStorage.clear();
             dispatch(setAccountPassphrase(null))

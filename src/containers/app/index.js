@@ -75,6 +75,7 @@ import './App.css';
 import {getUpdateStatus} from '../../actions/login/index'
 import urlHelper from "../../helpers/util/urlParser";
 import {startBlockPullingAction} from '../../actions/blocks'
+import './window';
 
 import UnknownPage from '../account/404'
 import {loginWithShareMessage} from "../../actions/account";
@@ -336,7 +337,8 @@ const mapDispatchToProps = dispatch => ({
     getConstantsAction: () => dispatch(getConstantsAction()),
     getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
     loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
-
+    loadConstants: () => dispatch(loadConstants()),
+    
     //modals
     setBodyModalType: () => dispatch(setBodyModalType()),
     startBlockPullingAction: () => dispatch(startBlockPullingAction())

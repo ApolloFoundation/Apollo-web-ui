@@ -9,16 +9,17 @@ import InputMask from 'react-input-mask';
 import classNames from 'classnames';
 import {NotificationManager} from "react-notifications";
 import uuid from "uuid";
-
+import {connect} from 'react-redux';
 
 class AccountRS extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            prefix: this.props.constants ? this.props.constants.accountPrefix : '',
             contacts: JSON.parse(localStorage.getItem('APLContacts')),
             inputValue: {
-                mask: 'APL-****-****-****-*****',
-                value: (!this.props.noDefaultValue && this.props.defaultValue) ? this.props.defaultValue : ''
+                mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
+                value: this.props.defaultValue || ''
             },
             isContacts: false,
             isUpdate: false
@@ -28,6 +29,7 @@ class AccountRS extends React.Component {
         }
     };
     componentWillReceiveProps = (newProps) => {
+        console.log(newProps)
         if (newProps.defaultValue) {
             this.setState({
                 inputValue: {
@@ -51,7 +53,7 @@ class AccountRS extends React.Component {
         this.setState({
             isContacts: false,
             inputValue: {
-                mask: 'APL-****-****-****-*****',
+                mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
                 value: account
             }
         })
@@ -69,13 +71,13 @@ class AccountRS extends React.Component {
 
     setInputValue = (value) => {
         const newState = {
-            mask: 'APL-****-****-****-*****',
+            mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
             value: value.toUpperCase()
         };
 
-        if (this.props.setValue) {
-            this.props.setValue(this.props.field, value.indexOf('APL-') === -1 ? 'APl-' + value : value);
-        }
+        if (this.props.setValue)
+            this.props.setValue(this.props.field, value.indexOf(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`) === -1 ? 'APl-' + value : value);
+        
         this.setState({inputValue: newState});
 
         /* 
@@ -86,30 +88,34 @@ class AccountRS extends React.Component {
         }
     };
 
+    replaceAll = (search, replace) => {
+        return this.split(search).join(replace);
+    }
+
     onChange = (event) => {
         let value;
+        const prefix = this.props.constants ? this.props.constants.accountPrefix : '';
+
 
         if (event.type === 'paste') {
             value = event.clipboardData.getData('text/plain');
 
-            if (value.includes('APL-') && value.indexOf('APL-') === 0) {
+            value = value.replaceAll('\n','');
+            
+            if (value.includes(`${prefix}-`) && value.indexOf(`${prefix}-`) === 0) {
                 if (this.props.onChange && !this.props.noDefaultValue) this.props.onChange(value)
-
-                value = value.replace('APL-', '');
+                value = value.replace(`${prefix}-`, '');
 
                 this.setInputValue(value);
             }
         } else {
             value = event.target.value;
-            if (value.indexOf('APL-APL') === -1) {
-                if (this.props.onChange) this.props.onChange(value)
+            value = value.replace('undefined-', '-')
 
+            if (value.indexOf(`${prefix}-${prefix}`) === -1) {
                 this.setInputValue(value);
             }
         }
-
-
-        // event.stopPropagation();
     };
 
     render () {
@@ -157,9 +163,12 @@ class AccountRS extends React.Component {
                     </div>
                 }
             </React.Fragment>
-
         )
     }
 }
 
-export default AccountRS;
+const mapStateToProps = state => ({
+    constants: state.account.constants
+})
+
+export default connect(mapStateToProps)(AccountRS) ;
