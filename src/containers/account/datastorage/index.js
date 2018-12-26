@@ -180,7 +180,7 @@ class DataStorage extends React.Component {
 		})
 	}
 
-	hangleReset = () => {
+	handleReset = () => {
 		this.state.account.setValue('account', '');
 		this.state.tag.setValue('query', '');
 	}
@@ -193,7 +193,7 @@ class DataStorage extends React.Component {
 				>
 					<Link
 						to={'/data-storage'}
-						onClick={() => this.hangleReset()}
+						onClick={() => this.handleReset()}
 						className="btn primary"
 					>
 						Reset
