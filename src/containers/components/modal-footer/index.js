@@ -31,6 +31,7 @@ class ModalFooter extends React.Component {
                 </div>
                 {
                     this.props.is2fa &&
+                    !this.props.off2FA &&
                     <div className="form-group row form-group-white mb-15">
                         <label className="col-sm-3 col-form-label">
                             2FA code

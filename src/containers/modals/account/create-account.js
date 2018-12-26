@@ -595,6 +595,7 @@ class CreateUser extends React.Component {
                                                                 <p>Create Your Wallet</p>
                                                             </div>
                                                             <ModalFooter
+                                                                off2FA
                                                                 setValue={setValue}
                                                                 getFormState={getFormState}
                                                                 values={values}
@@ -935,6 +936,7 @@ class CreateUser extends React.Component {
                                                 <p>Create Your Wallet</p>
                                             </div>
                                             <ModalFooter
+                                                off2FA
                                                 setValue={setValue}
                                                 getFormState={getFormState}
                                                 values={values}
