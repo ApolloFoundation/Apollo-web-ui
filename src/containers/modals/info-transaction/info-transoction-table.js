@@ -235,7 +235,6 @@ class InfoTransactionTable extends Component {
 								<td>{message}</td>
 							</tr>
 						} 
-						{console.log(message)}
 						{
 							encryptedMessage && 
 							this.state.message && 
