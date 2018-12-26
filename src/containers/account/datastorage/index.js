@@ -174,6 +174,17 @@ class DataStorage extends React.Component {
 
 	};
 
+	getForm = (field, form) => {
+		this.setState({
+			[field]: form
+		})
+	}
+
+	hangleReset = () => {
+		this.state.account.setValue('account', '');
+		this.state.tag.setValue('query', '');
+	}
+
 	render() {
 		return (
 			<div className="page-content data-storage">
@@ -182,6 +193,7 @@ class DataStorage extends React.Component {
 				>
 					<Link
 						to={'/data-storage'}
+						onClick={() => this.hangleReset()}
 						className="btn primary"
 					>
 						Reset
@@ -194,6 +206,7 @@ class DataStorage extends React.Component {
 								<div className="transactions-filters align-for-inputs">
 									<div className="search-bar">
 										<Form
+		        							getApi={(value) => this.getForm('account', value)}
 											onSubmit={values => this.handleSearchByAccount(values)}
 											render={({submitForm, setAllValues, setValue}) => {
 
@@ -225,6 +238,7 @@ class DataStorage extends React.Component {
 											}}
 										/>
 										<Form
+		        							getApi={(value) => this.getForm('tag', value)}
 											onSubmit={values => this.handleSearchByQuery(values)}
 											render={({submitForm, setAllValues, setValue}) => {
 
