@@ -22,6 +22,14 @@
       display: flex;
       justify-content: center;
       flex-direction: column; }
+    @media (max-height: 330px) {
+      .site-content .page-content .page-body > .login .form-group-app {
+        max-height: 100vh;
+        overflow-y: scroll;
+        top: 0;
+        transform: translateX(-50%);
+        margin: 0;
+        width: 100%; } }
 
 .deprication-container .page-content {
   position: absolute;

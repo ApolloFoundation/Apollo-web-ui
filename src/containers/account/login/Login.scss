@@ -27,6 +27,14 @@
         flex-direction: column;
       }
     }
+    @media(max-height: 330px) {
+      max-height: 100vh;
+      overflow-y: scroll;
+      top: 0;
+      transform: translateX(-50%);
+      margin: 0;
+      width: 100%;
+    }
   }
   @media(max-width: 768px) {
     // min-height: 568px;
