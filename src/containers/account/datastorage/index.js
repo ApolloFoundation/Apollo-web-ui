@@ -174,7 +174,7 @@ class DataStorage extends React.Component {
 
 	};
 
-	getForm = (field, form) => {
+	storeForm = (field, form) => {
 		this.setState({
 			[field]: form
 		})
@@ -208,7 +208,7 @@ class DataStorage extends React.Component {
 								<div className="transactions-filters align-for-inputs">
 									<div className="search-bar">
 										<Form
-		        							getApi={(value) => this.getForm('account', value)}
+		        							getApi={(value) => this.storeForm('account', value)}
 											onSubmit={values => this.handleSearchByAccount(values)}
 											render={({submitForm, setAllValues, setValue}) => {
 
@@ -240,7 +240,7 @@ class DataStorage extends React.Component {
 											}}
 										/>
 										<Form
-		        							getApi={(value) => this.getForm('tag', value)}
+		        							getApi={(value) => this.storeForm('tag', value)}
 											onSubmit={values => this.handleSearchByQuery(values)}
 											render={({submitForm, setAllValues, setValue}) => {
 
