@@ -181,8 +181,10 @@ class DataStorage extends React.Component {
 	}
 
 	handleReset = () => {
-		this.state.account.setValue('account', '');
-		this.state.tag.setValue('query', '');
+		const {account, tag} = this.state;
+
+		account.setValue('account', '');
+		tag.setValue('query', '');
 	}
 
 	render() {
