@@ -49,6 +49,7 @@ class Login extends React.Component {
 
         const copyrights = (isMedia) => 
             <p
+                className={`${isMedia ? 'hide-xs' : ''}`}
                 style={{
                     position: "absolute",
                     bottom: `${isMedia ? '-30px' : '30px'}`,
@@ -66,7 +67,7 @@ class Login extends React.Component {
                 <div className="page-body container-fluid">
                     <div className="login">
                         <div className="modal-form">
-                            <div className="form-group-app" style={{boxShadow: '0 0 30px #000'}}>
+                            <div className="form-group-app media-tab" style={{boxShadow: '0 0 30px #000'}}>
                                 <div className="form-title">
                                     <p>Welcome to Apollo</p>
                                 </div>
