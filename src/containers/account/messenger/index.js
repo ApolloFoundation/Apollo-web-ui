@@ -109,15 +109,6 @@ class Messenger extends React.Component {
             return;
         }
 
-        if (values.messageToEncrypt) {
-            values = {
-				...values,
-                messageToEncrypt: values.message,
-                // message: null
-            };
-            delete values.message;
-		}
-
 		if (!values.secretPhrase) {
             NotificationManager.error('Enter secret phrase.', 'Error', 5000);
             return;
@@ -136,6 +127,15 @@ class Messenger extends React.Component {
 		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
         // delete values.secretPhrase;
 
+
+        if (values.messageToEncrypt) {
+            values = {
+				...values,
+                messageToEncrypt: values.message,
+                // message: null
+            };
+            delete values.message;
+		}
 
 		const res = await this.props.submitForm( {
 			...values,
