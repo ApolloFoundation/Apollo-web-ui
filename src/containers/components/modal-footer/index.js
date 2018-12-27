@@ -25,11 +25,13 @@ class ModalFooter extends React.Component {
                         Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                     </label>
                     <div className="col-sm-9">
-                        <Text
+                        <InputForm
                             className={'form-control'}
                             type="password"
                             field="secretPhrase"
-                            placeholder="Secret Phrase"/>
+                            placeholder="Secret Phrase"
+                            setValue={this.props.setValue}
+                        />
                     </div>
                 </div>
                 {
