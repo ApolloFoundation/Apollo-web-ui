@@ -578,6 +578,7 @@ class CreateUser extends React.Component {
                                                                     </label>
                                                                     <div className="col-sm-9">
                                                                         <InputForm
+                                                                            isPlain
                                                                             className={'form-control'}
                                                                             type="password"
                                                                             field="secretPhrase"
@@ -921,6 +922,7 @@ class CreateUser extends React.Component {
                                                 </label>
                                                 <div className="col-sm-9">
                                                     <InputForm
+                                                        isPlain
                                                         className={'form-control'}
                                                         type="password"
                                                         field="secretPhrase"

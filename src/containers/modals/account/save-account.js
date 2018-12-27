@@ -34,11 +34,15 @@ class AddAccount extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-
         if (!values.name) {
             NotificationManager.error('Enter the contact name.', 'Error', 5000);
             return;
         }
+        
+        if (values.recipient) {
+            values.accountRS = values.recipient;
+            delete values.recipient;
+        } 
 
         if (!values.accountRS) {
             NotificationManager.error('Enter the contact id.', 'Error', 5000);

@@ -18,7 +18,11 @@ class InputForm extends React.Component {
     };
 
     handleChange = (value) => {
-        this.props.setValue(this.props.field, this.validateInput(value));
+        const {setValue, field, isPlain} = this.props;
+
+        if (!isPlain) {
+            setValue(field, this.validateInput(value));
+        }
     };
 
     validateInput = (value) => {

@@ -271,6 +271,7 @@ class Settings extends React.Component {
                                                             <div className="col-sm-9">
 
                                                                 <InputForm
+                                                                    isPlain
                                                                     type="password"
                                                                     field="adminPassword"
                                                                     placeholder="Admin password"
