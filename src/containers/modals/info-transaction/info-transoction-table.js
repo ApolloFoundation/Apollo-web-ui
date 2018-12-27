@@ -229,9 +229,10 @@ class InfoTransactionTable extends Component {
 
 						{
 							message && 
+							message !== 'undefined' && 
 							<tr>
 								<td>Public Message:</td>
-								<td>{this.props.transaction.attachment.message}</td>
+								<td>{message}</td>
 							</tr>
 						} 
 						{

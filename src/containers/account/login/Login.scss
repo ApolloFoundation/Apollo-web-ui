@@ -34,6 +34,13 @@
       transform: translateX(-50%);
       margin: 0;
       width: 100%;
+
+      .form-tabulator {
+        min-height: 200px;
+      }
+      .hide-xs {
+        display: none;
+      }
     }
   }
   @media(max-width: 768px) {

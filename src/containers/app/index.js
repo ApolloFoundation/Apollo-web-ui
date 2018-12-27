@@ -76,6 +76,7 @@ import {getUpdateStatus} from '../../actions/login/index'
 import urlHelper from "../../helpers/util/urlParser";
 import {startBlockPullingAction} from '../../actions/blocks'
 import './window';
+import {setBodyModalParamsAction} from "../../modules/modals";
 
 import UnknownPage from '../account/404'
 import {loginWithShareMessage} from "../../actions/account";
@@ -87,14 +88,20 @@ class App extends React.Component {
     shareMessage = false;
 
     componentDidMount() {
-        this.props.getSavedAccountSettings();
+        const {
+                getSavedAccountSettings,
+                isLoggedIn,
+                getConstantsAction
+            } = this.props;
+
+        getSavedAccountSettings();
         this.checkUrl();
         // this.props.startBlockPullingAction();
         getUpdateStatus();
         if (!this.shareMessage) {
-            this.props.isLoggedIn(this.props.history);
+            isLoggedIn(this.props.history);
         }
-        this.props.getConstantsAction();
+        getConstantsAction();
         this.handleModal = this.handleModal.bind(this);
         this.setState({
             isMounted: true
@@ -104,13 +111,36 @@ class App extends React.Component {
         // Hints settings
         window.ReactHint = ReactHint;
 
-        document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady() {
-            document.addEventListener("backbutton", function (e) {
+        const onDeviceReady = () => {
+            document.addEventListener("backbutton", (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+
+                const   {
+                            setBodyModalParamsAction, 
+                            modalType, 
+                            history: {
+                                push, 
+                                location: 
+                                {
+                                    pathname
+                                }
+                            }
+                        } = this.props;
+
+                if (modalType && modalType !== 'CREATE_USER') {
+                    setBodyModalParamsAction()
+                    return;
+                }
+
+                if (pathname && pathname !== '/login' && pathname !== '/') {
+                    push('/dashboard');
+                    return;
+                }
+
             }, false );
         }
+        document.addEventListener("deviceready", onDeviceReady, false);
     }
 
     state = {
@@ -326,6 +356,7 @@ const mapStateToProps = state => ({
     appState: state.account.blockchainStatus,
 
     // modals
+    modalType: state.modals.modalType,
     isLocalhost: state.account.isLocalhost,
     blockchainStatus: state.account.blockchainStatus,
     bodyModalType: state.modals.bodyModalType
@@ -341,6 +372,7 @@ const mapDispatchToProps = dispatch => ({
     
     //modals
     setBodyModalType: () => dispatch(setBodyModalType()),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     startBlockPullingAction: () => dispatch(startBlockPullingAction())
 });
 

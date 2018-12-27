@@ -738,6 +738,11 @@ input[type="file"] {
       color: #2ecc71 !important; }
     .form-group-app .form-body .image-button.danger > * {
       color: #e74c3c !important; }
+    .form-group-app .form-body .image-button.active label, .form-group-app .form-body .image-button.active i {
+      color: #00c8ff; }
+      @media (max-width: 768px) {
+        .form-group-app .form-body .image-button.active label, .form-group-app .form-body .image-button.active i {
+          color: #fff; } }
     .form-group-app .form-body .image-button .zmdi {
       position: absolute;
       top: 50%;
@@ -5738,6 +5743,11 @@ input[type="file"] {
       color: #2ecc71 !important; }
     .form-group-app .form-body .image-button.danger > * {
       color: #e74c3c !important; }
+    .form-group-app .form-body .image-button.active label, .form-group-app .form-body .image-button.active i {
+      color: #00c8ff; }
+      @media (max-width: 768px) {
+        .form-group-app .form-body .image-button.active label, .form-group-app .form-body .image-button.active i {
+          color: #fff; } }
     .form-group-app .form-body .image-button .zmdi {
       position: absolute;
       top: 50%;

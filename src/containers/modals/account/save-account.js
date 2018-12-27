@@ -118,9 +118,10 @@ class AddAccount extends React.Component {
                                             field={'accountRS'}
                                             noContactList={true}
                                             placeholder="Account ID"
-                                            defaultValue={this.props.modalData}
+                                            defaultValue={getValue('recipient') || ''}
                                             setValue={setValue}
                                             value={getValue('recipient') || ''}
+                                            disabled
                                         />
                                     </div>
                                 </div>
