@@ -52,7 +52,7 @@ class Login extends React.Component {
                 className={`${isMedia ? 'hide-xs' : ''}`}
                 style={{
                     position: "absolute",
-                    bottom: `${isMedia ? '-30px' : '30px'}`,
+                    bottom: `${isMedia ? '-45px' : '30px'}`,
                     color: 'white',
                     width: '100%',
                     textAlign: 'center',
