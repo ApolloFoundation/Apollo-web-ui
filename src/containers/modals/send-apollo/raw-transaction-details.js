@@ -48,7 +48,7 @@ class RawTransactionDetails extends React.Component {
     }
 
     render() {
-        const {request, result} = this.props.modalData;
+        const {modalData: {result}, modalData} = this.props;
         return (
             <div className="modal-box">
                 <BackForm
@@ -58,7 +58,7 @@ class RawTransactionDetails extends React.Component {
                                  submitForm, values, addValue, removeValue, setValue, getFormState
                     }) => (
                         <form className="modal-form modal-send-apollo" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
-                            {request &&
+                            {modalData && modalData.request &&
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
