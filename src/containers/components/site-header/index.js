@@ -805,14 +805,6 @@ class SiteHeader extends React.Component {
                                                                         </li>
                                                                         <li>
                                                                             <a
-                                                                                href='/test'
-                                                                                className="option"
-                                                                            >
-                                                                                API Console
-                                                                             </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a
                                                                                 onClick={() => {
                                                                                     this.setState({bodyModalType: null});
                                                                                     return this.props.setBodyModalParamsAction('EXPORT_KEY_SEED');
