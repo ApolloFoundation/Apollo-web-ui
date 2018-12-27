@@ -18,6 +18,9 @@ import {enable2FAActon, disable2FAActon} from '../../../actions/account'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getAccountInfoAction} from "../../../actions/account";
 import {login} from '../../../modules/account'
+import AccountRS from '../../components/account-rs';
+import InputForm from '../../components/input-form';
+import ModalFooter from '../../components/modal-footer';
 
 class Settings extends React.Component {
 
@@ -102,7 +105,7 @@ class Settings extends React.Component {
         } 
 
         const status =  await enable2FAActon({
-            passphrase: values.passphrase,
+            passphrase: values.secretPhrase,
             account:    values.account
         });
 
@@ -111,7 +114,7 @@ class Settings extends React.Component {
         } else {
             this.props.setBodyModalParamsAction('CONFIRM_2FA_OPERATION', {
                 ...status,
-                passphrase: values.passphrase,
+                passphrase: values.secretPhrase,
                 account:    values.account,
                 operation: 'enable 2FA',
                 settingsReloader: this.getAccountInfoAction
@@ -132,7 +135,7 @@ class Settings extends React.Component {
         } 
 
         const status =  await disable2FAActon({
-            passphrase: values.passphrase,
+            passphrase: values.secretPhrase,
             account:    values.account,
             code2FA:       values.code2FA
         });
@@ -178,7 +181,7 @@ class Settings extends React.Component {
                                 <div className="page-settings-item">
                                     <Form
                                         onSubmit={(values) => this.handleFormSubmit(values)}
-                                        render={({submitForm, values, addValue, removeValue, getFormState}) => (
+                                        render={({submitForm, setValue, values, addValue, removeValue, getFormState}) => (
                                             <form className="modal-form" onSubmit={submitForm}>
                                                 <div className="form-group-app">
                                                     <div className="form-title">
@@ -196,110 +199,56 @@ class Settings extends React.Component {
                                                             </div>
                                                         }
                                                     </div>
-
-
-                                                    {
-                                                        this.state.account &&
-                                                        !this.state.account.is2FA &&
-                                                        <React.Fragment>
-                                                            <div className="input-group-app">
-                                                                <div className="row">
-                                                                    <div className="col-md-6 align-items-center">
-                                                                        <label>Account ID</label>
-                                                                    </div>
-                                                                    <div className="col-md-6">
-                                                                        <Text className="form-control"
-                                                                              type="text"
-                                                                              field="account"/>
-                                                                    </div>
+                                                    
+                                                    <div className="input-group-app form-group mb-15 display-block inline user">
+                                                        <div className="row form-group-white">
+                                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
+                                                                Account ID
+                                                            </label>
+                                                            <div className="col-sm-9">
+                                                                <div className="iconned-input-field">
+                                                                    <AccountRS
+                                                                        value={''}
+                                                                        noContactList={true}
+                                                                        placeholder="Account ID"
+                                                                        setValue={setValue}
+                                                                        field={'account'}
+                                                                    />
                                                                 </div>
                                                             </div>
-                                                            <div className="input-group-app">
-                                                                <div className="row">
-                                                                    <div className="col-md-6 align-items-center">
-                                                                        <label>Secret phrase</label>
-                                                                    </div>
-                                                                    <div className="col-md-6">
-                                                                        <Text className="form-control"
-                                                                              type="password"
-                                                                              field="passphrase"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="mobile-class form-group-grey row mb-15">
-                                                                <div
-                                                                    style={{
-                                                                        marginTop: 15,
-                                                                        paddingLeft: 0
-                                                                    }}
-                                                                    className="col-sm-6 offset-sm-6"
+                                                        </div>
+                                                    </div>
+                                                    <ModalFooter
+                                                        setValue={setValue}
+                                                    />
+                                                    <div className="mobile-class form-group-grey row mb-15">
+                                                        <div
+                                                            style={{
+                                                                marginTop: 15,
+                                                            }}
+                                                            className="col-sm-6 offset-sm-3"
+                                                        >
+                                                            {
+                                                                this.state.account &&
+                                                                !this.state.account.is2FA &&
+                                                                <a className="no-margin btn static blue"
+                                                                    onClick={() => this.getQRCode(getFormState)}
                                                                 >
-                                                                    <a className="no-margin btn static blue"
-                                                                       onClick={() => this.getQRCode(getFormState)}>
-                                                                        Get Qr code
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </React.Fragment>
-                                                    }
-
-                                                    {
-                                                        this.state.account &&
-                                                        this.state.account.is2FA &&
-                                                        <React.Fragment>
-                                                            <div className="input-group-app">
-                                                                <div className="row">
-                                                                    <div className="col-md-6 align-items-center">
-                                                                        <label>Account ID</label>
-                                                                    </div>
-                                                                    <div className="col-md-6">
-                                                                        <Text className="form-control"
-                                                                              type="text"
-                                                                              field="account"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="input-group-app">
-                                                                <div className="row">
-                                                                    <div className="col-md-6 align-items-center">
-                                                                        <label>Secret phrase</label>
-                                                                    </div>
-                                                                    <div className="col-md-6">
-                                                                        <Text className="form-control"
-                                                                              type="password"
-                                                                              field="passphrase"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="input-group-app">
-                                                                <div className="row">
-                                                                    <div className="col-md-6 align-items-center">
-                                                                        <label>2FA code</label>
-                                                                    </div>
-                                                                    <div className="col-md-6">
-                                                                        <Text className="form-control"
-                                                                              type="password"
-                                                                              field="code2FA"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="mobile-class form-group-grey row mb-15">
-                                                                <div
-                                                                    style={{
-                                                                        marginTop: 15,
-                                                                        paddingLeft: 0
-                                                                    }}
-                                                                    className="col-sm-6 offset-sm-6"
+                                                                    Get Qr code
+                                                                </a>
+                                                            }
+                                                            {
+                                                                this.state.account &&
+                                                                this.state.account.is2FA &&
+                                                                <a className="no-margin btn static blue"
+                                                                    onClick={() => this.disable2fa(getFormState)}
                                                                 >
-                                                                    <a className="no-margin btn static blue"
-                                                                       onClick={() => this.disable2fa(getFormState)}>
-                                                                        Confirm disable
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </React.Fragment>
-                                                    }
+                                                                    Confirm disable
+                                                                </a>
+                                                            }
 
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </form>
                                             )}
@@ -311,40 +260,38 @@ class Settings extends React.Component {
                                     <div className="page-settings-item full-height">
                                         <Form
                                             onSubmit={(values) => this.handleGeneralSettingFormSubmit(values)}
-                                            render={({submitForm, values, addValue, removeValue, getFormState}) => (
+                                            render={({submitForm, setValue, values, addValue, removeValue, getFormState}) => (
                                                 <form className="modal-form" onSubmit={submitForm}>
                                                     <div className="form-group-app">
                                                         <div className="form-title">
                                                             <p>General</p>
                                                         </div>
-                                                        <div className="input-group-app">
-                                                            <div className="row">
-                                                                <div className="col-md-6 align-items-center">
-                                                                    <label>Admin password</label>
-                                                                </div>
-                                                                <div className="col-md-6 pl-0">
-                                                                    <Text
-                                                                        className="form-control"
-                                                                        type="password"
-                                                                        field="adminPassword"
-                                                                        defaultValue={this.state.adminPassword}
-                                                                    />
-                                                                </div>
+                                                        <div className="form-group row form-group-white mb-15">
+                                                            <label className="col-sm-3 col-form-label">
+                                                                Admin password
+                                                            </label>
+                                                            <div className="col-sm-9">
 
+                                                                <InputForm
+                                                                    type="password"
+                                                                    field="adminPassword"
+                                                                    placeholder="Admin password"
+                                                                    setValue={setValue}
+                                                                    defaultValue={this.state.adminPassword}
+                                                                />
                                                             </div>
-                                                            <div className="row">
-                                                                <div className="mobile-class form-group-grey row mb-15">
-                                                                    <div
-                                                                        style={{
-                                                                            marginTop: 15,
-                                                                            paddingLeft: 0
-                                                                        }}
-                                                                        className="col-sm-6 offset-sm-6"
-                                                                    >
-                                                                        <button className="no-margin btn static blue">
-                                                                            Save
-                                                                        </button>
-                                                                    </div>
+                                                        </div>
+                                                        <div className="form-group row form-group-white mb-15">
+                                                            <div className="mobile-class form-group-grey row mb-15">
+                                                                <div
+                                                                    style={{
+                                                                        marginTop: 15,
+                                                                    }}
+                                                                    className="col-sm-6 offset-sm-3"
+                                                                >
+                                                                    <button className="no-margin btn static blue">
+                                                                        Save
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>

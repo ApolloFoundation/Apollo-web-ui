@@ -344,6 +344,14 @@
 										line-height: 14px;
 										padding: 0 35px;
 										margin: 10px 0;
+										
+										&.active {
+											color: #00c8ff;
+
+											@media (max-width: 768px) {
+												color: #fff;
+											}
+										}
 										@media (max-width: 760px) {
 											color: #777777;
 											padding: 0;
