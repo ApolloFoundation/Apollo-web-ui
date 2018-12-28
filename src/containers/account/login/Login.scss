@@ -2,11 +2,13 @@
   &.login-page {
     @media(max-width: 768px) {
       padding: 0;
+      height: 100vh;
+      min-height: 445px;
     }
   }
   .page-content {
     .page-body {
-      padding: 0;
+      padding:  0 !important;
 
       & > .login {
         position: fixed;
@@ -33,12 +35,22 @@
           background-size: cover;
           background-position: top center;
         }
+        .copyrights {
+          @media(max-height: 500px) {
+            display: none;
+          }
+        }
+        .modal-form {
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+        }
         .form-group-app {
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          max-width: 500px;
+          max-width:445px;
           height: auto;
           z-index: 1;
 
@@ -63,8 +75,12 @@
           max-width: auto;
           position: static;
           height: 100vh;
-          min-height: 500px;
+          min-height: 400px;
+          display: flex;
       
+          .modal-form {
+            margin: auto 0;
+          }
           // min-height: 568px;
           // overflow-y: scroll;
         }

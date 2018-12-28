@@ -50,7 +50,7 @@ class Login extends React.Component {
 
         const copyrights = (isMedia) => 
             <p
-                className={'hide-xs'}
+                className={'hide-xs copyrights'}
                 style={{
                     position: "absolute",
                     bottom: '30px',
