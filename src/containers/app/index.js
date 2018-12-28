@@ -227,6 +227,17 @@ class App extends React.Component {
     }
 
     render() {
+        const {
+            history: {
+                location: 
+                {
+                    pathname
+                }
+            }
+        } = this.props;
+
+        const isLoginPage = pathname === '/login';
+
         return (
             <div>
                 <NotificationContainer/>
@@ -254,6 +265,7 @@ class App extends React.Component {
                 <div ref="siteContent"
                      className={classNames({
                          'site-content': true,
+                         'login-page':  isLoginPage,
                          'hide-page-body': this.props.bodyModalType
                      })}
                      onClick={(e) => this.handleModal(e)}
@@ -334,7 +346,7 @@ class App extends React.Component {
                         </React.Fragment>
                         }
                     </Switch>
-                    {!this.props.loading &&
+                    {!this.props.loading && !isLoginPage &&
                     <div className="site-footer">
                         Copyright © 2017-2018 Apollo Foundation.
                         <br className={'show-media hide-desktop'}/>
