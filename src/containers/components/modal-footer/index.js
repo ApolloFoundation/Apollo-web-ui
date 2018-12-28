@@ -43,11 +43,12 @@ class ModalFooter extends React.Component {
                             2FA code
                         </label>
                         <div className="col-sm-9">
-                            <Text
+                            <InputForm
+                                className={'form-control'}
                                 type="password"
                                 field="code2FA"
                                 placeholder="2FA code"
-                                setValue={setValue}
+                                setValue={this.props.setValue}
                             />
                         </div>
                     </div>

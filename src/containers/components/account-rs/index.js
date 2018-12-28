@@ -29,7 +29,6 @@ class AccountRS extends React.Component {
         }
     };
     componentWillReceiveProps = (newProps) => {
-        console.log(newProps)
         if (newProps.defaultValue) {
             this.setState({
                 inputValue: {

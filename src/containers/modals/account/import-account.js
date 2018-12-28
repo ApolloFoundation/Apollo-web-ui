@@ -226,7 +226,6 @@ class ImportAccount extends React.Component {
                                         })}
                                         onSubmit={submitForm}
                                     >
-
                                         <div className="form-group-app">
                                             <div className="form-title">
                                                 <p>Restore Your Wallet</p>

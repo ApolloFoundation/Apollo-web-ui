@@ -909,7 +909,6 @@ class CreateUser extends React.Component {
                                         })}
                                         onSubmit={submitForm}
                                     >
-
                                             <div className="form-title">
                                                 <p>Create Your Wallet</p>
                                             </div>
@@ -931,8 +930,6 @@ class CreateUser extends React.Component {
                                                     />
                                                 </div>
                                             </div>
-
-
                                             <div className="btn-box align-buttons-inside absolute right-conner">
                                                 
 
