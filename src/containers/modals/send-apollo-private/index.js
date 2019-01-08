@@ -18,6 +18,7 @@ import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer'
+import FormFooter from '../../components/form-components/form-footer';
 
 class SendApolloPrivate extends React.Component {
     constructor(props) {
@@ -42,10 +43,12 @@ class SendApolloPrivate extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const isPassphrase = await this.props.validatePassphrase(values.secretPhrase);
-        
+        const {secretPhrase} = values;
 
-
+        if (!secretPhrase) {
+            NotificationManager.error('Secret Phrase is not specified.', 'Error', 5000);
+            return;
+        }
         if (!values.recipient) {
             this.setState({
                 isPending: false
@@ -68,8 +71,10 @@ class SendApolloPrivate extends React.Component {
             return;
         }
 
+        const isPassphrase = await this.props.validatePassphrase(secretPhrase);
+
         if (!isPassphrase) {
-            values.passphrase = values.secretPhrase;
+            values.passphrase = secretPhrase;
             values.sender = this.props.account;
             delete values.secretPhrase;
         }
@@ -82,6 +87,9 @@ class SendApolloPrivate extends React.Component {
 
         if (privateTransaction) {
             if (privateTransaction.errorCode) {
+                this.setState({
+                    isPending: false
+                });
                 NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
 
             } else {
@@ -120,6 +128,8 @@ class SendApolloPrivate extends React.Component {
     };
 
     render() {
+        const {isPending} = this.state;
+
         return (
             <div className="modal-box">
                 <Form
@@ -224,54 +234,11 @@ class SendApolloPrivate extends React.Component {
                                     getFormState={getFormState}
                                     values={values}
                                 />
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect secret phrase.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.recipientStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect recipient.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.amountStatus &&
-                                    <InfoBox danger mt>
-                                        Missing amount.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.feeStatus &&
-                                    <InfoBox danger mt>
-                                        Missing fee.
-                                    </InfoBox>
-                                }
-
-                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <a
-                                        onClick={() => this.props.closeModal()}
-                                        className="btn round round-top-left"
-                                    >
-                                        Cancel
-                                    </a>
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className={classNames({
-                                            "btn" : true,
-                                            "btn-right" : true,
-                                            "blue" : true,
-                                            "round" : true,
-                                            "round-bottom-right" : true,
-                                            "blue-disabled": !this.state.isPrivateTransactionAlert
-                                        })}
-                                    >
-                                        Send
-                                    </button>
-
-                                </div>
+                                <FormFooter
+                                    isPending={isPending}
+                                    submitButtonName={'Send'}
+                                    isDisabled={!this.state.isPrivateTransactionAlert}
+                                />
                             </div>
                         </form>
                     )}
