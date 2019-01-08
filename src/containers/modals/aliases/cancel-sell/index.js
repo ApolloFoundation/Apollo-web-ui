@@ -15,6 +15,7 @@ import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
 import {calculateFeeAction} from "../../../../actions/forms";
 import AdvancedSettings from '../../../components/advanced-transaction-settings';
+import {FeeCalc} from '../../../components/form-components/fee-calc';
 
 import BackForm from '../../modal-form/modal-form-container';
 import ModalFooter from '../../../components/modal-footer';
@@ -151,22 +152,23 @@ class CancelSell extends React.Component {
                                                 }
                                                 <p>Cancel Alias Sale</p>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Alias</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <p>{this.state.alias.aliasName}</p>
-                                                    </div>
+                                            
+                                            <div className="form-group row form-group-white mb-15">
+                                                <label className="col-sm-3 col-form-label">
+                                                    Alias
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    <span>{this.state.alias.aliasName}</span>
                                                 </div>
                                             </div>
+                                            <FeeCalc 
+                                                setValue={setValue}                                    
+                                            />
                                             <ModalFooter
                                                 setValue={setValue}
                                                 getFormState={getFormState}
                                                 values={values}
                                             />
-
                                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                 <a
                                                     onClick={() => this.props.closeModal()}

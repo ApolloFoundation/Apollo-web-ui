@@ -1031,7 +1031,6 @@ input[type="file"] {
 			&:hover {
 				opacity: 0.7;
 			}
-			
 			&:last-child {
 				margin-bottom: 0px;
 			}
@@ -1043,6 +1042,15 @@ input[type="file"] {
 			&.danger {
 				& > * {
 					color: #e74c3c !important;
+				}
+			}
+			&.active {
+				label, i {
+					color: #00c8ff;
+
+					@media (max-width: 768px) {
+						color: #fff;
+					}
 				}
 			}
 			.zmdi {
