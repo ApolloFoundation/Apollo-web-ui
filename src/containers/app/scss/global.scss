@@ -1420,6 +1420,13 @@ input {
 	width: 100%;
 	height: 33px;
 	//min-height: 32px;
+	
+	&.form-footer {
+		width: auto;
+	}
+	&.loading {
+		
+	}
 	&.under-table {
 		transform: translate(0, 0px);
 		@media (max-width: 1024px) {
@@ -1499,6 +1506,9 @@ input {
 	.btn {
 		&.disabled {
 			display: none;
+		}
+		&.submit-button {
+			min-width: 60px;
 		}
 	}
 }
