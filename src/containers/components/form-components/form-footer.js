@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
 
 const FormFooter = ({submitButtonName, isAdvanced, isPending, isDisabled, setValue}) => (
     <div className="btn-box align-buttons-inside absolute right-conner align-right form-footer">
