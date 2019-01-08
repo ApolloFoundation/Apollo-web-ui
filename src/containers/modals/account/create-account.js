@@ -317,7 +317,7 @@ class CreateUser extends React.Component {
                                                                                         <li>The wallet is encrypted (via Secret Key) on one device.</li>
                                                                                         <li>You can export/import your Secret Key to use on other devices.</li>
                                                                                         <li>2FA works from any device when you use your Vault.</li>
-                                                                                        <li>If you loose your device before exporting your security key you will not be able to access your wallet.</li>
+                                                                                        <li>If you lose your device before exporting your security key you will not be able to access your wallet.</li>
                                                                                     </ul>
                                                                                 </InfoBox>
                                                                             </div>
@@ -452,7 +452,7 @@ class CreateUser extends React.Component {
                                                                                             <li>The wallet is encrypted (via Secret Key) on one device.</li>
                                                                                             <li>You can export/import your Secret Key to use on other devices.</li>
                                                                                             <li>2FA works from any device when you use your Vault.</li>
-                                                                                            <li>If you loose your device before exporting your security key you will not be able to access your wallet.</li>
+                                                                                            <li>If you lose your device before exporting your security key you will not be able to access your wallet.</li>
                                                                                         </ul>
                                                                                     </InfoBox>
                                                                                 </div>

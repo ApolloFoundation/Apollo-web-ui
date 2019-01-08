@@ -111,7 +111,7 @@ export function getUpdateStatus() {
                     }
                 }
                 if (res.data.isUpdate) {
-                    NotificationManager.error(`Your current version is expired. A new version ${res.data.level} is available. This version should start downloading automatically, please allow time for this version to begin downloading. If your version does not download after 30 minutes, please redownload the wallet on apollocurrency.com.`, 'Important', 900000);
+                    NotificationManager.error(`Your current version is expired. A new version ${res.data.level} is available. This download should start downloading automatically, please allow time for this version to begin downloading. If your version does not download after 30 minutes, please redownload the wallet on apollocurrency.com.`, 'Important', 900000);
                 }
             }
         })
