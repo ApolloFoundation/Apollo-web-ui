@@ -347,7 +347,6 @@ class Dashboard extends React.Component {
 	};
 
 	accountIdChange = (el) => {
-		console.log(el)
 		this.state.formValue = {...this.state.formValue, recipient: el};
 	};
 
