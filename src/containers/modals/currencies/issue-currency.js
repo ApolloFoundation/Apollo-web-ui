@@ -136,7 +136,7 @@ class IssueCurrency extends React.Component {
                     nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => {
-                        const {values: {type1, type3, type4, type5}} = getFormState();
+                        const {values: {type1, type2, type3, type4, type5, type6}} = getFormState();
 
                         return (
 
@@ -196,7 +196,7 @@ class IssueCurrency extends React.Component {
                                                         type="checkbox"
                                                         field="type1"
                                                         onChange={(e) => {
-                                                            setValue('height', e ? 0 : '')
+                                                            setValue('height', e ? 0 : '');
                                                         }}   
                                                     />
                                                     <label className="form-check-label custom-control-label">
@@ -372,7 +372,7 @@ class IssueCurrency extends React.Component {
                                                 <InputForm
                                                     type="tel"
                                                     field="height"
-                                                    disabled={type1}
+                                                    disabled={type1 && !type2 &&  !type3 &&  !type4 &&  !type5 && !type6}
                                                     placeholder="Activation height"
                                                     setValue={setValue}/>
                                             </div>

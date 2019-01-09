@@ -1753,6 +1753,16 @@ input[type="file"] {
 	text-overflow: unset;		
 
 	//min-height: 32px;
+	&.pagination {
+		margin-top: 15px;
+		position: relative;
+
+		.pagination-nav {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
 	&.under-table {
 		transform: translate(0, 0px);
 		@media (max-width: 1024px) {

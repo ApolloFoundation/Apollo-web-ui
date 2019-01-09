@@ -1236,6 +1236,13 @@ input[type="file"] {
   width: 100%;
   height: 33px;
   text-overflow: unset; }
+  .btn-box.pagination {
+    margin-top: 15px;
+    position: relative; }
+    .btn-box.pagination .pagination-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%); }
   .btn-box.under-table {
     transform: translate(0, 0px); }
     @media (max-width: 1024px) {
@@ -6242,6 +6249,13 @@ input[type="file"] {
   width: 100%;
   height: 33px;
   text-overflow: unset; }
+  .btn-box.pagination {
+    margin-top: 15px;
+    position: relative; }
+    .btn-box.pagination .pagination-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%); }
   .btn-box.under-table {
     transform: translate(0, 0px); }
     @media (max-width: 1024px) {
