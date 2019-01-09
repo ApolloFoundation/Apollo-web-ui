@@ -9,12 +9,13 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import {NotificationManager} from 'react-notifications';
 import {generateAccountAction} from '../../../actions/account'
+import InputForm from '../../components/input-form';
 
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InfoBox from '../../components/info-box'
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
-import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
@@ -24,29 +25,25 @@ import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import ReactDOM from 'react-dom';
 // import QRCode from 'qrcode.react';
 import QRCode from 'qrcode';
 
 import jsPDF from 'jspdf';
 
-import BackForm from '../modal-form/modal-form-container';
-
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.account,
-    modalsHistory: state.modals.modalsHistory
+    account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
     getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
-    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 class CreateUser extends React.Component {
@@ -65,12 +62,6 @@ class CreateUser extends React.Component {
             lebar:'08.27',
         }
     };
-
-    componentDidMount() {
-        // this.generateAccount();
-        this.generatePassphrase();
-    };
-
 
     /*
     * First element of array accepts an account ID
@@ -297,8 +288,7 @@ class CreateUser extends React.Component {
                                             </a>
                                         </div>
 
-                                        <BackForm
-	                                        nameModal={this.props.nameModal}
+                                        <Form
                                             onSubmit={(values) => this.handleFormSubmit(values)}
                                             render={({
                                                          submitForm, setValue, values, getFormState
@@ -308,7 +298,6 @@ class CreateUser extends React.Component {
                                                         "tab-body": true,
                                                         "active": this.state.activeTab === 1
                                                     })}
-                                                    onChange={() => this.props.saveSendModalState(values)}
                                                     onSubmit={submitForm}
                                                 >
                                                     {
@@ -316,9 +305,6 @@ class CreateUser extends React.Component {
                                                         <React.Fragment>
                                                             <div className="form-group-app transparent">
                                                                 <div className="form-title">
-	                                                                {this.props.modalsHistory.length > 1 &&
-	                                                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                                                }
                                                                     <p>Create your Vault</p>
                                                                 </div>
                                                                 <div className="input-group-app display-block offset-bottom">
@@ -448,9 +434,6 @@ class CreateUser extends React.Component {
                                                         !this.state.isCustomPassphrase &&
                                                         <div className="form-group-app transparent">
                                                             <div className="form-title">
-	                                                            {this.props.modalsHistory.length > 1 &&
-	                                                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                                            }
                                                                 <p>Create your Vault</p>
                                                             </div>
                                                             {
@@ -535,19 +518,10 @@ class CreateUser extends React.Component {
                                                                                                 >
                                                                                                     Copy account data to clipboard.
                                                                                                 </a>
+
                                                                                             </CopyToClipboard>
                                                                                             <br/>
                                                                                             <br/>
-                                                                                            <a
-                                                                                                className="btn blue static hide-media"
-                                                                                                onClick={() => this.generatePDF([
-                                                                                                    {name: 'Account ID', value: this.state.accountData.accountRS},
-                                                                                                    {name: 'Secret Phrase', value: this.state.accountData.passphrase},
-                                                                                                    {name: 'Public Key', value: this.state.accountData.publicKey},
-                                                                                                ])}
-                                                                                            >
-                                                                                                Print Wallet
-                                                                                            </a>
                                                                                         </InfoBox>
                                                                                     }
 
@@ -590,57 +564,69 @@ class CreateUser extends React.Component {
                                                     }
                                                     {
                                                         this.state.isValidating &&
-                                                        <div className="form-group-app">
-                                                            <div className="form-title">
-                                                                <p>Create Your Wallet</p>
-                                                            </div>
-                                                            <ModalFooter
-                                                                off2FA
-                                                                setValue={setValue}
-                                                                getFormState={getFormState}
-                                                                values={values}
-                                                            />
-
-
-                                                            <div className="btn-box align-buttons-inside absolute right-conner">
-                                                                {
-                                                                    !!this.state.isPending ?
-                                                                        <div
-                                                                            style={{
-                                                                                width: 121.5
-                                                                            }}
-                                                                            className="btn btn-right blue round round-top-left round-bottom-right"
-                                                                        >
-                                                                            <div className="ball-pulse">
-                                                                                <div></div>
-                                                                                <div></div>
-                                                                                <div></div>
-                                                                            </div>
-                                                                        </div> :
-                                                                        <button
-
-                                                                            type="submit"
-                                                                            name={'closeModal'}
-                                                                            className="btn btn-right blue round round-top-left round-bottom-right"
-                                                                        >
-                                                                            Create New Account
-                                                                        </button>
-                                                                }
-                                                                <button
-                                                                    type="button"
-                                                                    name={'closeModal'}
-                                                                    className="btn btn-right round round-top-left"
-                                                                    onClick={() => this.setState({isValidating: false})}
+                                                            <div className="form-group-app">
+                                                                <div className="form-title">
+                                                                    <p>Create Your Wallet</p>
+                                                                </div>
+                                                                
+                                                                <div 
+                                                                    className="form-group row form-group-white mb-15"
+                                                                    style={{marginBottom: 15}}
                                                                 >
-                                                                    Back
-                                                                </button>
+                                                                    <label className="col-sm-3 col-form-label">
+                                                                        Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                                                    </label>
+                                                                    <div className="col-sm-9">
+                                                                        <InputForm
+                                                                            isPlain
+                                                                            className={'form-control'}
+                                                                            type="password"
+                                                                            field="secretPhrase"
+                                                                            placeholder="Secret Phrase"
+                                                                            setValue={setValue}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                                                    {
+                                                                        !!this.state.isPending ?
+                                                                            <div
+                                                                                style={{
+                                                                                    width: 121.5
+                                                                                }}
+                                                                                className="btn btn-right blue round round-top-left round-bottom-right"
+                                                                            >
+                                                                                <div className="ball-pulse">
+                                                                                    <div></div>
+                                                                                    <div></div>
+                                                                                    <div></div>
+                                                                                </div>
+                                                                            </div> :
+                                                                            <button
+
+                                                                                type="submit"
+                                                                                name={'closeModal'}
+                                                                                className="btn btn-right blue round round-top-left round-bottom-right"
+                                                                            >
+                                                                                Create New Account
+                                                                            </button>
+                                                                    }
+                                                                    <button
+                                                                        type="button"
+                                                                        name={'closeModal'}
+                                                                        className="btn btn-right round round-top-left"
+                                                                        onClick={() => this.setState({isValidating: false})}
+                                                                    >
+                                                                        Back
+                                                                    </button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    }
+                                                        }
                                                 </form>
                                             )}
                                         >
-                                        </BackForm>
+                                        </Form>
                                         <Form
                                             onSubmit={(values) => this.handleValidateToken(values)}
                                             render={({
@@ -849,18 +835,10 @@ class CreateUser extends React.Component {
                                                                                                 >
                                                                                                     Copy account data to clipboard.
                                                                                                 </a>
+
                                                                                             </CopyToClipboard>
                                                                                             <br/>
                                                                                             <br/>
-                                                                                            <a
-                                                                                                className="btn blue static hide-media"
-                                                                                                onClick={() => this.generatePDFStandard([
-                                                                                                    {name: 'Account ID', value: this.state.generatedAccount},
-                                                                                                    {name: 'Secret Phrase', value: this.state.generatedPassphrase},
-                                                                                                ])}
-                                                                                            >
-                                                                                                Print Wallet
-                                                                                            </a>
                                                                                         </InfoBox>
                                                                                     }
 
@@ -931,18 +909,27 @@ class CreateUser extends React.Component {
                                         })}
                                         onSubmit={submitForm}
                                     >
-
                                             <div className="form-title">
                                                 <p>Create Your Wallet</p>
                                             </div>
-                                            <ModalFooter
-                                                off2FA
-                                                setValue={setValue}
-                                                getFormState={getFormState}
-                                                values={values}
-                                            />
-
-
+                                            <div 
+                                                className="form-group row form-group-white mb-15"
+                                                style={{marginBottom: 15}}
+                                            >
+                                                <label className="col-sm-3 col-form-label">
+                                                    Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    <InputForm
+                                                        isPlain
+                                                        className={'form-control'}
+                                                        type="password"
+                                                        field="secretPhrase"
+                                                        placeholder="Secret Phrase"
+                                                        setValue={setValue}
+                                                    />
+                                                </div>
+                                            </div>
                                             <div className="btn-box align-buttons-inside absolute right-conner">
                                                 
 
@@ -986,7 +973,6 @@ class CreateUser extends React.Component {
                         </div>
                     </div>
                 }
-
             </React.Fragment>
         );
     }

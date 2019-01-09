@@ -90,7 +90,15 @@ async function getPublicKeyAPL(id, isAccountId) {
 function getAccountIdAPL(sp, isRsFt) {
     return async (dispatch, getStore) => {
 
+        const {account} = getStore();
         const publicKey = await getPublicKeyAPL(conv.stringToHexStringAPL(sp));
+        let accountRS = dispatch(getAccountIdFromPublicKeyAPL(publicKey, isRsFt));
+        if (accountRS.slice(0,4) === 'APL-' && account.constants) {
+            accountRS = accountRS.replace('APL-', '');
+            accountRS = `${account.constants.accountPrefix}-${accountRS}`;
+            return accountRS;
+        }   
+
         return await dispatch(getAccountIdFromPublicKeyAPL(publicKey, isRsFt));
     }
 };

@@ -1,6 +1,7 @@
 import React from 'react';
-import InputForm from '../../components/input-form'
-import {connect} from 'react-redux'
+import InputForm from '../../components/input-form';
+import {connect} from 'react-redux';
+import {Text} from 'react-form';
 
 const mapStateToProps = state => ({
     is2fa: state.account.is2FA
@@ -24,12 +25,14 @@ class ModalFooter extends React.Component {
                         Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                     </label>
                     <div className="col-sm-9">
-
                         <InputForm
+                            isPlain
+                            className={'form-control'}
                             type="password"
                             field="secretPhrase"
                             placeholder="Secret Phrase"
-                            setValue={setValue}/>
+                            setValue={this.props.setValue}
+                        />
                     </div>
                 </div>
                 {
@@ -41,10 +44,11 @@ class ModalFooter extends React.Component {
                         </label>
                         <div className="col-sm-9">
                             <InputForm
+                                className={'form-control'}
                                 type="password"
                                 field="code2FA"
                                 placeholder="2FA code"
-                                setValue={setValue}
+                                setValue={this.props.setValue}
                             />
                         </div>
                     </div>

@@ -155,7 +155,7 @@ class InfoLedgerTransaction extends React.Component {
                                             }
                                             {this.state.transaction.recipientRS ?
                                                 <a
-                                                    onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.state.transaction.recipientRS)}
+                                                    onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.props.accountRS === this.state.transaction.recipientRS ? this.state.transaction.senderRS : this.state.transaction.recipientRS)}
                                                     className="btn btn-primary blue static">
                                                     Add as contact
                                                 </a>
@@ -392,6 +392,7 @@ class InfoLedgerTransaction extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    accountRS: state.account.accountRS,
     modalType: state.modals.modalType,
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,

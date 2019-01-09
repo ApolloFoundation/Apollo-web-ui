@@ -226,7 +226,6 @@ class ImportAccount extends React.Component {
                                         })}
                                         onSubmit={submitForm}
                                     >
-
                                         <div className="form-group-app">
                                             <div className="form-title">
                                                 <p>Restore Your Wallet</p>
@@ -252,6 +251,7 @@ class ImportAccount extends React.Component {
                                                 </label>
                                                 <div className="col-sm-9">
                                                     <InputForm
+                                                        isPlain
                                                         type="password"
                                                         field="passphrase"
                                                         placeholder="Secret Phrase"

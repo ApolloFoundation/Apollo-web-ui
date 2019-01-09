@@ -261,8 +261,8 @@ class InfoAccount extends React.Component {
                                                 <table>
                                                     <thead key={uuid()}>
                                                     <tr>
-	                                                    <td>Date</td>
-	                                                    <td>Type</td>
+                                                        <td>Date</td>
+                                                        <td>Type</td>
                                                         <td className="align-right">Amount</td>
                                                         <td className="align-right">Fee</td>
                                                         <td>From</td>

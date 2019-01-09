@@ -209,7 +209,9 @@ class CreatePoll extends React.Component {
                                             <InputForm
                                                 field="name"
                                                 placeholder="Poll Name"
-                                                setValue={setValue}/>
+                                                setValue={setValue}
+                                                isSpecialSymbols
+                                            />
                                         </div>
                                     </div>
                                     <div className="form-group row form-group-white mb-15">

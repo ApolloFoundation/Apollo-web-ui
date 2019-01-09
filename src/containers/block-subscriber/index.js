@@ -25,38 +25,6 @@ export default class BlockSubscriber extends React.Component {
         this.interval = setInterval(this.updateBlock, 4000)
     }
 
-
-    // TODO: nucomment after second release
-    // updateBlock = async () => {
-    //     let blockData = startBlockPullingAction();
-    //     let blockChainStatus = store.dispatch(loadBlockchainStatus());
-    //
-    //     await Promise.all([blockData, blockChainStatus])
-    //         .then((data) => {
-    //
-    //             blockData = data[0];
-    //             blockChainStatus = data[1];
-    //
-    //             if (blockData) {
-    //                 const currHeight = blockData.height;
-    //
-    //                 store.dispatch({
-    //                     type: 'SET_ACTUAL_BLOCK',
-    //                     payload: currHeight
-    //                 });
-    //
-    //                 const {account} = store.getState();
-    //
-    //                 if (currHeight > this.prevHeight) {
-    //
-    //                     console.log(2345234523);
-    //                     this.prevHeight = currHeight;
-    //                     BlockUpdater.emit("data", currHeight);
-    //                 }
-    //             }
-    //         });
-    // };
-
     updateBlock = async () => {
         const blockData = await startBlockPullingAction();
         if (blockData) {

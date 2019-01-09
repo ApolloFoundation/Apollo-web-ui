@@ -19,11 +19,6 @@ import submitForm from "../../../helpers/forms/forms";
 import BackForm from '../modal-form/modal-form-container';
 
 class RawTransactionDetails extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     state = {
         isPending: true
     };
@@ -48,7 +43,7 @@ class RawTransactionDetails extends React.Component {
     }
 
     render() {
-        const {request, result} = this.props.modalData;
+        const {modalData} = this.props;
         return (
             <div className="modal-box">
                 <BackForm
@@ -58,7 +53,7 @@ class RawTransactionDetails extends React.Component {
                                  submitForm, values, addValue, removeValue, setValue, getFormState
                     }) => (
                         <form className="modal-form modal-send-apollo" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
-                            {request &&
+                            {modalData && modalData.request &&
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
@@ -69,14 +64,14 @@ class RawTransactionDetails extends React.Component {
 	                                }
                                     <p>Raw Transaction Details</p>
                                 </div>
-                                {(!result.signatureHash && result.unsignedTransactionBytes) &&
+                                {(!modalData.result.signatureHash && modalData.result.unsignedTransactionBytes) &&
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label align-self-start">
                                         Unsigned Transaction Bytes
                                     </label>
                                     <div className="col-sm-9">
                                         <TextArea className="form-control"
-                                                  defaultValue={result.unsignedTransactionBytes}
+                                                  defaultValue={modalData.result.unsignedTransactionBytes}
                                                   placeholder="Signed Transaction Bytes"
                                                   disabled={true}
                                                   field="unsignedTransactionBytes"
@@ -84,10 +79,10 @@ class RawTransactionDetails extends React.Component {
                                     </div>
                                 </div>
                                 }
-                                {result.transactionJSON &&
+                                {modalData.result.transactionJSON &&
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label align-self-start">
-                                        {result.signatureHash ?
+                                        {modalData.result.signatureHash ?
                                             'Signed Transaction JSON'
                                             :
                                             'Unsigned Transaction JSON'
@@ -95,7 +90,7 @@ class RawTransactionDetails extends React.Component {
                                     </label>
                                     <div className="col-sm-9">
                                         <TextArea className="form-control"
-                                                  defaultValue={JSON.stringify(result.transactionJSON)}
+                                                  defaultValue={JSON.stringify(modalData.result.transactionJSON)}
                                                   placeholder="Transaction JSON"
                                                   disabled={true}
                                                   field="transactionJSON"
@@ -103,14 +98,14 @@ class RawTransactionDetails extends React.Component {
                                     </div>
                                 </div>
                                 }
-                                {(result.signatureHash && result.transactionBytes) &&
+                                {(modalData.result.signatureHash && modalData.result.transactionBytes) &&
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label align-self-start">
                                         Signed Transaction Bytes
                                     </label>
                                     <div className="col-sm-9">
                                         <TextArea className="form-control"
-                                                  defaultValue={result.transactionBytes}
+                                                  defaultValue={modalData.result.transactionBytes}
                                                   placeholder="Signed Transaction Bytes"
                                                   disabled={true}
                                                   field="transactionBytes"
@@ -118,14 +113,14 @@ class RawTransactionDetails extends React.Component {
                                     </div>
                                 </div>
                                 }
-                                {result.fullHash &&
+                                {modalData.result.fullHash &&
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Full Transaction Hash
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            defaultValue={result.fullHash}
+                                            defaultValue={modalData.result.fullHash}
                                             field="fullHash"
                                             disabled={true}
                                             placeholder="Full Transaction Hash"
@@ -133,14 +128,14 @@ class RawTransactionDetails extends React.Component {
                                     </div>
                                 </div>
                                 }
-                                {result.signatureHash ?
+                                {modalData.result.signatureHash ?
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Signature Hash
                                     </label>
                                     <div className="col-sm-9">
                                         <InputForm
-                                            defaultValue={result.signatureHash}
+                                            defaultValue={modalData.result.signatureHash}
                                             field="signatureHash"
                                             disabled={true}
                                             placeholder="Signature Bytes"
@@ -163,11 +158,11 @@ class RawTransactionDetails extends React.Component {
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a
                                         onClick={() => this.props.closeModal()}
-                                        className={`btn round round-top-left ${result.signatureHash ? 'round-bottom-right' : ''}`}
+                                        className={`btn round round-top-left ${modalData.result.signatureHash ? 'round-bottom-right' : ''}`}
                                     >
                                         Close
                                     </a>
-                                    {!result.signatureHash &&
+                                    {!modalData.result.signatureHash &&
 
 
                                         <button
