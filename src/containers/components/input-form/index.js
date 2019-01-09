@@ -24,10 +24,10 @@ class InputForm extends React.Component {
     };
 
     validateInput = (value) => {
-        const {type} = this.props;
+        const {type, isSpecialSymbols} = this.props;
 
         if (!value.target) {
-            if (type === "password") {
+            if (type === "password" || isSpecialSymbols) {
                 if (this.props.onChange) this.props.onChange(value);
                 this.setState({value});
                 
@@ -74,12 +74,12 @@ class InputForm extends React.Component {
                     value = this.props.minValue;
                 }
             } 
-            if (type !== "password" && type !== "tel" && type !== "float") {
+            if (type !== "password" && type !== "tel" && type !== "float" && !isSpecialSymbols) {
                 value = value.replace(/[;`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
         } else {
             value = value.target.value;
-            if (type === "password") {
+            if (type === "password" || isSpecialSymbols) {
                 if (this.props.onChange) this.props.onChange(value);
                 this.setState({value});
                 return value;
@@ -92,7 +92,7 @@ class InputForm extends React.Component {
                 if (value === '.') value = '0.';
                 value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
             } 
-            if (type === "password" && type === "tel" && type === "float") {
+            if (type === "password" && type === "tel" && type === "float" && !isSpecialSymbols) {
                 value = value.replace(/[;`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
         }
