@@ -8,7 +8,9 @@
   }
   .page-content {
     .page-body {
-      padding:  0 !important;
+      @media(max-width: 768px) {
+        padding:  0 !important;
+      }
 
       & > .login {
         position: fixed;

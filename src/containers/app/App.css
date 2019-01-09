@@ -165,6 +165,7 @@ html {
           html body #root > div .site-content > div .page-content {
             height: 100%; }
             html body #root > div .site-content > div .page-content .page-body {
+              padding-top: 135px;
               height: 100%; }
 
 a {
@@ -5170,6 +5171,7 @@ html {
           html body #root > div .site-content > div .page-content {
             height: 100%; }
             html body #root > div .site-content > div .page-content .page-body {
+              padding-top: 135px;
               height: 100%; }
 
 a {
