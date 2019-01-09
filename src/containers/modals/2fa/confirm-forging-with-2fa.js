@@ -42,9 +42,6 @@ class Confirm2FAforging extends React.Component {
             account: account,
             ...params
         };
-        //
-        // console.log(requestParams);
-        //
         const forging = await store.dispatch(await submitForm.submitForm(requestParams, action));
 
         if (forging) {

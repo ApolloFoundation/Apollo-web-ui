@@ -107,8 +107,6 @@ class AddAccount extends React.Component {
                                     <p>Add Contact</p>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
-                                    {console.log('1 ', getValue('recipient') || '')}
-                                    {console.log('2 ', this.props.modalData)}
                                     <label className="col-sm-3 col-form-label">
                                         Name
                                     </label>

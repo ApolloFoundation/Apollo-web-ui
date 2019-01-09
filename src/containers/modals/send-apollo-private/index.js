@@ -111,8 +111,6 @@ class SendApolloPrivate extends React.Component {
 
             values.recipient = values.mixerAccount;
             values.recipientPublicKey = values.mixerPublicKey;
-            
-            console.log(values)
 
             delete values.mixerAccount;
         }
@@ -178,7 +176,6 @@ class SendApolloPrivate extends React.Component {
                                  submitForm, values, addValue, removeValue, setValue, getFormState, getValue
                              }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
-                            {console.log(values)}
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
 

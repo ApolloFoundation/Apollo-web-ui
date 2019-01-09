@@ -714,8 +714,6 @@ class Dashboard extends React.Component {
 									</div>
 									<a
 										onClick={() => {
-											console.log(this.state.formValue)
-
 											this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {}, this.state.formValue)
 										}}
 									    className="btn absolute btn-left btn-simple"
@@ -727,8 +725,6 @@ class Dashboard extends React.Component {
 										className="btn btn-right gray round round-bottom-right round-top-left absolute"
 										data-modal="sendMoney"
 										onClick={() => {
-												console.log(this.state.formValue)
-
 												this.props.setBodyModalParamsAction('SEND_APOLLO', {}, this.state.formValue)
 											}}
 										>
