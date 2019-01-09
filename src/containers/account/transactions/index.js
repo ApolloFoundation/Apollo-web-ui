@@ -207,12 +207,13 @@ class Transactions extends React.Component {
     };
 
     setTransactionInfo(modalType, data, isPrivate) {
+        
         if (isPrivate) {
             this.getTransaction({
                 account: this.props.account,
                 transaction: data,
-                secretPhrase: this.state.passphrase ? this.state.passphrase.secretPhrase : null,
-                passphrase: this.state.secretPhrase ? this.state.secretPhrase.passphrase : null
+                passphrase:   this.state.passphrase.passphrase || null ,
+                secretPhrase: this.state.passphrase.secretPhrase || null 
             });
         } else {
             this.getTransaction({

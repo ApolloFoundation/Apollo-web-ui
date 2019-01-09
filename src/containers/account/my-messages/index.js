@@ -144,11 +144,14 @@ class MyMessages extends React.Component {
                         Compose message
                     </a>
                 </SiteHeader>
-                {
-                    this.state.isLoading ? <ContentLoader/> :
-                    this.state.messages &&
-                    this.state.messages.length > 0 ?
-                        <div className="page-body container-fluid page">
+                <div className="page-body container-fluid">
+
+                <ContentHendler
+                    items={this.state.messages}
+                    emptyMessage={'No messages found.'}
+                >
+                    {
+                        this.state.messages && !!this.state.messages.length &&
                             <div className="account-ledger">
                                 <div className="transaction-table message-table">
                                     <div className="transaction-table-body">
@@ -203,15 +206,10 @@ class MyMessages extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        : <div className="page-body container-fluid page">
-                              <div>
-                                  <InfoBox default>
-                                      No messages found.
-                                  </InfoBox>
-                              </div>
-                         </div>
-                }
+                    }
+                </ContentHendler>
+
+                    </div>
             </div>
         );
     }

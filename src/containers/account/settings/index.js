@@ -206,15 +206,13 @@ class Settings extends React.Component {
                                                                 Account ID
                                                             </label>
                                                             <div className="col-sm-9">
-                                                                <div className="iconned-input-field">
-                                                                    <AccountRS
-                                                                        value={''}
-                                                                        noContactList={true}
-                                                                        placeholder="Account ID"
-                                                                        setValue={setValue}
-                                                                        field={'account'}
-                                                                    />
-                                                                </div>
+                                                                <AccountRS
+                                                                    value={''}
+                                                                    noContactList={true}
+                                                                    placeholder="Account ID"
+                                                                    setValue={setValue}
+                                                                    field={'account'}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -273,6 +271,7 @@ class Settings extends React.Component {
                                                             <div className="col-sm-9">
 
                                                                 <InputForm
+                                                                    isPlain
                                                                     type="password"
                                                                     field="adminPassword"
                                                                     placeholder="Admin password"

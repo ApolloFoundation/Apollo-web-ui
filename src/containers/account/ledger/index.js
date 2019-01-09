@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Entry from './entry'
+import {getBlockAction} from "../../../actions/blocks";
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions/";
@@ -115,14 +116,15 @@ class Ledger extends React.Component {
         });
     }
 
-    async getAccountLedger(requestParams) {
+    getAccountLedger = async (requestParams) => {
         const ledger = await this.props.getAccountLedgerAction(requestParams);
         if (ledger) {
             if (ledger.errorCode) {
+                if (!this.state.isError) {
+                    NotificationManager.error(ledger.errorDescription, 'Error', 900000);
+                }
                 this.setState({
                     isError: true
-                }, () => {
-                    NotificationManager.error(ledger.errorDescription, 'Error', 900000);
                 });
             } else {
                 if (!this.state.isPrivate && !!ledger.serverPublicKey) {
@@ -197,6 +199,18 @@ class Ledger extends React.Component {
         }
     }
 
+    getBlock = async (type, blockHeight) => {
+		const requestParams = {
+			height: blockHeight
+		};
+
+		const block = await this.props.getBlockAction(requestParams);
+
+		if (block) {
+			this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+		}
+	}
+
     render () {
         return (
             <div className="page-content">
@@ -258,6 +272,7 @@ class Ledger extends React.Component {
                                                                 sharedKey= {this.state.sharedKey}
                                                                 setLedgerEntryInfo={this.getLedgerEntry}
                                                                 setTransactionInfo={this.getTransaction}
+                                                                setBlockInfo={this.getBlock}
                                                             />
                                                         );
                                                     })
@@ -312,6 +327,7 @@ const mapStateToProps = state => ({
 
 const initMapDispatchToProps = dispatch => ({
     setModalType: (prevent) => dispatch(setModalType(prevent)),
+	getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     getAccountLedgerAction: (requestParams) => dispatch(getAccountLedgerAction(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),

@@ -75,6 +75,7 @@ import './App.css';
 import {getUpdateStatus} from '../../actions/login/index'
 import urlHelper from "../../helpers/util/urlParser";
 import {startBlockPullingAction} from '../../actions/blocks'
+import './window';
 import {setBodyModalParamsAction} from "../../modules/modals";
 
 import UnknownPage from '../account/404'
@@ -226,6 +227,17 @@ class App extends React.Component {
     }
 
     render() {
+        const {
+            history: {
+                location: 
+                {
+                    pathname
+                }
+            }
+        } = this.props;
+
+        const isLoginPage = pathname === '/login';
+
         return (
             <div>
                 <NotificationContainer/>
@@ -253,6 +265,7 @@ class App extends React.Component {
                 <div ref="siteContent"
                      className={classNames({
                          'site-content': true,
+                         'login-page':  isLoginPage,
                          'hide-page-body': this.props.bodyModalType
                      })}
                      onClick={(e) => this.handleModal(e)}
@@ -333,7 +346,7 @@ class App extends React.Component {
                         </React.Fragment>
                         }
                     </Switch>
-                    {!this.props.loading &&
+                    {!this.props.loading && !isLoginPage &&
                     <div className="site-footer">
                         Copyright © 2017-2018 Apollo Foundation.
                         <br className={'show-media hide-desktop'}/>
@@ -367,7 +380,8 @@ const mapDispatchToProps = dispatch => ({
     getConstantsAction: () => dispatch(getConstantsAction()),
     getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
     loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
-
+    loadConstants: () => dispatch(loadConstants()),
+    
     //modals
     setBodyModalType: () => dispatch(setBodyModalType()),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),

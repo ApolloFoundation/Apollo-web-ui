@@ -34,10 +34,18 @@ class AddAccount extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-
         if (!values.name) {
             NotificationManager.error('Enter the contact name.', 'Error', 5000);
             return;
+        }
+        
+        if (values.recipient) {
+            values.accountRS = values.recipient;
+            delete values.recipient;
+        } 
+
+        if (!values.recipient && !values.accountRS) {
+            values.accountRS = this.props.modalData;
         }
 
         if (!values.accountRS) {
@@ -99,6 +107,8 @@ class AddAccount extends React.Component {
                                     <p>Add Contact</p>
                                 </div>
                                 <div className="form-group row form-group-white mb-15">
+                                    {console.log('1 ', getValue('recipient') || '')}
+                                    {console.log('2 ', this.props.modalData)}
                                     <label className="col-sm-3 col-form-label">
                                         Name
                                     </label>
@@ -118,9 +128,9 @@ class AddAccount extends React.Component {
                                             field={'accountRS'}
                                             noContactList={true}
                                             placeholder="Account ID"
-                                            defaultValue={getValue('recipient') || ''}
+                                            defaultValue={getValue('recipient') || this.props.modalData}
                                             setValue={setValue}
-                                            value={getValue('recipient') || ''}
+                                            value={getValue('recipient') || this.props.modalData}
                                             disabled
                                         />
                                     </div>

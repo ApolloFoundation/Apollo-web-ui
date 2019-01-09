@@ -18,12 +18,22 @@ class InputForm extends React.Component {
     };
 
     handleChange = (value) => {
-        this.props.setValue(this.props.field, this.validateInput(value));
+        const {setValue, field, isPlain} = this.props;
+
+        setValue(field, this.validateInput(value));
     };
 
     validateInput = (value) => {
+        const {type} = this.props;
+
         if (!value.target) {
-            if (this.props.type === "tel") {
+            if (type === "password") {
+                if (this.props.onChange) this.props.onChange(value);
+                this.setState({value});
+                
+                return value;
+            } 
+            if (type === "tel") {
                 value = value.replace(/[^\d]/g, "");
                 if (/^0+/.test(value)) {
                     value = value.replace(/0+/, "");
@@ -35,7 +45,8 @@ class InputForm extends React.Component {
                 if (this.props.minValue !== undefined && parseFloat(value) < parseFloat(this.props.minValue)) {
                     value = this.props.minValue;
                 }
-            } else if (this.props.type === "float") {
+            }
+            if (type === "float") {
                 value = value.replace(",", ".");
                 if (value === '.') value = '0.';
                 value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
@@ -62,19 +73,26 @@ class InputForm extends React.Component {
                 if (this.props.minValue !== undefined && parseFloat(value) < parseFloat(this.props.minValue)) {
                     value = this.props.minValue;
                 }
-            } else {
+            } 
+            if (type !== "password" && type !== "tel" && type !== "float") {
                 value = value.replace(/[;`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
         } else {
             value = value.target.value;
-
-            if (this.props.type === "tel") {
+            if (type === "password") {
+                if (this.props.onChange) this.props.onChange(value);
+                this.setState({value});
+                return value;
+            } 
+            if (type === "tel") {
                 value = value.replace(/[^\d]/g, "");
-            } else if (this.props.type === "float") {
+            } 
+            if (type === "float") {
                 value = value.replace(",", ".");
                 if (value === '.') value = '0.';
                 value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
-            } else {
+            } 
+            if (type === "password" && type === "tel" && type === "float") {
                 value = value.replace(/[;`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
         }
