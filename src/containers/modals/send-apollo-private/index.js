@@ -159,7 +159,7 @@ class SendApolloPrivate extends React.Component {
         })
     };
 
-    handleUseMixer = async (e) => {
+    handleUseMixer = (e) => {
         
         this.setState({
             useMixer: e
