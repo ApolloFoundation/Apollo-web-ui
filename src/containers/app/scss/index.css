@@ -3,7 +3,7 @@
 @import url(~loaders.css/loaders.min.css);
 @import url(~react-notifications/lib/notifications.css);
 @import url(~roboto-fontface/css/roboto/roboto-fontface.css);
-input {
+input[type="text"], input[type="float"], input[type="number"], input[type="tel"] {
   height: 34px !important; }
 
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
@@ -77,6 +77,9 @@ span.blue {
 
 .flex {
   display: flex; }
+
+.flex-align-left {
+  justify-content: flex-start !important; }
 
 .position-relative {
   position: relative;

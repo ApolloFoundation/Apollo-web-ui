@@ -165,7 +165,6 @@ export function getForging(isPassphrase) {
 
         Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
-
                 dispatch({
                     type: 'SET_PASSPHRASE',
                     payload: passpPhrase
@@ -247,8 +246,6 @@ export async function logOutAction(action) {
         case('logOutStopForging'):
             const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
 
-            console.log(forging);
-
             const setForgingWith2FA = (action) => {
                 return {
                     getStatus: action,
@@ -259,7 +256,7 @@ export async function logOutAction(action) {
                 }
             };
 
-            if (forging.errorCode === 22 || forging.errorCode === 4) {
+            if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8) {
                 store.dispatch(setBodyModalParamsAction('ENTER_SECRET_PHRASE', null));
                 logOutAction(action)
             }
@@ -272,14 +269,12 @@ export async function logOutAction(action) {
                     document.location = '/';
                 }
             }
-
-
-
-
             return;
         case('logoutClearUserData'):
             localStorage.clear();
             document.location = '/';
+            return;
+        default:
             return;
     }
 
