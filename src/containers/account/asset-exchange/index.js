@@ -65,6 +65,12 @@ class AssetExchange extends React.Component {
 
     async getAsset(assetID) {
         let asset = await this.props.getAssetAction({asset: assetID});
+        
+        console.log(asset)
+
+        this.setState({
+            asset,
+        });
 
         if (asset && this.props.assetBalances) {
             const assetBalance = this.props.assetBalances.find(item => {
@@ -72,10 +78,6 @@ class AssetExchange extends React.Component {
             });
             asset.balanceATU = assetBalance ? assetBalance.balanceATU : 0;
 
-            this.setState({
-                ...this.props,
-                asset: asset,
-            });
             const bidOrders = await this.getBuyOrders(asset);
             const askOrders = await this.getSellOrders(asset);
             this.setState({
@@ -271,6 +273,7 @@ class AssetExchange extends React.Component {
     }
 
     render() {
+
         return (
             <div className="page-content">
                 <SiteHeader
@@ -313,14 +316,16 @@ class AssetExchange extends React.Component {
                                         {
                                             this.state.accountAssets &&
                                             !(!!this.state.accountAssets.length) &&
-                                            <p>No assets found.</p>
+                                            <InfoBox>No assets found.</InfoBox>
                                         }
                                     </div>
                                 </div>
                             }
+                            {console.log(this.props.match.params)}
                             {
                                 this.props.match.params &&
                                 <div className="col-md-9 p-0 right-col">
+                                    {console.log(1234)}
                                     <div className="row">
                                         {
                                             window.innerWidth < 768 &&
