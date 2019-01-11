@@ -14,8 +14,8 @@ import {Form, Text, TextArea} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
-import {calculateFeeAction} from "../../../actions/forms";
 import ModalFooter from '../../components/modal-footer'
+import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
@@ -46,24 +46,6 @@ class SetAccountProperty extends React.Component {
             NotificationManager.success('Account property has been saved!', null, 5000);
         }
     }
-
-    calculateFee = async (values, setValue) => {
-        const requestParams = {
-            requestType: 'setAccountProperty',
-            deadline: '1440',
-            property: values.property,
-            recipient: values.recipient,
-            publicKey: this.props.publicKey,
-            feeATM: 0
-        };
-        const fee = await this.props.calculateFeeAction(requestParams);
-
-        if (!fee.errorCode) {
-            setValue("feeAPL", fee.transactionJSON.feeATM / 100000000);
-        } else {
-            NotificationManager.error(fee.errorDescription, 'Error', 5000);
-        }
-    };
 
     render() {
         const contactRS = this.props.modalData.setterRS || this.props.modalData.recipientRS || '';
@@ -142,28 +124,11 @@ class SetAccountProperty extends React.Component {
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Fee
-                                        <span
-                                            onClick={() => this.calculateFee(getFormState().values, setValue)}
-                                            style={{paddingRight: 0}}
-                                            className="calculate-fee"
-                                        >
-                                            Calculate
-                                        </span>
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <InputForm
-                                            field="feeAPL"
-                                            placeholder="Minimum fee"
-                                            type={"float"}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <FeeCalc
+                                    setValue={setValue}
+                                    values={getFormState().values}
+                                    requestType={'currencyReserveClaim'}
+                                />
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}
@@ -209,7 +174,6 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
 	openPrevModal: () => dispatch(openPrevModal()),
 });

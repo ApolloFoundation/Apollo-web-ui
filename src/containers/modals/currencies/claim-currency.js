@@ -12,15 +12,13 @@ import BackForm from '../modal-form/modal-form-container';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import {CustomInputForm} from '../../components/form-components/textual-input';
 import {FormRowText} from '../../components/form-components/form-row-text';
-import {FeeCalc} from '../../components/form-components/fee-calc'
+import FeeCalc from '../../components/form-components/fee-calc'
 import {SubmitFormButton} from '../../components/form-components/submit-button'
 import {saveSendModalState, openPrevModal} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 
 class ClaimCurrency extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+
     state = {};
     
     getCurrency = async (currency) => {
@@ -119,8 +117,10 @@ class ClaimCurrency extends React.Component {
                                         code={this.state.currency ? this.state.currency.code : '' }
                                     />
                                     
-                                    <FeeCalc 
+                                    <FeeCalc
                                         setValue={setValue}
+                                        values={getFormState().values}
+                                        requestType={'currencyReserveClaim'}
                                     />
                                     <ModalFooter
                                         setValue={setValue}

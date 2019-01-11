@@ -7,16 +7,12 @@
 import axios from 'axios'
 import config from '../../config'
 import queryString from 'query-string';
+import submitForm from '../../helpers/forms/forms';
+import store from '../../store';
+
+const {dispatch} = store;
 
 
-export function calculateFeeAction(requestParams) {
-    return (dispatch) => {
-        return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
-            .then((res) => {
-                return res.data;
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
+export const calculateFeeAction = (requestParams, requestType) => {
+    return dispatch(submitForm.submitForm(requestParams, requestType))
 }
