@@ -829,7 +829,9 @@ function processAjaxRequest(requestType, data, callback, options) {
             payload: 0
         });
 
-        delete data.publicKey;
+        if (data.messageFile === 'undefined') {
+            delete data.messageFile;
+        }
 
         return $.ajax({
             url: url,
@@ -842,7 +844,7 @@ function processAjaxRequest(requestType, data, callback, options) {
             currentSubPage: currentSubPage,
             shouldRetry: null,
             traditional: true,
-            data: (formData != null ? formData : data),
+            data: (formData != null && Object.keys(formData) ? formData : data),
             contentType: contentType,
             processData: processData
         })

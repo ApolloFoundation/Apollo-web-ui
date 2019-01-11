@@ -16,8 +16,8 @@ import CustomSelect from '../../../components/select';
 import AccountRS from '../../../components/account-rs';
 import AdvancedSettings from '../../../components/advanced-transaction-settings';
 import InputForm from '../../../components/input-form';
-import {calculateFeeAction} from "../../../../actions/forms";
 import ModalFooter from '../../../components/modal-footer'
+import FeeCalc from '../../../components/form-components/fee-calc';
 
 import BackForm from '../../modal-form/modal-form-container';
 
@@ -200,30 +200,11 @@ class AddAlias extends React.Component {
                                         </div>
                                     </div>
                                 }
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Fee
-                                        <span
-                                            onClick={async () => {
-                                                setValue("feeAPL", 1);
-                                            }}
-                                            style={{paddingRight: 0}}
-                                            className="calculate-fee"
-                                        >
-                                            Calculate
-                                        </span>
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                        <InputForm
-                                            field="feeAPL"
-                                            placeholder="Amount"
-                                            type={"float"}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <FeeCalc
+                                    setValue={setValue}
+                                    values={getFormState().values}
+                                    requestType={'leaseBalance'}
+                                />
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}
@@ -296,7 +277,6 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
 	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
 	openPrevModal: () => dispatch(openPrevModal()),
 });

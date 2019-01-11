@@ -25,6 +25,7 @@ import ModalFooter from '../../components/modal-footer'
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
+import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
@@ -227,54 +228,11 @@ class SendApollo extends React.Component {
 										</div>
 									}
 
-									<div className="form-group row form-group-white mb-15">
-										<label className="col-sm-3 col-form-label">
-											Fee
-											<span
-												onClick={async () => {
-													if (!getFormState().values.recipient) {
-														NotificationManager.error('Recipient is required.', 'Error', 5000);
-														return;
-													}
-													if (!getFormState().values.amountAPL) {
-														NotificationManager.error('Amount is required.', 'Error', 5000);
-														return;
-													}
-													const requestParams = {
-														requestType: 'sendMoney',
-														deadline: '1440',
-														amountATM: parseInt(getFormState().values.amountAPL) * 100000000,
-														recipient: getFormState().values.recipient,
-														publicKey: this.props.publicKey,
-														feeATM: 0
-													};
-													const fee = await this.props.calculateFeeAction(requestParams);
-													if (!fee.errorCode) {
-														setValue("feeAPL", fee.transactionJSON.feeATM / 100000000);
-													} else {
-														NotificationManager.error(fee.errorDescription, 'Error', 5000);
-													}
-												}
-												}
-												style={{paddingRight: 0}}
-												className="calculate-fee"
-											>
-                                                Calculate
-                                            </span>
-										</label>
-										<div
-											className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-											<InputForm
-												defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
-												field="feeAPL"
-												placeholder="Amount"
-												type={"float"}
-												setValue={setValue}/>
-											<div className="input-group-append">
-												<span className="input-group-text">Apollo</span>
-											</div>
-										</div>
-									</div>
+									<FeeCalc
+										setValue={setValue}
+										values={getFormState().values}
+										requestType={'sendMoney'}
+									/>
 
 									<ModalFooter
 										setValue={setValue}

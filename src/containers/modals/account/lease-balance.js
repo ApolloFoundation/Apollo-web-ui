@@ -18,6 +18,7 @@ import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import ModalFooter from '../../components/modal-footer'
+import FeeCalc from '../../components/form-components/fee-calc'
 
 class LeaseBalance extends React.Component {
     constructor(props) {
@@ -194,73 +195,16 @@ class LeaseBalance extends React.Component {
                                         </div>
                                     </div>
                                 }
-                                <div className="form-group row form-group-white mb-15">
-                                    <label htmlFor="feeATM" className="col-sm-3 col-form-label">
-                                        Fee
-                                        <span
-                                            onClick={async () => {
-                                                const formState = getFormState();
-                                                const fee = await this.props.calculateFeeAction({
-                                                    recipient: formState.values.recipient,
-                                                    amountATM: formState.values.amountATM,
-                                                    publicKey: this.props.publicKey,
-                                                    feeATM: 0
-                                                });
-
-                                                if (fee && fee.transactionJSON) {
-                                                    setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
-                                                }
-                                            }
-                                            }
-                                            style={{paddingRight: 0}}
-                                            className="calculate-fee"
-                                        >
-                                                Calculate</span>
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
-                                        <Text defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
-                                              id="feeATM"
-                                              field="feeATM"
-                                              className="form-control"
-                                              value={this.state.feeATM}
-                                              placeholder="Minimum fee"
-                                              type={"tel"}
-                                              aria-describedby="feeATMText" />
-                                        <div className="input-group-append">
-                                            <span className="input-group-text" id="feeATMText">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <FeeCalc
+                                    setValue={setValue}
+                                    values={getFormState().values}
+                                    requestType={'leaseBalance'}
+                                />
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}
                                     values={values}
                                 />
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect secret phrase.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.recipientStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect recipient.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.amountStatus &&
-                                    <InfoBox danger mt>
-                                        Missing amount.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.feeStatus &&
-                                    <InfoBox danger mt>
-                                        Missing fee.
-                                    </InfoBox>
-                                }
-
                                 <AdvancedSettings
                                     setValue={setValue}
                                     getFormState={getFormState}

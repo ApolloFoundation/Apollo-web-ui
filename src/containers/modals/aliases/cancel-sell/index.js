@@ -13,9 +13,8 @@ import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
-import {calculateFeeAction} from "../../../../actions/forms";
 import AdvancedSettings from '../../../components/advanced-transaction-settings';
-import {FeeCalc} from '../../../components/form-components/fee-calc';
+import FeeCalc from '../../../components/form-components/fee-calc';
 
 import BackForm from '../../modal-form/modal-form-container';
 import ModalFooter from '../../../components/modal-footer';
@@ -239,7 +238,6 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
 	openPrevModal: () => dispatch(openPrevModal()),
 });
