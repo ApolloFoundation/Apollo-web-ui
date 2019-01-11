@@ -12,15 +12,19 @@ class BackForm extends Component {
 		if(this.props.getApi){
 			this.props.getApi(form);
 		}
-		
 	};
 
 	loadValues = () => {
+		console.log(this.props.savedValues)
 		if(this.props.modalsHistory.length > 0){
 			const myModal = this.props.modalsHistory[this.props.modalsHistory.length -1];
 			if(this.props.nameModal === myModal.modalName){
-				this.state.form.setAllValues(myModal.value);
+				console.log(111)
+				console.log(this.props.modalData)
+				this.state.form.setAllValues(this.props.savedValues);
 			}
+		} else {
+			this.state.form.setAllValues(this.props.modalData);
 		}
 	};
 
@@ -41,6 +45,8 @@ class BackForm extends Component {
 const mapStateToProps = state => ({
 	savedValues: state.modals.savedValues,
 	modalsHistory: state.modals.modalsHistory,
+	
+	modalData: state.modals.modalData
 });
 
 const mapDispatchToProps = dispatch => ({
