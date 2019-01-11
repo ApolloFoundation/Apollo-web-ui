@@ -24,6 +24,10 @@ import {makeLoginReq} from "../login";
 import {setShareMessage} from "../../modules/account";
 import { setBodyModalParamsAction } from '../../modules/modals';
 
+import QRCode from 'qrcode';
+
+import jsPDF from 'jspdf';
+
 export function getAccountAction(reqParams) {
     return dispatch => {
         return {
@@ -183,4 +187,38 @@ export const exportAccountAction = async (requestParams) => {
 
 export const removeAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'deleteKey'))
+}
+
+
+export const generatePDF = (args) => {
+    // e.preventDefault();
+
+    let doc = new jsPDF({
+        // orientation: 'landscape',
+        unit: 'in',
+        // format: [4, 2]  // tinggi, lebar
+        format: [1169, 827]
+    });
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+
+    doc.setFontSize(15);
+    doc.text('Apollo Paper Wallet', 0.5, 0.5);
+    doc.setFontSize(10);
+    doc.text(`${yyyy}/${mm}/${dd}`, 0.5, 0.8 + (0.3))
+
+    args.map((arg, index) => {
+        doc.text(`${arg.name}:`, 0.5, 0.8 + (0.3 * (2 + (1 * 10 * index))))
+        doc.text(`${arg.value}`, 0.5, 0.8 + (0.3 * (3 + (1 * 10 * index))))
+
+        QRCode.toDataURL(arg.value, function (err, url) {
+            doc.addImage( url, 'SVG', 0.5, 1.9 + (3 * index), 1.9, 1.9)
+        })
+    })
+
+    doc.save(`apollo-wallet-${args[0].value}`)
 }

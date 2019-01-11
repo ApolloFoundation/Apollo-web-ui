@@ -20,7 +20,7 @@ import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
-import {exportAccountAction} from '../../../actions/account'
+import {exportAccountAction, generatePDF} from '../../../actions/account'
 import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
@@ -61,99 +61,6 @@ class CreateUser extends React.Component {
             tinggi:11.69,
             lebar:'08.27',
         }
-    };
-
-    /*
-    * First element of array accepts an account ID
-    * */
-    generatePDF = (credentials) => {
-        // e.preventDefault();
-
-        let doc = new jsPDF({
-            // orientation: 'landscape',
-            unit: 'in',
-            // format: [4, 2]  // tinggi, lebar
-            format: [this.state.tinggi, this.state.lebar]
-        });
-
-        // TODO: migrate to QR code
-
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
-        var yyyy = today.getFullYear();
-
-
-        doc.setFontSize(15);
-        doc.text('Apollo Paper Wallet', 0.5, 0.5);
-        doc.setFontSize(10);
-
-        doc.text(`${yyyy}/${mm}/${dd}`, 0.5, 0.8 + (0.3))
-        doc.text(`${credentials[0].name}:`, 0.5, 0.8 + (0.3 * 2))
-        doc.text(`${credentials[0].value}`, 0.5, 0.8 + (0.3 * 3))
-
-        QRCode.toDataURL(credentials[0].value, function (err, url) {
-            doc.addImage( url, 'SVG', 0.5, 1.9, 1.9, 1.9)
-        })
-
-        doc.text(`${credentials[1].name}:`, 0.5, 0.8 + (0.3 * 11))
-        doc.text(`${credentials[1].value}`, 0.5, 0.8 + (0.3 * 12))
-
-        QRCode.toDataURL(credentials[1].value, function (err, url) {
-            doc.addImage( url, 'SVG', 0.5, 4.8, 1.9, 1.9)
-        })
-
-        doc.text(`${credentials[2].name}:`, 0.5, 0.8 + (0.3 * 21))
-        doc.text(`${credentials[2].value}`, 0.5, 0.8 + (0.3 * 22))
-
-        QRCode.toDataURL(credentials[2].value, function (err, url) {
-            doc.addImage( url, 'SVG', 0.5, 7.7, 1.9, 1.9)
-        })
-
-        // doc.addImage( qr, 'SVG', 0.5, 2, 2.5, 2.5)
-        // format: (image_file, 'image_type', X_init, Y_init, X_fin, Y_fin)
-
-        doc.save(`apollo-wallet-${credentials[0].value}`)
-    };
-
-
-    generatePDFStandard = (credentials) => {
-        // e.preventDefault();
-
-        let doc = new jsPDF({
-            // orientation: 'landscape',
-            unit: 'in',
-            // format: [4, 2]  // tinggi, lebar
-            format: [this.state.tinggi, this.state.lebar]
-        });
-
-        var qrcode;
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
-        var yyyy = today.getFullYear();
-
-
-        doc.setFontSize(15);
-        doc.text('Apollo Paper Wallet', 0.5, 0.5);
-        doc.setFontSize(10);
-
-        doc.text(`${yyyy}/${mm}/${dd}`, 0.5, 0.8 + (0.3))
-        doc.text(`${credentials[0].name}:`, 0.5, 0.8 + (0.3 * 2))
-        doc.text(`${credentials[0].value}`, 0.5, 0.8 + (0.3 * 3))
-
-        QRCode.toDataURL(credentials[0].value, function (err, url) {
-            doc.addImage( url, 'SVG', 0.5, 1.9, 1.9, 1.9)
-        })
-
-        doc.text(`${credentials[1].name}:`, 0.5, 0.8 + (0.3 * 11))
-        doc.text(`${credentials[1].value}`, 0.5, 0.8 + (0.3 * 12))
-
-        QRCode.toDataURL(credentials[1].value, function (err, url) {
-            doc.addImage( url, 'SVG', 0.5, 4.8, 1.9, 1.9)
-        })
-
-        doc.save(`apollo-wallet-${credentials[0].value}`)
     };
 
     componentWillReceiveProps(newProps) {
@@ -522,6 +429,16 @@ class CreateUser extends React.Component {
                                                                                             </CopyToClipboard>
                                                                                             <br/>
                                                                                             <br/>
+                                                                                            <a
+                                                                                                className="btn blue static hide-media"
+                                                                                                onClick={() => generatePDF([
+                                                                                                    {name: 'Account ID', value: this.state.accountData.accountRS},
+                                                                                                    {name: 'Secret Phrase', value: this.state.accountData.passphrase},
+                                                                                                    {name: 'Public Key', value: this.state.accountData.publicKey},
+                                                                                                ])}
+                                                                                            >
+                                                                                                Print Wallet
+                                                                                            </a>
                                                                                         </InfoBox>
                                                                                     }
 
@@ -839,6 +756,15 @@ class CreateUser extends React.Component {
                                                                                             </CopyToClipboard>
                                                                                             <br/>
                                                                                             <br/>
+                                                                                            <a
+                                                                                                className="btn blue static hide-media"
+                                                                                                onClick={() => generatePDF([
+                                                                                                    {name: 'Account ID', value: this.state.generatedAccount},
+                                                                                                    {name: 'Secret Phrase', value: this.state.generatedPassphrase},
+                                                                                                ])}
+                                                                                            >
+                                                                                                Print Wallet
+                                                                                            </a>
                                                                                         </InfoBox>
                                                                                     }
 
