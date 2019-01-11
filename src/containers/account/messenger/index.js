@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
 	getChats: (reqParams) => dispatch(getChats(reqParams)),
     getChatsAction: (reqParams) => dispatch(getChatsAction(reqParams)),
     getMessage: (transaction) => dispatch(getMessage(transaction)),
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+	setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
@@ -48,8 +48,7 @@ class Messenger extends React.Component {
 	state = {
 		chats: null,
 		selectedChat: null,
-		chatHistory: null,
-		textareaCount: 0
+		chatHistory: null
 	};
 
 	componentDidMount () {
@@ -57,6 +56,8 @@ class Messenger extends React.Component {
             this.updateChatData(this.props);
         }
         BlockUpdater.on("data", data => {
+            console.warn("height in dashboard", data);
+            console.warn("updating dashboard");
             this.updateChatData(this.props);
         });
 	};
@@ -68,6 +69,9 @@ class Messenger extends React.Component {
 	updateChatData = async (newState) => {
         this.getChats({
             account: this.props.account,
+        });
+        this.setState({
+            chatHistory: [],
         });
 
         if (newState.match.params.chat) {
@@ -87,11 +91,13 @@ class Messenger extends React.Component {
 		let chats = await getChatsAction(reqParams);
 		let correctChatsAccounts = await this.props.getChats(reqParams);
 
+        if (chats.chats) {
+            chats = chats.chats.map((el, index) => {
+                return {...el, ...correctChatsAccounts[index]}
+            });
+        }
+		
         if (chats) {
-	        chats = chats.chats.map((el, index) => {
-		        return {...el, ...correctChatsAccounts[index]}
-	        });
-
 			this.setState({
 				...this.state,
 				chats: chats,
@@ -109,25 +115,6 @@ class Messenger extends React.Component {
             return;
         }
 
-		if (!values.secretPhrase) {
-            NotificationManager.error('Enter secret phrase.', 'Error', 5000);
-            return;
-        }
-
-        if (values.message.length > 100) {
-            NotificationManager.error('Message is too long.', 'Error', 5000);
-            return;
-        }
-
-        if (values.message.length <= 0) {
-            NotificationManager.error('Can not send empty message.', 'Error', 5000);
-            return;
-        }
-
-		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
-        // delete values.secretPhrase;
-
-
         if (values.messageToEncrypt) {
             values = {
 				...values,
@@ -137,6 +124,15 @@ class Messenger extends React.Component {
             delete values.message;
 		}
 
+		if (!values.secretPhrase) {
+            NotificationManager.error('Enter secret phrase.', 'Error', 5000);
+            return;
+        }
+
+		const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
+        // delete values.secretPhrase;
+
+
 		const res = await this.props.submitForm( {
 			...values,
 			recipient: this.props.match.params.chat,
@@ -144,9 +140,15 @@ class Messenger extends React.Component {
 			feeATM: 4
 		}, 'sendMessage');
 
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000);
-        } else {
+        if (res.errorCode === 4) {
+            NotificationManager.error('Message length should not be grater than 100 symbols.', 'Error', 5000);
+            return;
+        }
+        if (res.errorCode === 6) {
+            NotificationManager.error('Incorrect secret phrase.', 'Error', 5000);
+			return;
+        }
+		if (!res.errorCode) {
             NotificationManager.success('Message has been submitted!', null, 5000);
             if (this.state.formApi) {
             	this.state.formApi.setValue('message', null);
@@ -156,74 +158,7 @@ class Messenger extends React.Component {
         }
     };
 
-
-    // shouldComponentUpdate = (nextProps, nextState) => {
-    //     const newMessages = nextState.chatHistory ? nextState.chatHistory.map((el) => {
-    //         return el.transaction
-    //     }) : null;
-    //
-    //     const messages = this.state.chatHistory ? this.state.chatHistory.map((el) => {
-    //         return el.transaction
-    //     }) : null;
-    //
-    //     const newChat = nextState.chats ? nextState.chats.map((el) => {
-    //         return el.accountRS
-    //     }) : null;
-    //
-    //     const chats = this.state.chats ? this.state.chats.map((el) => {
-    //
-    //         return el.accountRS
-    //     }) : null;
-    //
-    //     if ((newMessages && messages && newChat && chats)) {
-    //         const comparation = this.isArraysEqual(newMessages, messages);
-    //         const comparationchats = this.isArraysEqual(newChat, chats);
-    //
-	// 		if (comparation) return true;
-	// 		if (comparationchats) return true;
-    //     }
-    //
-    //     if (this.props.match.params.chat !== nextProps.match.params.chat) {
-    //         return true;
-    //     }
-    //
-    //     if ((!messages ) && (!chats)) {
-    //         return true;
-	// 	}
-    // }
-    //
-    // /*
-    // * Returns true if every element of array are equal
-    // * */
-    // isArraysEqual = (a, b) => {
-    //     let result = true;
-	// 	if (a && b) {
-    //         result = a.every((el, index) => {
-    //             return el === b[index]
-    //         })
-    //
-    //         return !result
-	// 	} else {
-	// 		return false
-	// 	}
-    // }
-
-    goBack = () => {
-        this.setState({
-            chatHistory: null 
-        }, () => {
-            this.props.history.push('/messenger')
-            this.handleChatLoading(false)
-        });
-    }
-
-    handleChatLoading = (action) => {
-        this.setState({
-            isChatLoading: action
-        })
-    }
-
-    render (){
+	render (){
 		if (this.state.chatHistory) {
 			this.state.chatHistory.map((el, index) => {
 				this.props.getMessage(el)
@@ -244,117 +179,91 @@ class Messenger extends React.Component {
 				<div className="page-body container-fluid flexible-height overflow-hidden">
 					<div className="messenger">
 						<div className="row">
-                            {
-                                (window.innerWidth > 768 ||
-                                (window.innerWidth < 768 && !(this.state.chatHistory && this.state.chatHistory.length))) &&
-                                <div className="col-md-3">
-                                    <div className="left-bar">
-                                        <div className={`card card-full-screen no-padding scroll ${this.state.isChatLoading ? 'loading' : ''}`}>
-                                            {
-                                                (this.state.chats && !this.state.isChatLoading) &&
-                                                <React.Fragment>
-                                                    {
-                                                        !!this.state.chats.length &&
-                                                        this.state.chats.map((el, index) => {
-    
-                                                            return (
-                                                                <Link
-                                                                    to={'/messenger/' + el.account}
-                                                                    key={uuid()}
-                                                                    style={{display: "block"}}
-                                                                    onClick={() => this.handleChatLoading(true)}
-                                                                    className={classNames({
-                                                                        "chat-item": true,
-                                                                        "active": el.account === this.props.match.params.chat
-                                                                    })}
-                                                                    // onClick={() => this.handleChatSelect(index)}
-                                                                >
-                                                                    <div className="chat-box-item">
-                                                                        <div className="chat-box-rs">
-                                                                            {el.accountRS}
-                                                                        </div>
-                                                                        <div className="chat-date">
-                                                                            {this.props.formatTimestamp(el.lastMessageTime)}
-                                                                        </div>
-                                                                    </div>
-                                                                </Link>
-                                                            );
-                                                        })
-                                                    }
-                                                    {
-                                                        !(!!this.state.chats.length) &&
-                                                        <InfoBox>
-                                                            No messages found.
-                                                        </InfoBox>
-                                                    }
-                                                </React.Fragment>
-                                            }
-                                            {
-                                                (!this.state.chats || this.state.isChatLoading) &&
-                                                <div
-                                                    style={{
-                                                        paddingLeft: 47.5,
-                                                        paddingTop: 20
-                                                    }}
-                                                    className={'loader-box'}
-                                                >
-                                                    <div className="ball-pulse">
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div></div>
-                                                    </div>
-                                                </div>
-                                            }
-
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            {
-                                ((window.innerWidth > 768 
-                                  && this.state.chats &&
-                                  !!this.state.chats.length) || 
-
-                                  ((window.innerWidth < 768 && 
-                                    (this.state.chatHistory && 
-                                     this.state.chatHistory.length)) &&
-                                  this.state.chats &&
-                                  !!this.state.chats.length)) &&
-
-                                <div className="col-md-9">
-                                    <div className="right-bar">
-                                        {
-                                            window.innerWidth < 768 &&
-                                            this.state.chatHistory &&
-                                            <div className="col-xl-6 col-md-12 pr-0">
-                                                <a onClick={this.goBack} className="btn primary mb-3">
-                                                    <i class="zmdi zmdi-arrow-left" /> &nbsp;
-                                                    Back to list
-                                                </a>
-                                            </div>
-                                        }
-                                        <div className="card card-full-screen no-padding">
-                                            <div className="chatting-box">
-
-                                                {
-                                                    this.state.chatHistory &&
-                                                    !!this.state.chatHistory.length &&
-                                                    this.state.chatHistory.map((el, index) => {
-                                                        const message = this.props.getMessage(el);
+							<div className="col-md-3">
+								<div className="left-bar">
+									<div className="card card-full-screen no-padding scroll">
+										{
+											this.state.chats &&
+											<React.Fragment>
+												{
+                                                    !!this.state.chats.length &&
+                                                    this.state.chats.map((el, index) => {
 
                                                         return (
-                                                            <ChatItem
+                                                            <Link
+                                                                to={'/messenger/' + el.account}
                                                                 key={uuid()}
-                                                                {...this.props}
-                                                                {...el}
-                                                                message={message}
-                                                                messageFormat={message.format}
-                                                            />
+                                                                style={{display: "block"}}
+                                                                className={classNames({
+                                                                    "chat-item": true,
+                                                                    "active": el.account === this.props.match.params.chat
+                                                                })}
+																// onClick={() => this.handleChatSelect(index)}
+                                                            >
+                                                                <div className="chat-box-item">
+                                                                    <div className="chat-box-rs">
+                                                                        {el.accountRS}
+                                                                    </div>
+                                                                    <div className="chat-date">
+                                                                        {this.props.formatTimestamp(el.lastMessageTime)}
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
                                                         );
                                                     })
+												}
+												{
+                                                    !(!!this.state.chats.length) &&
+													<InfoBox>
+														No messages found.
+													</InfoBox>
                                                 }
-
+											</React.Fragment>
+										}
+										{
+                                            !this.state.chats &&
+                                            <div
+                                                style={{
+                                                    paddingLeft: 47.5,
+													paddingTop: 20
+                                                }}
+                                                className={'loader-box'}
+                                            >
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
                                             </div>
+										}
+
+									</div>
+								</div>
+							</div>
+							<div className="col-md-9">
+								<div className="right-bar">
+										<div className="card card-full-screen no-padding">
+											<div className="chatting-box">
+
+												{
+                                                    this.state.chatHistory &&
+                                                    !!this.state.chatHistory.length &&
+													this.state.chatHistory.map((el, index) => {
+														const message = this.props.getMessage(el);
+
+														return (
+															<ChatItem
+																key={uuid()}
+																{...this.props}
+																{...el}
+																message={message}
+																messageFormat={message.format}
+															/>
+														);
+													})
+												}
+
+											</div>
                                             <Form
                                                 onSubmit={(values) => this.handleSendMessageFormSubmit(values)}
                                                 getApi={this.getFormApi}
@@ -363,19 +272,11 @@ class Messenger extends React.Component {
                                                          }) => (
                                                     <form className="compose-message-box" onSubmit={submitForm}>
                                                         <div className="top-bar">
-                                                            <div className={"textareaCount"}>
-                                                                {this.state.textareaCount > 100 ?
-                                                                    <div className={"textareaCount-message"}>Message is too long</div> :
-                                                                    <div><div className={'textareaCount-text'}>{100 - this.state.textareaCount}</div>/100</div>
-                                                                }
-                                                            </div>
-                                                            <TextArea
+															<TextArea
                                                                 className={"form-control"}
                                                                 field={'message'}
                                                                 rows="2"
-                                                                placeholder={'Message'}
-                                                                onChange={(text) => this.setState({textareaCount: text.length})}
-                                                            />
+                                                                placeholder={'Message'}/>
                                                         </div>
                                                         <div className="bottom-bar">
                                                             <div className="encrypt-message-box">
@@ -398,32 +299,32 @@ class Messenger extends React.Component {
                                                                 field={'secretPhrase'}
                                                                 placeholder={'Secret Phrase'}
                                                                 type="password"/>
-                                                            {
-                                                                this.props.is2FA &&
+															{
+																this.props.is2FA &&
                                                                 <Text
                                                                     className={"form-control"}
                                                                     field={'code2FA'}
                                                                     placeholder={'2FA Code'}
                                                                     type="password"/>
-                                                            }
+															}
 
-                                                            <button type="submit" className="btn blue btn-primary">
-                                                                Send Message
+															<button type="submit" className="btn blue btn-primary">
+																Send Message
                                                             </button>
                                                         </div>
                                                     </form>
                                                 )}
                                             />
 
-                                        </div>
+										</div>
 
-                                        {
-                                            !this.state.chatHistory &&
-                                            <ContentLoader/>
-                                        }
-                                    </div>
-                                </div>
-							}
+                                    {
+                                        !this.state.chatHistory &&
+                                        <ContentLoader/>
+                                    }
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>

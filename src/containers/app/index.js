@@ -70,7 +70,7 @@ import FinishedShufflings from "../account/finished-shufflings";
 import MyMessages from "../account/my-messages";
 import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
-import './App.css';
+import './App.scss';
 
 import {getUpdateStatus} from '../../actions/login/index'
 import urlHelper from "../../helpers/util/urlParser";
