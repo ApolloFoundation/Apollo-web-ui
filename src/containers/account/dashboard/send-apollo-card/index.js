@@ -53,11 +53,11 @@ class SendApolloCard extends Component {
     }
 
     submitForm = ({recipient, amountATM, feeATM}) => {
-        this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM, amountAPL: amountATM ,feeATM}, {recipient, amountATM, amountAPL: amountATM ,feeATM})
+        this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM, amountAPL: amountATM ,feeATM})
     }
 
-    opnePrivateTransactionModalWindow = () => {
-        this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {}, this.state.formValue) 
+    opnePrivateTransactionModalWindow = ({recipient, amountATM, feeATM}) => {
+        this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {recipient, amountATM, amountAPL: amountATM ,feeATM}) 
     }
 
     render () {
@@ -66,7 +66,7 @@ class SendApolloCard extends Component {
 
                 onSubmit={(values) => this.submitForm(values)}
                 render={({
-                            submitForm, setValue
+                            submitForm, setValue, getFormState
                         }) => (
                             <form onSubmit={submitForm} className="card send-apollo">
                                 <div className="card-title">Send Apollo</div>
@@ -122,6 +122,7 @@ class SendApolloCard extends Component {
                                     </div>                                   
                                 </div>
                                 <a
+                                    onClick={() => this.opnePrivateTransactionModalWindow(getFormState().values)}
                                     className="btn absolute btn-left btn-simple"
                                     style={{margin: '0 0 -7px 35px'}}
                                 >

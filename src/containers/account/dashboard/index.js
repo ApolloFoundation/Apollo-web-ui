@@ -347,64 +347,6 @@ class Dashboard extends React.Component {
 		          target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
 	};
 
-	accountIdChange = (el) => {
-		this.state.formValue = {...this.state.formValue, recipient: el};
-	};
-
-	amountChange = (el) => {
-		this.state.formValue = {...this.state.formValue, amountAPL: el.target.value, amountATM: el.target.value};
-	};
-
-	feeAtmChange = (el) => {
-		this.state.formValue = {...this.state.formValue, feeAPL: el.target.value, feeATM: el.target.value};
-	};
-
-	onVlaidateInput = (e, field) => {
-		
-		let amountATM = e.target.value;
-
-		console.log(amountATM, field)
-		
-		if (/^\d+$/.test(amountATM) || !amountATM) {
-			if (amountATM !== '0') {
-				this.setState({
-					[field] : amountATM
-				}, () => {
-					console.log(this.state)
-				})
-			}
-		} else {
-			e.stopPropagation();
-
-		}
-	}
-
-	handleChangeValue = (value, operation) => {
-        if (!this.state[value] && operation === '+') {
-            this.setState({
-                [value]: 1
-            })
-            return;
-        }
-
-        if (this.state[value] > 0) {
-            if (operation === '+') {
-
-                this.setState({
-                    [value]: parseInt(this.state[value]) + 1
-                })
-                return;
-            }
-
-            if (operation === '-') {
-                this.setState({
-                    [value]: this.state[value] - 1
-                })
-                return;
-            }
-        }
-    }
-
 	render() {
 		return (
 			<div className="page-content">
