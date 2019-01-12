@@ -20,6 +20,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
 import ModalFooter from '../../../components/modal-footer';
+import FeeCalc from '../../../components/form-components/fee-calc';
 
 
 
@@ -139,16 +140,11 @@ class MarketplaceDelete extends React.Component {
 
                                             <form className="modal-form" onSubmit={submitForm}>
                                                 <div className="form-group-app no-padding-left no-padding-top">
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Fee</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text type="tel" field='feeATM' placeholder="Minimum fee" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <FeeCalc
+                                                        values={getFormState().values}
+                                                        setValue={setValue}
+                                                        requestType={'dgsDelisting'}
+                                                    />
                                                     <ModalFooter
                                                         setValue={setValue}
                                                         getFormState={getFormState}

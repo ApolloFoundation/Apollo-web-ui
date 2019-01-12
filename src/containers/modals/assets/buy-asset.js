@@ -15,6 +15,7 @@ import AccountRS from '../../components/account-rs';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer';
+import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
@@ -119,22 +120,11 @@ class BuyAsset extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Fee
-                                        </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent">
-                                            <InputForm
-                                                field="feeATM"
-                                                defaultValue={this.props.modalData.assetName}
-                                                placeholder="Amount"
-                                                type={"float"}
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">Apollo</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <FeeCalc
+                                        values={getFormState().values}
+                                        setValue={setValue}
+                                        requestType={'placeBidOrder'}
+                                    />
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}

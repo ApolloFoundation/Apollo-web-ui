@@ -152,37 +152,6 @@ class HashCalculation extends React.Component {
                                     </div>
                                 </div>
 
-
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect secret phrase.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.recipientStatus &&
-                                    <InfoBox danger mt>
-                                        Incorrect recipient.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.amountStatus &&
-                                    <InfoBox danger mt>
-                                        Missing amount.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.feeStatus &&
-                                    <InfoBox danger mt>
-                                        Missing fee.
-                                    </InfoBox>
-                                }
-                                {
-                                    this.state.generatedHash ?
-                                    <InfoBox info>
-                                        {this.state.generatedHash}
-                                    </InfoBox> : null
-                                }
                                 <div className="btn-box align-buttons-inside absolute left-conner">
                                     <button
                                         className="btn btn-right blue round round-bottom-right"

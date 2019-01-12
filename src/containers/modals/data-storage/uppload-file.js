@@ -11,6 +11,7 @@ import InputForm from '../../components/input-form';
 import InfoBox from '../../components/info-box';
 import {Form, Text, TextArea} from 'react-form';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
+import FeeCalc from '../../components/form-components/fee-calc';
 
 import submitForm from '../../../helpers/forms/forms';
 import {NotificationManager} from "react-notifications";
@@ -178,21 +179,11 @@ class UploadFile extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Fee
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent">
-                                        <InputForm
-                                            field="feeATM"
-                                            placeholder="Amount"
-                                            type={"float"}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <FeeCalc
+                                    values={getFormState().values}
+                                    setValue={setValue}
+                                    requestType={'uploadTaggedData'}
+                                />
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}

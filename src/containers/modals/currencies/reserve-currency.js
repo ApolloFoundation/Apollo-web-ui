@@ -17,6 +17,7 @@ import SubmitButton from "../mandatory-approval/components/SubmitButton";
 import CancelButton from "../mandatory-approval/components/CancelButton";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
+import FeeCalc from '../../components/form-components/fee-calc';
 
 class ReserveCurrency extends React.Component {
     constructor(props) {
@@ -158,23 +159,11 @@ class ReserveCurrency extends React.Component {
                                         {this.state.reserve}
                                     </div>
                                 </div>
-                                <div className="form-group form-group-white row mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Fee
-                                    </label>
-                                    <div
-                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                        <InputForm
-                                            defaultValue={''}
-                                            field="fee"
-                                            placeholder="Minimum fee"
-                                            type="float"
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <FeeCalc
+                                    values={getFormState().values}
+                                    setValue={setValue}
+                                    requestType={'currencyReserveIncrease'}
+                                />
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}

@@ -14,6 +14,7 @@ import {Form, Text} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer';
+import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
@@ -112,21 +113,11 @@ class SellCurrency extends React.Component {
                                             <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Fee
-                                        </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent">
-                                            <InputForm
-                                                field="feeATM"
-                                                placeholder="Amount"
-                                                type={"float"}
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">Apollo</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <FeeCalc
+                                        values={getFormState().values}
+                                        setValue={setValue}
+                                        requestType={'currencySell'}
+                                    />
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}

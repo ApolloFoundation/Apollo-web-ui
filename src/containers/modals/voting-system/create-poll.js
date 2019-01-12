@@ -20,6 +20,7 @@ import {NotificationManager} from "react-notifications";
 import {calculateFeeAction} from "../../../actions/forms";
 import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer';
+import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
@@ -449,22 +450,11 @@ class CreatePoll extends React.Component {
                                                 setValue={setValue}/>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Fee
-                                        </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0 no-left-padding">
-                                            <InputForm
-                                                defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
-                                                field="feeAPL"
-                                                placeholder="Minimum fee"
-                                                type={"float"}
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">Apollo</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <FeeCalc
+                                        values={getFormState().values}
+                                        setValue={setValue}
+                                        requestType={'createPoll'}
+                                    />
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}
