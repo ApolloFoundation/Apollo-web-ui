@@ -18,6 +18,7 @@ import uuid from "uuid";
 import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer';
 import FeeCalc from '../../components/form-components/fee-calc';
+import CustomRange from './range';
 
 import BackForm from '../modal-form/modal-form-container';
 
@@ -70,10 +71,13 @@ class CastPoll extends React.Component {
     };
 
     handleFormSubmit = async(values) => {
-        let votes = {};
+        let votes = values.voteOptions;
+
 
         if (this.state.poll.maxRangeValue > 1) {
-            votes = this.state.voteOptions;
+            votes = values.voteOptions;
+            delete values.voteOptions;
+
         } else {
             const voteVals = Object.keys(values).filter((el) => {
                 return el.includes('vote')
@@ -84,15 +88,12 @@ class CastPoll extends React.Component {
             });
         }
 
+        
         values = {
             poll: this.state.poll.poll,
             ...values,
             ...votes,
         };
-
-        this.setState({
-            isPending: true
-        })
 
         const res = await this.props.submitForm( values, 'castVote');
         if (res.errorCode) {
@@ -180,31 +181,15 @@ class CastPoll extends React.Component {
                                             <div className="col-sm-9">
                                                 {this.state.poll.maxRangeValue > 1 ?
                                                     <div>
-                                                        {Object.keys(this.state.votes).map((el, index) =>
-                                                            <div key={uuid()} className={"mb-15"}>
-                                                                <p>
-                                                                    {this.state.votes[el]}
-                                                                    <span className="badge badge-pill badge-primary float-right">
-                                                                        {this.state.voteOptions[el]}
-                                                                    </span>
-                                                                </p>
-                                                                <input type="range" className="custom-range"
-                                                                    max={this.state.poll.maxRangeValue}
-                                                                    min={this.state.poll.minRangeValue}
-                                                                    value={this.state.voteOptions[el] || this.state.poll.minRangeValue}
-                                                                    onMouseDown={(event) => {
-                                                                        const width = Math.round(((this.state.poll.maxRangeValue - this.state.poll.minRangeValue) 
-                                                                        * (event.pageX - $(event.target).offset().left) / $(event.target).width())    
-                                                                        + this.state.poll.minRangeValue)
-
-                                                                        this.setState({
-                                                                            voteOptions: {
-                                                                                [`${el}`]: width,
-                                                                            }
-                                                                        })
-                                                                    }}
-                                                                />
-                                                            </div>
+                                                        {Object.keys(this.state.votes).map((el) =>
+                                                            <CustomRange 
+                                                                setValue={setValue}
+                                                                label={this.state.votes[el]}
+                                                                min={this.state.poll.minRangeValue}
+                                                                max={this.state.poll.maxRangeValue}
+                                                                el={el}
+                                                                getFormState={getFormState}
+                                                            />
                                                         )}
                                                     </div>
                                                     :
