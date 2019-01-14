@@ -37,7 +37,14 @@ class SetAccountProperty extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const res = await this.props.submitForm( values, 'setAccountProperty');
+        const {modalData, submitForm} = this.props;
+
+        // Check if the property is already passed to modal window
+        if (modalData && modalData.property) {
+            values.property = modalData.property;
+        }
+
+        const res = await submitForm( values, 'setAccountProperty');
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
