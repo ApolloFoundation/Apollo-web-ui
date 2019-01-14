@@ -145,16 +145,6 @@ class IssueAsset extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Fee</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Fee" field="feeATM" type="tel"/>
-                                        </div>
-                                    </div>
-                                </div>
                                 <FeeCalc
                                     values={getFormState().values}
                                     setValue={setValue}
