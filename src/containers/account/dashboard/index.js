@@ -36,6 +36,7 @@ import {getAllTaggedDataAction} from "../../../actions/datastorage";
 import {getActiveShfflings, getShufflingAction} from "../../../actions/shuffling";
 import {getpollsAction} from "../../../actions/polls";
 import {getAccountInfoAction} from "../../../actions/account";
+import SendApolloCard from "./send-apollo-card";
 
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -344,18 +345,6 @@ class Dashboard extends React.Component {
 		if (media) itemContent += `<div class='post-image' style="background-image: url('${media}')"></div>`;
 		return <a className="post-item" href={`https://twitter.com/${post.user.screen_name}/status/${post.id_str}`}
 		          target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
-	};
-
-	accountIdChange = (el) => {
-		this.state.formValue = {...this.state.formValue, recipient: el};
-	};
-
-	amountChange = (el) => {
-		this.state.formValue = {...this.state.formValue, amountAPL: el.target.value, amountATM: el.target.value};
-	};
-
-	feeAtmChange = (el) => {
-		this.state.formValue = {...this.state.formValue, feeAPL: el.target.value, feeATM: el.target.value};
 	};
 
 	render() {
@@ -677,60 +666,8 @@ class Dashboard extends React.Component {
 								</div>
 							</div>
 							<div className="page-body-item ">
-								<div className="card send-apollo">
-									<div className="card-title">Send Apollo</div>
-									<div className="full-box">
-										<div className="form-group-app offset">
-											<div className="input-group-app lighten">
-												<label
-													style={{"word-break": 'normal'}}
-												>
-													Recipient
-												</label>
-												<AccountRS 
-													plsceholder="Account ID"
-													onChange={this.accountIdChange}
-													noContactList
-												/>
-											</div>
-											<div className="input-group-app lighten">
-												<label
-													style={{"word-break": 'normal'}}
-												>
-													Amount
-												</label>
-												<input placeholder={'Amount'} onChange={this.amountChange} type={'tel'}/>
-											</div>
-											<div className="input-group-app lighten">
-												<label
-													style={{"word-break": 'normal'}}
-												>
-													Fee
-												</label>
-												<input placeholder={'Amount'} onChange={this.feeAtmChange} type={'tel'}/>
-											</div>
-										</div>
-									</div>
-									<a
-										onClick={() => {
-											this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {}, this.state.formValue)
-										}}
-									    className="btn absolute btn-left btn-simple"
-										style={{margin: '0 0 -7px 35px'}}
-									>
-										Private APL
-									</a>
-									<button
-										className="btn btn-right gray round round-bottom-right round-top-left absolute"
-										data-modal="sendMoney"
-										onClick={() => {
-												this.props.setBodyModalParamsAction('SEND_APOLLO', {}, this.state.formValue)
-											}}
-										>
-										Send&nbsp;
-										<i className="arrow zmdi zmdi-chevron-right"/>
-									</button>
-								</div>
+										
+								<SendApolloCard />
 								<div className="card active-polls">
 									<div className="card-title">Active Polls</div>
 									<div

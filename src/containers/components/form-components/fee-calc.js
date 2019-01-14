@@ -32,7 +32,7 @@ class FeeCalc extends React.Component {
     };
     
     render () {
-        const {setValue} = this.props;
+        const {setValue, defaultValue} = this.props;
 
         return (
             <div className="form-group row form-group-white mb-15">
@@ -51,6 +51,7 @@ class FeeCalc extends React.Component {
                         placeholder="Minimum fee"
                         type={"float"}
                         setValue={setValue}
+                        defaultValue={defaultValue}
                     />
                     <div className="input-group-append">
                         <span className="input-group-text">

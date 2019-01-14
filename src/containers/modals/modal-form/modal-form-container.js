@@ -15,10 +15,25 @@ class BackForm extends Component {
 		
 	};
 
-	loadValues = () => {
+	componentWillReceiveProps = ({modalData}) => {
+
+		// If new props has been received and form parameters have not already replaced
+		if (modalData && Object.keys(modalData).length > 0 && !this.state.modalData) {
+			this.setState({
+				modalData
+			}, () => this.loadValues(modalData))
+		}
+	}
+
+	loadValues = (values) => {
+		if (values) {
+			this.state.form.setAllValues(values);
+			return;
+		}
+
 		if(this.props.modalsHistory.length > 0){
 			const myModal = this.props.modalsHistory[this.props.modalsHistory.length -1];
-			if(this.props.nameModal === myModal.modalName){
+			if(this.props.nameModal === myModal.modalName && myModal.value){
 				this.state.form.setAllValues(myModal.value);
 			}
 		}
@@ -41,6 +56,8 @@ class BackForm extends Component {
 const mapStateToProps = state => ({
 	savedValues: state.modals.savedValues,
 	modalsHistory: state.modals.modalsHistory,
+	
+	modalData: state.modals.modalData
 });
 
 const mapDispatchToProps = dispatch => ({

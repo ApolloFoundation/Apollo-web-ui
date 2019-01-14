@@ -156,11 +156,9 @@ class Confirm2FA extends React.Component {
                                     </button>
                                 </div>
                             </div>
-
                         </form>
                     )}
                 />
-
             </div>
         );
     }

@@ -134,7 +134,7 @@ class SendApollo extends React.Component {
 												<div className="iconned-input-field">
 													<AccountRS
 														field={'recipient'}
-														defaultValue={values.recipient || ''}
+														defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}
 														setValue={setValue}
 														value={getValue('recipient') || ''}
 														placeholder={'Account ID'}
@@ -232,6 +232,7 @@ class SendApollo extends React.Component {
 										setValue={setValue}
 										values={getFormState().values}
 										requestType={'sendMoney'}
+										defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}										
 									/>
 
 									<ModalFooter
