@@ -16,6 +16,7 @@ import { Form, Text, TextArea, Checkbox } from 'react-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import ModalFooter from '../../../components/modal-footer';
+import FeeCalc from '../../../components/form-components/fee-calc';
 
 import AdvancedSettings from '../../../components/advanced-transaction-settings';
 
@@ -193,17 +194,12 @@ class MarketplaceDeliver extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Fee</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <Text type="tel" field='feeATM' placeholder="Minimum fee" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <FeeCalc
+                                                        values={getFormState().values}
 
+                                                        setValue={setValue}
+                                                        requestType={'dgsDelivery'}
+                                                    />
                                                     <ModalFooter
                                                         setValue={setValue}
                                                         getFormState={getFormState}

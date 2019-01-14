@@ -19,6 +19,7 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import ModalFooter from '../../components/modal-footer'
+import FeeCalc from '../../components/form-components/fee-calc';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -154,6 +155,11 @@ class IssueAsset extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                <FeeCalc
+                                    values={getFormState().values}
+                                    setValue={setValue}
+                                    requestType={'issueAsset'}
+                                />
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}

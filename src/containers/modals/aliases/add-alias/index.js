@@ -203,7 +203,7 @@ class AddAlias extends React.Component {
                                 <FeeCalc
                                     setValue={setValue}
                                     values={getFormState().values}
-                                    requestType={'leaseBalance'}
+                                    requestType={'setAlias'}
                                 />
                                 <ModalFooter
                                     setValue={setValue}

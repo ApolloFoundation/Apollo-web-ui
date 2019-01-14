@@ -20,6 +20,7 @@ import {calculateFeeAction} from "../../../actions/forms";
 import InfoBox from "../../components/info-box";
 import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer'
+import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
@@ -107,21 +108,11 @@ class OrderCancel extends React.Component {
                                     <InfoBox default>
                                         If you are sure you want to cancel your order, type your passphrase to confirm.
                                     </InfoBox>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Fee
-                                        </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent">
-                                            <InputForm
-                                                field="feeAPL"
-                                                placeholder="Minimum fee"
-                                                type={"float"}
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">Apollo</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <FeeCalc
+                                        values={getFormState().values}
+                                        setValue={setValue}
+                                        requestType={'issueAsset'}
+                                    />
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}

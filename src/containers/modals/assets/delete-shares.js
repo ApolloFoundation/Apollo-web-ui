@@ -13,6 +13,7 @@ import {NotificationManager} from "react-notifications";
 import {Form, Text} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import ModalFooter from '../../components/modal-footer'
+import FeeCalc from '../../components/form-components/fee-calc';
 
 class DeleteShares extends React.Component {
     constructor(props) {
@@ -102,16 +103,11 @@ class DeleteShares extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Fee</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Amount'} type="text" field={'feeATM'}/>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <FeeCalc
+                                        values={getFormState().values}                                         
+                                        setValue={setValue}
+                                        requestType={'deleteAssetShares'}
+                                    />
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}

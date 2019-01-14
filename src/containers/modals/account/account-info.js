@@ -16,6 +16,7 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer';
+import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
@@ -102,6 +103,13 @@ class AccountInfo extends React.Component {
 			                                <Text className={"form-control"} placeholder={'Amount'} type="tel" field={'feeATM'}/>
 		                                </div>
 	                                </div>
+                                    
+                                    <FeeCalc 
+                                        values={getFormState().values}
+                                        setValue={setValue}
+                                        requestType={'setAccountInfo'}
+                                    />
+
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}

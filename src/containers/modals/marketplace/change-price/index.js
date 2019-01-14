@@ -20,8 +20,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
 import ModalFooter from '../../../components/modal-footer'
-
-
+import FeeCalc from '../../../components/form-components/fee-calc';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -184,18 +183,11 @@ class MarketplaceChangePrice extends React.Component {
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div className="form-group row form-group-white mb-15">
-                                                        <label className="col-sm-3 col-form-label">
-                                                            Fee
-                                                        </label>
-                                                        <div className="col-sm-9">
-                                                            <InputForm
-                                                                type="float"
-                                                                field="feeATM"
-                                                                placeholder="Minimum fee"
-                                                                setValue={setValue}/>
-                                                        </div>
-                                                    </div>
+                                                    <FeeCalc
+                                                        values={getFormState().values}
+                                                        setValue={setValue}
+                                                        requestType={'dgsPriceChange'}
+                                                    />
                                                     <ModalFooter
                                                         setValue={setValue}
                                                         getFormState={getFormState}
