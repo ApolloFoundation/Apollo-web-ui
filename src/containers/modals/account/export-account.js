@@ -142,6 +142,9 @@ class ExportAccount extends React.Component {
                                     Please enter your account credentials.
                                 </InfoBox>
 
+                                <InfoBox danger>
+                                    Attention: This functional works only for Vault Wallets.
+                                </InfoBox>
 
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
