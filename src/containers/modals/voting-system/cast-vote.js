@@ -75,7 +75,6 @@ class CastPoll extends React.Component {
 
 
         if (this.state.poll.maxRangeValue > 1) {
-            console.log(2222)
             votes = values.voteOptions;
             delete values.voteOptions;
 
