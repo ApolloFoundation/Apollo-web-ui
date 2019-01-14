@@ -48,7 +48,8 @@ class Messenger extends React.Component {
 	state = {
 		chats: null,
 		selectedChat: null,
-		chatHistory: null
+        chatHistory: null,
+        textareaCount : 0
 	};
 
 	componentDidMount () {
@@ -150,6 +151,7 @@ class Messenger extends React.Component {
         }
 		if (!res.errorCode) {
             NotificationManager.success('Message has been submitted!', null, 5000);
+            this.setState({textareaCount : 0})
             if (this.state.formApi) {
             	this.state.formApi.setValue('message', null);
             	this.state.formApi.setValue('secretPhrase', null);
@@ -272,11 +274,19 @@ class Messenger extends React.Component {
                                                          }) => (
                                                     <form className="compose-message-box" onSubmit={submitForm}>
                                                         <div className="top-bar">
-															<TextArea
+                                                            <div className={"textareaCount"}>
+                                                                {this.state.textareaCount > 100 ?
+                                                                    <div className={"textareaCount-message"}>Message is too long</div> :
+                                                                    <div><div className={'textareaCount-text'}>{100 - this.state.textareaCount}</div>/100</div>
+                                                                }
+                                                            </div>
+                                                            <TextArea
                                                                 className={"form-control"}
                                                                 field={'message'}
                                                                 rows="2"
-                                                                placeholder={'Message'}/>
+                                                                placeholder={'Message'}
+                                                                onChange={(text) => this.setState({textareaCount: text.length})}
+                                                            />
                                                         </div>
                                                         <div className="bottom-bar">
                                                             <div className="encrypt-message-box">
@@ -299,17 +309,17 @@ class Messenger extends React.Component {
                                                                 field={'secretPhrase'}
                                                                 placeholder={'Secret Phrase'}
                                                                 type="password"/>
-															{
-																this.props.is2FA &&
+                                                            {
+                                                                this.props.is2FA &&
                                                                 <Text
                                                                     className={"form-control"}
                                                                     field={'code2FA'}
                                                                     placeholder={'2FA Code'}
                                                                     type="password"/>
-															}
+                                                            }
 
-															<button type="submit" className="btn blue btn-primary">
-																Send Message
+                                                            <button type="submit" className="btn blue btn-primary">
+                                                                Send Message
                                                             </button>
                                                         </div>
                                                     </form>
