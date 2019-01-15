@@ -194,6 +194,7 @@ class MarketplaceSearch extends React.Component {
                             }
                             {
                                 this.state.getDGSGoods &&
+                                this.state.getDGSGoods.length > 7 &&
                                 <div
                                     className="btn-box relative padding-bottom"
                                     style={{
