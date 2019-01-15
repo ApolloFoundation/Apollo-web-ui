@@ -22,7 +22,7 @@ class CustomRange extends React.Component {
 
         return (
             <div className={"mb-15"}>
-                <p>
+                <p className={'word-brake'}>
                     {label}
                     <span className="badge badge-pill badge-primary float-right">
                         {value}
