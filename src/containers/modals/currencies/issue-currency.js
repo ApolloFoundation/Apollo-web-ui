@@ -80,13 +80,6 @@ class IssueCurrency extends React.Component {
         if (values.type5) values.type += typeValues[5];
         if (values.type6) values.type += typeValues[6];
 
-        delete values.type1
-        delete values.type2
-        delete values.type3
-        delete values.type4
-        delete values.type5
-        delete values.type6
-
         values = {
             name: values.name,
             code: values.code,
@@ -108,6 +101,13 @@ class IssueCurrency extends React.Component {
             secretPhrase: values.secretPhrase,
             code2FA: values.code2FA,
         };
+
+        delete values.type1
+        delete values.type2
+        delete values.type3
+        delete values.type4
+        delete values.type5
+        delete values.type6
 
         this.setState({
             isPending: true
