@@ -112,6 +112,7 @@ class IssueCurrency extends React.Component {
         this.setState({
             isPending: true
         });
+        
         const res = await this.props.submitForm(values, 'issueCurrency');
 
         if (res.errorCode) {
