@@ -47,7 +47,7 @@ class Generator extends React.Component {
                 <td className="align-right">
                     <a>{this.props.generator.effectiveBalanceAPL.toLocaleString('en')}</a>
                 </td>
-                <td className="align-left">
+                <td className="align-right">
                     <a>{this.props.formatTimestamp(this.props.generator.hitTime)}</a>
                 </td>
                 <td className="align-right"><a>{this.props.generator.deadline}</a>
