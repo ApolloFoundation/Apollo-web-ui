@@ -65,23 +65,26 @@ class Generators extends React.Component {
                     <div className="blocks">
                         <div className="row">
                             <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-                                <div className="card header ballance single">
+                                <div className="card chart-sprite position-1 header ballance single">
                                     <div className="card-title">Last Block</div>
                                     <div className="amount">{this.state.lastBlockTime}</div>
                                 </div>
                             </div>
                             <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-                                <div className="card header assets single">
+                                <div className="card chart-sprite position-2 header assets single">
                                     <div className="card-title">Height</div>
                                     <div className="amount">{this.state.height}</div>
                                 </div>
                             </div>
                             <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-                                <div className="card header currencies single">
+                                <div className="card chart-sprite position-3 header currencies single">
                                     <div className="card-title">Active Forgers</div>
                                     <div className="amount">{this.state.activeForgers}</div>
                                 </div>
                             </div>
+                        </div>
+                        <div className="info-box info">
+                            <p>Information in this table is delayed by up to 30 seconds, use the desktop wallet for more up to date information.</p>
                         </div>
                         <div className="transaction-table">
                             <div className="transaction-table-body">
@@ -90,7 +93,7 @@ class Generators extends React.Component {
                                     <tr>
                                         <td className="align-left">Account</td>
                                         <td className="align-right">Effective Balance</td>
-                                        <td className="align-left">Hit Time</td>
+                                        <td className="align-right">Hit Time</td>
                                         <td className="align-right">Deadline</td>
                                         <td className="align-right">Remaining</td>
                                     </tr>
