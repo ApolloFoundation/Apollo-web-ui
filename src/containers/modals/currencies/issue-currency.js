@@ -70,18 +70,20 @@ class IssueCurrency extends React.Component {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
-        let type = 0;
-
-        if (values.type1) type += typeValues[1];
-        if (values.type2) type += typeValues[2];
-        if (values.type3) type += typeValues[3];
-        if (values.type4) type += typeValues[4];
-        if (values.type5) type += typeValues[5];
-        if (values.type6) type += typeValues[6];
+    
+        values.type = 0;
+        
+        if (values.type1) values.type += typeValues[1];
+        if (values.type2) values.type += typeValues[2];
+        if (values.type3) values.type += typeValues[3];
+        if (values.type4) values.type += typeValues[4];
+        if (values.type5) values.type += typeValues[5];
+        if (values.type6) values.type += typeValues[6];
 
         values = {
             name: values.name,
             code: values.code,
+            type: values.type,
             description: values.description,
             minReservePerUnitATM: !values.type3 ? null : new BigInteger(values.minReservePerUnitATM).multiply(new BigInteger("" + Math.pow(10, values.decimals))),
             reserveSupply: !values.type3 ? null : values.reserveSupply * Math.pow(10, values.decimals),
@@ -93,17 +95,26 @@ class IssueCurrency extends React.Component {
             phased: false,
             issuanceHeight: values.height,
             publicKey: this.props.publicKey,
-            feeAPL: values.feeAPL,
+            feeAPL: values.feeATM,
             maxSupply: values.maxSupply * Math.pow(10, values.decimals),
             initialSupply: values.initialSupply * Math.pow(10, values.decimals),
             secretPhrase: values.secretPhrase,
             code2FA: values.code2FA,
-            type
         };
+
+        delete values.type1
+        delete values.type2
+        delete values.type3
+        delete values.type4
+        delete values.type5
+        delete values.type6
+
         this.setState({
             isPending: true
         });
+        
         const res = await this.props.submitForm(values, 'issueCurrency');
+
         if (res.errorCode) {
             this.setState({
                 isPending: false
