@@ -125,7 +125,7 @@ class Aliases extends React.Component {
                     <a
                         className="btn primary"
                         style={{marginLeft: 15}}
-                        onClick={() => this.props.setBodyModalParamsAction('ADD_ALIAS', {})}
+                        onClick={() => this.props.setBodyModalParamsAction('ALIAS_INFO', {})}
                     >
                         Add alias
                     </a>

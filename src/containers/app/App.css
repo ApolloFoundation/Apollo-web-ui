@@ -413,6 +413,8 @@ input {
   padding-left: 40px;
   padding-right: 40px;
   line-height: 1.6; }
+  .info-box p a {
+    color: #00C8FF; }
 
 .no-margin {
   margin: 0 !important; }
