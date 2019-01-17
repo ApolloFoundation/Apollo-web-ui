@@ -13,6 +13,8 @@
     height: 100%;
     padding: 8px;
     width: auto; }
+  .block-downloader .CircularProgressbar-text {
+    display: block; }
 
 .block-downloader_text {
   display: block;

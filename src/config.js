@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright � 2018 Apollo Foundation                                         *
+ * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
  ******************************************************************************/
 
@@ -8,7 +8,7 @@ const config = {};
 
 // API Gateway
 config.api = {
-    serverUrl: 'http://localhost:6876/apl?',
+    serverUrl: '/apl?',
     localServerUrl: 'https://apollocurrency.com/api/client/twitter',
     mixerUrl: 'https://apollowallet.org/mixer/api/get-account'
 };
