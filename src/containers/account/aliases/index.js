@@ -122,8 +122,6 @@ class Aliases extends React.Component {
         const {getAliasAction, setBodyModalParamsAction} = this.props;
         const getAlias = await getAliasAction(values)
 
-        console.log(getAlias)
-
         if (getAlias) {
             setBodyModalParamsAction('ALIAS_INFO', getAlias)
         } else {

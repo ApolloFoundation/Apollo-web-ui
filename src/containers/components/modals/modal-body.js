@@ -9,12 +9,6 @@ import ModalFooter           from '../modal-footer';
 
 
 class ModalBody extends React.Component {
-
-    componentDidMount = () => {
-        console.log(this.props)
-
-    }
-    
     getForm = (form) => {
 		this.setState({form}, () => this.loadValues());
     };
