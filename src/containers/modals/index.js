@@ -65,13 +65,15 @@ import CreateShuffling from './coin-shuffling/create-shuffling';
 import JoinShuffling from './coin-shuffling/join-shuffling';
 
 // Aliases
-import EditAlias     from './aliases/edit-alias';
-import SellAlias     from './aliases/sell-alias';
-import CancelSaleAlias     from './aliases/cancel-alias';
-import TransferAlias from './aliases/transfer-alias';
-import DeleteAlias   from './aliases/delete-alias';
-import AddAlias   from './aliases/add-alias';
-import CancelSell from './aliases/cancel-sell';
+import EditAlias        from './aliases/edit-alias';
+import SellAlias        from './aliases/sell-alias';
+import BuyAlias         from './aliases/buy-alias';
+import CancelSaleAlias  from './aliases/cancel-alias';
+import TransferAlias    from './aliases/transfer-alias';
+import DeleteAlias      from './aliases/delete-alias';
+import AddAlias         from './aliases/add-alias';
+import CancelSell       from './aliases/cancel-sell';
+import AliasInfo        from './aliases/alias-info';
 
 // Marketplace
 import MarketplaceImage from './marketplace/mraketplace-image-view';
@@ -259,7 +261,9 @@ class ModalWindow extends React.Component {
                 {/*Aliases */}
                 {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={this.closeModal}/>}
                 {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 closeModal={this.closeModal}/>}
-
+                {this.props.modalType === 'BUY_ALIAS'                   && <BuyAlias                  closeModal={this.closeModal}/>}
+                {this.props.modalType === 'ALIAS_INFO'                  && <AliasInfo                 closeModal={this.closeModal}/>}
+                
 
                 {/*{this.props.modalType === 'CANCEL_SALE_ALIAS'           && <CancelSaleAlias           closeModal={this.closeModal}/>}*/}
                 {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={this.closeModal}/>}
