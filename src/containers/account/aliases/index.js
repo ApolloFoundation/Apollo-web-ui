@@ -19,6 +19,8 @@ import InfoBox from '../../components/info-box';
 import uuid from "uuid";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
+import SingleSearchForm from '../../components/single-search-form';
+import {getAliasAction} from '../../../actions/aliases/';
 
 class Aliases extends React.Component {
     constructor(props) {
@@ -116,6 +118,19 @@ class Aliases extends React.Component {
         this.props.setBodyModalParamsAction('DELETE_ALIAS', {});
     };
 
+    handleSearchBy = async (values) => {
+        const {getAliasAction, setBodyModalParamsAction} = this.props;
+        const getAlias = await getAliasAction(values)
+
+        console.log(getAlias)
+
+        if (getAlias) {
+            setBodyModalParamsAction('ALIAS_INFO', getAlias)
+        } else {
+            NotificationManager.error('No alias found.', 'Error', 5000);
+        }
+    }
+
     render () {
         return (
             <div className="page-content">
@@ -125,13 +140,20 @@ class Aliases extends React.Component {
                     <a
                         className="btn primary"
                         style={{marginLeft: 15}}
-                        onClick={() => this.props.setBodyModalParamsAction('ALIAS_INFO', {})}
+                        onClick={() => this.props.setBodyModalParamsAction('ADD_ALIAS', {})}
                     >
                         Add alias
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <div className="blocks">
+                    <div className="aliases">
+                        <SingleSearchForm 
+                            defaultValue={''}
+                            field={'aliasName'} 
+                            type={'text'} 
+                            placeholder={'Alias Name'} 
+                            handleSearchBy={(values) => this.handleSearchBy(values)}
+                        />
                         <ContentHendler
                             items={this.state.aliases}
                             emptyMessage={'No aliases found.'}
@@ -213,7 +235,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    // submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+    getAliasAction: (reqParams) => dispatch(getAliasAction(reqParams)),
 });
 
 export default connect(

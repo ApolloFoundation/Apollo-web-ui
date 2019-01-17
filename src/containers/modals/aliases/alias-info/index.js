@@ -13,70 +13,64 @@ import { formatTimestamp } from '../../../../helpers/util/time';
 
 class AliasInfo extends React.Component {
 
-    componentDidMount = () => {
-        this.getAliasAction('Itsme');
-    }
+    state = {}
 
-    state = {
-        alias: {
-            accountRS: null,
-            timestamp: null,
-            aliasURI: null,
-            price:  null
-        }
-    }
-
-    getAliasAction = async (requestParams) => {
-        const alias = await this.props.getAliasAction({aliasName: requestParams});
-
-        if (alias) {
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.modalData && !this.state.alias) {
             this.setState({
-                alias
+                alias: nextProps.modalData
             })
         }
     }
 
     render () {
 
-        const {accountRS, aliasURI, timestamp, priceATM} = this.state.alias;
+        const {alias} = this.state;
         const {formatTimestamp, setBodyModalParamsAction} = this.props;
 
         return (
             <ModalBody
-                modalTitle={'Alias Info'}
+                modalTitle={`Alias ${alias ? alias.aliasName : ''} Info`}
                 closeModal={this.props.closeModal}
                 handleFormSubmit={this.handleFormSubmit}
             >
-
-                <DescriptionTable
-                    items={[
-                        {
-                            title: 'Account: ',
-                            description: accountRS
-                        },
-                        {
-                            title: 'Last Updated: ',
-                            description: timestamp ? formatTimestamp(timestamp) : ''
-                        },
-                        {
-                            title: 'Data: ',
-                            description: aliasURI
-                        }
-                    ]}
-                />
-
-                <InfoBox default>
-                    
-                    You have been offered this alias for { priceATM / 100000000 } Apollo.&nbsp; 
+                <React.Fragment>
                     {
-                        this.state.alias &&
-                        <a
-                            onClick={() => setBodyModalParamsAction('BUY_ALIAS', this.state.alias)}
-                        >
-                            Buy it?
-                        </a>
+                        alias &&
+                        <React.Fragment>
+                            <DescriptionTable
+                                items={[
+                                    {
+                                        title: 'Account: ',
+                                        description: alias.accountRS
+                                    },
+                                    {
+                                        title: 'Last Updated: ',
+                                        description: alias.timestamp ? formatTimestamp(alias.timestamp) : ''
+                                    },
+                                    {
+                                        title: 'Data: ',
+                                        description: alias.aliasURI
+                                    }
+                                ]}
+                            />
+                            {
+                                alias.priceATM && 
+                                <InfoBox default>
+                                    You have been offered this alias for { alias.priceATM / 100000000 } Apollo.&nbsp; 
+                                    {
+                                        this.state.alias &&
+                                        <a
+                                            onClick={() => setBodyModalParamsAction('BUY_ALIAS', this.state.alias)}
+                                        >
+                                            Buy it?
+                                        </a>
+                                    }
+                                </InfoBox>
+                            }
+                        </React.Fragment>   
                     }
-                </InfoBox>
+                </React.Fragment>
             </ModalBody>
         )
     }

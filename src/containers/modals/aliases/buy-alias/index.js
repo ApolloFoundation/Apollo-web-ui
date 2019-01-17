@@ -4,13 +4,13 @@
  ******************************************************************************/
 
 
-import React from 'react';
+import React     from 'react';
 import {connect} from 'react-redux';
-import {NotificationManager} from 'react-notifications';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {getAliasAction} from '../../../../actions/aliases/';
 
-import submitForm           from "../../../../helpers/forms/forms";
+import {NotificationManager}      from 'react-notifications';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {getAliasAction}           from '../../../../actions/aliases/';
+import handleFormSubmit           from './handle-form-submit';
 
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import NumericInputComponent from '../../../components/form-components/numeric-input';
@@ -27,7 +27,7 @@ class GetAlias extends React.Component {
     };
 
     handleFormSubmit = (values) => {
-        console.log(values)
+        this.props.handleFormSubmit(values)
     }
 
     render() {
@@ -75,9 +75,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    handleFormSubmit: (values) => dispatch(handleFormSubmit(values))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetAlias);
