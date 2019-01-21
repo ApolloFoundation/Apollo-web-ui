@@ -38,8 +38,6 @@ class Confirm2FAforging extends React.Component {
         const {account, passphrase}  = this.props
         const action = this.props.action.getStatus;
 
-        console.log(this.props.action.getStatus);
-
         const requestParams = {
             requestType: action,
             passphrase: passphrase,
