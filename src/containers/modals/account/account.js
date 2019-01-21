@@ -292,73 +292,91 @@ class InfoAccount extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 1
                                 })}>
-                                    <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent padding-vertical-padding">
-                                            <table>
-                                                <thead>
-                                                <tr>
-                                                    <td>Entry</td>
-                                                    <td>Type</td>
-                                                    <td className="align-right">Change</td>
-                                                    <td>Balance</td>
-                                                    <td>Holding</td>
-                                                    <td className="align-right">Change</td>
-                                                    <td className="align-right">Balance</td>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {
-                                                    this.state.account_ledger &&
-                                                    this.state.account_ledger.entries.map((el, index) => {
-                                                        return (
-                                                            <Entry
-                                                                key={uuid()}
-                                                                entry={el}
-                                                                setLedgerEntryInfo={this.getLedgerEntry}
-                                                                setTransactionInfo={this.setTransactionInfo}
-                                                            />
-                                                        );
-                                                    })
-                                                }
-                                                </tbody>
-                                            </table>
+                                    {
+                                        this.state.account_ledger &&
+                                        !!this.state.account_ledger.entries.length &&
+                                        <div className="transaction-table no-min-height">
+                                            <div className="transaction-table-body transparent padding-vertical-padding">
+                                                <table>
+                                                    <thead>
+                                                    <tr>
+                                                        <td>Entry</td>
+                                                        <td>Type</td>
+                                                        <td className="align-right">Change</td>
+                                                        <td>Balance</td>
+                                                        <td>Holding</td>
+                                                        <td className="align-right">Change</td>
+                                                        <td className="align-right">Balance</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {
+                                                        this.state.account_ledger &&
+                                                        this.state.account_ledger.entries.map((el, index) => {
+                                                            return (
+                                                                <Entry
+                                                                    key={uuid()}
+                                                                    entry={el}
+                                                                    setLedgerEntryInfo={this.getLedgerEntry}
+                                                                    setTransactionInfo={this.setTransactionInfo}
+                                                                />
+                                                            );
+                                                        })
+                                                    }
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    {
+                                        this.state.account_ledger &&
+                                        !(!!this.state.account_ledger.entries.length) &&
+                                        'No ledger found.'
+                                    }
+                                    
                                 </div>
                                 <div className={classNames({
                                     "tab-body": true,
                                     "active": this.state.activeTab === 2
                                 })}>
-                                    <div className="transaction-table no-min-height">
-                                        <div className="transaction-table-body transparent padding-vertical-padding">
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <td>Asset</td>
-                                                        <td className="align-right">Quantity</td>
-                                                        <td className="align-right">Total Available</td>
-                                                        <td className="align-right">Percentage</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {
-                                                    this.state.assets &&
-                                                    !(this.state.assets.assets) &&
-                                                    this.state.assets.map((el, index) => {
-                                                        return (
-                                                            <Asset
-                                                                key={uuid()}
-                                                                info
-                                                                transfer={el}
-                                                                setLedgerEntryInfo={this.getLedgerEntry}
-                                                            />
-                                                        );
-                                                    })
-                                                }
-                                                </tbody>
-                                            </table>
+                                    {
+                                        this.state.assets &&
+                                        (!!this.state.assets.length) &&
+                                        <div className="transaction-table no-min-height">
+                                            <div className="transaction-table-body transparent padding-vertical-padding">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Asset</td>
+                                                            <td className="align-right">Quantity</td>
+                                                            <td className="align-right">Total Available</td>
+                                                            <td className="align-right">Percentage</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {
+                                                        this.state.assets.map((el, index) => {
+                                                            return (
+                                                                <Asset
+                                                                    key={uuid()}
+                                                                    info
+                                                                    transfer={el}
+                                                                    setLedgerEntryInfo={this.getLedgerEntry}
+                                                                />
+                                                            );
+                                                        })
+                                                    }
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    {
+                                        this.state.assets &&
+                                        !(this.state.assets.length) &&
+                                        'No assets for this account.'
+                                    }
+                                    
                                 </div>
                                 <div className={classNames({
                                     "tab-body": true,
@@ -419,7 +437,7 @@ class InfoAccount extends React.Component {
                                 })}>
                                     {
                                         this.state.currencies &&
-                                        this.state.currencies.accountCurrencies.length &&
+                                        (!!this.state.currencies.accountCurrencies.length) &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
@@ -433,7 +451,6 @@ class InfoAccount extends React.Component {
                                                         </thead>
                                                         <tbody>
                                                         {
-                                                            this.state.currencies &&
                                                             this.state.currencies.accountCurrencies.map((el, index) => {
                                                                 return (
                                                                     <tr key={uuid()}>
