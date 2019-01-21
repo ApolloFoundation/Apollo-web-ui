@@ -75,7 +75,7 @@ class AccountRS extends React.Component {
         };
 
         if (this.props.setValue)
-            this.props.setValue(this.props.field, value.indexOf(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`) === -1 ? 'APl-' + value : value);
+            this.props.setValue(this.props.field, value.indexOf(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`) === -1 ? 'APL-' + value : value);
         
         this.setState({inputValue: newState});
 
@@ -118,6 +118,9 @@ class AccountRS extends React.Component {
     };
 
     render () {
+        console.log(this.props.value)
+        console.log(this.state.inputValue.value)
+
         return (
             <React.Fragment>
                 {this.state.inputValue &&
@@ -126,7 +129,7 @@ class AccountRS extends React.Component {
                         mask={this.state.inputValue.mask}
                         placeholder={this.props.placeholder || 'Account ID'}
                         ref={'input'}
-                        value={this.state.inputValue.value}
+                        value={this.props.value || this.state.inputValue.value}
                         onPaste={this.onChange}
                         onChange={this.onChange}
                     />

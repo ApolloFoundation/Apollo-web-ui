@@ -50,6 +50,8 @@ class SendApollo extends React.Component {
 	}
 
 	async handleFormSubmit(values) {
+		const {dashboardForm} = this.props;
+
 		if (!values.secretPhrase || values.secretPhrase.length === 0) {
 			NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
 			return;
@@ -85,7 +87,11 @@ class SendApollo extends React.Component {
 			} else {
 				this.props.setBodyModalParamsAction(null, {});
 			}
-
+			
+			if (dashboardForm) {
+				dashboardForm.resetAll();
+				dashboardForm.setValue('recipient', ' ')
+			}
 			NotificationManager.success('Transaction has been submitted!', null, 5000);
 		}
 	}
@@ -103,6 +109,7 @@ class SendApollo extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.dashboardForm)
 		return (
 			<div className="modal-box">
 				<BackForm
@@ -324,7 +331,8 @@ const mapStateToProps = state => ({
 	modalData: state.modals.modalData,
 	account: state.account.account,
 	publicKey: state.account.publicKey,
-	modalsHistory: state.modals.modalsHistory
+	modalsHistory: state.modals.modalsHistory,
+	dashboardForm: state.modals.dashboardForm
 });
 
 const mapDispatchToProps = dispatch => ({

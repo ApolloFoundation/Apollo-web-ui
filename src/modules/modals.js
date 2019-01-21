@@ -6,6 +6,7 @@
 
 import axios from 'axios';
 import config from '../config'
+import store from '../store';
 
 export const SET_MODAL_TYPE = 'SET_MODAL_TYPE';
 export const SET_MODAL_DATA = 'SET_MODAL_DATA';
@@ -28,6 +29,9 @@ export const CLEAR_GO_BACK = 'CLEAR_GO_BACK';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 export const OPEN_PREV_MODAL = 'OPEN_PREV_MODAL';
+export const SET_DASHBOARD_FORM = 'SET_DASHBOARD_FORM';
+
+
 
 const initialState = {
     modalType: null,
@@ -143,7 +147,13 @@ export default (state = initialState, action) => {
 	        return {
 		        ...state,
 		        backClicked: false
-	        };
+            };
+            
+        case SET_DASHBOARD_FORM:
+            return {
+                ...state,
+                dashboardForm : action.payload
+            }
 
         default:
             return state
@@ -277,3 +287,12 @@ export const setAlert = (status, message) => {
         }, 4000)
     }
 };
+
+export const clearDashboardForm = (form) => {
+    const  {dispatch} = store;
+
+    dispatch({
+        type : SET_DASHBOARD_FORM,
+        payload : form
+    })
+}

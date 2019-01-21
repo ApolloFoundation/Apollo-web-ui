@@ -1515,8 +1515,8 @@ input[type="file"] {
   justify-content: flex-start;
   flex-wrap: wrap; }
   .flexible-grid > * {
-    margin-top: 15px;
-    margin-right: 15px; }
+    margin-top: 10px;
+    margin-right: 10px; }
 
 .input-block {
   width: 300px; }
@@ -6528,8 +6528,8 @@ input[type="file"] {
   justify-content: flex-start;
   flex-wrap: wrap; }
   .flexible-grid > * {
-    margin-top: 15px;
-    margin-right: 15px; }
+    margin-top: 10px;
+    margin-right: 10px; }
 
 .input-block {
   width: 300px; }

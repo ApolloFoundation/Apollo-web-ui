@@ -3,9 +3,12 @@ import {connect} from 'react-redux';
 import AccountRS from '../../../components/account-rs';
 import {Form} from 'react-form';
 import InputForm from '../../../components/input-form';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {setBodyModalParamsAction, clearDashboardForm} from '../../../../modules/modals';
 
 class SendApolloCard extends Component {
+    componentDidMount = () => {
+    }
+    
     submitForm = ({recipient, amountATM, feeATM}) => {
         this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM, amountAPL: amountATM ,feeATM})
     }
@@ -14,10 +17,15 @@ class SendApolloCard extends Component {
         this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {recipient, amountATM, amountAPL: amountATM ,feeATM}) 
     }
 
+    getApi = (form) => {
+        this.setState({form})
+        clearDashboardForm(form)
+    }
+
     render () {
         return (
             <Form
-
+                getApi={(form) => this.getApi(form)}
                 onSubmit={(values) => this.submitForm(values)}
                 render={({
                             submitForm, setValue, getFormState
@@ -37,6 +45,7 @@ class SendApolloCard extends Component {
                                                 setValue={setValue}
                                                 plsceholder="Account ID"
                                                 noContactList
+                                                value={getFormState().values.recipient}
                                             />
                                         </div>
                                         <div className="input-group-app lighten">
