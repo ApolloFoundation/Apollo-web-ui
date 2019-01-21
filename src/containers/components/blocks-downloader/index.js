@@ -26,30 +26,25 @@ class  BlocksDownloader extends React.Component {
                     <div
                         className={'block-downloader'}
                     >
-                        {
-                            <React.Fragment>
-        
-                                <CircularProgressbar
-                                    className={classNames({
-                                        'Downloader': true,
-                                    })}
-                                    percentage={percentage}
-                                    text={`${percentage}%`}
-                                    styles={{
-                                        path: { stroke: `rgba(62, 152, 199, ${percentage / 100})` },
-                                        text: { fill: '#f88', fontSize: '16px' },
-                                    }}
-                                    style={{
-                                        margin: 0,
-                                        height: 70
-                                    }}
-                                    strokeWidth={14}
-                                />
-                                <div className="block-downloader_text">
-                                    Downloading blocks
-                                </div>
-                            </React.Fragment>
-                        }
+                        <CircularProgressbar
+                            className={classNames({
+                                'Downloader': true,
+                            })}
+                            percentage={percentage}
+                            text={`${percentage}%`}
+                            styles={{
+                                path: { stroke: `rgba(62, 152, 199, ${percentage / 100})` },
+                                text: { fill: '#f88', fontSize: '16px' },
+                            }}
+                            style={{
+                                margin: 0,
+                                height: 70
+                            }}
+                            strokeWidth={14}
+                        />
+                        <div className="block-downloader_text">
+                            Downloading blocks
+                        </div>
                     </div>
                 } 
             </React.Fragment>
