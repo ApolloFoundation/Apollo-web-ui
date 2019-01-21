@@ -144,7 +144,7 @@ class InfoLedgerTransaction extends React.Component {
                                             }
                                             <a className="btn btn-primary blue-disabled static">Send currency to sender</a>
                                             <a className="btn btn-primary blue-disabled static">Send a message to sender</a>
-                                            <a className="btn btn-primary blue-disabled static">Apptove transaction</a>
+                                            <a className="btn btn-primary blue-disabled static">Approve transaction</a>
                                             <a className="btn btn-primary blue-disabled static">Extend data lifetime</a>
                                         </div>
                                     }
