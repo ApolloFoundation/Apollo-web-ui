@@ -635,13 +635,13 @@ class SiteHeader extends React.Component {
                                             <AccordionItem>
                                                 <div className={"mobile-nav-item"}>
                                                     <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/messenger"])}`}>
+                                                        className={`text ${this.getNavLinkClass(["/messenger", "/my-messages"])}`}>
                                                         <i className="zmdi zmdi-comments"/>Messages<span className="arrow"/>
                                                     </AccordionItemTitle>
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/messenger">Chat</NavLink>
+                                                            <NavLink exact={true} activeClassName="active" to="/my-messages">My messages</NavLink>
+                                                            <NavLink exact={true} activeClassName="active" to="/messenger">Chat</NavLink>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>
