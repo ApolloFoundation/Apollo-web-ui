@@ -118,9 +118,6 @@ class AccountRS extends React.Component {
     };
 
     render () {
-        console.log(this.props.value)
-        console.log(this.state.inputValue.value)
-
         return (
             <React.Fragment>
                 {this.state.inputValue &&

@@ -6,8 +6,6 @@ import InputForm from '../../../components/input-form';
 import {setBodyModalParamsAction, clearDashboardForm} from '../../../../modules/modals';
 
 class SendApolloCard extends Component {
-    componentDidMount = () => {
-    }
     
     submitForm = ({recipient, amountATM, feeATM}) => {
         this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM, amountAPL: amountATM ,feeATM})

@@ -109,7 +109,6 @@ class SendApollo extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.dashboardForm)
 		return (
 			<div className="modal-box">
 				<BackForm
