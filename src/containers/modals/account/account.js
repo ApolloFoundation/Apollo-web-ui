@@ -472,6 +472,7 @@ class InfoAccount extends React.Component {
                                     }
                                     {
                                         this.state.currencies &&
+                                        this.state.currencies.accountCurrencies &&
                                         !this.state.currencies.accountCurrencies.length &&
                                         <p>This user has no currencies.</p>
                                     }
