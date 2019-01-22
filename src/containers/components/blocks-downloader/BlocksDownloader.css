@@ -1,0 +1,22 @@
+.block-downloader {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  height: 70px !important;
+  width: 200px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  z-index: 5;
+  display: flex; }
+  .block-downloader .CircularProgressbar {
+    height: 100%;
+    padding: 8px;
+    width: auto; }
+  .block-downloader .CircularProgressbar-text {
+    display: block; }
+
+.block-downloader_text {
+  display: block;
+  padding: 12px;
+  align-self: center; }

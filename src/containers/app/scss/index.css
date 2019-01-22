@@ -987,6 +987,8 @@ input {
 .btn-box {
   width: 100%;
   height: 33px; }
+  .btn-box.form-footer {
+    width: auto; }
   .btn-box.under-table {
     transform: translate(0, 0px); }
     @media (max-width: 1024px) {
@@ -1035,6 +1037,8 @@ input {
     border-radius: 0; }
   .btn-box .btn.disabled {
     display: none; }
+  .btn-box .btn.submit-button {
+    min-width: 60px; }
 
 .flexible-grid {
   display: flex;

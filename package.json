@@ -1,6 +1,6 @@
 {
-  "name": "react-redux-router",
-  "version": "0.1.0",
+  "name": "apollo-web-wallet",
+  "version": "2.4.0",
   "private": true,
   "dependencies": {
     "autoprefixer": "7.1.6",
