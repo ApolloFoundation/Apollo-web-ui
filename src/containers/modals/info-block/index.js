@@ -217,7 +217,6 @@ class InfoBlock extends React.Component {
                                                                 return (
                                                                     <Transaction
                                                                         key={uuid()}
-                                                                        block
                                                                         transaction = {el}
                                                                         index={index}
                                                                         setTransactionInfo={this.getTransaction}
@@ -232,7 +231,6 @@ class InfoBlock extends React.Component {
                                                                 return (
                                                                     <Transaction
                                                                         key={uuid()}
-                                                                        block
                                                                         transaction = {el}
                                                                         index={index}
                                                                         setTransactionInfo={this.getTransaction}
