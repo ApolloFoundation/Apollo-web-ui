@@ -640,8 +640,8 @@ class SiteHeader extends React.Component {
                                                     </AccordionItemTitle>
                                                     <AccordionItemBody>
                                                         <div className="item-dropdown">
-                                                            <NavLink exact={true} activeClassName="active"to="/my-messages">My messages</NavLink>
-                                                            <NavLink exact={true} activeClassName="active"to="/messenger">Chat</NavLink>
+                                                            <NavLink exact={true} activeClassName="active" to="/my-messages">My messages</NavLink>
+                                                            <NavLink exact={true} activeClassName="active" to="/messenger">Chat</NavLink>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>
