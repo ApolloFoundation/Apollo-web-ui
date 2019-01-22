@@ -294,6 +294,7 @@ class InfoAccount extends React.Component {
                                 })}>
                                     {
                                         this.state.account_ledger &&
+                                        this.state.account_ledger.entries &&
                                         !!this.state.account_ledger.entries.length &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table-body transparent padding-vertical-padding">
@@ -330,6 +331,7 @@ class InfoAccount extends React.Component {
                                     }
                                     {
                                         this.state.account_ledger &&
+                                        this.state.account_ledger.entries &&
                                         !(!!this.state.account_ledger.entries.length) &&
                                         'No ledger found.'
                                     }
@@ -437,6 +439,7 @@ class InfoAccount extends React.Component {
                                 })}>
                                     {
                                         this.state.currencies &&
+                                        this.state.currencies.accountCurrencies &&
                                         (!!this.state.currencies.accountCurrencies.length) &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
