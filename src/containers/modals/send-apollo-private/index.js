@@ -183,7 +183,8 @@ class SendApolloPrivate extends React.Component {
                                 {
                                     !this.state.isPrivateTransactionAlert &&
                                     <InfoBox info>
-                                        Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0 <br/>
+                                        I understand that sending a standard private transaction is only private to the API level and that I must select Coin Mixing for maximum privacy.
+                                        <br/>
                                         <a
                                             className={'btn static primary'}
                                             style={{background: '#fff', color: '#00C8FF'}}

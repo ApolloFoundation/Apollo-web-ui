@@ -917,7 +917,7 @@ input {
     cursor: pointer;
     display: flex;
     border-radius: 3px;
-    height: 34px;
+    height: 33px;
     margin: auto; }
     .input-group-app.search .input-icon.text, .input-group-app.user .input-icon.text {
       width: auto; }
@@ -4305,7 +4305,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   background-color: #e9ecef;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
-  height: 34px;
+  height: 33px;
   margin: auto; }
   .input-group-text input[type="radio"],
   .input-group-text input[type="checkbox"] {
