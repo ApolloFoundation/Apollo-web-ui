@@ -18,11 +18,20 @@ class  BlocksDownloader extends React.Component {
     render () {
         const {blockchainStatus, actualBlock} = this.props;
         const percentage = blockchainStatus ? Math.round((parseInt(actualBlock) / parseInt(blockchainStatus.lastBlockchainFeederHeight)) * 100) : null;
-
+        
         return (
             <React.Fragment>
                 {
-                    blockchainStatus && actualBlock && percentage &&
+                    blockchainStatus && 
+                    (
+                        (
+                            blockchainStatus.blockchainState === "DOWNLOADING" &&
+                            actualBlock && 
+                            percentage
+                        )
+                        ||  
+                        percentage < 99
+                    ) &&
                     <div
                         className={'block-downloader'}
                     >
