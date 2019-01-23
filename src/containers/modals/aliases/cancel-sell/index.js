@@ -14,6 +14,7 @@ import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
 import {calculateFeeAction} from "../../../../actions/forms";
+import ModalFooter from '../../../components/modal-footer'
 
 
 const aliasTypeData = [
@@ -144,13 +145,13 @@ class CancelSell extends React.Component {
                                             <div className="form-title">
                                                 <p>Cancel Alias Sale</p>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
+                                            <div className="input-group-app offset-top display-block pb-3">
                                                 <div className="row">
                                                     <div className="col-md-3">
-                                                        <label>Alias</label>
+                                                        <label className={'pl-0'}>Alias</label>
                                                     </div>
                                                     <div className="col-md-9">
-                                                        <p>{this.state.alias.aliasName}</p>
+                                                        <p className={'pl-3'}>{this.state.alias.aliasName}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,16 +177,11 @@ class CancelSell extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app offset-top display-block">
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Passphrase</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text field="secretPhrase" placeholder="secretPhrase"  type={'password'}/>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <ModalFooter
+                                                setValue={setValue}
+                                                getFormState={getFormState}
+                                                values={values}
+                                            />
 
                                             <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                                 <a
