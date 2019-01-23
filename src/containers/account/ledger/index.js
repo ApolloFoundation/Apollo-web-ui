@@ -34,7 +34,7 @@ class Ledger extends React.Component {
         this.state = {
             page: 1,
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: 15,
             ledger: null
         };
     }
@@ -105,7 +105,7 @@ class Ledger extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1,
+            lastIndex:  page * 15 + 1,
             includeHoldingInfo: true,
             ...this.state.passphrase,
         };
@@ -248,7 +248,7 @@ class Ledger extends React.Component {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    this.state.ledger.map((el, index) => {
+                                                    this.state.ledger.slice(0,15).map((el, index) => {
                                                         return (
                                                             <Entry
                                                                 key={uuid()}
@@ -279,14 +279,14 @@ class Ledger extends React.Component {
                                         <div className='pagination-nav'>
                                             <span>{this.state.firstIndex + 1}</span>
                                             <span>&hellip;</span>
-                                            <span>{this.state.lastIndex + 1}</span>
+                                            <span>{this.state.lastIndex}</span>
                                         </div>
                                         <a
                                             onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                             className={classNames({
                                                 'btn' : true,
                                                 'btn-right' : true,
-                                                'disabled' : this.state.ledger.length < 15
+                                                'disabled' : this.state.ledger.length < 16
                                             })}
                                         >
                                             Next

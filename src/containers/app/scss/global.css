@@ -1044,8 +1044,8 @@ input {
   justify-content: flex-start;
   flex-wrap: wrap; }
   .flexible-grid > * {
-    margin-top: 15px;
-    margin-right: 15px; }
+    margin-top: 10px !important;
+    margin-right: 10px !important; }
 
 .btn {
   position: absolute;

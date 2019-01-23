@@ -67,6 +67,8 @@ import FinishedShufflings from "../account/finished-shufflings";
 import MyMessages from "../account/my-messages";
 import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
+import BlocksDownloader from "../components/blocks-downloader";
+
 import style from './App.css';
 
 import {getUpdateStatus} from '../../actions/login/index'
@@ -135,10 +137,9 @@ class App extends React.Component {
                     })}
                     onClick={(e) => this.handleModal(e)}
                 >
+                    <BlocksDownloader/>
+
                     <Switch>
-                        {this.props.account}
-
-
                         <Route exact path="/login" render={() => (
                             !!this.props.account ? (
                                 <Redirect to="/dashboard"/>
