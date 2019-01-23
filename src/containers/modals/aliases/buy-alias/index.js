@@ -57,7 +57,7 @@ class GetAlias extends React.Component {
 
                     countLabel={'APL'}
                     disabled={true}
-                    defaultValue={priceATM}
+                    defaultValue={priceATM / 100000000}
                     field="amountAPL"
                     placeholder="Amount"
                     type={"float"}
