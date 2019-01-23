@@ -194,7 +194,7 @@ class CancelSell extends React.Component {
                                                     !!this.state.isPending ?
                                                         <div
                                                             style={{
-                                                                width: 70
+                                                                width: 120
                                                             }}
                                                             className="btn btn-right blue round round-bottom-right"
                                                         >
@@ -206,7 +206,7 @@ class CancelSell extends React.Component {
                                                         </div> :
                                                         <button
                                                             style={{
-                                                                width: 70
+                                                                width: 120
                                                             }}
                                                             type="submit"
                                                             name={'closeModal'}
