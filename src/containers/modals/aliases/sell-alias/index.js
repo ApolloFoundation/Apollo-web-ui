@@ -334,23 +334,6 @@ class SellAlias extends React.Component {
                                                     <span>{this.state.alias.aliasName}</span>
                                                 </div>
                                             </div>
-                                            <div className="input-group-app form-group mb-15 display-block inline user">
-                                                <div className="row form-group-grey">
-                                                    <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                        Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <div className="iconned-input-field">
-                                                            <AccountRS
-                                                                defaultValue={this.state.alias.accountRS}
-                                                                field={'recipient'}
-                                                                setValue={setValue}
-                                                                placeholder={'Account ID'}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             {/*<div className="mobile-class form-group-grey row mb-15">*/}
                                                 {/*<div className="col-sm-9 offset-sm-3">*/}
                                                     {/*<a className="no-margin btn static blue"*/}

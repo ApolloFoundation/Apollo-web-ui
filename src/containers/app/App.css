@@ -413,6 +413,8 @@ input {
   padding-left: 40px;
   padding-right: 40px;
   line-height: 1.6; }
+  .info-box p a {
+    color: #00C8FF; }
 
 .no-margin {
   margin: 0 !important; }
@@ -915,7 +917,7 @@ input {
     cursor: pointer;
     display: flex;
     border-radius: 3px;
-    height: 34px;
+    height: 33px;
     margin: auto; }
     .input-group-app.search .input-icon.text, .input-group-app.user .input-icon.text {
       width: auto; }
@@ -1046,8 +1048,8 @@ input {
   justify-content: flex-start;
   flex-wrap: wrap; }
   .flexible-grid > * {
-    margin-top: 15px;
-    margin-right: 15px; }
+    margin-top: 10px !important;
+    margin-right: 10px !important; }
 
 .btn {
   position: absolute;
