@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import {connect} from 'react-redux';
 
-const FormFooter = ({submitButtonName, isAdvanced, isPending, isDisabled, setValue, closeModal}) => (
+const FormFooter = ({submitButtonName, isAdvanced, isPending, isDisabled, setValue, closeModal, isMomalProcessing}) => (
     <div className="btn-box align-buttons-inside absolute right-conner align-right form-footer">
         <a
             onClick={() => closeModal()}
@@ -21,27 +22,32 @@ const FormFooter = ({submitButtonName, isAdvanced, isPending, isDisabled, setVal
                     "round" : true,
                     "submit-button" : true,
                     "round-bottom-right" : true,
-                    "blue-disabled": isDisabled
+                    "blue-disabled": isDisabled,
+                    "loading": isMomalProcessing
                 })}
             >
-                {
-                    isPending ?  
-                    <div
-                        className="button-loader"
-                    >
-                        <div className="ball-pulse">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div> :
-                    <span className={'button-text'}>
-                        {submitButtonName}
-                    </span> 
-                }            
+                {console.log(isMomalProcessing)}
+            
+                <div
+                    className="button-loader"
+                >
+                    <div className="ball-pulse">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <span className={'button-text'}>
+                    {submitButtonName}
+                </span> 
+                      
             </button>
         }
     </div>
 )
 
-export default FormFooter;
+const mapStateToProps = state => ({
+    isMomalProcessing: state.modals.isMomalProcessing
+})
+
+export default connect(mapStateToProps)(FormFooter);

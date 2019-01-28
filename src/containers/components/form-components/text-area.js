@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextArea} from 'react-from';
+import {TextArea} from 'react-form';
 
 const CustomTextArea = ({label, field, placeholder}) => (
     <div className="form-group row form-group-white mb-15">

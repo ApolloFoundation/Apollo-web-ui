@@ -1,7 +1,7 @@
 import React from 'react';
 import InputForm from '../input-form'
 
-export const CustomInputForm = ({setValue, placeholder, field, type, label, code}) => {
+const TextualInputComponent = ({setValue, placeholder, field, type, label, code, text}) => {
 
     return (
         <div className="form-group row form-group-white mb-15">
@@ -9,15 +9,27 @@ export const CustomInputForm = ({setValue, placeholder, field, type, label, code
                 {label}
             </label>
             <div className="col-sm-9 input-group input-group-text-transparent">
-                <InputForm
-                    type={type}
-                    field={field}
-                    placeholder={placeholder}
-                    setValue={setValue}/>
-                <div className="input-group-append">
-                    <span className="input-group-text">{code}</span>
-                </div>
+                {
+                    !text ?
+                    <>
+                        <InputForm
+                            type={type}
+                            field={field}
+                            placeholder={placeholder}
+                            setValue={setValue}
+                        />
+                        <div className="input-group-append">
+                            <span className="input-group-text">{code}</span>
+                        </div>
+                    </> : 
+                    <span>
+                        {text}
+                    </span>
+                }
+                
             </div>
         </div>
     )
 }
+
+export default TextualInputComponent;

@@ -10,14 +10,20 @@ import ModalFooter from '../modal-footer';
 
 class ModalBody extends React.Component {
     getForm = (form) => {
-		this.setState({form}, () => this.loadValues());
+        this.setState({form}, () => this.loadValues());
+
+        console.log(14123451234)
+        console.log(this.props.loadForm)
+        if (this.props.loadForm) {
+            this.props.loadForm(form)
+        }
     };
     
 	loadValues = (values) => {
 		if (values) {
 			this.state.form.setAllValues(values);
 			return;
-		}
+        }
 	};
 
     render () {
@@ -42,8 +48,11 @@ class ModalBody extends React.Component {
     
                                 {/** Passing props to each form component */}
                                 {
-                                    React.Children.map(children, child =>
-                                        React.cloneElement(child, {...submitForm, values, addValue, removeValue, setValue, getFormState})
+                                    React.Children.map(children, child => {
+                                            if (child) {
+                                                return React.cloneElement(child, {...submitForm, values, addValue, removeValue, setValue, getFormState})
+                                            }
+                                        }
                                     )
                                 }
                                 

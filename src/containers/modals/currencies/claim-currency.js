@@ -12,7 +12,7 @@ import BackForm from '../modal-form/modal-form-container';
 // Components 
 import ModalBody from '../../components/modals/modal-body';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
-import {CustomInputForm} from '../../components/form-components/textual-input';
+import TextualInputComponent from '../../components/form-components/textual-input';
 import {FormRowText} from '../../components/form-components/form-row-text';
 import FeeCalc from '../../components/form-components/fee-calc'
 import {SubmitFormButton} from '../../components/form-components/submit-button'
@@ -110,7 +110,7 @@ class ClaimCurrency extends React.Component {
                                     }
 
                                     
-                                    <CustomInputForm 
+                                    <TextualInputComponent 
                                         label={'Number of units to claim'}
                                         setValue={setValue}
                                         placeholder={'Number of units'}

@@ -30,6 +30,7 @@ export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 export const OPEN_PREV_MODAL = 'OPEN_PREV_MODAL';
 export const SET_DASHBOARD_FORM = 'SET_DASHBOARD_FORM';
+export const IS_MODAL_PROCESSING = 'IS_MODAL_PROCESSING';
 
 
 
@@ -154,7 +155,11 @@ export default (state = initialState, action) => {
                 ...state,
                 dashboardForm : action.payload
             }
-
+        case IS_MODAL_PROCESSING: 
+            return {
+                ...state,
+                isMomalProcessing: action.payload
+            }
         default:
             return state
     }
