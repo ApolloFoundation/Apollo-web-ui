@@ -16,9 +16,10 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
 import {getAccountCurrenciesAction} from "../../../actions/currencies";
+
+import ModalBody from '../../components/modals/modal-body';
 import ModalFooter from '../../components/modal-footer';
 import FeeCalc from '../../components/form-components/fee-calc';
-
 import BackForm from '../modal-form/modal-form-container';
 
 class OfferCurrency extends React.Component {

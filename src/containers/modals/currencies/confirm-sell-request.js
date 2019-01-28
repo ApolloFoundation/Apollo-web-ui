@@ -11,6 +11,7 @@ import AdvancedSettings from '../../components/advanced-transaction-settings';
 import InputForm from '../../components/input-form';
 import {Form, Text} from 'react-form';
 
+import ModalBody from '../../components/modals/modal-body';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer';

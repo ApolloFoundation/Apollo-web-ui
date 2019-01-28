@@ -17,6 +17,8 @@ import SubmitButton from "../mandatory-approval/components/SubmitButton";
 import CancelButton from "../mandatory-approval/components/CancelButton";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
+
+import ModalBody from '../../components/modals/modal-body';
 import FeeCalc from '../../components/form-components/fee-calc';
 
 class ReserveCurrency extends React.Component {

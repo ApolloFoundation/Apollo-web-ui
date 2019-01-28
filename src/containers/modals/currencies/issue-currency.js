@@ -14,9 +14,12 @@ import submitForm from "../../../helpers/forms/forms";
 import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
 import CustomSelect from '../../components/select';
 import crypto from "../../../helpers/crypto/crypto";
+
+// Form components
 import ModalFooter from '../../components/modal-footer';
 import FeeCalc from '../../components/form-components/fee-calc';
-
+import CustomTextArea from '../../components/form-components/text-area';
+import ModalBody from '../../components/modals/modal-body';
 import BackForm from '../modal-form/modal-form-container';
 import BigInteger from "big-integer";
 
@@ -143,6 +146,234 @@ class IssueCurrency extends React.Component {
 
     render() {
         return (
+            <ModalBody>
+                modalTitle={'Buy Alias'}
+                isAdvanced={true}
+                isFee
+                closeModal={this.props.closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Buy Alias'}
+            >
+                <TextualInputComponent 
+                    label={'Currency Name'}
+
+                    disabled={true}
+                    defaultValue={aliasName}
+                    field="name"
+                    placeholder="Currency Name"
+                    type={"text"}
+                />
+
+                <TextualInputComponent 
+                    label={'Currency Code'}
+
+                    disabled={true}
+                    defaultValue={aliasName}
+                    field="code"
+                    placeholder="Currency Code"
+                    type={"text"}
+                />
+
+                <CustomTextArea
+                    label={'Description'} 
+                    field={'description'} 
+                    placeholder={'Description'}
+                />
+
+                <div className="form-group row form-group-white mb-15">
+                    <label className="col-sm-3 col-form-label align-self-start">
+                        Type
+                    </label>
+                    <div className="col-sm-9">
+                        <div className="form-check custom-checkbox mb-15">
+                            <Checkbox 
+                                className="form-check-input custom-control-input"
+                                defaultValue={true}
+                                type="checkbox"
+                                field="type1"
+                                onChange={(e) => {
+                                    setValue('height', e ? 0 : '');
+                                }}   
+                            />
+                            <label className="form-check-label custom-control-label">
+                                Exchangeable
+                            </label>
+                        </div>
+                        <div className="form-check custom-checkbox mb-15">
+                            <Checkbox 
+                                className="form-check-input custom-control-input"
+                                type="checkbox"
+                                field="type2"/>
+                            <label className="form-check-label custom-control-label">
+                                Controllable
+                            </label>
+                        </div>
+                        <div className="form-check custom-checkbox mb-15">
+                            <Checkbox className="form-check-input custom-control-input"
+                                    type="checkbox"
+                                    field="type3"/>
+                            <label className="form-check-label custom-control-label">
+                                Reservable
+                            </label>
+                        </div>
+                        <div className="form-check custom-checkbox mb-15">
+                            <Checkbox 
+                                className="form-check-input custom-control-input"
+                                type="checkbox"
+                                onChange={(value) => {
+                                    if (value) {
+                                        setValue('initialSupply', 0);
+                                        setValue('type3', true);
+                                    } else {
+                                        setValue('initialSupply', '');
+                                    }
+                                }}
+                                field="type4"/>
+                            <label className="form-check-label custom-control-label">
+                                Claimable
+                            </label>
+                        </div>
+                        <div className="form-check custom-checkbox mb-15">
+                            <Checkbox className="form-check-input custom-control-input"
+                                    type="checkbox"
+                                    field="type5"/>
+                            <label className="form-check-label custom-control-label">
+                                Mintable
+                            </label>
+                        </div>
+                        <div className="form-check custom-checkbox mb-15">
+                            <Checkbox className="form-check-input custom-control-input"
+                                    type="checkbox"
+                                    field="type6"/>
+                            <label className="form-check-label custom-control-label">
+                                Non-Shuffleable
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {
+                    !!type3 &&
+                    <React.Fragment>
+                        <div className="form-group row form-group-white mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Minimum Amount to Reserve Per Unit
+                            </label>
+                            <div className="col-sm-9">
+                                <InputForm
+                                    type="tel"
+                                    field="minReservePerUnitATM"
+                                    placeholder="Minimum Amount Per Unit"
+                                    setValue={setValue}/>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-white mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Reserve Supply
+                            </label>
+                            <div className="col-sm-9">
+                                <InputForm
+                                    type="tel"
+                                    field="reserveSupply"
+                                    placeholder="Number of Units"
+                                    setValue={setValue}/>
+                            </div>
+                        </div>
+                    </React.Fragment>
+                }
+                {
+                    !!type5 &&
+                    <React.Fragment>
+                        <div className="form-group row form-group-white mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Minimum Difficulty
+                            </label>
+                            <div className="col-sm-9">
+                                <InputForm
+                                    type="tel"
+                                    field="minDifficulty"
+                                    placeholder="Minimum Difficulty"
+                                    setValue={setValue}/>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-white mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Maximum Difficulty
+                            </label>
+                            <div className="col-sm-9">
+                                <InputForm
+                                    type="tel"
+                                    field="maxDifficulty"
+                                    placeholder="Maximum Difficulty"
+                                    setValue={setValue}/>
+                            </div>
+                        </div>
+                        <div className="form-group row form-group-white mb-15">
+                            <label className="col-sm-3 col-form-label">
+                                Algorithm
+                            </label>
+                            <div className="col-md-9">
+                                <CustomSelect
+                                    field={'algorithm'}
+                                    setValue={setValue}
+                                    defaultValue={algorithmData[0]}
+                                    options={algorithmData}
+                                />
+                            </div>
+                        </div>
+                    </React.Fragment>
+                }
+                <div className="form-group row form-group-white mb-15">
+                    <label className="col-sm-3 col-form-label">
+                        Initial Supply
+                    </label>
+                    <div className="col-sm-9">
+                        <InputForm
+                            type="tel"
+                            field="initialSupply"
+                            disabled={type4}
+                            placeholder="Initial Supply"
+                            setValue={setValue}/>
+                    </div>
+                </div>
+                
+                <div className="form-group row form-group-white mb-15">
+                    <label className="col-sm-3 col-form-label">
+                        Total Supply
+                    </label>
+                    <div className="col-sm-9">
+                        <InputForm
+                            type="tel"
+                            field="maxSupply"
+                            placeholder="Total Supply"
+                            setValue={setValue}/>
+                    </div>
+                </div>
+                <div className="form-group row form-group-white mb-15">
+                    <label className="col-sm-3 col-form-label">
+                        Decimals
+                    </label>
+                    <div className="col-sm-9">
+                        <InputForm
+                            type="tel"
+                            field="decimals"
+                            placeholder="Decimals"
+                            setValue={setValue}/>
+                    </div>
+                </div>
+                <div className="form-group row form-group-white mb-15">
+                    <label className="col-sm-3 col-form-label">
+                        Activation Height
+                    </label>
+                    <div className="col-sm-9">
+                        <InputForm
+                            type="tel"
+                            field="height"
+                            disabled={type1 && !type2 &&  !type3 &&  !type4 &&  !type5 && !type6}
+                            placeholder="Activation height"
+                            setValue={setValue}/>
+                    </div>
+                </div>
+            </ModalBody>
             <div className="modal-box">
                 <BackForm
                     nameModal={this.props.nameModal}

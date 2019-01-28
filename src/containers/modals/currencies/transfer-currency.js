@@ -16,6 +16,8 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer'
 import {getCurrencyAction} from "../../../actions/currencies";
+
+import ModalBody from '../../components/modals/modal-body';
 import BackForm from '../modal-form/modal-form-container';
 import FeeCalc from '../../components/form-components/fee-calc';
 

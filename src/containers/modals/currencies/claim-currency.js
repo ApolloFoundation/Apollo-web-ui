@@ -9,6 +9,8 @@ import {getCurrencyAction} from "../../../actions/currencies";
 import ModalFooter from '../../components/modal-footer';
 import BackForm from '../modal-form/modal-form-container';
 
+// Components 
+import ModalBody from '../../components/modals/modal-body';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import {CustomInputForm} from '../../components/form-components/textual-input';
 import {FormRowText} from '../../components/form-components/form-row-text';
