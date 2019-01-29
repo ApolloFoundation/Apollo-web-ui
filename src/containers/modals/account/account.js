@@ -247,6 +247,7 @@ class InfoAccount extends React.Component {
                                     <div className="transaction-table no-min-height">
                                         {
                                             this.state.transactions &&
+                                            !!this.state.transactions.transactions.length &&
                                             <div className="transaction-table-body transparent padding-vertical-padding">
                                                 <table>
                                                     <thead key={uuid()}>
@@ -275,15 +276,18 @@ class InfoAccount extends React.Component {
                                                             )
                                                         })
                                                     }
-                                                    {
-                                                        this.state.transactions &&
-                                                        !this.state.transactions.transactions.length &&
-                                                        'No transactions in this account.'
-                                                    }
                                                     </tbody>
                                                 </table>
-                                            </div> ||
+                                            </div>
+                                        }
+                                        {
+                                            !this.state.transactions &&
                                             <ContentLoader noPaddingOnTheSides/>
+                                        }
+                                        {
+                                            this.state.transactions &&
+                                            !this.state.transactions.transactions.length &&
+                                            'No transactions in this account.'
                                         }
 
                                     </div>
@@ -535,7 +539,7 @@ class InfoAccount extends React.Component {
                                 })}>
                                     {
                                         this.state.aliases &&
-                                        this.state.aliases.aliases.length &&
+                                        !!this.state.aliases.aliases.length &&
                                         <div className="transaction-table no-min-height">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
@@ -565,8 +569,8 @@ class InfoAccount extends React.Component {
                                         </div>
                                     }
                                     {
-                                        this.state.aliases &&
-                                        !this.state.aliases.aliases.length &&
+                                        !!this.state.aliases &&
+                                        !(!!this.state.aliases.aliases.length) &&
                                         <p>This user has no aliases.</p>
                                     }
                                 </div>
