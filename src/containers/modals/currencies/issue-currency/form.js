@@ -39,9 +39,7 @@ const IssueCurrencyForm = (props) => {
                 field={'description'} 
                 placeholder={'Description'}
                 setValue={setValue}
-    
             />
-            
             
             <CheckboxFormInput
                 setValue={setValue}

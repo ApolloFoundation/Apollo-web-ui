@@ -60,7 +60,7 @@ import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote';
 
 // Data storage
-import UploadFile from './data-storage/uppload-file';
+import UploadFile from './data-storage/uppload-file/';
 
 // Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling';
