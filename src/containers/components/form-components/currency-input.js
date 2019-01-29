@@ -9,7 +9,6 @@ class CurrencyInput extends React.Component {
     state = {}
 
     componentDidMount = () => {
-        console.log(333)
         const {defaultValue} = this.props;
         if (defaultValue) {
             this.getCurrency({code: defaultValue});

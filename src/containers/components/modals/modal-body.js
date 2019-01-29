@@ -15,8 +15,6 @@ class ModalBody extends React.Component {
     getForm = (form) => {
         this.setState({form}, () => this.loadValues());
 
-        console.log(14123451234)
-        console.log(this.props.loadForm)
         if (this.props.loadForm) {
             this.props.loadForm(form)
         }
@@ -48,7 +46,7 @@ class ModalBody extends React.Component {
                             className="modal-form modal-send-apollo" 
                         >
                             <div className="form-group-app">
-                                <a onClick={() => closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                <a onClick={closeModal} className="exit"><i className="zmdi zmdi-close" /></a>
     
                                 <div className="form-title">
                                     {

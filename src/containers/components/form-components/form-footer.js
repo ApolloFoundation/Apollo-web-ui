@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 const FormFooter = ({submitButtonName, isAdvanced, isPending, isDisabled, setValue, closeModal, isMomalProcessing}) => (
     <div className="btn-box align-buttons-inside absolute right-conner align-right form-footer">
         <a
-            onClick={() => closeModal()}
+            onClick={closeModal}
             className={`btn round round-top-left ${submitButtonName ? '' : 'round-bottom-right' }`}
         >
             Cancel
@@ -26,8 +26,6 @@ const FormFooter = ({submitButtonName, isAdvanced, isPending, isDisabled, setVal
                     "loading": isMomalProcessing
                 })}
             >
-                {console.log(isMomalProcessing)}
-            
                 <div
                     className="button-loader"
                 >

@@ -55,20 +55,6 @@ class IssueCurrency extends React.Component {
 
     handleFormSubmit = values => this.props.handleFormSubmit(values);
 
-    handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    };
-
     handleClaimableValue = (value, setValue) => {
         if (value) {
             setValue('initialSupply', 0);

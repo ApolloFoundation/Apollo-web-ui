@@ -27,11 +27,6 @@ export const getCurrencyTypes = (value) => {
     const result = Object.keys(types).map(el => {
         const searchingValue = arr.find((searchingElement, index) => {
             // console.log(searchingElement)
-            console.log(searchingElement)
-            
-            
-            console.log(arr[index + 1])
-            console.log(arr[index - 1])
             
             if ( arr[index + 1] && arr[index - 1]) {
                 return arr[index + 1] > value && arr[index - 1] < value
@@ -46,7 +41,5 @@ export const getCurrencyTypes = (value) => {
                 return searchingElement;
             }; 
         })
-        console.log(searchingValue)
     })
-
 }

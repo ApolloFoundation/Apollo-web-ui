@@ -60,20 +60,6 @@ class SellCurrency extends React.Component {
         }
     };
 
-    handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    };
-
     render() {
         const {nameModal} = this.props;
 
