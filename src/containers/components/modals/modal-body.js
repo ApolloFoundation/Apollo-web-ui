@@ -6,6 +6,7 @@ import FormFooter from '../form-components/form-footer';
 import InputForm from '../input-form';
 import ModalFooter from '../modal-footer';
 
+import AdvancedSettings from '../advanced-transaction-settings';
 import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
 
 import BackForm from '../../../containers/modals/modal-form/modal-form-container';
@@ -29,7 +30,7 @@ class ModalBody extends React.Component {
 
     render () {
 
-        const {openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
 
         return (
             <div className="modal-box">
@@ -105,6 +106,14 @@ class ModalBody extends React.Component {
                                     setValue={setValue}
                                     closeModal={closeModal}
                                 />
+
+                                {
+                                    isAdvanced && 
+                                    <AdvancedSettings
+                                        setValue={setValue}
+                                        getFormState={getFormState}
+                                    />
+                                }
                             </div>
                         </form>
                     )} 
