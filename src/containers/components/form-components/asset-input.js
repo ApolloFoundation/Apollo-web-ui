@@ -10,15 +10,9 @@ class AssetInput extends React.Component {
     getAsset =  async (values) => {
         const asset = await this.props.getAssetAction(values);
 
-        if (asset) {
-            this.setState({
-                asset
-            })
-        } else {
-            this.setState({
-                asset: null
-            })
-        }
+        this.setState({
+            asset
+        })
     }
 
     render () {

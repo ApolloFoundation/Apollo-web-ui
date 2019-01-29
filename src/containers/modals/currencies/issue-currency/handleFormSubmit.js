@@ -74,8 +74,6 @@ export const handleFormSubmit =  values => {
             payload: true
         });
 
-        console.log(values)
-        
         const res = await dispatch(submitForm.submitForm(values, 'issueCurrency'));
     
         if (res.errorCode) {
