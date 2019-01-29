@@ -19,6 +19,10 @@ import {getExchangesAction} from "../../../actions/exchange-booth";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+
+// import {getCurrencyTypes} from "../../../modules/currencies";
+
+
 const mapStateToProps = state => ({
     account: state.account.account
 });
@@ -44,6 +48,7 @@ class Currencies extends React.Component {
     }
 
     componentWillMount() {
+        getCurrencyTypes(33)
         this.getCurrencie({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
