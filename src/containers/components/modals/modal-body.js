@@ -79,6 +79,7 @@ class ModalBody extends React.Component {
                                                 placeholder="Amount"
                                                 type={"float"}
                                                 setValue={setValue}
+                                                defaultValue={''}
                                             />
                                             <div className="input-group-append">
                                                 <span className="input-group-text">Apollo</span>

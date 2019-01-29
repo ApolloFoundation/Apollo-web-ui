@@ -38,8 +38,6 @@ export const handleFormSubmit =  values => {
         if (values.type5) values.type += typeValues[5];
         if (values.type6) values.type += typeValues[6];
     
-        console.log(values.type3)
-
         values = {
             name: values.name,
             code: values.code,
@@ -55,7 +53,7 @@ export const handleFormSubmit =  values => {
             phased: false,
             issuanceHeight: values.height,
             publicKey: publicKey,
-            feeAPL: values.feeATM,
+            feeATM: values.feeAPL,
             maxSupply: values.maxSupply * Math.pow(10, values.decimals),
             initialSupply: values.initialSupply * Math.pow(10, values.decimals),
             secretPhrase: values.secretPhrase,
