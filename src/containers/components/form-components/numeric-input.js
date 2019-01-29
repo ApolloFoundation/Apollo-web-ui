@@ -10,7 +10,7 @@ const NumericInput = ({label, field, countingTtile, setValue, placeholder, type}
             <InputForm
                 field={field}
                 placeholder={placeholder}
-                type={type}
+                type={'float'}
                 setValue={setValue}
             />
             <div className="input-group-append">

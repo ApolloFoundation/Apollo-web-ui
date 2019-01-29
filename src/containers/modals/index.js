@@ -78,7 +78,7 @@ import CancelSell from './aliases/cancel-sell';
 // Marketplace
 import MarketplaceImage from './marketplace/mraketplace-image-view';
 import MarketplaceProductDetails from './marketplace/marketplace-product-details';
-import ListProductForSale from './marketplace/list-product-for-sale';
+import ListProductForSale from './marketplace/list-product-for-sale/';
 import MarketplacePurchase from './marketplace/marketplace-purchase/';
 import MarketplaceChangePrice from './marketplace/change-price/';
 import MarketplaceChangeQuantity from './marketplace/change-quantity/';
