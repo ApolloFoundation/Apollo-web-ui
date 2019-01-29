@@ -1,0 +1,129 @@
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
+import React from 'react';
+import {connect} from 'react-redux';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {Text} from 'react-form';
+
+import submitForm from "../../../../helpers/forms/forms";
+import {NotificationManager} from "react-notifications";
+import {getCurrencyAction, getAccountCurrenciesAction} from "../../../../actions/currencies";
+
+import ModalBody from '../../../components/modals/modal-body';
+
+import TextualInputComponent from '../../../components/form-components/textual-input';
+import FormRowText from '../../../components/form-components/form-row-text';
+
+
+class ClaimCurrency extends React.Component {
+
+    state = {};
+    
+    getCurrency = async (currency) => {
+        const currencyInfo    = await this.props.getAccountCurrenciesAction({currency, account: this.props.account});
+        const accountCurrecny = await this.props.getCurrencyAction({currency});
+        
+        if (currency && accountCurrecny) {
+            this.setState({
+                currency: currencyInfo,
+                accountCurrecny
+            })
+        }
+    }
+
+    handleAdvancedState = () => {
+        if (this.state.advancedState) {
+            this.setState({
+                ...this.props,
+                advancedState: false
+            })
+        } else {
+            this.setState({
+                ...this.props,
+                advancedState: true
+            })
+        }
+    };
+
+    handleFormSubmit = async (values) => {
+        values = {
+            ...values,
+            units: values.units * Math.pow(10, this.state.accountCurrecny.decimals),
+            decimals: this.state.accountCurrecny.decimals,
+            currency: this.state.accountCurrecny.currency
+        }
+
+        this.setState({
+            isPending: true
+        })
+
+        const responce = await this.props.submitForm(values, 'currencyReserveClaim');
+
+        if (responce) {
+            if (responce.errorCode) {
+                NotificationManager.error(responce.errorDescription, 'Error', 5000);
+                this.setState({
+                    isPending: false
+                })
+            } else {
+                NotificationManager.success('Currency has been claimed successfully!', null, 5000);
+                this.props.setBodyModalParamsAction(null, {});
+            }
+        }
+    }
+
+    componentDidMount = () => {
+        this.getCurrency(this.props.modalData)
+    }
+
+    render () {
+        const {nameModal} = this.props;
+        const {accountCurrecny, currency} = this.state;
+
+        return (
+            <ModalBody
+                loadForm={this.loadForm}
+                modalTitle={'Claim Currency'}
+                isAdvanced={true}
+                isFee
+                closeModal={this.props.closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Claim Currency'}
+                nameModel={nameModal}
+            >
+                {
+                    accountCurrecny && 
+                    currency &&
+                    <FormRowText
+                        text={`Number of units to claim ${accountCurrecny.currentSupply / Math.pow(10, accountCurrecny.decimals)} Claim rate ${accountCurrecny.currentReservePerUnitATM / Math.pow(10, accountCurrecny.decimals)} [Apollo/${currency.code}]`}
+                    />
+                }
+                <TextualInputComponent 
+                    label={'Number of units to claim'}
+                    placeholder={'Number of units'}
+                    field={'units'}
+                    type={'tel'}
+                    code={currency ? currency.code : '' }
+                />
+                
+            </ModalBody>
+        );
+    }
+}
+
+const mapStateToProps = state => ({
+    modalData: state.modals.modalData,
+});
+
+const mapDispatchToProps = dispatch => ({
+    getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
+    getAccountCurrenciesAction: (reqParams) => dispatch(getAccountCurrenciesAction(reqParams)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClaimCurrency)

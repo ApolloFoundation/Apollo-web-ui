@@ -51,7 +51,7 @@ import TransferCurrency from './currencies/transfer-currency/'
 import OfferCurrency from './currencies/offer-currebcy/'
 import ReserveCurrency from './currencies/reserve-currency'
 import IssueCurrency from './currencies/issue-currency/';
-import ClaimCurrency from './currencies/claim-currency';
+import ClaimCurrency from './currencies/claim-currency/';
 import BuyCurrency from './currencies/confirm-buy-request/';
 import SellCurrency from './currencies/confirm-sell-request/';
 

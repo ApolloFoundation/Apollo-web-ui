@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const FormRowText = ({label, text}) => {
+const FormRowText = ({label, text}) => {
     return (
         <div className="form-group row form-group-white mb-15">
             {
@@ -18,3 +18,5 @@ export const FormRowText = ({label, text}) => {
         </div>
     )
 }
+
+export default FormRowText;
