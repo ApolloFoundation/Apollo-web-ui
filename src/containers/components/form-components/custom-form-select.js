@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomSelect from '../../components/select';
 
-export const CustomFormSelect = (props) => {
+const CustomFormSelect = (props) => {
     const {defaultValue, setValue, options, label, field} = props;
 
     return (
@@ -23,3 +23,5 @@ export const CustomFormSelect = (props) => {
         </div>
     ) 
 }
+
+export default CustomFormSelect;

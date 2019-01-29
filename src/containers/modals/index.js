@@ -56,7 +56,7 @@ import BuyCurrency from './currencies/confirm-buy-request/';
 import SellCurrency from './currencies/confirm-sell-request/';
 
 // Voting system
-import CreatePoll from './voting-system/create-poll';
+import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote';
 
 // Data storage
