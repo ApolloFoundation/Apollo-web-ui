@@ -1166,6 +1166,8 @@ input[type="file"] {
       position: absolute;
       top: 50%;
       transform: translateY(-50%); }
+      .btn-box.pagination .pagination-nav span {
+        height: 20px; }
   .btn-box.under-table {
     transform: translate(0, 0px); }
     @media (max-width: 1024px) {
@@ -2054,8 +2056,6 @@ table td .btn, table th .btn {
   padding: 35px;
   background-color: #fff;
   color: #BBBBBB; }
-  .site-footer div > {
-    height: auto; }
   @media (max-width: 768px) {
     .site-footer {
       text-align: center; } }
@@ -6102,6 +6102,8 @@ input[type="file"] {
       position: absolute;
       top: 50%;
       transform: translateY(-50%); }
+      .btn-box.pagination .pagination-nav span {
+        height: 20px; }
   .btn-box.under-table {
     transform: translate(0, 0px); }
     @media (max-width: 1024px) {
@@ -6990,8 +6992,6 @@ table td .btn, table th .btn {
   padding: 35px;
   background-color: #fff;
   color: #BBBBBB; }
-  .site-footer div > {
-    height: auto; }
   @media (max-width: 768px) {
     .site-footer {
       text-align: center; } }
@@ -7063,7 +7063,8 @@ table td .btn, table th .btn {
 .transaction-table {
   height: 100%;
   width: 100%;
-  min-height: 560px; }
+  background-color: #FFFFFF;
+  border-radius: 6px; }
   @media (max-width: 1200px) {
     .transaction-table {
       height: auto;
@@ -7072,11 +7073,11 @@ table td .btn, table th .btn {
     min-height: auto;
     height: auto; }
   .transaction-table .transaction-table-body {
+    min-height: 560px;
+    overflow-x: auto;
     width: 100%;
-    background-color: #FFFFFF;
     border-radius: 3px;
-    position: relative;
-    overflow-x: auto; }
+    position: relative; }
     .transaction-table .transaction-table-body.wrap-collumns table tbody tr td {
       word-wrap: break-word;
       word-break: break-word;
@@ -7093,6 +7094,7 @@ table td .btn, table th .btn {
       padding: 20px 0 20px !important;
       border: 0 !important; }
     .transaction-table .transaction-table-body table {
+      overflow-x: auto;
       width: 100%;
       padding: 0 35px; }
       .transaction-table .transaction-table-body table .zmdi-info {
@@ -7366,14 +7368,12 @@ input[type="number"] {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    padding: 135px 7.5px 15px;
+    padding: 135px 15px 15px;
     min-height: 100%;
     z-index: 0; }
     @media (max-width: 760px) {
       .site-content .page-content .page-body {
-        padding-top: 0;
-        padding-right: 0 !important;
-        padding-left: 0 !important; } }
+        padding-top: 0; } }
     .site-content .page-content .page-body.full-screen-block {
       height: 100%;
       padding-bottom: 0; }
@@ -7573,7 +7573,6 @@ input[type="number"] {
     .site-content .page-content .page-body > div {
       min-height: 750px;
       width: 100%;
-      padding: 0 7.5px;
       display: flex;
       flex-direction: column; }
       @media (max-width: 1024px) {

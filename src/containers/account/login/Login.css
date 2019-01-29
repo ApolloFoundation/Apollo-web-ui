@@ -4,10 +4,6 @@
     height: 100vh;
     min-height: 445px; } }
 
-@media (max-width: 768px) {
-  .site-content .page-content .page-body {
-    padding: 0 !important; } }
-
 .site-content .page-content .page-body > .login {
   position: fixed;
   top: 0;

@@ -19,6 +19,7 @@ import {getExchangesAction} from "../../../actions/exchange-booth";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+import CustomTable from '../../components/tables/table';
 
 // import {getCurrencyTypes} from "../../../modules/currencies";
 
@@ -126,67 +127,35 @@ class Currencies extends React.Component {
                     pageTitle={'Currencies'}
                 />
                 <div className="page-body container-fluid">
-                    {
-                        this.state.currencies &&
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Code</td>
-                                        <td>Name</td>
-                                        <td>Type</td>
-                                        <td className="align-right">Current Supply</td>
-                                        <td className="align-right">Max Supply</td>
-                                        <td className="align-right">Actions</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        this.state.currencies &&
-                                        this.state.currencies.map((el, index) => {
-                                            return (
-                                                <Currency
-                                                    key={uuid()}
-                                                    {...el}
-                                                    getTransaction={this.getTransaction}
-                                                />
-                                            );
-                                        })
-                                    }
-                                    </tbody>
-                                </table>
-                            </div>
+                    <CustomTable 
+                        header={[
                             {
-                                this.state.currencies &&
-                                <div className="btn-box pagination">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
-                                    </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.currencies.length < 15
-                                        })}
-                                    >Next</a>
-                                </div>
+                                name: 'Code',
+                                alignRight: false
+                            },{
+                                name: 'Name',
+                                alignRight: false
+                            },{
+                                name: 'Type',
+                                alignRight: false
+                            },{
+                                name: 'Current Supply',
+                                alignRight: true
+                            },{
+                                name: 'Max Supply',
+                                alignRight: true
+                            },{
+                                name: 'Actions',
+                                alignRight: true
                             }
-                        </div> ||
-                        <ContentLoader/>
-                    }
-
+                        ]}
+                        page={this.state.page}
+                        TableRowComponent={Currency}
+                        tableData={this.state.currencies}
+                        isPaginate
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );

@@ -3,9 +3,9 @@
 .transaction-table {
   height: 100%;
   width: 100%;
-  min-height: 560px;
-  //overflow-x: auto;
-  //background-color: #FFFFFF;
+  background-color: #FFFFFF;
+  border-radius: 6px;
+
 	@media (max-width: 1200px) {
 		height: auto;
 		min-height: auto;
@@ -17,11 +17,12 @@
 
   .transaction-table-body {
     //min-width: 800px;
+    min-height: 560px;
+    overflow-x: auto;
+
     width: 100%;
-    background-color: #FFFFFF;
     border-radius: 3px;
     position: relative;
-    overflow-x: auto;
 
     &.wrap-collumns {
       table {
@@ -65,6 +66,8 @@
     //  min-width: 800px;
     //}
     table {
+      overflow-x: auto;
+
       width: 100%;
       //border-collapse: collapse;
       //min-width: 800px;

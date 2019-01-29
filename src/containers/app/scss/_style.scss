@@ -56,13 +56,11 @@ input[type="number"] {
       position: relative;
       display: flex;
       flex-wrap: wrap;
-      padding: 135px 7.5px 15px;
+      padding: 135px 15px 15px;
       min-height: 100%;
       z-index: 0;
       @media(max-width: 760px) {
         padding-top: 0;
-        padding-right: 0 !important;
-        padding-left: 0 !important;
       }
 
       &.full-screen-block {
@@ -354,7 +352,6 @@ input[type="number"] {
       & > div {
         min-height: 750px;
         width: 100%;
-        padding: 0 7.5px;
         display: flex;
         flex-direction: column;
         @media (max-width: 1024px) {
