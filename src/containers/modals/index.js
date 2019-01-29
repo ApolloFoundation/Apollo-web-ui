@@ -53,7 +53,7 @@ import ReserveCurrency from './currencies/reserve-currency'
 import IssueCurrency from './currencies/issue-currency/';
 import ClaimCurrency from './currencies/claim-currency';
 import BuyCurrency from './currencies/confirm-buy-request/';
-import SellCurrency from './currencies/confirm-sell-request';
+import SellCurrency from './currencies/confirm-sell-request/';
 
 // Voting system
 import CreatePoll from './voting-system/create-poll';

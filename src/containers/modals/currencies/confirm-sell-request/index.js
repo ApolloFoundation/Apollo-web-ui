@@ -7,17 +7,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {Text} from 'react-form';
 
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+
+import {Text} from 'react-form';
 
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 
 
 
-class BuyCurrency extends React.Component {
+class SellCurrency extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,7 +35,8 @@ class BuyCurrency extends React.Component {
 
     }
 
-    handleFormSubmit = async(values) => {
+    handleFormSubmit = async (values) => {
+
         values = {
             ...values,
             ...this.props.modalData,
@@ -46,7 +48,7 @@ class BuyCurrency extends React.Component {
             isPending: true
         })
 
-        const res = await this.props.submitForm( values, 'currencyBuy');
+        const res = await this.props.submitForm( values, 'currencySell');
         if (res.errorCode) {
             this.setState({
                 isPending: false
@@ -54,7 +56,21 @@ class BuyCurrency extends React.Component {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
-            NotificationManager.success('The buy order has been submitted!', null, 5000);
+            NotificationManager.success('The sell order has been submitted!', null, 5000);
+        }
+    };
+
+    handleAdvancedState = () => {
+        if (this.state.advancedState) {
+            this.setState({
+                ...this.props,
+                advancedState: false
+            })
+        } else {
+            this.setState({
+                ...this.props,
+                advancedState: true
+            })
         }
     };
 
@@ -64,12 +80,12 @@ class BuyCurrency extends React.Component {
         return (
             <ModalBody
                 loadForm={this.loadForm}
-                modalTitle={'Buy Currency'}
+                modalTitle={'Confirm Order (Sell)'}
                 isAdvanced={true}
                 isFee
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Buy'}
+                submitButtonName={'Sell'}
                 nameModel={nameModal}
             >
                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
@@ -80,7 +96,7 @@ class BuyCurrency extends React.Component {
                 
                 <TextualInputComponent
                     label={"Order Description"}
-                    text={`Buy ${this.props.modalData.units} ${this.props.modalData.assetName} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} Apollo each.`}
+                    text={`Sell ${this.props.modalData.units} ${this.props.modalData.assetName} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} Apollo each.`}
                 />
                 <TextualInputComponent
                     label={"Total"}
@@ -101,4 +117,5 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuyCurrency);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SellCurrency);
