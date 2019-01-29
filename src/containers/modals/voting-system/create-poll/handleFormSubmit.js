@@ -38,6 +38,7 @@ export const handleFormSubmit = (values) => {
             minBalanceType: 0,
             ...resultAnswers
         }, 'createPoll'));
+        
         if (res.errorCode) {
             dispatch({
                 type: IS_MODAL_PROCESSING,

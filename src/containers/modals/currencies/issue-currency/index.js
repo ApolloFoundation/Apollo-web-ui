@@ -71,12 +71,9 @@ class IssueCurrency extends React.Component {
     }
 
     setFormState = (form) => {
-        // console.log(form);
         const fromState = form.getFormState().values;
 
         return () => {
-            console.log(fromState);
-
             this.setState({fromState})
         }
     }

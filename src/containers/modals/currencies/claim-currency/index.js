@@ -49,33 +49,6 @@ class ClaimCurrency extends React.Component {
         }
     };
 
-    handleFormSubmit = async (values) => {
-        values = {
-            ...values,
-            units: values.units * Math.pow(10, this.state.accountCurrecny.decimals),
-            decimals: this.state.accountCurrecny.decimals,
-            currency: this.state.accountCurrecny.currency
-        }
-
-        this.setState({
-            isPending: true
-        })
-
-        const responce = await this.props.submitForm(values, 'currencyReserveClaim');
-
-        if (responce) {
-            if (responce.errorCode) {
-                NotificationManager.error(responce.errorDescription, 'Error', 5000);
-                this.setState({
-                    isPending: false
-                })
-            } else {
-                NotificationManager.success('Currency has been claimed successfully!', null, 5000);
-                this.props.setBodyModalParamsAction(null, {});
-            }
-        }
-    }
-
     componentDidMount = () => {
         this.getCurrency(this.props.modalData)
     }
