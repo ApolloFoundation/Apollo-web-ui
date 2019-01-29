@@ -6,6 +6,9 @@ import FormFooter from '../form-components/form-footer';
 import InputForm from '../input-form';
 import ModalFooter from '../modal-footer';
 
+import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
+
+import BackForm from '../../../containers/modals/modal-form/modal-form-container';
 
 
 class ModalBody extends React.Component {
@@ -28,21 +31,30 @@ class ModalBody extends React.Component {
 
     render () {
 
-        const {children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
 
         return (
             <div className="modal-box">
-                <Form
+                <BackForm
                     getApi={(value) => this.getForm(value)}
                     onSubmit={(values) => handleFormSubmit(values)}
+                    nameModel={nameModel}
                     render={({
                             submitForm, values, addValue, removeValue, setValue, getFormState
                     }) => (
-                        <form className="modal-form modal-send-apollo" onSubmit={submitForm}>
+                        <form
+                            onChange={() => saveSendModalState(values)}
+                            onSubmit={submitForm} 
+                            className="modal-form modal-send-apollo" 
+                        >
                             <div className="form-group-app">
                                 <a onClick={() => closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
     
                                 <div className="form-title">
+                                    {
+                                        modalsHistory.length > 1 &&
+	                                    <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
+                                    }
                                     <p>{modalTitle}</p>
                                 </div>
     
@@ -104,7 +116,13 @@ class ModalBody extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+	modalsHistory: state.modals.modalsHistory
 })
 
-export default connect(mapStateToProps)(ModalBody);
+const mapDispatchToProps = dispatch => ({
+    saveSendModalState: (params) => dispatch(saveSendModalState(params)),
+	openPrevModal: () => dispatch(openPrevModal())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalBody);

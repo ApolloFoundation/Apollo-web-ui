@@ -45,8 +45,6 @@ import DeleteShares from './assets/delete-shares';
 import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
 import AssetDistribution from './assets/view-asset-distribution';
-import BuyCurrency from './currencies/confirm-buy-request';
-import SellCurrency from './currencies/confirm-sell-request';
 
 // Currency System
 import TransferCurrency from './currencies/transfer-currency/'
@@ -54,7 +52,8 @@ import OfferCurrency from './currencies/offer-currebcy/'
 import ReserveCurrency from './currencies/reserve-currency'
 import IssueCurrency from './currencies/issue-currency/';
 import ClaimCurrency from './currencies/claim-currency';
-
+import BuyCurrency from './currencies/confirm-buy-request/';
+import SellCurrency from './currencies/confirm-sell-request';
 
 // Voting system
 import CreatePoll from './voting-system/create-poll';
