@@ -48,7 +48,7 @@ class Currencies extends React.Component {
     }
 
     componentWillMount() {
-        getCurrencyTypes(33)
+        // getCurrencyTypes(33)
         this.getCurrencie({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
