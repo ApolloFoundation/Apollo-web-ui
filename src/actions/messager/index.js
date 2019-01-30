@@ -230,3 +230,96 @@ const isTextMessage = function(transaction) {
         (transaction.attachment.encryptedMessage && transaction.attachment.encryptedMessage.isText) ||
         (transaction.attachment.encryptToSelfMessage && transaction.attachment.encryptToSelfMessage.isText);
 };
+
+const decryptMessage = (data, passPhrase) => {
+    return dispatch => {
+        return dispatch(submitForm.submitForm({
+            requestType: 'readMessage',
+            secretPhrase: passPhrase,
+            transaction: data.transaction,
+            createNoneTransactionMethod: true
+        }, 'readMessage'))
+    }
+};
+
+
+const formatMessages = transactionMessages => {
+    return (dispatch, getState) => {
+        const {account} = getState();
+        
+        const messages = transactionMessages.map(el => {
+            return dispatch(decryptMessage(el, account.passPhrase))
+        })
+
+        return Promise.all(messages)
+            .then(resolved => {return resolved.map((el, index) => {
+                    const transactionData = transactionMessages[index]
+                    const publicMessage = 
+                        transactionData.attachment.message && transactionData.attachment.message !== 'undefined' ? transactionData.attachment.message : 
+                        null;
+
+                    const transaction = transactionData.transaction;
+                    const messageIsPrunable = el.messageIsPrunable;
+                    const decryptedMessage = el.decryptedMessage;
+                    const {recipient, sender, recipientRS ,senderRS, timestamp, attachment} = transactionData;
+                
+                    return {
+                        publicMessage,
+                        decryptedMessage,
+                        messageIsPrunable,
+                        transaction,
+                        recipient,
+                        sender,
+                        recipientRS,
+                        senderRS,
+                        timestamp,
+                        attachment,
+                        isDescrypted : !!account.passPhrase
+                    }
+                })
+            })
+    }
+}
+
+
+const handleAcount = () => {
+    var handleAccounChange = () => {
+
+        const {account : {account}} = state.getState()
+        const {dispatch} = state;
+    
+        if (account) {
+            dispatch(getMessagesPerpage({firstIndex: 0, lastIndex: 14}));
+            unsubscribe();
+        }
+    }
+    
+    const unsubscribe = state.subscribe(handleAccounChange);
+
+    return handleAccounChange
+}
+
+export const getMessagesPerpage = (reqPrams) => {
+    return async (dispatch, getState, ) => {
+        const {account: {account}} = getState();
+        
+        console.log(account)
+
+        if (!account) {
+            return handleAcount()();
+        }
+    
+        const messages = await dispatch(getMessages({...reqPrams, account}));
+
+        console.log({...reqPrams, account})
+        console.log(messages)
+
+        
+        if (!messages.errorCode) {
+            dispatch({
+                type: 'SET_MESSAGES',
+                payload: await dispatch(formatMessages(messages.transactions))
+            })
+        }
+    }
+}

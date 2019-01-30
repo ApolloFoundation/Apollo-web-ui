@@ -17,16 +17,7 @@ import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
-import {getMessagesPerpage} from '../../../modules/messages'
-
-const mapStateToProps = state => ({
-    account: state.account.account
-});
-
-const mapDispatchToProps = dispatch => ({
-    getMessagesPerpage: (reqParams) => dispatch(getMessagesPerpage(reqParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+import {getMessagesPerpage} from '../../../actions/messager'
 
 class MyMessages extends React.Component {
     constructor(props) {
@@ -42,19 +33,16 @@ class MyMessages extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getMessagesPerpage({firstIndex: 0, lastIndex: 14})
+        this.props.getMessagesPerpage({firstIndex: 0, lastIndex: 14});
         
-        // BlockUpdater.on("data", data => {
-        //     console.warn("height in dashboard", data);
-        //     console.warn("updating dashboard");
-        //     this.updateMessangerData();
-        // });
-    }
+        BlockUpdater.on("data", data => {
+            const {page} = this.state;
 
-    componentDidUpdate = (nextProps) => {
-        if (nextProps.account) {
-            this.props.getMessagesPerpage({firstIndex: 0, lastIndex: 14})
-        }
+            this.props.getMessagesPerpage({ 
+                firstIndex: page * 15 - 15,
+                lastIndex: page * 15 - 1
+            });
+        });
     }
 
     componentWillUnmount() {
@@ -63,21 +51,22 @@ class MyMessages extends React.Component {
 
     onPaginate = (page) => {
         let reqParams = {
-            account: this.props.account,
-            page: page,
             firstIndex: page * 15 - 15,
             lastIndex: page * 15 - 1
         };
 
+        this.props.getMessagesPerpage(reqParams)
 
-        this.setState(reqParams, () => {
-            this.getMessages(reqParams)
-        });
+        this.setState({page});
     }
 
     render() {
-        const {messages, page} = this.state;
+        const {page} = this.state;
+        const {messages} = this.props;
 
+        console.log(this.props)
+        console.log(this.props.messages)
+        
         return (
             <div className="page-content">
                 <SiteHeader
@@ -112,7 +101,7 @@ class MyMessages extends React.Component {
                         ]}
                         page={page}
                         TableRowComponent={MessageItem}
-                        tableData={messages}
+                        tableData={this.props.messages}
                         isPaginate
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
@@ -122,5 +111,15 @@ class MyMessages extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    account: state.account.account,
+    messages: state.messages.messages
+});
+
+const mapDispatchToProps = dispatch => ({
+    getMessagesPerpage: (reqParams) => dispatch(getMessagesPerpage(reqParams)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyMessages);
