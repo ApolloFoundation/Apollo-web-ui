@@ -11,13 +11,13 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getCurrencyTypes} from "../../../../modules/currencies";
 
 const Currency = (props) =>  {
-    const {currency, code, type, types, decimals, getTransaction, setBodyModalParamsAction, currentSupply, maxSupply, name} = props;
+    const {currency, code, type, types, decimals, setBodyModalParamsAction, currentSupply, maxSupply, name} = props;
     const currencyTypes = getCurrencyTypes(type);
 
     return (
         <tr>
             <td className="blue-link-text">
-                <a onClick={() => getTransaction(currency)}>
+                <a onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', currency)}>
                     {code}
                 </a>
             </td>

@@ -119,8 +119,10 @@ class MessageItem extends React.Component {
                         !isDescrypted &&
                         !publicMessage &&
                         !decryptedMessage &&
-                        <div><i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;
-                            <span>Message is encrypted.</span></div>
+                        <div><i class="zmdi zmdi-scissors"/>
+                            &nbsp;&nbsp;&nbsp;
+                            <span>Message is pruned.</span>
+                        </div>
                     }
                     
                 </td>
