@@ -63,7 +63,7 @@ import CastVote from './voting-system/cast-vote';
 import UploadFile from './data-storage/uppload-file/';
 
 // Coin shuffling
-import CreateShuffling from './coin-shuffling/create-shuffling';
+import CreateShuffling from './coin-shuffling/create-shuffling/';
 import JoinShuffling from './coin-shuffling/join-shuffling';
 
 // Aliases

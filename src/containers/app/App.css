@@ -1161,7 +1161,10 @@ input[type="file"] {
   text-overflow: unset; }
   .btn-box.pagination {
     margin-top: 15px;
-    position: relative; }
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0; }
     .btn-box.pagination .pagination-nav {
       position: absolute;
       top: 50%;
@@ -6097,7 +6100,10 @@ input[type="file"] {
   text-overflow: unset; }
   .btn-box.pagination {
     margin-top: 15px;
-    position: relative; }
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0; }
     .btn-box.pagination .pagination-nav {
       position: absolute;
       top: 50%;
@@ -7064,7 +7070,8 @@ table td .btn, table th .btn {
   height: 100%;
   width: 100%;
   background-color: #FFFFFF;
-  border-radius: 6px; }
+  border-radius: 6px;
+  position: relative; }
   @media (max-width: 1200px) {
     .transaction-table {
       height: auto;

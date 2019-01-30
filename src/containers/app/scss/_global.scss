@@ -1635,7 +1635,10 @@ input[type="file"] {
 	//min-height: 32px;
 	&.pagination {
 		margin-top: 15px;
-		position: relative;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
 
 		.pagination-nav {
 			position: absolute;
