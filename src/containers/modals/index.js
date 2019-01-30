@@ -64,7 +64,7 @@ import UploadFile from './data-storage/uppload-file/';
 
 // Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling/';
-import JoinShuffling from './coin-shuffling/join-shuffling';
+import JoinShuffling from './coin-shuffling/join-shuffling/';
 
 // Aliases
 import EditAlias     from './aliases/edit-alias';
