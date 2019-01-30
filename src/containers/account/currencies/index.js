@@ -21,9 +21,6 @@ import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 
-// import {getCurrencyTypes} from "../../../modules/currencies";
-
-
 const mapStateToProps = state => ({
     account: state.account.account
 });

@@ -11,6 +11,7 @@ import modals from './modals'
 import messages from './messages'
 import settings from "./settings"
 import accountSettings from "./accountSettings"
+import currencies from "./currencies"
 
 export default combineReducers({
 	routing: routerReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     messages,
     modals,
     settings,
+    currencies,
     accountSettings,
 })

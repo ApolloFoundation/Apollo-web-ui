@@ -34,7 +34,7 @@ class MyMessages extends React.Component {
 
     componentDidMount() {
         this.props.getMessagesPerpage({firstIndex: 0, lastIndex: 14});
-        
+
         BlockUpdater.on("data", data => {
             const {page} = this.state;
 
@@ -99,6 +99,7 @@ class MyMessages extends React.Component {
                                 alignRight: true
                             }
                         ]}
+                        emptyMessage={'No messages found.'}
                         page={page}
                         TableRowComponent={MessageItem}
                         tableData={this.props.messages}

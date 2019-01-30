@@ -2,12 +2,12 @@
 
 const initState  = {
     types: {
-        1:  'Exchangeable',
-        2:  'Controllable',
-        4:  'Reservable',
-        8:  'Claimable',
-        16: 'Mintable',
-        32: 'Non-Shuffleable',
+        1:  '<i class="zmdi zmdi-swap" />',                 // Exchangeable
+        2:  '<i class="zmdi zmdi-lock" />',                 // Controllable
+        4:  '<i class="zmdi zmdi-balance" />',              //Reservable
+        8:  '<i class="zmdi zmdi-key" />',                  // Claimable
+        16: '<i class="zmdi zmdi-toll" />',                 // Mintable
+        32: '<i class="zmdi zmdi-minus-circle-outline" />', //Non-Shuffleable 
     }
 }
 
@@ -18,28 +18,24 @@ export default (state = initState, action)  => {
 }
 
 
-// TODO refactor currency types
 export const getCurrencyTypes = (value) => {
-    const {types} = initState;
+    var b = 1;
+    var res= [];
+    while(b<=value){
+        if(b & value)res.push(b);
+        b <<= 1;
+    }
 
-    const arr = Object.keys(types);
-
-    const result = Object.keys(types).map(el => {
-        const searchingValue = arr.find((searchingElement, index) => {
-            // console.log(searchingElement)
-            
-            if ( arr[index + 1] && arr[index - 1]) {
-                return arr[index + 1] > value && arr[index - 1] < value
+    return res
+        .map((el, index) => {
+            const type = initState.types[el];
+            if (index === 0) {
+                return `${type}`
+            } else {
+                return `&nbsp;${type}`
             }
-            if (!arr[index - 1]) {
-
-                return searchingElement;
-            }; 
-
-            if (!!arr[index + 1]) {
-
-                return searchingElement;
-            }; 
         })
-    })
+        .reduce((a, b) => {
+            return a + b;
+        })
 }
