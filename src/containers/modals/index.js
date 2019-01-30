@@ -87,7 +87,7 @@ import MarketplaceDeliver from './marketplace/deliver-goods/';
 
 // Messenger
 import DecryptMessage from './messenger/decrypt-messages';
-import ComposeMessage from './messenger/compose-message';
+import ComposeMessage from './messenger/compose-message/';
 import ShareMessage from "./messenger/share-message";
 import AboutPeerInfo from "./peer/about-peer-info";
 import ConnectPeer from "./peer/connect-peer";

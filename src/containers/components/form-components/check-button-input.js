@@ -28,6 +28,7 @@ export const CheckboxFormInput = (props) => {
                                             el.handler()
                                         }
                                     }}
+                                    defaultValue={el.defaultValue}
                                     field={el.field}
                                     id={id}
                                 />

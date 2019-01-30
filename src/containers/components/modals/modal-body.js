@@ -13,7 +13,9 @@ import BackForm from '../../../containers/modals/modal-form/modal-form-container
 
 
 class ModalBody extends React.Component {
+
     getForm = (form) => {
+        console.log(this.props.modalsHistory)
         this.setState({form}, () => this.loadValues());
 
         if (this.props.loadForm) {
@@ -25,6 +27,11 @@ class ModalBody extends React.Component {
 		if (values) {
 			this.state.form.setAllValues(values);
 			return;
+        } else {
+            const {modalsHistory} = this.props;
+            if (modalsHistory[modalsHistory.length - 1].value) {
+                this.state.form.setAllValues(modalsHistory[modalsHistory.length - 1].value)
+            }
         }
 	};
 
@@ -39,7 +46,7 @@ class ModalBody extends React.Component {
                     onSubmit={(values) => handleFormSubmit(values)}
                     nameModel={nameModel}
                     render={({
-                            submitForm, values, addValue, removeValue, setValue, getFormState
+                            submitForm, values, addValue, removeValue, setValue, getFormState, getValue
                     }) => (
                         <form
                             onChange={() => saveSendModalState(values)}
@@ -61,7 +68,7 @@ class ModalBody extends React.Component {
                                 {
                                     React.Children.map(children, child => {
                                             if (child) {
-                                                return React.cloneElement(child, {...submitForm, values, addValue, removeValue, setValue, getFormState})
+                                                return React.cloneElement(child, {...submitForm, values, getValue, addValue, removeValue, setValue, getFormState})
                                             }
                                         }
                                     )

@@ -150,7 +150,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToPrps = dispatch => ({
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
-
 })
 
 export default connect(mapStateToProps, mapDispatchToPrps)(JoinShufflingForm)
