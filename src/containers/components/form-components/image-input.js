@@ -35,7 +35,6 @@ class ImageInput extends React.Component {
                                             if (file.type === 'image/jpeg' || file.type === 'image/png') {
                                                 reader.onloadend = () => {
                                                     this.setState({
-                                                        ...this.state,
                                                         file: file,
                                                         imagePreviewUrl: reader.result
                                                     });
@@ -78,15 +77,14 @@ class ImageInput extends React.Component {
                     <div className="col-sm-9 offset-sm-3">
                         {
                             !this.state.imagePreviewUrl &&
-                            <div className="no-image">
-                                <i className="zmdi zmdi-image" />
-                            </div>
-                        }
-                        {
-                            this.state.imagePreviewUrl &&
+                            <>
+                                <div className="no-image">
+                                    <i className="zmdi zmdi-image" />
+                                </div>
                                 <div className="preview-image-container">
                                     <div className="preview-image" style={{backgroundImage: `url(${this.state.imagePreviewUrl})`}}/>
                                 </div>
+                            </>
                         }
                     </div>
                 </div>

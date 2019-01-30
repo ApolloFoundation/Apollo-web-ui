@@ -160,17 +160,7 @@ class AdvancedSettings extends React.Component {
         }
     }
 
-    handleAdvancedState = () => {
-		if (this.state.advancedState) {
-			this.setState({
-				advancedState: false
-			})
-		} else {
-			this.setState({
-				advancedState: true
-			})
-		}
-	}
+    handleAdvancedState = () => this.setState({advancedState: !this.state.advancedState})
 
     render () {
         const setValue = this.props.setValue;
