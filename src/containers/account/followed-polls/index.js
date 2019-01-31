@@ -235,8 +235,7 @@ class FollowedVotes extends React.Component {
 
     render() {
         const {colors, allVotesNumber, followedpolls} = this.state;
-        console.log('poll')
-        console.log(this.state.poll)
+
         return (
             <div className="page-content">
                 <SiteHeader
