@@ -166,7 +166,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    // submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 export default connect(

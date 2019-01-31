@@ -6,9 +6,7 @@
 @font-face {
   font-family: 'Roboto';
   src: url("../../fonts/Roboto-Regular.eot");
-  src: url("../../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Regular.woff2") format("woff2"), url("../../fonts/Roboto-Regular.woff") format("woff"), url("../../fonts/Roboto-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
+  src: url("../../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Regular.woff2") format("woff2"), url("../../fonts/Roboto-Regular.woff") format("woff"), url("../../fonts/Roboto-Regular.ttf") format("truetype"); }
 
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   margin: 0;
@@ -4949,9 +4947,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 @font-face {
   font-family: 'Roboto';
   src: url("../../fonts/Roboto-Regular.eot");
-  src: url("../../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Regular.woff2") format("woff2"), url("../../fonts/Roboto-Regular.woff") format("woff"), url("../../fonts/Roboto-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
+  src: url("../../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto-Regular.woff2") format("woff2"), url("../../fonts/Roboto-Regular.woff") format("woff"), url("../../fonts/Roboto-Regular.ttf") format("truetype"); }
 
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
   margin: 0;
