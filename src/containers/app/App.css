@@ -25,6 +25,10 @@ html, body {
   font-family: "Roboto", sans-serif;
   font-weight: 400; }
 
+@media (max-width: 576px) {
+  .p-xs-0 {
+    padding: 0 !important; } }
+
 #root.isDesctop .form-group {
   transform: translateY(1px); }
 
@@ -4963,6 +4967,10 @@ html, body {
   word-break: break-word;
   font-family: "Roboto", sans-serif;
   font-weight: 400; }
+
+@media (max-width: 576px) {
+  .p-xs-0 {
+    padding: 0 !important; } }
 
 #root.isDesctop .form-group {
   transform: translateY(1px); }

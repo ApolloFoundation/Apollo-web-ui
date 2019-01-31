@@ -64,9 +64,6 @@ class MyMessages extends React.Component {
         const {page} = this.state;
         const {messages} = this.props;
 
-        console.log(this.props)
-        console.log(this.props.messages)
-        
         return (
             <div className="page-content">
                 <SiteHeader

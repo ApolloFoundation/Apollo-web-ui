@@ -24,6 +24,9 @@
   .messages .col-md-3,
   .messages .col-md-9 {
     max-height: 100%; }
+  @media (max-width: 768px) {
+    .messages {
+      height: auto; } }
 
 .messenger, .messenger a {
   min-height: auto !important;
@@ -42,7 +45,8 @@
     justify-content: flex-start;
     height: 100%;
     overflow-y: auto;
-    padding: 20px 30px; }
+    padding: 20px 30px;
+    min-height: calc(100ch - 235px); }
     .card .chatting-box .message-box {
       display: block;
       width: 100%; }

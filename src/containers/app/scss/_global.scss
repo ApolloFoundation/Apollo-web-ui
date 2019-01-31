@@ -28,6 +28,11 @@ html, body {
 	font-weight: 400;
 }
 
+.p-xs-0 {
+	@media (max-width: 576px) {
+		padding: 0 !important;
+	}
+}
 
 // These styles counted only for desctop version
 #root {
