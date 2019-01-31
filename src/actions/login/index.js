@@ -130,7 +130,6 @@ export function makeLoginReq(dispatch, requestParams) {
             includeAssets: true,
             includeCurrencies: true,
             includeLessors: true,
-            includeEffectiveBalance: true,
             ...requestParams
         }
     })
