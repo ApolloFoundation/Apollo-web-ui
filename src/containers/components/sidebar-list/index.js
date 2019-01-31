@@ -9,7 +9,7 @@ import ContentLoader from '../../components/content-loader';
 
 import {formatTimestamp} from "../../../helpers/util/time";
 
-const SidebarContent = ({baseUrl, data, bottomBarPreText, element, location: {pathname}, Component}) => (
+const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location: {pathname}, Component}) => (
     <>
         <div className="card card-full-screen no-padding scroll">
             {
@@ -29,6 +29,10 @@ const SidebarContent = ({baseUrl, data, bottomBarPreText, element, location: {pa
                         </Link>
                     );
                 }) : <ContentLoader />
+            }
+            {
+                    data.length === 0 &&
+                    <p className={"no-followed-polls"}>{emptyMessage}</p>
             }
         </div>
     </>

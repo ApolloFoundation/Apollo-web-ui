@@ -21,6 +21,10 @@
     }
   }
 
+  &.position-static {
+    position: static;
+  }
+
   .transaction-table-body {
     //min-width: 800px;
     min-height: 560px;
