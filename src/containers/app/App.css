@@ -7080,6 +7080,8 @@ table td .btn, table th .btn {
     .transaction-table {
       height: auto;
       min-height: auto; } }
+  .transaction-table.transparent {
+    background: transparent; }
   .transaction-table.no-min-height {
     min-height: auto;
     height: auto; }

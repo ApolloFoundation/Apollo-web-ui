@@ -254,7 +254,7 @@ class InfoAccount extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 0
                                 })}>
-                                    <div className="transaction-table no-min-height">
+                                    <div className="transaction-table no-min-height transparent">
                                         {
                                             this.state.transactions &&
                                             <div className="transaction-table-body transparent padding-vertical-padding">
@@ -306,7 +306,7 @@ class InfoAccount extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 1
                                 })}>
-                                    <div className="transaction-table no-min-height">
+                                    <div className="transaction-table no-min-height transparent">
                                         <div className="transaction-table-body transparent padding-vertical-padding">
                                             <table>
                                                 <thead>
@@ -344,7 +344,7 @@ class InfoAccount extends React.Component {
                                     "tab-body": true,
                                     "active": this.state.activeTab === 2
                                 })}>
-                                    <div className="transaction-table no-min-height">
+                                    <div className="transaction-table no-min-height transparent">
                                         <div className="transaction-table-body transparent padding-vertical-padding">
                                             <table>
                                                 <thead>
@@ -383,7 +383,7 @@ class InfoAccount extends React.Component {
                                     {
                                         (this.state.trades &&
                                         this.state.trades.trades.length > 0) ?
-                                        <div className="transaction-table no-min-height">
+                                        <div className="transaction-table transparent no-min-height">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
                                                     <table>
@@ -436,7 +436,7 @@ class InfoAccount extends React.Component {
                                     {
                                         this.state.currencies &&
                                         this.state.currencies.accountCurrencies.length &&
-                                        <div className="transaction-table no-min-height">
+                                        <div className="transaction-table no-min-height transparent">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
                                                     <table>
@@ -481,7 +481,7 @@ class InfoAccount extends React.Component {
                                         this.state.goods &&
                                         this.state.goods.goods &&
                                         this.state.goods.goods.length > 0 &&
-                                        <div className="transaction-table no-min-height">
+                                        <div className="transaction-table no-min-height transparent">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
                                                     <table>
@@ -531,7 +531,7 @@ class InfoAccount extends React.Component {
                                     {
                                         this.state.aliases &&
                                         this.state.aliases.aliases.length &&
-                                        <div className="transaction-table no-min-height">
+                                        <div className="transaction-table no-min-height transparent">
                                             <div className="transaction-table no-min-height">
                                                 <div className="transaction-table-body transparent padding-vertical-padding">
                                                     <table>
