@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
 const PoolItem  = props => (
     <tr key={uuid()}>
         <td  key={uuid()} className="blue-link-text">
-            <a onClick={() => {}}>{props.name}</a>
+            <a>{props.name}</a>
         </td>
         <td key={uuid()} className={""}> { (props.description.length > 100) ? props.description.slice(0, 100) + '...' : props.description} </td>
         <td key={uuid()} className="blue-link-text">
