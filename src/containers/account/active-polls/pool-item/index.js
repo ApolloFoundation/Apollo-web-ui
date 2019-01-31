@@ -10,6 +10,9 @@ import uuid from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {Link} from "react-router-dom";
 import {formatTimestamp} from "../../../../helpers/util/time";
+
+import {getTransactionAction} from '../../../../actions/transactions/';
+
 const mapStateToPreops = state => ({
 
 });
@@ -17,13 +20,14 @@ const mapStateToPreops = state => ({
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
+    getTransaction: (transaction) => dispatch(getTransactionAction(transaction)),
 });
 
 
 const PoolItem  = props => (
     <tr key={uuid()}>
         <td  key={uuid()} className="blue-link-text">
-            <a>{props.name}</a>
+            <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.poll)}>{props.name}</a>
         </td>
         <td key={uuid()} className={""}> { (props.description.length > 100) ? props.description.slice(0, 100) + '...' : props.description} </td>
         <td key={uuid()} className="blue-link-text">

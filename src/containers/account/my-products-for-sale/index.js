@@ -87,7 +87,6 @@ class MyProductsForSale extends React.Component {
 
     render () {
 
-        console.log(this.state.getDGSGoods)
         return (
             <div className="page-content">
                 <SiteHeader
