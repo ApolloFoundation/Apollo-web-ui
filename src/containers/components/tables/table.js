@@ -11,7 +11,6 @@ const CustomTable = (props) => {
                 emptyMessage={emptyMessage}
                 className={hintClassName}
             >
-                {console.log(tableData)}
                 {
                     tableData &&
                     !!tableData.length &&

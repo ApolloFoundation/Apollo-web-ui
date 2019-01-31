@@ -10,15 +10,12 @@ import {getAliasesAction} from "../../../actions/aliases";
 import SiteHeader from '../../components/site-header'
 import Alias from "./alias";
 import classNames from "classnames";
-import {getTransactionAction, getTransactionsAction} from "../../../actions/transactions";
-import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modals";
-import {submitForm} from  '../../../helpers/forms/forms';
-import {NotificationManager} from "react-notifications";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
-import InfoBox from '../../components/info-box';
 import uuid from "uuid";
-import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
+
+import CustomTable from '../../components/tables/table';
 
 class Aliases extends React.Component {
     constructor(props) {
@@ -131,79 +128,31 @@ class Aliases extends React.Component {
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <div className="blocks">
-                        <ContentHendler
-                            items={this.state.aliases}
-                            emptyMessage={'No aliases found.'}
-                        >
-                            <div className="transaction-table">
-                                {
-                                    this.state.aliases &&
-                                    this.state.aliases.length !== 0 &&
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Aliases</td>
-                                                <td>URI</td>
-                                                <td>Status</td>
-                                                <td className="align-right">Actions</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                this.state.aliases.map((el, index) => {
-                                                    return (
-                                                        <Alias
-                                                            key={uuid()}
-                                                            editAlias={this.editAlias}
-                                                            sellAlias={this.sellAlias}
-                                                            cancelSaleAlias={this.cancelSaleAlias}
-                                                            transferAlias={this.transferAlias}
-                                                            deleteAlias={this.deleteAlias}
-                                                            {...el}
-                                                        />
-                                                    )
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                }
-                            </div>
+                    <CustomTable 
+                        header={[
                             {
-                                this.state.aliases &&
-                                this.state.aliases.length &&
-                                <div className="btn-box">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    >
-                                        Previous
-                                    </a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
-                                    </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.aliases.length < 15
-                                        })}
-                                    >
-                                        Next
-                                    </a>
-                                </div>
+                                name: 'Aliases',
+                                alignRight: false
+                            },{
+                                name: 'URI',
+                                alignRight: false
+                            },{
+                                name: 'Status',
+                                alignRight: false
+                            },{
+                                name: 'Actions',
+                                alignRight: true
                             }
-                        </ContentHendler>
-                    </div>
+                        ]}
+                        TableRowComponent={Alias}
+                        tableData={this.state.aliases}
+                        isPaginate
+                        page={this.props.page}
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                        className={'no-min-height'}
+                        emptyMessage={'No aliases found.'}
+                    />        
                 </div>
             </div>
         );
