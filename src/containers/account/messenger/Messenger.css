@@ -19,9 +19,11 @@
       color: #BBBBBB;
       font-size: 12px; }
 
-.messenger .col-md-3,
-.messenger .col-md-9 {
-  max-height: 100%; }
+.messages {
+  height: 100vh; }
+  .messages .col-md-3,
+  .messages .col-md-9 {
+    max-height: 100%; }
 
 .messenger, .messenger a {
   min-height: auto !important;
@@ -30,152 +32,150 @@
     height: 100%; }
   .messenger .left-bar, .messenger .right-bar, .messenger a .left-bar, .messenger a .right-bar {
     height: 100%; }
-  .messenger .right-bar .card, .messenger a .right-bar .card {
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+  .card .chatting-box {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between; }
-    .messenger .right-bar .card .chatting-box, .messenger a .right-bar .card .chatting-box {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row-reverse;
-      justify-content: flex-start;
-      height: 100%;
-      overflow-y: auto;
-      padding: 0 30px; }
-      .messenger .right-bar .card .chatting-box .message-box, .messenger a .right-bar .card .chatting-box .message-box {
-        display: block;
-        width: 100%; }
-        .messenger .right-bar .card .chatting-box .message-box.incoming, .messenger a .right-bar .card .chatting-box .message-box.incoming {
-          text-align: left; }
-          .messenger .right-bar .card .chatting-box .message-box.incoming .message, .messenger a .right-bar .card .chatting-box .message-box.incoming .message {
-            background: #E5E5E5; }
-            .messenger .right-bar .card .chatting-box .message-box.incoming .message:after, .messenger a .right-bar .card .chatting-box .message-box.incoming .message:after {
-              display: none !important; }
-            .messenger .right-bar .card .chatting-box .message-box.incoming .message p:before, .messenger a .right-bar .card .chatting-box .message-box.incoming .message p:before {
-              background: #E5E5E5; }
-        .messenger .right-bar .card .chatting-box .message-box.outgoing, .messenger a .right-bar .card .chatting-box .message-box.outgoing {
-          text-align: right; }
-          .messenger .right-bar .card .chatting-box .message-box.outgoing .message, .messenger a .right-bar .card .chatting-box .message-box.outgoing .message {
-            background: #00C8FF; }
-            .messenger .right-bar .card .chatting-box .message-box.outgoing .message:after, .messenger a .right-bar .card .chatting-box .message-box.outgoing .message:after {
-              background: #00C8FF; }
-            .messenger .right-bar .card .chatting-box .message-box.outgoing .message:before, .messenger a .right-bar .card .chatting-box .message-box.outgoing .message:before {
-              display: none !important; }
-            .messenger .right-bar .card .chatting-box .message-box.outgoing .message:after, .messenger a .right-bar .card .chatting-box .message-box.outgoing .message:after {
-              background: #00C8FF; }
-            .messenger .right-bar .card .chatting-box .message-box.outgoing .message p, .messenger a .right-bar .card .chatting-box .message-box.outgoing .message p {
-              color: #fff; }
-        .messenger .right-bar .card .chatting-box .message-box.encrypted.incoming .message *, .messenger .right-bar .card .chatting-box .message-box.encrypted.outgoing .message *, .messenger a .right-bar .card .chatting-box .message-box.encrypted.incoming .message *, .messenger a .right-bar .card .chatting-box .message-box.encrypted.outgoing .message * {
-          color: black !important; }
-        .messenger .right-bar .card .chatting-box .message-box.encrypted .message, .messenger a .right-bar .card .chatting-box .message-box.encrypted .message {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px 30px; }
+    .card .chatting-box .message-box {
+      display: block;
+      width: 100%; }
+      .card .chatting-box .message-box.incoming {
+        text-align: left; }
+        .card .chatting-box .message-box.incoming .message {
           background: #E5E5E5; }
-          .messenger .right-bar .card .chatting-box .message-box.encrypted .message:before, .messenger a .right-bar .card .chatting-box .message-box.encrypted .message:before {
-            background: #E5E5E5 !important; }
-          .messenger .right-bar .card .chatting-box .message-box.encrypted .message:after, .messenger a .right-bar .card .chatting-box .message-box.encrypted .message:after {
-            background: #E5E5E5 !important; }
-          .messenger .right-bar .card .chatting-box .message-box.encrypted .message p:before, .messenger a .right-bar .card .chatting-box .message-box.encrypted .message p:before {
-            background: #666666 !important; }
-          .messenger .right-bar .card .chatting-box .message-box.encrypted .message p:after, .messenger a .right-bar .card .chatting-box .message-box.encrypted .message p:after {
-            background: #666666 !important; }
-        .messenger .right-bar .card .chatting-box .message-box .message, .messenger a .right-bar .card .chatting-box .message-box .message {
-          display: inline-block;
-          padding: 10px;
-          max-width: 480px;
-          color: #333333;
-          line-height: 1.6;
-          font-size: 14px;
-          position: relative;
-          border-radius: 6px;
-          margin-bottom: 15px;
-          float: none !important; }
-          .messenger .right-bar .card .chatting-box .message-box .message p, .messenger a .right-bar .card .chatting-box .message-box .message p {
-            word-break: break-word;
-            word-wrap: break-word;
-            display: block; }
-            .messenger .right-bar .card .chatting-box .message-box .message p > *, .messenger a .right-bar .card .chatting-box .message-box .message p > * {
-              vertical-align: middle; }
-            .messenger .right-bar .card .chatting-box .message-box .message p a.action, .messenger a .right-bar .card .chatting-box .message-box .message p a.action {
-              margin: 0; }
-              .messenger .right-bar .card .chatting-box .message-box .message p a.action i, .messenger a .right-bar .card .chatting-box .message-box .message p a.action i {
-                font-size: 18px; }
-          .messenger .right-bar .card .chatting-box .message-box .message:after, .messenger a .right-bar .card .chatting-box .message-box .message:after {
-            content: '';
-            display: block;
-            position: absolute;
-            bottom: 0;
-            left: 100%;
-            background-color: #666666;
-            height: 20px;
-            width: 20px;
-            transform: rotateZ(0deg) translate(-12px, 5px) rotateY(40deg) rotateX(59deg); }
-          .messenger .right-bar .card .chatting-box .message-box .message:before, .messenger a .right-bar .card .chatting-box .message-box .message:before {
-            content: '';
-            display: block;
-            position: absolute;
-            bottom: 0;
-            right: 100%;
-            background-color: #E5E5E5;
-            height: 20px;
-            width: 20px;
-            transform: rotateZ(-45deg) translate(5px, 12px) rotateY(40deg) rotateX(59deg); }
-    .messenger .right-bar .card .compose-message-box, .messenger a .right-bar .card .compose-message-box {
-      height: auto;
-      padding: 0 30px 20px 30px; }
-      .messenger .right-bar .card .compose-message-box .top-bar, .messenger a .right-bar .card .compose-message-box .top-bar {
-        width: 100%;
-        position: relative; }
-        .messenger .right-bar .card .compose-message-box .top-bar textarea, .messenger a .right-bar .card .compose-message-box .top-bar textarea {
-          width: 100%;
-          max-width: 100%;
-          min-width: 100%;
-          padding: 15px;
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          box-sizing: border-box; }
-      .messenger .right-bar .card .compose-message-box .bottom-bar, .messenger a .right-bar .card .compose-message-box .bottom-bar {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        padding-top: 15px; }
-        .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app {
-          margin: auto;
-          height: 100%; }
-          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app > *, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app > * {
-            display: table-cell;
+          .card .chatting-box .message-box.incoming .message:after {
+            display: none !important; }
+          .card .chatting-box .message-box.incoming .message p:before {
+            background: #E5E5E5; }
+      .card .chatting-box .message-box.outgoing {
+        text-align: right; }
+        .card .chatting-box .message-box.outgoing .message {
+          background: #00C8FF; }
+          .card .chatting-box .message-box.outgoing .message:after {
+            background: #00C8FF; }
+          .card .chatting-box .message-box.outgoing .message:before {
+            display: none !important; }
+          .card .chatting-box .message-box.outgoing .message:after {
+            background: #00C8FF; }
+          .card .chatting-box .message-box.outgoing .message p {
+            color: #fff; }
+      .card .chatting-box .message-box.encrypted.incoming .message *, .card .chatting-box .message-box.encrypted.outgoing .message * {
+        color: black !important; }
+      .card .chatting-box .message-box.encrypted .message {
+        background: #E5E5E5; }
+        .card .chatting-box .message-box.encrypted .message:before {
+          background: #E5E5E5 !important; }
+        .card .chatting-box .message-box.encrypted .message:after {
+          background: #E5E5E5 !important; }
+        .card .chatting-box .message-box.encrypted .message p:before {
+          background: #666666 !important; }
+        .card .chatting-box .message-box.encrypted .message p:after {
+          background: #666666 !important; }
+      .card .chatting-box .message-box .message {
+        display: inline-block;
+        padding: 10px;
+        max-width: 480px;
+        color: #333333;
+        line-height: 1.6;
+        font-size: 14px;
+        position: relative;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        float: none !important; }
+        .card .chatting-box .message-box .message p {
+          word-break: break-word;
+          word-wrap: break-word;
+          display: block; }
+          .card .chatting-box .message-box .message p > * {
             vertical-align: middle; }
-          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app input, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app input {
-            height: 15px !important;
-            width: 15px !important;
-            left: -15px; }
-          .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app label, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app label {
-            white-space: pre;
-            padding-right: 0; }
-        .messenger .right-bar .card .compose-message-box .bottom-bar input, .messenger a .right-bar .card .compose-message-box .bottom-bar input {
-          width: calc(100% - 260px);
-          margin-left: 15px;
-          padding: 6px 20px; }
-        .messenger .right-bar .card .compose-message-box .bottom-bar .btn, .messenger a .right-bar .card .compose-message-box .bottom-bar .btn {
-          position: relative;
-          margin-left: 15px;
-          white-space: pre; }
-        @media (max-width: 768px) {
-          .messenger .right-bar .card .compose-message-box .bottom-bar, .messenger a .right-bar .card .compose-message-box .bottom-bar {
-            flex-direction: column; }
-            .messenger .right-bar .card .compose-message-box .bottom-bar .input-group-app, .messenger a .right-bar .card .compose-message-box .bottom-bar .input-group-app {
-              padding-bottom: 15px;
-              width: 100%; }
-            .messenger .right-bar .card .compose-message-box .bottom-bar .encrypt-message-box, .messenger a .right-bar .card .compose-message-box .bottom-bar .encrypt-message-box {
-              width: 100%; }
-            .messenger .right-bar .card .compose-message-box .bottom-bar input, .messenger a .right-bar .card .compose-message-box .bottom-bar input {
-              margin: 0 0 15px 0;
-              width: 100%; }
-            .messenger .right-bar .card .compose-message-box .bottom-bar .btn, .messenger a .right-bar .card .compose-message-box .bottom-bar .btn {
-              width: 100%;
-              margin: 0; } }
-  @media (max-width: 768px) {
-    .messenger .right-bar, .messenger a .right-bar {
-      height: calc(100vh - 168px); } }
+          .card .chatting-box .message-box .message p a.action {
+            margin: 0; }
+            .card .chatting-box .message-box .message p a.action i {
+              font-size: 18px; }
+        .card .chatting-box .message-box .message:after {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 0;
+          left: 100%;
+          background-color: #666666;
+          height: 20px;
+          width: 20px;
+          transform: rotateZ(0deg) translate(-12px, 5px) rotateY(40deg) rotateX(59deg); }
+        .card .chatting-box .message-box .message:before {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 0;
+          right: 100%;
+          background-color: #E5E5E5;
+          height: 20px;
+          width: 20px;
+          transform: rotateZ(-45deg) translate(5px, 12px) rotateY(40deg) rotateX(59deg); }
+  .card .compose-message-box {
+    height: auto;
+    padding: 0 15px 15px 15px; }
+    .card .compose-message-box .top-bar {
+      width: 100%;
+      position: relative; }
+      .card .compose-message-box .top-bar textarea {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        padding: 15px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; }
+    .card .compose-message-box .bottom-bar {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      padding-top: 15px; }
+      .card .compose-message-box .bottom-bar .input-group-app {
+        margin: auto;
+        height: 100%; }
+        .card .compose-message-box .bottom-bar .input-group-app > * {
+          display: table-cell;
+          vertical-align: middle; }
+        .card .compose-message-box .bottom-bar .input-group-app input {
+          height: 15px !important;
+          width: 15px !important;
+          left: -15px; }
+        .card .compose-message-box .bottom-bar .input-group-app label {
+          white-space: pre;
+          padding-right: 0; }
+      .card .compose-message-box .bottom-bar input {
+        width: calc(100% - 260px);
+        margin-left: 15px;
+        padding: 6px 20px; }
+      .card .compose-message-box .bottom-bar .btn {
+        position: relative;
+        margin-left: 15px;
+        white-space: pre; }
+      @media (max-width: 768px) {
+        .card .compose-message-box .bottom-bar {
+          flex-direction: column; }
+          .card .compose-message-box .bottom-bar .input-group-app {
+            padding-bottom: 15px;
+            width: 100%; }
+          .card .compose-message-box .bottom-bar .encrypt-message-box {
+            width: 100%; }
+          .card .compose-message-box .bottom-bar input {
+            margin: 0 0 15px 0;
+            width: 100%; }
+          .card .compose-message-box .bottom-bar .btn {
+            width: 100%;
+            margin: 0; } }
 
 .followed-polls-container {
   min-height: 100%; }

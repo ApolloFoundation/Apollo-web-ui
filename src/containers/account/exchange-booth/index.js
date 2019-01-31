@@ -32,6 +32,7 @@ import {getTransactionAction} from "../../../actions/transactions";
 import ContentLoader from '../../components/content-loader';
 import ContentHendler from '../../components/content-hendler';
 
+import SidebarContent from '../../components/sidebar-list';
 import BackForm from '../../modals/modal-form/modal-form-container';
 
 class ExchangeBooth extends React.Component {
@@ -304,33 +305,11 @@ class ExchangeBooth extends React.Component {
                             {
                                 window.innerWidth > 768 &&
                                 <div className="col-md-3 p-0">
-                                    <div className="card card-full-screen no-padding scroll">
-                                        {
-                                            this.state.currencies &&
-                                            this.state.currencies.map((el, index) => {
-                                                return (
-                                                    <Link
-                                                        key={uuid()}
-                                                        style={{display: 'block'}}
-                                                        to={"/exchange-booth/" + (el ? el.code : "")}
-                                                        className={classNames({
-                                                            "chat-item": true,
-                                                            "active": this.state.currency === (el ? el.currency : "")
-                                                        })}
-                                                    >
-                                                        <div className="chat-box-item">
-                                                            <div className="chat-box-rs">
-                                                                {el ? el.name : ""}
-                                                            </div>
-                                                            <div className="chat-date">
-                                                                Current Supply:&nbsp;{el.currentSupply / Math.pow(10, el.decimals)}
-                                                            </div>
-                                                        </div>
-                                                    </Link>
-                                                );
-                                            })
-                                        }
-                                    </div>
+                                    <SidebarContent
+                                        baseUrl={'/exchange-booth/'}
+                                        data={this.state.currencies}
+                                        bottomBarPreText={'Current Supply:&nbsp;'}
+                                    />
                                 </div>
                             }
                             <div className="col-md-9 p-0">

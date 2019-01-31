@@ -191,16 +191,15 @@ export function getMessage(message) {
     }
 }
 
-export const getChatsAction = async () => {
-    const {account} = state.getState();
+export const getChatsAction = (account) => {
 
     return axios.get(config.api.serverUrl,{
         params: {
             requestType: 'getChats',
-            account: account.accountRS
+            ...account
         }
     })
-        .then(async (res) =>  {
+        .then(res =>  {
             if (!res.data.errorCode) {
                 return res.data
             }
@@ -208,7 +207,7 @@ export const getChatsAction = async () => {
 }
 
 
-export const getChatHistoryAction = async (requestParams) => {
+export const getChatHistoryAction = (requestParams) => {
     const {account} = state.getState();
 
     return axios.get(config.api.serverUrl, {
@@ -282,14 +281,14 @@ const formatMessages = transactionMessages => {
 }
 
 
-const handleAcount = () => {
+const handleAcount = (fn, params) => {
     var handleAccounChange = () => {
 
         const {account : {account}} = state.getState()
         const {dispatch} = state;
     
         if (account) {
-            dispatch(getMessagesPerpage({firstIndex: 0, lastIndex: 14}));
+            dispatch(fn(params));
             unsubscribe();
         }
     }
@@ -302,24 +301,69 @@ const handleAcount = () => {
 export const getMessagesPerpage = (reqPrams) => {
     return async (dispatch, getState, ) => {
         const {account: {account}} = getState();
-        
-        console.log(account)
 
         if (!account) {
-            return handleAcount()();
+            return handleAcount(getMessagesPerpage, {firstIndex: 0, lastIndex: 14})();
         }
     
         const messages = await dispatch(getMessages({...reqPrams, account}));
-
-        console.log({...reqPrams, account})
-        console.log(messages)
-
         
-        if (!messages.errorCode) {
+        if (messages && !messages.errorCode) {
             dispatch({
                 type: 'SET_MESSAGES',
                 payload: await dispatch(formatMessages(messages.transactions))
             })
         }
+    }
+}
+
+export const getChatHistory = (reqParams) => {
+    return (dispatch, getState) => {
+        const {account: {account}} = getState();
+
+        if (!reqParams) {
+            dispatch({
+                type: 'SET_CHAT_MESSAGES',
+                payload: null
+            })
+            return;
+        }
+
+        if (!account) {
+            return handleAcount(getChatHistory, reqParams)();
+        }
+
+        getChatHistoryAction(reqParams)
+            .then(messages => {
+                if (messages && messages.chatHistory) {
+                    dispatch(formatMessages(messages.chatHistory))
+                    .then(data => {
+                        if (messages && !messages.errorCode) {
+                            dispatch({
+                                type: 'SET_CHAT_MESSAGES',
+                                payload: data
+                            })
+                        }
+                    })
+                }
+            })
+    }
+}
+
+export const getChatsPerPage = () => {
+    return (dispatch, getState) => {
+        const {account: {account}} = getState();
+
+        if (!account) {
+            return handleAcount(getChatsPerPage, {account})();
+        }
+
+        getChatsAction({account})
+            .then(chats => {
+                dispatch({
+                    type: 'SET_CHATS',
+                    payload: chats.chats
+                })
+            })
     }
 }

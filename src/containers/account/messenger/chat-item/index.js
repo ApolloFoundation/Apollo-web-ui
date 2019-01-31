@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from "../../../../helpers/util/time";
+import {formatTimestamp, toEpochTime} from "../../../../helpers/util/time";
 import submitForm from "../../../../helpers/forms/forms";
 
 const mapStateToProps = state => ({
@@ -67,6 +67,8 @@ class ChatItem extends React.Component {
     };
 
     render () {
+        const {publicMessage, decryptedMessage, isDescrypted, setBodyModalParamsAction} = this.props;
+
         return (
             <div className={classNames({
                 'message-box': true,
@@ -78,51 +80,42 @@ class ChatItem extends React.Component {
                 <div className="message">
                     <p>
                         {
-                            this.props.attachment.message !== 'undefined' && this.props.attachment.message
+                            publicMessage && 
+                            publicMessage
                         }
                         {
-                            this.props.attachment.message === 'undefined' && this.props.attachment.encryptedMessage && !this.props.attachment.encryptedMessageHash && !this.state.message && !this.props.message.message &&
-                            [
+                            isDescrypted && 
+                            decryptedMessage && 
+                            <div>
+                                <i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{decryptedMessage}</span>
+                            </div>
+                        }
+                        {
+                            isDescrypted &&
+                            !publicMessage &&
+                            !decryptedMessage &&
+                            <>
+                                <a className='action'>
+                                    < i className="zmdi zmdi-scissors" />
+                                </a>
+                                <span className="message-text">&nbsp;&nbsp;Message is prunated</span>
+                            </>
+                        }
+                        {
+                            !isDescrypted &&
+                            !publicMessage &&
+                            !decryptedMessage &&
+                            <>
                                 <a
-                                    onClick={() => this.props.setBodyModalParamsAction('DECRYPT_MESSAGES')}
+                                    onClick={() => setBodyModalParamsAction('DECRYPT_MESSAGES')}
                                     className='action'
                                 >
                                     < i className="zmdi zmdi-lock" />
-                                </a>,
+                                </a>
                                 <span className="message-text">&nbsp;&nbsp;Message is encrypted</span>
-                            ]
+                            </>
                         }
-                        {
-                            this.props.attachment.encryptedMessageHash && this.state.message !== 'message_empty' && !this.props.message.message &&
-                            [
-                                <a className='action'>
-                                    < i className="zmdi zmdi-scissors" />
-                                </a>,
-                                <span className="message-text">&nbsp;&nbsp;Message is prunated</span>
-                            ]
-                        }
-                        {
-
-                            this.state.message &&
-                            !this.state.error  &&
-                            !this.props.message.message &&
-                            this.state.message !== 'false' &&
-                            <React.Fragment>
-                                <a className='action'>
-                                    < i className="zmdi zmdi-lock-open" />
-                                </a>
-                                <span className="message-text">&nbsp;&nbsp;{this.state.message}</span>
-                            </React.Fragment>
-                        }
-                        {
-                            this.state.error === 8 &&
-                            <React.Fragment >
-                                <a className='action'>
-                                    < i className="zmdi zmdi-alert-triangle" />
-                                </a>
-                                <span className="message-text">&nbsp;&nbsp;Empty message</span>
-                            </React.Fragment>
-                        }
+                        
                     </p>
                 </div>
             </div>
