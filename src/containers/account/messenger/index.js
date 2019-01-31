@@ -16,7 +16,6 @@ import crypto from "../../../helpers/crypto/crypto";
 import SidebarContent from '../../components/sidebar-list';
 import Chat from './chat';
 import SidebarMessage from './sidebar-messenger/';
-import {handleSendMessageFormSubmit} from './chat/handleFormSubmit';
 
 class Messenger extends React.Component {
 
@@ -40,7 +39,6 @@ class Messenger extends React.Component {
 		this.setState({formApi})
 	};
 
-	handleSendMessageFormSubmit = (values) => this.props.handleSendMessageFormSubmit(values)
 
 	render (){
 		
@@ -87,7 +85,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    handleSendMessageFormSubmit: (reqParams) => dispatch(handleSendMessageFormSubmit(reqParams)),
     getChatsPerPage: (reqParams) => dispatch(getChatsPerPage(reqParams)),
     getChatHistory: (reqParams) => dispatch(getChatHistory(reqParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),

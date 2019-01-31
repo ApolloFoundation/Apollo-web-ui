@@ -20,7 +20,7 @@
       font-size: 12px; }
 
 .messages {
-  height: 100vh; }
+  height: calc(100vh - 135px); }
   .messages .col-md-3,
   .messages .col-md-9 {
     max-height: 100%; }
@@ -29,8 +29,6 @@
   min-height: auto !important;
   margin-bottom: 15px; }
   .messenger > *, .messenger a > * {
-    height: 100%; }
-  .messenger .left-bar, .messenger .right-bar, .messenger a .left-bar, .messenger a .right-bar {
     height: 100%; }
 
 .card {

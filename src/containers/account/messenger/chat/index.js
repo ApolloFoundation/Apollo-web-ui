@@ -5,8 +5,13 @@ import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {connect} from 'react-redux';
 import ContentLoader from '../../../components/content-loader';
 
+import {handleSendMessageFormSubmit} from './handleFormSubmit';
+
+
 class Chat extends React.Component {
     state = {};
+
+	handleSendMessageFormSubmit = (values) => this.props.handleSendMessageFormSubmit(values)
 
     render () {
         const {chatMessages} = this.props;
@@ -97,4 +102,8 @@ const mapStateToProps = state => ({
     chatMessages: state.messages.chatMessages
 })
 
-export default connect(mapStateToProps)(Chat);
+const mapDispatchToProps = dispatch => ({
+    handleSendMessageFormSubmit: (reqParams) => dispatch(handleSendMessageFormSubmit(reqParams))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
