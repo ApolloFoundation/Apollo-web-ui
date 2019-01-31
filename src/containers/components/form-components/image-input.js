@@ -5,6 +5,34 @@ class ImageInput extends React.Component {
 
     state = {};
 
+    handleFileOnChange = (e, setValue) => {
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        if (file.type === 'image/jpeg' || file.type === 'image/png') {
+            reader.onloadend = () => {
+                this.setState({
+                    file: file,
+                    imagePreviewUrl: reader.result
+                });
+            };
+
+            setValue("messageIsText", false);
+            setValue("messageIsPrunable", true);
+
+            if(file) reader.readAsDataURL(file);
+        } else {
+            NotificationManager.error('You`r chosen image file is not allowed for uploading. Use only jpeg.', null, 5000)
+            document.getElementById("file").value = "";
+            this.setState({
+                file: null,
+                imagePreviewUrl: null
+            });
+        }
+    }
+
     render () {
         const {setValue} = this.props;
 
@@ -26,33 +54,7 @@ class ImageInput extends React.Component {
                                         id="file"
                                         type="file"
                                         placeholder="Recipient"
-                                        onChange={(e) => {
-                                            e.preventDefault();
-
-                                            let reader = new FileReader();
-                                            let file = e.target.files[0];
-
-                                            if (file.type === 'image/jpeg' || file.type === 'image/png') {
-                                                reader.onloadend = () => {
-                                                    this.setState({
-                                                        file: file,
-                                                        imagePreviewUrl: reader.result
-                                                    });
-                                                };
-
-                                                setValue("messageIsText", false);
-                                                setValue("messageIsPrunable", true);
-
-                                                if(file) reader.readAsDataURL(file);
-                                            } else {
-                                                NotificationManager.error('You`r chosen image file is not allowed for uploading. Use only jpeg.', null, 5000)
-                                                document.getElementById("file").value = "";
-                                                this.setState({
-                                                    file: null,
-                                                    imagePreviewUrl: null
-                                                });
-                                            }
-                                        }}
+                                        onChange={(e) => this.handleFileOnChange(e, setValue)}
                                     />
                                     <div className={'input-file-area'}>
                                         <div className="input-file-name">

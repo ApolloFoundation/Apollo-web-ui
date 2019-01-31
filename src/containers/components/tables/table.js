@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ContentHendler from '../content-hendler';
+import uuid from 'uuid';
 
 const CustomTable = (props) => {
     const {emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
@@ -23,6 +24,7 @@ const CustomTable = (props) => {
                                             header && 
                                             header.map((el) => 
                                                 <td
+                                                    key={uuid()}
                                                     className={classNames({
                                                         'align-right': el.alignRight
                                                     })}

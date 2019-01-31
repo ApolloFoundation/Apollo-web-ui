@@ -15,7 +15,6 @@ import BackForm from '../../../containers/modals/modal-form/modal-form-container
 class ModalBody extends React.Component {
 
     getForm = (form) => {
-        console.log(this.props.modalsHistory)
         this.setState({form}, () => this.loadValues());
 
         if (this.props.loadForm) {

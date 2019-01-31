@@ -7,7 +7,6 @@ import {CheckboxFormInput} from '../../../components/form-components/check-butto
 
 const ComposeMessageForm = ({setVaue, getValue, modalData, getFormState}) => (
     <>
-        {console.log(getFormState())}
         <AccountRSFormInput
             setVaue={setVaue}
             exportAccountList

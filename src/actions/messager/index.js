@@ -12,7 +12,6 @@ import submitForm from '../../helpers/forms/forms'
 import state from '../../store'
 
 export function getMessages (reqParams) {
-    console.log(reqParams)
     return dispatch => {
         return axios.get(config.api.serverUrl, {
             params: {

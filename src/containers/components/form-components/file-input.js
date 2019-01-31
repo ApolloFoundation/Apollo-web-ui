@@ -4,6 +4,28 @@ class FileInput extends React.Component {
 
     state = {};
 
+    handleFileOnChange = (e, setValue) => {
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+
+        reader.onloadend = () => {
+            this.setState({
+                ...this.state,
+                file: file,
+                imagePreviewUrl: reader.result
+            });
+        };
+
+        setValue("messageIsText", false);
+        setValue("messageIsPrunable", true);
+
+        if(file) reader.readAsDataURL(file);
+
+    }
+
     render () {
         const {setValue} = this.props;
 
@@ -24,27 +46,7 @@ class FileInput extends React.Component {
                                     id="file"
                                     type="file"
                                     placeholder="Recipient"
-                                    onChange={(e) => {
-                                        e.preventDefault();
-
-                                        let reader = new FileReader();
-                                        let file = e.target.files[0];
-
-
-                                        reader.onloadend = () => {
-                                            this.setState({
-                                                ...this.state,
-                                                file: file,
-                                                imagePreviewUrl: reader.result
-                                            });
-                                        };
-
-                                        setValue("messageIsText", false);
-                                        setValue("messageIsPrunable", true);
-
-                                        if(file) reader.readAsDataURL(file);
-
-                                    }}
+                                    onChange={(e) => this.handleFileOnChange(e, setValue)}
                                 />
                                 <div className={'input-file-area'}>
                                     <div className="input-file-name">
