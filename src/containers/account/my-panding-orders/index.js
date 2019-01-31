@@ -6,23 +6,13 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
-import uuid from 'uuid';
-import MarketplaceTableItem from '../marketplace/marketplace-table-item';
 import SiteHeader from  '../../components/site-header'
-import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
-import { setModalCallback, setBodyModalParamsAction } from "../../../modules/modals";
-import InfoBox from '../../components/info-box'
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
+import { setBodyModalParamsAction } from "../../../modules/modals";
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
-import MarketplaceItem from "../marketplace/marketplace-card";
 import {BlockUpdater} from "../../block-subscriber/index";
 
-import curve25519 from "../../../helpers/crypto/curve25519";
-import converters from "../../../helpers/converters";
-import crypto from "../../../helpers/crypto/crypto";
+import MarketplaceColumnTable from '../../components/marketplace-column-table/';
 
 class MyProductsForSale extends React.Component {
     constructor(props) {
@@ -95,67 +85,20 @@ class MyProductsForSale extends React.Component {
     };
 
     render () {
+        const {getDGSGoods} = this.state;
+
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'My pending orders'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="account-ledger">
-                        {
-                            this.state.getDGSGoods &&
-                            !!this.state.getDGSGoods.length &&
-                            <React.Fragment >
-                                {
-                                    this.state.getDGSGoods.map((el, index) => {
-                                        return (
-                                            <MarketplaceItem
-                                                key={uuid()}
-                                                tall={false}
-                                                fluid={!this.state.isGrid}
-                                                isHovered
-                                                deliver
-                                                index={index}
-                                                {...el}
-                                            />
-                                        );
-                                    })
-                                }
-                                <div className="btn-box relative right-conner align-right mt-15">
-                                    <a
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'disabled' : this.state.page <= 1
-                                        })}
-                                        onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                    > Previous</a>
-                                    <div className='pagination-nav'>
-                                        <span>{this.state.firstIndex + 1}</span>
-                                        <span>&hellip;</span>
-                                        <span>{this.state.lastIndex + 1}</span>
-                                    </div>
-                                    <a
-                                        onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'disabled' : this.state.getDGSGoods.length < 8
-                                        })}
-                                    >Next</a>
-                                </div>
-                            </React.Fragment> ||
-                            <ContentLoader/>
-                        }
-                        {
-                            this.state.getDGSGoods &&
-                            !(!!this.state.getDGSGoods.length) &&
-                            <InfoBox
-                                default
-                            >
-                                No pending orders.
-                            </InfoBox>
-                        }
+                    <div className="account-ledger p-0">
+                        <MarketplaceColumnTable
+                            data={getDGSGoods}
+                            page={this.state.page}
+                            deliver
+                        />
                     </div>
                 </div>
             </div>

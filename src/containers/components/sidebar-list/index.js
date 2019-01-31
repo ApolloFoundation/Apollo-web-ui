@@ -31,8 +31,9 @@ const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element,
                 }) : <ContentLoader />
             }
             {
-                    data.length === 0 &&
-                    <p className={"no-followed-polls"}>{emptyMessage}</p>
+                data &&
+                data.length === 0 &&
+                <p className={"no-followed-polls"}>{emptyMessage}</p>
             }
         </div>
     </>

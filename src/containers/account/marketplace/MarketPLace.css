@@ -106,11 +106,8 @@
   height: auto;
   max-height: 100%;
   transition: all 0.3s ease-in-out;
-  position: absolute;
   top: 0;
   bottom: 0;
-  left: 7.5px;
-  right: 7.5px;
   overflow: hidden; }
   .card.marketplace:not(.card-fluid).hovered.active {
     z-index: 4; }
@@ -362,8 +359,6 @@
     .card.marketplace.tall-card .cargo-owner-box .publishing-date {
       color: #BBBBBB;
       font-size: 12px; }
-  .card.marketplace .search-bar .row {
-    margin: 0 -7.5px !important; }
   .card.marketplace .filters-bar {
     height: 100%;
     margin-top: -15px; }

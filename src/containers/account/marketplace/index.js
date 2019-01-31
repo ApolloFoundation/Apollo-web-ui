@@ -247,13 +247,14 @@ class Marketplace extends React.Component {
                         <div className="row">
                             <div className={classNames({
                                 'col-md-12 col-lg-6 marketplace-preview-item' : !this.state.isShowMore,
-                                'col-md-3' : this.state.isShowMore
+                                'col-md-3' : this.state.isShowMore,
+                                'pl-md-0': true
                             })}>
                                 <div className="card fll-height marketplace product-box">
 
                                 </div>
                             </div>
-                            <div className="col-md-6  col-lg-3 marketplace-preview-item">
+                            <div className="col-md-6  col-lg-3 marketplace-preview-item pl-md-0">
                                 <div className="card fll-height header ballance">
                                     <div className="full-box full">
                                         <div className="full-box-item direction-row">
@@ -276,15 +277,16 @@ class Marketplace extends React.Component {
                                 </div>
                             </div>
                             <div className={classNames({
-                                'col-md-6  col-lg-3 marketplace-preview-item' : !this.state.isShowMore,
-                                'col-md-6' : this.state.isShowMore
+                                'col-md-6  col-lg-3 marketplace-preview-item pr-0' : !this.state.isShowMore,
+                                'col-md-6' : this.state.isShowMore,
+                                'pl-md-0': true
                             })}>
                                 <div className="card  marketplace filters transparent">
-                                    <div className="search-bar">
-                                        <div className="row">
+                                    <div className="search-bar m-0">
+                                        <div className="row m-0">
                                             <div className={classNames({
-                                                'col-md-12' : !this.state.isShowMore,
-                                                'col-md-6' : this.state.isShowMore
+                                                'col-md-12 pr-0 pl-0' : !this.state.isShowMore,
+                                                'col-md-6 pr-0 pl-0' : this.state.isShowMore
                                             })}>
                                                 <div className="input-group-app search tabled">
                                                     <Form
@@ -313,8 +315,8 @@ class Marketplace extends React.Component {
                                                 </div>
                                             </div>
                                             <div className={classNames({
-                                                'col-md-12' : !this.state.isShowMore,
-                                                'col-md-6' : this.state.isShowMore
+                                                'col-md-12 pr-0 pl-0' : !this.state.isShowMore,
+                                                'col-md-6 pr-0 pl-0' : this.state.isShowMore
                                             })}>
                                                 <div className="input-group-app search tabled">
                                                     <Form
@@ -399,7 +401,7 @@ class Marketplace extends React.Component {
                                             !!this.state.getDGSGoods.length &&
                                             this.state.getDGSGoods.map((el, index) => {
                                                 return (
-                                                    <div key={uuid()} className="marketplace-row-item col-xl-2">
+                                                    <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0">
                                                         <MarketplaceItem
                                                             fullHeight
                                                             relative={true}
@@ -438,7 +440,7 @@ class Marketplace extends React.Component {
                                             !!this.state.getDGSPurchases.length &&
                                             this.state.getDGSPurchases.map((el, index) => {
                                                 return (
-                                                    <div key={uuid()} className="marketplace-row-item col-xl-2">
+                                                    <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0">
                                                         <MarketplaceItem
                                                             fullHeight
                                                             {...el}
