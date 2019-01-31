@@ -4,17 +4,21 @@ import ContentHendler from '../content-hendler';
 import uuid from 'uuid';
 
 const CustomTable = (props) => {
-    const {emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
+    const {actionButton, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
     return (
             <ContentHendler
                 items={tableData}
                 emptyMessage={emptyMessage}
+                className={hintClassName}
             >
                 {
                     tableData &&
                     !!tableData.length &&
                     <>
-                        <div className="transaction-table">
+                        <div className={`transaction-table ${className}`}>
+                            <div className="form-title padding-left padding-top">
+                                <p>{tableName}</p>
+                            </div>
 
                         <div className="transaction-table-body">
                             <table>
@@ -87,7 +91,25 @@ const CustomTable = (props) => {
                             </div>
                  
                         }
-        </div>
+                        {
+                            actionButton && 
+                            <div className="btn-box pagination">
+                                <a
+                                    onClick={actionButton.handler}
+                                    className={classNames({
+                                        'btn' : true,
+                                        'btn-right' : true,
+                                        'blue': true,
+                                        'round': true,
+                                        'round-top-left': true,
+                                        'round-bottom-right': true,
+                                    })}
+                                >
+                                    {actionButton.name}
+                                </a>
+                            </div>
+                        }
+                        </div>
                         
                     </>
                     

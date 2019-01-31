@@ -14,7 +14,7 @@ const ContentHendler = (props) => (
             props.items &&
             props.items.length === 0 &&
             <div>
-                <InfoBox default>
+                <InfoBox default className={props.className}>
                     {props.emptyMessage}
                 </InfoBox>
             </div>

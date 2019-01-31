@@ -13,11 +13,13 @@ import PoolItem from './pool-item';
 import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import InfoBox from '../../components/info-box';
 import {BlockUpdater} from "../../block-subscriber";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
+
+import CustomTable from '../../components/tables/table';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -42,10 +44,6 @@ class Activepolls extends React.Component {
             activepolls: null,
             finishedpolls: null
         };
-
-        this.getActivepolls   = this.getActivepolls.bind(this);
-        this.getFinishedpolls = this.getFinishedpolls.bind(this);
-        this.getTransaction   = this.getTransaction.bind(this);
     }
 
     listener = data => {
@@ -79,7 +77,7 @@ class Activepolls extends React.Component {
         });
     }
 
-    async getActivepolls(reqParams){
+    getActivepolls = async (reqParams) => {
         reqParams = {
             ...reqParams,
             includeFinished: false,
@@ -95,7 +93,7 @@ class Activepolls extends React.Component {
         }
     }
 
-    async getFinishedpolls(reqParams){
+    getFinishedpolls = async (reqParams) => {
         reqParams = {
             ...reqParams,
             finishedOnly: true
@@ -111,17 +109,8 @@ class Activepolls extends React.Component {
         }
     }
 
-    async getTransaction(data) {
-        const reqParams = {
-            transaction: data,
-            account: this.props.account
-        };
-
-        const transaction = await this.props.getTransactionAction(reqParams);
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-        }
-
+    handleGoToFinishedPolls = () => {
+        this.props.history.push('/finished-polls')
     }
 
     render () {
@@ -132,90 +121,72 @@ class Activepolls extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
+                        <CustomTable 
+                            header={[
+                                {
+                                    name: 'Title',
+                                    alignRight: false
+                                },{
+                                    name: 'Description',
+                                    alignRight: false
+                                },{
+                                    name: 'Sender',
+                                    alignRight: false
+                                },{
+                                    name: 'Start date',
+                                    alignRight: false
+                                },{
+                                    name: 'Blocks left',
+                                    alignRight: false
+                                },{
+                                    name: 'Actions',
+                                    alignRight: true
+                                }
+                            ]}
+                            className={'no-min-height'}
+                            emptyMessage={'No active polls.'}
+                            TableRowComponent={PoolItem}
+                            tableData={this.state.activepolls}
+                        />
+
                         <div className="transaction-table no-min-height">
-                                <ContentHendler
-                                    items={this.state.activepolls}
-                                    emptyMessage={'No active  polls.'}
-                                >
-                                    <div className="transaction-table-body">
-
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Title</td>
-                                            <td>Description</td>
-                                            <td>Sender</td>
-                                            <td>Start date</td>
-                                            <td>Blocks left</td>
-                                            <td className="align-right">Actions</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody  key={uuid()}>
-                                        {
-                                            this.state.activepolls &&
-                                            this.state.activepolls.map((el, index) => {
-
-                                                return (
-                                                    <PoolItem
-                                                        key={uuid()}
-                                                        {...el}
-                                                        activepolls
-                                                        getTransaction={this.getTransaction}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                </ContentHendler>
+                                
                         </div>
 
-                        <div className="form-group-app offset-bottom height-auto no-padding">
-                            <div className="form-title padding-left padding-top">
-                                <p>Finished polls</p>
-                            </div>
-                            <ContentHendler
-                                items={this.state.finishedpolls}
+                        <div className="form-group-app offset-bottom height-auto no-padding transparent">
+                            <CustomTable 
+                                tableName={'Finished polls'}
+                                header={[
+                                    {
+                                        name: 'Title',
+                                        alignRight: false
+                                    },{
+                                        name: 'Description',
+                                        alignRight: false
+                                    },{
+                                        name: 'Sender',
+                                        alignRight: false
+                                    },{
+                                        name: 'Start date',
+                                        alignRight: false
+                                    },{
+                                        name: 'Blocks left',
+                                        alignRight: false
+                                    },{
+                                        name: 'Actions',
+                                        alignRight: true
+                                    }
+                                ]}
+                                className={'no-min-height pb-0'}
                                 emptyMessage={'No finished polls.'}
-                            >
-                                <div className="transaction-table no-min-height">
-                                    <div className="transaction-table-body offset-bottom">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Title</td>
-                                                <td>Description</td>
-                                                <td>Sender</td>
-                                                <td>Start date</td>
-                                                <td>Blocks left</td>
-                                                <td className="align-right">Actions</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                this.state.finishedpolls &&
-                                                this.state.finishedpolls.map((el, index) => {
-                                                    return (
-                                                        <PoolItem
-                                                            key={uuid()}
-                                                            {...el}
-                                                            activepolls
-                                                            getTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                        <div className="btn-box">
-                                            <Link to="/finished-polls" className="btn btn-right blue" >View more</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ContentHendler>
-
+                                TableRowComponent={PoolItem}
+                                tableData={this.state.finishedpolls}
+                                hintClassName={'mt-4'}
+                                actionButton={{
+                                    name:'View All',
+                                    handler: this.handleGoToFinishedPolls
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
@@ -227,4 +198,4 @@ class Activepolls extends React.Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Activepolls);
+)(withRouter(Activepolls));

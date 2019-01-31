@@ -12,11 +12,10 @@ import PoolItem from '../active-polls/pool-item';
 import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {Link} from 'react-router-dom';
-import InfoBox from '../../components/info-box';
 import {BlockUpdater} from "../../block-subscriber/index";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
+
+import CustomTable from '../../components/tables/table';
+
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -41,8 +40,6 @@ class MyVotes extends React.Component {
             myPolls: null
         };
 
-        this.getMyPolls = this.getMyPolls.bind(this);
-        this.getTransaction = this.getTransaction.bind(this);
         // this.getVote  = this.getVote.bind(this);
     }
 
@@ -81,16 +78,13 @@ class MyVotes extends React.Component {
         }
     };
 
-    getTransaction = async (data) => {
-        const reqParams = {
-            transaction: data,
-            account: this.props.account
-        };
-
-        const transaction = await this.props.getTransactionAction(reqParams);
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-        }
+    onPaginate = (page) => {
+        this.setState({
+            page: page,
+            account: this.props.account,
+            firstIndex: page * 15 - 15,
+            lastIndex:  page * 15 - 1
+        });
     };
 
     render () {
@@ -100,51 +94,36 @@ class MyVotes extends React.Component {
                     pageTitle={'My Polls'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="active-polls white-space">
-                        <ContentHendler
-                            items={this.state.myPolls}
-                            emptyMessage={'No polls found.'}
-                        >
+                    <CustomTable 
+                        header={[
                             {
-                                this.state.myPolls &&
-                                !!this.state.myPolls.length &&
-
-                                <div className="transaction-table no-min-height">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Title</td>
-                                                <td>Description</td>
-                                                <td>Sender</td>
-                                                <td>Start date</td>
-                                                <td>Blocks left</td>
-                                                <td className="align-right">Actions</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody  key={uuid()}>
-                                            {
-                                                this.state.myPolls &&
-                                                this.state.myPolls.map((el, index) => {
-                                                    return (
-                                                        <PoolItem
-                                                            key={uuid()}
-                                                            {...el}
-                                                            activepolls
-                                                            getTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                name: 'Title',
+                                alignRight: false
+                            },{
+                                name: 'Description',
+                                alignRight: false
+                            },{
+                                name: 'Sender',
+                                alignRight: false
+                            },{
+                                name: 'Start date',
+                                alignRight: false
+                            },{
+                                name: 'Blocks left',
+                                alignRight: false
+                            },{
+                                name: 'Actions',
+                                alignRight: true
                             }
-                        </ContentHendler>
-                    </div>
-
-
+                        ]}
+                        emptyMessage={'No polls found.'}
+                        page={this.state.page}
+                        TableRowComponent={PoolItem}
+                        tableData={this.state.myPolls}
+                        isPaginate
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );

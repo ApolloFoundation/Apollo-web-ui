@@ -7087,6 +7087,9 @@ table td .btn, table th .btn {
   .transaction-table.no-min-height {
     min-height: auto;
     height: auto; }
+    .transaction-table.no-min-height .transaction-table-body {
+      min-height: auto;
+      height: auto; }
   .transaction-table .transaction-table-body {
     min-height: 560px;
     overflow-x: auto;

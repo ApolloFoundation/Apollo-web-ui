@@ -19,7 +19,7 @@ const InfoBox = (props) => (
             'mt': props.mt,
             'no-padding-top': props.onPaddingTop,
             'no-padding-on-the-sides': props.noPaddingOnTheSides
-        })}>
+        }) + ` ${props.className}`}>
         <p>
             {props.children}
         </p>

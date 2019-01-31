@@ -13,11 +13,7 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import Currency from './currency';
 import {BlockUpdater} from "../../block-subscriber";
-import classNames from "classnames";
-import uuid from "uuid";
 import {getExchangesAction} from "../../../actions/exchange-booth";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 
@@ -86,12 +82,6 @@ class Currencies extends React.Component {
             account: this.props.account,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1
-        }, () => {
-            this.getCurrencie({
-                account: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            })
         });
     };
 
@@ -102,18 +92,6 @@ class Currencies extends React.Component {
             this.setState({
                 currencies: allCurrencies.currencies
             })
-        }
-    };
-
-    getTransaction = async (data) => {
-        const reqParams = {
-            transaction: data,
-            account: this.props.account
-        };
-
-        const transaction = await this.props.getTransactionAction(reqParams);
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
     };
 

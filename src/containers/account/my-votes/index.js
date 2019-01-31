@@ -13,10 +13,8 @@ import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
-import InfoBox from '../../components/info-box'
-import {formatTimestamp} from "../../../helpers/util/time";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
+
+import CustomTable from '../../components/tables/table';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -112,6 +110,15 @@ class MyVotes extends React.Component {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
     };
+    
+    onPaginate = (page) => {
+        this.setState({
+            page: page,
+            account: this.props.account,
+            firstIndex: page * 15 - 15,
+            lastIndex:  page * 15 - 1
+        });
+    };
 
     render () {
         return (
@@ -120,49 +127,36 @@ class MyVotes extends React.Component {
                     pageTitle={'My Votes'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="active-polls white-space">
-                        <ContentHendler
-                            items={this.state.myVotes}
-                            emptyMessage={'No votes found.'}
-                        >
+                    <CustomTable 
+                        header={[
                             {
-                                this.state.myVotes &&
-                                !!this.state.myVotes.length &&
-                                <div className="transaction-table no-min-height">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Title</td>
-                                                <td>Description</td>
-                                                <td>Sender</td>
-                                                <td>Start date</td>
-                                                <td>Blocks left</td>
-                                                <td className="align-right">Actions</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody  key={uuid()}>
-                                            {
-                                                this.state.myVotes &&
-                                                this.state.myVotes.map((el, index) => {
-                                                    return (
-                                                        <PoolItem
-                                                            key={uuid()}
-                                                            {...el}
-                                                            activepolls
-                                                            getTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
+                                name: 'Title',
+                                alignRight: false
+                            },{
+                                name: 'Description',
+                                alignRight: false
+                            },{
+                                name: 'Sender',
+                                alignRight: false
+                            },{
+                                name: 'Start date',
+                                alignRight: false
+                            },{
+                                name: 'Blocks left',
+                                alignRight: false
+                            },{
+                                name: 'Actions',
+                                alignRight: true
                             }
-                        </ContentHendler>
-                    </div>
+                        ]}
+                        emptyMessage={'No votes found.'}
+                        page={this.state.page}
+                        TableRowComponent={PoolItem}
+                        tableData={this.state.myVotes}
+                        isPaginate
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );
