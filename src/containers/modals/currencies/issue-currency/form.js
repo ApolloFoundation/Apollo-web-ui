@@ -2,10 +2,8 @@ import React from 'react';
 import NumericInput from '../../../components/form-components/numeric-input';
 
 import TextualInputComponent from '../../../components/form-components/textual-input';
-
 import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 import CustomTextArea from '../../../components/form-components/text-area';
-import ModalBody from '../../../components/modals/modal-body';
 
 const IssueCurrencyForm = (props) => {
     const {setValue, getFormState} = props;

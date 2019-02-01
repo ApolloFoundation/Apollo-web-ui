@@ -9,7 +9,7 @@ export const CheckboxFormInput = (props) => {
         <div className="row form-group-grey">
             {
                 label &&
-                <div className={`col-md-3`}>
+                <div className={`col-md-3 pl-0`}>
                     <span>{label}</span>
                 </div>
             }
