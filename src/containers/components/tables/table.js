@@ -4,7 +4,7 @@ import ContentHendler from '../content-hendler';
 import uuid from 'uuid';
 
 const CustomTable = (props) => {
-    const {actionButton, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
+    const {keyField, actionButton, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
     return (
             <ContentHendler
                 items={tableData}
@@ -45,6 +45,7 @@ const CustomTable = (props) => {
                                     tableData.map((el, index) => {
                                         return (
                                             <TableRowComponent
+                                                key={el[keyField]}
                                                 {...el}
                                             />
                                         )

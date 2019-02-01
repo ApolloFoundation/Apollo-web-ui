@@ -359,7 +359,7 @@ class Dashboard extends React.Component {
 						<div className="page-body-top" key={uuid()}>
 							<div className="page-body-item ">
 								<div
-									className={`card header ballance chart-sprite position-1 ${this.state.positionState1 ? "show-hide-content" : ""}`}>
+									className={`card header justify-content-start ballance chart-sprite position-1 ${this.state.positionState1 ? "show-hide-content" : ""}`}>
 									<div className="card-title">Available Balance</div>
 									<div className="arrow-block" onClick={this.position1}>
 										<div className="arrow"/>
@@ -408,7 +408,7 @@ class Dashboard extends React.Component {
 							</div>
 							<div className="page-body-item ">
 								<div
-									className={`card header assets chart-sprite position-2 ${this.state.positionState2 ? "show-hide-content" : ""}`}>
+									className={`card header assets chart-sprite justify-content-start position-2 ${this.state.positionState2 ? "show-hide-content" : ""}`}>
 									<div className="arrow-block" onClick={this.position2}>
 										<div className="arrow"/>
 									</div>
@@ -446,13 +446,13 @@ class Dashboard extends React.Component {
 							</div>
 							<div className="page-body-item ">
 								<div
-									className={`card header currencies chart-sprite position-3 ${this.state.positionState3 ? "show-hide-content" : ""}`}>
+									className={`card header currencies justify-content-start chart-sprite position-3 ${this.state.positionState3 ? "show-hide-content" : ""}`}>
 									<div className="arrow-block" onClick={this.position3}>
 										<div className="arrow"/>
 									</div>
 									<div className="card-title">Currencies Value</div>
 									{
-                                        (typeof this.state.currenciesCount) === 'number' &&
+                                        !!this.state.currenciesCount &&
                                         <div className="page-body-item-content">
                                             <Link
                                                 className="amount"
@@ -466,15 +466,16 @@ class Dashboard extends React.Component {
                                             </Link>
                                         </div>
 									}
+									{console.log(this.state.currenciesCount)}
                                     {
-                                        (typeof this.state.currenciesCount) === 'object' &&
+                                        !(!!this.state.currenciesCount) &&
                                         <ContentLoader white noPaddingOnTheSides/>
                                     }
 								</div>
 							</div>
 							<div className="page-body-item ">
 								<div className="card header header-values coins flex chart-sprite position-4">
-									<div className="general-info">
+									<div className="general-info h-100">
 										<Link
 											to={'/messenger'}
 											className="general-info-item top-left"
@@ -722,7 +723,7 @@ class Dashboard extends React.Component {
 								</div>
 							</div>
 							<div className="page-body-item ">
-								<div className="card card-tall apollo-news">
+								<div className="card card-tall justify-content-start apollo-news">
 									<div className="card-title">Apollo News</div>
 									<div className="card-news-content">
 										{this.state.news && this.getNewsItem(this.state.news.tweets[this.state.newsItem])}

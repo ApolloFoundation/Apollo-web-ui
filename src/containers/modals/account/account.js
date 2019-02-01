@@ -39,8 +39,8 @@ class InfoAccount extends React.Component {
             account: null,
         };
 
-        this.handleTab      = this.handleTab.bind(this);
-        this.getAcccount    = this.getAcccount.bind(this);
+        this.handleTab   = this.handleTab.bind(this);
+        this.getAcccount = this.getAcccount.bind(this);
     }
 
     handleTab(e, index) {
