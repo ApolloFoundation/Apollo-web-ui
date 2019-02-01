@@ -35,13 +35,11 @@ class AddAliasForm extends React.Component {
                     onChange={this.handleChange}
                 />
         
-                <NumericInputComponent
+                <TextualInputComponent
                     setValue={setValue}
                     label={'Alias'}
                     field={'aliasName'}
-                    countingTtile={''}
                     placeholder={'Alias name'}
-                    type={'tel'}
                 />
               
                 {

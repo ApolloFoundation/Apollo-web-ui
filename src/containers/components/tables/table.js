@@ -72,11 +72,13 @@ const CustomTable = (props) => {
                                         'round-bottom-left': true,
                                     })}
                                     onClick={previousHendler}
-                                > Previous</a>
+                                > 
+                                    Previous
+                                </a>
                                 <div className='pagination-nav'>
                                     <span>{page * 15  - 15 + 1}</span>
                                     <span>&hellip;</span>
-                                    <span>{page * 15}</span> 
+                                    <span>{(page * 15 - 15) + tableData.length}</span> 
                                 </div>
                                 <a
                                     onClick={nextHendler}
@@ -88,9 +90,10 @@ const CustomTable = (props) => {
                                         'round-top-left': true,
                                         'round-bottom-right': true,
                                     })}
-                                >Next</a>
+                                >
+                                    Next
+                                </a>
                             </div>
-                 
                         }
                         {
                             actionButton && 

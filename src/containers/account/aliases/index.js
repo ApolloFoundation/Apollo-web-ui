@@ -147,7 +147,7 @@ class Aliases extends React.Component {
                         TableRowComponent={Alias}
                         tableData={this.state.aliases}
                         isPaginate
-                        page={this.props.page}
+                        page={this.state.page}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                         className={'no-min-height'}
