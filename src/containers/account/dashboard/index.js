@@ -466,7 +466,6 @@ class Dashboard extends React.Component {
                                             </Link>
                                         </div>
 									}
-									{console.log(this.state.currenciesCount)}
                                     {
                                         !(!!this.state.currenciesCount) &&
                                         <ContentLoader white noPaddingOnTheSides/>
