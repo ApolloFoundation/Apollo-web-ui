@@ -9,6 +9,7 @@ import TextualIput from '../../../components/form-components/textual-input';
 import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 import InfoBox from '../../../components/info-box';
 import {generateAccountAction} from '../../../../actions/account'
+import {getShufflingAction} from "../../../../actions/shuffling";
 
 class JoinShufflingForm extends React.Component {
 
@@ -149,6 +150,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToPrps = dispatch => ({
+    getShufflingAction: (vlaues) => dispatch(getShufflingAction(vlaues)),
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
 })
 
