@@ -1,38 +1,60 @@
 import React from 'react';
+import {connect} from 'react-redux';
+
+import {getAliasAction} from "../../../../actions/aliases";
 
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
-import NumericInputComponent from '../../../components/form-components/numeric-input';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import AccountRSFormInput from '../../../components/form-components/account-rs';
 
-const aliasTypeData = [
+
+const typeData = [
     { value: 'uri',     label: 'URI' },
     { value: 'account', label: 'Account' },
     { value: 'general', label: 'Other' },
 ];
 
-class AddAliasForm extends React.Component {
+class EditAliasForm extends React.Component {
+    state = {inputType: 'uri'};
+    
+    componentDidMount = () => {
+        this.getAlias();
+    };
+
+    getAlias = async () => {
+        const alias = await this.props.getAliasAction({alias: this.props.modalData});
+
+        if (alias) {
+            this.setState({
+                alias
+            });
+        }
+    };
+
+
+    handleChange = (value) => {
+        this.setState({
+            inputType: value
+        })
+    };
+
     render () {
         const {setValue} = this.props;
-
+        
         return (
             <>
-                <CustomFormSelect
-                    defaultValue={aliasTypeData[0]}
+               <CustomFormSelect
+                    defaultValue={typeData[0]}
                     setValue={setValue}
-                    options={aliasTypeData}
+                    options={typeData}
                     label={'Type'}
                     field={'type'}
                     onChange={this.handleChange}
                 />
-        
-                <TextualInputComponent
-                    setValue={setValue}
+                <TextualInputComponent 
                     label={'Alias'}
-                    field={'aliasName'}
-                    placeholder={'Alias name'}
+                    text={this.state.alias ? this.state.alias.aliasName : ''}
                 />
-              
                 {
                     this.state.inputType === 'uri' &&
                     <TextualInputComponent 
@@ -61,9 +83,18 @@ class AddAliasForm extends React.Component {
                         setValue={setValue}
                     />
                 }
+
             </>
         )
     }
 }
 
-export default AddAliasForm;
+const mapStateToProps = state => ({
+    modalData: state.modals.modalData,
+});
+
+const mapDispatchToProps = dispatch => ({
+    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditAliasForm);

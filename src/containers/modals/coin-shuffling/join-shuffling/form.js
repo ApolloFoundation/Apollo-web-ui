@@ -31,6 +31,18 @@ class JoinShufflingForm extends React.Component {
         }
     };
 
+    componentWillReceiveProps = async (newProps) => {
+        const shuffling = await newProps.getShufflingAction({
+            shuffling: newProps.modalData
+        });
+
+        if (shuffling) {
+            this.setState({
+                shuffling
+            });
+        }
+    }
+
     setAccount = async (getFormState, setValue) => {
         const {recipientSecretPhrase} = getFormState(); 
         const passphrase = recipientSecretPhrase;
@@ -73,8 +85,6 @@ class JoinShufflingForm extends React.Component {
             <>
                 {
                     shuffling &&
-                    modalData &&  
-                    modalData.broadcast &&
                     <TextualIput
                         label={'Shuffling Id'}
                         text={`${shuffling.shuffling} ${modalData.broadcast.transaction}`}
@@ -88,6 +98,7 @@ class JoinShufflingForm extends React.Component {
                         </label>
                         <div className="col-sm-9">
                             <Text 
+                                setValue={setValue}
                                 className="form-control"
                                 field="recipientSecretPhrase"
                                 placeholder="Account ID"
@@ -98,6 +109,7 @@ class JoinShufflingForm extends React.Component {
                     </div>
                 }
                 <CheckboxFormInput
+                    setValue={setValue}
                     checkboxes={[
                         {
                             field: 'isVaultWallet',

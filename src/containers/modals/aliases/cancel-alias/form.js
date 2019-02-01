@@ -1,38 +1,43 @@
 import React from 'react';
 
+
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 import NumericInputComponent from '../../../components/form-components/numeric-input';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import AccountRSFormInput from '../../../components/form-components/account-rs';
 
-const aliasTypeData = [
+const typeData = [
     { value: 'uri',     label: 'URI' },
     { value: 'account', label: 'Account' },
     { value: 'general', label: 'Other' },
 ];
 
-class AddAliasForm extends React.Component {
+class CancelSaleForm extends React.Component {
+    state = {inputType: 'uri'};
+
+    handleChange = (value) => {
+        this.setState({
+            inputType: value
+        })
+    };
+
     render () {
         const {setValue} = this.props;
-
+        
         return (
             <>
                 <CustomFormSelect
-                    defaultValue={aliasTypeData[0]}
+                    defaultValue={typeData[0]}
                     setValue={setValue}
-                    options={aliasTypeData}
+                    options={typeData}
                     label={'Type'}
                     field={'type'}
                     onChange={this.handleChange}
                 />
-        
-                <TextualInputComponent
-                    setValue={setValue}
+                <TextualInputComponent 
                     label={'Alias'}
-                    field={'aliasName'}
-                    placeholder={'Alias name'}
+                    text={this.state.alias.aliasName}
                 />
-              
                 {
                     this.state.inputType === 'uri' &&
                     <TextualInputComponent 
@@ -66,4 +71,4 @@ class AddAliasForm extends React.Component {
     }
 }
 
-export default AddAliasForm;
+export default CancelSaleForm;
