@@ -64,6 +64,7 @@ const CreateShufflngForm = (props) => {
                 />
             }
             <BlockHeightInput 
+                setValue={setValue}
                 label={'Register Until'}
                 field={'finishHeight'}
                 placeholder={'Register Until'}

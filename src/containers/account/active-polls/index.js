@@ -10,14 +10,10 @@ import {getAliasesAction} from "../../../actions/aliases";
 import SiteHeader from '../../components/site-header'
 import {getpollsAction} from '../../../actions/polls';
 import PoolItem from './pool-item';
-import uuid from "uuid";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {withRouter} from 'react-router-dom';
-import InfoBox from '../../components/info-box';
 import {BlockUpdater} from "../../block-subscriber";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 

@@ -18,6 +18,9 @@ import {BlockUpdater} from "../../block-subscriber";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+import CustomTable from '../../components/tables/table';
+
+
 const mapStateToPropms = state => ({
     account: state.account.account
 });
@@ -121,85 +124,75 @@ class ActiveShufflings extends React.Component {
                     pageTitle={'Active Shuffling'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="transaction-table">
-                        <div className="transaction-table no-min-height">
-                            <ContentHendler
-                                items={this.state.activeShuffling}
-                                emptyMessage={'No active shuffling.'}
-                            >
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Shuffling</td>
-                                            <td>Stage</td>
-                                            <td>Holding</td>
-                                            <td>Amount</td>
-                                            <td>Blocks Remaining</td>
-                                            <td className="align-right">Participants</td>
-                                            <td className="align-right">Assignee</td>
-                                            <td className="align-right">Status</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.activeShuffling &&
-                                            this.state.activeShuffling.map((el, index) => {
-                                                return (
-                                                    <ShufflingItem
-                                                        key={uuid()}
-                                                        {...el}
-                                                        getTransaction={this.getTransaction}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
+                    <div className="active-polls white-space">
+                        <CustomTable 
+                            header={[
+                                {
+                                    name: 'Shuffling',
+                                    alignRight: false
+                                },{
+                                    name: 'Stage',
+                                    alignRight: false
+                                },{
+                                    name: 'Holding',
+                                    alignRight: false
+                                },{
+                                    name: 'Amount',
+                                    alignRight: false
+                                },{
+                                    name: 'Blocks Remaining',
+                                    alignRight: false
+                                },{
+                                    name: 'Participants',
+                                    alignRight: true
+                                },{
+                                    name: 'Assignee',
+                                    alignRight: true
+                                },{
+                                    name: 'Status',
+                                    alignRight: true
+                                }
+                            ]}
+                            className={'no-min-height'}
+                            emptyMessage={'No active polls.'}
+                            TableRowComponent={ShufflingItem}
+                            tableData={this.state.activeShuffling}
+                        />
 
-                                </div>
-                            </ContentHendler>
-                        </div>
-                        <div className="form-group-app offset-bottom height-auto no-padding">
-                            <div className="form-title padding-left padding-top">
-                                <p>Finished Shufflings</p>
-                            </div>
-                            <ContentHendler
-                                items={this.state.finishedShufflings}
-                                emptyMessage={'No finished shuffling.'}
-                            >
-                                <div className="transaction-table no-min-height">
-                                    <div className="transaction-table-body offset-bottom">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Shuffling</td>
-                                                <td>Stage</td>
-                                                <td>Holding</td>
-                                                <td>Amount</td>
-                                                <td className="align-right">Participants</td>
-                                                <td className="align-right">Issuer</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                this.state.finishedShufflings &&
-                                                this.state.finishedShufflings.map((el, index) => {
-                                                    return (
-                                                        <ShufflingItem
-                                                            key={uuid()}
-                                                            finished
-                                                            {...el}
-                                                            getTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </ContentHendler>
+                        <div className="form-group-app offset-bottom height-auto no-padding transparent">
+                            <CustomTable 
+                                tableName={'Finished Shufflings'}
+                                header={[
+                                    {
+                                        name: 'Shuffling',
+                                        alignRight: false
+                                    },{
+                                        name: 'Stage',
+                                        alignRight: false
+                                    },{
+                                        name: 'Holding',
+                                        alignRight: false
+                                    },{
+                                        name: 'Amount',
+                                        alignRight: false
+                                    },{
+                                        name: 'Participants',
+                                        alignRight: true
+                                    },{
+                                        name: 'Issuer',
+                                        alignRight: true
+                                    },
+                                ]}
+                                className={'no-min-height pb-0'}
+                                emptyMessage={'No finished polls.'}
+                                TableRowComponent={ShufflingItem}
+                                tableData={this.state.finishedShufflings}
+                                hintClassName={''}
+                                actionButton={{
+                                    name:'View All',
+                                    handler: this.handleGoToFinishedPolls
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
