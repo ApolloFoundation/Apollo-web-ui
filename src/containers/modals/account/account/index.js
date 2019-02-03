@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction, openPrevModal} from '../../../../modules/modals';
 import classNames from 'classnames';
-import uuid from "uuid";
+
 import {getAccountAction}     from "../../../../actions/account";
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getLedgerEntryAction} from "../../../../actions/ledger";

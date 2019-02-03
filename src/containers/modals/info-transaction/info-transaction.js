@@ -13,6 +13,10 @@ import {formatTimestamp} from "../../../helpers/util/time";
 import InfoTransactionTable from "./info-transoction-table"
 import {getAccountInfoAction} from "../../../actions/account";
 
+import CustomTable from '../../components/tables/table';
+import TabulationBody from '../../components/tabulator/tabuator-body';
+import TabContaier from '../../components/tabulator/tab-container';
+
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {
         super(props);
@@ -86,52 +90,16 @@ class InfoLedgerTransaction extends React.Component {
 	                            }
                                 <p>Transaction {this.state.transaction.transaction} Info</p>
                             </div>
+                            
+                            <TabulationBody>
 
-                            <div className="form-tabulator active">
-                                <div className="form-tab-nav-box justify-left">
-                                    <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
-                                        "form-tab": true,
-                                        "active": this.state.activeTab === 0
-                                    })}>
-                                        <span className="pre">Info</span>
-                                    </a>
-                                    <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
-                                        "form-tab": true,
-                                        "active": this.state.activeTab === 1
-                                    })}>
-                                        <span className="pre">Actions</span>
-                                    </a>
-                                    <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
-                                        "form-tab": true,
-                                        "active": this.state.activeTab === 2
-                                    })}>
-                                        <span className="pre">Transactions Details</span>
-                                    </a>
-                                    {
-                                        this.state.transaction &&
-                                        this.state.transaction.phased &&
-                                        <a onClick={(e) => this.handleTab(e, 3)} className={classNames({
-                                            "form-tab": true,
-                                            "active": this.state.activeTab === 3
-                                        })}>
-                                            <span className="pre">Phasing Details</span>
-                                        </a>
-                                    }
-
-                                </div>
-
-                                <div className={classNames({
-                                    "tab-body": true,
-                                    "active": this.state.activeTab === 0
-                                })}>
-                                    <div className="transaction-table no-min-height">
+                                <TabContaier sectionName={'Info'}>
+                                    <div className="transaction-table no-min-height transparent">
                                         <InfoTransactionTable transaction={this.state.transaction} constants={this.props.constants}/>
                                     </div>
-                                </div>
-                                <div className={classNames({
-                                    "tab-body": true,
-                                    "active": this.state.activeTab === 1
-                                })}>
+                                </TabContaier>
+
+                                <TabContaier sectionName={'Actions'}>
                                     {
                                         this.state.transaction &&
                                         <div className="flexible-grid">
@@ -168,13 +136,10 @@ class InfoLedgerTransaction extends React.Component {
                                             <a className="btn btn-primary blue-disabled static">Extend data lifetime</a>
                                         </div>
                                     }
+                                </TabContaier>
 
-                                </div>
-                                <div className={classNames({
-                                    "tab-body": true,
-                                    "active": this.state.activeTab === 2
-                                })}>
-                                    <div className="transaction-table no-min-height">
+                                <TabContaier sectionName={'Transactions Details'}>
+                                    <div className="transaction-table no-min-height transparent">
                                         <div className="transaction-table-body transparent full-info">
                                             <table>
                                                 <tbody>
@@ -289,17 +254,14 @@ class InfoLedgerTransaction extends React.Component {
                                             </table>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div className={classNames({
-                                    "tab-body": true,
-                                    "active": this.state.activeTab === 3
-                                })}>
-                                    {
-                                        this.state.transaction &&
-                                        this.state.transaction.attachment &&
-                                        this.state.transaction.phased &&
-                                        <div className="transaction-table no-min-height">
+                                </TabContaier>
+                                {
+                                    this.state.transaction &&
+                                    this.state.transaction.attachment &&
+                                    this.state.transaction.phased &&
+                                    <TabContaier sectionName={'Phasing Details'}>
+                                
+                                        <div className="transaction-table no-min-height transparent">
                                             <div className="transaction-table-body transparent full-info">
                                                 <table>
                                                     <tbody>
@@ -372,9 +334,11 @@ class InfoLedgerTransaction extends React.Component {
                                                 </table>
                                             </div>
                                         </div>
-                                    }
-                                </div>
-                            </div>
+                                    </TabContaier>
+                                }
+                                
+                            </TabulationBody>
+
                             <div className="btn-box align-buttons-inside absolute right-conner">
                                 <a className="btn btn-right round round-top-left round-bottom-right"
                                    onClick={() => this.props.closeModal()}
