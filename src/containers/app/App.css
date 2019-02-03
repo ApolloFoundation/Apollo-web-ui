@@ -7242,7 +7242,8 @@ table td .btn, table th .btn {
     background: transparent; }
     .info-box.simple p {
       padding-left: 0;
-      padding-right: 0; }
+      padding-right: 0;
+      color: #000; }
   .info-box p {
     padding: 18px 40px;
     color: #000; }

@@ -10,13 +10,14 @@ import {closeModal, setBodyModalParamsAction, setModalType} from "../../../../mo
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
-import store from '../../../../store'
+import store from '../../../../store';
+
 class MyAssetItem extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            transfer: this.props.transfer
+            transfer: this.props
         }
         this.getAskOrders();
         this.getBidOrders();
@@ -76,6 +77,8 @@ class MyAssetItem extends React.Component {
 
     render () {
 
+        console.log(this.props)
+
 	    if (this.state.transfer) {
             return (
                 <tr key={uuid()}>
@@ -88,7 +91,10 @@ class MyAssetItem extends React.Component {
                             maximumFractionDigits: this.state.transfer.decimals
                         })}
                     </td>
-                    <td className="align-right">{(this.state.transfer.quantityATU  / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
+                    <td 
+                        className="align-right"
+                    >
+                    {(this.state.transfer.quantityATU  / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
                         minimumFractionDigits: this.state.transfer.decimals,
                         maximumFractionDigits: this.state.transfer.decimals
                     })}</td>

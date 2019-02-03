@@ -20,7 +20,7 @@ import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
 
 // Account
-import InfoAccount from './account/account';
+import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';
 import AccountDetails from './account/account-details';
 import LeaseBalance from './account/lease-balance';

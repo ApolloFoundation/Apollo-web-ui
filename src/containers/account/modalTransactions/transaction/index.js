@@ -42,51 +42,69 @@ class Transaction extends React.Component {
     }
 
     render () {
+        const {
+            feeATM, 
+            amountATM, 
+            subtype, 
+            type, 
+            transaction, 
+            constants,
+            setTransactionInfo, 
+            formatTimestamp, 
+            timestamp,
+            sender,
+            senderRS,
+            recipient,
+            recipientRS,
+            height,
+            isUnconfirmed
+        } = this.props;
+
         return (
             <tr key={uuid()}>
                 {
-                    this.props.transaction && this.props.constants &&
+                    transaction && constants &&
                     <React.Fragment>
                         <td className="blue-link-text">
-                            <a onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.props.transaction.transaction, (this.props.transaction.type === 0 && this.props.transaction.subtype === 1))}>
-                                {this.props.formatTimestamp(this.props.transaction.timestamp)}
+                            <a onClick={() => setTransactionInfo('INFO_TRANSACTION', transaction, (type === 0 && subtype === 1))}>
+                                {formatTimestamp(timestamp)}
                             </a>
                         </td>
                         <td>
                             {
-                                !!this.props.constants.transactionTypes[this.props.transaction.type] &&
-                                formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)
+                                !!constants.transactionTypes[type] &&
+                                formatTransactionType(constants.transactionTypes[type].subtypes[subtype].name)
                             }
                         </td>
                         <td className="align-right">
-                            {this.props.transaction.amountATM / 100000000}
+                            {amountATM / 100000000}
                         </td>
                         <td className="align-right">
-                            {this.props.transaction.feeATM    / 100000000}
+                            {feeATM / 100000000}
                         </td>
                         <td className="blue-link-text">
-                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a>
+                            <a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', sender)}>{senderRS}</a>
                         </td>
                         <td className="blue-link-text">
-	                        <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
+	                        <a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', recipient)}>{recipientRS}</a>
                         </td>
                         <td className="align-right blue-link-text">
                             {
-                                !this.props.isUnconfirmed &&
-                                <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', this.props.transaction.height)}>{this.props.transaction.height}</a>
+                                !isUnconfirmed &&
+                                <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', height)}>{height}</a>
                             }
                             {
-                                this.props.isUnconfirmed && '-'
+                                isUnconfirmed && '-'
                             }
                         </td>
 
                         <td className="align-right">
                             {
-                                !this.props.isUnconfirmed &&
+                                !isUnconfirmed &&
                                 <a>{this.props.transaction.confirmations}</a>
                             }
                             {
-                                this.props.isUnconfirmed && '-'
+                                isUnconfirmed && '-'
                             }
                         </td>
                     </React.Fragment>

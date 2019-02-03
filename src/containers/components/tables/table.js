@@ -16,9 +16,12 @@ const CustomTable = (props) => {
                     !!tableData.length &&
                     <>
                         <div className={`transaction-table ${className}`}>
-                            <div className="form-title padding-left padding-top">
-                                <p>{tableName}</p>
-                            </div>
+                            {
+                                tableName && 
+                                <div className="form-title padding-left padding-top">
+                                    <p>{tableName}</p>
+                                </div>
+                            }
 
                         <div className="transaction-table-body">
                             <table>
