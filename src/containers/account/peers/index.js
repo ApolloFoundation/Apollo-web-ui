@@ -15,6 +15,10 @@ import uuid from "uuid";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+import CustomTable from '../../components/tables/table';
+import TopPageBlocks from '../../components/tob-page-blocks';
+
+
 const mapStateToProps = state => ({
     isLocalhost: state.account.isLocalhost
 })
@@ -78,6 +82,9 @@ class Peers extends React.Component {
     blacklistPeer = peerAddress => this.props.setBodyModalParamsAction("BLACKLIST_PEER", peerAddress);
 
     render () {
+        
+        const {peersInfo} = this.state;
+
         return (
             <div className="page-content">
                 <SiteHeader
@@ -93,81 +100,61 @@ class Peers extends React.Component {
                     }
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <div className="peers">
-                        <div className="row">
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <div className="card header ballance single">
-                                    <div className="card-title">Uploaded Volume</div>
+                    <div className="">
+                        {
+                            peersInfo &&
+                            <TopPageBlocks
+                                cards={[
                                     {
-                                        this.state.peersInfo &&
-                                        <div className="amount">{Math.round(this.state.peersInfo.volumeUploaded / 1000000, 2)} MB</div>
+                                        label: 'Uploaded Volume',
+                                        value: `${Math.round(peersInfo.volumeUploaded / 1000000, 2)} MB`
+                                    },{
+                                        label: 'Downloaded Volume',
+                                        value: `${Math.round(peersInfo.volumeDownloaded / 1000000, 2)} MB`
+                                    },{
+                                        label: 'Connected Peers',
+                                        value: peersInfo.upToDatePeers
+                                    },{
+                                        label: 'Up-to-date Peers',
+                                        value: peersInfo.connectedPeers / peersInfo.peersVolume
                                     }
-                                </div>
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <div className="card header assets single">
-                                    <div className="card-title">Downloaded Volume</div>
-                                    {
-                                        this.state.peersInfo &&
-                                        <div className="amount">{Math.round(this.state.peersInfo.volumeDownloaded / 1000000, 2)} MB</div>
-                                    }
-                                </div>
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <div className="card header currencies single">
-                                    <div className="card-title">Connected Peers</div>
-                                    {
-                                        this.state.peersInfo &&
-                                        <div className="amount">{this.state.peersInfo.upToDatePeers}</div>
-                                    }
-                                </div>
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <div className="card header coins single">
-                                    <div className="card-title">Up-to-date Peers</div>
-                                    {
-                                        this.state.peersInfo &&
-                                        <div className="amount">{this.state.peersInfo.connectedPeers}/{this.state.peersInfo.peersVolume}</div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <td>Address</td>
-                                            <td className="align-right">Weight</td>
-                                            <td className="align-right">Downloaded</td>
-                                            <td className="align-right">Uploaded</td>
-                                            <td className="align-right">Application</td>
-                                            <td>Platform</td>
-                                            <td className="align-right">Services</td>
-                                            {
-                                                this.props.isLocalhost &&
-                                                <td className="align-right">Actions</td>
-                                            }
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            this.state.peers &&
-                                            this.state.peers.map(peer => {
-                                                return (
-                                                    <Peer {...peer}
-                                                          key={uuid()}
-                                                          onTransactionSelected={() => this.getPeer(peer.address)}
-                                                          onConnectClick={() => this.connectPeer(peer.address)}
-                                                          onBlacklistClick={() => this.blacklistPeer(peer.address)}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                ]}
+                            />
+                        }
+                        <CustomTable
+                            header={[
+                                {
+                                    name: 'Address',
+                                    alignRight: false
+                                },{
+                                    name: 'Weight',
+                                    alignRight: true
+                                },{
+                                    name: 'Downloaded',
+                                    alignRight: true
+                                },{
+                                    name: 'Uploaded',
+                                    alignRight: true
+                                },{
+                                    name: 'Application',
+                                    alignRight: true
+                                },{
+                                    name: 'Platform',
+                                    alignRight: false
+                                },{
+                                    name: 'Services',
+                                    alignRight: true
+                                },{
+                                    name: 'Actions',
+                                    alignRight: true,
+                                    isRneder: this.props.isLocalhost
+                                }
+                            ]}
+                            TableRowComponent={Peer}
+                            tableData={this.state.peers}
+                            className={'no-min-height'}
+                            emptyMessage={'No aliases found.'}
+                        />
                     </div>
                 </div>
             </div>

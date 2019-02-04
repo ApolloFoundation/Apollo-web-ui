@@ -30,14 +30,20 @@ const CustomTable = (props) => {
                                         {
                                             header && 
                                             header.map((el) => 
-                                                <td
-                                                    key={uuid()}
-                                                    className={classNames({
-                                                        'align-right': el.alignRight
-                                                    })}
-                                                >
-                                                    {el.name}
-                                                </td>
+                                                <>
+                                                    {
+                                                        !el.isRender && 
+                                                        <td
+                                                            key={uuid()}
+                                                            className={classNames({
+                                                                'align-right': el.alignRight
+                                                            })}
+                                                        >
+                                                            {el.name}
+                                                        </td>
+                                                    }
+                                                </>
+                                                
                                             )
                                         }
                                         

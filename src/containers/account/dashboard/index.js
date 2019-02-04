@@ -354,7 +354,7 @@ class Dashboard extends React.Component {
 					pageTitle={'Dashboard'}
 					dashboardPage
 				/>
-				<div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
+				<div className="page-body container-fluid full-screen-block pl-sm-2 pr-sm-2 pl-md-0 pr-md-0">
 					<div className={"page-body-top-bottom-container"}>
 						<div className="page-body-top" key={uuid()}>
 							<div className="page-body-item ">
