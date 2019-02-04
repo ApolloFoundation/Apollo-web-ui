@@ -28,7 +28,7 @@ class SendApolloCard extends Component {
                 render={({
                             submitForm, setValue, getFormState
                         }) => (
-                            <form onSubmit={submitForm} className="card send-apollo">
+                            <form onSubmit={submitForm} className="card send-apollo mb-3">
                                 <div className="card-title">Send Apollo</div>
                                 <div className="full-box">
                                     <div className="form-group-app offset">

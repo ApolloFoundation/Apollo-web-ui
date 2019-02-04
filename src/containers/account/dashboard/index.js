@@ -359,7 +359,7 @@ class Dashboard extends React.Component {
 						<div className="page-body-top" key={uuid()}>
 							<div className="page-body-item ">
 								<div
-									className={`card header justify-content-start ballance chart-sprite position-1 ${this.state.positionState1 ? "show-hide-content" : ""}`}>
+									className={`card header justify-content-start ballance chart-sprite position-1 mb-3 ${this.state.positionState1 ? "show-hide-content" : ""}`}>
 									<div className="card-title">Available Balance</div>
 									<div className="arrow-block" onClick={this.position1}>
 										<div className="arrow"/>
@@ -408,7 +408,7 @@ class Dashboard extends React.Component {
 							</div>
 							<div className="page-body-item ">
 								<div
-									className={`card header assets chart-sprite justify-content-start position-2 ${this.state.positionState2 ? "show-hide-content" : ""}`}>
+									className={`card header assets chart-sprite justify-content-start position-2 mb-3 ${this.state.positionState2 ? "show-hide-content" : ""}`}>
 									<div className="arrow-block" onClick={this.position2}>
 										<div className="arrow"/>
 									</div>
@@ -446,7 +446,7 @@ class Dashboard extends React.Component {
 							</div>
 							<div className="page-body-item ">
 								<div
-									className={`card header currencies justify-content-start chart-sprite position-3 ${this.state.positionState3 ? "show-hide-content" : ""}`}>
+									className={`card header currencies justify-content-start chart-sprite position-3 mb-3 ${this.state.positionState3 ? "show-hide-content" : ""}`}>
 									<div className="arrow-block" onClick={this.position3}>
 										<div className="arrow"/>
 									</div>
@@ -473,7 +473,7 @@ class Dashboard extends React.Component {
 								</div>
 							</div>
 							<div className="page-body-item ">
-								<div className="card header header-values coins flex chart-sprite position-4">
+								<div className="card header header-values coins flex chart-sprite position-4 mb-3">
 									<div className="general-info h-100">
 										<Link
 											to={'/messenger'}
@@ -536,7 +536,7 @@ class Dashboard extends React.Component {
 						</div>
 						<div className="page-body-bottom">
 							<div className="page-body-item ">
-								<div className="card card-tall transactions media-min-height">
+								<div className="card card-tall transactions media-min-height mb-3">
 									<div className="card-title">Transactions</div>
 									<div className="transactions-dashboard scroll">
 										{
@@ -576,7 +576,7 @@ class Dashboard extends React.Component {
 								</div>
 							</div>
 							<div className="page-body-item ">
-								<div className="card asset-portfolio">
+								<div className="card asset-portfolio mb-3">
 									<div className="card-title">Asset Portfolio</div>
 									{
                                         !this.state.dashboardAssets &&
@@ -668,7 +668,7 @@ class Dashboard extends React.Component {
 							<div className="page-body-item ">
 										
 								<SendApolloCard />
-								<div className="card active-polls">
+								<div className="card active-polls mb-3">
 									<div className="card-title">Active Polls</div>
 									<div
 										className="full-box block word-brake"
@@ -722,7 +722,7 @@ class Dashboard extends React.Component {
 								</div>
 							</div>
 							<div className="page-body-item ">
-								<div className="card card-tall justify-content-start apollo-news">
+								<div className="card card-tall justify-content-start apollo-news mb-3">
 									<div className="card-title">Apollo News</div>
 									<div className="card-news-content">
 										{this.state.news && this.getNewsItem(this.state.news.tweets[this.state.newsItem])}
