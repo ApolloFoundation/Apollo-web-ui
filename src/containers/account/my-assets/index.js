@@ -16,6 +16,7 @@ import InfoBox from '../../components/info-box';
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+import CustomTable from '../../components/tables/table';
 
 const mapStateToProps = state => ({
     assetBalances: state.account.assetBalances,
@@ -69,11 +70,11 @@ class MyAssets extends React.Component {
         BlockUpdater.removeAllListeners('data');
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps () {
         this.getAssets();
     }
 
-    async getAssets() {
+    async getAssets () {
         let assets = await this.props.getAssetAction({
             account: this.props.account
         });
@@ -96,7 +97,7 @@ class MyAssets extends React.Component {
         }
     }
 
-    async getTransaction(data) {
+    async getTransaction (data) {
         const reqParams = {
             transaction: data,
             account: this.props.account
@@ -115,80 +116,42 @@ class MyAssets extends React.Component {
                     pageTitle={'My assets'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="scheduled-transactions">
-                        <ContentHendler
-                            items={this.state.assets}
-                            emptyMessage={'No assets found.'}
-                        >
+                    <CustomTable 
+                        header={[
                             {
-                                !!this.state.assets &&
-                                !!this.state.assets.length &&
-                                <div className="transaction-table">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Asset</td>
-                                                <td className="align-right">Quantity</td>
-                                                <td className="align-right">Total Available</td>
-                                                <td className="align-right">Percentage</td>
-                                                <td className="align-right">Lowest Ask</td>
-                                                <td className="align-right">Highest Bid</td>
-                                                <td className="align-right">Value in Coin</td>
-                                                <td className="align-right">Action</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                this.state.assets &&
-                                                this.state.assets.map((el, index) => {
-                                                    return (
-                                                        <MyAssetItem
-                                                            key={uuid()}
-                                                            transfer={el}
-                                                            setTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                        {
-                                            this.state.trades &&
-                                            <div className="btn-box">
-                                                <a
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-left' : true,
-                                                        'disabled' : this.state.page <= 1
-                                                    })}
-                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                >
-                                                    Previous
-                                                </a>
-                                                <div className='pagination-nav'>
-                                                    <span>{this.state.firstIndex + 1}</span>
-                                                    <span>&hellip;</span>
-                                                    <span>{this.state.lastIndex + 1}</span>
-                                                </div>
-                                                <a
-                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-right' : true,
-                                                        'disabled' : this.state.trades.length < 15
-                                                    })}
-                                                >
-                                                    Next
-                                                </a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
+                                name: 'Asset',
+                                alignRight: false
+                            },{
+                                name: 'Quantity',
+                                alignRight: true
+                            },{
+                                name: 'Total Available',
+                                alignRight: true
+                            },{
+                                name: 'Percentage',
+                                alignRight: true
+                            },{
+                                name: 'Lowest Ask',
+                                alignRight: true
+                            },{
+                                name: 'Highest Bid',
+                                alignRight: true
+                            },{
+                                name: 'Value in Coin',
+                                alignRight: true
+                            },{
+                                name: 'Action',
+                                alignRight: true
                             }
-
-                        </ContentHendler>
-                    </div>
+                        ]}
+                        page={this.state.page}
+                        TableRowComponent={MyAssetItem}
+                        tableData={this.state.assets}
+                        isPaginate
+                        emptyMessage={'No currencies found.'}
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );

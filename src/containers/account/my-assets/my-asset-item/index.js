@@ -13,27 +13,25 @@ import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
 import store from '../../../../store';
 
 class MyAssetItem extends React.Component {
+    
+    state = {};
+
     constructor(props) {
         super(props);
 
-        this.state = {
-            transfer: this.props
-        }
         this.getAskOrders();
         this.getBidOrders();
     }
 
-    componentWillReceiveProps (newState) {
-        this.setState({
-            transfer: newState.transfer
-        }, () => {
-            this.getAskOrders();
-            this.getBidOrders();
-        })
+    componentWillReceiveProps () {
+        this.getAskOrders();
+        this.getBidOrders();
     }
 
     getAskOrders = async () => {
-        const askOrders = await this.props.getAskOrders(this.state.transfer.asset);
+        const {asset} = this.props;
+
+        const askOrders = await this.props.getAskOrders(asset);
 
         if (askOrders) {
             let orders = Math.min(...askOrders.orders.map((el) => {
@@ -50,7 +48,9 @@ class MyAssetItem extends React.Component {
     };
 
     getBidOrders = async () => {
-        const bidOrders = await this.props.getBidOrders(this.state.transfer.asset);
+        const {asset} = this.props;
+
+        const bidOrders = await this.props.getBidOrders(asset);
 
         if (bidOrders) {
 
@@ -79,98 +79,96 @@ class MyAssetItem extends React.Component {
 
         console.log(this.props)
 
-	    if (this.state.transfer) {
-            return (
-                <tr key={uuid()}>
-                    <td className="blue-link-text" >
-                        <Link onClick={this.close} to={"/asset-exchange/" + this.state.transfer.asset}>{this.state.transfer.name}</Link>
-                    </td>
-                    <td className="align-right">
-                        {(this.state.transfer.unconfirmedQuantityATU / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
-                            minimumFractionDigits: this.state.transfer.decimals,
-                            maximumFractionDigits: this.state.transfer.decimals
-                        })}
-                    </td>
-                    <td 
-                        className="align-right"
-                    >
-                    {(this.state.transfer.quantityATU  / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
-                        minimumFractionDigits: this.state.transfer.decimals,
-                        maximumFractionDigits: this.state.transfer.decimals
-                    })}</td>
-                    <td className="align-right">
-                        {((parseInt(this.state.transfer.unconfirmedQuantityATU) / parseInt(this.state.transfer.quantityATU)) * 100).toFixed(2)}&nbsp;%
-                    </td>
-                    {
-                        !this.props.info &&
-                        <React.Fragment>
-                            <td className="align-right" >
-                                {
-                                    !!(this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)) &&
-                                    (this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
-                                        minimumFractionDigits: this.state.transfer.decimals,
-                                        maximumFractionDigits: this.state.transfer.decimals
-                                    })
-                                }
-                            </td>
-                            <td className="align-right">
-                                {
-                                    !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)) &&
-                                    (this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
-                                        minimumFractionDigits: this.state.transfer.decimals,
-                                        maximumFractionDigits: this.state.transfer.decimals
-                                    })
-                                }
-                            </td>
-                            <td className="align-right blue-link-text">
-                                {
-                                    !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)) &&
-                                    ((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, this.state.transfer.decimals)) *
-                                    (this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals))).toLocaleString('en', {
-                                        minimumFractionDigits: this.state.transfer.decimals,
-                                        maximumFractionDigits: this.state.transfer.decimals
-                                    })
-                                }
-                            </td>
-                            <td className="align-right">
-                                <div className="btn-box inline">
-                                    <a
-                                        onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
-                                            quantityATU: this.state.transfer.quantityATU,
-                                            assetID:   this.state.transfer.asset,
-                                            assetName: this.state.transfer.name,
-                                            decimals: this.state.transfer.decimals,
-                                            availableAssets: (this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
-                                                minimumFractionDigits: this.state.transfer.decimals,
-                                                maximumFractionDigits: this.state.transfer.decimals
-                                            })}
-                                        )}
-                                        className="btn primary blue"
-                                    >
-                                        Transfer
-                                    </a>
-                                    <a
-                                        onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
-                                            quantityATU: this.state.transfer.quantityATU,
-                                            assetID:   this.state.transfer.asset,
-                                            decimals: this.state.transfer.decimals,
-                                            assetName: this.state.transfer.name
+        const {decimals, asset, name, unconfirmedQuantityATU, quantityATU} = this.props;
+
+	    return (
+            <tr key={uuid()}>
+                <td className="blue-link-text" >
+                    <Link onClick={this.close} to={"/asset-exchange/" + asset}>{name}</Link>
+                </td>
+                <td className="align-right">
+                    {(unconfirmedQuantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+                        minimumFractionDigits: decimals,
+                        maximumFractionDigits: decimals
+                    })}
+                </td>
+                <td 
+                    className="align-right"
+                >
+                {(quantityATU  / Math.pow(10, decimals)).toLocaleString('en', {
+                    minimumFractionDigits: decimals,
+                    maximumFractionDigits: decimals
+                })}</td>
+                <td className="align-right">
+                    {((parseInt(unconfirmedQuantityATU) / parseInt(quantityATU)) * 100).toFixed(2)}&nbsp;%
+                </td>
+                {
+                    !this.props.info &&
+                    <React.Fragment>
+                        <td className="align-right" >
+                            {
+                                !!(this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
+                                (this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals))
+                                .toLocaleString('en', {
+                                    minimumFractionDigits: decimals,
+                                    maximumFractionDigits: decimals
+                                })
+                            }
+                        </td>
+                        <td className="align-right">
+                            {
+                                !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
+                                (this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
+                                .toLocaleString('en', {
+                                    minimumFractionDigits: decimals,
+                                    maximumFractionDigits: decimals
+                                })
+                            }
+                        </td>
+                        <td className="align-right blue-link-text">
+                            {
+                                !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
+                                ((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) *
+                                (quantityATU / Math.pow(10, decimals))).toLocaleString('en', {
+                                    minimumFractionDigits: decimals,
+                                    maximumFractionDigits: decimals
+                                })
+                            }
+                        </td>
+                        <td className="align-right">
+                            <div className="btn-box inline">
+                                <a
+                                    onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
+                                        quantityATU,
+                                        assetID:   asset,
+                                        assetName: name,
+                                        decimals,
+                                        availableAssets: (quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+                                            minimumFractionDigits: decimals,
+                                            maximumFractionDigits: decimals
                                         })}
-                                        className="btn primary blue"
-                                    >
-                                        Delete Shares
-                                    </a>
-                                </div>
-                            </td>
-                        </React.Fragment>
-                    }
-                </tr>
-            );
-        } else {
-            return (
-                <tr key={uuid()}></tr>
-            );
-        }
+                                    )}
+                                    className="btn primary blue"
+                                >
+                                    Transfer
+                                </a>
+                                <a
+                                    onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
+                                        quantityATU,
+                                        assetID:   asset,
+                                        decimals,
+                                        assetName: name
+                                    })}
+                                    className="btn primary blue"
+                                >
+                                    Delete Shares
+                                </a>
+                            </div>
+                        </td>
+                    </React.Fragment>
+                }
+            </tr>
+        );
     }
 }
 
