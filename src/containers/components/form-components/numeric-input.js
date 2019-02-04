@@ -2,7 +2,7 @@ import React from 'react';
 import InputForm from '../input-form';
 
 const NumericInput = ({label, field, countingTtile, setValue, placeholder, type}) => (
-    <div className="form-group row form-group-white mb-15">
+    <div className="form-group row form-group-white">
         <label className="col-sm-3 col-form-label">
             {label}
         </label>

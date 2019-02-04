@@ -61,6 +61,14 @@ html, body {
   .show-media {
     display: inline; } }
 
+.transparent {
+  background: transparent; }
+  .transparent > * {
+    background: transparent !important; }
+
+.gray-form input {
+  background-color: #F5F5F5 !important; }
+
 @media (min-width: 768px) {
   .hide-desktop {
     display: none; } }
@@ -5001,6 +5009,14 @@ html, body {
 @media (max-width: 768px) {
   .show-media {
     display: inline; } }
+
+.transparent {
+  background: transparent; }
+  .transparent > * {
+    background: transparent !important; }
+
+.gray-form input {
+  background-color: #F5F5F5 !important; }
 
 @media (min-width: 768px) {
   .hide-desktop {

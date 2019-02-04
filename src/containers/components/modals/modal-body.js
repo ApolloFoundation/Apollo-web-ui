@@ -32,17 +32,23 @@ class ModalBody extends React.Component {
                 this.state.form.setAllValues(modalsHistory[modalsHistory.length - 1].value)
             }
         }
-	};
+    };
+    
+    handleFormSubmit = (values) => {
+        if (this.props.handleFormSubmit) {
+            console.log(this.props.handleFormSubmit)
 
-    render () {
+            this.props.handleFormSubmit(values)
+        }
+    }
 
-        const {isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+    form = () => {
+        const {className, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
 
         return (
-            <div className="modal-box">
                 <BackForm
                     getApi={(value) => this.getForm(value)}
-                    onSubmit={(values) => handleFormSubmit(values)}
+                    onSubmit={(values) => this.handleFormSubmit(values)}
                     nameModel={nameModel}
                     render={({
                             submitForm, values, addValue, removeValue, setValue, getFormState, getValue
@@ -50,18 +56,24 @@ class ModalBody extends React.Component {
                         <form
                             onChange={() => saveSendModalState(values)}
                             onSubmit={submitForm} 
-                            className="modal-form modal-send-apollo" 
+                            className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
                         >
                             <div className="form-group-app">
-                                <a onClick={closeModal} className="exit"><i className="zmdi zmdi-close" /></a>
-    
-                                <div className="form-title">
-                                    {
-                                        modalsHistory.length > 1 &&
-	                                    <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
-                                    }
-                                    <p>{modalTitle}</p>
-                                </div>
+                                {
+                                    closeModal && !isPour &&
+                                    <a onClick={closeModal} className="exit"><i className="zmdi zmdi-close" /></a>
+                                }
+
+                                {
+                                    modalTitle &&
+                                    <div className="form-title">
+                                        {
+                                            modalsHistory.length > 1 &&
+                                            <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
+                                        }
+                                        <p>{modalTitle}</p>
+                                    </div>
+                                }
     
                                 {/** Passing props to each form component */}
                                 {
@@ -106,12 +118,15 @@ class ModalBody extends React.Component {
                                 }
                             
                                 {/** Bottom forms buttons */}
-                                <FormFooter 
-                                    submitButtonName={submitButtonName}
-                                    isPending={isPending}
-                                    setValue={setValue}
-                                    closeModal={closeModal}
-                                />
+                                {
+                                    handleFormSubmit && 
+                                    <FormFooter 
+                                        submitButtonName={submitButtonName}
+                                        isPending={isPending}
+                                        setValue={setValue}
+                                        closeModal={closeModal}
+                                    />
+                                }
 
                                 {
                                     isAdvanced && 
@@ -124,7 +139,26 @@ class ModalBody extends React.Component {
                         </form>
                     )} 
                 /> 
-            </div>
+        )
+    }
+
+    render () {
+
+        const {isPour} = this.props;
+
+        return (
+            <>
+                {
+                    isPour ? 
+                    <>
+                        { this.form() }
+                    </>
+                     :
+                    <div className="modal-box">
+                        { this.form() }
+                    </div>
+                }
+            </>
         )
     }
 }

@@ -8,18 +8,17 @@ class TabulationBody extends React.Component {
 
     handleTab = (e, index) => {
         e.preventDefault();
-        console.log(index)
         this.setState({
             activeTab: index
         })
     }
 
     render () {
-        const {children} = this.props;
-        console.log(children)
+        const {children, className} = this.props;
+
         return (
             <>
-                <div className="form-tabulator active">
+                <div className={`form-tabulator active ${className}`}>
                 
                     {/** Render tabulator header */}
                     <div className="form-tab-nav-box justify-left">
@@ -49,7 +48,6 @@ class TabulationBody extends React.Component {
                                     "active": this.state.activeTab === index
                                 })}
                             >
-                                {console.log(index)}
                                 {child}
                             </div>
                         )

@@ -83,6 +83,20 @@ html, body {
 	}
 }
 
+.transparent {
+	background: transparent;
+
+	& > * {
+		background: transparent !important;
+	}
+}
+
+.gray-form {
+	input {
+		background-color: #F5F5F5 !important;
+	}
+}
+
 .hide-desktop {
 	@media(min-width: 768px) {
 		display: none;
