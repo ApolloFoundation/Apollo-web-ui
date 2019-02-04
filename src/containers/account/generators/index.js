@@ -84,35 +84,33 @@ class Generators extends React.Component {
                         <div className="info-box info">
                             <p>Information in this table is delayed by up to 30 seconds, use the desktop wallet for more up to date information.</p>
                         </div>
-                        <div className="transaction-table">
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td className="align-left">Account</td>
-                                        <td className="align-right">Effective Balance</td>
-                                        <td className="align-right">Hit Time</td>
-                                        <td className="align-right">Deadline</td>
-                                        <td className="align-right">Remaining</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        this.state.generators.map(el => {
-                                            return (
-                                                <Generator
-                                                    key={uuid()}
-                                                    generator={el}
-                                                    resTimestamps={this.state.timestamp}
-                                                    epochB={this.props.epochB}
-                                                />
-                                            );
-                                        })
-                                    }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <CustomTable 
+							header={[
+                                {
+                                    name: 'Account',
+                                    alignRight: true
+                                },{
+                                    name: 'Effective Balance',
+                                    alignRight: false
+                                },{
+                                    name: 'Hit Time',
+                                    alignRight: false
+                                },{
+                                    name: 'Deadline',
+                                    alignRight: false
+                                },{
+                                    name: 'Remaining',
+                                    alignRight: false
+                                }
+                            ]}
+							TableRowComponent={Generator}
+							tableData={this.state.generators}
+							isPaginate
+							page={this.state.page}
+							className={'no-min-height'}
+							emptyMessage={'No aliases found.'}
+						/>
+                       
                     </div>
                 </div>
             </div>

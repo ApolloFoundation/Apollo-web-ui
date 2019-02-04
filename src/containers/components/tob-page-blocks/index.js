@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TopPageBlocks = ({cards}) => (
-    <div className="row top-blocks h-100">
+    <div className="row top-blocks ">
         {
             cards.map((el, index) => 
                 <div className="col-md-6 col-lg-6 col-xl-3 pb-3 h-100">
@@ -21,7 +21,6 @@ const TopPageBlocks = ({cards}) => (
                                     <div className="amount">{instance.value}</div>
                                 </>    
                             ) 
-                            
                         }
                     </div>
                 </div>

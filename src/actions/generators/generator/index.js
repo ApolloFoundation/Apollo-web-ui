@@ -22,7 +22,7 @@ class Generator extends React.Component {
     };
 
     initTimer = () => {
-        const remaining = this.props.generator.deadline - (toEpochTime(undefined, this.props.epochB) - this.props.resTimestamps) + 20;
+        const remaining = this.props.deadline - (toEpochTime(undefined, this.props.epochB) - this.props.resTimestamps) + 20;
         this.setState({
             remaining
         });
@@ -39,18 +39,19 @@ class Generator extends React.Component {
     }
 
     render() {
+        const {setBodyModalParamsAction, account, accountRS, effectiveBalanceAPL, hitTime, deadline} = this.props;
         return (
             <tr key={uuid}>
                 <td className="blue-link-text align-left">
-                    <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.generator.account)}>{this.props.generator.accountRS}</a>
+                    <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', account)}>{accountRS}</a>
                 </td>
                 <td className="align-right">
-                    <a>{this.props.generator.effectiveBalanceAPL.toLocaleString('en')}</a>
+                    <a>{effectiveBalanceAPL.toLocaleString('en')}</a>
                 </td>
                 <td className="align-right">
-                    <a>{this.props.formatTimestamp(this.props.generator.hitTime)}</a>
+                    <a>{this.props.formatTimestamp(hitTime)}</a>
                 </td>
-                <td className="align-right"><a>{this.props.generator.deadline}</a>
+                <td className="align-right"><a>{deadline}</a>
                 </td>
                 <td className="align-right">
                     <a>{this.state.remaining}</a>
