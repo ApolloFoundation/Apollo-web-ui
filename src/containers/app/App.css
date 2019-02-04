@@ -1468,7 +1468,6 @@ input[type="file"] {
   height: calc(33.33vh - 55px);
   min-height: 255px;
   border-radius: 6px;
-  margin-bottom: 15px;
   background-color: #FFFFFF;
   position: relative;
   z-index: 3;
@@ -2095,6 +2094,13 @@ table td .btn, table th .btn {
 .full-info td {
   white-space: normal;
   word-wrap: break-word; }
+
+.top-blocks {
+  margin-left: -7.5px !important;
+  margin-right: -7.5px !important;
+  width: auto !important; }
+  .top-blocks > * {
+    padding: 0 7.5px; }
 
 .form-control {
   min-height: 32px; }
@@ -6417,7 +6423,6 @@ input[type="file"] {
   height: calc(33.33vh - 55px);
   min-height: 255px;
   border-radius: 6px;
-  margin-bottom: 15px;
   background-color: #FFFFFF;
   position: relative;
   z-index: 3;
@@ -7044,6 +7049,13 @@ table td .btn, table th .btn {
 .full-info td {
   white-space: normal;
   word-wrap: break-word; }
+
+.top-blocks {
+  margin-left: -7.5px !important;
+  margin-right: -7.5px !important;
+  width: auto !important; }
+  .top-blocks > * {
+    padding: 0 7.5px; }
 
 .form-control {
   min-height: 32px; }

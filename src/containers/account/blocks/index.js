@@ -17,8 +17,9 @@ import {getNextBlockGeneratorsAction} from '../../../actions/blocks'
 import {formatTimestamp} from "../../../helpers/util/time";
 import {getTime} from '../../../actions/login/index'
 import uuid from "uuid";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
+
+import CustomTable from '../../components/tables/table';
+import TopPageBlocks from '../../components/tob-page-blocks';
 
 class Blocks extends React.Component {
 	constructor(props) {
@@ -118,7 +119,7 @@ class Blocks extends React.Component {
 		}
 	}
 
-	onPaginate(page) {
+	onPaginate = (page) => {
 		this.setState({
 			page: page,
 			account: this.props.account,
@@ -140,98 +141,71 @@ class Blocks extends React.Component {
 					pageTitle={'Blocks'}
 				/>
 				<div className="page-body container-fluid">
-					<div className="blocks">
-						<div className="row">
-							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-								<div className="card header ballance single">
-									<div className="card-title">AVG. Amount Per Block</div>
-									<div className="amount">{this.state.avgAmount}</div>
-								</div>
-							</div>
-							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-								<div className="card header assets single">
-									<div className="card-title">AVG. Fee Per Block</div>
-									<div className="amount">{this.state.avgFee}</div>
-								</div>
-							</div>
-							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-								<div className="card header currencies single">
-									<div className="card-title">Transactions Per Hour</div>
-									<div className="amount">{this.state.transactionPerHour}</div>
-								</div>
-							</div>
-							<div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-								<div className="card header coins single">
+
+					<div className="">
+						
+						<TopPageBlocks 
+							cards={[
 								{
-										this.props.blockTime &&
-										<React.Fragment>
-											<div className="card-title">Transaction Time</div>
-											<div className="amount">{this.props.blockTime} s</div>
-										</React.Fragment>
-									}
-									{
-										this.state.blockGenerateTime &&
-										<React.Fragment>
-											<div className="card-title">Average Block Creating Frequency</div>
-											<div className="amount">{this.state.blockGenerateTime} s</div>
-										</React.Fragment>
-									}
-								</div>
-							</div>
-						</div>
-						<div className="transaction-table no-min-height">
-							<div className="transaction-table-body">
-								<table>
-									<thead>
-									<tr>
-										<td>Height</td>
-										<td className="align-right">Date</td>
-										<td className="align-right">Amount</td>
-										<td className="align-right">Fee</td>
-										<td className="align-right"># TX</td>
-										<td>Generator</td>
-										<td className="align-right">Payload</td>
-									</tr>
-									</thead>
-									<tbody>
-									{
-										this.state.blocks.map((el, index) => {
-											return (
-												<Block
-                                                    key={uuid()}
-													block={el}
-													setBlockInfo={this.getBlock}
-												/>
-											);
-										})
-									}
-									</tbody>
-								</table>
-								<div className="btn-box">
-									<a
-										className={classNames({
-											'btn': true,
-											'btn-left': true,
-											'disabled': this.state.page <= 1
-										})}
-										onClick={this.onPaginate.bind(this, this.state.page - 1)}
-									> Previous</a>
-									<div className='pagination-nav'>
-										<span>{this.state.firstIndex + 1}</span>
-										<span>&hellip;</span>
-										<span>{this.state.lastIndex + 1}</span>
-									</div>
-									<a
-										onClick={this.onPaginate.bind(this, this.state.page + 1)}
-										className={classNames({
-											'btn': true,
-											'btn-right': true,
-											'disabled': this.state.blocks.length < 15
-										})}
-									>Next</a>
-								</div>
-							</div>
-						</div>
+									label: 'AVG. Amount Per Block',
+									value: this.state.avgAmount
+								},{
+									label: 'AVG. Fee Per Block',
+									value: this.state.avgFee
+								},{
+									label: 'Transactions Per Hour',
+									value: this.state.transactionPerHour
+								},{
+									label: 'Transactions Per Hour',
+									value: [
+										{
+											label: 'Transaction Time',
+											value: this.props.blockTime	
+										},
+										{
+											label: 'Average Block Creating Frequency',
+											value: `${this.state.blockGenerateTime} s`	
+										}
+									]
+								}
+							]}
+						/>
+						
+						
+						<CustomTable 
+							header={[
+                                {
+                                    name: 'Height',
+                                    alignRight: false
+                                },{
+                                    name: 'Date',
+                                    alignRight: true
+                                },{
+                                    name: 'Amount',
+                                    alignRight: true
+                                },{
+                                    name: 'Fee',
+                                    alignRight: true
+                                },{
+                                    name: '# TX',
+                                    alignRight: true
+                                },{
+                                    name: 'Generator',
+                                    alignRight: false
+                                },{
+                                    name: 'Payload',
+                                    alignRight: true
+                                }
+                            ]}
+							TableRowComponent={Block}
+							tableData={this.state.blocks}
+							isPaginate
+							page={this.state.page}
+							previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+							nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+							className={'no-min-height'}
+							emptyMessage={'No aliases found.'}
+						/>
 					</div>
 				</div>
 			</div>

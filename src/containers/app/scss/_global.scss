@@ -2082,7 +2082,6 @@ input[type="file"] {
 	height: calc(33.33vh - 55px);
 	min-height: 255px;
 	border-radius: 6px;
-	margin-bottom: 15px;
 	background-color: #FFFFFF;
 	position: relative;
 	z-index: 3;
@@ -3035,6 +3034,16 @@ table {
 //	overflow: hidden;
 //	text-overflow: ellipsis;
 //}
+
+.top-blocks {
+	margin-left: - 7.5px !important; 
+	margin-right: - 7.5px !important; 
+	width: auto !important;
+
+	& > * {
+		padding: 0 7.5px
+	}
+}
 
 .form-control {
 	min-height: 32px;

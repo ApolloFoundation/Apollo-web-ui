@@ -22,23 +22,30 @@ class Block extends React.Component {
     }
 
     render () {
+
+        const {height, totalAmountATM, timestamp, totalFeeATM, numberOfTransactions, formatTimestamp, setBodyModalParamsAction, generator, generatorRS, payloadLength} = this.props;
+
         return (
             <tr key={uuid}>
                 <td className="blue-link-text">
-                    <a onClick={this.props.setBlockInfo.bind(this, 'INFO_BLOCK', this.props.block.height)}>{this.props.block.height}</a>
+                    <a 
+                        onClick={() => setBodyModalParamsAction('INFO_BLOCK', height)}
+                    >
+                        {height}
+                    </a>
                 </td>
                 <td className="align-right">
-                    <a>{this.props.formatTimestamp(this.props.block.timestamp)}</a>
+                    <a>{formatTimestamp(timestamp)}</a>
                 </td>
-                <td className="align-right">{this.props.block.totalAmountATM / 100000000}</td>
-                <td className="align-right">{this.props.block.totalFeeATM    / 100000000}</td>
+                <td className="align-right">{totalAmountATM / 100000000}</td>
+                <td className="align-right">{totalFeeATM    / 100000000}</td>
                 <td className="align-right">
-                    {this.props.block.numberOfTransactions}
+                    {numberOfTransactions}
                 </td>
                 <td className="blue-link-text">
-                    <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.block.generator)}>{this.props.block.generatorRS}</a>
+                    <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', generator)}>{generatorRS}</a>
                 </td>
-                <td className="align-right"><a>{this.props.block.payloadLength} B</a>
+                <td className="align-right"><a>{payloadLength} B</a>
                 </td>
                 {/*<td className="align-right"><a>{Math.round(this.props.block.baseTarget / 153722867 * 100)} %</a>*/}
                 {/*</td>*/}
