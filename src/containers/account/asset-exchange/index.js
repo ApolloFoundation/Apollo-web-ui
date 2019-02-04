@@ -286,7 +286,7 @@ class AssetExchange extends React.Component {
                             {
                                 window.innerWidth > 768 &&
                                 <div className="col-md-3 p-0 left-col">
-                                    <div className="card card-full-screen no-padding scroll">
+                                    <div className="card card-full-screen no-padding scroll mb-3">
                                         {
                                             this.state.accountAssets &&
                                             !!this.state.accountAssets.length &&
@@ -321,11 +321,9 @@ class AssetExchange extends React.Component {
                                     </div>
                                 </div>
                             }
-                            {console.log(this.props.match.params)}
                             {
                                 this.props.match.params &&
                                 <div className="col-md-9 p-0 right-col">
-                                    {console.log(1234)}
                                     <div className="row">
                                         {
                                             window.innerWidth < 768 &&
@@ -337,7 +335,7 @@ class AssetExchange extends React.Component {
                                             </div>
                                         }
                                         <div className="col-xl-6 col-md-12 pr-0">
-                                            <div className="card header ballance card-tiny medium-padding">
+                                            <div className="card header ballance card-tiny medium-padding mb-3">
                                                 <div className="row">
                                                     <div className="col-md-6">
                                                         <div className="card-title medium">{this.state.asset.name}</div>
@@ -392,7 +390,7 @@ class AssetExchange extends React.Component {
                                                 render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
 
                                                     <form style={{height: 'auto'}}
-                                                          className="card ballance card-medium medium-padding full-height"
+                                                          className="card ballance card-medium medium-padding full-height mb-3"
                                                           onSubmit={submitForm}>
                                                         <div className="form-group-app">
                                                             <div className="form-title">
@@ -492,7 +490,7 @@ class AssetExchange extends React.Component {
                                             />
 
 
-                                            <div className="card ballance card-tiny medium-padding"
+                                            <div className="card ballance card-tiny medium-padding mb-3"
                                                  style={{marginBottom: 0}}>
                                                 <div className="form-group-app">
                                                     <div className="form-title">
@@ -504,7 +502,7 @@ class AssetExchange extends React.Component {
                                                             <div className="info-box simple">
                                                                 <p>No buy offers for this asset.</p>
                                                             </div> :
-                                                            <div className="transaction-table">
+                                                            <div className="transaction-table no-min-height">
                                                                 <div className="transaction-table-body">
                                                                     <table>
                                                                         <thead key={uuid()}>
@@ -538,7 +536,7 @@ class AssetExchange extends React.Component {
 
                                         </div>
                                         <div className="col-xl-6 col-md-12 pr-0">
-                                            <div className="card header assets card-tiny medium-padding">
+                                            <div className="card header assets card-tiny medium-padding mb-3">
                                                 <div className="full-box full">
                                                     <div className="full-box-item">
                                                         <div className='box'>
@@ -581,7 +579,7 @@ class AssetExchange extends React.Component {
                                                 render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
 
                                                     <form style={{height: 'auto'}}
-                                                          className="card ballance card-medium medium-padding full-height"
+                                                          className="card ballance card-medium medium-padding full-height mb-3"
                                                           onSubmit={submitForm}>
                                                         <div className="form-group-app">
                                                             <div className="form-title">
@@ -693,7 +691,7 @@ class AssetExchange extends React.Component {
                                                             <div className="info-box simple">
                                                                 <p>No buy offers for this asset.</p>
                                                             </div> :
-                                                            <div className="transaction-table">
+                                                            <div className="transaction-table no-min-height">
                                                                 <div className="transaction-table-body">
                                                                     <table>
                                                                         <thead key={uuid()}>
