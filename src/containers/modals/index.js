@@ -22,7 +22,7 @@ import RawTransactionDetails from './send-apollo/raw-transaction-details';
 // Account
 import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';
-import AccountDetails from './account/account-details';
+import AccountDetails from './account/account-details/';
 import LeaseBalance from './account/lease-balance';
 import TokenGenerationValidation from './account/token-generation-validation';
 import GenerateHallmark from './account/generate-halmark';
