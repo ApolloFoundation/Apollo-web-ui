@@ -14,6 +14,9 @@ import Generator from "../../../actions/generators/generator";
 import uuid from "uuid";
 import ContentLoader from '../../components/content-loader'
 
+import CustomTable from '../../components/tables/table';
+import TopPageBlocks from '../../components/tob-page-blocks';
+
 class Generators extends React.Component {
     state = {
         generators: [],
@@ -62,27 +65,22 @@ class Generators extends React.Component {
                     pageTitle={'Generators'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="blocks">
-                        <div className="row">
-                            <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-                                <div className="card chart-sprite position-1 header ballance single">
-                                    <div className="card-title">Last Block</div>
-                                    <div className="amount">{this.state.lastBlockTime}</div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-                                <div className="card chart-sprite position-2 header assets single">
-                                    <div className="card-title">Height</div>
-                                    <div className="amount">{this.state.height}</div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 col-lg-6 col-xl-3 pb-4">
-                                <div className="card chart-sprite position-3 header currencies single">
-                                    <div className="card-title">Active Forgers</div>
-                                    <div className="amount">{this.state.activeForgers}</div>
-                                </div>
-                            </div>
-                        </div>
+                    
+                    <div className="">
+                        <TopPageBlocks 
+                            cards={[
+                                {
+                                    label: 'Last Block',
+                                    value: this.state.lastBlockTime
+                                },{
+                                    label: 'Height',
+                                    value: this.state.height
+                                },{
+                                    label: 'Active Forgers',
+                                    value: this.state.activeForgers
+                                }
+                            ]}
+                        />
                         <div className="info-box info">
                             <p>Information in this table is delayed by up to 30 seconds, use the desktop wallet for more up to date information.</p>
                         </div>

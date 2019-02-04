@@ -171,7 +171,6 @@ class Blocks extends React.Component {
 							]}
 						/>
 						
-						
 						<CustomTable 
 							header={[
                                 {
