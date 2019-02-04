@@ -19,6 +19,8 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
 import ContentLoader from '../../components/content-loader'
 
+import CustomTable from '../../components/tables/table';
+
 
 const mapStateToProps = state => ({
     account: state.account.account,
@@ -121,73 +123,35 @@ class TransferHistoryCurrency extends React.Component {
                     pageTitle={'Transfer History'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="scheduled-transactions">
-                        <ContentHendler
-                            items={this.state.transfers}
-                            emptyMessage={'No assets found.'}
-                        >
+                    <CustomTable 
+                        header={[
                             {
-                                this.state.transfers &&
-                                !!this.state.transfers.length &&
-                                <div className="transaction-table">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Transaction</td>
-                                                <td>Currency</td>
-                                                <td>Date</td>
-                                                <td className="align-right">Units</td>
-                                                <td>Recipient</td>
-                                                <td>Sender</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                this.state.transfers &&
-                                                this.state.transfers.map((el, index) => {
-                                                    return (
-                                                        <TransferHistoryItem
-                                                            key={uuid()}
-                                                            transfer={el}
-                                                            setTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                        {
-                                            this.state.transfers &&
-                                            <div className="btn-box">
-                                                <a
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-left' : true,
-                                                        'disabled' : this.state.page <= 1
-                                                    })}
-                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                > Previous</a>
-                                                <div className='pagination-nav'>
-                                                    <span>{this.state.firstIndex + 1}</span>
-                                                    <span>&hellip;</span>
-                                                    <span>{this.state.lastIndex + 1}</span>
-                                                </div>
-                                                <a
-                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-right' : true,
-                                                        'disabled' : this.state.transfers.length < 15
-                                                    })}
-                                                >Next</a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
+                                name: 'Transaction',
+                                alignRight: false
+                            },{
+                                name: 'Currency',
+                                alignRight: false
+                            },{
+                                name: 'Date',
+                                alignRight: false
+                            },{
+                                name: 'Units',
+                                alignRight: true
+                            },{
+                                name: 'Recipient',
+                                alignRight: false
+                            },{
+                                name: 'Sender',
+                                alignRight: false
                             }
-                        </ContentHendler>
-                    </div>
+                        ]}
+                        page={this.state.page}
+                        TableRowComponent={TransferHistoryItem}
+                        tableData={this.state.transfers}
+                        isPaginate
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );
