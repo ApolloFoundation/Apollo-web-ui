@@ -13,7 +13,6 @@ import {setBodyModalParamsAction, setModalType} from '../../../modules/modals';
 import classNames from "classnames";
 import Transaction from './transaction';
 import ContentLoader from '../../components/content-loader'
-import AccountRS from '../../components/account-rs';
 
 import uuid from 'uuid';
 import {formatTimestamp} from "../../../helpers/util/time";

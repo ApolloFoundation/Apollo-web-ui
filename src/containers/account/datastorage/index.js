@@ -25,6 +25,8 @@ import ContentLoader from '../../components/content-loader'
 import InfoBox from '../../components/info-box'
 import ContentHendler from '../../components/content-hendler'
 
+import CustomTable from '../../components/tables/table';
+
 const mapStateToProps = state => ({
 	account: state.account.account,
 	state: state
@@ -308,81 +310,37 @@ class DataStorage extends React.Component {
                                 </div>
                             </div>
                         </div>
-						{
-							this.state.taggedData &&
-							!!this.state.taggedData.length &&
-                            <div className="transaction-table">
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                            <td>Account ID</td>
-                                            <td>Mime Type</td>
-                                            <td>Channel</td>
-                                            <td>Filename</td>
-                                            <td className="align-right">Data</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.taggedData &&
-                                            this.state.taggedData.map((el, index) => {
-                                                return (
-                                                    <DataStorageItem
-                                                        key={uuid()}
-                                                        {...el}
-                                                        getTransaction={this.getTransaction}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
-									{/*{*/}
-										{/*this.state.taggedData &&*/}
-										{/*this.state.taggedData.length &&*/}
-                                        {/*<div className="btn-box">*/}
-                                            {/*<a*/}
-                                                {/*className={classNames({*/}
-                                                    {/*'btn' : true,*/}
-                                                    {/*'btn-left' : true,*/}
-                                                    {/*'disabled' : this.state.page <= 1*/}
-                                                {/*})}*/}
-                                                {/*onClick={() => this.onPaginate(this.state.page - 1)}*/}
-                                            {/*> Previous</a>*/}
-                                            {/*<div className='pagination-nav'>*/}
-                                                {/*<span>{this.state.firstIndex + 1}</span>*/}
-                                                {/*<span>&hellip;</span>*/}
-                                                {/*<span>{this.state.lastIndex + 1}</span>*/}
-                                            {/*</div>*/}
-                                            {/*<a*/}
-                                                {/*onClick={() => this.onPaginate(this.state.page + 1)}*/}
-                                                {/*className={classNames({*/}
-                                                    {/*'btn' : true,*/}
-                                                    {/*'btn-right' : true,*/}
-                                                    {/*'disabled' : this.state.taggedData.length < 15*/}
-                                                {/*})}*/}
-                                            {/*>Next</a>*/}
-                                        {/*</div>*/}
-									{/*}*/}
-
-                                </div>
-                            </div>
-                        }
-						{
-							this.state.taggedData &&
-							!this.state.taggedData.length &&
-								<InfoBox default>
-									No tagged data found.
-								</InfoBox>
-						}
-						{
-                            !this.state.taggedData &&
-							<ContentLoader />
-						}
-
-                    </div>
+						
+						<CustomTable 
+							header={[
+								{
+									name: 'Name',
+									alignRight: false
+								},{
+									name: 'Account ID',
+									alignRight: false
+								},{
+									name: 'Mime Type',
+									alignRight: false
+								},{
+									name: 'Channel',
+									alignRight: false
+								},{
+									name: 'Filename',
+									alignRight: false
+								},{
+									name: 'Data',
+									alignRight: true
+								}
+							]}
+							page={this.state.page}
+							TableRowComponent={DataStorageItem}
+							tableData={this.state.taggedData}
+							isPaginate
+							// previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+							// nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+						/>
+                	</div>
                 </div>
             </div>
         );
