@@ -24,7 +24,7 @@ import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';
 import AccountDetails from './account/account-details/';
 import LeaseBalance from './account/lease-balance';
-import TokenGenerationValidation from './account/token-generation-validation';
+import TokenGenerationValidation from './account/token-generation-validation/';
 import GenerateHallmark from './account/generate-halmark';
 import HashCalculation from './account/hash-calculation';
 import TransactionOperations from './account/transactions-operations';
