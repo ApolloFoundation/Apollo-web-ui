@@ -24,6 +24,9 @@ import {
 import {getAccountCurrenciesAction} from '../../../actions/currencies';
 import ContentHendler from '../../components/content-hendler'
 
+import CustomTable from '../../components/tables/table';
+
+
 const mapStateToProps = state => ({
     account: state.account.account,
     accountRS: state.account.accountRS,
@@ -136,131 +139,30 @@ class MyMadedCurrencies extends React.Component {
                     pageTitle={'My currencies'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="scheduled-transactions">
-                        <ContentHendler
-                            items={this.state.executedExchanges}
-                            emptyMessage={'No assets found.'}
-                        >
+                    <CustomTable 
+                        header={[
                             {
-                                this.state.executedExchanges &&
-                                !!this.state.executedExchanges.length &&
-                                <div className="transaction-table">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Code</td>
-                                                <td>Name</td>
-                                                <td className="align-right">Units</td>
-                                                <td className="align-right">Actions</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                <div className="transaction-table">
-                                                    <div className="transaction-table-body">
-                                                        <table>
-                                                            <thead>
-                                                            <tr>
-                                                                <td>Code</td>
-                                                                <td>Name</td>
-                                                                <td className="align-right">Units</td>
-                                                                <td className="align-right">Actions</td>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            {
-                                                                this.state.executedExchanges.map((el, index) => {
-                                                                    return (
-                                                                        <MyCurrencytemItem
-                                                                            key={uuid()}
-                                                                            currency={el}
-                                                                            setTransaction={this.getTransaction}
-                                                                        />
-                                                                    );
-                                                                })
-                                                            }
-                                                            </tbody>
-                                                        </table>
-                                                        {
-                                                            this.state.executedExchanges &&
-                                                            <div className="btn-box">
-                                                                <a
-                                                                    className={classNames({
-                                                                        'btn' : true,
-                                                                        'btn-left' : true,
-                                                                        'disabled' : this.state.page <= 1
-                                                                    })}
-                                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                                >
-                                                                    Previous
-                                                                </a>
-                                                                <div className='pagination-nav'>
-                                                                    <span>{this.state.firstIndex + 1}</span>
-                                                                    <span>&hellip;</span>
-                                                                    <span>{this.state.lastIndex + 1}</span>
-                                                                </div>
-                                                                <a
-                                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                                    className={classNames({
-                                                                        'btn' : true,
-                                                                        'btn-right' : true,
-                                                                        'disabled' : this.state.executedExchanges.length < 15
-                                                                    })}
-                                                                >
-                                                                    Next
-                                                                </a>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div> &&
-                                                this.state.executedExchanges.map((el, index) => {
-                                                    return (
-                                                        <MyCurrencytemItem
-                                                            key={uuid()}
-                                                            currency={el}
-                                                            setTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    {
-                                            this.state.executedExchanges &&
-                                            <div className="btn-box">
-                                                <a
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-left' : true,
-                                                        'disabled' : this.state.page <= 1
-                                                    })}
-                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                >
-                                                    Previous
-                                                </a>
-                                                <div className='pagination-nav'>
-                                                    <span>{this.state.firstIndex + 1}</span>
-                                                    <span>&hellip;</span>
-                                                    <span>{this.state.lastIndex + 1}</span>
-                                                </div>
-                                                <a
-                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-right' : true,
-                                                        'disabled' : this.state.executedExchanges.length < 15
-                                                    })}
-                                                >
-                                                    Next
-                                                </a>
-                                            </div>
-                                        }
-                                </div>
+                                name: 'Code',
+                                alignRight: false
+                            },{
+                                name: 'Name',
+                                alignRight: false
+                            },{
+                                name: 'Units',
+                                alignRight: true
+                            },{
+                                name: 'Actions',
+                                alignRight: true
                             }
-                        </ContentHendler>
-                    </div>
+                        ]}
+                        page={this.state.page}
+                        TableRowComponent={MyCurrencytemItem}
+                        tableData={this.state.executedExchanges}
+                        isPaginate
+                        emptyMessage={'No currencies found.'}
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );
