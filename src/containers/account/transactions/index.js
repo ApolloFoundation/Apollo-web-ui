@@ -310,7 +310,7 @@ class Transactions extends React.Component {
     )
 
     AboveTabeComponent = () => (
-        <div className="transactions-filters pl-5">
+        <div className="transactions-filters">
             <div className="top-bar">
                 {this.AboveTabeComponentItem('All types', null, this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isPhassing && !this.state.isUnconfirmed)}
                 
@@ -394,7 +394,7 @@ class Transactions extends React.Component {
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <div>
+                    <div className={'my-transactions'}>
                         {this.AboveTabeComponent()}   
                         <CustomTable
                             header={[
@@ -425,7 +425,7 @@ class Transactions extends React.Component {
                                 }
                             ]}
                             keyField={'ledgerId'}
-                            className={'no-min-height'}
+                            className={'no-min-height mb-3'}
                             emptyMessage={'No active polls.'}
                             TableRowComponent={Transaction}
                             tableData={this.state.transactions}

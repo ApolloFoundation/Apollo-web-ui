@@ -7244,6 +7244,8 @@ table td .btn, table th .btn {
       font-size: 12px;
       line-height: 14px;
       min-height: auto; }
+      .transactions-filters .btn.filter i {
+        font-size: 20px; }
       .transactions-filters .btn.filter.active {
         border: 1px solid #333333; }
   @media (max-width: 768px) {

@@ -91,7 +91,7 @@ class Transaction extends React.Component {
                         <td className="align-right blue-link-text">
                             {
                                 !isUnconfirmed &&
-                                <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', height)}>{height}</a>
+                                <a onClick={() => this.getBlock(this, 'INFO_BLOCK', height)}>{height}</a>
                             }
                             {
                                 isUnconfirmed && '-'
