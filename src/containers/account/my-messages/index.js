@@ -97,6 +97,7 @@ class MyMessages extends React.Component {
                             }
                         ]}
                         emptyMessage={'No messages found.'}
+                        className={'mb-3'}
                         page={page}
                         TableRowComponent={MessageItem}
                         tableData={this.props.messages}
