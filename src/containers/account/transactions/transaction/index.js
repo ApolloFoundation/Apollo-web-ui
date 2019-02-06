@@ -6,14 +6,12 @@
 
 import React from 'react';
 import uuid from 'uuid';
-import crypto from '../../../../helpers/crypto/crypto'
-import converters from '../../../../helpers/converters';
+
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {formatTransactionType, getPhasingTransactionVoters} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
-import config from "../../../../config";
 
 
 const mapStateToProps = state => ({
@@ -27,20 +25,28 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Transaction extends React.Component {
-    constructor(props) {
-        super(props);
+
+    state = {};
+    
+    componentDidMount () {
+        if (this.props.phased) {
+            this.getPhasingTransactionInfo();
+        }
     }
 
-    componentDidMount () {
-        if (this.props.transaction.phased) {
+    componentDidUpdate () {
+        if (this.props.phased) {
             this.getPhasingTransactionInfo();
-
+        }
+        if (!this.props.phased && this.state.phasing) {
+            this.setState({
+                phasing: null
+            })
         }
     }
 
     getPhasingTransactionInfo = async () => {
-        let phasing = await getPhasingTransactionVoters({transaction: this.props.transaction.transaction});
-
+        let phasing = await getPhasingTransactionVoters({transaction: this.props.transaction});
 
         if (phasing) {
             this.setState({
@@ -78,161 +84,77 @@ class Transaction extends React.Component {
 
 
     render () {
+        const {timestamp, confirmations, amountATM, feeATM, phased, sender, senderRS, recipient, recipientRS, constants, block, height, formatTimestamp, transaction, type, setBodyModalParamsAction, subtype} = this.props;
+
         return (
             <tr key={uuid()}>
                 {
-                    this.props.transaction && this.props.constants && !this.props.block &&
-                    <React.Fragment>
+                    constants && block &&
+                    <>
                         <td className="blue-link-text">
-                            <a onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.props.transaction.transaction, (this.props.transaction.type === 0 && this.props.transaction.subtype === 1))}>
-                                {this.props.formatTimestamp(this.props.transaction.timestamp)}
+                            <a onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', transaction, (type === 0 && subtype === 1))}>
+                                {formatTimestamp(timestamp)}
                             </a>
                         </td>
                         <td>
                             {
-                                !!this.props.constants.transactionTypes[this.props.transaction.type] &&
-                                formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)
+                                !!constants.transactionTypes[type] &&
+                                formatTransactionType(constants.transactionTypes[type].subtypes[subtype].name)
                             }
                         </td>
                         <td className="align-right">
-                            {this.props.transaction.amountATM / 100000000}
+                            {amountATM / 100000000}
                         </td>
                         <td className="align-right">
-                            {this.props.transaction.feeATM    / 100000000}
+                            {feeATM    / 100000000}
                         </td>
                         <td className="blue-link-text">
-                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a> -> <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
+                            <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', sender)}>
+                                {senderRS}
+                            </a>
+                            &nbsp; 
+                            &nbsp; 
+                            <i class="zmdi zmdi-long-arrow-right" /> 
+                            &nbsp; 
+                            &nbsp; 
+                            <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', recipient)}>
+                                {recipientRS}
+                            </a>
                         </td>
+                        <td className="align-right phasing">
+                        
                         {
-                            !this.props.isScheduled &&
-                            <td className="align-right phasing">
-                                {
-                                    this.state &&
-                                    this.state.phasing &&
-                                    <div className="phasing-box"
-                                        style={{zIndex: 12}}
-                                        data-custom
-                                        data-custom-at="top"
-                                        data-cat-id={JSON.stringify({...this.props.transaction, ...this.state.phasing})}
-                                    >
-                                        <spna className="phasing-box__icon">
-                                            <i className={'zmdi zmdi-accounts-alt'}></i>
-                                        </spna>
-                                        <span className="phasing-box__result">
-                                        {this.state.phasing.result} / {this.state.phasing.quorum}
-                                    </span>
-                                    </div>
-                                }
+                            this.state.phasing && 
+                            <div className="phasing-box"
+                                style={{zIndex: 12}}
+                                data-custom
+                                data-custom-at="top"
+                                data-cat-id={JSON.stringify({...this.props.transaction, ...this.state.phasing})}
+                            >
+                                <spna className="phasing-box__icon">
+                                    <i className={'zmdi zmdi-accounts-alt'}></i>
+                                </spna>
+                                &nbsp; 
+                                &nbsp; 
+                                <span className="phasing-box__result">
+                                    {this.state.phasing.result} / {this.state.phasing.quorum}
+                                </span>
+                            </div>
 
 
-                            </td>
                         }
+                        </td>
 
                         <td className="align-right blue-link-text">
-                            {
-                                !this.props.isUnconfirmed &&
-                                <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', this.props.transaction.height)}>{this.props.transaction.height}</a>
-                            }
-                            {
-                                this.props.isUnconfirmed && '-'
-                            }
-                        </td>
-
-                        {
-                            !this.props.isScheduled &&
-                            <td className="align-right">
-                                {
-                                    !this.props.isUnconfirmed &&
-                                    <a>{this.props.transaction.confirmations}</a>
-                                }
-                                {
-                                    this.props.isUnconfirmed && '-'
-                                }
-                            </td>
-                        }
-                        {
-                            this.props.isScheduled &&
-                            <td className="align-right">
-                                <div className="btn-box inline">
-                                    <a
-                                        onClick={() => this.props.deleteSheduledTransaction(this.props.transaction.transaction)}
-                                        className="btn primary default"
-                                    >
-                                        Delete
-                                    </a>
-                                </div>
-                            </td>
-                        }
-                    </React.Fragment>
-                }
-                {
-                    this.props.block &&
-                    this.props.transaction &&
-                    <React.Fragment>
-                        <td>
-                            {this.props.transaction.transactionIndex}
-                        </td>
-                        <td className="blue-link-text">
-                            <a onClick={this.props.setTransactionInfo.bind(this, 'INFO_TRANSACTION', this.props.transaction.transaction)}>
-                                {this.props.formatTimestamp(this.props.transaction.blockTimestamp)}
+                            <a onClick={() => setBodyModalParamsAction('INFO_BLOCK', height)}>
+                                {height}
                             </a>
-                        </td>
-                        <td>
-                            {
-                                !!this.props.constants.transactionTypes[this.props.transaction.type] &&
-                                formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)
-                            }
-                        </td>
-                        <td className="align-right">
-                            {this.props.transaction.amountATM / 100000000}
-                        </td>
-                        <td className="align-right">
-                            {this.props.transaction.feeATM / 100000000}
-                        </td>
-                        <td className="blue-link-text">
-                            <a
-                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.transaction.sender)}
-                            >
-                                {this.props.transaction.senderRS}
-                            </a>
-                        </td>
-                        <td className="blue-link-text">
-                            <a
-                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.transaction.recipient)}
-                            >
-                                {this.props.transaction.recipientRS}
-                            </a>
-                        </td>
-                    </React.Fragment>
-                }
-                {
-                    this.props.transaction && this.props.constants && this.props.block &&                    
-                    <React.Fragment>
-                        <td className="blue-link-text">
-                            <a onClick={() => this.props.setTransactionInfo('INFO_TRANSACTION', this.props.transaction.transaction, (this.props.transaction.type === 0 && this.props.transaction.subtype === 1))}>
-                                {this.props.formatTimestamp(this.props.transaction.timestamp)}
-                            </a>
-                        </td>
-                        <td>
-                            {
-                                !!this.props.constants.transactionTypes[this.props.transaction.type] &&
-                                formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)
-                            }
-                        </td>
-                        <td className="align-right">
-                            {this.props.transaction.amountATM / 100000000}
-                        </td>
-                        <td className="align-right">
-                            {this.props.transaction.feeATM    / 100000000}
-                        </td>
-                        <td className="blue-link-text">
-                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a>
                         </td>
                         <td className="align-right blue-link-text">
-                            <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.recipient)}>{this.props.transaction.recipientRS}</a>
+                            {confirmations}
                         </td>
                         
-                    </React.Fragment>
+                    </>
                 }
             </tr>
         )

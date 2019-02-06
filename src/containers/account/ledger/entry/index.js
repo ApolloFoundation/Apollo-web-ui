@@ -21,19 +21,21 @@ class Entry extends React.Component {
         super(props);
 
         this.state = {
-            entry: this.props.entry
+            entry: this.props
         }
     }
 
 	showInfo = () => {
 		if (this.state.entry.eventType === "BLOCK_GENERATED") {
-			this.props.setBlockInfo('INFO_BLOCK', this.state.entry.height);
+			this.props.setBodyModalParamsAction('INFO_BLOCK', this.state.entry.height);
 		} else {
-			this.props.setTransactionInfo('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT');
+			this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT');
 		}
 	};
 
     render () {
+        const {setBodyModalParamsAction, formatTimestamp} = this.props;
+
         return (
             <React.Fragment>
                 {
@@ -42,14 +44,14 @@ class Entry extends React.Component {
                         <td className="blue-link-text">
                             <a
                                 onClick={
-                                    () => this.props.setLedgerEntryInfo('INFO_LEDGER_TRANSACTION', this.state.entry.ledgerId, this.state.entry.eventType === 'PRIVATE_PAYMENT')
+                                    () => setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', this.state.entry.ledgerId, this.state.entry.eventType === 'PRIVATE_PAYMENT')
                                 }
                             >
-                                {this.props.formatTimestamp(this.state.entry.timestamp)}
+                                {formatTimestamp(this.state.entry.timestamp)}
                             </a>
                         </td>
                         <td>
-                            {i18n.t(this.state.entry.eventType.toLowerCase())}
+                            {this.state.entry && this.state.entry.eventType && this.state.entry.eventType.toLowerCase()}
                             &nbsp;&nbsp;
                             <a
 	                            onClick={this.showInfo}

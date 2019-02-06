@@ -21,6 +21,8 @@ import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 import {NotificationManager} from "react-notifications";
 
+import CustomTable from '../../components/tables/table';
+
 class Transactions extends React.Component {
     constructor(props) {
         super(props);
@@ -294,6 +296,83 @@ class Transactions extends React.Component {
         }
     };
 
+    AboveTabeComponentItem = (label, handler, activeCondition) => (
+        <div
+            className={classNames({
+                "btn" : true,
+                "filter" : true,
+                "active": activeCondition
+            })}
+            onClick={() => this.handleTransactinonFilters(handler, null)}
+        >
+            {label}
+        </div>
+    )
+
+    AboveTabeComponent = () => (
+        <div className="transactions-filters pl-5">
+            <div className="top-bar">
+                {this.AboveTabeComponentItem('All types', null, this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isPhassing && !this.state.isUnconfirmed)}
+                
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-card" />          , 0   , this.state.type === 0 && !this.state.subtype && !this.state.isPhassing)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-email" />         , 1   , this.state.type === 1 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-equalizer" />     , 2   , this.state.type === 2 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-shopping-cart" /> , 3   , this.state.type === 3 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-lock" />          , 4   , this.state.type === 4 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-balance" />       , 5   , this.state.type === 5 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-cloud" />         , 6   , this.state.type === 6 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-shuffle" />       , 7   , this.state.type === 7 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-help" />          , 8   , this.state.type === 8 && !this.state.subtype)}
+              
+                <div
+                    className={classNames({
+                        "btn" : true,
+                        "filter" : true,
+                        "active": this.state.isUnconfirmed && !this.state.isAll
+                    })}
+                    onClick={() => {
+                        this.handleTransactinonFilters(null, null, 'getUnconfirmedTransactions', false)
+                    }}
+                >
+                    Unconfirmed (account)
+                </div>
+                <div
+                    className={classNames({
+                        "btn" : true,
+                        "filter" : true,
+                        "active": this.state.isPhassing
+                    })}
+                    onClick={() => this.handleTransactinonFilters(null, null, 'getAccountPhasedTransactions')}
+                >
+                    Phasing
+                </div>
+                <div
+                    className={classNames({
+                        "btn" : true,
+                        "filter" : true,
+                        "active": this.state.isUnconfirmed && this.state.isAll
+                    })}
+                    onClick={() => this.handleTransactinonFilters(null, null, 'getUnconfirmedTransactions', true)}
+                >
+                    All Unconfirmed
+                </div>
+
+            </div>
+            {/*<div className="bottom-bar">
+                <div
+                    className={classNames({
+                        "btn" : true,
+                        "filter" : true,
+                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isUnconfirmed && !this.state.isPhassing
+                    })}
+                    onClick={() => this.handleTransactinonFilters(null, null)}
+                >
+                    All types
+                </div>
+            </div>*/}
+        </div>
+    )
+
     render () {
         return (
             <div className="page-content">
@@ -315,241 +394,46 @@ class Transactions extends React.Component {
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-
-                    <div className="my-transactions">
-
-                        <div className="transactions-filters">
-                            <div className="top-bar">
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "filter" : true,
-                                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isPhassing && !this.state.isUnconfirmed
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(null, null)}
-                                >All types</div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 0 && !this.state.subtype && !this.state.isPhassing
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(0, null)}
-                                >
-                                    <i className="zmdi zmdi-card" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 1 && !this.state.subtype
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(1, null)}
-                                >
-                                    <i className="zmdi zmdi-email" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 2 && !this.state.subtype
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(2, null)}
-                                >
-                                    <i className="zmdi zmdi-equalizer" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 3 && !this.state.subtype
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(3, null)}
-                                >
-                                    <i className="zmdi zmdi-shopping-cart" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 4 && !this.state.subtype
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(4, null)}
-                                >
-                                    <i className="zmdi zmdi-lock" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 5 && !this.state.subtype
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(5, null)}
-                                >
-                                    <i className="zmdi zmdi-balance" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 6 && !this.state.subtype
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(6, null)}
-                                >
-                                    <i className="zmdi zmdi-cloud" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 7 && !this.state.subtype
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(7, null)}
-                                >
-                                    <i className="zmdi zmdi zmdi-shuffle" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "icon-button" : true,
-                                        "filters" : true,
-                                        "transparent" : true,
-                                        "active": this.state.type === 8 && !this.state.subtype
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(8, null)}
-                                >
-                                    <i className="zmdi zmdi-help" />
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "filter" : true,
-                                        "active": this.state.isUnconfirmed && !this.state.isAll
-                                    })}
-                                    onClick={() => {
-                                        this.handleTransactinonFilters(null, null, 'getUnconfirmedTransactions', false)
-                                    }}
-                                >
-                                    Unconfirmed (account)
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "filter" : true,
-                                        "active": this.state.isPhassing
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(null, null, 'getAccountPhasedTransactions')}
-                                >
-                                    Phasing
-                                </div>
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "filter" : true,
-                                        "active": this.state.isUnconfirmed && this.state.isAll
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(null, null, 'getUnconfirmedTransactions', true)}
-                                >
-                                    All Unconfirmed
-                                </div>
-
-                            </div>
-                            {/*<div className="bottom-bar">
-                                <div
-                                    className={classNames({
-                                        "btn" : true,
-                                        "filter" : true,
-                                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isUnconfirmed && !this.state.isPhassing
-                                    })}
-                                    onClick={() => this.handleTransactinonFilters(null, null)}
-                                >
-                                    All types
-                                </div>
-                            </div>*/}
-                        </div>
-                        <div className="transaction-table">
-                            <ContentHendler
-                                items={this.state.transactions}
-                                emptyMessage={'No transactions found.'}
-                            >
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead key={uuid()}>
-                                        <tr>
-                                            <td>Date</td>
-                                            <td>Type</td>
-                                            <td className="align-right">Amount</td>
-                                            <td className="align-right">Fee</td>
-                                            <td>Account</td>
-                                            <td className="align-right">Phasing</td>
-                                            <td className="align-right">Height</td>
-                                            <td className="align-right">Confirmations</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.transactions &&
-                                            this.state.transactions.map((el, index) => {
-                                                return (
-                                                    <Transaction
-                                                        key={uuid()}
-                                                        isUnconfirmed={this.state.isUnconfirmed}
-                                                        transaction = {el}
-                                                        publicKey= {this.state.serverPublicKey}
-                                                        privateKey={this.state.privateKey}
-                                                        sharedKey= {this.state.sharedKey}
-                                                        setTransactionInfo={this.setTransactionInfo}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div>
+                        {this.AboveTabeComponent()}   
+                        <CustomTable
+                            header={[
                                 {
-                                        this.state.transactions &&
-                                        <div className="btn-box">
-                                            <a
-                                                className={classNames({
-                                                    'btn' : true,
-                                                    'btn-left' : true,
-                                                    'disabled' : this.state.page <= 1
-                                                })}
-                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                            > Previous</a>
-                                            <div className='pagination-nav'>
-                                                <span>{this.state.firstIndex + 1}</span>
-                                                <span>&hellip;</span>
-                                                <span>{this.state.lastIndex + 1}</span>
-                                            </div>
-                                            <a
-                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                className={classNames({
-                                                    'btn' : true,
-                                                    'btn-right' : true,
-                                                    'disabled' : this.state.transactions.length < 15
-                                                })}
-                                            >Next</a>
-                                        </div>
-                                    }
-                            </ContentHendler>
-                        </div>
+                                    name: 'Date',
+                                    alignRight: false
+                                },{
+                                    name: 'Type',
+                                    alignRight: false
+                                },{
+                                    name: 'Amount',
+                                    alignRight: true
+                                },{
+                                    name: 'Fee',
+                                    alignRight: true
+                                },{
+                                    name: 'Account',
+                                    alignRight: false
+                                },{
+                                    name: 'Phasing',
+                                    alignRight: true
+                                },{
+                                    name: 'Height',
+                                    alignRight: true
+                                },{
+                                    name: 'Confirmations',
+                                    alignRight: true
+                                }
+                            ]}
+                            keyField={'ledgerId'}
+                            className={'no-min-height'}
+                            emptyMessage={'No active polls.'}
+                            TableRowComponent={Transaction}
+                            tableData={this.state.transactions}
+                            isPaginate
+                            page={this.state.page}
+                            previousHendler={() => this.onPaginate(this.state.page - 1)}
+                            nextHendler={() => this.onPaginate(this.state.page + 1)}
+                        />
                     </div>
                 </div>
             </div>

@@ -23,6 +23,8 @@ import InfoBox from '../../components/info-box';
 import ContentHendler from '../../components/content-hendler'
 import {NotificationManager} from "react-notifications";
 
+import CustomTable from '../../components/tables/table';
+
 class Ledger extends React.Component {
     constructor(props) {
         super(props);
@@ -233,85 +235,58 @@ class Ledger extends React.Component {
                     </a>
 
                 </SiteHeader>
+                
                 <div className="page-body container-fluid">
-                    <div className="account-ledger">
-                        <div className="info-box info">
-                            <p>Only ledger entries created during the last 30000 blocks are displayed.</p>
-                        </div>
-
-                        <ContentHendler
-                            items={this.state.ledger}
-                            emptyMessage={'No ledger found.'}
-                        >
+                   
+                    <CustomTable 
+                        header={[
                             {
-                                this.state.ledger &&
-                                this.state.ledger.length > 0 &&
-                                <div className="transaction-table">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Date</td>
-                                                <td>Type</td>
-                                                <td className="align-right">Change</td>
-                                                <td className="align-right">Balance</td>
-                                                <td className="align-right">Holding</td>
-                                                <td className="align-right">Change</td>
-                                                <td className="align-right">Balance</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    this.state.ledger.map((el, index) => {
-                                                        return (
-                                                            <Entry
-                                                                key={uuid()}
-                                                                entry={el}
-                                                                publicKey= {this.state.serverPublicKey}
-                                                                privateKey={this.state.privateKey}
-                                                                sharedKey= {this.state.sharedKey}
-                                                                setLedgerEntryInfo={this.getLedgerEntry}
-                                                                setTransactionInfo={this.getTransaction}
-                                                                setBlockInfo={this.getBlock}
-                                                            />
-                                                        );
-                                                    })
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div className="btn-box under-table">
-                                        <a
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-left' : true,
-                                                'disabled' : this.state.page <= 1
-                                            })}
-                                            onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                        >
-                                            Previous
-                                        </a>
-                                        <div className='pagination-nav'>
-                                            <span>{this.state.firstIndex + 1}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.lastIndex + 1}</span>
-                                        </div>
-                                        <a
-                                            onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-right' : true,
-                                                'disabled' : this.state.ledger.length < 15
-                                            })}
-                                        >
-                                            Next
-                                        </a>
-                                    </div>
-                                </div>
+                                name: 'Date',
+                                alignRight: false
+                            },{
+                                name: 'Type',
+                                alignRight: false
+                            },{
+                                name: 'Change',
+                                alignRight: true
+                            },{
+                                name: 'Balance',
+                                alignRight: true
+                            },{
+                                name: 'Holding',
+                                alignRight: true
+                            },{
+                                name: 'Change',
+                                alignRight: true
+                            },{
+                                name: 'Balance',
+                                alignRight: true
                             }
-                        </ContentHendler>
-                    </div>
+                        ]}
+                        keyField={'ledgerId'}
+                        className={'no-min-height'}
+                        emptyMessage={'No active polls.'}
+                        TableRowComponent={Entry}
+                        tableData={this.state.ledger}
+                        isPaginate
+                        page={this.state.page}
+                        previousHendler={() => this.onPaginate(this.state.page - 1)}
+                        nextHendler={() => this.onPaginate(this.state.page + 1)}
+                    />
+                    {/* 
+                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                    <Entry
+                        key={uuid()}
+                        entry={el}
+                        publicKey= {this.state.serverPublicKey}
+                        privateKey={this.state.privateKey}
+                        sharedKey= {this.state.sharedKey}
+                        setLedgerEntryInfo={this.getLedgerEntry}
+                        setTransactionInfo={this.getTransaction}
+                        setBlockInfo={this.getBlock}
+                    /> */}
                 </div>
+            
             </div>
         );
     }

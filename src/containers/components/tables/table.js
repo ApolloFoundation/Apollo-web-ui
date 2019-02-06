@@ -4,7 +4,7 @@ import ContentHendler from '../content-hendler';
 import uuid from 'uuid';
 
 const CustomTable = (props) => {
-    const {keyField, actionButton, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
+    const {keyField, AboveTabeComponent, actionButton, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
     return (
             <ContentHendler
                 items={tableData}
@@ -22,108 +22,110 @@ const CustomTable = (props) => {
                                     <p>{tableName}</p>
                                 </div>
                             }
-
-                        <div className="transaction-table-body">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        {
-                                            header && 
-                                            header.map((el) => 
-                                                <>
-                                                    {
-                                                        !el.isRender && 
-                                                        <td
-                                                            key={uuid()}
-                                                            className={classNames({
-                                                                'align-right': el.alignRight
-                                                            })}
-                                                        >
-                                                            {el.name}
-                                                        </td>
-                                                    }
-                                                </>
-                                                
+                            {
+                                AboveTabeComponent &&
+                                <AboveTabeComponent />
+                            }
+                            <div className="transaction-table-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            {
+                                                header && 
+                                                header.map((el) => 
+                                                    <>
+                                                        {
+                                                            !el.isRender && 
+                                                            <td
+                                                                key={uuid()}
+                                                                className={classNames({
+                                                                    'align-right': el.alignRight
+                                                                })}
+                                                            >
+                                                                {el.name}
+                                                            </td>
+                                                        }
+                                                    </>
+                                                    
+                                                )
+                                            }
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {
+                                        tableData.map((el, index) => {
+                                            return (
+                                                <TableRowComponent
+                                                    key={el[keyField]}
+                                                    {...el}
+                                                />
                                             )
-                                        }
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {
-                                    tableData.map((el, index) => {
-                                        return (
-                                            <TableRowComponent
-                                                key={el[keyField]}
-                                                {...el}
-                                            />
-                                        )
-                                    })
-                                }
-                                </tbody>
-                            </table>
-                        </div>
-                        {/** Table paginator */}
-                        {
-                            page &&
-                            tableData &&
-                            !!tableData.length &&
-                            isPaginate &&
-                            <div className="btn-box pagination">
+                                        })
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                            {/** Table paginator */}
+                            {
+                                page &&
+                                tableData &&
+                                !!tableData.length &&
+                                isPaginate &&
+                                <div className="btn-box pagination">
 
-                                <a
-                                    className={classNames({
-                                        'btn' : true,
-                                        'btn-left' : true,
-                                        'disabled' : page <= 1,
-                                        'round': true,
-                                        'round-top-right': true,
-                                        'round-bottom-left': true,
-                                    })}
-                                    onClick={previousHendler}
-                                > 
-                                    Previous
-                                </a>
-                                <div className='pagination-nav'>
-                                    <span>{page * 15  - 15 + 1}</span>
-                                    <span>&hellip;</span>
-                                    <span>{(page * 15 - 15) + tableData.length}</span> 
+                                    <a
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-left' : true,
+                                            'disabled' : page <= 1,
+                                            'round': true,
+                                            'round-top-right': true,
+                                            'round-bottom-left': true,
+                                        })}
+                                        onClick={previousHendler}
+                                    > 
+                                        Previous
+                                    </a>
+                                    <div className='pagination-nav'>
+                                        <span>{page * 15  - 15 + 1}</span>
+                                        <span>&hellip;</span>
+                                        <span>{(page * 15 - 15) + tableData.length}</span> 
+                                    </div>
+                                    <a
+                                        onClick={nextHendler}
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-right' : true,
+                                            'disabled' : tableData.length < 15,
+                                            'round': true,
+                                            'round-top-left': true,
+                                            'round-bottom-right': true,
+                                        })}
+                                    >
+                                        Next
+                                    </a>
                                 </div>
-                                <a
-                                    onClick={nextHendler}
-                                    className={classNames({
-                                        'btn' : true,
-                                        'btn-right' : true,
-                                        'disabled' : tableData.length < 15,
-                                        'round': true,
-                                        'round-top-left': true,
-                                        'round-bottom-right': true,
-                                    })}
-                                >
-                                    Next
-                                </a>
-                            </div>
-                        }
-                        {
-                            actionButton && 
-                            <div className="btn-box pagination">
-                                <a
-                                    onClick={actionButton.handler}
-                                    className={classNames({
-                                        'btn' : true,
-                                        'btn-right' : true,
-                                        'blue': true,
-                                        'round': true,
-                                        'round-top-left': true,
-                                        'round-bottom-right': true,
-                                    })}
-                                >
-                                    {actionButton.name}
-                                </a>
-                            </div>
-                        }
+                            }
+                            {
+                                actionButton && 
+                                <div className="btn-box pagination">
+                                    <a
+                                        onClick={actionButton.handler}
+                                        className={classNames({
+                                            'btn' : true,
+                                            'btn-right' : true,
+                                            'blue': true,
+                                            'round': true,
+                                            'round-top-left': true,
+                                            'round-bottom-right': true,
+                                        })}
+                                    >
+                                        {actionButton.name}
+                                    </a>
+                                </div>
+                            }
                         </div>
-                        
                     </>
                     
 
