@@ -190,7 +190,7 @@ class Login extends React.Component {
                                 left: '0'
                             }}
                         >
-                            Copyright © 2017-2018 Apollo Foundation. Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
+                            Copyright © 2017-2019 Apollo Foundation. Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
                         </p>
                     </div>
                 </div>
