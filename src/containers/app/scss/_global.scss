@@ -501,37 +501,16 @@ input[type="file"] {
 	background: #F5F5F5;
 	z-index: 1000000;
 	
-	.ball-clip-rotate {
-		transform: translate(10px, 10px);
-		
-		div {
-			border-color: black;
-			height: 100px !important;
-			width: 100px !important;
-		}
-	}
-	.loader {
+	.ball-scale-multiple {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%);
-		height: 40px;
-		width: 40px;
-		margin: 0;
+		transform: translate(0, -50px);
 		
-		.ball-clip-rotate {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			margin-top: 5px;
-			
-			div {
-				height: 80px;
-				width: 80px;
-				border-color: black;
-				border-bottom-color: transparent;
-			}
+		div {
+			height: 80px;
+			width: 80px;
+			background: #00C8FF;
 		}
 	}
 }

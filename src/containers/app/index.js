@@ -226,6 +226,62 @@ class App extends React.Component {
                 </div>
     }
 
+    routers = () => (
+        <Switch>
+            <Route exact path="/dashboard" component={Dashboard}/>
+            <Route exact path="/" component={Dashboard}/>
+            <Route exact path="/transactions" component={Transactions}/>
+            <Route exact path="/ledger" component={Ledger}/>
+            <Route exact path="/blocks" component={Blocks}/>
+            <Route exact path="/followed-polls/:poll" component={Followedpolls}/>
+            <Route exact path="/followed-polls" component={Followedpolls}/>
+            <Route exact path="/my-votes" component={MyVotes}/>
+            <Route exact path="/my-polls" component={MyPolls}/>
+            <Route exact path="/messenger" component={Messenger}/>
+            <Route exact path="/messenger/:chat" component={Messenger}/>
+            <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
+            <Route exact path="/currencies" component={Currencies}/>
+            <Route exact path="/marketplace/" component={Marketplace}/>
+            <Route exact path="/my-products-for-sale" component={MyProductsForSale}/>
+            <Route exact path="/my-pending-orders" component={MyPandingOrders}/>
+            <Route exact path="/my-completed-orders" component={MyCompletedOrders}/>
+            <Route exact path="/marketplace/:tag" component={MarketplaceSearch}/>
+            <Route exact path="/active-polls" component={Activepolls}/>
+            <Route exact path="/active-shuffling" component={ActiveShufflings}/>
+            <Route exact path="/exchange-booth/:currency" component={ExchangeBooth}/>
+            <Route exact path="/my-shuffling" component={MyCurrencies}/>
+            <Route exact path="/account-properties" component={AccountProperties}/>
+            <Route exact path="/approval-request" component={ApprovalRequest}/>
+            <Route exact path="/approval-request-assets" component={ApprovalRequestAssets}/>
+            <Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
+            <Route exact path="/asset-exchange" component={AssetExchange}/>
+            <Route exact path="/aliases" component={Aliases}/>
+            <Route exact path="/delete-history" component={DeleteHistory}/>
+            <Route exact path="/funding-monitors" component={FundingMonitors}/>
+            <Route exact path="/funding-monitors/:account/:property" component={FundingMonitorsStatus}/>
+            <Route exact path="/my-assets" component={MyAssets}/>
+            <Route exact path="/my-currencies" component={MyMadedCurrencies}/>
+            <Route exact path="/open-orders" component={OpenOrders}/>
+            <Route exact path="/peers" component={Peers}/>
+            <Route exact path="/purchased-products" component={PurchasdProucts}/>
+            {/*,<Route exact path="/plugins" component={Plugins}/>*/}
+            <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
+            <Route exact path="/settings" component={Settings}/>
+            <Route exact path="/trade-history" component={TradeHistory}/>
+            <Route exact path="/exchange-history-currency" component={TradeHistoryCurrency}/>
+            <Route exact path="/transfer-history" component={TransferHistory}/>
+            <Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
+            <Route exact path="/finished-polls" component={Finishedpolls}/>
+            <Route exact path="/data-storage" component={DataStorage}/>
+            <Route exact path="/data-storage/:query" component={DataStorage}/>
+            <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
+            <Route exact path="/my-messages" component={MyMessages}/>
+            <Route exact path="/generators" component={Generators}/>
+            <Route exact path="/index.html" render={() => <Redirect to="/dashboard"/>}/>
+            <Route exact path="*" render={() => <Redirect to="/dashboard"/>}/>
+        </Switch>
+    )
+
     render() {
         const {
             history: {
@@ -287,63 +343,15 @@ class App extends React.Component {
                         )}/>
 
 
-                        {!this.props.loading &&
-                        <React.Fragment>
-                            <Switch>
-                                <Route exact path="/dashboard" component={Dashboard}/>
-                                <Route exact path="/" component={Dashboard}/>
-                                <Route exact path="/transactions" component={Transactions}/>
-                                <Route exact path="/ledger" component={Ledger}/>
-                                <Route exact path="/blocks" component={Blocks}/>
-                                <Route exact path="/followed-polls/:poll" component={Followedpolls}/>
-                                <Route exact path="/followed-polls" component={Followedpolls}/>
-                                <Route exact path="/my-votes" component={MyVotes}/>
-                                <Route exact path="/my-polls" component={MyPolls}/>
-                                <Route exact path="/messenger" component={Messenger}/>
-                                <Route exact path="/messenger/:chat" component={Messenger}/>
-                                <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
-                                <Route exact path="/currencies" component={Currencies}/>
-                                <Route exact path="/marketplace/" component={Marketplace}/>
-                                <Route exact path="/my-products-for-sale" component={MyProductsForSale}/>
-                                <Route exact path="/my-pending-orders" component={MyPandingOrders}/>
-                                <Route exact path="/my-completed-orders" component={MyCompletedOrders}/>
-                                <Route exact path="/marketplace/:tag" component={MarketplaceSearch}/>
-                                <Route exact path="/active-polls" component={Activepolls}/>
-                                <Route exact path="/active-shuffling" component={ActiveShufflings}/>
-                                <Route exact path="/exchange-booth/:currency" component={ExchangeBooth}/>
-                                <Route exact path="/my-shuffling" component={MyCurrencies}/>
-                                <Route exact path="/account-properties" component={AccountProperties}/>
-                                <Route exact path="/approval-request" component={ApprovalRequest}/>
-                                <Route exact path="/approval-request-assets" component={ApprovalRequestAssets}/>
-                                <Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
-                                <Route exact path="/asset-exchange" component={AssetExchange}/>
-                                <Route exact path="/aliases" component={Aliases}/>
-                                <Route exact path="/delete-history" component={DeleteHistory}/>
-                                <Route exact path="/funding-monitors" component={FundingMonitors}/>
-                                <Route exact path="/funding-monitors/:account/:property" component={FundingMonitorsStatus}/>
-                                <Route exact path="/my-assets" component={MyAssets}/>
-                                <Route exact path="/my-currencies" component={MyMadedCurrencies}/>
-                                <Route exact path="/open-orders" component={OpenOrders}/>
-                                <Route exact path="/peers" component={Peers}/>
-                                <Route exact path="/purchased-products" component={PurchasdProucts}/>
-                                {/*,<Route exact path="/plugins" component={Plugins}/>*/}
-                                <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
-                                <Route exact path="/settings" component={Settings}/>
-                                <Route exact path="/trade-history" component={TradeHistory}/>
-                                <Route exact path="/exchange-history-currency" component={TradeHistoryCurrency}/>
-                                <Route exact path="/transfer-history" component={TransferHistory}/>
-                                <Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
-                                <Route exact path="/finished-polls" component={Finishedpolls}/>
-                                <Route exact path="/data-storage" component={DataStorage}/>
-                                <Route exact path="/data-storage/:query" component={DataStorage}/>
-                                <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
-                                <Route exact path="/my-messages" component={MyMessages}/>
-                                <Route exact path="/generators" component={Generators}/>
-                                <Route exact path="/index.html" render={() => <Redirect to="/dashboard"/>}/>
-                                <Route exact path="*" render={() => <Redirect to="/dashboard"/>}/>
-                            </Switch>
-                            
-                        </React.Fragment>
+                        {
+                            !!this.props.account &&
+                            !this.props.loading &&
+                            <>
+                                {this.routers()}
+                            </> ||
+                            <>
+                                <PageLoader />
+                            </>
                         }
                     </Switch>
                     {!this.props.loading && !isLoginPage &&

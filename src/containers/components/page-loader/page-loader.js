@@ -8,12 +8,10 @@ import React from 'react';
 
 const PageLoader = () => (
     <div className="page-loader">
-        <div className="loader">
-            <div className="site-logo page-loader-image">
-            </div>
-            <div className="ball-clip-rotate">
-                <div></div>
-            </div>
+        <div className="loader ball-scale-multiple">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
 )

@@ -368,31 +368,15 @@ input[type="file"] {
   right: 0;
   background: #F5F5F5;
   z-index: 1000000; }
-  .page-loader .ball-clip-rotate {
-    transform: translate(10px, 10px); }
-    .page-loader .ball-clip-rotate div {
-      border-color: black;
-      height: 100px !important;
-      width: 100px !important; }
-  .page-loader .loader {
+  .page-loader .ball-scale-multiple {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    height: 40px;
-    width: 40px;
-    margin: 0; }
-    .page-loader .loader .ball-clip-rotate {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      margin-top: 5px; }
-      .page-loader .loader .ball-clip-rotate div {
-        height: 80px;
-        width: 80px;
-        border-color: black;
-        border-bottom-color: transparent; }
+    transform: translate(0, -50px); }
+    .page-loader .ball-scale-multiple div {
+      height: 80px;
+      width: 80px;
+      background: #00C8FF; }
 
 .chart-sprite {
   position: relative; }
@@ -5323,31 +5307,15 @@ input[type="file"] {
   right: 0;
   background: #F5F5F5;
   z-index: 1000000; }
-  .page-loader .ball-clip-rotate {
-    transform: translate(10px, 10px); }
-    .page-loader .ball-clip-rotate div {
-      border-color: black;
-      height: 100px !important;
-      width: 100px !important; }
-  .page-loader .loader {
+  .page-loader .ball-scale-multiple {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    height: 40px;
-    width: 40px;
-    margin: 0; }
-    .page-loader .loader .ball-clip-rotate {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      margin-top: 5px; }
-      .page-loader .loader .ball-clip-rotate div {
-        height: 80px;
-        width: 80px;
-        border-color: black;
-        border-bottom-color: transparent; }
+    transform: translate(0, -50px); }
+    .page-loader .ball-scale-multiple div {
+      height: 80px;
+      width: 80px;
+      background: #00C8FF; }
 
 .chart-sprite {
   position: relative; }
