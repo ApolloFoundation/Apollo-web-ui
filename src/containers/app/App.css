@@ -7415,7 +7415,7 @@ input[type="number"] {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    padding: 135px 15px 15px;
+    padding: 135px 15px 0px;
     min-height: 100%;
     z-index: 0; }
     @media (max-width: 760px) {

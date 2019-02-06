@@ -264,7 +264,7 @@ class FollowedVotes extends React.Component {
                         <div className="row">
                             {
                                 window.innerWidth > 768 &&
-                                <div className="col-md-3 p-0">
+                                <div className="col-md-3 p-0 pb-3">
                                     <SidebarContent
                                         baseUrl={'/followed-polls/'}
                                         element={'poll'}

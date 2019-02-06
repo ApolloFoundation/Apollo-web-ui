@@ -300,18 +300,17 @@ class ExchangeBooth extends React.Component {
                 </SiteHeader>
                 {
                     this.state.currency &&
-                    <div className="page-body container-fluid assets-exchange">
+                    <div className="page-body container-fluid">
                         <div className="row">
-                            {
-                                window.innerWidth > 768 &&
-                                <div className="col-md-3 p-0">
-                                    <SidebarContent
-                                        baseUrl={'/exchange-booth/'}
-                                        data={this.state.currencies}
-                                        bottomBarPreText={'Current Supply:&nbsp;'}
-                                    />
-                                </div>
-                            }
+                            <div className="col-md-3 p-0 pb-3">
+                                <SidebarContent
+                                    element={'code'}
+                                    baseUrl={'/exchange-booth/'}
+                                    // data={this.state.currencies}
+                                    bottomBarPreText={'Current Supply:&nbsp;'}
+                                    emptyMessage={'No followed polls.'}
+                                />
+                            </div>
                             <div className="col-md-9 p-0">
                                 <div className="row">
                                     {
@@ -672,7 +671,7 @@ class ExchangeBooth extends React.Component {
                                     </div>
                                     <div className="col-md-12 p-0 margin-top-13">
                                         <div className="row">
-                                            <div className="col-md-6 display-flex pr-0">
+                                            <div className="col-md-6 display-flex pr-0 pb-3">
                                                 <div className="card ballance medium-padding card-flexible">
                                                     <div className="form-group-app">
                                                         <div className="form-title">
@@ -712,7 +711,7 @@ class ExchangeBooth extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6 display-flex pr-0">
+                                            <div className="col-md-6 display-flex pr-0 pb-3">
                                                 <div className="card assets medium-padding card-flexible">
                                                     <div className="form-group-app">
                                                         <div className="form-title">
@@ -758,7 +757,7 @@ class ExchangeBooth extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-12 pr-0 pb-3">
                                         <div className="card ballance medium-padding card-flexible">
                                             <div className="form-group-app">
                                                 <div className="form-title">
@@ -798,7 +797,7 @@ class ExchangeBooth extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-12 pr-0 pb-3">
                                         <div className="card ballance medium-padding card-flexible" style={{marginBottom:0}}>
                                             <div className="form-group-app">
                                                 <div className="form-title">

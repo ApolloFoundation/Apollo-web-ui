@@ -285,7 +285,7 @@ class AssetExchange extends React.Component {
                         <div className="row">
                             {
                                 window.innerWidth > 768 &&
-                                <div className="col-md-3 p-0 left-col">
+                                <div className="col-md-3 p-0 left-col mb-3 pb-3">
                                     <div className="card card-full-screen no-padding scroll mb-3">
                                         {
                                             this.state.accountAssets &&
@@ -736,7 +736,7 @@ class AssetExchange extends React.Component {
                     !this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-3 p-0 one-col">
+                            <div className="col-md-3 p-0 one-col pb-3">
                                 <div className="card card-full-screen no-padding scroll">
                                     {
                                         this.state.accountAssets &&
