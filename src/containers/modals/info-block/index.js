@@ -38,12 +38,13 @@ class InfoBlock extends React.Component {
         console.log(modalData)
         if (isString) {
             this.getBlock({height: modalData})
-        } 
-        // else {
-        //     this.setState({
-        //         blockInfo : modalData
-        //     })
-        // }
+        } else {
+            if (modalData) {
+                this.setState({
+                    blockInfo : modalData
+                })
+            }
+        }
     }
 
     getBlock = async (block) => {

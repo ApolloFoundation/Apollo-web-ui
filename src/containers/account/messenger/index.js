@@ -66,7 +66,7 @@ class Messenger extends React.Component {
                                 Component={SidebarMessage}
                             />
                         </div>
-                        <div className="col-md-9 pl-sm-0 p-xs-0 pl-md-3 pr-0">
+                        <div className="col-md-9 pl-sm-0 p-xs-0 pl-md-3 pr-0 pb-3">
                             <Chat />
                         </div>
                     </div>

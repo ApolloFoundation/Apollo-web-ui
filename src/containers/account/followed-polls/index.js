@@ -277,7 +277,7 @@ class FollowedVotes extends React.Component {
                             {
                                 this.state.poll &&
                                 <div className={'col-md-9 pl-sm-0 p-xs-0 pl-md-3 pr-0'}>
-                                    <div className="card card-flexible">
+                                    <div className="card card-flexible mb-3">
 
                                                 <div className="row">
                                                     <div className="col-md-7">
@@ -337,7 +337,7 @@ class FollowedVotes extends React.Component {
 
                                             </div>
 
-                                    <div className="card card-flexible mb-0">
+                                    <div className="card card-flexible mb-3">
                                         <div className="form-group-app offset-bottom height-auto no-padding transparent">
                                             <CustomTable 
                                                 header={[

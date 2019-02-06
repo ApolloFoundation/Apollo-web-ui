@@ -264,7 +264,7 @@ class Ledger extends React.Component {
                             }
                         ]}
                         keyField={'ledgerId'}
-                        className={'no-min-height'}
+                        className={'no-min-height mb-3'}
                         emptyMessage={'No active polls.'}
                         TableRowComponent={Entry}
                         tableData={this.state.ledger}

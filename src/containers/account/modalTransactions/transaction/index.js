@@ -25,20 +25,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Transaction extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    async getBlock(type, blockHeight) {
-        const requestParams = {
-            height: blockHeight
-        };
-
-        const block = await this.props.getBlockAction(requestParams);
-
-        if (block) {
-            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
-        }
+    getBlock = async (blockHeight) => {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', blockHeight)
     }
 
     render () {
@@ -57,7 +45,8 @@ class Transaction extends React.Component {
             recipient,
             recipientRS,
             height,
-            isUnconfirmed
+            isUnconfirmed,
+            setBodyModalParamsAction
         } = this.props;
 
         return (
@@ -66,7 +55,7 @@ class Transaction extends React.Component {
                     transaction && constants &&
                     <React.Fragment>
                         <td className="blue-link-text">
-                            <a onClick={() => setTransactionInfo('INFO_TRANSACTION', transaction, (type === 0 && subtype === 1))}>
+                            <a onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', transaction)}>
                                 {formatTimestamp(timestamp)}
                             </a>
                         </td>
@@ -91,17 +80,7 @@ class Transaction extends React.Component {
                         <td className="align-right blue-link-text">
                             {
                                 !isUnconfirmed &&
-                                <a onClick={() => this.getBlock(this, 'INFO_BLOCK', height)}>{height}</a>
-                            }
-                            {
-                                isUnconfirmed && '-'
-                            }
-                        </td>
-
-                        <td className="align-right">
-                            {
-                                !isUnconfirmed &&
-                                <a>{this.props.transaction.confirmations}</a>
+                                <a onClick={() => setBodyModalParamsAction('INFO_BLOCK', height)}>{height}</a>
                             }
                             {
                                 isUnconfirmed && '-'
