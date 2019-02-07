@@ -15,8 +15,6 @@ import {NotificationManager} from "react-notifications";
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 
-
-
 class BuyCurrency extends React.Component {
     constructor(props) {
         super(props);

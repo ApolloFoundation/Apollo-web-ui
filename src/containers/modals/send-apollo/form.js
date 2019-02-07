@@ -7,11 +7,8 @@ import {
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
 import CustomTextArea from '../../components/form-components/text-area';
-import {TabContainer} from '../../components/form-components/tab-container';
 import AccountRSFormInput from '../../components/form-components/account-rs'
-import CustomFormSelect from '../../components/form-components/custom-form-select'
 import NummericInputForm from '../../components/form-components/numeric-input'
-import CurrencyInput from '../../components/form-components/currency-input'
 
 const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup}) => (
     <>

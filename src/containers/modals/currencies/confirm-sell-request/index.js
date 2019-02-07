@@ -16,8 +16,6 @@ import {Text} from 'react-form';
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 
-
-
 class SellCurrency extends React.Component {
     constructor(props) {
         super(props);

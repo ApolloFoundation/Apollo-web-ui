@@ -21,6 +21,12 @@ import submitForm from "../../../helpers/forms/forms";
 import ModalFooter from '../../components/modal-footer'
 import FeeCalc from '../../components/form-components/fee-calc';
 
+import ModalBody from '../../components/modals/modal-body';
+import TextualInputComponent from '../../components/form-components/textual-input';
+import CustomTextArea from '../../components/form-components/text-area';
+import NummericInputForm from '../../components/form-components/numeric-input'
+
+
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
 });
@@ -94,136 +100,37 @@ class IssueAsset extends React.Component {
 
     render() {
         return (
-            <div className="modal-box">
-                <Form
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
-
-                                <div className="form-title">
-                                    <p>Issue Asset</p>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Asset name</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Asset name" field="name" type="text"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Description</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <TextArea placeholder="Description" field="description" cols="30" rows="10" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Quantity</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Quantity" field="quantityATU" type="tel"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app display-block offset-bottom">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Decimals</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text placeholder="Decimals" field="decimals" type="tel" min={0} max={8}/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <FeeCalc
-                                    values={getFormState().values}
-                                    setValue={setValue}
-                                    requestType={'issueAsset'}
-                                />
-                                <ModalFooter
-                                    setValue={setValue}
-                                    getFormState={getFormState}
-                                    values={values}
-                                />
-                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    {
-                                        !!this.state.isPending ?
-                                            <div
-                                                style={{
-                                                    width: 116.25
-                                                }}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                <div className="ball-pulse">
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div> :
-                                            <button
-                                                style={{
-                                                    width: 116.25
-                                                }}
-                                                type="submit"
-                                                name={'closeModal'}
-                                                className="btn btn-right blue round round-bottom-right"
-                                            >
-                                                Issue asset
-                                            </button>
-                                    }
-                                    <a
-                                        onClick={() => this.props.closeModal()}
-                                        className="btn round round-top-left"
-                                    >
-                                        Cancel
-                                    </a>
-
-                                </div>
-                                {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
-                                    {/*{*/}
-                                        {/*this.state.advancedState &&*/}
-                                        {/*<a*/}
-                                            {/*onClick={this.handleAdvancedState}*/}
-                                            {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
-                                            {/*style={{left : 0, right: 'auto'}}*/}
-                                        {/*>*/}
-                                            {/*Basic*/}
-                                        {/*</a>*/}
-                                    {/*}*/}
-                                    {/*{*/}
-                                        {/*!this.state.advancedState &&*/}
-                                        {/*<a*/}
-                                            {/*onClick={this.handleAdvancedState}*/}
-                                            {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
-                                            {/*style={{left : 0, right: 'auto'}}*/}
-                                        {/*>*/}
-                                            {/*Advanced*/}
-                                        {/*</a>*/}
-                                    {/*}*/}
-
-                                {/*</div>*/}
-                                <AdvancedSettings
-                                    setValue={setValue}
-                                    getFormState={getFormState}
-                                    values={values}
-                                    advancedState={this.state.advancedState}
-                                />
-                            </div>
-                        </form>
-                    )}
+            <ModalBody
+                loadForm={this.loadForm}
+                modalTitle={'Issue Asset'}
+                isAdvanced={true}
+                isFee
+                closeModal={this.props.closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Issue Asset'}
+				idGroup={'issue-asset-modal-'}
+            >
+                <TextualInputComponent
+                    label={'Asset name'}
+                    placeholder={'Asset name'}
+                    field={'name'}
                 />
-
-            </div>
+                <CustomTextArea
+                    label={'Description'}
+                    placeholder={'Description'}
+                    field={'description'}
+                />
+                <NummericInputForm
+                    label={'Quantity'}
+                    placeholder={'Quantity'}
+                    field={'quantityATU'}
+                />
+                <NummericInputForm
+                    label={'Decimals'}
+                    placeholder={'Decimals'}
+                    field={'decimals'}
+                />
+            </ModalBody>
         );
     }
 }
