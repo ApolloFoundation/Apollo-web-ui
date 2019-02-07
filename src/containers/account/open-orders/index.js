@@ -86,10 +86,10 @@ class OpenOrders extends React.Component {
                 <SiteHeader
                     pageTitle={'Open orders'}
                 />
-                <div className="page-body container-fluid">
+                <div className="page-body container-fluid pl-0">
                     <div className="open-orders">
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-6 pr-0 pl-3">
                                 <div className="form-group-app">
                                     <div className="form-title">
                                         <p>Sell Orders</p>
@@ -137,7 +137,7 @@ class OpenOrders extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-6 pr-0 pl-3">
                                 <div className="form-group-app">
                                     <div className="form-title">
                                         <p>Buy Orders</p>
