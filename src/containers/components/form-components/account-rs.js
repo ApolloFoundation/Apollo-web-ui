@@ -2,7 +2,7 @@ import React from 'react';
 import AccountRS from '../account-rs';
 
 const AccountRSFormInput = (props) => {
-    const {setValue, exportAccountList, label, field, value, defaultValue} = props;
+    const {setValue, noContactList, exportAccountList, label, field, value, defaultValue, handleRemoveItem, index} = props;
 
     return (
         <div className="input-group-app form-group mb-15 display-block inline user">
@@ -19,7 +19,20 @@ const AccountRSFormInput = (props) => {
                             setValue={setValue}
                             defaultValue={defaultValue}
                             exportAccountList={exportAccountList}
+                            noContactList={noContactList}
                         />
+                        
+                        {
+                            handleRemoveItem &&
+                            <div 
+                                className="input-icon remove-item"
+                                onClick={() => handleRemoveItem(index)}
+                            >
+                                <span className="input-group-text">
+                                    <i className="zmdi zmdi-minus-circle" />
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

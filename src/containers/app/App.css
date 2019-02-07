@@ -843,7 +843,6 @@ input[type="file"] {
         background-color: transparent;
         padding: 0; }
   .form-group-app .form-group-grey {
-    margin-bottom: 8px;
     align-items: center; }
     .form-group-app .form-group-grey.row {
       margin-left: 0 !important; }
@@ -932,7 +931,6 @@ input[type="file"] {
           padding-left: 0;
           padding-right: 0; } }
   .form-group-app .form-group-white {
-    margin-bottom: 8px;
     align-items: center;
     flex-wrap: nowrap; }
     .form-group-app .form-group-white.row {
@@ -1105,8 +1103,15 @@ input[type="file"] {
   cursor: pointer; }
 
 .input-group-app .input-icon {
-  width: 32px;
   display: table-cell; }
+  .input-group-app .input-icon.remove-item {
+    padding: 0;
+    border: 0;
+    width: 33px;
+    border-radius: 0 3px 3px 0;
+    height: 34px; }
+    .input-group-app .input-icon.remove-item .input-group-text {
+      padding: 0; }
   .input-group-app .input-icon.text {
     width: auto;
     font-size: 12px; }
@@ -5782,7 +5787,6 @@ input[type="file"] {
         background-color: transparent;
         padding: 0; }
   .form-group-app .form-group-grey {
-    margin-bottom: 8px;
     align-items: center; }
     .form-group-app .form-group-grey.row {
       margin-left: 0 !important; }
@@ -5871,7 +5875,6 @@ input[type="file"] {
           padding-left: 0;
           padding-right: 0; } }
   .form-group-app .form-group-white {
-    margin-bottom: 8px;
     align-items: center;
     flex-wrap: nowrap; }
     .form-group-app .form-group-white.row {
@@ -6044,8 +6047,15 @@ input[type="file"] {
   cursor: pointer; }
 
 .input-group-app .input-icon {
-  width: 32px;
   display: table-cell; }
+  .input-group-app .input-icon.remove-item {
+    padding: 0;
+    border: 0;
+    width: 33px;
+    border-radius: 0 3px 3px 0;
+    height: 34px; }
+    .input-group-app .input-icon.remove-item .input-group-text {
+      padding: 0; }
   .input-group-app .input-icon.text {
     width: auto;
     font-size: 12px; }

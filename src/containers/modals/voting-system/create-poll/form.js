@@ -180,11 +180,13 @@ class PollForm extends React.Component {
                                 className="form-control"
                                 placeholder={'Answer'}
                             />
-                            <div className="input-group-append"
-                                    onClick={() => this.removeAnswer(setValue, getFormState().values.answers, 0)}>
-                                                <span className="input-group-text">
-                                                    <i className="zmdi zmdi-minus-circle" />
-                                                </span>
+                            <div 
+                                className="input-group-append"
+                                onClick={() => this.removeAnswer(setValue, getFormState().values.answers, 0)}
+                            >
+                                <span className="input-group-text">
+                                    <i className="zmdi zmdi-minus-circle" />
+                                </span>
                             </div>
                         </div>
                         {getFormState().values.answers &&

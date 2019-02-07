@@ -23,7 +23,6 @@ const IssueCurrencyForm = (props) => {
             
             <TextualInputComponent 
                 label={'Currency Code'}
-    
                 disabled={true}
                 field="code"
                 placeholder="Currency Code"
@@ -47,6 +46,7 @@ const IssueCurrencyForm = (props) => {
                     {
                         label: 'Exchangeable',
                         field: 'type1',
+                        defaultValue: true
                         // handler : this.setFormState(form)
                     },
                     {
@@ -82,7 +82,6 @@ const IssueCurrencyForm = (props) => {
                 <>
                     <NumericInput
                         setValue={setValue}
-            
                         label={'Minimum Amount to Reserve Per Unit'}
                         field={'minReservePerUnitATM'}
                         countingTtile={'APL'}
@@ -91,8 +90,7 @@ const IssueCurrencyForm = (props) => {
                     />
             
                     <NumericInput
-                        setValue={setValue}
-            
+                        setValue={setValue}ß
                         label={'Reserve Supply'}
                         field={'reserveSupply'}
                         countingTtile={'APL'}
@@ -107,7 +105,6 @@ const IssueCurrencyForm = (props) => {
                 <>
                     <NumericInput
                         setValue={setValue}
-            
                         label={'Minimum Difficulty'}
                         field={'minDifficulty'}
                         countingTtile={'APL'}
@@ -118,7 +115,6 @@ const IssueCurrencyForm = (props) => {
             
                     <NumericInput
                         setValue={setValue}
-            
                         label={'Maximum Difficulty'}
                         field={'maxDifficulty'}
                         countingTtile={'APL'}
@@ -140,7 +136,6 @@ const IssueCurrencyForm = (props) => {
             
             <NumericInput
                 setValue={setValue}
-    
                 label={'Total Supply'}
                 field={'maxSupply'}
                 countingTtile={'APL'}
@@ -150,7 +145,6 @@ const IssueCurrencyForm = (props) => {
     
             <NumericInput
                 setValue={setValue}
-    
                 label={'Decimals'}
                 field={'decimals'}
                 placeholder={'Decimals'}

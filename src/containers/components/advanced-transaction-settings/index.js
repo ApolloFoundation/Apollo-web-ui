@@ -148,6 +148,27 @@ class AdvancedSettings extends React.Component {
         }
     };
 
+    removeListValue = (group, setValue) => {
+        return (index) => {
+            let accounts = this.state.accounts[group];
+            
+            if (accounts.length > 1) {
+                accounts.splice(index, 1);
+
+                this.setState({
+                    accounts: {
+                        ...this.state.accounts,
+                        [group]: accounts
+                    }
+                }, () => {
+                    if (setValue) {
+                        setValue('phasingWhitelisted', accounts)
+                    }
+                })
+            }
+        }
+    }
+
     handleAdvancedState = () => {
 		if (this.state.advancedState) {
 			this.setState({
@@ -315,9 +336,13 @@ class AdvancedSettings extends React.Component {
                                 return (
                                     <AccountRSFormInput 
                                         setValue={setValue}
+                                        defaultValue={this.state.accounts[2][index]}
                                         exportAccountList={this.setListValue(2, index)}
+                                        handleRemoveItem={this.removeListValue(2, setValue)}
+                                        index={index}
                                         label={'Accounts (whitelist)'}
                                         field={'phasingWhitelisted'}
+                                        noContactList
                                     />
                                 );
                             })
@@ -371,6 +396,7 @@ class AdvancedSettings extends React.Component {
                             label={'Amount'}
                             setValue={setValue}
                             placeholder={'Amount'}
+                            className={'gray-form'}
                             field={'phasingQuorumAPL'}
                             fieldType={'counter-number'}
                             code={'APL'}
@@ -385,9 +411,13 @@ class AdvancedSettings extends React.Component {
                                 return (
                                     <AccountRSFormInput 
                                         setValue={setValue}
+                                        defaultValue={this.state.accounts[2][index]}
                                         exportAccountList={this.setListValue(3, index)}
+                                        handleRemoveItem={this.removeListValue(3, setValue)}
+                                        index={index}
                                         label={'Accounts (whitelist)'}
                                         field={'phasingWhitelisted'}
+                                        noContactList
                                     />
                                 );
                             })
@@ -431,6 +461,7 @@ class AdvancedSettings extends React.Component {
                             setValue={setValue}
                             placeholder={'Asset quantity'}
                             field={'phasingQuorumATUf'}
+                            className={'gray-form'}
                             fieldType={'counter-number'}
                             defaultValue={this.state.block ? this.state.block.height : ''}
                             type={'tel'}
@@ -438,12 +469,9 @@ class AdvancedSettings extends React.Component {
 
                         {FinishHeightInput()}                    
 
-                        <CustomInputForm 
-                            label={'Asset'}
-                            setValue={setValue}
-                            placeholder={'AssetID'}
+                        <AssetInput 
                             field={'phasingHolding'}
-                            type={'text'}
+                            setValue={setValue}
                         />
 
                         {
@@ -452,9 +480,13 @@ class AdvancedSettings extends React.Component {
                                 return (
                                     <AccountRSFormInput 
                                         setValue={setValue}
+                                        defaultValue={this.state.accounts[2][index]}
                                         exportAccountList={this.setListValue(4, index)}
+                                        handleRemoveItem={this.removeListValue(4, setValue)}
+                                        index={index}
                                         label={'Accounts (whitelist)'}
                                         field={'phasingWhitelisted'}
+                                        noContactList
                                     />
                                 );
                             })
@@ -500,6 +532,7 @@ class AdvancedSettings extends React.Component {
                             setValue={setValue}
                             placeholder={'Currency units'}
                             field={'phasingQuorumATUf'}
+                            className={'gray-form'}
                             fieldType={'counter-number'}
                             code={'Units'}
                             type={'tel'}
@@ -518,9 +551,13 @@ class AdvancedSettings extends React.Component {
                                 return (
                                     <AccountRSFormInput 
                                         setValue={setValue}
+                                        defaultValue={this.state.accounts[2][index]}
                                         exportAccountList={this.setListValue(5, index)}
+                                        handleRemoveItem={this.removeListValue(5, setValue)}
+                                        index={index}
                                         label={'Accounts (whitelist)'}
                                         field={'phasingWhitelisted'}
+                                        noContactList
                                     />
                                 );
                             })
@@ -565,6 +602,7 @@ class AdvancedSettings extends React.Component {
                         <CustomInputForm 
                             label={'Approved by transaction hash'}
                             setValue={setValue}
+                            className={'gray-form'}
                             placeholder={'Full hash of transaction'}
                             field={'phasingLinkedFullHash'}
                             type={'text'}
@@ -579,6 +617,7 @@ class AdvancedSettings extends React.Component {
                     <TabContainer active={this.state.activeTab === 7}>
                         {FinishHeightInput()} 
                         <CustomInputForm 
+                            className={'gray-form'}
                             label={'Approved by hash secret'}
                             setValue={setValue}
                             placeholder={'Hash of secret'}

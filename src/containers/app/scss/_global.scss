@@ -1207,7 +1207,6 @@ input[type="file"] {
 		}
 	}
 	.form-group-grey {
-		margin-bottom: 8px;
 		align-items: center;
 		&.row {
 			margin-left: 0 !important;
@@ -1326,7 +1325,6 @@ input[type="file"] {
 		}
 	}
 	.form-group-white {
-		margin-bottom: 8px;
 		align-items: center;
 		flex-wrap: nowrap;
 		&.row {
@@ -1567,9 +1565,19 @@ input[type="file"] {
 		cursor: pointer;
 	}
 	.input-icon {
-		width: 32px;
 		display: table-cell;
 		
+		&.remove-item {
+			padding: 0;
+			border: 0;
+			width: 33px;
+			border-radius: 0 3px 3px 0;
+			height: 34px;
+
+			.input-group-text {
+				padding: 0;
+			}
+		}
 		&.text {
 			width: auto;
 			font-size: 12px;

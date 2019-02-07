@@ -65,11 +65,11 @@
   // Ensure buttons are always above inputs for more visually pleasing borders.
   // This isn't needed for `.input-group-text` since it shares the same border-color
   // as our inputs.
+  
   .btn {
     position: relative;
     z-index: 2;
   }
-
   .btn + .btn,
   .btn + .input-group-text,
   .input-group-text + .input-group-text,
