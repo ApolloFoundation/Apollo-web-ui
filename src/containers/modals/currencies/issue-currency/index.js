@@ -90,6 +90,7 @@ class IssueCurrency extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Issue Currency'}
+				idGroup={'issue-currency-modal-'}
             >
                 <IssueCurrencyForm />
             </ModalBody>

@@ -1,7 +1,7 @@
 import React from 'react';
 import InputForm from '../input-form'
 
-const TextualInputComponent = ({setValue, hendler, placeholder, field, type, label, code, text, className, id}) => {
+const TextualInputComponent = ({setValue, hendler, placeholder, field, type, label, code, text, className, idGroup}) => {
 
     return (
         <>
@@ -11,7 +11,7 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
                     <div class="form-group-grey row mb-15">
                         <div class="col-sm-9 offset-sm-3">
                             <a 
-                                id={id}
+                                id={idGroup}
                                 onClick={() => hendler()}
                                 class="no-margin btn static blue"
                             >
@@ -34,7 +34,7 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
                                         field={field}
                                         placeholder={placeholder}
                                         setValue={setValue}
-                                        id={id}
+                                        id={`${idGroup}${field}-field`}
                                     />
                                     <div className="input-group-append">
                                         <span className="input-group-text">{code}</span>

@@ -6,9 +6,11 @@ import {CheckboxFormInput} from '../../../components/form-components/check-butto
 import CustomTextArea from '../../../components/form-components/text-area';
 
 const IssueCurrencyForm = (props) => {
-    const {setValue, getFormState} = props;
+    const {setValue, getFormState, idGroup} = props;
     
     const {values : {type1, type2, type3, type4, type5, type6}} = getFormState()
+
+    console.log(idGroup)
 
     return (
         <>
@@ -19,6 +21,7 @@ const IssueCurrencyForm = (props) => {
                 placeholder="Currency Name"
                 type={"text"}
                 setValue={setValue}
+                idGroup={idGroup}
             />
             
             <TextualInputComponent 
@@ -28,6 +31,7 @@ const IssueCurrencyForm = (props) => {
                 placeholder="Currency Code"
                 type={"text"}
                 setValue={setValue}
+                idGroup={idGroup}
     
             />
     
@@ -36,11 +40,13 @@ const IssueCurrencyForm = (props) => {
                 field={'description'} 
                 placeholder={'Description'}
                 setValue={setValue}
+                idGroup={idGroup}
+
             />
             
             <CheckboxFormInput
                 setValue={setValue}
-    
+                idGroup={idGroup}    
                 label={'Type'}
                 checkboxes={[
                     {
@@ -87,6 +93,7 @@ const IssueCurrencyForm = (props) => {
                         countingTtile={'APL'}
                         placeholder={'Minimum Amount Per Unit'}
                         type={'tel'}
+                        idGroup={idGroup}
                     />
             
                     <NumericInput
@@ -96,6 +103,7 @@ const IssueCurrencyForm = (props) => {
                         countingTtile={'APL'}
                         placeholder={'Number of Units'}
                         type={'tel'}
+                        idGroup={idGroup}
                     />
                 </>
             }
@@ -110,6 +118,7 @@ const IssueCurrencyForm = (props) => {
                         countingTtile={'APL'}
                         placeholder={'Minimum Difficulty'}
                         type={'tel'}
+                        idGroup={idGroup}
                     />
                     
             
@@ -120,13 +129,14 @@ const IssueCurrencyForm = (props) => {
                         countingTtile={'APL'}
                         placeholder={'Maximum Difficulty'}
                         type={'tel'}
+                        idGroup={idGroup}
                     />
                 </>
             }
     
             <NumericInput
                 setValue={setValue}
-    
+                idGroup={idGroup}    
                 label={'Initial Supply'}
                 field={'initialSupply'}
                 countingTtile={'APL'}
@@ -136,6 +146,7 @@ const IssueCurrencyForm = (props) => {
             
             <NumericInput
                 setValue={setValue}
+                idGroup={idGroup}
                 label={'Total Supply'}
                 field={'maxSupply'}
                 countingTtile={'APL'}
@@ -145,6 +156,7 @@ const IssueCurrencyForm = (props) => {
     
             <NumericInput
                 setValue={setValue}
+                idGroup={idGroup}
                 label={'Decimals'}
                 field={'decimals'}
                 placeholder={'Decimals'}
@@ -153,7 +165,7 @@ const IssueCurrencyForm = (props) => {
     
             <NumericInput
                 setValue={setValue}
-    
+                idGroup={idGroup}    
                 label={'Activation Height'}
                 field={'height'}
                 // disabled={type1 && !type2 &&  !type3 &&  !type4 &&  !type5 && !type6}
