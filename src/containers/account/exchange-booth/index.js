@@ -29,11 +29,10 @@ import uuid from 'uuid'
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
 import {getTransactionAction} from "../../../actions/transactions";
-import ContentLoader from '../../components/content-loader';
-import ContentHendler from '../../components/content-hendler';
 
 import SidebarContent from '../../components/sidebar-list';
 import BackForm from '../../modals/modal-form/modal-form-container';
+import SidebarCurrency from './sdiebar-item';
 
 class ExchangeBooth extends React.Component {
     constructor(props) {
@@ -306,9 +305,9 @@ class ExchangeBooth extends React.Component {
                                 <SidebarContent
                                     element={'code'}
                                     baseUrl={'/exchange-booth/'}
-                                    // data={this.state.currencies}
-                                    bottomBarPreText={'Current Supply:&nbsp;'}
+                                    data={this.state.currencies}
                                     emptyMessage={'No followed polls.'}
+                                    Component={SidebarCurrency}
                                 />
                             </div>
                             <div className="col-md-9 p-0">

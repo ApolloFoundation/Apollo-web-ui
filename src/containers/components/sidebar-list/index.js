@@ -12,12 +12,13 @@ import {formatTimestamp} from "../../../helpers/util/time";
 const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location: {pathname}, Component}) => (
     <>
         <div className="card card-full-screen no-padding scroll">
+            {console.log(data)}
             {
-                data ?
+                !!data ?
                 data.map((el, index) => {
                     return (
                         <Link
-                            key={index}
+                            key={element}
                             style={{display: 'block'}}
                             to={baseUrl + el[element]}
                             className={classNames({
