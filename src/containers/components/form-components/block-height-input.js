@@ -2,7 +2,7 @@ import React from 'react';
 import InputForm from '../../components/input-form';
 import {connect} from 'react-redux';
 
-const BlockHeightInput = ({setValue, label, actualBlock, field, placeholder, deafultPlus, className}) => (
+const BlockHeightInput = ({setValue, label, actualBlock, field, placeholder, deafultPlus, className, idGroup}) => (
     <div className={`form-group row form-group-white mb-15 ${className}`}>
         <label className="col-sm-3 col-form-label">
             {label}
@@ -14,6 +14,7 @@ const BlockHeightInput = ({setValue, label, actualBlock, field, placeholder, dea
                 placeholder={placeholder}
                 defaultValue={actualBlock + (deafultPlus || 10000)}
                 setValue={setValue}
+                id={`${idGroup}${field}-field`}
             />
             <div className="input-group-append">
                 <span className="input-group-text" id="finishHeightText">{actualBlock}</span>

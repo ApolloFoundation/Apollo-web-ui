@@ -696,6 +696,7 @@ class SiteHeader extends React.Component {
                                                         </CopyToClipboard>
 
                                                         <a
+                                                            id={'open-send-apollo-modal-window'}
                                                             className="user-account-action"
                                                             onClick={this.props.setModalType.bind(this, 'SEND_APOLLO')}
                                                         >

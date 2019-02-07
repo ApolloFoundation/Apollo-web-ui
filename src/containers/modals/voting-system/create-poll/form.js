@@ -60,7 +60,7 @@ class PollForm extends React.Component {
     };
 
     render () {
-        const {getFormState, setValue} = this.props;
+        const {getFormState, setValue, idGroup} = this.props;
         const {values: {minBalanceType, votingModel}} = getFormState()
 
         return (
@@ -73,6 +73,7 @@ class PollForm extends React.Component {
                     type={"text"}
                     setValue={setValue}
                     isSpecialSymbols
+                    idGroup={idGroup}
                 />
 
                 <CustomTextArea
@@ -80,6 +81,7 @@ class PollForm extends React.Component {
                     field={'description'} 
                     placeholder={'Description'}
                     setValue={setValue}
+                    idGroup={idGroup}
                 />
 
                 <CustomFormSelect
@@ -88,6 +90,7 @@ class PollForm extends React.Component {
                     options={votingModelData}
                     label={'Poll By'}
                     field={'votingModel'}
+                    idGroup={idGroup}
                 />
                 
                 {
@@ -96,6 +99,7 @@ class PollForm extends React.Component {
                     <AssetInput
                         field={'create_poll_asset_id'}
                         setValue={setValue}
+                        idGroup={idGroup}
                     />
                 }
                 {
@@ -104,6 +108,7 @@ class PollForm extends React.Component {
                     <CurrencyInput 
                         field={'create_poll_ms_code'}
                         setValue={setValue}
+                        idGroup={idGroup}
                     />
                 }
                 {/*{getFormState().values.votingModel === votingModelData[0].value &&
@@ -167,6 +172,7 @@ class PollForm extends React.Component {
                     field={'finishHeight'}
                     placeholder={'Finish height'}
                     setValue={setValue}
+                    idGroup={idGroup}
                 />
                 
                 <div className="form-group row form-group-white mb-0">
@@ -197,6 +203,7 @@ class PollForm extends React.Component {
                                         <div key={filed}
                                             className="input-group input-group-sm mb-15 no-left-padding">
                                             <Text
+                                                id={`${idGroup}${filed}-field`}
                                                 field={filed}
                                                 className="form-control"
                                                 placeholder={'Answer'}
@@ -216,8 +223,11 @@ class PollForm extends React.Component {
                 </div>
                 <div className="mobile-class form-group-grey row mb-15">
                     <div className="col-sm-9 offset-sm-3">
-                        <a className="no-margin btn static blue"
-                            onClick={() => this.addAnswer(setValue, getFormState().values.answers)}>
+                        <a 
+                            id={`${idGroup}addAnswer-field`}
+                            className="no-margin btn static blue"
+                            onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
+                        >
                             Add answer
                         </a>
                     </div>
@@ -233,7 +243,9 @@ class PollForm extends React.Component {
                             type="tel"
                             field="minNumberOfOptions"
                             placeholder=""
-                            setValue={setValue}/>
+                            setValue={setValue}
+                            id={`${idGroup}minNumberOfOptions-field`}
+                        />
                     </div>
                     <label className="col-sm-3 col-form-label align-self-start">
                         Maximum nr of choices
@@ -244,7 +256,9 @@ class PollForm extends React.Component {
                             type="tel"
                             field="maxNumberOfOptions"
                             placeholder=""
-                            setValue={setValue}/>
+                            setValue={setValue}
+                            id={`${idGroup}maxNumberOfOptions-field`}
+                        />
                     </div>
                 </div>
                 <div className="form-group row form-group-white mb-15">
@@ -257,7 +271,9 @@ class PollForm extends React.Component {
                             type="tel"
                             field="minRangeValue"
                             placeholder=""
-                            setValue={setValue}/>
+                            setValue={setValue}
+                            id={`${idGroup}minRangeValue-field`}
+                        />
                     </div>
                     <label className="col-sm-3 col-form-label align-self-start">
                         Maximum range value
@@ -268,7 +284,9 @@ class PollForm extends React.Component {
                             type="tel"
                             field="maxRangeValue"
                             placeholder=""
-                            setValue={setValue}/>
+                            setValue={setValue}
+                            id={`${idGroup}maxRangeValue-field`}
+                        />
                     </div>
                 </div>
             </>

@@ -61,6 +61,7 @@ class CreatePoll extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Create'}
                 nameModel={nameModal}
+				idGroup={'create-poll-modal-'}
             >
                 <PollForm />
             </ModalBody>
