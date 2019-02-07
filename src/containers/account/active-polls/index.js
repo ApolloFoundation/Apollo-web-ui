@@ -149,7 +149,7 @@ class Activepolls extends React.Component {
                                 
                         </div>
 
-                        <div className="form-group-app offset-bottom height-auto no-padding transparent">
+                        <div className="form-group-app offset-bottom height-auto no-padding mb-3">
                             <CustomTable 
                                 tableName={'Finished polls'}
                                 header={[

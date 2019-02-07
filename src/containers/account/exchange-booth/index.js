@@ -322,7 +322,7 @@ class ExchangeBooth extends React.Component {
                                         </div>
                                     }
                                     <div className="col-xl-6 col-md-12 pr-0">
-                                        <div className="card header ballance medium-padding">
+                                        <div className="card header ballance medium-padding mb-3">
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="card-title medium">{this.state.code}</div>
@@ -491,7 +491,7 @@ class ExchangeBooth extends React.Component {
                                         </div>
                                     </div>
                                     <div className="col-xl-6 col-md-12 pr-0">
-                                        <div className="card header assets medium-padding">
+                                        <div className="card header assets medium-padding mb-3">
                                             <div className="full-box full">
                                                 <div className="full-box-item">
                                                     <div className='box'>

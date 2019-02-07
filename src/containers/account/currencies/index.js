@@ -124,6 +124,7 @@ class Currencies extends React.Component {
                                 alignRight: true
                             }
                         ]}
+                        className={'mb-3'}
                         page={this.state.page}
                         TableRowComponent={Currency}
                         tableData={this.state.currencies}
