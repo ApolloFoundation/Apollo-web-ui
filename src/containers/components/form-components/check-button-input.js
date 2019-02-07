@@ -3,7 +3,7 @@ import {Checkbox} from 'react-form';
 import uuid from 'uuid';
 
 export const CheckboxFormInput = (props) => {
-    const {checkboxes, label} = props;
+    const {checkboxes, label, idGroup} = props;
 
     return (
         <div className="row form-group-grey">
@@ -18,7 +18,6 @@ export const CheckboxFormInput = (props) => {
                 {
                     checkboxes &&
                     checkboxes.map(el => {
-                        const id = uuid();
                         return (
                             <div className="form-check custom-checkbox mb-15">
                                 <Checkbox className="form-check-input custom-control-input"
@@ -30,10 +29,10 @@ export const CheckboxFormInput = (props) => {
                                     }}
                                     defaultValue={el.defaultValue}
                                     field={el.field}
-                                    id={id}
+                                    id={`${idGroup}-${el.field}-field`}
                                 />
                                 <label 
-                                    htmlFor={id}
+                                    htmlFor={`${idGroup}-${el.field}-field`}
                                     className="form-check-label custom-control-label"
                                 >
                                     {el.label}

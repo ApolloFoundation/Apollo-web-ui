@@ -129,6 +129,7 @@ class AccountRS extends React.Component {
                         value={this.props.value || this.state.inputValue.value}
                         onPaste={this.onChange}
                         onChange={this.onChange}
+                        id={this.props.id}
                     />
                 }
                 {!this.props.noContactList &&

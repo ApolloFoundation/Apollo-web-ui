@@ -32,6 +32,7 @@ class ModalFooter extends React.Component {
                             field="secretPhrase"
                             placeholder="Secret Phrase"
                             setValue={this.props.setValue}
+                            id={`${this.props.idGroup}secretPhrase-field`} 
                         />
                     </div>
                 </div>
@@ -49,6 +50,7 @@ class ModalFooter extends React.Component {
                                 field="code2FA"
                                 placeholder="2FA code"
                                 setValue={this.props.setValue}
+                                id={`${this.props.idGroup}code2FA-field`} 
                             />
                         </div>
                     </div>

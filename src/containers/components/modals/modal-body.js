@@ -43,7 +43,7 @@ class ModalBody extends React.Component {
     }
 
     form = () => {
-        const {isDisabe2FA, className, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {isDisabe2FA, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
 
         return (
                 <BackForm
@@ -79,7 +79,7 @@ class ModalBody extends React.Component {
                                 {
                                     React.Children.map(children, child => {
                                             if (child) {
-                                                return React.cloneElement(child, {...submitForm, values, getValue, addValue, removeValue, setValue, getFormState})
+                                                return React.cloneElement(child, {...submitForm, values, getValue, addValue, removeValue, setValue, getFormState, idGroup})
                                             }
                                         }
                                     )
@@ -99,6 +99,7 @@ class ModalBody extends React.Component {
                                                 type={"float"}
                                                 setValue={setValue}
                                                 defaultValue={''}
+                                                id={`${idGroup}feeAPL-field`}
                                             />
                                             <div className="input-group-append">
                                                 <span className="input-group-text">Apollo</span>
@@ -114,7 +115,8 @@ class ModalBody extends React.Component {
                                         off2FA={isDisabe2FA}
                                         setValue={setValue}      
                                         getFormState={getFormState}
-                                        values={values}                      
+                                        values={values} 
+                                        idGroup={idGroup}                     
                                     />
                                 }
                             
@@ -126,6 +128,7 @@ class ModalBody extends React.Component {
                                         isPending={isPending}
                                         setValue={setValue}
                                         closeModal={closeModal}
+                                        idGroup={idGroup}
                                     />
                                 }
 

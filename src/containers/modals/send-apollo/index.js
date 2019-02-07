@@ -8,9 +8,11 @@ import {connect} from 'react-redux';
 import {
     setBodyModalParamsAction, 
 } from '../../../modules/modals';
-// import {handleFormSubmit} from './handleFormSubmit';
+import submitForm from "../../../helpers/forms/forms";
 
 // Form components
+
+import {NotificationManager} from 'react-notifications';
 
 import ModalBody from '../../components/modals/modal-body';
 import SendApolloForm from './form';
@@ -37,7 +39,7 @@ class SendApollo extends React.Component {
 		const {dashboardForm} = this.props;
 
 		if (!values.secretPhrase || values.secretPhrase.length === 0) {
-			// NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+			NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
 			return;
 		}
 
@@ -60,7 +62,7 @@ class SendApollo extends React.Component {
 			this.setState({
 				isPending: false
 			});
-			// NotificationManager.error(res.errorDescription, 'Error', 5000)
+			NotificationManager.error(res.errorDescription, 'Error', 5000)
 		} else {
 
 			if (res.broadcasted === false) {
@@ -76,7 +78,7 @@ class SendApollo extends React.Component {
 				dashboardForm.resetAll();
 				dashboardForm.setValue('recipient', ' ')
 			}
-			// NotificationManager.success('Transaction has been submitted!', null, 5000);
+			NotificationManager.success('Transaction has been submitted!', null, 5000);
 		}
 	}
 
@@ -90,6 +92,7 @@ class SendApollo extends React.Component {
 				isFee
 				isAdvanced				
 				submitButtonName={'Send Apollo'}
+				idGroup={'send-money-modal-'}
 			>
 
 				<SendApolloForm/>
@@ -109,7 +112,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	// submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+	submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),

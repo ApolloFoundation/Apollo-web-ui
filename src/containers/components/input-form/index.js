@@ -26,7 +26,7 @@ class InputForm extends React.Component {
     };
 
     validateInput = (value) => {
-        const {type, isSpecialSymbols} = this.props;
+        const {type, isSpecialSymbols, id} = this.props;
 
         if (!value.target) {
             if (type === "password" || isSpecialSymbols) {
@@ -147,6 +147,7 @@ class InputForm extends React.Component {
                     minLength={this.props.minLength}
                     disabled={this.props.disabled}
                     type={this.props.type}
+                    id={this.props.id}
 
                     onKeyUp={this.handleChange}
                     onMouseUp={this.handleChange}

@@ -2,7 +2,7 @@ import React from 'react';
 import AccountRS from '../account-rs';
 
 const AccountRSFormInput = (props) => {
-    const {setValue, noContactList, exportAccountList, label, field, value, defaultValue, handleRemoveItem, index} = props;
+    const {setValue, noContactList, exportAccountList, label, field, value, defaultValue, handleRemoveItem, index, idGroup} = props;
 
     return (
         <div className="input-group-app form-group mb-15 display-block inline user">
@@ -20,6 +20,7 @@ const AccountRSFormInput = (props) => {
                             defaultValue={defaultValue}
                             exportAccountList={exportAccountList}
                             noContactList={noContactList}
+                            id={`${idGroup}${field}-field`}
                         />
                         
                         {

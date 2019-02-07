@@ -2,9 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 
-const FormFooter = ({submitButtonName, isAdvanced, isPending, isDisabled, setValue, closeModal, isMomalProcessing}) => (
+const FormFooter = ({idGroup, submitButtonName, isAdvanced, isPending, isDisabled, setValue, closeModal, isMomalProcessing}) => (
     <div className="btn-box align-buttons-inside absolute right-conner align-right form-footer">
         <a
+            id={`${idGroup}cancel-button`}
             onClick={closeModal}
             className={`btn round round-top-left ${submitButtonName ? '' : 'round-bottom-right' }`}
         >
@@ -15,6 +16,7 @@ const FormFooter = ({submitButtonName, isAdvanced, isPending, isDisabled, setVal
             <button
                 type="submit"
                 name={'closeModal'}
+                id={`${idGroup}submit-button`}
                 className={classNames({
                     "btn" : true,
                     "btn-right" : true,
