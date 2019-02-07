@@ -54,12 +54,12 @@ class CreatePoll extends React.Component {
         return (
             <ModalBody
                 loadForm={this.loadForm}
-                modalTitle={'Buy Currency'}
+                modalTitle={'Create Poll'}
                 isAdvanced={true}
                 isFee
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Buy'}
+                submitButtonName={'Create'}
                 nameModel={nameModal}
             >
                 <PollForm />

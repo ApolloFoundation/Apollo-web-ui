@@ -1,8 +1,8 @@
 import React from 'react';
 import {TextArea} from 'react-form';
 
-const CustomTextArea = ({label, field, placeholder}) => (
-    <div className="form-group row form-group-white mb-15">
+const CustomTextArea = ({label, field, placeholder, note, className}) => (
+    <div className={`form-group row form-group-white mb-15 ${className}`}>
         <label className="col-sm-3 col-form-label align-self-start">
             {label}
         </label>
@@ -13,6 +13,12 @@ const CustomTextArea = ({label, field, placeholder}) => (
                 field={field}
                 cols="30" rows="5"
             />
+            {
+                note &&
+                <div class="form-sub-title align-margin-top align-left">
+                    {note}
+                </div>
+            }
         </div>
     </div>
 )

@@ -15,6 +15,18 @@ import {getBlockAction} from "../../../actions/blocks";
 import {getCurrencyAction} from "../../../actions/currencies";
 import {getAssetAction} from "../../../actions/assets";
 
+
+// Form components
+import BlockHeightInput from '../form-components/block-height-input';
+import {CheckboxFormInput} from '../form-components/check-button-input';
+import CustomInputForm from '../form-components/textual-input';
+import CustomTextArea from '../form-components/text-area';
+import {TabContainer} from '../form-components/tab-container';
+import AccountRSFormInput from '../form-components/account-rs'
+import CustomFormSelect from '../form-components/custom-form-select'
+import AssetInput from '../form-components/asset-input'
+import CurrencyInput from '../form-components/currency-input'
+
 const minBalanceType = [
     { value: '0', label: 'No min balance necessary' },
     { value: '1', label: 'Min balance required' },
@@ -95,16 +107,6 @@ class AdvancedSettings extends React.Component {
         }
     };
 
-    getCurrency = async (reqParams) => {
-        const result = await this.props.getCurrencyAction(reqParams);
-
-        if (result) {
-            this.setState({ currency: result.currency });
-        } else {
-            this.setState({ currency: '-' });
-        }
-    };
-
     handleNotBroadcast = (value) => {
         if (value === false) {
             this.props.setValue('doNotSign', false);
@@ -146,29 +148,118 @@ class AdvancedSettings extends React.Component {
         }
     };
 
-    getAsset =  async (values) => {
-        const asset = await this.props.getAssetAction(values);
-
-        if (asset) {
-            this.setState({
-                asset
-            })
-        } else {
-            this.setState({
-                asset: null
-            })
-        }
-    }
-
-    handleAdvancedState = () => this.setState((prevState) => ({advancedState: !prevState.advancedState}))
-
+    handleAdvancedState = () => {
+		if (this.state.advancedState) {
+			this.setState({
+				advancedState: false
+			})
+		} else {
+			this.setState({
+				advancedState: true
+			})
+		}
+	}
+    
     render () {
-        const setValue = this.props.setValue;
+        const {setValue, values}  = this.props;
 
-        const {getFormState}  = this.props;
+        const Tab = ({tab, iconLabel}) => ( 
+            <a
+                onClick={this.handleTabChange.bind(this, tab)}
+                className={classNames({
+                    'form-tab': true,
+                    'active' : this.state.activeTab === tab
+                })}
+            >
+                <i className={`zmdi ${iconLabel}`} />
+            </a>
+        )
+
+        const Tabs = () => (
+            <div className="form-tab-nav-box form-tab-icons">
+                <Tab tab={0} iconLabel={'zmdi-close-circle'}/> 
+                <Tab tab={1} iconLabel={'zmdi-spinner'}/> 
+                <Tab tab={2} iconLabel={'zmdi-accounts-alt'}/> 
+                <Tab tab={3} iconLabel={'zmdi-money-box'}/> 
+                <Tab tab={4} iconLabel={'zmdi-chart'}/> 
+                <Tab tab={5} iconLabel={'zmdi-balance'}/> 
+                <Tab tab={6} iconLabel={'zmdi-thumb-up'}/> 
+                <Tab tab={7} iconLabel={'zmdi-help'}/> 
+            </div>
+        )
+
+
+        const ReferencedTransactoinHash = () => (
+            <CustomInputForm 
+                label={'Referenced transaction hash'}
+                field="referencedTransactionFullHash"
+                placeholder="Referenced transaction hash"
+                className={'gray-form'}
+                type={"text"}
+                setValue={setValue}
+            />
+        )
+
+        const FinishHeightInput = () => (
+            <BlockHeightInput 
+                setValue={setValue}
+                label={'Finish height'}
+                field={'phasingFinishHeight'}
+                placeholder={'Finish height'}
+                className={'gray-form'}
+                deafultPlus={100}
+            />
+        )
+
+        const BroadcastCheckboxOptions = () => (
+            <React.Fragment>
+                <CheckboxFormInput 
+                    checkboxes={[
+                        {
+                            field : 'doNotBroadcast',
+                            handler : this.handleNotBroadcast,
+                            label : 'Do not broadcast'
+                        },
+                        {
+                            field : 'doNotSign',
+                            handler : null,
+                            label : 'Do not sign'
+                        },
+                        {
+                            field : 'add_note_to_self',
+                            handler : this.handleAddNote,
+                            label : 'Add note to self?'
+                        }
+                    ]}
+                />
+                {
+                    values.add_note_to_self &&
+                    <CustomTextArea
+                        label={'Note to self'}
+                        field={'note_to_self'}
+                        placeholder={''}
+                        note={'This note is encrypted'}
+                    />
+                }
+            </React.Fragment>   
+        )
 
         return (
-            <>
+            <React.Fragment>
+                {
+                    this.state.advancedState &&
+                    <CustomInputForm
+                        label={'Deadline (hours)'}
+                        fieldType={'counter-number'}
+                        type={"tel"}
+                        placeholder={'Deadline'}
+                        field={'deadline'}
+                        setValue={setValue}
+                        code={'hours'}										
+                    />
+                }
+
+                {/* Buttons for hendling of advanced state */}
                 <div className="btn-box align-buttons-inside absolute left-conner">
                     <a
                         onClick={this.handleAdvancedState}
@@ -178,1244 +269,335 @@ class AdvancedSettings extends React.Component {
                         {this.state.advancedState ? "Basic" : "Advanced"}
                     </a>
                 </div>
-                {
-                    this.state.advancedState &&
-                    <div
+                <div
                     className={classNames({
                         'form-tabulator': true,
-                        'active': true,
+                        'active': this.state.advancedState,
                         'white': this.props.white
                     })}
                 >
-                    <div className="form-tab-nav-box form-tab-icons">
-                        <a
-                            onClick={this.handleTabChange.bind(this, 0)}
-                            className={classNames({
-                                'form-tab': true,
-                                'active' : this.state.activeTab === 0
-                            })}
-                        >
-                            <i className={'zmdi zmdi-close-circle'} />
-                        </a>
-                        <a
-                            onClick={this.handleTabChange.bind(this, 1)}
-                            className={classNames({
-                                'form-tab': true,
-                                'active' : this.state.activeTab === 1
-                            })}
-                        >
-                            <i className={'zmdi zmdi-spinner'} />
-                        </a>
+                    {/* Refactored */}
+                    <Tabs />   
+                    
+                    <TabContainer
+                        active={this.state.activeTab === 0}
+                    >
+                        {ReferencedTransactoinHash()}
+                        <BroadcastCheckboxOptions />
+                        
+                    </TabContainer>
+                    
+                    <TabContainer
+                        active={this.state.activeTab === 1}
+                    >
+                        {FinishHeightInput()}
+                        {ReferencedTransactoinHash()}
+                        <BroadcastCheckboxOptions />
+                    </TabContainer>
+                    
+                    <TabContainer
+                        active={this.state.activeTab === 2}
+                    >
+                        <CustomInputForm 
+                            label={'Number of accounts'}
+                            setValue={setValue}
+                            placeholder={'Number of accounts'}
+                            field={'phasingQuorum'}
+                            type={'tel'}
+                            className={'gray-form'}
+                        />
 
-                        <a
-                            onClick={this.handleTabChange.bind(this, 2)}
-                            className={classNames({
-                                'form-tab': true,
-                                'active' : this.state.activeTab === 2
-                            })}
-                        >
-                            <i className={'zmdi zmdi-accounts-alt'} />
-                        </a>
-                        <a
-                            onClick={this.handleTabChange.bind(this, 3)}
-                            className={classNames({
-                                'form-tab': true,
-                                'active' : this.state.activeTab === 3
-                            })}
-                        >
-                            <i className={'zmdi zmdi-money-box'} />
-                        </a>
-                        <a
-                            onClick={this.handleTabChange.bind(this, 4)}
-                            className={classNames({
-                                'form-tab': true,
-                                'active' : this.state.activeTab === 4
-                            })}
-                        >
-                            <i className={'zmdi zmdi-chart'} />
-                        </a>
-                        <a
-                            onClick={this.handleTabChange.bind(this, 5)}
-                            className={classNames({
-                                'form-tab': true,
-                                'active' : this.state.activeTab === 5
-                            })}
-                        >
-                            <i className={'zmdi zmdi-balance'} />
-                        </a>
-                        <a
-                            onClick={this.handleTabChange.bind(this, 6)}
-                            className={classNames({
-                                'form-tab': true,
-                                'active' : this.state.activeTab === 6
-                            })}
-                        >
-                            <i className={'zmdi zmdi-thumb-up'} />
-                        </a>
-                        <a
-                            onClick={this.handleTabChange.bind(this, 7)}
-                            className={classNames({
-                                'form-tab': true,
-                                'active' : this.state.activeTab === 7
-                            })}
-                        >
-                            <i className={'zmdi zmdi-help'} />
-                        </a>
+                        {FinishHeightInput()}
 
-                        </div>     
+                        {
+                            this.state.accounts[2] &&
+                            this.state.accounts[2].map((el, index) => {
+                                return (
+                                    <AccountRSFormInput 
+                                        setValue={setValue}
+                                        exportAccountList={this.setListValue(2, index)}
+                                        label={'Accounts (whitelist)'}
+                                        field={'phasingWhitelisted'}
+                                    />
+                                );
+                            })
+                        }
+                        
+                        {/* Button */}
+                        <CustomInputForm 
+                            label={'Add account'}
+                            type={'button'}
+                            hendler={() => this.addAccount(2)}
+                        />
+
+                        <CustomFormSelect
+                            defaultValue={minBalanceType[0]}
+                            setValue={setValue}
+                            options={minBalanceType}
+                            label={'Min balance type'}
+                            field={'phasingMinBalanceModel'}
+                        />
                         
                         {
-                            this.state.activeTab === 0 &&
-                            <div
-                            className={classNames({
-                                "tab-body": true,
-                                "active": this.state.activeTab === 0
-                            })}
-                        >
-                            <div className="form-tab">
-                                <p className="mb-3">
-                                    Process without approval
-                                </p>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Referenced transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="referencedTransactionFullHash"
-                                            placeholder="Referenced transaction full hash"
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="row form-group-grey">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleNotBroadcast}
-                                                    field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not broadcast
-                                            </label>
-                                        </div>
-                                        {this.props.getFormState().values.doNotBroadcast &&
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="doNotSign"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not sign
-                                            </label>
-                                        </div>
-                                        }
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleAddNote}
-                                                    field="add_note_to_self"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add note to self?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {this.props.getFormState().values.add_note_to_self &&
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Note to self
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
-                                    </div>
-                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
-                                        This note is encrypted
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                        </div>       
+                            values.phasingMinBalanceModel >= 1 &&
+                            <CustomInputForm 
+                                label={'Number of accounts'}
+                                setValue={setValue}
+                                placeholder={'Number of accounts'}
+                                field={'phasingQuorum'}
+                                type={'text'}
+                            />
                         }
                         {
-                            this.state.activeTab === 1 &&
-                            <div
-                            className={classNames({
-                                "tab-body": true,
-                                "active": this.state.activeTab === 1
-                            })}
-                        >
-                            <div className="form-tab">
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0">
-                                        {
-                                            this.state.block &&
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingFinishHeight"
-                                                defaultValue={this.state.block.height}
-                                                placeholder="Finish height"
-                                                setValue={setValue}/>
-                                        }
+                            values.phasingMinBalanceModel == 2 &&
+                            <AssetInput 
+                                field={'phasingHoldingCurrencyCode'}
+                                setValue={setValue}
+                            />
+                        }
+                        {
+                            values.phasingMinBalanceModel == 3 &&
+                            <CurrencyInput 
+                                setValue={setValue}
+                                field={'phasingHoldingCurrencyCode'}
+                            />
+                        }
+                        {ReferencedTransactoinHash()}
+                        <BroadcastCheckboxOptions />
+                    </TabContainer>
 
-                                        <div className="input-group-append">
-                                            {
-                                                this.state.block &&
-                                                <span className="input-group-text">{this.state.block.height}</span>
-                                            }
-                                        </div>
-                                    </div>
-                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
-                                                2018/06/19 09:32 am
-                                            </div>*/}
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Referenced transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="referencedTransactionFullHash"
-                                            placeholder="Referenced transaction full hash"
-                                            minLength={64}
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="row form-group-grey">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleNotBroadcast}
-                                                    field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not broadcast
-                                            </label>
-                                        </div>
-                                        {this.props.getFormState().values.doNotBroadcast &&
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="doNotSign"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not sign
-                                            </label>
-                                        </div>
-                                        }
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="add_note_to_self"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add note to self?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {this.props.getFormState().values.add_note_to_self &&
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Note to self
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
-                                    </div>
-                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
-                                        This note is encrypted
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        }
-                        {
-                            this.state.activeTab === 2 &&
-                            <div
-                            className={classNames({
-                                "tab-body": true,
-                                "active": this.state.activeTab === 2
-                            })}
-                        >
-                            <div className="form-tab">
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Number of accounts
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            type="tel"
-                                            field="phasingQuorum"
-                                            placeholder="Number of accounts"
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0">
-                                        {
-                                            this.state.block &&
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingFinishHeight"
-                                                defaultValue={this.state.block.height}
-                                                placeholder="Finish height"
-                                                setValue={setValue}/>
-                                        }
-                                        <div className="input-group-append">
-                                            {
-                                                this.state.block &&
-                                                <span className="input-group-text">{this.state.block.height}</span>
-                                            }
-                                        </div>
-                                    </div>
-                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
-                                                2018/06/19 09:32 am
-                                            </div>*/}
-                                </div>
-                                {
-                                    this.state.accounts[2] &&
-                                    this.state.accounts[2].map((el, index) => {
-                                        return (
-                                            <div className="input-group-app form-group mb-15 display-block inline user">
-                                                <div className="row form-group-grey">
-                                                    <label className="col-sm-3 col-form-label">
-                                                        Accounts (whitelist)
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <div className="iconned-input-field">
-                                                            <AccountRS
-                                                                value={''}
-                                                                field={'phasingWhitelisted'}
-                                                                setValue={setValue}
-                                                                exportAccountList={this.setListValue(2, index)}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                }
-                                <div className="form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3">
-                                        <a
-                                            onClick={() => this.addAccount(2)}
-                                            className="no-margin btn static blue"
-                                        >
-                                            Add account
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Min balance type
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <div className="form-group-select">
-                                            <CustomSelect
-                                                className="form-control"
-                                                field={'phasingMinBalanceModel'}
-                                                defaultValue={minBalanceType[0]}
-                                                setValue={setValue}
-                                                options={minBalanceType}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    getFormState().values.phasingMinBalanceModel >= 1 &&
-                                    <div className="form-group row form-group-grey mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Minimum Balance 
-                                        </label>
-                                        <div
-                                            className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingMinBalanceAPL"
-                                                placeholder="Amount"
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">APL</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                {
-                                    getFormState().values.phasingMinBalanceModel == 3 &&
-                                    <div className="form-group row form-group-grey mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Currency
-                                        </label>
-                                        <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
-                                            <InputForm
-                                                field="phasingHoldingCurrencyCode"
-                                                placeholder="Code"
-                                                onChange={(code) => this.getCurrency({code})}
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">ID: {this.state.currency}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                {
-                                    getFormState().values.phasingMinBalanceModel == 2 &&
-                                    <div className="form-group row form-group-grey mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Asset ID
-                                        </label>
-                                        <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
-                                            <InputForm
-                                                field="phasingHoldingCurrencyCode"
-                                                placeholder="Asset"
-                                                onChange={(asset) => this.getAsset({asset})}
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">Asset: {this.state.asset ? this.state.asset.name : '-'}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Referenced transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="referencedTransactionFullHash"
-                                            placeholder="Referenced transaction full hash"
-                                            minLength={64}
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="row form-group-grey">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleNotBroadcast}
-                                                    field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not broadcast
-                                            </label>
-                                        </div>
-                                        {this.props.getFormState().values.doNotBroadcast &&
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="doNotSign"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not sign
-                                            </label>
-                                        </div>
-                                        }
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="add_note_to_self"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add note to self?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {this.props.getFormState().values.add_note_to_self &&
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Note to self
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
-                                    </div>
-                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
-                                        This note is encrypted
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        }
-                        {
-                            this.state.activeTab === 3 &&
-                            <div
-                            className={classNames({
-                                "tab-body": true,
-                                "active": this.state.activeTab === 3
-                            })}
-                        >
-                            <div className="form-tab">
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Amount
-                                    </label>
-                                    <div
-                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
-                                        <InputForm
-                                            type="tel"
-                                            field="phasingQuorumAPL"
-                                            placeholder="Amount"
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">APL</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0">
-                                        {
-                                            this.state.block &&
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingFinishHeight"
-                                                defaultValue={this.state.block.height}
-                                                placeholder="Finish height"
-                                                setValue={setValue}/>
-                                        }
-                                        <div className="input-group-append">
-                                            {
-                                                this.state.block &&
-                                                <span className="input-group-text">{this.state.block.height}</span>
-                                            }
-                                        </div>
-                                    </div>
-                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
-                                                2018/06/19 09:32 am
-                                            </div>*/}
-                                </div>
-                                {
-                                    this.state.accounts[3] &&
-                                    this.state.accounts[3].map((el, index) => {
-                                        return (
-                                            <div className="input-group-app form-group mb-15 display-block inline user">
-                                                <div className="row form-group-grey">
-                                                    <label className="col-sm-3 col-form-label">
-                                                        Accounts (whitelist)
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <div className="iconned-input-field">
-                                                            <AccountRS
-                                                                value={''}
-                                                                field={'phasingWhitelisted'}
-                                                                setValue={setValue}
-                                                                exportAccountList={this.setListValue(3, index, this.props.setValue)}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                }
-                                <div className="form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3">
-                                        <a
-                                            onClick={() => this.addAccount(3)}
-                                            className="no-margin btn static blue"
-                                        >
-                                            Add account
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Min balance type
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <div className="form-group-select">
-                                            <CustomSelect
-                                                className="form-control"
-                                                field={'phasingMinBalanceModel'}
-                                                defaultValue={phasingMinBalanceModel[0]}
-                                                setValue={setValue}
-                                                options={phasingMinBalanceModel}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    getFormState().values.phasingMinBalanceModel === '1' &&
-                                    <div className="form-group row form-group-grey mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Minimum Balance 
-                                        </label>
-                                        <div
-                                            className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingMinBalanceAPL"
-                                                placeholder="Amount"
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">APL</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Referenced transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="referencedTransactionFullHash"
-                                            placeholder="Referenced transaction full hash"
-                                            minLength={64}
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="row form-group-grey">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleNotBroadcast}
-                                                    field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not broadcast
-                                            </label>
-                                        </div>
-                                        {this.props.getFormState().values.doNotBroadcast &&
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="doNotSign"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not sign
-                                            </label>
-                                        </div>
-                                        }
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="add_note_to_self"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add note to self?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {this.props.getFormState().values.add_note_to_self &&
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Note to self
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
-                                    </div>
-                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
-                                        This note is encrypted
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        }
-                        {
-                            this.state.activeTab === 4 &&
-                            <div
-                            className={classNames({
-                                "tab-body": true,
-                                "active": this.state.activeTab === 4
-                            })}
-                        >
-                            <div className="form-tab">
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Asset quantity
-                                    </label>
-                                    <div
-                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
-                                        <InputForm
-                                            field="phasingQuorumATUf"
-                                            placeholder="Asset quantity"
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            {
-                                                this.state.block &&
-                                                <span className="input-group-text">{this.state.block.height}</span>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0">
-                                        {
-                                            this.state.block &&
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingFinishHeight"
-                                                defaultValue={this.state.block.height}
-                                                placeholder="Finish height"
-                                                setValue={setValue}/>
-                                        }
-                                        <div className="input-group-append">
-                                            {
-                                                this.state.block &&
-                                                <span className="input-group-text">{this.state.block.height}</span>
-                                            }
-                                        </div>
-                                    </div>
-                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
-                                                2018/06/19 09:32 am
-                                            </div>*/}
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Asset
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="phasingHolding"
-                                            placeholder="AssetID"
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                {
-                                    this.state.accounts[4] &&
-                                    this.state.accounts[4].map((el, index) => {
-                                        return (
-                                            <div className="input-group-app form-group mb-15 display-block inline user">
-                                                <div className="row form-group-grey">
-                                                    <label className="col-sm-3 col-form-label">
-                                                        Accounts (whitelist)
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <div className="iconned-input-field">
-                                                            <AccountRS
-                                                                value={''}
-                                                                field={'phasingWhitelisted'}
-                                                                setValue={setValue}
-                                                                exportAccountList={this.setListValue(4, index)}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                }
-                                <div className="form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3">
-                                        <a
-                                            onClick={() => this.addAccount(4)}
-                                            className="no-margin btn static blue"
-                                        >
-                                            Add account
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Min balance type
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <div className="form-group-select">
-                                            <CustomSelect
-                                                className="form-control"
-                                                field={'phasingMinBalanceModel'}
-                                                defaultValue={phasingMinAssetModel[0]}
-                                                setValue={setValue}
-                                                options={phasingMinAssetModel}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    getFormState().values.phasingMinBalanceModel === '1' &&
-                                    <div className="form-group row form-group-grey mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Minimum Balance 
-                                        </label>
-                                        <div
-                                            className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingMinBalanceAPL"
-                                                placeholder="Amount"
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">APL</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Referenced transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="referencedTransactionFullHash"
-                                            placeholder="Referenced transaction full hash"
-                                            minLength={64}
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="row form-group-grey">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleNotBroadcast}
-                                                    field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not broadcast
-                                            </label>
-                                        </div>
-                                        {this.props.getFormState().values.doNotBroadcast &&
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="doNotSign"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not sign
-                                            </label>
-                                        </div>
-                                        }
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="add_note_to_self"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add note to self?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {this.props.getFormState().values.add_note_to_self &&
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Note to self
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
-                                    </div>
-                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
-                                        This note is encrypted
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        }
-                        {
-                            this.state.activeTab === 5 &&
-                            <div
-                            className={classNames({
-                                "tab-body": true,
-                                "active": this.state.activeTab === 5
-                            })}
-                        >
-                            <div className="form-tab">
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Currency units
-                                    </label>
-                                    <div
-                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
-                                        <InputForm
-                                            field="phasingQuorumATUf"
-                                            placeholder="Currency units"
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Units</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0">
-                                        {
-                                            this.state.block &&
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingFinishHeight"
-                                                defaultValue={this.state.block.height}
-                                                placeholder="Finish height"
-                                                setValue={setValue}/>
-                                        }
-                                        <div className="input-group-append">
-                                            {
-                                                this.state.block &&
-                                                <span className="input-group-text">{this.state.block.height}</span>
-                                            }
-                                        </div>
-                                    </div>
-                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
-                                                2018/06/19 09:32 am
-                                            </div>*/}
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Currency
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
-                                        <InputForm
-                                            field="phasingHoldingCurrencyCode"
-                                            placeholder="Code"
-                                            onChange={(code) => this.getCurrency({code})}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">ID: {this.state.currency}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    this.state.accounts[5] &&
-                                    this.state.accounts[5].map((el, index) => {
-                                        return (
-                                            <div className="input-group-app form-group mb-15 display-block inline user">
-                                                <div className="row form-group-grey">
-                                                    <label className="col-sm-3 col-form-label">
-                                                        Accounts (whitelist)
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <div className="iconned-input-field">
-                                                            <AccountRS
-                                                                value={''}
-                                                                field={'phasingWhitelisted'}
-                                                                setValue={setValue}
-                                                                exportAccountList={this.setListValue(5, index)}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                }
-                                <div className="form-group-grey row mb-15">
-                                    <div className="col-sm-9 offset-sm-3">
-                                        <a
-                                            onClick={() => this.addAccount(5)}
-                                            className="no-margin btn static blue"
-                                        >
-                                            Add account
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Min balance type
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <div className="form-group-select">
-                                            <CustomSelect
-                                                className="form-control"
-                                                field={'phasingMinBalanceModel'}
-                                                defaultValue={phasingMinCurrencyModel[0]}
-                                                setValue={setValue}
-                                                options={phasingMinCurrencyModel}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    getFormState().values.phasingMinBalanceModel === '1' &&
-                                    <div className="form-group row form-group-grey mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Minimum Balance 
-                                        </label>
-                                        <div
-                                            className="col-sm-9 input-group input-group-text-transparent input-group-sm mb-0">
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingMinBalanceAPL"
-                                                placeholder="Amount"
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">APL</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Referenced transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="referencedTransactionFullHash"
-                                            placeholder="Referenced transaction full hash"
-                                            minLength={64}
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="row form-group-grey">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleNotBroadcast}
-                                                    field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not broadcast
-                                            </label>
-                                        </div>
-                                        {this.props.getFormState().values.doNotBroadcast &&
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="doNotSign"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not sign
-                                            </label>
-                                        </div>
-                                        }
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="add_note_to_self"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add note to self?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {this.props.getFormState().values.add_note_to_self &&
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Note to self
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
-                                    </div>
-                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
-                                        This note is encrypted
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        }
-                        {
-                            this.state.activeTab === 6 &&
-                            <div
-                            className={classNames({
-                                "tab-body": true,
-                                "active": this.state.activeTab === 6
-                            })}
-                        >
-                            <div className="form-tab">
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0">
-                                        {
-                                            this.state.block &&
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingFinishHeight"
-                                                defaultValue={this.state.block.height}
-                                                placeholder="Finish height"
-                                                setValue={setValue}/>
-                                        }
-                                        <div className="input-group-append">
-                                        </div>
-                                        {
-                                            this.state.block &&
-                                            <span className="input-group-text">{this.state.block.height}</span>
-                                        }
-                                    </div>
-                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
-                                                2018/06/19 09:32 am
-                                            </div>*/}
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Approved by transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="phasingLinkedFullHash"
-                                            placeholder="Full hash of transaction"
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Referenced transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="referencedTransactionFullHash"
-                                            placeholder="Referenced transaction full hash"
-                                            minLength={64}
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="row form-group-grey">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleNotBroadcast}
-                                                    field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not broadcast
-                                            </label>
-                                        </div>
-                                        {this.props.getFormState().values.doNotBroadcast &&
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="doNotSign"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not sign
-                                            </label>
-                                        </div>
-                                        }
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="add_note_to_self"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add note to self?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {this.props.getFormState().values.add_note_to_self &&
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Note to self
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
-                                    </div>
-                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
-                                        This note is encrypted
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                        </div> 
-                        }
-                        {
-                            this.state.activeTab === 7 &&
-                            <div
-                            className={classNames({
-                                "tab-body": true,
-                                "active": this.state.activeTab === 7
-                            })}
-                        >
-                            <div className="form-tab">
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">Finish height</label>
-                                    <div className="col-sm-9 input-group input-group-sm mb-0">
-                                        {
-                                            this.state.block &&
-                                            <InputForm
-                                                type="tel"
-                                                field="phasingFinishHeight"
-                                                defaultValue={this.state.block.height}
-                                                placeholder="Finish height"
-                                                setValue={setValue}/>
-                                        }
-                                        <div className="input-group-append">
-                                            {
-                                                this.state.block &&
-                                                <span className="input-group-text">{this.state.block.height}</span>
-                                            }
-                                        </div>
-                                    </div>
-                                    {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
-                                                2018/06/19 09:32 am
-                                            </div>*/}
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Approved by hash secret
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="phasingHashedSecret"
-                                            placeholder="Hash of secret"
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Hash algorithm
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <div className="form-group-select">
-                                            <CustomSelect
-                                                className="form-control"
-                                                field={'phasingHashedSecretAlgorithm'}
-                                                defaultValue={hashAlgorithm[0]}
-                                                setValue={setValue}
-                                                options={hashAlgorithm}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Referenced transaction hash
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <InputForm
-                                            field="referencedTransactionFullHash"
-                                            placeholder="Referenced transaction full hash"
-                                            minLength={64}
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="row form-group-grey">
-                                    <div className="col-md-9 offset-md-3">
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    onChange={this.handleNotBroadcast}
-                                                    field="doNotBroadcast"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not broadcast
-                                            </label>
-                                        </div>
-                                        {this.props.getFormState().values.doNotBroadcast &&
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="doNotSign"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Do not sign
-                                            </label>
-                                        </div>
-                                        }
-                                        <div className="form-check custom-checkbox mb-15">
-                                            <Checkbox className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="add_note_to_self"/>
-                                            <label className="form-check-label custom-control-label">
-                                                Add note to self?
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {this.props.getFormState().values.add_note_to_self &&
-                                <div className="form-group row form-group-grey mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Note to self
-                                    </label>
-                                    <div className="col-sm-9 mb-0">
-                                        <TextArea className="form-control" field="note_to_self" cols="30" rows="3"/>
-                                    </div>
-                                    <div className="col-sm-9 offset-sm-3 form-sub-title align-margin-top">
-                                        This note is encrypted
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                    
-                        }
-                    </div>
-                }
-            </>
-            
+                    <TabContainer active={this.state.activeTab === 3}>
+                        <CustomInputForm 
+                            label={'Amount'}
+                            setValue={setValue}
+                            placeholder={'Amount'}
+                            field={'phasingQuorumAPL'}
+                            fieldType={'counter-number'}
+                            code={'APL'}
+                            type={'tel'}
+                        />
 
+                        {FinishHeightInput()}                    
+
+                        {
+                            this.state.accounts[3] &&
+                            this.state.accounts[3].map((el, index) => {
+                                return (
+                                    <AccountRSFormInput 
+                                        setValue={setValue}
+                                        exportAccountList={this.setListValue(3, index)}
+                                        label={'Accounts (whitelist)'}
+                                        field={'phasingWhitelisted'}
+                                    />
+                                );
+                            })
+                        }
+
+                        <CustomInputForm 
+                            label={'Add account'}
+                            type={'button'}
+                            hendler={() => this.addAccount(3)}
+                        />
+
+                        <CustomFormSelect
+                            field={'phasingMinBalanceModel'}
+                            defaultValue={phasingMinBalanceModel[0]}
+                            setValue={setValue}
+                            options={phasingMinBalanceModel}
+                            label={'Min balance type'}
+                        />
+                        
+                        {
+                            values.phasingMinBalanceModel === '1' &&
+                            <CustomInputForm 
+                                label={'Minimum Balance'}
+                                setValue={setValue}
+                                placeholder={'Amount'}
+                                field={'phasingMinBalanceAPL'}
+                                fieldType={'counter-number'}
+                                code={'APL'}
+                                type={'tel'}
+                            />
+                        }
+                        
+                        {ReferencedTransactoinHash()}
+
+                        <BroadcastCheckboxOptions />
+                    </TabContainer>
+
+                    <TabContainer active={this.state.activeTab === 4}>
+                        <CustomInputForm 
+                            label={'Asset quantity'}
+                            setValue={setValue}
+                            placeholder={'Asset quantity'}
+                            field={'phasingQuorumATUf'}
+                            fieldType={'counter-number'}
+                            defaultValue={this.state.block ? this.state.block.height : ''}
+                            type={'tel'}
+                        />
+
+                        {FinishHeightInput()}                    
+
+                        <CustomInputForm 
+                            label={'Asset'}
+                            setValue={setValue}
+                            placeholder={'AssetID'}
+                            field={'phasingHolding'}
+                            type={'text'}
+                        />
+
+                        {
+                            this.state.accounts[4] &&
+                            this.state.accounts[4].map((el, index) => {
+                                return (
+                                    <AccountRSFormInput 
+                                        setValue={setValue}
+                                        exportAccountList={this.setListValue(4, index)}
+                                        label={'Accounts (whitelist)'}
+                                        field={'phasingWhitelisted'}
+                                    />
+                                );
+                            })
+                        }
+
+                        {/* Button */}
+                        <CustomInputForm 
+                            label={'Add account'}
+                            type={'button'}
+                            hendler={() => this.addAccount(4)}
+                        />
+
+                        <CustomFormSelect
+                            field={'phasingMinBalanceModel'}
+                            defaultValue={phasingMinBalanceModel[0]}
+                            setValue={setValue}
+                            options={phasingMinBalanceModel}
+                            label={'Min balance type'}
+                        />
+
+                        {
+                            values.phasingMinBalanceModel === '1' &&
+                            <CustomInputForm 
+                                label={'Minimum Balance'}
+                                setValue={setValue}
+                                placeholder={'Amount'}
+                                field={'phasingMinBalanceAPL'}
+                                fieldType={'counter-number'}
+                                code={'APL'}
+                                type={'tel'}
+                            />
+                        }
+
+                        {ReferencedTransactoinHash()}
+
+                        <BroadcastCheckboxOptions />
+
+                    </TabContainer>
+
+                    <TabContainer active={this.state.activeTab === 5}>
+                        <CustomInputForm 
+                            label={'Currency units'}
+                            setValue={setValue}
+                            placeholder={'Currency units'}
+                            field={'phasingQuorumATUf'}
+                            fieldType={'counter-number'}
+                            code={'Units'}
+                            type={'tel'}
+                        />
+
+                        {FinishHeightInput()}                    
+
+                        <CurrencyInput 
+                            setValue={setValue}
+                            field={'phasingHoldingCurrencyCode'}
+                        />
+
+                        {
+                            this.state.accounts[5] &&
+                            this.state.accounts[5].map((el, index) => {
+                                return (
+                                    <AccountRSFormInput 
+                                        setValue={setValue}
+                                        exportAccountList={this.setListValue(5, index)}
+                                        label={'Accounts (whitelist)'}
+                                        field={'phasingWhitelisted'}
+                                    />
+                                );
+                            })
+                        }
+
+                        {/* Button */}
+                        <CustomInputForm 
+                            label={'Add account'}
+                            type={'button'}
+                            hendler={() => this.addAccount(5)}
+                        />
+
+                        <CustomFormSelect
+                            defaultValue={phasingMinCurrencyModel[0]}
+                            setValue={setValue}
+                            options={phasingMinCurrencyModel}
+                            label={'Min balance type'}
+                            field={'phasingMinBalanceModel'}
+                        />
+
+                        {
+                            values.phasingMinBalanceModel === '1' &&
+                            <CustomInputForm 
+                                label={'Minimum Balance'}
+                                setValue={setValue}
+                                placeholder={'Amount'}
+                                field={'phasingMinBalanceAPL'}
+                                fieldType={'counter-number'}
+                                code={'APL'}
+                                type={'tel'}
+                            />
+                        }
+
+                        {ReferencedTransactoinHash()}
+
+                        <BroadcastCheckboxOptions />
+
+                    </TabContainer>
+
+                    <TabContainer active={this.state.activeTab === 6}>
+                        {FinishHeightInput()}                    
+                        <CustomInputForm 
+                            label={'Approved by transaction hash'}
+                            setValue={setValue}
+                            placeholder={'Full hash of transaction'}
+                            field={'phasingLinkedFullHash'}
+                            type={'text'}
+                        />
+
+                        {ReferencedTransactoinHash()}
+
+                        <BroadcastCheckboxOptions />
+
+                    </TabContainer>
+                        
+                    <TabContainer active={this.state.activeTab === 7}>
+                        {FinishHeightInput()} 
+                        <CustomInputForm 
+                            label={'Approved by hash secret'}
+                            setValue={setValue}
+                            placeholder={'Hash of secret'}
+                            field={'phasingHashedSecret'}
+                            type={'text'}
+                        />
+                        <CustomFormSelect
+                            defaultValue={hashAlgorithm[0]}
+                            setValue={setValue}
+                            options={hashAlgorithm}
+                            label={'Hash algorithm'}
+                            field={'phasingHashedSecretAlgorithm'}
+                        />
+                        {ReferencedTransactoinHash()}
+
+                        <BroadcastCheckboxOptions/>
+                    </TabContainer>
+                </div>
+            </React.Fragment>
         );
     }
 }

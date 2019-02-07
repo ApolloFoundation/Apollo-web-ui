@@ -134,6 +134,7 @@ class ModalBody extends React.Component {
                                     <AdvancedSettings
                                         setValue={setValue}
                                         getFormState={getFormState}
+                                        values={values}
                                     />
                                 }
                             </div>
