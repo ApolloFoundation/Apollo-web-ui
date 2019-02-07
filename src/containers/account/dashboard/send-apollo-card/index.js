@@ -7,12 +7,12 @@ import {setBodyModalParamsAction, clearDashboardForm} from '../../../../modules/
 
 class SendApolloCard extends Component {
     
-    submitForm = ({recipient, amountATM, feeATM}) => {
-        this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM, amountAPL: amountATM ,feeATM})
+    submitForm = ({recipient, amountATM, feeAPL}) => {
+        this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM , feeAPL})
     }
 
-    opnePrivateTransactionModalWindow = ({recipient, amountATM, feeATM}) => {
-        this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {recipient, amountATM, amountAPL: amountATM ,feeATM}) 
+    opnePrivateTransactionModalWindow = ({recipient, amountATM, feeAPL}) => {
+        this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {recipient, amountATM ,feeAPL}) 
     }
 
     getApi = (form) => {
@@ -72,7 +72,7 @@ class SendApolloCard extends Component {
                                             <div>
                                             <div  style={{position: 'relative'}}>
                                                 <InputForm
-                                                    field={'feeATM'}
+                                                    field={'feeAPL'}
                                                     placeholder={'Amount'}
                                                     type={'float'}
                                                     setValue={setValue}
