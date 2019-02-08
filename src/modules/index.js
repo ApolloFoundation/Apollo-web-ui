@@ -8,6 +8,7 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import account from './account'
 import modals from './modals'
+import fee from './fee'
 import messages from './messages'
 import settings from "./settings"
 import accountSettings from "./accountSettings"
@@ -19,6 +20,7 @@ export default combineReducers({
     account,
     messages,
     modals,
+    fee,
     settings,
     currencies,
     ledger,

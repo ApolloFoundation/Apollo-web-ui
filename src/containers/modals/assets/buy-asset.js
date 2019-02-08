@@ -50,7 +50,7 @@ class BuyAsset extends React.Component {
         })
 
         const res = await this.props.submitForm( values, 'placeBidOrder');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
 
             this.setState({
                 isPending: false

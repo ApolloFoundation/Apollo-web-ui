@@ -45,7 +45,7 @@ class BuyCurrency extends React.Component {
         })
 
         const res = await this.props.submitForm( values, 'currencyBuy');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             this.setState({
                 isPending: false
             })

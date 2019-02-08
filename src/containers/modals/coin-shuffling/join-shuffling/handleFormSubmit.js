@@ -32,7 +32,7 @@ export const handleFormSubmit = async(values) => {
         })
     
         const res = await dispatch(submitForm.submitForm( data, 'startShuffler'));
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             dispatch({
                 type: IS_MODAL_PROCESSING,
                 payload: false

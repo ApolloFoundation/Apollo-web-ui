@@ -32,15 +32,15 @@ export const handleSendMessageFormSubmit = (values) => {
             feeATM: 4
         }, 'sendMessage');
     
-        if (res.errorCode === 4) {
+        if (res && res.errorCode === 4) {
             NotificationManager.error('Message length should not be grater than 100 symbols.', 'Error', 5000);
             return;
         }
-        if (res.errorCode === 6) {
+        if (res && res.errorCode === 6) {
             NotificationManager.error('Incorrect secret phrase.', 'Error', 5000);
             return;
         }
-        if (!res.errorCode) {
+        if (res &&  !res.errorCode) {
             NotificationManager.success('Message has been submitted!', null, 5000);
             this.setState({textareaCount : 0})
             if (this.state.formApi) {

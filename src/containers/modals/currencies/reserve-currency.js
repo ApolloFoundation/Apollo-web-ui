@@ -50,7 +50,7 @@ class ReserveCurrency extends React.Component {
         };
 
         const res = await this.props.submitForm(toSend, "currencyReserveIncrease");
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             NotificationManager.success('Reserve has been increased!', null, 5000);

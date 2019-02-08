@@ -20,7 +20,7 @@ class AddAlias extends React.Component {
             isPending: true
         })
         const res = await this.props.submitForm( values, 'setAlias');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             this.setState({
                 isPending: false
             })

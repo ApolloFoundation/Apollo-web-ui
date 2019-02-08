@@ -63,7 +63,7 @@ class ImportAccount extends React.Component {
         const importAccount = await importAccountAction(values);
 
         if (importAccount) {
-            if (importAccount.errorCode) {
+            if (importAccount && importAccount.errorCode) {
                 NotificationManager.error(importAccount.errorDescription, 'Error', 5000);
             } else {
                 this.setState({

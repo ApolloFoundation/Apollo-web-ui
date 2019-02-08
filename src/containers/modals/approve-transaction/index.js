@@ -49,7 +49,7 @@ class ApproveTransaction extends React.Component {
             phased: false,
             deadline: 1440,
         }, "approveTransaction");
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});

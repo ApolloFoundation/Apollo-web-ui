@@ -62,7 +62,7 @@ class EditAlias extends React.Component {
         })
 
         const res = await this.props.submitForm( values, 'setAlias');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             this.setState({
                 isPending: false
             })

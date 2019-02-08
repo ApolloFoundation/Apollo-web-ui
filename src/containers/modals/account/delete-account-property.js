@@ -38,7 +38,7 @@ class DeleteAccountProperty extends React.Component {
 
     async handleFormSubmit(values) {
         const res = await this.props.submitForm( values, 'deleteAccountProperty');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});

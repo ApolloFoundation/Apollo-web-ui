@@ -69,7 +69,7 @@ class IssueAsset extends React.Component {
 
         // Todo: finish form validating
         const res = await this.props.submitForm( values, 'issueAsset');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             this.setState({
                 isPending: false
             })

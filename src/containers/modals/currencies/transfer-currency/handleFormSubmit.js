@@ -23,7 +23,7 @@ export const handleFormSubmit = (values) => {
         });
     
         const res = await dispatch(submitForm.submitForm( values, 'transferCurrency'));
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             dispatch({
                 type: IS_MODAL_PROCESSING,
                 payload: false

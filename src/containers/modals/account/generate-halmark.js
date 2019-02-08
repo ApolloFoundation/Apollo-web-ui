@@ -72,7 +72,7 @@ class GenerateHallmark extends React.Component {
                     secretPhrase: values.passphraseGenerate,
                     feeATM: 0,
                 }, 'markHost');
-                if (res.errorCode) {
+                if (res && res.errorCode) {
                     this.setState({
                         isPending: false
                     })
@@ -97,7 +97,7 @@ class GenerateHallmark extends React.Component {
                     feeATM: 0,
                     random: Math.random()
                 }, 'decodeHallmark');
-                if (res.errorCode) {
+                if (res && res.errorCode) {
                     this.setState({
                         isPending: false
                     })

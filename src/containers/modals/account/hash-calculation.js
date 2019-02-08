@@ -44,7 +44,7 @@ class HashCalculation extends React.Component {
             hashAlgorithm: values.alg,
             feeATM: 0
         }, 'hash');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             NotificationManager.error(res.errorDescription, "Error", 5000)
         } else {
             this.setState({

@@ -23,10 +23,7 @@ let isLocalHost = false;
 
 function submitForm(data, requestType) {
     return async (dispatch, getState) => {
-
-        const {account} = getState();
-        const {accountSettings} = getState();
-        const {modals} = getState();
+        const {account, accountSettings, modals, fee} = getState();
 
         if (data.secretPhrase) {
             let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
@@ -89,7 +86,6 @@ function submitForm(data, requestType) {
         if (invalidElement) {
             return;
         }
-
 
         if (data.createNoneTransactionMethod) {
             data.account = account.account;
@@ -175,6 +171,22 @@ function submitForm(data, requestType) {
                 delete data.doNotBroadcast;
             }
         }
+
+        if (data.feeAPL > fee.minFeeAmount && !fee.isFeeAlert) {
+            NotificationManager.warning(`You are trying to send the transaction with fee that increases ${fee.minFeeAmount} Apollo`, 'Attention', 10000);
+        
+            dispatch({
+                type: 'SET_FEE_ALERT',
+                payload: true
+            });
+            return;
+        } else {
+            dispatch({
+                type: 'SET_FEE_ALERT',
+                payload: false
+            });
+        }
+
 
         if (data.messageFile && data.encrypt_message) {
             if (!util.isFileEncryptionSupported()) {

@@ -57,7 +57,7 @@ class DeleteAccountFromWebNode extends React.Component {
     handleFormSubmit = async (values) => {
         const accountKeySeedData = await removeAccountAction(values);
 
-        if (!accountKeySeedData.errorCode) {
+        if (accountKeySeedData && !accountKeySeedData.errorCode) {
 
             NotificationManager.success('Your account was successfully removed from this web node.', null, 5000);
             this.props.closeModal();

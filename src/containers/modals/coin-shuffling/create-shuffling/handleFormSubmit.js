@@ -21,7 +21,7 @@ export const handleFormSubmit = (values) => {
             payload: true
         })
         const res = await dispatch(submitForm.submitForm( values, 'shufflingCreate'));
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             dispatch({
                 type: IS_MODAL_PROCESSING,
                 payload: false
@@ -37,7 +37,7 @@ export const handleFormSubmit = (values) => {
                     createNoneTransactionMethod: true
                 }, 'broadcastTransaction'));
 
-            if (broadcast.errorCode) {
+            if (broadcast && broadcast.errorCode) {
                 dispatch({
                     type: IS_MODAL_PROCESSING,
                     payload: false

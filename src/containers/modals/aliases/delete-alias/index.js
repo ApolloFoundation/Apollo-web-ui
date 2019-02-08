@@ -42,7 +42,7 @@ class DeleteAlias extends React.Component {
         })
 
         const res = await this.props.submitForm( values, 'deleteAlias');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             this.setState({
                 isPending: false
             })

@@ -44,7 +44,7 @@ class AccountInfo extends React.Component {
         };
 
         const res = await this.props.submitForm( values, 'setAccountInfo');
-        if (res.errorCode) {
+        if (res && res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
