@@ -192,8 +192,12 @@ class Sidebar extends React.Component {
 										<li><NavLink exact={true} activeClassName="active" to="/approval-request-assets">Approval
 											requests</NavLink></li>
 										<li>
-											<a onClick={this.props.setModalType.bind(this, 'ISSUE_ASSET')}>Issue
-												assets</a>
+											<a 
+												id='open-issue-asset'
+												onClick={this.props.setModalType.bind(this, 'ISSUE_ASSET')}
+											>
+												Issue assets
+											</a>
 										</li>
 									</ul>
 								</div>
@@ -226,8 +230,12 @@ class Sidebar extends React.Component {
 										<li><NavLink to="/transfer-history-currency">Transfer history</NavLink></li>
 										<li><NavLink to="/exchange-history-currency">Exchange history</NavLink></li>
 										<li>
-											<a onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}>Issue
-												currencies</a>
+											<a 
+												id='open-issue-currency'
+												onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}
+											>
+												Issue currencies
+											</a>
 										</li>
 									</ul>
 								</div>
@@ -258,8 +266,12 @@ class Sidebar extends React.Component {
 										<li><NavLink to="/my-votes">My votes</NavLink></li>
 										<li><NavLink to="/my-polls">My polls</NavLink></li>
 										<li>
-											<a onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}>Create
-												poll</a>
+											<a 
+												id='open-create-poll'
+												onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}
+											>
+												Create poll
+											</a>
 										</li>
 									</ul>
 								</div>
@@ -284,8 +296,12 @@ class Sidebar extends React.Component {
 									<ul>
 										<li><NavLink to="/data-storage">Search</NavLink></li>
 										<li>
-											<a onClick={this.props.setModalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File
-												upload</a>
+											<a
+												id='open-file-upload'
+												onClick={this.props.setModalType.bind(this, 'ISSUE_FILE_UPLOAD')}
+											>
+												File upload
+											</a>
 										</li>
 									</ul>
 								</div>
@@ -316,8 +332,14 @@ class Sidebar extends React.Component {
 										<li><NavLink to='/my-products-for-sale'>My products for sale</NavLink></li>
 										<li><NavLink to='/my-pending-orders'>My pending orders</NavLink></li>
 										<li><NavLink to='/my-completed-orders'>My completed orders</NavLink></li>
-										<li><a onClick={this.props.setModalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
-											product for sale</a></li>
+										<li>
+											<a 
+												id='open-list-product-for-sale'
+												onClick={this.props.setModalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}
+											>
+												List product for sale
+											</a>
+										</li>
 									</ul>
 								</div>
 							</li>
@@ -345,8 +367,12 @@ class Sidebar extends React.Component {
 										<li><NavLink to="/finished-shuffling">Finished shuffling</NavLink></li>
 										<li><NavLink to="/my-shuffling">My shuffling</NavLink></li>
 										<li>
-											<a onClick={this.props.setModalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create
-												shuffling</a>
+											<a 
+												id='open-create-shuffling'
+												onClick={this.props.setModalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}
+											>
+												Create shuffling
+											</a>
 										</li>
 									</ul>
 								</div>

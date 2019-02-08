@@ -507,9 +507,12 @@ class SiteHeader extends React.Component {
                                                             {/* <NavLink exact={true} activeClassName="active"
                                                                      to="approval-request">Approval request</NavLink> */}
 
-                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_ASSET')}>Issue
-                                                                assets</a>
-
+                                                            <a 
+                                                                id='open-issue-asset-mobile'
+                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_ASSET')}
+                                                            >
+                                                                Issue assets
+                                                            </a>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>
@@ -532,7 +535,10 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/my-currencies">My Currencies</NavLink>
                                                             <NavLink to="/exchange-history-currency">Exchange history</NavLink>
                                                             <NavLink to="/transfer-history-currency">Transfer history</NavLink>
-                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}>
+                                                            <a 
+                                                                id='open-issue-currency-mobile'
+                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}
+                                                            >
                                                                 Issue Currencies
                                                             </a>
                                                         </div>
@@ -557,9 +563,12 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/my-votes">My votes</NavLink>
                                                             <NavLink to="/my-polls">My polls</NavLink>
 
-                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}>Create
-                                                                poll</a>
-
+                                                            <a 
+                                                                id='open-create-poll-mobile'
+                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}
+                                                            >
+                                                                Create poll
+                                                            </a>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>
@@ -575,9 +584,12 @@ class SiteHeader extends React.Component {
                                                         <div className="item-dropdown">
                                                             <NavLink to="/data-storage">Search</NavLink>
 
-                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_FILE_UPLOAD')}>File
-                                                                upload</a>
-
+                                                            <a 
+                                                                id='open-file-upload-mobile'
+                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_FILE_UPLOAD')}
+                                                            >
+                                                                File upload
+                                                            </a>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>
@@ -601,8 +613,11 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/my-pending-orders">My pending orders</NavLink>
                                                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
                                                             <a
-                                                                onClick={this.props.setModalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}>List
-                                                                product for sale</a>
+                                                                id='open-list-product-for-sale-mobile'
+                                                                onClick={this.props.setModalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}
+                                                            >
+                                                                List product for sale
+                                                            </a>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>
@@ -623,10 +638,12 @@ class SiteHeader extends React.Component {
                                                             <NavLink to="/active-shuffling">Active shuffling</NavLink>
                                                             <NavLink to="/finished-shuffling">Finished shuffling</NavLink>
                                                             <NavLink to="/my-shuffling">My shuffling</NavLink>
-
-                                                            <a onClick={this.props.setModalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}>Create
-                                                                shuffling</a>
-
+                                                            <a 
+                                                                id='open-create-shuffling-mobile'
+                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}
+                                                            >
+                                                                Create shuffling
+                                                            </a>
                                                         </div>
                                                     </AccordionItemBody>
                                                 </div>
