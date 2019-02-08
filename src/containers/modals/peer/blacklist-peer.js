@@ -13,7 +13,6 @@ import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import BackForm from '../modal-form/modal-form-container';
-
 class BlacklistPeer extends React.Component {
     constructor(props) {
         super(props);
@@ -118,6 +117,7 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
 	openPrevModal: () => dispatch(openPrevModal()),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlacklistPeer);

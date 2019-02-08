@@ -11,7 +11,6 @@ import {
 import submitForm from "../../../helpers/forms/forms";
 
 // Form components
-
 import {NotificationManager} from 'react-notifications';
 
 import ModalBody from '../../components/modals/modal-body';
@@ -57,29 +56,25 @@ class SendApollo extends React.Component {
 			isPending: true
 		});
 
-		const res = await this.props.submitForm(values, 'sendMoney');
-		if (res.errorCode) {
-			this.setState({
-				isPending: false
-			});
-			NotificationManager.error(res.errorDescription, 'Error', 5000)
-		} else {
 
-			if (res.broadcasted === false) {
-				this.props.setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
-					request: values,
-					result: res
-				});
-			} else {
-				this.props.setBodyModalParamsAction(null, {});
-			}
-			
-			if (dashboardForm) {
-				dashboardForm.resetAll();
-				dashboardForm.setValue('recipient', ' ')
-			}
-			NotificationManager.success('Transaction has been submitted!', null, 5000);
-		}
+        // export const processForm = (values, requestType, successMesage, successCallback) => {
+
+		this.props.processForm(values, 'sendMoney', 'Transaction has been submitted!', (res) => {
+            if (res.broadcasted === false) {
+                this.props.setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
+                    request: values,
+                    result: res
+                });
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
+            }
+
+            if (dashboardForm) {
+                dashboardForm.resetAll();
+                dashboardForm.setValue('recipient', ' ')
+            }
+            NotificationManager.success('Transaction has been submitted!', null, 5000);
+		});
 	}
 
 

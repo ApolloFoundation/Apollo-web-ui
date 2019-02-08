@@ -7,19 +7,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {NotificationManager} from 'react-notifications';
 
-
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
-import {Form, Text, TextArea, Number} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
 import {issueAssetAction} from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
-import ModalFooter from '../../components/modal-footer'
-import FeeCalc from '../../components/form-components/fee-calc';
 
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
@@ -68,20 +62,12 @@ class IssueAsset extends React.Component {
         })
 
         // Todo: finish form validating
-        const res = await this.props.submitForm( values, 'issueAsset');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'issueAsset', 'Transaction has been submitted!', (res) => {
             this.props.issueAssetAction(values);
             this.props.setBodyModalParamsAction(null, {});
 
             NotificationManager.success('Asset has been submitted!', null, 5000);
-
-            // this.props.setAlert('success', 'Transaction has been submitted!');
-        }
+		});
     };
 
     handleAdvancedState = () => {

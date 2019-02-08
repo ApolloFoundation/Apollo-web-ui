@@ -18,17 +18,16 @@ export const calculateFeeAction = (requestParams, requestType) => {
     return dispatch(submitForm.submitForm(requestParams, requestType))
 }
 
-export const processForm = (values, requestType, successMesage, successCallback) => {
-    return async dispatch => {
+export const processForm = async (values, requestType, successMesage, successCallback) => {
+    dispatch({
+        type: IS_MODAL_PROCESSING,
+        payload: true
+    });
 
-        dispatch({
-            type: IS_MODAL_PROCESSING,
-            payload: true
-        });
+    const res = await dispatch(submitForm.submitForm(values, requestType));
 
-        const res = await dispatch(submitForm.submitForm(values, requestType));
-    
-        if (res && res.errorCode) {
+    if (res) {
+        if (res.errorCode) {
             dispatch({
                 type: IS_MODAL_PROCESSING,
                 payload: false
@@ -42,11 +41,8 @@ export const processForm = (values, requestType, successMesage, successCallback)
             });
 
             if (successCallback) {
-                successCallback()
+                successCallback(res)
             }
-
-            dispatch(setBodyModalParamsAction(null, {}));
-            NotificationManager.success(successMesage, null, 5000);
         }
     }
 }

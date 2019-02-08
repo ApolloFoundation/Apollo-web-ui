@@ -53,7 +53,7 @@ class IssueCurrency extends React.Component {
 
     }
 
-    handleFormSubmit = values => this.props.handleFormSubmit(values);
+    handleFormSubmit = values => handleFormSubmit.call(this.props, values);
 
     handleClaimableValue = (value, setValue) => {
         if (value) {
@@ -107,7 +107,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    handleFormSubmit: (values) => dispatch(handleFormSubmit(values))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssueCurrency);

@@ -40,7 +40,7 @@ class CreatePoll extends React.Component {
         }
     }
 
-    handleFormSubmit = async(values) => this.props.handleFormSubmit(values)
+    handleFormSubmit = async(values) => handleFormSubmit(values).bind(this.props, values)
 
 
     handleVotingModel = (value, setValue) => {

@@ -34,7 +34,6 @@ class AccountInfo extends React.Component {
             amountStatus: false,
             feeStatus: false
         }
-
     }
 
     handleFormSubmit = async(values) => {

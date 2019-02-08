@@ -14,6 +14,7 @@ import store from '../../../store'
 import crypto from  '../../../helpers/crypto/crypto';
 import {NotificationManager} from "react-notifications";
 import {getForging} from "../../../actions/login";
+// import {processForm} from '../../../../actions/forms'
 
 
 
@@ -118,7 +119,7 @@ const mapDispatchToProps = dispatch => ({
     setModalType: (passphrase) => dispatch(setModalType(passphrase)),
     setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
     getForging: (reqParams) => dispatch(getForging(reqParams)),
-
+    // processForm :(values, requestType, successMesage, successCallback) => dispatch(processForm(values, requestType, successMesage, successCallback)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase))
 });
 

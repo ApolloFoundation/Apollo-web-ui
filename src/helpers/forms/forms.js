@@ -172,12 +172,18 @@ function submitForm(data, requestType) {
             }
         }
 
-        if (data.feeAPL > fee.minFeeAmount && !fee.isFeeAlert) {
+        if ((data.feeAPL             > fee.minFeeAmount ||
+             data.feeATM / 100000000 > fee.minFeeAmount
+        ) && !fee.isFeeAlert) {
             NotificationManager.warning(`You are trying to send the transaction with fee that increases ${fee.minFeeAmount} Apollo`, 'Attention', 10000);
         
             dispatch({
                 type: 'SET_FEE_ALERT',
                 payload: true
+            });
+            dispatch({
+                type: 'IS_MODAL_PROCESSING',
+                payload: false
             });
             return;
         } else {

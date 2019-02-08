@@ -49,12 +49,11 @@ class ReserveCurrency extends React.Component {
             feeATM: values.fee,
         };
 
-        const res = await this.props.submitForm(toSend, "currencyReserveIncrease");
-        if (res && res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(toSend, 'currencyReserveIncrease', 'Reserve has been increased!', (res) => {
             NotificationManager.success('Reserve has been increased!', null, 5000);
-        }
+            
+            this.props.setBodyModalParamsAction(null, {});
+        });
     };
 
     handleAdvancedState = () => {
