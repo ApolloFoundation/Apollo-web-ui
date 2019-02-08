@@ -60,37 +60,17 @@ class CancelSell extends React.Component {
 
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'sellAlias')
-
-        if (res) {
-            if (!res.errorCode && res.transactionJSON) {
-
-                const broadcast = await this.props.submitForm( {
-                    transactionBytes: res.transactionBytes,
-                    prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), priceNQT: 0, uri: undefined, "version.AliasSell":1})
-
-                }, 'broadcastTransaction')
-
-                    if (broadcast) {
-                        if (broadcast.errorCode) {
-                            NotificationManager.error(broadcast.errorDescription, 'Error', 5000)
-                        } else {
-                            this.props.setBodyModalParamsAction(null, {});
-
-                            NotificationManager.success('Alias sell has been canceled!', null, 5000);
-                        }
-                    }
-            } else {
-                this.setState({
-                    isPending: false
-                })
-                NotificationManager.error(res.errorDescription, 'Error', 5000)
+        this.props.processForm(values, 'sellAlias', null, (res) => {
+            res = {
+                transactionBytes: res.transactionBytes,
+                prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), priceNQT: 0, uri: undefined, "version.AliasSell":1})
             }
-        }
+
+            this.props.processForm(res, 'broadcastTransaction', 'Alias sell has been canceled!', (res) => {
+                this.props.setBodyModalParamsAction(null, {});
+                NotificationManager.success('Alias sell has been canceled!', null, 5000);
+            });
+        });
     }
 
     getAlias = async () => {

@@ -38,7 +38,6 @@ class OfferCurrency extends React.Component {
 
     handleFormSubmit = (values) => {
         const {currency, decimals} = this.state.currency;
-
         this.props.handleFormSubmit({...values,  currency, decimals});
     }
 

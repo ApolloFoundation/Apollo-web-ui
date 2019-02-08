@@ -34,9 +34,8 @@ class ComposeMessage extends React.Component {
 
     }
 
-    handleFormSubmit = (values) => this.props.handleFormSubmit(values)
+    handleFormSubmit = (values) => handleFormSubmit.call(this.props, values)
 
-    
     render() {
         return (
             <ModalBody
@@ -59,8 +58,5 @@ const mapStateToProps = state => ({
 	modalsHistory: state.modals.modalsHistory
 });
 
-const mapDispatchToProps = dispatch => ({
-    handleFormSubmit: (values) => dispatch(handleFormSubmit(values))
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(ComposeMessage);
+export default connect(mapStateToProps)(ComposeMessage);

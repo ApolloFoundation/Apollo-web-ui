@@ -30,7 +30,7 @@ class ListProductForSale extends React.Component {
         }
     }
 
-    handleFormSubmit = (values) => this.props.handleFormSubmit(values);
+    handleFormSubmit = (values) => handleFormSubmit.call(this.props, values);
 
     render() {
         return (

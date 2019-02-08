@@ -73,21 +73,10 @@ class MarketplaceChangePrice extends React.Component {
             publicKey: publicKey
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'dgsPriceChange')
-        if (res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'dgsPriceChange', 'The marketplace item\'s price has been changed successfully!', () => {
             this.props.setBodyModalParamsAction(null, {});
-
             NotificationManager.success('The marketplace item\'s price has been changed successfully!', null, 5000);
-        }
+        })
     }
 
     render() {

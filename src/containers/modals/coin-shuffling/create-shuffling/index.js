@@ -39,7 +39,7 @@ class CreateShuffling extends React.Component {
 
     }
 
-    handleFormSubmit = (values) => this.props.handleFormSubmit(values);
+    handleFormSubmit = (values) => handleFormSubmit.call(this.props, values);
 
     render() {
         return (
@@ -61,7 +61,6 @@ class CreateShuffling extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    handleFormSubmit: (values) => dispatch(handleFormSubmit(values))
 });
 
 export default connect(null, mapDispatchToProps)(CreateShuffling);

@@ -5,16 +5,9 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
 import submitForm from "../../../../helpers/forms/forms";
-import {getBlockAction} from "../../../../actions/blocks";
-import {getCurrencyAction} from "../../../../actions/currencies";
-import {getAssetAction} from "../../../../actions/assets";
-import {NotificationManager} from "react-notifications";
-import {calculateFeeAction} from "../../../../actions/forms";
-import crypto from "../../../../helpers/crypto/crypto";
 
 import {handleFormSubmit} from './handleFormSubmit';
 
@@ -40,7 +33,7 @@ class CreatePoll extends React.Component {
         }
     }
 
-    handleFormSubmit = async(values) => handleFormSubmit(values).bind(this.props, values)
+    handleFormSubmit = async(values) => handleFormSubmit.call(this.props, values)
 
 
     handleVotingModel = (value, setValue) => {
@@ -75,7 +68,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    handleFormSubmit: (values) => dispatch(handleFormSubmit(values)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });

@@ -23,7 +23,7 @@ class RawTransactionDetails extends React.Component {
         isPending: true
     };
 
-    async handleFormSubmit(values) {
+    handleFormSubmit = async (values) => {
         let data = {
             feeATM: 0,
             transactionJSON: JSON.stringify({
@@ -32,14 +32,10 @@ class RawTransactionDetails extends React.Component {
             })
         };
 
-        const res = await this.props.submitForm( data, 'broadcastTransaction');
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(data, 'broadcastTransaction', 'Transaction has been submitted!', () => {
             this.props.setBodyModalParamsAction(null, {});
-
             NotificationManager.success('Transaction has been submitted!', null, 5000);
-        }
+        })
     }
 
     render() {

@@ -35,17 +35,11 @@ class ScheaduleCurrency extends React.Component {
             units: values.units * Math.pow(10, this.state.currencyDecimals)
         };
 
-        const scheduledTransaction = await this.props.submitForm(values, 'scheduleCurrencyBuy');
-
-        if (scheduledTransaction) {
-            if (scheduledTransaction.errorCode) {
-                NotificationManager.error(scheduledTransaction.errorDescription, 'Error', 5000)
-            } else {
-                NotificationManager.success('Schedule currency has been submitted.', null, 5000);
+        this.props.processForm(values, 'scheduleCurrencyBuy', 'Schedule currency has been submitted.', () => {
+            NotificationManager.success('Schedule currency has been submitted.', null, 5000);
                 this.props.modalData()
                 this.props.closeModal();
-            }
-        }
+        })
     };
 
     state = {

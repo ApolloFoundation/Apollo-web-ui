@@ -48,20 +48,10 @@ class PayDividends extends React.Component {
             feeATM: values.feeATM,
         };
 
-        this.setState({
-            isPending: true
-        });
-
-        const res = await this.props.submitForm(toSend, 'dividendPayment');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            });
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'dividendPayment', 'Dividends have been payed!', () => {
             this.props.setBodyModalParamsAction(null, {});
-            NotificationManager.success('Dividends have been payed', null, 5000);
-        }
+            NotificationManager.success('Dividends have been payed!', null, 5000);
+        })
     };
 
     handleAdvancedState = () => {

@@ -35,7 +35,6 @@ class SellAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-
         values = {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
@@ -43,25 +42,11 @@ class SellAsset extends React.Component {
             quantityOrder: (this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals))
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'placeAskOrder');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'placeAskOrder', 'The sell order has been submitted!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('The sell order has been submitted!', null, 5000);
-        }
+        })
     };
-
-    // getAsset = async  () => {
-    //     const asset = await this.props.
-    // }
 
     handleAdvancedState = () => {
         if (this.state.advancedState) {

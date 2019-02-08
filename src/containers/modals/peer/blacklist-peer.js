@@ -25,13 +25,11 @@ class BlacklistPeer extends React.Component {
             publicKey: this.props.publicKey,
             ecBlockHeight: 0
         };
-        const res = await this.props.submitForm( toSend, "blacklistPeer");
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+
+        this.props.processForm(toSend, 'blacklistPeer' , 'Peer has been blacklisted', () => {
             NotificationManager.success('Peer has been blacklisted!', null, 5000);
             this.props.closeModal();
-        }
+        });
     };
 
     render() {

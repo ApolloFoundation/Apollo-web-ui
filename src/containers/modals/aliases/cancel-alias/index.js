@@ -51,27 +51,15 @@ class CancelSaleAlias extends React.Component {
 	};
 
 	async handleFormSubmit(values) {
-
 		values = {
 			...values,
 			aliasName: this.state.alias.aliasName
 		};
 
-        this.setState({
-            isPending: true
-        })
-
-		const res = await this.props.submitForm( values, 'setAlias')
-		if (res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-			NotificationManager.error(res.errorDescription, 'Error', 5000)
-		} else {
+		this.props.processForm(values, 'setAlias', 'Product has been listed!', () => {
 			this.props.setBodyModalParamsAction(null, {});
-
 			NotificationManager.success('Product has been listed!', null, 5000);
-		}
+		});
 	}
 
 	getAlias = async () => {

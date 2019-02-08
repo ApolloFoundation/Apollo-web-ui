@@ -34,7 +34,6 @@ class SellCurrency extends React.Component {
     }
 
     handleFormSubmit = async (values) => {
-
         values = {
             ...values,
             ...this.props.modalData,
@@ -42,20 +41,10 @@ class SellCurrency extends React.Component {
             units: this.props.modalData.units * (Math.pow(10, this.props.modalData.decimals))
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'currencySell');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'currencySell', 'The sell order has been submitted!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('The sell order has been submitted!', null, 5000);
-        }
+        })
     };
 
     render() {

@@ -7,18 +7,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
-import classNames from 'classnames';
 
-import { Form, Text } from 'react-form';
-import InputForm from '../../../components/input-form';
-import CustomSelect from '../../../components/select';
 import {getAliasAction} from '../../../../actions/aliases/';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
-import AdvancedSettings from '../../../components/advanced-transaction-settings'
-import AccountRS from '../../../components/account-rs';
-import ModalFooter from '../../../components/modal-footer'
-import FeeCalc from '../../../components/form-components/fee-calc';
 
 import ModalBody from '../../../components/modals/modal-body';
 import EditAliasForm from './form';
@@ -57,25 +49,10 @@ class EditAlias extends React.Component {
             aliasURI: values[this.state.inputType]
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'setAlias');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'setAlias', 'Product has been listed!', () => {
             this.props.setBodyModalParamsAction(null, {});
-
             NotificationManager.success('Product has been listed!', null, 5000);
-        }
-
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
+        });
     }
 
     getAlias = async () => {
@@ -87,28 +64,7 @@ class EditAlias extends React.Component {
             });
         }
     };
-
-    handleTabChange(tab) {
-        this.setState({
-            ...this.props,
-            activeTab: tab
-        })
-    }
-
-    handleAdvancedState() {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    }
-
+   
     handleChange = (value) => {
         this.setState({
             inputType: value

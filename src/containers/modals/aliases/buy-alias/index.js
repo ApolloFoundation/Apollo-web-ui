@@ -15,7 +15,6 @@ import handleFormSubmit           from './handle-form-submit';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import NumericInputComponent from '../../../components/form-components/numeric-input';
 import ModalBody             from '../../../components/modals/modal-body';
-import ModalFooter           from '../../../components/modal-footer';
 
 class GetAlias extends React.Component {
 

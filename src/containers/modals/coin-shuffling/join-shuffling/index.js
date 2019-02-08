@@ -33,7 +33,7 @@ class JoinShuffling extends React.Component {
         }
     }
 
-    handleFormSubmit = (values) => this.props.handleFormSubmit(values);
+    handleFormSubmit = (values) => handleFormSubmit.call(this.props, values);
 
     componentDidMount = () => {
         NotificationManager.warning('Your secret phrase will be sent to the server!', 'Warning', 30000);

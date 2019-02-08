@@ -37,20 +37,10 @@ class DeleteAlias extends React.Component {
             aliasName: this.state.alias.aliasName
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'deleteAlias');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'deleteAlias', 'Product has been listed!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('Product has been listed!', null, 5000);
-        }
+        });
     }
 
     render() {

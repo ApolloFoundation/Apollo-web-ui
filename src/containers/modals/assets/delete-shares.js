@@ -37,20 +37,10 @@ class DeleteShares extends React.Component {
             quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'deleteAssetShares');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'deleteAssetShares', 'Delete asset request has been submitted!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('Delete asset request has been submitted!', null, 5000);
-        }
+        })
     };
 
     handleAdvancedState = () => {

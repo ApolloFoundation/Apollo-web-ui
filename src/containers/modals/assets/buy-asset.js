@@ -19,6 +19,9 @@ import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
+import ModalBody from '../../components/modals/modal-body';
+import TextualInputComponent from '../../components/form-components/textual-input';
+
 class BuyAsset extends React.Component {
     constructor(props) {
         super(props);
@@ -45,21 +48,10 @@ class BuyAsset extends React.Component {
             quantityOrder: (this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals))
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'placeBidOrder');
-        if (res && res.errorCode) {
-
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'placeBidOrder', 'The buy order has been submitted!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('The buy order has been submitted!', null, 5000);
-        }
+        });
     };
 
     handleAdvancedState = () => {
@@ -77,94 +69,38 @@ class BuyAsset extends React.Component {
     };
 
     render() {
+        const {nameModal, modalData, closeModal} = this.props;
+
+        const name        = modalData.assetInfo ? modalData.assetInfo.name : '';
+        const assetID     = modalData.assetInfo ? modalData.assetInfo.assetID : '';
+        const quantityATU = modalData.quantityATU;
+        const total       = modalData.total;
+        
         return (
-            <div className="modal-box">
-                <BackForm
-	                nameModal={this.props.nameModal}
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
-                            {
-                                this.props.modalData &&
-                                <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+            <ModalBody
+                loadForm={this.loadForm}
+                modalTitle={'Confirm Order (Buy)'}
+                isAdvanced={true}
+                isFee
+                closeModal={closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Confirm Order'}
+                nameModel={nameModal}
+            >
+                <Text defaultValue={name} type="hidden" field={'name'}/>
+                <Text defaultValue={assetID} type="hidden" field={'asset'}/>
+                <Text defaultValue={quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
 
-                                    <div className="form-title">
-	                                    {this.props.modalsHistory.length > 1 &&
-	                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                    }
-                                        <p>Confirm Order (Buy)</p>
-                                    </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Order Description
-                                        </label>
-                                        <div className="col-sm-9">
-                                                <p>Buy {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at {this.props.modalData.total / this.props.modalData.quantityATU} Apollo each.</p>
-                                                <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
-                                                <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
-                                                <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
-                                        </div>
-                                    </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Total
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <p>{this.props.modalData.total} Apollo</p>
-                                            <Text
-                                                defaultValue={this.props.modalData.assetName}
-                                                placeholder={'Quantity'}
-                                                type="hidden"
-                                                field={'quantityATU'}
-                                            />
-                                        </div>
-                                    </div>
-                                    <FeeCalc
-                                        values={getFormState().values}
-                                        setValue={setValue}
-                                        requestType={'placeBidOrder'}
-                                    />
-                                    <ModalFooter
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                    />
-
-                                    <div className="btn-box align-buttons-inside absolute right-conner">
-                                        {
-                                            !!this.state.isPending ?
-                                                <div
-                                                    style={{
-                                                        width: 100
-                                                    }}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    <div className="ball-pulse">
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div></div>
-                                                    </div>
-                                                </div> :
-                                                <button
-                                                    style={{
-                                                        width: 100
-                                                    }}
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    Submit
-                                                </button>
-                                        }
-                                        <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
-                                    </div>
-                                </div>
-                            }
-                        </form>
-                    )}
+                <TextualInputComponent 
+                    label={'Order Description'}
+                    text={`${quantityATU} ${name} assets at ${total / quantityATU} Apollo each.`}
                 />
-            </div>
+
+                <TextualInputComponent 
+                    label={'Total'}
+                    text={`${total} Apollo`}
+                />
+            </ModalBody>
         );
     }
 }

@@ -2028,6 +2028,8 @@ input[type="file"] {
 		pointer-events: none;
 	}
 	&.submit-button {
+		min-width: 80px;
+
 		& > * {
 			transition: 0s;
 		}

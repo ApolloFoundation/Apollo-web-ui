@@ -1427,8 +1427,10 @@ input[type="file"] {
     display: inline-block !important;
     background-color: #e1e1e1 !important;
     pointer-events: none; }
-  .btn.submit-button > * {
-    transition: 0s; }
+  .btn.submit-button {
+    min-width: 80px; }
+    .btn.submit-button > * {
+      transition: 0s; }
   .btn .button-loader {
     position: absolute;
     top: 50%;
@@ -6371,8 +6373,10 @@ input[type="file"] {
     display: inline-block !important;
     background-color: #e1e1e1 !important;
     pointer-events: none; }
-  .btn.submit-button > * {
-    transition: 0s; }
+  .btn.submit-button {
+    min-width: 80px; }
+    .btn.submit-button > * {
+      transition: 0s; }
   .btn .button-loader {
     position: absolute;
     top: 50%;

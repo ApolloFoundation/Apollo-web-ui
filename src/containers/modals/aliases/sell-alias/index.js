@@ -7,7 +7,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
-import classNames from 'classnames';
 
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
@@ -39,25 +38,14 @@ class SellAlias extends React.Component {
 
         values = {
             ...values,
-            // aliasName: this.state.alias.aliasName,
+            aliasName: this.state.alias.aliasName,
 
         };
 
-        // this.setState({
-        //     isPending: true
-        // })
-
-        // const res = await this.props.submitForm( values, 'sellAlias');
-        // if (res.errorCode) {
-        //     this.setState({
-        //         isPending: false
-        //     })
-        //     NotificationManager.error(res.errorDescription, 'Error', 5000)
-        // } else {
-        //     this.props.setBodyModalParamsAction(null, {});
-
-        //     NotificationManager.success('Product has been listed!', null, 5000);
-        // }
+        this.props.processForm(values, 'sellAlias', 'Alias has been listed!', () => {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('Alias has been listed!', null, 5000);
+        });
     }
 
     render() {

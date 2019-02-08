@@ -90,22 +90,10 @@ class MarketplacePurchase extends React.Component {
             secretPhrase: values.secretPhrase
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'dgsPurchase');
-        if (res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        this.props.processForm(values, 'dgsPurchase', 'Goods has been purchased', () => {
             this.props.setBodyModalParamsAction(null, {});
-
             NotificationManager.success('Goods has been purchased!', null, 5000);
-        }
+        })
     }
 
     handleAdvancedState = () => {
