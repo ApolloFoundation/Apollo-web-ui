@@ -10,6 +10,7 @@ export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
 export const SET_CONSTANTS = 'SET_CONSTANTS';
 export const START_LOAD = 'START_LOAD';
 export const END_LOAD = 'END_LOAD';
+export const SET_LOGIN_PROBLEM = 'SET_LOGIN_PROBLEM';
 export const CHANGE_PAGE_BODY_EVENTS = 'CHANGE_PAGE_BODY_EVENTS';
 export const SET_SETTINGS = 'SET_SETTINGS';
 export const UPDATE_NOTIFICATIONS = 'UPDATE_NOTIFICATIONS';
@@ -76,6 +77,11 @@ export default (state = initialState, action) => {
                 ...state,
                 loading: false
             };
+        case SET_LOGIN_PROBLEM:
+            return {
+                ...state,
+                loginProblem: action.payload
+            }
         case CHANGE_PAGE_BODY_EVENTS:
             return {
                 ...state,
