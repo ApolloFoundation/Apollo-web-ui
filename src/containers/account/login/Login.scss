@@ -15,6 +15,7 @@
         right: 0;
         bottom: 0;
         left: 0;
+        display: flex;
         background: #F5F5F5;
         background-image: url(../../../assets/background-main.jpeg);
         background-size: cover;
@@ -22,6 +23,14 @@
         z-index: 100;
         min-height: 300px;
       
+        & > * {
+          margin: auto;
+          min-width: 450px;
+
+          @media(max-width: 568px) {
+            min-width: auto;
+          }
+        }
         &:after {
           content: '';
           position: fixed;
@@ -45,10 +54,8 @@
           }
         }
         .form-group-app {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+          position: relative;
+          margin: auto;
           max-width:445px;
           height: auto;
           z-index: 1;

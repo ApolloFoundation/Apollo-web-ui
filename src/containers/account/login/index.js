@@ -15,6 +15,16 @@ import {Form, Text} from "react-form";
 import {getConstantsAction} from '../../../actions/login'
 import InfoBox from "../../components/info-box";
 
+import ModalBody from '../../components/modals/modal-body';
+// import CustomTable from '../../../components/tables/table';
+import TabulationBody from '../../components/tabulator/tabuator-body';
+import TabContaier from '../../components/tabulator/tab-container';
+import CustomTextArea from '../../components/form-components/text-area';
+import TextualInputComponent from '../../components/form-components/textual-input';
+import AccountRSFormInput from '../../components/form-components/account-rs'
+
+
+
 class Login extends React.Component {
     state = {
         activeTab: 0
@@ -45,6 +55,52 @@ class Login extends React.Component {
         })
     };
 
+    EnterAccountIDCustomFooter = () => (
+        <div className="btn-box align-buttons-inside absolute right-conner wide">
+            <a
+                className="btn btn-left round round-bottom-left"
+                onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
+            >
+                Create account
+            </a>
+            <a
+                className="btn btn-left round blue round-top-right"
+                onClick={() => this.props.setBodyModalParamsAction('IMPORT_ACCOUNT')}
+            >
+                Import account
+            </a>
+
+            <button
+                type="submit"
+                name={'closeModal'}
+                className="btn btn-right blue round round-bottom-right round-top-left"
+                id={'login-form-account-ri-button'}
+            >
+                Enter
+            </button>
+
+        </div>
+    )
+
+    EnterSecretPhraseFormFooter = () => (
+        <div className="btn-box align-buttons-inside absolute right-conner wide">
+            <a
+                className="btn btn-left round round-bottom-left round-top-right"
+                onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
+            >
+                Create account
+            </a>
+            <button
+                type="submit"
+                name={'closeModal'}
+                className="btn btn-right blue round round-bottom-right round-top-left"
+                id={'login-form-secret-phrase-button'}
+            >
+                Enter
+            </button>
+        </div>
+    )
+
 
     render() {
 
@@ -70,138 +126,57 @@ class Login extends React.Component {
             <div className="page-content">
                 <div className="page-body container-fluid">
                     <div className="login">
-                        <div className="modal-form">
-                            <div className="form-group-app media-tab" style={{boxShadow: '0 0 30px #000'}}>
-                                <div className="form-title">
-                                    <p>Welcome to Apollo</p>
-                                </div>
-                                <div
-                                    style={{margin: '55px -35px -35px -35px'}}
-                                    className="form-tabulator active"
-                                >
-                                    <div className="form-tab-nav-box justify-left">
-                                        <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
-                                            "form-tab": true,
-                                            "active": this.state.activeTab === 0
-                                        })}>
-                                            <p>Login with Account ID</p>
-                                        </a>
-                                        <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
-                                            "form-tab": true,
-                                            "active": this.state.activeTab === 1
-                                        })}>
-                                            <p>Login with Secret Phrase</p>
-                                        </a>
-                                    </div>
-                                    {
-                                        this.state.activeTab === 0 &&
-                                        <Form
-                                            onSubmit={(values) => this.enterAccount(values)}
-                                            render={({
-                                                        submitForm, setValue
-                                                    }) => (
-                                                <form
-                                                    onSubmit={submitForm}
-                                                    className={classNames({
-                                                    "tab-body": true,
-                                                    "active": this.state.activeTab === 0
-                                                })}>
-                                                    <div className="input-group-app form-group display-block inline user offset-top mb-0">
-                                                        <div className="row form-group-white">
-                                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                                Account ID
-                                                            </label>
-                                                            <div className="col-sm-9">
-                                                                <div className="iconned-input-field">
-                                                                    <AccountRS
-                                                                        value={''}
-                                                                        field={'accountRS'}
-                                                                        setValue={setValue}
-                                                                        placeholder={'Account ID'}
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="btn-box align-buttons-inside absolute right-conner wide">
-                                                        <a
-                                                            className="btn btn-left round round-bottom-left"
-                                                            onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
-                                                        >
-                                                            Create account
-                                                        </a>
-                                                        <a
-                                                            className="btn btn-left round blue round-top-right"
-                                                            onClick={() => this.props.setBodyModalParamsAction('IMPORT_ACCOUNT')}
-                                                        >
-                                                            Import account
-                                                        </a>
-
-                                                        <button
-                                                            type="submit"
-                                                            name={'closeModal'}
-                                                            className="btn btn-right blue round round-bottom-right round-top-left"
-                                                        >
-                                                            Enter
-                                                        </button>
-
-                                                    </div>
-                                                </form>
-                                            )}
+                        <ModalBody
+                            modalTitle={'Welcome to Apollo'}
+                            closeModal={this.props.closeModal}
+                            className={'modal-form'}
+                        >
+                            <TabulationBody
+                                className={'p-0'}
+                            >
+                                <TabContaier sectionName={'Login with Account ID'}>
+                                    <ModalBody
+                                        closeModal={this.props.closeModal}
+                                        handleFormSubmit={(values) => this.enterAccount(values)}
+                                        className={'p-0 transparent gray-form'}
+                                        isDisabe2FA
+                                        isPour
+                                        idGroup={'login-page-enter-account-id-'}
+                                        isDisableSecretPhrase
+                                        CustomFooter={() => this.EnterAccountIDCustomFooter()}
+                                    >
+                                        <AccountRSFormInput 
+                                            id={'login-form-account-ri-field'}
+                                            value={''}
+                                            field={'accountRS'}
+                                            placeholder={'Account ID'}
+                                            label={'Account ID'}
                                         />
-                                    }
-                                    {
-                                        this.state.activeTab === 1 &&
-                                        <Form
-                                            onSubmit={(values) => this.enterAccountByPassphrase(values)}
-                                            render={({
-                                                        submitForm
-                                                    }) => (
-                                                <React.Fragment>
-                                                    <form
-                                                        onSubmit={submitForm}
-                                                        className={classNames({
-                                                        "tab-body": true,
-                                                        "active": this.state.activeTab === 1
-                                                    })}>
-                                                        <InfoBox info>
-                                                            This option works only for standard wallets.
-                                                        </InfoBox>
-                                                        <div className="form-group row form-group-white offset-top mb-0">
-                                                            <label className="col-sm-3 col-form-label">
-                                                                Secret Phrase
-                                                            </label>
-                                                            <div className="col-sm-9 mb-0 no-left-padding">
-                                                                <Text className="form-control" field="secretPhrase"
-                                                                    placeholder="Secret Phrase" type={'password'}/>
-                                                            </div>
-                                                        </div>
-                                                        <div className="btn-box align-buttons-inside absolute right-conner wide">
-                                                            <a
-                                                                className="btn btn-left round round-bottom-left round-top-right"
-                                                                onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
-                                                            >
-                                                                Create account
-                                                            </a>
-                                                            <button
-                                                                type="submit"
-                                                                name={'closeModal'}
-                                                                className="btn btn-right blue round round-bottom-right round-top-left"
-                                                            >
-                                                                Enter
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                
-                                                </React.Fragment>
-                                                
-                                            )}
+                                    </ModalBody>
+                                </TabContaier>
+                                <TabContaier sectionName={'Login with Secret Phrase'}>
+                                    <ModalBody
+                                        closeModal={this.props.closeModal}
+                                        handleFormSubmit={(values) => this.enterAccountByPassphrase(values)}
+                                        className={'p-0 transparent gray-form'}
+                                        isDisabe2FA
+                                        isPour
+                                        idGroup={'login-page-enter-secret-phrase-'}
+                                        isDisableSecretPhrase
+                                        CustomFooter={() => this.EnterSecretPhraseFormFooter()}
+                                    >
+                                        <TextualInputComponent
+                                            label={'Secret Phrase'}
+                                            placeholder={'Secret Phrase'}
+                                            className="mb-3" 
+                                            field="secretPhrase"
+                                            type={'password'}
+                                            id={'login-form-secret-phrase-field'}
                                         />
-                                    }
-                                    
-                                </div>
-                            </div>
-                        </div>
+                                    </ModalBody>
+                                </TabContaier>
+                            </TabulationBody>
+                        </ModalBody>    
                         {copyrights()}
                     </div>
                 </div>
