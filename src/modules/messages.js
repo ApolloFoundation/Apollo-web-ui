@@ -1,7 +1,4 @@
 
-import axios from 'axios';
-import {getMessages} from '../actions/messager'
-
 const initState  = {}
 
 const SET_MESSAGES      = 'SET_MESSAGES';

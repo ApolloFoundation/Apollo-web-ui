@@ -7,7 +7,6 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
-import classNames from "classnames";
 import {getChatsPerPage, getChatHistory} from "../../../actions/messager";
 import './Messenger.css';
 import {BlockUpdater} from "../../block-subscriber/index";
@@ -42,7 +41,7 @@ class Messenger extends React.Component {
 
 	render (){
 		
-        const {chatMessages, chats} = this.props;
+        const {chats} = this.props;
 
 		return (
 			<div className="page-content">

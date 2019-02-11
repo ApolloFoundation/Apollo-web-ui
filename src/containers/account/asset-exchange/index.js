@@ -72,8 +72,6 @@ class AssetExchange extends React.Component {
     async getAsset(assetID) {
         let asset = await this.props.getAssetAction({asset: assetID});
         
-        console.log(asset)
-
         this.setState({
             asset,
         });

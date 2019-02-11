@@ -10,8 +10,6 @@ const IssueCurrencyForm = (props) => {
     
     const {values : {type1, type2, type3, type4, type5, type6}} = getFormState()
 
-    console.log(idGroup)
-
     return (
         <>
             <TextualInputComponent 

@@ -32,12 +32,10 @@ export const openWSConnection = (protocol, hostname, port, endpoint) => dispatch
     var webSocketURL = null;
     webSocketURL = protocol + "://" + hostname + ":" + port + endpoint;
 
-    console.log(22222)
     console.log("openWSConnection::Connecting to: " + webSocketURL);
     try {
         webSocket = new WebSocket(webSocketURL);
 
-        console.log(webSocket)
         webSocket.onopen = function(openEvent) {
             dispatch ({
                 type: SET_TRANSPORT_CONNECTION_STATUS,
@@ -67,7 +65,6 @@ export const openWSConnection = (protocol, hostname, port, endpoint) => dispatch
                 payload: wsMsg
             })
 
-            console.log(messageEvent)
         };
     } catch (exception) {
         console.error(exception);

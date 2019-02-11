@@ -77,8 +77,6 @@ class MyAssetItem extends React.Component {
 
     render () {
 
-        console.log(this.props)
-
         const {decimals, asset, name, unconfirmedQuantityATU, quantityATU} = this.props;
 
 	    return (

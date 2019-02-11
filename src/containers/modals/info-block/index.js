@@ -35,7 +35,6 @@ class InfoBlock extends React.Component {
         const {modalData} = this.props;
         const isString = typeof modalData === 'string' || typeof modalData === 'number';
 
-        console.log(modalData)
         if (isString) {
             this.getBlock({height: modalData})
         } else {
@@ -115,8 +114,6 @@ class InfoBlock extends React.Component {
 
     render() {
         const {blockInfo} = this.state
-
-        console.log(blockInfo)
 
         return (
             <div className="modal-box x-wide">

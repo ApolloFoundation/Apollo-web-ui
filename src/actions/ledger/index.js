@@ -104,7 +104,6 @@ export const getAccountLedgerPerPage = (reqParams) => {
     return async (dispatch, getState) => {
         const {account: {passPhrase}} = getState();
 
-        console.log(passPhrase)
         const ledger = await dispatch(getAccountLedgerAction(reqParams))
 
         dispatch({

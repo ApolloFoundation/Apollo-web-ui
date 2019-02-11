@@ -219,6 +219,8 @@ export const getChatHistoryAction = (requestParams) => {
         .then((res) => {
             if (!res.data.errorCode) {
                 return res.data
+            } else {
+                return {chatHistory: []};
             }
         })
 }
