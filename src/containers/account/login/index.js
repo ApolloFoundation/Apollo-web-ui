@@ -9,17 +9,11 @@ import React from 'react';
 import './Login.css'
 import { getAccountDataAction, getAccountDataBySecretPhrasseAction } from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import classNames from "classnames";
-import AccountRS from '../../components/account-rs';
-import {Form, Text} from "react-form";
 import {getConstantsAction} from '../../../actions/login'
-import InfoBox from "../../components/info-box";
 
 import ModalBody from '../../components/modals/modal-body';
-// import CustomTable from '../../../components/tables/table';
 import TabulationBody from '../../components/tabulator/tabuator-body';
 import TabContaier from '../../components/tabulator/tab-container';
-import CustomTextArea from '../../components/form-components/text-area';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import AccountRSFormInput from '../../components/form-components/account-rs'
 
