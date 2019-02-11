@@ -5,9 +5,7 @@
 
 
 import React from 'react';
-import {Link} from 'react-router-dom';
 import SiteHeader from '../../components/site-header'
-import ExchangeBoothTable from './exchange-booth-table';
 import {connect} from 'react-redux';
 import {getCurrencyAction, getAllCurrenciesAction} from "../../../actions/currencies";
 import classNames from "classnames";
@@ -24,7 +22,7 @@ import InputForm from '../../components/input-form';
 import OfferItem  from './offer-item/'
 import ExchangeItem  from './exchange-item/ExchangeItem'
 import ExecutedItem  from './executed-item/ExecutedItem'
-import {Form, Text, TextArea} from 'react-form';
+import {Form, Text} from 'react-form';
 import uuid from 'uuid'
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
