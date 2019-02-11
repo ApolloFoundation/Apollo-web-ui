@@ -14,6 +14,7 @@ const Currency = (props) =>  {
     const {currency, code, type, types, decimals, setBodyModalParamsAction, currentSupply, maxSupply, name} = props;
     const currencyTypes = getCurrencyTypes(type);
 
+    console.log(currencyTypes)
     return (
         <tr>
             <td className="blue-link-text">
@@ -22,7 +23,8 @@ const Currency = (props) =>  {
                 </a>
             </td>
             <td>{name}</td>
-            <td className="blue-link-text" dangerouslySetInnerHTML={{__html: currencyTypes}}/>
+            
+            <td className="" dangerouslySetInnerHTML={{__html: currencyTypes}} />
             <td className="align-right">{currentSupply / Math.pow(10, decimals)}</td>
             <td className="align-right">{maxSupply / Math.pow(10, decimals)}</td>
             <td className="align-right">

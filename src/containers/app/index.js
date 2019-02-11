@@ -177,8 +177,21 @@ class App extends React.Component {
     onRenderContent = (target, content) => {
         let {catId} = target.dataset
         catId = JSON.parse(catId);
+        console.log(catId)
  
-        return  <div className="custom-hint__content">
+        if (catId && catId.infoContent) {
+            return  <div className="custom-hint__content">
+                        <div
+                            className="phased-transaction"
+                        >
+                            <div className="phasing-box__phasing-description p-3">
+                                {catId.infoContent}
+                            </div>
+                        </div>
+                    </div>
+
+        } else {
+            return  <div className="custom-hint__content">
                     <div
                         className="phased-transaction"
                     >
@@ -224,6 +237,8 @@ class App extends React.Component {
                         </div>
                     </div>
                 </div>
+        }
+        
     }
 
     routers = () => (
