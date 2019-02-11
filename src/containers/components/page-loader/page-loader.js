@@ -10,8 +10,6 @@ import {getAccountDataAction} from '../../../actions/login';
 
 const savedAccount = JSON.parse(localStorage.getItem('APLUserRS'))
 
-console.log(savedAccount)
-
 const PageLoader = ({loginProblem, getAccountDataAction}) => (
     <div className="page-loader">
         {
