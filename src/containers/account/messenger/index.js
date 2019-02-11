@@ -57,7 +57,7 @@ class Messenger extends React.Component {
 				</SiteHeader>
                 <div className="page-body container-fluid assets-exchange">
                     <div className="row messages">
-                        <div className="col-md-3 p-0">
+                        <div className="col-md-3 p-0 pb-3">
                             <SidebarContent
                                 baseUrl={'/messenger/'}
                                 element={'accountRS'}
