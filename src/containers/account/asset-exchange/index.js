@@ -35,6 +35,9 @@ import OffersToSell from './offers-to-sell';
 import BuyAsset from './buy-asset';
 import SellAsset from './sell-asset';
 
+import SidebatAsset from './sidebar-asset';
+import SidebarContent from '../../components/sidebar-list';
+
 class AssetExchange extends React.Component {
     constructor(props) {
         super(props);
@@ -72,8 +75,6 @@ class AssetExchange extends React.Component {
     async getAsset(assetID) {
         let asset = await this.props.getAssetAction({asset: assetID});
         
-        console.log(asset)
-
         this.setState({
             asset,
         });
@@ -291,45 +292,19 @@ class AssetExchange extends React.Component {
                         <div className="row">
                             {
                                 window.innerWidth > 768 &&
-                                <div className="col-md-3 p-0 left-col mb-3 pb-3">
-                                    <div className="card card-full-screen no-padding scroll mb-3">
-                                        {
-                                            this.state.accountAssets &&
-                                            !!this.state.accountAssets.length &&
-                                            this.state.accountAssets.map((el, index) => {
-                                                return (
-                                                    <Link
-                                                        key={uuid()}
-                                                        style={{display: 'block'}}
-                                                        to={"/asset-exchange/" + (el ? el.asset : "")}
-                                                        className={classNames({
-                                                            "chat-item": true,
-                                                            "active": this.state.asset.asset === (el ? el.asset : "")
-                                                        })}
-                                                    >
-                                                        <div className="chat-box-item">
-                                                            <div className="chat-box-rs">
-                                                                {el ? el.name : ""}
-                                                            </div>
-                                                            <div className="chat-date">
-                                                                Quantity:&nbsp;{(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)}
-                                                            </div>
-                                                        </div>
-                                                    </Link>
-                                                );
-                                            })
-                                        }
-                                        {
-                                            this.state.accountAssets &&
-                                            !(!!this.state.accountAssets.length) &&
-                                            <InfoBox>No assets found.</InfoBox>
-                                        }
-                                    </div>
+                                <div className="col-md-3 p-0 pb-3">
+                                    <SidebarContent
+                                        element={'asset'}
+                                        baseUrl={'/asset-exchange/'}
+                                        data={this.state.accountAssets}
+                                        emptyMessage={'No followed polls.'}
+                                        Component={SidebatAsset}
+                                    />
                                 </div>
                             }
                             {
                                 this.props.match.params &&
-                                <div className="col-md-9 p-0 right-col">
+                                <div className="col-md-9 p-0">
                                     <div className="row">
                                         {
                                             window.innerWidth < 768 &&

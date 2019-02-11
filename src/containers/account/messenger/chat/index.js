@@ -4,12 +4,13 @@ import uuid from 'uuid';
 import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {connect} from 'react-redux';
 import ContentLoader from '../../../components/content-loader';
+import InfoBox from '../../../components/info-box';
 
 import {handleSendMessageFormSubmit} from './handleFormSubmit';
 
 
 class Chat extends React.Component {
-    state = {};
+    state = {textareaCount: 0};
 
 	handleSendMessageFormSubmit = (values) => this.props.handleSendMessageFormSubmit(values)
 
@@ -19,10 +20,9 @@ class Chat extends React.Component {
         return (
             <div className="card card-full-screen no-padding">
                 <div className="chatting-box">
-        
                     {
                         chatMessages &&
-                      !!chatMessages.length ?
+                        !!chatMessages.length &&
                         chatMessages.map((el, index) => {
                             return (
                                 <ChatItem
@@ -30,9 +30,19 @@ class Chat extends React.Component {
                                     {...el}
                                 />
                             );
-                        }) : <ContentLoader/>
+                        })
                     }
-        
+                    {
+                        chatMessages && 
+                        !chatMessages.length && 
+                        <InfoBox>
+                            Please select the chat.
+                        </InfoBox>
+                    }
+                    {
+                        !chatMessages &&
+                        <ContentLoader/>
+                    }
                 </div>
                 <Form
                     onSubmit={(values) => this.handleSendMessageFormSubmit(values)}

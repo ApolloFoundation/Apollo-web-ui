@@ -5,7 +5,6 @@ import {
 } from '../../../../modules/modals';
 
 export function handleFormSubmit (values) {
-    console.log(this)
     const {dispatch} = this.store;
     
     let resultAnswers = {};

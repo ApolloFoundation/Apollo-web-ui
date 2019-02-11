@@ -11,8 +11,7 @@ import {formatTimestamp} from "../../../helpers/util/time";
 
 const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location: {pathname}, Component}) => (
     <>
-        <div className="card card-full-screen no-padding scroll">
-            {console.log(data)}
+        <div className="card card-full-screen no-padding scroll d-block">
             {
                 !!data ?
                 data.map((el, index) => {

@@ -4,8 +4,6 @@ import {onDisconnectClick, onSendClick, onConnectClick} from '../../../modules/t
 import {setBodyModalParamsAction} from '../../../modules/modals';
 
 const Transport = ({connectionStatus, connectionProperties, onSendClick, onDisconnectClick, onConnectClick, setBodyModalParamsAction}) => {
-    console.log(connectionProperties && connectionProperties.event)
-
     const STARTREQUEST = {
         "type":"STARTREQUEST", 
         "serversjson":"./servers.json", 

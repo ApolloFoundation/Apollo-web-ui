@@ -36,8 +36,6 @@ class ModalBody extends React.Component {
     
     handleFormSubmit = (values) => {
         if (this.props.handleFormSubmit) {
-            console.log(this.props.handleFormSubmit)
-
             this.props.handleFormSubmit(values)
         }
     }
