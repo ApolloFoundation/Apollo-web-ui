@@ -10,9 +10,6 @@ const OffersToSell = ({askOrders, asset}) => (
             <div className="form-title">
                 <p>Offers to sell {asset.name}</p>
             </div>
-                <div className="info-box simple">
-                    <p>No buy offers for this asset.</p>
-                </div> :
                 <div className="transaction-table no-min-height">
                     <div className="transaction-table-body">
                         <table>
