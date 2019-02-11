@@ -22,6 +22,8 @@ import {
     getAccountExchangesAction
 } from "../../../actions/exchange-booth";
 
+import CustomTable from '../../components/tables/table';
+
 const mapStateToProps = state => ({
     account: state.account.account,
     accountRS: state.account.accountRS,
@@ -145,80 +147,46 @@ class TradeHistoryCurrency extends React.Component {
                     pageTitle={'Exchange History'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="scheduled-transactions">
-                        <ContentHendler
-                            items={this.state.executedExchanges}
-                            emptyMessage={'No votes found.'}
-                        >
+                    <CustomTable 
+                        header={[
                             {
-                                this.state.trades &&
-                                !!this.state.trades.length &&
-                                <div className="transaction-table">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Date</td>
-                                                <td>Exchange Request</td>
-                                                <td>Exchange Offer</td>
-                                                <td>Code</td>
-                                                <td>Seller</td>
-                                                <td>Buyer</td>
-                                                <td className="align-right">Units</td>
-                                                <td className="align-right">Rate</td>
-                                                <td className="align-right">Amount</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                this.state.executedExchanges &&
-                                                this.state.executedExchanges.map((el, index) => {
-                                                    return (
-                                                        <TradeHistoryItem
-                                                            key={uuid()}
-                                                            transfer={el}
-                                                            setTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                        {
-                                            this.state.executedExchanges &&
-                                            <div className="btn-box">
-                                                <a
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-left' : true,
-                                                        'disabled' : this.state.page <= 1
-                                                    })}
-                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                >
-                                                    Previous
-                                                </a>
-                                                <div className='pagination-nav'>
-                                                    <span>{this.state.firstIndex + 1}</span>
-                                                    <span>&hellip;</span>
-                                                    <span>{this.state.lastIndex + 1}</span>
-                                                </div>
-                                                <a
-                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-right' : true,
-                                                        'disabled' : this.state.executedExchanges.length < 15
-                                                    })}
-                                                >
-                                                    Next
-                                                </a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
+                                name: 'Date',
+                                alignRight: false
+                            },{
+                                name: 'Exchange Request',
+                                alignRight: false
+                            },{
+                                name: 'Exchange Offer',
+                                alignRight: false
+                            },{
+                                name: 'Code',
+                                alignRight: false
+                            },{
+                                name: 'Seller',
+                                alignRight: false
+                            },{
+                                name: 'Buyer',
+                                alignRight: false
+                            },{
+                                name: 'Units',
+                                alignRight: true
+                            },{
+                                name: 'Rate',
+                                alignRight: true
+                            },{
+                                name: 'Amount',
+                                alignRight: true
                             }
-                        </ContentHendler>
-                    </div>
+                        ]}
+                        TableRowComponent={TradeHistoryItem}
+                        tableData={this.state.executedExchanges}
+                        isPaginate
+                        page={this.state.page}
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                        className={'no-min-height'}
+                        emptyMessage={'No exchange history found.'}
+                    />  
                 </div>
             </div>
         );

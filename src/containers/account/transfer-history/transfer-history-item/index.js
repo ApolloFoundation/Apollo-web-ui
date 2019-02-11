@@ -22,37 +22,30 @@ class TransferHistoryItem extends React.Component {
     }
 
     render () {
-        if (this.state.transfer) {
-            return (
-                <tr key={uuid()}>
-                    <td className="blue-link-text">
-                        <a onClick={this.props.setTransaction.bind(this, this.state.transfer.assetTransfer)}>{this.state.transfer.assetTransfer}</a>
-                    </td>
-                    <td>
-                        {this.state.transfer.name}
-                        <a><span className="info"></span></a>
-                    </td>
-                    <td className="">{this.props.formatTimestamp(this.state.transfer.timestamp)}</td>
-                    <td className="align-right" >{(this.state.transfer.quantityATU / Math.pow(10, this.state.transfer.decimals)).toLocaleString('en', {
-                        minimumFractionDigits: this.state.transfer.decimals,
-                        maximumFractionDigits: this.state.transfer.decimals
-                    })}</td>
-                    <td className="blue-link-text">
-                        <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transfer.recipient)}>{this.state.transfer.recipientRS}</a>
-                    </td>
-                    <td className="blue-link-text">
-                        <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transfer.sender)}>{this.state.transfer.senderRS}</a>
-                    </td>
-                    <td className="">
-                        <a></a>
-                    </td>
-                </tr>
-            );
-        } else {
-            return (
-                <tr key={uuid()}></tr>
-            );
-        }
+        const {setBodyModalParamsAction, assetTransfer, timestamp, name, decimals, quantityATU, recipient, sender, senderRS, recipientRS} = this.props;
+
+        return (
+            <tr key={assetTransfer}>
+                <td className="blue-link-text">
+                    <a onClick={setBodyModalParamsAction.bind(this, 'INFO_TRANSACTION', assetTransfer)}>{assetTransfer}</a>
+                </td>
+                <td>
+                    {name}
+                    <a><span className="info"></span></a>
+                </td>
+                <td className="">{this.props.formatTimestamp(timestamp)}</td>
+                <td className="align-right" >{(quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+                    minimumFractionDigits: decimals,
+                    maximumFractionDigits: decimals
+                })}</td>
+                <td className="blue-link-text">
+                    <a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', recipient)}>{recipientRS}</a>
+                </td>
+                <td className="blue-link-text">
+                    <a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', sender)}>{senderRS}</a>
+                </td>
+            </tr>
+        )
     }
 }
 
