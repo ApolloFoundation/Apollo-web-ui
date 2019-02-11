@@ -6,18 +6,10 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InputForm from '../../components/input-form';
-import {Form, Text} from 'react-form';
+import {setBodyModalParamsAction} from '../../../modules/modals';
+import {Text} from 'react-form';
 
-import AccountRS from '../../components/account-rs';
-import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import ModalFooter from '../../components/modal-footer';
-import FeeCalc from '../../components/form-components/fee-calc';
-
-import BackForm from '../modal-form/modal-form-container';
 
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
@@ -54,20 +46,6 @@ class BuyAsset extends React.Component {
         });
     };
 
-    handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    };
-
     render() {
         const {nameModal, modalData, closeModal} = this.props;
 
@@ -93,7 +71,7 @@ class BuyAsset extends React.Component {
 
                 <TextualInputComponent 
                     label={'Order Description'}
-                    text={`${quantityATU} ${name} assets at ${total / quantityATU} Apollo each.`}
+                    text={`Buy ${quantityATU} ${name} assets at ${total / quantityATU} Apollo each.`}
                 />
 
                 <TextualInputComponent 
@@ -111,11 +89,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuyAsset);

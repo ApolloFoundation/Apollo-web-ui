@@ -368,6 +368,16 @@ input[type="file"] {
   right: 0;
   background: #F5F5F5;
   z-index: 1000000; }
+  .page-loader .connection {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; }
+    .page-loader .connection.problem .zmdi {
+      font-size: 60px;
+      color: #e74c3c;
+      display: block; }
   .page-loader .ball-scale-multiple {
     position: absolute;
     top: 50%;
@@ -5314,6 +5324,16 @@ input[type="file"] {
   right: 0;
   background: #F5F5F5;
   z-index: 1000000; }
+  .page-loader .connection {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; }
+    .page-loader .connection.problem .zmdi {
+      font-size: 60px;
+      color: #e74c3c;
+      display: block; }
   .page-loader .ball-scale-multiple {
     position: absolute;
     top: 50%;

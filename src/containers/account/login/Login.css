@@ -10,12 +10,19 @@
   right: 0;
   bottom: 0;
   left: 0;
+  display: flex;
   background: #F5F5F5;
   background-image: url(../../../assets/background-main.jpeg);
   background-size: cover;
   background-position: top center;
   z-index: 100;
   min-height: 300px; }
+  .site-content .page-content .page-body > .login > * {
+    margin: auto;
+    min-width: 450px; }
+    @media (max-width: 568px) {
+      .site-content .page-content .page-body > .login > * {
+        min-width: auto; } }
   .site-content .page-content .page-body > .login:after {
     content: '';
     position: fixed;
@@ -34,10 +41,8 @@
     .site-content .page-content .page-body > .login .modal-form {
       width: 100%; } }
   .site-content .page-content .page-body > .login .form-group-app {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    margin: auto;
     max-width: 445px;
     height: auto;
     z-index: 1; }

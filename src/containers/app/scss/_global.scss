@@ -492,6 +492,7 @@ input[type="file"] {
 	}
 }
 
+
 .page-loader {
 	position: fixed;
 	top: 0;
@@ -501,6 +502,22 @@ input[type="file"] {
 	background: #F5F5F5;
 	z-index: 1000000;
 	
+	.connection {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+
+		&.problem {
+			.zmdi {
+				font-size: 60px;
+				color: #e74c3c;
+				display: block;
+				
+			}
+		}
+	}
 	.ball-scale-multiple {
 		position: absolute;
 		top: 50%;

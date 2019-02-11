@@ -22,6 +22,10 @@ import async from "../../helpers/util/async";
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
+        dispatch({
+            type: 'SET_LOGIN_PROBLEM',
+            payload: false
+        });
         const loginStatus = (await makeLoginReq(dispatch, requestParams));
 
         if (loginStatus) {
@@ -153,7 +157,10 @@ export function makeLoginReq(dispatch, requestParams) {
             }
         })
         .catch(function (err) {
-            NotificationManager.error('Can not connect to server', 'Error', 900000);
+            dispatch({
+                type: 'SET_LOGIN_PROBLEM',
+                payload: true
+            })
         });
 }
 
@@ -315,7 +322,10 @@ export function getConstantsAction() {
                 }
             })
             .catch(function (err) {
-                console.log(err)
+                dispatch({
+                    type: 'SET_LOGIN_PROBLEM',
+                    payload: true
+                })
             });
     };
 }

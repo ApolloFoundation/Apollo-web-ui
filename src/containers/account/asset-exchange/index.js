@@ -29,6 +29,12 @@ import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 import bigInteger from 'big-integer'
 
+import OffersToBuy from './offers-to-buy';
+import OffersToSell from './offers-to-sell';
+
+import BuyAsset from './buy-asset';
+import SellAsset from './sell-asset';
+
 class AssetExchange extends React.Component {
     constructor(props) {
         super(props);
@@ -334,7 +340,7 @@ class AssetExchange extends React.Component {
                                                 </a>
                                             </div>
                                         }
-                                        <div className="col-xl-6 col-md-12 pr-0">
+                                        <div className={'col-xl-6 col-md-12 pr-0'}>
                                             <div className="card header ballance card-tiny medium-padding mb-3">
                                                 <div className="row">
                                                     <div className="col-md-6">
@@ -384,158 +390,8 @@ class AssetExchange extends React.Component {
 
                                                 </div>
                                             </div>
-
-                                            <Form
-                                                onSubmit={(values) => this.handleBuyOrders(values)}
-                                                render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
-
-                                                    <form style={{height: 'auto'}}
-                                                          className="card ballance card-medium medium-padding full-height mb-3"
-                                                          onSubmit={submitForm}>
-                                                        <div className="form-group-app">
-                                                            <div className="form-title">
-                                                                <p>Buy {this.state.asset.name}</p>
-                                                                <div className="form-sub-title">
-                                                                    balance: <strong>{(this.props.amountATM / Math.pow(10, this.state.asset.decimals)).toLocaleString('en', {
-                                                                    minimumFractionDigits: this.state.asset.decimals,
-                                                                    maximumFractionDigits: this.state.asset.decimals
-                                                                })} APL</strong>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="input-group-app offset-top display-block inline no-margin">
-                                                                <div className="form-group row form-group-white">
-                                                                    <div className="col-md-3 pl-0">
-                                                                        <label>Quantity</label>
-                                                                    </div>
-                                                                    <div
-                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <InputForm
-                                                                            field="quantity"
-                                                                            placeholder="Quantity"
-                                                                            type={"tel"}
-                                                                            onChange={() => this.handleTotalValue(setValue, getFormState)}
-                                                                            setValue={setValue}/>
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">{this.state.asset.name}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="input-group-app offset-top display-block inline no-margin">
-                                                                <div className="form-group row form-group-white">
-                                                                    <div className="col-md-3 pl-0">
-                                                                        <label>Price</label>
-                                                                    </div>
-                                                                    <div
-                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <InputForm
-                                                                            field="priceATM"
-                                                                            placeholder="Quantity"
-                                                                            type={"tel"}
-                                                                            onChange={() => this.handleTotalValue(setValue, getFormState)}
-                                                                            setValue={setValue}/>
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">APL / {this.state.asset.name}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="input-group-app offset-top display-block inline no-margin">
-                                                                <div className="form-group row form-group-white">
-                                                                    <div className="col-md-3 pl-0">
-                                                                        <label>Total</label>
-                                                                    </div>
-                                                                    <div className="col-md-9 pr-0 input-group">
-                                                                        <InputForm
-                                                                            field="total"
-                                                                            placeholder="Price"
-                                                                            type={"tel"}
-                                                                            disabled={true}
-                                                                            setValue={setValue}/>
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">{this.state.asset.name}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="input-group-app offset-top display-block inline no-margin">
-                                                                <div className="row form-group-white">
-                                                                    <div className="col-md-3 pl-0">
-                                                                    </div>
-                                                                    <div className="col-md-9 pr-0">
-                                                                        <button
-                                                                            className={classNames({
-                                                                                "btn": true,
-                                                                                "static": true,
-                                                                                "blue": true,
-                                                                                "blue-disabled": !(!!getFormState().values.total)
-                                                                            })}
-                                                                        >
-                                                                            Buy (APL > {this.state.asset.name})
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-
-                                                )}
-                                            />
-
-
-                                            <div className="card ballance card-tiny medium-padding mb-3"
-                                                 style={{marginBottom: 0}}>
-                                                <div className="form-group-app">
-                                                    <div className="form-title">
-                                                        <p>Offers to sell {this.state.asset.name}</p>
-                                                    </div>
-                                                    {
-                                                        this.state.askOrders &&
-                                                        this.state.askOrders.length === 0 ?
-                                                            <div className="info-box simple">
-                                                                <p>No buy offers for this asset.</p>
-                                                            </div> :
-                                                            <div className="transaction-table no-min-height">
-                                                                <div className="transaction-table-body">
-                                                                    <table>
-                                                                        <thead key={uuid()}>
-                                                                        <tr>
-                                                                            <td className="align-left">Asset</td>
-                                                                            <td>Quantity</td>
-                                                                            <td className="align-left">Price</td>
-                                                                            <td className="align-right">Total</td>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        {
-                                                                            this.state.askOrders &&
-                                                                            this.state.askOrders.length > 0 ?
-                                                                                this.state.askOrders.map(el => {
-                                                                                    return (
-                                                                                        <OrderItem
-                                                                                            key={uuid()}
-                                                                                            order={el}
-                                                                                        />
-                                                                                    )
-                                                                                }) : <p>No delete history</p>
-                                                                        }
-                                                                        </tbody>
-                                                                    </table>
-
-                                                                </div>
-                                                            </div>}
-                                                </div>
-                                            </div>
-
                                         </div>
-                                        <div className="col-xl-6 col-md-12 pr-0">
+                                        <div className={'col-xl-6 col-md-12 pr-0'}>
                                             <div className="card header assets card-tiny medium-padding mb-3">
                                                 <div className="full-box full">
                                                     <div className="full-box-item">
@@ -574,158 +430,24 @@ class AssetExchange extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <Form
-                                                onSubmit={(values) => this.handleSellOrders(values)}
-                                                render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
-
-                                                    <form style={{height: 'auto'}}
-                                                          className="card ballance card-medium medium-padding full-height mb-3"
-                                                          onSubmit={submitForm}>
-                                                        <div className="form-group-app">
-                                                            <div className="form-title">
-                                                                <p>Sell {this.state.asset.name}</p>
-                                                                {this.state.asset.balanceATU &&
-                                                                <div className="form-sub-title">
-                                                                    balance: <strong>{(this.state.asset.balanceATU / Math.pow(10, this.state.asset.decimals)).toLocaleString('en', {
-                                                                    minimumFractionDigits: this.state.asset.decimals,
-                                                                    maximumFractionDigits: this.state.asset.decimals
-                                                                })} {this.state.asset.name}</strong>
-                                                                </div>}
-                                                            </div>
-                                                            <div
-                                                                className="input-group-app offset-top display-block inline no-margin">
-                                                                <div className="form-group row form-group-white">
-                                                                    <div className="col-md-3 pl-0">
-                                                                        <label>Quantity</label>
-                                                                    </div>
-                                                                    <div
-                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <InputForm
-                                                                            field="quantity"
-                                                                            placeholder="Quantity"
-                                                                            type={"tel"}
-                                                                            onChange={() => this.handleTotalValue(setValue, getFormState)}
-                                                                            setValue={setValue}/>
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">{this.state.asset.name}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="input-group-app offset-top display-block inline no-margin">
-                                                                <div className="form-group row form-group-white">
-                                                                    <div className="col-md-3 pl-0">
-                                                                        <label>Price</label>
-                                                                    </div>
-                                                                    <div
-                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                        <InputForm
-                                                                            field="priceATM"
-                                                                            placeholder="Quantity"
-                                                                            type={"tel"}
-                                                                            onChange={() => this.handleTotalValue(setValue, getFormState)}
-                                                                            setValue={setValue}/>
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">APL / {this.state.asset.name}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="input-group-app offset-top display-block inline no-margin">
-                                                                <div className="form-group row form-group-white">
-                                                                    <div className="col-md-3 pl-0">
-                                                                        <label>Total</label>
-                                                                    </div>
-                                                                    <div className="col-md-9 pr-0 input-group">
-                                                                        <InputForm
-                                                                            field="total"
-                                                                            placeholder="Price"
-                                                                            type={"tel"}
-                                                                            disabled={true}
-                                                                            setValue={setValue}/>
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">{this.state.asset.name}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="input-group-app offset-top display-block inline no-margin">
-                                                                <div className="row form-group-white">
-                                                                    <div className="col-md-3 pl-0">
-                                                                    </div>
-                                                                    <div className="col-md-9 pr-0">
-                                                                        <button
-                                                                            className={classNames({
-                                                                                "btn": true,
-                                                                                "static": true,
-                                                                                "blue": true,
-                                                                                "blue-disabled": !(!!getFormState().values.total)
-                                                                            })}
-                                                                        >
-                                                                            Sell ({this.state.asset.name} > APL)
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-
-                                                )}
-                                            />
-
-                                            <div className="card assets card-tiny medium-padding"
-                                                 style={{marginBottom: 0}}>
-                                                <div className="form-group-app">
-                                                    <div className="form-title">
-                                                        <p>Offers to buy {this.state.asset.name}</p>
-                                                    </div>
-                                                    {
-                                                        this.state.bidOrders &&
-                                                        this.state.bidOrders.length === 0 ?
-                                                            <div className="info-box simple">
-                                                                <p>No buy offers for this asset.</p>
-                                                            </div> :
-                                                            <div className="transaction-table no-min-height">
-                                                                <div className="transaction-table-body">
-                                                                    <table>
-                                                                        <thead key={uuid()}>
-                                                                        <tr>
-                                                                            <td className="align-left">Asset</td>
-                                                                            <td>Quantity</td>
-                                                                            <td className="align-left">Price</td>
-                                                                            <td className="align-right">Total</td>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        {
-                                                                            this.state.bidOrders &&
-                                                                            this.state.bidOrders.length > 0 ?
-                                                                                this.state.bidOrders.map(el => {
-                                                                                    return (
-                                                                                        <OrderItem
-                                                                                            key={uuid()}
-                                                                                            order={el}
-                                                                                        />
-                                                                                    )
-                                                                                }) : <p>No delete history</p>
-                                                                        }
-                                                                        </tbody>
-                                                                    </table>
-
-                                                                </div>
-                                                            </div>
-                                                    }
-
-                                                </div>
-                                            </div>
                                         </div>
-
+                                    </div>
+                                    
+                                    <div className={'row'}>
+                                        <div className="col-xl-6 col-md-12 pr-0 pb-3">
+                                            <BuyAsset asset={this.state.asset} handleTotalValue={this.handleTotalValue} handleBuyOrders={this.handleBuyOrders}/>
+                                        </div>
+                                        <div className="col-xl-6 col-md-12 pr-0 pb-3">
+                                            <SellAsset asset={this.state.asset} handleTotalValue={this.handleTotalValue} handleSellOrders={this.handleSellOrders}/>
+                                        </div>
+                                    </div>
+                                    <div className={'row'}>
+                                        <div className={'col-xl-6 col-md-12 pr-0 pb-3'}>
+                                            <OffersToBuy bidOrders={this.state.bidOrders} asset={this.state.asset}/>
+                                        </div>
+                                        <div className={'col-xl-6 col-md-12 pr-0 pb-3'}>
+                                            <OffersToSell askOrders={this.state.askOrders} asset={this.state.asset}/>
+                                        </div>
                                     </div>
                                 </div>
                             }

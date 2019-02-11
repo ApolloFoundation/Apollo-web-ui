@@ -16,7 +16,6 @@ import {NotificationManager} from 'react-notifications';
 import QRCode from 'qrcode.react';
 
 import ModalBody from '../../../components/modals/modal-body';
-// import CustomTable from '../../../components/tables/table';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
 import CustomTextArea from '../../../components/form-components/text-area';

@@ -6,16 +6,13 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import InputForm from '../../components/input-form';
-import {Form, Text} from 'react-form';
-import AdvancedSettings from '../../components/advanced-transaction-settings';
-import submitForm from "../../../helpers/forms/forms";
-import {NotificationManager} from "react-notifications";
-import ModalFooter from '../../components/modal-footer';
-import FeeCalc from '../../components/form-components/fee-calc';
+import {setBodyModalParamsAction} from '../../../modules/modals';
+import {Text} from 'react-form';
 
-import BackForm from '../modal-form/modal-form-container';
+import {NotificationManager} from "react-notifications";
+
+import ModalBody from '../../components/modals/modal-body';
+import TextualInputComponent from '../../components/form-components/textual-input';
 
 class SellAsset extends React.Component {
     constructor(props) {
@@ -48,125 +45,39 @@ class SellAsset extends React.Component {
         })
     };
 
-    handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    };
-
     render() {
+        const {nameModal, modalData, closeModal} = this.props;
+
+        const name        = modalData.assetInfo ? modalData.assetInfo.name : '';
+        const assetID     = modalData.assetInfo ? modalData.assetInfo.assetID : '';
+        const quantityATU = modalData.quantityATU;
+        const total       = modalData.total;
+        
         return (
-            <div className="modal-box">
-                <BackForm
-	                nameModal={this.props.nameModal}
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
-                            {
-                                this.props.modalData &&
-                                <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+            <ModalBody
+                loadForm={this.loadForm}
+                modalTitle={'Confirm Order (Sell)'}
+                isAdvanced={true}
+                isFee
+                closeModal={closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Confirm Order'}
+                nameModel={nameModal}
+            >
+                <Text defaultValue={name} type="hidden" field={'name'}/>
+                <Text defaultValue={assetID} type="hidden" field={'asset'}/>
+                <Text defaultValue={quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
 
-                                    <div className="form-title">
-                                        {this.props.modalsHistory.length > 1 &&
-                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-                                        }
-                                        <p>Confirm Order (Sell)</p>
-                                    </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Order Description
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <p>Sell {this.props.modalData.quantityATU} {this.props.modalData.assetName} assets at {this.props.modalData.total / this.props.modalData.quantityATU} Apollo each.</p>
-                                            <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
-                                            <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
-                                            <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
-
-                                        </div>
-                                    </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Total
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <p>{this.props.modalData.total} Apollo</p>
-                                            <Text
-                                                defaultValue={this.props.modalData.assetName}
-                                                placeholder={'Quantity'}
-                                                type="hidden"
-                                                field={'quantityATU'}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <FeeCalc
-                                        values={getFormState().values}
-                                        setValue={setValue}
-                                        requestType={'placeAskOrder'}
-                                    />
-                                    <ModalFooter
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                    />
-
-                                    <AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        advancedState={this.state.advancedState}
-                                    />
-
-                                    <div className="btn-box align-buttons-inside absolute right-conner">
-
-                                        {
-                                            !!this.state.isPending ?
-                                                <div
-                                                    style={{
-                                                        width: 56.25
-                                                    }}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    <div className="ball-pulse">
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div></div>
-                                                    </div>
-                                                </div> :
-                                                <button
-
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    Sell
-                                                </button>
-                                        }
-                                        <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
-                                    </div>
-                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
-                                        {/*<a*/}
-                                            {/*onClick={this.handleAdvancedState}*/}
-                                            {/*className="btn btn-left round round-bottom-left round-top-right"*/}
-                                        {/*>*/}
-                                            {/*{this.state.advancedState ? "Basic" : "Advanced"}*/}
-                                        {/*</a>*/}
-                                    {/*</div>*/}
-                                </div>
-                            }
-                        </form>
-                    )}
+                <TextualInputComponent 
+                    label={'Order Description'}
+                    text={`Sell ${quantityATU} ${name} assets at ${total / quantityATU} Apollo each.`}
                 />
-            </div>
+
+                <TextualInputComponent 
+                    label={'Total'}
+                    text={`${total} Apollo`}
+                />
+            </ModalBody>
         );
     }
 }
@@ -177,11 +88,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SellAsset);

@@ -7,8 +7,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData, setBodyModalParamsAction} from '../../../../modules/modals';
-import Transaction from '../../../account/transactions/transaction';
-import classNames from 'classnames';
 import {getAccountAction} from "../../../../actions/account";
 import {getTransactionAction} from "../../../../actions/transactions";
 import {switchAccountAction} from "../../../../actions/account";
@@ -20,13 +18,8 @@ import QR from 'qrcode';
 import QRCode from 'qrcode.react';
 import jsPDF from "jspdf";
 
-import ModalTransaction from '../../../account/modalTransactions/transaction';
-import Asset from '../../../account/my-assets/my-asset-item';
-import {getBlockAction} from "../../../../actions/blocks";
-
 import ContentLoader from '../../../components/content-loader'
 import ModalBody from '../../../components/modals/modal-body';
-import CustomTable from '../../../components/tables/table';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
 

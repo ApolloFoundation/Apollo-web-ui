@@ -28,7 +28,7 @@ class ModalBody extends React.Component {
 			return;
         } else {
             const {modalsHistory} = this.props;
-            if (modalsHistory[modalsHistory.length - 1].value) {
+            if (modalsHistory[modalsHistory.length - 1] && modalsHistory[modalsHistory.length - 1].value) {
                 this.state.form.setAllValues(modalsHistory[modalsHistory.length - 1].value)
             }
         }
@@ -43,7 +43,7 @@ class ModalBody extends React.Component {
     }
 
     form = () => {
-        const {isDisabe2FA, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {CustomFooter, isDisableSecretPhrase, isDisabe2FA, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
 
         return (
                 <BackForm
@@ -110,6 +110,7 @@ class ModalBody extends React.Component {
 
                                 {/** Rendering of secret phrase and 2fa fields */}
                                 {
+                                    !isDisableSecretPhrase &&
                                     handleFormSubmit &&
                                     <ModalFooter 
                                         off2FA={isDisabe2FA}
@@ -119,9 +120,15 @@ class ModalBody extends React.Component {
                                         idGroup={idGroup}                     
                                     />
                                 }
+
+                                {
+                                    !!CustomFooter &&
+                                    <CustomFooter/>
+                                }
                             
                                 {/** Bottom forms buttons */}
                                 {
+                                    !CustomFooter &&
                                     handleFormSubmit && 
                                     <FormFooter 
                                         submitButtonName={submitButtonName}
