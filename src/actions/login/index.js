@@ -161,7 +161,6 @@ export function makeLoginReq(dispatch, requestParams) {
                 type: 'SET_LOGIN_PROBLEM',
                 payload: true
             })
-            NotificationManager.error('Can not connect to server', 'Error', 900000);
         });
 }
 
