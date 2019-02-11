@@ -16,6 +16,8 @@ import Transaction from "./transaction/index";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+import CustomTable from '../../components/tables/table';
+
 class ApprovalRequests extends React.Component {
     state = {
         transactions: []
@@ -51,41 +53,43 @@ class ApprovalRequests extends React.Component {
                     pageTitle={'Approval requests (account)'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="approval-request white-space">
-                        {this.state.transactions.length > 0 ?
-                            <div className="transaction-table">
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Date</td>
-                                            <td className="align-left">Type</td>
-                                            <td className="align-right">Amount</td>
-                                            <td>Fee</td>
-                                            <td className="align-left">Account</td>
-                                            <td>Judges</td>
-                                            <td>Height</td>
-                                            <td>Confirmations</td>
-                                            <td>Actions</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.transactions.map(el => {
-                                                return (
-                                                    <Transaction
-                                                        key={uuid()}
-                                                        transaction={el}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div> :
-                            <div className="alert">No current approval requests.</div>}
-                    </div>
+                    <CustomTable
+                        header={[
+                            {
+                                name: 'Date',
+                                alignRight: false
+                            },{
+                                name: 'Type',
+                                alignRight: true
+                            },{
+                                name: 'Amount',
+                                alignRight: true
+                            },{
+                                name: 'Fee',
+                                alignRight: false
+                            },{
+                                name: 'Account',
+                                alignRight: true
+                            },{
+                                name: 'Judges',
+                                alignRight: false
+                            },{
+                                name: 'Height',
+                                alignRight: false
+                            },{
+                                name: 'Confirmations',
+                                alignRight: false
+                            },{
+                                name: 'Actions',
+                                alignRight: false
+                            }
+                        ]}
+                        className={'mb-3'}
+                        page={this.state.page}
+                        emptyMessage={'No approval requests found.'}
+                        TableRowComponent={Transaction}
+                        tableData={this.state.transactions}
+                    />
                 </div>
             </div>
         );
