@@ -156,6 +156,7 @@ class MyMadedCurrencies extends React.Component {
                             }
                         ]}
                         page={this.state.page}
+                        className={'mb-3'}
                         TableRowComponent={MyCurrencytemItem}
                         tableData={this.state.executedExchanges}
                         isPaginate
