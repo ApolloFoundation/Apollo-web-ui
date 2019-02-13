@@ -3,6 +3,7 @@
 @import url(~loaders.css/loaders.min.css);
 @import url(~react-notifications/lib/notifications.css);
 @import url(~react-hint/css/index.css);
+@import url(~@fortawesome/fontawesome-free/css/all.css);
 @font-face {
   font-family: 'Roboto';
   src: url("../../fonts/Roboto-Regular.eot");
@@ -575,8 +576,7 @@ input[type="file"] {
     overflow: hidden; }
     .form-group-app.devided .left-bar {
       width: 50%;
-      margin: -35px 0 -70px -35px;
-      border-right: 5px solid #E6E6E6; }
+      margin: -35px 0 -70px -35px; }
       .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
         height: 300px;
@@ -5537,8 +5537,7 @@ input[type="file"] {
     overflow: hidden; }
     .form-group-app.devided .left-bar {
       width: 50%;
-      margin: -35px 0 -70px -35px;
-      border-right: 5px solid #E6E6E6; }
+      margin: -35px 0 -70px -35px; }
       .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
         height: 300px;
