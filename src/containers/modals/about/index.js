@@ -75,7 +75,6 @@ class AboutApollo extends React.Component {
                                 <p>
                                     Contact e-mail: <a href="">info@apollocurrency.com</a>
                                 </p>
-                                {console.log(blockchainStatus)}
                                 <p>
                                     Actual Version: {blockchainStatus ? blockchainStatus.version : ''}
                                 </p>
