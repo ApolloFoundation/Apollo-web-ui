@@ -28,7 +28,6 @@ import {
 import {getAccountAssetsAction, getSpecificAccountAssetsAction} from '../../../actions/assets'
 import {getAliasesCountAction} from '../../../actions/aliases'
 import {getMessages} from "../../../actions/messager";
-import {getNewsAction} from "../../../actions/account";
 import {BlockUpdater} from "../../block-subscriber/index";
 import {reloadAccountAction} from "../../../actions/login";
 import {getAllTaggedDataAction} from "../../../actions/datastorage";
@@ -36,6 +35,8 @@ import {getActiveShfflings, getShufflingAction} from "../../../actions/shuffling
 import {getpollsAction} from "../../../actions/polls";
 import {getAccountInfoAction} from "../../../actions/account";
 import SendApolloCard from "./send-apollo-card";
+
+import DashboardNews from './news';
 
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -126,7 +127,6 @@ class Dashboard extends React.Component {
 			this.initDashboard({account: this.props.account})
 		}
         this.getAssets(newState);
-        this.getNews();
 	}
 
 	initDashboard = (reqParams) => {
@@ -310,17 +310,6 @@ class Dashboard extends React.Component {
 		}
 	};
 
-	getNews = async () => {
-		const news = await this.props.getNewsAction();
-
-		if (news) {
-			this.setState({
-				news,
-				newsCount: news.tweets.length
-			})
-		}
-	};
-
     getTransaction = async (data) => {
         const reqParams = {
             transaction: data,
@@ -332,19 +321,6 @@ class Dashboard extends React.Component {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
     };
-
-	getNewsItem = (tweet) => {
-		let itemContent = '';
-		const post = tweet.retweeted_status ? tweet.retweeted_status : tweet;
-		const dateArr = post.created_at.split(" ");
-		const media = (post.extended_entities && post.extended_entities.media.length > 0) ?
-			post.extended_entities.media[0].media_url : false;
-		itemContent += `<div class='post-title'>@${post.user.screen_name}<span class='post-date'>${dateArr[1]} ${dateArr[2]}</span></div>`;
-		itemContent += `<div class='post-content'>${post.full_text}</div>`;
-		if (media) itemContent += `<div class='post-image' style="background-image: url('${media}')"></div>`;
-		return <a className="post-item" href={`https://twitter.com/${post.user.screen_name}/status/${post.id_str}`}
-		          target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
-	};
 
 	render() {
 		return (
@@ -721,54 +697,7 @@ class Dashboard extends React.Component {
 								</div>
 							</div>
 							<div className="page-body-item ">
-								<div className="card card-tall justify-content-start apollo-news mb-3">
-									<div className="card-title">Apollo News</div>
-									<div className="card-news-content">
-										{this.state.news && this.getNewsItem(this.state.news.tweets[this.state.newsItem])}
-									</div>
-
-									<button
-										className={classNames({
-											'btn': true,
-											'btn-left': true,
-											'gray': true,
-											'round': true,
-											'round-top-right': true,
-											'round-bottom-left': true,
-											'absolute': true,
-											'disabled': this.state.newsItem === 0
-										})}
-										data-modal="sendMoney"
-										onClick={() => {
-											this.setState({newsItem: this.state.newsItem - 1})
-										}}
-									>
-										<i className="arrow zmdi zmdi-chevron-left"/>&nbsp;
-										Previous
-									</button>
-									{
-										this.state.newsCount &&
-										<button
-											className={classNames({
-												'btn': true,
-												'btn-right': true,
-												'gray': true,
-												'round': true,
-												'round-bottom-right': true,
-												'round-top-left': true,
-												'absolute': true,
-												'disabled': this.state.newsItem === this.state.newsCount - 1
-											})}
-											data-modal="sendMoney"
-											onClick={() => {
-												this.setState({newsItem: this.state.newsItem + 1})
-											}}
-										>
-											Next&nbsp;
-											<i className="arrow zmdi zmdi-chevron-right"/>
-										</button>
-									}
-								</div>
+								<DashboardNews />
 							</div>
 						</div>
 					</div>
@@ -800,7 +729,6 @@ const mapDispatchToProps = dispatch => ({
 	reloadAccount: acc => dispatch(reloadAccountAction(acc)),
 	getAccountInfo: reqParams => dispatch(getAccountInfoAction(reqParams)),
 	getMessages: (reqParams) => dispatch(getMessages(reqParams)),
-	getNewsAction: () => dispatch(getNewsAction()),
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	setModalType: (type) => dispatch(setModalType(type)),
 	formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
