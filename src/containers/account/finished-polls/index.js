@@ -17,6 +17,7 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+import CustomTable from '../../components/tables/table';
 
 class Finishedpolls extends React.Component {
     constructor(props) {
@@ -103,76 +104,38 @@ class Finishedpolls extends React.Component {
                     pageTitle={'Finished Polls'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="account-ledger">
-                        <ContentHendler
-                            items={this.state.finishedpolls}
-                            emptyMessage={'No finished polls.'}
-                        >
-                            <div className="transaction-table no-min-height">
-                                <div className="transaction-table-body offset-bottom">
-                                    <table>
-                                        <thead  key={uuid()}>
-                                        <tr key={uuid()}>
-                                            <td>Title</td>
-                                            <td>Description</td>
-                                            <td>Sender</td>
-                                            <td>Start date</td>
-                                            <td>Blocks left</td>
-                                            <td className="align-right">Actions</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.finishedpolls &&
-                                            this.state.finishedpolls.map((el, index) => {
-                                                return (
-                                                    <FinishedpollsItem
-                                                        key={uuid()}
-                                                        {...el}
-                                                        activepolls
-                                                        getTransaction={this.getTransaction}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
-                                    {
-                                        this.state.finishedpolls &&
-                                        <div className="btn-box">
-                                            <a
-                                                className={classNames({
-                                                    'btn' : true,
-                                                    'btn-left' : true,
-                                                    'disabled' : this.state.page <= 1
-                                                })}
-                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                            >
-                                                Previous
-                                            </a>
-                                            <div className='pagination-nav'>
-                                                <span>{this.state.firstIndex + 1}</span>
-                                                <span>&hellip;</span>
-                                                <span>{this.state.lastIndex + 1}</span>
-                                            </div>
-                                            <a
-                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                className={classNames({
-                                                    'btn' : true,
-                                                    'btn-right' : true,
-                                                    'disabled' : this.state.finishedpolls.length < 15
-                                                })}
-                                            >
-                                                Next
-                                            </a>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-
-                        </ContentHendler>
-
-                    </div>
+                    <CustomTable 
+                        header={[
+                            {
+                                name: 'Title',
+                                alignRight: false
+                            },{
+                                name: 'Description',
+                                alignRight: false
+                            },{
+                                name: 'Sender',
+                                alignRight: false
+                            },{
+                                name: 'Start date',
+                                alignRight: false
+                            },{
+                                name: 'Blocks left',
+                                alignRight: false
+                            },{
+                                name: 'Actions',
+                                alignRight: true
+                            }
+                        ]}
+                        className={'no-min-height mb-3'}
+                        emptyMessage={'No finished polls.'}
+                        TableRowComponent={(el) => <FinishedpollsItem {...el} activepolls getTransaction={this.getTransaction}/>}
+                        tableData={this.state.finishedpolls}
+                        hintClassName={'mt-4'}
+                        isPaginate
+                        page={this.state.page}
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );
