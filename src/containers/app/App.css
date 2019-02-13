@@ -434,6 +434,9 @@ input[type="file"] {
 .token {
   color: white; }
 
+.white-space {
+  white-space: pre; }
+
 .itatic {
   font-style: italic; }
 
@@ -1059,6 +1062,9 @@ input[type="file"] {
 
 .input-group-app textarea {
   width: 100%; }
+
+.input-group-app label {
+  vertical-align: middle; }
 
 .input-group-app.search i, .input-group-app.user i {
   margin: 0 !important;
@@ -5390,6 +5396,9 @@ input[type="file"] {
 .token {
   color: white; }
 
+.white-space {
+  white-space: pre; }
+
 .itatic {
   font-style: italic; }
 
@@ -6015,6 +6024,9 @@ input[type="file"] {
 
 .input-group-app textarea {
   width: 100%; }
+
+.input-group-app label {
+  vertical-align: middle; }
 
 .input-group-app.search i, .input-group-app.user i {
   margin: 0 !important;

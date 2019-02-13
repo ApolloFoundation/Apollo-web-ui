@@ -605,6 +605,10 @@ input[type="file"] {
 	color: white;
 }
 
+.white-space {
+	white-space: pre;	
+}
+
 .itatic {
 	font-style: italic;
 }
@@ -1516,6 +1520,10 @@ input[type="file"] {
 	}
 	textarea {
 		width: 100%;
+	}
+	
+	label {
+		vertical-align: middle;
 	}
 	&.search, &.user {
 		i {

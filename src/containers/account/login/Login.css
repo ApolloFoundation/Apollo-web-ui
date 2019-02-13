@@ -50,7 +50,7 @@
       height: 100%;
       display: flex;
       justify-content: center;
-      flex-direction: column; }
+      flex-direction: row; }
     @media (max-width: 768px) {
       .site-content .page-content .page-body > .login .form-group-app {
         position: static;
