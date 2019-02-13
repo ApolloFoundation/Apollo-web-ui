@@ -310,7 +310,11 @@ class App extends React.Component {
         const isLoginPage = pathname === '/login';
 
         return (
-            <div>
+            <div
+                className={classNames({
+                    'overflow-hidden': this.props.modalType
+                })}
+            >
                 <NotificationContainer/>
                 <ModalWindow/>
                 <AlertBox/>
