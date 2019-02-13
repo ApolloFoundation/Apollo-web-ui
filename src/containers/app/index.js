@@ -373,12 +373,13 @@ class App extends React.Component {
                             </>
                         }
                     </Switch>
-                    {!this.props.loading && !isLoginPage &&
-                    <div className="site-footer">
-                        Copyright © 2017-2018 Apollo Foundation.
-                        <br className={'show-media hide-desktop'}/>
-                        Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
-                    </div>
+                    {
+                        !this.props.loading && !isLoginPage &&
+                        <div className="site-footer">
+                            Copyright © 2017-2018 Apollo Foundation.
+                            <br className={'show-media hide-desktop'}/>
+                            Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
+                        </div>
                     }
                 </div>
             </div>
