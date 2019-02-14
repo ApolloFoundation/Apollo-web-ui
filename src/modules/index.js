@@ -14,6 +14,7 @@ import settings from "./settings"
 import accountSettings from "./accountSettings"
 import currencies from "./currencies"
 import ledger from "./ledger"
+import dashboard from "./dashboard"
 
 export default combineReducers({
 	routing: routerReducer,
@@ -23,6 +24,7 @@ export default combineReducers({
     fee,
     settings,
     currencies,
+    dashboard,
     ledger,
     accountSettings,
 })
