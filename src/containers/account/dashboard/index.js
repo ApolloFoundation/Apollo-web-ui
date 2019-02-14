@@ -334,53 +334,7 @@ class Dashboard extends React.Component {
 					<div className={"page-body-top-bottom-container"}>
 						<div className="page-body-top" key={uuid()}>
 							<div className="page-body-item ">
-								<div
-									className={`card header justify-content-start ballance chart-sprite position-1 mb-3 ${this.state.positionState1 ? "show-hide-content" : ""}`}>
-									<div className="card-title">Available Balance</div>
-									<div className="arrow-block" onClick={this.position1}>
-										<div className="arrow"/>
-									</div>
-									{
-                                        this.state.accountInfo && this.state.block &&
-                                        <React.Fragment>
-                                            <div className="page-body-item-content">
-
-                                                <div
-                                                    onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
-                                                    style={{cursor: 'pointer', paddingRight: 0}}
-                                                    className="amount"
-                                                >
-                                                    {
-                                                    	this.state.accountInfo &&
-														this.state.accountInfo.unconfirmedBalanceATM &&
-														Math.round(this.state.accountInfo.unconfirmedBalanceATM / 100000000).toLocaleString('en')
-                                                    	|| 0
-                                                    }
-                                                    <span className="currency">
-												&nbsp;APL
-											</span>
-                                                </div>
-                                                <div className="account-sub-titles">
-                                                    {this.state.accountInfo && this.state.accountInfo.accountRS}
-                                                </div>
-
-                                                {
-                                                    this.state.block &&
-                                                    <div className="account-sub-titles">
-                                                        Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
-                                                    </div>
-												}
-												{
-													this.props.blockTime &&
-													<div className="account-sub-titles">
-														Transaction Time :&nbsp;{this.props.blockTime} s
-													</div>
-												}
-                                            </div>
-                                        </React.Fragment>  ||
-                                        <ContentLoader white noPaddingOnTheSides/>
-									}
-								</div>
+								
 							</div>
 							<div className="page-body-item ">
 								<div
@@ -663,6 +617,560 @@ const mapDispatchToProps = dispatch => ({
 	getAllTaggedDataAction: (reqParams) => dispatch(getAllTaggedDataAction(reqParams)),
 	getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
 	getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
+/******************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ******************************************************************************/
+
+
+import React from 'react';
+import CircleFigure from './circle-figure'
+import {connect} from 'react-redux';
+import {Link} from "react-router-dom";
+import {setBodyModalParamsAction, setModalType} from '../../../modules/modals';
+import classNames from "classnames";
+import Transaction from './transaction';
+import ContentLoader from '../../components/content-loader'
+import AccountRS from '../../components/account-rs';
+
+import uuid from 'uuid';
+import {formatTimestamp} from "../../../helpers/util/time";
+import {BlockUpdater} from "../../block-subscriber/index";
+import {reloadAccountAction} from "../../../actions/login";
+
+import GradientCard from './cards/gradient-card';
+
+
+// Redux usage
+import {getDashboardData} from '../../../actions/dashboard';
+
+class Dashboard extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			positionState1: false,
+			positionState2: false,
+			positionState3: false,
+			assetsValue: null,
+			aliassesValue: null,
+			transactions: null,
+            taggedData: null,
+			firstIndex: 0,
+			lastIndex: 14,
+			newsItem: 0,
+			formValue: {}
+		};
+		this.position1 = this.position1.bind(this);
+		this.position2 = this.position2.bind(this);
+		this.position3 = this.position3.bind(this);
+	}
+
+	position1() {
+		this.setState({positionState1: !this.state.positionState1});
+	}
+
+	position2() {
+		this.setState({positionState2: !this.state.positionState2});
+	}
+
+	position3() {
+		this.setState({positionState3: !this.state.positionState3});
+	}
+
+	listener = data => {
+		this.initDashboard({account: this.props.account});
+		// this.props.reloadAccount(this.props.accountRS);
+	};
+
+	componentDidMount() {
+		this.props.getDashboardData();
+		BlockUpdater.on("data", this.listener);
+		if (this.props.isShareMessage) {
+			setTimeout(() => this.props.setBodyModalParamsAction("INFO_TRANSACTION", this.props.shareMessageTransaction), 500);
+		}
+    }
+
+	dashBoardinterval = setInterval(() => {
+        
+    }, 2000)
+
+	componentWillUnmount() {
+		BlockUpdater.removeListener("data", this.listener);
+        clearInterval(this.dashBoardinterval);
+	}
+
+	componentWillMount(newState) {
+		// this.getBlock();
+		if (this.props.account) {
+			this.initDashboard({account: this.props.account})
+		}
+	}
+
+	initDashboard = (reqParams) => {
+		this.props.getDashboardData();
+	};
+
+	getNewsItem = (tweet) => {
+		let itemContent = '';
+		const post = tweet.retweeted_status ? tweet.retweeted_status : tweet;
+		const dateArr = post.created_at.split(" ");
+		const media = (post.extended_entities && post.extended_entities.media.length > 0) ?
+			post.extended_entities.media[0].media_url : false;
+		itemContent += `<div class='post-title'>@${post.user.screen_name}<span class='post-date'>${dateArr[1]} ${dateArr[2]}</span></div>`;
+		itemContent += `<div class='post-content'>${post.full_text}</div>`;
+		if (media) itemContent += `<div class='post-image' style="background-image: url('${media}')"></div>`;
+		return <a className="post-item" href={`https://twitter.com/${post.user.screen_name}/status/${post.id_str}`}
+		          target="_blank" dangerouslySetInnerHTML={{__html: itemContent}} rel="noopener noreferrer"/>;
+	};
+
+	accountIdChange = (el) => {
+		this.state.formValue = {...this.state.formValue, recipient: el};
+	};
+
+	amountChange = (el) => {
+		this.state.formValue = {...this.state.formValue, amountAPL: el.target.value, amountATM: el.target.value};
+	};
+
+	feeAtmChange = (el) => {
+		this.state.formValue = {...this.state.formValue, feeAPL: el.target.value, feeATM: el.target.value};
+	};
+
+	render() {
+
+		const {
+			dashboard: {
+				dashboardTransactions, 
+				dashboardAssets,
+				dashboardCurrencies, 
+				dashboardAliasesCount, 
+				dashboardMessagesCount, 
+				dashboardDgsGoods,
+				dashboardNews, 
+				dashboardTaggedData, 
+				dashboardActiveSuffling, 
+				dashboardActivePolls, 
+				dashboardAccoountInfo
+			},
+			account: {
+				actualBlock,
+				blockchainStatus
+			}
+		} = this.props;
+
+		return (
+			<div className="page-content">
+				<div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
+					<div className={"page-body-top-bottom-container"}>
+						<div className="page-body-top" key={uuid()}>
+							<GradientCard 
+								availableBalance
+								dashboardAccoountInfo={dashboardAccoountInfo}
+								actualBlock={actualBlock}
+								blockchainStatus={blockchainStatus}
+								positionState1={this.state.positionState1}
+								position1={this.position1}							
+							/>
+							<GradientCard 
+								assetsValue
+								dashboardAssets={dashboardAssets}
+								actualBlock={actualBlock}
+								blockchainStatus={blockchainStatus}
+								positionState2={this.state.positionState2}
+								position2={this.position2}							
+							/>
+							<GradientCard 
+								currenciesValue
+								dashboardCurrencies={dashboardCurrencies}
+								positionState3={this.state.positionState3}
+								position3={this.position3}							
+							/>
+							<div className="page-body-item ">
+								<div className="card header header-values coins flex chart-sprite position-4">
+									<div className="general-info">
+										<Link
+											to={'/messenger'}
+											className="general-info-item top-left"
+										>
+											<div className="top-bar">
+												{
+													dashboardMessagesCount === '100' ? '100+' : dashboardMessagesCount
+												}
+											</div>
+											<div className="bottom-bar">
+												Secure
+												messages
+											</div>
+										</Link>
+										<Link
+											to={'/active-shuffling'}
+											className="general-info-item top-right"
+										>
+											<div className="top-bar">
+												{dashboardActiveSuffling}
+											</div>
+											<div className="bottom-bar">
+												Coin
+												shuffling
+											</div>
+										</Link>
+                                        <Link
+                                            to="/aliases"
+                                            className="general-info-item bottom-left"
+                                        >
+                                            <div className="top-bar">
+                                                {dashboardAliasesCount}
+                                            </div>
+                                            <div className="bottom-bar">
+                                                Aliases
+                                            </div>
+                                        </Link>
+										<Link
+											to={'/data-storage'}
+											className="general-info-item bottom-right"
+										>
+											<div className="top-bar">
+												{dashboardTaggedData}
+											</div>
+											<div className="bottom-bar">
+												Data
+												storage
+											</div>
+										</Link>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="page-body-bottom">
+							<div className="page-body-item ">
+								<div className="card card-tall transactions media-min-height">
+									<div className="card-title">Transactions</div>
+									<div className="transactions-dashboard scroll">
+										{
+											dashboardTransactions &&
+											dashboardTransactions.map((el, index) => {
+												return (
+													<Transaction
+                                                        getTransaction={this.getTransaction}
+														key={uuid()}
+														{...el}
+													/>
+												);
+											}) ||
+                                            <div
+												style={{
+													marginTop: 30
+												}}
+												className={'loader-box'}
+											>
+                                                <div className="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+										}
+										{
+											!!this.state.transactions &&
+											!this.state.transactions.length &&
+											<p
+												style={{paddingTop: 27}}
+											>
+												No transactions found.
+											</p>
+										}
+									</div>
+								</div>
+							</div>
+							<div className="page-body-item ">
+								<div className="card asset-portfolio">
+									<div className="card-title">Asset Portfolio</div>
+									{
+                                        !dashboardAssets &&
+                                        <ContentLoader noPaddingOnTheSides onPaddingTop/>
+									}
+									<div className="full-box">
+										{
+											dashboardAssets &&
+											dashboardAssets.distribution.map((el, index) => {
+												if (index < 3) {
+													return (
+														<div key={uuid()} className="full-box-item coin">
+															<div className="coin-data">
+																<CircleFigure
+																	index={index}
+																	percentage={((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)}
+
+																	type={el.quantityATU}
+																/>
+																<div
+																	className="amount"
+																>
+                                                                    {((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)} %
+																</div>
+																<div className="coin-name">{el.name}</div>
+																<Link
+																	to={'/asset-exchange/' + el.asset}
+																	className="more"
+																>
+																	<i className="zmdi zmdi-more"/>
+																</Link>
+															</div>
+														</div>
+													);
+												}
+											})
+										}
+										{
+                                            !!dashboardAssets &&
+                                            dashboardAssets.length === 0 &&
+											<p>No assets found.</p>
+										}
+									</div>
+								</div>
+								<div className="card decentralized-marketplace">
+									<div className="card-title">Decentralized Marketplace</div>
+									<div className="full-box">
+										{
+											!!dashboardDgsGoods &&
+											<div className="full-box-item">
+
+											<div className="marketplace-box">
+													<Link to={'/purchased-products'} className="digit">
+														{dashboardDgsGoods.totalPurchases} {/** Number of goods */}
+													</Link> 
+													<div className="subtitle">Purchased products</div>
+												</div>
+												<div className="marketplace-box">
+													<div
+														className="digit">
+														<Link className="digit" to={'/my-pending-orders'}>
+															{dashboardDgsGoods.numberOfPurchases} {/** Pending orders */}
+														</Link>
+														/
+														<Link className="digit" to={'/my-products-for-sale'}>
+															{dashboardDgsGoods.numberOfGoods} {/** Completed orders */}
+														</Link>
+													</div>
+													<div className="subtitle">Sales</div>
+												</div>
+											</div>
+										}
+										{
+											!dashboardDgsGoods &&
+                                            <ContentLoader noPaddingOnTheSides/>
+                                        }
+										{
+                                            this.state.pendingGoods === 0 &&
+											<p>No pending orders.</p>
+										}
+										{
+											this.state.completedGoods === 0 &&
+                                            <p>No completed orders.</p>
+                                        }
+
+									</div>
+									<Link to="/marketplace" className="btn btn-left btn-simple absolute">Marketplace</Link>
+								</div>
+							</div>
+							<div className="page-body-item ">
+								<div className="card send-apollo">
+									<div className="card-title">Send Apollo</div>
+									<div className="full-box">
+										<div className="form-group-app offset">
+											<div className="input-group-app lighten">
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Recipient
+												</label>
+												<AccountRS 
+													plsceholder="Account ID"
+													onChange={this.accountIdChange}
+													noContactList
+												/>
+											</div>
+											<div className="input-group-app lighten">
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Amount
+												</label>
+												<input placeholder={'Amount'} onChange={this.amountChange} type={'tel'}/>
+											</div>
+											<div className="input-group-app lighten">
+												<label
+													style={{"word-break": 'normal'}}
+												>
+													Fee
+												</label>
+												<input placeholder={'Amount'} onChange={this.feeAtmChange} type={'tel'}/>
+											</div>
+										</div>
+									</div>
+									<a
+										onClick={() => {
+											console.log(this.state.formValue)
+
+											this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {}, this.state.formValue)
+										}}
+									    className="btn absolute btn-left btn-simple"
+										style={{margin: '0 0 -7px 35px'}}
+									>
+										Private APL
+									</a>
+									<button
+										className="btn btn-right gray round round-bottom-right round-top-left absolute"
+										data-modal="sendMoney"
+										onClick={() => {
+												this.props.setBodyModalParamsAction('SEND_APOLLO', {}, this.state.formValue)
+											}}
+										>
+										Send&nbsp;
+										<i className="arrow zmdi zmdi-chevron-right"/>
+									</button>
+								</div>
+								<div className="card active-polls">
+									<div className="card-title">Active Polls</div>
+									<div
+										className="full-box block word-brake"
+										style={{
+                                            display: 'flex',
+                                            paddingBottom: '50px'
+										}}
+									>
+										{
+											dashboardActivePolls &&
+											dashboardActivePolls.map((el) => {
+												return (
+													<Link
+														key={uuid()}
+														style={{
+															display: 'block',
+															color: '#777777'
+														}}
+														to={'/followed-polls/' + el.poll}
+													>
+														{el.name}
+													</Link>
+												)
+											})
+										}
+										{
+                                            !dashboardActivePolls &&
+                                            <ContentLoader/>
+                                        }
+										{
+                                            !!dashboardActivePolls &&
+											dashboardActivePolls === 0 &&
+											<p
+												style={{
+													fontSize:13,
+													color: '#000'
+												}}
+											>
+												No active polls.
+											</p>
+										}
+									</div>
+									<button
+										className="btn btn-right gray round round-bottom-right round-top-left absolute "
+										data-modal="sendMoney"
+										onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}
+									>
+										Create poll&nbsp;
+										<i className="arrow zmdi zmdi-chevron-right"/>
+									</button>
+								</div>
+							</div>
+							<div className="page-body-item ">
+								<div className="card card-tall apollo-news">
+									<div className="card-title">Apollo News</div>
+									<div className="card-news-content">
+										{dashboardNews && this.getNewsItem(dashboardNews[this.state.newsItem])}
+									</div>
+									<button
+										className={classNames({
+											'btn': true,
+											'btn-left': true,
+											'gray': true,
+											'round': true,
+											'round-top-right': true,
+											'round-bottom-left': true,
+											'absolute': true,
+											'disabled': this.state.newsItem === 0
+										})}
+										data-modal="sendMoney"
+										onClick={() => {
+											this.setState({newsItem: this.state.newsItem - 1})
+										}}
+									>
+										<i className="arrow zmdi zmdi-chevron-left"/>&nbsp;
+										Previous
+									</button>
+									{
+										dashboardNews &&
+										<button
+											className={classNames({
+												'btn': true,
+												'btn-right': true,
+												'gray': true,
+												'round': true,
+												'round-bottom-right': true,
+												'round-top-left': true,
+												'absolute': true,
+												'disabled': this.state.newsItem === dashboardNews.length - 1
+											})}
+											data-modal="sendMoney"
+											onClick={() => {
+												this.setState({newsItem: this.state.newsItem + 1})
+											}}
+										>
+											Next&nbsp;
+											<i className="arrow zmdi zmdi-chevron-right"/>
+										</button>
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
+
+const mapStateToProps = state => ({
+	account: state.account,
+	accountRS: state.account.accountRS,
+	balanceATM: state.account.balanceATM,
+	description: state.account.description,
+	forgedBalanceATM: state.account.forgedBalanceATM,
+	name: state.account.name,
+	publicKey: state.account.publicKey,
+	requestProcessingTime: state.account.requestProcessingTime,
+	unconfirmedBalanceATM: state.account.unconfirmedBalanceATM,
+	assets: state.account.assetBalances,
+	blockchainStatus: state.account.blockchainStatus,
+	isShareMessage: state.account.isShareMessage,
+	shareMessageTransaction: state.account.shareMessageTransaction,
+
+
+	// Redux
+	dashboard: state.dashboard,
+});
+
+const mapDispatchToProps = dispatch => ({
+	reloadAccount: acc => dispatch(reloadAccountAction(acc)),
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+	setModalType: (type) => dispatch(setModalType(type)),
+	formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
+
+	// Redux
+	getDashboardData : () => dispatch(getDashboardData())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
