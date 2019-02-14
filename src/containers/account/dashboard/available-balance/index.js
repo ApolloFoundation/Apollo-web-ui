@@ -4,15 +4,17 @@ import ContentLoader from '../../../components/content-loader'
 
 class AvailableBalance extends Component {
     render () {
+        const {dashboardAccoountInfo, actualBlock, blockchainStatus, positionState1, position1, formatTimestamp} = this.props;
+        
         return (
             <div
-                className={`card header justify-content-start ballance chart-sprite position-1 mb-3 ${this.state.positionState1 ? "show-hide-content" : ""}`}>
+                className={`card header ballance chart-sprite position-1 ${positionState1 ? "show-hide-content" : ""}`}>
                 <div className="card-title">Available Balance</div>
-                <div className="arrow-block" onClick={this.position1}>
+                <div className="arrow-block" onClick={position1}>
                     <div className="arrow"/>
                 </div>
                 {
-                    this.state.accountInfo && this.state.block &&
+                    dashboardAccoountInfo &&
                     <React.Fragment>
                         <div className="page-body-item-content">
 
@@ -22,9 +24,8 @@ class AvailableBalance extends Component {
                                 className="amount"
                             >
                                 {
-                                    this.state.accountInfo &&
-                                    this.state.accountInfo.unconfirmedBalanceATM &&
-                                    Math.round(this.state.accountInfo.unconfirmedBalanceATM / 100000000).toLocaleString('en')
+                                    dashboardAccoountInfo.unconfirmedBalanceATM &&
+                                    Math.round(dashboardAccoountInfo.unconfirmedBalanceATM / 100000000).toLocaleString('en')
                                     || 0
                                 }
                                 <span className="currency">
@@ -32,19 +33,19 @@ class AvailableBalance extends Component {
                         </span>
                             </div>
                             <div className="account-sub-titles">
-                                {this.state.accountInfo && this.state.accountInfo.accountRS}
+                                {dashboardAccoountInfo.accountRS}
                             </div>
-
                             {
-                                this.state.block &&
+                                actualBlock &&
                                 <div className="account-sub-titles">
-                                    Block:&nbsp;{this.state.block.height}&nbsp;/&nbsp;{this.props.formatTimestamp(this.state.block.timestamp)}
+                                    Block:&nbsp;{actualBlock.height}&nbsp;/&nbsp;{formatTimestamp(actualBlock.timestamp)}
                                 </div>
                             }
                             {
-                                this.props.blockTime &&
+                                blockchainStatus &&
+                                blockchainStatus.blockTime &&
                                 <div className="account-sub-titles">
-                                    Transaction Time :&nbsp;{this.props.blockTime} s
+                                    Transaction Time :&nbsp;{blockchainStatus.blockTime} s
                                 </div>
                             }
                         </div>
