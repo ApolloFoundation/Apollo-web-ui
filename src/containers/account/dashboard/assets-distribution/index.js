@@ -95,7 +95,7 @@ class AssetsDistribution extends Component {
 }
 
 const mapStateToProps = state => ({
-    account: state.account.account
+	assets: state.account.assetBalances,
 })
 
 const mapDispatchToProps = dispatch => ({

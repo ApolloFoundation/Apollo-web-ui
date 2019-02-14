@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import ContentLoader from '../../../components/content-loader'
 
 class AvailableBalance extends Component {
     render () {
@@ -54,3 +55,9 @@ class AvailableBalance extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+
+})
+
+export default connect(mapStateToProps)(AvailableBalance)
