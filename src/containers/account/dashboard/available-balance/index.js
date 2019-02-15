@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import ContentLoader from '../../../components/content-loader'
+import ContentLoader from '../../../components/content-loader';
+import {formatTimestamp} from "../../../../helpers/util/time";
+import { setBodyModalParamsAction } from '../../../../modules/modals';
 
 class AvailableBalance extends Component {
     render () {
-        const {dashboardAccoountInfo, actualBlock, blockchainStatus, positionState1, position1, formatTimestamp} = this.props;
+        const {dashboardAccoountInfo, actualBlock, setBodyModalParamsAction, blockchainStatus, positionState1, position1, formatTimestamp} = this.props;
         
         return (
             <div
@@ -19,7 +21,7 @@ class AvailableBalance extends Component {
                         <div className="page-body-item-content">
 
                             <div
-                                onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
+                                onClick={() => setBodyModalParamsAction('ACCOUNT_DETAILS')}
                                 style={{cursor: 'pointer', paddingRight: 0}}
                                 className="amount"
                             >
@@ -38,7 +40,7 @@ class AvailableBalance extends Component {
                             {
                                 actualBlock &&
                                 <div className="account-sub-titles">
-                                    Block:&nbsp;{actualBlock.height}&nbsp;/&nbsp;{formatTimestamp(actualBlock.timestamp)}
+                                    Block:&nbsp;{actualBlock.height}&nbsp;/&nbsp;{actualBlock}
                                 </div>
                             }
                             {
@@ -58,7 +60,14 @@ class AvailableBalance extends Component {
 }
 
 const mapStateToProps = state => ({
-    dashboardAccoountInfo: state.dashboard.dashboardAccoountInfo
+    dashboardAccoountInfo: state.dashboard.dashboardAccoountInfo,
+    actualBlock: state.account.actualBlock,    
+    blockchainStatus: state.account.blockchainStatus,
 })
 
-export default connect(mapStateToProps)(AvailableBalance)
+const mapDispatchToProps = dispatch => ({
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),    
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AvailableBalance)

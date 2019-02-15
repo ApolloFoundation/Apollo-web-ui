@@ -21,6 +21,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
 
     const {account: {account}} = getState();
 
+    console.log(account)
     const rquestParams = {
         _transactions: {
             account,
@@ -79,7 +80,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
     const activeShuffling   = dispatch(getActiveShfflings(rquestParams._activeShuffling)); 
     const finishedShuffling = dispatch(getShufflingAction()); 
     const activePolls       = dispatch(getpollsAction(rquestParams._activePolls)); 
-    const accountInfo       = dispatch(getAccountInfoAction()); 
+    const accountInfo       = dispatch(getAccountInfoAction(rquestParams._accountInfo)); 
 
     Promise.all([
         block,             
@@ -101,7 +102,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
 
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
 
-            console.log(await calculateAssets(accountAssets.accountAssets));
             dispatch({
                 type: 'SET_DASHBOARD_TRANSACTIONS',
                 payload: transactions.transactions
@@ -152,7 +152,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             })
             dispatch({
                 type: 'SET_DASHBOARD_ACCOUNT_INFO',
-                payload: accountInfo
+                payload: await accountInfo
             })
         })       
 }
