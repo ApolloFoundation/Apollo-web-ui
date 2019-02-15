@@ -8,7 +8,7 @@ class AvailableBalance extends Component {
         
         return (
             <div
-                className={`card header ballance chart-sprite position-1 ${positionState1 ? "show-hide-content" : ""}`}>
+                className={`card header ballance chart-sprite justify-content-start position-1 ${positionState1 ? "show-hide-content" : ""}`}>
                 <div className="card-title">Available Balance</div>
                 <div className="arrow-block" onClick={position1}>
                     <div className="arrow"/>
@@ -58,7 +58,7 @@ class AvailableBalance extends Component {
 }
 
 const mapStateToProps = state => ({
-
+    dashboardAccoountInfo: state.dashboard.dashboardAccoountInfo
 })
 
 export default connect(mapStateToProps)(AvailableBalance)

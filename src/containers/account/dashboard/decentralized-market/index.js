@@ -2,65 +2,34 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import ContentLoader from '../../../components/content-loader'
-import {getAccountAssetsAction, getSpecificAccountAssetsAction} from '../../../../actions/assets'
-import {
-	getDGSGoodsCountAction,
-	getDGSPurchaseCountAction,
-	getDGSPurchasesAction,
-	getDGSPendingPurchases
-} from "../../../../actions/marketplace";
 
 class DecentralizedMarketplace extends Component {
-
-    componentDidMount = () => {
-        this.getGoods({seller: this.props.account});
-    }
-
-    getGoods = async (reqParams) => {
-		const purchased = await this.props.getDGSPurchaseCountAction(reqParams);
-		const pendingGoods = await this.props.getDGSPendingPurchases(reqParams);
-		const completedPurchased = await this.props.getDGSPurchaseCountAction(reqParams);
-
-
-		const numberOfGoods = await this.props.getDGSPurchaseCountAction({...reqParams, requestType: 'getDGSGoodsCount'});
-
-        reqParams.buyer = reqParams.account;
-        delete reqParams.account;
-        delete reqParams.seller;
-
-		const proedeductsForSale = await this.props.getDGSPurchaseCountAction({...reqParams , requestType: 'getDGSPurchases'});
-
-        if (proedeductsForSale && purchased && completedPurchased && pendingGoods) {
-			this.setState({
-				numberOfGoods: proedeductsForSale.purchases.length,
-				completedGoods: numberOfGoods.numberOfGoods,
-				pendingGoods: pendingGoods.purchases.length,
-			})
-		}
-	};
-
     render () {
+        const {dashboardDgsGoods} = this.props;
+
         return (
             <div className="card decentralized-marketplace">
                 <div className="card-title">Decentralized Marketplace</div>
                 <div className="full-box">
                     {
-                        !!this.state.pendingGoods && !!this.state.completedGoods &&
+                        !!dashboardDgsGoods &&
                         <div className="full-box-item">
 
                         <div className="marketplace-box">
-                                <Link to={'/purchased-products'} className="digit">{this.state.numberOfGoods}</Link>
+                                <Link to={'/purchased-products'} className="digit">
+                                    {dashboardDgsGoods.totalPurchases} {/** Number of goods */}
+                                </Link> 
                                 <div className="subtitle">Purchased products</div>
                             </div>
                             <div className="marketplace-box">
                                 <div
                                     className="digit">
                                     <Link className="digit" to={'/my-pending-orders'}>
-                                        {this.state.pendingGoods}
+                                        {dashboardDgsGoods.numberOfPurchases} {/** Pending orders */}
                                     </Link>
                                     /
                                     <Link className="digit" to={'/my-products-for-sale'}>
-                                        {this.state.completedGoods}
+                                        {dashboardDgsGoods.numberOfGoods} {/** Completed orders */}
                                     </Link>
                                 </div>
                                 <div className="subtitle">Sales</div>
@@ -68,32 +37,28 @@ class DecentralizedMarketplace extends Component {
                         </div>
                     }
                     {
-                        typeof this.state.pendingGoods === 'undefined' &&
-                        typeof this.state.completedGoods === 'undefined' &&
+                        !dashboardDgsGoods &&
                         <ContentLoader noPaddingOnTheSides/>
                     }
-                    {
+                    {/* {
                         this.state.pendingGoods === 0 &&
                         <p>No pending orders.</p>
                     }
                     {
                         this.state.completedGoods === 0 &&
                         <p>No completed orders.</p>
-                    }
+                    } */}
 
                 </div>
                 <Link to="/marketplace" className="btn btn-left btn-simple absolute">Marketplace</Link>
             </div>
+							
         )
     }
 }
 
 const mapStateToProps = state => ({
-    account: state.account.account
+    dashboardDgsGoods: state.dashboard.dashboardDgsGoods
 })
 
-const mapDispatchToProps = dispatch => ({
-	getDGSPurchaseCountAction: (requestParams) => dispatch(getDGSPurchaseCountAction(requestParams)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(DecentralizedMarketplace)
+export default connect(mapStateToProps)(DecentralizedMarketplace)

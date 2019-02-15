@@ -101,13 +101,14 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
 
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
 
+            console.log(await calculateAssets(accountAssets.accountAssets));
             dispatch({
                 type: 'SET_DASHBOARD_TRANSACTIONS',
                 payload: transactions.transactions
             })
             dispatch({
                 type: 'SET_DASHBOARD_ASSETS',
-                payload: await calculateAssets(accountAssets.accountAssets)
+                payload: await dispatch(calculateAssets(accountAssets.accountAssets))
             })
             dispatch({
                 type: 'SET_DASHBOARD_CURRENCIES',
@@ -126,7 +127,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
                 payload: {
                     numberOfGoods : numberOfGoods.numberOfGoods,
                     numberOfPurchases : numberOfPurchases.numberOfPurchases,
-                    totalPurchases : totalPurchases.purchases.length
+                    totalPurchases : totalPurchases.purchases ? totalPurchases.purchases.length : null
                 }
             })
             dispatch({
@@ -167,7 +168,7 @@ var calculateCurrencies = (currencies) => {
     }
 }
 
-var calculateAssets = async (assets) => {
+var calculateAssets =  (assets) => async dispatch => {
     return {
         count: assets.length,
         total: (assets.length && assets.map((el) => {
@@ -177,7 +178,7 @@ var calculateAssets = async (assets) => {
         })) || 0,
         distribution: (assets.length && await Promise.all(assets.map((el) => {
             const {asset} = el;
-            return getAssetAction({asset})
+            return dispatch(getAssetAction({asset}))
         }))) || []
     }
 }

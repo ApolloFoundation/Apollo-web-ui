@@ -43,17 +43,19 @@ class AssetsDistribution extends Component {
     };
 
     render () {
+        const {dashboardAssets} = this.props;
+
         return (
             <div className="card asset-portfolio mb-3">
                 <div className="card-title">Asset Portfolio</div>
                 {
-                    !this.state.dashboardAssets &&
+                    !dashboardAssets &&
                     <ContentLoader noPaddingOnTheSides onPaddingTop/>
                 }
                 <div className="full-box">
                     {
-                        this.state.dashboardAssets &&
-                        this.state.dashboardAssets.map((el, index) => {
+                        dashboardAssets &&
+                        dashboardAssets.distribution.map((el, index) => {
                             if (index < 3) {
                                 return (
                                     <div className="full-box-item coin">
@@ -61,7 +63,6 @@ class AssetsDistribution extends Component {
                                             <CircleFigure
                                                 index={index}
                                                 percentage={((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)}
-
                                                 type={el.quantityATU}
                                             />
                                             <div
@@ -83,8 +84,8 @@ class AssetsDistribution extends Component {
                         })
                     }
                     {
-                        !!this.state.dashboardAssets &&
-                        this.state.dashboardAssets.length === 0 &&
+                        !!dashboardAssets &&
+                        dashboardAssets.length === 0 &&
                         <p>No assets found.</p>
                     }
                 </div>
@@ -95,7 +96,7 @@ class AssetsDistribution extends Component {
 }
 
 const mapStateToProps = state => ({
-	assets: state.account.assetBalances,
+	dashboardAssets: state.dashboard.dashboardAssets,
 })
 
 const mapDispatchToProps = dispatch => ({

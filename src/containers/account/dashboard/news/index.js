@@ -37,7 +37,7 @@ class DashboardNews extends Component {
 
     render () {
         return (
-            <div className="card card-tall justify-content-start apollo-news mb-3">
+            <div className="card card-tall justify-content-start apollo-news">
                 <div className="card-title">Apollo News</div>
                 <div className="card-news-content">
                     {this.state.news && this.getNewsItem(this.state.news.tweets[this.state.newsItem])}

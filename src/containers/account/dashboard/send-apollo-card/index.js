@@ -22,10 +22,11 @@ class SendApolloCard extends Component {
 
     render () {
         return (
-            <Form
-                getApi={(form) => this.getApi(form)}
-                onSubmit={(values) => this.submitForm(values)}
-                render={({
+            <div className={'page-body-item h-auto w-100 p-0'}>
+                <Form
+                    getApi={(form) => this.getApi(form)}
+                    onSubmit={(values) => this.submitForm(values)}
+                    render={({
                             submitForm, setValue, getFormState
                         }) => (
                             <form onSubmit={submitForm} className="card send-apollo mb-3">
@@ -98,8 +99,8 @@ class SendApolloCard extends Component {
                                 </button>
                             </form>
                         )}
-            />
-            
+                />
+            </div>
         )
     }
 }
