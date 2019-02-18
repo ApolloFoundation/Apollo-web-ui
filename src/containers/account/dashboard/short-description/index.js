@@ -8,7 +8,7 @@ class ShortDescription extends Component {
 
         return (
             <div className="card header header-values coins flex chart-sprite position-4">
-                <div className="general-info">
+                <div className="general-info h-100">
                     <Link
                         to={'/messenger'}
                         className="general-info-item top-left"
@@ -66,8 +66,8 @@ class ShortDescription extends Component {
 
 const mapStateToProps = state => ({
     dashboardMessagesCount : state.dashboard.dashboardMessagesCount, 
-    dashboardDgsGoods : state.dashboard.dashboardDgsGoods,
-    dashboardNews : state.dashboard.dashboardNews,
+    dashboardAliasesCount : state.dashboard.dashboardAliasesCount,
+    dashboardActiveSuffling : state.dashboard.dashboardActiveSuffling,
     dashboardTaggedData : state.dashboard.dashboardTaggedData,
 })
 

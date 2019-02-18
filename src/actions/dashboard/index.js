@@ -99,9 +99,8 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
     ])
         .then(async (resolved) => {
             const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, news, taggetData, activeShuffling, finishedShuffling, activePolls] = resolved;
-
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
-
+            
             dispatch({
                 type: 'SET_DASHBOARD_TRANSACTIONS',
                 payload: transactions.transactions
@@ -146,6 +145,8 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
                 type: 'SET_DASHBOARD_ACTIVE_SHUFFLING',
                 payload: activeShuffling.shufflings.length
             })
+            // console.log(dashboardAliasesCount)
+            console.log(activeShuffling.shufflings.length)
             dispatch({
                 type: 'SET_DASHBOARD_POSSL',
                 payload: activePolls.polls
