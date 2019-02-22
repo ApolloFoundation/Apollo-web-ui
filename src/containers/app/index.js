@@ -14,6 +14,7 @@ import {setBodyModalType} from '../../modules/modals' ;
 import PageLoader from '../components/page-loader/page-loader';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import ReactHintFactory from 'react-hint';
+import {asyncComponent} from '../components/async-component';
 
 // components
 import SideBar from '../components/sidebar';
@@ -24,18 +25,16 @@ import {getSavedAccountSettingsAction} from "../../modules/accountSettings";
 
 // pages components
 import Login from "../account/login";
-
-import './App.scss';
+import UnknownPage from '../account/404'
 
 import {getUpdateStatus} from '../../actions/login/index'
 import urlHelper from "../../helpers/util/urlParser";
 import {startBlockPullingAction} from '../../actions/blocks'
-import './window';
 import {setBodyModalParamsAction} from "../../modules/modals";
-import asyncComponent from '../components/page-loader/page-loader';
-import UnknownPage from '../account/404'
 import {loginWithShareMessage} from "../../actions/account";
 
+import './App.scss';
+import './window';
 
 const ReactHint = ReactHintFactory(React)
 
@@ -102,7 +101,6 @@ class App extends React.Component {
     onRenderContent = (target, content) => {
         let {catId} = target.dataset
         catId = JSON.parse(catId);
-        console.log(catId)
  
         if (catId && catId.infoContent) {
             return  <div className="custom-hint__content">
