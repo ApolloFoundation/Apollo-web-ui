@@ -32,7 +32,7 @@ import urlHelper from "../../helpers/util/urlParser";
 import {startBlockPullingAction} from '../../actions/blocks'
 import './window';
 import {setBodyModalParamsAction} from "../../modules/modals";
-
+import asyncComponent from '../components/page-loader/page-loader';
 import UnknownPage from '../account/404'
 import {loginWithShareMessage} from "../../actions/account";
 
@@ -199,55 +199,55 @@ class App extends React.Component {
 
     routers = () => (
         <Switch>
-            <Route exact path="/dashboard"                           component={React.lazy(() => import('../account/dashboard'))}/>
-            <Route exact path="/"                                    component={React.lazy(() => import('../account/dashboard'))}/>
-            <Route exact path="/transactions"                        component={React.lazy(() => import('../account/transactions'))}/>
-            <Route exact path="/ledger"                              component={React.lazy(() => import('../account/ledger'))}/>
-            <Route exact path="/blocks"                              component={React.lazy(() => import('../account/blocks'))}/>
-            <Route exact path="/followed-polls/:poll"                component={React.lazy(() => import('../account/followed-polls'))}/>
-            <Route exact path="/followed-polls"                      component={React.lazy(() => import('../account/followed-polls'))}/>
-            <Route exact path="/my-votes"                            component={React.lazy(() => import('../account/my-votes'))}/>
-            <Route exact path="/my-polls"                            component={React.lazy(() => import('../account/my-polls'))}/>
-            <Route exact path="/messenger"                           component={React.lazy(() => import('../account/messenger'))}/>
-            <Route exact path="/messenger/:chat"                     component={React.lazy(() => import('../account/messenger'))}/>
-            <Route exact path="/recent-listing"                      component={React.lazy(() => import('../account/marketplace/recent-listing'))}/>
-            <Route exact path="/currencies"                          component={React.lazy(() => import('../account/currencies'))}/>
-            <Route exact path="/marketplace/"                        component={React.lazy(() => import('../account/marketplace'))}/>
-            <Route exact path="/my-products-for-sale"                component={React.lazy(() => import('../account/my-products-for-sale'))}/>
-            <Route exact path="/my-pending-orders"                   component={React.lazy(() => import('../account/my-panding-orders'))}/>
-            <Route exact path="/my-completed-orders"                 component={React.lazy(() => import('../account/my-completed-orders'))}/>
-            <Route exact path="/marketplace/:tag"                    component={React.lazy(() => import('../account/marketplace'))}/>
-            <Route exact path="/active-polls"                        component={React.lazy(() => import('../account/active-polls'))}/>
-            <Route exact path="/active-shuffling"                    component={React.lazy(() => import('../account/active-shufflings'))}/>
-            <Route exact path="/exchange-booth/:currency"            component={React.lazy(() => import('../account/exchange-booth'))}/>
-            <Route exact path="/my-shuffling"                        component={React.lazy(() => import('../account/my-currencies'))}/>
-            <Route exact path="/account-properties"                  component={React.lazy(() => import('../account/account-properties'))}/>
-            <Route exact path="/approval-request"                    component={React.lazy(() => import('../account/approval-request'))}/>
-            <Route exact path="/approval-request-assets"             component={React.lazy(() => import('../account/approval-request-assets'))}/>
-            <Route exact path="/asset-exchange/:asset"               component={React.lazy(() => import('../account/asset-exchange'))}/>
-            <Route exact path="/asset-exchange"                      component={React.lazy(() => import('../account/asset-exchange'))}/>
-            <Route exact path="/aliases"                             component={React.lazy(() => import('../account/aliases'))}/>
-            <Route exact path="/delete-history"                      component={React.lazy(() => import('../account/delete-history'))}/>
-            <Route exact path="/funding-monitors"                    component={React.lazy(() => import('../account/funding-monitors'))}/>
-            <Route exact path="/funding-monitors/:account/:property" component={React.lazy(() => import('../account/funding-monitors-status'))}/>
-            <Route exact path="/my-assets"                           component={React.lazy(() => import('../account/my-assets'))}/>
-            <Route exact path="/my-currencies"                       component={React.lazy(() => import('../account/my-currencies'))}/>
-            <Route exact path="/open-orders"                         component={React.lazy(() => import('../account/open-orders'))}/>
-            <Route exact path="/peers"                               component={React.lazy(() => import('../account/peers'))}/>
-            <Route exact path="/purchased-products"                  component={React.lazy(() => import('../account/purchased-proucts'))}/>
+            <Route exact path="/dashboard"                           component={asyncComponent(() => import('../account/dashboard'))}/>
+            <Route exact path="/"                                    component={asyncComponent(() => import('../account/dashboard'))}/>
+            <Route exact path="/transactions"                        component={asyncComponent(() => import('../account/transactions'))}/>
+            <Route exact path="/ledger"                              component={asyncComponent(() => import('../account/ledger'))}/>
+            <Route exact path="/blocks"                              component={asyncComponent(() => import('../account/blocks'))}/>
+            <Route exact path="/followed-polls/:poll"                component={asyncComponent(() => import('../account/followed-polls'))}/>
+            <Route exact path="/followed-polls"                      component={asyncComponent(() => import('../account/followed-polls'))}/>
+            <Route exact path="/my-votes"                            component={asyncComponent(() => import('../account/my-votes'))}/>
+            <Route exact path="/my-polls"                            component={asyncComponent(() => import('../account/my-polls'))}/>
+            <Route exact path="/messenger"                           component={asyncComponent(() => import('../account/messenger'))}/>
+            <Route exact path="/messenger/:chat"                     component={asyncComponent(() => import('../account/messenger'))}/>
+            <Route exact path="/recent-listing"                      component={asyncComponent(() => import('../account/marketplace/recent-listing'))}/>
+            <Route exact path="/currencies"                          component={asyncComponent(() => import('../account/currencies'))}/>
+            <Route exact path="/marketplace/"                        component={asyncComponent(() => import('../account/marketplace'))}/>
+            <Route exact path="/my-products-for-sale"                component={asyncComponent(() => import('../account/my-products-for-sale'))}/>
+            <Route exact path="/my-pending-orders"                   component={asyncComponent(() => import('../account/my-panding-orders'))}/>
+            <Route exact path="/my-completed-orders"                 component={asyncComponent(() => import('../account/my-completed-orders'))}/>
+            <Route exact path="/marketplace/:tag"                    component={asyncComponent(() => import('../account/marketplace'))}/>
+            <Route exact path="/active-polls"                        component={asyncComponent(() => import('../account/active-polls'))}/>
+            <Route exact path="/active-shuffling"                    component={asyncComponent(() => import('../account/active-shufflings'))}/>
+            <Route exact path="/exchange-booth/:currency"            component={asyncComponent(() => import('../account/exchange-booth'))}/>
+            <Route exact path="/my-shuffling"                        component={asyncComponent(() => import('../account/my-currencies'))}/>
+            <Route exact path="/account-properties"                  component={asyncComponent(() => import('../account/account-properties'))}/>
+            <Route exact path="/approval-request"                    component={asyncComponent(() => import('../account/approval-request'))}/>
+            <Route exact path="/approval-request-assets"             component={asyncComponent(() => import('../account/approval-request-assets'))}/>
+            <Route exact path="/asset-exchange/:asset"               component={asyncComponent(() => import('../account/asset-exchange'))}/>
+            <Route exact path="/asset-exchange"                      component={asyncComponent(() => import('../account/asset-exchange'))}/>
+            <Route exact path="/aliases"                             component={asyncComponent(() => import('../account/aliases'))}/>
+            <Route exact path="/delete-history"                      component={asyncComponent(() => import('../account/delete-history'))}/>
+            <Route exact path="/funding-monitors"                    component={asyncComponent(() => import('../account/funding-monitors'))}/>
+            <Route exact path="/funding-monitors/:account/:property" component={asyncComponent(() => import('../account/funding-monitors-status'))}/>
+            <Route exact path="/my-assets"                           component={asyncComponent(() => import('../account/my-assets'))}/>
+            <Route exact path="/my-currencies"                       component={asyncComponent(() => import('../account/my-currencies'))}/>
+            <Route exact path="/open-orders"                         component={asyncComponent(() => import('../account/open-orders'))}/>
+            <Route exact path="/peers"                               component={asyncComponent(() => import('../account/peers'))}/>
+            <Route exact path="/purchased-products"                  component={asyncComponent(() => import('../account/purchased-proucts'))}/>
             {/*,<Route exact path="/plugins" component={Plugins}/>*/}
-            <Route exact path="/scheduled-transactions"              component={React.lazy(() => import('../account/scheduled-transactions'))}/>
-            <Route exact path="/settings"                            component={React.lazy(() => import('../account/settings'))}/>
-            <Route exact path="/trade-history"                       component={React.lazy(() => import('../account/trade-history'))}/>
-            <Route exact path="/exchange-history-currency"           component={React.lazy(() => import('../account/trade-history-currency'))}/>
-            <Route exact path="/transfer-history"                    component={React.lazy(() => import('../account/transfer-history'))}/>
-            <Route exact path="/transfer-history-currency"           component={React.lazy(() => import('../account/transfer-history-currency'))}/> 
-            <Route exact path="/finished-polls"                      component={React.lazy(() => import('../account/finished-polls'))}/> 
-            <Route exact path="/data-storage"                        component={React.lazy(() => import('../account/datastorage'))}/> 
-            <Route exact path="/data-storage/:query"                 component={React.lazy(() => import('../account/datastorage'))}/> 
-            <Route exact path="/finished-shuffling"                  component={React.lazy(() => import('../account/finished-shufflings'))}/> 
-            <Route exact path="/my-messages"                         component={React.lazy(() => import('../account/finished-shufflings'))}/> 
-            <Route exact path="/generators"                          component={React.lazy(() => import('../account/generators'))}/> 
+            <Route exact path="/scheduled-transactions"              component={asyncComponent(() => import('../account/scheduled-transactions'))}/>
+            <Route exact path="/settings"                            component={asyncComponent(() => import('../account/settings'))}/>
+            <Route exact path="/trade-history"                       component={asyncComponent(() => import('../account/trade-history'))}/>
+            <Route exact path="/exchange-history-currency"           component={asyncComponent(() => import('../account/trade-history-currency'))}/>
+            <Route exact path="/transfer-history"                    component={asyncComponent(() => import('../account/transfer-history'))}/>
+            <Route exact path="/transfer-history-currency"           component={asyncComponent(() => import('../account/transfer-history-currency'))}/> 
+            <Route exact path="/finished-polls"                      component={asyncComponent(() => import('../account/finished-polls'))}/> 
+            <Route exact path="/data-storage"                        component={asyncComponent(() => import('../account/datastorage'))}/> 
+            <Route exact path="/data-storage/:query"                 component={asyncComponent(() => import('../account/datastorage'))}/> 
+            <Route exact path="/finished-shuffling"                  component={asyncComponent(() => import('../account/finished-shufflings'))}/> 
+            <Route exact path="/my-messages"                         component={asyncComponent(() => import('../account/finished-shufflings'))}/> 
+            <Route exact path="/generators"                          component={asyncComponent(() => import('../account/generators'))}/> 
             <Route exact path="/index.html" render={() => <Redirect to="/dashboard"/>}/>
             <Route exact path="*" render={() => <Redirect to="/dashboard"/>}/>
         </Switch>
