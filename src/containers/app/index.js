@@ -20,7 +20,7 @@ import SideBar from '../components/sidebar';
 import ModalWindow from '../modals';
 import AlertBox from '../components/alert-box';
 import BlocksDownloader from '../components/blocks-downloader';
-import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../modules/accountSettings";
+import {getSavedAccountSettingsAction} from "../../modules/accountSettings";
 
 // pages components
 import Login from "../account/login";
@@ -66,37 +66,6 @@ class App extends React.Component {
 
         // Hints settings
         window.ReactHint = ReactHint;
-
-        const onDeviceReady = () => {
-            document.addEventListener("backbutton", (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const   {
-                            setBodyModalParamsAction, 
-                            modalType, 
-                            history: {
-                                push, 
-                                location: 
-                                {
-                                    pathname
-                                }
-                            }
-                        } = this.props;
-
-                if (modalType && modalType !== 'CREATE_USER') {
-                    setBodyModalParamsAction()
-                    return;
-                }
-
-                if (pathname && pathname !== '/login' && pathname !== '/') {
-                    push('/dashboard');
-                    return;
-                }
-
-            }, false );
-        }
-        document.addEventListener("deviceready", onDeviceReady, false);
     }
 
     state = {

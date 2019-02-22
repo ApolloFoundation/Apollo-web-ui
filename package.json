@@ -108,8 +108,8 @@
   "main": "src/start.js",
   "scripts": {
     "start-js": "react-scripts start",
-    "start": "npm-run-all -p build-css start-js watch-css",
-    "build": "npm run build-css && react-scripts build",
+    "start": "npm-run-all -p start-js",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "build-css": "node-sass-chokidar src -o src",
     "watch-css": "node-sass-chokidar src -o src --watch --recursive",
