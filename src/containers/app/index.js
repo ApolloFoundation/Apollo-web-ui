@@ -23,53 +23,8 @@ import BlocksDownloader from '../components/blocks-downloader';
 import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../modules/accountSettings";
 
 // pages components
-import Dashboard from "../account/dashboard";
 import Login from "../account/login";
 
-import Transactions from '../account/transactions'
-import Ledger from '../account/ledger'
-import Blocks from '../account/blocks'
-
-import ExchangeBooth from '../account/exchange-booth'
-import Followedpolls from '../account/followed-polls'
-import Messenger from '../account/messenger'
-import ResentMarketplaceListing from '../account/marketplace/recent-listing'
-import Marketplace from '../account/marketplace'
-import MyProductsForSale from '../account/my-products-for-sale'
-import MyPandingOrders from '../account/my-panding-orders'
-import PurchasdProucts from '../account/purchased-proucts'
-import MyCompletedOrders from '../account/my-completed-orders'
-import Activepolls from '../account/active-polls'
-import AccountProperties from '../account/account-properties'
-import ApprovalRequest from '../account/approval-request'
-import ApprovalRequestAssets from '../account/approval-request-assets'
-import AssetExchange from '../account/asset-exchange'
-import Aliases from '../account/aliases'
-import DeleteHistory from '../account/delete-history'
-import FundingMonitors from '../account/funding-monitors'
-import FundingMonitorsStatus from '../account/funding-monitors-status'
-import MyAssets from '../account/my-assets'
-import OpenOrders from '../account/open-orders'
-import Peers from '../account/peers'
-import Plugins from '../account/plugins'
-import ScheduledTransactions from '../account/scheduled-transactions'
-import Settings from '../account/settings'
-import TradeHistory from '../account/trade-history'
-import TradeHistoryCurrency from '../account/trade-history-currency'
-import TransferHistory from '../account/transfer-history'
-import TransferHistoryCurrency from '../account/transfer-history-currency'
-import Currencies from '../account/currencies'
-import MyCurrencies from '../account/my-shuffling'
-import MyMadedCurrencies from '../account/my-currencies'
-import Finishedpolls from '../account/finished-polls'
-import MyVotes from '../account/my-votes'
-import MyPolls from '../account/my-polls'
-import DataStorage from "../account/datastorage";
-import ActiveShufflings from "../account/active-shufflings";
-import FinishedShufflings from "../account/finished-shufflings";
-import MyMessages from "../account/my-messages";
-import MarketplaceSearch from "../account/marketplace-search";
-import Generators from "../account/generators"
 import './App.scss';
 
 import {getUpdateStatus} from '../../actions/login/index'
@@ -80,6 +35,7 @@ import {setBodyModalParamsAction} from "../../modules/modals";
 
 import UnknownPage from '../account/404'
 import {loginWithShareMessage} from "../../actions/account";
+
 
 const ReactHint = ReactHintFactory(React)
 
@@ -243,55 +199,55 @@ class App extends React.Component {
 
     routers = () => (
         <Switch>
-            <Route exact path="/dashboard" component={Dashboard}/>
-            <Route exact path="/" component={Dashboard}/>
-            <Route exact path="/transactions" component={Transactions}/>
-            <Route exact path="/ledger" component={Ledger}/>
-            <Route exact path="/blocks" component={Blocks}/>
-            <Route exact path="/followed-polls/:poll" component={Followedpolls}/>
-            <Route exact path="/followed-polls" component={Followedpolls}/>
-            <Route exact path="/my-votes" component={MyVotes}/>
-            <Route exact path="/my-polls" component={MyPolls}/>
-            <Route exact path="/messenger" component={Messenger}/>
-            <Route exact path="/messenger/:chat" component={Messenger}/>
-            <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
-            <Route exact path="/currencies" component={Currencies}/>
-            <Route exact path="/marketplace/" component={Marketplace}/>
-            <Route exact path="/my-products-for-sale" component={MyProductsForSale}/>
-            <Route exact path="/my-pending-orders" component={MyPandingOrders}/>
-            <Route exact path="/my-completed-orders" component={MyCompletedOrders}/>
-            <Route exact path="/marketplace/:tag" component={MarketplaceSearch}/>
-            <Route exact path="/active-polls" component={Activepolls}/>
-            <Route exact path="/active-shuffling" component={ActiveShufflings}/>
-            <Route exact path="/exchange-booth/:currency" component={ExchangeBooth}/>
-            <Route exact path="/my-shuffling" component={MyCurrencies}/>
-            <Route exact path="/account-properties" component={AccountProperties}/>
-            <Route exact path="/approval-request" component={ApprovalRequest}/>
-            <Route exact path="/approval-request-assets" component={ApprovalRequestAssets}/>
-            <Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
-            <Route exact path="/asset-exchange" component={AssetExchange}/>
-            <Route exact path="/aliases" component={Aliases}/>
-            <Route exact path="/delete-history" component={DeleteHistory}/>
-            <Route exact path="/funding-monitors" component={FundingMonitors}/>
-            <Route exact path="/funding-monitors/:account/:property" component={FundingMonitorsStatus}/>
-            <Route exact path="/my-assets" component={MyAssets}/>
-            <Route exact path="/my-currencies" component={MyMadedCurrencies}/>
-            <Route exact path="/open-orders" component={OpenOrders}/>
-            <Route exact path="/peers" component={Peers}/>
-            <Route exact path="/purchased-products" component={PurchasdProucts}/>
+            <Route exact path="/dashboard"                           component={React.lazy(() => import('../account/dashboard'))}/>
+            <Route exact path="/"                                    component={React.lazy(() => import('../account/dashboard'))}/>
+            <Route exact path="/transactions"                        component={React.lazy(() => import('../account/transactions'))}/>
+            <Route exact path="/ledger"                              component={React.lazy(() => import('../account/ledger'))}/>
+            <Route exact path="/blocks"                              component={React.lazy(() => import('../account/blocks'))}/>
+            <Route exact path="/followed-polls/:poll"                component={React.lazy(() => import('../account/followed-polls'))}/>
+            <Route exact path="/followed-polls"                      component={React.lazy(() => import('../account/followed-polls'))}/>
+            <Route exact path="/my-votes"                            component={React.lazy(() => import('../account/my-votes'))}/>
+            <Route exact path="/my-polls"                            component={React.lazy(() => import('../account/my-polls'))}/>
+            <Route exact path="/messenger"                           component={React.lazy(() => import('../account/messenger'))}/>
+            <Route exact path="/messenger/:chat"                     component={React.lazy(() => import('../account/messenger'))}/>
+            <Route exact path="/recent-listing"                      component={React.lazy(() => import('../account/marketplace/recent-listing'))}/>
+            <Route exact path="/currencies"                          component={React.lazy(() => import('../account/currencies'))}/>
+            <Route exact path="/marketplace/"                        component={React.lazy(() => import('../account/marketplace'))}/>
+            <Route exact path="/my-products-for-sale"                component={React.lazy(() => import('../account/my-products-for-sale'))}/>
+            <Route exact path="/my-pending-orders"                   component={React.lazy(() => import('../account/my-panding-orders'))}/>
+            <Route exact path="/my-completed-orders"                 component={React.lazy(() => import('../account/my-completed-orders'))}/>
+            <Route exact path="/marketplace/:tag"                    component={React.lazy(() => import('../account/marketplace'))}/>
+            <Route exact path="/active-polls"                        component={React.lazy(() => import('../account/active-polls'))}/>
+            <Route exact path="/active-shuffling"                    component={React.lazy(() => import('../account/active-shufflings'))}/>
+            <Route exact path="/exchange-booth/:currency"            component={React.lazy(() => import('../account/exchange-booth'))}/>
+            <Route exact path="/my-shuffling"                        component={React.lazy(() => import('../account/my-currencies'))}/>
+            <Route exact path="/account-properties"                  component={React.lazy(() => import('../account/account-properties'))}/>
+            <Route exact path="/approval-request"                    component={React.lazy(() => import('../account/approval-request'))}/>
+            <Route exact path="/approval-request-assets"             component={React.lazy(() => import('../account/approval-request-assets'))}/>
+            <Route exact path="/asset-exchange/:asset"               component={React.lazy(() => import('../account/asset-exchange'))}/>
+            <Route exact path="/asset-exchange"                      component={React.lazy(() => import('../account/asset-exchange'))}/>
+            <Route exact path="/aliases"                             component={React.lazy(() => import('../account/aliases'))}/>
+            <Route exact path="/delete-history"                      component={React.lazy(() => import('../account/delete-history'))}/>
+            <Route exact path="/funding-monitors"                    component={React.lazy(() => import('../account/funding-monitors'))}/>
+            <Route exact path="/funding-monitors/:account/:property" component={React.lazy(() => import('../account/funding-monitors-status'))}/>
+            <Route exact path="/my-assets"                           component={React.lazy(() => import('../account/my-assets'))}/>
+            <Route exact path="/my-currencies"                       component={React.lazy(() => import('../account/my-currencies'))}/>
+            <Route exact path="/open-orders"                         component={React.lazy(() => import('../account/open-orders'))}/>
+            <Route exact path="/peers"                               component={React.lazy(() => import('../account/peers'))}/>
+            <Route exact path="/purchased-products"                  component={React.lazy(() => import('../account/purchased-proucts'))}/>
             {/*,<Route exact path="/plugins" component={Plugins}/>*/}
-            <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
-            <Route exact path="/settings" component={Settings}/>
-            <Route exact path="/trade-history" component={TradeHistory}/>
-            <Route exact path="/exchange-history-currency" component={TradeHistoryCurrency}/>
-            <Route exact path="/transfer-history" component={TransferHistory}/>
-            <Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
-            <Route exact path="/finished-polls" component={Finishedpolls}/>
-            <Route exact path="/data-storage" component={DataStorage}/>
-            <Route exact path="/data-storage/:query" component={DataStorage}/>
-            <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
-            <Route exact path="/my-messages" component={MyMessages}/>
-            <Route exact path="/generators" component={Generators}/>
+            <Route exact path="/scheduled-transactions"              component={React.lazy(() => import('../account/scheduled-transactions'))}/>
+            <Route exact path="/settings"                            component={React.lazy(() => import('../account/settings'))}/>
+            <Route exact path="/trade-history"                       component={React.lazy(() => import('../account/trade-history'))}/>
+            <Route exact path="/exchange-history-currency"           component={React.lazy(() => import('../account/trade-history-currency'))}/>
+            <Route exact path="/transfer-history"                    component={React.lazy(() => import('../account/transfer-history'))}/>
+            <Route exact path="/transfer-history-currency"           component={React.lazy(() => import('../account/transfer-history-currency'))}/> 
+            <Route exact path="/finished-polls"                      component={React.lazy(() => import('../account/finished-polls'))}/> 
+            <Route exact path="/data-storage"                        component={React.lazy(() => import('../account/datastorage'))}/> 
+            <Route exact path="/data-storage/:query"                 component={React.lazy(() => import('../account/datastorage'))}/> 
+            <Route exact path="/finished-shuffling"                  component={React.lazy(() => import('../account/finished-shufflings'))}/> 
+            <Route exact path="/my-messages"                         component={React.lazy(() => import('../account/finished-shufflings'))}/> 
+            <Route exact path="/generators"                          component={React.lazy(() => import('../account/generators'))}/> 
             <Route exact path="/index.html" render={() => <Redirect to="/dashboard"/>}/>
             <Route exact path="*" render={() => <Redirect to="/dashboard"/>}/>
         </Switch>
