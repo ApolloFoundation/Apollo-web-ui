@@ -17,13 +17,17 @@
 .settings-body-modal-window {
     min-width: 550px;
 
-    @media (max-width: 1024px) {
-        flex-direction: column;
+    @media (max-width: 768px) {
 
         a {
             color: white !important;
         }
     }
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        min-width: 300px;
+    }
+    
 
     @media(min-width: 768px) {
         right: 217px;
