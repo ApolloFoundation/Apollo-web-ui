@@ -1,18 +1,20 @@
 import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
 
-const ForgingBodyModalWindow = ({forgingStatus, forgedBalanceATM, isActive}) => (
+const ForgingBodyModalWindow = ({forgingStatus, forgedBalanceATM, isActive, setBodyModalParamsAction}) => (
     <div className={classNames({
         "account-body-modal": true,
         "forging-body-modal-window": true,
         "active": isActive,
         "settings-menu": true,
         "settings-bar": true,
+        "p-0": true
     })}>
         <div className="form-group-app">
             <div className="form-body">
-                <div className="input-section">
+                <div className="input-section p-0">
 
                     <div className="image-button success">
                         <i className="zmdi zmdi-check-circle"/>
@@ -45,7 +47,7 @@ const ForgingBodyModalWindow = ({forgingStatus, forgedBalanceATM, isActive}) => 
                         forgingStatus &&
                         forgingStatus.errorCode === 8 &&
                         <a
-                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                            onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
                             className="image-button danger"
                         >
                             <i className="zmdi zmdi-help"/>
@@ -56,7 +58,7 @@ const ForgingBodyModalWindow = ({forgingStatus, forgedBalanceATM, isActive}) => 
                         forgingStatus &&
                         forgingStatus.errorCode === 4 &&
                         <a
-                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                            onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
                             className="image-button danger"
                         >
                             <i className="zmdi zmdi-help"/>
@@ -67,7 +69,7 @@ const ForgingBodyModalWindow = ({forgingStatus, forgedBalanceATM, isActive}) => 
                         forgingStatus &&
                         forgingStatus.errorCode === 3 &&
                         <a
-                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                            onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
                             className="image-button danger"
                         >
                             <i className="zmdi zmdi-help"/>
@@ -78,7 +80,7 @@ const ForgingBodyModalWindow = ({forgingStatus, forgedBalanceATM, isActive}) => 
                         forgingStatus &&
                         forgingStatus.errorCode === 2 &&
                         <a
-                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                            onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
                             className="image-button danger"
                         >
                             <i className="zmdi zmdi-help"/>
@@ -89,7 +91,7 @@ const ForgingBodyModalWindow = ({forgingStatus, forgedBalanceATM, isActive}) => 
                         forgingStatus &&
                         forgingStatus.errorCode === 1 &&
                         <a
-                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                            onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
                             className="image-button danger"
                         >
                             <i className="zmdi zmdi-help"/>
@@ -118,4 +120,16 @@ const ForgingBodyModalWindow = ({forgingStatus, forgedBalanceATM, isActive}) => 
     
 )
 
-export default ForgingBodyModalWindow;
+const mapStateToProps = state => ({
+    forgingStatus: state.account.forgingStatus,
+    publicKey: state.account.publicKey,
+    forgedBalanceATM: state.account.forgedBalanceATM,
+    moalTtype: state.modals.modalType,
+    modalData: state.modals.modalData,
+});
+
+const mapDispatchToProps = dispatch =>({
+    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForgingBodyModalWindow);

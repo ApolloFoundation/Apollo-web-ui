@@ -21,7 +21,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
 
     const {account: {account}} = getState();
 
-    console.log(account)
     const rquestParams = {
         _transactions: {
             account,

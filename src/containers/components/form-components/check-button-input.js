@@ -33,7 +33,7 @@ export const CheckboxFormInput = (props) => {
                                 />
                                 <label 
                                     htmlFor={`${idGroup}-${el.field}-field`}
-                                    className="form-check-label custom-control-label"
+                                    className="form-check-label custom-control-label pl-3"
                                 >
                                     {el.label}
                                 </label>
