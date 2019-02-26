@@ -145,7 +145,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
                 payload: activeShuffling.shufflings.length
             })
             // console.log(dashboardAliasesCount)
-            console.log(activeShuffling.shufflings.length)
             dispatch({
                 type: 'SET_DASHBOARD_POSSL',
                 payload: activePolls.polls

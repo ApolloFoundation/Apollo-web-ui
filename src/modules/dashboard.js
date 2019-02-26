@@ -45,8 +45,6 @@ export default (state = initialState, action) => {
                 dashboardTaggedData: action.payload,
             }
         case 'SET_DASHBOARD_ACTIVE_SHUFFLING': 
-            console.log(action.payload)
-
             return {
                 ...state,
                 dashboardActiveSuffling: action.payload,
