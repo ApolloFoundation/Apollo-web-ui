@@ -102,7 +102,6 @@ class App extends React.Component {
             isLoggedIn(this.props.history);
         }
         getConstantsAction();
-        this.handleModal = this.handleModal.bind(this);
         this.setState({
             isMounted: true
         })
@@ -110,37 +109,6 @@ class App extends React.Component {
 
         // Hints settings
         window.ReactHint = ReactHint;
-
-        const onDeviceReady = () => {
-            document.addEventListener("backbutton", (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const   {
-                            setBodyModalParamsAction, 
-                            modalType, 
-                            history: {
-                                push, 
-                                location: 
-                                {
-                                    pathname
-                                }
-                            }
-                        } = this.props;
-
-                if (modalType && modalType !== 'CREATE_USER') {
-                    setBodyModalParamsAction()
-                    return;
-                }
-
-                if (pathname && pathname !== '/login' && pathname !== '/') {
-                    push('/dashboard');
-                    return;
-                }
-
-            }, false );
-        }
-        document.addEventListener("deviceready", onDeviceReady, false);
     }
 
     state = {
@@ -151,18 +119,18 @@ class App extends React.Component {
         this.setState({...newState});
     }
 
-    handleModal = (e) => {
-        const parents = e.target.closest('.settings-bar') || null;
+    // handleModal = (e) => {
+    //     const parents = e.target.closest('.settings-bar') || null;
 
-        if (!parents) {
-            if (this) {
+    //     if (!parents) {
+    //         if (this) {
 
-                if (this.state.bodyModalType) {
-                    this.props.setBodyModalType(null);
-                }
-            }
-        }
-    };
+    //             if (this.state.bodyModalType) {
+    //                 this.props.setBodyModalType(null);
+    //             }
+    //         }
+    //     }
+    // };
 
     checkUrl = () => {
         const params = urlHelper.parseUrl();
@@ -312,7 +280,7 @@ class App extends React.Component {
         return (
             <div
                 className={classNames({
-                    'overflow-hidden': this.props.modalType
+                    // 'overflow-hidden': this.props.modalType
                 })}
             >
                 <NotificationContainer/>
@@ -343,7 +311,6 @@ class App extends React.Component {
                          'login-page':  isLoginPage,
                          'hide-page-body': this.props.bodyModalType
                      })}
-                     onClick={(e) => this.handleModal(e)}
                 >
                     {
                         this.props.isLocalhost &&

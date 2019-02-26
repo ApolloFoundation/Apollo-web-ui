@@ -7,11 +7,10 @@
 import React from "react";
 import {connect} from 'react-redux';
 import {Link, NavLink, withRouter} from 'react-router-dom';
-import './SiteHeader.css';
+
 import {setPageEvents} from '../../../modules/account';
 import classNames from 'classnames';
 import {setModalType, setBodyModalType, setBodyModalParamsAction} from "../../../modules/modals";
-import {logOutAction} from "../../../actions/login";
 import {Form, Text} from 'react-form';
 import PrivateTransactions from "../../modals/private-transaction";
 import {switchAccountAction} from "../../../actions/account";
@@ -24,19 +23,24 @@ import {getBlockAction} from "../../../actions/blocks";
 import {getForging} from "../../../actions/login"
 import crypto from '../../../helpers/crypto/crypto';
 
-import {
-    Accordion,
-    AccordionItem,
-    AccordionItemTitle,
-    AccordionItemBody,
-} from 'react-accessible-accordion';
-
 // Demo styles, see 'Styles' section below for some notes on use.
 import 'react-accessible-accordion/dist/fancy-example.css';
 import {NotificationManager} from "react-notifications";
 import uuid from "uuid";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import accountSettings from "../../../modules/accountSettings";
+
+import PageTitleBox from './page-title-box';
+
+import UserBox from './user-box';
+import UserBottomBox from './user-bottom-box';
+
+import CurrentAccount   from './current-account';
+import ForgingBodyModal from './forging-body-modal';
+import Settings         from './settings';
+
+import './SiteHeader.scss';
+import './BodyModals.scss';
 
 class SiteHeader extends React.Component {
     constructor(props) {
@@ -50,29 +54,19 @@ class SiteHeader extends React.Component {
             contacts: JSON.parse(localStorage.getItem('APLContacts')),
         };
 
-        this.setSearchStateToActive = this.setSearchStateToActive.bind(this);
-        this.resetSearchStateToActive = this.resetSearchStateToActive.bind(this);
-        this.showMenu = this.showMenu.bind(this);
-        this.closeMenu = this.closeMenu.bind(this);
-        this.showHideTitleForginMenu = this.showHideTitleForginMenu.bind(this);
-        this.setBodyModalType = this.setBodyModalType.bind(this);
     }
 
-    showMenu() {
+    showMenu = () => {
         this.setState({menuShow: !this.state.menuShow});
     }
 
-    closeMenu() {
+    closeMenu = () => {
         this.setState({menuShow: false});
     }
 
-    showHideTitleForginMenu() {
+    showHideTitleForginMenu = () => {
         this.setState({showTitleForginMenu: !this.state.showTitleForginMenu});
     }
-
-    getNavLinkClass = (path) => {
-        return path.some(i => window.location.pathname === i) ? 'active' : '';
-    };
 
     setSearchStateToActive = (form) => {
         clearInterval(this.searchInterval);
@@ -85,19 +79,14 @@ class SiteHeader extends React.Component {
         }
     };
 
-    resetSearchStateToActive() {
+    resetSearchStateToActive = () => {
         this.searchInterval = setTimeout(() => {
             this.setState({searching: false});
         }, 4000);
     }
 
-    componentWillReceiveProps(newState) {
+    componentWillReceiveProps = (newState) => {
         this.setState({forgingStatus: newState.forgingStatus});
-        this.getBlock()
-    }
-
-    componentDidMount() {
-        this.getBlock();
     }
 
     componentDidUpdate = () => {
@@ -114,7 +103,7 @@ class SiteHeader extends React.Component {
         }
     };
 
-    setBodyModalType(bodyModalType, e) {
+    setBodyModalType = (bodyModalType, e) => {
         const selector = document.querySelector(`.${bodyModalType}`);
         if (bodyModalType && bodyModalType !== this.state.bodyModalType) {
             this.setState({bodyModalType: bodyModalType});
@@ -126,59 +115,6 @@ class SiteHeader extends React.Component {
             this.setState({bodyModalType: null});
         }
     }
-
-    handleSearchind = async (values) => {
-        if (!this.state.isSearching) {
-            this.setState({
-                isSearching: true
-            });
-
-            const transaction = this.props.getTransactionAction({transaction: values.value});
-            const block = this.props.getBlockAction({block: values.value});
-            const account = this.props.getAccountInfoAction({account: values.value});
-            this.props.setBodyModalParamsAction(null);
-
-            Promise.all([transaction, block, account])
-                .then((data) => {
-                    const transaction = data[0];
-                    const block       = data[1];
-                    const account     = data[2];
-
-                    const modals = ['INFO_TRANSACTION', 'INFO_BLOCK', 'INFO_ACCOUNT'];
-
-                    const result = [transaction, block, account].find((el, index) => {
-                        if (el) {
-                            if (index < 2) {
-                                this.props.setBodyModalParamsAction(modals[index], el);
-                                return el
-                            } else {
-                                if (el.account) {
-                                    this.props.setBodyModalParamsAction(modals[index], el.account);
-                                    return el
-                                }
-                            }
-                        }
-                    });
-
-                    if (!result) {
-                        NotificationManager.error('Invalid search properties.', null, 5000);
-                    }
-
-                    this.setState({
-                        isSearching: false
-                    })
-
-                });
-        }
-    };
-
-    getBlock = async () => {
-        const block = await this.props.getBlockAction();
-
-        if (block) {
-            this.setState({block: block})
-        }
-    };
 
     setForgingWith2FA = (action) => {
         return {
@@ -222,862 +158,47 @@ class SiteHeader extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 <div
                     style={{
                         backgroundColor: this.props.settings.header !== '#F5F5F5' ? this.props.settings.header : '#F5F5F5'
                     }}
                     className="page-header"
-                    onMouseDown={this.handleModal}
+                    onClick={this.handleModal}
                 >
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-6">
-                                <div className="page-title-box">
-                                    <div className="page-title-box transactions-title">
-                                        <h1 className="title">{this.props.pageTitle}</h1>
-                                        {
-                                            this.props.children &&
-                                            this.props.children
-                                        }
-                                        {
-                                            this.props.dashboardPage &&
-                                            <React.Fragment>
-                                                <div 
-                                                    className={classNames({
-                                                        "general": true,
-                                                        "open-settings": true
-                                                    })}
-                                                >
-                                                    <div
-                                                        onClick={(e) => this.setBodyModalType('FORGING_BODY_MODAL', e)}
-                                                        className={classNames({
-                                                            "underscore": true,
-                                                            "btn": true,
-                                                            "stop": true,
-                                                            "icon-button": true,
-                                                            "filters": true,
-                                                            "FORGING_BODY_MODAL": true,
-                                                            "active": this.state.bodyModalType === "FORGING_BODY_MODAL",
-                                                            "revert-content": this.state.bodyModalType === "FORGING_BODY_MODAL",
-                                                            "primary": true,
-                                                            "transparent": true,
-                                                        })}
-                                                    >
-                                                        <i className="to-revert stop zmdi zmdi-chevron-down"/>
-                                                    </div>
-                                                    <div className={classNames({
-                                                        "settings-bar": true,
-                                                        "active": this.state.bodyModalType === "FORGING_BODY_MODAL",
-                                                        "no-padding": true
-                                                    })}>
-                                                        <div className="form-group-app">
-                                                            <div className="form-body">
-                                                                <div className="input-section">
-
-                                                                    <div className="image-button success">
-                                                                        <i className="zmdi zmdi-check-circle"/>
-                                                                        <label>Connected</label>
-                                                                    </div>
-
-                                                                    {
-                                                                        this.state.forgingStatus &&
-                                                                        this.state.forgingStatus.errorCode === 5 &&
-                                                                        <a
-                                                                            onClick={() => this.setForging({requestType: 'startForging'})}
-                                                                            className="image-button  danger"
-                                                                        >
-                                                                            <i className="zmdi zmdi-close-circle"/>
-                                                                            <label>Not forging</label>
-                                                                        </a>
-                                                                    }
-                                                                    {
-                                                                        this.state.forgingStatus &&
-                                                                        !this.state.forgingStatus.errorCode &&
-                                                                        <a
-                                                                            onClick={() => this.setForging({requestType: 'stopForging'})}
-                                                                            className="image-button  success"
-                                                                        >
-                                                                            <i className="zmdi zmdi-check-circle"/>
-                                                                            <label>Forging</label>
-                                                                        </a>
-                                                                    }
-                                                                    {
-                                                                        this.state.forgingStatus &&
-                                                                        this.state.forgingStatus.errorCode === 8 &&
-                                                                        <a
-                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                                                            className="image-button danger"
-                                                                        >
-                                                                            <i className="zmdi zmdi-help"/>
-                                                                            <label>Unknown forging status</label>
-                                                                        </a>
-                                                                    }
-                                                                    {
-                                                                        this.state.forgingStatus &&
-                                                                        this.state.forgingStatus.errorCode === 4 &&
-                                                                        <a
-                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                                                            className="image-button danger"
-                                                                        >
-                                                                            <i className="zmdi zmdi-help"/>
-                                                                            <label>Unknown forging status</label>
-                                                                        </a>
-                                                                    }
-                                                                    {
-                                                                        this.state.forgingStatus &&
-                                                                        this.state.forgingStatus.errorCode === 3 &&
-                                                                        <a
-                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                                                            className="image-button danger"
-                                                                        >
-                                                                            <i className="zmdi zmdi-help"/>
-                                                                            <label>Unknown forging status</label>
-                                                                        </a>
-                                                                    }
-                                                                    {
-                                                                        this.state.forgingStatus &&
-                                                                        this.state.forgingStatus.errorCode === 2 &&
-                                                                        <a
-                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                                                            className="image-button danger"
-                                                                        >
-                                                                            <i className="zmdi zmdi-help"/>
-                                                                            <label>Unknown forging status</label>
-                                                                        </a>
-                                                                    }
-                                                                    {
-                                                                        this.state.forgingStatus &&
-                                                                        this.state.forgingStatus.errorCode === 1 &&
-                                                                        <a
-                                                                            onClick={() => this.props.setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                                                            className="image-button danger"
-                                                                        >
-                                                                            <i className="zmdi zmdi-help"/>
-                                                                            <label>Unknown forging status</label>
-                                                                        </a>
-                                                                    }
-
-
-                                                                    <a className="mb-2">
-                                                                        {
-                                                                            this.state.block &&
-                                                                            <label>Height: {this.state.block.height}</label>
-                                                                        }
-                                                                    </a>
-                                                                    <p>
-                                                                        {
-                                                                            this.props.forgedBalanceATM &&
-                                                                            <label>Forged balance: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}&nbsp;APL</label>
-                                                                        }
-                                                                    </p>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </React.Fragment>
-                                        }
-
-                                        <div className="breadcrumbs">
-                                            <a>Apollo Wallet /</a>&nbsp;
-                                            <strong>
-                                                <a>{this.props.pageTitle}</a>
-                                            </strong>
-                                        </div>
-                                        <div
-                                            className={`form-group-app mobile-form-group-app ${this.state.showTitleForginMenu ? "show" : ""}`}>
-                                            <div className="form-body">
-                                                <div className="input-section">
-                                                    <div className="image-button success">
-                                                        <i className="zmdi zmdi-check-circle"/>
-                                                        <label>Connected</label>
-                                                    </div>
-                                                    <a
-                                                        to="/messenger"
-                                                        className="image-button  danger"
-                                                    >
-                                                        <i className="zmdi zmdi-close-circle"/>
-                                                        <label>Not forging</label>
-                                                    </a>
-                                                    <a
-                                                        to="/messenger"
-                                                        className="image-button"
-                                                    >
-                                                        <i className="zmdi"/>
-                                                        {
-                                                            this.state.block &&
-                                                            <label>Height: {this.state.block.height}</label>
-                                                        }
-                                                    </a>
-                                                    <a
-                                                        onClick={() => this.props.setBodyModalParamsAction('ACCOUNT_DETAILS')}
-                                                        className="image-button"
-                                                    >
-                                                        <i className="zmdi"/>
-                                                        {
-                                                            this.props.forgedBalanceATM &&
-                                                            <label>Apollo: {(this.props.forgedBalanceATM / 100000000).toLocaleString('en')}</label>
-                                                        }
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <PageTitleBox 
+                                    pageTitle={this.props.pageTitle} 
+                                    children={this.props.children} 
+                                    dashboardPage={this.props.dashboardPage}
+                                    setBodyModalType={this.setBodyModalType}
+                                />
                             </div>
                             <div className="col-md-6">
-                                <div className={classNames({
-                                    "user-search-box": true,
-                                    "searching": this.state.searching
-                                })}>
-                                    {/*TODO : fix site header search animation*/}
-                                    <Link className="logo" to={"/"}><img src="https://apollowallet.org/apollo-logo.svg"/></Link>
-                                    <div className={`burger-mobile ${this.state.menuShow ? "menu-open" : ""}`}
-                                         onClick={this.showMenu}>
-                                        <div className="line"/>
-                                    </div>
-                                    <div className={`mobile-nav ${this.state.menuShow ? "show" : ""}`}>
-                                        <Accordion>
-                                            <AccordionItem>
-                                                <div className={`mobile-nav-item`}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/dashboard",
-                                                            "/ledger",
-                                                            "/account-properties",
-                                                            "/transactions",
-                                                            "/approval-request"])
-                                                            }`}>
-                                                        <i className="zmdi zmdi-view-dashboard"/>
-                                                        Dashboard
-                                                        <span className="arrow"/>
-                                                    </AccordionItemTitle>
-
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/dashboard">Dashboard</NavLink>
-                                                            <NavLink exact={true} activeClassName="active" to="/ledger">Account
-                                                                ledger</NavLink>
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/account-properties">Account
-                                                                properties</NavLink>
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/transactions">My
-                                                                transactions</NavLink>
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/approval-request">Approval
-                                                                requests</NavLink>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-
-                                            </AccordionItem>
-                                            <AccordionItem>
-                                                <div className={"mobile-nav-item"}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/trade-history",
-                                                            "/transfer-history",
-                                                            "/delete-history",
-                                                            "/asset-exchange",
-                                                            "/my-assets",
-                                                            "/open-orders",
-                                                            "approval-request"])}`}>
-                                                        <i className="zmdi zmdi-case"/>Asset system<span
-                                                        className="arrow"/>
-                                                    </AccordionItemTitle>
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            <NavLink exact={true} activeClassName="active" to="/asset-exchange">
-                                                                Asset exchange
-                                                            </NavLink>
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/trade-history">Trade history</NavLink>
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/transfer-history">Transfer history</NavLink>
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/delete-history">Delete history</NavLink>
-                                                            <NavLink exact={true} activeClassName="active" to="/my-assets">My
-                                                                assets</NavLink>
-                                                            <NavLink exact={true} activeClassName="active"
-                                                                     to="/open-orders">Open orders</NavLink>
-                                                            {/* <NavLink exact={true} activeClassName="active"
-                                                                     to="approval-request">Approval request</NavLink> */}
-
-                                                            <a 
-                                                                id='open-issue-asset-mobile'
-                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_ASSET')}
-                                                            >
-                                                                Issue assets
-                                                            </a>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-
-                                            </AccordionItem>
-                                            <AccordionItem>
-                                                <div className={"mobile-nav-item"}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass([
-                                                            "/currencies",
-                                                            "/my-currencies",
-                                                            "/transfer-history-currency",
-                                                            "/exchange-history-currency"])}`}>
-                                                        <i className="zmdi zmdi-money"/>Currency system<span
-                                                        className="arrow"/>
-                                                    </AccordionItemTitle>
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            <NavLink to="/currencies">Currencies</NavLink>
-                                                            <NavLink to="/my-currencies">My Currencies</NavLink>
-                                                            <NavLink to="/exchange-history-currency">Exchange history</NavLink>
-                                                            <NavLink to="/transfer-history-currency">Transfer history</NavLink>
-                                                            <a 
-                                                                id='open-issue-currency-mobile'
-                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_CURRENCIES')}
-                                                            >
-                                                                Issue Currencies
-                                                            </a>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-
-                                            </AccordionItem>
-                                            <AccordionItem>
-                                                <div className={"mobile-nav-item"}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/active-polls",
-                                                            "/followed-polls",
-                                                            "/my-votes",
-                                                            "/my-polls"])}`}>
-                                                        <i className="zmdi zmdi-star"/>Voting system
-                                                        <span className="arrow"/>
-                                                    </AccordionItemTitle>
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            <NavLink to="/active-polls">Active polls</NavLink>
-                                                            <NavLink to="/followed-polls">Followed polls</NavLink>
-                                                            <NavLink to="/my-votes">My votes</NavLink>
-                                                            <NavLink to="/my-polls">My polls</NavLink>
-
-                                                            <a 
-                                                                id='open-create-poll-mobile'
-                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_POLL')}
-                                                            >
-                                                                Create poll
-                                                            </a>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-
-                                            </AccordionItem>
-                                            <AccordionItem>
-                                                <div className={"mobile-nav-item"}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/data-storage"])}`}>
-                                                        <i className="zmdi zmdi-dns"/>Data storage<span className="arrow"/>
-                                                    </AccordionItemTitle>
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            <NavLink to="/data-storage">Search</NavLink>
-
-                                                            <a 
-                                                                id='open-file-upload-mobile'
-                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_FILE_UPLOAD')}
-                                                            >
-                                                                File upload
-                                                            </a>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-
-                                            </AccordionItem>
-                                            <AccordionItem>
-                                                <div className={"mobile-nav-item"}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/my-products-for-sale",
-                                                            "/my-pending-orders",
-                                                            "/recent-listing",
-                                                            "/my-completed-orders"])}`}>
-                                                        <i className="zmdi zmdi-label"/>Marketplace<span className="arrow"/>
-                                                    </AccordionItemTitle>
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            {window.innerHeight < 768 && <NavLink to="/marketplace">Marketplace</NavLink>}
-
-                                                            <NavLink to="/purchased-products">Purchased Products</NavLink>
-                                                            <NavLink to="/my-products-for-sale">My products for sale</NavLink>
-                                                            <NavLink to="/my-pending-orders">My pending orders</NavLink>
-                                                            <NavLink to="/my-completed-orders">My completed orders</NavLink>
-                                                            <a
-                                                                id='open-list-product-for-sale-mobile'
-                                                                onClick={this.props.setModalType.bind(this, 'LIST_PRODUCT_FOR_SALE')}
-                                                            >
-                                                                List product for sale
-                                                            </a>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-
-                                            </AccordionItem>
-                                            <AccordionItem>
-                                                <div className={"mobile-nav-item"}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass([
-                                                            "/active-shuffling",
-                                                            "/finished-shuffling",
-                                                            "/my-shuffling"])}`}>
-                                                        <i className="zmdi zmdi-circle-o"/>Coin shuffling
-                                                        <span className="arrow"/>
-                                                    </AccordionItemTitle>
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            <NavLink to="/active-shuffling">Active shuffling</NavLink>
-                                                            <NavLink to="/finished-shuffling">Finished shuffling</NavLink>
-                                                            <NavLink to="/my-shuffling">My shuffling</NavLink>
-                                                            <a 
-                                                                id='open-create-shuffling-mobile'
-                                                                onClick={this.props.setModalType.bind(this, 'ISSUE_CREATE_SHUFFLING')}
-                                                            >
-                                                                Create shuffling
-                                                            </a>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-
-                                            </AccordionItem>
-                                            <AccordionItem>
-                                                <div className={"mobile-nav-item"}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/messenger", "/my-messages"])}`}>
-                                                        <i className="zmdi zmdi-comments"/>Messages<span className="arrow"/>
-                                                    </AccordionItemTitle>
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            <NavLink exact={true} activeClassName="active" to="/my-messages">My messages</NavLink>
-                                                            <NavLink exact={true} activeClassName="active" to="/messenger">Chat</NavLink>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-
-                                            </AccordionItem>
-                                        </Accordion>
-
-                                        <NavLink exact={true} activeClassName="active" to="/aliases"
-                                                 className={"mobile-nav-item"}>
-                                            <p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
-                                        </NavLink>
-                                        <div className="btn-block">
-                                            <div className="close-menu-btn" onClick={this.closeMenu}>
-                                                Close
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div
-                                        className={classNames({
-                                            'search-bar': true,
-                                        })}
-                                    >
-
-                                        <Form
-                                            onSubmit={values => this.handleSearchind(values)}
-                                            render={({submitForm, getFormState}) => (
-                                                <form onSubmit={submitForm}>
-                                                    <Text
-                                                        field={'value'}
-                                                        onMouseOut={this.resetSearchStateToActive}
-                                                        onMouseDown={this.setSearchStateToActive}
-                                                        onMouseOver={this.setSearchStateToActive}
-                                                        className={"searching-window"}
-                                                        type="text"
-                                                        placeholder="Enter Transaction/Account ID/Block ID"
-                                                    />
-
-
-                                                    <div className="user-account-actions">
-                                                        <CopyToClipboard
-                                                            text={this.props.accountRS}
-                                                            onCopy={() => {
-                                                                NotificationManager.success('The account has been copied to clipboard.')
-                                                            }}
-                                                        >
-                                                            <a
-                                                                className="user-account-rs"
-                                                            >
-                                                                {this.props.accountRS}
-                                                            </a>
-                                                        </CopyToClipboard>
-
-                                                        <a
-                                                            id={'open-send-apollo-modal-window'}
-                                                            className="user-account-action"
-                                                            onClick={this.props.setModalType.bind(this, 'SEND_APOLLO')}
-                                                        >
-                                                            <i className="zmdi zmdi-balance-wallet"/>
-                                                        </a>
-                                                        <div className={classNames({
-                                                            "settings": true,
-                                                            "open-settings": true,
-                                                            "user-account-action": true
-                                                        })}>
-                                                            <div
-                                                                onClick={(e) => this.setBodyModalType('SETTINGS_BODY_MODAL', e)}
-                                                                style={{height: 32}}
-                                                                className={classNames({
-                                                                    "underscore": true,
-                                                                    "btn": true,
-                                                                    "stop": true,
-                                                                    "icon-button": true,
-                                                                    "filters": true,
-                                                                    "SETTINGS_BODY_MODAL": true,
-                                                                    "active": this.state.bodyModalType === "SETTINGS_BODY_MODAL",
-                                                                    "primary": true,
-                                                                    "transparent": true,
-                                                                })}
-                                                            >
-                                                                <i className="zmdi stop zmdi-settings"/>
-                                                            </div>
-                                                            <div className={classNames({
-                                                                "settings-bar": true,
-                                                                "settings-menu": true,
-                                                                "active": this.state.bodyModalType=== 'SETTINGS_BODY_MODAL'
-                                                            })}>
-                                                                <div className="options-col">
-                                                                    <ul>
-                                                                        <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/blocks">Blocks</NavLink></li>
-                                                                        <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/peers">Peers</NavLink></li>
-                                                                        <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/generators">Generators</NavLink></li>
-                                                                        {
-                                                                            this.props.isLocalhost &&
-                                                                            <React.Fragment>
-                                                                                <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/funding-monitors">Monitors</NavLink></li>
-                                                                                <li><NavLink activeClass={'active'} onClick={() => this.setState({bodyModalType: null})} className="option" to="/scheduled-transactions">Scheduled transactions</NavLink></li>
-                                                                            </React.Fragment>
-                                                                        }
-                                                                    </ul>
-                                                                </div>
-                                                                <div className="options-col">
-                                                                    <ul>
-                                                                        <li><a
-                                                                            onClick={() => {
-                                                                                this.setState({bodyModalType: null});
-                                                                                return this.props.setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
-                                                                            }}
-                                                                            className="option">Generate token</a></li>
-                                                                        <li><a
-                                                                            onClick={() => {
-                                                                                this.setState({bodyModalType: null});
-                                                                                return this.props.setBodyModalParamsAction('GENERATE_HALLMARK');
-                                                                            }}
-                                                                            className="option">Generate hallmark</a></li>
-                                                                        <li><a
-                                                                            onClick={() => {
-                                                                                this.setState({bodyModalType: null});
-                                                                                return this.props.setBodyModalParamsAction('CALCULATE_CACHE');
-                                                                            }}
-                                                                            className="option">Calculate hash</a></li>
-                                                                        {<li><a
-                                                                        onClick={() => {
-                                                                            this.props.setBodyModalType(null);
-                                                                            return this.props.setBodyModalParamsAction('TRANSACTIONS_OPERATIONS');
-                                                                        }}
-                                                                        className="option">Transaction operations</a></li>}
-                                                                    </ul>
-
-                                                                </div>
-                                                                <div className="options-col">
-                                                                    <ul>
-                                                                        <li>
-                                                                            {/*<a*/}
-                                                                                {/*onClick={() => {*/}
-                                                                                    {/*this.setState({bodyModalType: null});*/}
-                                                                                    {/*return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');*/}
-                                                                                {/*}}*/}
-                                                                                {/*className="option"*/}
-                                                                            {/*>*/}
-                                                                                {/*Device settings*/}
-                                                                            {/*</a>*/}
-
-                                                                        </li>
-                                                                        <li className={'hide-media'}>
-                                                                            <a
-                                                                                href='/test'
-                                                                                className="option"
-                                                                            >
-                                                                                API Console
-                                                                            </a>
-                                                                        </li>
-                                                                        
-                                                                        <li>
-                                                                            <NavLink
-                                                                                activeClass={'active'}
-                                                                                to="/settings"
-                                                                                className="option"
-                                                                            >
-                                                                                Settings
-                                                                            </NavLink>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a
-                                                                                onClick={() => {
-                                                                                    this.setState({bodyModalType: null});
-                                                                                    return this.props.setBodyModalParamsAction('EXPORT_KEY_SEED');
-                                                                                }}
-                                                                                className="option"
-                                                                            >
-                                                                                Export Secret Key
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <a
-                                                            onClick={() => this.props.setModalType('GENERAL_INFO')}
-                                                            className="user-account-action user-account-action--help"
-                                                        >
-                                                            <i className="zmdi zmdi-help"/>
-                                                        </a>
-                                                        <a
-                                                            className="user-account-action search-button"
-                                                            onClick={() => this.setSearchStateToActive(getFormState().values)}
-                                                        >
-                                                            <i className="zmdi zmdi-search"/>
-                                                        </a>
-                                                    </div>
-                                                </form>
-                                            )}
-                                        />
-
-                                    </div>
-                                    <div className="user-box stop"
-                                         onClick={(e) => this.setBodyModalType('ACCOUNT_BODY_MODAL', e)}
-                                    >
-                                        <div className="user-name">
-                                            <a
-                                                style={{
-                                                    height: 25,
-                                                    width: 25,
-                                                    margin: "0 15px 0 0"
-                                                }}
-                                                className={classNames({
-                                                    "underscore": true,
-                                                    "account": true,
-                                                    "btn": true,
-                                                    "stop": true,
-                                                    "icon-button": true,
-                                                    "filters": true,
-                                                    "ACCOUNT_BODY_MODAL": true,
-                                                    "primary": true,
-                                                    "active": this.state.bodyModalType=== "ACCOUNT_BODY_MODAL",
-                                                    "revert-content ": this.state.bodyModalType=== "ACCOUNT_BODY_MODAL",
-                                                    "transparent": true,
-                                                    "open-settings": true,
-                                                    "icon-button ": true,
-                                                    "user-account-action": true
-                                                })}
-                                            >
-                                                <i className="to-revert stop zmdi zmdi-chevron-down"/>
-                                            </a>
-                                            <a className={"name stop"}>{this.props.name}</a>
-
-                                        </div>
-                                        <div className="user-avatar stop">
-                                            <i className="zmdi stop zmdi-account"></i>
-                                        </div>
-                                        <div
-                                            className={classNames({
-                                                "settings-bar": true,
-                                                "active": this.state.bodyModalType=== 'ACCOUNT_BODY_MODAL',
-                                                "no-padding": true,
-                                                "account-body-modal": true
-                                            })}>
-                                            <div className="form-group-app">
-                                                <div className="form-title">
-                                                    <p>Current account</p>
-                                                </div>
-                                                {
-                                                    !this.props.publicKey &&
-                                                    <div className="form-sub-title">
-                                                        Not verified profile
-                                                        <CopyToClipboard
-                                                            text={this.props.accountRS}
-                                                            onCopy={() => {
-                                                                NotificationManager.success('The account has been copied to clipboard.')
-                                                            }}
-                                                        >
-                                                            <a
-                                                                className="user-account-rs blue-text"
-                                                            >
-                                                                {this.props.accountRS}
-                                                            </a>
-                                                        </CopyToClipboard>
-                                                    </div>
-                                                }
-                                                {
-                                                    this.props.publicKey &&
-                                                    <div className="form-sub-title">
-                                                        Verified profile
-                                                        <CopyToClipboard
-                                                            text={this.props.accountRS}
-                                                            onCopy={() => {
-                                                                NotificationManager.success('The account has been copied to clipboard.')
-                                                            }}
-                                                        >
-                                                            <a
-                                                                className="user-account-rs blue-text"
-                                                            >
-                                                                {this.props.accountRS}
-                                                            </a>
-                                                        </CopyToClipboard>
-                                                    </div>
-                                                }
-                                                <div className="form-body">
-                                                    <div className="input-section">
-                                                        <div className="row" style={{position: 'relative'}}>
-                                                            <div className="col-xc-12 col-md-6">
-                                                                <a
-                                                                    onClick={() => this.props.setBodyModalParamsAction('SET_ACCOUNT_INFO', {})}
-                                                                    className="btn static blue block"
-                                                                >
-                                                                    Set account info
-                                                                </a>
-                                                            </div>
-                                                            <div className="col-xc-12 col-md-6">
-                                                                <a
-                                                                    onClick={() => {
-
-                                                                        if (this.state.contacts && this.state.contacts.length) {
-                                                                            this.setState({isContacts: !this.state.isContacts})
-                                                                        } else {
-                                                                            NotificationManager.info('You have an empty contacts list.', null, 5000)
-                                                                        }
-                                                                    }
-                                                                    }
-                                                                    className="btn static block"
-                                                                >
-                                                                    Switch account
-                                                                </a>
-                                                            </div>
-                                                            <div
-                                                                className={classNames({
-                                                                    'contacts-list': true,
-                                                                    'active': this.state.isContacts
-                                                                })}
-                                                                style={{
-                                                                    padding: 0,
-                                                                    margin: 5
-                                                                }}
-                                                            >
-                                                                <ul>
-                                                                    {
-                                                                        this.state.contacts &&
-                                                                        this.state.contacts.length &&
-                                                                        this.state.contacts.map((el, index) => {
-                                                                            return (
-                                                                                <li key={uuid()}>
-                                                                                    <a
-                                                                                        onClick={() => this.props.switchAccountAction(el.accountRS, this.props.history)}
-                                                                                    >
-                                                                                        {el.name}
-                                                                                    </a>
-                                                                                </li>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="input-section">
-                                                        <a
-                                                            style={{
-                                                                display: 'block'
-                                                            }}
-                                                            onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', this.props.account)}
-                                                            className="image-button"
-                                                        >
-                                                            <i className="zmdi zmdi-account"/>
-                                                            <label style={{cursor: 'pointer'}}>Details</label>
-                                                        </a>
-                                                        <NavLink
-                                                            activeClassName={'active'}
-                                                            to="/messenger"
-                                                            className="image-button"
-                                                        >
-                                                            <i className="zmdi zmdi-comments"/>
-                                                            <label style={{cursor: 'pointer'}}>Messages</label>
-                                                        </NavLink>
-
-                                                    </div>
-                                                    <div className="input-section">
-                                                        <NavLink
-                                                            activeClassName={'active'}
-                                                            to="/settings"
-                                                            className="image-button"
-                                                        >
-                                                            <i className="zmdi zmdi-settings"/>
-                                                            <label style={{cursor: 'pointer'}}>Account settings</label>
-                                                        </NavLink>
-                                                    </div>
-                                                    <div className="input-section">
-                                                        <div
-                                                            onClick={() => logOutAction('simpleLogOut', this.props.history)}
-                                                            className="image-button">
-                                                            <i className="zmdi zmdi-power"/>
-                                                            <label style={{cursor: 'pointer'}}>Logout</label>
-                                                        </div>
-                                                        <div
-                                                            onClick={() => logOutAction('logOutStopForging', this.props.history)}
-                                                            className="image-button"
-                                                        >
-                                                            <i className="zmdi zmdi-pause-circle"/>
-                                                            <label style={{cursor: 'pointer'}}>Logout and stop
-                                                                forging</label>
-                                                        </div>
-                                                        <div
-                                                            onClick={() => logOutAction('logoutClearUserData', this.props.history)}
-                                                            className="image-button"
-                                                        >
-                                                            <i className="zmdi zmdi-close-circle"/>
-                                                            <label style={{cursor: 'pointer'}}>Logout and clear user
-                                                                data</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="network-overview">
-                                    {
-                                        window.innerWidth &&
-                                        this.props.children &&
-                                        <div className="media-page-actions">
-                                            {this.props.children}
-                                        </div>
-                                    }
-                                    {
-                                        this.props.appState &&
-                                        <a
-                                            className="mt-3"
-                                            onClick={() => this.props.setBodyModalParamsAction('INFO_NETWORK')}
-                                        >
-                                            {this.props.appState.chainName}
-                                        </a>
-                                    }
-                                </div>
+                                <UserBox 
+                                    showMenu={this.showMenu}
+                                    setBodyModalType={this.setBodyModalType}
+                                    menuShow={this.state.menuShow}
+                                    closeMenu={this.closeMenu}
+                                />
+                                <UserBottomBox/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className={`overflow-menu ${!this.state.bodyModalType && 'hidden'}`}
-                     onClick={() => this.setState({bodyModalType: null})}/>
-            </div>
+                <div 
+                    className={`overflow-menu ${this.state.bodyModalType ? '' : 'hidden'}`}
+                    onClick={this.handleModal}
+
+                    //  onClick={() => this.setState({bodyModalType: null})}
+                >
+                    <CurrentAccount   isActive={this.state.bodyModalType === "ACCOUNT_BODY_MODAL"}/>
+                    <ForgingBodyModal isActive={this.state.bodyModalType === "FORGING_BODY_MODAL"}/>
+                    <Settings         isActive={this.state.bodyModalType === "SETTINGS_BODY_MODAL"}/>
+                </div>
+            </>
         );
     }
 }
@@ -1085,7 +206,6 @@ class SiteHeader extends React.Component {
 const mapStateToProps = state => ({
     account: state.account.account,
     accountRS: state.account.accountRS,
-    name: state.account.name,
     forgingStatus: state.account.forgingStatus,
     publicKey: state.account.publicKey,
     forgedBalanceATM: state.account.forgedBalanceATM,

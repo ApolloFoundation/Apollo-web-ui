@@ -1,0 +1,34 @@
+.forging-body-modal-window {
+    min-width: 200px;
+
+    @media(min-width: 768px) {
+        left: 74px;
+    }
+}
+
+.account-body-modal-window {
+    min-width: 300px;
+
+    @media(min-width: 768px) {
+        right: 30px;
+    }
+}
+
+.settings-body-modal-window {
+    min-width: 550px;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+
+        a {
+            color: white !important;
+        }
+    }
+
+    @media(min-width: 768px) {
+        right: 217px;
+    }
+    @media(min-width: 1024px) {
+        right: 377px;
+    }   
+}
