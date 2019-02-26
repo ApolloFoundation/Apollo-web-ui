@@ -40,7 +40,7 @@ class ActivePolls extends Component {
                     }
                     {
                         !!dashboardActivePolls &&
-                        dashboardActivePolls === 0 &&
+                        !dashboardActivePolls.lenght &&
                         <p
                             style={{
                                 fontSize:13,

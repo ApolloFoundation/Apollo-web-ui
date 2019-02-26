@@ -49,7 +49,6 @@ class AssetsDistribution extends Component {
                             }
                         })
                     }
-                    {console.log(dashboardAssets)}
                     {
                         !!dashboardAssets &&
                         dashboardAssets.count === 0 &&
