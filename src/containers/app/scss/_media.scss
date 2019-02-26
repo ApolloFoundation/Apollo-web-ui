@@ -2,7 +2,6 @@
   .page-header {
     left: 220px;
     right: 0;
-    width: calc(100% - 220px);
 
     .user-search-box {
       justify-content: flex-end;
@@ -49,7 +48,6 @@
       .page-header {
         left: 100px;
         right: 0;
-        width: calc(100% - 100px);
       }
       .page-body {
         &:after {

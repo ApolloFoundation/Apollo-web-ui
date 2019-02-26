@@ -8,9 +8,13 @@
 	padding: 27px 40px 26px 40px;
 	width: calc(100% - 220px);
 	top: 0;
+
 	@media (max-width: 1023px) {
 		padding-top: 30px;
 		padding-bottom: 30px;
+	}
+	@media (max-width: 1000px) {
+		width: auto;
 	}
 	@media (max-width: 760px) {
 		position: static;
@@ -432,46 +436,48 @@
 					}
 				}
 			}
-			.settings-bar {
-				position: absolute;
-				top: calc(100% + 26px);
-				right: 0;
-				display: flex;
-				justify-content: space-around;
-				background: #fff;
-				padding: 35px 0;
-				box-sizing: border-box;
-				border-bottom-right-radius: 6px;
-				border-bottom-left-radius: 6px;
-				width: 320px;
-				visibility: hidden;
-				opacity: 0;
-				transform: translateY(50px);
-				transition: all 0.3s ease-in-out;
-				z-index: 4;
-				overflow: auto;
-				max-height: calc(100vh - 120px);
-				@media (max-width: 1024px) {
-					top: calc(100% + 26px);
-				}
-				@media (max-width: 760px) {
-					top: 50px;
-				}
-				
-				&.active {
-					opacity: 1;
-					transform: none;
-					visibility: visible;
-				}
-				.options-col {
-					width: 100%;
-					border-right: 1px solid #E6E6E6;
-					
-					&:last-child {
-						border: 0;
-					}
-				}
-			}
+			
+		}
+	}
+}
+
+.settings-bar {
+	position: absolute;
+	display: flex;
+	justify-content: space-around;
+	background: #fff;
+	padding: 35px 0;
+	box-sizing: border-box;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(50px);
+	transition: all 0.3s ease-in-out;
+	z-index: 4;
+	overflow: auto;
+	max-height: calc(100vh - 120px);
+	top: 0;
+	
+	&.active {
+		opacity: 1;
+		transform: none;
+		visibility: visible;
+	}
+	.options-col {
+		width: 100%;
+		border-right: 1px solid #E6E6E6;
+
+		a {
+			color: #333;
+			font-size: 12px;
+			line-height: 14px;
+			padding: 0 35px;
+			margin: 10px 0;
+		}
+		
+		&:last-child {
+			border: 0;
 		}
 	}
 }
@@ -971,7 +977,19 @@
 	}
 }
 
+
 .account-body-modal {
+	position: absolute;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	margin-top: 132px;
+	transition: all 0.3s ease-in-out; 
+
+	.form-group-app {
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
+
 	@media (max-width: 760px) {
 		background-color: #333333 !important;
 		height: calc(100vh - 50px);
@@ -997,6 +1015,7 @@
 		}
 	}
 	&.active {
+
 	}
 	.image-button {
 		@media (max-width: 760px) {
@@ -1009,6 +1028,8 @@
 		}
 	}	
 }
+
+
 
 .network-overview {
 	text-align: right;

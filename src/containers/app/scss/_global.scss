@@ -142,7 +142,6 @@ html {
 							height: 100%;
 							
 							.page-body {
-								padding-top: 135px;
 								height: 100%;
 							}
 						}
@@ -1236,6 +1235,8 @@ input[type="file"] {
 // card
 
 .page-body {
+	padding-top: 132px;
+
 	&.white-space {
 		background-color: #fff;
 		border-radius: 3px;
@@ -1632,17 +1633,32 @@ table {
 }
 
 .overflow-menu {
-	position: absolute;
-	width: 100%;
-	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 220px;
+	right: 0;
+	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.6);
 	z-index: 1;
 	transition: all 0.3s ease-in-out;
 	opacity: 1;
+	visibility: visible;
 	animation: pulse 0.3s 1;
+
 	&.hidden {
 		opacity: 0;
-		display: none;
+		visibility: hidden;
+	}
+
+	@media (max-width: 1000px) {
+		left: 100px;
+	}
+	@media (max-width: 760px) {
+		left: 0;
+
+		.account-body-modal {
+			margin-top: 50px;
+		}
 	}
 }
 
