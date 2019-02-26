@@ -175,7 +175,6 @@ class UserBox extends Component {
                          onClick={(e) => setBodyModalType('ACCOUNT_BODY_MODAL', e)}
                     >
                         <CurrentAccountIcon />
-                        
                     </div>
                 </div>   
             )
