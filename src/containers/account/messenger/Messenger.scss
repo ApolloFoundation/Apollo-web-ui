@@ -65,20 +65,18 @@
 	
 	.chatting-box {
 		display: flex;
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
 		flex-direction: column-reverse;
 		justify-content: flex-start;
-		height: 100%;
 		overflow-y: auto;
 		padding: 20px 30px;
-		min-height: calc(100ch - 235px);
+		height: 100%;
 
 		.message-box {
 			display: block;
 			width: 100%;
-			//&:last-child {
-			//	padding-top: 20px;
-			//}
+			height: auto;
+			
 			&.incoming {
 				text-align: left;
 				.message {

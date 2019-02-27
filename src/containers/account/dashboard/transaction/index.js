@@ -25,8 +25,9 @@ const mapDispatchToProps = dispatch => ({
 
 const Transaction = (props) => (
     <a
-        className="transaction-item" style={{position: 'relative'}}
-        onClick={async () => props.getTransaction(props.transaction)}
+        className="transaction-item" 
+        style={{position: 'relative'}}
+        onClick={async () => props.setBodyModalParamsAction('INFO_TRANSACTION', props.transaction)}
     >
         <div className="transaction-box">
             <div className="transaction-date">

@@ -102,7 +102,6 @@ class App extends React.Component {
             isLoggedIn(this.props.history);
         }
         getConstantsAction();
-        this.handleModal = this.handleModal.bind(this);
         this.setState({
             isMounted: true
         })
@@ -110,37 +109,6 @@ class App extends React.Component {
 
         // Hints settings
         window.ReactHint = ReactHint;
-
-        const onDeviceReady = () => {
-            document.addEventListener("backbutton", (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const   {
-                            setBodyModalParamsAction, 
-                            modalType, 
-                            history: {
-                                push, 
-                                location: 
-                                {
-                                    pathname
-                                }
-                            }
-                        } = this.props;
-
-                if (modalType && modalType !== 'CREATE_USER') {
-                    setBodyModalParamsAction()
-                    return;
-                }
-
-                if (pathname && pathname !== '/login' && pathname !== '/') {
-                    push('/dashboard');
-                    return;
-                }
-
-            }, false );
-        }
-        document.addEventListener("deviceready", onDeviceReady, false);
     }
 
     state = {
@@ -151,18 +119,18 @@ class App extends React.Component {
         this.setState({...newState});
     }
 
-    handleModal = (e) => {
-        const parents = e.target.closest('.settings-bar') || null;
+    // handleModal = (e) => {
+    //     const parents = e.target.closest('.settings-bar') || null;
 
-        if (!parents) {
-            if (this) {
+    //     if (!parents) {
+    //         if (this) {
 
-                if (this.state.bodyModalType) {
-                    this.props.setBodyModalType(null);
-                }
-            }
-        }
-    };
+    //             if (this.state.bodyModalType) {
+    //                 this.props.setBodyModalType(null);
+    //             }
+    //         }
+    //     }
+    // };
 
     checkUrl = () => {
         const params = urlHelper.parseUrl();
@@ -177,8 +145,21 @@ class App extends React.Component {
     onRenderContent = (target, content) => {
         let {catId} = target.dataset
         catId = JSON.parse(catId);
+        console.log(catId)
  
-        return  <div className="custom-hint__content">
+        if (catId && catId.infoContent) {
+            return  <div className="custom-hint__content">
+                        <div
+                            className="phased-transaction"
+                        >
+                            <div className="phasing-box__phasing-description p-3">
+                                {catId.infoContent}
+                            </div>
+                        </div>
+                    </div>
+
+        } else {
+            return  <div className="custom-hint__content">
                     <div
                         className="phased-transaction"
                     >
@@ -224,6 +205,8 @@ class App extends React.Component {
                         </div>
                     </div>
                 </div>
+        }
+        
     }
 
     routers = () => (
@@ -295,7 +278,11 @@ class App extends React.Component {
         const isLoginPage = pathname === '/login';
 
         return (
-            <div>
+            <div
+                className={classNames({
+                    // 'overflow-hidden': this.props.modalType
+                })}
+            >
                 <NotificationContainer/>
                 <ModalWindow/>
                 <AlertBox/>
@@ -324,7 +311,6 @@ class App extends React.Component {
                          'login-page':  isLoginPage,
                          'hide-page-body': this.props.bodyModalType
                      })}
-                     onClick={(e) => this.handleModal(e)}
                 >
                     {
                         this.props.isLocalhost &&
@@ -354,12 +340,13 @@ class App extends React.Component {
                             </>
                         }
                     </Switch>
-                    {!this.props.loading && !isLoginPage &&
-                    <div className="site-footer">
-                        Copyright © 2017-2018 Apollo Foundation.
-                        <br className={'show-media hide-desktop'}/>
-                        Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
-                    </div>
+                    {
+                        !this.props.loading && !isLoginPage &&
+                        <div className="site-footer">
+                            Copyright © 2017-2018 Apollo Foundation.
+                            <br className={'show-media hide-desktop'}/>
+                            Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
+                        </div>
                     }
                 </div>
             </div>

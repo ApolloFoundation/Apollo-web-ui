@@ -40,8 +40,8 @@ const Peer = (props) => (
         {
             props.isLocalhost &&
             <td className="align-right">
-                <a className="btn primary blue" onClick={props.onConnectClick}>Connect</a>
-                <a  onClick={props.onBlacklistClick} className="btn primary">Blacklist</a>
+                <a className="btn primary blue mt-0" onClick={props.onConnectClick}>Connect</a>
+                <a  onClick={props.onBlacklistClick} className="btn primary mt-0 ml-3">Blacklist</a>
             </td>
         }
     </tr>

@@ -150,7 +150,7 @@ class Aliases extends React.Component {
                         page={this.state.page}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-                        className={'no-min-height'}
+                        className={'no-min-height mb-3'}
                         emptyMessage={'No aliases found.'}
                     />        
                 </div>

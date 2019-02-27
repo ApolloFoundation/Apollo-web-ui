@@ -13,10 +13,6 @@ import CryptoJS from 'crypto-js'
 import {getTransactionAction} from "../../../../actions/transactions";
 
 class Transaction extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     getTransactionInfo = async transaction => {
         return await this.props.getTransactionAction({
             transaction,
@@ -25,19 +21,19 @@ class Transaction extends React.Component {
     };
 
     render () {
-        const {transaction} = this.props;
+        const {transaction, timestamp, amountATM, feeATM, senderRS, attachment, height, confirmations, setBodyModalParamsAction} = this.props;
         return (
             <tr key={uuid}>
-                <td className="blue-link-text"><a onClick={async () => this.props.setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(transaction.transaction))}>{this.props.formatTimestamp(transaction.timestamp)}</a></td>
+                <td className="blue-link-text"><a onClick={async () => setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(transaction))}>{formatTimestamp(timestamp)}</a></td>
                 <td className="align-left">Ordinary Payment</td>
-                <td className="align-right">{transaction.amountATM / 100000000}</td>
-                <td>{transaction.feeATM / 100000000}</td>
-                <td className="blue-link-text"><a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', transaction.senderRS)}>{transaction.senderRS}</a></td>
-                <td>{transaction.attachment.phasingHolding} / {transaction.attachment.phasingQuorum}</td>
-                <td>{transaction.height}</td>
-                <td>{transaction.confirmations}</td>
+                <td className="align-right">{amountATM / 100000000}</td>
+                <td>{feeATM / 100000000}</td>
+                <td className="blue-link-text"><a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', senderRS)}>{senderRS}</a></td>
+                <td>{attachment.phasingHolding} / {attachment.phasingQuorum}</td>
+                <td>{height}</td>
+                <td>{confirmations}</td>
                 <td className="blue-link-text"><a onClick={() => {
-                    this.props.setBodyModalParamsAction("APPROVE_TRANSACTION", {transaction});
+                    setBodyModalParamsAction("APPROVE_TRANSACTION", {transaction: this.props});
                 }}>Approve</a></td>
             </tr>
         );

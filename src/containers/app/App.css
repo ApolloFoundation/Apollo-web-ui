@@ -3,6 +3,7 @@
 @import url(~loaders.css/loaders.min.css);
 @import url(~react-notifications/lib/notifications.css);
 @import url(~react-hint/css/index.css);
+@import url(~@fortawesome/fontawesome-free/css/all.css);
 @font-face {
   font-family: 'Roboto';
   src: url("../../fonts/Roboto-Regular.eot");
@@ -434,6 +435,9 @@ input[type="file"] {
 .token {
   color: white; }
 
+.white-space {
+  white-space: pre; }
+
 .itatic {
   font-style: italic; }
 
@@ -572,8 +576,7 @@ input[type="file"] {
     overflow: hidden; }
     .form-group-app.devided .left-bar {
       width: 50%;
-      margin: -35px 0 -70px -35px;
-      border-right: 5px solid #E6E6E6; }
+      margin: -35px 0 -70px -35px; }
       .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
         height: 300px;
@@ -1059,6 +1062,9 @@ input[type="file"] {
 
 .input-group-app textarea {
   width: 100%; }
+
+.input-group-app label {
+  vertical-align: middle; }
 
 .input-group-app.search i, .input-group-app.user i {
   margin: 0 !important;
@@ -5390,6 +5396,9 @@ input[type="file"] {
 .token {
   color: white; }
 
+.white-space {
+  white-space: pre; }
+
 .itatic {
   font-style: italic; }
 
@@ -5528,8 +5537,7 @@ input[type="file"] {
     overflow: hidden; }
     .form-group-app.devided .left-bar {
       width: 50%;
-      margin: -35px 0 -70px -35px;
-      border-right: 5px solid #E6E6E6; }
+      margin: -35px 0 -70px -35px; }
       .form-group-app.devided .left-bar .top-bar .marketplace-image {
         margin: 0;
         height: 300px;
@@ -6015,6 +6023,9 @@ input[type="file"] {
 
 .input-group-app textarea {
   width: 100%; }
+
+.input-group-app label {
+  vertical-align: middle; }
 
 .input-group-app.search i, .input-group-app.user i {
   margin: 0 !important;

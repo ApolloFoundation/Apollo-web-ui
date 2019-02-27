@@ -19,6 +19,7 @@ import {BlockUpdater} from "../../block-subscriber";
 import {formatTimestamp} from "../../../helpers/util/time";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
+import CustomTable from '../../components/tables/table';
 
 
 const mapStateToProps = state => ({
@@ -38,7 +39,6 @@ class ScheduledTransactions extends React.Component {
         super(props);
 
         this.getAssets = this.getAssets.bind(this);
-        this.getTransaction = this.getTransaction.bind(this);
     }
 
     state = {
@@ -103,19 +103,6 @@ class ScheduledTransactions extends React.Component {
         }
     }
 
-    async getTransaction(data) {
-        const reqParams = {
-            transaction: data,
-            account: this.props.account
-        };
-
-        const transaction = await this.props.getTransactionAction(reqParams);
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-        }
-
-    }
-
     render () {
         return (
             <div className="page-content">
@@ -123,73 +110,37 @@ class ScheduledTransactions extends React.Component {
                     pageTitle={'Transfer History'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="scheduled-transactions">
-                        <ContentHendler
-                            items={this.state.transfers}
-                            emptyMessage={'No assets found.'}
-                        >
+                <CustomTable 
+                        header={[
                             {
-                                this.state.transfers &&
-                                !!this.state.transfers.length &&
-                                <div className="transaction-table">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Transaction</td>
-                                                <td>Asset</td>
-                                                <td>Date</td>
-                                                <td className="align-right">Quantity</td>
-                                                <td>Recipient</td>
-                                                <td>Sender</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                this.state.transfers &&
-                                                this.state.transfers.map((el, index) => {
-                                                    return (
-                                                        <TransferHistoryItem
-                                                            key={uuid()}
-                                                            transfer={el}
-                                                            setTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                        {
-                                            this.state.transfers &&
-                                            <div className="btn-box">
-                                                <a
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-left' : true,
-                                                        'disabled' : this.state.page <= 1
-                                                    })}
-                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                > Previous</a>
-                                                <div className='pagination-nav'>
-                                                    <span>{this.state.firstIndex + 1}</span>
-                                                    <span>&hellip;</span>
-                                                    <span>{this.state.lastIndex + 1}</span>
-                                                </div>
-                                                <a
-                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-right' : true,
-                                                        'disabled' : this.state.transfers.length < 15
-                                                    })}
-                                                >Next</a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
+                                name: 'Transaction',
+                                alignRight: false
+                            },{
+                                name: 'Asset',
+                                alignRight: false
+                            },{
+                                name: 'Date',
+                                alignRight: false
+                            },{
+                                name: 'Quantity',
+                                alignRight: true
+                            },{
+                                name: 'Recipient',
+                                alignRight: false
+                            },{
+                                name: 'Sender',
+                                alignRight: false
                             }
-                        </ContentHendler>
-                    </div>
+                        ]}
+                        emptyMessage={'No transfer history found.'}
+                        className={'mb-3'}
+                        page={this.state.page}
+                        TableRowComponent={TransferHistoryItem}
+                        tableData={this.state.transfers}
+                        isPaginate
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );

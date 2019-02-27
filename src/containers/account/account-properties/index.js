@@ -14,6 +14,9 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
+import AccountProperty from './acocunt-property';
+import CustomTable from '../../components/tables/table';
+
 const mapStateToProps = state => ({
     account: state.account.account
 })
@@ -24,10 +27,6 @@ const mapDisatchToProps = dispatch => ({
 })
 
 class AccountProperties extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         properties: null,
         firstIndex: 0,
@@ -81,15 +80,6 @@ class AccountProperties extends React.Component {
         }
     };
 
-    setProperty  = (el) => this.props.setBodyModalParamsAction("SET_ACCOUNT_PROPERTY", el);
-
-    deleteProperty  = (el) => {
-        const data = el;
-        if (this.state.incoming) data.recipientRS = this.state.recipientRS;
-        else data.setterRS = this.state.setterRS;
-        this.props.setBodyModalParamsAction("DELETE_ACCOUNT_PROPERTY", data);
-    };
-
     render () {
         return (
             <div className="page-content">
@@ -110,60 +100,28 @@ class AccountProperties extends React.Component {
                     </a>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <div className="funding-monitors">
-                        <ContentHendler
-                            items={this.state.properties}
-                            emptyMessage={'No properties found.'}
-                        >
-                            <div className="transaction-table">
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>{this.state.incoming ? 'Setter' : 'Recipient'}</td>
-                                            <td>Property</td>
-                                            <td>Value</td>
-                                            <td className="align-right">Actions</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.properties &&
-                                            this.state.properties.length &&
-                                            this.state.properties.map((el) => {
-                                                return (
-                                                    <tr key={uuid()}>
-                                                        <td className="blue-link-text">
-                                                            <a
-                                                                onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.setter)}
-                                                            >
-                                                                {this.state.incoming ? el.setterRS : el.recipientRS}
-                                                            </a>
-                                                        </td>
-                                                        <td>{el.property}</td>
-                                                        <td>{el.value}</td>
-                                                        <td className="align-right">
-                                                            <div className="btn-box inline">
-                                                                {(this.state.recipientRS === el.setterRS || !this.state.incoming) &&
-                                                                <a onClick={() => this.setProperty(el)}
-                                                                   className="btn primary blue">Update</a>
-                                                                }
-                                                                <a onClick={() => this.deleteProperty(el)}
-                                                                   className="btn primary">Delete</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
-                        </ContentHendler>
-                    </div>
+                    <CustomTable
+                        header={[
+                            {
+                                name: `${this.state.incoming ? 'Setter' : 'Recipient'}`,
+                                alignRight: false
+                            },{
+                                name: 'Property',
+                                alignRight: false
+                            },{
+                                name: 'Value',
+                                alignRight: false
+                            },{
+                                name: 'Actions',
+                                alignRight: true
+                            }
+                        ]}
+                        className={'mb-3'}
+                        page={this.state.page}
+                        emptyMessage={'No account propertes found .'}
+                        TableRowComponent={(props) => <AccountProperty incoming={this.state.incoming} {...props}/>}
+                        tableData={this.state.properties}
+                    />
                 </div>
             </div>
         );

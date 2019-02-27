@@ -150,6 +150,7 @@ class MyVotes extends React.Component {
                             }
                         ]}
                         emptyMessage={'No votes found.'}
+                        className={'mb-3'}
                         page={this.state.page}
                         TableRowComponent={PoolItem}
                         tableData={this.state.myVotes}

@@ -226,9 +226,6 @@ class InfoAccount extends React.PureComponent {
                                             },{
                                                 name: 'Height',
                                                 alignRight: false
-                                            },{
-                                                name: 'Confirmations',
-                                                alignRight: false
                                             }
                                         ]}
                                         className={'no-min-height transparent pt-4'}

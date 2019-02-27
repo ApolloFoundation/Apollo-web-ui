@@ -126,31 +126,33 @@ class MessageItem extends React.Component {
                     }
                     
                 </td>
-                <td className="align-right btn-box inline">
-                    {
-                        !isDescrypted &&
-                        !publicMessage &&
-                        !decryptedMessage &&
-                        <a
-                            onClick={() => setBodyModalParamsAction('DECRYPT_MESSAGES')}
-                            className="btn primary blue static"
-                        >
-                            Decrypt
-                        </a>
-                    }
-                    {
-                        (publicMessage || decryptedMessage) &&
-                        <a
-                            onClick={() => setBodyModalParamsAction('SHARE_MESSAGE', {
-                                transaction,
-                                attachment,
-                                message: publicMessage || decryptedMessage 
-                            })}
-                            className="btn primary blue static"
-                        >
-                            Share
-                        </a>
-                    } 
+                <td className="align-right">
+                    <div className={'btn-box inline'}>
+                        {
+                            !isDescrypted &&
+                            !publicMessage &&
+                            !decryptedMessage &&
+                            <a
+                                onClick={() => setBodyModalParamsAction('DECRYPT_MESSAGES')}
+                                className="btn primary blue static"
+                            >
+                                Decrypt
+                            </a>
+                        }
+                        {
+                            (publicMessage || decryptedMessage) &&
+                            <a
+                                onClick={() => setBodyModalParamsAction('SHARE_MESSAGE', {
+                                    transaction,
+                                    attachment,
+                                    message: publicMessage || decryptedMessage 
+                                })}
+                                className="btn primary blue static"
+                            >
+                                Share
+                            </a>
+                        } 
+                    </div>
                 </td>
             </tr>
         );

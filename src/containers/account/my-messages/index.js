@@ -62,7 +62,7 @@ class MyMessages extends React.Component {
 
     render() {
         const {page} = this.state;
-        const {messages} = this.props;
+        const {messages, setBodyModalParamsAction} = this.props;
 
         return (
             <div className="page-content">
@@ -70,7 +70,7 @@ class MyMessages extends React.Component {
                     pageTitle={'My messages'}
                 >
                     <a
-                        onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', null)}
+                        onClick={() => setBodyModalParamsAction('COMPOSE_MESSAGE', null)}
                         className="btn primary"
                     >
                         Compose message

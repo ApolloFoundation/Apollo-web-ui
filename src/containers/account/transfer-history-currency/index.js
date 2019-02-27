@@ -145,6 +145,7 @@ class TransferHistoryCurrency extends React.Component {
                                 alignRight: false
                             }
                         ]}
+                        emptyMessage={'No transfer history found.'}
                         page={this.state.page}
                         TableRowComponent={TransferHistoryItem}
                         tableData={this.state.transfers}

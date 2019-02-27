@@ -32,9 +32,6 @@ class EditAlias extends React.Component {
             amountStatus: false,
             feeStatus: false
         };
-
-        this.handleTabChange = this.handleTabChange.bind(this);
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
     }
 
     componentDidMount = () => {
@@ -64,13 +61,6 @@ class EditAlias extends React.Component {
             });
         }
     };
-   
-    handleChange = (value) => {
-        this.setState({
-            inputType: value
-        })
-    };
-
 
     render() {
         return (

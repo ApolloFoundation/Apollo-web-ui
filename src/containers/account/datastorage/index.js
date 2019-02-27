@@ -333,6 +333,7 @@ class DataStorage extends React.Component {
 									alignRight: true
 								}
 							]}
+							emptyMessage={'No tagget data found.'}
 							page={this.state.page}
 							TableRowComponent={DataStorageItem}
 							tableData={this.state.taggedData}

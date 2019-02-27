@@ -1,13 +1,11 @@
-
-
 const initState  = {
     types: {
-        1:  '<i class="zmdi zmdi-swap" />',                 // Exchangeable
-        2:  '<i class="zmdi zmdi-lock" />',                 // Controllable
-        4:  '<i class="zmdi zmdi-balance" />',              //Reservable
-        8:  '<i class="zmdi zmdi-key" />',                  // Claimable
-        16: '<i class="zmdi zmdi-toll" />',                 // Mintable
-        32: '<i class="zmdi zmdi-minus-circle-outline" />', //Non-Shuffleable 
+        1:  {image: '<i class="zmdi zmdi-swap"></i>',                 name: 'Exchangeable'}   , // Exchangeable
+        2:  {image: '<i class="zmdi zmdi-lock"></i>',                 name: 'Controllable'}   , // Controllable
+        4:  {image: '<i class="zmdi zmdi-balance"></i>',              name: 'Reservable'}     , //Reservable
+        8:  {image: '<i class="zmdi zmdi-key"></i>',                  name: 'Claimable'}      , // Claimable
+        16: {image: '<i class="zmdi zmdi-toll"></i>',                 name: 'Mintable'}       , // Mintable
+        32: {image: '<i class="zmdi zmdi-minus-circle-outline"></i>', name: 'Non-Shuffleable'}, //Non-Shuffleable 
     }
 }
 
@@ -30,9 +28,25 @@ export const getCurrencyTypes = (value) => {
         .map((el, index) => {
             const type = initState.types[el];
             if (index === 0) {
-                return `${type}`
+                return `
+                        <span className="phasing-box"
+                            style={{zIndex: 12}}
+                            data-custom
+                            data-custom-at="top"
+                            data-cat-id=${JSON.stringify({infoContent: type.name})}
+                        >
+                            ${type.image}
+                        </span>`
             } else {
-                return `&nbsp;${type}`
+                return `&nbsp;
+                        <span className="phasing-box"
+                            style={{zIndex: 12}}
+                            data-custom
+                            data-custom-at="top"
+                            data-cat-id=${JSON.stringify({infoContent: type.name})}
+                        >
+                            ${type.image}
+                        </span>`
             }
         })
         .reduce((a, b) => {

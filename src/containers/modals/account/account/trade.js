@@ -1,8 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import uuid from 'uuid';
+import {connect} from 'react-redux';
+import {formatTimestamp} from '../../../../helpers/util/time';
 
-const Trade = ({quantityATU, tradeType, timestamp, asset, decimals, priceATM, name, closeModal}) => (
+const Trade = ({quantityATU, tradeType, timestamp, asset, decimals, priceATM, name, formatTimestamp, closeModal}) => (
     <tr key={uuid()}>
         <td className={'blue-link-text'}>
             <Link
@@ -12,7 +14,7 @@ const Trade = ({quantityATU, tradeType, timestamp, asset, decimals, priceATM, na
                 {name}
             </Link>
         </td>
-        <td>{this.props.formatTimestamp(timestamp)}</td>
+        <td>{formatTimestamp(timestamp)}</td>
         <td>{tradeType}</td>
         <td className="align-right">{quantityATU / Math.pow(10, decimals)}</td>
         <td className="align-right">{(priceATM * Math.pow(10, decimals)) / 100000000}</td>
@@ -20,4 +22,8 @@ const Trade = ({quantityATU, tradeType, timestamp, asset, decimals, priceATM, na
     </tr>
 )
 
-export default Trade;
+const mapStateToProps = dispatch => ({
+    formatTimestamp: (time) => dispatch(formatTimestamp(time))
+});
+
+export default connect(null, mapStateToProps)(Trade);
