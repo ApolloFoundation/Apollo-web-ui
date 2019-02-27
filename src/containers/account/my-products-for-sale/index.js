@@ -109,6 +109,7 @@ class MyProductsForSale extends React.Component {
                                 alignRight: true
                             }
                         ]}
+                        emptyMessage={'No products found.'}
                         page={this.state.page}
                         TableRowComponent={MarketplaceTableItem}
                         tableData={this.state.getDGSGoods}

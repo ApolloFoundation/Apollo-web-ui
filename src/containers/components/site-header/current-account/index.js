@@ -3,14 +3,14 @@ import {connect} from 'react-redux';
 
 import classNames from 'classnames';
 
-import {NavLink} from 'react-router-dom'
+import {NavLink, withRouter} from 'react-router-dom'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {NotificationManager} from "react-notifications";
 
 import {logOutAction} from "../../../../actions/login";
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 
-const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, isActive, setBodyModalParamsAction}) => (
+const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, isActive, setBodyModalParamsAction, history}) => (
     <div
         className={classNames({
             "no-padding": true,
@@ -106,7 +106,7 @@ const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, is
                                         return (
                                             <li>
                                                 <a
-                                                    onClick={() => this.props.switchAccountAction(el.accountRS, this.props.history)}
+                                                    onClick={() => this.props.switchAccountAction(el.accountRS, history)}
                                                 >
                                                     {el.name}
                                                 </a>
@@ -151,13 +151,13 @@ const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, is
                 </div>
                 <div className="input-section">
                     <div
-                        onClick={() => logOutAction('simpleLogOut', this.props.history)}
+                        onClick={() => logOutAction('simpleLogOut', history)}
                         className="image-button">
                         <i className="zmdi zmdi-power"/>
                         <label style={{cursor: 'pointer'}}>Logout</label>
                     </div>
                     <div
-                        onClick={() => logOutAction('logOutStopForging', this.props.history)}
+                        onClick={() => logOutAction('logOutStopForging', history)}
                         className="image-button"
                     >
                         <i className="zmdi zmdi-pause-circle"/>
@@ -165,7 +165,7 @@ const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, is
                             forging</label>
                     </div>
                     <div
-                        onClick={() => logOutAction('logoutClearUserData', this.props.history)}
+                        onClick={() => logOutAction('logoutClearUserData', history)}
                         className="image-button"
                     >
                         <i className="zmdi zmdi-close-circle"/>
@@ -187,4 +187,4 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentAccount);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CurrentAccount));

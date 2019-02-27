@@ -20,7 +20,7 @@ import {getBlockAction} from "../../../actions/blocks";
 import colorGenerator from "../../../helpers/colorGenerator";
 import uuid from "uuid";
 
-import SidebarContent from '../../components/sidebar-list';
+import SidebarContent from '../../components/sidebar-list/';
 
 import PollRequest from  './poll-request';
 import CustomTable from '../../components/tables/table';
@@ -72,7 +72,6 @@ class FollowedVotes extends React.Component {
             poll: this.props.match.params.poll
         });
         this.getFollowedPolls();
-        this.getBlock();
     };
 
     componentDidMount() {
@@ -88,7 +87,6 @@ class FollowedVotes extends React.Component {
             poll: this.props.match.params.poll
         });
         this.getFollowedPolls();
-        this.getBlock();
         BlockUpdater.on("data", this.listener)
     }
 
@@ -109,7 +107,6 @@ class FollowedVotes extends React.Component {
             poll: newState.match.params.poll
         });
         this.getFollowedPolls();
-        this.getBlock();
     }
 
     async getpoll(reqParams) {
@@ -139,16 +136,6 @@ class FollowedVotes extends React.Component {
             });
         }
     }
-
-    getBlock = async () => {
-        const block = await this.props.getBlockAction();
-
-        if (block) {
-            this.setState({
-                block: block
-            })
-        }
-    };
 
     async getpollResults(reqParams) {
         if (reqParams.poll) {
@@ -197,6 +184,7 @@ class FollowedVotes extends React.Component {
     getFollowedPolls = () => {
         let polls = localStorage.getItem('followedPolls');
 
+        
         if (polls) {
             polls = JSON.parse(polls);
             const followedpolls = polls.map(async (el, index) => {
@@ -206,9 +194,10 @@ class FollowedVotes extends React.Component {
             Promise.all(followedpolls)
                 .then((data) => {
                     if (!data.find((el) => {return el.errorCode})) {
-                        this.setState({
-                            followedpolls: data
-                        })
+                        console.log(this.setState)
+                        // this.setState({
+                        //     followedpolls: data
+                        // })
                     }
                 })
         } else {

@@ -8,9 +8,10 @@ import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
 import {getChatsPerPage, getChatHistory} from "../../../actions/messager";
-import './Messenger.css';
+import './Messenger.scss';
 import {BlockUpdater} from "../../block-subscriber/index";
 import crypto from "../../../helpers/crypto/crypto";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 
 import SidebarContent from '../../components/sidebar-list';
 import Chat from './chat';
@@ -86,6 +87,7 @@ const mapDispatchToProps = dispatch => ({
     getChatsPerPage: (reqParams) => dispatch(getChatsPerPage(reqParams)),
     getChatHistory: (reqParams) => dispatch(getChatHistory(reqParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
+    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Messenger);
