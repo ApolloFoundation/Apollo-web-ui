@@ -71,32 +71,32 @@ class Dashboard extends React.Component {
 				<div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
 					<div className={'container-fluid pl-0 pr-0'}>
 						<div className={'row'}>
-							<div className="col-md-3 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 pr-0 mb-3">
 								<AvailableBalance />							
 							</div>
-							<div className="col-md-3 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 pr-0 mb-3">
 								<AssetsValue   />
 							</div>
-							<div className="col-md-3 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 pr-0 mb-3">
 								<CurrencyValue    />
 							</div>
-							<div className="col-md-3 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 pr-0 mb-3">
 								<ShortDescription />
 							</div>
 						</div>
 						<div className={'row'}>
-							<div className="col-md-3 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 pr-0 mb-3">
 								<DashboardTransactions />
 							</div>
-							<div className="col-md-3 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 pr-0 mb-3">
 								<AssetPortfolio   />
 								<DecentralizedMarketplace />
 							</div>
-							<div className="col-md-3 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 pr-0 mb-3">
 								<SendApolloCard />
 								<ActivePolls />
 							</div>
-							<div className="col-md-3 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 pr-0 mb-3">
 								<DashboardNews />
 							</div>
 						</div>
