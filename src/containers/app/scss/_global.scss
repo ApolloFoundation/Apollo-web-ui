@@ -1241,6 +1241,9 @@ input[type="file"] {
 		background-color: #fff;
 		border-radius: 3px;
 	}
+	@media(max-width: 1024px) {
+		padding-top: 139px;
+	}
 }
 
 .page-body-item {
