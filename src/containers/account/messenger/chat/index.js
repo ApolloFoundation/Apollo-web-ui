@@ -5,14 +5,24 @@ import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {connect} from 'react-redux';
 import ContentLoader from '../../../components/content-loader';
 import InfoBox from '../../../components/info-box';
-
+import {withRouter} from 'react-router-dom';
 import {handleSendMessageFormSubmit} from './handleFormSubmit';
 
 
 class Chat extends React.Component {
     state = {textareaCount: 0};
 
-	handleSendMessageFormSubmit = (values) => this.props.handleSendMessageFormSubmit(values)
+    getFormApi = (form) => {
+        this.setState({
+            form 
+        })
+    }
+
+    handleSendMessageFormSubmit = (values) => 
+        this.props.handleSendMessageFormSubmit(
+            {...values, recipient: this.props.match.params.chat}, 
+            this.state.form
+        )
 
     render () {
         const {chatMessages} = this.props;
@@ -116,4 +126,4 @@ const mapDispatchToProps = dispatch => ({
     handleSendMessageFormSubmit: (reqParams) => dispatch(handleSendMessageFormSubmit(reqParams))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Chat));

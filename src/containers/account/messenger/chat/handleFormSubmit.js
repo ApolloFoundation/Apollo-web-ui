@@ -1,7 +1,11 @@
 import {NotificationManager} from 'react-notifications';
+import submitForm from '../../../../helpers/forms/forms';
 
-export const handleSendMessageFormSubmit = (values) => {
-    return async dispatch => {
+export const handleSendMessageFormSubmit = (values, formApi) => {
+    return async (dispatch, getState) => {
+        const {account: {account, puplicKey}} = getState();
+        const {recipient} = values;
+
         if (!values.message || values.message.length === 0 || !(/\S/.test(values.message))) {
             NotificationManager.error('Please write your message.', 'Error', 5000);
             return;
@@ -24,13 +28,12 @@ export const handleSendMessageFormSubmit = (values) => {
         const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
         // delete values.secretPhrase;
     
-    
-        const res = await this.props.submitForm( {
+        const res = await dispatch(submitForm.submitForm({
             ...values,
-            recipient: this.props.match.params.chat,
-            secretPhrase: secretPhrase,
+            recipient,
+            secretPhrase,
             feeATM: 4
-        }, 'sendMessage');
+        }, 'sendMessage'));
     
         if (res && res.errorCode === 4) {
             NotificationManager.error('Message length should not be grater than 100 symbols.', 'Error', 5000);
@@ -41,13 +44,8 @@ export const handleSendMessageFormSubmit = (values) => {
             return;
         }
         if (res &&  !res.errorCode) {
+            formApi.resetAll()
             NotificationManager.success('Message has been submitted!', null, 5000);
-            this.setState({textareaCount : 0})
-            if (this.state.formApi) {
-                this.state.formApi.setValue('message', null);
-                this.state.formApi.setValue('secretPhrase', null);
-                this.state.formApi.setValue('code2FA', null);
-            }
         }
     }
 };
