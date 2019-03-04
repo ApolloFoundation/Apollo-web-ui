@@ -197,7 +197,7 @@ export const generatePDF = (args) => {
         // orientation: 'landscape',
         unit: 'in',
         // format: [4, 2]  // tinggi, lebar
-        format: [1169, 827]
+        format: [116,9, 82,7]
     });
 
     var today = new Date();
