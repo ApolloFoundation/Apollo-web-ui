@@ -85,18 +85,18 @@ class Dashboard extends React.Component {
 							</div>
 						</div>
 						<div className={'row'}>
-							<div className="col-lg-3 col-md-6 pr-0 mb-3">
+							<div className="col-xl-3 col-lg-6 col-md-6 pr-0 mb-3">
 								<DashboardTransactions />
 							</div>
-							<div className="col-lg-3 col-md-6 pr-0 mb-3">
+							<div className="col-xl-3 col-lg-6 col-md-6 pr-0 mb-3">
 								<AssetPortfolio   />
 								<DecentralizedMarketplace />
 							</div>
-							<div className="col-lg-3 col-md-6 pr-0 mb-3">
+							<div className="col-xl-3 col-lg-6 col-md-6 pr-0 mb-3">
 								<SendApolloCard />
 								<ActivePolls />
 							</div>
-							<div className="col-lg-3 col-md-6 pr-0 mb-3">
+							<div className="col-xl-3 col-lg-6 pr-0 mb-3">
 								<DashboardNews />
 							</div>
 						</div>
