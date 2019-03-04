@@ -16,7 +16,7 @@ import TabulationBody from '../../components/tabulator/tabuator-body';
 import TabContaier from '../../components/tabulator/tab-container';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import AccountRSFormInput from '../../components/form-components/account-rs'
-
+import InfoBox from '../../components/info-box';
 
 
 class Login extends React.Component {
@@ -159,6 +159,9 @@ class Login extends React.Component {
                                         isDisableSecretPhrase
                                         CustomFooter={() => this.EnterSecretPhraseFormFooter()}
                                     >
+                                        <InfoBox info>
+                                            This option works only for standard wallets.
+                                        </InfoBox>
                                         <TextualInputComponent
                                             label={'Secret Phrase'}
                                             placeholder={'Secret Phrase'}
