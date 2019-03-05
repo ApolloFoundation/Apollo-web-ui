@@ -407,7 +407,7 @@ class CreateUser extends React.Component {
                                                                                             Account ID: <span className={'itatic'}>{this.state.accountData.accountRS}</span>
                                                                                             <br/>
                                                                                             <br/>
-                                                                                            Public Key: <span className={'itatic'}>{this.state.accountData.publicKey}</span>
+                                                                                            Public Key: <span className={'itatic word-brake-for-info'}>{this.state.accountData.publicKey}</span>
                                                                                             <br/>
                                                                                             <br/>
                                                                                             <CopyToClipboard
