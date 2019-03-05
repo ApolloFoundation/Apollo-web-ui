@@ -61,7 +61,10 @@ class SiteHeader extends React.Component {
     }
 
     closeMenu = () => {
-        this.setState({menuShow: false});
+        this.setState({
+            menuShow: false,
+            bodyModalType: null
+        });
     }
 
     showHideTitleForginMenu = () => {
@@ -157,6 +160,8 @@ class SiteHeader extends React.Component {
     };
 
     render() {
+        console.log(this.props.bodyModalType);
+
         return (
             <>
                 <div
@@ -195,7 +200,7 @@ class SiteHeader extends React.Component {
                     //  onClick={() => this.setState({bodyModalType: null})}
                 >
                     <CurrentAccount   isActive={this.state.bodyModalType === "ACCOUNT_BODY_MODAL"}/>
-                    <ForgingBodyModal isActive={this.state.bodyModalType === "FORGING_BODY_MODAL"}/>
+                    <ForgingBodyModal isActive={this.state.bodyModalType === "FORGING_BODY_MODAL"}  closeMenu={this.closeMenu}/>
                     <Settings         isActive={this.state.bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu}/>
                 </div>
             </>

@@ -22,8 +22,7 @@ class ForgingBodyModalWindow extends Component {
     };
 
     render() {
-        const {forgingStatus, forgedBalanceATM, isActive, setBodyModalParamsAction, actualBlock} = this.props;
-        console.log(actualBlock);
+        const {forgingStatus, forgedBalanceATM, isActive, setBodyModalParamsAction, actualBlock, closeMenu} = this.props;
 
         return (
             <div className={classNames({
@@ -133,6 +132,11 @@ class ForgingBodyModalWindow extends Component {
                                     <label>Forged balance: {(forgedBalanceATM / 100000000).toLocaleString('en')}&nbsp;APL</label>
                                 }
                             </p>
+                            <div className="btn-block text-center d-sm-block d-md-none">
+                                <div className="close-menu-btn" onClick={closeMenu}>
+                                    Close
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

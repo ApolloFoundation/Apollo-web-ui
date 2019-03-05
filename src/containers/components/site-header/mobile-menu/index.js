@@ -246,7 +246,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                     className={"mobile-nav-item"}>
             <p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
         </NavLink>
-        <div className="btn-block">
+        <div className="btn-block text-center">
             <div className="close-menu-btn" onClick={closeMenu}>
                 Close
             </div>
