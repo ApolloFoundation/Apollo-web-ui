@@ -129,7 +129,7 @@ class JoinShufflingForm extends React.Component {
                                 Account ID: <span className={'itatic'}>{this.state.vaultWallet.accountRS}</span>
                                 <br/>
                                 <br/>
-                                Public Key: <span className={'itatic'}>{this.state.vaultWallet.publicKey}</span>
+                                Public Key: <span className={'itatic word-brake-for-info'}>{this.state.vaultWallet.publicKey}</span>
                                 <br/>
                                 <br/>
                                 <CopyToClipboard

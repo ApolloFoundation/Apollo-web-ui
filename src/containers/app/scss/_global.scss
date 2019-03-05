@@ -120,6 +120,12 @@ html, body {
 	z-index: 10;
 }
 
+.word-brake-for-info {
+	word-break: break-all;
+	width: 100%;
+	word-wrap: anywhere;
+}
+
 html {
 	height: 100%;
 	
