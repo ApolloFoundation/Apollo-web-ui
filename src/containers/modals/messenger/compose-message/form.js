@@ -9,7 +9,6 @@ const ComposeMessageForm = ({setVaue, getValue, modalData, getFormState}) => (
     <>
         <AccountRSFormInput
             setVaue={setVaue}
-            exportAccountList
             label={'Recipient'}
             field={'recipient'}
             value={getValue('recipient') || ''}

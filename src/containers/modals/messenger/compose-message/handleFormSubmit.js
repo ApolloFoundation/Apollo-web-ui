@@ -7,13 +7,16 @@ import {
 
 import submitForm from '../../../../helpers/forms/forms';
 
-export const handleFormSubmit = (values) => {
+export const handleFormSubmit = function (values) {
     
     const {store : {dispatch}} = this;
+
     if (values.messageToEncrypt) {
         values.messageToEncrypt = values.message;
         delete values.message;
     }
+
+    console.log(values)
 
     dispatch({
         type: IS_MODAL_PROCESSING,
