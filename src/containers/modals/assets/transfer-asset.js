@@ -136,7 +136,7 @@ class TransferAsset extends React.Component {
                                             !!this.state.isPending ?
                                                 <div
                                                     style={{
-                                                        width: 70
+                                                        width: 120
                                                     }}
                                                     className="btn btn-right blue round round-bottom-right"
                                                 >
@@ -148,13 +148,13 @@ class TransferAsset extends React.Component {
                                                 </div> :
                                                 <button
                                                     style={{
-                                                        width: 70
+                                                        width: 120
                                                     }}
                                                     type="submit"
                                                     name={'closeModal'}
                                                     className="btn btn-right blue round round-bottom-right"
                                                 >
-                                                    Submit
+                                                    Transfer Asset
                                                 </button>
                                         }
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>

@@ -18,7 +18,7 @@ class TabulationBody extends React.Component {
 
         return (
             <>
-                <div className={`form-tabulator active ${className}`}>
+                <div className={`form-tabulator active h-100 ${className}`}>
                 
                     {/** Render tabulator header */}
                     <div className="form-tab-nav-box justify-left">
