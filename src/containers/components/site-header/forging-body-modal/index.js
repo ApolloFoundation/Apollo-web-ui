@@ -121,7 +121,6 @@ class ForgingBodyModalWindow extends Component {
                                 </a>
                             }
         
-        
                             <p className="mb-2">
                                 {
                                     actualBlock &&
@@ -134,7 +133,6 @@ class ForgingBodyModalWindow extends Component {
                                     <label>Forged balance: {(forgedBalanceATM / 100000000).toLocaleString('en')}&nbsp;APL</label>
                                 }
                             </p>
-        
                         </div>
                     </div>
                 </div>
