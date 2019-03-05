@@ -57,7 +57,7 @@ class TransferAsset extends React.Component {
         return (
             <ModalBody
                 loadForm={this.loadForm}
-                modalTitle={'Transfer Asset'}
+                modalTitle={'Transfer asset'}
                 isAdvanced={true}
                 isFee
                 closeModal={this.props.closeModal}
