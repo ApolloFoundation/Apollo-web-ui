@@ -22,7 +22,8 @@ class Chat extends React.Component {
         this.props.handleSendMessageFormSubmit(
             {...values, recipient: this.props.match.params.chat}, 
             this.state.form
-        )
+        );
+        
 
     render () {
         const {chatMessages} = this.props;
@@ -123,7 +124,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    handleSendMessageFormSubmit: (reqParams) => dispatch(handleSendMessageFormSubmit(reqParams))
+    handleSendMessageFormSubmit: (reqParams, form) => dispatch(handleSendMessageFormSubmit(reqParams, form))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Chat));

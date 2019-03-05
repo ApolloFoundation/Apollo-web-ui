@@ -15,6 +15,11 @@ import {NotificationManager} from "react-notifications";
 import {connect} from "react-redux";
 import submitForm from "../../../helpers/forms/forms";
 
+import ModalBody from '../../components/modals/modal-body';
+import TabulationBody from '../../components/tabulator/tabuator-body';
+import TabContaier from '../../components/tabulator/tab-container';
+
+
 //TODO: extract to constants
 const tabs = [
     "No approval",

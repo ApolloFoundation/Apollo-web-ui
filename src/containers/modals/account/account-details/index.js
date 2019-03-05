@@ -23,7 +23,6 @@ import ModalBody from '../../../components/modals/modal-body';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
 
-
 class AccountDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -191,7 +190,7 @@ class AccountDetails extends React.Component {
                         <div className="transaction-table no-min-height transparent">
                             <div className="transaction-table-body transparent padding-vertical-padding">
                                 <a
-                                    onClick={() => this.props.setBodyModalParamsAction('MANDATORY_APPROVAL')}
+                                    onClick={() => this.props.setBodyModalParamsAction('MANDATORY_APPROVAL', {})}
                                     data-blue-link-text
                                 >
                                     Setup Mandatory Approval.

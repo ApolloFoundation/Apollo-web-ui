@@ -6,9 +6,12 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setModalData} from '../../../../modules/modals';
 import classNames from 'classnames';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
+
+import ModalBody from '../../../components/modals/modal-body';
+import TabulationBody from '../../../components/tabulator/tabuator-body';
+import TabContaier from '../../../components/tabulator/tab-container';
 
 class MandatoryApproval extends React.Component {
     constructor(props) {
@@ -48,6 +51,7 @@ class MandatoryApproval extends React.Component {
 
     render() {
         return (
+            
             <div className="modal-box">
                     <form className="modal-form">
                         <div className="form-group-app">
@@ -56,7 +60,7 @@ class MandatoryApproval extends React.Component {
                             <div className="form-title">
                                 <p>Mandatory Approval</p>
                                 <div className="form-sub-title">
-                                    All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.
+                                    
                                 </div>
                             </div>
 
