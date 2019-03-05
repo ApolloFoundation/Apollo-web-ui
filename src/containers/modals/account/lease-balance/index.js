@@ -6,19 +6,14 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction, setAlert} from '../../../modules/modals';
-import {sendTransactionAction} from '../../../actions/transactions';
-import {calculateFeeAction} from "../../../actions/forms";
-import crypto from  '../../../helpers/crypto/crypto';
+import {setModalData, setBodyModalParamsAction, setAlert} from '../../../../modules/modals';
+import crypto from  '../../../../helpers/crypto/crypto';
 
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../helpers/forms/forms";
+import submitForm from "../../../../helpers/forms/forms";
 
-import ModalBody             from '../../components/modals/modal-body';
-
-import NumericInputComponent from '../../components/form-components/textual-input';
-import AccountRSInput        from '../../components/form-components/account-rs';
-
+import ModalBody        from '../../../components/modals/modal-body';
+import LeaseBalanceForm from './lease-balance-form';
 
 class LeaseBalance extends React.Component {
     constructor(props) {
@@ -55,17 +50,7 @@ class LeaseBalance extends React.Component {
                 submitButtonName={'Lease Balance'}
 				idGroup={'lease-balance-modal-'}
             >
-                <AccountRSInput
-                    label={'Recipient'}
-                    field={'recipient'}
-                    placeholder={'Recipient'}
-                    defaultValue={(this.props.modalData && this.props.modalData.recipient) ? this.props.modalData.recipient : ''}                    
-                />
-                <NumericInputComponent
-                    label={'Period'}
-                    field={'period'}
-                    placeholder={'Period'}
-                />
+                <LeaseBalanceForm />
             </ModalBody>
         );
     }
@@ -81,11 +66,9 @@ const mapDispatchToProps = dispatch => ({
     setAlert: (status, message) => dispatch(setAlert(status, message)),
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    sendTransaction: (requestParams) => dispatch(sendTransactionAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     sendLeaseBalance: (requestParams) => dispatch(crypto.sendLeaseBalance(requestParams)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeaseBalance);

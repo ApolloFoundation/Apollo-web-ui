@@ -1,7 +1,7 @@
 import React from 'react';
 import InputForm from '../input-form'
 
-const TextualInputComponent = ({setValue, hendler, placeholder, field, type, label, code, text, className, idGroup}) => {
+const TextualInputComponent = ({setValue, hendler, placeholder, field, type, label, code, text, className, idGroup, inputHint}) => {
 
     return (
         <>
@@ -47,6 +47,16 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
                             
                         </div>
                     </div>
+                    {
+                        inputHint &&
+                        <div className={"form-group row form-group-white mb-15"}>   
+                            <div className={"row w-100"}>
+                                <div className="col-md-9 offset-sm-0 offset-md-3">
+                                    <div class="pl-4 form-sub-title no-margin d-block">{inputHint}</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </>
             }
         </>
