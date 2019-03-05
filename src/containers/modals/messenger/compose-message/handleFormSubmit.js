@@ -16,8 +16,6 @@ export const handleFormSubmit = function (values) {
         delete values.message;
     }
 
-    console.log(values)
-
     dispatch({
         type: IS_MODAL_PROCESSING,
         payload: true

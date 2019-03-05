@@ -12,8 +12,10 @@ import InfoBox from '../../components/info-box'
 import {NotificationManager} from "react-notifications";
 import {Form, Text} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
-import ModalFooter from '../../components/modal-footer'
-import FeeCalc from '../../components/form-components/fee-calc';
+
+import ModalBody from '../../components/modals/modal-body';
+import TextualInputComponent from '../../components/form-components/textual-input';
+import NumericInputComponent from '../../components/form-components/numeric-input';
 
 class DeleteShares extends React.Component {
     constructor(props) {
@@ -43,114 +45,32 @@ class DeleteShares extends React.Component {
         })
     };
 
-    handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    };
-
     render() {
         return (
-            <div className="modal-box">
-                <Form
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            {
-                                this.props.modalData &&
-                                <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
-                                    <div className="form-title">
-                                        <p>Delete Asset</p>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Asset</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <p>{this.props.modalData.assetName} - {this.props.modalData.quantityATU / 100000000} availiable</p>
-                                                <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
-                                                <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app display-block offset-bottom">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Quantity</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <Text placeholder={'Quantity'} type="text" field={'quantityATU'}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <FeeCalc
-                                        values={getFormState().values}                                         
-                                        setValue={setValue}
-                                        requestType={'deleteAssetShares'}
-                                    />
-                                    <ModalFooter
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                    />
-
-                                    <AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        advancedState={this.state.advancedState}
-                                    />
-
-                                    <div className="btn-box align-buttons-inside absolute right-conner">
-                                        {
-                                            !!this.state.isPending ?
-                                                <div
-                                                    style={{
-                                                        width: 56.25
-                                                    }}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    <div className="ball-pulse">
-                                                        <div></div>
-                                                        <div></div>
-                                                        <div></div>
-                                                    </div>
-                                                </div> :
-                                                <button
-
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    Delete
-                                                </button>
-                                        }
-                                        <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
-                                    </div>
-                                    {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
-                                        {/*<a*/}
-                                            {/*onClick={this.handleAdvancedState}*/}
-                                            {/*className="btn btn-left round round-bottom-left round-top-right"*/}
-                                        {/*>*/}
-                                            {/*{this.state.advancedState ? "Basic" : "Advanced"}*/}
-                                        {/*</a>*/}
-                                    {/*</div>*/}
-                                </div>
-                            }
-                        </form>
-                    )}
+            <ModalBody
+                loadForm={this.loadForm}
+                modalTitle={'Delete asset'}
+                isAdvanced={true}
+                isFee
+                closeModal={this.props.closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Delete'}
+                nameModel={this.props.nameModal}
+            >
+                <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
+                <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
+                                            
+                <TextualInputComponent 
+                    label={'Asset'}
+                    text={`${this.props.modalData.assetName} - ${this.props.modalData.quantityATU / Math.pow(10, this.props.modalData.decimals) /** <---- Fix it */} availiable`}
                 />
-            </div>
+
+                <NumericInputComponent
+                    label={'Quantity'}
+                    placeholder={'Quantity'}
+                    field={'quantityATU'}
+                />
+            </ModalBody>
         );
     }
 }
@@ -160,7 +80,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
+    setModalData: (data)  => dispatch(setModalData(data)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
