@@ -53,7 +53,7 @@ class LeaseBalance extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Lease Balance'}
-				idGroup={'issue-asset-modal-'}
+				idGroup={'lease-balance-modal-'}
             >
                 <AccountRSInput
                     label={'Recipient'}
