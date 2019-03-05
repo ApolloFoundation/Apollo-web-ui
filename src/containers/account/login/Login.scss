@@ -4,6 +4,10 @@
       padding: 0;
       height: 100vh;
       min-height: 445px;
+
+      .page-content .page-body {
+        padding-top: 0 !important;
+      }
     }
   }
   .page-content {

@@ -33,9 +33,9 @@ input[type="number"] {
 .site-content {
   position: relative;
   margin-left: 220px;
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     margin-left: 0 !important;
-    padding-top: 50px;
+    padding-top: 0;
   }
 
   &.hide-page-body {
