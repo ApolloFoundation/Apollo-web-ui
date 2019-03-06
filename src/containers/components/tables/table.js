@@ -15,7 +15,7 @@ const CustomTable = (props) => {
                     tableData &&
                     !!tableData.length &&
                     <>
-                        <div className={`transaction-table ${className}`}>
+                        <div className={`transaction-table pb-5 ${className}`}>
                             {
                                 tableName && 
                                 <div className="form-title padding-left padding-top">
@@ -26,7 +26,7 @@ const CustomTable = (props) => {
                                 AboveTabeComponent &&
                                 <AboveTabeComponent />
                             }
-                            <div className="transaction-table-body">
+                            <div className="transaction-table-body pb-0 mb-4">
                                 <table>
                                     <thead>
                                         <tr>
