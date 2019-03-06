@@ -5,14 +5,13 @@
 
 
 import React from 'react';
-import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
-import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
 import {setModalData, setModalType, setBodyModalParamsAction, saveSendModalState, openPrevModal} from '../../../modules/modals';
 
 import crypto from  '../../../helpers/crypto/crypto';
 
-import BackForm from '../modal-form/modal-form-container';
+import ModalBody             from '../../components/modals/modal-body';
+import TextualInputComponent from '../../components/form-components/textual-input';
 
 
 class PrivateTransactions extends React.Component {
@@ -48,40 +47,24 @@ class PrivateTransactions extends React.Component {
 
     render() {
         return (
-            <div className="modal-box">
-                <BackForm
-	                nameModal={this.props.nameModal}
-                    onSubmit={values => this.handleFormSubmit(values)}
-                    render={({
-                                   submitForm, values
-                               }) => (
-                    <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
-                        <div className="form-group-app">
-                            <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+            <ModalBody
+                loadForm={this.loadForm}
+                modalTitle={'Show private transactions'}
+                closeModal={this.props.closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Enter'}
+                isDisableSecretPhrase
+                nameModel={this.props.nameModal}
+            >
 
-                            <div className="form-title">
-                                {this.props.modalsHistory.length > 1 &&
-	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                }
-                                <p>Show private transactions</p>
-                            </div>
-                            <div className="input-group-app">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <label>Secret phrase</label>
-                                    </div>
-                                    <div className="col-md-9">
-                                        <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
-                                    </div>
-                                </div>
-                            </div>
+                <TextualInputComponent
+                    field={'passphrase'}
+                    type={'password'}
+                    label={'Secret Phrase'}
+                    placeholder={'Secret Phrase'}
+                />
 
-
-                            <button type="submit" className="btn btn-right">Enter</button>
-                        </div>
-                    </form>
-                )} />
-            </div>
+            </ModalBody>
         );
     }
 }

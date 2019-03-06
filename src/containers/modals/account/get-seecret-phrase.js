@@ -5,14 +5,11 @@
 
 
 import React from 'react';
-import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
 import {connect} from 'react-redux';
 import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
 import {setAccountPassphrase} from '../../../modules/account';
 import {getForging} from "../../../actions/login"
 import crypto from  '../../../helpers/crypto/crypto';
-
-import InfoBox from '../../components/info-box';
 
 import ModalBody             from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
