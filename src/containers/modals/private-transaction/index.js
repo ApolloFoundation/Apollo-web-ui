@@ -21,15 +21,13 @@ class PrivateTransactions extends React.Component {
         this.state = {
             passphraseStatus: false
         }
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-    async validatePassphrase(passphrase) {
+    validatePassphrase = async (passphrase) => {
         return await this.props.validatePassphrase(passphrase);
     }
 
-    async handleFormSubmit(params) {
+    handleFormSubmit = async (params) => {
         const isPassphrase = await this.validatePassphrase(params.passphrase);
 
         var data = {
