@@ -181,6 +181,18 @@ span {
 	}
 }
 
+.position-md-absolute {
+	@media(min-width: 1024px) {
+		position: absolute !important;
+	}
+}
+  
+.position-sm-static {
+	@media(max-width: 768px) {
+		position: static !important;
+	}
+}
+
 .flex {
 	display: flex;
 }

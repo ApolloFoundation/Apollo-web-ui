@@ -13,7 +13,7 @@ import {getDGSGoodsAction} from "../../../../actions/marketplace";
 
 import classNames from "classnames";
 
-import '../MarketPLace.css';
+import '../MarketPLace.scss';
 import uuid from "uuid";
 
 const mapDispatchToProps = dispatch => ({

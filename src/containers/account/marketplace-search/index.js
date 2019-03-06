@@ -15,7 +15,6 @@ import ContentHendler from '../../components/content-hendler'
 
 import classNames from "classnames";
 
-import '../marketplace/MarketPLace.css';
 import uuid from "uuid";
 
 const mapDispatchToProps = dispatch => ({
