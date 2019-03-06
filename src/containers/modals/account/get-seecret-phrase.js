@@ -14,6 +14,10 @@ import crypto from  '../../../helpers/crypto/crypto';
 
 import InfoBox from '../../components/info-box';
 
+import ModalBody             from '../../components/modals/modal-body';
+import TextualInputComponent from '../../components/form-components/textual-input';
+import {CheckboxFormInput}   from '../../components/form-components/check-button-input';
+
 
 class PrivateTransactions extends React.Component {
     constructor(props) {
@@ -22,15 +26,13 @@ class PrivateTransactions extends React.Component {
         this.state = {
             passphraseStatus: false
         };
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     async validatePassphrase(passphrase) {
         return await this.props.validatePassphrase(passphrase);
     }
 
-    async handleFormSubmit(params) {
+    handleFormSubmit = async (params) => {
         let passphrase = params.passphrase;
 
         if (params.isSavePassphrase) {
@@ -47,65 +49,34 @@ class PrivateTransactions extends React.Component {
 
     render() {
         return (
-            <div className="modal-box">
-                <Form
-                    onSubmit={values => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm, getFormState, setValue, values
-                             }) => (
-                        <form className="modal-form"  onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+            <ModalBody
+                loadForm={this.loadForm}
+                modalTitle={'Confirm getting forging status'}
+                closeModal={this.props.closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Enter'}
+                isDisableSecretPhrase
+                nameModel={this.props.nameModal}
+            >
 
-                                <div className="form-title">
-                                    <p>Confirm getting forging status</p>
-                                </div>
-                                {/*<ModalFooter*/}
-                                    {/*setValue={setValue}*/}
-                                    {/*getFormState={getFormState}*/}
-                                    {/*values={values}*/}
-                                {/*/>*/}
-                                <div className="input-group-app">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Secret phrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app">
-                                    <div className="row">
-                                        <div className={'col-md-9 offset-md-3'}>
-                                            <div
-                                                className="form-check custom-checkbox encrypt-message-checkbox offset-top"
-                                            >
-                                                <Checkbox
-                                                    className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="isSavePassphrase"/>
-                                                <label
-                                                    className="form-check-label custom-control-label">
-                                                    Keep forging?
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <TextualInputComponent
+                    field={'passphrase'}
+                    type={'password'}
+                    label={'Secret Phrase'}
+                    placeholder={'Secret Phrase'}
+                />
 
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorect passphrase.
-                                    </InfoBox>
-                                }
+                <CheckboxFormInput
+                    checkboxes={[
+                        {
+                            field : 'isSavePassphrase',
+                            handler : null,
+                            label : 'Keep forging?'
+                        }
+                    ]}
+                />
 
-                                <button type="submit" className="btn btn-right">Enter</button>
-                            </div>
-                        </form>
-                    )} />
-            </div>
+            </ModalBody>
         );
     }
 }
