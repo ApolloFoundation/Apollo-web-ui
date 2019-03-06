@@ -67,10 +67,10 @@ class DataStorage extends React.Component {
         BlockUpdater.removeListener("data", this.listener);
     }
 
-	componentWillReceiveProps(newState) {
-		this.getAllTaggedData(newState);
-		this.getDataTags();
-	}
+	//componentWillReceiveProps(newState) {
+	//	this.getAllTaggedData(newState);
+	//	this.getDataTags();
+	//}
 
 	getAllTaggedData = async (newState) => {
 		let query;
@@ -208,14 +208,14 @@ class DataStorage extends React.Component {
 						<div className="row">
 							<div className="col-md-12">
 								<div className="transactions-filters align-for-inputs">
-									<div className="search-bar">
+									<div className="search-bar row">
 										<Form
 		        							getApi={(value) => this.storeForm('account', value)}
 											onSubmit={values => this.handleSearchByAccount(values)}
 											render={({submitForm, setAllValues, setValue}) => {
 
 												return (
-													<form onSubmit={submitForm} className="input-group-app search">
+													<form onSubmit={submitForm} className="input-group-app search col-md-3 pl-0 pb-3">
 														<div className="iconned-input-field">
 															<Text
 																placeholder={'Account ID'}
@@ -247,7 +247,7 @@ class DataStorage extends React.Component {
 											render={({submitForm, setAllValues, setValue}) => {
 
 												return (
-													<form onSubmit={submitForm} className="input-group-app search">
+													<form onSubmit={submitForm} className="input-group-app search col-md-3 pl-0 pb-3">
 														<div className="iconned-input-field">
 															<Text
 																placeholder={'Name Description Tag'}
@@ -309,38 +309,40 @@ class DataStorage extends React.Component {
 
                                 </div>
                             </div>
-                        </div>
-						
-						<CustomTable 
-							header={[
-								{
-									name: 'Name',
-									alignRight: false
-								},{
-									name: 'Account ID',
-									alignRight: false
-								},{
-									name: 'Mime Type',
-									alignRight: false
-								},{
-									name: 'Channel',
-									alignRight: false
-								},{
-									name: 'Filename',
-									alignRight: false
-								},{
-									name: 'Data',
-									alignRight: true
-								}
-							]}
-							emptyMessage={'No tagget data found.'}
-							page={this.state.page}
-							TableRowComponent={DataStorageItem}
-							tableData={this.state.taggedData}
-							isPaginate
-							// previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
-							// nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-						/>
+							<div className={'pl-0 pr-0 col-md-12'}>
+								<CustomTable 
+									header={[
+										{
+											name: 'Name',
+											alignRight: false
+										},{
+											name: 'Account ID',
+											alignRight: false
+										},{
+											name: 'Mime Type',
+											alignRight: false
+										},{
+											name: 'Channel',
+											alignRight: false
+										},{
+											name: 'Filename',
+											alignRight: false
+										},{
+											name: 'Data',
+											alignRight: true
+										}
+									]}
+									emptyMessage={'No tagget data found.'}
+									className={'mb-3'}
+									page={this.state.page}
+									TableRowComponent={DataStorageItem}
+									tableData={this.state.taggedData}
+									isPaginate
+									// previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+									// nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+								/>
+							</div>
+						</div>
                 	</div>
                 </div>
             </div>

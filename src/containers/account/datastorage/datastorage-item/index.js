@@ -33,10 +33,10 @@ const DataStorageItem  = props => (
         <td>{props.channel}</td>
         <td>{props.filename}</td>
         <td className="align-right">
-            <div className="btn-box inline">
+            <div className="btn-box">
                 <a
                     onClick={() => makeDownloadction(props.transaction, config.api.serverUrl + "requestType=downloadTaggedData&transaction=" + props.transaction + "&retrieve=true")}
-                    className="btn primary blue hide-media"
+                    className="btn primary blue"
                 >
                     Download
                 </a>

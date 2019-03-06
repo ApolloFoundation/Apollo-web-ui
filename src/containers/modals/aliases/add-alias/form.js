@@ -11,6 +11,8 @@ const aliasTypeData = [
 ];
 
 class AddAliasForm extends React.Component {
+    state = {};
+    
     render () {
         const {setValue} = this.props;
 
