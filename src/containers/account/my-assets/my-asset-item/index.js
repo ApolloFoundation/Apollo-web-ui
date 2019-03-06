@@ -8,7 +8,7 @@ import React from 'react';
 import uuid from 'uuid';
 import {closeModal, setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
 import store from '../../../../store';
 
@@ -75,6 +75,13 @@ class MyAssetItem extends React.Component {
         };
     };
 
+    gotToAsset = () => {
+        const {asset, history, setBodyModalParamsAction} = this.props;
+        
+        setBodyModalParamsAction();
+        history.push("/asset-exchange/" + asset);
+    }
+
     render () {
 
         const {decimals, asset, name, unconfirmedQuantityATU, quantityATU} = this.props;
@@ -82,7 +89,13 @@ class MyAssetItem extends React.Component {
 	    return (
             <tr key={uuid()}>
                 <td className="blue-link-text" >
-                    <Link onClick={this.close} to={"/asset-exchange/" + asset}>{name}</Link>
+                    <button 
+                        type={'button'} 
+                        onClick={this.gotToAsset} 
+                        to={"/asset-exchange/" + asset}
+                    >
+                        {name}
+                    </button>
                 </td>
                 <td className="align-right">
                     {(unconfirmedQuantityATU / Math.pow(10, decimals)).toLocaleString('en', {
@@ -177,4 +190,4 @@ const mapDispatchToProps = dispatch => ({
     getBidOrders: asset => getBidOrders(asset),
 });
 
-export default connect(null, mapDispatchToProps)(MyAssetItem);
+export default connect(null, mapDispatchToProps)(withRouter(MyAssetItem));

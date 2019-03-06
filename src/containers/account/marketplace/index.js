@@ -189,18 +189,6 @@ class Marketplace extends React.Component {
         });
     };
 
-    onPaginate = (page) => {
-        let reqParams = {
-            page: page,
-            firstIndex: page * 32 - 32,
-            lastIndex:  page * 32 - 1
-        };
-
-        this.setState({...this.state,...reqParams}, () => {
-            this.getDGSTags(reqParams)
-        });
-    };
-
     shouldComponentUpdate = (nextProps, nextState) => {
         return true;
     }
