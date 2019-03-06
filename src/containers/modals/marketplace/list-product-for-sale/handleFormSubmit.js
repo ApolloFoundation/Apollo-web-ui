@@ -4,7 +4,7 @@ import {
     IS_MODAL_PROCESSING
 } from '../../../../modules/modals';
 
-export const handleFormSubmit = (values) => {
+export const handleFormSubmit = function(values) {
     const {dispatch} = this.store;
 
     this.processForm(values, 'dgsListing', 'Product has been listed!',() => {

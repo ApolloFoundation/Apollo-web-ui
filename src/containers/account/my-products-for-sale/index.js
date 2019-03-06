@@ -111,6 +111,7 @@ class MyProductsForSale extends React.Component {
                         ]}
                         emptyMessage={'No products found.'}
                         page={this.state.page}
+                        className={'mb-3'}
                         TableRowComponent={MarketplaceTableItem}
                         tableData={this.state.getDGSGoods}
                         isPaginate

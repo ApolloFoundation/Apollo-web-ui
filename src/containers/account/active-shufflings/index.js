@@ -159,7 +159,7 @@ class ActiveShufflings extends React.Component {
                             tableData={this.state.activeShuffling}
                         />
 
-                        <div className="form-group-app offset-bottom height-auto no-padding transparent">
+                        <div className="form-group-app offset-bottom height-auto no-padding mb-3">
                             <CustomTable 
                                 tableName={'Finished Shufflings'}
                                 header={[

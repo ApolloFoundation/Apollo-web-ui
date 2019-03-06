@@ -79,14 +79,14 @@ class ImageInput extends React.Component {
                     <div className="col-sm-9 offset-sm-3">
                         {
                             !this.state.imagePreviewUrl &&
-                            <>
-                                <div className="no-image">
-                                    <i className="zmdi zmdi-image" />
-                                </div>
-                                <div className="preview-image-container">
-                                    <div className="preview-image" style={{backgroundImage: `url(${this.state.imagePreviewUrl})`}}/>
-                                </div>
-                            </>
+                            <div className="no-image">
+                                <i className="zmdi zmdi-image" />
+                            </div>
+                            ||
+                            <div className="preview-image-container">
+                                <div className="preview-image" style={{backgroundImage: `url(${this.state.imagePreviewUrl})`}}/>
+                            </div>
+                            
                         }
                     </div>
                 </div>

@@ -22,6 +22,10 @@ class MarketplaceDashboardFooter extends Component {
         this.updateData();
     }
 
+    componentWillReceiveProps = () => {
+        this.updateData();
+    }
+
     updateData = () => {
         this.getDGSGoods({
             firstIndex: 0,
@@ -50,7 +54,6 @@ class MarketplaceDashboardFooter extends Component {
         delete reqParams.buyer;
 
         const getDGSPurchases = await this.props.getDGSPurchasesAction(reqParams);
-        console.log(getDGSPurchases);
         if (getDGSPurchases) {
             this.setState({
                 getDGSPurchasesCount: getDGSPurchases.purchases.length,
@@ -76,7 +79,7 @@ class MarketplaceDashboardFooter extends Component {
                                 !!this.state.getDGSGoods.length &&
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
-                                        <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0">
+                                        <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0 pr-0">
                                             <MarketplaceItem
                                                 fullHeight
                                                 relative={true}
@@ -107,7 +110,7 @@ class MarketplaceDashboardFooter extends Component {
                                 !!this.state.getDGSPurchases.length &&
                                 this.state.getDGSPurchases.map((el, index) => {
                                     return (
-                                        <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0">
+                                        <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0 pr-0">
                                             <MarketplaceItem
                                                 fullHeight
                                                 {...el}

@@ -26,6 +26,30 @@ class MarketplaceTags extends Component {
         });
     }
 
+    componentWillReceiveProps = (newProps) => {
+        if (this.state.isShowMore){
+            this.setState({
+                page: 1,
+                firstIndex: 0,
+                lastIndex: 31
+            })
+            this.getDGSTags({
+                firstIndex: 0,
+                lastIndex: 31
+            })
+        } else {
+            this.setState({
+                page: 1,
+                firstIndex: 0,
+                lastIndex: 9
+            })
+            this.getDGSTags({
+                firstIndex: 0,
+                lastIndex: 9
+            })
+        }
+    }
+
     getDGSTags = async (reqParams) => {
         const getDGSTags = await this.props.getDGSTagsAction(reqParams);
 
@@ -49,14 +73,35 @@ class MarketplaceTags extends Component {
         }
     };
 
+    showMoreController = () => {
+        this.setState({
+
+        })
+    }
+
+    onPaginate = (page) => {
+        let reqParams = {
+            page: page,
+            firstIndex: page * 32 - 32,
+            lastIndex:  page * 32 - 1
+        };
+
+        this.setState({...this.state,...reqParams}, () => {
+            this.getDGSTags(reqParams)
+        });
+    };
+
     render () {
+
+        const {showMoreController, isShowMore} = this.props;
+
         return (
             <div className="card  marketplace filters transparent">
                 <div className="search-bar m-0">
                     <div className="row m-0">
                         <div className={classNames({
-                            'col-md-12 pr-0 pl-0' : !this.state.isShowMore,
-                            'col-md-6 pr-0 pl-0' : this.state.isShowMore
+                            'col-md-12 pr-0 pl-0' : !isShowMore,
+                            'col-md-6 pr-0 pl-0' : isShowMore
                         })}>
                             <div className="input-group-app search tabled">
                                 <Form
@@ -119,9 +164,13 @@ class MarketplaceTags extends Component {
                             );
                         })
                     }
-                    <a onClick={this.showMoreController} className="btn primary blue" dangerouslySetInnerHTML={{__html: this.state.isShowMore ? 'View less' : 'View more'}}/>
+                    <a 
+                        onClick={showMoreController} 
+                        className="btn primary blue" 
+                        dangerouslySetInnerHTML={{__html: this.state.isShowMore ? 'View less' : 'View more'}}
+                    />
                     {
-                        this.state.getDGSTags && this.state.isShowMore &&
+                        this.state.getDGSTags && isShowMore &&
                         <div
                             ref={'btnBox'}
                             className="btn-box"
@@ -138,7 +187,9 @@ class MarketplaceTags extends Component {
                                     'disabled' : this.state.page <= 1
                                 })}
                                 onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                            > Previous</a>
+                            > 
+                                Previous
+                            </a>
                             <div className='pagination-nav'>
                                 <span>{this.state.firstIndex + 1}</span>
                                 <span>&hellip;</span>
@@ -151,7 +202,9 @@ class MarketplaceTags extends Component {
                                     'btn-right' : true,
                                     'disabled' : this.state.getDGSTags.length < 32
                                 })}
-                            >Next</a>
+                            >
+                                Next
+                            </a>
                         </div>
                     }
                 </div>

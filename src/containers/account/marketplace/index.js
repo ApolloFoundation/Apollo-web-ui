@@ -23,6 +23,7 @@ import ContentLoader from '../../components/content-loader'
 
 import MarketplaceGeneral from './marketplace-general/';
 import MarketplaceTags from './marketplace-tags';
+import MarketplaceDashboardHeader from './marketplace-dashboard-header';
 import MarketplaceDashboardFooter from './marketplace-dashboard-footer';
 
 const mapStateToProps = state => ({
@@ -92,6 +93,17 @@ class Marketplace extends React.Component {
         if (getDGSTagCount) {
             this.setState({
                 getDGSTagCount: getDGSTagCount.numberOfTags
+            })
+        }
+    };
+
+    getDGSTags = async (reqParams) => {
+        const getDGSTags = await this.props.getDGSTagsAction(reqParams);
+
+        if (getDGSTags) {
+            this.setState({
+                ...this.state,
+                getDGSTags: getDGSTags.tags
             })
         }
     };
@@ -189,24 +201,7 @@ class Marketplace extends React.Component {
         });
     };
 
-    handleChange = (event) => {
-        if (event.target) {
-            var value = event.target.value;
-            var newState = {
-                mask: 'APL-****-****-****-*****',
-                value: value.toUpperCase()
-            };
-
-            if (/^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(value)) {
-                newState.value = 'APL-****-****-****-*****';
-            }
-            this.setState(newState);
-        }
-    };
-
     shouldComponentUpdate = (nextProps, nextState) => {
-
-
         return true;
     }
 
@@ -235,31 +230,7 @@ class Marketplace extends React.Component {
                 <div className="page-body container-fluid pl-0">
                     <div className="marketplace marketplace-preview">
                         <div className="row">
-                            <div className={classNames({
-                                'col-md-12 col-lg-6 marketplace-preview-item' : !this.state.isShowMore,
-                                'col-md-3' : this.state.isShowMore,
-                                'pl-3': true
-                            })}>
-                                <div className="card fll-height marketplace product-box">
-
-                                </div>
-                            </div>
-                            <div className="col-md-6  col-lg-3 marketplace-preview-item pl-md-0">
-                                <MarketplaceGeneral 
-                                    getDGSPurchaseCount={this.state.getDGSPurchaseCount}
-                                    getDGSGoodsCount={this.state.getDGSGoodsCount}
-                                    getDGSPurchasesCount={this.state.getDGSPurchasesCount}
-                                    getDGSTagCount={this.state.getDGSTagCount}
-                                />
-                            </div>
-                            <div className={classNames({
-                                'col-md-6  col-lg-3 marketplace-preview-item pr-0' : !this.state.isShowMore,
-                                'col-md-6' : this.state.isShowMore,
-                                'pl-md-0': true
-                            })}>
-                                <MarketplaceTags />
-                            </div>
-
+                            <MarketplaceDashboardHeader />
                             <MarketplaceDashboardFooter/>
                         </div>
                     </div>
