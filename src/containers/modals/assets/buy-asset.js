@@ -49,10 +49,10 @@ class BuyAsset extends React.Component {
     render() {
         const {nameModal, modalData, closeModal} = this.props;
 
-        const name        = modalData.assetInfo ? modalData.assetInfo.name : '';
-        const assetID     = modalData.assetInfo ? modalData.assetInfo.assetID : '';
-        const quantityATU = modalData.quantityATU;
-        const total       = modalData.total;
+        const name        = modalData && modalData.assetInfo ? modalData.assetInfo.name : '';
+        const assetID     = modalData && modalData.assetInfo ? modalData.assetInfo.assetID : '';
+        const quantityATU = modalData && modalData.quantityATU;
+        const total       = modalData && modalData.total;
         
         return (
             <ModalBody
