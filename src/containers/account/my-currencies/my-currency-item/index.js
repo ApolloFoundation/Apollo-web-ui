@@ -10,10 +10,13 @@ import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
+import {getCurrencyTypes} from '../../../../modules/currencies';
 
 class MyCurrencytemItem extends Component {
     render () {
-        const {code, name, unconfirmedUnits, decimals, setBodyModalParamsAction, currency} = this.props;
+        const {code, type, name, unconfirmedUnits, decimals, setBodyModalParamsAction, currency} = this.props;
+        const currencyTypes = getCurrencyTypes(type, true);
+        const isClaimable = currencyTypes.includes('Claimable');
 
         return (
             <tr key={uuid()}>
@@ -36,12 +39,15 @@ class MyCurrencytemItem extends Component {
                         >
                             Offer
                         </a>
-                        <a
-                            onClick={() => setBodyModalParamsAction('CLAIM_CURRENCY', currency)}
-                            className="btn primary blue"
-                        >
-                            Claim
-                        </a>
+                        {
+                            isClaimable && 
+                            <a
+                                onClick={() => setBodyModalParamsAction('CLAIM_CURRENCY', currency)}
+                                className="btn primary blue"
+                            >
+                                Claim
+                            </a>
+                        }
                     </div>
                 </td>
             </tr>

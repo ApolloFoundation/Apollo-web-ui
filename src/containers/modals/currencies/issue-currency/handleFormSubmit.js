@@ -36,7 +36,7 @@ export function handleFormSubmit (values) {
     if (values.type4) values.type += typeValues[4];
     if (values.type5) values.type += typeValues[5];
     if (values.type6) values.type += typeValues[6];
-
+    
     values = {
         name: values.name,
         code: values.code,

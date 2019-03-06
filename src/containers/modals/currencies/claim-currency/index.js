@@ -35,6 +35,15 @@ class ClaimCurrency extends React.Component {
         }
     }
 
+    handleFormSubmit = (values) => {
+        const currency = this.state.currency;
+
+        this.props.processForm({...values, currency: currency ? currency.currency : null}, 'currencyReserveClaim', 'Claim currency has been submitted!', () => {
+			this.props.setBodyModalParamsAction(null, {});
+			NotificationManager.success('Claim currency has been submitted!', null, 5000);
+		});
+    }
+
     componentDidMount = () => {
         this.getCurrency(this.props.modalData)
     }
@@ -61,6 +70,7 @@ class ClaimCurrency extends React.Component {
                         text={`Number of units to claim ${accountCurrecny.currentSupply / Math.pow(10, accountCurrecny.decimals)} Claim rate ${accountCurrecny.currentReservePerUnitATM / Math.pow(10, accountCurrecny.decimals)} [Apollo/${currency.code}]`}
                     />
                 }
+
                 <TextualInputComponent 
                     label={'Number of units to claim'}
                     placeholder={'Number of units'}
@@ -76,6 +86,7 @@ class ClaimCurrency extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
+    account: state.account.account
 });
 
 const mapDispatchToProps = dispatch => ({

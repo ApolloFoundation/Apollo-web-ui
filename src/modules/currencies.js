@@ -16,13 +16,18 @@ export default (state = initState, action)  => {
 }
 
 
-export const getCurrencyTypes = (value) => {
+export const getCurrencyTypes = (value, isBasic) => {
     var b = 1;
     var res= [];
     while(b<=value){
         if(b & value)res.push(b);
         b <<= 1;
     }
+
+    if (isBasic) 
+        return res.map((el) => {
+            return initState.types[el].name
+        })
 
     return res
         .map((el, index) => {
