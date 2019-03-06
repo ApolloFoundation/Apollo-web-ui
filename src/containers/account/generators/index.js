@@ -88,20 +88,21 @@ class Generators extends React.Component {
 							header={[
                                 {
                                     name: 'Account',
-                                    alignRight: true
+                                    alignRight: false
                                 },{
                                     name: 'Effective Balance',
-                                    alignRight: false
+                                    alignRight: true
                                 },{
                                     name: 'Hit Time',
-                                    alignRight: false
+                                    alignRight: true
                                 },{
                                     name: 'Deadline',
-                                    alignRight: false
-                                },{
-                                    name: 'Remaining',
-                                    alignRight: false
+                                    alignRight: true
                                 }
+                                // ,{
+                                //     name: 'Remaining',
+                                //     alignRight: true
+                                // }
                             ]}
 							TableRowComponent={Generator}
 							tableData={this.state.generators}

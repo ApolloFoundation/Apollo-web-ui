@@ -53,9 +53,9 @@ class Generator extends React.Component {
                 </td>
                 <td className="align-right"><a>{deadline}</a>
                 </td>
-                <td className="align-right">
+                {/* <td className="align-right">
                     <a>{this.state.remaining}</a>
-                </td>
+                </td> */}
             </tr>
         );
     }
