@@ -6,7 +6,6 @@
 
 import { connect } from 'react-redux';
 import React from 'react';
-import './Login.css'
 import { getAccountDataAction, getAccountDataBySecretPhrasseAction } from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getConstantsAction} from '../../../actions/login'
@@ -18,6 +17,7 @@ import TextualInputComponent from '../../components/form-components/textual-inpu
 import AccountRSFormInput from '../../components/form-components/account-rs'
 import InfoBox from '../../components/info-box';
 
+import './Login.scss'
 
 class Login extends React.Component {
     state = {

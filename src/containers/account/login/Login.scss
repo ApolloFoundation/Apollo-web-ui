@@ -1,13 +1,16 @@
 .site-content {
   &.login-page {
+    margin: 0;
+    
+    .page-content .page-body {
+      padding-top: 0 !important;
+    }
     @media(max-width: 768px) {
       padding: 0;
       height: 100vh;
       min-height: 445px;
 
-      .page-content .page-body {
-        padding-top: 0 !important;
-      }
+      
     }
   }
   .page-content {
