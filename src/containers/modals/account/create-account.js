@@ -152,6 +152,15 @@ class CreateUser extends React.Component {
          this.generateAccount(requestParams);
     }
 
+    handleGoBack = () => 
+        this.setState({isValidating: false}, () => {
+            setTimeout(() => {
+                const element = document.querySelector('#modal-window-container .modal-box');
+                element.classList.add('active')
+            }, 300)
+        });
+
+
     render() {
         return (
             <React.Fragment>
@@ -533,7 +542,7 @@ class CreateUser extends React.Component {
                                                                         type="button"
                                                                         name={'closeModal'}
                                                                         className="btn btn-right round round-top-left"
-                                                                        onClick={() => this.setState({isValidating: false})}
+                                                                        onClick={this.handleGoBack}
                                                                     >
                                                                         Back
                                                                     </button>
@@ -886,7 +895,7 @@ class CreateUser extends React.Component {
                                                     type="button"
                                                     name={'closeModal'}
                                                     className="btn btn-right round round-top-left"
-                                                    onClick={() => this.setState({isValidating: false})}
+                                                    onClick={this.handleGoBack}
                                                 >
                                                     Back
                                                 </button>

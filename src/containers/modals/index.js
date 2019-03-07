@@ -204,6 +204,7 @@ class ModalWindow extends React.Component {
                     "active": this.props.modalType
                 })}
                 ref={'modalWindow'}
+                id="modal-window-container"
             >
                 <ModalProvider>
                     {this.props.modalType === 'INFO_TRANSACTION'            && <InfoTransaction           closeModal={this.closeModal} nameModal={'INFO_TRANSACTION'}/>}
