@@ -34,8 +34,12 @@ input[type="number"] {
   position: relative;
   margin-left: 220px;
   @media (max-width: 768px) {
-    margin-left: 0 !important;
+    margin-left: 100px !important;
     padding-top: 0;
+  }
+  @media (max-width: 767px) {
+    margin-left: 0 !important;
+    padding-top: 50px;
   }
 
   &.hide-page-body {

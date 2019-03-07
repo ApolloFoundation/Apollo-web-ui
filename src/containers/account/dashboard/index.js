@@ -96,7 +96,7 @@ class Dashboard extends React.Component {
 								<SendApolloCard />
 								<ActivePolls />
 							</div>
-							<div className="col-xl-3 col-lg-6 pr-0 mb-3">
+							<div className="col-xl-3 col-lg-6 col-md-6 pr-0 mb-3">
 								<DashboardNews />
 							</div>
 						</div>

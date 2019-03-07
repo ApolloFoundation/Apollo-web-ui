@@ -291,7 +291,7 @@ class AssetExchange extends React.Component {
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
                             {
-                                window.innerWidth > 768 &&
+                                window.innerWidth > 767 &&
                                 <div className="col-md-3 p-0 pb-3">
                                     <SidebarContent
                                         element={'asset'}
