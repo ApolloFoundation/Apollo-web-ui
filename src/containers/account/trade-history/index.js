@@ -7,18 +7,14 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
 import TradeHistoryItem from './trade-history-item'
-import classNames from "classnames";
-import uuid from "uuid";
 import {connect} from 'react-redux'
-import InfoBox from '../../components/info-box';
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import {getTradesHistoryAction}   from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getTransactionAction}     from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
 
+import CustomTable from '../../components/tables/table';
 
 const mapStateToProps = state => ({
     account: state.account.account,
@@ -125,75 +121,48 @@ class TradeHistory extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="scheduled-transactions">
-                        <ContentHendler
-                            items={this.state.trades}
-                            emptyMessage={'No assets found.'}
-                        >
-                            {
-                                this.state.trades &&
-                                !!this.state.trades.length &&
-                                <div className="transaction-table">
-                                    <div className="transaction-table-body">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td>Asset</td>
-                                                <td>Date</td>
-                                                <td>Type</td>
-                                                <td className="align-right">Quantity</td>
-                                                <td className="align-right">Price</td>
-                                                <td className="align-right">Total</td>
-                                                <td>Buyer</td>
-                                                <td>Seller</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                this.state.trades &&
-                                                this.state.trades.map((el, index) => {
-                                                    return (
-                                                        <TradeHistoryItem
-                                                            key={uuid()}
-                                                            transfer={el}
-                                                            setTransaction={this.getTransaction}
-                                                        />
-                                                    );
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                        {
-                                            this.state.trades &&
-                                            <div className="btn-box">
-                                                <a
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-left' : true,
-                                                        'disabled' : this.state.page <= 1
-                                                    })}
-                                                    onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                                > Previous</a>
-                                                <div className='pagination-nav'>
-                                                    <span>{this.state.firstIndex + 1}</span>
-                                                    <span>&hellip;</span>
-                                                    <span>{this.state.lastIndex + 1}</span>
-                                                </div>
-                                                <a
-                                                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                    className={classNames({
-                                                        'btn' : true,
-                                                        'btn-right' : true,
-                                                        'disabled' : this.state.trades.length < 15
-                                                    })}
-                                                >
-                                                    Next
-                                                </a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
+                        <CustomTable 
+                            header={[
+                                {
+                                    name: 'Asset',
+                                    alignRight: false
+                                },{
+                                    name: 'Date',
+                                    alignRight: false
+                                },{
+                                    name: 'Type',
+                                    alignRight: false
+                                },{
+                                    name: 'Quantity',
+                                    alignRight: false
+                                },{
+                                    name: 'Price',
+                                    alignRight: false
+                                },{
+                                    name: 'Total',
+                                    alignRight: true
+                                },{
+                                    name: 'Buyer',
+                                    alignRight: true
+                                },{
+                                    name: 'Seller',
+                                    alignRight: true
+                                }
+                            ]}
+                            className={'mb-3'}
+                            emptyMessage={'No active polls.'}
+                            TableRowComponent={(el) => 
+                                <TradeHistoryItem 
+                                    transfer={el}
+                                    setTransaction={this.getTransaction}
+                                />
                             }
-                        </ContentHendler>
+                            isPaginate
+                            page={this.state.page}
+                            tableData={this.state.trades}
+                            previousHendler={() => this.onPaginate(this.state.page - 1)}
+                            nextHendler={() => this.onPaginate(this.state.page + 1)}
+                        />
                     </div>
                 </div>
             </div>
