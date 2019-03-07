@@ -52,7 +52,7 @@ class AccountRS extends React.Component {
         this.setState({
             isContacts: false,
             inputValue: {
-                mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
+                mask: `${this.props.constants ? this.props.constants.accountPrefix : 'APL'}-****-****-****-*****`,
                 value: account
             }
         })
@@ -70,12 +70,15 @@ class AccountRS extends React.Component {
 
     setInputValue = (value) => {
         const newState = {
-            mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
+            mask: `${this.props.constants && this.props.constants.accountPrefix ? this.props.constants.accountPrefix : 'APL'}-****-****-****-*****`,
             value: value.toUpperCase()
         };
 
-        if (this.props.setValue)
-            this.props.setValue(this.props.field, value.indexOf(`${this.props.constants ? this.props.constants.accountPrefix : ''}-`) === -1 ? 'APL-' + value : value);
+
+        if (this.props.setValue) {
+            this.props.setValue(this.props.field, value.indexOf(`${this.props.constants && this.props.constants.accountPrefix ? this.props.constants.accountPrefix : 'APL'}`) === -1 ? 'APL-' + value : value);
+
+        }
         
         this.setState({inputValue: newState});
 
@@ -93,8 +96,7 @@ class AccountRS extends React.Component {
 
     onChange = (event) => {
         let value;
-        const prefix = this.props.constants ? this.props.constants.accountPrefix : '';
-
+        const prefix = this.props.constants && this.props.constants.accountPrefix ? this.props.constants.accountPrefix : 'APL';
 
         if (event.type === 'paste') {
             value = event.clipboardData.getData('text/plain');
@@ -109,7 +111,7 @@ class AccountRS extends React.Component {
             }
         } else {
             value = event.target.value;
-            value = value.replace('undefined-', '-')
+            value = value.replace('undefined', 'APL')
 
             if (value.indexOf(`${prefix}-${prefix}`) === -1) {
                 this.setInputValue(value);
