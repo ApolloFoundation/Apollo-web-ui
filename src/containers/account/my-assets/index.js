@@ -149,7 +149,7 @@ class MyAssets extends React.Component {
                         tableData={this.state.assets}
                         className={'mb-3'}
                         isPaginate
-                        emptyMessage={'No currencies found.'}
+                        emptyMessage={'No assets found.'}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                     />

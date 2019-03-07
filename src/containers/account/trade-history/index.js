@@ -127,7 +127,7 @@ class TradeHistory extends React.Component {
                     <div className="scheduled-transactions">
                         <ContentHendler
                             items={this.state.trades}
-                            emptyMessage={'No votes found.'}
+                            emptyMessage={'No assets found.'}
                         >
                             {
                                 this.state.trades &&
