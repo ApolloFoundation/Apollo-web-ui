@@ -134,19 +134,19 @@ class TradeHistory extends React.Component {
                                     alignRight: false
                                 },{
                                     name: 'Quantity',
-                                    alignRight: false
+                                    alignRight: true
                                 },{
                                     name: 'Price',
-                                    alignRight: false
+                                    alignRight: true
                                 },{
                                     name: 'Total',
                                     alignRight: true
                                 },{
                                     name: 'Buyer',
-                                    alignRight: true
+                                    alignRight: false
                                 },{
                                     name: 'Seller',
-                                    alignRight: true
+                                    alignRight: false
                                 }
                             ]}
                             className={'mb-3'}
