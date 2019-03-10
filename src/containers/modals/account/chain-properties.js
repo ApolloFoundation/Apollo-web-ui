@@ -57,7 +57,7 @@ const ChainProps = (props) => (
                                         </tr>
                                         <tr>
                                             <td>Is Testnet:</td>
-                                            <td>{props.appState.isTestnet.toString()}</td>
+                                            <td>{props.appState.isTestnet ? props.appState.isTestnet.toString() : ''}</td>
                                         </tr>
                                         <tr>
                                             <td>Coin symbol:</td>
