@@ -249,7 +249,7 @@ class MandatoryApprovalModal extends React.Component {
         return (
             <Modal
                 closeModal={this.props.closeModal}
-                title="Mandatory Approval Modal"
+                title="Mandatory Approval"
             >
                 <Message/>
                 <ModalTabs
