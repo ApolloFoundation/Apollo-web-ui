@@ -158,6 +158,7 @@ class Sidebar extends React.Component {
 									         "/delete-history",
 									         "/my-assets",
 									         "/open-orders",
+									         "/assets",
 									         "approval-request",
 											 "/approval-request-assets"])}`}>
 									Asset system
@@ -171,6 +172,11 @@ class Sidebar extends React.Component {
 									className="dropdown-menu"
 								>
 									<ul>
+										<li>
+                                            <NavLink exact={true} activeClassName="active" to="/assets">
+                                                Asset
+                                            </NavLink>
+                                        </li>
                                         <li>
                                             <NavLink exact={true} activeClassName="active" to="/asset-exchange">
                                                 Asset exchange

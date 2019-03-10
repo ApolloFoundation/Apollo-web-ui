@@ -4,7 +4,7 @@ import InputForm from '../../../components/input-form';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 
-const BuyAsset = ({amountATM, asset, handleTotalValue, handleBuyOrders}) => (
+const BuyAsset = ({asset, handleTotalValue, handleBuyOrders}) => (
     <Form
         onSubmit={(values) => handleBuyOrders(values)}
         render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
@@ -14,9 +14,9 @@ const BuyAsset = ({amountATM, asset, handleTotalValue, handleBuyOrders}) => (
             >
                 <div className="form-group-app">
                     <div className="form-title">
-                        <p>Buy {  asset.name}</p>
+                        <p>Buy {asset.name}</p>
                         <div className="form-sub-title">
-                            balance: <strong>{(amountATM / Math.pow(10,   asset.decimals)).toLocaleString('en', {
+                            balance: <strong>{(asset.balanceATU / Math.pow(10,   asset.decimals)).toLocaleString('en', {
                             minimumFractionDigits:   asset.decimals,
                             maximumFractionDigits:   asset.decimals
                         })} APL</strong>

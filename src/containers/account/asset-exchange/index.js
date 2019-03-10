@@ -410,7 +410,7 @@ class AssetExchange extends React.Component {
                                     
                                     <div className={'row'}>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
-                                            <BuyAsset asset={this.state.asset} handleTotalValue={this.handleTotalValue} handleBuyOrders={this.handleBuyOrders}/>
+                                            <BuyAsset balanceATU={this.state.asset.balanceATU} asset={this.state.asset} handleTotalValue={this.handleTotalValue} handleBuyOrders={this.handleBuyOrders}/>
                                         </div>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
                                             <SellAsset asset={this.state.asset} handleTotalValue={this.handleTotalValue} handleSellOrders={this.handleSellOrders}/>
