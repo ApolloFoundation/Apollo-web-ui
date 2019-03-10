@@ -41,6 +41,7 @@ import PurchasdProucts from '../account/purchased-proucts'
 import MyCompletedOrders from '../account/my-completed-orders'
 import Activepolls from '../account/active-polls'
 import AccountProperties from '../account/account-properties'
+import Assets from '../account/assets'
 import ApprovalRequest from '../account/approval-request'
 import ApprovalRequestAssets from '../account/approval-request-assets'
 import AssetExchange from '../account/asset-exchange'
@@ -145,7 +146,6 @@ class App extends React.Component {
     onRenderContent = (target, content) => {
         let {catId} = target.dataset
         catId = JSON.parse(catId);
-        console.log(catId)
  
         if (catId && catId.infoContent) {
             return  <div className="custom-hint__content">
@@ -238,6 +238,7 @@ class App extends React.Component {
             <Route exact path="/approval-request-assets" component={ApprovalRequestAssets}/>
             <Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
             <Route exact path="/asset-exchange" component={AssetExchange}/>
+            <Route exact path="/assets" component={Assets}/>
             <Route exact path="/aliases" component={Aliases}/>
             <Route exact path="/delete-history" component={DeleteHistory}/>
             <Route exact path="/funding-monitors" component={FundingMonitors}/>

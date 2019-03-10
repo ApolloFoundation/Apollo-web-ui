@@ -132,7 +132,7 @@ class ScheduledTransactions extends React.Component {
                                 alignRight: false
                             }
                         ]}
-                        emptyMessage={'No transfer history found.'}
+                        emptyMessage={'No asset transfer history available.'}
                         className={'mb-3'}
                         page={this.state.page}
                         TableRowComponent={TransferHistoryItem}

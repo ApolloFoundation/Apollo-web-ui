@@ -15,10 +15,12 @@ import accountSettings from "./accountSettings"
 import currencies from "./currencies"
 import ledger from "./ledger"
 import dashboard from "./dashboard"
+import assets from "./assets";
 
 export default combineReducers({
 	routing: routerReducer,
     account,
+    assets,
     messages,
     modals,
     fee,

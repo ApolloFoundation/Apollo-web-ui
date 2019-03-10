@@ -309,7 +309,7 @@ class DataStorage extends React.Component {
 
                                 </div>
                             </div>
-							<div className={'pl-0 pr-0 col-md-12'}>
+							<div className={'pl-0 pr-0 col-md-12 mb-3'}>
 								<CustomTable 
 									header={[
 										{
@@ -333,7 +333,6 @@ class DataStorage extends React.Component {
 										}
 									]}
 									emptyMessage={'No tagget data found.'}
-									className={'mb-3'}
 									page={this.state.page}
 									TableRowComponent={DataStorageItem}
 									tableData={this.state.taggedData}
