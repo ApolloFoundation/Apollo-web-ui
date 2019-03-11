@@ -78,7 +78,7 @@ class DeleteHistory extends React.Component {
                         TableRowComponent={(el) => <DeleteItem delete={el}/>}
                         tableData={this.state.deletes}
                         isPaginate
-                        emptyMessage={'No delete history found.'}
+                        emptyMessage={'No asset deletion history available.'}
                     />
                 </div>
             </div>
