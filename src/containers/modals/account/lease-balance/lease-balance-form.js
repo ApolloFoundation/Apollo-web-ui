@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import NumericInputComponent from '../../../components/form-components/textual-input';
+import NumericInputComponent from '../../../components/form-components/numeric-input';
 import AccountRSInput        from '../../../components/form-components/account-rs';
 
 
 const LeaseBalanceForm = ({setValue, blockGenerationTime, values}) => {
 
-    const period  = values && values.period ? values.period : '0';
-    const avgTime = period ? Math.round((period * blockGenerationTime) / 86400) : 0;
+    const period  = parseInt(values && values.period ? values.period : 0);
+    const avgTime = period ? Math.round((period * (blockGenerationTime ? blockGenerationTime : 10)) / 86400) : 0;
 
     return (
         <>
