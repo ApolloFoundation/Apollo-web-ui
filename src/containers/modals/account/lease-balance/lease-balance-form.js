@@ -16,7 +16,7 @@ const LeaseBalanceForm = ({setValue, blockGenerationTime, values}) => {
                 label={'Recipient'}
                 field={'recipient'}
                 placeholder={'Recipient'}
-                setState={setValue}
+                setValue={setValue}
             />
             <NumericInputComponent
                 label={'Period'}
