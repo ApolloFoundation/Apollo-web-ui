@@ -53,7 +53,7 @@ const SellAsset = ({amountATM, asset, handleTotalValue, handleSellOrders}) => (
                                 className="col-md-9 pr-0 input-group input-group-text-transparent">
                                 <InputForm
                                     field="priceATM"
-                                    placeholder="Quantity"
+                                    placeholder="Price"
                                     type={"tel"}
                                     onChange={() => handleTotalValue(setValue, getFormState)}
                                     setValue={setValue}/>
