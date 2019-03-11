@@ -38,7 +38,7 @@ const BuyAsset = ({asset, handleTotalValue, handleBuyOrders}) => (
                                     setValue={setValue}/>
                                 <div className="input-group-append">
                                     <span className="input-group-text"
-                                            id="amountText">{  asset.name}</span>
+                                            id="amountText">{asset.name}</span>
                                 </div>
                             </div>
                         </div>

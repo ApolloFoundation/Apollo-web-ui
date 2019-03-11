@@ -43,6 +43,12 @@ class BuyAsset extends React.Component {
         this.props.processForm(values, 'placeBidOrder', 'The buy order has been submitted!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('The buy order has been submitted!', null, 5000);
+        }, (res) => {
+            if (res.errorCode === 4) {
+                NotificationManager.error('Invalid asset order placement quantity.', 'Error', 5000);
+            } else {
+                NotificationManager.error('Error', res.errorDescription, 5000);
+            }
         });
     };
 

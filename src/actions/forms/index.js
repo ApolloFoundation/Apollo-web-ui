@@ -18,7 +18,7 @@ export const calculateFeeAction = (requestParams, requestType) => {
     return dispatch(submitForm.submitForm(requestParams, requestType))
 }
 
-export const processForm = async (values, requestType, successMesage, successCallback) => {
+export const processForm = async (values, requestType, successMesage, successCallback, errorCallback) => {
     dispatch({
         type: IS_MODAL_PROCESSING,
         payload: true
@@ -33,7 +33,13 @@ export const processForm = async (values, requestType, successMesage, successCal
                 payload: false
             });
 
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
+            if (errorCallback) {
+                errorCallback(res);
+            } else {
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            }
+            
+
         } else {
             dispatch({
                 type: IS_MODAL_PROCESSING,

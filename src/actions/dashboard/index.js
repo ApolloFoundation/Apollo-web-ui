@@ -100,10 +100,12 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, news, taggetData, activeShuffling, finishedShuffling, activePolls] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
             
-            dispatch({
-                type: 'SET_DASHBOARD_TRANSACTIONS',
-                payload: transactions.transactions
-            })
+            if (transactions) 
+                dispatch({
+                    type: 'SET_DASHBOARD_TRANSACTIONS',
+                    payload: transactions.transactions
+                });
+                
             dispatch({
                 type: 'SET_DASHBOARD_ASSETS',
                 payload: await dispatch(calculateAssets(accountAssets.accountAssets))
@@ -111,10 +113,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             dispatch({
                 type: 'SET_DASHBOARD_CURRENCIES',
                 payload: calculateCurrencies(currencies.accountCurrencies)
-            })
-            dispatch({
-                type: 'SET_DASHBOARD_TRANSACTIONS',
-                payload: transactions.transactions
             })
             dispatch({
                 type: 'SET_DASHBOARD_ALIASES_COUNT',
