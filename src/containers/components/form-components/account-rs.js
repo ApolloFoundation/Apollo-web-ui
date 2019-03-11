@@ -22,7 +22,6 @@ const AccountRSFormInput = (props) => {
                             noContactList={noContactList}
                             id={`${idGroup}${field}-field`}
                         />
-                        
                         {
                             handleRemoveItem &&
                             <div 

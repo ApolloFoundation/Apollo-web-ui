@@ -41,7 +41,7 @@ class ModalBody extends React.Component {
     }
 
     form = () => {
-        const {CustomFooter, isDisableSecretPhrase, isDisabe2FA, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {CustomFooter, isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
 
         return (
                 <BackForm
@@ -71,6 +71,10 @@ class ModalBody extends React.Component {
                                         }
                                         <p>{modalTitle}</p>
                                     </div>
+                                }
+                                {
+                                    modalSubTitle && 
+                                    <div class="form-sub-title">{modalSubTitle}</div>
                                 }
     
                                 {/** Passing props to each form component */}

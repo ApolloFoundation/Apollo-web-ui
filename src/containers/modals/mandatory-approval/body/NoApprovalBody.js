@@ -12,28 +12,20 @@ import NummericFormInput from '../../../components/form-components/numeric-input
 export default class NoApprovalBody extends React.Component {
     render() {
         return (
-            <Form
-                getApi={form => {
-                    this.props.setApi(form);
-                }}
-                render={({
-                             submitForm, values, addValue, removeValue, setValue, getFormState
-                         }) => <React.Fragment>
-                    <p className="mb-3">
-                        Process without approval
-                    </p>
-                    <NummericFormInput
-                        label={'Amount'}
-                        placeholder={'Amount'}
-                        field={'fee'}
-                    />
-                    <ModalFooter
-                        setValue={setValue}
-                        getFormState={getFormState}
-                        values={values}
-                    />
-                </React.Fragment>}
-            />
+            <ModalBody
+                isPour
+                modalTitle={'Process without approval'}
+                submitButtonName={'Submit'}
+                className={'transparent'}
+                isFee
+                handleFormSubmit={(values) => this.enterAccount(values)}
+            >
+                <NummericFormInput
+                    label={'Amount'}
+                    placeholder={'Amount'}
+                    field={'fee'}
+                />
+            </ModalBody>
         );
     }
 }

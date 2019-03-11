@@ -193,16 +193,16 @@ class MandatoryApprovalModal extends React.Component {
 
         const object = {
             controlWhitelisted: 1,
-        controlMinBalanceModel: 0,
-        controlVotingModel: 3,
-        controlMinDuration: toSend.minDuration,
-        controlMaxDuration: toSend.maxDuration,
-        deadline: 1440,
-        phased: false,
-                phasingHashedSecretAlgorithm: 2,
-        publicKey: this.props.publicKey,
-        feeATM: toSend.fee,
-        controlMaxFees: toSend.maxFees,
+            controlMinBalanceModel: 0,
+            controlVotingModel: 3,
+            controlMinDuration: toSend.minDuration,
+            controlMaxDuration: toSend.maxDuration,
+            deadline: 1440,
+            phased: false,
+                    phasingHashedSecretAlgorithm: 2,
+            publicKey: this.props.publicKey,
+            feeATM: toSend.fee,
+            controlMaxFees: toSend.maxFees,
             secretPhrase: toSend.secretPhrase,
             controlQuorum: toSend.currencyUnits,
         }
@@ -247,61 +247,46 @@ class MandatoryApprovalModal extends React.Component {
 
     render() {
         return (
-            <Modal
-                closeModal={this.props.closeModal}
-                title="Mandatory Approval"
+            <ModalBody
+                modalTitle={'Mandatory Approval'}
+                isAdvanced={true}
+                modalSubTitle={'All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.'}
             >
-                <Message/>
-                <ModalTabs
-                    tabs={tabs}
-                    onTabSelected={this.tabSelected}
-                    activeTab={this.state.activeTab}
+                <TabulationBody
+                    className={'p-0'}
                 >
-                    <Tab
-                        active={this.state.activeTab === 0}
-                    >
+                    <TabContaier sectionName={<i className="zmdi zmdi-close-circle" />}>
                         <NoApprovalBody
                             setApi={form => this.setNoApprovalFormApi(form)}
                         />
-                    </Tab>
-                    <Tab
-                        active={this.state.activeTab === 1}
-                    >
+                    </TabContaier>
+            
+                    <TabContaier sectionName={<i className="zmdi zmdi-accounts" />}>
                         <ApproveByAccountBody
                             setApi={form => this.setApproveByAccApi(form)}
                         />
-                    </Tab>
-                    <Tab
-                        active={this.state.activeTab === 2}
-                    >
+                    </TabContaier>
+            
+                    <TabContaier sectionName={<i className="zmdi zmdi-money-box" />}>
                         <ApproveByBalanceBody
                             setApi={form => this.setApproveByBalanceApi(form)}
                         />
-                    </Tab>
-                    <Tab
-                        active={this.state.activeTab === 3}
-                    >
+                    </TabContaier>
+
+                    <TabContaier sectionName={<i className="zmdi zmdi-chart" />}>
                         <ApproveWithAssetBody
                             setApi={form => this.setApproveWithAssetApi(form)}
                         />
-                    </Tab>
-                    <Tab
-                        active={this.state.activeTab === 4}
-                    >
+                    </TabContaier>
+
+                    <TabContaier sectionName={<i className="zmdi zmdi-balance" />}>
                         <ApproveWithCurrencyBody
                             setApi={form => this.setApproveWithCurrencyApi(form)}
                         />
-                    </Tab>
-                </ModalTabs>
-                <ModalFooter>
-                    <SubmitButton
-                        submit={this.onSubmit}
-                    />
-                    <CancelButton
-                        close={this.props.closeModal}
-                    />
-                </ModalFooter>
-            </Modal>
+                    </TabContaier>
+
+                </TabulationBody>
+            </ModalBody>
         )
     }
 }
