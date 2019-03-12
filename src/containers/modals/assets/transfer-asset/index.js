@@ -50,17 +50,19 @@ class TransferAsset extends React.Component {
             quantityATU: values.quantityATU * Math.pow(10, values.decimals)
         }
 
-        console.log(values)
-
         this.props.processForm(values, 'transferAsset', 'Transfer asset request has been submitted!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('Transfer asset request has been submitted!', null, 5000);
+        },(res) => {
+            if (res.errorCode === 4) {
+                NotificationManager.error('Invalid asset order placement quantity.', 'Error', 5000);
+            } else {
+                NotificationManager.error(res.errorDescription, 'Error', 5000);
+            }
         });
     };
 
     render() {
-        const availableAssets = Math.round(this.props.modalData.availableAssets);
-
         return (
             <ModalBody
                 loadForm={this.loadForm}
