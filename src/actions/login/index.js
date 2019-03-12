@@ -295,6 +295,7 @@ export async function logOutAction(action, history) {
                 }
                 return;
             }
+            return;
         case('logoutClearUserData'):
             localStorage.clear();
             dispatch(setAccountPassphrase(null))
