@@ -17,6 +17,10 @@ import {getForging} from "../../../actions/login";
 // import {processForm} from '../../../../actions/forms'
 
 
+import ModalBody from '../../components/modals/modal-body';
+import TextualInputComponent from '../../components/form-components/textual-input';
+
+
 
 class Confirm2FAforging extends React.Component {
     constructor(props) {
@@ -65,45 +69,29 @@ class Confirm2FAforging extends React.Component {
     }
 
     render() {
+        const {action} = this.props;
+
+        const forgingAction = action && action.getStatus === 'startForging' ? 'start' : 'stop';
+
         return (
-            <div className="modal-box">
-                <Form
-                    onSubmit={values => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm
-                             }) => (
-                        <form className="modal-form"  onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+            <ModalBody
+                loadForm={this.loadForm}
+                modalTitle={`Confirm ${forgingAction} forging`}
+                modalSubTitle={`If you want to ${forgingAction} forging, type your 2FA code to confirm.`}
+                closeModal={this.props.closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={`${forgingAction.charAt(0).toUpperCase() + forgingAction.slice(1)} forging`}
+                isDisableSecretPhrase
+                nameModel={this.props.nameModal}
+            >
 
-                                <div className="form-title">
-                                    {
-                                        this.props.action &&
-                                        this.props.action.getStatus === 'startForging' ?
-                                            <p>Confirm start forging</p>
-                                            :
-                                            <p>Confirm stop forging</p>
-
-                                    }
-
-                                </div>
-                                <div className="input-group-app">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>2FA code</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <Text field="code2FA" placeholder='2FA Code' type={'password'}/>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <button type="submit" className="btn btn-right">Enter</button>
-                            </div>
-                        </form>
-                    )} />
-            </div>
+                <TextualInputComponent
+                    field={'code2FA'}
+                    type={'password'}
+                    label={'2FA code'}
+                    placeholder={'2FA code'}
+                />
+            </ModalBody>
         );
     }
 }

@@ -6,6 +6,16 @@ import {setForging, getForging} from '../../../../actions/login';
 
 
 class ForgingBodyModalWindow extends Component {
+
+    setForgingWith2FA = (action) => {
+        return {
+            getStatus: action,
+            confirmStatus: (res) => {
+                this.setState({forgingStatus: res});
+            }
+        }
+    }
+    
     setForging = async (action) => {
         const forging = await this.props.setForging({requestType: action.requestType});
         if (forging) {
