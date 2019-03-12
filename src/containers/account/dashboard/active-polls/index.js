@@ -39,8 +39,8 @@ class ActivePolls extends Component {
                         <ContentLoader/>
                     }
                     {
-                        !!dashboardActivePolls &&
-                        !dashboardActivePolls.lenght &&
+                        dashboardActivePolls &&
+                        !dashboardActivePolls.length &&
                         <p
                             style={{
                                 fontSize:13,
@@ -72,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value))
 })
 
-export default connect(mapStateToProps)(ActivePolls)
+export default connect(mapStateToProps, mapDispatchToProps)(ActivePolls)
