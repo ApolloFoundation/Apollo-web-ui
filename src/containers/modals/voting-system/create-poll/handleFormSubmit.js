@@ -31,7 +31,7 @@ export function handleFormSubmit (values) {
         ...resultAnswers
     };
 
-    this.processForm(reqParams, 'issueCurrency', 'Your vote has been created!', (res) => {
+    this.processForm(reqParams, 'createPoll', 'Your vote has been created!', (res) => {
         dispatch({
             type: IS_MODAL_PROCESSING,
             payload: false
