@@ -74,7 +74,7 @@ class ModalBody extends React.Component {
                                 }
                                 {
                                     modalSubTitle && 
-                                    <div class="form-sub-title">{modalSubTitle}</div>
+                                    <div class="form-sub-title mb-4">{modalSubTitle}</div>
                                 }
     
                                 {/** Passing props to each form component */}

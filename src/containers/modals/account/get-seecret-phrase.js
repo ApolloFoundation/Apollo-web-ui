@@ -48,10 +48,11 @@ class PrivateTransactions extends React.Component {
         return (
             <ModalBody
                 loadForm={this.loadForm}
-                modalTitle={'Confirm getting forging status'}
+                modalTitle={'Confirm forging start'}
+                modalSubTitle={'If you want to start forging, type your passphrase to confirm.'}
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Enter'}
+                submitButtonName={'Start forging'}
                 isDisableSecretPhrase
                 nameModel={this.props.nameModal}
             >
