@@ -97,7 +97,7 @@ class PollForm extends React.Component {
                     minBalanceType === 2 ||
                     votingModel === 2 &&
                     <AssetInput
-                        field={'create_poll_asset_id'}
+                        field={'holding'}
                         setValue={setValue}
                         idGroup={idGroup}
                     />
@@ -106,7 +106,7 @@ class PollForm extends React.Component {
                     minBalanceType === 3 ||
                     votingModel === 3 &&
                     <CurrencyInput 
-                        field={'create_poll_ms_code'}
+                        field={'holding'}
                         setValue={setValue}
                         idGroup={idGroup}
                     />
