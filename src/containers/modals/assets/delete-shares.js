@@ -46,6 +46,9 @@ class DeleteShares extends React.Component {
     };
 
     render() {
+        const {modalData} = this.props;
+        const decimals = modalData ? modalData.decimals : null
+
         return (
             <ModalBody
                 loadForm={this.loadForm}
@@ -62,7 +65,10 @@ class DeleteShares extends React.Component {
                                             
                 <TextualInputComponent 
                     label={'Asset'}
-                    text={`${this.props.modalData.assetName} - ${this.props.modalData.quantityATU / Math.pow(10, this.props.modalData.decimals) /** <---- Fix it */} availiable`}
+                    text={`${this.props.modalData.assetName} - ${(this.props.modalData.quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+                        minimumFractionDigits: decimals,
+                        maximumFractionDigits: decimals
+                    }) /** <---- Fix it */} availiable`}
                 />
 
                 <NumericInputComponent
