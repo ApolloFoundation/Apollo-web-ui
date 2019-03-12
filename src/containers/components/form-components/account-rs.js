@@ -7,7 +7,7 @@ const AccountRSFormInput = (props) => {
     return (
         <div className="input-group-app form-group mb-15 display-block inline user">
             <div className="row form-group-grey">
-                <label className="col-sm-3 col-form-label white-space">
+                <label className="col-sm-3 col-form-label">
                     {label}
                     <i class="zmdi zmdi-portable-wifi-changes" />
                 </label>
