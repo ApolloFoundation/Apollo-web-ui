@@ -40,7 +40,7 @@ import DeleteAccountProperty from './account/delete-account-property';
 import ChainProps from './account/chain-properties';
 
 // Assets
-import TransferAsset from './assets/transfer-asset';
+import TransferAsset from './assets/transfer-asset/';
 import DeleteShares from './assets/delete-shares';
 import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';

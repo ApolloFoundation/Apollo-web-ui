@@ -6,22 +6,26 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
 import {Form, Text} from 'react-form';
-import AdvancedSettings from '../../components/advanced-transaction-settings';
+import AdvancedSettings from '../../../components/advanced-transaction-settings';
 
-import AccountRS from '../../components/account-rs';
-import submitForm from "../../../helpers/forms/forms";
+import AccountRS from '../../../components/account-rs';
+import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import ModalFooter from '../../components/modal-footer'
-import FeeCalc from '../../components/form-components/fee-calc';
+import ModalFooter from '../../../components/modal-footer'
+import FeeCalc from '../../../components/form-components/fee-calc';
 
-import ModalBody from '../../components/modals/modal-body';
-import AssetInput from '../../components/form-components/asset-input';
-import AccountRsInput from '../../components/form-components/account-rs';
-import TextualInputComponent from '../../components/form-components/textual-input';
-import NumericInputComponent from '../../components/form-components/numeric-input';
-import CustomTextArea from '../../components/form-components/text-area';
+import ModalBody from '../../../components/modals/modal-body';
+import AssetInput from '../../../components/form-components/asset-input';
+import AccountRsInput from '../../../components/form-components/account-rs';
+import TextualInputComponent from '../../../components/form-components/textual-input';
+import NummericInputForm from '../../../components/form-components/numeric-input'
+import CustomTextArea from '../../../components/form-components/text-area';
+
+import TransferAssetFrom from './form';
+
+console.log(TransferAssetFrom);
 
 class TransferAsset extends React.Component {
     constructor(props) {
@@ -40,12 +44,13 @@ class TransferAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        console.log(values)
         values = {
             ...values,
             asset: values.assetID,
-            quantityATU: values.quantityATU * Math.pow(10, this.props.modalData.decimals)
+            quantityATU: values.quantityATU * Math.pow(10, values.decimals)
         }
+
+        console.log(values)
 
         this.props.processForm(values, 'transferAsset', 'Transfer asset request has been submitted!', () => {
             this.props.setBodyModalParamsAction(null, {});
@@ -54,6 +59,8 @@ class TransferAsset extends React.Component {
     };
 
     render() {
+        const availableAssets = Math.round(this.props.modalData.availableAssets);
+
         return (
             <ModalBody
                 loadForm={this.loadForm}
@@ -62,34 +69,10 @@ class TransferAsset extends React.Component {
                 isFee
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Transfer Asset'}
+                submitButtonName={'Transfer asset'}
                 nameModel={this.props.nameModal}
             >
-                <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
-                <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
-
-                <TextualInputComponent
-                    isText
-                    label={'Asset'}
-                    text={`${this.props.modalData.assetName} - ${this.props.modalData.availableAssets} available`}
-                />
-
-                <AccountRsInput
-                    label={'Recipient'}
-                    field={'recipient'}
-                />      
-
-                <CustomTextArea
-                    label={'Comment'}
-                    field={'message'}
-                    placeholder={'Comment'}
-                />
-
-                <NumericInputComponent
-                    label={'Quantity'}
-                    placeholder={'Quantity'}
-                    field={'quantityATU'}
-                />
+                <TransferAssetFrom />
             </ModalBody>
         );
     }

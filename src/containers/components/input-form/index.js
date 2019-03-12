@@ -138,6 +138,7 @@ class InputForm extends React.Component {
     render() {
         return (
             <div className="input-text-wrap">
+            
                 <Text
                     value={this.state.value}
                     className={`form-control ${this.props.className}`}

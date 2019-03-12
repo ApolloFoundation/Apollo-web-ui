@@ -150,7 +150,7 @@ class MyAssetItem extends React.Component {
                             <div className="btn-box inline">
                                 <a
                                     onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
-                                        quantityATU,
+                                        quantityATU: quantityATU / Math.pow(10, decimals),
                                         assetID:   asset,
                                         assetName: name,
                                         decimals,
@@ -165,7 +165,7 @@ class MyAssetItem extends React.Component {
                                 </a>
                                 <a
                                     onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
-                                        quantityATU,
+                                        quantityATU: quantityATU / Math.pow(10, decimals),
                                         assetID:   asset,
                                         decimals,
                                         assetName: name
