@@ -1,12 +1,7 @@
 import React from "react";
 import AccountRS from "../../../components/account-rs";
-import {Form} from "react-form";
-import InputForm from "../../../components/input-form";
-import CustomSelect from "../../../components/select";
-import ModalFooter from "../../../components/modal-footer";
 
 import ModalBody from '../../../components/modals/modal-body'
-import TextualInputForm from '../../../components/form-components/textual-input';
 import NumericInputForm from '../../../components/form-components/numeric-input';
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 import InputAccounts from '../../../components/form-components/input-accounts';
@@ -53,15 +48,6 @@ export default class ApproveByBalanceBody extends React.Component {
                     field={'phasingMinBalanceModel'}
                 />
 
-                {/* <BlockHeightInput 
-                    setValue={setValue}
-                    label={'Minimum and maximum phasing durations'}
-                    field={'phasingFinishHeight'}
-                    placeholder={'Finish height'}
-                    className={'gray-form'}
-                    deafultPlus={100}
-                /> */}
-
                 <NumericInputForm
                     label={'Minimum phasing durations'}
                     field={'minDuration'}
@@ -76,7 +62,7 @@ export default class ApproveByBalanceBody extends React.Component {
                     countingTtile={'Blocks'}
                 />
 
-                <TextualInputForm
+                <NumericInputForm
                     label={'Max pending transactions fees'}
                     field="maxFees"
                     placeholder="Max fees"
