@@ -26,7 +26,7 @@ class Assets extends Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Assets'}
+                    pageTitle={'All assets'}
                 />
                 <div className="page-body container-fluid">
                     <CustomTable 

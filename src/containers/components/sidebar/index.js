@@ -174,7 +174,7 @@ class Sidebar extends React.Component {
 									<ul>
 										<li>
                                             <NavLink exact={true} activeClassName="active" to="/assets">
-                                                Assets
+												All assets
                                             </NavLink>
                                         </li>
                                         <li>
