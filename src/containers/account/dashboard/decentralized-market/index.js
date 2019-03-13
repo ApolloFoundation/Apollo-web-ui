@@ -7,6 +7,7 @@ class DecentralizedMarketplace extends Component {
     render () {
         const {dashboardDgsGoods} = this.props;
 
+        console.log(dashboardDgsGoods)
         return (
             <div className="card decentralized-marketplace">
                 <div className="card-title">Decentralized Marketplace</div>

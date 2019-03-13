@@ -70,9 +70,9 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
     const aliaseesCount     = dispatch(getAliasesCountAction(rquestParams._aliaseesCount)); 
     const messages          = dispatch(getMessages(rquestParams._messages)); 
     const dgsGoods          = Promise.all([
-                                getDGSGoodsCountAction({account}),
-                                getDGSPurchaseCountAction({account}),
-                                getDGSPurchasesAction(),
+                                dispatch(getDGSGoodsCountAction({account})),
+                                dispatch(getDGSPurchaseCountAction({account})),
+                                dispatch(getDGSPurchasesAction()),
                             ]); 
     const news              = dispatch(getNewsAction()); 
     const taggetData        = dispatch(getAllTaggedDataAction(rquestParams._taggetData)); 
@@ -118,6 +118,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
                 type: 'SET_DASHBOARD_ALIASES_COUNT',
                 payload: aliaseesCount.numberOfAliases
             })
+            console.log(dgsGoods)
             dispatch({
                 type: 'SET_DASHBOARD_DGS_GOODS',
                 payload: {

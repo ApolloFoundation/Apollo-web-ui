@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
+import {connect} from 'react-redux';
 
 import MarketplaceGeneral from '../marketplace-general/';
 import MarketplaceTags from '../marketplace-tags/';
+import {getMarketplaceGeneralInfo} from '../../../../modules/marketplace';
 
 class MarketplaceDashboardHeader extends Component {
 
     state = {};
 
     componentDidMount = () => {
-
+        this.props.getMarketplaceGeneralInfo()
     }
 
     showMoreController = () => {
@@ -33,12 +35,7 @@ class MarketplaceDashboardHeader extends Component {
                     <div className="card fll-height marketplace product-box" />
                 </div>
                 <div className="col-md-6 col-lg-3 marketplace-preview-item pl-3 pr-0 pb-3">
-                    <MarketplaceGeneral
-                        getDGSPurchaseCount={this.state.getDGSPurchaseCount}
-                        getDGSGoodsCount={this.state.getDGSGoodsCount}
-                        getDGSPurchasesCount={this.state.getDGSPurchasesCount}
-                        getDGSTagCount={this.state.getDGSTagCount}
-                    />
+                    <MarketplaceGeneral />
                 </div>
                 <div className={classNames({
                     'col-md-6  col-lg-3 marketplace-preview-item' : !this.state.isShowMore,
@@ -57,4 +54,8 @@ class MarketplaceDashboardHeader extends Component {
     }
 }
 
-export default MarketplaceDashboardHeader;
+const mapDispatchToProps = dispatch => ({
+    getMarketplaceGeneralInfo: () => dispatch(getMarketplaceGeneralInfo())
+})
+
+export default connect(null, mapDispatchToProps)(MarketplaceDashboardHeader);

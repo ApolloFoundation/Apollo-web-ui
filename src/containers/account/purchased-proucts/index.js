@@ -105,6 +105,7 @@ class PurchasedProducts extends React.Component {
                         <MarketplaceColumnTable
                             data={this.state.getDGSGoods}
                             page={this.state.page}
+                            emptyMessage={'No purchased products found.'}
                         />
                     </div>
                 </div>

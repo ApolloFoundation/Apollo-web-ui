@@ -7,12 +7,12 @@ import InfoBox from '../../components/info-box';
 
 import MarketplaceItem from "../../account/marketplace/marketplace-card";
 
-const MarketplaceColumnTable = ({data, page, deliver}) => (
+const MarketplaceColumnTable = ({data, page, deliver, emptyMessage}) => (
     <>
         {console.log(data)}
         <ContentHendler
             items={data}
-            emptyMessage={'No pending orders.'}
+            emptyMessage={emptyMessage}
         >
             {
                 data &&

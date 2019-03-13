@@ -5,9 +5,6 @@ import {connect} from 'react-redux';
 
 import {
     getDGSGoodsAction,
-    getDGSTagCountAction,
-    getDGSPurchaseCountAction,
-    getDGSGoodsCountAction,
     getDGSPurchasesAction
 } from '../../../../actions/marketplace';
 
@@ -63,6 +60,9 @@ class MarketplaceDashboardFooter extends Component {
     };
 
     render () {
+
+        const {totalPurchasedProducts} = this.props;
+
         return (
             <>
                 {
@@ -96,23 +96,25 @@ class MarketplaceDashboardFooter extends Component {
                     </div> ||
                     <ContentLoader/>
                 }
-                {
-                    this.state.getDGSPurchases &&
+                 {
+                    this.state.getDGSGoods &&
                     <div className="form-group-app transparent marketplace no-padding-bottom height-auto">
-                        <div className="form-title padding-left">
+                        <div className="form-title padding-left pb-5">
                             <p>
-                                Recent purchases&nbsp;&nbsp;
-                                <Link to="/purchased-products" className="btn primary static">View more</Link>
+                                Recent listings&nbsp;&nbsp;
+                                <Link to="/recent-listing" className="btn primary static">View more</Link>
                             </p>
                         </div>
                         <div className="row marketplace-row">
                             {
-                                !!this.state.getDGSPurchases.length &&
-                                this.state.getDGSPurchases.map((el, index) => {
+                                totalPurchasedProducts &&
+                                !!totalPurchasedProducts.length &&
+                                totalPurchasedProducts.map((el, index) => {
                                     return (
                                         <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0 pr-0">
                                             <MarketplaceItem
                                                 fullHeight
+                                                relative={true}
                                                 {...el}
                                             />
                                         </div>
@@ -126,8 +128,17 @@ class MarketplaceDashboardFooter extends Component {
                     </div> ||
                     <ContentLoader/>
                 }
+                
             </>
         )
+    }
+}
+
+const mapStateToProps = state => {
+    const marketplace = state.marketplace.marketplaceGeneral;
+
+    return {
+        totalPurchasedProducts: marketplace ? marketplace.totalPurchasedProducts : null
     }
 }
 
@@ -136,4 +147,4 @@ const mapDispatchToProps = dispatch => ({
     getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
 })
 
-export default connect(null, mapDispatchToProps)(MarketplaceDashboardFooter);
+export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceDashboardFooter);

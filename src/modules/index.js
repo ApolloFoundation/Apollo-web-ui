@@ -16,6 +16,7 @@ import currencies from "./currencies"
 import ledger from "./ledger"
 import dashboard from "./dashboard"
 import assets from "./assets";
+import marketplace from './marketplace';
 
 export default combineReducers({
 	routing: routerReducer,
@@ -25,6 +26,7 @@ export default combineReducers({
     modals,
     fee,
     settings,
+    marketplace,
     currencies,
     dashboard,
     ledger,
