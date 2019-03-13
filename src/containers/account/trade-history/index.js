@@ -150,7 +150,7 @@ class TradeHistory extends React.Component {
                                 }
                             ]}
                             className={'mb-3'}
-                            emptyMessage={'No active polls.'}
+                            emptyMessage={'No trade history available.'}
                             TableRowComponent={(el) => 
                                 <TradeHistoryItem 
                                     transfer={el}
