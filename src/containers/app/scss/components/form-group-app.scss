@@ -561,9 +561,6 @@
 			.col-form-label {
 				margin-bottom: 7px;
 			}
-			.iconned-input-field {
-				padding-right: 15px;
-			}
 			& > * {
 				padding-left: 0;
 				padding-right: 0;
@@ -581,9 +578,6 @@
 			letter-spacing: 0.3px;
 			line-height: 16px;
 			padding: 0;
-			@media (max-width: 760px) {
-				max-width: 100px;
-			}
 		}
 		.form-control {
 			background-color: #ffffff;
@@ -687,9 +681,6 @@
 			
 			.col-form-label {
 				margin-bottom: 7px;
-			}
-			.iconned-input-field {
-				padding-right: 15px;
 			}
 			& > * {
 				padding-left: 0;

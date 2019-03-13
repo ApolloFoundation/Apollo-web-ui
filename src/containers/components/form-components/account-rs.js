@@ -12,7 +12,7 @@ const AccountRSFormInput = (props) => {
                     <i class="zmdi zmdi-portable-wifi-changes" />
                 </label>
                 <div className="col-sm-9">
-                    <div className="iconned-input-field">
+                    <div className="iconned-input-field pl-sm-0">
                         <AccountRS
                             value={value}
                             field={field}
