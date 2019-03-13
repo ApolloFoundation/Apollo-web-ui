@@ -109,7 +109,6 @@ export function getAssetAction(reqParams) {
                 requestType: 'getAsset',
                 phasingVotingModel: 0,
                 phasingQuorum: 1,
-                phasingWhitelisted: 3958487933422064851,
                 phased: true,
                 random: 0.004660718106320294,
                 ...reqParams

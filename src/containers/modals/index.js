@@ -57,7 +57,7 @@ import SellCurrency from './currencies/confirm-sell-request/';
 
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
-import CastVote from './voting-system/cast-vote';
+import CastVote from './voting-system/cast-vote/';
 
 // Data storage
 import UploadFile from './data-storage/uppload-file/';

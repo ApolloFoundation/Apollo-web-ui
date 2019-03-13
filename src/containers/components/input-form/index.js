@@ -14,7 +14,7 @@ class InputForm extends React.Component {
         this.state = {
             value: props.defaultValue || ''
         };
-        if (props.setValue) {
+        if (props.setValue && props.field) {
             props.setValue(props.field, props.defaultValue || '');
         }
     };

@@ -671,6 +671,13 @@ input[type="file"] {
 			color: #fff;
 		}
 	}
+	&.warning {
+		background: #f39c12;
+	
+		p {
+		  color: #fff;
+		}
+	}
 	&.simple {
 		background: transparent;
 		

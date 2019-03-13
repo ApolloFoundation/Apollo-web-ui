@@ -107,7 +107,11 @@
 
   }
   &.warning {
+    background: #f39c12;
 
+    p {
+      color: #fff;
+    }
   }
   &.no-padding-on-the-sides {
     padding-left: 0;

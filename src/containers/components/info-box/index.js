@@ -13,6 +13,7 @@ const InfoBox = (props) => (
             'attention-left': props.attentionLeft,
             'nowrap': props.nowrap,
             'info-box': true,
+            'warning': props.warning,
             'danger': props.danger,
             'blue-info': props.info,
             'info': props.default,
