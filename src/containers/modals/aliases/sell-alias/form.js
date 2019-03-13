@@ -29,7 +29,7 @@ class SellAliasForm extends React.Component {
     };
 
     render () {
-        const {setValue, handleFormSubmit, closeModal} = this.props;
+        const {setValue, handleFormSubmit, closeModal, alias} = this.props;
 
         return (
             <>
@@ -40,7 +40,6 @@ class SellAliasForm extends React.Component {
                     <TabContaier sectionName={'Sell alias to Specific Account'}>
                         <ModalBody
                             closeModal={closeModal}
-                            handleFormSubmit={(values) => handleFormSubmit(values)}
                             className={'p-0 transparent gray-form'}
                             isFee
                             isPour
@@ -48,7 +47,7 @@ class SellAliasForm extends React.Component {
                         >
                             <SellToAccountForm 
                                 setValue={setValue}
-                                alias={this.state.alias}
+                                alias={alias}
                             />
                         </ModalBody>
                     </TabContaier>
@@ -56,7 +55,6 @@ class SellAliasForm extends React.Component {
                     <TabContaier sectionName={'Sell to Anyone'}>
                         <ModalBody
                             closeModal={closeModal}
-                            handleFormSubmit={(values) => handleFormSubmit(values)}
                             className={'p-0 transparent gray-form'}
                             submitButtonName={'Sell alias'}
                             isFee
@@ -64,7 +62,7 @@ class SellAliasForm extends React.Component {
                         >
                             <SellToAllForm 
                                 setValue={setValue}
-                                alias={this.state.alias}
+                                alias={alias}
                             />
                         </ModalBody>
                     </TabContaier>

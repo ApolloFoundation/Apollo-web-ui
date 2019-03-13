@@ -215,7 +215,7 @@ class AdvancedSettings extends React.Component {
                 label={'Referenced transaction hash'}
                 field="referencedTransactionFullHash"
                 placeholder="Referenced transaction hash"
-                className={'gray-form'}
+                className={this.props.white ?  '' : 'gray-form'}
                 type={"text"}
                 setValue={setValue}
             />
@@ -227,7 +227,7 @@ class AdvancedSettings extends React.Component {
                 label={'Finish height'}
                 field={'phasingFinishHeight'}
                 placeholder={'Finish height'}
-                className={'gray-form'}
+                className={this.props.white ?  '' : 'gray-form'}
                 deafultPlus={100}
             />
         )
@@ -325,7 +325,7 @@ class AdvancedSettings extends React.Component {
                             placeholder={'Number of accounts'}
                             field={'phasingQuorum'}
                             type={'tel'}
-                            className={'gray-form'}
+                            className={this.props.white ?  '' : 'gray-form'}
                         />
 
                         {FinishHeightInput()}
@@ -396,7 +396,7 @@ class AdvancedSettings extends React.Component {
                             label={'Amount'}
                             setValue={setValue}
                             placeholder={'Amount'}
-                            className={'gray-form'}
+                            className={this.props.white ?  '' : 'gray-form'}
                             field={'phasingQuorumAPL'}
                             fieldType={'counter-number'}
                             code={'APL'}
@@ -461,7 +461,7 @@ class AdvancedSettings extends React.Component {
                             setValue={setValue}
                             placeholder={'Asset quantity'}
                             field={'phasingQuorumATUf'}
-                            className={'gray-form'}
+                            className={this.props.white ?  '' : 'gray-form'}
                             fieldType={'counter-number'}
                             defaultValue={this.state.block ? this.state.block.height : ''}
                             type={'tel'}
@@ -532,7 +532,7 @@ class AdvancedSettings extends React.Component {
                             setValue={setValue}
                             placeholder={'Currency units'}
                             field={'phasingQuorumATUf'}
-                            className={'gray-form'}
+                            className={this.props.white ?  '' : 'gray-form'}
                             fieldType={'counter-number'}
                             code={'Units'}
                             type={'tel'}
@@ -602,7 +602,7 @@ class AdvancedSettings extends React.Component {
                         <CustomInputForm 
                             label={'Approved by transaction hash'}
                             setValue={setValue}
-                            className={'gray-form'}
+                            className={this.props.white ?  '' : 'gray-form'}
                             placeholder={'Full hash of transaction'}
                             field={'phasingLinkedFullHash'}
                             type={'text'}
@@ -617,7 +617,7 @@ class AdvancedSettings extends React.Component {
                     <TabContainer active={this.state.activeTab === 7}>
                         {FinishHeightInput()} 
                         <CustomInputForm 
-                            className={'gray-form'}
+                            className={this.props.white ?  '' : 'gray-form'}
                             label={'Approved by hash secret'}
                             setValue={setValue}
                             placeholder={'Hash of secret'}

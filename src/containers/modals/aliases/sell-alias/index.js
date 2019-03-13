@@ -34,6 +34,20 @@ class SellAlias extends React.Component {
 
     }
 
+    componentDidMount = () => {
+        this.getAlias();
+    };
+
+    getAlias = async () => {
+        const alias = await this.props.getAliasAction({alias: this.props.modalData});
+
+        if (alias) {
+            this.setState({
+                alias
+            });
+        }
+    };
+
     async handleFormSubmit(values) {
 
         values = {
@@ -52,9 +66,14 @@ class SellAlias extends React.Component {
         return (
             <ModalBody
                 modalTitle={'Sell Alias'}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Sell Alias'}
+                isDisableSecretPhrase
                 isAdvanced={true}
+                isAdvancedWhite
             >
                 <SellAliasForm 
+                    alias={this.state.alias}
                     closeModal={this.props.closeModal} 
                     handleFormSubmit={this.handleFormSubmit} 
                 />
