@@ -34,7 +34,6 @@ class DeleteShares extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        console.log(values)
         values = {
             ...values,
             asset: values.assetID,
