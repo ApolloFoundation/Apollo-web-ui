@@ -6,7 +6,6 @@
 
 import React from 'react';
 import SiteHeader from '../../components/site-header';
-import Pie from './pie-diagram';
 import {BlockUpdater} from "../../block-subscriber";
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -28,6 +27,7 @@ import SidebarItem from './sidebar-item';
 import PollRequest from  './poll-request';
 import CustomTable from '../../components/tables/table';
 import VoteResult from './vote-result';
+import PollDescription from './poll-description';
 
 const mapStateToProps = state => ({
     followedPolls: state.polls.followedPolls
@@ -98,21 +98,6 @@ class FollowedVotes extends React.Component {
     componentWillUnmount() {
         BlockUpdater.removeListener("data", this.listener)
     }
-
-    // componentWillReceiveProps(newState) {
-    //     this.getpoll({
-    //         poll: newState.match.params.poll
-    //     });
-    //     this.getPollVotes({
-    //         poll: newState.match.params.poll,
-    //         firstIndex: this.state.firstIndex,
-    //         lastIndex:  this.state.lastIndex
-    //     });
-    //     this.getpollResults({
-    //         poll: newState.match.params.poll
-    //     });
-    //     this.props.getFollowedPolls();
-    // }
 
     async getpoll(reqParams) {
         const poll = await this.props.getpollAction(reqParams);
@@ -208,7 +193,7 @@ class FollowedVotes extends React.Component {
     }
 
     render() {
-        const {colors, allVotesNumber} = this.state;
+        const {colors, allVotesNumber, poll} = this.state;
         const {followedPolls} = this.props;
 
         return (
@@ -253,66 +238,12 @@ class FollowedVotes extends React.Component {
                         {
                             this.state.poll &&
                             <div className={'col-md-9 pl-sm-0 p-xs-0 pl-md-3 pr-0'}>
-                                <div className="card card-flexible mb-3">
-
-                                            <div className="row">
-                                                <div className="col-md-7">
-                                                    <div className="right-bar">
-                                                        <div className="form-group-app">
-                                                            <div className="form-title word-brake">
-                                                                <p>{this.state.poll.name}</p>
-                                                            </div>
-                                                            <div className="account-bar">
-                                                                <div className="information">
-                                                                    <div className="title">Account ID:&nbsp;&nbsp;</div>
-                                                                    <div className="content">{this.state.poll.accountRS}</div>
-                                                                </div>
-                                                                <div className="information">
-                                                                    <div className="title">Poll ID:&nbsp;&nbsp;</div>
-                                                                    <div className="content">{this.state.poll.poll}</div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="description-bar word-brake">
-                                                                <p>{this.state.poll.description}</p>
-                                                            </div>
-                                                            {
-                                                                !this.state.poll.finished &&
-                                                                <a
-                                                                    onClick={() => this.props.setBodyModalParamsAction('CAST_VOTE', this.state.poll.poll)}
-                                                                    className="btn btn-primary static blue"
-                                                                >
-                                                                    Vote in poll
-                                                                </a>
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="col-md-5"
-                                                    style={{
-                                                        transition: 'all 0.3s ease-in-out'
-                                                    }}
-                                                >
-                                                    {
-                                                        colors.length > 0 && this.state.pollResults && this.state.poll.options && this.state.pollResults.results &&
-                                                        <Pie
-                                                            data={this.state.pollResults.results.map((el, index) => {
-                                                                return parseInt(el.result) || 0.05
-                                                            })}
-                                                            votes={this.state.poll.options}
-                                                            radius={ 150 }
-                                                            hole={ 0 }
-                                                            colors={ colors }
-                                                            strokeWidth={ 1 }
-                                                            stroke={ 'rgba(0, 0, 0, .5)' }
-                                                        />
-                                                    }
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
+                                <PollDescription 
+                                    poll={this.state.poll}
+                                    colors={colors}
+                                    pollResults={this.state.pollResults}
+                                />
+                                {console.log(this.state.poll)}
                                 <div className="card card-flexible mb-3">
                                     <div className="form-group-app offset-bottom height-auto no-padding transparent">
                                         <CustomTable 
@@ -342,13 +273,14 @@ class FollowedVotes extends React.Component {
                                                 {
                                                     name: 'Voter',
                                                     alignRight: false
-                                                },{
-                                                    name: 'Result',
-                                                    alignRight: true
-                                                },{
-                                                    name: 'Weight',
-                                                    alignRight: true
-                                                }
+                                                },
+                                                ...poll.options.map(el => {
+                                                    console.log(el)
+                                                    return {
+                                                        name: el,
+                                                        alignRight: true
+                                                    }
+                                                })
                                             ]}
                                             tableName={`Votes cast (${allVotesNumber})`}
                                             className={'no-min-height position-static'}
