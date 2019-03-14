@@ -17,6 +17,7 @@ import ledger from "./ledger"
 import dashboard from "./dashboard"
 import assets from "./assets";
 import marketplace from './marketplace';
+import polls from './polls';
 
 export default combineReducers({
 	routing: routerReducer,
@@ -31,4 +32,5 @@ export default combineReducers({
     dashboard,
     ledger,
     accountSettings,
+    polls,
 })

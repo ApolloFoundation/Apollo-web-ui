@@ -160,8 +160,6 @@ class SiteHeader extends React.Component {
     };
 
     render() {
-        console.log(this.props.bodyModalType);
-
         return (
             <>
                 <div
