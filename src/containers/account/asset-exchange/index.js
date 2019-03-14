@@ -58,10 +58,12 @@ class AssetExchange extends React.Component {
         BlockUpdater.removeListener("data", this.listener)
     }
 
-    componentWillReceiveProps(newState) {
-        this.getAsset(newState.match.params.asset);
-        this.getAssets();
-        this.getAccountAsset(newState);
+    componentDidUpdate = (prevProps) => {
+        if (this.props.location.pathname !== prevProps.location.pathname) {
+            this.getAsset(this.props.match.params.asset);
+            this.getAssets();
+            this.getAccountAsset(this.props);
+        }
     }
 
     async getAsset(assetID) {
