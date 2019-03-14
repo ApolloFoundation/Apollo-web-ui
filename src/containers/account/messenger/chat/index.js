@@ -29,7 +29,7 @@ class Chat extends React.Component {
         const {chatMessages} = this.props;
 
         return (
-            <div className="card card-full-screen no-padding">
+            <div className="card card-full-screen p-0">
                 <div className="chatting-box">
                     {
                         chatMessages &&

@@ -16,6 +16,7 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import SidebarContent from '../../components/sidebar-list';
 import Chat from './chat';
 import SidebarMessage from './sidebar-messenger/';
+import SidebarContentPage from '../../components/sidebar-content-page';
 
 class Messenger extends React.Component {
 
@@ -56,21 +57,20 @@ class Messenger extends React.Component {
                         Compose message
                     </a>
 				</SiteHeader>
-                <div className="page-body container-fluid assets-exchange">
-                    <div className="row messages">
-                        <div className="col-md-3 p-0 pb-3">
-                            <SidebarContent
-                                baseUrl={'/messenger/'}
-                                element={'accountRS'}
-                                data={chats}
-                                Component={SidebarMessage}
-                            />
-                        </div>
-                        <div className="col-md-9 pl-sm-0 p-xs-0 pl-md-3 pr-0 pb-3">
-                            <Chat />
-                        </div>
-                    </div>
-                </div>
+                <SidebarContentPage
+                    SidebarContent={() => (
+                        <SidebarContent
+                            baseUrl={'/messenger/'}
+                            element={'accountRS'}
+                            data={chats}
+                            emptyMessage={'No assets found.'}
+                            Component={SidebarMessage}
+                        />
+                    )}
+                    PageContent={() => (
+                        <Chat />
+                    )}
+                />
 			</div>
 		);
 	}
