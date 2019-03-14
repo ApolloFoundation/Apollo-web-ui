@@ -12,10 +12,10 @@ class ActivePolls extends Component {
             <div className="card active-polls">
                 <div className="card-title">Active Polls</div>
                 <div
-                    className="full-box block word-brake"
+                    className="full-box block word-brake align-start"
                     style={{
                         display: 'flex',
-                        paddingBottom: '50px'
+                        paddingBottom: '30px'
                     }}
                 >
                     {
@@ -27,6 +27,7 @@ class ActivePolls extends Component {
                                         display: 'block',
                                         color: '#777777'
                                     }}
+                                    className={'align-self-center'}
                                     to={'/followed-polls/' + el.poll}
                                 >
                                     {el.name}

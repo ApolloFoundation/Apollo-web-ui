@@ -372,6 +372,17 @@
 		&.offset {
 			padding: 20px 0px 14px;
 		}
+		&.align-start {
+			justify-content: flex-start;
+		}
+
+		.align-self-center {
+			height: 33.3333%;
+			width: 100%;
+			display: flex !important;
+			flex-direction: column;
+			justify-content: center !important;
+		}
 		
 		.full-box-item {
 			flex-wrap: wrap;

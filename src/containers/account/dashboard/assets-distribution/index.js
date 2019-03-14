@@ -18,13 +18,13 @@ class AssetsDistribution extends Component {
                     !dashboardAssets &&
                     <ContentLoader noPaddingOnTheSides onPaddingTop/>
                 }
-                <div className="full-box">
+                <div className="full-box align-start">
                     {
                         dashboardAssets &&
                         dashboardAssets.distribution.map((el, index) => {
                             if (index < 3) {
                                 return (
-                                    <div className="full-box-item coin">
+                                    <div className="full-box-item coin align-self-center">
                                         <div className="coin-data">
                                             <CircleFigure
                                                 index={index}

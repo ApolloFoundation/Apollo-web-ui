@@ -56,7 +56,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             account,
             firstIndex: 0,
             lastIndex: 2,
-            includeFinished: true
         },
         _accountInfo: {
             account
@@ -118,7 +117,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
                 type: 'SET_DASHBOARD_ALIASES_COUNT',
                 payload: aliaseesCount.numberOfAliases
             })
-            console.log(dgsGoods)
             dispatch({
                 type: 'SET_DASHBOARD_DGS_GOODS',
                 payload: {
