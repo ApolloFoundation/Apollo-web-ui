@@ -64,6 +64,8 @@ class MyMessages extends React.Component {
         const {page} = this.state;
         const {messages, setBodyModalParamsAction} = this.props;
 
+        console.log(messages)
+        
         return (
             <div className="page-content">
                 <SiteHeader
@@ -100,7 +102,7 @@ class MyMessages extends React.Component {
                         className={'mb-3'}
                         page={page}
                         TableRowComponent={MessageItem}
-                        tableData={this.props.messages}
+                        tableData={messages}
                         isPaginate
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}

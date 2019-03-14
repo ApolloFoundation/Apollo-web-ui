@@ -116,14 +116,28 @@ class MessageItem extends React.Component {
                         </div>
                     }
                     {
-                        !isDescrypted &&
+                        isDescrypted &&
                         !publicMessage &&
                         !decryptedMessage &&
-                        <div><i class="zmdi zmdi-scissors"/>
-                            &nbsp;&nbsp;&nbsp;
+                        <div>
+                            <i class="zmdi zmdi-scissors"/>
+                                &nbsp;&nbsp;&nbsp;
                             <span>Message is pruned.</span>
                         </div>
                     }
+                    {
+                            !isDescrypted &&
+                            !publicMessage &&
+                            !decryptedMessage &&
+                            <>
+                                <a
+                                    onClick={() => setBodyModalParamsAction('DECRYPT_MESSAGES')}
+                                >
+                                    < i className="zmdi zmdi-lock" />
+                                </a>
+                                <span className="message-text">&nbsp;&nbsp;Message is encrypted</span>
+                            </>
+                        }
                     
                 </td>
                 <td className="align-right">
