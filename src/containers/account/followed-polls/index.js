@@ -294,6 +294,7 @@ class FollowedVotes extends React.Component {
                             }
                         </>
                     )}
+                    pageContentClassName={'pl-3 pr-0'}
                 />
                 
             </div>

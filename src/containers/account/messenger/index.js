@@ -70,6 +70,7 @@ class Messenger extends React.Component {
                     PageContent={() => (
                         <Chat />
                     )}
+                    pageContentClassName={'pl-3 pr-0'}
                 />
 			</div>
 		);

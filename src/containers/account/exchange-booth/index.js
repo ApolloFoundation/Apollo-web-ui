@@ -31,6 +31,7 @@ import {getTransactionAction} from "../../../actions/transactions";
 import SidebarContent from '../../components/sidebar-list';
 import BackForm from '../../modals/modal-form/modal-form-container';
 import SidebarCurrency from './sdiebar-item';
+import SidebarContentPage from '../../components/sidebar-content-page';
 
 class ExchangeBooth extends React.Component {
     constructor(props) {
@@ -295,432 +296,390 @@ class ExchangeBooth extends React.Component {
 
                     }
                 </SiteHeader>
-                {
-                    this.state.currency &&
-                    <div className="page-body container-fluid">
-                        <div className="row">
-                            <div className="col-md-3 p-0 pb-3">
-                                <SidebarContent
-                                    element={'code'}
-                                    baseUrl={'/exchange-booth/'}
-                                    data={this.state.currencies}
-                                    emptyMessage={'No followed polls.'}
-                                    Component={SidebarCurrency}
-                                />
-                            </div>
-                            <div className="col-md-9 p-0">
-                                <div className="row">
-                                    {
-                                        window.innerWidth < 768 &&
+                <SidebarContentPage
+                    SidebarContent={() => (
+                        <SidebarContent
+                            element={'code'}
+                            baseUrl={'/exchange-booth/'}
+                            data={this.state.currencies}
+                            emptyMessage={'No followed polls.'}
+                            Component={SidebarCurrency}
+                        />
+                    )}
+                    PageContent={() => (
+                        <>
+                            {
+                                this.state.currency &&
+                                    <div className="row">
+                                        {
+                                            window.innerWidth < 768 &&
+                                            <div className="col-xl-6 col-md-12 pr-0">
+                                                <a onClick={this.goBack} className="btn primary mb-3">
+                                                    <i class="zmdi zmdi-arrow-left" /> &nbsp;
+                                                    Back to list
+                                                </a>
+                                            </div>
+                                        }
                                         <div className="col-xl-6 col-md-12 pr-0">
-                                            <a onClick={this.goBack} className="btn primary mb-3">
-                                                <i class="zmdi zmdi-arrow-left" /> &nbsp;
-                                                Back to list
-                                            </a>
-                                        </div>
-                                    }
-                                    <div className="col-xl-6 col-md-12 pr-0">
-                                        <div className="card header ballance medium-padding mb-3">
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <div className="card-title medium">{this.state.code}</div>
-                                                </div>
-                                                <div className="col-md-6 flex">
-                                                    <div className="card-title small word-brake">{this.state.description}</div>
+                                            <div className="card header ballance medium-padding mb-3">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <div className="card-title medium">{this.state.code}</div>
+                                                    </div>
+                                                    <div className="col-md-6 flex">
+                                                        <div className="card-title small word-brake">{this.state.description}</div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div className="card ballance auto-height medium-padding">
+                                                <BackForm
+                                                    nameModal={this.props.nameModal}
+                                                    onSubmit={(values) => this.handleMinimumBuyRate(values)}
+                                                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                                                        <form onSubmit={submitForm} onChange={() => this.props.saveSendModalState(values)} className="form-group-app">
+                                                            <div className="form-title">
+                                                                {this.props.modalsHistory.length > 1 &&
+                                                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                                                }
+                                                                <p>Buy {this.state.code}</p>
+                                                                <div className="form-sub-title">
+                                                                    balance: <strong>{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')} Apollo</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Units</label>
+                                                                    </div>
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <InputForm
+                                                                            field="units"
+                                                                            type={'float'}
+                                                                            placeholder='Units'
+                                                                            onChange={(e) => {
+                                                                                if (!e.target) {
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(e)))
+                                                                                } else {
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                                }
+                                                                            }}
+                                                                            setValue={setValue}
+                                                                            maxValue={this.sellLimit()}
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text"
+                                                                                id="amountText">{this.state.code}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Maximum Rate</label>
+                                                                    </div>
+
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        {
+                                                                            !!this.state.minimumSellRate &&
+                                                                            <input
+                                                                                value={Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals))}
+                                                                                ref="buy_currency_rate"
+                                                                                placeholder='Quantity'
+                                                                                className={"form-control "}
+                                                                                readOnly
+                                                                                disabled
+                                                                            />
+                                                                        }
+
+                                                                        <div className="input-group-append">
+                                                                            <span
+                                                                                className="input-group-text"
+                                                                                id="amountText"
+                                                                            >
+                                                                                {this.state.code}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Effective Rate</label>
+                                                                    </div>
+
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        {
+                                                                            !!this.state.minimumSellRate &&
+                                                                            <input
+                                                                                value={Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals))}
+                                                                                ref="buy_currency_rate"
+                                                                                placeholder='Quantity'
+                                                                                className={"form-control "}
+                                                                                readOnly
+                                                                                disabled
+                                                                            />
+                                                                        }
+                                                                        <div className="input-group-append">
+                                                                            <span
+                                                                                className="input-group-text"
+                                                                                id="amountText"
+                                                                            >
+                                                                                {this.state.code}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Total</label>
+                                                                    </div>
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <Text
+                                                                            field="rateATM"
+                                                                            placeholder='Price'
+                                                                            className={"form-control"}
+                                                                            readOnly
+                                                                            disabled
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span
+                                                                                className="input-group-text"
+                                                                                id="amountText"
+                                                                            >
+                                                                                {this.state.code}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                    </div>
+                                                                    <div className="col-md-9 pr-0">
+                                                                        <button
+                                                                            type='submit'
+                                                                            className={classNames({
+                                                                                'blue-disabled' : !(!!parseInt(getFormState().values.rateATM)),
+                                                                                'btn': true,
+                                                                                'static': true,
+                                                                                'blue': true,
+                                                                            })}
+                                                                        >
+                                                                            Buy (APL > {this.state.code})
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    )}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="card ballance auto-height medium-padding">
-                                            <BackForm
-	                                            nameModal={this.props.nameModal}
-                                                onSubmit={(values) => this.handleMinimumBuyRate(values)}
-                                                render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                                                    <form onSubmit={submitForm} onChange={() => this.props.saveSendModalState(values)} className="form-group-app">
-                                                        <div className="form-title">
-                                                            {this.props.modalsHistory.length > 1 &&
-                                                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-                                                            }
-                                                            <p>Buy {this.state.code}</p>
-                                                            <div className="form-sub-title">
-                                                                balance: <strong>{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')} Apollo</strong>
-                                                            </div>
+                                        <div className="col-xl-6 col-md-12 pr-0">
+                                            <div className="card header assets medium-padding mb-3">
+                                                <div className="full-box full">
+                                                    <div className="full-box-item">
+                                                        <div className='box'>
+                                                            <div className="card-title bold">Account:</div>
+                                                            <div
+                                                                className="card-title description">{this.state.accountRS}</div>
                                                         </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="form-group row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                    <label>Units</label>
+                                                        <div className='box'>
+                                                            <div className="card-title bold">Currency ID:</div>
+                                                            <div
+                                                                className="card-title asset-id description">{this.state.currency}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="full-box-item">
+                                                        <div className='box'>
+                                                            <div className="card-title bold">Current supply:</div>
+                                                            <div
+                                                                className="card-title description">{this.state.currentSupply / Math.pow(10, this.state.decimals)}</div>
+                                                        </div>
+                                                        <div className='box'>
+                                                            <div className="card-title bold">Max supply:</div>
+                                                            <div
+                                                                className="card-title description">{this.state.maxSupply  / Math.pow(10, this.state.decimals)}</div>
+                                                        </div>
+                                                        <div className='box'>
+                                                            <div className="card-title bold">Currency decimals:</div>
+                                                            <div
+                                                                className="card-title description">{this.state.decimals}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="card assets auto-height medium-padding">
+                                                <Form
+                                                    onSubmit={(values) => this.handleMinimumSellRate(values)}
+                                                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                                                        <form className="form-group-app" onSubmit={submitForm}>
+                                                            <div className="form-title">
+                                                                <p>Sell {this.state.code}</p>
+                                                                <div className="form-sub-title">
+                                                                    balance: <strong>{!!this.state.accountCurrency && !!this.state.accountCurrency.unconfirmedUnits ? (this.state.accountCurrency.unconfirmedUnits / Math.pow(10, this.state.accountCurrency.decimals)).toLocaleString('en') : 0} {this.state.code}</strong>
                                                                 </div>
-                                                                <div
-                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    <InputForm
-                                                                        field="units"
-                                                                        type={'float'}
-                                                                        placeholder='Units'
-                                                                        onChange={(e) => {
-                                                                            if (!e.target) {
-                                                                                setValue('rateATM', Math.round(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(e)))
-                                                                            } else {
-                                                                                setValue('rateATM', Math.round(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
-                                                                            }
-                                                                        }}
-                                                                        setValue={setValue}
-                                                                        maxValue={this.sellLimit()}
-                                                                    />
-                                                                    <div className="input-group-append">
-                                                                        <span className="input-group-text"
-                                                                              id="amountText">{this.state.code}</span>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Units</label>
+                                                                    </div>
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <InputForm
+                                                                            field="units"
+                                                                            type={'float'}
+                                                                            placeholder='Units'
+                                                                            onChange={(e) => {
+                                                                                if (!e.target) {
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(e)))
+                                                                                } else {
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                                }
+                                                                            }}
+                                                                            setValue={setValue}
+                                                                            maxValue={this.buyLimit()}
+                                                                        />
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text"
+                                                                                id="amountText">{this.state.code}</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="form-group row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                    <label>Maximum Rate</label>
-                                                                </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Maximum Rate</label>
+                                                                    </div>
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        {
+                                                                            !!this.state.minimumBuyRate &&
+                                                                            <input
+                                                                                value={Math.round((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals))}
+                                                                                ref="buy_currency_rate"
+                                                                                placeholder='Quantity'
+                                                                                className={"form-control "}
+                                                                                readOnly
+                                                                                disabled
+                                                                            />
+                                                                        }
 
-                                                                <div
-                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    {
-                                                                        !!this.state.minimumSellRate &&
-                                                                        <input
-                                                                            value={Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals))}
-                                                                            ref="buy_currency_rate"
-                                                                            placeholder='Quantity'
-                                                                            className={"form-control "}
+                                                                        <div className="input-group-append">
+                                                                            <span
+                                                                                className="input-group-text"
+                                                                                id="amountText"
+                                                                            >
+                                                                                {this.state.code}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Effective Rate</label>
+                                                                    </div>
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        {
+                                                                            !!this.state.minimumBuyRate &&
+                                                                            <input
+                                                                                value={Math.round((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals))}
+                                                                                ref="buy_currency_rate"
+                                                                                placeholder='Quantity'
+                                                                                className={"form-control "}
+                                                                                readOnly
+                                                                                disabled
+                                                                            />
+                                                                        }
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text"
+                                                                                id="amountText">{this.state.code}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="form-group row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
+                                                                        <label>Total</label>
+                                                                    </div>
+                                                                    <div
+                                                                        className="col-md-9 pr-0 input-group input-group-text-transparent">
+                                                                        <Text
+                                                                            field="rateATM"
+                                                                            placeholder='Price'
+                                                                            className={"form-control"}
                                                                             readOnly
                                                                             disabled
                                                                         />
-                                                                    }
-
-                                                                    <div className="input-group-append">
-                                                                        <span
-                                                                            className="input-group-text"
-                                                                            id="amountText"
-                                                                        >
-                                                                            {this.state.code}
-                                                                        </span>
+                                                                        <div className="input-group-append">
+                                                                            <span className="input-group-text"
+                                                                                id="amountText">{this.state.code}
+                                                                            </span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="form-group row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                    <label>Effective Rate</label>
-                                                                </div>
-
-                                                                <div
-                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    {
-                                                                        !!this.state.minimumSellRate &&
-                                                                        <input
-                                                                            value={Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals))}
-                                                                            ref="buy_currency_rate"
-                                                                            placeholder='Quantity'
-                                                                            className={"form-control "}
-                                                                            readOnly
-                                                                            disabled
-                                                                        />
-                                                                    }
-                                                                    <div className="input-group-append">
-                                                                        <span
-                                                                            className="input-group-text"
-                                                                            id="amountText"
-                                                                        >
-                                                                            {this.state.code}
-                                                                        </span>
+                                                            <div
+                                                                className="input-group-app offset-top display-block inline no-margin">
+                                                                <div className="row form-group-white">
+                                                                    <div className="col-md-3 pl-0">
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="form-group row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                    <label>Total</label>
-                                                                </div>
-                                                                <div
-                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    <Text
-                                                                        field="rateATM"
-                                                                        placeholder='Price'
-                                                                        className={"form-control"}
-                                                                        readOnly
-                                                                        disabled
-                                                                    />
-                                                                    <div className="input-group-append">
-                                                                        <span
-                                                                            className="input-group-text"
-                                                                            id="amountText"
-                                                                        >
-                                                                            {this.state.code}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                </div>
-                                                                <div className="col-md-9 pr-0">
-                                                                    <button
-                                                                        type='submit'
-                                                                        className={classNames({
+                                                                    <div className="col-md-9 pr-0">
+                                                                        <button className={classNames({
                                                                             'blue-disabled' : !(!!parseInt(getFormState().values.rateATM)),
                                                                             'btn': true,
                                                                             'static': true,
                                                                             'blue': true,
                                                                         })}
-                                                                    >
-                                                                        Buy (APL > {this.state.code})
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                )}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-xl-6 col-md-12 pr-0">
-                                        <div className="card header assets medium-padding mb-3">
-                                            <div className="full-box full">
-                                                <div className="full-box-item">
-                                                    <div className='box'>
-                                                        <div className="card-title bold">Account:</div>
-                                                        <div
-                                                            className="card-title description">{this.state.accountRS}</div>
-                                                    </div>
-                                                    <div className='box'>
-                                                        <div className="card-title bold">Currency ID:</div>
-                                                        <div
-                                                            className="card-title asset-id description">{this.state.currency}</div>
-                                                    </div>
-                                                </div>
-                                                <div className="full-box-item">
-                                                    <div className='box'>
-                                                        <div className="card-title bold">Current supply:</div>
-                                                        <div
-                                                            className="card-title description">{this.state.currentSupply / Math.pow(10, this.state.decimals)}</div>
-                                                    </div>
-                                                    <div className='box'>
-                                                        <div className="card-title bold">Max supply:</div>
-                                                        <div
-                                                            className="card-title description">{this.state.maxSupply  / Math.pow(10, this.state.decimals)}</div>
-                                                    </div>
-                                                    <div className='box'>
-                                                        <div className="card-title bold">Currency decimals:</div>
-                                                        <div
-                                                            className="card-title description">{this.state.decimals}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="card assets auto-height medium-padding">
-                                            <Form
-                                                onSubmit={(values) => this.handleMinimumSellRate(values)}
-                                                render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                                                    <form className="form-group-app" onSubmit={submitForm}>
-                                                        <div className="form-title">
-                                                            <p>Sell {this.state.code}</p>
-                                                            <div className="form-sub-title">
-                                                                balance: <strong>{!!this.state.accountCurrency && !!this.state.accountCurrency.unconfirmedUnits ? (this.state.accountCurrency.unconfirmedUnits / Math.pow(10, this.state.accountCurrency.decimals)).toLocaleString('en') : 0} {this.state.code}</strong>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="form-group row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                    <label>Units</label>
-                                                                </div>
-                                                                <div
-                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    <InputForm
-                                                                        field="units"
-                                                                        type={'float'}
-                                                                        placeholder='Units'
-                                                                        onChange={(e) => {
-                                                                            if (!e.target) {
-                                                                                setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(e)))
-                                                                            } else {
-                                                                                setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
-                                                                            }
-                                                                        }}
-                                                                        setValue={setValue}
-                                                                        maxValue={this.buyLimit()}
-                                                                    />
-                                                                    <div className="input-group-append">
-                                                                        <span className="input-group-text"
-                                                                              id="amountText">{this.state.code}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="form-group row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                    <label>Maximum Rate</label>
-                                                                </div>
-                                                                <div
-                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    {
-                                                                        !!this.state.minimumBuyRate &&
-                                                                        <input
-                                                                            value={Math.round((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals))}
-                                                                            ref="buy_currency_rate"
-                                                                            placeholder='Quantity'
-                                                                            className={"form-control "}
-                                                                            readOnly
-                                                                            disabled
-                                                                        />
-                                                                    }
-
-                                                                    <div className="input-group-append">
-                                                                        <span
-                                                                            className="input-group-text"
-                                                                            id="amountText"
                                                                         >
-                                                                            {this.state.code}
-                                                                        </span>
+                                                                            Sell ({this.state.code} > APL)
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="form-group row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                    <label>Effective Rate</label>
-                                                                </div>
-                                                                <div
-                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    {
-                                                                        !!this.state.minimumBuyRate &&
-                                                                        <input
-                                                                            value={Math.round((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals))}
-                                                                            ref="buy_currency_rate"
-                                                                            placeholder='Quantity'
-                                                                            className={"form-control "}
-                                                                            readOnly
-                                                                            disabled
-                                                                        />
-                                                                    }
-                                                                    <div className="input-group-append">
-                                                                        <span className="input-group-text"
-                                                                              id="amountText">{this.state.code}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="form-group row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                    <label>Total</label>
-                                                                </div>
-                                                                <div
-                                                                    className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                                                    <Text
-                                                                        field="rateATM"
-                                                                        placeholder='Price'
-                                                                        className={"form-control"}
-                                                                        readOnly
-                                                                        disabled
-                                                                    />
-                                                                    <div className="input-group-append">
-                                                                        <span className="input-group-text"
-                                                                              id="amountText">{this.state.code}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            className="input-group-app offset-top display-block inline no-margin">
-                                                            <div className="row form-group-white">
-                                                                <div className="col-md-3 pl-0">
-                                                                </div>
-                                                                <div className="col-md-9 pr-0">
-                                                                    <button className={classNames({
-                                                                        'blue-disabled' : !(!!parseInt(getFormState().values.rateATM)),
-                                                                        'btn': true,
-                                                                        'static': true,
-                                                                        'blue': true,
-                                                                    })}
-                                                                    >
-                                                                        Sell ({this.state.code} > APL)
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                )}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12 p-0 margin-top-13">
-                                        <div className="row">
-                                            <div className="col-md-6 display-flex pr-0 pb-3">
-                                                <div className="card ballance medium-padding card-flexible">
-                                                    <div className="form-group-app">
-                                                        <div className="form-title">
-                                                            <p>Offers to sell {this.state.code}</p>
-                                                        </div>
-                                                        {this.state.sellOffers.length === 0 ?
-                                                            <div className="info-box simple">
-                                                                <p>No open sell offers. You cannot sell this currency
-                                                                    now,
-                                                                    but you could publish an exchange offer instead, and
-                                                                    wait for others to fill it.</p>
-                                                            </div> :
-                                                            <div className="transaction-table no-min-height">
-                                                                <div
-                                                                    className="transaction-table-body padding-only-top">
-                                                                    <table>
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <td>Account</td>
-                                                                            <td className="align-right">Units</td>
-                                                                            <td className="align-right">Limit</td>
-                                                                            <td className="align-right">Rate</td>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        {this.state.sellOffers.map(offer => <OfferItem
-                                                                                key={uuid()}
-                                                                                offer={offer}
-                                                                                decimals={this.state.currencyInfo.decimals}
-                                                                            />
-                                                                        )}
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
+                                                        </form>
+                                                    )}
+                                                />
                                             </div>
-                                            <div className="col-md-6 display-flex pr-0 pb-3">
-                                                <div className="card assets medium-padding card-flexible">
-                                                    <div className="form-group-app">
-                                                        <div className="form-title">
-                                                            <p>Offers to buy {this.state.code}</p>
-                                                        </div>
-                                                        <div className="info-box simple">
-                                                            {this.state.buyOffers.length === 0 ?
+                                        </div>
+                                        <div className="col-md-12 p-0 margin-top-13">
+                                            <div className="row">
+                                                <div className="col-md-6 display-flex pr-0 pb-3">
+                                                    <div className="card ballance medium-padding card-flexible">
+                                                        <div className="form-group-app">
+                                                            <div className="form-title">
+                                                                <p>Offers to sell {this.state.code}</p>
+                                                            </div>
+                                                            {this.state.sellOffers.length === 0 ?
                                                                 <div className="info-box simple">
-                                                                    <p>No open buy offers. You cannot sell this currency
+                                                                    <p>No open sell offers. You cannot sell this currency
                                                                         now,
-                                                                        but you could publish an exchange offer instead,
-                                                                        and
+                                                                        but you could publish an exchange offer instead, and
                                                                         wait for others to fill it.</p>
                                                                 </div> :
                                                                 <div className="transaction-table no-min-height">
@@ -736,8 +695,7 @@ class ExchangeBooth extends React.Component {
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                            {this.state.buyOffers.map(offer =>
-                                                                                <OfferItem
+                                                                            {this.state.sellOffers.map(offer => <OfferItem
                                                                                     key={uuid()}
                                                                                     offer={offer}
                                                                                     decimals={this.state.currencyInfo.decimals}
@@ -751,95 +709,138 @@ class ExchangeBooth extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12 pr-0 pb-3">
-                                        <div className="card ballance medium-padding card-flexible">
-                                            <div className="form-group-app">
-                                                <div className="form-title">
-                                                    <p>Exchange requests</p>
-                                                </div>
-                                                {this.state.exchangeRequest.length === 0 ?
-                                                    <div className="info-box simple">
-                                                        <p>No exchanges.</p>
-                                                    </div>
-                                                    :
-                                                    <div className="transaction-table no-min-height">
-                                                        <div className="transaction-table-body padding-only-top">
-                                                            <table>
-                                                                <thead>
-                                                                <tr>
-                                                                    <td>Height</td>
-                                                                    <td>Type</td>
-                                                                    <td className="align-right">Units</td>
-                                                                    <td className="align-right">Rate</td>
-                                                                    <td className="align-right">Total</td>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                {this.state.exchangeRequest.map(exchange =>
-                                                                    <ExchangeItem
-                                                                        decimals={this.state.currencyInfo.decimals}
-                                                                        key={uuid()}
-                                                                        exchange={exchange}
-                                                                        setBlockInfo={this.getBlock}
-                                                                    />
-                                                                )}
-                                                                </tbody>
-                                                            </table>
+                                                <div className="col-md-6 display-flex pr-0 pb-3">
+                                                    <div className="card assets medium-padding card-flexible">
+                                                        <div className="form-group-app">
+                                                            <div className="form-title">
+                                                                <p>Offers to buy {this.state.code}</p>
+                                                            </div>
+                                                            <div className="info-box simple">
+                                                                {this.state.buyOffers.length === 0 ?
+                                                                    <div className="info-box simple">
+                                                                        <p>No open buy offers. You cannot sell this currency
+                                                                            now,
+                                                                            but you could publish an exchange offer instead,
+                                                                            and
+                                                                            wait for others to fill it.</p>
+                                                                    </div> :
+                                                                    <div className="transaction-table no-min-height">
+                                                                        <div
+                                                                            className="transaction-table-body padding-only-top">
+                                                                            <table>
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <td>Account</td>
+                                                                                    <td className="align-right">Units</td>
+                                                                                    <td className="align-right">Limit</td>
+                                                                                    <td className="align-right">Rate</td>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                {this.state.buyOffers.map(offer =>
+                                                                                    <OfferItem
+                                                                                        key={uuid()}
+                                                                                        offer={offer}
+                                                                                        decimals={this.state.currencyInfo.decimals}
+                                                                                    />
+                                                                                )}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12 pr-0 pb-3">
-                                        <div className="card ballance medium-padding card-flexible" style={{marginBottom:0}}>
-                                            <div className="form-group-app">
-                                                <div className="form-title">
-                                                    <p>Executed exchanges</p>
                                                 </div>
-                                                {this.state.executedExchanges.length === 0 ?
-                                                    <div className="info-box simple">
-                                                        <p>No exchanges.</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12 pr-0 pb-3">
+                                            <div className="card ballance medium-padding card-flexible">
+                                                <div className="form-group-app">
+                                                    <div className="form-title">
+                                                        <p>Exchange requests</p>
                                                     </div>
-                                                    :
-                                                    <div className="transaction-table no-min-height">
-                                                        <div className="transaction-table-body padding-only-top">
-                                                            <table>
-                                                                <thead>
-                                                                <tr>
-                                                                    <td>Date</td>
-                                                                    <td>Seller</td>
-                                                                    <td>Buyer</td>
-                                                                    <td className="align-right">Units</td>
-                                                                    <td className="align-right">Rate</td>
-                                                                    <td className="align-right">Total</td>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                {this.state.executedExchanges.map(exchange =>
-                                                                    <ExecutedItem
-                                                                        decimals={this.state.currencyInfo.decimals}
-                                                                        key={uuid()}
-                                                                        exchange={exchange}
-                                                                        setTransactionInfo={this.getTransaction}
-                                                                    />
-                                                                )}
-                                                                </tbody>
-                                                            </table>
+                                                    {this.state.exchangeRequest.length === 0 ?
+                                                        <div className="info-box simple">
+                                                            <p>No exchanges.</p>
                                                         </div>
+                                                        :
+                                                        <div className="transaction-table no-min-height">
+                                                            <div className="transaction-table-body padding-only-top">
+                                                                <table>
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <td>Height</td>
+                                                                        <td>Type</td>
+                                                                        <td className="align-right">Units</td>
+                                                                        <td className="align-right">Rate</td>
+                                                                        <td className="align-right">Total</td>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    {this.state.exchangeRequest.map(exchange =>
+                                                                        <ExchangeItem
+                                                                            decimals={this.state.currencyInfo.decimals}
+                                                                            key={uuid()}
+                                                                            exchange={exchange}
+                                                                            setBlockInfo={this.getBlock}
+                                                                        />
+                                                                    )}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12 pr-0 pb-3">
+                                            <div className="card ballance medium-padding card-flexible" style={{marginBottom:0}}>
+                                                <div className="form-group-app">
+                                                    <div className="form-title">
+                                                        <p>Executed exchanges</p>
                                                     </div>
-                                                }
+                                                    {this.state.executedExchanges.length === 0 ?
+                                                        <div className="info-box simple">
+                                                            <p>No exchanges.</p>
+                                                        </div>
+                                                        :
+                                                        <div className="transaction-table no-min-height">
+                                                            <div className="transaction-table-body padding-only-top">
+                                                                <table>
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <td>Date</td>
+                                                                        <td>Seller</td>
+                                                                        <td>Buyer</td>
+                                                                        <td className="align-right">Units</td>
+                                                                        <td className="align-right">Rate</td>
+                                                                        <td className="align-right">Total</td>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    {this.state.executedExchanges.map(exchange =>
+                                                                        <ExecutedItem
+                                                                            decimals={this.state.currencyInfo.decimals}
+                                                                            key={uuid()}
+                                                                            exchange={exchange}
+                                                                            setTransactionInfo={this.getTransaction}
+                                                                        />
+                                                                    )}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                            }
+                        </>
+                    )}
+                />
             </div>
         );
     }

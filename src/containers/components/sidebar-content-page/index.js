@@ -20,16 +20,13 @@ class SidebarContentPage extends Component {
     }
 
     render () {
-        const {SidebarContent, PageContent, match: {params}} = this.props;
+        const {SidebarContent, PageContent, match: {params}, pageContentClassName} = this.props;
         const isGoBack = !!Object.values(params).length
 
-        console.log(params);
-        console.log(isGoBack);
-
         return (
-            <div className="page-body container-fluid followed-polls-container">
+            <div className="page-body container-fluid followed-polls-container pl-0">
                     <div className="row">
-                        <div className="col-md-3 p-0 pb-3">
+                        <div className="col-md-3 p-0 pb-3 pl-3 pr-0">
                             {
                                 window.innerWidth > 769 &&
                                 <SidebarContent />                         
@@ -43,7 +40,7 @@ class SidebarContentPage extends Component {
                             }
                         </div> 
 
-                        <div className={'col-md-9 pl-sm-0 p-xs-0 pl-md-3 pr-0 pb-3'}>
+                        <div className={`col-md-9 pb-3 ${pageContentClassName ? pageContentClassName: 'pl-0'}`}>
                             {
                                 window.innerWidth < 769 &&
                                 isGoBack &&
