@@ -7,7 +7,6 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {BlockUpdater} from "../../block-subscriber";
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import '../messenger/Messenger.scss'
 import './FollowedPools.css'
@@ -23,6 +22,7 @@ import uuid from "uuid";
 
 import SidebarContent from '../../components/sidebar-list/';
 
+import SidebarContentPage from '../../components/sidebar-content-page';
 import SidebarItem from './sidebar-item';
 import PollRequest from  './poll-request';
 import CustomTable from '../../components/tables/table';
@@ -219,85 +219,83 @@ class FollowedVotes extends React.Component {
                     }
                 </SiteHeader>
 
-                
-                <div className="page-body container-fluid followed-polls-container">
-                    <div className="row">
-                        {
-                            window.innerWidth > 768 &&
-                            <div className="col-md-3 p-0 pb-3">
-                                <SidebarContent
-                                    baseUrl={'/followed-polls/'}
-                                    element={'poll'}
-                                    data={followedPolls}
-                                    bottomBarPreText={'Current Supply:&nbsp;'}
-                                    emptyMessage={'No followed polls.'}
-                                    Component={SidebarItem}
-                                />
-                            </div>
-                        }
-                        {
-                            this.state.poll &&
-                            <div className={'col-md-9 pl-sm-0 p-xs-0 pl-md-3 pr-0'}>
-                                <PollDescription 
-                                    poll={this.state.poll}
-                                    colors={colors}
-                                    pollResults={this.state.pollResults}
-                                />
-                                {console.log(this.state.poll)}
-                                <div className="card card-flexible mb-3">
-                                    <div className="form-group-app offset-bottom height-auto no-padding transparent">
-                                        <CustomTable 
-                                            header={[
-                                                {
-                                                    name: 'Label',
-                                                    alignRight: false
-                                                },{
-                                                    name: 'Voter',
-                                                    alignRight: false
-                                                },{
-                                                    name: 'Result',
-                                                    alignRight: true
-                                                },{
-                                                    name: 'Weight Supply',
-                                                    alignRight: true
-                                                }
-                                            ]}
-                                            TableRowComponent={PollRequest}
-                                            tableData={this.state.pollResults && this.state.pollResults.results ? this.state.pollResults.results.map((el, index) => ({...el, ...colors[index], option: this.state.pollResults.options[index]})) : null}
-                                            tableName={'Poll Requests'}
-                                            className={'no-min-height'}
-                                            emptyMessage={'No poll request.'}
-                                        />
-                                        <CustomTable 
-                                            header={[
-                                                {
-                                                    name: 'Voter',
-                                                    alignRight: false
-                                                },
-                                                ...poll.options.map(el => {
-                                                    console.log(el)
-                                                    return {
-                                                        name: el,
+                <SidebarContentPage
+                    SidebarContent={() => (
+                        <SidebarContent
+                            baseUrl={'/followed-polls/'}
+                            element={'poll'}
+                            data={followedPolls}
+                            bottomBarPreText={'Current Supply:&nbsp;'}
+                            emptyMessage={'No followed polls.'}
+                            Component={SidebarItem}
+                        />
+                    )}
+                    PageContent={() => (
+                        <>
+                            {
+                                this.state.poll &&
+                                <>
+                                    <PollDescription 
+                                        poll={this.state.poll}
+                                        colors={colors}
+                                        pollResults={this.state.pollResults}
+                                    />
+                                    <div className="card card-flexible mb-3">
+                                        <div className="form-group-app offset-bottom height-auto no-padding transparent">
+                                            <CustomTable 
+                                                header={[
+                                                    {
+                                                        name: 'Label',
+                                                        alignRight: false
+                                                    },{
+                                                        name: 'Voter',
+                                                        alignRight: false
+                                                    },{
+                                                        name: 'Result',
+                                                        alignRight: true
+                                                    },{
+                                                        name: 'Weight Supply',
                                                         alignRight: true
                                                     }
-                                                })
-                                            ]}
-                                            tableName={`Votes cast (${allVotesNumber})`}
-                                            className={'no-min-height position-static'}
-                                            page={this.state.page}
-                                            TableRowComponent={VoteResult}
-                                            tableData={this.state.votes}
-                                            isPaginate
-                                            previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
-                                            nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-                                            emptyMessage={'No poll request.'}
-                                        />      
+                                                ]}
+                                                TableRowComponent={PollRequest}
+                                                tableData={this.state.pollResults && this.state.pollResults.results ? this.state.pollResults.results.map((el, index) => ({...el, ...colors[index], option: this.state.pollResults.options[index]})) : null}
+                                                tableName={'Poll Requests'}
+                                                className={'no-min-height'}
+                                                emptyMessage={'No poll request.'}
+                                            />
+                                            <CustomTable 
+                                                header={[
+                                                    {
+                                                        name: 'Voter',
+                                                        alignRight: false
+                                                    },
+                                                    ...poll.options.map(el => {
+                                                        console.log(el)
+                                                        return {
+                                                            name: el,
+                                                            alignRight: true
+                                                        }
+                                                    })
+                                                ]}
+                                                tableName={`Votes cast (${allVotesNumber})`}
+                                                className={'no-min-height position-static'}
+                                                page={this.state.page}
+                                                TableRowComponent={VoteResult}
+                                                tableData={this.state.votes}
+                                                isPaginate
+                                                previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                                                nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                                                emptyMessage={'No poll request.'}
+                                            />      
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
+                                </>
+                            }
+                        </>
+                    )}
+                />
+                
             </div>
         );
     }
