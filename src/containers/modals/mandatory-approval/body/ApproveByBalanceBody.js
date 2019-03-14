@@ -28,9 +28,9 @@ export default class ApproveByBalanceBody extends React.Component {
             <ModalBody
                 isPour
                 modalTitle={'Process without approval'}
-                submitButtonName={'Submit'}
                 className={'transparent'}
                 isFee
+                isDisableFormFooter
                 handleFormSubmit={(values) => this.enterAccount(values)}
             >
                 <NumericInputForm

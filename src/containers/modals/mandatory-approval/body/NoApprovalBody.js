@@ -15,9 +15,9 @@ export default class NoApprovalBody extends React.Component {
             <ModalBody
                 isPour
                 modalTitle={'Process without approval'}
-                submitButtonName={'Submit'}
                 className={'transparent'}
                 isFee
+                isDisableFormFooter
                 handleFormSubmit={(values) => this.enterAccount(values)}
             >
                 <NummericFormInput

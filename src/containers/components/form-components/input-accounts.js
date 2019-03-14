@@ -22,8 +22,9 @@ class InputAccounts extends Component {
             this.setState({
                 accounts: list
             }, () => {
-                if (setValue) {
-                    setValue('phasingWhitelisted', list)
+                if (this.props.setValue) {
+                    console.log(list);
+                    this.props.setValue('controlWhitelisted', list)
                 }
             })
         }
@@ -40,7 +41,7 @@ class InputAccounts extends Component {
                     accounts
                 }, () => {
                     if (setValue) {
-                        setValue('phasingWhitelisted', accounts)
+                        setValue('controlWhitelisted', accounts)
                     }
                 })
             }
@@ -48,8 +49,9 @@ class InputAccounts extends Component {
     }
 
     render () {
-        const {setValue, label} = this.props;
+        const {setValue, label, values} = this.props;
 
+        console.log(values)
         return (
             <>
                 {
@@ -63,7 +65,7 @@ class InputAccounts extends Component {
                                 handleRemoveItem={this.removeListValue(setValue)}
                                 index={index}
                                 label={'Accounts (whitelist)'}
-                                field={'phasingWhitelisted'}
+                                field={'controlWhitelisted'}
                                 noContactList
                             /> 
                         );

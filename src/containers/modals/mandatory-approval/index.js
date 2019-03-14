@@ -251,6 +251,8 @@ class MandatoryApprovalModal extends React.Component {
                 modalTitle={'Mandatory Approval'}
                 isAdvanced={true}
                 modalSubTitle={'All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.'}
+                submitButtonName={'Subsasdasdfmit'}
+                isAdvancedWhite
             >
                 <TabulationBody
                     className={'p-0 gray-form'}
@@ -282,6 +284,7 @@ class MandatoryApprovalModal extends React.Component {
                     <TabContaier sectionName={<i className="zmdi zmdi-balance" />}>
                         <ApproveWithCurrencyBody
                             setApi={form => this.setApproveWithCurrencyApi(form)}
+                            handleFormSubmit={this.submitApproveWithCurrency}
                         />
                     </TabContaier>
                 </TabulationBody>

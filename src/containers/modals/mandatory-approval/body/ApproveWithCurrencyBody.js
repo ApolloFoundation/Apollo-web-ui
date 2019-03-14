@@ -5,7 +5,7 @@ import ModalBody from '../../../components/modals/modal-body'
 import NumericInputForm from '../../../components/form-components/numeric-input';
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 import InputAccounts from '../../../components/form-components/input-accounts';
-
+import CurrencyInput from '../../../components/form-components/currency-input';
 
 const minBalanceType = [
     {value: '0', label: 'No min balance necessary'},
@@ -30,10 +30,10 @@ export default class ApproveWithCurrencyBody extends React.Component {
             <ModalBody
                 isPour
                 modalTitle={'Process without approval'}
-                submitButtonName={'Submit'}
                 className={'transparent'}
                 isFee
-                handleFormSubmit={(values) => this.enterAccount(values)}
+                isDisableFormFooter
+                handleFormSubmit={(values) => this.props.handleFormSubmit(values)}
             >
                 <NumericInputForm
                     label={'Currency units'}
@@ -41,7 +41,13 @@ export default class ApproveWithCurrencyBody extends React.Component {
                     placeholder={'Currency units'}
                 />
 
-                <InputAccounts />
+                <CurrencyInput
+                    field={'controlHoldingCurrencyCode'}
+                />
+
+                <InputAccounts 
+                    field={'controlWhitelisted'}
+                />
  
                 <CustomFormSelect
                     defaultValue={minBalanceType[0]}

@@ -6,7 +6,7 @@ import ModalBody from '../../../components/modals/modal-body'
 import NumericInputForm from '../../../components/form-components/numeric-input';
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 import InputAccounts from '../../../components/form-components/input-accounts';
-
+import AssetInput from '../../../components/form-components/asset-input';
 
 const minBalanceType = [
     {value: '0', label: 'No min balance necessary'},
@@ -31,15 +31,19 @@ export default class ApproveWithAssetBody extends React.Component {
             <ModalBody
                 isPour
                 modalTitle={'Process without approval'}
-                submitButtonName={'Submit'}
                 className={'transparent'}
                 isFee
+                isDisableFormFooter
                 handleFormSubmit={(values) => this.enterAccount(values)}
             >
                 <NumericInputForm
                     label={'Asset Quantity'}
                     field={'assetQuantity'}
                     placeholder={'Asset Quantity'}
+                />
+
+                <AssetInput 
+                    field={'controlHolding'}
                 />
 
                 <InputAccounts/>

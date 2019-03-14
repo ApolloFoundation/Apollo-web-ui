@@ -9,9 +9,7 @@ import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
 import {getAssetAction} from "../../../actions/assets";
 import {Link} from 'react-router-dom';
-import {Form, Text, Radio, RadioGroup, TextArea, Checkbox} from "react-form";
 import crypto from '../../../helpers/crypto/crypto'
-import InputForm from '../../components/input-form';
 import {buyAssetAction} from "../../../actions/assets";
 import {sellAssetAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {setAlert, setBodyModalParamsAction} from "../../../modules/modals";
@@ -19,14 +17,8 @@ import classNames from "classnames";
 import {getAskOrders, getBidOrders} from "../../../actions/marketplace";
 import uuid from "uuid";
 import InfoBox from '../../components/info-box';
-import DeleteItem from "../delete-history/deletes";
-import TradeHistoryItem from "../trade-history/trade-history-item";
 import {getTransactionAction} from "../../../actions/transactions";
-import OrderItem from "./order/index";
 import {BlockUpdater} from "../../block-subscriber";
-import {NotificationManager} from "react-notifications";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 import bigInteger from 'big-integer'
 
 import OffersToBuy from './offers-to-buy';
