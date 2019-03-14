@@ -5,23 +5,23 @@ import AccountRSFormInput from '../../../components/form-components/account-rs'
 import CustomTextArea from '../../../components/form-components/text-area'
 import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 
-const ComposeMessageForm = ({setVaue, getValue, modalData, getFormState}) => (
+const ComposeMessageForm = ({setValue, getValue, modalData, getFormState, values}) => (
     <>
         <AccountRSFormInput
-            setVaue={setVaue}
+            setValue={setValue}
             label={'Recipient'}
             field={'recipient'}
             value={getValue('recipient') || ''}
             defaultValue={(modalData && modalData.recipient) ? modalData.recipient : ''}
         />
         <CustomTextArea
-            setVaue={setVaue}
+            setVaue={setValue}
             label={'Message'}
             field={'message'}
             placeholder={'Message'}
         />
         <CheckboxFormInput
-            setVaue={setVaue}
+            setVaue={setValue}
             checkboxes={[
                 {
                     field: 'messageToEncrypt',

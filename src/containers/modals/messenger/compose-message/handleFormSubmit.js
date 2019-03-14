@@ -11,6 +11,8 @@ export const handleFormSubmit = function (values) {
     
     const {store : {dispatch}} = this;
 
+    console.log(values)
+
     if (values.messageToEncrypt) {
         values.messageToEncrypt = values.message;
         delete values.message;

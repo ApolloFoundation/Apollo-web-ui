@@ -361,9 +361,13 @@ export const getChatsPerPage = () => {
 
         getChatsAction({account})
             .then(chats => {
+                chats = chats.chats.filter(el => {
+                    return el.account !== '0'
+                });
+
                 dispatch({
                     type: 'SET_CHATS',
-                    payload: chats.chats
+                    payload: chats
                 })
             })
     }
