@@ -49,7 +49,7 @@ class SidebarContentPage extends Component {
                                     onClick={this.getBack}
                                 >
                                     <i class="zmdi zmdi-long-arrow-left"></i>&nbsp;&nbsp;
-                                    Got back
+                                    Back to list
                                 </div>
                             }
                             {
