@@ -14,7 +14,7 @@ class AddAliasForm extends React.Component {
     state = {};
     
     render () {
-        const {setValue} = this.props;
+        const {setValue, values} = this.props;
 
         return (
             <>
@@ -35,7 +35,7 @@ class AddAliasForm extends React.Component {
                 />
               
                 {
-                    this.state.inputType === 'uri' &&
+                    values.type === 'uri' &&
                     <TextualInputComponent 
                         label={'URI'}
                         field="aliasURI"
@@ -45,7 +45,7 @@ class AddAliasForm extends React.Component {
                     />
                 }
                 {
-                    this.state.inputType === 'account' &&
+                    values.type === 'account' &&
                     <AccountRSFormInput
                         field={'aliasURI'}
                         label={'Account ID'}
@@ -53,7 +53,7 @@ class AddAliasForm extends React.Component {
                     />
                 }
                 {
-                    this.state.inputType === 'general' &&
+                    values.type === 'general' &&
                     <TextualInputComponent 
                         label={'Data'}
                         field="aliasURI"

@@ -64,8 +64,6 @@ class DeleteShares extends React.Component {
                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                 <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
 
-                {console.log(this.props.modalData.quantityATU / Math.pow(10, decimals))}                            
-                {console.log(decimals)}                            
                 <TextualInputComponent 
                     label={'Asset'}
                     text={`${this.props.modalData.assetName} - ${(this.props.modalData.quantityATU)
