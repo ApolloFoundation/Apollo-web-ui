@@ -124,6 +124,7 @@ class Login extends React.Component {
                             modalTitle={'Welcome to Apollo'}
                             closeModal={this.props.closeModal}
                             className={'modal-form'}
+                            isDisableFormFooter
                         >
                             <TabulationBody
                                 className={'p-0'}
