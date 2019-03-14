@@ -297,6 +297,7 @@ class ExchangeBooth extends React.Component {
                     }
                 </SiteHeader>
                 <SidebarContentPage
+                    backButtonClassname={'ml-3'}
                     SidebarContent={() => (
                         <SidebarContent
                             element={'code'}
@@ -311,15 +312,6 @@ class ExchangeBooth extends React.Component {
                             {
                                 this.state.currency &&
                                     <div className="row">
-                                        {
-                                            window.innerWidth < 768 &&
-                                            <div className="col-xl-6 col-md-12 pr-0">
-                                                <a onClick={this.goBack} className="btn primary mb-3">
-                                                    <i class="zmdi zmdi-arrow-left" /> &nbsp;
-                                                    Back to list
-                                                </a>
-                                            </div>
-                                        }
                                         <div className="col-xl-6 col-md-12 pr-0">
                                             <div className="card header ballance medium-padding mb-3">
                                                 <div className="row">
@@ -840,6 +832,7 @@ class ExchangeBooth extends React.Component {
                             }
                         </>
                     )}
+                    pageContentClassName={'pl-0 pr-0'}
                 />
             </div>
         );

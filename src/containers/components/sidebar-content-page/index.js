@@ -20,13 +20,13 @@ class SidebarContentPage extends Component {
     }
 
     render () {
-        const {SidebarContent, PageContent, match: {params}, pageContentClassName} = this.props;
+        const {SidebarContent, PageContent, match: {params}, pageContentClassName, backButtonClassname} = this.props;
         const isGoBack = !!Object.values(params).length
 
         return (
             <div className="page-body container-fluid followed-polls-container pl-0">
                     <div className="row">
-                        <div className="col-md-3 p-0 pb-3 pl-3 pr-0">
+                        <div className={`col-md-3 p-0 pb-3 pl-3 pr-0`}>
                             {
                                 window.innerWidth > 769 &&
                                 <SidebarContent />                         
@@ -45,7 +45,7 @@ class SidebarContentPage extends Component {
                                 window.innerWidth < 769 &&
                                 isGoBack &&
                                 <div 
-                                    className={'btn primary mb-3 mt-0'} 
+                                    className={`btn primary mb-3 mt-0  ${backButtonClassname}`} 
                                     onClick={this.getBack}
                                 >
                                     <i class="zmdi zmdi-long-arrow-left"></i>&nbsp;&nbsp;
