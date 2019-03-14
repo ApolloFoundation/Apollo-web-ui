@@ -44,8 +44,26 @@ const PageTitleBox = ({setBodyModalType, children, dashboardPage, pageTitle}) =>
                     <a>{pageTitle}</a>
                 </strong>
             </div>
-            
         </div>
+        <div className={'media-site-header-buttons mt-3'}>
+            {
+                children &&
+                React.Children.map(children, child => {
+                    if (child) {
+                        return React.cloneElement(child, {
+                            className : classNames({
+                                'btn primary' : true,
+                                'mr-3': true,
+                                'd-inline' : true
+                            }),
+                            style: {}
+                        })
+                    }
+                }
+            )
+            }
+        </div>
+        
     </div>
 )
 

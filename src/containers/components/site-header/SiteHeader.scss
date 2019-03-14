@@ -1,3 +1,11 @@
+.media-site-header-buttons {
+	display: none;
+	
+	@media(max-width: 1024px) {
+		display: block;
+	}
+}
+
 .page-header {
 	display: flex;
 	flex-wrap: nowrap;
@@ -132,6 +140,7 @@
 				top: calc(100% - 40px);
 			}
 		}
+		
 	}
 	.logo {
 		display: none;
@@ -567,6 +576,13 @@
 				position: absolute;
 				left: 0;
 				top: calc(100% - 40px);
+			}
+		}
+		.media-site-header-buttons {
+			display: none;
+			
+			@media(min-width: 1024px) {
+				display: block;
 			}
 		}
 	}
