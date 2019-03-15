@@ -46,12 +46,12 @@ class MyVotes extends React.Component {
     componentDidMount() {
         this.getMyPolls({
             account: this.props.account,
+            includeFinished: true
         });
         BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
             this.getMyPolls({
                 account: this.props.account,
+                includeFinished: true
             });
         });
 
@@ -59,12 +59,6 @@ class MyVotes extends React.Component {
 
     componentWillUnmount() {
         BlockUpdater.removeAllListeners('data');
-    }
-
-    componentWillReceiveProps(newState) {
-        this.getMyPolls({
-            account: newState.account,
-        });
     }
 
     getMyPolls = async (reqParams) => {

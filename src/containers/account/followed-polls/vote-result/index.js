@@ -6,7 +6,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 const VoteResult = ({votes, voter, voterRS, setBodyModalParamsAction}) => (
     <tr key={uuid()}>
         <td className="blue-link-text">
-            <a onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', voter)}> {voterRS} </a>
+            <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', voter)}> {voterRS} </a>
         </td>
         {
             votes && 

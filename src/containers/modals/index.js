@@ -58,6 +58,7 @@ import SellCurrency from './currencies/confirm-sell-request/';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
+import PollResults from './voting-system/poll-results/';
 
 // Data storage
 import UploadFile from './data-storage/uppload-file/';
@@ -241,7 +242,7 @@ class ModalWindow extends React.Component {
                     {/* Voting */}
                     {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.closeModal} nameModal={'ISSUE_POLL'}/>}
                     {this.props.modalType === 'CAST_VOTE'                   && <CastVote                  closeModal={this.closeModal} nameModal={'CAST_VOTE'}/>}
-
+                    {this.props.modalType === 'POLL_RESULTS'                && <PollResults               closeModal={this.closeModal} nameModal={'CAST_VOTE'}/>}
 
                     {/* Data Storage */}
                     {this.props.modalType === 'ISSUE_FILE_UPLOAD'           && <UploadFile                closeModal={this.closeModal} nameModal={'ISSUE_FILE_UPLOAD'}/>}

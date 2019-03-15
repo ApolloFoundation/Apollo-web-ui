@@ -131,7 +131,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             })
             dispatch({
                 type: 'SET_DASHBOARD_NEWS',
-                payload: news.tweets
+                payload: news ? news.tweets : []
             })
             dispatch({
                 type: 'SET_DASHBOARD_TAGGEDDATA',

@@ -41,6 +41,9 @@ const PoolItem  = props => (
         </td>
         <td key={uuid()} className={"align-right"}>
             <div className="btn-box inline">
+            
+            
+                <a  onClick={() =>  props.setBodyModalParamsAction('POLL_RESULTS', props.poll)} className="btn primary blue">Results</a>
                 <Link to={"/followed-polls/" + props.poll } className="btn primary blue">View</Link>
             </div>
         </td>
