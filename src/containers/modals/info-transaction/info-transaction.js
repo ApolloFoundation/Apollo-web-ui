@@ -105,8 +105,9 @@ class InfoLedgerTransaction extends React.Component {
                                         <div className="flexible-grid">
                                             {this.state.transaction.recipientRS ?
                                                 <a
-                                                    onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient: this.state.transaction.recipientRS})}
-                                                    className="btn btn-primary blue static">
+                                                    onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient: this.props.accountRS === this.state.transaction.recipientRS ? this.state.transaction.senderRS : this.state.transaction.recipientRS})}
+                                                    className="btn btn-primary blue static"
+                                                >
                                                     Send Apollo
                                                 </a>
                                                 :
@@ -114,7 +115,7 @@ class InfoLedgerTransaction extends React.Component {
                                             }
                                             {this.state.transaction.recipientRS ?
                                                 <a
-                                                    onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient: this.state.transaction.recipientRS})}
+                                                    onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient: this.props.accountRS === this.state.transaction.recipientRS ? this.state.transaction.senderRS : this.state.transaction.recipientRS})}
                                                     className="btn btn-primary blue static">
                                                     Send a message
                                                 </a>
