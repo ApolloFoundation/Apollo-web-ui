@@ -43,7 +43,7 @@ class ApproveTransaction extends React.Component {
             deadline: 1440,
         }
 
-        this.props.precessForm(values, "approveTransaction", 'Transaction has been approved!', () => {
+        this.props.processForm(values, "approveTransaction", 'Transaction has been approved!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('Transaction has been approved!', null, 5000);
         });

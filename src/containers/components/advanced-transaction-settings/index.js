@@ -7,10 +7,6 @@
 import React from 'react';
 import classNames from "classnames";
 import {connect} from 'react-redux';
-import AccountRS from '../../components/account-rs';
-import InputForm from '../../components/input-form';
-import CustomSelect from '../../components/select';
-import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {getBlockAction} from "../../../actions/blocks";
 import {getCurrencyAction} from "../../../actions/currencies";
 import {getAssetAction} from "../../../actions/assets";
@@ -179,7 +175,11 @@ class AdvancedSettings extends React.Component {
 				advancedState: true
 			})
 		}
-	}
+    }
+    
+    onFocus = (model) => {
+        this.props.setValue('phasingVotingModel', model)
+    }
     
     render () {
         const {setValue, values}  = this.props;
@@ -318,6 +318,7 @@ class AdvancedSettings extends React.Component {
                     
                     <TabContainer
                         active={this.state.activeTab === 2}
+                        onFocus={() => this.onFocus(0)}
                     >
                         <CustomInputForm 
                             label={'Number of accounts'}
@@ -391,7 +392,10 @@ class AdvancedSettings extends React.Component {
                         <BroadcastCheckboxOptions />
                     </TabContainer>
 
-                    <TabContainer active={this.state.activeTab === 3}>
+                    <TabContainer 
+                        active={this.state.activeTab === 3}
+                        onFocus={() => this.onFocus(1)}                        
+                    >
                         <CustomInputForm 
                             label={'Amount'}
                             setValue={setValue}
@@ -455,7 +459,11 @@ class AdvancedSettings extends React.Component {
                         <BroadcastCheckboxOptions />
                     </TabContainer>
 
-                    <TabContainer active={this.state.activeTab === 4}>
+                    <TabContainer 
+                        active={this.state.activeTab === 4}
+                        onFocus={() => this.onFocus(2)}
+                    
+                    >
                         <CustomInputForm 
                             label={'Asset quantity'}
                             setValue={setValue}
@@ -526,7 +534,10 @@ class AdvancedSettings extends React.Component {
 
                     </TabContainer>
 
-                    <TabContainer active={this.state.activeTab === 5}>
+                    <TabContainer 
+                        active={this.state.activeTab === 5}
+                        onFocus={() => this.onFocus(3)}                        
+                    >
                         <CustomInputForm 
                             label={'Currency units'}
                             setValue={setValue}

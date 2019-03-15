@@ -21,20 +21,34 @@ class Transaction extends React.Component {
     };
 
     render () {
-        const {transaction, timestamp, amountATM, feeATM, senderRS, attachment, height, confirmations, setBodyModalParamsAction} = this.props;
+        const {transaction, timestamp, formatTimestamp, amountATM, feeATM, senderRS, attachment, height, confirmations, setBodyModalParamsAction} = this.props;
+        
+        console.log(formatTimestamp(timestamp))
         return (
             <tr key={uuid}>
-                <td className="blue-link-text"><a onClick={async () => setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(transaction))}>{formatTimestamp(timestamp)}</a></td>
-                <td className="align-left">Ordinary Payment</td>
+                <td className="blue-link-text">
+                    <a onClick={async () => setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(transaction))}>
+                        {formatTimestamp(timestamp)}
+                    </a>
+                </td>
+                <td className="align-right">Ordinary Payment</td>
                 <td className="align-right">{amountATM / 100000000}</td>
                 <td>{feeATM / 100000000}</td>
-                <td className="blue-link-text"><a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', senderRS)}>{senderRS}</a></td>
+                <td className="blue-link-text align-right"><a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', senderRS)}>{senderRS}</a></td>
                 <td>{attachment.phasingHolding} / {attachment.phasingQuorum}</td>
                 <td>{height}</td>
                 <td>{confirmations}</td>
-                <td className="blue-link-text"><a onClick={() => {
-                    setBodyModalParamsAction("APPROVE_TRANSACTION", {transaction: this.props});
-                }}>Approve</a></td>
+                <td className="">
+                    <div className="btn-box inline">
+                        <a  onClick={() => {
+                                setBodyModalParamsAction("APPROVE_TRANSACTION", {transaction: this.props});
+                            }}
+                            className="btn primary blue"
+                        >
+                            Approve
+                        </a>
+                    </div>
+                </td>
             </tr>
         );
     }

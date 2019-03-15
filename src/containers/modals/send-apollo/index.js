@@ -49,7 +49,6 @@ class SendApollo extends React.Component {
 
 		if (values.phasingFinishHeight) {
 			values.phased = true;
-			values.phasingVotingModel= -1;
 		}
 
 		this.setState({
