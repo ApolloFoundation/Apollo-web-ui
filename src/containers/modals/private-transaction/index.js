@@ -50,7 +50,7 @@ class PrivateTransactions extends React.Component {
                 modalTitle={'Show private transactions'}
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Enter'}
+                submitButtonName={'Submit'}
                 isDisableSecretPhrase
                 nameModel={this.props.nameModal}
             >
