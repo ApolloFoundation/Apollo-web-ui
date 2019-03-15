@@ -88,15 +88,15 @@ class SiteHeader extends React.Component {
         }, 4000);
     }
 
-    componentWillReceiveProps = (newState) => {
-        this.setState({forgingStatus: newState.forgingStatus});
-    }
+    // componentWillReceiveProps = (newState) => {
+    //     this.setState({forgingStatus: newState.forgingStatus});
+    // }
 
-    componentDidUpdate = () => {
-        if (!this.state.forgingStatus && this.props.account) {
-            this.getForging();
-        }
-    }
+    // componentDidUpdate = () => {
+    //     if (!this.state.forgingStatus && this.props.account) {
+    //         this.getForging();
+    //     }
+    // }
 
     getForging = async () => {
         const forgingStatus = await this.props.getForging();
