@@ -34,16 +34,16 @@ class Transaction extends React.Component {
         }
     }
 
-    // componentDidUpdate () {
-    //     if (this.props.phased) {
-    //         this.getPhasingTransactionInfo();
-    //     }
-    //     if (!this.props.phased && this.state.phasing) {
-    //         this.setState({
-    //             phasing: null
-    //         })
-    //     }
-    // }
+    componentDidUpdate () {
+        if (this.props.phased && !this.state.phasing) {
+            this.getPhasingTransactionInfo();
+        }
+        if (!this.props.phased && this.state.phasing) {
+            this.setState({
+                phasing: null
+            })
+        }
+    }
 
     getPhasingTransactionInfo = async () => {
         let phasing = await getPhasingTransactionVoters({transaction: this.props.transaction});
