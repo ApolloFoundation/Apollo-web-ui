@@ -195,8 +195,6 @@ class Sidebar extends React.Component {
 											assets</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/open-orders">Open
 											orders</NavLink></li>
-										<li><NavLink exact={true} activeClassName="active" to="/approval-request-assets">Approval
-											requests</NavLink></li>
 										<li>
 											<a 
 												id='open-issue-asset'
