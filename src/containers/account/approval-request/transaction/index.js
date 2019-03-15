@@ -23,7 +23,6 @@ class Transaction extends React.Component {
     render () {
         const {transaction, timestamp, formatTimestamp, amountATM, feeATM, senderRS, attachment, height, confirmations, setBodyModalParamsAction} = this.props;
         
-        console.log(formatTimestamp(timestamp))
         return (
             <tr key={uuid}>
                 <td className="blue-link-text">
