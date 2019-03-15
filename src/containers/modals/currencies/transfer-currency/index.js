@@ -52,9 +52,11 @@ class TransferCurrency extends React.Component {
                 <CurrencyInput 
                     field={'currency'}
                     defaultValue={code}
-                    disabled
+                    disabled={!this.props.modalData}
                 />
                 <AccountRSFormInput
+                    defaultValue={this.props.modalData.recipient}
+                    noContactList
                     field={'recipient'}
                     label={'Recipient'}
                 />

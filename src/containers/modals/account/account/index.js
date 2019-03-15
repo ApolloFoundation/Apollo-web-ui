@@ -82,10 +82,8 @@ class InfoAccount extends React.PureComponent {
     // requets
     getAcccount = async (requestParams) => {
         const accountData = this.props.getAccountAction(requestParams);
-
         if (accountData) {
             this.setState({
-                ...this.props,
                 transactions:   await accountData['TRANSACTIONS'],
                 account_ledger: await accountData['ACCOUNT_LEDGER'],
                 assets:         await accountData['ASSETS'],
@@ -163,7 +161,11 @@ class InfoAccount extends React.PureComponent {
     }
 
     render() {
-        return (
+
+        
+            const recipient = this.state.account ? this.state.account.accountRS : null;
+
+            return (
             <div className="modal-box x-wide">
                 {
                     this.props.modalData &&
@@ -384,7 +386,7 @@ class InfoAccount extends React.PureComponent {
                                 <TabContaier sectionName="Actions">
                                     <div className="flexible-grid">
                                         <a
-                                            onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {}, {recipient: this.state.account.accountRS})}
+                                            onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient}, {recipient})}
                                             className={classNames({
                                                 "btn": true,
                                                 "btn-primary": true,
@@ -396,7 +398,7 @@ class InfoAccount extends React.PureComponent {
                                             Send Apollo
                                         </a>
 	                                    <a
-		                                    onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', {}, {recipient: this.state.account.accountRS})}
+		                                    onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', {recipient}, {recipient})}
 		                                    className={classNames({
 			                                    "btn": true,
 			                                    "btn-primary": true,
@@ -408,7 +410,7 @@ class InfoAccount extends React.PureComponent {
 		                                    Send currency
 	                                    </a>
                                         <a
-                                            onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {}, {recipient: this.state.account.accountRS})}
+                                            onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient}, {recipient})}
                                             className={classNames({
                                                 "btn": true,
                                                 "btn-primary": true,
@@ -420,7 +422,7 @@ class InfoAccount extends React.PureComponent {
                                             Send a message
                                         </a>
                                         <a
-                                            onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', {}, {recipient: this.state.account.accountRS})}
+                                            onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', {recipient}, {recipient})}
                                             className={classNames({
                                                 "btn": true,
                                                 "btn-primary": true,
@@ -466,7 +468,8 @@ class InfoAccount extends React.PureComponent {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
 	modalsHistory: state.modals.modalsHistory,
-    account: state.account.account
+    account: state.account.account,
+    accountRS: state.account.accountRS
 });
 
 const mapDispatchToProps = dispatch => ({

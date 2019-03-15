@@ -28,6 +28,7 @@ class ModalBody extends React.Component {
 			return;
         } else {
             const {modalsHistory} = this.props;
+            console.log(modalsHistory)
             if (modalsHistory[modalsHistory.length - 1] && modalsHistory[modalsHistory.length - 1].value) {
                 this.state.form.setAllValues(modalsHistory[modalsHistory.length - 1].value)
             }
