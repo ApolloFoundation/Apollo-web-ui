@@ -248,7 +248,7 @@ class FollowedVotes extends React.Component {
                                                         name: 'Label',
                                                         alignRight: false
                                                     },{
-                                                        name: 'Voter',
+                                                        name: 'Answer',
                                                         alignRight: false
                                                     },{
                                                         name: 'Result',
