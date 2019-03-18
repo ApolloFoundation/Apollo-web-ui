@@ -32,7 +32,7 @@ const tabs = [
 class MandatoryApprovalModal extends React.Component {
 
     state = {
-        activeTab: 0,
+        activeForm: 0,
         noApproval: null,
         approveByAcc: null,
         approveByBalance: null,
@@ -44,26 +44,6 @@ class MandatoryApprovalModal extends React.Component {
         this.setState({
             activeTab: tabIndex
         })
-    };
-
-    onSubmit = () => {
-        switch (this.state.activeTab) {
-            case 0:
-                this.submitNoApproval(this.state.noApproval.getFormState().values);
-                break;
-            case 1:
-                this.submitApproveByAcc(this.state.approveByAcc.getFormState().values);
-                break;
-            case 2:
-                this.submitApproveByBalance(this.state.approveByBalance.getFormState().values);
-                break;
-            case 3:
-                this.submitApproveWithAsset(this.state.approveWithAsset.getFormState().values);
-                break;
-            case 4:
-                this.submitApproveWithCurrency(this.state.approveWithCurrency.getFormState().values);
-                break;
-        }
     };
 
     submitNoApproval = async toSend => {
@@ -245,43 +225,94 @@ class MandatoryApprovalModal extends React.Component {
         })
     };
 
+    onFocus = (activeForm) => {
+        this.setState({
+            activeForm
+        })
+    }
+
+    handleFormSubmit = (values) => {
+        const {activeForm} = this.state;
+
+        console.log()
+        switch (activeForm) {
+            case 0: 
+                this.submitNoApproval(values);
+                break;
+
+            case 1: 
+                this.submitApproveByAcc(values);
+                break;
+
+            case 2: 
+                this.submitApproveByBalance(values);
+                break;
+
+            case 3: 
+                this.submitApproveWithAsset(values);
+                break;
+
+            case 4:
+                this.submitApproveWithCurrency(values);
+                break;
+
+            default : return; 
+        }
+    }
+
     render() {
         return (
             <ModalBody
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 modalTitle={'Mandatory Approval'}
                 isAdvanced={true}
                 modalSubTitle={'All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.'}
-                submitButtonName={'Subsasdasdfmit'}
+                submitButtonName={'Submit'}
                 isAdvancedWhite
             >
                 <TabulationBody
                     className={'p-0 gray-form'}
                 >
-                    <TabContaier sectionName={<i className="zmdi zmdi-close-circle" />}>
+                    <TabContaier 
+                        onFocus={() => this.onFocus(0)}
+                        sectionName={<i className="zmdi zmdi-close-circle" />}
+                    >
                         <NoApprovalBody
                             setApi={form => this.setNoApprovalFormApi(form)}
                         />
                     </TabContaier>
             
-                    <TabContaier sectionName={<i className="zmdi zmdi-accounts" />}>
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-accounts" />}
+                        onFocus={() => this.onFocus(1)}
+                    >
                         <ApproveByAccountBody
                             setApi={form => this.setApproveByAccApi(form)}
                         />
                     </TabContaier>
             
-                    <TabContaier sectionName={<i className="zmdi zmdi-money-box" />}>
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-money-box" />}
+                        onFocus={() => this.onFocus(2)}
+                    >
                         <ApproveByBalanceBody
                             setApi={form => this.setApproveByBalanceApi(form)}
                         />
                     </TabContaier>
 
-                    <TabContaier sectionName={<i className="zmdi zmdi-chart" />}>
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-chart" />}
+                        onFocus={() => this.onFocus(3)}
+                    >
                         <ApproveWithAssetBody
                             setApi={form => this.setApproveWithAssetApi(form)}
                         />
                     </TabContaier>
 
-                    <TabContaier sectionName={<i className="zmdi zmdi-balance" />}>
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-balance" />}
+                        onFocus={() => this.onFocus(4)}
+                    >
                         <ApproveWithCurrencyBody
                             setApi={form => this.setApproveWithCurrencyApi(form)}
                             handleFormSubmit={this.submitApproveWithCurrency}

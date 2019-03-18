@@ -28,7 +28,7 @@ class SidebarContentPage extends Component {
                     <div className="row">
                         <div className={`col-md-3 p-0 pb-3 pl-3 pr-0`}>
                             {
-                                window.innerWidth > 769 &&
+                                window.innerWidth > 767 &&
                                 <SidebarContent />                         
                                 ||
                                 <>
@@ -42,7 +42,7 @@ class SidebarContentPage extends Component {
 
                         <div className={`col-md-9 pb-3 ${pageContentClassName ? pageContentClassName: 'pl-0'}`}>
                             {
-                                window.innerWidth < 769 &&
+                                window.innerWidth < 767 &&
                                 isGoBack &&
                                 <div 
                                     className={`btn primary mb-3 mt-0  ${backButtonClassname}`} 
@@ -53,7 +53,7 @@ class SidebarContentPage extends Component {
                                 </div>
                             }
                             {
-                                window.innerWidth > 769 &&
+                                window.innerWidth > 767 &&
                                 <PageContent />                         
                                 ||
                                 <>
