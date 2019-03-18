@@ -231,10 +231,7 @@ export const setBodyModalType = (reqParams) => {
 };
 
 export const setBodyModalParamsAction = (type, data, valueForModal) => {
-    console.log('12')
     return dispatch => {
-        console.log('21')
-
         dispatch({
             type: 'SET_FEE_ALERT',
             payload: false

@@ -84,7 +84,9 @@ class Transaction extends React.Component {
 
 
     render () {
-        const {timestamp, confirmations, amountATM, feeATM, phased, sender, senderRS, recipient, recipientRS, constants, block, height, formatTimestamp, transaction, type, setBodyModalParamsAction, subtype} = this.props;
+        const {timestamp, confirmations, amountATM, feeATM, secretPhrase, phased, sender, senderRS, recipient, recipientRS, constants, block, height, formatTimestamp, transaction, type, setBodyModalParamsAction, subtype} = this.props;
+
+        // console.log(secretPhrase)
 
         return (
             <tr key={uuid()}>
@@ -92,7 +94,9 @@ class Transaction extends React.Component {
                     constants && block &&
                     <>
                         <td className="blue-link-text">
-                            <a onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', transaction, (type === 0 && subtype === 1))}>
+                            <a onClick={() => 
+                                setBodyModalParamsAction('INFO_TRANSACTION', {...secretPhrase, transaction}, (type === 0 && subtype === 1))}
+                            >
                                 {formatTimestamp(timestamp)}
                             </a>
                         </td>

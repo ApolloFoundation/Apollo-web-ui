@@ -4,7 +4,7 @@ import ContentHendler from '../content-hendler';
 import uuid from 'uuid';
 
 const CustomTable = (props) => {
-    const {keyField, AboveTabeComponent, actionButton, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
+    const {keyField, AboveTabeComponent, actionButton, passProps, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
     return (
             <ContentHendler
                 items={tableData}
@@ -59,6 +59,7 @@ const CustomTable = (props) => {
                                                 <TableRowComponent
                                                     key={el[keyField]}
                                                     {...el}
+                                                    {...passProps}
                                                 />
                                             )
                                         })

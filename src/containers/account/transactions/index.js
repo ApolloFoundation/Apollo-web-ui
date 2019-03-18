@@ -136,7 +136,6 @@ class Transactions extends React.Component {
             if (transactions) {
                 if (!transactions.errorCode) {
                     this.setState({
-                        ...this.props,
                         transactions: transactions.transactions,
                         isUnconfirmed: false,
                         isError: false,
@@ -170,7 +169,6 @@ class Transactions extends React.Component {
 
             if (transactions) {
                 this.setState({
-                    ...this.props,
                     transactions: transactions.transactions
                 });
             }
@@ -187,14 +185,12 @@ class Transactions extends React.Component {
         if (unconfirmedTransactions) {
             if (this.state.isAll) {
                 this.setState({
-                    ...this.props,
                     isAll: true,
                     isUnconfirmed: true,
                     transactions: unconfirmedTransactions.unconfirmedTransactions,
                 });
             } else {
                 this.setState({
-                    ...this.props,
                     isAll: false,
                     isUnconfirmed: true,
                     transactions: unconfirmedTransactions.unconfirmedTransactions
@@ -229,7 +225,6 @@ class Transactions extends React.Component {
         if (requestType === 'getUnconfirmedTransactions') {
             if (all) {
                 this.setState({
-                    ...this.state,
                     isAll: true,
                     isUnconfirmed: true,
                     isPhassing: false
@@ -239,7 +234,6 @@ class Transactions extends React.Component {
                 })
             } else {
                 this.setState({
-                    ...this.state,
                     isAll: false,
                     isUnconfirmed: true,
                     isPhassing: false
@@ -252,7 +246,6 @@ class Transactions extends React.Component {
         }
         else if (requestType === 'getAccountPhasedTransactions') {
             this.setState({
-                ...this.state,
                 isPhassing: true,
                 isUnconfirmed: false,
                 type: null,
@@ -264,7 +257,6 @@ class Transactions extends React.Component {
         }
         else {
             this.setState({
-                ...this.state,
                 isUnconfirmed: false,
                 isPhassing: false
             }, () => {
@@ -274,7 +266,6 @@ class Transactions extends React.Component {
 
         const next = () => {
             this.setState({
-                ...this.state,
                 type: type,
                 subtype: subtype,
                 page:       1,
@@ -374,6 +365,7 @@ class Transactions extends React.Component {
     )
 
     render () {
+
         return (
             <div className="page-content">
                 <SiteHeader
@@ -428,6 +420,7 @@ class Transactions extends React.Component {
                             className={'no-min-height mb-3'}
                             emptyMessage={'No active polls.'}
                             TableRowComponent={Transaction}
+                            passProps={{secretPhrase: this.state.secretPhrase || this.state.passphrase}}
                             tableData={this.state.transactions}
                             isPaginate
                             page={this.state.page}
