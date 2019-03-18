@@ -35,10 +35,10 @@ class ShareMessage extends React.Component {
                                         Share Link
                                     </label>
                                     <div className="col-sm-9">
-                                        <a href={`${window.location.host}?isShareMessage=true&account=${this.props.account}&transaction=${data.transaction}`}
+                                        <a href={`${window.location.protocol}//${window.location.host}?isShareMessage=true&account=${this.props.account}&transaction=${data.transaction}`}
                                            rel="noopener noreferrer"
                                            target="_blank">
-                                            {`${window.location.host}?isShareMessage=true&account=${this.props.account}&transaction=${data.transaction}`}
+                                            {`${window.location.protocol}//${window.location.host}?isShareMessage=true&account=${this.props.account}&transaction=${data.transaction}`}
                                         </a>
                                     </div>
                                 </div>
