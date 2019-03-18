@@ -51,7 +51,6 @@ class InputAccounts extends Component {
     render () {
         const {setValue, label, values} = this.props;
 
-        console.log(values)
         return (
             <>
                 {

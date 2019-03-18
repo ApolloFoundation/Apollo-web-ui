@@ -29,10 +29,11 @@ export default class ApproveWithCurrencyBody extends React.Component {
         return (
             <ModalBody
                 isPour
-                modalTitle={'Process without approval'}
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
+                isDisabledBackArrow
+                onChange={this.props.onChange}
             >
                 <NumericInputForm
                     label={'Currency units'}

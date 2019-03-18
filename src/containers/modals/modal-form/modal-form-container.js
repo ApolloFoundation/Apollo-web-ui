@@ -42,6 +42,7 @@ class BackForm extends Component {
     render() {
         return(
 	        <Form
+				onChange={this.props.onChange}
 		        nameModal={this.props.nameModal}
 		        onSubmit={(values) => this.props.onSubmit(values)}
 		        getApi={(value) => this.getForm(value)}

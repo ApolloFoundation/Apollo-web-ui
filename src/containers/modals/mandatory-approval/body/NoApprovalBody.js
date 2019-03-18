@@ -16,8 +16,10 @@ export default class NoApprovalBody extends React.Component {
                 isPour
                 modalTitle={'Process without approval'}
                 className={'transparent'}
+                onChange={(values) => this.props.onChange(values)}
                 isFee
                 isDisableFormFooter
+                isDisabledBackArrow
             >
                 <NummericFormInput
                     label={'Amount'}

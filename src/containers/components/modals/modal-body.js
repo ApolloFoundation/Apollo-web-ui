@@ -42,11 +42,12 @@ class ModalBody extends React.Component {
     }
 
     form = () => {
-        const {CustomFooter, isDisableFormFooter, isAdvancedWhite, isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {CustomFooter, isDisableFormFooter, onChange, isDisabledBackArrow, isAdvancedWhite, isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
 
         return (
                 <BackForm
                     getApi={(value) => this.getForm(value)}
+                    onChange={onChange}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     nameModel={nameModel}
                     render={({
@@ -67,6 +68,7 @@ class ModalBody extends React.Component {
                                     modalTitle &&
                                     <div className="form-title">
                                         {
+                                            !isDisabledBackArrow && 
                                             modalsHistory.length > 1 &&
                                             <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
                                         }
@@ -97,7 +99,7 @@ class ModalBody extends React.Component {
                                         </label>
                                         <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                             <InputForm
-                                                field="feeAPL"
+                                                field="feeATM"
                                                 placeholder="Amount"
                                                 type={"float"}
                                                 setValue={setValue}
@@ -114,7 +116,7 @@ class ModalBody extends React.Component {
                                 {/** Rendering of secret phrase and 2fa fields */}
                                 {
                                     !isDisableSecretPhrase &&
-                                    handleFormSubmit &&
+                                    // handleFormSubmit &&
                                     <ModalFooter 
                                         off2FA={isDisabe2FA}
                                         setValue={setValue}      

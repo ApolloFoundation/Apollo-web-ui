@@ -30,10 +30,11 @@ export default class ApproveWithAssetBody extends React.Component {
         return (
             <ModalBody
                 isPour
-                modalTitle={'Process without approval'}
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
+                isDisabledBackArrow
+                onChange={this.props.onChange}
             >
                 <NumericInputForm
                     label={'Asset Quantity'}

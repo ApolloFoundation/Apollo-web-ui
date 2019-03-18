@@ -123,8 +123,42 @@ export function getUpdateStatus() {
 }
 
 export const reloadAccountAction = acc => dispatch => {
-    makeLoginReq(dispatch, {account: acc});
+    dispatch(updateAccount({account: acc}));
 };
+
+const updateAccount = (requestParams) => dispatch => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getAccount',
+            includeAssets: true,
+            includeCurrencies: true,
+            includeLessors: true,
+            ...requestParams
+        }
+    })
+        .then((res) => {
+            if (res.data.account) {
+                dispatch(getForging());
+                dispatch(getConstantsAction());
+                dispatch({
+                    type: 'SET_PASSPHRASE',
+                    payload: JSON.parse(localStorage.getItem('secretPhrase'))
+                });
+
+                dispatch(login(res.data));
+
+                return res.data;
+            } else {
+                return res.data;
+            }
+        })
+        .catch(function (err) {
+            dispatch({
+                type: 'SET_LOGIN_PROBLEM',
+                payload: true
+            })
+        });
+}
 
 export function makeLoginReq(dispatch, requestParams) {
     dispatch(startLoad());

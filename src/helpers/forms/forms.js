@@ -509,38 +509,7 @@ function sendRequest(requestType, data, callback, options) {
         });
         //convert APL to ATM...
         var field = "N/A";
-        try {
-            var aplFields = [
-                ["feeAPL", "feeATM"],
-                ["amountAPL", "amountATM"],
-                ["priceAPL", "priceATM"],
-                ["refundAPL", "refundATM"],
-                ["discountAPL", "discountATM"],
-                ["phasingQuorumAPL", "phasingQuorum"],
-                ["phasingMinBalanceAPL", "phasingMinBalance"],
-                ["controlQuorumAPL", "controlQuorum"],
-                ["controlMinBalanceAPL", "controlMinBalance"],
-                ["controlMaxFeesAPL", "controlMaxFees"],
-                ["minBalanceAPL", "minBalance"],
-                ["shufflingAmountAPL", "amount"],
-                ["monitorAmountAPL", "amount"],
-                ["monitorThresholdAPL", "threshold"]
-            ];
-
-            for (i = 0; i < aplFields.length; i++) {
-                var aplField = aplFields[i][0];
-                var nqtField = aplFields[i][1];
-                if (aplField in data) {
-                    data[nqtField] = convertToATM(data[aplField]);
-                    delete data[aplField];
-                }
-            }
-        } catch (err) {
-            return {
-                "errorCode": 1,
-                "errorDescription": err + " (" + field + ")"
-            };
-        }
+        
         // convert asset/currency decimal amount to base unit
         try {
             var currencyFields = [

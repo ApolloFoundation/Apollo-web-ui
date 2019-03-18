@@ -32,6 +32,7 @@ class TabulationBody extends React.Component {
                                             sectionName={child.props.sectionName} 
                                             activeTab={this.state.activeTab} 
                                             index={index}
+                                            onFocus={this.props.onFocus}
                                         />
                                     }
                                 </>

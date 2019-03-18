@@ -2,7 +2,16 @@ import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 
-const FormFooter = ({idGroup, submitButtonName, isAdvanced, isPending, isDisabled, setValue, closeModal, isMomalProcessing}) => (
+const FormFooter = ({
+    idGroup, 
+    submitButtonName, 
+    isAdvanced, 
+    isPending, 
+    isDisabled, 
+    setValue, 
+    closeModal,
+    isMomalProcessing
+}) => (
     <div className="btn-box align-buttons-inside absolute right-conner align-right form-footer">
         <a
             id={`${idGroup}cancel-button`}
@@ -47,7 +56,7 @@ const FormFooter = ({idGroup, submitButtonName, isAdvanced, isPending, isDisable
 )
 
 const mapStateToProps = state => ({
-    isMomalProcessing: state.modals.isMomalProcessing
+    isMomalProcessing: state.modals.isMomalProcessing,
 })
 
 export default connect(mapStateToProps)(FormFooter);

@@ -10,7 +10,6 @@ import {connect} from 'react-redux';
 
 const TransferAsset = ({setValue, values, modalData}) => (
     <>
-        {console.log(values)}
         <Text defaultValue={modalData.assetName} type="hidden" field={'name'}/>
         <Text defaultValue={modalData.assetID} type="hidden" field={'asset'}/>
 

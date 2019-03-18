@@ -1,11 +1,4 @@
 import React from "react";
-import Modal from "./components/Modal";
-import Message from "./components/Message";
-import ModalTabs from "./components/ModalTabs";
-import Tab from "./components/Tab";
-import SubmitButton from "./components/SubmitButton";
-import CancelButton from "./components/CancelButton";
-import ModalFooter from "./components/ModalFooter";
 import NoApprovalBody from "./body/NoApprovalBody";
 import ApproveByAccountBody from "./body/ApproveByAccountBody";
 import ApproveByBalanceBody from "./body/ApproveByBalanceBody";
@@ -14,6 +7,7 @@ import ApproveWithCurrencyBody from "./body/ApproveWithCurrencyBody";
 import {NotificationManager} from "react-notifications";
 import {connect} from "react-redux";
 import submitForm from "../../../helpers/forms/forms";
+import {reloadAccountAction} from '../../../actions/login'
 
 import ModalBody from '../../components/modals/modal-body';
 import TabulationBody from '../../components/tabulator/tabuator-body';
@@ -46,11 +40,152 @@ class MandatoryApprovalModal extends React.Component {
         })
     };
 
-    submitNoApproval = async toSend => {
-        if (!toSend.secretPhrase || toSend.secretPhrase.length === 0) {
-            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
-            return;
+   
+    onSubmit = (values) => {
+        console.log(values)
+
+        const {processForm, reloadAccountAction, account} = this.props;
+
+        values = {
+            controlVotingModel: this.state.activeForm - 1,
+            phasingHashedSecretAlgorithm: 2,
+            ...values,
         }
+
+        processForm(values, 'setPhasingOnlyControl', null, (res) => {
+            NotificationManager.success('Control has been setup!', null, 5000);
+            reloadAccountAction(account)
+        });
+    }
+
+    onFocus = (activeForm) => {
+        console.log(activeForm)
+        this.setState({
+            activeForm
+        })
+    }
+
+    handleFormSubmit = (values) => {
+        const {activeForm} = this.state;
+
+        console.log(values)
+        console.log(activeForm)
+        switch (activeForm) {
+            case 0: 
+                this.onSubmit({...values, ...this.state.noApproval});
+                break;
+
+            case 1: 
+                this.onSubmit({...values, ...this.state.approveByAccountBody});
+                break;
+
+            case 2: 
+                this.onSubmit({...values, ...this.state.approveByBalanceBody});
+                break;
+
+            case 3: 
+                this.onSubmit({...values, ...this.state.approveWithAssetBody});
+                break;
+
+            case 4:
+                this.onSubmit({...values, ...this.state.approveWithCurrencyBody});
+                break;
+
+            default : return; 
+        }
+    }
+
+    handleApproveby = ({values}, field) => {
+        console.log(values)
+        this.setState({
+            [field]: values
+        });
+    }
+
+    render() {
+        return (
+            <ModalBody
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                modalTitle={'Mandatory Approval'}
+                isAdvanced={true}
+                modalSubTitle={'All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.'}
+                submitButtonName={'Submit'}
+                isAdvancedWhite
+                isDisableSecretPhrase
+            >
+                <TabulationBody
+                    className={'p-0 gray-form'}
+                    onFocus={(i) => this.onFocus(i)}
+
+                >
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-close-circle" />}
+                    >
+                        <NoApprovalBody
+                            onChange={values => this.handleApproveby(values, 'noApproval')}
+                        />
+                    </TabContaier>
+            
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-accounts" />}
+                        onFocus={() => this.onFocus(1)}
+                    >
+                        <ApproveByAccountBody
+                            onChange={(values) => this.handleApproveby(values, 'approveByAccountBody')}
+                        />
+                    </TabContaier>
+            
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-money-box" />}
+                        onFocus={() => this.onFocus(2)}
+                    >
+                        <ApproveByBalanceBody
+                            onChange={(values) => this.handleApproveby(values, 'approveByBalanceBody')}
+                        />
+                    </TabContaier>
+
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-chart" />}
+                        onFocus={() => this.onFocus(3)}
+                    >
+                        <ApproveWithAssetBody
+                            onChange={(values) => this.handleApproveby(values, 'approveWithAssetBody')}
+                        />
+                    </TabContaier>
+
+                    <TabContaier 
+                        sectionName={<i className="zmdi zmdi-balance" />}
+                        onFocus={() => this.onFocus(4)}
+                    >
+                        <ApproveWithCurrencyBody
+                            onChange={(values) => this.handleApproveby(values, 'approveWithCurrencyBody')}
+                        />
+                    </TabContaier>
+                </TabulationBody>
+            </ModalBody>
+        )
+    }
+}
+
+const mapStateToProps = state => ({
+    publicKey: state.account.publicKey,
+
+    account: state.account.account
+});
+
+const mapDispatchToProps = dispatch => ({
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+    reloadAccountAction: (account) => dispatch(reloadAccountAction(account))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MandatoryApprovalModal)
+
+
+/*
+
+ submitNoApproval = async toSend => {
+        
+        console.log(this.state.noApproval)
 
         const mappedRequestBody = {
             controlVotingModel: -1,
@@ -64,8 +199,17 @@ class MandatoryApprovalModal extends React.Component {
             secretPhrase: toSend.secretPhrase,
             feeATM: toSend.fee,
             controlMaxFees: 0,
-            ...toSend
+            ...toSend,
+            ...this.state.noApproval,
         };
+
+        console.log(mappedRequestBody)
+
+        if (!mappedRequestBody.secretPhrase || mappedRequestBody.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
+        }
+
         const res = await this.props.submitForm(mappedRequestBody, "setPhasingOnlyControl");
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
@@ -75,10 +219,6 @@ class MandatoryApprovalModal extends React.Component {
     };
 
     submitApproveByAcc = async toSend => {
-        if (!toSend.secretPhrase || toSend.secretPhrase.length === 0) {
-            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
-            return;
-        }
 
         const mappedRequestBody = {
             controlQuorum: toSend.phasingQuorum,
@@ -95,8 +235,15 @@ class MandatoryApprovalModal extends React.Component {
             publicKey: this.props.publicKey,
             feeATM: toSend.fee,
             controlMaxFees: toSend.maxFees,
+            ...this.state.approveByAccountBody,
             ...toSend
         };
+
+        if (!mappedRequestBody.secretPhrase || mappedRequestBody.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
+        }
+
         const res = await this.props.submitForm(mappedRequestBody, "setPhasingOnlyControl");
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
@@ -125,6 +272,7 @@ class MandatoryApprovalModal extends React.Component {
             feeATM: toSend.fee,
             controlQuorum: toSend.amount,
             controlMaxFees: toSend.maxFees,
+            ...this.state.approveByBalanceBody
         };
         const res = await this.props.submitForm(object, "setPhasingOnlyControl");
         if (res.errorCode) {
@@ -155,6 +303,7 @@ class MandatoryApprovalModal extends React.Component {
             feeATM: toSend.fee,
             controlMaxFees: toSend.maxFees,
             secretPhrase: toSend.secretPhrase,
+            ...this.state.approveWithAssetBody
         };
         const res = await this.props.submitForm(object, "setPhasingOnlyControl");
         if (res.errorCode) {
@@ -185,6 +334,7 @@ class MandatoryApprovalModal extends React.Component {
             controlMaxFees: toSend.maxFees,
             secretPhrase: toSend.secretPhrase,
             controlQuorum: toSend.currencyUnits,
+            ...this.state.approveWithCurrencyBody
         }
 
         const res = await this.props.submitForm(object, "setPhasingOnlyControl");
@@ -195,142 +345,4 @@ class MandatoryApprovalModal extends React.Component {
         }
     };
 
-    setNoApprovalFormApi = api => {
-        this.setState({
-            noApproval: api
-        })
-    };
-
-    setApproveByAccApi = api => {
-        this.setState({
-            approveByAcc: api
-        });
-    };
-
-    setApproveByBalanceApi = api => {
-        this.setState({
-            approveByBalance: api
-        })
-    };
-
-    setApproveWithAssetApi = api => {
-        this.setState({
-            approveWithAsset: api
-        })
-    };
-
-    setApproveWithCurrencyApi = api => {
-        this.setState({
-            approveWithCurrency: api
-        })
-    };
-
-    onFocus = (activeForm) => {
-        this.setState({
-            activeForm
-        })
-    }
-
-    handleFormSubmit = (values) => {
-        const {activeForm} = this.state;
-
-        console.log()
-        switch (activeForm) {
-            case 0: 
-                this.submitNoApproval(values);
-                break;
-
-            case 1: 
-                this.submitApproveByAcc(values);
-                break;
-
-            case 2: 
-                this.submitApproveByBalance(values);
-                break;
-
-            case 3: 
-                this.submitApproveWithAsset(values);
-                break;
-
-            case 4:
-                this.submitApproveWithCurrency(values);
-                break;
-
-            default : return; 
-        }
-    }
-
-    render() {
-        return (
-            <ModalBody
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                modalTitle={'Mandatory Approval'}
-                isAdvanced={true}
-                modalSubTitle={'All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.'}
-                submitButtonName={'Submit'}
-                isAdvancedWhite
-                isDisableSecretPhrase
-            >
-                <TabulationBody
-                    className={'p-0 gray-form'}
-                >
-                    <TabContaier 
-                        onFocus={() => this.onFocus(0)}
-                        sectionName={<i className="zmdi zmdi-close-circle" />}
-                    >
-                        <NoApprovalBody
-                            setApi={form => this.setNoApprovalFormApi(form)}
-                        />
-                    </TabContaier>
-            
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-accounts" />}
-                        onFocus={() => this.onFocus(1)}
-                    >
-                        <ApproveByAccountBody
-                            setApi={form => this.setApproveByAccApi(form)}
-                        />
-                    </TabContaier>
-            
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-money-box" />}
-                        onFocus={() => this.onFocus(2)}
-                    >
-                        <ApproveByBalanceBody
-                            setApi={form => this.setApproveByBalanceApi(form)}
-                        />
-                    </TabContaier>
-
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-chart" />}
-                        onFocus={() => this.onFocus(3)}
-                    >
-                        <ApproveWithAssetBody
-                            setApi={form => this.setApproveWithAssetApi(form)}
-                        />
-                    </TabContaier>
-
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-balance" />}
-                        onFocus={() => this.onFocus(4)}
-                    >
-                        <ApproveWithCurrencyBody
-                            setApi={form => this.setApproveWithCurrencyApi(form)}
-                            handleFormSubmit={this.submitApproveWithCurrency}
-                        />
-                    </TabContaier>
-                </TabulationBody>
-            </ModalBody>
-        )
-    }
-}
-
-const mapStateToProps = state => ({
-    publicKey: state.account.publicKey
-});
-
-const mapDispatchToProps = dispatch => ({
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MandatoryApprovalModal)
+    */

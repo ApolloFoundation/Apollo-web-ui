@@ -91,6 +91,8 @@ class AccountDetails extends React.Component {
             <ModalBody
                 modalTitle={'Account details'}
                 closeModal={this.props.closeModal}
+                isDisableFormFooter
+                isDisableSecretPhrase
             >
                 <TabulationBody>
                     <TabContaier sectionName={'Account Details'}>

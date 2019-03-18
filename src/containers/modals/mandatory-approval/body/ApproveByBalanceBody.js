@@ -27,14 +27,15 @@ export default class ApproveByBalanceBody extends React.Component {
         return (
             <ModalBody
                 isPour
-                modalTitle={'Process without approval'}
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
+                isDisabledBackArrow
+                onChange={this.props.onChange}
             >
                 <NumericInputForm
                     label={'Amount'}
-                    field={'amount'}
+                    field={'controlQuorumAPL'}
                     placeholder={'Amount'}
                 />
 

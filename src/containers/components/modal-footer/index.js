@@ -2,9 +2,12 @@ import React from 'react';
 import InputForm from '../../components/input-form';
 import {connect} from 'react-redux';
 import {Text} from 'react-form';
+import BlockHeightInput from '../../components/form-components/block-height-input';
+import InfoBox from '../../components/info-box';
 
 const mapStateToProps = state => ({
-    is2fa: state.account.is2FA
+    is2fa: state.account.is2FA,
+    accountControls: state.account.accountControls
 });
 
 class ModalFooter extends React.Component {
@@ -13,10 +16,10 @@ class ModalFooter extends React.Component {
     }
 
     render () {
-        const setValue = this.props.setValue;
+        const {setValue, idGroup, accountControls} = this.props;
 
         return (
-            <React.Fragment>
+            <>
                 <div 
                     className="form-group row form-group-white mb-15"
                     style={{marginBottom: 15}}
@@ -55,7 +58,22 @@ class ModalFooter extends React.Component {
                         </div>
                     </div>
                 }
-            </React.Fragment>
+                {
+                    accountControls &&
+                    <>
+                        <InfoBox info>
+                            Mandatory Approval account control is enabled. Please set Finish Height.
+                            Account Control Details
+                        </InfoBox>
+                        <BlockHeightInput 
+                            setValue={setValue}
+                            label={'Finish Height'}
+                            field={'phasingFinishHeight'}
+                            placeholder={'Finish Height'}
+                        />
+                    </>
+                }
+            </>
         )
     }
 }

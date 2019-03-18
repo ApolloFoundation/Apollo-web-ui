@@ -30,15 +30,15 @@ export default class ApproveByAccountBody extends React.Component {
     render() {
         return (
             <ModalBody
+                onChange={this.props.onChange}
                 isPour
-                modalTitle={'Process without approval'}
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
             >
                 <NumericInputForm
                     label={'Number of accounts'}
-                    field={'phasingQuorum'}
+                    field={'controlQuorum'}
                     placeholder={'Number of accounts'}
                 />
 

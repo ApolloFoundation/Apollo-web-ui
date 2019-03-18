@@ -1,9 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const Tab = ({handleTab, activeTab, sectionName, index}) => (
+const Tab = ({handleTab, activeTab, onFocus, sectionName, index}) => (
     <a 
-        onClick={(e) => handleTab(e, index)} 
+        onClick={(e) => {
+            if (onFocus) {
+                onFocus(index)
+            }
+            handleTab(e, index)
+        }} 
         className={classNames({
             "form-tab": true,
             "active": activeTab === index
