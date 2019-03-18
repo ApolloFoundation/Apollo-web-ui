@@ -11,13 +11,10 @@ const mapStateToProps = state => ({
 });
 
 class ModalFooter extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render () {
         const {setValue, idGroup, accountControls} = this.props;
 
+        console.log(accountControls)
         return (
             <>
                 <div 

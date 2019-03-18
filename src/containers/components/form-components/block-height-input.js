@@ -7,7 +7,6 @@ class BlockHeightInput extends Component {
     componentDidMount = () => {
         const {setValue, actualBlock, field} = this.props;
 
-        console.log(field, actualBlock)
         setValue(field, actualBlock)
     }
     

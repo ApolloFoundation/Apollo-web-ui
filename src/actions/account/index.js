@@ -161,6 +161,21 @@ export function loginWithShareMessage(account, transaction) {
     }
 }
 
+export const getPhasingOnlyControl = (reqParams) => {
+    return axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getPhasingOnlyControl',
+            ...reqParams,
+        }
+    })
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+}
+
 export const generateAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'generateAccount'))
 };

@@ -12,6 +12,7 @@ import {getTransactionAction} from "../../../../actions/transactions";
 import {switchAccountAction} from "../../../../actions/account";
 import {getAccountInfoAction} from "../../../../actions/account";
 import {withRouter} from 'react-router-dom';
+import {getPhasingOnlyControl} from '../../../../actions/account/';
 
 import QR from 'qrcode';
 
@@ -42,10 +43,15 @@ class AccountDetails extends React.Component {
     getAccountInfo = async () => {
         const account = await this.props.getAccountInfoAction({account: this.props.account, includeLessors: true, includeEffectiveBalance: true});
 
+        const phasingControl = await getPhasingOnlyControl({account: this.props.accountRS});
+
+        console.log(phasingControl)
+
         if (account) {
             this.setState({
                 ...this.state,
-                account: account
+                account: account,
+                phasingControl
             })
         }
     };
@@ -86,7 +92,24 @@ class AccountDetails extends React.Component {
         doc.save(`apollo-wallet-${credentials[0].value}`)
     };
 
+    formatControlType = (type) => {
+        console.log(type)
+        switch (type) {
+            case 0: return 'Control by account'
+            case 1: return 'Control by account balance';
+            case 2: return 'Control by asset balance';
+            case 3: return 'Contorl by currency balance';
+            default: return null;
+        }
+    }
+
     render() {
+        const {phasingControl} = this.state;
+
+        const isAccountControl = phasingControl && Object.values(phasingControl).length;
+
+        const votingModel = isAccountControl ? this.formatControlType(phasingControl.votingModel) : null
+
         return (
             <ModalBody
                 modalTitle={'Account details'}
@@ -189,16 +212,62 @@ class AccountDetails extends React.Component {
                         </div>
                     </TabContaier>
                     <TabContaier sectionName={'Account Control'}>
-                        <div className="transaction-table no-min-height transparent">
-                            <div className="transaction-table-body transparent padding-vertical-padding">
-                                <a
-                                    onClick={() => this.props.setBodyModalParamsAction('MANDATORY_APPROVAL', {})}
-                                    data-blue-link-text
-                                >
-                                    Setup Mandatory Approval.
-                                </a>
+                        {
+                            !isAccountControl && 
+                            <div className="transaction-table no-min-height transparent">
+                                <div className="transaction-table-body transparent padding-vertical-padding">
+                                    <a
+                                        onClick={() => this.props.setBodyModalParamsAction('MANDATORY_APPROVAL', {})}
+                                        data-blue-link-text
+                                    >
+                                        Setup Mandatory Approval.
+                                    </a>
+                                </div>
+                            </div> ||
+                            <div className="transaction-table no-min-height transparent">
+                                <div className="transaction-table-body transparent">
+                                    <table>
+                                        <tbody className="with-padding">
+                                            <tr>
+                                                <td  className="no-brake">Voting Model:</td>
+                                                <td className="">{votingModel}</td>
+                                            </tr>
+                                            <tr>
+                                                <td  className="no-brake">Quorum:</td>
+                                                <td>{phasingControl.quorum}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="no-brake">Minimum Balance:</td>
+                                                <td>{phasingControl.minBalance}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="no-brake">Minimum Balance Model:</td>
+                                                <td>{phasingControl.minBalanceModel}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="no-brake">Whitelist:</td>
+                                                <td>{phasingControl.quorum}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="no-brake">Max fees:</td>
+                                                <td>{phasingControl.maxFees / Math.pow(10, 8)}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="no-brake"></td>
+                                                <td>
+                                                    <a className="btn primary hide-media"
+                                                    onClick={() => this.props.setBodyModalParamsAction('MANDATORY_APPROVAL', {})}
+                                                    >
+                                                        Change
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        }
+                        
                     </TabContaier>
                 </TabulationBody>
             </ModalBody>
@@ -208,7 +277,8 @@ class AccountDetails extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.account
+    account: state.account.account,
+    accountRS: state.account.accountRS
 });
 
 const mapDispatchToProps = dispatch => ({

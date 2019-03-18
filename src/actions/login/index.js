@@ -126,7 +126,7 @@ export const reloadAccountAction = acc => dispatch => {
     dispatch(updateAccount({account: acc}));
 };
 
-const updateAccount = (requestParams) => dispatch => {
+export const updateAccount = (requestParams) => dispatch => {
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getAccount',
@@ -137,20 +137,9 @@ const updateAccount = (requestParams) => dispatch => {
         }
     })
         .then((res) => {
-            if (res.data.account) {
-                dispatch(getForging());
-                dispatch(getConstantsAction());
-                dispatch({
-                    type: 'SET_PASSPHRASE',
-                    payload: JSON.parse(localStorage.getItem('secretPhrase'))
-                });
+            console.log('updating')
 
-                dispatch(login(res.data));
-
-                return res.data;
-            } else {
-                return res.data;
-            }
+            dispatch(login(res.data));
         })
         .catch(function (err) {
             dispatch({

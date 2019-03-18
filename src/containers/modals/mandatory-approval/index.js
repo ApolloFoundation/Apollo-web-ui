@@ -7,7 +7,7 @@ import ApproveWithCurrencyBody from "./body/ApproveWithCurrencyBody";
 import {NotificationManager} from "react-notifications";
 import {connect} from "react-redux";
 import submitForm from "../../../helpers/forms/forms";
-import {reloadAccountAction} from '../../../actions/login'
+import {updateAccount} from '../../../actions/login/index'
 
 import ModalBody from '../../components/modals/modal-body';
 import TabulationBody from '../../components/tabulator/tabuator-body';
@@ -42,9 +42,7 @@ class MandatoryApprovalModal extends React.Component {
 
    
     onSubmit = (values) => {
-        console.log(values)
-
-        const {processForm, reloadAccountAction, account} = this.props;
+        const {processForm, updateAccount, account} = this.props;
 
         values = {
             controlVotingModel: this.state.activeForm - 1,
@@ -54,7 +52,9 @@ class MandatoryApprovalModal extends React.Component {
 
         processForm(values, 'setPhasingOnlyControl', null, (res) => {
             NotificationManager.success('Control has been setup!', null, 5000);
-            reloadAccountAction(account)
+            setTimeout(() => {
+                updateAccount({account});
+            }, 1000);
         });
     }
 
@@ -175,7 +175,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    reloadAccountAction: (account) => dispatch(reloadAccountAction(account))
+    updateAccount: (account) => dispatch(updateAccount(account))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MandatoryApprovalModal)
