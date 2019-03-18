@@ -50,8 +50,6 @@ class MyVotes extends React.Component {
             lastIndex:  9,
         });
         BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
             this.getMyVotes({
                 account: this.props.account,
                 firstIndex: 0,
@@ -125,7 +123,15 @@ class MyVotes extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'My Votes'}
-                />
+                >
+                    <a
+                        className="btn primary"
+                        style={{marginLeft: 15}}
+                        onClick={() => this.props.setBodyModalParamsAction('ISSUE_POLL', {})}
+                    >
+                        Create Poll
+                    </a>
+                </SiteHeader>
                 <div className="page-body container-fluid">
                     <CustomTable 
                         header={[
