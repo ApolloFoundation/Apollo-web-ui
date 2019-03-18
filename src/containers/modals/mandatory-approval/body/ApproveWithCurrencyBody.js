@@ -33,7 +33,6 @@ export default class ApproveWithCurrencyBody extends React.Component {
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
-                handleFormSubmit={(values) => this.props.handleFormSubmit(values)}
             >
                 <NumericInputForm
                     label={'Currency units'}

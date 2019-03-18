@@ -31,7 +31,6 @@ export default class ApproveByBalanceBody extends React.Component {
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
-                handleFormSubmit={(values) => this.enterAccount(values)}
             >
                 <NumericInputForm
                     label={'Amount'}

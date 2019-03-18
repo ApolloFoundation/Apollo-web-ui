@@ -34,7 +34,6 @@ export default class ApproveWithAssetBody extends React.Component {
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
-                handleFormSubmit={(values) => this.enterAccount(values)}
             >
                 <NumericInputForm
                     label={'Asset Quantity'}

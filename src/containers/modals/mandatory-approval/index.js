@@ -269,6 +269,7 @@ class MandatoryApprovalModal extends React.Component {
                 modalSubTitle={'All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.'}
                 submitButtonName={'Submit'}
                 isAdvancedWhite
+                isDisableSecretPhrase
             >
                 <TabulationBody
                     className={'p-0 gray-form'}

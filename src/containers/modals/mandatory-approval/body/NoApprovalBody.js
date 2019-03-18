@@ -18,7 +18,6 @@ export default class NoApprovalBody extends React.Component {
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
-                // handleFormSubmit={(values) => this.enterAccount(values)}
             >
                 <NummericFormInput
                     label={'Amount'}

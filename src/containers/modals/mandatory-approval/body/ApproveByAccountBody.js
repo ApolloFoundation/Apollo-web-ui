@@ -35,7 +35,6 @@ export default class ApproveByAccountBody extends React.Component {
                 className={'transparent'}
                 isFee
                 isDisableFormFooter
-                handleFormSubmit={(values) => this.enterAccount(values)}
             >
                 <NumericInputForm
                     label={'Number of accounts'}
