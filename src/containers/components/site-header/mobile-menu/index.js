@@ -67,6 +67,9 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                     </AccordionItemTitle>
                     <AccordionItemBody>
                         <div className="item-dropdown">
+                            <NavLink exact={true} activeClassName="active" to="/all-assets">
+                                All assets
+                            </NavLink>
                             <NavLink exact={true} activeClassName="active" to="/asset-exchange">
                                 Asset exchange
                             </NavLink>

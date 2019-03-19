@@ -158,7 +158,7 @@ class Sidebar extends React.Component {
 									         "/delete-history",
 									         "/my-assets",
 									         "/open-orders",
-									         "/assets",
+									         "/all-assets",
 									         "approval-request",
 											 "/approval-request-assets"])}`}>
 									Asset system
@@ -173,7 +173,7 @@ class Sidebar extends React.Component {
 								>
 									<ul>
 										<li>
-                                            <NavLink exact={true} activeClassName="active" to="/assets">
+                                            <NavLink exact={true} activeClassName="active" to="/all-assets">
 												All assets
                                             </NavLink>
                                         </li>

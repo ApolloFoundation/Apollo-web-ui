@@ -238,7 +238,7 @@ class App extends React.Component {
             <Route exact path="/approval-request-assets" component={ApprovalRequestAssets}/>
             <Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
             <Route exact path="/asset-exchange" component={AssetExchange}/>
-            <Route exact path="/assets" component={Assets}/>
+            <Route exact path="/all-assets" component={Assets}/>
             <Route exact path="/aliases" component={Aliases}/>
             <Route exact path="/delete-history" component={DeleteHistory}/>
             <Route exact path="/funding-monitors" component={FundingMonitors}/>
