@@ -1,11 +1,32 @@
 import React from 'react';
 import {Form, TextArea, Checkbox, Text} from 'react-form';
+import {handleSendMessageFormSubmit} from './handleFormSubmit';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 
 class ChatForm extends React.PureComponent {
     state = {
         textareaCount:0
     };
+
+    handleSendMessageFormSubmit = (values) => 
+        this.props.handleSendMessageFormSubmit(
+            {...values, recipient: this.props.match.params.chat, resetForm: this.resetForm}, 
+            this.state.form,
+        );
+    
+    resetForm = () => {
+        this.setState({
+            textareaCount: 0
+        })
+    }
+
+    getFormApi = (form) => {
+        this.setState({
+            form 
+        })
+    }
 
     render () {
         return (
@@ -72,4 +93,8 @@ class ChatForm extends React.PureComponent {
     }
 }
 
-export default ChatForm;
+const mapDispatchToProps = {
+    handleSendMessageFormSubmit
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(ChatForm));

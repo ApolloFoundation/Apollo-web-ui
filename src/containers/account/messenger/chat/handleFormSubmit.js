@@ -4,7 +4,9 @@ import submitForm from '../../../../helpers/forms/forms';
 export const handleSendMessageFormSubmit = (values, formApi) => {
     return async (dispatch, getState) => {
         const {account: {account, puplicKey}} = getState();
-        const {recipient} = values;
+        const {recipient, resetForm} = values;
+
+        delete values.resetForm;
 
         if (!values.message || values.message.length === 0 || !(/\S/.test(values.message))) {
             NotificationManager.error('Please write your message.', 'Error', 5000);
@@ -45,6 +47,7 @@ export const handleSendMessageFormSubmit = (values, formApi) => {
         }
         if (res &&  !res.errorCode) {
             formApi.resetAll()
+            resetForm()
             NotificationManager.success('Message has been submitted!', null, 5000);
         }
     }
