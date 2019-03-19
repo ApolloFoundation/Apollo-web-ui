@@ -23,6 +23,8 @@ export function handleFormSubmit (values) {
     const {processForm, store: {dispatch, getState}} = this;
     const {account: {publicKey}} = getState()
 
+    console.log(values)
+
     if (!values.secretPhrase || values.secretPhrase.length === 0) {
         NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
         return;
@@ -52,7 +54,7 @@ export function handleFormSubmit (values) {
         phased: false,
         issuanceHeight: values.height,
         publicKey: publicKey,
-        feeATM: values.feeAPL,
+        feeATM: values.feeATM,
         maxSupply: values.maxSupply * Math.pow(10, values.decimals),
         initialSupply: values.initialSupply * Math.pow(10, values.decimals),
         secretPhrase: values.secretPhrase,
