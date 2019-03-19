@@ -64,8 +64,6 @@ class MyMessages extends React.Component {
         const {page} = this.state;
         const {messages, setBodyModalParamsAction} = this.props;
 
-        console.log(messages)
-        
         return (
             <div className="page-content">
                 <SiteHeader

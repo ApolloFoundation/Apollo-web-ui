@@ -25,7 +25,6 @@ import CustomTextArea from '../../../components/form-components/text-area';
 
 import TransferAssetFrom from './form';
 
-console.log(TransferAssetFrom);
 
 class TransferAsset extends React.Component {
     constructor(props) {

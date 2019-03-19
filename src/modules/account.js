@@ -57,7 +57,6 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ACCOUNT:
             const serverRes = action.payload;
-            console.log(serverRes)
             return {
                 ...state,
                 ...serverRes
@@ -154,7 +153,6 @@ export default (state = initialState, action) => {
 
 export const login = (reqParams) => {
     return dispatch => {
-        console.log('login ', reqParams)
         dispatch({
             type: LOAD_ACCOUNT,
             payload: reqParams

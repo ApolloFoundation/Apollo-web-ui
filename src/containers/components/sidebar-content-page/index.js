@@ -1,12 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {withRouter} from 'react-router-dom';
 
-class SidebarContentPage extends Component {
+class SidebarContentPage extends PureComponent {
     state = {};
-
-    componentDidMount = () => {
-        console.log(this.props);
-    }
 
     getBack = () => {
         const {customGetBack, history: {push}, match: {path}} = this.props;

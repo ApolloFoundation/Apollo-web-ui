@@ -3,13 +3,10 @@ import InfoBox from '../info-box';
 import uuid from 'uuid';
 import classNames from 'classnames';
 import {Link} from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
 import ContentLoader from '../../components/content-loader';
+import {withRouter} from 'react-router-dom';
 
-
-import {formatTimestamp} from "../../../helpers/util/time";
-
-const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location: {pathname}, Component}) => (
+const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location, Component}) => (
     <>
         <div className="card card-full-screen no-padding scroll d-block">
             {
@@ -23,7 +20,7 @@ const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element,
                             to={baseUrl + el[element]}
                             className={classNames({
                                 "chat-item": true,
-                                "active": pathname === baseUrl + el[element]
+                                "active": location && location.pathname === baseUrl + el[element]
                             })}
                         >
                             <Component  {...el}/>
