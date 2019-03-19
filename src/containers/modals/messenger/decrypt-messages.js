@@ -15,6 +15,7 @@ import crypto from  '../../../helpers/crypto/crypto';
 import InputForm from '../../components/input-form'
 import InfoBox from '../../components/info-box';
 
+import ModalBody from '../../components/modals/modal-body';
 import BackForm from '../modal-form/modal-form-container';
 
 const mapStateToProps = state => ({
@@ -81,76 +82,12 @@ class DecryptMessage extends React.Component {
 
     render() {
         return (
-            <div className="modal-box">
-                <BackForm
-	                nameModal={this.props.nameModal}
-                    onSubmit={values => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm, setValue, values, getFormState
-                             }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
-
-                                <div className="form-title">
-	                                {this.props.modalsHistory.length > 1 &&
-	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                }
-                                    <p>Decrypt messages</p>
-                                </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Secret Phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
-                                    </label>
-                                    <div className="col-sm-9">
-
-                                        <InputForm
-                                            isPlain
-                                            type="password"
-                                            field="secretPhrase"
-                                            placeholder="Secret Phrase"
-                                            setValue={setValue}/>
-                                    </div>
-                                </div>
-                                <div className="input-group-app">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <div className="form-sub-actions">
-                                                    <div className="input-group-app align-middle display-block offset-bottom offset-top">
-                                                        <Checkbox style={{display: 'inline-block'}} type="checkbox" field="isRememberPassphrase"/>
-                                                        <label style={{display: 'inline-block'}}>Remember secret phrase for decryption</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/*<div className="input-group-app">*/}
-                                    {/*<div className="row">*/}
-                                        {/*<div className="col-md-3">*/}
-                                            {/*<label>Shared Key</label>*/}
-                                        {/*</div>*/}
-                                        {/*<div className="col-md-9">*/}
-                                            {/*<Text field="sharedKey" placeholder='Shared Key' />*/}
-                                        {/*</div>*/}
-                                    {/*</div>*/}
-                                {/*</div>*/}
-
-                                {
-                                    this.state.passphraseStatus &&
-                                    <InfoBox danger mt>
-                                        Incorect passphrase.
-                                    </InfoBox>
-                                }
-
-                                <button type="submit" className="btn btn-right">Enter</button>
-                            </div>
-                        </form>
-                    )} />
-            </div>
+            <ModalBody
+                modalTitle={'Decrypt messages'}
+                submitButtonName={'Decrypt'}
+                handleFormSubmit={values => this.handleFormSubmit(values)}
+                closeModal={this.props.closeModal}
+            />
         );
     }
 }
