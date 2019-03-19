@@ -3,7 +3,9 @@ import {Form, TextArea, Checkbox, Text} from 'react-form';
 
 
 class ChatForm extends React.PureComponent {
-    state = {};
+    state = {
+        textareaCount:0
+    };
 
     render () {
         return (
