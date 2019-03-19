@@ -10,7 +10,7 @@ import {setBodyModalParamsAction} from '../../../../modules/modals';
 
 import submitForm from "../../../../helpers/forms/forms";
 import {getAccountCurrenciesAction} from "../../../../actions/currencies";
-
+import {NotificationManager} from "react-notifications";
 import {handleFormSubmit} from './handleFormSubmit';
 
 import ModalBody from '../../../components/modals/modal-body';
@@ -37,6 +37,10 @@ class OfferCurrency extends React.Component {
     }
 
     handleFormSubmit = (values) => {
+        if (!this.state.currency) {
+            NotificationManager.error('Can not create an offer with zero balance of the currency.', 'Error', 5000)
+            return;
+        }
         const {currency, decimals} = this.state.currency;
         this.props.handleFormSubmit({...values,  currency, decimals});
     }
