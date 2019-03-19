@@ -99,7 +99,6 @@ class MessageItem extends React.Component {
                         publicMessage && 
                         publicMessage
                     }
-                    {console.log(decryptedMessage)}
                     {
                         isDescrypted && 
                         decryptedMessage && 

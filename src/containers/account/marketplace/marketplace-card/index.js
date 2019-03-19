@@ -19,7 +19,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const MarketplaceItem = (props, history) => (
-    <div className={'pl-3 pb-3'}>
+    <div className={`${props.tall || props.fluid || props.fullHeight ? '' : 'pl-3'}  pb-3 w-100 position-relative`}>
+        {console.log(props)}
         <div
             className={classNames({
                 'card': true,

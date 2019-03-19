@@ -56,7 +56,6 @@ class TransferCurrency extends React.Component {
                 />
                 <AccountRSFormInput
                     defaultValue={this.props.modalData.recipient}
-                    noContactList
                     field={'recipient'}
                     label={'Recipient'}
                 />
