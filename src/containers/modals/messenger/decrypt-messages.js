@@ -84,7 +84,7 @@ class DecryptMessage extends React.Component {
         return (
             <ModalBody
                 modalTitle={'Decrypt messages'}
-                submitButtonName={'Decrypt'}
+                submitButtonName={'Decrypt messages'}
                 handleFormSubmit={values => this.handleFormSubmit(values)}
                 closeModal={this.props.closeModal}
             />
