@@ -72,6 +72,8 @@ class ReserveCurrency extends React.Component {
 
     render() {
         const modalData = this.props.modalData;
+
+        console.log(modalData)
         return (
             <div className="modal-box">
                 <form className="modal-form">
@@ -79,7 +81,7 @@ class ReserveCurrency extends React.Component {
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
 
                         <div className="form-title">
-                            <p>Reserve Currency - {modalData.code}</p>
+                            <p>Reserve Currency - {modalData.code / Math.pow(10, modalData.decimals)}</p>
                             <br/>
                         </div>
                         <div className="form-group form-group-white row mb-15">
@@ -88,7 +90,7 @@ class ReserveCurrency extends React.Component {
                             </label>
                             <div
                                 className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                {modalData.reserveSupply}
+                                {modalData.reserveSupply / Math.pow(10, modalData.decimals)}
                             </div>
                         </div>
                         <div className="form-group form-group-white row mb-15">
@@ -97,7 +99,7 @@ class ReserveCurrency extends React.Component {
                             </label>
                             <div
                                 className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                {modalData.initialSupply}
+                                {modalData.initialSupply / Math.pow(10, modalData.decimals)}
                             </div>
                         </div>
                         <div className="form-group form-group-white row mb-15">
@@ -106,7 +108,7 @@ class ReserveCurrency extends React.Component {
                             </label>
                             <div
                                 className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                {modalData.minReservePerUnitATM}
+                                {modalData.minReservePerUnitATM / Math.pow(10, modalData.decimals)}
                             </div>
                         </div>
                         <div className="form-group form-group-white row mb-15">
@@ -115,7 +117,7 @@ class ReserveCurrency extends React.Component {
                             </label>
                             <div
                                 className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                {modalData.currentReservePerUnitATM}
+                                {modalData.currentReservePerUnitATM / Math.pow(10, modalData.decimals)}
                             </div>
                         </div>
                         <Form
