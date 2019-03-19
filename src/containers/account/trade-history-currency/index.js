@@ -178,7 +178,11 @@ class TradeHistoryCurrency extends React.Component {
                                 alignRight: true
                             }
                         ]}
-                        TableRowComponent={TradeHistoryItem}
+                        TableRowComponent={(el) => 
+                            <TradeHistoryItem 
+                                transfer={el}
+                            />
+                        }
                         tableData={this.state.executedExchanges}
                         isPaginate
                         page={this.state.page}

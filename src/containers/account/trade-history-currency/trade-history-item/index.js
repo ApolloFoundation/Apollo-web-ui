@@ -23,16 +23,17 @@ class TradeHistoryItem extends React.Component {
     }
 
     render () {
+        console.log(this.props)
         if (this.state.transfer) {
             return (
                 <tr key={uuid()}>
                     <td>{this.props.formatTimestamp(this.state.transfer.timestamp)}</td>
                     <td className="blue-link-text">
-                        <a onClick={() => this.props.setTransaction(this.state.transfer.transaction)}>{this.state.transfer.transaction}</a>
+                        <a onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.state.transfer.transaction)}>{this.state.transfer.transaction}</a>
 
                     </td>
                     <td className="blue-link-text">
-                        <a onClick={() => this.props.setTransaction(this.state.transfer.offer)}>{this.state.transfer.offer}</a>
+                        <a onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.state.transfer.offer)}>{this.state.transfer.offer}</a>
                     </td>
                     <td>
                         <Link key={uuid()}
