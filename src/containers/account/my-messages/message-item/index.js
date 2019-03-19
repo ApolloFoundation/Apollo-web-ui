@@ -99,9 +99,11 @@ class MessageItem extends React.Component {
                         publicMessage && 
                         publicMessage
                     }
+                    {console.log(decryptedMessage)}
                     {
                         isDescrypted && 
                         decryptedMessage && 
+                        decryptedMessage !== 'false' && 
                         <div>
                             <i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{decryptedMessage}</span>
                         </div>
@@ -126,18 +128,18 @@ class MessageItem extends React.Component {
                         </div>
                     }
                     {
-                            !isDescrypted &&
-                            !publicMessage &&
-                            !decryptedMessage &&
-                            <>
-                                <a
-                                    onClick={() => setBodyModalParamsAction('DECRYPT_MESSAGES')}
-                                >
-                                    < i className="zmdi zmdi-lock" />
-                                </a>
-                                <span className="message-text">&nbsp;&nbsp;Message is encrypted</span>
-                            </>
-                        }
+                        !isDescrypted &&
+                        !publicMessage &&
+                        !decryptedMessage &&
+                        <>
+                            <a
+                                onClick={() => setBodyModalParamsAction('DECRYPT_MESSAGES')}
+                            >
+                                < i className="zmdi zmdi-lock" />
+                            </a>
+                            <span className="message-text">&nbsp;&nbsp;Message is encrypted</span>
+                        </>
+                    }
                     
                 </td>
                 <td className="align-right">

@@ -86,6 +86,7 @@ class ChatItem extends React.Component {
                         {
                             isDescrypted && 
                             decryptedMessage && 
+                            decryptedMessage !== 'false' && 
                             <div>
                                 <i className="zmdi zmdi-lock-open"/>&nbsp;&nbsp;&nbsp;<span>{decryptedMessage}</span>
                             </div>
