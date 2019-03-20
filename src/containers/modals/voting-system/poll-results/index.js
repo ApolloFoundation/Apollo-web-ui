@@ -52,19 +52,12 @@ class PollResults extends Component {
         const {nameModal} = this.props;
         const {pollResults, pollVotes} = this.state;
 
-        console.log('pollVotes', this.state.pollVotes)
-        console.log('pollResults.results', this.state.pollResults && this.state.pollResults.results)
-        console.log(this.state.pollResults && this.state.pollResults.results ? this.state.pollResults.results.map((el, index) => ({...el, option: this.state.pollResults.options[index]})) : null)
-
         const options = pollResults ? pollResults.options.map(el => {
-            console.log(el)
             return {
                 name: el,
                 alignRight: true
             }
         }) : []
-
-        console.log(options)
 
         return (
             <ModalBody

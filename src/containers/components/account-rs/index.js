@@ -88,7 +88,6 @@ class AccountRS extends React.Component {
         if (this.props.exportAccountList) {
             this.props.exportAccountList(newState.value)
         }
-        console.log(this.props.setValue)
         if (this.props.setValue) {
             this.props.setValue(this.props.field, newState.value);
         }

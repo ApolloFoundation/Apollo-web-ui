@@ -45,8 +45,6 @@ class AccountDetails extends React.Component {
 
         const phasingControl = await getPhasingOnlyControl({account: this.props.accountRS});
 
-        console.log(phasingControl)
-
         if (account) {
             this.setState({
                 ...this.state,
@@ -93,7 +91,6 @@ class AccountDetails extends React.Component {
     };
 
     formatControlType = (type) => {
-        console.log(type)
         switch (type) {
             case 0: return 'Control by account'
             case 1: return 'Control by account balance';

@@ -73,7 +73,6 @@ class ReserveCurrency extends React.Component {
     render() {
         const modalData = this.props.modalData;
 
-        console.log(modalData)
         return (
             <div className="modal-box">
                 <form className="modal-form">

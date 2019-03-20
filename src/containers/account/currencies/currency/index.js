@@ -14,7 +14,6 @@ const Currency = (props) =>  {
     const {currency, code, type, types, decimals, setBodyModalParamsAction, currentSupply, maxSupply, name} = props;
     const currencyTypes = getCurrencyTypes(type);
 
-    console.log(currencyTypes)
     return (
         <tr>
             <td className="blue-link-text">

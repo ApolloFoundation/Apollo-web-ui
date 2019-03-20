@@ -14,7 +14,6 @@ class ModalFooter extends React.Component {
     render () {
         const {setValue, idGroup, accountControls} = this.props;
 
-        console.log(accountControls)
         return (
             <>
                 <div 

@@ -74,8 +74,6 @@ export const openWSConnection = (protocol, hostname, port, endpoint) => dispatch
  * Send a message to the WebSocket server
  */
 export const onSendClick = (message) => dispatch => {
-    console.log(message)
-
     if (message && message['type'] === 'STOPREQUEST') {
         dispatch ({
             type: SET_TRANSPORT_CONNECTION_POROPERTIES,

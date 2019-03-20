@@ -28,7 +28,6 @@ const CastVoteForm = ({currencyHint, assetHint, poll, votes, getFormState, setVa
                     text={poll ? poll.name : ' '}
                 />
 
-                {console.log('votes: ', votes)}
                 {
                     poll && 
                     votes &&

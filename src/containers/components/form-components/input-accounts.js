@@ -23,7 +23,6 @@ class InputAccounts extends Component {
                 accounts: list
             }, () => {
                 if (this.props.setValue) {
-                    console.log(list);
                     this.props.setValue('controlWhitelisted', list)
                 }
             })

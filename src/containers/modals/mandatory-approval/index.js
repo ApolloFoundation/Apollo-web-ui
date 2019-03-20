@@ -59,7 +59,6 @@ class MandatoryApprovalModal extends React.Component {
     }
 
     onFocus = (activeForm) => {
-        console.log(activeForm)
         this.setState({
             activeForm
         })
@@ -68,8 +67,6 @@ class MandatoryApprovalModal extends React.Component {
     handleFormSubmit = (values) => {
         const {activeForm} = this.state;
 
-        console.log(values)
-        console.log(activeForm)
         switch (activeForm) {
             case 0: 
                 this.onSubmit({...values, ...this.state.noApproval});
@@ -96,7 +93,6 @@ class MandatoryApprovalModal extends React.Component {
     }
 
     handleApproveby = ({values}, field) => {
-        console.log(values)
         this.setState({
             [field]: values
         });

@@ -146,9 +146,6 @@ class CastPoll extends React.Component {
     render() {
         const {asset, currency, poll, votes} = this.state;
 
-        console.log(currency);
-        console.log(asset);
-
         const assetHint    = asset    ? `This vote is based on the balance of asset: ${asset.asset}. If you do not have enough of this asset, your vote will ot be counted.` : null;
         const currencyHint = currency ? `This vote is based on the balance of asset: ${currency.currency}. If you do not have enough of this currency, your vote will ot be counted.` : null;
 

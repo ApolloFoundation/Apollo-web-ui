@@ -46,7 +46,6 @@ export const getMarketplaceGeneralInfo = () => {
         .then((data) => {
             const [purchasedProducts, productsAvaliable, totalPurchases, totalTags] = data;
 
-            console.log(totalPurchases ? totalPurchases.purchases : null)
             dispatch({
                 type: SET_MARKETPLACE_GENERAL_INFO,
                 payload : {

@@ -271,7 +271,6 @@ class FollowedVotes extends React.Component {
                                                         alignRight: false
                                                     },
                                                     ...poll.options.map(el => {
-                                                        console.log(el)
                                                         return {
                                                             name: el,
                                                             alignRight: true

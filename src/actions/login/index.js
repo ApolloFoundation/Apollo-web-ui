@@ -137,8 +137,6 @@ export const updateAccount = (requestParams) => dispatch => {
         }
     })
         .then((res) => {
-            console.log('updating')
-
             dispatch(login(res.data));
         })
         .catch(function (err) {

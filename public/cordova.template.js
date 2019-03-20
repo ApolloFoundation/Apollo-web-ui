@@ -71,10 +71,7 @@ window.downloadFile = function (fileName, downloadUrl){
 
             function (entry) {
                 alert("download complete: " + entry.fullPath);
-                console.log(cordova.plugins.MediaScannerPlugin)
                 cordova.plugins.MediaScannerPlugin.scanFile(path, (e) => {
-                    console.log(e)
-                    console.log('Downloaded')
                 }, (e) => {
                     console.log(e)
                 });
