@@ -468,7 +468,7 @@ class AdvancedSettings extends React.Component {
                             label={'Asset quantity'}
                             setValue={setValue}
                             placeholder={'Asset quantity'}
-                            field={'phasingQuorumATUf'}
+                            field={'phasingQuorum'}
                             className={this.props.white ?  '' : 'gray-form'}
                             fieldType={'counter-number'}
                             defaultValue={this.state.block ? this.state.block.height : ''}
