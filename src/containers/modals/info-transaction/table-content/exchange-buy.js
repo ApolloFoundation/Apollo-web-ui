@@ -100,7 +100,7 @@ class BuyCurrency extends Component {
                     <tr>
                         <td>Exchanges:</td>
                         <td>
-                            <div className={'transaction-table no-min-height'}>
+                            <div className={'transaction-table transparent no-min-height'}>
                                 <div className={'transaction-table-body transparent no-border-top no-padding'}>
                                     <table>
                                         <thead>
