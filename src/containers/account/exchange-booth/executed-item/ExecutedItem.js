@@ -20,12 +20,12 @@ class ExecutedItem extends React.Component {
     };
 
     render() {
-        const {exchange} = this.props;
+        const {exchange, setBodyModalParamsAction} = this.props;
         return (
             <tr>
-                <td className="blue-link-text"><a onClick={this.props.setTransactionInfo.bind(this, {transaction: exchange.transaction})}>{this.props.formatTimestamp(exchange.timestamp)}</a></td>
-                <td className="blue-link-text" onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', exchange.sellerRS)}><a>{exchange.sellerRS}</a></td>
-                <td className="blue-link-text" onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', exchange.buyerRS)}><a>{exchange.buyerRS === this.props.account ? "You" : exchange.buyerRS}</a></td>
+                <td className="blue-link-text"><a onClick={setBodyModalParamsAction.bind(this, 'INFO_TRANSACTION', exchange.transaction)}>{this.props.formatTimestamp(exchange.timestamp)}</a></td>
+                <td className="blue-link-text" onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', exchange.sellerRS)}><a>{exchange.sellerRS}</a></td>
+                <td className="blue-link-text" onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', exchange.buyerRS)}><a>{exchange.buyerRS === this.props.account ? "You" : exchange.buyerRS}</a></td>
                 <td className="align-right">
                     {(exchange.units    / Math.pow(10, this.props.decimals)).toFixed(8)}
                 </td>
