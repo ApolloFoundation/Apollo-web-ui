@@ -298,6 +298,7 @@ class ExchangeBooth extends React.Component {
                 </SiteHeader>
                 <SidebarContentPage
                     backButtonClassname={'ml-3'}
+                    customGetBack={this.goBack}
                     SidebarContent={() => (
                         <SidebarContent
                             element={'code'}
