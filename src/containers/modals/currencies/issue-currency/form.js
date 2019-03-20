@@ -4,6 +4,7 @@ import NumericInput from '../../../components/form-components/numeric-input';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 import CustomTextArea from '../../../components/form-components/text-area';
+import BlockHeightInput from '../../../components/form-components/block-height-input';
 
 const IssueCurrencyForm = (props) => {
     const {setValue, getFormState, idGroup} = props;
@@ -161,14 +162,12 @@ const IssueCurrencyForm = (props) => {
                 type={'tel'}
             />
     
-            <NumericInput
+            <BlockHeightInput 
                 setValue={setValue}
-                idGroup={idGroup}    
                 label={'Activation Height'}
                 field={'height'}
-                // disabled={type1 && !type2 &&  !type3 &&  !type4 &&  !type5 && !type6}
                 placeholder={'Activation height'}
-                type={'tel'}
+                deafultPlus={100}
             />
         </>
     )
