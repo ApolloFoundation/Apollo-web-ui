@@ -40,11 +40,13 @@ class EditAlias extends React.Component {
 
     async handleFormSubmit(values) {
 
+        console.log(values)
+        
         values = {
             ...values,
             aliasName: this.state.alias.aliasName,
-            aliasURI: values[this.state.inputType]
         };
+
 
         this.props.processForm(values, 'setAlias', 'Alias has been edited!', () => {
             this.props.setBodyModalParamsAction(null, {});

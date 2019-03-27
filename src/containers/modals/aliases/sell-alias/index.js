@@ -50,10 +50,11 @@ class SellAlias extends React.Component {
 
     async handleFormSubmit(values) {
 
+        console.log(values)
+
         values = {
             ...values,
             aliasName: this.state.alias.aliasName,
-
         };
 
         this.props.processForm(values, 'sellAlias', 'Alias has been listed!', () => {
