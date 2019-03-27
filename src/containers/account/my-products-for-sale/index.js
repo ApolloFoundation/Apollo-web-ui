@@ -92,7 +92,15 @@ class MyProductsForSale extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'My products for sale'}
-                />
+                >
+                    <a
+                        className="btn primary"
+                        style={{marginLeft: 15}}
+                        onClick={() => this.props.setBodyModalParamsAction('LIST_PRODUCT_FOR_SALE', {})}
+                    >
+                        List product for sale
+                    </a>
+                </SiteHeader>
                 <div className="page-body container-fluid">
                     <CustomTable 
                         header={[
