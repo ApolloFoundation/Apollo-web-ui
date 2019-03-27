@@ -69,6 +69,7 @@ class SellAlias extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Sell Alias'}
                 isDisableSecretPhrase
+                closeModal={this.props.closeModal}
                 isAdvanced={true}
                 isAdvancedWhite
             >
