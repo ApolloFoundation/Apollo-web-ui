@@ -167,7 +167,7 @@ class MarketplaceTags extends Component {
                     <a 
                         onClick={showMoreController} 
                         className="btn primary blue" 
-                        dangerouslySetInnerHTML={{__html: this.state.isShowMore ? 'View less' : 'View more'}}
+                        dangerouslySetInnerHTML={{__html: this.props.isShowMore ? 'View less' : 'View more'}}
                     />
                     {
                         this.state.getDGSTags && isShowMore &&

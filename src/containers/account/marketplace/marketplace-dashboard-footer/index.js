@@ -79,7 +79,7 @@ class MarketplaceDashboardFooter extends Component {
                                 !!this.state.getDGSGoods.length &&
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
-                                        <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0 pr-0">
+                                        <div key={uuid()} className="marketplace-row-item col-xl-2 pl-3 pr-0">
                                             <MarketplaceItem
                                                 fullHeight
                                                 relative={true}
@@ -111,7 +111,7 @@ class MarketplaceDashboardFooter extends Component {
                                 !!totalPurchasedProducts.length &&
                                 totalPurchasedProducts.map((el, index) => {
                                     return (
-                                        <div key={uuid()} className="marketplace-row-item col-xl-2 pl-0 pr-0">
+                                        <div key={uuid()} className="marketplace-row-item col-xl-2 pl-3 pr-0">
                                             <MarketplaceItem
                                                 fullHeight
                                                 relative={true}
