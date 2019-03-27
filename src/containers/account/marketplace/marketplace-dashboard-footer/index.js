@@ -101,7 +101,7 @@ class MarketplaceDashboardFooter extends Component {
                     <div className="form-group-app transparent marketplace no-padding-bottom height-auto">
                         <div className="form-title padding-left pb-5">
                             <p>
-                                Recent listings&nbsp;&nbsp;
+                                Recent purchases&nbsp;&nbsp;
                                 <Link to="/recent-listing" className="btn primary static">View more</Link>
                             </p>
                         </div>
