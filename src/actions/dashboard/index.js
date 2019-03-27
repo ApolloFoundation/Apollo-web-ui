@@ -4,7 +4,8 @@ import {getAccountCurrenciesAction} from "../../actions/currencies";
 import {
 	getDGSGoodsCountAction,
 	getDGSPurchaseCountAction,
-	getDGSPurchasesAction,
+    getDGSPurchasesAction,
+    getDGSGoodsAction,
 	getDGSPendingPurchases
 } from "../../actions/marketplace";
 import {getAccountAssetsAction, getAssetAction, getSpecificAccountAssetsAction} from '../../actions/assets'
@@ -69,9 +70,9 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
     const aliaseesCount     = dispatch(getAliasesCountAction(rquestParams._aliaseesCount)); 
     const messages          = dispatch(getMessages(rquestParams._messages)); 
     const dgsGoods          = Promise.all([
-                                dispatch(getDGSGoodsCountAction({account})),
-                                dispatch(getDGSPurchaseCountAction({account})),
-                                dispatch(getDGSPurchasesAction()),
+                                dispatch(getDGSGoodsAction({seller: account})),
+                                dispatch(getDGSPendingPurchases({seller : account})),
+                                dispatch(getDGSPurchasesAction({buyer : account})),
                             ]); 
     const news              = dispatch(getNewsAction()); 
     const taggetData        = dispatch(getAllTaggedDataAction(rquestParams._taggetData)); 
@@ -120,8 +121,8 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             dispatch({
                 type: 'SET_DASHBOARD_DGS_GOODS',
                 payload: {
-                    numberOfGoods : numberOfGoods.numberOfGoods,
-                    numberOfPurchases : numberOfPurchases.numberOfPurchases,
+                    numberOfGoods : numberOfGoods.goods ? numberOfGoods.goods.length : null,
+                    numberOfPurchases : numberOfPurchases.purchases ? numberOfPurchases.purchases.length : null,
                     totalPurchases : totalPurchases.purchases ? totalPurchases.purchases.length : null
                 }
             })

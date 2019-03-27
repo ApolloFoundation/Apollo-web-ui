@@ -30,6 +30,7 @@ class MyProductsForSale extends React.Component {
 
     componentDidMount() {
         this.getDGSGoods({
+            seller: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
