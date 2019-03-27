@@ -101,6 +101,8 @@ class MarketplaceDeliver extends React.Component {
     };
 
     render() {
+        console.log(this.state.goods)
+
         return (
             <div className="modal-box x-wide">
                 <div className="modal-form">
@@ -141,8 +143,8 @@ class MarketplaceDeliver extends React.Component {
                                             <div className="t-cell">{this.props.formatTimestamp(this.state.goods.timestamp)}</div>
                                         </div>
                                         <div className="t-row">
-                                            <div className="t-cell"><span>Seller:</span></div>
-                                            <div className="t-cell">{this.state.goods.sellerRS}</div>
+                                            <div className="t-cell"><span>Buyer:</span></div>
+                                            <div className="t-cell">{this.state.goods.buyerRS}</div>
                                         </div>
                                         <div className="t-row">
                                             <div className="t-cell"><span>Quantity:</span></div>
@@ -154,6 +156,7 @@ class MarketplaceDeliver extends React.Component {
                                         render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
 
                                             <form className="modal-form" onSubmit={submitForm}>
+                                                {console.log()}
                                                 <div className="form-group-app no-padding-left no-padding-top">
                                                     <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">
