@@ -101,8 +101,6 @@ class MarketplaceDeliver extends React.Component {
     };
 
     render() {
-        console.log(this.state.goods)
-
         return (
             <div className="modal-box x-wide">
                 <div className="modal-form">
@@ -156,7 +154,6 @@ class MarketplaceDeliver extends React.Component {
                                         render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
 
                                             <form className="modal-form" onSubmit={submitForm}>
-                                                {console.log()}
                                                 <div className="form-group-app no-padding-left no-padding-top">
                                                     <div className="input-group-app display-block offset-bottom">
                                                         <div className="row">

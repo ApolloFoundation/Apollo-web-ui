@@ -40,8 +40,6 @@ class EditAlias extends React.Component {
 
     async handleFormSubmit(values) {
 
-        console.log(values)
-        
         values = {
             ...values,
             aliasName: this.state.alias.aliasName,
