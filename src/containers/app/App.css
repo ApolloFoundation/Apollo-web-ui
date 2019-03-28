@@ -5343,30 +5343,30 @@ input[type="number"] {
       .menu-bar .menu-bar-container nav ul li .dropdown-menu a {
         font-size: 13px; } }
 
-.exchanger.page-body {
+.exchange.page-body {
   font-family: "BBRollerMonoProST", sans-serif;
   color: #3D5A7E;
   font-size: 11px;
   line-height: normal; }
-  .exchanger.page-body h1, .exchanger.page-body h2, .exchanger.page-body h3, .exchanger.page-body h4, .exchanger.page-body h5, .exchanger.page-body h6, .exchanger.page-body p, .exchanger.page-body a, .exchanger.page-body ul, .exchanger.page-body li {
+  .exchange.page-body h1, .exchange.page-body h2, .exchange.page-body h3, .exchange.page-body h4, .exchange.page-body h5, .exchange.page-body h6, .exchange.page-body p, .exchange.page-body a, .exchange.page-body ul, .exchange.page-body li {
     font-family: "BBRollerMonoProST", sans-serif; }
-  .exchanger.page-body .btn {
+  .exchange.page-body .btn {
     position: relative; }
-  .exchanger.page-body ::placeholder {
+  .exchange.page-body ::placeholder {
     color: #98B0CD !important;
     font-size: 12px;
     font-family: "BBRollerMonoProST", sans-serif;
     line-height: normal;
     opacity: 1;
     font-weight: 400; }
-  .exchanger.page-body :-ms-input-placeholder {
+  .exchange.page-body :-ms-input-placeholder {
     color: #98B0CD !important; }
-  .exchanger.page-body .pb-3, .exchanger.page-body .py-3 {
+  .exchange.page-body .pb-3, .exchange.page-body .py-3 {
     padding-bottom: 17px; }
-  .exchanger.page-body .btn-light-box {
+  .exchange.page-body .btn-light-box {
     display: flex !important;
     flex-direction: row; }
-    .exchanger.page-body .btn-light-box .btn-light {
+    .exchange.page-body .btn-light-box .btn-light {
       display: flex !important;
       color: #3D5A7E;
       background-color: transparent;
@@ -5377,21 +5377,21 @@ input[type="number"] {
       position: relative;
       transition: 0.3s;
       cursor: pointer; }
-      .exchanger.page-body .btn-light-box .btn-light:hover {
+      .exchange.page-body .btn-light-box .btn-light:hover {
         background-color: rgba(147, 169, 195, 0.24);
         border-radius: 3px; }
-      .exchanger.page-body .btn-light-box .btn-light img {
+      .exchange.page-body .btn-light-box .btn-light img {
         height: 23px;
         width: 23px;
         margin-right: 9px; }
-      .exchanger.page-body .btn-light-box .btn-light.active {
+      .exchange.page-body .btn-light-box .btn-light.active {
         box-sizing: border-box;
         background: #F5F5F5;
         background-clip: padding-box;
         border: solid 2px transparent;
         border-radius: 3px;
         color: #2547F4; }
-        .exchanger.page-body .btn-light-box .btn-light.active:before {
+        .exchange.page-body .btn-light-box .btn-light.active:before {
           content: '';
           position: absolute;
           top: 0;
@@ -5402,90 +5402,90 @@ input[type="number"] {
           margin: -2px;
           border-radius: inherit;
           background: linear-gradient(to top, #2547F4, #369aff); }
-      .exchanger.page-body .btn-light-box .btn-light:hover {
+      .exchange.page-body .btn-light-box .btn-light:hover {
         color: #2547F4; }
-  .exchanger.page-body .card-block {
+  .exchange.page-body .card-block {
     border-radius: 3px;
     background-color: #FFF;
     box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30, 30, 30, 0.05); }
-    .exchanger.page-body .card-block.card {
+    .exchange.page-body .card-block.card {
       padding: 0;
       margin: 0; }
-      .exchanger.page-body .card-block.card .card-content {
+      .exchange.page-body .card-block.card .card-content {
         position: relative;
         height: 100%; }
-        .exchanger.page-body .card-block.card .card-content .full-box {
+        .exchange.page-body .card-block.card .card-content .full-box {
           margin: auto;
           height: 250px;
           left: 12px;
           right: 12px;
           bottom: 12px; }
-    .exchanger.page-body .card-block .form-title {
+    .exchange.page-body .card-block .form-title {
       color: #ffffff;
       border-radius: 3px 3px 0 0;
       background: linear-gradient(90deg, #FFF 0%, #FFF 100%);
       box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30, 30, 30, 0.05);
       padding: 10px 12px; }
-      .exchanger.page-body .card-block .form-title p {
+      .exchange.page-body .card-block .form-title p {
         color: #2547F4;
         font-size: 14px;
         line-height: 17px;
         padding: 0; }
-      .exchanger.page-body .card-block .form-title.form-title-lg {
+      .exchange.page-body .card-block .form-title.form-title-lg {
         height: 80px; }
-        .exchanger.page-body .card-block .form-title.form-title-lg img {
+        .exchange.page-body .card-block .form-title.form-title-lg img {
           margin-right: 10px;
           margin-top: 4px;
           height: 35px;
           width: 35px; }
-        .exchanger.page-body .card-block .form-title.form-title-lg .title-lg {
+        .exchange.page-body .card-block .form-title.form-title-lg .title-lg {
           font-size: 34px;
           letter-spacing: -0.89px;
           line-height: 41px; }
-        .exchanger.page-body .card-block .form-title.form-title-lg .form-title-actions {
+        .exchange.page-body .card-block .form-title.form-title-lg .form-title-actions {
           display: flex;
           align-items: center; }
-          .exchanger.page-body .card-block .form-title.form-title-lg .form-title-actions .info-section {
+          .exchange.page-body .card-block .form-title.form-title-lg .form-title-actions .info-section {
             font-size: 18px;
             line-height: 22px; }
-            .exchanger.page-body .card-block .form-title.form-title-lg .form-title-actions .info-section .green {
+            .exchange.page-body .card-block .form-title.form-title-lg .form-title-actions .info-section .green {
               color: #25F459;
               font-size: 18px;
               letter-spacing: -0.72px;
               line-height: 22px; }
-            .exchanger.page-body .card-block .form-title.form-title-lg .form-title-actions .info-section .sub-info-section {
+            .exchange.page-body .card-block .form-title.form-title-lg .form-title-actions .info-section .sub-info-section {
               font-size: 11px;
               line-height: 13px; }
-    .exchanger.page-body .card-block.primary .form-title {
+    .exchange.page-body .card-block.primary .form-title {
       background: linear-gradient(179.43deg, #2B23FF 0%, #2547F4 100%);
       box-shadow: none; }
-      .exchanger.page-body .card-block.primary .form-title p {
+      .exchange.page-body .card-block.primary .form-title p {
         color: #FFF; }
-    .exchanger.page-body .card-block.green .form-title {
+    .exchange.page-body .card-block.green .form-title {
       background: linear-gradient(179.43deg, #2AC940 0%, #31D947 100%);
       box-shadow: none; }
-      .exchanger.page-body .card-block.green .form-title p {
+      .exchange.page-body .card-block.green .form-title p {
         color: #FFF; }
-    .exchanger.page-body .card-block .form-group-app {
+    .exchange.page-body .card-block .form-group-app {
       padding: 0;
       border-radius: 0; }
-    .exchanger.page-body .card-block .transaction-table .transaction-table-body {
+    .exchange.page-body .card-block .transaction-table .transaction-table-body {
       padding: 15px !important;
       background-color: transparent; }
-      .exchanger.page-body .card-block .transaction-table .transaction-table-body table {
+      .exchange.page-body .card-block .transaction-table .transaction-table-body table {
         padding: 0; }
-        .exchanger.page-body .card-block .transaction-table .transaction-table-body table thead tr td {
+        .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td {
           color: #8AA5C7;
           font-size: 11px;
           letter-spacing: -0.3px;
           font-weight: normal;
           padding: 0 0 10px 0;
           text-align: center; }
-          .exchanger.page-body .card-block .transaction-table .transaction-table-body table thead tr td:first-child {
+          .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td:first-child {
             text-align: left; }
-          .exchanger.page-body .card-block .transaction-table .transaction-table-body table thead tr td:last-child {
+          .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td:last-child {
             text-align: right; }
-        .exchanger.page-body .card-block .transaction-table .transaction-table-body table tbody tr td {
+        .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td {
           color: #3D5A7E;
           font-size: 12px;
           letter-spacing: -0.4px;
@@ -5493,22 +5493,22 @@ input[type="number"] {
           padding: 5px 0;
           border: none;
           text-align: center; }
-          .exchanger.page-body .card-block .transaction-table .transaction-table-body table tbody tr td:first-child {
+          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td:first-child {
             text-align: left; }
-          .exchanger.page-body .card-block .transaction-table .transaction-table-body table tbody tr td:last-child {
+          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td:last-child {
             text-align: right;
             color: #8AA5C7; }
-          .exchanger.page-body .card-block .transaction-table .transaction-table-body table tbody tr td.red-text {
+          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td.red-text {
             color: #F36; }
-          .exchanger.page-body .card-block .transaction-table .transaction-table-body table tbody tr td.green-text {
+          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td.green-text {
             color: rgba(0, 189, 32, 0.92); }
-    .exchanger.page-body .card-block .modal-form .form-group {
+    .exchange.page-body .card-block .modal-form .form-group {
       padding: 12px; }
-      .exchanger.page-body .card-block .modal-form .form-group label {
+      .exchange.page-body .card-block .modal-form .form-group label {
         color: #98B0CD;
         font-size: 11px;
         margin-bottom: 5px; }
-      .exchanger.page-body .card-block .modal-form .form-group input {
+      .exchange.page-body .card-block .modal-form .form-group input {
         border-radius: 2px 0 0 2px;
         background-color: #FCFCFD;
         border: 1px solid #E6EAEE;
@@ -5520,7 +5520,7 @@ input[type="number"] {
         letter-spacing: -0.57px;
         padding: 5px;
         height: 40px !important; }
-      .exchanger.page-body .card-block .modal-form .form-group .input-group-text {
+      .exchange.page-body .card-block .modal-form .form-group .input-group-text {
         border-radius: 0 2px 2px 0;
         background-color: #FCFCFD;
         border: 1px solid #E6EAEE;
@@ -5532,18 +5532,18 @@ input[type="number"] {
         padding: 5px;
         margin: 0;
         height: 40px; }
-    .exchanger.page-body .card-block .form-group-text {
+    .exchange.page-body .card-block .form-group-text {
       padding: 12px;
       color: #98B0CD;
       font-size: 12px; }
-      .exchanger.page-body .card-block .form-group-text span {
+      .exchange.page-body .card-block .form-group-text span {
         color: #3D5A7E; }
-      .exchanger.page-body .card-block .form-group-text i {
+      .exchange.page-body .card-block .form-group-text i {
         color: #8AA5C7; }
-    .exchanger.page-body .card-block .btn-box {
+    .exchange.page-body .card-block .btn-box {
       height: auto;
       padding: 12px; }
-    .exchanger.page-body .card-block .btn {
+    .exchange.page-body .card-block .btn {
       border-radius: 2px;
       color: #8AA5C7;
       background-color: #FFF;
@@ -5553,28 +5553,27 @@ input[type="number"] {
       font-family: "BBRollerMonoProST", sans-serif;
       font-weight: 500;
       letter-spacing: 0.46px;
-      line-height: 16px;
-      padding-bottom: 12px; }
-      .exchanger.page-body .card-block .btn.btn-sm {
+      line-height: 16px; }
+      .exchange.page-body .card-block .btn.btn-sm {
         font-size: 10px;
         letter-spacing: -0.08px;
         line-height: 12px;
         min-width: 35px;
         min-height: auto;
         padding: 2px; }
-        .exchanger.page-body .card-block .btn.btn-sm.active {
+        .exchange.page-body .card-block .btn.btn-sm.active {
           border-radius: 2px;
           background-color: rgba(147, 169, 195, 0.24);
           box-shadow: none; }
-      .exchanger.page-body .card-block .btn.btn-lg {
+      .exchange.page-body .card-block .btn.btn-lg {
         width: 100%;
         padding: 15px 30px;
         text-transform: uppercase; }
-      .exchanger.page-body .card-block .btn.btn-green {
+      .exchange.page-body .card-block .btn.btn-green {
         color: #ffffff;
         background: linear-gradient(270deg, #2AC940 0%, #31D947 100%);
         box-shadow: 0 10px 20px 0 rgba(37, 244, 89, 0.26); }
-      .exchanger.page-body .card-block .btn.btn-transparent {
+      .exchange.page-body .card-block .btn.btn-transparent {
         background: transparent;
         box-shadow: none;
         font-weight: normal;
@@ -5582,35 +5581,35 @@ input[type="number"] {
         letter-spacing: -0.2px;
         line-height: 14px;
         color: #ffffff; }
-        .exchanger.page-body .card-block .btn.btn-transparent.active {
+        .exchange.page-body .card-block .btn.btn-transparent.active {
           border-radius: 3px;
           background-color: #2547F4; }
-        .exchanger.page-body .card-block .btn.btn-transparent.btn-disabled {
+        .exchange.page-body .card-block .btn.btn-transparent.btn-disabled {
           cursor: default; }
-        .exchanger.page-body .card-block .btn.btn-transparent img {
+        .exchange.page-body .card-block .btn.btn-transparent img {
           height: 11px;
           width: 8px;
           margin-right: 0; }
-      .exchanger.page-body .card-block .btn.bg-danger {
+      .exchange.page-body .card-block .btn.bg-danger {
         color: #ffffff; }
-      .exchanger.page-body .card-block .btn.bg-success {
+      .exchange.page-body .card-block .btn.bg-success {
         color: #ffffff; }
-    .exchanger.page-body .card-block .chart-options {
+    .exchange.page-body .card-block .chart-options {
       display: flex;
       justify-content: space-between;
       padding: 20px 12px; }
-      .exchanger.page-body .card-block .chart-options .info-section {
+      .exchange.page-body .card-block .chart-options .info-section {
         display: flex;
         color: #3D5A7E;
         font-size: 10px;
         letter-spacing: -0.08px;
         line-height: 12px;
         text-align: center; }
-        .exchanger.page-body .card-block .chart-options .info-section div {
+        .exchange.page-body .card-block .chart-options .info-section div {
           padding: 0 8px; }
-          .exchanger.page-body .card-block .chart-options .info-section div span {
+          .exchange.page-body .card-block .chart-options .info-section div span {
             color: #8AA5C7; }
-  .exchanger.page-body .info-box.blue-info a {
+  .exchange.page-body .info-box.blue-info a {
     color: #fff;
     text-decoration: underline; }
 

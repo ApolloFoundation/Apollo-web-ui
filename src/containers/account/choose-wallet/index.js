@@ -41,11 +41,13 @@ class ChooseWallet extends React.Component {
                 <SiteHeader
                     pageTitle={'Wallet'}
                 />
-                <div className="page-body container-fluid pl-3">
+                <div className="exchange page-body container-fluid pl-3">
                     {this.state.wallets ?
-                        <div className={'form-group-app p-0 mb-3'}>
+                        <div className={'card-block primary form-group-app p-0 mb-3'}>
+                            <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
+                                <p className="title-lg">My Wallets</p>
+                            </div>
                             <CustomTable
-                                tableName={'My Wallets'}
                                 header={[
                                     {
                                         name: 'ETH Wallet',

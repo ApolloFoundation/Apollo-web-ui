@@ -20,7 +20,7 @@ class Exchanger extends React.Component {
                 <SiteHeader
                     pageTitle={'Decentralized Exchange'}
                 />
-                <div className="exchanger page-body container-fluid pl-0">
+                <div className="exchange page-body container-fluid pl-0">
                     <div className={'row'}>
                         <div className={'col-md-12 pr-0'}>
                             <InfoBox info>
