@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import {NotificationManager} from 'react-notifications';
 import InfoBox from '../../components/info-box'
-import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
+import {Form, TextArea, Radio, RadioGroup} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
@@ -109,7 +109,7 @@ class ImportAccount extends React.Component {
                         !this.state.isValidating &&
                         <Form
                             onSubmit={(values) => this.handleFormSubmit(values)}
-                            render={({submitForm, values, addValue, removeValue, getFormState}) => (
+                            render={({submitForm, values, addValue, removeValue, getFormState, setValue}) => (
                                 <form className="modal-form" onSubmit={submitForm}>
 
                                     <div className="form-group-app">
@@ -119,20 +119,42 @@ class ImportAccount extends React.Component {
                                         <div className="form-title">
                                             <p>Import Account</p>
                                         </div>
-                                        <InfoBox info>
-                                            Please enter your account secret key.
-                                        </InfoBox>
+
+                                        <div className="form-group row form-group-grey mb-15">
+                                            <RadioGroup field="format" defaultValue={'text'}>
+                                                <label htmlFor="text" className="mr-2">Old format</label>
+                                                <Radio value="text" id="text" className="mr-3 d-inline-block" />
+                                                <label htmlFor="file" className="mr-2">New format</label>
+                                                <Radio value="file" id="file" className="d-inline-block" />
+                                            </RadioGroup>
+                                        </div>
 
                                         <React.Fragment>
-
-                                            <div className="form-group row form-group-grey mb-15">
-                                                <label className="col-sm-3 col-form-label align-self-start">
-                                                    Secret Key
-                                                </label>
-                                                <div className="col-sm-9">
-                                                    <TextArea className="form-control" placeholder="Secret Key" field="secretBytes" cols="30" rows="3" />
+                                            {values.format !== 'file' ?
+                                                <div className="form-group row form-group-grey mb-15">
+                                                    <label className="col-sm-3 col-form-label align-self-start">
+                                                        Secret Key
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                            <TextArea className="form-control" placeholder="Secret Key"
+                                                                      field="secretBytes" cols="30" rows="3"/>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                :
+                                                <div className="form-group row form-group-grey mb-15">
+                                                    <label className="col-sm-3 col-form-label align-self-start">
+                                                        Secret Key
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <input type="file"
+                                                               name='file'
+                                                               onChange={(event) => {
+                                                                   setValue('file', event.target.files[0]);
+                                                               }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            }
 
                                             {
                                                 this.state &&
@@ -165,8 +187,11 @@ class ImportAccount extends React.Component {
                                                 this.state &&
                                                 this.state.importAccount &&
                                                 <InfoBox danger>
-                                                    <strong>Remember</strong> to store your Account ID, passphrase, and Secret Key in a secured place.
-                                                    Make sure to write down this passphrase and store it securely (the passphrase is order and case sensitive). This passphrase is needed to use your wallet.
+                                                    <strong>Remember</strong> to store your Account ID,
+                                                    passphrase, and Secret Key in a secured place.
+                                                    Make sure to write down this passphrase and store it
+                                                    securely (the passphrase is order and case sensitive). This
+                                                    passphrase is needed to use your wallet.
                                                 </InfoBox>
                                             }
                                             <div className="btn-box align-buttons-inside absolute right-conner">
@@ -195,8 +220,6 @@ class ImportAccount extends React.Component {
 
                                             </div>
                                         </React.Fragment>
-
-
                                     </div>
                                 </form>
                             )}
