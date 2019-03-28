@@ -40,7 +40,7 @@ const BuyOrders = () => (
         <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
             <p>Orderbook</p>
             <div className={'form-title-actions'}>
-                <button className={'btn btn-transparent active'}>
+                <button className={'btn btn-transparent pl-0 btn-disabled'}>
                     <img src={ArrowUp} alt="Buy Arrow"/> BUY ORDERS
                 </button>
             </div>

@@ -24,6 +24,7 @@ class ExchangeBuy extends React.Component {
                                     <InputForm
                                         field="price"
                                         type={"float"}
+                                        onChange={() => setValue("total", values.amount * values.price)}
                                         setValue={setValue}/>
                                     <div className="input-group-append">
                                         <span className="input-group-text">ETH</span>
@@ -39,6 +40,7 @@ class ExchangeBuy extends React.Component {
                                     <InputForm
                                         field="amount"
                                         type={"float"}
+                                        onChange={() => setValue("total", values.amount * values.price)}
                                         setValue={setValue}/>
                                     <div className="input-group-append">
                                         <span className="input-group-text">APL</span>
@@ -54,7 +56,8 @@ class ExchangeBuy extends React.Component {
                                     <InputForm
                                         field="total"
                                         type={"float"}
-                                        setValue={setValue}/>
+                                        setValue={setValue}
+                                        disabled />
                                     <div className="input-group-append">
                                         <span className="input-group-text">ETH</span>
                                     </div>

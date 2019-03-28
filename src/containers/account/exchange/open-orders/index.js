@@ -42,7 +42,7 @@ class TradeHistoryEchanger extends React.Component {
             <div className={'card-block card card-medium p-0 h-100'}>
                 <div className={'form-group-app p-0'}>
                     <CustomTable
-                        tableName={'Open Orders'}
+                        tableName={'My Open Orders'}
                         header={[
                             {
                                 name: 'PRICE (ETH)',

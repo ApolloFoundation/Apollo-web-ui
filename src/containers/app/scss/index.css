@@ -5585,6 +5585,8 @@ input[type="number"] {
         .exchanger.page-body .card-block .btn.btn-transparent.active {
           border-radius: 3px;
           background-color: #2547F4; }
+        .exchanger.page-body .card-block .btn.btn-transparent.btn-disabled {
+          cursor: default; }
         .exchanger.page-body .card-block .btn.btn-transparent img {
           height: 11px;
           width: 8px;
@@ -5608,3 +5610,6 @@ input[type="number"] {
           padding: 0 8px; }
           .exchanger.page-body .card-block .chart-options .info-section div span {
             color: #8AA5C7; }
+  .exchanger.page-body .info-box.blue-info a {
+    color: #fff;
+    text-decoration: underline; }

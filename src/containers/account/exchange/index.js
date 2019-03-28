@@ -1,6 +1,7 @@
 import React from 'react';
-import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
+import SiteHeader from '../../components/site-header';
+import InfoBox from '../../components/info-box';
 
 import ExchangeHeader from './exchange-header';
 import ExchangeBuy from './exchange-buy';
@@ -21,6 +22,12 @@ class Exchanger extends React.Component {
                 />
                 <div className="exchanger page-body container-fluid pl-0">
                     <div className={'row'}>
+                        <div className={'col-md-12 pr-0'}>
+                            <InfoBox info>
+                                Please, notice - this is the firs version on Apollo Exchange. Functionality of trading will be delivered in April 2019. At the moment you can deposit in ETH and PAX.
+                                Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank'>Telegram channel</a> to be the first to use Apollo Exchange
+                            </InfoBox>
+                        </div>
                         <div className={'col-md-12 pr-0'}>
                             <ExchangeHeader />
                         </div>

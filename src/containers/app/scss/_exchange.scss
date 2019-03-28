@@ -313,6 +313,9 @@
 					border-radius: 3px;
 					background-color: #2547F4;
 				}
+				&.btn-disabled {
+					cursor: default;
+				}
 				img {
 					height: 11px;
 					width: 8px;
@@ -348,5 +351,9 @@
 				}
 			}
 		}
+	}
+	.info-box.blue-info a {
+		color: #fff;
+		text-decoration: underline;
 	}
 }
