@@ -56,10 +56,6 @@ const ChainProps = (props) => (
                                             <td>{props.appState.adaptiveForging.toString()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Is Testnet:</td>
-                                            <td>{props.appState.isTestnet.toString()}</td>
-                                        </tr>
-                                        <tr>
                                             <td>Coin symbol:</td>
                                             <td>{props.appState.coinSymbol.toString()}</td>
                                         </tr>
