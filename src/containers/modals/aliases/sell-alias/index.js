@@ -53,7 +53,6 @@ class SellAlias extends React.Component {
         values = {
             ...values,
             aliasName: this.state.alias.aliasName,
-
         };
 
         this.props.processForm(values, 'sellAlias', 'Alias has been listed!', () => {
@@ -69,6 +68,7 @@ class SellAlias extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Sell Alias'}
                 isDisableSecretPhrase
+                closeModal={this.props.closeModal}
                 isAdvanced={true}
                 isAdvancedWhite
             >

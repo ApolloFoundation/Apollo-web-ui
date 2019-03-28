@@ -45,7 +45,7 @@ class TransferAlias extends React.Component {
                 <CheckboxFormInput
                     setValue={setValue}
         
-                    label={'Type'}
+                    label={''}
                     checkboxes={[
                         {
                             label: 'Add a message?',

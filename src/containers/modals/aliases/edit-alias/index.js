@@ -43,12 +43,12 @@ class EditAlias extends React.Component {
         values = {
             ...values,
             aliasName: this.state.alias.aliasName,
-            aliasURI: values[this.state.inputType]
         };
 
-        this.props.processForm(values, 'setAlias', 'Product has been listed!', () => {
+
+        this.props.processForm(values, 'setAlias', 'Alias has been edited!', () => {
             this.props.setBodyModalParamsAction(null, {});
-            NotificationManager.success('Product has been listed!', null, 5000);
+            NotificationManager.success('Alias has been edited!', null, 5000);
         });
     }
 

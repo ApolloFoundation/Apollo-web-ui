@@ -141,8 +141,8 @@ class MarketplaceDeliver extends React.Component {
                                             <div className="t-cell">{this.props.formatTimestamp(this.state.goods.timestamp)}</div>
                                         </div>
                                         <div className="t-row">
-                                            <div className="t-cell"><span>Seller:</span></div>
-                                            <div className="t-cell">{this.state.goods.sellerRS}</div>
+                                            <div className="t-cell"><span>Buyer:</span></div>
+                                            <div className="t-cell">{this.state.goods.buyerRS}</div>
                                         </div>
                                         <div className="t-row">
                                             <div className="t-cell"><span>Quantity:</span></div>

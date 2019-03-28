@@ -157,7 +157,7 @@ class MarketplaceDelete extends React.Component {
                                                         advancedState={this.state.advancedState}
                                                     />
                                                 </div>
-                                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                                <div className="btn-box d-block align-buttons-inside absolute right-conner align-right">
                                                     <a
                                                         onClick={() => this.props.closeModal()}
                                                         className="btn round round-top-left"
@@ -172,15 +172,6 @@ class MarketplaceDelete extends React.Component {
                                                         Delete
                                                     </button>
 
-                                                </div>
-                                                <div className="btn-box align-buttons-inside absolute left-conner">
-                                                    <a
-                                                        onClick={this.handleAdvancedState}
-                                                        className="btn btn-right round round-top-right absolute"
-                                                        style={{left : 'calc(50% - 35px)', right: 'auto'}}
-                                                    >
-                                                        {this.state.advancedState ? "Basic" : "Advanced"}
-                                                    </a>
                                                 </div>
                                             </form>
                                         )}

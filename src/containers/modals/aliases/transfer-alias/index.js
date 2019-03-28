@@ -61,7 +61,7 @@ class TransferAlias extends React.Component {
         } else {
             this.props.setBodyModalParamsAction(null, {});
 
-            NotificationManager.success('Product has been listed!', null, 5000);
+            NotificationManager.success('Alias has been transferred!', null, 5000);
         }
 
         // this.props.sendTransaction(values);

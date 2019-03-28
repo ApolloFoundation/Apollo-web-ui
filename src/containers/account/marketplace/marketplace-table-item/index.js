@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
 
 const MarketplaceTableItem = (props) => (
     <tr>
-        <td>{props.name}</td>
+        <td className="blue-link-text"><a onClick={() => props.setBodyModalParamsAction("INFO_TRANSACTION", props.goods)}>{props.name}</a></td>
         <td className="align-right"><a>{props.quantity}</a></td>
         <td className="align-right">{Math.floor(props.priceATM / 100000000).toLocaleString('it')} APL</td>
         <td className="align-right">
