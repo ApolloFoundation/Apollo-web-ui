@@ -5,7 +5,7 @@ import InputMask from 'react-input-mask'
 import {connect} from 'react-redux';
 import {getDGSTagsAction,} from '../../../../actions/marketplace'
 import uuid from 'uuid';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
 class MarketplaceTags extends Component {
     state = {};
@@ -100,6 +100,7 @@ class MarketplaceTags extends Component {
                 <div className="search-bar m-0">
                     <div className="row m-0">
                         <div className={classNames({
+                            'pl-3' : true,
                             'col-md-12 pr-0 pl-0' : !isShowMore,
                             'col-md-6 pr-0 pl-0' : isShowMore
                         })}>
@@ -130,8 +131,9 @@ class MarketplaceTags extends Component {
                             </div>
                         </div>
                         <div className={classNames({
-                            'col-md-12 pr-0 pl-0' : !this.state.isShowMore,
-                            'col-md-6 pr-0 pl-0' : this.state.isShowMore
+                            'pl-3' : true,
+                            'col-md-12 pr-0 pl-0' : !isShowMore,
+                            'col-md-6 pr-0 pl-0' : isShowMore
                         })}>
                             <div className="input-group-app search tabled">
                                 <Form
@@ -155,7 +157,7 @@ class MarketplaceTags extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="filters-bar" ref={'filtersBar'}>
+                <div className="filters-bar pl-3" ref={'filtersBar'}>
                     {
                         this.state.getDGSTags &&
                         this.state.getDGSTags.map((el, index) => {
@@ -218,4 +220,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(null, mapDispatchToProps)(MarketplaceTags)
+export default connect(null, mapDispatchToProps)(withRouter(MarketplaceTags))
