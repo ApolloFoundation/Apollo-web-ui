@@ -54,16 +54,18 @@ class LoginToExchange extends React.Component {
                                 </div>
                                 <div className="input-group-app">
                                     <div className="row">
-                                        <div className="col-md-3">
+                                        <div className="col-md-4">
                                             <label>Secret phrase</label>
                                         </div>
-                                        <div className="col-md-9">
+                                        <div className="col-md-8">
                                             <Text field="passphrase" placeholder='Secret phrase' type={'password'}/>
                                         </div>
                                     </div>
                                 </div>
 
-                                <button type="submit" className="btn btn-right">Enter</button>
+                                <button type="submit" className="btn btn-right blue round round-bottom-right round-top-left">
+                                    Enter
+                                </button>
                             </div>
                         </form>
                     )} />

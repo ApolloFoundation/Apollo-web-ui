@@ -88,7 +88,9 @@ class WithdrawCurrency extends React.Component {
                                         </div>
                                     </div>
 
-                                    <button type="submit" className="btn btn-right">Withdraw</button>
+                                    <button type="submit" className="btn btn-right blue round round-bottom-right round-top-left">
+                                        Withdraw
+                                    </button>
                                 </div>
                             </form>
                         )

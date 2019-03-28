@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header';
 import CustomTable from '../../components/tables/table';
+import InfoBox from '../../components/info-box';
 import CurrencyDescriptionComponent from './currency';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getEthBalance} from "../../../actions/wallet";
@@ -41,7 +42,7 @@ class ChooseWallet extends React.Component {
                     pageTitle={'Wallet'}
                 />
                 <div className="page-body container-fluid pl-3">
-                    {this.state.wallets &&
+                    {this.state.wallets ?
                         <div className={'form-group-app p-0 mb-3'}>
                             <CustomTable
                                 tableName={'My Wallets'}
@@ -98,6 +99,13 @@ class ChooseWallet extends React.Component {
                                 emptyMessage={'No wallet info found.'}
                                 TableRowComponent={CurrencyDescriptionComponent}
                             />
+                        </div>
+                        :
+                        <div>
+                            <InfoBox default>
+                                You have no wallets at that moment.&nbsp;
+                                <a onClick={() => this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {})}>Log in</a>
+                            </InfoBox>
                         </div>
                     }
                 </div>
