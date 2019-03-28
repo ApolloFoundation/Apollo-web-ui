@@ -209,7 +209,37 @@ const MarketplaceItem = (props, history) => (
                                 {props.description}
                             </div>
                         </div>
-                        
+                        {
+                            props.completedOrders &&
+                            <div className="info-table">
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Buyer:</span></div>
+                                    <div className="t-cell">
+                                        <a onClick={() => props.setBodyModalParamsAction("INFO_ACCOUNT", props.buyerRS)} className="blue-text">
+                                            {props.buyerRS}
+                                        </a>
+                                        <Link to={'/marketplace/' + props.sellerRS}
+                                            className="btn primary blue ml-3"
+                                        >
+                                            Store
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Order date:</span></div>
+                                    <div className="t-cell">{props.formatTimestamp(props.timestamp)}</div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Order status:</span></div>
+                                    <div className="t-cell">{props.pending ? "Pending" : "Completed"}</div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Quantity:</span></div>
+                                    <div className="t-cell">{props.quantity}</div>
+                                </div>
+                            </div>
+                        }
+
                         {
                             props.deliver &&
                             <div className="info-table">
@@ -240,7 +270,10 @@ const MarketplaceItem = (props, history) => (
                                     </div>
                                     <div className="t-cell"></div>
                                 </div>
-                            </div> || 
+                            </div> 
+                            
+                        }{
+                            !props.deliver && !props.completedOrders && 
                             <div className="item tags-links">
                                 <div className="top">
                                     <div className="seller">

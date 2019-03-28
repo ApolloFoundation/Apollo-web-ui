@@ -121,6 +121,7 @@ class MyProductsForSale extends React.Component {
                                         tall={false}
                                         fluid={!this.state.isGrid}
                                         isHovered
+                                        completedOrders
                                         index={index}
                                         {...el}
                                     />
