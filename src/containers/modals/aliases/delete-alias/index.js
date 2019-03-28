@@ -34,7 +34,7 @@ class DeleteAlias extends React.Component {
         values = {
             ...values,
             priceATM: 0,
-            aliasName: this.state.alias.aliasName
+            alias: this.props.modalData
         };
 
         this.props.processForm(values, 'deleteAlias', 'Product has been listed!', () => {
@@ -60,10 +60,13 @@ class DeleteAlias extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    modalData: state.modals.modalData,
+});
 
 const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
-export default connect(null, mapDispatchToProps)(DeleteAlias);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteAlias);
