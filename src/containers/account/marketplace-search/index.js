@@ -194,7 +194,7 @@ class MarketplaceSearch extends React.Component {
                             {
                                 this.state.getDGSGoods &&
                                 <div
-                                    className="btn-box relative"
+                                    className="btn-box relative pl-3"
                                     style={{
                                         position: "relative",
                                         height: 37,
