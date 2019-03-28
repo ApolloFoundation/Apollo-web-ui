@@ -107,6 +107,10 @@ import Confirm2FAforging from './2fa/confirm-forging-with-2fa';
 import ImportAccount from '../modals/account/import-account'
 import ExportAccount from '../modals/account/export-account'
 
+//exchange
+import LoginToExchange from './exchange/login/';
+import WithdrawCurrency from './exchange/withdraw-currency/';
+
 class ModalWindow extends React.Component {
     constructor(props) {
         super(props);
@@ -297,6 +301,10 @@ class ModalWindow extends React.Component {
                 {/*Messages*/}
                 {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal}/>}
                 {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal}/>}
+
+                {/* Exchange */}
+                {this.props.modalType === 'LOGIN_EXCHANGE'              && <LoginToExchange           closeModal={this.closeModal}/>}
+                {this.props.modalType === 'WITHDRAW_CURRENCY'           && <WithdrawCurrency          closeModal={this.closeModal}/>}
 
             </div>
         );

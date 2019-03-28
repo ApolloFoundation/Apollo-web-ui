@@ -66,10 +66,13 @@ import ActiveShufflings   from "../account/active-shufflings";
 import FinishedShufflings from "../account/finished-shufflings";
 import MyMessages from "../account/my-messages";
 import MarketplaceSearch from "../account/marketplace-search";
-import Generators from "../account/generators"
+import Generators from "../account/generators";
+import Exchange from "../account/exchange";
+import ChooseWallet from "../account/choose-wallet";
 import BlocksDownloader from "../components/blocks-downloader";
 
 import style from './App.css';
+import './fonts.scss';
 
 import {getUpdateStatus} from '../../actions/login/index'
 
@@ -199,6 +202,8 @@ class App extends React.Component {
                                 <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
                                 <Route exact path="/my-messages" component={MyMessages}/>
                                 <Route exact path="/generators" component={Generators}/>
+                                <Route exact path="/exchange" component={Exchange}/>
+                                <Route exact path="/choose-wallet" component={ChooseWallet}/>
                                 <Route exact path="/index.html" render={() => <Redirect to="/dashboard"/>}/>
                             </React.Fragment>
                         }

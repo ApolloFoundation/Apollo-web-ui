@@ -8,9 +8,11 @@ const config = {};
 
 // API Gateway
 config.api = {
-    serverUrl: '/apl?',
+    server: '',
     localServerUrl: 'https://apollocurrency.com/api/client/twitter',
     mixerUrl: 'https://apollowallet.org/mixer/api/get-account'
 };
+
+config.api.serverUrl = `${config.api.server}/apl?`;
 
 module.exports = config;
