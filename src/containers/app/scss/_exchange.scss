@@ -85,6 +85,7 @@
 		box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30,30,30,0.05);
 		&.card {
 			padding: 0;
+			margin: 0;
 			.card-content {
 				position: relative;
 				height: 100%;
@@ -218,6 +219,7 @@
 			label {
 				color: #98B0CD;
 				font-size: 11px;
+				margin-bottom: 5px;
 			}
 			input {
 				border-radius: 2px 0 0 2px;
@@ -230,7 +232,7 @@
 				line-height: 28px;
 				letter-spacing: -0.57px;
 				padding: 5px;
-				height: 40px;
+				height: 40px !important;
 			}
 			.input-group-text {
 				border-radius: 0 2px 2px 0;
@@ -246,7 +248,7 @@
 				height: 40px;
 			}
 			.input-group {
-				padding: 0 0 0 30px;
+				//padding: 0 0 0 30px;
 			}
 		}
 		.form-group-text {
@@ -261,6 +263,7 @@
 			}
 		}
 		.btn-box {
+			height: auto;
 			padding: 12px;
 		}
 		.btn {
@@ -274,6 +277,7 @@
 			font-weight: 500;
 			letter-spacing: 0.46px;
 			line-height: 16px;
+			padding-bottom: 12px;
 			&.btn-sm {
 				font-size: 10px;
 				letter-spacing: -0.08px;

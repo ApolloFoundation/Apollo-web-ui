@@ -17,7 +17,7 @@ class Exchanger extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Exchange'}
+                    pageTitle={'Decentralized Exchange'}
                 />
                 <div className="exchanger page-body container-fluid pl-0">
                     <div className={'row'}>
@@ -34,11 +34,11 @@ class Exchanger extends React.Component {
                             <SellOrders />
                         </div>
                         <div className={'col-md-8 p-0'}>
-                            <div className={'container-fluid h-100 p-0'}>
-                                <div className={'col-md-6 pl-3 pr-0 pb-3 h-100 d-inline-flex'}>
+                            <div className={'container-fluid p-0'}>
+                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
                                     <ExchangeBuy/>
                                 </div>
-                                <div className={'col-md-6 pl-3 pr-0 pb-3 h-100 d-inline-flex'}>
+                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
                                     <ExchangeSell/>
                                 </div>
                             </div>

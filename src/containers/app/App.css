@@ -5409,7 +5409,8 @@ input[type="number"] {
     background-color: #FFF;
     box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30, 30, 30, 0.05); }
     .exchanger.page-body .card-block.card {
-      padding: 0; }
+      padding: 0;
+      margin: 0; }
       .exchanger.page-body .card-block.card .card-content {
         position: relative;
         height: 100%; }
@@ -5505,7 +5506,8 @@ input[type="number"] {
       padding: 12px; }
       .exchanger.page-body .card-block .modal-form .form-group label {
         color: #98B0CD;
-        font-size: 11px; }
+        font-size: 11px;
+        margin-bottom: 5px; }
       .exchanger.page-body .card-block .modal-form .form-group input {
         border-radius: 2px 0 0 2px;
         background-color: #FCFCFD;
@@ -5517,7 +5519,7 @@ input[type="number"] {
         line-height: 28px;
         letter-spacing: -0.57px;
         padding: 5px;
-        height: 40px; }
+        height: 40px !important; }
       .exchanger.page-body .card-block .modal-form .form-group .input-group-text {
         border-radius: 0 2px 2px 0;
         background-color: #FCFCFD;
@@ -5530,8 +5532,6 @@ input[type="number"] {
         padding: 5px;
         margin: 0;
         height: 40px; }
-      .exchanger.page-body .card-block .modal-form .form-group .input-group {
-        padding: 0 0 0 30px; }
     .exchanger.page-body .card-block .form-group-text {
       padding: 12px;
       color: #98B0CD;
@@ -5541,6 +5541,7 @@ input[type="number"] {
       .exchanger.page-body .card-block .form-group-text i {
         color: #8AA5C7; }
     .exchanger.page-body .card-block .btn-box {
+      height: auto;
       padding: 12px; }
     .exchanger.page-body .card-block .btn {
       border-radius: 2px;
@@ -5552,7 +5553,8 @@ input[type="number"] {
       font-family: "BBRollerMonoProST", sans-serif;
       font-weight: 500;
       letter-spacing: 0.46px;
-      line-height: 16px; }
+      line-height: 16px;
+      padding-bottom: 12px; }
       .exchanger.page-body .card-block .btn.btn-sm {
         font-size: 10px;
         letter-spacing: -0.08px;
