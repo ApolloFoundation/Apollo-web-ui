@@ -158,15 +158,14 @@ class MarketplaceSearch extends React.Component {
                 <div className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
                     <div
                         className="marketplace"
-                        style={{
-                            marginBottom: 15
-                        }}
                     >
                         <div
-                            className="row"
+                            className={classNames({
+                                'row': true,
+                                'fluid-row': !this.state.isGrid
+                            })}
                             style={{
                                 position: 'relative',
-                                paddingBottom: 35
                             }}
                         >
                             {
@@ -177,8 +176,10 @@ class MarketplaceSearch extends React.Component {
                                             key={uuid()}
                                             className={classNames({
                                                 'marketplace-item' : this.state.isGrid,
-                                                'col-xs-12 col-sm-12 col-md-12 col-lg-12': !this.state.isGrid,
-                                        })}>
+                                                'marketplace-item--full-width': !this.state.isGrid,
+                                                'd-flex pl-3 pb-3 ': true
+                                            })}
+                                        >
                                             <MarketplaceItem
                                                 tall={this.state.isGrid}
                                                 fluid={!this.state.isGrid}
@@ -188,14 +189,12 @@ class MarketplaceSearch extends React.Component {
                                             />
                                         </div>
                                     );
-
                                 })
                             }
                             {
                                 this.state.getDGSGoods &&
-                                this.state.getDGSGoods.length > 7 &&
                                 <div
-                                    className="btn-box relative padding-bottom"
+                                    className="btn-box relative"
                                     style={{
                                         position: "relative",
                                         height: 37,
@@ -206,6 +205,7 @@ class MarketplaceSearch extends React.Component {
                                         className={classNames({
                                             'btn' : true,
                                             'btn-left' : true,
+                                            'static' : true,
                                             'disabled' : this.state.page <= 1
                                         })}
                                         style={{
@@ -236,16 +236,16 @@ class MarketplaceSearch extends React.Component {
                                         className={classNames({
                                             'btn' : true,
                                             'btn-right' : true,
+                                            'static' : true,
                                             'disabled' : this.state.getDGSGoods.length < 8
                                         })}
                                         style={{
                                             right: 0
                                         }}
-                                    >
-                                        Next
-                                    </a>
+                                    >Next</a>
                                 </div>
                             }
+
                         </div>
                     </div>
                 </div>
