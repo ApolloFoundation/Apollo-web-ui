@@ -34,7 +34,7 @@ const SellToAccountForm = (props) => {
             />
             <NumericInputComponent
                 label={'Price'}
-                field={'priceAPL'}
+                field={'priceATM'}
                 placeholder={'Price'}
                 countingTtile={'APL'}
                 setValue={setValue}
