@@ -28,10 +28,11 @@ class ChooseWallet extends React.Component {
     }
 
     getCurrencyBalance = async (wallets) => {
-        const balances = await this.props.getCurrencyBalance({eth: wallets.eth.address, pax: wallets.pax.address});
+        let params = {};
+        wallets.map(wallet => params[wallet.currency] = wallet.wallets[0].address);
+        const balances = await this.props.getCurrencyBalance(params);
         if (balances) {
-            wallets.eth.balance = balances.balanceETH;
-            wallets.pax.balance = balances.balancePAX;
+            wallets.map(wallet => wallet.wallets[0].balance = balances[`balance${wallet.currency.toUpperCase()}`]);
         }
         this.setState({wallets});
     };
@@ -48,19 +49,20 @@ class ChooseWallet extends React.Component {
                             <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
                                 <p className="title-lg">My Wallets</p>
                             </div>
+                            {this.state.wallets.map(wallet => (
                             <CustomTable
                                 header={[
                                     {
-                                        name: 'ETH Wallet',
+                                        name: `${wallet.currency.toUpperCase()} Wallet`,
                                         alignRight: false
                                     }, {
-                                        name: 'Amount (ETH)',
+                                        name: `Amount ${wallet.currency.toUpperCase()}`,
                                         alignRight: false
                                     }, {
-                                        name: 'Buy ETH',
+                                        name: `Buy ${wallet.currency.toUpperCase()}`,
                                         alignRight: false
                                     }, {
-                                        name: 'Sell ETH',
+                                        name: `Sell ${wallet.currency.toUpperCase()}`,
                                         alignRight: false
                                     }, {
                                         name: 'Transactions history',
@@ -71,37 +73,12 @@ class ChooseWallet extends React.Component {
                                     }
                                 ]}
                                 className={'pt-0 no-min-height no-padding rounded-top'}
-                                tableData={[{...this.state.wallets.eth, currency: 'ETH'}]}
+                                tableData={wallet.wallets}
+                                passProps={{currency: wallet.currency}}
                                 emptyMessage={'No wallet info found.'}
                                 TableRowComponent={CurrencyDescriptionComponent}
                             />
-                            <CustomTable
-                                header={[
-                                    {
-                                        name: 'PAX Wallet',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Amount (PAX)',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Buy PAX',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Sell PAX',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Transactions history',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Withdraw',
-                                        alignRight: true
-                                    }
-                                ]}
-                                className={'pt-0 no-min-height no-padding'}
-                                tableData={[{...this.state.wallets.pax, currency: 'PAX'}]}
-                                emptyMessage={'No wallet info found.'}
-                                TableRowComponent={CurrencyDescriptionComponent}
-                            />
+                            ))}
                         </div>
                         :
                         <div>

@@ -47,7 +47,7 @@ class CurrencyDescriptionComponent extends Component {
                     <div className="btn-box inline">
                         <a
                             className="btn primary defaullt"
-                            onClick={() => this.props.setBodyModalParamsAction('WITHDRAW_CURRENCY', {currency})}
+                            onClick={() => this.props.setBodyModalParamsAction('WITHDRAW_CURRENCY', {currency: currency.toUpperCase()})}
                         >
                             Withdraw
                         </a>

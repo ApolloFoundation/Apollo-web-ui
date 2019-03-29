@@ -69,9 +69,9 @@ class ExchangeSell extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {wallet && (
+                            {wallet && wallet.wallets && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
-                                    of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> {wallet.balance} {currency.toUpperCase()}</span>
+                                    of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> {wallet.wallets[0].balance} {currency.toUpperCase()}</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">

@@ -36,17 +36,18 @@ class Exchanger extends React.Component {
     }
 
     getCurrencyBalance = async (wallets) => {
-        const balances = await this.props.getCurrencyBalance({eth: wallets.eth.address, pax: wallets.pax.address});
+        let params = {};
+        wallets.map(wallet => params[wallet.currency] = wallet.wallets[0].address);
+        const balances = await this.props.getCurrencyBalance(params);
         if (balances) {
-            wallets.eth.balance = balances.balanceETH;
-            wallets.pax.balance = balances.balancePAX;
+            wallets.map(wallet => wallet.wallets[0].balance = balances[`balance${wallet.currency.toUpperCase()}`]);
         }
         this.setState({wallets});
     };
 
     render () {
         const {currencies, currentCurrency} = this.props;
-        const wallet = this.state.wallets && this.state.wallets[currentCurrency.currency];
+        const wallet = this.state.wallets && this.state.wallets.filter(wallet => wallet.currency === currentCurrency.currency)[0];
         return (
             <div className="page-content">
                 <SiteHeader
