@@ -33,7 +33,7 @@ function submitForm(data, requestType) {
                 isPassphrase = isPassphrase.split('-');
                 isPassphrase[0] = account.constants.accountPrefix;
                 isPassphrase = isPassphrase.join('-');
-        
+
             if (account.accountRS !== isPassphrase) {
                 data.passphrase = data.secretPhrase;
 
@@ -742,6 +742,19 @@ function processAjaxRequest(requestType, data, callback, options) {
         var processData;
         var formData = null;
 
+        var url;
+        if (requestType === 'importKeyViaFile') {
+            url = configServer.api.server + '/rest/keyStore/upload';
+        } else {
+            if (options.remoteNode) {
+                url = options.remoteNode.getUrl() + "/apl";
+            } else {
+                url = configServer.api.serverUrl;
+            }
+
+            url += "requestType=" + requestType;
+        }
+
         var config = dispatch(getFileUploadConfig(requestType, data));
 
         if (config) {
@@ -762,7 +775,7 @@ function processAjaxRequest(requestType, data, callback, options) {
                     // console.log(e);
                 }
             }
-            if (!file && requestType == "uploadTaggedData") {
+            if (!file && (requestType == "uploadTaggedData" || requestType === "importKeyViaFile")) {
                 return {
                     "errorCode": 3,
                     "errorDescription": i18n.t("error_no_file_chosen")
@@ -780,6 +793,11 @@ function processAjaxRequest(requestType, data, callback, options) {
             httpMethod = "POST";
             formData.append(config.requestParam, file);
 
+            if (requestType === "importKeyViaFile") {
+                delete data.sender;
+                delete data.format;
+                delete data.deadline;
+            }
             for (var key in data) {
                 if (!data.hasOwnProperty(key)) {
                     continue;
@@ -797,14 +815,6 @@ function processAjaxRequest(requestType, data, callback, options) {
             contentType = "application/x-www-form-urlencoded; charset=UTF-8";
             processData = true;
         }
-        var url;
-        if (options.remoteNode) {
-            url = options.remoteNode.getUrl() + "/apl";
-        } else {
-            url = configServer.api.serverUrl;
-        }
-
-        url += "requestType=" + requestType;
 
         dispatch({
             type: 'SET_AMOUNT_WARNING',
@@ -870,6 +880,12 @@ function getFileUploadConfig(requestType, data) {
             }
             config.errorDescription = "error_message_too_big";
             config.maxSize = account.constants.maxPrunableMessageLength;
+            return config;
+        } else if (requestType === "importKeyViaFile") {
+            config.selector = "#upload_file_message";
+            config.requestParam = "keyStore";
+            config.errorDescription = "error_message_too_big";
+            config.maxSize = account.constants.maxPrunableMessageLength; //TODO: set max file size
             return config;
         }
         return null;

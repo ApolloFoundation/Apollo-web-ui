@@ -163,6 +163,10 @@ export const importAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'importKey'))
 };
 
+export const importAccountActionViaFile = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'importKeyViaFile'))
+};
+
 export const exportAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'exportKey'))
 };
