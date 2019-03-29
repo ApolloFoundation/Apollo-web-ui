@@ -8,7 +8,7 @@ import {setBodyModalParamsAction} from '../../../../modules/modals'
 
 class CurrencyDescriptionComponent extends Component {
     render() {
-        const {address, balance, currency} = this.props;
+        const {address, balance, currency, handleCurrentCurrency} = this.props;
         return (
             <tr>
                 <td>{address}</td>
@@ -18,6 +18,7 @@ class CurrencyDescriptionComponent extends Component {
                         <Link
                             to={'/exchange'}
                             className="btn primary bg-success"
+                            onClick={() => handleCurrentCurrency(currency)}
                         >
                             Buy
                         </Link>
@@ -28,6 +29,7 @@ class CurrencyDescriptionComponent extends Component {
                         <Link
                             to={'/exchange'}
                             className="btn primary bg-danger"
+                            onClick={() => handleCurrentCurrency(currency)}
                         >
                             Sell
                         </Link>
