@@ -36,8 +36,8 @@ const buyOrders = [
 ]
 
 class TradeHistoryEchanger extends React.Component {
-
     render () {
+        const {currency} = this.props.currentCurrency;
         return (
             <div className={'card-block card card-medium p-0 h-100'}>
                 <div className={'form-group-app p-0'}>
@@ -45,13 +45,13 @@ class TradeHistoryEchanger extends React.Component {
                         tableName={'Trade history'}
                         header={[
                             {
-                                name: 'PRICE (ETH)',
+                                name: `Price ${currency.toUpperCase()}`,
                                 alignRight: false
                             },{
-                                name: 'AMOUNT (ETH)',
+                                name: `Amount ${currency.toUpperCase()}`,
                                 alignRight: false
                             },{
-                                name: 'TOTAL (ETH)',
+                                name: `Total ${currency.toUpperCase()}`,
                                 alignRight: true
                             }
                         ]}

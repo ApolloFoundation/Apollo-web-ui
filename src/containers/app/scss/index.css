@@ -5376,7 +5376,8 @@ input[type="number"] {
       padding: 8px 10px;
       position: relative;
       transition: 0.3s;
-      cursor: pointer; }
+      cursor: pointer;
+      border: solid 2px transparent; }
       .exchange.page-body .btn-light-box .btn-light:hover {
         background-color: rgba(147, 169, 195, 0.24);
         border-radius: 3px; }

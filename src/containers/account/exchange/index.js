@@ -11,6 +11,7 @@ import BuyOrders from './buy-orders';
 import Plot from './plot';
 import TradeHistoryEchanger from './trade-history';
 import OpenOrders from './open-orders';
+import {setCurrentCurrencyAction} from "../../../modules/exchange";
 
 class Exchanger extends React.Component {
 
@@ -29,32 +30,36 @@ class Exchanger extends React.Component {
                             </InfoBox>
                         </div>
                         <div className={'col-md-12 pr-0'}>
-                            <ExchangeHeader />
+                            <ExchangeHeader
+                                currencies={this.props.currencies}
+                                currentCurrency={this.props.currentCurrency}
+                                setCurrentCurrency={this.props.setCurrentCurrency}
+                            />
                         </div>
                         <div className={'col-md-4 pr-0'}>
-                            <BuyOrders />
+                            <BuyOrders currentCurrency={this.props.currentCurrency} />
                         </div>
                         <div className={'col-md-8 pr-0 pb-3'}>
-                            <Plot/>
+                            <Plot currentCurrency={this.props.currentCurrency}/>
                         </div>
                         <div className={'col-md-4 pr-0'}>
-                            <SellOrders />
+                            <SellOrders currentCurrency={this.props.currentCurrency} />
                         </div>
                         <div className={'col-md-8 p-0'}>
                             <div className={'container-fluid p-0'}>
                                 <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
-                                    <ExchangeBuy/>
+                                    <ExchangeBuy currentCurrency={this.props.currentCurrency}/>
                                 </div>
                                 <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
-                                    <ExchangeSell/>
+                                    <ExchangeSell currentCurrency={this.props.currentCurrency}/>
                                 </div>
                             </div>
                         </div>
                         <div className={'col-md-6 mb-3 pr-0'}>
-                            <TradeHistoryEchanger />
+                            <TradeHistoryEchanger currentCurrency={this.props.currentCurrency} />
                         </div>
                         <div className={'col-md-6 mb-3 pr-0'}>
-                            <OpenOrders />
+                            <OpenOrders currentCurrency={this.props.currentCurrency} />
                         </div>
                     </div>
                 </div>
@@ -63,4 +68,13 @@ class Exchanger extends React.Component {
     }
 }
 
-export default connect()(Exchanger)
+const mapStateToProps = ({exchange}) => ({
+    currencies: exchange.currencies,
+    currentCurrency: exchange.currentCurrency,
+});
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Exchanger)

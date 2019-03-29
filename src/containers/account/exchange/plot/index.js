@@ -113,6 +113,7 @@ export default class Plot extends React.Component {
     };
 
     render() {
+        const {currency} = this.props.currentCurrency;
         return (
             <div className={'card-block primary card card-medium pt-0 h-100'}>
                 <div className={'form-group-app overflow-hidden'}>
@@ -120,7 +121,7 @@ export default class Plot extends React.Component {
                         <div className={'d-flex align-items-center'}>
                             <img src={EthIcon} alt="ETH"/>
                             <p className={'title-lg'}>
-                                APL/ETH
+                                APL/{currency.toUpperCase()}
                             </p>
                         </div>
                         <div className={'form-title-actions'}>

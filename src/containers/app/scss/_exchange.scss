@@ -43,6 +43,8 @@
 			position: relative;
 			transition: 0.3s;
 			cursor: pointer;
+			$border: 2px;
+			border: solid $border transparent;
 			&:hover {
 				background-color: rgba(147, 169, 195, 0.24);
 				border-radius: 3px;
@@ -55,7 +57,6 @@
 			&.active {
 				box-sizing: border-box;
 				background: #F5F5F5;
-				$border: 2px;
 				background-clip: padding-box;
 				border: solid $border transparent;
 				border-radius: 3px;

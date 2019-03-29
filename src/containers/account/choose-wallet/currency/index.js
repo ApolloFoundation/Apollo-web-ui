@@ -16,7 +16,7 @@ class CurrencyDescriptionComponent extends Component {
                 <td>
                     <div className="btn-box inline">
                         <Link
-                            to={'/exchanger'}
+                            to={'/exchange'}
                             className="btn primary bg-success"
                         >
                             Buy
@@ -26,7 +26,7 @@ class CurrencyDescriptionComponent extends Component {
                 <td>
                     <div className="btn-box inline">
                         <Link
-                            to={'/exchanger'}
+                            to={'/exchange'}
                             className="btn primary bg-danger"
                         >
                             Sell
