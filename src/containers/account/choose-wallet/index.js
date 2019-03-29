@@ -8,12 +8,9 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getCurrencyBalance} from "../../../actions/wallet";
 
 class ChooseWallet extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            wallets: null
-        };
-    }
+    state = {
+        wallets: null
+    };
 
     componentDidMount() {
         let wallets = JSON.parse(localStorage.getItem('wallets'));

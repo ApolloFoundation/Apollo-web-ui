@@ -12,7 +12,7 @@ class CurrencyDescriptionComponent extends Component {
         return (
             <tr>
                 <td>{address}</td>
-                <td>{balance && balance.amount}</td>
+                <td>{balance}</td>
                 <td>
                     <div className="btn-box inline">
                         <Link

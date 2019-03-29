@@ -10,7 +10,7 @@ class ExchangeSell extends React.Component {
     };
 
     render () {
-        const {currency} = this.props.currentCurrency;
+        const {currentCurrency: {currency}, wallet} = this.props;
         return (
             <div className={'card-block green card card-medium pt-0 h-100'}>
                 <Form
@@ -69,9 +69,11 @@ class ExchangeSell extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className={'form-group-text d-flex justify-content-between'}>
-                                of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> 623.00 {currency.toUpperCase()}</span>
-                            </div>
+                            {wallet && (
+                                <div className={'form-group-text d-flex justify-content-between'}>
+                                    of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> {wallet.balance} {currency.toUpperCase()}</span>
+                                </div>
+                            )}
                             <div className="btn-box align-buttons-inside align-center form-footer">
                                 <button
                                     type="submit"

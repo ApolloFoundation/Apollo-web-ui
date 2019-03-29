@@ -12,10 +12,41 @@ import Plot from './plot';
 import TradeHistoryEchanger from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../modules/exchange";
+import {setBodyModalParamsAction} from "../../../modules/modals";
+import {getCurrencyBalance} from "../../../actions/wallet";
 
 class Exchanger extends React.Component {
+    state = {
+        wallets: null
+    };
+
+    componentDidMount() {
+        let wallets = JSON.parse(localStorage.getItem('wallets'));
+        if (!wallets) {
+            this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
+        } else {
+            this.getCurrencyBalance(JSON.parse(wallets));
+        }
+    }
+
+    componentDidUpdate() {
+        if (!this.state.wallets && this.props.wallets) {
+            this.getCurrencyBalance(this.props.wallets);
+        }
+    }
+
+    getCurrencyBalance = async (wallets) => {
+        const balances = await this.props.getCurrencyBalance({eth: wallets.eth.address, pax: wallets.pax.address});
+        if (balances) {
+            wallets.eth.balance = balances.balanceETH;
+            wallets.pax.balance = balances.balancePAX;
+        }
+        this.setState({wallets});
+    };
 
     render () {
+        const {currencies, currentCurrency} = this.props;
+        const wallet = this.state.wallets && this.state.wallets[currentCurrency.currency];
         return (
             <div className="page-content">
                 <SiteHeader
@@ -31,35 +62,35 @@ class Exchanger extends React.Component {
                         </div>
                         <div className={'col-md-12 pr-0'}>
                             <ExchangeHeader
-                                currencies={this.props.currencies}
-                                currentCurrency={this.props.currentCurrency}
+                                currencies={currencies}
+                                currentCurrency={currentCurrency}
                                 setCurrentCurrency={this.props.setCurrentCurrency}
                             />
                         </div>
                         <div className={'col-md-4 pr-0'}>
-                            <BuyOrders currentCurrency={this.props.currentCurrency} />
+                            <BuyOrders currentCurrency={currentCurrency} />
                         </div>
                         <div className={'col-md-8 pr-0 pb-3'}>
-                            <Plot currentCurrency={this.props.currentCurrency}/>
+                            <Plot currentCurrency={currentCurrency}/>
                         </div>
                         <div className={'col-md-4 pr-0'}>
-                            <SellOrders currentCurrency={this.props.currentCurrency} />
+                            <SellOrders currentCurrency={currentCurrency} />
                         </div>
                         <div className={'col-md-8 p-0'}>
                             <div className={'container-fluid p-0'}>
                                 <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
-                                    <ExchangeBuy currentCurrency={this.props.currentCurrency}/>
+                                    <ExchangeBuy currentCurrency={currentCurrency} wallet={wallet}/>
                                 </div>
                                 <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
-                                    <ExchangeSell currentCurrency={this.props.currentCurrency}/>
+                                    <ExchangeSell currentCurrency={currentCurrency} wallet={wallet}/>
                                 </div>
                             </div>
                         </div>
                         <div className={'col-md-6 mb-3 pr-0'}>
-                            <TradeHistoryEchanger currentCurrency={this.props.currentCurrency} />
+                            <TradeHistoryEchanger currentCurrency={currentCurrency} />
                         </div>
                         <div className={'col-md-6 mb-3 pr-0'}>
-                            <OpenOrders currentCurrency={this.props.currentCurrency} />
+                            <OpenOrders currentCurrency={currentCurrency} />
                         </div>
                     </div>
                 </div>
@@ -68,13 +99,16 @@ class Exchanger extends React.Component {
     }
 }
 
-const mapStateToProps = ({exchange}) => ({
+const mapStateToProps = ({exchange, account}) => ({
+    wallets: account.wallets,
     currencies: exchange.currencies,
     currentCurrency: exchange.currentCurrency,
 });
 
 const mapDispatchToProps = dispatch => ({
     setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
+    getCurrencyBalance: (params) => dispatch(getCurrencyBalance(params)),
+    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exchanger)
