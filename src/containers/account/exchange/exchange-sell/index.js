@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import {Form} from "react-form";
 import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
+import {formatCrypto} from "../../../../helpers/format";
 
 class ExchangeSell extends React.Component {
     handleFormSubmit = () => {
@@ -15,6 +16,7 @@ class ExchangeSell extends React.Component {
 
     render () {
         const {currentCurrency: {currency}, wallet} = this.props;
+        const balanceFormat = wallet && wallet.wallets && formatCrypto(wallet.wallets[0].balance);
         return (
             <div className={'card-block green card card-medium pt-0 h-100'}>
                 <Form
@@ -75,7 +77,7 @@ class ExchangeSell extends React.Component {
                             </div>
                             {wallet && wallet.wallets && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
-                                    of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> {wallet.wallets[0].balance} {currency.toUpperCase()}</span>
+                                    of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> {balanceFormat} {currency.toUpperCase()}</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">

@@ -4,15 +4,17 @@ import {connect} from "react-redux";
 import {NotificationManager} from "react-notifications";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-import {setBodyModalParamsAction} from '../../../../modules/modals'
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {formatCrypto} from '../../../../helpers/format';
 
 class CurrencyDescriptionComponent extends Component {
     render() {
         const {address, balance, currency, handleCurrentCurrency} = this.props;
+        const balanceFormat = formatCrypto(balance);
         return (
             <tr>
                 <td>{address}</td>
-                <td>{balance}</td>
+                <td>{balanceFormat}</td>
                 <td>
                     <div className="btn-box inline">
                         <Link
