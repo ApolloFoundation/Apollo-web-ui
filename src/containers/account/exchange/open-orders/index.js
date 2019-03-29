@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomTable from '../../../components/tables/table';
 import {withRouter} from 'react-router-dom';
+import {NotificationManager} from "react-notifications";
 
 const buyOrders = [
     {
@@ -33,11 +34,19 @@ const buyOrders = [
         amount: '44971',
         total: '44971'
     },
-]
+];
 
 class TradeHistoryEchanger extends React.Component {
+    handleFormSubmit = () => {
+        if (this.props.wallet) {
+            NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+        } else {
+            this.props.handleLoginModal();
+        }
+    };
 
     render () {
+        const {currency} = this.props.currentCurrency;
         return (
             <div className={'card-block card card-medium p-0 h-100'}>
                 <div className={'form-group-app p-0'}>
@@ -45,13 +54,13 @@ class TradeHistoryEchanger extends React.Component {
                         tableName={'My Open Orders'}
                         header={[
                             {
-                                name: 'PRICE (ETH)',
+                                name: `Price ${currency.toUpperCase()}`,
                                 alignRight: false
                             },{
-                                name: 'AMOUNT (ETH)',
+                                name: `Amount ${currency.toUpperCase()}`,
                                 alignRight: false
                             },{
-                                name: 'TOTAL (ETH)',
+                                name: `Total ${currency.toUpperCase()}`,
                                 alignRight: true
                             }
                         ]}
@@ -67,7 +76,7 @@ class TradeHistoryEchanger extends React.Component {
                         )}
                         actionButton={{
                             name:'View All',
-                            handler: () => this.props.history.push('/transfer-history')
+                            handler: this.handleFormSubmit
                         }}
                     />
                 </div>

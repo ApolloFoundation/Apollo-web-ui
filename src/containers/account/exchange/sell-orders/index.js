@@ -33,9 +33,9 @@ const buyOrders = [
         amount: '44971',
         total: '44971'
     },
-]
+];
 
-const SellOrders = () => (
+const SellOrders = ({currentCurrency}) => (
     <div className={'card-block primary form-group-app p-0'}>
         <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
             <p>Orderbook</p>
@@ -48,13 +48,13 @@ const SellOrders = () => (
         <CustomTable
             header={[
                 {
-                    name: 'Price ETH',
+                    name: `Price ${currentCurrency.currency.toUpperCase()}`,
                     alignRight: false
                 },{
-                    name: 'Amount ETH',
+                    name: `Amount ${currentCurrency.currency.toUpperCase()}`,
                     alignRight: false
                 },{
-                    name: 'Total ETH',
+                    name: `Total ${currentCurrency.currency.toUpperCase()}`,
                     alignRight: true
                 }
             ]}

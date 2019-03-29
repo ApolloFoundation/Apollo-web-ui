@@ -8,6 +8,9 @@ import {walletWidthraw} from "../../../../actions/wallet";
 class WithdrawCurrency extends React.Component {
 
     handleFormSubmit = async (values) => {
+        NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+        return;
+
         if (!values.secretPhrase || values.secretPhrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;

@@ -23,8 +23,8 @@ export function getWallets(requestParams) {
             .then(res => res.json())
             .then(async (res) => {
                 if (!res.errorCode) {
-                    dispatch(setWallets(res));
-                    writeToLocalStorage('wallets', JSON.stringify(res));
+                    dispatch(setWallets(res.currencies));
+                    writeToLocalStorage('wallets', JSON.stringify(res.currencies));
                     return res;
                 }
             })
@@ -34,9 +34,9 @@ export function getWallets(requestParams) {
     }
 }
 
-export function getEthBalance(requestParams) {
+export function getCurrencyBalance(requestParams) {
     return dispatch => {
-        return axios.get(`${config.api.server}/rest/wallet/eth?`, {
+        return axios.get(`${config.api.server}/rest/dex/balance?`, {
             params: requestParams
         })
             .then((res) => {

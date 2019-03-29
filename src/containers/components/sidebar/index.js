@@ -419,9 +419,8 @@ class Sidebar extends React.Component {
                                             <NavLink
                                                 activeClassName="active"
                                                 to="/choose-wallet"
-												onClick={this.handleExchangeWallets}
                                             >
-                                                Wallet
+                                                Wallets
                                             </NavLink>
                                         </li>
                                     </ul>

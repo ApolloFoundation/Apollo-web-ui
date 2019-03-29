@@ -5376,7 +5376,8 @@ input[type="number"] {
       padding: 8px 10px;
       position: relative;
       transition: 0.3s;
-      cursor: pointer; }
+      cursor: pointer;
+      border: solid 2px transparent; }
       .exchange.page-body .btn-light-box .btn-light:hover {
         background-color: rgba(147, 169, 195, 0.24);
         border-radius: 3px; }
@@ -5481,39 +5482,42 @@ input[type="number"] {
     .exchange.page-body .card-block .form-group-app {
       padding: 0;
       border-radius: 0; }
-    .exchange.page-body .card-block .transaction-table .transaction-table-body {
-      padding: 15px !important;
-      background-color: transparent; }
-      .exchange.page-body .card-block .transaction-table .transaction-table-body table {
-        padding: 0; }
-        .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td {
-          color: #8AA5C7;
-          font-size: 11px;
-          letter-spacing: -0.3px;
-          font-weight: normal;
-          padding: 0 0 10px 0;
-          text-align: center; }
-          .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td:first-child {
-            text-align: left; }
-          .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td:last-child {
-            text-align: right; }
-        .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td {
-          color: #3D5A7E;
-          font-size: 12px;
-          letter-spacing: -0.4px;
-          font-weight: normal;
-          padding: 5px 0;
-          border: none;
-          text-align: center; }
-          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td:first-child {
-            text-align: left; }
-          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td:last-child {
-            text-align: right;
-            color: #8AA5C7; }
-          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td.red-text {
-            color: #F36; }
-          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td.green-text {
-            color: rgba(0, 189, 32, 0.92); }
+    .exchange.page-body .card-block .transaction-table {
+      padding-bottom: 0 !important; }
+      .exchange.page-body .card-block .transaction-table .transaction-table-body {
+        padding: 15px !important;
+        margin-bottom: 0 !important;
+        background-color: transparent; }
+        .exchange.page-body .card-block .transaction-table .transaction-table-body table {
+          padding: 0; }
+          .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td {
+            color: #8AA5C7;
+            font-size: 11px;
+            letter-spacing: -0.3px;
+            font-weight: normal;
+            padding: 0 0 10px 0;
+            text-align: center; }
+            .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td:first-child {
+              text-align: left; }
+            .exchange.page-body .card-block .transaction-table .transaction-table-body table thead tr td:last-child {
+              text-align: right; }
+          .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td {
+            color: #3D5A7E;
+            font-size: 12px;
+            letter-spacing: -0.4px;
+            font-weight: normal;
+            padding: 5px 0;
+            border: none;
+            text-align: center; }
+            .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td:first-child {
+              text-align: left; }
+            .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td:last-child {
+              text-align: right;
+              color: #8AA5C7; }
+            .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td.red-text {
+              color: #F36; }
+            .exchange.page-body .card-block .transaction-table .transaction-table-body table tbody tr td.green-text {
+              color: rgba(0, 189, 32, 0.92); }
     .exchange.page-body .card-block .modal-form .form-group {
       padding: 12px; }
       .exchange.page-body .card-block .modal-form .form-group label {

@@ -15,7 +15,8 @@
   font-family: "BBRollerMonoProST", sans-serif;
   font-weight: 400;
   color: #ffffff;
-  padding: 0; }
+  padding: 0;
+  min-height: auto; }
   .site-content .page-content .page-body > .login h1, .site-content .page-content .page-body > .login h2, .site-content .page-content .page-body > .login h3, .site-content .page-content .page-body > .login h4, .site-content .page-content .page-body > .login h5, .site-content .page-content .page-body > .login h6, .site-content .page-content .page-body > .login p, .site-content .page-content .page-body > .login a, .site-content .page-content .page-body > .login ul, .site-content .page-content .page-body > .login li {
     font-family: "BBRollerMonoProST", sans-serif; }
   .site-content .page-content .page-body > .login ::placeholder {

@@ -1,30 +1,32 @@
 import React from 'react';
-import BtcIcon from '../../../../assets/BTC.png';
-import EthIcon from '../../../../assets/ETH.png';
-import PaxIcon from '../../../../assets/PAX.png';
+import {NotificationManager} from "react-notifications";
 
-const ExchangeHeader = () => (
+const ExchangeHeader = ({currencies, currentCurrency, setCurrentCurrency, wallet, handleLoginModal}) => (
     <div className={'row'}>
         <div className={'pb-4'}>
             <div className={'btn-light-box'}>
-                <button
-                    type={'button'}
-                    className={'btn-light primary d-inline-block mt-0'}
-                >
-                    <img src={BtcIcon} alt="BTH"/> BTC
-                </button>
-                <button
-                    type={'button'}
-                    className={'btn-light primary ml-3 d-inline-block mt-0 active'}
-                >
-                    <img src={EthIcon} alt="ETH"/> ETH
-                </button>
-                <button
-                    type={'button'}
-                    className={'btn-light primary ml-3 d-inline-block mt-0'}
-                >
-                    <img src={PaxIcon} alt="PAX"/> PAX
-                </button>
+                {currencies && currencies.map(item => {
+                    const currency = item.toUpperCase();
+                    return (
+                        <button
+                            type={'button'}
+                            className={`btn-light primary d-inline-block ml-3 mt-0 ${item === currentCurrency.currency ? 'active' : ''}`}
+                            onClick={() => {
+                                if (item === 'btc') {
+                                    NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+                                } else {
+                                    if (wallet) {
+                                        setCurrentCurrency(item);
+                                    } else {
+                                        handleLoginModal();
+                                    }
+                                }
+                            }}
+                        >
+                            <img src={require(`../../../../assets/${currency}.png`)} alt={currency}/> {currency}
+                        </button>
+                    )
+                })}
             </div>
         </div>
     </div>

@@ -5,33 +5,35 @@ import CustomTable from '../../components/tables/table';
 import InfoBox from '../../components/info-box';
 import CurrencyDescriptionComponent from './currency';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getEthBalance} from "../../../actions/wallet";
+import {getCurrencyBalance} from "../../../actions/wallet";
 
 class ChooseWallet extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            wallets: null
-        };
-    }
+    state = {
+        wallets: null
+    };
 
     componentDidMount() {
         let wallets = JSON.parse(localStorage.getItem('wallets'));
         if (!wallets) {
             this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
         } else {
-            this.getEthBalance(JSON.parse(wallets));
+            this.getCurrencyBalance(JSON.parse(wallets));
         }
     }
 
     componentDidUpdate() {
         if (!this.state.wallets && this.props.wallets) {
-            this.getEthBalance(this.props.wallets);
+            this.getCurrencyBalance(this.props.wallets);
         }
     }
 
-    getEthBalance = async (wallets) => {
-        wallets.eth.balance = await this.props.getEthBalance({address: wallets.eth.address});
+    getCurrencyBalance = async (wallets) => {
+        let params = {};
+        wallets.map(wallet => params[wallet.currency] = wallet.wallets[0].address);
+        const balances = await this.props.getCurrencyBalance(params);
+        if (balances) {
+            wallets.map(wallet => wallet.wallets[0].balance = balances[`balance${wallet.currency.toUpperCase()}`]);
+        }
         this.setState({wallets});
     };
 
@@ -39,7 +41,7 @@ class ChooseWallet extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Wallet'}
+                    pageTitle={'Wallets'}
                 />
                 <div className="exchange page-body container-fluid pl-3">
                     {this.state.wallets ?
@@ -47,19 +49,20 @@ class ChooseWallet extends React.Component {
                             <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
                                 <p className="title-lg">My Wallets</p>
                             </div>
+                            {this.state.wallets.map(wallet => (
                             <CustomTable
                                 header={[
                                     {
-                                        name: 'ETH Wallet',
+                                        name: `${wallet.currency.toUpperCase()} Wallet`,
                                         alignRight: false
                                     }, {
-                                        name: 'Amount (ETH)',
+                                        name: `Amount ${wallet.currency.toUpperCase()}`,
                                         alignRight: false
                                     }, {
-                                        name: 'Buy ETH',
+                                        name: `Buy ${wallet.currency.toUpperCase()}`,
                                         alignRight: false
                                     }, {
-                                        name: 'Sell ETH',
+                                        name: `Sell ${wallet.currency.toUpperCase()}`,
                                         alignRight: false
                                     }, {
                                         name: 'Transactions history',
@@ -70,37 +73,12 @@ class ChooseWallet extends React.Component {
                                     }
                                 ]}
                                 className={'pt-0 no-min-height no-padding rounded-top'}
-                                tableData={[{...this.state.wallets.eth, currency: 'ETH'}]}
+                                tableData={wallet.wallets}
+                                passProps={{currency: wallet.currency}}
                                 emptyMessage={'No wallet info found.'}
                                 TableRowComponent={CurrencyDescriptionComponent}
                             />
-                            <CustomTable
-                                header={[
-                                    {
-                                        name: 'PAX Wallet',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Amount (PAX)',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Buy PAX',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Sell PAX',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Transactions history',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Withdraw',
-                                        alignRight: true
-                                    }
-                                ]}
-                                className={'pt-0 no-min-height no-padding'}
-                                tableData={[{...this.state.wallets.pax, currency: 'PAX'}]}
-                                emptyMessage={'No wallet info found.'}
-                                TableRowComponent={CurrencyDescriptionComponent}
-                            />
+                            ))}
                         </div>
                         :
                         <div>
@@ -121,7 +99,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getEthBalance: (params) => dispatch(getEthBalance(params)),
+    getCurrencyBalance: (params) => dispatch(getCurrencyBalance(params)),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 

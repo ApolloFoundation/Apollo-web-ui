@@ -10,6 +10,7 @@ import account from './account'
 import modals from './modals'
 import settings from "./settings"
 import accountSettings from "./accountSettings"
+import exchange from "./exchange"
 
 export default combineReducers({
 	routing: routerReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
     modals,
     settings,
     accountSettings,
+    exchange,
 })

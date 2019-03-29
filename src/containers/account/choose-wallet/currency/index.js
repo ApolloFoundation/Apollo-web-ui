@@ -12,11 +12,11 @@ class CurrencyDescriptionComponent extends Component {
         return (
             <tr>
                 <td>{address}</td>
-                <td>{balance && balance.amount}</td>
+                <td>{balance}</td>
                 <td>
                     <div className="btn-box inline">
                         <Link
-                            to={'/exchanger'}
+                            to={'/exchange'}
                             className="btn primary bg-success"
                         >
                             Buy
@@ -26,7 +26,7 @@ class CurrencyDescriptionComponent extends Component {
                 <td>
                     <div className="btn-box inline">
                         <Link
-                            to={'/exchanger'}
+                            to={'/exchange'}
                             className="btn primary bg-danger"
                         >
                             Sell
@@ -37,16 +37,17 @@ class CurrencyDescriptionComponent extends Component {
                     <div className="btn-box inline">
                         <a
                             className="btn primary defaullt"
+                            onClick={() => NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000)}
                         >
                             View History
                         </a>
                     </div>
                 </td>
                 <td className={'align-right'}>
-                    <div className="btn-box inline">
+                    <div className="btn-box inline pr-1">
                         <a
                             className="btn primary defaullt"
-                            onClick={() => this.props.setBodyModalParamsAction('WITHDRAW_CURRENCY', {currency})}
+                            onClick={() => NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000)}
                         >
                             Withdraw
                         </a>
