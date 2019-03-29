@@ -34,9 +34,9 @@ export function getWallets(requestParams) {
     }
 }
 
-export function getEthBalance(requestParams) {
+export function getCurrencyBalance(requestParams) {
     return dispatch => {
-        return axios.get(`${config.api.server}/rest/wallet/eth?`, {
+        return axios.get(`${config.api.server}/rest/dex/balance?`, {
             params: requestParams
         })
             .then((res) => {

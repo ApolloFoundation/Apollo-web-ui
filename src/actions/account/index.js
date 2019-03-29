@@ -16,7 +16,7 @@ import {getTradesAction}         from '../../actions/trade-history';
 import {getAccountCurrenciesAction}  from '../../actions/currencies';
 import {getDGSGoodsAction, getDGSPurchasesAction}       from '../../actions/marketplace';
 
-import {writeToLocalStorage} from "../localStorage";
+import {writeToLocalStorage, readFromLocalStorage} from "../localStorage";
 import {NotificationManager} from "react-notifications";
 import submitForm from '../../helpers/forms/forms'
 import store from '../../store'

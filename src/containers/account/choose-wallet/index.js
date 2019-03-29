@@ -5,7 +5,7 @@ import CustomTable from '../../components/tables/table';
 import InfoBox from '../../components/info-box';
 import CurrencyDescriptionComponent from './currency';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getEthBalance} from "../../../actions/wallet";
+import {getCurrencyBalance} from "../../../actions/wallet";
 
 class ChooseWallet extends React.Component {
     constructor(props) {
@@ -20,18 +20,22 @@ class ChooseWallet extends React.Component {
         if (!wallets) {
             this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
         } else {
-            this.getEthBalance(JSON.parse(wallets));
+            this.getCurrencyBalance(JSON.parse(wallets));
         }
     }
 
     componentDidUpdate() {
         if (!this.state.wallets && this.props.wallets) {
-            this.getEthBalance(this.props.wallets);
+            this.getCurrencyBalance(this.props.wallets);
         }
     }
 
-    getEthBalance = async (wallets) => {
-        wallets.eth.balance = await this.props.getEthBalance({address: wallets.eth.address});
+    getCurrencyBalance = async (wallets) => {
+        const balances = await this.props.getCurrencyBalance({eth: wallets.eth.address, pax: wallets.pax.address});
+        if (balances) {
+            wallets.eth.balance = balances.balanceETH;
+            wallets.pax.balance = balances.balancePAX;
+        }
         this.setState({wallets});
     };
 
@@ -39,7 +43,7 @@ class ChooseWallet extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Wallet'}
+                    pageTitle={'Wallets'}
                 />
                 <div className="exchange page-body container-fluid pl-3">
                     {this.state.wallets ?
@@ -121,7 +125,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getEthBalance: (params) => dispatch(getEthBalance(params)),
+    getCurrencyBalance: (params) => dispatch(getCurrencyBalance(params)),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 
