@@ -6,6 +6,7 @@ import InfoBox from '../../components/info-box';
 import CurrencyDescriptionComponent from './currency';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getCurrencyBalance} from "../../../actions/wallet";
+import {setCurrentCurrencyAction} from "../../../modules/exchange";
 
 class ChooseWallet extends React.Component {
     state = {
@@ -35,6 +36,10 @@ class ChooseWallet extends React.Component {
             wallets.map(wallet => wallet.wallets[0].balance = balances[`balance${wallet.currency.toUpperCase()}`]);
         }
         this.setState({wallets});
+    };
+
+    handleCurrentCurrency = (currency) => {
+        this.props.setCurrentCurrency(currency);
     };
 
     render () {
@@ -74,7 +79,7 @@ class ChooseWallet extends React.Component {
                                 ]}
                                 className={'pt-0 no-min-height no-padding rounded-top'}
                                 tableData={wallet.wallets}
-                                passProps={{currency: wallet.currency}}
+                                passProps={{currency: wallet.currency, handleCurrentCurrency: this.handleCurrentCurrency}}
                                 emptyMessage={'No wallet info found.'}
                                 TableRowComponent={CurrencyDescriptionComponent}
                             />
@@ -101,6 +106,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getCurrencyBalance: (params) => dispatch(getCurrencyBalance(params)),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+    setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseWallet);
