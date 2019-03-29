@@ -5,8 +5,8 @@ import PaxIcon from '../../../../assets/PAX.png';
 
 const ExchangeHeader = () => (
     <div className={'row'}>
-        <div className={'col-md-4 pb-4'}>
-            <div className={'btn-light-box ml-4'}>
+        <div className={'pb-4'}>
+            <div className={'btn-light-box'}>
                 <button
                     type={'button'}
                     className={'btn-light primary d-inline-block mt-0'}

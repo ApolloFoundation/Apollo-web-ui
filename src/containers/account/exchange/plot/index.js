@@ -172,6 +172,32 @@ export default class Plot extends React.Component {
                                 <div>Low: <span>0.0000017</span></div>
                             </div>
                         </div>
+                        <div className={'options-section'}>
+                            <button
+                                onClick={this.onHandleFilterBuy}
+                                className={'btn btn-sm bg-danger ml-3 mt-2'}
+                            >
+                                Buy
+                            </button>
+                            <button
+                                onClick={this.onHandleFilterSell}
+                                className={'btn btn-sm bg-success ml-3 mt-2'}
+                            >
+                                Sell
+                            </button>
+                            <button
+                                onClick={this.onHandleFilterSell}
+                                className={'btn btn-sm blue ml-3 mt-2'}
+                            >
+                                Price
+                            </button>
+                            <button
+                                onClick={this.onHandleFilterSell}
+                                className={'btn btn-sm blue ml-3 mr-3 mt-2'}
+                            >
+                                Value
+                            </button>
+                        </div>
                         <div className={'full-box overflow-hidden'}>
                             <Bar
                                 data={this.state.data}

@@ -5,13 +5,6 @@
     .page-content .page-body {
       padding-top: 0 !important;
     }
-    @media(max-width: 768px) {
-      padding: 0;
-      height: 100vh;
-      min-height: 445px;
-
-
-    }
   }
   .page-content {
     .page-body {
@@ -24,10 +17,14 @@
         background: #000 url(../../../assets/login-background.png) center;
         background-size: cover;
         z-index: 100;
-        min-height: 300px;
         font-family: "BBRollerMonoProST", sans-serif;
         font-weight: 400;
         color: #ffffff;
+        padding: 0;
+
+        h1, h2, h3, h4, h5, h6, p, a, ul, li {
+          font-family: "BBRollerMonoProST", sans-serif;
+        }
 
         ::placeholder {
           color: #2C323A !important;
@@ -47,10 +44,19 @@
           width: 100%;
           height: 100%;
           overflow: auto;
+          -webkit-overflow-scrolling: touch;
           display: flex;
           flex-direction: row;
           align-items: center;
           flex: 2;
+          @media(max-width: 760px) {
+            flex-direction: column;
+          }
+          @media(max-width: 425px) {
+            padding: 12px;
+            height: auto;
+            display: block;
+          }
         }
 
         .left-section, .right-section {
@@ -61,6 +67,11 @@
           align-items: center;
           justify-content: space-between;
           max-height: 488px;
+          @media(max-width: 425px) {
+            width: 100%;
+            max-height: 100%;
+            height: auto;
+          }
         }
 
         .left-section {
@@ -91,6 +102,9 @@
         .right-section {
           & > div {
             padding: 5vh 0;
+            @media(max-width: 425px) {
+              width: 100%;
+            }
           }
 
           .button-block {
@@ -106,6 +120,9 @@
             padding: 12px;
             width: 345px;
             margin-bottom: 15px;
+            @media(max-width: 425px) {
+              width: 100%;
+            }
 
             .title {
               font-family: "BBRollerMonoProST", sans-serif;

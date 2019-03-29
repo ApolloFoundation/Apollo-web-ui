@@ -95,8 +95,17 @@
 					left: 12px;
 					right: 12px;
 					bottom: 12px;
+					@media(max-width: 1024px) {
+						height: 200px;
+					}
 				}
-
+				.options-section {
+					display: none;
+					@media(max-width: 1160px) {
+						display: flex;
+						padding: 5px 0 20px;
+					}
+				}
 			}
 		}
 		.form-title {
@@ -142,6 +151,11 @@
 						.sub-info-section {
 							font-size: 11px;
 							line-height: 13px;
+						}
+					}
+					@media(max-width: 1160px) {
+						.options-section {
+							display: none;
 						}
 					}
 				}
@@ -332,9 +346,7 @@
 		.chart-options {
 			display: flex;
 			justify-content: space-between;
-			padding: 20px 12px;
-			.time-section {
-			}
+			padding: 20px 12px 5px;
 			.info-section {
 				display: flex;
 				color: #3D5A7E;

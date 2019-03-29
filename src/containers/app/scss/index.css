@@ -5420,6 +5420,15 @@ input[type="number"] {
           left: 12px;
           right: 12px;
           bottom: 12px; }
+          @media (max-width: 1024px) {
+            .exchange.page-body .card-block.card .card-content .full-box {
+              height: 200px; } }
+        .exchange.page-body .card-block.card .card-content .options-section {
+          display: none; }
+          @media (max-width: 1160px) {
+            .exchange.page-body .card-block.card .card-content .options-section {
+              display: flex;
+              padding: 5px 0 20px; } }
     .exchange.page-body .card-block .form-title {
       color: #ffffff;
       border-radius: 3px 3px 0 0;
@@ -5456,6 +5465,9 @@ input[type="number"] {
             .exchange.page-body .card-block .form-title.form-title-lg .form-title-actions .info-section .sub-info-section {
               font-size: 11px;
               line-height: 13px; }
+          @media (max-width: 1160px) {
+            .exchange.page-body .card-block .form-title.form-title-lg .form-title-actions .options-section {
+              display: none; } }
     .exchange.page-body .card-block.primary .form-title {
       background: linear-gradient(179.43deg, #2B23FF 0%, #2547F4 100%);
       box-shadow: none; }
@@ -5597,7 +5609,7 @@ input[type="number"] {
     .exchange.page-body .card-block .chart-options {
       display: flex;
       justify-content: space-between;
-      padding: 20px 12px; }
+      padding: 20px 12px 5px; }
       .exchange.page-body .card-block .chart-options .info-section {
         display: flex;
         color: #3D5A7E;
