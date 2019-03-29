@@ -1,9 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import {Form} from "react-form";
+import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
 
 class ExchangeBuy extends React.Component {
+    handleFormSubmit = () => {
+        NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+    };
+
     render () {
         return (
             <div className={'card-block green card card-medium pt-0 h-100'}>
@@ -76,7 +81,6 @@ class ExchangeBuy extends React.Component {
                                         "btn-green" : true,
                                         "submit-button" : true,
                                     })}
-                                    disabled
                                 >
                                     <span className={'button-text'}>Buy Apollo</span>
                                 </button>
