@@ -55,6 +55,12 @@ class ExportAccount extends React.Component {
         if (accountKeySeedData) {
 
             if (!accountKeySeedData.errorCode) {
+                // const a = document.createElement('a');
+                // a.href = window.URL.createObjectURL(new Blob(accountKeySeedData, {type: 'text/html'}));
+                // a.target='_blank';
+                // a.download = values.account;
+                // a.click();
+
                 this.setState({
                     accountKeySeedData
                 })

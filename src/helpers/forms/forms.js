@@ -745,6 +745,8 @@ function processAjaxRequest(requestType, data, callback, options) {
         var url;
         if (requestType === 'importKeyViaFile') {
             url = configServer.api.server + '/rest/keyStore/upload';
+        } else if (requestType === 'exportKey') {
+            url = configServer.api.server + '/rest/keyStore/download';
         } else {
             if (options.remoteNode) {
                 url = options.remoteNode.getUrl() + "/apl";

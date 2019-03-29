@@ -159,12 +159,12 @@ class ImportAccount extends React.Component {
                                             <React.Fragment>
                                                 <div className="form-group row form-group-grey mb-15">
                                                     <label className="col-sm-3 col-form-label align-self-start">
-                                                        Secret Key
+                                                        Secret phrase
                                                     </label>
                                                     <div className="col-sm-9">
                                                     <TextArea
                                                         className="form-control"
-                                                        placeholder="Secret Key"
+                                                        placeholder="Secret phrase"
                                                         field="passPhrase"
                                                         cols="30"
                                                         rows="3"
