@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomTable from '../../../components/tables/table';
 import {withRouter} from 'react-router-dom';
+import {NotificationManager} from "react-notifications";
 
 const buyOrders = [
     {
@@ -36,6 +37,14 @@ const buyOrders = [
 ];
 
 class TradeHistoryEchanger extends React.Component {
+    handleFormSubmit = () => {
+        if (this.props.wallet) {
+            NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+        } else {
+            this.props.handleLoginModal();
+        }
+    };
+
     render () {
         const {currency} = this.props.currentCurrency;
         return (
@@ -67,7 +76,7 @@ class TradeHistoryEchanger extends React.Component {
                         )}
                         actionButton={{
                             name:'View All',
-                            handler: () => this.props.history.push('/transfer-history')
+                            handler: this.handleFormSubmit
                         }}
                     />
                 </div>

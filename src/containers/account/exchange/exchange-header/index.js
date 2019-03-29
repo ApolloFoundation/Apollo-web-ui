@@ -1,7 +1,7 @@
 import React from 'react';
 import {NotificationManager} from "react-notifications";
 
-const ExchangeHeader = ({currencies, currentCurrency, setCurrentCurrency}) => (
+const ExchangeHeader = ({currencies, currentCurrency, setCurrentCurrency, wallet, handleLoginModal}) => (
     <div className={'row'}>
         <div className={'pb-4'}>
             <div className={'btn-light-box'}>
@@ -15,7 +15,11 @@ const ExchangeHeader = ({currencies, currentCurrency, setCurrentCurrency}) => (
                                 if (item === 'btc') {
                                     NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
                                 } else {
-                                    setCurrentCurrency(item);
+                                    if (wallet) {
+                                        setCurrentCurrency(item);
+                                    } else {
+                                        handleLoginModal();
+                                    }
                                 }
                             }}
                         >

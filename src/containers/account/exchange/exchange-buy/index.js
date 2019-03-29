@@ -6,7 +6,11 @@ import InputForm from '../../../components/input-form';
 
 class ExchangeBuy extends React.Component {
     handleFormSubmit = () => {
-        NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+        if (this.props.wallet) {
+            NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+        } else {
+            this.props.handleLoginModal();
+        }
     };
 
     render () {

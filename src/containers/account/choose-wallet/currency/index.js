@@ -44,10 +44,10 @@ class CurrencyDescriptionComponent extends Component {
                     </div>
                 </td>
                 <td className={'align-right'}>
-                    <div className="btn-box inline">
+                    <div className="btn-box inline pr-1">
                         <a
                             className="btn primary defaullt"
-                            onClick={() => this.props.setBodyModalParamsAction('WITHDRAW_CURRENCY', {currency: currency.toUpperCase()})}
+                            onClick={() => NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000)}
                         >
                             Withdraw
                         </a>

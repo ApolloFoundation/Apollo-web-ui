@@ -23,7 +23,7 @@ class Exchanger extends React.Component {
     componentDidMount() {
         let wallets = JSON.parse(localStorage.getItem('wallets'));
         if (!wallets) {
-            this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
+            this.handleLoginModal();
         } else {
             this.getCurrencyBalance(JSON.parse(wallets));
         }
@@ -43,6 +43,10 @@ class Exchanger extends React.Component {
             wallets.map(wallet => wallet.wallets[0].balance = balances[`balance${wallet.currency.toUpperCase()}`]);
         }
         this.setState({wallets});
+    };
+
+    handleLoginModal = () => {
+        this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
     };
 
     render () {
@@ -66,6 +70,8 @@ class Exchanger extends React.Component {
                                 currencies={currencies}
                                 currentCurrency={currentCurrency}
                                 setCurrentCurrency={this.props.setCurrentCurrency}
+                                wallet={wallet}
+                                handleLoginModal={this.handleLoginModal}
                             />
                         </div>
                         <div className={'col-md-4 pr-0'}>
@@ -80,18 +86,34 @@ class Exchanger extends React.Component {
                         <div className={'col-md-8 p-0'}>
                             <div className={'container-fluid p-0'}>
                                 <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
-                                    <ExchangeBuy currentCurrency={currentCurrency} wallet={wallet}/>
+                                    <ExchangeBuy
+                                        currentCurrency={currentCurrency}
+                                        wallet={wallet}
+                                        handleLoginModal={this.handleLoginModal}
+                                    />
                                 </div>
                                 <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
-                                    <ExchangeSell currentCurrency={currentCurrency} wallet={wallet}/>
+                                    <ExchangeSell
+                                        currentCurrency={currentCurrency}
+                                        wallet={wallet}
+                                        handleLoginModal={this.handleLoginModal}
+                                    />
                                 </div>
                             </div>
                         </div>
                         <div className={'col-md-6 mb-3 pr-0'}>
-                            <TradeHistoryEchanger currentCurrency={currentCurrency} />
+                            <TradeHistoryEchanger
+                                currentCurrency={currentCurrency}
+                                wallet={wallet}
+                                handleLoginModal={this.handleLoginModal}
+                            />
                         </div>
                         <div className={'col-md-6 mb-3 pr-0'}>
-                            <OpenOrders currentCurrency={currentCurrency} />
+                            <OpenOrders
+                                currentCurrency={currentCurrency}
+                                wallet={wallet}
+                                handleLoginModal={this.handleLoginModal}
+                            />
                         </div>
                     </div>
                 </div>

@@ -182,48 +182,52 @@
 			border-radius: 0;
 		}
 
-		.transaction-table .transaction-table-body {
-			padding: 15px !important;
-			background-color: transparent;
-			table {
-				padding: 0;
-				thead {
-					tr td {
-						color: #8AA5C7;
-						font-size: 11px;
-						letter-spacing: -0.3px;
-						font-weight: normal;
-						padding: 0 0 10px 0;
-						text-align: center;
-						&:first-child {
-							text-align: left;
-						}
-						&:last-child {
-							text-align: right;
+		.transaction-table {
+			padding-bottom: 0 !important;
+			.transaction-table-body {
+				padding: 15px !important;
+				margin-bottom: 0 !important;
+				background-color: transparent;
+				table {
+					padding: 0;
+					thead {
+						tr td {
+							color: #8AA5C7;
+							font-size: 11px;
+							letter-spacing: -0.3px;
+							font-weight: normal;
+							padding: 0 0 10px 0;
+							text-align: center;
+							&:first-child {
+								text-align: left;
+							}
+							&:last-child {
+								text-align: right;
+							}
 						}
 					}
-				}
-				tbody {
-					tr td {
-						color: #3D5A7E;
-						font-size: 12px;
-						letter-spacing: -0.4px;
-						font-weight: normal;
-						padding: 5px 0;
-						border: none;
-						text-align: center;
-						&:first-child {
-							text-align: left;
-						}
-						&:last-child {
-							text-align: right;
-							color: #8AA5C7;
-						}
-						&.red-text {
-							color: #F36;
-						}
-						&.green-text {
-							color: rgba(0,189,32,0.92);
+					tbody {
+						tr td {
+							color: #3D5A7E;
+							font-size: 12px;
+							letter-spacing: -0.4px;
+							font-weight: normal;
+							padding: 5px 0;
+							border: none;
+							text-align: center;
+							&:first-child {
+								text-align: left;
+							}
+							&:last-child {
+								text-align: right;
+								color: #8AA5C7;
+							}
+							&.red-text {
+								color: #F36;
+							}
+							&.green-text {
+								color: rgba(0, 189, 32, 0.92);
+							}
 						}
 					}
 				}
