@@ -36,14 +36,14 @@ class SellAliasForm extends React.Component {
                 <TabulationBody
                     className={'p-0'}
                 >
-            
                     <TabContaier sectionName={'Sell alias to Specific Account'}>
                         <ModalBody
                             closeModal={closeModal}
                             className={'p-0 transparent gray-form'}
+                            submitButtonName={'Sell Alias'}
+                            isDisableFormFooter
                             isFee
                             isPour
-                            submitButtonName={'Sell Alias'}
                         >
                             <SellToAccountForm 
                                 setValue={setValue}
@@ -57,6 +57,7 @@ class SellAliasForm extends React.Component {
                             closeModal={closeModal}
                             className={'p-0 transparent gray-form'}
                             submitButtonName={'Sell alias'}
+                            isDisableFormFooter
                             isFee
                             isPour
                         >
