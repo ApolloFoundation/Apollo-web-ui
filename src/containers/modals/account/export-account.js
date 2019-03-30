@@ -44,12 +44,10 @@ class ExportAccount extends React.Component {
 
         if (accountKeySeedData) {
             if (!accountKeySeedData.errorCode && accountKeySeedData.size > 0) {
-                this.downloadSecretFile.href = window.URL.createObjectURL(accountKeySeedData);
-                this.downloadSecretFile.download = values.account;
-                this.downloadSecretFile.click();
-
-                this.setState({
-                    accountKeySeedData
+                this.setState({accountKeySeedData}, () => {
+                    this.downloadSecretFile.current.download = values.account;
+                    this.downloadSecretFile.current.href = window.URL.createObjectURL(accountKeySeedData);
+                    this.downloadSecretFile.current.click();
                 });
             } else {
                 NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
@@ -139,8 +137,8 @@ class ExportAccount extends React.Component {
                                                         name: 'Account ID'
                                                     },
                                                     {
-                                                        value: this.state.accountKeySeedData.secretBytes,
-                                                        name: 'Secret Key'
+                                                        value: this.state.accountKeySeedData,
+                                                        name: 'Secret File'
                                                     }
                                                 ])}
                                                 className={'btn danger static'}
