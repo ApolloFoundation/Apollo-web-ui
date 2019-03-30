@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 import {NotificationManager} from 'react-notifications';
 import InfoBox from '../../components/info-box'
-import {Form, TextArea, Radio, RadioGroup} from 'react-form';
+import {Form, Text, TextArea, Radio, RadioGroup} from 'react-form';
 import crypto from '../../../helpers/crypto/crypto';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
@@ -157,18 +157,16 @@ class ImportAccount extends React.Component {
                                             </div>
                                         ) : (
                                             <React.Fragment>
-                                                <div className="form-group row form-group-grey mb-15">
-                                                    <label className="col-sm-3 col-form-label align-self-start">
-                                                        Secret phrase
+                                                <div className="form-group row form-group-white mb-15">
+                                                    <label className="col-sm-3 col-form-label">
+                                                        Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                                                     </label>
                                                     <div className="col-sm-9">
-                                                    <TextArea
-                                                        className="form-control"
-                                                        placeholder="Secret phrase"
-                                                        field="passPhrase"
-                                                        cols="30"
-                                                        rows="3"
-                                                    />
+                                                        <Text
+                                                            className={'form-control'}
+                                                            type="password"
+                                                            field="passphrase"
+                                                            placeholder="Secret Phrase"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group row form-group-grey mb-15">
