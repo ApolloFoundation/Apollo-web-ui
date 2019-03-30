@@ -63,19 +63,17 @@ class ImportAccount extends React.Component {
             importAccount = await importAccountActionViaFile({passPhrase, sender, deadline});
         }
 
-        if (importAccount) {
-            if (importAccount.errorCode) {
-                NotificationManager.error(importAccount.errorDescription, 'Error', 5000);
+        if (importAccount && importAccount.errorCode) {
+            NotificationManager.error(importAccount.errorDescription, 'Error', 5000);
+        } else {
+            if (format === 'text') {
+                this.setState({
+                    isGenerated: true,
+                    importAccount
+                });
             } else {
-                if (format === 'text') {
-                    this.setState({
-                        isGenerated: true,
-                        importAccount
-                    });
-                } else {
-                    NotificationManager.success('Your account imported successfully!', null, 5000);
-                    this.props.closeModal();
-                }
+                NotificationManager.success('Your account imported successfully!', null, 5000);
+                this.props.closeModal();
             }
         }
     };

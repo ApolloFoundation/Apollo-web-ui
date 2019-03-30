@@ -835,6 +835,19 @@ function processAjaxRequest(requestType, data, callback, options) {
 
         delete data.publicKey;
 
+        if (requestType === "importKeyViaFile") {
+            return fetch(`${configServer.api.server}/rest/keyStore/upload`, {
+                method: 'POST',
+                body: (formData != null ? formData : data)
+            })
+                .then(res => res.json())
+                .then((res) => {
+                    return res;
+                })
+                .catch(() => {
+
+                });
+        }
         return $.ajax({
             url: url,
             crossDomain: true,
@@ -885,7 +898,7 @@ function getFileUploadConfig(requestType, data) {
             config.selector = "#upload_file_message";
             config.requestParam = "keyStore";
             config.errorDescription = "error_message_too_big";
-            config.maxSize = account.constants.maxPrunableMessageLength; //TODO: set max file size
+            // config.maxSize = account.constants.maxPrunableMessageLength; //TODO: set max file size
             return config;
         }
         return null;

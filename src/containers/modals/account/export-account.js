@@ -15,7 +15,7 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import {getAccountDataAction} from "../../../actions/login";
-import {exportAccount} from '../../../actions/wallet';
+import {exportAccount} from '../../../actions/account';
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -107,9 +107,7 @@ class ExportAccount extends React.Component {
                                     </div>
                                 </div>
 
-                                {
-
-                                    this.state && this.state.accountKeySeedData &&
+                                {this.state && this.state.accountKeySeedData ?
                                     <React.Fragment>
                                         <InfoBox attentionLeft>
                                             Account ID: <span className={'itatic'}>{this.props.account}</span>
@@ -125,7 +123,8 @@ class ExportAccount extends React.Component {
                                         </InfoBox>
                                         <InfoBox info nowrap>
                                             You can delete your account data from this web node completely.
-                                            If you delete this account data you will need to import this secret key to login again.
+                                            If you delete this account data you will need to import this secret key
+                                            to login again.
                                             <br/>
                                             Do you wish to delete it?
                                             <br/>
@@ -155,19 +154,17 @@ class ExportAccount extends React.Component {
 
                                         </InfoBox>
                                     </React.Fragment>
-
-
+                                    :
+                                    <div className="btn-box align-buttons-inside absolute right-conner">
+                                        <button
+                                            type="submit"
+                                            name={'closeModal'}
+                                            className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                        >
+                                            Export
+                                        </button>
+                                    </div>
                                 }
-
-                                <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                    >
-                                        Export
-                                    </button>
-                                </div>
                             </div>
                         </form>
                     )}

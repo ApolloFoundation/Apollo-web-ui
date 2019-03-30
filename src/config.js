@@ -8,7 +8,7 @@ const config = {};
 
 // API Gateway
 config.api = {
-    server: '', // Example: http://192.168.1.138:7876
+    server: 'http://51.15.140.80:7876',
     localServerUrl: 'https://apollocurrency.com/api/client/twitter',
     mixerUrl: 'https://apollowallet.org/mixer/api/get-account'
 };
