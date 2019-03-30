@@ -9,16 +9,16 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../../modules/modals';
 import {getDGSPurchaseAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
-import { Form, Text, TextArea, Checkbox } from 'react-form';
+
+import TextualInput from '../../../components/form-components/textual-input';
+import ModalBody from '../../../components/modals/modal-body';
+import TextArea from '../../../components/form-components/text-area';
+import NumericInput from '../../../components/form-components/numeric-input';
+
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
-import ModalFooter from '../../../components/modal-footer';
-import FeeCalc from '../../../components/form-components/fee-calc';
-
-import AdvancedSettings from '../../../components/advanced-transaction-settings';
 
 
 const mapStateToProps = state => ({
@@ -101,182 +101,59 @@ class MarketplaceDeliver extends React.Component {
     };
 
     render() {
+        
+        const {formatTimestamp} = this.props;
+        const {goods} = this.state;
+        
         return (
-            <div className="modal-box x-wide">
-                <div className="modal-form">
-                    <div className="form-group-app devided no-padding-bottom overflow-hidden">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
-
-                        {
-                            this.state.goods &&
-                            <React.Fragment>
-                                <div className="left-bar">
-                                    <div className="top-bar">
-                                        <div
-                                            style={{
-                                                backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
-                                            }}
-                                            className={classNames({
-                                                "marketplace-image": true,
-                                                "no-image": !this.state.goods.hasImage
-                                            })}
-                                        />
-                                    </div>
-                                    <div className="bottom-bar">
-                                        <div className="description word-brake">
-                                            {this.state.goods.description}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="right-bar">
-                                    <div className="form-title">
-                                        <p>{this.state.goods.name}</p>
-                                    </div>
-                                    <div className="price">
-                                        {this.state.goods.priceATM / 100000000} Apollo
-                                    </div>
-                                    <div className="info-table">
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Date:</span></div>
-                                            <div className="t-cell">{this.props.formatTimestamp(this.state.goods.timestamp)}</div>
-                                        </div>
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Buyer:</span></div>
-                                            <div className="t-cell">{this.state.goods.buyerRS}</div>
-                                        </div>
-                                        <div className="t-row">
-                                            <div className="t-cell"><span>Quantity:</span></div>
-                                            <div className="t-cell">{this.state.goods.quantity}</div>
-                                        </div>
-                                    </div>
-                                    <Form
-                                        onSubmit={(values) => this.handleFormSubmit(values)}
-                                        render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-
-                                            <form className="modal-form" onSubmit={submitForm}>
-                                                <div className="form-group-app no-padding-left no-padding-top">
-                                                    <div className="input-group-app display-block offset-bottom">
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Data</label>
-                                                            </div>
-                                                            <div className="col-md-9">
-                                                                <TextArea
-                                                                    field="goodsToEncrypt"
-                                                                    placeholder="Description"
-                                                                    min={1}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="input-group-app display-block offset-bottom">
-
-                                                        <div className="row">
-                                                            <div className="col-md-3">
-                                                                <label>Discount</label>
-                                                            </div>
-                                                            <div
-                                                                className="col-md-9 input-group input-group-text-transparent">
-                                                                <Text
-                                                                    type={'tel'}
-                                                                    field="discountATM"
-                                                                    placeholder='Amount'
-                                                                    className={"form-control"}
-                                                                />
-                                                                <div className="input-group-append">
-                                                                    <span
-                                                                        className="input-group-text"
-                                                                        id="discountATM"
-                                                                    >
-                                                                        Apollo
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <FeeCalc
-                                                        values={getFormState().values}
-
-                                                        setValue={setValue}
-                                                        requestType={'dgsDelivery'}
-                                                    />
-                                                    <ModalFooter
-                                                        setValue={setValue}
-                                                        getFormState={getFormState}
-                                                        values={values}
-                                                    />
-
-                                                    <AdvancedSettings
-                                                        setValue={setValue}
-                                                        getFormState={getFormState}
-                                                        values={values}
-                                                        advancedState={this.state.advancedState}
-                                                    />
-                                                </div>
-                                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                                    <a
-                                                        onClick={() => this.props.closeModal()}
-                                                        className="btn round round-top-left"
-                                                    >
-                                                        Cancel
-                                                    </a>
-
-                                                    {
-                                                        !!this.state.isPending ?
-                                                            <div
-                                                                style={{
-                                                                    width: 120
-                                                                }}
-                                                                className="btn btn-right blue round round-bottom-right"
-                                                            >
-                                                                <div className="ball-pulse">
-                                                                    <div></div>
-                                                                    <div></div>
-                                                                    <div></div>
-                                                                </div>
-                                                            </div> :
-                                                            <button
-
-                                                                type="submit"
-                                                                name={'closeModal'}
-                                                                className="btn btn-right blue round round-bottom-right"
-                                                            >
-                                                                Deliver goods
-                                                            </button>
-                                                    }
-
-                                                </div>
-                                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
-                                                    {
-                                                        this.state.advancedState &&
-                                                        <a
-                                                            onClick={this.handleAdvancedState}
-                                                            className="btn btn-right round round-top-right absolute"
-                                                            style={{left : 'calc(50% - 35px)', right: 'auto'}}
-                                                        >
-                                                            Basic
-                                                        </a>
-                                                    }
-                                                    {
-                                                        !this.state.advancedState &&
-                                                        <a
-                                                            onClick={this.handleAdvancedState}
-                                                            className="btn btn-right round round-top-right absolute"
-                                                            style={{left : 'calc(50% - 35px)', right: 'auto'}}
-                                                        >
-                                                            {this.state.advancedState ? "Basic" : "Advanced"}
-                                                        </a>
-                                                    }
-                                                </div>*/}
-                                            </form>
-                                        )}
-                                    />
-                                </div>
-                            </React.Fragment>
-                        }
-                    </div>
-                </div>
-            </div>
+            <ModalBody
+                closeModal={this.props.closeModal}
+                isAdvanced
+                isFee
+                isWide
+                marketplace={{
+                    priceATM: goods ? goods.priceATM : null,
+                    name: goods ? goods.name : null,
+                    hasImage: goods ? goods.hasImage : null,
+                    image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
+                    description: goods ? goods.description : null
+                }}
+                modalTitle={`${goods ? goods.priceATM / 100000000 : null} Apollo`}
+                submitButtonName="Change price"
+            >
+                {
+                    goods &&  
+                    <>
+                        <TextualInput
+                            label="Date:" 
+                            text={formatTimestamp(goods.timestamp)}
+                        />
+                        <TextualInput
+                            label="Seller:" 
+                            text={goods.sellerRS}
+                        />
+                        <TextualInput
+                            label="Quantity:" 
+                            text={goods.quantity}
+                        />
+                        <TextualInput
+                            label="Current price:" 
+                            text={`${(this.state.goods.priceATM / 100000000).toLocaleString('en')} APL`}
+                        />
+                        <TextArea 
+                            label="Data"
+                            placeholder="Description"
+                            field="goodsToEncrypt"
+                        />
+                        <NumericInput
+                            label="Discount"
+                            field="discountATM"
+                            placeholder="Discount"
+                            defaultValue={1}
+                        />
+                    </>
+                }
+            </ModalBody>
         );
     }
 }

@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import FormFooter from '../form-components/form-footer';
 import InputForm from '../input-form';
 import ModalFooter from '../modal-footer';
+import classNames from 'classnames';
 
 import AdvancedSettings from '../advanced-transaction-settings';
 import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
@@ -41,7 +42,10 @@ class ModalBody extends React.Component {
     }
 
     form = () => {
-        const {CustomFooter, isDisableFormFooter, onChange, isDisabledBackArrow, isAdvancedWhite, isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite, isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+
+        const LeftBar  = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment ;
+        const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment ;
 
         return (
                 <BackForm
@@ -57,101 +61,138 @@ class ModalBody extends React.Component {
                             onSubmit={submitForm} 
                             className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
                         >
-                            <div className="form-group-app">
-                                {
-                                    closeModal && !isPour &&
-                                    <a onClick={closeModal} className="exit"><i className="zmdi zmdi-close" /></a>
-                                }
+                            <div className={`form-group-app ${marketplace ? 'devided' : ''} ${marketplace? 'devided' : ''}`}>
+                                <LeftBar>
+                                    {
+                                        marketplace &&
+                                        <>
+                                            <div className="top-bar">
+                                                <div
+                                                    style={{
+                                                        backgroundImage: `url(${marketplace.image})`
+                                                    }}
+                                                    className={classNames({
+                                                        "marketplace-image": true,
+                                                        "no-image": !marketplace.hasImage
+                                                    })}
+                                                />
+                                                </div>
+                                                <div className="bottom-bar">
+                                                <div className="description word-brake">
+                                                    {marketplace.description}
+                                                </div>
+                                            </div>
+                                        </>
+                                    }
+                                    
+                                </LeftBar>
+                                <RightBar>
+                                    {
+                                        closeModal && !isPour &&
+                                        <a onClick={closeModal} className="exit"><i className="zmdi zmdi-close" /></a>
+                                    }
 
-                                {
-                                    modalTitle &&
-                                    <div className="form-title">
-                                        {
-                                            !isDisabledBackArrow && 
-                                            modalsHistory.length > 1 &&
-                                            <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
-                                        }
-                                        <p>{modalTitle}</p>
-                                    </div>
-                                }
-                                {
-                                    modalSubTitle && 
-                                    <div class="form-sub-title mb-4">{modalSubTitle}</div>
-                                }
-    
-                                {/** Passing props to each form component */}
-                                {
-                                    React.Children.map(children, child => {
-                                            if (child) {
-                                                return React.cloneElement(child, {...submitForm, values, getValue, addValue, removeValue, setValue, getFormState, idGroup})
+                                    {
+                                        marketplace && modalTitle &&
+                                        <div className="form-title">
+                                            {
+                                                !isDisabledBackArrow && 
+                                                modalsHistory.length > 1 &&
+                                                <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
                                             }
-                                        }
-                                    )
-                                }
-                                
-                                {/** Rendering of fee calculation */}
-                                {
-                                    isFee &&
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Fee   
-                                        </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                            <InputForm
-                                                field="feeATM"
-                                                placeholder="Amount"
-                                                type={"float"}
-                                                setValue={setValue}
-                                                defaultValue={''}
-                                                id={`${idGroup}feeAPL-field`}
-                                            />
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">Apollo</span>
+                                            <p>{marketplace.name || modalTitle}</p>
+                                        </div>
+                                    }
+
+                                    {
+                                        marketplace.name && 
+                                        <div className="price">
+                                            {marketplace.priceATM / 100000000} Apollo
+                                        </div>
+                                    }
+
+                                   
+
+                                    {
+                                        modalSubTitle && 
+                                        <div class="form-sub-title mb-4">{modalSubTitle}</div>
+                                    }
+        
+                                    
+
+                                    {/** Passing props to each form component */}
+                                    {
+                                        React.Children.map(children, child => {
+                                                if (child) {
+                                                    return React.cloneElement(child, {...submitForm, values, getValue, addValue, removeValue, setValue, getFormState, idGroup})
+                                                }
+                                            }
+                                        )
+                                    }
+                                    
+                                    {/** Rendering of fee calculation */}
+                                    {
+                                        isFee &&
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Fee   
+                                            </label>
+                                            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                                <InputForm
+                                                    field="feeATM"
+                                                    placeholder="Amount"
+                                                    type={"float"}
+                                                    setValue={setValue}
+                                                    defaultValue={''}
+                                                    id={`${idGroup}feeAPL-field`}
+                                                />
+                                                <div className="input-group-append">
+                                                    <span className="input-group-text">Apollo</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                    }
 
-                                {/** Rendering of secret phrase and 2fa fields */}
-                                {
-                                    !isDisableSecretPhrase &&
-                                    // handleFormSubmit &&
-                                    <ModalFooter 
-                                        off2FA={isDisabe2FA}
-                                        setValue={setValue}      
-                                        getFormState={getFormState}
-                                        values={values} 
-                                        idGroup={idGroup}                     
-                                    />
-                                }
-                            
-                                {
-                                    isAdvanced && 
-                                    <AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        white={isAdvancedWhite}
-                                    />
-                                }
+                                    {/** Rendering of secret phrase and 2fa fields */}
+                                    {
+                                        !isDisableSecretPhrase &&
+                                        // handleFormSubmit &&
+                                        <ModalFooter 
+                                            off2FA={isDisabe2FA}
+                                            setValue={setValue}      
+                                            getFormState={getFormState}
+                                            values={values} 
+                                            idGroup={idGroup}                     
+                                        />
+                                    }
+                                
+                                    {
+                                        isAdvanced && 
+                                        <AdvancedSettings
+                                            setValue={setValue}
+                                            getFormState={getFormState}
+                                            values={values}
+                                            white={isAdvancedWhite}
+                                        />
+                                    }
 
-                                {/** Bottom forms buttons */}
-                                {
-                                    !CustomFooter &&
-                                    !isDisableFormFooter && 
-                                    <FormFooter 
-                                        submitButtonName={submitButtonName}
-                                        isPending={isPending}
-                                        setValue={setValue}
-                                        closeModal={closeModal}
-                                        idGroup={idGroup}
-                                    />
-                                }
-                                {
-                                    !!CustomFooter &&
-                                    <CustomFooter/>
-                                }
-
+                                    {/** Bottom forms buttons */}
+                                    {
+                                        !CustomFooter &&
+                                        !isDisableFormFooter && 
+                                        <FormFooter 
+                                            submitButtonName={submitButtonName}
+                                            isPending={isPending}
+                                            setValue={setValue}
+                                            closeModal={closeModal}
+                                            idGroup={idGroup}
+                                        />
+                                    }
+                                    {
+                                        !!CustomFooter &&
+                                        <CustomFooter/>
+                                    }
+                                </RightBar>
                             </div>
                         </form>
                     )} 
@@ -161,7 +202,7 @@ class ModalBody extends React.Component {
 
     render () {
 
-        const {isPour} = this.props;
+        const {isPour, isXWide, isWide} = this.props;
 
         return (
             <>
@@ -171,7 +212,7 @@ class ModalBody extends React.Component {
                         { this.form() }
                     </>
                      :
-                    <div className="modal-box">
+                    <div className={`modal-box ${isWide ? 'wide' : ''} ${isXWide ? 'x-wide' : ''}`}>
                         { this.form() }
                     </div>
                 }

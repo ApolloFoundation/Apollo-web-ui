@@ -13,6 +13,10 @@ import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 
+import TextualInput from '../../../components/form-components/textual-input';
+import NumericInput from '../../../components/form-components/numeric-input';
+import ModalBody from '../../../components/modals/modal-body';
+
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
 import InputForm from '../../../components/input-form';
 import { Form, Text, Checkbox } from 'react-form';
@@ -111,178 +115,59 @@ class MarketplacePurchase extends React.Component {
     };
 
     render() {
+        const {formatTimestamp} = this.props;
+        const {goods} = this.state;
+
         return (
-            <div className="modal-box x-wide">
-                <div className="modal-form">
-                    <div className="form-group-app devided no-padding-bottom overflow-hidden">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
-
-                        {
-
-                            this.state.goods &&
-
-                            [
-                                <div className="left-bar">
-                                    <div className="top-bar">
-                                        <div
-                                            style={{
-                                                backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
-                                            }}
-                                            className={classNames({
-                                                "marketplace-image": true,
-                                                "no-image": !this.state.goods.hasImage
-                                            })}
-                                        />
-                                    </div>
-                                    <div className="bottom-bar">
-                                        <div className="description word-brake">
-                                            {this.state.goods.description}
-                                        </div>
-                                    </div>
-                                </div>,
-                                <div className="right-bar">
-                                    <div className="form-title">
-                                        <p>{this.state.goods.name}</p>
-                                    </div>
-                                    <div className="price">
-                                        {this.state.goods.priceATM / 100000000} Apollo
-                                    </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Date:
-                                        </label>
-                                        <div className="col-sm-9">
-                                            {this.props.formatTimestamp(this.state.goods.timestamp)}
-                                        </div>
-                                    </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Seller:
-                                        </label>
-                                        <div className="col-sm-9">
-                                            {this.state.goods.sellerRS}
-                                        </div>
-                                    </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Quantity:
-                                        </label>
-                                        <div className="col-sm-9">
-                                            {this.state.goods.quantity}
-                                        </div>
-                                    </div>
-                                    <Form
-                                        onSubmit={(values) => this.handleFormSubmit(values)}
-                                        render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-
-                                            <form className="modal-form" onSubmit={submitForm}>
-                                                <div className="form-group-app no-padding-left no-padding-top">
-                                                    <div className="form-group row form-group-white mb-15">
-                                                        <label className="col-sm-3 col-form-label">
-                                                            Quantity
-                                                        </label>
-                                                        <div className="col-sm-9">
-                                                            <InputForm
-                                                                defaultValue={1}
-                                                                type="tel"
-                                                                field="quantity"
-                                                                placeholder="Currency Name"
-                                                                minValue={1}
-                                                                setValue={setValue}/>
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-group row form-group-white mb-15">
-                                                        <label className="col-sm-3 col-form-label">
-                                                            Delivery deadline (hours)
-                                                        </label>
-                                                        <div className="col-sm-9">
-                                                            <InputForm
-                                                                defaultValue={168}
-                                                                type="tel"
-                                                                field="deliveryDeadlineTimestamp"
-                                                                placeholder="Currency Code"
-                                                                setValue={setValue}/>
-                                                        </div>
-                                                    </div>
-                                                    <FeeCalc
-                                                        values={getFormState().values}
-                                                        setValue={setValue}
-                                                        requestType={'dgsPurchase'}
-                                                    />
-                                                    <ModalFooter
-                                                        setValue={setValue}
-                                                        getFormState={getFormState}
-                                                        values={values}
-                                                    />
-                                                    <AdvancedSettings
-                                                        setValue={setValue}
-                                                        getFormState={getFormState}
-                                                        values={values}
-                                                        advancedState={this.state.advancedState}
-                                                    />
-                                                </div>
-                                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                                    <a
-                                                        onClick={() => this.props.closeModal()}
-                                                        className="btn round round-top-left"
-                                                    >
-                                                        Cancel
-                                                    </a>
-                                                    {
-                                                        !!this.state.isPending ?
-                                                            <div
-                                                                style={{
-                                                                    width: 68.48
-                                                                }}
-                                                                className="btn btn-right blue round round-bottom-right"
-                                                            >
-                                                                <div className="ball-pulse">
-                                                                    <div></div>
-                                                                    <div></div>
-                                                                    <div></div>
-                                                                </div>
-                                                            </div> :
-                                                            <button
-
-                                                                type="submit"
-                                                                name={'closeModal'}
-                                                                className="btn btn-right blue round round-bottom-right"
-                                                            >
-                                                                Purchase
-                                                            </button>
-                                                    }
-                                                </div>
-                                                {/*<div className="btn-box align-buttons-inside absolute left-conner">
-                                                    {
-                                                        this.state.advancedState &&
-                                                        <a
-                                                            onClick={this.handleAdvancedState}
-                                                            className="btn btn-right round round-top-right absolute"
-                                                            style={{left : 'calc(50% - 35px)', right: 'auto'}}
-                                                        >
-                                                            Basic
-                                                        </a>
-                                                    }
-                                                    {
-                                                        !this.state.advancedState &&
-                                                        <a
-                                                            onClick={this.handleAdvancedState}
-                                                            className="btn btn-right round round-top-right absolute"
-                                                            style={{left : 'calc(50% - 35px)', right: 'auto'}}
-                                                        >
-                                                            Advanced
-                                                        </a>
-                                                    }
-                                                </div>*/}
-                                            </form>
-                                        )}
-                                    />
-                                </div>
-                            ]
-                        }
-                    </div>
-                </div>
-            </div>
+            <ModalBody
+                closeModal={this.props.closeModal}
+                isAdvanced
+                isFee
+                isWide
+                marketplace={{
+                    priceATM: goods ? goods.priceATM : null,
+                    name: goods ? goods.name : null,
+                    hasImage: goods ? goods.hasImage : null,
+                    image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
+                    description: goods ? goods.description : null
+                }}
+                modalTitle={`${goods ? goods.priceATM / 100000000 : null} Apollo`}
+                submitButtonName="Change price"
+            >
+                {
+                    goods &&  
+                    <>
+                        <TextualInput
+                            label="Date:" 
+                            text={formatTimestamp(goods.timestamp)}
+                        />
+                        <TextualInput
+                            label="Seller:" 
+                            text={goods.sellerRS}
+                        />
+                        <TextualInput
+                            label="Quantity:" 
+                            text={goods.quantity}
+                        />
+                        <TextualInput
+                            label="Current price:" 
+                            text={`${(this.state.goods.priceATM / 100000000).toLocaleString('en')} APL`}
+                        />
+                        <NumericInput
+                            label="New quantity"
+                            field="quantity"
+                            placeholder="Quantity"
+                            defaultValue={1}
+                        />
+                        <NumericInput
+                            label="Delivery deadline (hours)"
+                            field="deliveryDeadlineTimestamp"
+                            placeholder="Quantity"
+                            defaultValue={168}
+                        />
+                    </>
+                }
+            </ModalBody>
         );
     }
 }
