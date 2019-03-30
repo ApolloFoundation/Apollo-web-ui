@@ -130,9 +130,15 @@ class ImportAccount extends React.Component {
                                             <p>Import Account</p>
                                         </div>
 
-                                        <InfoBox info>
-                                            Please enter your account secret key.
-                                        </InfoBox>
+                                        {values.format !== 'file' ? (
+                                            <InfoBox info>
+                                                Please enter your account secret key.
+                                            </InfoBox>
+                                        ) : (
+                                            <InfoBox info>
+                                                Please notice that usage of the same vault wallet on different nodes will cause creation of different ETH, PAX, BTC wallets for each node.
+                                            </InfoBox>
+                                        )}
 
                                         <div className="form-group row form-group-grey mb-15">
                                             <RadioGroup field="format" defaultValue={'text'}>

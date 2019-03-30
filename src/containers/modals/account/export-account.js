@@ -76,10 +76,9 @@ class ExportAccount extends React.Component {
                                 <div className="form-title">
                                     <p>Export Account</p>
                                 </div>
-                                <InfoBox info>
-                                    Please enter your account credentials.
+                                <InfoBox danger>
+                                    Please, check your wallets to make sure there are no funds on them. Deleting a key from the node may lead to funds loss.
                                 </InfoBox>
-
 
                                 <div className="form-group row form-group-grey mb-15">
                                     <label className="col-sm-3 col-form-label">
