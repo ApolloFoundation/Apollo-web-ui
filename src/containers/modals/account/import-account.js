@@ -67,10 +67,15 @@ class ImportAccount extends React.Component {
             if (importAccount.errorCode) {
                 NotificationManager.error(importAccount.errorDescription, 'Error', 5000);
             } else {
-                this.setState({
-                    isGenerated: true,
-                    importAccount
-                });
+                if (format === 'text') {
+                    this.setState({
+                        isGenerated: true,
+                        importAccount
+                    });
+                } else {
+                    NotificationManager.success('Your account imported successfully!', null, 5000);
+                    this.props.closeModal();
+                }
             }
         }
     };
@@ -133,9 +138,9 @@ class ImportAccount extends React.Component {
 
                                         <div className="form-group row form-group-grey mb-15">
                                             <RadioGroup field="format" defaultValue={'text'}>
-                                                <label htmlFor="text" className="mr-2">Old format</label>
+                                                <label htmlFor="text" className="mr-2">Secret key</label>
                                                 <Radio value="text" className="mr-3 d-inline-block" />
-                                                <label htmlFor="file" className="mr-2">New format</label>
+                                                <label htmlFor="file" className="mr-2">Secret file</label>
                                                 <Radio value="file" className="d-inline-block" />
                                             </RadioGroup>
                                         </div>
@@ -165,7 +170,7 @@ class ImportAccount extends React.Component {
                                                         <Text
                                                             className={'form-control'}
                                                             type="password"
-                                                            field="passphrase"
+                                                            field="passPhrase"
                                                             placeholder="Secret Phrase"/>
                                                     </div>
                                                 </div>
