@@ -17,9 +17,10 @@ import TextualInput from '../../../components/form-components/textual-input';
 import NumericInput from '../../../components/form-components/numeric-input';
 import ModalBody from '../../../components/modals/modal-body';
 
+import Form from './form';
+
 import AdvancedSettings from '../../../components/advanced-transaction-settings'
 import InputForm from '../../../components/input-form';
-import { Form, Text, Checkbox } from 'react-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
@@ -100,26 +101,13 @@ class MarketplacePurchase extends React.Component {
         })
     }
 
-    handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    };
-
     render() {
         const {formatTimestamp} = this.props;
         const {goods} = this.state;
 
         return (
             <ModalBody
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 closeModal={this.props.closeModal}
                 isAdvanced
                 isFee
@@ -131,42 +119,9 @@ class MarketplacePurchase extends React.Component {
                     image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
                     description: goods ? goods.description : null
                 }}
-                modalTitle={`${goods ? goods.priceATM / 100000000 : null} Apollo`}
                 submitButtonName="Change price"
             >
-                {
-                    goods &&  
-                    <>
-                        <TextualInput
-                            label="Date:" 
-                            text={formatTimestamp(goods.timestamp)}
-                        />
-                        <TextualInput
-                            label="Seller:" 
-                            text={goods.sellerRS}
-                        />
-                        <TextualInput
-                            label="Quantity:" 
-                            text={goods.quantity}
-                        />
-                        <TextualInput
-                            label="Current price:" 
-                            text={`${(this.state.goods.priceATM / 100000000).toLocaleString('en')} APL`}
-                        />
-                        <NumericInput
-                            label="New quantity"
-                            field="quantity"
-                            placeholder="Quantity"
-                            defaultValue={1}
-                        />
-                        <NumericInput
-                            label="Delivery deadline (hours)"
-                            field="deliveryDeadlineTimestamp"
-                            placeholder="Quantity"
-                            defaultValue={168}
-                        />
-                    </>
-                }
+                <Form goods={this.state.goods}/>                
             </ModalBody>
         );
     }

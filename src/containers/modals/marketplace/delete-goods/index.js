@@ -13,7 +13,7 @@ import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 
-import TextualInput from '../../../components/form-components/textual-input';
+import Form from './form';
 import ModalBody from '../../../components/modals/modal-body';
 
 import {NotificationManager} from "react-notifications";
@@ -89,6 +89,7 @@ class MarketplaceDelete extends React.Component {
         
         return (
             <ModalBody
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 closeModal={this.props.closeModal}
                 isAdvanced
                 isFee
@@ -100,26 +101,9 @@ class MarketplaceDelete extends React.Component {
                     image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
                     description: goods ? goods.description : null
                 }}
-                modalTitle={`${goods ? goods.priceATM / 100000000 : null} Apollo`}
                 submitButtonName="Change quantity"
             >
-                {
-                    goods &&  
-                    <>
-                        <TextualInput
-                            label="Date:" 
-                            text={formatTimestamp(goods.timestamp)}
-                        />
-                        <TextualInput
-                            label="Seller:" 
-                            text={goods.sellerRS}
-                        />
-                        <TextualInput
-                            label="Current quantity:" 
-                            text={goods.quantity}
-                        />
-                    </>
-                }
+                <Form goods={this.state.goods}/>
             </ModalBody>
         );
     }

@@ -93,19 +93,31 @@ class ModalBody extends React.Component {
                                     }
 
                                     {
-                                        marketplace && modalTitle &&
+                                        modalTitle &&
                                         <div className="form-title">
                                             {
                                                 !isDisabledBackArrow && 
                                                 modalsHistory.length > 1 &&
                                                 <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
                                             }
-                                            <p>{marketplace.name || modalTitle}</p>
+                                            <p>{modalTitle}</p>
                                         </div>
                                     }
 
                                     {
-                                        marketplace.name && 
+                                        marketplace &&
+                                        <div className="form-title">
+                                            {
+                                                !isDisabledBackArrow && 
+                                                modalsHistory.length > 1 &&
+                                                <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
+                                            }
+                                            <p>{marketplace.name}</p>
+                                        </div>
+                                    }
+
+                                    {
+                                        marketplace && marketplace.name && 
                                         <div className="price">
                                             {marketplace.priceATM / 100000000} Apollo
                                         </div>

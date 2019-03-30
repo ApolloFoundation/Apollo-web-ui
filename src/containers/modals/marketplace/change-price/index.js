@@ -13,9 +13,8 @@ import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 
-import NummericInput from '../../../components/form-components/numeric-input';
 import ModalBody from '../../../components/modals/modal-body';
-import TextualInput from '../../../components/form-components/textual-input';
+import Form from './form';
 
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
@@ -85,6 +84,7 @@ class MarketplaceChangePrice extends React.Component {
 
         return (
             <ModalBody
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 closeModal={this.props.closeModal}
                 isAdvanced
                 isFee
@@ -96,36 +96,9 @@ class MarketplaceChangePrice extends React.Component {
                     image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
                     description: goods ? goods.description : null
                 }}
-                modalTitle={`${goods ? goods.priceATM / 100000000 : null} Apollo`}
                 submitButtonName="Change price"
             >
-                {
-                    goods &&  
-                    <>
-                        <TextualInput
-                            label="Date:" 
-                            text={formatTimestamp(goods.timestamp)}
-                        />
-                        <TextualInput
-                            label="Seller:" 
-                            text={goods.sellerRS}
-                        />
-                        <TextualInput
-                            label="Quantity:" 
-                            text={goods.quantity}
-                        />
-                        <TextualInput
-                            label="Current price:" 
-                            text={`${(this.state.goods.priceATM / 100000000).toLocaleString('en')} APL`}
-                        />
-                        <NummericInput
-                            label="Quantity:"
-                            field="priceATM"
-                            placeholder="Quantity"
-                            defaultValue={1}
-                        />
-                    </>
-                }
+                <Form goods={this.state.goods}/>
             </ModalBody>
         );
     }
