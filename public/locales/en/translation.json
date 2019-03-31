@@ -1738,6 +1738,7 @@
   "dividend_height": "Dividend Height",
   "encrypted_file_upload_not_supported": "Encrypted file upload is not supported by this browser",
   "error_message_too_big": "Message file is too big",
+  "error_secret_file_too_big": "Secret file is too big",
   "download_verification": "Make sure the file downloaded from __url__ has sha256 hash code __hash__ or download the file using the web wallet",
   "status_blockchain_downloading_proxy": "The blockchain is currently downloading. You are connected to a remote node __peer__",
   "status_light_client_proxy": "Running as light client. You are connected using remote node __peer__",

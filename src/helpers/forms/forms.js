@@ -897,8 +897,8 @@ function getFileUploadConfig(requestType, data) {
         } else if (requestType === "importKeyViaFile") {
             config.selector = "#upload_file_message";
             config.requestParam = "keyStore";
-            config.errorDescription = "error_message_too_big";
-            // config.maxSize = account.constants.maxPrunableMessageLength; //TODO: set max file size
+            config.errorDescription = "error_secret_file_too_big";
+            config.maxSize = (account.constants && account.constants.maxImportSecretFileLength) || 1000;
             return config;
         }
         return null;
