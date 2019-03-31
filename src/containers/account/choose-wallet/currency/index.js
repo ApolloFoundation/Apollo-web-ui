@@ -13,7 +13,16 @@ class CurrencyDescriptionComponent extends Component {
         const balanceFormat = formatCrypto(balance);
         return (
             <tr>
-                <td>{address}</td>
+                <td>
+                    <CopyToClipboard
+                        text={address}
+                        onCopy={() => {
+                            NotificationManager.success('The wallet address has been copied to clipboard.')
+                        }}
+                    >
+                        <span className="cursor-pointer">{address}</span>
+                    </CopyToClipboard>
+                </td>
                 <td>{balanceFormat}</td>
                 <td>
                     <div className="btn-box inline">
