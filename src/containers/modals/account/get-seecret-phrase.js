@@ -11,6 +11,7 @@ import {setAccountPassphrase} from '../../../modules/account';
 import {getForging} from "../../../actions/login"
 import crypto from  '../../../helpers/crypto/crypto';
 
+import InfoBox               from '../../components/info-box';
 import ModalBody             from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import {CheckboxFormInput}   from '../../components/form-components/check-button-input';
@@ -56,6 +57,9 @@ class PrivateTransactions extends React.Component {
                 isDisableSecretPhrase
                 nameModel={this.props.nameModal}
             >
+                <InfoBox info>
+                    You can start forging only if your effective balance exceed 1000 Apollo.  
+                </InfoBox>
 
                 <TextualInputComponent
                     field={'passphrase'}
