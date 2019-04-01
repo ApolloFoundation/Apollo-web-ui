@@ -143,6 +143,34 @@ class Sidebar extends React.Component {
 									</ul>
 								</div>
 							</li>
+                            <li>
+                                <NavLink
+                                    style={{background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'}}
+                                    exact={true}
+                                    className={`text ${this.getNavLinkClass(["/exchange", "/choose-wallet"])}`}
+                                    activeClassName="active"
+                                    to="/exchange"
+                                >
+                                    Exchange
+                                    <i className="zmdi zmdi-trending-up left"/>
+                                    <i className="zmdi zmdi-chevron-right right"/>
+                                </NavLink>
+                                <div
+                                    style={{background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'}}
+                                    className="dropdown-menu"
+                                >
+                                    <ul>
+                                        <li>
+                                            <NavLink
+                                                activeClassName="active"
+                                                to="/choose-wallet"
+                                            >
+                                                Wallets
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
 							<li>
 
 								<NavLink exact={true}
@@ -398,34 +426,6 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-accounts left"/>
 								</NavLink>
 							</li>
-                            <li>
-                                <NavLink
-                                    style={{background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'}}
-                                    exact={true}
-                                    className={`text ${this.getNavLinkClass(["/exchange", "/choose-wallet"])}`}
-                                    activeClassName="active"
-                                    to="/exchange"
-                                >
-                                    Exchange
-                                    <i className="zmdi zmdi-trending-up left"/>
-                                    <i className="zmdi zmdi-chevron-right right"/>
-                                </NavLink>
-                                <div
-                                    style={{background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'}}
-                                    className="dropdown-menu"
-                                >
-                                    <ul>
-                                        <li>
-                                            <NavLink
-                                                activeClassName="active"
-                                                to="/choose-wallet"
-                                            >
-                                                Wallets
-                                            </NavLink>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
 						</ul>
 					</nav>
 					<a

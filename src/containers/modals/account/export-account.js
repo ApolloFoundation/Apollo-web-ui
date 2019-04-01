@@ -14,6 +14,7 @@ import crypto from '../../../helpers/crypto/crypto';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
+import {base64ToBlob} from "../../../helpers/format";
 import {getAccountDataAction} from "../../../actions/login";
 import {exportAccount} from '../../../actions/account';
 
@@ -45,10 +46,11 @@ class ExportAccount extends React.Component {
 
         if (accountKeySeedData) {
             if (!accountKeySeedData.errorCode && accountKeySeedData.file) {
-                this.setState({accountKeySeedData: accountKeySeedData.file}, () => {
+                this.setState({accountKeySeedData}, async () => {
                     this.downloadSecretFile.current.download = values.account;
-                    const blobFile = new Blob([accountKeySeedData.file], {type: 'application/octet-stream'});
+                    const blobFile = await base64ToBlob(accountKeySeedData.file);
                     this.downloadSecretFile.current.href = window.URL.createObjectURL(blobFile);
+                    this.setState({accountKeySeedData: {href: this.downloadSecretFile.current.href}});
                     this.downloadSecretFile.current.click();
                 });
             } else {

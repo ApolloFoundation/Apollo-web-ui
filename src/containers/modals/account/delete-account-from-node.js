@@ -24,6 +24,7 @@ import ModalFooter from '../../components/modal-footer'
 import {removeAccountAction} from '../../../actions/account'
 import jsPDF from "jspdf";
 import QRCode from "qrcode";
+import {base64ToBlob} from "../../../helpers/format";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -110,7 +111,6 @@ class DeleteAccountFromWebNode extends React.Component {
     };
 
     render() {
-        const blobFile = new Blob([this.props.modalData[1].value], {type: 'application/octet-stream'});
         return (
             <div className="modal-box">
                 <Form
@@ -131,9 +131,10 @@ class DeleteAccountFromWebNode extends React.Component {
                                     <br/>
                                     <br/>
                                     <a
-                                        href={window.URL.createObjectURL(blobFile)}
+                                        href={this.props.modalData[1].value.href}
                                         download={this.props.modalData[0].value}
                                         className="btn blue static"
+                                        target="_blank"
                                     >
                                         Download Secret File
                                     </a>

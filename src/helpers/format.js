@@ -5,3 +5,7 @@ export const formatCrypto = (value) => {
         maximumFractionDigits: 6
     }) : value;
 };
+
+export const base64ToBlob = (url) => {
+    return fetch(`data:application/octet-stream;base64,${url}`).then(res => res.blob());
+};

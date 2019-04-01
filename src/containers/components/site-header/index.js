@@ -475,6 +475,21 @@ class SiteHeader extends React.Component {
                                             <AccordionItem>
                                                 <div className={"mobile-nav-item"}>
                                                     <AccordionItemTitle
+                                                        className={`text ${this.getNavLinkClass(["/exchange", "/choose-wallet"])}`}>
+                                                        <i className="zmdi zmdi-trending-up"/>Exchange
+                                                        <span className="arrow"/>
+                                                    </AccordionItemTitle>
+                                                    <AccordionItemBody>
+                                                        <div className="item-dropdown">
+                                                            <NavLink to="/exchange">Exchange</NavLink>
+                                                            <NavLink to="/choose-wallet">Wallets</NavLink>
+                                                        </div>
+                                                    </AccordionItemBody>
+                                                </div>
+                                            </AccordionItem>
+                                            <AccordionItem>
+                                                <div className={"mobile-nav-item"}>
+                                                    <AccordionItemTitle
                                                         className={`text ${this.getNavLinkClass(["/trade-history",
                                                             "/transfer-history",
                                                             "/delete-history",
@@ -644,24 +659,6 @@ class SiteHeader extends React.Component {
                                                  className={"mobile-nav-item"}>
                                             <p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
                                         </NavLink>
-
-                                        <Accordion>
-                                            <AccordionItem>
-                                                <div className={"mobile-nav-item"}>
-                                                    <AccordionItemTitle
-                                                        className={`text ${this.getNavLinkClass(["/exchange", "/choose-wallet"])}`}>
-                                                        <i className="zmdi zmdi-trending-up"/>Exchange
-                                                        <span className="arrow"/>
-                                                    </AccordionItemTitle>
-                                                    <AccordionItemBody>
-                                                        <div className="item-dropdown">
-                                                            <NavLink to="/exchange">Exchange</NavLink>
-                                                            <NavLink to="/choose-wallet">Wallets</NavLink>
-                                                        </div>
-                                                    </AccordionItemBody>
-                                                </div>
-                                            </AccordionItem>
-                                        </Accordion>
 
                                         <div className="btn-block">
                                             <div className="close-menu-btn" onClick={this.closeMenu}>
