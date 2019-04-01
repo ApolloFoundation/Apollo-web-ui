@@ -20,6 +20,7 @@ import {exportAccount} from '../../../actions/account';
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     account: state.account.accountRS,
+    is2fa: state.account.is2FA,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -43,10 +44,10 @@ class ExportAccount extends React.Component {
         const accountKeySeedData = await this.props.exportAccount(values);
 
         if (accountKeySeedData) {
-            if (!accountKeySeedData.errorCode && accountKeySeedData.size > 0) {
-                this.setState({accountKeySeedData}, () => {
+            if (!accountKeySeedData.errorCode && accountKeySeedData.file) {
+                this.setState({accountKeySeedData: accountKeySeedData.file}, () => {
                     this.downloadSecretFile.current.download = values.account;
-                    this.downloadSecretFile.current.href = window.URL.createObjectURL(accountKeySeedData);
+                    this.downloadSecretFile.current.href = window.URL.createObjectURL(accountKeySeedData.file);
                     this.downloadSecretFile.current.click();
                 });
             } else {
@@ -105,6 +106,21 @@ class ExportAccount extends React.Component {
                                             placeholder="Secret Phrase"/>
                                     </div>
                                 </div>
+                                {
+                                    this.props.is2fa &&
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            2FA code
+                                        </label>
+                                        <div className="col-sm-9">
+                                            <Text
+                                                type="password"
+                                                field="code2FA"
+                                                placeholder="2FA code"
+                                            />
+                                        </div>
+                                    </div>
+                                }
 
                                 {this.state && this.state.accountKeySeedData ?
                                     <React.Fragment>

@@ -155,11 +155,9 @@ export function exportAccount(requestParams) {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
         })
-            .then(res => res.blob())
+            .then(res => res.json())
             .then(async (res) => {
-                if (!res.errorCode) {
-                    return res;
-                }
+                return res;
             })
             .catch(() => {
 
