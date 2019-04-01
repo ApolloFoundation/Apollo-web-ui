@@ -27,7 +27,7 @@ const SellToAllForm = (props) => {
 
             <NumericInputComponent
                 label={'Price'}
-                field={'priceAPL'}
+                field={'priceATM'}
                 placeholder={'Price'}
                 setValue={setValue}
             />

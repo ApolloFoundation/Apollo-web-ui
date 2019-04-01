@@ -41,7 +41,7 @@ class MarketplaceDashboardHeader extends Component {
                     'col-md-6  col-lg-3 marketplace-preview-item' : !this.state.isShowMore,
                     'col-md-6' : this.state.isShowMore,
                     'pb-3': true,
-                    'pl-3': true,
+                    'pl-0': true,
                     'pr-0': true,
                 })}>
                     <MarketplaceTags

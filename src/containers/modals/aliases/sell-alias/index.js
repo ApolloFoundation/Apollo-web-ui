@@ -23,6 +23,7 @@ class SellAlias extends React.Component {
 
         this.state = {
             activeTab: 0,
+            activeForm: 0, 
             advancedState: false,
 
             // submitting
@@ -49,15 +50,41 @@ class SellAlias extends React.Component {
     };
 
     async handleFormSubmit(values) {
+        
+        switch (this.state.activeForm) {
+            case 0: 
+                values = {...this.state.sellToSpeciffic};
+                break;
+
+            case 1: 
+                values = {...this.state.sellToAll};
+                break;
+            
+            default : return; 
+        }
 
         values = {
             ...values,
             aliasName: this.state.alias.aliasName,
         };
 
+        console.log(this.state.activeForm)
+
         this.props.processForm(values, 'sellAlias', 'Alias has been listed!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('Alias has been listed!', null, 5000);
+        });
+    }
+
+    onFocus = (activeForm) => {
+        this.setState({
+            activeForm
+        })
+    }
+
+    handleSellAlias = ({values}, field) => {
+        this.setState({
+            [field]: values
         });
     }
 
@@ -72,7 +99,9 @@ class SellAlias extends React.Component {
                 isAdvanced={true}
                 isAdvancedWhite
             >
-                <SellAliasForm 
+                <SellAliasForm
+                    handleSellAlias={this.handleSellAlias} 
+                    onFocus={this.onFocus}
                     alias={this.state.alias}
                     closeModal={this.props.closeModal} 
                     handleFormSubmit={this.handleFormSubmit} 

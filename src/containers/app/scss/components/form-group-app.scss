@@ -8,6 +8,12 @@
 	height: calc(100% - 15px);
 	//overflow: hidden;
 	
+	&.is-double {
+
+		padding: 0;
+
+		
+	}
 	.form-control:focus {
 		box-shadow: none;
 	}
@@ -27,10 +33,11 @@
 		flex-wrap: nowrap;
 		justify-content: space-between;
 		overflow: hidden;
+		padding: 0 !important;
 		
 		.left-bar {
 			width: 50%;
-			margin: -35px 0 -70px -35px;
+			// margin: -35px 0 -70px -35px;
 			// border-right: 5px solid #E6E6E6;
 			
 			.top-bar {
@@ -53,7 +60,10 @@
 		}
 		.right-bar {
 			width: 50%;
-			
+			padding-bottom: 92px;
+			position: relative;
+			padding: 35px 35px 92px 35px;
+
 			.price {
 				padding-top: 35px;
 				padding-bottom: 30px;
@@ -225,6 +235,7 @@
 		background-position: center;
 		
 		&.no-image {
+			width: 100%;
 			background-size: 30% !important;
 			background-image: url(../../assets/no-photo.svg) !important;
 			background-color: #eee !important;

@@ -209,53 +209,119 @@ const MarketplaceItem = (props, history) => (
                                 {props.description}
                             </div>
                         </div>
-                        <div className="item tags-links">
-                            <div className="top">
-                                <div className="seller">
-                                    <div className="name">Seller:</div>
-                                    <div className="link-date">
-                                        <div className="link cursor-pointer"
-                                            onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}>
-                                            {props.sellerRS}
-                                        </div>
-                                        <div className="date">Listing
-                                            Date: {props.formatTimestamp(props.timestamp)}</div>
+                        {
+                            props.completedOrders &&
+                            <div className="info-table">
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Buyer:</span></div>
+                                    <div className="t-cell">
+                                        <a onClick={() => props.setBodyModalParamsAction("INFO_ACCOUNT", props.buyerRS)} className="blue-text">
+                                            {props.buyerRS}
+                                        </a>
+                                        <Link to={'/marketplace/' + props.sellerRS}
+                                            className="btn primary blue ml-3"
+                                        >
+                                            Store
+                                        </Link>
                                     </div>
-                                    <Link to={'/marketplace/' + props.sellerRS}
-                                        className="btn primary blue"
-                                    >
-                                        Store
-                                    </Link>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Order date:</span></div>
+                                    <div className="t-cell">{props.formatTimestamp(props.timestamp)}</div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Order status:</span></div>
+                                    <div className="t-cell">{props.pending ? "Pending" : "Completed"}</div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Quantity:</span></div>
+                                    <div className="t-cell">{props.quantity}</div>
                                 </div>
                             </div>
-                            <div className="bottom">
-                                {
-                                    props.parsedTags &&
+                        }
+
+                        {
+                            props.deliver &&
+                            <div className="info-table">
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Buyer:</span></div>
+                                    <div className="t-cell"><a onClick={() => props.setBodyModalParamsAction("INFO_ACCOUNT", props.buyerRS)} className="blue-text">{props.buyerRS}</a></div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Order date:</span></div>
+                                    <div className="t-cell">{props.formatTimestamp(props.timestamp)}</div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Delivery deadline:</span></div>
+                                    <div className="t-cell">{props.formatTimestamp(props.deliveryDeadlineTimestamp)}</div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell"><span>Quantity:</span></div>
+                                    <div className="t-cell">{props.quantity}</div>
+                                </div>
+                                <div className="t-row">
+                                    <div className="t-cell">
+                                        <a
+                                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOODS_DELIVER', props.purchase)}
+                                            className="btn blue static cursor-pointer"
+                                        >
+                                            Deliver Goods
+                                        </a>
+                                    </div>
+                                    <div className="t-cell"></div>
+                                </div>
+                            </div> 
+                            
+                        }{
+                            !props.deliver && !props.completedOrders && 
+                            <div className="item tags-links">
+                                <div className="top">
                                     <div className="seller">
-                                        <div className="name">Tags:</div>
-                                        <div className="tags">
-                                            {
-                                                props.parsedTags &&
-                                                props.parsedTags.map((el, index) => {
-                                                    return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
-                                                                className="btn static primary">{el}</Link>
-                                                })}
+                                        <div className="name">Seller:</div>
+                                        <div className="link-date">
+                                            <div className="link cursor-pointer"
+                                                onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}>
+                                                {props.sellerRS}
+                                            </div>
+                                            <div className="date">Listing
+                                                Date: {props.formatTimestamp(props.timestamp)}</div>
                                         </div>
+                                        <Link to={'/marketplace/' + props.sellerRS}
+                                            className="btn primary blue"
+                                        >
+                                            Store
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="bottom">
+                                    {
+                                        props.parsedTags &&
+                                        <div className="seller">
+                                            <div className="name">Tags:</div>
+                                            <div className="tags">
+                                                {
+                                                    props.parsedTags &&
+                                                    props.parsedTags.map((el, index) => {
+                                                        return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
+                                                                    className="btn static primary">{el}</Link>
+                                                    })}
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                {
+                                    props.deliver &&
+                                    <div className="deliver" style={{paddingTop: 35}}>
+                                        <a
+                                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOODS_DELIVER', props.purchase)}
+                                            className="btn blue static cursor-pointer"
+                                        >
+                                            Deliver Goods
+                                        </a>
                                     </div>
                                 }
                             </div>
-                            {
-                                props.deliver &&
-                                <div className="deliver" style={{paddingTop: 35}}>
-                                    <a
-                                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOODS_DELIVER', props.purchase)}
-                                        className="btn blue static cursor-pointer"
-                                    >
-                                        Deliver Goods
-                                    </a>
-                                </div>
-                            }
-                        </div>
+                        }
                     </div>
                 </React.Fragment>
             }
