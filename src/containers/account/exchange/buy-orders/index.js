@@ -1,39 +1,7 @@
 import React from 'react';
 import CustomTable from '../../../components/tables/table';
 import ArrowUp from '../../../../assets/arrow-up.png';
-
-const buyOrders = [
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-];
+import buyOrders from '../buyOrders';
 
 const BuyOrders = ({currentCurrency}) => (
     <div className={'card-block primary p-0'}>

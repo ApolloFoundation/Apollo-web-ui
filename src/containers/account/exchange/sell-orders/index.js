@@ -1,39 +1,7 @@
 import React from 'react';
 import CustomTable from '../../../components/tables/table';
 import ArrowDown from '../../../../assets/arrow-down.png';
-
-const buyOrders = [
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-];
+import sellOrdersVal from '../sellOrders';
 
 const SellOrders = ({currentCurrency}) => (
     <div className={'card-block primary form-group-app p-0'}>
@@ -59,7 +27,7 @@ const SellOrders = ({currentCurrency}) => (
                 }
             ]}
             className={'mb-3 pt-0 no-min-height no-padding'}
-            tableData={buyOrders}
+            tableData={sellOrdersVal}
             emptyMessage={'No account properties found .'}
             TableRowComponent={(props) => (
                 <tr className={''}>

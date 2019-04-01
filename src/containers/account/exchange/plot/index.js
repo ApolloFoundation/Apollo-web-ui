@@ -2,29 +2,11 @@ import React from 'react';
 import {Bar} from 'react-chartjs-2';
 
 import EthIcon from '../../../../assets/ETH.png';
+import buyOrdersVal from '../buyOrders';
+import sellOrdersVal from '../sellOrders';
 
-const buyOrders = [
-    {
-        x: "Buy Order Group 0",
-        y: 95,
-    }, {
-        x: "Buy Order Group 1",
-        y: 85
-    }, {
-        x: "Buy Order Group 2",
-        y: 75
-    }, {
-        x: "Buy Order Group 3",
-        y: 65
-    }, {
-        x: "Buy Order Group 4",
-        y: 55
-    }, {
-        x: "Buy Order Group 5",
-        y: 45
-    },
-].map((el, index) => ({
-    label: el.x,
+const buyOrders = buyOrdersVal.map((el, index) => ({
+    label: `Buy ${el.price}`,
     fill: false,
     lineTension: 0.1,
     backgroundColor: '#F36',
@@ -41,31 +23,11 @@ const buyOrders = [
     pointHoverBorderColor: 'rgba(220,220,220,1)',
     pointRadius: 1,
     pointHitRadius: 10,
-    data: [{x: 10 * index, y:el.y, r: 5}]
+    data: [{x: 10 * index, y: parseFloat(el.amount), r: 5}]
 }));
 
-const sellOrders = [
-    {
-        x: "Sell Order Group 0",
-        y: 55
-    }, {
-        x: "Sell Order Group 1",
-        y: 65
-    }, {
-        x: "Sell Order Group 2",
-        y: 75
-    }, {
-        x: "Sell Order Group 3",
-        y: 85
-    }, {
-        x: "Sell Order Group 4",
-        y: 95
-    }, {
-        x: "Sell Order Group 5",
-        y: 105
-    }
-].map((el, index) => ({
-    label: el.x,
+const sellOrders = sellOrdersVal.map((el, index) => ({
+    label: `Sell ${el.price}`,
     fill: false,
     lineTension: 0.1,
     backgroundColor: 'rgba(0,189,32,0.92)',
@@ -82,11 +44,10 @@ const sellOrders = [
     pointHoverBorderColor: 'rgba(220,220,220,1)',
     pointRadius: 1,
     pointHitRadius: 10,
-    data: [{x: 10 * index, y:el.y, r: 5}]
+    data: [{x: 10 * index, y: parseFloat(el.amount), r: 5}]
 }));
 
 export default class Plot extends React.Component {
-
     state = {
         data : {
             labels: ['Orders'],
@@ -97,7 +58,7 @@ export default class Plot extends React.Component {
     onHandleFilterBuy = () => {
         this.setState({
             data : {
-                labels: ['Orders'],
+                labels: ['Orders Buy'],
                 datasets: [...buyOrders]
             }
         })
@@ -106,8 +67,17 @@ export default class Plot extends React.Component {
     onHandleFilterSell = () => {
         this.setState({
             data : {
-                labels: ['Orders'],
+                labels: ['Orders Sell'],
                 datasets: [...sellOrders]
+            }
+        })
+    };
+
+    onHandleFilterFull = () => {
+        this.setState({
+            data : {
+                labels: ['Orders'],
+                datasets: [...buyOrders, ...sellOrders]
             }
         })
     };
@@ -139,24 +109,24 @@ export default class Plot extends React.Component {
                                     Sell
                                 </button>
                                 <button
-                                    onClick={this.onHandleFilterSell}
+                                    onClick={this.onHandleFilterFull}
                                     className={'btn btn-sm blue ml-3 mt-2'}
                                 >
                                     Price
                                 </button>
                                 <button
-                                    onClick={this.onHandleFilterSell}
+                                    onClick={this.onHandleFilterFull}
                                     className={'btn btn-sm blue ml-3 mr-3 mt-2'}
                                 >
-                                    Value
+                                    Amount
                                 </button>
                             </div>
                             <div className={'info-section'}>
                                 <div>
-                                    0.00001767 <span className={'green'}>+11.70%</span>
+                                    0.00001540 <span className={'green'}>+11.19%</span>
                                 </div>
                                 <div className={'sub-info-section'}>
-                                    ≈0.0019$ (0.12%)
+                                    ≈0.0022$ (0.12%)
                                 </div>
                             </div>
                         </div>
