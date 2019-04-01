@@ -5644,3 +5644,7 @@ input[type="number"] {
 
 .site-content .page-body {
   z-index: -1; }
+
+.word-break-all {
+  word-break: break-all;
+  display: inline-block; }
