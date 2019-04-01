@@ -47,7 +47,8 @@ class ExportAccount extends React.Component {
             if (!accountKeySeedData.errorCode && accountKeySeedData.file) {
                 this.setState({accountKeySeedData: accountKeySeedData.file}, () => {
                     this.downloadSecretFile.current.download = values.account;
-                    this.downloadSecretFile.current.href = window.URL.createObjectURL(accountKeySeedData.file);
+                    const blobFile = new Blob([accountKeySeedData.file], {type: 'application/octet-stream'});
+                    this.downloadSecretFile.current.href = window.URL.createObjectURL(blobFile);
                     this.downloadSecretFile.current.click();
                 });
             } else {

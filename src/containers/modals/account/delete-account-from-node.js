@@ -110,6 +110,7 @@ class DeleteAccountFromWebNode extends React.Component {
     };
 
     render() {
+        const blobFile = new Blob([this.props.modalData[1].value], {type: 'application/octet-stream'});
         return (
             <div className="modal-box">
                 <Form
@@ -130,7 +131,7 @@ class DeleteAccountFromWebNode extends React.Component {
                                     <br/>
                                     <br/>
                                     <a
-                                        href={window.URL.createObjectURL(this.props.modalData[1].value)}
+                                        href={window.URL.createObjectURL(blobFile)}
                                         download={this.props.modalData[0].value}
                                         className="btn blue static"
                                     >
