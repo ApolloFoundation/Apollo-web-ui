@@ -1,0 +1,484 @@
+.form-group-app {
+  padding: 35px;
+  box-sizing: border-box;
+  width: 100%;
+  background: #fff;
+  border-radius: 7px;
+  height: calc(100% - 15px); }
+  .form-group-app.is-double {
+    padding: 0; }
+  .form-group-app .form-control:focus {
+    box-shadow: none; }
+  @media (max-width: 768px) {
+    .form-group-app.media-tab {
+      display: flex;
+      flex-direction: column; }
+      .form-group-app.media-tab .form-tabulator {
+        height: 100%; } }
+  .form-group-app.devided {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 0 !important; }
+    .form-group-app.devided .left-bar {
+      width: 50%; }
+      .form-group-app.devided .left-bar .top-bar .marketplace-image {
+        margin: 0;
+        height: 300px;
+        margin: 0; }
+      .form-group-app.devided .left-bar .bottom-bar .description {
+        padding: 35px;
+        line-height: 1.6; }
+      @media (max-width: 768px) {
+        .form-group-app.devided .left-bar {
+          width: 100%;
+          margin: 0; } }
+    .form-group-app.devided .right-bar {
+      width: 50%;
+      padding-bottom: 92px;
+      position: relative;
+      padding: 35px 35px 92px 35px; }
+      .form-group-app.devided .right-bar .price {
+        padding-top: 35px;
+        padding-bottom: 30px;
+        color: #333333;
+        font-size: 36px;
+        line-height: 18px; }
+      .form-group-app.devided .right-bar .info-table {
+        padding-bottom: 30px; }
+      @media (max-width: 768px) {
+        .form-group-app.devided .right-bar {
+          width: 100%;
+          padding: 35px 35px 69px 35px; } }
+    @media (max-width: 768px) {
+      .form-group-app.devided {
+        flex-direction: column;
+        padding: 0; } }
+  .form-group-app.about .left-bar {
+    width: 200px;
+    margin: 0; }
+  .form-group-app.about .right-bar {
+    width: calc(100% - 160px); }
+    .form-group-app.about .right-bar .description {
+      color: #333333;
+      font-size: 14px;
+      line-height: 1.6;
+      padding-top: 48px; }
+      .form-group-app.about .right-bar .description p {
+        margin-top: 30px;
+        font-size: 14px; }
+        .form-group-app.about .right-bar .description p a {
+          color: #00C8FF;
+          font-weight: normal;
+          font-size: 14px; }
+  .form-group-app.transparent {
+    background: transparent; }
+  .form-group-app.offset {
+    height: 100%;
+    padding: 20px 0 0px; }
+  .form-group-app.compensate-margin {
+    margin: 0 -7.5px;
+    margin-bottom: 15px; }
+  .form-group-app.height-auto {
+    height: auto; }
+  .form-group-app.offset-bottom {
+    padding-bottom: 75px; }
+  .form-group-app.no-padding-top {
+    padding-top: 0; }
+  .form-group-app.no-padding-left {
+    padding-left: 0 !important; }
+  .form-group-app.no-padding-bottom {
+    padding-bottom: 0 !important; }
+  @media (max-width: 760px) {
+    .form-group-app .form-body {
+      padding-bottom: 30px; } }
+  .form-group-app .form-body .input-section {
+    padding-top: 35px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid #E6E6E6;
+    cursor: auto; }
+    @media (max-width: 760px) {
+      .form-group-app .form-body .input-section {
+        border-bottom: 1px solid #777; } }
+    .form-group-app .form-body .input-section:last-child {
+      padding-bottom: 0;
+      border-bottom: 0; }
+  .form-group-app .form-body .image-button {
+    margin-bottom: 10px;
+    cursor: pointer;
+    position: relative;
+    padding-left: 25px;
+    transition: 0.2s; }
+    .form-group-app .form-body .image-button:hover {
+      opacity: 0.7; }
+    .form-group-app .form-body .image-button:last-child {
+      margin-bottom: 0px; }
+    .form-group-app .form-body .image-button.success > * {
+      color: #2ecc71 !important; }
+    .form-group-app .form-body .image-button.danger > * {
+      color: #e74c3c !important; }
+    .form-group-app .form-body .image-button.active label, .form-group-app .form-body .image-button.active i {
+      color: #00c8ff; }
+      @media (max-width: 768px) {
+        .form-group-app .form-body .image-button.active label, .form-group-app .form-body .image-button.active i {
+          color: #fff; } }
+    .form-group-app .form-body .image-button .zmdi {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      font-size: 18px;
+      color: #333333;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px; }
+      @media (max-width: 760px) {
+        .form-group-app .form-body .image-button .zmdi {
+          color: #777; } }
+    .form-group-app .form-body .image-button label {
+      font-size: 13px;
+      color: #333333;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer; }
+      @media (max-width: 760px) {
+        .form-group-app .form-body .image-button label {
+          color: #777; } }
+  .form-group-app .form-body .row {
+    margin: 0 -5px; }
+    .form-group-app .form-body .row > * {
+      padding: 0 5px; }
+  .form-group-app .exit {
+    position: absolute;
+    top: 35px;
+    right: 35px; }
+    .form-group-app .exit i {
+      font-size: 20px; }
+  .form-group-app .marketplace-image {
+    margin: 0 -35px -70px;
+    background-color: #ccc;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center; }
+    .form-group-app .marketplace-image.no-image {
+      width: 100%;
+      background-size: 30% !important;
+      background-image: url(../../assets/no-photo.svg) !important;
+      background-color: #eee !important; }
+  .form-group-app .about-image {
+    height: 155px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+    background-image: url(../../assets/brand-logo.png) !important; }
+  .form-group-app .form-title {
+    padding-bottom: 23px; }
+    .form-group-app .form-title .backMy {
+      width: 16px;
+      height: 16px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: left;
+      background-image: url(../../assets/left-arrow1.svg);
+      margin-right: 8px;
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: middle;
+      transition: 0.2s;
+      float: left;
+      margin-top: 10px; }
+      .form-group-app .form-title .backMy:hover {
+        opacity: 0.7; }
+    .form-group-app .form-title.inline > * {
+      vertical-align: middle;
+      display: inline-block; }
+    .form-group-app .form-title.padding-left p {
+      padding-left: 55px; }
+    .form-group-app .form-title.offset-bottom p {
+      padding-bottom: 28px; }
+    .form-group-app .form-title.padding-top p {
+      padding-top: 30px; }
+    .form-group-app .form-title p {
+      color: #333333;
+      font-size: 24px;
+      word-break: break-word;
+      line-height: 1.6;
+      padding-right: 30px;
+      display: block;
+      vertical-align: middle;
+      word-wrap: break-word; }
+    .form-group-app .form-title .form-sub-title {
+      margin-top: 10px; }
+  .form-group-app .form-sub-title {
+    color: #BBBBBB;
+    font-size: 12px;
+    line-height: 19px;
+    margin-top: -12px; }
+    .form-group-app .form-sub-title.align-padding-bottom {
+      padding-bottom: 15px; }
+    .form-group-app .form-sub-title.align-margin-top {
+      margin-top: 5px; }
+    .form-group-app .form-sub-title.align-right {
+      text-align: right;
+      justify-content: flex-end; }
+  .form-group-app .input-group-app:last-child:not(:first-child) {
+    padding-bottom: 0 !important; }
+  .form-group-app .input-group-app.tabled {
+    display: table !important; }
+  .form-group-app .input-group-app.align-middle > * {
+    vertical-align: middle; }
+  .form-group-app .input-group-app.align-middle label {
+    padding-left: 20px; }
+  .form-group-app .input-group-app .input-wrapper {
+    width: 100%; }
+  .form-group-app .input-group-app input {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 5px;
+    border-color: #e5e5e5;
+    background-color: transparent; }
+  .form-group-app .input-group-app .input-group-text-transparent .form-control {
+    border-right: none; }
+  .form-group-app .input-group-app .input-group-text-transparent .input-group-text {
+    background-color: transparent;
+    color: #a6a6a6;
+    border-left: none;
+    border-color: #e5e5e5;
+    font-size: 11px;
+    line-height: 11px; }
+  .form-group-app .form-tabulator {
+    position: relative;
+    margin: 55px -35px -92px -35px;
+    background-color: #F5F5F5;
+    padding: 18px 35px 70px 35px;
+    display: none;
+    border-radius: 0 0 8px 8px; }
+    .form-group-app .form-tabulator.white {
+      background-color: white; }
+      .form-group-app .form-tabulator.white .form-tab-nav-box .form-tab {
+        background-color: #F5F5F5; }
+        .form-group-app .form-tabulator.white .form-tab-nav-box .form-tab.active {
+          background-color: #fff; }
+    .form-group-app .form-tabulator.active {
+      display: block; }
+    .form-group-app .form-tabulator .form-tab-nav-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      position: absolute;
+      overflow-x: auto;
+      bottom: 100%;
+      right: 20px;
+      left: 20px; }
+      .form-group-app .form-tabulator .form-tab-nav-box.justify-left {
+        justify-content: flex-start; }
+        .form-group-app .form-tabulator .form-tab-nav-box.justify-left .form-tab {
+          margin-right: 15px;
+          width: auto;
+          padding: 0 15px;
+          white-space: pre; }
+      .form-group-app .form-tabulator .form-tab-nav-box .form-tab {
+        display: flex;
+        align-items: center;
+        width: 54px;
+        height: 32px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px; }
+        .form-group-app .form-tabulator .form-tab-nav-box .form-tab.active {
+          background-color: #F5F5F5; }
+        .form-group-app .form-tabulator .form-tab-nav-box .form-tab p {
+          font-size: 14px !important; }
+        .form-group-app .form-tabulator .form-tab-nav-box .form-tab > * {
+          margin: auto;
+          font-size: 14px; }
+      .form-group-app .form-tabulator .form-tab-nav-box.form-tab-icons .form-tab > * {
+        margin: auto;
+        font-size: 18px; }
+    .form-group-app .form-tabulator .tab-body {
+      display: none; }
+      .form-group-app .form-tabulator .tab-body.active {
+        display: block; }
+    .form-group-app .form-tabulator .form-sub-actions {
+      display: block;
+      padding-top: 7px; }
+      .form-group-app .form-tabulator .form-sub-actions .form-group-app {
+        background-color: transparent;
+        padding: 0; }
+  .form-group-app .form-group-grey {
+    align-items: center; }
+    .form-group-app .form-group-grey.row {
+      margin-left: 0 !important; }
+    .form-group-app .form-group-grey label {
+      color: #333333;
+      letter-spacing: 0.3px;
+      line-height: 16px;
+      padding: 0; }
+    .form-group-app .form-group-grey .no-left-padding {
+      padding-left: 7px; }
+    .form-group-app .form-group-grey .form-control {
+      background-color: transparent;
+      border-color: #e5e5e5;
+      color: #727272;
+      line-height: 2.1;
+      letter-spacing: 0.2px;
+      font-size: 11.5px;
+      border-radius: 5px;
+      padding: 0.25rem 25px 0.2rem 0.5rem; }
+      .form-group-app .form-group-grey .form-controlselect {
+        background-color: #e5e5e5; }
+      .form-group-app .form-group-grey .form-control:focus {
+        box-shadow: none; }
+    .form-group-app .form-group-grey .form-group-select {
+      /*&::after {
+				content: "\f2f9";
+				color: #727272;
+				position: absolute;
+				top: 7px;
+				right: 25px;
+				font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
+				cursor: pointer;
+			}*/ }
+      .form-group-app .form-group-grey .form-group-select select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding: 0.25rem 0.5rem 0.2rem;
+        height: auto;
+        background-color: #e5e5e5; }
+        .form-group-app .form-group-grey .form-group-select select::-ms-expand {
+          display: none; }
+    .form-group-app .form-group-grey .input-group-text {
+      background-color: #e5e5e5;
+      border-color: #e5e5e5;
+      color: #707070; }
+    .form-group-app .form-group-grey .input-group-icon {
+      font-size: 18px;
+      padding: 5px 9px; }
+    .form-group-app .form-group-grey .input-group .form-control {
+      border-radius: 5px 0 0 5px; }
+    .form-group-app .form-group-grey .input-group .input-group-text {
+      border-radius: 0 5px 5px 0; }
+    .form-group-app .form-group-grey .input-group.input-group-text-transparent .form-control {
+      border-right: none; }
+    .form-group-app .form-group-grey .input-group.input-group-text-transparent .input-group-text {
+      background-color: transparent;
+      color: #a6a6a6;
+      border-left: none; }
+    .form-group-app .form-group-grey .input-group.input-group-double .form-control {
+      border-right: none;
+      text-align: left; }
+    .form-group-app .form-group-grey .input-group.input-group-double .input-group-append {
+      flex: 2; }
+    .form-group-app .form-group-grey .input-group.input-group-double .input-group-text {
+      width: 100%;
+      background-color: transparent;
+      color: #a6a6a6;
+      border: 1px solid #e5e5e5;
+      border-left: none; }
+    .form-group-app .form-group-grey .calculate-fee {
+      color: #00C8FF;
+      font-size: 10px;
+      line-height: 14px;
+      padding-left: 5px;
+      cursor: pointer; }
+    @media (max-width: 768px) {
+      .form-group-app .form-group-grey {
+        flex-wrap: wrap;
+        margin-top: 7px; }
+        .form-group-app .form-group-grey .col-form-label {
+          margin-bottom: 7px; }
+        .form-group-app .form-group-grey > * {
+          padding-left: 0;
+          padding-right: 0; } }
+  .form-group-app .form-group-white {
+    align-items: center;
+    flex-wrap: nowrap; }
+    .form-group-app .form-group-white.row {
+      margin-left: 0 !important; }
+    .form-group-app .form-group-white label {
+      color: #333333;
+      letter-spacing: 0.3px;
+      line-height: 16px;
+      padding: 0; }
+    .form-group-app .form-group-white .form-control {
+      background-color: #ffffff;
+      border-color: #e5e5e5;
+      color: #727272;
+      line-height: 2.1;
+      letter-spacing: 0.2px;
+      font-size: 11.5px;
+      border-radius: 5px;
+      padding: 0.25rem 25px 0.2rem 0.5rem;
+      min-height: 32px; }
+      .form-group-app .form-group-white .form-controlselect {
+        background-color: #e5e5e5; }
+      .form-group-app .form-group-white .form-control:focus {
+        box-shadow: none; }
+      .form-group-app .form-group-white .form-control:disabled {
+        background-color: #e5e5e5; }
+        .form-group-app .form-group-white .form-control:disabled + .input-group-append .input-group-text {
+          color: #747474;
+          background-color: #e5e5e5; }
+    .form-group-app .form-group-white .form-group-select select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding: 0.25rem 0.5rem 0.2rem;
+      height: auto;
+      background-color: #e5e5e5; }
+      .form-group-app .form-group-white .form-group-select select::-ms-expand {
+        display: none; }
+    .form-group-app .form-group-white .form-group-select::after {
+      content: "\f2f9";
+      color: #727272;
+      position: absolute;
+      top: 7px;
+      right: 25px;
+      font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
+      cursor: pointer; }
+    .form-group-app .form-group-white .input-group-text {
+      background-color: #e5e5e5;
+      border-color: #e5e5e5;
+      color: #707070; }
+    .form-group-app .form-group-white .input-group-icon {
+      font-size: 18px;
+      padding: 5px 9px; }
+    .form-group-app .form-group-white .input-group .form-control {
+      border-radius: 5px 0 0 5px; }
+    .form-group-app .form-group-white .input-group .input-group-text {
+      border-radius: 0 5px 5px 0; }
+    .form-group-app .form-group-white .input-group.input-group-text-transparent .form-control {
+      border-right: none; }
+    .form-group-app .form-group-white .input-group.input-group-text-transparent .input-group-text {
+      background-color: transparent;
+      color: #a6a6a6; }
+    .form-group-app .form-group-white .input-group.input-group-double .form-control {
+      border-right: none;
+      text-align: left; }
+    .form-group-app .form-group-white .input-group.input-group-double .input-group-append {
+      flex: 2; }
+    .form-group-app .form-group-white .input-group.input-group-double .input-group-text {
+      background-color: transparent;
+      color: #a6a6a6;
+      border: 1px solid #e5e5e5; }
+    .form-group-app .form-group-white .calculate-fee {
+      color: #00C8FF;
+      font-size: 10px;
+      line-height: 14px;
+      padding-left: 5px;
+      cursor: pointer; }
+    @media (max-width: 768px) {
+      .form-group-app .form-group-white {
+        flex-wrap: wrap;
+        margin-top: 7px; }
+        .form-group-app .form-group-white .col-form-label {
+          margin-bottom: 7px; }
+        .form-group-app .form-group-white > * {
+          padding-left: 0;
+          padding-right: 0; } }
+  .form-group-app .btn {
+    font-size: 11px; }
+  .form-group-app .mb-15 {
+    margin-bottom: 15px; }

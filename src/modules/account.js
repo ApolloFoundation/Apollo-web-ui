@@ -3,9 +3,6 @@
  *                                                                            *
  ******************************************************************************/
 
-
-import {getAccountDataAction} from '../actions/login/index';
-
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
 export const SET_CONSTANTS = 'SET_CONSTANTS';
 export const START_LOAD = 'START_LOAD';
@@ -20,6 +17,7 @@ export const GET_FORGING = 'GET_FORGING';
 export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 export const SET_ADMIN_PASSWORD = 'SET_ADMIN_PASSWORD';
 export const SET_SHARE_MESSAGE = "SET_SHARE_MESSAGE";
+export const SET_WALLETS = "SET_WALLETS";
 
 const initialState = {
     settings: null,
@@ -50,7 +48,8 @@ const initialState = {
         is_remote_node_ssl: false,
         validators_count: 3,
         bootstrap_nodes_count: 5
-    }
+    },
+    wallets: null,
 };
 
 export default (state = initialState, action) => {
@@ -144,6 +143,11 @@ export default (state = initialState, action) => {
                 actualBlock: action.payload
             };
 
+        case SET_WALLETS:
+            return {
+                ...state,
+                wallets: action.payload
+            };
 
         default:
             return state
@@ -238,5 +242,14 @@ export const getState = () => {
     return (dispatch, getStore) => {
         const {account} = getStore();
         return account
+    }
+};
+
+export const setWallets = (wallets) => {
+    return dispatch => {
+        dispatch({
+            type: SET_WALLETS,
+            payload: wallets
+        });
     }
 };

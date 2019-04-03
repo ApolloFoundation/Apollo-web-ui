@@ -270,12 +270,14 @@ export async function logOutAction(action, history) {
         case('simpleLogOut'):
             localStorage.removeItem("APLUserRS");
             localStorage.removeItem("secretPhrase");
+            localStorage.removeItem("wallets");
             dispatch(login({account: null, accountRS: null}));
             dispatch(setAccountPassphrase(null))
             
             history.push('/login');
             return;
         case('logOutStopForging'):
+            localStorage.removeItem("wallets");
             const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
             const {account} = store.getState();
 

@@ -117,6 +117,10 @@ import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-curren
 import AssetDividendHistory from "./assets/view-asset-dividend-history";
 import PayDividends from "./assets/pay-dividends";
 
+//exchange
+import LoginToExchange from './exchange/login/';
+import WithdrawCurrency from './exchange/withdraw-currency/';
+
 class ModalWindow extends React.Component {
     constructor(props) {
         super(props);
@@ -317,6 +321,10 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
                     {this.props.modalType === 'SHARE_MESSAGE'               && <ShareMessage              closeModal={this.closeModal}/>}
                     {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency         closeModal={this.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
+
+                    {/* Exchange */}
+                    {this.props.modalType === 'LOGIN_EXCHANGE'              && <LoginToExchange           closeModal={this.closeModal}/>}
+                    {this.props.modalType === 'WITHDRAW_CURRENCY'           && <WithdrawCurrency          closeModal={this.closeModal}/>}
                 </ModalProvider>
             </div>
         );

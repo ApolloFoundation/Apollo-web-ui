@@ -1,0 +1,260 @@
+.card {
+  height: calc(33.33vh - 55px);
+  min-height: 255px;
+  border-radius: 6px;
+  background-color: #FFFFFF;
+  position: relative;
+  z-index: 3;
+  padding: 20px 30px;
+  width: 100%; }
+  .card.scroll {
+    overflow-y: auto; }
+  .card.transparent {
+    background: transparent; }
+  .card.card-flexible {
+    min-height: auto;
+    height: auto; }
+  .card.auto-height {
+    height: auto; }
+  .card.full-height {
+    height: 100%; }
+  .card.card-full-screen {
+    height: 100%;
+    min-height: auto !important; }
+    @media (max-width: 767px) {
+      .card.card-full-screen {
+        height: auto; } }
+  .card.fll-height {
+    height: calc(100% - 15px); }
+  .card.card-tall {
+    height: calc(62.666vh - 55px);
+    min-height: 520px; }
+  .card.card-tiny {
+    height: calc(25vh - 55px);
+    min-height: 185px; }
+  .card.card-medium {
+    height: calc(50vh - 55px);
+    min-height: 385px; }
+  .card.header {
+    padding: 50px 35px; }
+    .card.header.header-values {
+      padding: 30px 35px; }
+    .card.header.ballance {
+      background: linear-gradient(315deg, #0019E1 0%, #0050FF 100%); }
+    .card.header.assets {
+      background: linear-gradient(315deg, #008CDC 0%, #00C8FF 100%); }
+    .card.header.currencies {
+      background: linear-gradient(315deg, #00788C 0%, #00A0B4 100%); }
+    .card.header.coins {
+      background: linear-gradient(315deg, #008C46 0%, #00B45A 100%); }
+    .card.header.medium-padding {
+      padding: 35px 22.5px; }
+    .card.header .card-title {
+      font-size: 16px;
+      line-height: 18px;
+      color: #fff; }
+      .card.header .card-title.small {
+        font-size: 14px;
+        max-height: 125px;
+        overflow-y: auto; }
+      .card.header .card-title.big {
+        font-size: 42px;
+        line-height: 42px; }
+      .card.header .card-title.align-middle {
+        margin: auto 0; }
+      .card.header .card-title.bold {
+        font-weight: bold; }
+      .card.header .card-title.medium {
+        font-size: 24px;
+        line-height: 1.2; }
+    .card.header .asset-account-description {
+      width: 100%; }
+    .card.header .amount {
+      color: #FFFFFF;
+      font-size: 36px;
+      line-height: 1;
+      padding-right: 50px;
+      position: relative;
+      margin: 15px 0; }
+      @media (max-width: 1850px) {
+        .card.header .amount {
+          font-size: 30px; } }
+      @media (max-width: 1660px) {
+        .card.header .amount {
+          font-size: 24px; } }
+      @media (max-width: 1440px) {
+        .card.header .amount {
+          font-size: 18px; }
+          .card.header .amount .currency {
+            font-size: 11px !important; }
+          .card.header .amount .owned {
+            font-size: 20px !important; } }
+      .card.header .amount.time {
+        font-size: 22px; }
+      .card.header .amount .text {
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+        @media (max-width: 760px) {
+          .card.header .amount .text {
+            white-space: normal;
+            word-break: break-all; } }
+        @media (min-width: 760px) {
+          .card.header .amount .text:hover + .amount-tooltip {
+            opacity: 1;
+            top: calc(100% + 10px);
+            visibility: visible; } }
+      .card.header .amount .amount-tooltip {
+        opacity: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        font-size: 0.7em;
+        padding: 10px;
+        transition: 0.3s;
+        word-break: break-all;
+        visibility: hidden; }
+        .card.header .amount .amount-tooltip .amount-tooltip-text {
+          position: relative;
+          z-index: 2; }
+        .card.header .amount .amount-tooltip:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #cccccc;
+          z-index: 1;
+          border-radius: 5px;
+          box-shadow: 0px 0px 6px 1px #cccccc; }
+        .card.header .amount .amount-tooltip:after {
+          content: '';
+          position: absolute;
+          top: -5px;
+          left: 50%;
+          transform: translate(-50%, 0) rotate(45deg);
+          width: 10px;
+          height: 10px;
+          background-color: #cccccc;
+          z-index: 0;
+          box-shadow: 0px 0px 6px 1px #cccccc; }
+      .card.header .amount .currency {
+        font-size: 20px; }
+      .card.header .amount .owned {
+        position: absolute;
+        top: 14px;
+        transform: translate(0, -50%);
+        right: 0;
+        color: #FFFFFF;
+        font-size: 24px;
+        line-height: 22px;
+        min-width: 38px;
+        text-align: right; }
+        .card.header .amount .owned span {
+          margin-top: 2px;
+          display: block;
+          opacity: 0.7;
+          color: #FFFFFF;
+          font-size: 12px;
+          line-height: 14px; }
+    .card.header .account-sub-titles {
+      margin-bottom: 5px;
+      color: #fff;
+      font-size: 11px;
+      margin-left: 5px; }
+  .card.single {
+    min-height: 217px;
+    height: auto; }
+  .card .general-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%; }
+  .card .general-info-item {
+    width: 50%;
+    color: #FFFFFF;
+    border-top: 1px solid #fff;
+    border-right: 1px solid #fff;
+    padding: 8px 8px 8px 0; }
+    .card .general-info-item:nth-of-type(1), .card .general-info-item:nth-of-type(2) {
+      border-top: none; }
+    .card .general-info-item:nth-of-type(2n) {
+      border-right: none;
+      padding-left: 15px; }
+    .card .general-info-item .top-bar {
+      color: #FFFFFF;
+      font-size: 24px;
+      padding-bottom: 5px; }
+    .card .general-info-item .bottom-bar {
+      width: 60px;
+      color: #FFFFFF;
+      font-size: 12px; }
+  .card .card-title {
+    color: #333333;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400; }
+  .card .card-title-date {
+    color: #FFFFFF;
+    font-size: 24px;
+    margin-top: 19px;
+    font-weight: 400; }
+  .card .full-box {
+    position: absolute;
+    top: 38px;
+    left: 30px;
+    right: 30px;
+    bottom: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between; }
+    .card .full-box.full {
+      top: 35px !important;
+      right: 35px !important;
+      bottom: 35px !important;
+      left: 35px !important; }
+    .card .full-box.block {
+      display: block; }
+    .card .full-box.offset {
+      padding: 20px 0px 14px; }
+    .card .full-box.align-start {
+      justify-content: flex-start; }
+    .card .full-box .align-self-center {
+      height: 33.3333%;
+      width: 100%;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center !important; }
+    .card .full-box .full-box-item {
+      flex-wrap: wrap;
+      flex-direction: column; }
+      .card .full-box .full-box-item.direction-row {
+        flex-direction: row; }
+      .card .full-box .full-box-item .box {
+        display: flex;
+        justify-content: space-around; }
+      .card .full-box .full-box-item .card-title {
+        width: 200px; }
+      .card .full-box .full-box-item .description {
+        width: 100%; }
+  .card .form-group-app {
+    padding: 30px 0 15px; }
+  .card .input-group-app.lighten {
+    display: table-row; }
+    .card .input-group-app.lighten label {
+      display: table-cell; }
+    .card .input-group-app.lighten input {
+      display: table-cell;
+      background-color: #fff; }
+  .card .input-group-app label {
+    color: #777777;
+    font-size: 12px;
+    line-height: 14px;
+    padding-right: 20px;
+    font-weight: 400; }

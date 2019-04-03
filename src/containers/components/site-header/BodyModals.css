@@ -1,0 +1,27 @@
+.forging-body-modal-window {
+  min-width: 200px; }
+  @media (min-width: 768px) {
+    .forging-body-modal-window {
+      left: 74px; } }
+
+.account-body-modal-window {
+  min-width: 300px; }
+  @media (min-width: 768px) {
+    .account-body-modal-window {
+      right: 30px; } }
+
+.settings-body-modal-window {
+  min-width: 550px; }
+  @media (max-width: 767px) {
+    .settings-body-modal-window a {
+      color: white !important; } }
+  @media (max-width: 1024px) {
+    .settings-body-modal-window {
+      flex-direction: column;
+      min-width: 300px; } }
+  @media (min-width: 768px) {
+    .settings-body-modal-window {
+      right: 217px; } }
+  @media (min-width: 1024px) {
+    .settings-body-modal-window {
+      right: 377px; } }
