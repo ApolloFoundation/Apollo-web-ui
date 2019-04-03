@@ -50,7 +50,21 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                         </div>
                     </AccordionItemBody>
                 </div>
-
+            </AccordionItem>
+            <AccordionItem>
+                <div className={"mobile-nav-item"}>
+                    <AccordionItemTitle
+                        className={`text ${getNavLinkClass(["/exchange", "/choose-wallet"])}`}>
+                        <i className="zmdi zmdi-trending-up"/>Exchange
+                        <span className="arrow"/>
+                    </AccordionItemTitle>
+                    <AccordionItemBody>
+                        <div className="item-dropdown">
+                            <NavLink to="/exchange">Exchange</NavLink>
+                            <NavLink to="/choose-wallet">Wallets</NavLink>
+                        </div>
+                    </AccordionItemBody>
+                </div>
             </AccordionItem>
             <AccordionItem>
                 <div className={"mobile-nav-item"}>

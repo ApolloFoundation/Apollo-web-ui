@@ -1,0 +1,112 @@
+.input-group-app.tabled {
+  display: table !important; }
+
+.input-group-app.lighten input {
+  background-color: #fff; }
+
+.input-group-app.middle > * {
+  vertical-align: middle; }
+
+.input-group-app.inline label {
+  display: inline-block; }
+
+.input-group-app.align-top label {
+  align-self: flex-start; }
+
+.input-group-app .row {
+  margin-right: -15px !important;
+  margin-left: -15px !important; }
+  .input-group-app .row > * {
+    display: flex; }
+
+.input-group-app textarea {
+  width: 100%; }
+
+.input-group-app label {
+  vertical-align: middle; }
+
+.input-group-app.search i, .input-group-app.user i {
+  margin: 0 !important;
+  padding: 0 7px !important; }
+
+.input-group-app.search input, .input-group-app.user input {
+  display: block; }
+
+.input-group-app.search .input-icon, .input-group-app.user .input-icon {
+  border: 1px solid #E5E5E5;
+  background: #E5E5E5;
+  font-size: 18px;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  height: 33px;
+  margin: auto; }
+  .input-group-app.search .input-icon.text, .input-group-app.user .input-icon.text {
+    width: auto; }
+    .input-group-app.search .input-icon.text i, .input-group-app.user .input-icon.text i {
+      font-style: normal;
+      font-size: 11px;
+      padding: 8px 10px;
+      white-space: pre; }
+
+.input-group-app.search .iconned-input-field, .input-group-app.user .iconned-input-field {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around; }
+  .input-group-app.search .iconned-input-field i, .input-group-app.user .iconned-input-field i {
+    margin: auto;
+    padding-bottom: 3px; }
+  .input-group-app.search .iconned-input-field *:nth-child(2), .input-group-app.user .iconned-input-field *:nth-child(2) {
+    border-left: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important; }
+  .input-group-app.search .iconned-input-field *:nth-child(1), .input-group-app.user .iconned-input-field *:nth-child(1) {
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important; }
+
+.input-group-app .calculate-fee {
+  display: inline-block;
+  color: #00C8FF;
+  font-size: 12px;
+  line-height: 14px;
+  padding-right: 20px;
+  cursor: pointer; }
+
+.input-group-app .input-icon {
+  display: table-cell; }
+  .input-group-app .input-icon.remove-item {
+    padding: 0;
+    border: 0;
+    width: 33px;
+    border-radius: 0 3px 3px 0;
+    height: 34px; }
+    .input-group-app .input-icon.remove-item .input-group-text {
+      padding: 0; }
+  .input-group-app .input-icon.text {
+    width: auto;
+    font-size: 12px; }
+    .input-group-app .input-icon.text.btn {
+      background: #00C8FF; }
+  .input-group-app .input-icon i {
+    margin: auto; }
+
+.input-group-app .row {
+  display: flex !important; }
+
+.input-group-app label {
+  display: table-cell;
+  line-height: 14px;
+  padding: 0 0 0 5px;
+  font-size: 13.5px;
+  align-self: center;
+  color: #333333; }
+
+.input-group-app input {
+  display: table-cell;
+  border-radius: 3px 0 0 3px;
+  padding: 7px 20px; }

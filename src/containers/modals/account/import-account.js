@@ -6,20 +6,23 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
 import {NotificationManager} from 'react-notifications';
-import InfoBox from '../../components/info-box'
-import {Form, Text, TextArea, Number, Checkbox} from 'react-form';
+import classNames from "classnames";
+import {CopyToClipboard} from "react-copy-to-clipboard";
+import {Form, Radio, RadioGroup, Text, TextArea} from 'react-form';
+import {
+    openPrevModal,
+    saveSendModalState,
+    setAlert,
+    setBodyModalParamsAction,
+    setModalData
+} from '../../../modules/modals';
+import InfoBox from '../../components/info-box';
+import InputForm from "../../components/input-form";
 import crypto from '../../../helpers/crypto/crypto';
-import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
-import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import {getAccountDataAction} from "../../../actions/login";
-import {importAccountAction} from "../../../actions/account";
-import classNames from "classnames";
-import InputForm from "../../components/input-form";
-import {CopyToClipboard} from "react-copy-to-clipboard";
-
+import {importAccountAction, importAccountActionViaFile} from "../../../actions/account";
 import BackForm from '../modal-form/modal-form-container';
 
 const mapStateToProps = state => ({
@@ -37,7 +40,7 @@ const mapDispatchToProps = dispatch => ({
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
     getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
+    openPrevModal: () => dispatch(openPrevModal()),
 });
 
 class ImportAccount extends React.Component {
@@ -59,17 +62,26 @@ class ImportAccount extends React.Component {
     }
 
     handleFormSubmit = async (values) => {
+        const {format, secretBytes, passPhrase, sender, deadline} = values;
 
-        const importAccount = await importAccountAction(values);
+        let importAccount = null;
+        if (format === 'text') {
+            importAccount = await importAccountAction({secretBytes, sender, deadline});
+        } else if (format === 'file') {
+            importAccount = await importAccountActionViaFile({passPhrase, sender, deadline});
+        }
 
-        if (importAccount) {
-            if (importAccount && importAccount.errorCode) {
-                NotificationManager.error(importAccount.errorDescription, 'Error', 5000);
-            } else {
+        if (importAccount && importAccount.errorCode) {
+            NotificationManager.error(importAccount.errorDescription, 'Error', 5000);
+        } else {
+            if (format === 'text') {
                 this.setState({
                     isGenerated: true,
                     importAccount
                 });
+            } else {
+                NotificationManager.success('Your account imported successfully!', null, 5000);
+                this.props.closeModal();
             }
         }
     };
@@ -100,7 +112,7 @@ class ImportAccount extends React.Component {
 
     componentDidCatch(error, info) {
         // Display fallback UI
-        this.setState({ hasError: true });
+        this.setState({hasError: true});
         // You can also log the error to an error reporting service
     }
 
@@ -113,99 +125,155 @@ class ImportAccount extends React.Component {
                     {
                         !this.state.isValidating &&
                         <BackForm
-	                        nameModal={this.props.nameModal}
+                            nameModal={this.props.nameModal}
                             onSubmit={(values) => this.handleFormSubmit(values)}
                             render={({submitForm, values, addValue, removeValue, getFormState}) => (
-                                <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+                                <form className="modal-form" onChange={() => this.props.saveSendModalState(values)}
+                                      onSubmit={submitForm}>
 
                                     <div className="form-group-app">
                                         <a onClick={() => this.props.closeModal()} className="exit"><i
                                             className="zmdi zmdi-close"/></a>
 
                                         <div className="form-title">
-	                                        {this.props.modalsHistory.length > 1 &&
-	                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                        }
+                                            {this.props.modalsHistory.length > 1 &&
+                                            <div className={"backMy"} onClick={() => {
+                                                this.props.openPrevModal()
+                                            }}/>
+                                            }
                                             <p>Import Account</p>
                                         </div>
-                                        <InfoBox info>
-                                            Please enter your account secret key.
-                                        </InfoBox>
 
-                                        <React.Fragment>
+                                        {values.format !== 'file' ? (
+                                            <InfoBox info>
+                                                Please enter your account secret key.
+                                            </InfoBox>
+                                        ) : (
+                                            <InfoBox info>
+                                                Please notice that usage of the same vault wallet on different nodes
+                                                will cause creation of different ETH, PAX, BTC wallets for each node.
+                                            </InfoBox>
+                                        )}
 
+                                        <div className="form-group row form-group-grey mb-15">
+                                            <RadioGroup field="format" defaultValue={'text'}>
+                                                <label htmlFor="text" className="mr-2">Secret key</label>
+                                                <Radio value="text" className="mr-3 d-inline-block"/>
+                                                <label htmlFor="file" className="mr-2">Secret file</label>
+                                                <Radio value="file" className="d-inline-block"/>
+                                            </RadioGroup>
+                                        </div>
+
+                                        {values.format !== 'file' ? (
                                             <div className="form-group row form-group-grey mb-15">
                                                 <label className="col-sm-3 col-form-label align-self-start">
                                                     Secret Key
                                                 </label>
                                                 <div className="col-sm-9">
-                                                    <TextArea className="form-control" placeholder="Secret Key" field="secretBytes" cols="30" rows="3" />
+                                                    <TextArea
+                                                        className="form-control"
+                                                        placeholder="Secret Key"
+                                                        field="secretBytes"
+                                                        cols="30"
+                                                        rows="3"
+                                                    />
                                                 </div>
                                             </div>
+                                        ) : (
+                                            <React.Fragment>
+                                                <div className="form-group row form-group-white mb-15">
+                                                    <label className="col-sm-3 col-form-label">
+                                                        Secret phrase&nbsp;<i
+                                                        className="zmdi zmdi-portable-wifi-changes"/>
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <Text
+                                                            className={'form-control'}
+                                                            type="password"
+                                                            field="passPhrase"
+                                                            placeholder="Secret Phrase"/>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group row form-group-grey mb-15">
+                                                    <label className="col-sm-3 col-form-label align-self-start">
+                                                        Secret File
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <input
+                                                            id="file"
+                                                            type="file"
+                                                            className={'upload-file'}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </React.Fragment>
+                                        )}
 
-                                            {
-                                                this.state &&
-                                                this.state.importAccount &&
-                                                <InfoBox attentionLeft>
-                                                    Secret Phrase:  <span className={'itatic'}>{this.state.importAccount.passphrase}</span>
-                                                    <br/>
-                                                    <br/>
-                                                    Account ID: <span className={'itatic'}>{this.state.importAccount.accountRS}</span>
-                                                    <br/>
-                                                    <br/>
-                                                    <CopyToClipboard
-                                                        text={
-                                                            `Secret Phrase: ${this.state.importAccount.passphrase}\n` +
-                                                            `Account ID: ${this.state.importAccount.accountRS}\n`
-                                                        }
-                                                        onCopy={() => {
-                                                            NotificationManager.success('The account data has been copied to clipboard.')
-                                                        }}
-                                                    >
-                                                        <a
-                                                            className="btn blue static"
-                                                        >
-                                                            Copy account data to clipboard.
-                                                        </a>
-                                                    </CopyToClipboard>
-                                                </InfoBox>
-                                            }
-                                            {
-                                                this.state &&
-                                                this.state.importAccount &&
-                                                <InfoBox danger>
-                                                    <strong>Remember</strong> to store your Account ID, secret phrase, and Secret Key in a secured place.
-                                                    Make sure to write down this secret phrase and store it securely (the secret phrase is order and case sensitive). This secret phrase is needed to use your wallet.
-                                                </InfoBox>
-                                            }
-                                            <div className="btn-box align-buttons-inside absolute right-conner">
-
-
-                                                {
-                                                    !this.state.isGenerated &&
-                                                    <button
-                                                        type="submit"
-                                                        name={'closeModal'}
-                                                        className="btn absolute btn-right blue round round-top-left round-bottom-right"
-                                                    >
-                                                        Restore account
-                                                    </button>
-                                                }
-                                                {
-                                                    this.state.isGenerated &&
+                                        {
+                                            this.state &&
+                                            this.state.importAccount &&
+                                            <InfoBox attentionLeft>
+                                                Secret Phrase: <span
+                                                className={'itatic'}>{this.state.importAccount.passphrase}</span>
+                                                <br/>
+                                                <br/>
+                                                Account ID: <span
+                                                className={'itatic'}>{this.state.importAccount.accountRS}</span>
+                                                <br/>
+                                                <br/>
+                                                <CopyToClipboard
+                                                    text={
+                                                        `Secret Phrase: ${this.state.importAccount.passphrase}\n` +
+                                                        `Account ID: ${this.state.importAccount.accountRS}\n`
+                                                    }
+                                                    onCopy={() => {
+                                                        NotificationManager.success('The account data has been copied to clipboard.')
+                                                    }}
+                                                >
                                                     <a
-                                                        onClick={() => this.props.closeModal()}
-                                                        name={'closeModal'}
-                                                        className="btn absolute btn-right default round round-top-left round-bottom-right"
+                                                        className="btn blue static"
                                                     >
-                                                        Close
+                                                        Copy account data to clipboard.
                                                     </a>
-                                                }
+                                                </CopyToClipboard>
+                                            </InfoBox>
+                                        }
+                                        {
+                                            this.state &&
+                                            this.state.importAccount &&
+                                            <InfoBox danger>
+                                                <strong>Remember</strong> to store your Account ID,
+                                                passphrase, and Secret Key in a secured place.
+                                                Make sure to write down this passphrase and store it
+                                                securely (the passphrase is order and case sensitive). This
+                                                passphrase is needed to use your wallet.
+                                            </InfoBox>
+                                        }
+                                        <div className="btn-box align-buttons-inside absolute right-conner">
 
-                                            </div>
-                                        </React.Fragment>
 
+                                            {
+                                                !this.state.isGenerated &&
+                                                <button
+                                                    type="submit"
+                                                    name={'closeModal'}
+                                                    className="btn absolute btn-right blue round round-top-left round-bottom-right"
+                                                >
+                                                    Restore account
+                                                </button>
+                                            }
+                                            {
+                                                this.state.isGenerated &&
+                                                <a
+                                                    onClick={() => this.props.closeModal()}
+                                                    name={'closeModal'}
+                                                    className="btn absolute btn-right default round round-top-left round-bottom-right"
+                                                >
+                                                    Close
+                                                </a>
+                                            }
 
+                                        </div>
                                     </div>
                                 </form>
                             )}

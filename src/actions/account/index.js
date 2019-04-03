@@ -11,10 +11,10 @@ import queryString from 'query-string';
 import {getTransactionsAction} from '../../actions/transactions/';
 import {getAccountLedgerAction} from '../../actions/ledger/';
 import {getAliasesAction} from '../../actions/currencies/';
-import {getAssetsAction, getSpecificAccountAssetsAction} from '../../actions/assets';
+import {getSpecificAccountAssetsAction} from '../../actions/assets';
 import {getTradesAction} from '../../actions/trade-history';
 import {getAccountCurrenciesAction} from '../../actions/currencies';
-import {getDGSGoodsAction, getDGSPurchasesAction} from '../../actions/marketplace';
+import {getDGSGoodsAction} from '../../actions/marketplace';
 
 import {writeToLocalStorage} from "../localStorage";
 import {NotificationManager} from "react-notifications";
@@ -176,6 +176,25 @@ export const getPhasingOnlyControl = (reqParams) => {
         })
 }
 
+export function exportAccount(requestParams) {
+    return dispatch => {
+        const body = Object.keys(requestParams).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(requestParams[key]);
+        }).join('&');
+        return fetch(`${config.api.server}/rest/keyStore/download`, {
+            method: 'POST',
+            body,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+        })
+            .then(res => res.json())
+            .catch(() => {
+
+            })
+    }
+}
+
 export const generateAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'generateAccount'))
 };
@@ -196,7 +215,11 @@ export const importAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'importKey'))
 };
 
-export const exportAccountAction = async (requestParams) => {
+export const importAccountActionViaFile = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'importKeyViaFile'))
+};
+
+export const createAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'exportKey'))
 };
 
