@@ -216,7 +216,7 @@ input[type="number"] {
             left: 30px;
             right: 30px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             flex-direction: column;
             bottom: 40px;
 
@@ -227,7 +227,6 @@ input[type="number"] {
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: space-between;
-                margin-bottom: -15px;
 
                 .coin-data {
                   display: flex;
