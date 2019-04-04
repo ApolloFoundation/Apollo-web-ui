@@ -314,8 +314,8 @@
 	.form-sub-title {
 		color: #BBBBBB;
 		font-size: 12px;
-		line-height: 19px;
-		margin-top: -12px;
+		line-height: normal;
+		margin-top: 5px;
 		
 		&.align-padding-bottom {
 			padding-bottom: 15px;
@@ -580,7 +580,6 @@
 	}
 	.form-group-white {
 		align-items: center;
-		flex-wrap: nowrap;
 		&.row {
 			margin-left: 0 !important;
 		}

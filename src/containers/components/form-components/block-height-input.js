@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import InputForm from '../../components/input-form';
 import {connect} from 'react-redux';
+import classNames from "classnames";
+import InputForm from '../../components/input-form';
 
 class BlockHeightInput extends Component {
 
@@ -11,14 +12,17 @@ class BlockHeightInput extends Component {
     }
     
     render () {
-        const {setValue, label, actualBlock, field, placeholder, deafultPlus, className, idGroup} = this.props;
+        const {setValue, label, actualBlock, field, placeholder, deafultPlus, className, idGroup, isSubtitle} = this.props;
         
         return  (
             <div className={`form-group row form-group-white mb-15 ${className}`}>
                 <label className="col-sm-3 col-form-label">
                     {label}
                 </label>
-                <div className="col-sm-9 input-group">
+                <div className={classNames({
+                    "col-sm-9 input-group": true,
+                    "input-group-text-transparent input-group-sm": isSubtitle
+                })}>
                     <InputForm
                         type={"tel"}
                         field={field}
@@ -28,12 +32,14 @@ class BlockHeightInput extends Component {
                         id={`${idGroup}${field}-field`}
                     />
                     <div className="input-group-append">
-                        <span className="input-group-text" id="finishHeightText">{actualBlock}</span>
+                        <span className="input-group-text" id="finishHeightText">{!isSubtitle && actualBlock}</span>
                     </div>
                 </div>
-                {/*<div className="col-sm-12 form-sub-title block align-right align-margin-top">
-                    2018/06/19 09:32 am
-                </div>*/}
+                {isSubtitle && (
+                    <div className="offset-sm-3 col-sm-9 form-sub-title">
+                        Current height: <b>{actualBlock}</b>
+                    </div>
+                )}
             </div>
         )
     }
