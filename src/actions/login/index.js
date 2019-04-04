@@ -241,6 +241,7 @@ export async function logOutAction(action) {
         case('simpleLogOut'):
             localStorage.removeItem("APLUserRS");
             localStorage.removeItem("secretPhrase");
+            localStorage.removeItem("wallets");
             document.location = '/';
             return;
         case('logOutStopForging'):
@@ -251,6 +252,7 @@ export async function logOutAction(action) {
                     getStatus: action,
                     confirmStatus: (res) => {
                         localStorage.removeItem("APLUserRS");
+                        localStorage.removeItem("wallets");
                         document.location = '/';
                     }
                 }
@@ -266,6 +268,7 @@ export async function logOutAction(action) {
             if (!forging.errorCode){
                 if (forging) {
                     localStorage.removeItem("APLUserRS");
+                    localStorage.removeItem("wallets");
                     document.location = '/';
                 }
             }

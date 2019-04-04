@@ -16,7 +16,7 @@ import {getTradesAction}         from '../../actions/trade-history';
 import {getAccountCurrenciesAction}  from '../../actions/currencies';
 import {getDGSGoodsAction, getDGSPurchasesAction}       from '../../actions/marketplace';
 
-import {writeToLocalStorage} from "../localStorage";
+import {writeToLocalStorage, readFromLocalStorage} from "../localStorage";
 import {NotificationManager} from "react-notifications";
 import submitForm from '../../helpers/forms/forms'
 import store from '../../store'
@@ -143,6 +143,28 @@ export function getAccountPropertiesAction(reqParams) {
     }
 }
 
+export function exportAccount(requestParams) {
+    return dispatch => {
+        const body = Object.keys(requestParams).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(requestParams[key]);
+        }).join('&');
+        return fetch(`${config.api.server}/rest/keyStore/download`, {
+            method: 'POST',
+            body,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+        })
+            .then(res => res.json())
+            .then(async (res) => {
+                return res;
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
 export const generateAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'generateAccount'))
 };
@@ -163,7 +185,11 @@ export const importAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'importKey'))
 };
 
-export const exportAccountAction = async (requestParams) => {
+export const importAccountActionViaFile = async (requestParams) => {
+    return store.dispatch(await submitForm.submitForm(requestParams, 'importKeyViaFile'))
+};
+
+export const createAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'exportKey'))
 };
 

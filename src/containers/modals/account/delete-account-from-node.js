@@ -24,6 +24,7 @@ import ModalFooter from '../../components/modal-footer'
 import {removeAccountAction} from '../../../actions/account'
 import jsPDF from "jspdf";
 import QRCode from "qrcode";
+import {base64ToBlob} from "../../../helpers/format";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -126,22 +127,21 @@ class DeleteAccountFromWebNode extends React.Component {
                                 </div>
 
                                 <InfoBox attentionLeft>
-                                    Secret Key:  <span className={'itatic'}>{this.props.modalData[1].value}</span>
-                                    <br/>
-                                    <br/>
                                     Account ID: <span className={'itatic'}>{this.props.modalData[0].value}</span>
                                     <br/>
                                     <br/>
                                     <a
+                                        href={this.props.modalData[1].value.href}
+                                        download={this.props.modalData[0].value}
                                         className="btn blue static"
-                                        onClick={() => this.generatePDF(this.props.modalData)}
+                                        target="_blank"
                                     >
-                                        Print Secret Key
+                                        Download Secret File
                                     </a>
                                 </InfoBox>
                                 <InfoBox info danger nowrap>
                                     <strong>Attention!!!</strong><br/>
-                                    Make a backup of your secret key. You will lose access to your account and funds if you do not have a backup.
+                                    Make a backup of your secret file. You will lose access to your account and funds if you do not have a backup.
                                 </InfoBox>
 
                                 <div className="form-group row form-group-grey mb-15">

@@ -19,7 +19,7 @@ import {setAlert} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
-import {exportAccountAction} from '../../../actions/account'
+import {createAccountAction} from '../../../actions/account'
 import ContentLoader from '../../components/content-loader'
 import ModalFooter from '../../components/modal-footer'
 import classNames from 'classnames';
@@ -174,7 +174,7 @@ class CreateUser extends React.Component {
         const geneatedAccount = await generateAccountAction(requestParams);
 
         if (geneatedAccount) {
-            const keySeed = await exportAccountAction({account: geneatedAccount.accountRS, passphrase: geneatedAccount.passphrase});
+            const keySeed = await createAccountAction({account: geneatedAccount.accountRS, passphrase: geneatedAccount.passphrase});
 
             this.setState({
                 isAccountLoaded: true,
@@ -499,7 +499,7 @@ class CreateUser extends React.Component {
                                                                                             Account ID: <span className={'itatic'}>{this.state.accountData.accountRS}</span>
                                                                                             <br/>
                                                                                             <br/>
-                                                                                            Public Key: <span className={'itatic'}>{this.state.accountData.publicKey}</span>
+                                                                                            Public Key: <span className={'itatic word-break-all'}>{this.state.accountData.publicKey}</span>
                                                                                             <br/>
                                                                                             <br/>
                                                                                             <CopyToClipboard
