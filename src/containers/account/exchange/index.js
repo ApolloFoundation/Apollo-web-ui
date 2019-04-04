@@ -61,8 +61,7 @@ class Exchanger extends React.Component {
                     <div className={'row'}>
                         <div className={'col-md-12 pr-0'}>
                             <InfoBox info>
-                                Please, notice - this is the firs version on Apollo Exchange. Functionality of trading will be delivered in April 2019. At the moment you can deposit in ETH and PAX.
-                                Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank'>Telegram channel</a> to be the first to use Apollo Exchange
+                                Notice: ETH and PAX deposits are now available. Trading functionality along with BTC deposits will be added in April 2019. Stay up-to-date with future announcements by following us on our <a href={'https://t.me/apolloofficialannouncements'} target='_blank'>Telegram announcement channel</a> and social media platforms.
                             </InfoBox>
                         </div>
                         <div className={'col-md-12 pr-0'}>
