@@ -4,34 +4,36 @@
     background-color: #FFFFFF;
     border-radius: 6px;
     position: relative;
-    
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: hidden;
+    overflow-x: scroll;
       @media (max-width: 1200px) {
           height: auto;
           min-height: auto;
     }
-    
+
     &.transparent {
       background: transparent;
     }
     &.no-min-height {
       min-height: auto;
       height: auto;
-  
+
       .transaction-table-body {
         min-height: auto;
         height: auto;
       }
     }
-  
+
     &.position-static {
       position: static;
     }
-  
+
     .transaction-table-body {
       //min-width: 800px;
       min-height: 560px;
-      overflow-x: auto;
-  
+      display: inline;
       width: 100%;
       border-radius: 3px;
       position: relative;
@@ -73,13 +75,13 @@
           }
         }
       }
-  
+
       //.btn-box {
       //  min-width: 800px;
       //}
       table {
         overflow-x: auto;
-  
+
         width: 100%;
         //border-collapse: collapse;
         //min-width: 800px;
@@ -103,7 +105,7 @@
         }
         thead {
           padding: 35px 0;
-  
+
           tr {
             td {
               color: #333333;
@@ -111,11 +113,11 @@
               font-size: 14px;
               line-height: 16px;
               padding: 0 0 20px 15px;
-  
+
               &.align-right {
                 text-align: right;
                 padding: 0 15px 20px 0;
-  
+
               }
               &.align-right {
                 text-align: right;
@@ -139,12 +141,12 @@
           }
           tr {
             height: 6.66%;
-  
+
             td {
               border-top: 1px solid #E5E5E5;
               padding: 20px 0 20px 15px;
               //height: 50px;
-  
+
               &.blue-link-text {
                 a {
                   color: #00C8FF;
