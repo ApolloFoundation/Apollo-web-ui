@@ -8,22 +8,19 @@ class UserBottomBox extends Component {
 
         return (
             <div className="network-overview">
-                {
-                    window.innerWidth &&
-                    this.props.children &&
+                {window.innerWidth && children && (
                     <div className="media-page-actions">
                         {children}
                     </div>
-                }
-                {
-                    appState &&
+                )}
+                {appState && (
                     <a
                         className="mt-3"
                         onClick={() => setBodyModalParamsAction('INFO_NETWORK')}
                     >
-                        {this.props.appState.chainName}
+                        {appState.chainName}
                     </a>
-                }
+                )}
             </div>
         )
     }
@@ -31,10 +28,10 @@ class UserBottomBox extends Component {
 
 const mapStateToProps = state => ({
     appState: state.account.blockchainStatus,    
-})
+});
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserBottomBox);
