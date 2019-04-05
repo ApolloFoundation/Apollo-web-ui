@@ -5,13 +5,13 @@
 
 
 import React from 'react';
-import {NavNavLink, NavLink, Link} from 'react-router-dom';
+import { NavLink, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import './Sidebar.css';
-import AssetExchange from "../../account/asset-exchange";
-import {setModalType} from "../../../modules/modals";
 import classNames from 'classnames'
 import {Scrollbars} from 'react-custom-scrollbars';
+import {setModalType} from "../../../modules/modals";
+
+import './Sidebar.scss';
 
 const mapStateToProps = state => ({
 	modalType: state.modals.modalType,
@@ -91,7 +91,7 @@ class Sidebar extends React.Component {
 					>
 						<ul
 							style={{
-                                "paddingBottom": "120px",
+                                "paddingBottom": "60px",
                                 "background": this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
 
                             }}

@@ -71,7 +71,7 @@
         nav {
           width: 220px;
           background-color: #333333;
-          min-height: calc(100vh - 100px);
+          min-height: calc(100% - 160px);
 
           ul {
             li {
@@ -154,37 +154,6 @@
             }
           }
         }
-        //.collapse-button {
-        //  min-width: 220px;
-        //
-        //  &.active {
-        //    color: #fff;
-        //
-        //    .zmdi {
-        //      transform: rotate(180deg);
-        //    }
-        //  }
-        //
-        //  .zmdi {
-        //    font-size: 26px;
-        //    position: absolute;
-        //    color: #777777;
-        //    top: 70%;
-        //    transform: translateY(-50%);
-        //    height: auto !important;
-        //
-        //    &.left {
-        //      left: 40px;
-        //    }
-        //    &.right {
-        //      right: 20px;
-        //      font-size: 18px;
-        //    }
-        //  }
-        //  &:hover {.collapse-button
-        //    color: #fff;
-        //  }
-        //}
       }
     }
     .menu-bar-container {
@@ -212,10 +181,6 @@
           }
         }
       }
-      //.collapse-button {
-      //  width: 100px;
-      //  display: block;
-      //}
     }
   }
 }
