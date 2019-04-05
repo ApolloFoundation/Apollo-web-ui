@@ -282,6 +282,8 @@ export async function logOutAction(action, history) {
 
             if (!account.balanceATM || (account.balanceATM / 100000000) < 1000) {
                 localStorage.removeItem("APLUserRS");
+                localStorage.removeItem("secretPhrase");
+                localStorage.removeItem("wallets");
                 dispatch(logout());
 
                 history.push('/login');
@@ -293,6 +295,8 @@ export async function logOutAction(action, history) {
                     getStatus: action,
                     confirmStatus: (res) => {
                         localStorage.removeItem("APLUserRS");
+                        localStorage.removeItem("secretPhrase");
+                        localStorage.removeItem("wallets");
                         dispatch(logout());
 
                         history.push('/login');
@@ -301,8 +305,9 @@ export async function logOutAction(action, history) {
             };
 
             if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8) {
-                store.dispatch(setBodyModalParamsAction('ENTER_SECRET_PHRASE', null));
-                logOutAction(action)
+                store.dispatch(setBodyModalParamsAction('CHECK_FORGING_STATUS', {
+                    modalSubmit: () => logOutAction(action, history)
+                }));
             }
             if (forging.errorCode === 3) {
                 store.dispatch(setBodyModalParamsAction('CONFIRM_2FA_FORGING', setForgingWith2FA('stopForging')));
@@ -311,6 +316,8 @@ export async function logOutAction(action, history) {
             if (!forging.errorCode){
                 if (forging) {
                     localStorage.removeItem("APLUserRS");
+                    localStorage.removeItem("secretPhrase");
+                    localStorage.removeItem("wallets");
                     dispatch(logout());
 
                     history.push('/login');
