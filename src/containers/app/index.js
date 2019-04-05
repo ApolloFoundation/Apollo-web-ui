@@ -288,7 +288,7 @@ class App extends React.Component {
         return (
             <div
                 className={classNames({
-                    // 'overflow-hidden': this.props.modalType
+                    'overflow-hidden': this.props.modalType
                 })}
             >
                 <NotificationContainer/>

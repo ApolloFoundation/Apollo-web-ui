@@ -11,6 +11,7 @@
   transition: all 0.3s ease-in-out;
   display: flex;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {
     width: 1px;
