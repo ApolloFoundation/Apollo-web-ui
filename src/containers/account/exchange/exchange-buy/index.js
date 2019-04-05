@@ -17,6 +17,7 @@ class ExchangeBuy extends React.Component {
     render () {
         const {currentCurrency: {currency}, wallet} = this.props;
         const balanceFormat = wallet && wallet.wallets && formatCrypto(wallet.wallets[0].balance);
+        const currencyName = currency.toUpperCase();
         return (
             <div className={'card-block green card card-medium pt-0 h-100'}>
                 <Form
@@ -26,20 +27,20 @@ class ExchangeBuy extends React.Component {
                              }) => (
                         <form className="modal-form modal-send-apollo modal-form"  onSubmit={submitForm}>
                             <div className="form-title">
-                                <p>Buy {currency.toUpperCase()}</p>
+                                <p>Buy {currencyName}</p>
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>
-                                    Price for 1 APL
+                                    Price for 1 {currencyName}
                                 </label>
                                 <div className="input-group input-group-text-transparent">
                                     <InputForm
                                         field="price"
                                         type={"float"}
-                                        onChange={() => setValue("total", values.amount * values.price)}
+                                        onChange={(price) => setValue("total", values.amount * price)}
                                         setValue={setValue}/>
                                     <div className="input-group-append">
-                                        <span className="input-group-text">{currency.toUpperCase()}</span>
+                                        <span className="input-group-text">APL</span>
                                     </div>
                                 </div>
                             </div>
@@ -52,10 +53,10 @@ class ExchangeBuy extends React.Component {
                                     <InputForm
                                         field="amount"
                                         type={"float"}
-                                        onChange={() => setValue("total", values.amount * values.price)}
+                                        onChange={(amount) => setValue("total", amount * values.price)}
                                         setValue={setValue}/>
                                     <div className="input-group-append">
-                                        <span className="input-group-text">APL</span>
+                                        <span className="input-group-text">{currencyName}</span>
                                     </div>
                                 </div>
                             </div>
@@ -71,27 +72,22 @@ class ExchangeBuy extends React.Component {
                                         setValue={setValue}
                                         disabled />
                                     <div className="input-group-append">
-                                        <span className="input-group-text">{currency.toUpperCase()}</span>
+                                        <span className="input-group-text">APL</span>
                                     </div>
                                 </div>
                             </div>
                             {wallet && wallet.wallets && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
-                                    of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> {balanceFormat} {currency.toUpperCase()}</span>
+                                    of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> {balanceFormat} {currencyName}</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">
                                 <button
                                     type="submit"
                                     name={'closeModal'}
-                                    className={classNames({
-                                        "btn" : true,
-                                        "btn-lg" : true,
-                                        "btn-green" : true,
-                                        "submit-button" : true,
-                                    })}
+                                    className={'btn btn-lg btn-green submit-button'}
                                 >
-                                    <span className={'button-text'}>Buy Apollo</span>
+                                    <span className={'button-text'}>Buy {currencyName}</span>
                                 </button>
                             </div>
                         </form>

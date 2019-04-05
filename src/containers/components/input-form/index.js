@@ -135,12 +135,12 @@ class InputForm extends React.Component {
 
 
                 />
-                {(this.props.type === "number" || this.props.type === "float") &&
-                <div className="input-number-wrap">
-                    <div className="input-number-up" onClick={this.handleClickUp}/>
-                    <div className="input-number-down" onClick={this.handleClickDown}/>
-                </div>
-                }
+                {(this.props.type === "number" || this.props.type === "float") && !this.props.disabled && (
+                    <div className="input-number-wrap">
+                        <div className="input-number-up" onClick={this.handleClickUp}/>
+                        <div className="input-number-down" onClick={this.handleClickDown}/>
+                    </div>
+                )}
             </div>
         );
     }
