@@ -4,6 +4,7 @@
  ******************************************************************************/
 
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
+export const RESET_ACCOUNT = "RESET_ACCOUNT";
 export const SET_CONSTANTS = 'SET_CONSTANTS';
 export const START_LOAD = 'START_LOAD';
 export const END_LOAD = 'END_LOAD';
@@ -59,6 +60,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 ...serverRes
+            };
+        case RESET_ACCOUNT:
+            return {
+                ...state,
+                ...initialState
             };
         case SET_CONSTANTS:
             return {
@@ -160,6 +166,14 @@ export const login = (reqParams) => {
         dispatch({
             type: LOAD_ACCOUNT,
             payload: reqParams
+        });
+
+    }
+};
+export const logout = () => {
+    return dispatch => {
+        dispatch({
+            type: RESET_ACCOUNT
         });
 
     }

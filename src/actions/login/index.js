@@ -10,15 +10,14 @@ import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
-import {login, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PASSPHRASE} from '../../modules/account';
-import {writeToLocalStorage, readFromLocalStorage, deleteFromLocalStorage} from "../localStorage";
+import {login, logout, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PASSPHRASE} from '../../modules/account';
+import {writeToLocalStorage, readFromLocalStorage} from "../localStorage";
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
 import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
 import {setBodyModalParamsAction} from "../../modules/modals";
 import {setAccountPassphrase} from '../../modules/account';
-import async from "../../helpers/util/async";
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -271,8 +270,8 @@ export async function logOutAction(action, history) {
             localStorage.removeItem("APLUserRS");
             localStorage.removeItem("secretPhrase");
             localStorage.removeItem("wallets");
-            dispatch(login({account: null, accountRS: null}));
-            dispatch(setAccountPassphrase(null))
+            dispatch(logout());
+            dispatch(setAccountPassphrase(null));
             
             history.push('/login');
             return;
@@ -283,7 +282,7 @@ export async function logOutAction(action, history) {
 
             if (!account.balanceATM || (account.balanceATM / 100000000) < 1000) {
                 localStorage.removeItem("APLUserRS");
-                dispatch(login({account: null, accountRS: null}));
+                dispatch(logout());
 
                 history.push('/login');
                 return;
@@ -294,7 +293,7 @@ export async function logOutAction(action, history) {
                     getStatus: action,
                     confirmStatus: (res) => {
                         localStorage.removeItem("APLUserRS");
-                        dispatch(login({account: null, accountRS: null}));
+                        dispatch(logout());
 
                         history.push('/login');
                     }
@@ -312,7 +311,7 @@ export async function logOutAction(action, history) {
             if (!forging.errorCode){
                 if (forging) {
                     localStorage.removeItem("APLUserRS");
-                    dispatch(login({account: null, accountRS: null}));
+                    dispatch(logout());
 
                     history.push('/login');
                 }
@@ -322,7 +321,7 @@ export async function logOutAction(action, history) {
         case('logoutClearUserData'):
             localStorage.clear();
             dispatch(setAccountPassphrase(null))
-            dispatch(login({account: null, accountRS: null}));
+            dispatch(logout());
 
             history.push('/login');            
             return;
