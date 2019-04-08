@@ -75,7 +75,7 @@
       text-transform: uppercase;
       color: #2547F4;
       font-size: 15px;
-      font-weight: 500;
+      font-weight: 400;
       line-height: 18px;
       text-align: center; }
   .site-content .page-content .page-body > .login .right-section > div {
@@ -155,7 +155,7 @@
         height: auto; }
         .site-content .page-content .page-body > .login .right-section .form-block .tab-body input i, .site-content .page-content .page-body > .login .right-section .form-block .tab-body .input-icon i {
           color: #2C323A;
-          padding: 0 15px !important; }
+          padding: 0; }
       .site-content .page-content .page-body > .login .right-section .form-block .tab-body input {
         font-family: "BBRollerMonoProST", sans-serif;
         font-size: 18px;
@@ -163,6 +163,21 @@
         letter-spacing: -0.45px;
         line-height: 22px;
         padding: 11px 15px; }
+      .site-content .page-content .page-body > .login .right-section .form-block .tab-body .iconned-input-field {
+        position: relative; }
+        .site-content .page-content .page-body > .login .right-section .form-block .tab-body .iconned-input-field .contacts-list {
+          margin: 0;
+          border-radius: 0 0 5px 5px;
+          border: 1px solid #15191d; }
+          .site-content .page-content .page-body > .login .right-section .form-block .tab-body .iconned-input-field .contacts-list ul {
+            background-color: #202329;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.26); }
+            .site-content .page-content .page-body > .login .right-section .form-block .tab-body .iconned-input-field .contacts-list ul li {
+              border-color: #15191d; }
+              .site-content .page-content .page-body > .login .right-section .form-block .tab-body .iconned-input-field .contacts-list ul li:hover {
+                background-color: #2c3239; }
+              .site-content .page-content .page-body > .login .right-section .form-block .tab-body .iconned-input-field .contacts-list ul li a {
+                color: #fff; }
       .site-content .page-content .page-body > .login .right-section .form-block .tab-body button.btn {
         width: 100%;
         margin-top: 30px;
@@ -222,9 +237,10 @@
     .site-content .page-content .page-body > .login .right-section .button-block .sub-title {
       color: #2547F4;
       font-size: 15px;
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: 0.54px;
       line-height: 18px;
-      margin-top: 10px; }
+      margin-top: 10px;
+      text-transform: uppercase; }
     .site-content .page-content .page-body > .login .right-section .button-block:last-of-type {
       margin-bottom: 0; }
