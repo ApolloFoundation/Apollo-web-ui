@@ -87,7 +87,6 @@ class AccountRS extends React.Component {
     };
 
     render () {
-        console.log('------------------------------------', this.state.contacts)
         return (
             <React.Fragment>
                 {this.state.inputValue &&
