@@ -114,6 +114,7 @@ input[type="number"] {
       }
       .card {
         &.transactions {
+          justify-content: flex-start;
           .transactions-dashboard {
             position: absolute;
             top: 38px;
