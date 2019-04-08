@@ -290,6 +290,7 @@ input[type="number"] {
 
             .full-box-item {
               display: flex;
+              flex-direction: row;
               margin: auto 0;
 
               & * > {
@@ -297,6 +298,7 @@ input[type="number"] {
               }
               .marketplace-box {
                 width: 50%;
+                flex: 1;
 
                 .digit {
                   color: #333333;
