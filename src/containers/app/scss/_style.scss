@@ -409,12 +409,15 @@ input[type="number"] {
         .transaction-table {
           height: calc(100% - 120px);
           min-height: 560px;
+          overflow: hidden;
           @media (max-width: 1024px) {
             height: auto;
             min-height: auto;
           }
 
           .transaction-table-body {
+            overflow-x: auto;
+            display: block;
             &.no-border-top {
               table {
                 thead {
