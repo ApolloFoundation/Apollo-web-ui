@@ -71,10 +71,10 @@ class Login extends React.Component {
                         <div className="login-wrap">
                             <div className={'left-section'}>
                                 <img className={'logo'} src={LogoImg} alt={'Apollo'}/>
-                                <span className={'title'}>
-                                Welcome Home,<br/>
-                                Apollonaut!</span>
-                                <span className={'sub-title'}>This is Apollo command center</span>
+                                <div className={'flex-column'}>
+                                    <p className={'title'}>Welcome Home,<br/>Apollonaut!</p>
+                                    <p className={'sub-title'}>Apollo command center</p>
+                                </div>
                             </div>
                             <div className={'right-section'}>
                                 {this.state.activeSection === 'LOGIN' && (
@@ -112,7 +112,7 @@ class Login extends React.Component {
                                                                 <div className="input-group-app user">
                                                                     <div>
                                                                         <label htmlFor="recipient">
-                                                                            Account ID
+                                                                            Enter your ID or choose from saved
                                                                         </label>
                                                                         <div>
                                                                             <div className="iconned-input-field">
@@ -182,14 +182,14 @@ class Login extends React.Component {
                                             onClick={() => this.handleModal('IMPORT_ACCOUNT')}
                                         >
                                             <span className={'title'}>Advanced user?</span>
-                                            <span className={'sub-title'}>Import vault wallet</span>
+                                            <span className={'sub-title'}>Import Vault Wallet</span>
                                         </div>
                                         <div
                                             className={'button-block'}
                                             onClick={() => this.handleModal('CREATE_USER')}
                                         >
                                             <span className={'title'}>New user?</span>
-                                            <span className={'sub-title'}>Create Apollo wallet</span>
+                                            <span className={'sub-title'}>Create Apollo Wallet</span>
                                         </div>
                                     </div>
                                 )}

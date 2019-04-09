@@ -22,6 +22,8 @@
         color: #ffffff;
         padding: 0;
         min-height: auto;
+        display: flex;
+        justify-content: center;
 
         h1, h2, h3, h4, h5, h6, p, a, ul, li {
           font-family: "BBRollerMonoProST", sans-serif;
@@ -43,13 +45,14 @@
 
         .login-wrap {
           width: 100%;
-          height: 100%;
-          overflow: auto;
+          height: auto;
+          overflow-y: auto;
           -webkit-overflow-scrolling: touch;
           display: flex;
           flex-direction: row;
-          align-items: center;
-          flex: 2;
+          padding: 5vh 0;
+          justify-content: center;
+          align-items: flex-start;
           @media(max-width: 760px) {
             flex-direction: column;
           }
@@ -61,27 +64,33 @@
         }
 
         .left-section, .right-section {
-          height: 100%;
           flex: 1;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
-          max-height: 488px;
-          padding: 5vh 0;
+          min-height: 510px;
           @media(max-width: 425px) {
             width: 100%;
             max-height: 100%;
+            min-height: auto;
             height: auto;
           }
         }
 
         .left-section {
+          max-height: 488px;
+          min-height: 100%;
+          @media(max-width: 425px) {
+            min-height: auto;
+            margin-bottom: 15px;
+          }
           .logo {
             max-height: 242.21px;
             max-width: 285px;
           }
           .title {
+            color: #ffffff;
             font-size: 32px;
             font-weight: 400;
             letter-spacing: -1.07px;
@@ -93,7 +102,7 @@
             text-transform: uppercase;
             color: #2547F4;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 400;
             line-height: 18px;
             text-align: center;
           }
@@ -399,6 +408,10 @@
               i {
                 color: #25F459;
                 font-size: 22px;
+              }
+              @media(max-width: 425px) {
+                right: -10px;
+                top: -10px;
               }
             }
           }
