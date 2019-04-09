@@ -14,13 +14,16 @@ import AccountRS from '../../components/account-rs';
 import {Form, Text} from "react-form";
 import {getConstantsAction} from '../../../actions/login'
 import InfoBox from "../../components/info-box";
+import ImportAccount from "./import-account";
+import CreateUser from "./create-user";
 
 import LogoImg from '../../../assets/logo.png';
 import './Login.scss'
 
 class Login extends React.Component {
     state = {
-        activeTab: 0
+        activeTab: 0,
+        activeSection: 'LOGIN',
     };
 
     componentDidMount () {
@@ -58,6 +61,8 @@ class Login extends React.Component {
         })
     };
 
+    handleModal = (section) => this.setState({activeSection: section});
+
     render() {
         return (
             <div className="page-content">
@@ -72,89 +77,53 @@ class Login extends React.Component {
                                 <span className={'sub-title'}>This is Apollo command center</span>
                             </div>
                             <div className={'right-section'}>
-                                <div>
-                                    <div className={'form-block'}>
-                                        <p className={'title'}>Log in</p>
-                                        <div className="form-tabulator active">
-                                            <div className="form-tab-nav-box justify-left">
-                                                <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
-                                                    "form-tab": true,
-                                                    "active": this.state.activeTab === 0
-                                                })}>
-                                                    <p>With Account ID</p>
-                                                </a>
-                                                <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
-                                                    "form-tab": true,
-                                                    "active": this.state.activeTab === 1
-                                                })}>
-                                                    <p>With Secret Phrase</p>
-                                                </a>
-                                            </div>
-                                            {
-                                                this.state.activeTab === 0 &&
-                                                <Form
-                                                    onSubmit={(values) => this.enterAccount(values)}
-                                                    render={({
-                                                                 submitForm, setValue
-                                                             }) => (
-                                                        <form
-                                                            onSubmit={submitForm}
-                                                            className={classNames({
-                                                                "tab-body": true,
-                                                                "active": this.state.activeTab === 0
-                                                            })}>
-                                                            <div className="input-group-app user">
-                                                                <div>
-                                                                    <label htmlFor="recipient">
-                                                                        Account ID
-                                                                    </label>
-                                                                    <div>
-                                                                        <div className="iconned-input-field">
-                                                                            <AccountRS
-                                                                                value={''}
-                                                                                field={'accountRS'}
-                                                                                setValue={setValue}
-                                                                                placeholder={'Account ID'}
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                                <button
-                                                                    type="submit"
-                                                                    name={'closeModal'}
-                                                                    className="btn"
-                                                                >
-                                                                    Initiate
-                                                                </button>
-                                                        </form>
-                                                    )}
-                                                />
-                                            }
-                                            {
-                                                this.state.activeTab === 1 &&
-                                                <Form
-                                                    onSubmit={(values) => this.enterAccountByPassphrase(values)}
-                                                    render={({
-                                                                 submitForm
-                                                             }) => (
-                                                        <React.Fragment>
+                                {this.state.activeSection === 'LOGIN' && (
+                                    <div>
+                                        <div className={'dark-card'}>
+                                            <p className={'title'}>Log in</p>
+                                            <div className="form-tabulator">
+                                                <div className="form-tab-nav-box">
+                                                    <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                                        "form-tab": true,
+                                                        "active": this.state.activeTab === 0
+                                                    })}>
+                                                        <p>With Account ID</p>
+                                                    </a>
+                                                    <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
+                                                        "form-tab": true,
+                                                        "active": this.state.activeTab === 1
+                                                    })}>
+                                                        <p>With Secret Phrase</p>
+                                                    </a>
+                                                </div>
+                                                {
+                                                    this.state.activeTab === 0 &&
+                                                    <Form
+                                                        onSubmit={(values) => this.enterAccount(values)}
+                                                        render={({
+                                                                     submitForm, setValue
+                                                                 }) => (
                                                             <form
                                                                 onSubmit={submitForm}
                                                                 className={classNames({
-                                                                    "tab-body": true,
-                                                                    "active": this.state.activeTab === 1
+                                                                    "tab-body mt-4": true,
+                                                                    "active": this.state.activeTab === 0
                                                                 })}>
-                                                                <InfoBox transparent>
-                                                                    This option works only for standard wallets.
-                                                                </InfoBox>
-                                                                <div className={'d-flex flex-column'}>
-                                                                    <label>
-                                                                        Secret Phrase
-                                                                    </label>
+                                                                <div className="input-group-app user">
                                                                     <div>
-                                                                        <Text className="form-control" field="secretPhrase"
-                                                                              placeholder="Secret Phrase" type={'password'}/>
+                                                                        <label htmlFor="recipient">
+                                                                            Account ID
+                                                                        </label>
+                                                                        <div>
+                                                                            <div className="iconned-input-field">
+                                                                                <AccountRS
+                                                                                    value={''}
+                                                                                    field={'accountRS'}
+                                                                                    setValue={setValue}
+                                                                                    placeholder={'Account ID'}
+                                                                                />
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <button
@@ -165,27 +134,71 @@ class Login extends React.Component {
                                                                     Initiate
                                                                 </button>
                                                             </form>
-                                                        </React.Fragment>
-                                                    )}
-                                                />
-                                            }
+                                                        )}
+                                                    />
+                                                }
+                                                {
+                                                    this.state.activeTab === 1 &&
+                                                    <Form
+                                                        onSubmit={(values) => this.enterAccountByPassphrase(values)}
+                                                        render={({
+                                                                     submitForm
+                                                                 }) => (
+                                                            <React.Fragment>
+                                                                <form
+                                                                    onSubmit={submitForm}
+                                                                    className={classNames({
+                                                                        "tab-body": true,
+                                                                        "active": this.state.activeTab === 1
+                                                                    })}>
+                                                                    <InfoBox className={'green-text'} transparent>
+                                                                        This option works only for standard wallets.
+                                                                    </InfoBox>
+                                                                    <div className={'d-flex flex-column'}>
+                                                                        <label>
+                                                                            Secret Phrase
+                                                                        </label>
+                                                                        <div>
+                                                                            <Text className="form-control" field="secretPhrase"
+                                                                                  placeholder="Secret Phrase" type={'password'}/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button
+                                                                        type="submit"
+                                                                        name={'closeModal'}
+                                                                        className="btn"
+                                                                    >
+                                                                        Initiate
+                                                                    </button>
+                                                                </form>
+                                                            </React.Fragment>
+                                                        )}
+                                                    />
+                                                }
+                                            </div>
+                                        </div>
+                                        <div
+                                            className={'button-block'}
+                                            onClick={() => this.handleModal('IMPORT_ACCOUNT')}
+                                        >
+                                            <span className={'title'}>Advanced user?</span>
+                                            <span className={'sub-title'}>Import vault wallet</span>
+                                        </div>
+                                        <div
+                                            className={'button-block'}
+                                            onClick={() => this.handleModal('CREATE_USER')}
+                                        >
+                                            <span className={'title'}>New user?</span>
+                                            <span className={'sub-title'}>Create Apollo wallet</span>
                                         </div>
                                     </div>
-                                    <div
-                                        className={'button-block'}
-                                        onClick={() => this.props.setBodyModalParamsAction('IMPORT_ACCOUNT')}
-                                    >
-                                        <span className={'title'}>Advanced user?</span>
-                                        <span className={'sub-title'}>Import vault wallet</span>
-                                    </div>
-                                    <div
-                                        className={'button-block'}
-                                        onClick={() => this.props.setBodyModalParamsAction('CREATE_USER')}
-                                    >
-                                        <span className={'title'}>New user?</span>
-                                        <span className={'sub-title'}>Create Apollo wallet</span>
-                                    </div>
-                                </div>
+                                )}
+                                {this.state.activeSection === 'IMPORT_ACCOUNT' && (
+                                    <ImportAccount handleClose={() => this.handleModal('LOGIN')} />
+                                )}
+                                {this.state.activeSection === 'CREATE_USER' && (
+                                    <CreateUser handleClose={() => this.handleModal('LOGIN')} />
+                                )}
                             </div>
                         </div>
                     </div>
