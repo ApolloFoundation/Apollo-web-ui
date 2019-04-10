@@ -79,7 +79,7 @@ class Login extends React.Component {
                             <div className={'right-section'}>
                                 {this.state.activeSection === 'LOGIN' && (
                                     <div>
-                                        <div className={'dark-card'}>
+                                        <div className={'dark-card login-form'}>
                                             <p className={'title'}>Log in</p>
                                             <div className="form-tabulator">
                                                 <div className="form-tab-nav-box">

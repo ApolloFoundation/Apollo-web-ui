@@ -139,7 +139,7 @@ class AccountRS extends React.Component {
                         onClick={() => this.handleContacts()}
                         className="input-icon"
                     >
-                        <i className="zmdi zmdi-account"/>
+                        <i className="zmdi zmdi-account-box"/>
                     </a>
                 }
                 {this.state.contacts &&

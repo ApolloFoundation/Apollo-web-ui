@@ -182,7 +182,7 @@ class CreateUser extends React.Component {
                                 "active": this.state.activeTab === 1
                             })}
                             >
-                                <p>Vault Wallet</p>
+                                <p><i className="zmdi zmdi-shield-security"/> Vault Wallet</p>
                             </a>
                         </div>
 
