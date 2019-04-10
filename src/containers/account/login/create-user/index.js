@@ -202,17 +202,17 @@ class CreateUser extends React.Component {
                                             <li className={'check-icon'}>You can log in to this wallet using your
                                                 Account ID.
                                             </li>
-                                            <li className={'check-icon'}>The wallet is encrypted (via Secret Key) on one
+                                            <li className={'check-icon'}>The wallet is encrypted (via Secret File) on one
                                                 device.
                                             </li>
-                                            <li className={'check-icon'}>You can export/import your Secret Key to use on
+                                            <li className={'check-icon'}>You can export/import your Secret File to use on
                                                 other devices.
                                             </li>
                                             <li className={'check-icon'}>2FA works from any device when you use your
                                                 Vault.
                                             </li>
                                             <li className={'minus-icon'}>If you loose your device before export your
-                                                security key you will not be able to access your wallet.
+                                                Secret File you will not be able to access your wallet.
                                             </li>
                                         </ul>
                                     </InfoBox>
