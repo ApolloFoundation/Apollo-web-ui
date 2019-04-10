@@ -95,7 +95,7 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                         }}
                         className="option"
                     >
-                        Export Secret Key
+                        Export Secret File
                     </a>
                 </li>
             </ul>
