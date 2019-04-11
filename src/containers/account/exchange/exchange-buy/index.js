@@ -1,31 +1,69 @@
 import React from 'react';
-import classNames from 'classnames';
+import {connect} from "react-redux";
 import {Form} from "react-form";
 import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
-import {formatCrypto} from "../../../../helpers/format";
+import {currencyTypes, formatCrypto} from "../../../../helpers/format";
+import {createOffer} from "../../../../actions/wallet";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 class ExchangeBuy extends React.Component {
-    handleFormSubmit = () => {
+    state = {
+        form: null,
+    };
+
+    handleFormSubmit = (values) => {
         if (this.props.wallet) {
-            NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+            if (values.offerAmount > 0 && values.pairRate > 0) {
+                const params = {
+                    offerType: 0, // BUY
+
+                    pairCurrency: currencyTypes['apl'],
+                    pairRate: values.pairRate * 100000000,
+
+                    offerAmount: values.offerAmount * 100000000,
+                    offerCurrency: currencyTypes[this.props.currentCurrency.currency],
+
+                    sender: this.props.account,
+                    secretPhrase: this.props.passPhrase,
+                    amountOfTime: 10000,
+                    deadline: 1440,
+                    feeATM: 100000000,
+                };
+                if (this.props.passPhrase) {
+                    this.props.createOffer(params);
+                    if (this.state.form) this.state.form.resetAll();
+                } else {
+                    this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
+                        params,
+                        resetForm: this.state.form.resetAll
+                    });
+                }
+            } else {
+                NotificationManager.error('Price and amount are required fields', 'Error', 5000);
+            }
         } else {
             this.props.handleLoginModal();
         }
     };
 
-    render () {
+    getFormApi = (form) => {
+        this.setState({form})
+    };
+
+    render() {
         const {currentCurrency: {currency}, wallet} = this.props;
         const balanceFormat = wallet && wallet.wallets && formatCrypto(wallet.wallets[0].balance);
         const currencyName = currency.toUpperCase();
         return (
-            <div className={'card-block green card card-medium pt-0 h-100'}>
+            <div className={'card-block green card card-medium pt-0 h-400'}>
                 <Form
                     onSubmit={values => this.handleFormSubmit(values)}
+                    getApi={this.getFormApi}
                     render={({
-                                 submitForm, getFormState, setValue, values
+                                 submitForm, setValue, values
                              }) => (
-                        <form className="modal-form modal-send-apollo modal-form"  onSubmit={submitForm}>
+                        <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title">
                                 <p>Buy {currencyName}</p>
                             </div>
@@ -35,9 +73,9 @@ class ExchangeBuy extends React.Component {
                                 </label>
                                 <div className="input-group input-group-text-transparent">
                                     <InputForm
-                                        field="price"
+                                        field="pairRate"
                                         type={"float"}
-                                        onChange={(price) => setValue("total", values.amount * price)}
+                                        onChange={(price) => setValue("total", values.offerAmount * price)}
                                         setValue={setValue}/>
                                     <div className="input-group-append">
                                         <span className="input-group-text">APL</span>
@@ -51,9 +89,9 @@ class ExchangeBuy extends React.Component {
                                 <div
                                     className="input-group input-group-text-transparent">
                                     <InputForm
-                                        field="amount"
+                                        field="offerAmount"
                                         type={"float"}
-                                        onChange={(amount) => setValue("total", amount * values.price)}
+                                        onChange={(amount) => setValue("total", amount * values.pairRate)}
                                         setValue={setValue}/>
                                     <div className="input-group-append">
                                         <span className="input-group-text">{currencyName}</span>
@@ -70,7 +108,7 @@ class ExchangeBuy extends React.Component {
                                         field="total"
                                         type={"float"}
                                         setValue={setValue}
-                                        disabled />
+                                        disabled/>
                                     <div className="input-group-append">
                                         <span className="input-group-text">APL</span>
                                     </div>
@@ -78,7 +116,8 @@ class ExchangeBuy extends React.Component {
                             </div>
                             {wallet && wallet.wallets && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
-                                    of Total Balance: <span><i className="zmdi zmdi-balance-wallet"/> {balanceFormat} {currencyName}</span>
+                                    of Total Balance: <span><i
+                                    className="zmdi zmdi-balance-wallet"/> {balanceFormat} {currencyName}</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">
@@ -97,4 +136,14 @@ class ExchangeBuy extends React.Component {
     }
 }
 
-export default ExchangeBuy;
+const mapStateToProps = ({account}) => ({
+    account: account.account,
+    passPhrase: account.passPhrase,
+});
+
+const mapDispatchToProps = dispatch => ({
+    createOffer: (params) => dispatch(createOffer(params)),
+    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExchangeBuy);

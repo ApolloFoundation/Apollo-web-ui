@@ -260,6 +260,28 @@
               width: 100%;
             }
 
+            .iconned-input-field {
+              position: relative;
+              .contacts-list {
+                margin: -15px 0 0 0;
+                border-radius: 0 0 5px 5px;
+                border: 1px solid rgb(21, 25, 29);
+                ul {
+                  background-color: rgb(32, 35, 41);
+                  box-shadow: 0 10px 20px 0 rgba(0,0,0,0.26);
+                  li {
+                    border-color: rgb(21, 25, 29);
+                    &:hover {
+                      background-color: #2c3239;
+                    }
+                    a {
+                      color: #fff;
+                    }
+                  }
+                }
+              }
+            }
+
             button.btn {
               width: 100%;
               margin-top: 15px;

@@ -3,10 +3,13 @@
  *                                                                            *
  ******************************************************************************/
 
+import {NotificationManager} from "react-notifications";
 import config from '../../config';
 import {writeToLocalStorage} from "../localStorage";
 import {setWallets} from "../../modules/account";
+import {setBuyOrdersAction, setSellOrdersAction} from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
+import {currencyTypes} from "../../helpers/format";
 
 export function getWallets(requestParams) {
     return dispatch => {
@@ -40,17 +43,7 @@ export function getCurrencyBalance(requestParams) {
 
 export function walletWidthraw(requestParams) {
     return dispatch => {
-        const body = Object.keys(requestParams).map((key) => {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(requestParams[key]);
-        }).join('&');
-        return fetch(`${config.api.server}/dex/widthraw`, {
-            method: 'POST',
-            body,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-            },
-        })
-            .then(res => res.json())
+        return handleFetch(`${config.api.server}/rest/dex/widthraw`, POST, requestParams)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -61,3 +54,60 @@ export function walletWidthraw(requestParams) {
             })
     }
 }
+
+export function createOffer(requestParams) {
+    return dispatch => {
+        return handleFetch(`${config.api.server}/rest/dex/offer`, POST, requestParams)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    NotificationManager.success('Your offer has been created!', null, 5000);
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
+
+export function getOpenOrders(requestParams) {
+    return dispatch => {
+        return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
+export const getBuyOpenOffers = (currency) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const params = {
+        orderType: 0,
+        offerCurrency: currencyTypes[currency],
+        pairCurrency: 0,
+    };
+    const buyOrders = await dispatch(getOpenOrders(params));
+    dispatch(setBuyOrdersAction(currency, buyOrders));
+};
+
+
+export const getSellOpenOffers = (currency) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const params = {
+        orderType: 1,
+        offerCurrency: currencyTypes[currency],
+        pairCurrency: 0,
+    };
+    const sellOrders = await dispatch(getOpenOrders(params));
+    dispatch(setSellOrdersAction(currency, sellOrders));
+};
