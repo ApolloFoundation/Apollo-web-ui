@@ -29,6 +29,12 @@
 		padding-bottom: 17px;
 	}
 
+	.h-400 {
+		height: 400px;
+		display: flex;
+		flex-direction: column;
+	}
+
 	.btn-light-box {
 		display: flex !important;
 		flex-direction: row;
@@ -177,6 +183,14 @@
 			}
 		}
 
+		.info-box {
+			background: transparent;
+			p {
+				color: #2dd043;
+				padding: 18px 15px;
+			}
+		}
+
 		.form-group-app {
 			padding: 0;
 			border-radius: 0;
@@ -184,10 +198,12 @@
 
 		.transaction-table {
 			padding-bottom: 0 !important;
+			overflow-y: auto;
 			.transaction-table-body {
 				padding: 15px !important;
 				margin-bottom: 0 !important;
 				background-color: transparent;
+				display: flex;
 				table {
 					padding: 0;
 					thead {

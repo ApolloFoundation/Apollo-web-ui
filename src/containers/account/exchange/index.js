@@ -13,7 +13,7 @@ import TradeHistoryEchanger from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../modules/exchange";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getCurrencyBalance} from "../../../actions/wallet";
+import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers} from "../../../actions/wallet";
 
 class Exchange extends React.Component {
     state = {
@@ -27,6 +27,8 @@ class Exchange extends React.Component {
         } else {
             this.getCurrencyBalance(JSON.parse(wallets));
         }
+        this.props.getBuyOpenOffers();
+        this.props.getSellOpenOffers();
     }
 
     componentDidUpdate() {
@@ -49,8 +51,14 @@ class Exchange extends React.Component {
         this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
     };
 
+    switchCurrency = (currency) => {
+        this.props.getBuyOpenOffers(currency);
+        this.props.getSellOpenOffers(currency);
+        this.props.setCurrentCurrency(currency);
+    };
+
     render () {
-        const {currencies, currentCurrency} = this.props;
+        const {currencies, currentCurrency, buyOrders, sellOrders} = this.props;
         const wallet = this.state.wallets && this.state.wallets.filter(wallet => wallet.currency === currentCurrency.currency)[0];
         return (
             <div className="page-content">
@@ -59,29 +67,29 @@ class Exchange extends React.Component {
                 />
                 <div className="exchange page-body container-fluid pl-0">
                     <div className={'row'}>
-                        <div className={'col-md-12 pr-0'}>
+                        <div className={'col-md-12 pr-0 pb-3'}>
                             <InfoBox info>
                                 Please, notice - this is the firs version on Apollo Exchange. Functionality of trading will be delivered in April 2019. At the moment you can deposit in ETH and PAX.
                                 Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank'>Telegram channel</a> to be the first to use Apollo Exchange
                             </InfoBox>
                         </div>
-                        <div className={'col-md-12 pr-0'}>
+                        <div className={'col-md-12 pr-0 pb-3'}>
                             <ExchangeHeader
                                 currencies={currencies}
                                 currentCurrency={currentCurrency}
-                                setCurrentCurrency={this.props.setCurrentCurrency}
+                                switchCurrency={this.switchCurrency}
                                 wallet={wallet}
                                 handleLoginModal={this.handleLoginModal}
                             />
                         </div>
-                        <div className={'col-md-4 pr-0'}>
-                            <BuyOrders currentCurrency={currentCurrency} />
+                        <div className={'col-md-4 pr-0 pb-3'}>
+                            <BuyOrders currentCurrency={currentCurrency} buyOrders={buyOrders[currentCurrency.currency]} />
                         </div>
                         <div className={'col-md-8 pr-0 pb-3'}>
                             <Plot currentCurrency={currentCurrency}/>
                         </div>
-                        <div className={'col-md-4 pr-0'}>
-                            <SellOrders currentCurrency={currentCurrency} />
+                        <div className={'col-md-4 pr-0 pb-3'}>
+                            <SellOrders currentCurrency={currentCurrency} sellOrders={sellOrders[currentCurrency.currency]} />
                         </div>
                         <div className={'col-md-8 p-0'}>
                             <div className={'container-fluid p-0'}>
@@ -126,12 +134,16 @@ const mapStateToProps = ({exchange, account}) => ({
     wallets: account.wallets,
     currencies: exchange.currencies,
     currentCurrency: exchange.currentCurrency,
+    buyOrders: exchange.buyOrders,
+    sellOrders: exchange.sellOrders,
 });
 
 const mapDispatchToProps = dispatch => ({
     setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
     getCurrencyBalance: (params) => dispatch(getCurrencyBalance(params)),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+    getBuyOpenOffers: (currency) => dispatch(getBuyOpenOffers(currency)),
+    getSellOpenOffers: (currency) => dispatch(getSellOpenOffers(currency)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exchange)

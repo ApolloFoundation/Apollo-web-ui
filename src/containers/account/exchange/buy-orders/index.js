@@ -1,10 +1,10 @@
 import React from 'react';
+import {formatDivision} from '../../../../helpers/format';
 import CustomTable from '../../../components/tables/table';
 import ArrowUp from '../../../../assets/arrow-up.png';
-import buyOrders from '../buyOrders';
 
-const BuyOrders = ({currentCurrency}) => (
-    <div className={'card-block primary p-0'}>
+const BuyOrders = ({currentCurrency, buyOrders}) => (
+    <div className={'card-block primary form-group-app p-0 h-400'}>
         <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
             <p>Orderbook</p>
             <div className={'form-title-actions'}>
@@ -28,14 +28,19 @@ const BuyOrders = ({currentCurrency}) => (
             ]}
             className={'mb-3 pt-0 no-min-height no-padding'}
             tableData={buyOrders}
-            emptyMessage={'No account propertes found .'}
-            TableRowComponent={(props) => (
-                <tr>
-                    <td className={'green-text'}>{props.price}</td>
-                    <td>{props.amount}</td>
-                    <td className={'align-right'}>{props.total}</td>
-                </tr>
-            )}
+            emptyMessage={'No orders found.'}
+            TableRowComponent={(props) => {
+                const pairRate = formatDivision(props.pairRate, 100000000, 9);
+                const offerAmount = formatDivision(props.offerAmount, 100000000, 3);
+                const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
+                return (
+                    <tr>
+                        <td className={'green-text'}>{pairRate}</td>
+                        <td>{offerAmount}</td>
+                        <td className={'align-right'}>{total}</td>
+                    </tr>
+                )
+            }}
         />
     </div>
 );

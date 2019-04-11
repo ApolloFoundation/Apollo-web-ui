@@ -7,7 +7,7 @@ import EthIcon from '../../../../assets/ETH.png';
 import PaxIcon from '../../../../assets/PAX.png';
 const currencyIcons = {btc: BtcIcon, eth: EthIcon, pax: PaxIcon};
 
-const ExchangeHeader = ({currencies, currentCurrency, setCurrentCurrency, wallet, handleLoginModal}) => (
+const ExchangeHeader = ({currencies, currentCurrency, switchCurrency, wallet, handleLoginModal}) => (
     <div className={'row'}>
         <div className={'pb-4'}>
             <div className={'btn-light-box'}>
@@ -25,7 +25,7 @@ const ExchangeHeader = ({currencies, currentCurrency, setCurrentCurrency, wallet
                                     NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
                                 } else {
                                     if (wallet) {
-                                        setCurrentCurrency(item);
+                                        switchCurrency(item);
                                     } else {
                                         handleLoginModal();
                                     }
