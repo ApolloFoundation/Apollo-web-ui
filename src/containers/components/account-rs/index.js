@@ -7,20 +7,16 @@
 import React from 'react';
 import InputMask from 'react-input-mask';
 import classNames from 'classnames';
-import {NotificationManager} from "react-notifications";
-import uuid from "uuid";
+import {NotificationManager} from 'react-notifications';
 import {connect} from 'react-redux';
 
 class AccountRS extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            prefix: this.props.constants ? this.props.constants.accountPrefix : '',
+            prefix: 'APL',
             contacts: JSON.parse(localStorage.getItem('APLContacts')),
-            inputValue: {
-                mask: `${this.props.constants ? this.props.constants.accountPrefix : ''}-****-****-****-*****`,
-                value: this.props.defaultValue || ''
-            },
+            value: this.props.defaultValue || '',
             isContacts: false,
             isUpdate: false
         };
@@ -28,34 +24,20 @@ class AccountRS extends React.Component {
             this.props.setValue(this.props.field, this.props.defaultValue);
         }
     };
-    componentWillReceiveProps = (newProps) => {
-        if (newProps.defaultValue) {
-            this.setState({
-                inputValue: {
-                    mask: 'APL-****-****-****-*****',
-                    value: newProps.defaultValue || ''
-                },
-            })
-        }
-            
-    }
+
     handleFillForm = (account) => {
+        this.setState({
+            isContacts: false,
+            value: account
+        });
+
         if (this.props.setValue) {
-            this.props.setValue(this.props.field, account);            
+            this.props.setValue(this.props.field, account);
         }
-        this.refs.input.value = account;
 
         if (this.props.exportAccountList) {
             this.props.exportAccountList(account)
         }
-
-        this.setState({
-            isContacts: false,
-            inputValue: {
-                mask: `${this.props.constants ? this.props.constants.accountPrefix : 'APL'}-****-****-****-*****`,
-                value: account
-            }
-        })
     };
 
     handleContacts = () => {
@@ -68,81 +50,53 @@ class AccountRS extends React.Component {
         }
     };
 
-    setInputValue = (value) => {
-        const newState = {
-            mask: `${this.props.constants && this.props.constants.accountPrefix ? this.props.constants.accountPrefix : 'APL'}-****-****-****-*****`,
-            value: value.toUpperCase()
-        };
-
+    onChange = (event) => {
+        const account = event.target.value;
+        this.setState({
+            value: account
+        });
 
         if (this.props.setValue) {
-            this.props.setValue(this.props.field, value.indexOf(`${this.props.constants && this.props.constants.accountPrefix ? this.props.constants.accountPrefix : 'APL'}`) === -1 ? 'APL-' + value : value);
-
+            this.props.setValue(this.props.field, account);
         }
-        
-        this.setState({inputValue: newState});
 
-        /* 
-         * This peace is needed special for advanced settings 
-         * */
         if (this.props.exportAccountList) {
-            this.props.exportAccountList(newState.value)
+            this.props.exportAccountList(account)
         }
     };
 
-    replaceAll = (search, replace) => {
-        return this.split(search).join(replace);
-    }
-
-    onChange = (event) => {
-        let value;
-        const prefix = this.props.constants && this.props.constants.accountPrefix ? this.props.constants.accountPrefix : 'APL';
-
-        if (event.type === 'paste') {
-            value = event.clipboardData.getData('text/plain');
-
-            value = value.replaceAll('\n','');
-            
-            if (value.includes(`${prefix}-`) && value.indexOf(`${prefix}-`) === 0) {
-                if (this.props.onChange && !this.props.noDefaultValue) this.props.onChange(value)
-                value = value.replace(`${prefix}-`, '');
-
-                this.setInputValue(value);
-            }
-        } else {
-            value = event.target.value;
-            value = value.replace('undefined', 'APL')
-
-            if (value.indexOf(`${prefix}-${prefix}`) === -1) {
-                this.setInputValue(value);
+    handleBeforeMaskedValueChange = (newState, oldState, userInput) => {
+        let value = newState.value.toUpperCase();
+        if (userInput) {
+            if (value.startsWith('APL-APL') && userInput.startsWith('APL-') && userInput.length === 24) {
+                value = userInput;
             }
         }
+        return {value, selection: newState.selection};
     };
 
-    render () {
+    render() {
         return (
             <React.Fragment>
-                {this.state.inputValue &&
-                    <InputMask className="form-control"
-                        disabled={this.props.disabled}
-                        mask={this.state.inputValue.mask}
-                        placeholder={this.props.placeholder || 'Account ID'}
-                        ref={'input'}
-                        value={this.props.value || this.state.inputValue.value}
-                        onPaste={this.onChange}
-                        onChange={this.onChange}
-                        id={this.props.id}
-                    />
-                }
-                {!this.props.noContactList &&
+                <InputMask className="form-control"
+                           disabled={this.props.disabled}
+                           mask={'APL-****-****-****-*****'}
+                           placeholder={this.props.placeholder || 'Account ID'}
+                           ref={'input'}
+                           value={this.state.value}
+                           onChange={this.onChange}
+                           beforeMaskedValueChange={this.handleBeforeMaskedValueChange}
+                           id={this.props.id}
+                />
+                {!this.props.noContactList && (
                     <a
                         onClick={() => this.handleContacts()}
                         className="input-icon"
                     >
                         <i className="zmdi zmdi-account-box"/>
                     </a>
-                }
-                {this.state.contacts &&
+                )}
+                {this.state.contacts && (
                     <div
                         className={classNames({
                             'contacts-list': true,
@@ -150,20 +104,16 @@ class AccountRS extends React.Component {
                         })}
                     >
                         <ul>
-                            {
-                                this.state.contacts.map((el, index) => {
-                                    return (
-                                        <li key={uuid()}>
-                                            <a onClick={() => this.handleFillForm(el.accountRS)}>
-                                                {el.name}
-                                            </a>
-                                        </li>
-                                    )
-                                })
-                            }
+                            {this.state.contacts.map((el, index) => (
+                                <li key={index}>
+                                    <a onClick={() => this.handleFillForm(el.accountRS)}>
+                                        {el.name}
+                                    </a>
+                                </li>
+                            ))}
                         </ul>
                     </div>
-                }
+                )}
             </React.Fragment>
         )
     }
@@ -171,6 +121,6 @@ class AccountRS extends React.Component {
 
 const mapStateToProps = state => ({
     constants: state.account.constants
-})
+});
 
-export default connect(mapStateToProps)(AccountRS) ;
+export default connect(mapStateToProps)(AccountRS);
