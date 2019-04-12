@@ -26,9 +26,6 @@ class ExchangeBuy extends React.Component {
 
                     sender: this.props.account,
                     secretPhrase: this.props.passPhrase,
-                    amountOfTime: 10000,
-                    deadline: 1440,
-                    feeATM: 100000000,
                 };
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);

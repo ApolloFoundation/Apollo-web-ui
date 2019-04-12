@@ -13,7 +13,7 @@ import TradeHistoryEchanger from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../modules/exchange";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers} from "../../../actions/wallet";
+import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getMyOpenOffers} from "../../../actions/wallet";
 
 class Exchange extends React.Component {
     state = {
@@ -29,6 +29,7 @@ class Exchange extends React.Component {
         }
         this.props.getBuyOpenOffers();
         this.props.getSellOpenOffers();
+        this.props.getMyOpenOffers();
     }
 
     componentDidUpdate() {
@@ -54,11 +55,12 @@ class Exchange extends React.Component {
     switchCurrency = (currency) => {
         this.props.getBuyOpenOffers(currency);
         this.props.getSellOpenOffers(currency);
+        this.props.getMyOpenOffers(currency);
         this.props.setCurrentCurrency(currency);
     };
 
     render () {
-        const {currencies, currentCurrency, buyOrders, sellOrders} = this.props;
+        const {currencies, currentCurrency, buyOrders, sellOrders, myOrders} = this.props;
         const wallet = this.state.wallets && this.state.wallets.filter(wallet => wallet.currency === currentCurrency.currency)[0];
         return (
             <div className="page-content">
@@ -121,6 +123,7 @@ class Exchange extends React.Component {
                                 currentCurrency={currentCurrency}
                                 wallet={wallet}
                                 handleLoginModal={this.handleLoginModal}
+                                myOrders={myOrders[currentCurrency.currency]}
                             />
                         </div>
                     </div>
@@ -136,6 +139,7 @@ const mapStateToProps = ({exchange, account}) => ({
     currentCurrency: exchange.currentCurrency,
     buyOrders: exchange.buyOrders,
     sellOrders: exchange.sellOrders,
+    myOrders: exchange.myOrders,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -144,6 +148,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
     getBuyOpenOffers: (currency) => dispatch(getBuyOpenOffers(currency)),
     getSellOpenOffers: (currency) => dispatch(getSellOpenOffers(currency)),
+    getMyOpenOffers: (currency) => dispatch(getMyOpenOffers(currency)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exchange)
