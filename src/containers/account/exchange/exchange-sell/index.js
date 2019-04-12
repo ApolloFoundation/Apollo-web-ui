@@ -13,7 +13,7 @@ class ExchangeSell extends React.Component {
     };
 
     handleFormSubmit = (values) => {
-        if (this.props.wallet && this.props.passPhrase) {
+        if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
                 const params = {
                     offerType: 1, // SELL
@@ -26,9 +26,6 @@ class ExchangeSell extends React.Component {
 
                     sender: this.props.account,
                     secretPhrase: this.props.passPhrase,
-                    amountOfTime: 10000,
-                    deadline: 1440,
-                    feeATM: 100000000,
                 };
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
@@ -47,6 +44,10 @@ class ExchangeSell extends React.Component {
         }
     };
 
+    getFormApi = (form) => {
+        this.setState({form})
+    };
+
     render() {
         const {currentCurrency: {currency}, wallet} = this.props;
         const balanceFormat = wallet && wallet.wallets && formatCrypto(wallet.wallets[0].balance);
@@ -55,6 +56,7 @@ class ExchangeSell extends React.Component {
             <div className={'card-block green card card-medium pt-0 h-400'}>
                 <Form
                     onSubmit={values => this.handleFormSubmit(values)}
+                    getApi={this.getFormApi}
                     render={({
                                  submitForm, setValue, values
                              }) => (
