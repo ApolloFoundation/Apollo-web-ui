@@ -25,7 +25,7 @@ class ExchangeSell extends React.Component {
                     offerCurrency: currencyTypes[this.props.currentCurrency.currency],
 
                     sender: this.props.account,
-                    secretPhrase: this.props.passPhrase,
+                    passphrase: this.props.passPhrase,
                 };
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);

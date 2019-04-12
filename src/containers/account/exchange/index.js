@@ -62,6 +62,8 @@ class Exchange extends React.Component {
     render () {
         const {currencies, currentCurrency, buyOrders, sellOrders, myOrders} = this.props;
         const wallet = this.state.wallets && this.state.wallets.filter(wallet => wallet.currency === currentCurrency.currency)[0];
+        const buyOrdersCurrency = buyOrders[currentCurrency.currency];
+        const sellOrdersCurrency = sellOrders[currentCurrency.currency];
         return (
             <div className="page-content">
                 <SiteHeader
@@ -85,13 +87,17 @@ class Exchange extends React.Component {
                             />
                         </div>
                         <div className={'col-md-4 pr-0 pb-3'}>
-                            <BuyOrders currentCurrency={currentCurrency} buyOrders={buyOrders[currentCurrency.currency]} />
+                            <BuyOrders currentCurrency={currentCurrency} buyOrders={buyOrdersCurrency} />
                         </div>
                         <div className={'col-md-8 pr-0 pb-3'}>
-                            <Plot currentCurrency={currentCurrency}/>
+                            <Plot
+                                currentCurrency={currentCurrency}
+                                buyOrders={buyOrdersCurrency}
+                                sellOrders={sellOrdersCurrency}
+                            />
                         </div>
                         <div className={'col-md-4 pr-0 pb-3'}>
-                            <SellOrders currentCurrency={currentCurrency} sellOrders={sellOrders[currentCurrency.currency]} />
+                            <SellOrders currentCurrency={currentCurrency} sellOrders={sellOrdersCurrency} />
                         </div>
                         <div className={'col-md-8 p-0'}>
                             <div className={'container-fluid p-0'}>
