@@ -65,7 +65,7 @@ class TradeHistoryEchanger extends React.Component {
                             name: `Price ${currency.toUpperCase()}`,
                             alignRight: false
                         }, {
-                            name: `Amount ${currency.toUpperCase()}`,
+                            name: `Amount APL`,
                             alignRight: false
                         }, {
                             name: `Total ${currency.toUpperCase()}`,

@@ -19,7 +19,7 @@ const SellOrders = ({currentCurrency, sellOrders}) => (
                     name: `Price ${currentCurrency.currency.toUpperCase()}`,
                     alignRight: false
                 },{
-                    name: `Amount ${currentCurrency.currency.toUpperCase()}`,
+                    name: `Amount APL`,
                     alignRight: false
                 },{
                     name: `Total ${currentCurrency.currency.toUpperCase()}`,
@@ -35,7 +35,7 @@ const SellOrders = ({currentCurrency, sellOrders}) => (
                 const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
                 return (
                     <tr>
-                        <td className={'green-text'}>{pairRate}</td>
+                        <td className={'red-text'}>{pairRate}</td>
                         <td>{offerAmount}</td>
                         <td className={'align-right'}>{total}</td>
                     </tr>

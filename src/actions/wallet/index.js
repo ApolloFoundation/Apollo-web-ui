@@ -83,7 +83,6 @@ export function createOffer(requestParams) {
     }
 }
 
-
 export function getOpenOrders(requestParams) {
     return dispatch => {
         return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams)

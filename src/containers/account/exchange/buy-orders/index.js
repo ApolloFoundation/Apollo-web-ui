@@ -19,7 +19,7 @@ const BuyOrders = ({currentCurrency, buyOrders}) => (
                     name: `Price ${currentCurrency.currency.toUpperCase()}`,
                     alignRight: false
                 },{
-                    name: `Amount ${currentCurrency.currency.toUpperCase()}`,
+                    name: `Amount APL`,
                     alignRight: false
                 },{
                     name: `Total ${currentCurrency.currency.toUpperCase()}`,

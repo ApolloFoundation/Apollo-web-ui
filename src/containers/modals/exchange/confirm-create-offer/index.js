@@ -19,20 +19,20 @@ class ConfirmCreateOffer extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        let secretPhrase = values.passphrase;
-        if (!secretPhrase || secretPhrase.length === 0) {
+        let passphrase = values.passphrase;
+        if (!passphrase || passphrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
 
         const params = {
             ...this.props.modalData.params,
-            secretPhrase
+            passphrase
         };
         const offer = await this.props.createOffer(params);
         if (offer) {
             this.props.modalData.resetForm();
-            this.props.setAccountPassphrase(secretPhrase);
+            this.props.setAccountPassphrase(passphrase);
             this.props.closeModal();
         } else {
             NotificationManager.error('Secret Phrase is incorrect or you not in Vault Wallet.', 'Error', 5000);
