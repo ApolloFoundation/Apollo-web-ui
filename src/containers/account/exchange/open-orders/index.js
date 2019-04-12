@@ -49,7 +49,7 @@ class TradeHistoryEchanger extends React.Component {
                         const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
                         return (
                             <tr>
-                                <td className={`${props.orderType === 0} ? 'green-text' : 'red-text'`}>{pairRate}</td>
+                                <td className={`${props.type === 0 ? 'green-text' : 'red-text'}`}>{pairRate}</td>
                                 <td>{offerAmount}</td>
                                 <td className={'align-right'}>{total}</td>
                             </tr>
