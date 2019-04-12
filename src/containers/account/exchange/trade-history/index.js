@@ -45,41 +45,44 @@ class TradeHistoryEchanger extends React.Component {
         }
     };
 
-    render () {
+    render() {
         const {currency} = this.props.currentCurrency;
         return (
-            <div className={'card-block card card-medium p-0 h-100'}>
-                <div className={'form-group-app p-0'}>
-                    <CustomTable
-                        tableName={'Trade history'}
-                        header={[
-                            {
-                                name: `Price ${currency.toUpperCase()}`,
-                                alignRight: false
-                            },{
-                                name: `Amount APL`,
-                                alignRight: false
-                            },{
-                                name: `Total ${currency.toUpperCase()}`,
-                                alignRight: true
-                            }
-                        ]}
-                        className={'pt-0 no-min-height pb-4'}
-                        tableData={buyOrders}
-                        emptyMessage={'No account propertes found .'}
-                        TableRowComponent={(props) => (
-                            <tr className={''}>
-                                <td>{props.price}</td>
-                                <td>{props.amount}</td>
-                                <td className={'align-right'}>{props.total}</td>
-                            </tr>
-                        )}
-                        actionButton={{
-                            name:'View All',
-                            handler: this.handleFormSubmit
-                        }}
-                    />
+            <div className={'card-block form-group-app p-0 h-400'}>
+                <div className={'form-title white d-flex justify-content-between'}>
+                    <p>Trade history</p>
+                    <button
+                        type={'button'}
+                        className={'btn btn-sm'}
+                        onClick={this.handleFormSubmit}
+                    >
+                        View All
+                    </button>
                 </div>
+                <CustomTable
+                    header={[
+                        {
+                            name: `Price ${currency.toUpperCase()}`,
+                            alignRight: false
+                        }, {
+                            name: `Amount APL`,
+                            alignRight: false
+                        }, {
+                            name: `Total ${currency.toUpperCase()}`,
+                            alignRight: true
+                        }
+                    ]}
+                    className={'pt-0 no-min-height pb-4'}
+                    tableData={buyOrders}
+                    emptyMessage={'No account propertes found .'}
+                    TableRowComponent={(props) => (
+                        <tr className={''}>
+                            <td>{props.price}</td>
+                            <td>{props.amount}</td>
+                            <td className={'align-right'}>{props.total}</td>
+                        </tr>
+                    )}
+                />
             </div>
         );
     }
