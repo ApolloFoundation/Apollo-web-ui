@@ -10,7 +10,8 @@ import {setCurrentCurrencyAction} from "../../../modules/exchange";
 
 class ChooseWallet extends React.Component {
     state = {
-        wallets: null
+        wallets: null,
+        loading: false,
     };
 
     componentDidMount() {
@@ -23,19 +24,20 @@ class ChooseWallet extends React.Component {
     }
 
     componentDidUpdate() {
-        if (!this.state.wallets && this.props.wallets) {
+        if (!this.state.wallets && this.props.wallets && !this.state.loading) {
             this.getCurrencyBalance(this.props.wallets);
         }
     }
 
     getCurrencyBalance = async (wallets) => {
+        this.setState({loading: true});
         let params = {};
         wallets.map(wallet => params[wallet.currency] = wallet.wallets[0].address);
         const balances = await this.props.getCurrencyBalance(params);
         if (balances) {
             wallets.map(wallet => wallet.wallets[0].balance = balances[`balance${wallet.currency.toUpperCase()}`]);
         }
-        this.setState({wallets});
+        this.setState({wallets, loading: false});
     };
 
     handleCurrentCurrency = (currency) => {
@@ -49,50 +51,60 @@ class ChooseWallet extends React.Component {
                     pageTitle={'Wallets'}
                 />
                 <div className="exchange page-body container-fluid pl-3">
-                    {this.state.wallets ?
-                        <div className={'card-block primary form-group-app p-0 mb-3'}>
-                            <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
-                                <p className="title-lg">My Wallets</p>
+                    {!this.state.loading ? (
+                        this.state.wallets ? (
+                            <div className={'card-block primary form-group-app p-0 mb-3'}>
+                                <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
+                                    <p className="title-lg">My Wallets</p>
+                                </div>
+                                {this.state.wallets.map(wallet => (
+                                    <CustomTable
+                                        header={[
+                                            {
+                                                name: `${wallet.currency.toUpperCase()} Wallet`,
+                                                alignRight: false
+                                            }, {
+                                                name: `Amount ${wallet.currency.toUpperCase()}`,
+                                                alignRight: false
+                                            }, {
+                                                name: `Buy ${wallet.currency.toUpperCase()}`,
+                                                alignRight: false
+                                            }, {
+                                                name: `Sell ${wallet.currency.toUpperCase()}`,
+                                                alignRight: false
+                                            }, {
+                                                name: 'Transactions history',
+                                                alignRight: false
+                                            }, {
+                                                name: 'Withdraw',
+                                                alignRight: true
+                                            }
+                                        ]}
+                                        className={'pt-0 no-min-height no-padding rounded-top'}
+                                        tableData={wallet.wallets}
+                                        passProps={{currency: wallet.currency, handleCurrentCurrency: this.handleCurrentCurrency}}
+                                        emptyMessage={'No wallet info found.'}
+                                        TableRowComponent={CurrencyDescriptionComponent}
+                                    />
+                                ))}
                             </div>
-                            {this.state.wallets.map(wallet => (
-                            <CustomTable
-                                header={[
-                                    {
-                                        name: `${wallet.currency.toUpperCase()} Wallet`,
-                                        alignRight: false
-                                    }, {
-                                        name: `Amount ${wallet.currency.toUpperCase()}`,
-                                        alignRight: false
-                                    }, {
-                                        name: `Buy ${wallet.currency.toUpperCase()}`,
-                                        alignRight: false
-                                    }, {
-                                        name: `Sell ${wallet.currency.toUpperCase()}`,
-                                        alignRight: false
-                                    }, {
-                                        name: 'Transactions history',
-                                        alignRight: false
-                                    }, {
-                                        name: 'Withdraw',
-                                        alignRight: true
-                                    }
-                                ]}
-                                className={'pt-0 no-min-height no-padding rounded-top'}
-                                tableData={wallet.wallets}
-                                passProps={{currency: wallet.currency, handleCurrentCurrency: this.handleCurrentCurrency}}
-                                emptyMessage={'No wallet info found.'}
-                                TableRowComponent={CurrencyDescriptionComponent}
-                            />
-                            ))}
+                        ):(
+                            <div>
+                                <InfoBox default>
+                                    You have no wallets at that moment.&nbsp;
+                                    <a onClick={() => this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {})}>Log in</a>
+                                </InfoBox>
+                            </div>
+                        )
+                    ):(
+                        <div className={'align-items-center loader-box'}>
+                            <div className="ball-pulse">
+                                <div/>
+                                <div/>
+                                <div/>
+                            </div>
                         </div>
-                        :
-                        <div>
-                            <InfoBox default>
-                                You have no wallets at that moment.&nbsp;
-                                <a onClick={() => this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {})}>Log in</a>
-                            </InfoBox>
-                        </div>
-                    }
+                    )}
                 </div>
             </div>
         )
