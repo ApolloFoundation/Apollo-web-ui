@@ -307,7 +307,6 @@ class CreateUser extends React.Component {
                                                                     <button type={'button'} className="btn btn-sm">
                                                                         Copy account data to clipboard
                                                                     </button>
-
                                                                 </CopyToClipboard>
                                                                 <button
                                                                     type={'button'}
