@@ -206,18 +206,16 @@ class ImportAccount extends React.Component {
                                             </React.Fragment>
                                         )}
 
-                                        {
-                                            this.state &&
-                                            this.state.importAccount &&
-                                            <InfoBox attentionLeft>
-                                                Secret Phrase: <span
-                                                className={'itatic'}>{this.state.importAccount.passphrase}</span>
-                                                <br/>
-                                                <br/>
-                                                Account ID: <span
-                                                className={'itatic'}>{this.state.importAccount.accountRS}</span>
-                                                <br/>
-                                                <br/>
+                                        {this.state && this.state.importAccount && (
+                                            <InfoBox attentionLeft className={'dark-info'}>
+                                                <p className={'mb-3'}>
+                                                    Secret Phrase: <span
+                                                    className={'itatic'}>{this.state.importAccount.passphrase}</span>
+                                                </p>
+                                                <p className={'mb-3'}>
+                                                    Account ID: <span
+                                                    className={'itatic'}>{this.state.importAccount.accountRS}</span>
+                                                </p>
                                                 <CopyToClipboard
                                                     text={
                                                         `Secret Phrase: ${this.state.importAccount.passphrase}\n` +
@@ -227,25 +225,25 @@ class ImportAccount extends React.Component {
                                                         NotificationManager.success('The account data has been copied to clipboard.')
                                                     }}
                                                 >
-                                                    <a
-                                                        className="btn blue static"
-                                                    >
+                                                    <button type={'button'} className="btn btn-sm">
                                                         Copy account data to clipboard.
-                                                    </a>
+                                                    </button>
                                                 </CopyToClipboard>
                                             </InfoBox>
-                                        }
-                                        {
-                                            this.state &&
-                                            this.state.importAccount &&
-                                            <InfoBox danger>
-                                                <strong>Remember</strong> to store your Account ID,
-                                                passphrase, and Secret Key in a secured place.
-                                                Make sure to write down this passphrase and store it
-                                                securely (the passphrase is order and case sensitive). This
-                                                passphrase is needed to use your wallet.
+                                        )}
+                                        {this.state && this.state.importAccount && (
+                                            <InfoBox className={'dark-info'}>
+                                                <ul className={'marked-list'}>
+                                                    <li className={'danger-icon'}>
+                                                        <strong>Remember</strong> to store your Account ID,
+                                                        passphrase, and Secret Key in a secured place.
+                                                        Make sure to write down this passphrase and store it
+                                                        securely (the passphrase is order and case sensitive). This
+                                                        passphrase is needed to use your wallet.
+                                                    </li>
+                                                </ul>
                                             </InfoBox>
-                                        }
+                                        )}
                                         <div className="btn-box">
                                             {
                                                 !this.state.isGenerated &&
