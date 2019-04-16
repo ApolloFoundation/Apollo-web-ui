@@ -18,12 +18,24 @@ class AccountRS extends React.Component {
             contacts: JSON.parse(localStorage.getItem('APLContacts')),
             value: this.props.defaultValue || '',
             isContacts: false,
-            isUpdate: false
+            isUpdate: false,
+            defaultValue: this.props.defaultValue,
         };
         if (this.props.setValue) {
             this.props.setValue(this.props.field, this.props.defaultValue);
         }
     };
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.defaultValue !== state.defaultValue) {
+            return {
+                defaultValue: props.defaultValue,
+                value: props.defaultValue
+            };
+        }
+
+        return null;
+    }
 
     handleFillForm = (account) => {
         this.setState({
