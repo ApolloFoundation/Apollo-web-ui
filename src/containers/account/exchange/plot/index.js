@@ -1,12 +1,53 @@
 import React from 'react';
-import {Bar} from 'react-chartjs-2';
+import Chart from 'chart.js';
 
 import EthIcon from '../../../../assets/ETH.png';
-import buyOrdersVal from '../buyOrders';
-import sellOrdersVal from '../sellOrders';
 
-const buyOrders = buyOrdersVal.map((el, index) => ({
-    label: `Buy ${el.price}`,
+const chartJsOption = {
+    type: 'bar',
+    options: {
+        legend: false,
+        maintainAspectRatio: false,
+        tooltips: {
+            backgroundColor: '#ffffff',
+            titleFontFamily: 'BBRollerMonoProST, sans-serif',
+            titleFontSize: 10,
+            titleFontStyle: '400',
+            titleFontColor: '#98B0CD',
+            bodyFontFamily: 'BBRollerMonoProST, sans-serif',
+            bodyFontSize: 12,
+            bodyFontColor: '#3D5A7E',
+            borderColor: '#E6EAEE',
+            borderWidth: '1'
+        },
+        scales: {
+            yAxes: [{
+                gridLines: {
+                    display: false,
+                    color: '#CFDAE8',
+                },
+                ticks: {
+                    fontColor: '#8AA5C7',
+                    fontFamily: 'BBRollerMonoProST, sans-serif',
+                    fontSize: '11',
+                }
+            }],
+            xAxes: [{
+                gridLines: {
+                    display: false,
+                    color: '#CFDAE8',
+                },
+                ticks: {
+                    fontColor: '#8AA5C7',
+                    fontFamily: 'BBRollerMonoProST, sans-serif',
+                    fontSize: '11',
+                }
+            }]
+        }
+    }
+};
+
+const buyOptions = {
     fill: false,
     lineTension: 0.1,
     backgroundColor: '#F36',
@@ -23,11 +64,9 @@ const buyOrders = buyOrdersVal.map((el, index) => ({
     pointHoverBorderColor: 'rgba(220,220,220,1)',
     pointRadius: 1,
     pointHitRadius: 10,
-    data: [{x: 10 * index, y: parseFloat(el.amount), r: 5}]
-}));
+};
 
-const sellOrders = sellOrdersVal.map((el, index) => ({
-    label: `Sell ${el.price}`,
+const sellOptions = {
     fill: false,
     lineTension: 0.1,
     backgroundColor: 'rgba(0,189,32,0.92)',
@@ -44,42 +83,92 @@ const sellOrders = sellOrdersVal.map((el, index) => ({
     pointHoverBorderColor: 'rgba(220,220,220,1)',
     pointRadius: 1,
     pointHitRadius: 10,
-    data: [{x: 10 * index, y: parseFloat(el.amount), r: 5}]
-}));
+};
 
 export default class Plot extends React.Component {
+    chartOrders = {
+        chart: null,
+        ref: React.createRef(),
+    };
+
     state = {
-        data : {
-            labels: ['Orders'],
-            datasets: [...buyOrders, ...sellOrders]
+        loading: true,
+        buyOrdersData: [],
+        sellOrdersData: [],
+        chartBy: 'amount',
+        filter: 'full',
+    };
+
+    chartDraw = (datasets) => {
+        if (this.chartOrders.chart) {
+            this.chartOrders.chart.data.labels = ['Orders'];
+            this.chartOrders.chart.data.datasets = datasets;
+            this.chartOrders.chart.update();
+        } else {
+            const context = this.chartOrders.ref.current.getContext('2d');
+            this.chartOrders.chart = new Chart(context, {
+                data: {
+                    labels: ['Orders'],
+                    datasets
+                },
+                ...chartJsOption,
+            });
         }
     };
 
-    onHandleFilterBuy = () => {
-        this.setState({
-            data : {
-                labels: ['Orders Buy'],
-                datasets: [...buyOrders]
-            }
-        })
+    static getDerivedStateFromProps(props, state) {
+        if (props.buyOrders !== state.buyOrders && props.sellOrders !== state.sellOrders) {
+            const buyOrdersData = props.buyOrders.map((el, index) => ({
+                ...buyOptions,
+                label: `Buy ${el.price}`,
+                data: [parseFloat(el.amount)]
+            }));
+            const sellOrdersData = props.sellOrders.map((el, index) => ({
+                ...sellOptions,
+                label: `Buy ${el.price}`,
+                data: [parseFloat(el.amount)]
+            }));
+            return {
+                loading: false,
+                buyOrdersData,
+                sellOrdersData,
+            };
+        }
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (!this.chartOrders.chart && prevState.buyOrdersData && prevState.sellOrdersData) {
+            this.onHandleChangeChart('amount');
+        }
+    }
+
+    onHandleChangeFilter = (filter) => {
+        let data = [];
+        if (filter === 'buy') data.push(...this.state.buyOrdersData);
+        if (filter === 'sell') data.push(...this.state.sellOrdersData);
+        if (filter === 'full') data = [...this.state.buyOrdersData, ...this.state.sellOrdersData];
+        this.setState({filter});
+        this.chartDraw(data)
     };
 
-    onHandleFilterSell = () => {
+    onHandleChangeChart = (filter) => {
+        const buyOrdersData = this.props.buyOrders.map((el, index) => ({
+            ...buyOptions,
+            label: `Buy ${el.price}`,
+            data: [parseFloat(el[filter])]
+        }));
+        const sellOrdersData = this.props.sellOrders.map((el, index) => ({
+            ...sellOptions,
+            label: `Buy ${el.price}`,
+            data: [parseFloat(el[filter])]
+        }));
         this.setState({
-            data : {
-                labels: ['Orders Sell'],
-                datasets: [...sellOrders]
-            }
-        })
-    };
+            buyOrdersData,
+            sellOrdersData,
+            chartBy: filter,
+        }, () => this.chartDraw([...buyOrdersData, ...sellOrdersData]));
 
-    onHandleFilterFull = () => {
-        this.setState({
-            data : {
-                labels: ['Orders'],
-                datasets: [...buyOrders, ...sellOrders]
-            }
-        })
     };
 
     render() {
@@ -97,28 +186,28 @@ export default class Plot extends React.Component {
                         <div className={'form-title-actions'}>
                             <div className={'options-section'}>
                                 <button
-                                    onClick={this.onHandleFilterBuy}
-                                    className={'btn btn-sm bg-danger ml-3 mt-2'}
+                                    onClick={() => this.onHandleChangeFilter('buy')}
+                                    className={`btn btn-sm bg-danger ml-3 mt-2 ${this.state.filter === 'buy' ? 'bold-text' : ''}`}
                                 >
                                     Buy
                                 </button>
                                 <button
-                                    onClick={this.onHandleFilterSell}
-                                    className={'btn btn-sm bg-success ml-3 mt-2'}
+                                    onClick={() => this.onHandleChangeFilter('sell')}
+                                    className={`btn btn-sm bg-success ml-3 mt-2 ${this.state.filter === 'sell' ? 'bold-text' : ''}`}
                                 >
                                     Sell
                                 </button>
                                 <button
-                                    onClick={this.onHandleFilterFull}
-                                    className={'btn btn-sm blue ml-3 mt-2'}
-                                >
-                                    Price
-                                </button>
-                                <button
-                                    onClick={this.onHandleFilterFull}
-                                    className={'btn btn-sm blue ml-3 mr-3 mt-2'}
+                                    onClick={() => this.onHandleChangeChart('amount')}
+                                    className={`btn btn-sm blue ml-3 mt-2 ${this.state.chartBy === 'amount' ? 'bold-text' : ''}`}
                                 >
                                     Amount
+                                </button>
+                                <button
+                                    onClick={() => this.onHandleChangeChart('value')}
+                                    className={`btn btn-sm blue ml-3 mr-3 mt-2 ${this.state.chartBy === 'value' ? 'bold-text' : ''}`}
+                                >
+                                    Value
                                 </button>
                             </div>
                             <div className={'info-section'}>
@@ -145,76 +234,37 @@ export default class Plot extends React.Component {
                         </div>
                         <div className={'options-section'}>
                             <button
-                                onClick={this.onHandleFilterBuy}
+                                onClick={() => this.onHandleChangeFilter('buy')}
                                 className={'btn btn-sm bg-danger ml-3 mt-2'}
                             >
                                 Buy
                             </button>
                             <button
-                                onClick={this.onHandleFilterSell}
+                                onClick={() => this.onHandleChangeFilter('sell')}
                                 className={'btn btn-sm bg-success ml-3 mt-2'}
                             >
                                 Sell
                             </button>
                             <button
-                                onClick={this.onHandleFilterSell}
+                                onClick={() => this.onHandleChangeChart('amount')}
                                 className={'btn btn-sm blue ml-3 mt-2'}
                             >
-                                Price
+                                Amount
                             </button>
                             <button
-                                onClick={this.onHandleFilterSell}
+                                onClick={() => this.onHandleChangeChart('value')}
                                 className={'btn btn-sm blue ml-3 mr-3 mt-2'}
                             >
                                 Value
                             </button>
                         </div>
                         <div className={'full-box overflow-hidden'}>
-                            <Bar
-                                data={this.state.data}
-                                width={100}
-                                height={'300px'}
-                                options={{
-                                    legend: false,
-                                    maintainAspectRatio: false,
-                                    tooltips: {
-                                        backgroundColor: '#ffffff',
-                                        titleFontFamily: 'BBRollerMonoProST, sans-serif',
-                                        titleFontSize: 10,
-                                        titleFontStyle: '400',
-                                        titleFontColor: '#98B0CD',
-                                        bodyFontFamily: 'BBRollerMonoProST, sans-serif',
-                                        bodyFontSize: 12,
-                                        bodyFontColor: '#3D5A7E',
-                                        borderColor: '#E6EAEE',
-                                        borderWidth: '1'
-                                    },
-                                    scales: {
-                                        yAxes: [{
-                                            gridLines: {
-                                                display: false,
-                                                color: '#CFDAE8',
-                                            },
-                                            ticks: {
-                                                fontColor: '#8AA5C7',
-                                                fontFamily: 'BBRollerMonoProST, sans-serif',
-                                                fontSize: '11',
-                                            }
-                                        }],
-                                        xAxes: [{
-                                            gridLines: {
-                                                display: false,
-                                                color: '#CFDAE8',
-                                            },
-                                            ticks: {
-                                                fontColor: '#8AA5C7',
-                                                fontFamily: 'BBRollerMonoProST, sans-serif',
-                                                fontSize: '11',
-                                            }
-                                        }]
-                                    }
-                                }}
-                            />
+                            {!this.state.loading && (
+                                <canvas
+                                    className={`chart`}
+                                    ref={this.chartOrders.ref}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,9 @@ import {setCurrentCurrencyAction} from "../../../modules/exchange";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getMyOpenOffers} from "../../../actions/wallet";
 
+import buyOrdersVal from './buyOrders';
+import sellOrdersVal from './sellOrders';
+
 class Exchange extends React.Component {
     state = {
         wallets: null
@@ -92,8 +95,8 @@ class Exchange extends React.Component {
                         <div className={'col-md-8 pr-0 pb-3'}>
                             <Plot
                                 currentCurrency={currentCurrency}
-                                buyOrders={buyOrdersCurrency}
-                                sellOrders={sellOrdersCurrency}
+                                buyOrders={buyOrdersVal}
+                                sellOrders={sellOrdersVal}
                             />
                         </div>
                         <div className={'col-md-4 pr-0 pb-3'}>
