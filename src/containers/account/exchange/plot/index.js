@@ -123,7 +123,7 @@ export default class Plot extends React.Component {
             if (props.buyOrders !== state.buyOrders && props.buyOrders.length > 0) {
                 buyOrdersData = props.buyOrders.map((el, index) => ({
                     ...buyOptions,
-                    label: `Buy ${formatDivision(props.pairRate, 100000000, 9)}`,
+                    label: `Buy ${formatDivision(el.pairRate, 100000000, 9)}`,
                     data: [parseFloat(el.offerAmount) / 100000000]
                 }));
             }
@@ -132,7 +132,7 @@ export default class Plot extends React.Component {
             if (props.sellOrders !== state.sellOrders && props.sellOrders.length > 0) {
                 sellOrdersData = props.sellOrders.map((el, index) => ({
                     ...sellOptions,
-                    label: `Buy ${formatDivision(props.pairRate, 100000000, 9)}`,
+                    label: `Sell ${formatDivision(el.pairRate, 100000000, 9)}`,
                     data: [parseFloat(el.offerAmount) / 100000000]
                 }));
             }
@@ -161,24 +161,16 @@ export default class Plot extends React.Component {
     };
 
     onHandleChangeChart = (filter) => {
-        const buyOrdersData = this.props.buyOrders ? this.props.buyOrders.map((el, index) => ({
+        const buyOrdersData = this.props.buyOrders.map((el, index) => ({
             ...buyOptions,
-            label: `Buy ${el.price}`,
+            label: `Buy ${formatDivision(el.pairRate, 100000000, 9)}`,
             data: [parseFloat(el[filter]) / 100000000]
-        })) : [{
-            ...buyOptions,
-            label: '',
-            data: []
-        }];
-        const sellOrdersData = this.props.sellOrders ? this.props.sellOrders.map((el, index) => ({
+        }));
+        const sellOrdersData = this.props.sellOrders.map((el, index) => ({
             ...sellOptions,
-            label: `Buy ${el.price}`,
+            label: `Sell ${formatDivision(el.pairRate, 100000000, 9)}`,
             data: [parseFloat(el[filter]) / 100000000]
-        })) : [{
-            ...sellOptions,
-            label: '',
-            data: []
-        }];
+        }));
         this.setState({
             buyOrdersData,
             sellOrdersData,
