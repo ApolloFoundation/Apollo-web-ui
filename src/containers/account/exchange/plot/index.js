@@ -2,6 +2,7 @@ import React from 'react';
 import Chart from 'chart.js';
 
 import EthIcon from '../../../../assets/ETH.png';
+import {formatDivision} from "../../../../helpers/format";
 
 const chartJsOption = {
     type: 'bar',
@@ -47,7 +48,7 @@ const chartJsOption = {
     }
 };
 
-const buyOptions = {
+const sellOptions = {
     fill: false,
     lineTension: 0.1,
     backgroundColor: '#F36',
@@ -66,7 +67,7 @@ const buyOptions = {
     pointHitRadius: 10,
 };
 
-const sellOptions = {
+const buyOptions = {
     fill: false,
     lineTension: 0.1,
     backgroundColor: 'rgba(0,189,32,0.92)',
@@ -95,7 +96,7 @@ export default class Plot extends React.Component {
         loading: true,
         buyOrdersData: [],
         sellOrdersData: [],
-        chartBy: 'amount',
+        chartBy: 'offerAmount',
         filter: 'full',
     };
 
@@ -117,17 +118,24 @@ export default class Plot extends React.Component {
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (props.buyOrders !== state.buyOrders && props.sellOrders !== state.sellOrders) {
-            const buyOrdersData = props.buyOrders.map((el, index) => ({
-                ...buyOptions,
-                label: `Buy ${el.price}`,
-                data: [parseFloat(el.amount)]
-            }));
-            const sellOrdersData = props.sellOrders.map((el, index) => ({
-                ...sellOptions,
-                label: `Buy ${el.price}`,
-                data: [parseFloat(el.amount)]
-            }));
+        if (props.buyOrders && props.sellOrders && (props.buyOrders !== state.buyOrders || props.sellOrders !== state.sellOrders)) {
+            let buyOrdersData = [];
+            if (props.buyOrders !== state.buyOrders && props.buyOrders.length > 0) {
+                buyOrdersData = props.buyOrders.map((el, index) => ({
+                    ...buyOptions,
+                    label: `Buy ${formatDivision(props.pairRate, 100000000, 9)}`,
+                    data: [parseFloat(el.offerAmount) / 100000000]
+                }));
+            }
+
+            let sellOrdersData = [];
+            if (props.sellOrders !== state.sellOrders && props.sellOrders.length > 0) {
+                sellOrdersData = props.sellOrders.map((el, index) => ({
+                    ...sellOptions,
+                    label: `Buy ${formatDivision(props.pairRate, 100000000, 9)}`,
+                    data: [parseFloat(el.offerAmount) / 100000000]
+                }));
+            }
             return {
                 loading: false,
                 buyOrdersData,
@@ -138,8 +146,8 @@ export default class Plot extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (!this.chartOrders.chart && prevState.buyOrdersData && prevState.sellOrdersData) {
-            this.onHandleChangeChart('amount');
+        if (!this.state.loading && !this.chartOrders.chart && prevState.buyOrdersData && prevState.sellOrdersData) {
+            this.onHandleChangeChart('offerAmount');
         }
     }
 
@@ -153,16 +161,24 @@ export default class Plot extends React.Component {
     };
 
     onHandleChangeChart = (filter) => {
-        const buyOrdersData = this.props.buyOrders.map((el, index) => ({
+        const buyOrdersData = this.props.buyOrders ? this.props.buyOrders.map((el, index) => ({
             ...buyOptions,
             label: `Buy ${el.price}`,
-            data: [parseFloat(el[filter])]
-        }));
-        const sellOrdersData = this.props.sellOrders.map((el, index) => ({
+            data: [parseFloat(el[filter]) / 100000000]
+        })) : [{
+            ...buyOptions,
+            label: '',
+            data: []
+        }];
+        const sellOrdersData = this.props.sellOrders ? this.props.sellOrders.map((el, index) => ({
             ...sellOptions,
             label: `Buy ${el.price}`,
-            data: [parseFloat(el[filter])]
-        }));
+            data: [parseFloat(el[filter]) / 100000000]
+        })) : [{
+            ...sellOptions,
+            label: '',
+            data: []
+        }];
         this.setState({
             buyOrdersData,
             sellOrdersData,
@@ -176,7 +192,8 @@ export default class Plot extends React.Component {
         return (
             <div className={'card-block primary card card-medium pt-0 h-400'}>
                 <div className={'form-group-app overflow-hidden'}>
-                    <div className={'form-title form-title-lg d-flex flex-row justify-content-between align-items-center'}>
+                    <div
+                        className={'form-title form-title-lg d-flex flex-row justify-content-between align-items-center'}>
                         <div className={'d-flex align-items-center'}>
                             <img src={EthIcon} alt="ETH"/>
                             <p className={'title-lg'}>
@@ -187,27 +204,21 @@ export default class Plot extends React.Component {
                             <div className={'options-section'}>
                                 <button
                                     onClick={() => this.onHandleChangeFilter('buy')}
-                                    className={`btn btn-sm bg-danger ml-3 mt-2 ${this.state.filter === 'buy' ? 'bold-text' : ''}`}
+                                    className={`btn btn-sm bg-success ml-3 mt-2 ${this.state.filter === 'buy' ? 'bold-text' : ''}`}
                                 >
                                     Buy
                                 </button>
                                 <button
                                     onClick={() => this.onHandleChangeFilter('sell')}
-                                    className={`btn btn-sm bg-success ml-3 mt-2 ${this.state.filter === 'sell' ? 'bold-text' : ''}`}
+                                    className={`btn btn-sm bg-danger ml-3 mt-2 ${this.state.filter === 'sell' ? 'bold-text' : ''}`}
                                 >
                                     Sell
                                 </button>
                                 <button
-                                    onClick={() => this.onHandleChangeChart('amount')}
-                                    className={`btn btn-sm blue ml-3 mt-2 ${this.state.chartBy === 'amount' ? 'bold-text' : ''}`}
+                                    onClick={() => this.onHandleChangeChart('offerAmount')}
+                                    className={`btn btn-sm blue ml-3 mt-2 mr-3 ${this.state.chartBy === 'offerAmount' ? 'bold-text' : ''}`}
                                 >
                                     Amount
-                                </button>
-                                <button
-                                    onClick={() => this.onHandleChangeChart('value')}
-                                    className={`btn btn-sm blue ml-3 mr-3 mt-2 ${this.state.chartBy === 'value' ? 'bold-text' : ''}`}
-                                >
-                                    Value
                                 </button>
                             </div>
                             <div className={'info-section'}>
@@ -235,27 +246,21 @@ export default class Plot extends React.Component {
                         <div className={'options-section'}>
                             <button
                                 onClick={() => this.onHandleChangeFilter('buy')}
-                                className={'btn btn-sm bg-danger ml-3 mt-2'}
+                                className={'btn btn-sm bg-success ml-3 mt-2'}
                             >
                                 Buy
                             </button>
                             <button
                                 onClick={() => this.onHandleChangeFilter('sell')}
-                                className={'btn btn-sm bg-success ml-3 mt-2'}
+                                className={'btn btn-sm bg-danger ml-3 mt-2'}
                             >
                                 Sell
                             </button>
                             <button
-                                onClick={() => this.onHandleChangeChart('amount')}
-                                className={'btn btn-sm blue ml-3 mt-2'}
+                                onClick={() => this.onHandleChangeChart('offerAmount')}
+                                className={'btn btn-sm blue ml-3 mt-2 mr-3'}
                             >
                                 Amount
-                            </button>
-                            <button
-                                onClick={() => this.onHandleChangeChart('value')}
-                                className={'btn btn-sm blue ml-3 mr-3 mt-2'}
-                            >
-                                Value
                             </button>
                         </div>
                         <div className={'full-box overflow-hidden'}>

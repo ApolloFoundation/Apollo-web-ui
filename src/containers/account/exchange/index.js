@@ -95,8 +95,8 @@ class Exchange extends React.Component {
                         <div className={'col-md-8 pr-0 pb-3'}>
                             <Plot
                                 currentCurrency={currentCurrency}
-                                buyOrders={buyOrdersVal}
-                                sellOrders={sellOrdersVal}
+                                buyOrders={buyOrdersCurrency}
+                                sellOrders={sellOrdersCurrency}
                             />
                         </div>
                         <div className={'col-md-4 pr-0 pb-3'}>
