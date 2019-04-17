@@ -11,7 +11,7 @@ const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element,
         <div className="card card-full-screen no-padding scroll d-block">
             {
                 !!data &&
-                data.length &&
+                data.length > 0 &&
                 data.map((el, index) => {
                     return (
                         <Link

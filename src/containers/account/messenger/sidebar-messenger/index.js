@@ -19,7 +19,7 @@ class SidebarMessages extends React.Component {
                 baseUrl={'/messenger/'}
                 element={'accountRS'}
                 data={chats}
-                emptyMessage={'No assets found.'}
+                emptyMessage={'No chats found.'}
                 Component={SidebarMessage}
             />
         )
