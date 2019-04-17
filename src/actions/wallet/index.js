@@ -62,26 +62,25 @@ export function createOffer(requestParams) {
         // deadline: 1440,
         feeATM: 200000000,
     };
-    console.log('-------params-----', params)
-    // return dispatch => {
-    //     return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params)
-    //         .then(async (res) => {
-    //             if (!res.errorCode) {
-    //                 NotificationManager.success('Your offer has been created!', null, 5000);
-    //                 setTimeout(() => {
-    //                     dispatch(getBuyOpenOffers());
-    //                     dispatch(getSellOpenOffers());
-    //                     dispatch(getMyOpenOffers());
-    //                 }, 10000);
-    //                 return res;
-    //             } else {
-    //                 NotificationManager.error(res.errorDescription, 'Error', 5000);
-    //             }
-    //         })
-    //         .catch(() => {
-    //
-    //         })
-    // }
+    return dispatch => {
+        return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    NotificationManager.success('Your offer has been created!', null, 5000);
+                    setTimeout(() => {
+                        dispatch(getBuyOpenOffers());
+                        dispatch(getSellOpenOffers());
+                        dispatch(getMyOpenOffers());
+                    }, 10000);
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
 }
 
 export function getOpenOrders(requestParams) {
