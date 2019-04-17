@@ -1,12 +1,54 @@
 import React from 'react';
-import {Bar} from 'react-chartjs-2';
+import Chart from 'chart.js';
 
 import EthIcon from '../../../../assets/ETH.png';
-import buyOrdersVal from '../buyOrders';
-import sellOrdersVal from '../sellOrders';
+import {formatDivision} from "../../../../helpers/format";
 
-const buyOrders = buyOrdersVal.map((el, index) => ({
-    label: `Buy ${el.price}`,
+const chartJsOption = {
+    type: 'bar',
+    options: {
+        legend: false,
+        maintainAspectRatio: false,
+        tooltips: {
+            backgroundColor: '#ffffff',
+            titleFontFamily: 'BBRollerMonoProST, sans-serif',
+            titleFontSize: 10,
+            titleFontStyle: '400',
+            titleFontColor: '#98B0CD',
+            bodyFontFamily: 'BBRollerMonoProST, sans-serif',
+            bodyFontSize: 12,
+            bodyFontColor: '#3D5A7E',
+            borderColor: '#E6EAEE',
+            borderWidth: '1'
+        },
+        scales: {
+            yAxes: [{
+                gridLines: {
+                    display: false,
+                    color: '#CFDAE8',
+                },
+                ticks: {
+                    fontColor: '#8AA5C7',
+                    fontFamily: 'BBRollerMonoProST, sans-serif',
+                    fontSize: '11',
+                }
+            }],
+            xAxes: [{
+                gridLines: {
+                    display: false,
+                    color: '#CFDAE8',
+                },
+                ticks: {
+                    fontColor: '#8AA5C7',
+                    fontFamily: 'BBRollerMonoProST, sans-serif',
+                    fontSize: '11',
+                }
+            }]
+        }
+    }
+};
+
+const sellOptions = {
     fill: false,
     lineTension: 0.1,
     backgroundColor: '#F36',
@@ -23,11 +65,9 @@ const buyOrders = buyOrdersVal.map((el, index) => ({
     pointHoverBorderColor: 'rgba(220,220,220,1)',
     pointRadius: 1,
     pointHitRadius: 10,
-    data: [{x: 10 * index, y: parseFloat(el.amount), r: 5}]
-}));
+};
 
-const sellOrders = sellOrdersVal.map((el, index) => ({
-    label: `Sell ${el.price}`,
+const buyOptions = {
     fill: false,
     lineTension: 0.1,
     backgroundColor: 'rgba(0,189,32,0.92)',
@@ -44,42 +84,99 @@ const sellOrders = sellOrdersVal.map((el, index) => ({
     pointHoverBorderColor: 'rgba(220,220,220,1)',
     pointRadius: 1,
     pointHitRadius: 10,
-    data: [{x: 10 * index, y: parseFloat(el.amount), r: 5}]
-}));
+};
 
 export default class Plot extends React.Component {
+    chartOrders = {
+        chart: null,
+        ref: React.createRef(),
+    };
+
     state = {
-        data : {
-            labels: ['Orders'],
-            datasets: [...buyOrders, ...sellOrders]
+        loading: true,
+        buyOrdersData: [],
+        sellOrdersData: [],
+        chartBy: 'offerAmount',
+        filter: 'full',
+    };
+
+    chartDraw = (datasets) => {
+        if (this.chartOrders.chart) {
+            this.chartOrders.chart.data.labels = ['Orders'];
+            this.chartOrders.chart.data.datasets = datasets;
+            this.chartOrders.chart.update();
+        } else {
+            const context = this.chartOrders.ref.current.getContext('2d');
+            this.chartOrders.chart = new Chart(context, {
+                data: {
+                    labels: ['Orders'],
+                    datasets
+                },
+                ...chartJsOption,
+            });
         }
     };
 
-    onHandleFilterBuy = () => {
-        this.setState({
-            data : {
-                labels: ['Orders Buy'],
-                datasets: [...buyOrders]
+    static getDerivedStateFromProps(props, state) {
+        if (props.buyOrders && props.sellOrders && (props.buyOrders !== state.buyOrders || props.sellOrders !== state.sellOrders)) {
+            let buyOrdersData = [];
+            if (props.buyOrders !== state.buyOrders && props.buyOrders.length > 0) {
+                buyOrdersData = props.buyOrders.map((el, index) => ({
+                    ...buyOptions,
+                    label: `Buy ${formatDivision(el.pairRate, 100000000, 9)}`,
+                    data: [parseFloat(el.offerAmount) / 100000000]
+                }));
             }
-        })
+
+            let sellOrdersData = [];
+            if (props.sellOrders !== state.sellOrders && props.sellOrders.length > 0) {
+                sellOrdersData = props.sellOrders.map((el, index) => ({
+                    ...sellOptions,
+                    label: `Sell ${formatDivision(el.pairRate, 100000000, 9)}`,
+                    data: [parseFloat(el.offerAmount) / 100000000]
+                }));
+            }
+            return {
+                loading: false,
+                buyOrdersData,
+                sellOrdersData,
+            };
+        }
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (!this.state.loading && !this.chartOrders.chart && prevState.buyOrdersData && prevState.sellOrdersData) {
+            this.onHandleChangeChart('offerAmount');
+        }
+    }
+
+    onHandleChangeFilter = (filter) => {
+        let data = [];
+        if (filter === 'buy') data.push(...this.state.buyOrdersData);
+        if (filter === 'sell') data.push(...this.state.sellOrdersData);
+        if (filter === 'full') data = [...this.state.buyOrdersData, ...this.state.sellOrdersData];
+        this.setState({filter});
+        this.chartDraw(data)
     };
 
-    onHandleFilterSell = () => {
+    onHandleChangeChart = (filter) => {
+        const buyOrdersData = this.props.buyOrders.map((el, index) => ({
+            ...buyOptions,
+            label: `Buy ${formatDivision(el.pairRate, 100000000, 9)}`,
+            data: [parseFloat(el[filter]) / 100000000]
+        }));
+        const sellOrdersData = this.props.sellOrders.map((el, index) => ({
+            ...sellOptions,
+            label: `Sell ${formatDivision(el.pairRate, 100000000, 9)}`,
+            data: [parseFloat(el[filter]) / 100000000]
+        }));
         this.setState({
-            data : {
-                labels: ['Orders Sell'],
-                datasets: [...sellOrders]
-            }
-        })
-    };
+            buyOrdersData,
+            sellOrdersData,
+            chartBy: filter,
+        }, () => this.chartDraw([...buyOrdersData, ...sellOrdersData]));
 
-    onHandleFilterFull = () => {
-        this.setState({
-            data : {
-                labels: ['Orders'],
-                datasets: [...buyOrders, ...sellOrders]
-            }
-        })
     };
 
     render() {
@@ -87,7 +184,8 @@ export default class Plot extends React.Component {
         return (
             <div className={'card-block primary card card-medium pt-0 h-400'}>
                 <div className={'form-group-app overflow-hidden'}>
-                    <div className={'form-title form-title-lg d-flex flex-row justify-content-between align-items-center'}>
+                    <div
+                        className={'form-title form-title-lg d-flex flex-row justify-content-between align-items-center'}>
                         <div className={'d-flex align-items-center'}>
                             <img src={EthIcon} alt="ETH"/>
                             <p className={'title-lg'}>
@@ -97,26 +195,20 @@ export default class Plot extends React.Component {
                         <div className={'form-title-actions'}>
                             <div className={'options-section'}>
                                 <button
-                                    onClick={this.onHandleFilterBuy}
-                                    className={'btn btn-sm bg-danger ml-3 mt-2'}
+                                    onClick={() => this.onHandleChangeFilter('buy')}
+                                    className={`btn btn-sm bg-success ml-3 mt-2 ${this.state.filter === 'buy' ? 'bold-text' : ''}`}
                                 >
                                     Buy
                                 </button>
                                 <button
-                                    onClick={this.onHandleFilterSell}
-                                    className={'btn btn-sm bg-success ml-3 mt-2'}
+                                    onClick={() => this.onHandleChangeFilter('sell')}
+                                    className={`btn btn-sm bg-danger ml-3 mt-2 ${this.state.filter === 'sell' ? 'bold-text' : ''}`}
                                 >
                                     Sell
                                 </button>
                                 <button
-                                    onClick={this.onHandleFilterFull}
-                                    className={'btn btn-sm blue ml-3 mt-2'}
-                                >
-                                    Price
-                                </button>
-                                <button
-                                    onClick={this.onHandleFilterFull}
-                                    className={'btn btn-sm blue ml-3 mr-3 mt-2'}
+                                    onClick={() => this.onHandleChangeChart('offerAmount')}
+                                    className={`btn btn-sm blue ml-3 mt-2 mr-3 ${this.state.chartBy === 'offerAmount' ? 'bold-text' : ''}`}
                                 >
                                     Amount
                                 </button>
@@ -145,76 +237,31 @@ export default class Plot extends React.Component {
                         </div>
                         <div className={'options-section'}>
                             <button
-                                onClick={this.onHandleFilterBuy}
-                                className={'btn btn-sm bg-danger ml-3 mt-2'}
+                                onClick={() => this.onHandleChangeFilter('buy')}
+                                className={'btn btn-sm bg-success ml-3 mt-2'}
                             >
                                 Buy
                             </button>
                             <button
-                                onClick={this.onHandleFilterSell}
-                                className={'btn btn-sm bg-success ml-3 mt-2'}
+                                onClick={() => this.onHandleChangeFilter('sell')}
+                                className={'btn btn-sm bg-danger ml-3 mt-2'}
                             >
                                 Sell
                             </button>
                             <button
-                                onClick={this.onHandleFilterSell}
-                                className={'btn btn-sm blue ml-3 mt-2'}
+                                onClick={() => this.onHandleChangeChart('offerAmount')}
+                                className={'btn btn-sm blue ml-3 mt-2 mr-3'}
                             >
-                                Price
-                            </button>
-                            <button
-                                onClick={this.onHandleFilterSell}
-                                className={'btn btn-sm blue ml-3 mr-3 mt-2'}
-                            >
-                                Value
+                                Amount
                             </button>
                         </div>
                         <div className={'full-box overflow-hidden'}>
-                            <Bar
-                                data={this.state.data}
-                                width={100}
-                                height={'300px'}
-                                options={{
-                                    legend: false,
-                                    maintainAspectRatio: false,
-                                    tooltips: {
-                                        backgroundColor: '#ffffff',
-                                        titleFontFamily: 'BBRollerMonoProST, sans-serif',
-                                        titleFontSize: 10,
-                                        titleFontStyle: '400',
-                                        titleFontColor: '#98B0CD',
-                                        bodyFontFamily: 'BBRollerMonoProST, sans-serif',
-                                        bodyFontSize: 12,
-                                        bodyFontColor: '#3D5A7E',
-                                        borderColor: '#E6EAEE',
-                                        borderWidth: '1'
-                                    },
-                                    scales: {
-                                        yAxes: [{
-                                            gridLines: {
-                                                display: false,
-                                                color: '#CFDAE8',
-                                            },
-                                            ticks: {
-                                                fontColor: '#8AA5C7',
-                                                fontFamily: 'BBRollerMonoProST, sans-serif',
-                                                fontSize: '11',
-                                            }
-                                        }],
-                                        xAxes: [{
-                                            gridLines: {
-                                                display: false,
-                                                color: '#CFDAE8',
-                                            },
-                                            ticks: {
-                                                fontColor: '#8AA5C7',
-                                                fontFamily: 'BBRollerMonoProST, sans-serif',
-                                                fontSize: '11',
-                                            }
-                                        }]
-                                    }
-                                }}
-                            />
+                            {!this.state.loading && (
+                                <canvas
+                                    className={`chart`}
+                                    ref={this.chartOrders.ref}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
