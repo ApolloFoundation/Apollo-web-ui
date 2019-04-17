@@ -42,10 +42,11 @@ class ModalBody extends React.Component {
     }
 
     form = () => {
-        const {CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite, isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, isAdvanced, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite, isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
 
         const LeftBar  = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment ;
         const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment ;
+        const isAdvanced = false;
 
         return (
                 <BackForm
