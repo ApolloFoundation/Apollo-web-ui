@@ -19,7 +19,7 @@ class ExchangeBuy extends React.Component {
                 const offerAmount = parseFloat((values.offerAmount * 100000000).toFixed(10));
                 const balanceETH = this.props.wallet.wallets[0].balance / Math.pow(10, 18);
 
-                if (balanceETH === 0 || balanceETH < offerAmount) {
+                if (balanceETH === 0 || balanceETH < values.total) {
                     NotificationManager.error(`Not enough founds on your ${this.props.wallet.currency.toUpperCase()} balance.`, 'Error', 5000);
                     return;
                 }
