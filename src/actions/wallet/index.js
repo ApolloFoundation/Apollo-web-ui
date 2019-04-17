@@ -58,9 +58,9 @@ export function walletWidthraw(requestParams) {
 export function createOffer(requestParams) {
     const params = {
         ...requestParams,
-        amountOfTime: 10000,
-        deadline: 1440,
-        feeATM: 100000000,
+        amountOfTime: 86400,
+        // deadline: 1440,
+        feeATM: 200000000,
     };
     return dispatch => {
         return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params)

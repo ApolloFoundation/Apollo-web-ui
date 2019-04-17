@@ -34,8 +34,6 @@ class ConfirmCreateOffer extends React.Component {
             this.props.modalData.resetForm();
             this.props.setAccountPassphrase(passphrase);
             this.props.closeModal();
-        } else {
-            NotificationManager.error('Secret Phrase is incorrect or you not in Vault Wallet.', 'Error', 5000);
         }
     }
 
