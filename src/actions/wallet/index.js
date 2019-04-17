@@ -58,7 +58,7 @@ export function walletWidthraw(requestParams) {
 export function createOffer(requestParams) {
     const params = {
         ...requestParams,
-        amountOfTime: 86400,
+        amountOfTime: 300,
         // deadline: 1440,
         feeATM: 200000000,
     };
