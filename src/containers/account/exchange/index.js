@@ -15,9 +15,6 @@ import {setCurrentCurrencyAction} from "../../../modules/exchange";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getMyOpenOffers} from "../../../actions/wallet";
 
-import buyOrdersVal from './buyOrders';
-import sellOrdersVal from './sellOrders';
-
 class Exchange extends React.Component {
     state = {
         wallets: null
