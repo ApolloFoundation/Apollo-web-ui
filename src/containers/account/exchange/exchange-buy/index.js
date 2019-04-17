@@ -15,15 +15,15 @@ class ExchangeBuy extends React.Component {
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
+                const pairRate = parseFloat((values.pairRate * 100000000).toFixed(10));
+                const offerAmount = parseFloat((values.offerAmount * 100000000).toFixed(10));
+
                 const params = {
                     offerType: 0, // BUY
-
                     pairCurrency: currencyTypes['apl'],
-                    pairRate: values.pairRate * 100000000,
-
-                    offerAmount: values.offerAmount * 100000000,
+                    pairRate,
+                    offerAmount,
                     offerCurrency: currencyTypes[this.props.currentCurrency.currency],
-
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
                 };

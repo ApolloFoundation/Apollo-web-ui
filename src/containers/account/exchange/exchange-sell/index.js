@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Form} from "react-form";
 import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
-import {currencyTypes, formatCrypto, formatDivision} from "../../../../helpers/format";
+import {currencyTypes, formatDivision} from "../../../../helpers/format";
 import {createOffer} from "../../../../actions/wallet";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
@@ -15,8 +15,8 @@ class ExchangeSell extends React.Component {
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
-                const pairRate = values.pairRate * 100000000;
-                const offerAmount = values.offerAmount * 100000000;
+                const pairRate = parseFloat((values.pairRate * 100000000).toFixed(10));
+                const offerAmount = parseFloat((values.offerAmount * 100000000).toFixed(10));
                 const balanceAPL = parseFloat(this.props.balanceAPL);
 
                 if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < offerAmount) {
@@ -26,13 +26,10 @@ class ExchangeSell extends React.Component {
 
                 const params = {
                     offerType: 1, // SELL
-
                     pairCurrency: currencyTypes[this.props.currentCurrency.currency],
                     pairRate,
-
                     offerAmount,
                     offerCurrency: currencyTypes['apl'],
-
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
                 };
@@ -147,7 +144,7 @@ class ExchangeSell extends React.Component {
 
 const mapStateToProps = ({account}) => ({
     account: account.account,
-    balanceAPL: account.balanceATM,
+    balanceAPL: account.unconfirmedBalanceATM,
     passPhrase: account.passPhrase,
 });
 

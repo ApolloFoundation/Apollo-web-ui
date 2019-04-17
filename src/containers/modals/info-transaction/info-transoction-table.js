@@ -247,7 +247,7 @@ class InfoTransactionTable extends Component {
 							encryptedMessage && 
 							!this.state.message && 
 							<tr>
-								<td>Encrypted Messgae:</td>
+								<td>Encrypted Message:</td>
 								<td>
 									{this.decryptMessageComponent()}
 								</td>
