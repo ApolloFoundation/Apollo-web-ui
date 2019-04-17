@@ -55,10 +55,13 @@ class ExportAccount extends React.Component {
         if (accountKeySeedData) {
             if (!accountKeySeedData.errorCode && accountKeySeedData.file) {
                 this.setState({accountKeySeedData}, async () => {
-                    this.downloadSecretFile.current.download = values.account;
-                    const blobFile = await base64ToBlob(accountKeySeedData.file);
-                    this.downloadSecretFile.current.href = window.URL.createObjectURL(blobFile);
-                    this.setState({accountKeySeedData: {href: this.downloadSecretFile.current.href}});
+                    const base64 = "data:application/octet-stream;base64,"+ accountKeySeedData.file;
+                    this.downloadSecretFile.current.href = encodeURI(base64);
+                    this.setState({
+                        accountKeySeedData: {
+                            href: this.downloadSecretFile.current.href
+                        }
+                    });
                     this.downloadSecretFile.current.click();
                 });
             } else {
@@ -149,6 +152,8 @@ class ExportAccount extends React.Component {
                                             <br/>
                                             <a
                                                 ref={this.downloadSecretFile}
+                                                href={''}
+                                                download={values.account}
                                                 className="btn blue static"
                                                 target="_blank"
                                             >

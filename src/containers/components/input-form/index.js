@@ -110,6 +110,10 @@ class InputForm extends React.Component {
             const step = this.props.step || 1;
             value = value + step;
 
+            if (this.props.maxValue !== undefined && value > parseFloat(this.props.maxValue)) {
+                value = this.props.maxValue;
+            }
+
             this.props.setValue(this.props.field, value);
             this.setState({value});
             if (this.props.onChange) this.props.onChange(value);

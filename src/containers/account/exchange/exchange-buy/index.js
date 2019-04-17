@@ -63,7 +63,7 @@ class ExchangeBuy extends React.Component {
                         <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title d-flex justify-content-between align-items-center">
                                 <p>Buy APL</p>
-                                <span>Fee: 1 APL</span>
+                                <span>Fee: 2 APL</span>
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>
@@ -115,7 +115,7 @@ class ExchangeBuy extends React.Component {
                             {wallet && wallet.wallets && balanceFormat !== false && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
-                                    className="zmdi zmdi-balance-wallet"/> {balanceFormat} {currencyName}</span>
+                                    className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;{currencyName}</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">

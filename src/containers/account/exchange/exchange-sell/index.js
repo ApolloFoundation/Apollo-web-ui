@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Form} from "react-form";
 import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
-import {currencyTypes, formatCrypto} from "../../../../helpers/format";
+import {currencyTypes, formatCrypto, formatDivision} from "../../../../helpers/format";
 import {createOffer} from "../../../../actions/wallet";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
@@ -15,18 +15,28 @@ class ExchangeSell extends React.Component {
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
+                const pairRate = values.pairRate * 100000000;
+                const offerAmount = values.offerAmount * 100000000;
+                const balanceAPL = parseFloat(this.props.balanceAPL);
+
+                if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < offerAmount) {
+                    NotificationManager.error('Not enough founds on your APL balance.', 'Error', 5000);
+                    return;
+                }
+
                 const params = {
                     offerType: 1, // SELL
 
-                    pairCurrency: currencyTypes['apl'],
-                    pairRate: values.pairRate * 100000000,
+                    pairCurrency: currencyTypes[this.props.currentCurrency.currency],
+                    pairRate,
 
-                    offerAmount: values.offerAmount * 100000000,
-                    offerCurrency: currencyTypes[this.props.currentCurrency.currency],
+                    offerAmount,
+                    offerCurrency: currencyTypes['apl'],
 
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
                 };
+
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
                     if (this.state.form) this.state.form.resetAll();
@@ -49,8 +59,8 @@ class ExchangeSell extends React.Component {
     };
 
     render() {
-        const {currentCurrency: {currency}, wallet} = this.props;
-        const balanceFormat = wallet && wallet.wallets && wallet.wallets[0].balance !== "null" && formatCrypto(wallet.wallets[0].balance);
+        const {currentCurrency: {currency}, wallet, balanceAPL} = this.props;
+        const balanceFormat = balanceAPL ? formatDivision(balanceAPL, 100000000, 3) : 0;
         const currencyName = currency.toUpperCase();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
@@ -63,7 +73,7 @@ class ExchangeSell extends React.Component {
                         <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title d-flex justify-content-between align-items-center">
                                 <p>Sell APL</p>
-                                <span>Fee: 1 APL</span>
+                                <span>Fee: 2 APL</span>
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>
@@ -94,6 +104,7 @@ class ExchangeSell extends React.Component {
                                     <div className="input-group-append">
                                         <span className="input-group-text">APL</span>
                                     </div>
+                                    <small className={'text-note'}>Will be frozen on your balance during 24 hours.</small>
                                 </div>
                             </div>
                             <div className="form-group row form-group-white mb-15">
@@ -115,7 +126,7 @@ class ExchangeSell extends React.Component {
                             {wallet && wallet.wallets && balanceFormat !== false && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
-                                    className="zmdi zmdi-balance-wallet"/> {balanceFormat} {currencyName}</span>
+                                    className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;APL</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">
@@ -136,6 +147,7 @@ class ExchangeSell extends React.Component {
 
 const mapStateToProps = ({account}) => ({
     account: account.account,
+    balanceAPL: account.balanceATM,
     passPhrase: account.passPhrase,
 });
 
