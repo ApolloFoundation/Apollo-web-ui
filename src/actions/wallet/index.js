@@ -62,26 +62,25 @@ export function createOffer(requestParams) {
         // deadline: 1440,
         feeATM: 200000000,
     };
-    console.log('-------params-----', params)
-    // return dispatch => {
-    //     return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params)
-    //         .then(async (res) => {
-    //             if (!res.errorCode) {
-    //                 NotificationManager.success('Your offer has been created!', null, 5000);
-    //                 setTimeout(() => {
-    //                     dispatch(getBuyOpenOffers());
-    //                     dispatch(getSellOpenOffers());
-    //                     dispatch(getMyOpenOffers());
-    //                 }, 10000);
-    //                 return res;
-    //             } else {
-    //                 NotificationManager.error(res.errorDescription, 'Error', 5000);
-    //             }
-    //         })
-    //         .catch(() => {
-    //
-    //         })
-    // }
+    return dispatch => {
+        return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    NotificationManager.success('Your offer has been created!', null, 5000);
+                    setTimeout(() => {
+                        dispatch(getBuyOpenOffers());
+                        dispatch(getSellOpenOffers());
+                        dispatch(getMyOpenOffers());
+                    }, 10000);
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
 }
 
 export function getOpenOrders(requestParams) {
@@ -116,8 +115,8 @@ export const getSellOpenOffers = (currency) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 1,
-        offerCurrency: currencyTypes[currency],
-        pairCurrency: 0,
+        offerCurrency: 0,
+        pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
     };
     const sellOrders = await dispatch(getOpenOrders(params));
@@ -127,12 +126,24 @@ export const getSellOpenOffers = (currency) => async (dispatch, getState) => {
 export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const {account} = getState().account;
-    const params = {
-        offerCurrency: currencyTypes[currency],
-        pairCurrency: 0,
+    const paramsSell = {
+        offerCurrency: 0,
+        pairCurrency: currencyTypes[currency],
         accountId: account,
         isAvailableForNow: true,
+        orderType: 1,
     };
-    const sellOrders = await dispatch(getOpenOrders(params));
-    dispatch(setMyOrdersAction(currency, sellOrders));
+    const paramsBuy = {
+        offerCurrency: currencyTypes[currency],
+        pairCurrency: 1,
+        accountId: account,
+        isAvailableForNow: true,
+        orderType: 0,
+    };
+    const sellOrders = await dispatch(getOpenOrders(paramsSell));
+    const buyOrders = await dispatch(getOpenOrders(paramsBuy));
+    console.log('Orders: ', [...sellOrders, ...buyOrders]);
+    console.log('Orders sorted: ', [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime));
+    const orders = [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
+    dispatch(setMyOrdersAction(currency, orders));
 };
