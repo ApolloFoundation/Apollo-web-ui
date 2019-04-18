@@ -6,6 +6,8 @@ import {formatDivision} from "../../../../helpers/format";
 
 const chartJsOption = {
     type: 'bar',
+    backgroundColor: '#ffffff',
+    hoverBackgroundColor: '#ffffff',
     options: {
         legend: false,
         maintainAspectRatio: false,
@@ -60,9 +62,6 @@ const sellOptions = {
     pointBorderColor: 'rgba(231, 76, 60,1)',
     pointBackgroundColor: '#fff',
     pointBorderWidth: 1,
-    pointHoverRadius: 5,
-    pointHoverBackgroundColor: 'rgba(231, 76, 60,1)',
-    pointHoverBorderColor: 'rgba(220,220,220,1)',
     pointRadius: 1,
     pointHitRadius: 10,
 };
@@ -79,9 +78,6 @@ const buyOptions = {
     pointBorderColor: 'rgba(39, 174, 96,1)',
     pointBackgroundColor: '#fff',
     pointBorderWidth: 1,
-    pointHoverRadius: 5,
-    pointHoverBackgroundColor: 'rgba(39, 174, 96,1)',
-    pointHoverBorderColor: 'rgba(220,220,220,1)',
     pointRadius: 1,
     pointHitRadius: 10,
 };
@@ -94,6 +90,8 @@ export default class Plot extends React.Component {
 
     state = {
         loading: true,
+        buyOrders: null,
+        sellOrders: null,
         buyOrdersData: [],
         sellOrdersData: [],
         chartBy: 'offerAmount',
@@ -138,6 +136,8 @@ export default class Plot extends React.Component {
             }
             return {
                 loading: false,
+                buyOrders: props.buyOrders,
+                sellOrders: props.sellOrders,
                 buyOrdersData,
                 sellOrdersData,
             };
@@ -146,7 +146,11 @@ export default class Plot extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (!this.state.loading && !this.chartOrders.chart && prevState.buyOrdersData && prevState.sellOrdersData) {
+        if (!this.state.loading && this.props.buyOrders && this.props.sellOrders && (
+            !this.chartOrders.chart || (
+            (prevProps.buyOrders !== this.props.buyOrders) ||
+            (prevState.sellOrders !== this.props.sellOrders))
+        )) {
             this.onHandleChangeChart('offerAmount');
         }
     }
