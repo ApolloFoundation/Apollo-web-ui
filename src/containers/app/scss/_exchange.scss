@@ -38,6 +38,9 @@
 	.btn-light-box {
 		display: flex !important;
 		flex-direction: row;
+		@media(max-width: 425px) {
+			justify-content: center;
+		}
 		.btn-light {
 			display: flex !important;
 			color: #3D5A7E;
@@ -127,6 +130,7 @@
 				font-size: 14px;
 				line-height: 17px;
 				padding: 0;
+				word-break: normal;
 			}
 			&.form-title-lg {
 				height: 80px;
@@ -371,6 +375,10 @@
 			display: flex;
 			justify-content: space-between;
 			padding: 20px 12px 5px;
+			.time-section {
+				display: flex;
+				align-items: center;
+			}
 			.info-section {
 				display: flex;
 				color: #3D5A7E;

@@ -186,7 +186,7 @@ export default class Plot extends React.Component {
                 <div className={'form-group-app overflow-hidden'}>
                     <div
                         className={'form-title form-title-lg d-flex flex-row justify-content-between align-items-center'}>
-                        <div className={'d-flex align-items-center'}>
+                        <div className={'d-flex align-items-center mr-2'}>
                             <img src={EthIcon} alt="ETH"/>
                             <p className={'title-lg'}>
                                 APL/{currency.toUpperCase()}
