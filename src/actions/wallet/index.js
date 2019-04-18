@@ -6,6 +6,7 @@
 import {NotificationManager} from "react-notifications";
 import config from '../../config';
 import {writeToLocalStorage} from "../localStorage";
+import {getAccountInfoAction} from "../account";
 import {setWallets} from "../../modules/account";
 import {setBuyOrdersAction, setSellOrdersAction, setMyOrdersAction} from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
@@ -65,10 +66,15 @@ export function createOffer(requestParams) {
             .then(async (res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been created!', null, 5000);
-                    setTimeout(() => {
+                    setTimeout(async () => {
                         dispatch(getBuyOpenOffers());
                         dispatch(getSellOpenOffers());
                         dispatch(getMyOpenOffers());
+                        const accountInfo = await dispatch(getAccountInfoAction({account: params.sender}));
+                        dispatch({
+                            type: 'SET_DASHBOARD_ACCOUNT_INFO',
+                            payload: accountInfo
+                        })
                     }, 10000);
                     return res;
                 } else {
