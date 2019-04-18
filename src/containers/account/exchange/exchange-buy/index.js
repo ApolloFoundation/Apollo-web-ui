@@ -8,6 +8,7 @@ import {createOffer} from "../../../../actions/wallet";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 class ExchangeBuy extends React.Component {
+    feeATM = 200000000;
     state = {
         form: null,
     };
@@ -18,9 +19,14 @@ class ExchangeBuy extends React.Component {
                 const pairRate = parseFloat((values.pairRate * 100000000).toFixed(10));
                 const offerAmount = parseFloat((values.offerAmount * 100000000).toFixed(10));
                 const balanceETH = this.props.wallet.wallets[0].balance / Math.pow(10, 18);
+                const balanceAPL = parseFloat(this.props.balanceAPL);
 
                 if (balanceETH === 0 || balanceETH < values.total) {
                     NotificationManager.error(`Not enough founds on your ${this.props.wallet.currency.toUpperCase()} balance.`, 'Error', 5000);
+                    return;
+                }
+                if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < this.feeATM) {
+                    NotificationManager.error('Not enough founds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
                     return;
                 }
 
@@ -32,6 +38,7 @@ class ExchangeBuy extends React.Component {
                     offerCurrency: currencyTypes[this.props.currentCurrency.currency],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
+                    feeATM: this.feeATM,
                 };
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
@@ -69,7 +76,7 @@ class ExchangeBuy extends React.Component {
                         <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title d-flex justify-content-between align-items-center">
                                 <p>Buy APL</p>
-                                <span>Fee: 2 APL</span>
+                                <span>Fee: {this.feeATM/100000000} APL</span>
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>
@@ -142,6 +149,7 @@ class ExchangeBuy extends React.Component {
 
 const mapStateToProps = ({account}) => ({
     account: account.account,
+    balanceAPL: account.unconfirmedBalanceATM,
     passPhrase: account.passPhrase,
 });
 
