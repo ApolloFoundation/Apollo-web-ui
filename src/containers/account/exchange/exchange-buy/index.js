@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Form} from "react-form";
 import {NotificationManager} from "react-notifications";
 import InputForm from '../../../components/input-form';
-import {currencyTypes, formatCrypto} from "../../../../helpers/format";
+import {currencyTypes, formatCrypto, multiply} from "../../../../helpers/format";
 import {createOffer} from "../../../../actions/wallet";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
@@ -16,8 +16,8 @@ class ExchangeBuy extends React.Component {
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
-                const pairRate = parseFloat((values.pairRate * 100000000).toFixed(10));
-                const offerAmount = parseFloat((values.offerAmount * 100000000).toFixed(10));
+                const pairRate = multiply(values.pairRate, 100000000);
+                const offerAmount = multiply(values.offerAmount, 100000000);
                 const balanceETH = this.props.wallet.wallets[0].balance / Math.pow(10, 18);
                 const balanceAPL = parseFloat(this.props.balanceAPL);
 
@@ -86,7 +86,7 @@ class ExchangeBuy extends React.Component {
                                     <InputForm
                                         field="pairRate"
                                         type={"float"}
-                                        onChange={(price) => setValue("total", values.offerAmount * price)}
+                                        onChange={(price) => setValue("total", multiply(values.offerAmount, price))}
                                         setValue={setValue}/>
                                     <div className="input-group-append">
                                         <span className="input-group-text">{currencyName}</span>
@@ -102,7 +102,7 @@ class ExchangeBuy extends React.Component {
                                     <InputForm
                                         field="offerAmount"
                                         type={"float"}
-                                        onChange={(amount) => setValue("total", amount * values.pairRate)}
+                                        onChange={(amount) => setValue("total", multiply(amount, values.pairRate))}
                                         setValue={setValue}/>
                                     <div className="input-group-append">
                                         <span className="input-group-text">APL</span>
