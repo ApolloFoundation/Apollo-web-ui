@@ -77,7 +77,7 @@ class Exchange extends React.Component {
                                 Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank'>Telegram channel</a> to be the first to use Apollo Exchange
                             </InfoBox>
                         </div>
-                        <div className={'col-md-12 pr-0 pb-3'}>
+                        <div className={'col-md-12 pr-0 pb-3 pb-4'}>
                             <ExchangeHeader
                                 currencies={currencies}
                                 currentCurrency={currentCurrency}
