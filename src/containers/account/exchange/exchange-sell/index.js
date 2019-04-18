@@ -8,6 +8,7 @@ import {createOffer} from "../../../../actions/wallet";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 class ExchangeSell extends React.Component {
+    feeATM = 200000000;
     state = {
         form: null,
     };
@@ -19,7 +20,7 @@ class ExchangeSell extends React.Component {
                 const offerAmount = parseFloat((values.offerAmount * 100000000).toFixed(10));
                 const balanceAPL = parseFloat(this.props.balanceAPL);
 
-                if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < offerAmount) {
+                if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < (offerAmount + this.feeATM)) {
                     NotificationManager.error('Not enough founds on your APL balance.', 'Error', 5000);
                     return;
                 }
@@ -32,6 +33,7 @@ class ExchangeSell extends React.Component {
                     offerCurrency: currencyTypes['apl'],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
+                    feeATM: this.feeATM
                 };
 
                 if (this.props.passPhrase) {
@@ -70,7 +72,7 @@ class ExchangeSell extends React.Component {
                         <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title d-flex justify-content-between align-items-center">
                                 <p>Sell APL</p>
-                                <span>Fee: 2 APL</span>
+                                <span>Fee: {this.feeATM/100000000} APL</span>
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>

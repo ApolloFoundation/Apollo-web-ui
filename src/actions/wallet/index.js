@@ -59,8 +59,6 @@ export function createOffer(requestParams) {
     const params = {
         ...requestParams,
         amountOfTime: 300,
-        // deadline: 1440,
-        feeATM: 200000000,
     };
     return dispatch => {
         return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params)
