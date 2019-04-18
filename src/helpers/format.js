@@ -18,6 +18,8 @@ export const formatDivision = (val1, val2, digits = 6) => {
     });
 };
 
+export const multiply = (val1, val2) => parseFloat((val1 * val2).toFixed(10));
+
 export const currencyTypes = {
     'apl': 0,
     'eth': 1,
