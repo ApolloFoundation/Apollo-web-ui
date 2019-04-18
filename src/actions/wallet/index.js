@@ -133,7 +133,7 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     };
     const paramsBuy = {
         offerCurrency: currencyTypes[currency],
-        pairCurrency: 1,
+        pairCurrency: 0,
         accountId: account,
         isAvailableForNow: true,
         orderType: 0,
