@@ -11,7 +11,19 @@ class ExchangeBuy extends React.Component {
     feeATM = 200000000;
     state = {
         form: null,
+        currentCurrency: null,
     };
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.currentCurrency.currency !== state.currentCurrency) {
+            if(state.form) state.form.resetAll();
+            return {
+                currentCurrency: props.currentCurrency.currency,
+            };
+        }
+
+        return null;
+    }
 
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
@@ -19,7 +31,10 @@ class ExchangeBuy extends React.Component {
                 const pairRate = multiply(values.pairRate, 100000000);
                 const offerAmount = multiply(values.offerAmount, 100000000);
                 const balanceETH = this.props.wallet.wallets[0].balance / Math.pow(10, 18);
-                const balanceAPL = parseFloat(this.props.balanceAPL);
+                const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
+                    parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
+                    :
+                    parseFloat(this.props.balanceAPL);
 
                 if (balanceETH === 0 || balanceETH < values.total) {
                     NotificationManager.error(`Not enough founds on your ${this.props.wallet.currency.toUpperCase()} balance.`, 'Error', 5000);
@@ -147,9 +162,10 @@ class ExchangeBuy extends React.Component {
     }
 }
 
-const mapStateToProps = ({account}) => ({
+const mapStateToProps = ({account, dashboard}) => ({
     account: account.account,
     balanceAPL: account.unconfirmedBalanceATM,
+    dashboardAccoountInfo: dashboard.dashboardAccoountInfo,
     passPhrase: account.passPhrase,
 });
 

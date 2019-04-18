@@ -11,14 +11,29 @@ class ExchangeSell extends React.Component {
     feeATM = 200000000;
     state = {
         form: null,
+        currentCurrency: null,
     };
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.currentCurrency.currency !== state.currentCurrency) {
+            if(state.form) state.form.resetAll();
+            return {
+                currentCurrency: props.currentCurrency.currency,
+            };
+        }
+
+        return null;
+    }
 
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
                 const pairRate = multiply(values.pairRate, 100000000);
                 const offerAmount = multiply(values.offerAmount, 100000000);
-                const balanceAPL = parseFloat(this.props.balanceAPL);
+                const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
+                    parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
+                    :
+                    parseFloat(this.props.balanceAPL);
 
                 if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < (offerAmount + this.feeATM)) {
                     NotificationManager.error('Not enough founds on your APL balance.', 'Error', 5000);
@@ -58,8 +73,9 @@ class ExchangeSell extends React.Component {
     };
 
     render() {
-        const {currentCurrency: {currency}, wallet, balanceAPL} = this.props;
-        const balanceFormat = balanceAPL ? formatDivision(balanceAPL, 100000000, 3) : 0;
+        const {currentCurrency: {currency}, wallet, balanceAPL, dashboardAccoountInfo} = this.props;
+        const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
+        const balanceFormat = balance ? formatDivision(balance, 100000000, 3) : 0;
         const currencyName = currency.toUpperCase();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
@@ -144,9 +160,10 @@ class ExchangeSell extends React.Component {
     }
 }
 
-const mapStateToProps = ({account}) => ({
+const mapStateToProps = ({account, dashboard}) => ({
     account: account.account,
     balanceAPL: account.unconfirmedBalanceATM,
+    dashboardAccoountInfo: dashboard.dashboardAccoountInfo,
     passPhrase: account.passPhrase,
 });
 
