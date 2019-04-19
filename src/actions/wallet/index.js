@@ -146,8 +146,6 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     };
     const sellOrders = await dispatch(getOpenOrders(paramsSell));
     const buyOrders = await dispatch(getOpenOrders(paramsBuy));
-    console.log('Orders: ', [...sellOrders, ...buyOrders]);
-    console.log('Orders sorted: ', [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime));
     const orders = [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
     dispatch(setMyOrdersAction(currency, orders));
 };
