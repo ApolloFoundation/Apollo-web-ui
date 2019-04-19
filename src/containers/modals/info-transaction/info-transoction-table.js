@@ -76,15 +76,16 @@ class InfoTransactionTable extends Component {
 	}
 
 	showPrivateTransactions = async ({secretPhrase}) => {
-		const {transaction} = this.props;
+		const {transaction, account} = this.props;
 
         const isPassPhrease = await this.props.validatePassphrase(secretPhrase);
 
 		const message = await this.props.readMessageAction({
 			transaction:  transaction.transaction,
 			passphrase:  !isPassPhrease ? secretPhrase : null,
-			secretPhrase: isPassPhrease ? secretPhrase : null
-		})
+			secretPhrase: isPassPhrease ? secretPhrase : null,
+			account
+		});
 
 		if (message) {
 
@@ -263,7 +264,8 @@ class InfoTransactionTable extends Component {
 }
 
 const mapStateToProps = state => ({
-	secretPhrase: state.account.passPhrase
+	secretPhrase: state.account.passPhrase,
+	account: state.account.account,
 });
 
 const mapDispatchToProps = dispatch => ({
