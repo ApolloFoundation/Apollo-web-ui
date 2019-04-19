@@ -7,7 +7,7 @@ import {formatDivision} from "../../../../helpers/format";
 class TradeHistoryEchanger extends React.Component {
     handleFormSubmit = () => {
         if (this.props.wallet) {
-            NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+            NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
         } else {
             this.props.handleLoginModal();
         }

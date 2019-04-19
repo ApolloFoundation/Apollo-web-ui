@@ -50,7 +50,7 @@ class CurrencyDescriptionComponent extends Component {
                     <div className="btn-box inline">
                         <a
                             className="btn primary defaullt"
-                            onClick={() => NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000)}
+                            onClick={() => NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000)}
                         >
                             View History
                         </a>
@@ -60,7 +60,7 @@ class CurrencyDescriptionComponent extends Component {
                     <div className="btn-box inline pr-1">
                         <a
                             className="btn primary defaullt"
-                            onClick={() => NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000)}
+                            onClick={() => NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000)}
                         >
                             Withdraw
                         </a>

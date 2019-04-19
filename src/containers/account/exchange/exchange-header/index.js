@@ -20,7 +20,7 @@ const ExchangeHeader = ({currencies, currentCurrency, switchCurrency, wallet, ha
                     })}
                     onClick={() => {
                         if (item === 'btc') {
-                            NotificationManager.error('This functionality will be delivered in April 2019.', 'Error', 5000);
+                            NotificationManager.error('This functionality will be delivered in 2019.', 'Error', 5000);
                         } else {
                             if (wallet) {
                                 switchCurrency(item);
