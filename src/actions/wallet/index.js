@@ -149,3 +149,25 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     const orders = [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
     dispatch(setMyOrdersAction(currency, orders));
 };
+
+export const getAllMyOffers = (currency) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const {account} = getState().account;
+    const paramsSell = {
+        offerCurrency: 0,
+        pairCurrency: currencyTypes[currency],
+        accountId: account,
+        // isAvailableForNow: true,
+        orderType: 1,
+    };
+    const paramsBuy = {
+        offerCurrency: currencyTypes[currency],
+        pairCurrency: 0,
+        accountId: account,
+        // isAvailableForNow: true,
+        orderType: 0,
+    };
+    const sellOrders = await dispatch(getOpenOrders(paramsSell));
+    const buyOrders = await dispatch(getOpenOrders(paramsBuy));
+    return [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
+};

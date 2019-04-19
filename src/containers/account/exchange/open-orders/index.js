@@ -1,13 +1,13 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
-import {NotificationManager} from "react-notifications";
+import {connect} from "react-redux";
 import CustomTable from '../../../components/tables/table';
 import {formatDivision} from "../../../../helpers/format";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 
-class TradeHistoryEchanger extends React.Component {
-    handleFormSubmit = () => {
+class TradeHistoryExchange extends React.Component {
+    handleViewAll = () => {
         if (this.props.wallet) {
-            NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
+            this.props.setBodyModalParamsAction('MY_ALL_ORDERS');
         } else {
             this.props.handleLoginModal();
         }
@@ -22,7 +22,7 @@ class TradeHistoryEchanger extends React.Component {
                     <button
                         type={'button'}
                         className={'btn btn-sm'}
-                        onClick={this.handleFormSubmit}
+                        onClick={this.handleViewAll}
                     >
                         View All
                     </button>
@@ -61,4 +61,8 @@ class TradeHistoryEchanger extends React.Component {
     }
 }
 
-export default withRouter(TradeHistoryEchanger);
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+});
+
+export default connect(null, mapDispatchToProps)(TradeHistoryExchange);
