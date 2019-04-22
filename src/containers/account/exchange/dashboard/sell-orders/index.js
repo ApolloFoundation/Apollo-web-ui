@@ -1,7 +1,7 @@
 import React from 'react';
-import {formatDivision} from "../../../../helpers/format";
-import CustomTable from '../../../components/tables/table';
-import ArrowDown from '../../../../assets/arrow-down.png';
+import {formatDivision} from "../../../../../helpers/format";
+import CustomTable from '../../../../components/tables/table';
+import ArrowDown from '../../../../../assets/arrow-down.png';
 
 const SellOrders = ({currentCurrency, sellOrders}) => (
     <div className={'card-block primary form-group-app p-0 h-400'}>

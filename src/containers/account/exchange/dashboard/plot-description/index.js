@@ -1,6 +1,6 @@
 import React from 'react';
-import ModalBody from '../../../components/modals/modal-body';
-import CustomTable from '../../../components/tables/table';
+import ModalBody from '../../../../components/modals/modal-body';
+import CustomTable from '../../../../components/tables/table';
 
 const buyOrders = [
     {

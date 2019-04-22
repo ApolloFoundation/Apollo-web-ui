@@ -8,7 +8,12 @@ import config from '../../config';
 import {writeToLocalStorage} from "../localStorage";
 import {getAccountInfoAction} from "../account";
 import {setWallets} from "../../modules/account";
-import {setBuyOrdersAction, setSellOrdersAction, setMyOrdersAction} from "../../modules/exchange";
+import {
+    setBuyOrdersAction,
+    setSellOrdersAction,
+    setMyOrdersAction,
+    setMyOrderHistoryAction
+} from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
 import {currencyTypes} from "../../helpers/format";
 
@@ -148,4 +153,23 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     const buyOrders = await dispatch(getOpenOrders(paramsBuy));
     const orders = [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
     dispatch(setMyOrdersAction(currency, orders));
+};
+
+export const getMyOfferHistory = (currency) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const {account} = getState().account;
+    const paramsSell = {
+        offerCurrency: 0,
+        accountId: account,
+        orderType: 1,
+    };
+    const paramsBuy = {
+        pairCurrency: 0,
+        accountId: account,
+        orderType: 0,
+    };
+    const sellOrders = await dispatch(getOpenOrders(paramsSell));
+    const buyOrders = await dispatch(getOpenOrders(paramsBuy));
+    const orders = [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
+    dispatch(setMyOrderHistoryAction(currency, orders));
 };

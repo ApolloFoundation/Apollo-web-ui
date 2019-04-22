@@ -118,9 +118,9 @@ import AssetDividendHistory from "./assets/view-asset-dividend-history";
 import PayDividends from "./assets/pay-dividends";
 
 //exchange
-import LoginToExchange from './exchange/login/';
-import WithdrawCurrency from './exchange/withdraw-currency/';
-import ConfirmCreateOffer from './exchange/confirm-create-offer/';
+import LoginToExchange from './exchange/login';
+import WithdrawCurrency from './exchange/withdraw-currency';
+import ConfirmCreateOffer from './exchange/confirm-create-offer';
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -327,7 +327,7 @@ class ModalWindow extends React.Component {
                     {/* Exchange */}
                     {this.props.modalType === 'LOGIN_EXCHANGE'              && <LoginToExchange           closeModal={this.closeModal}/>}
                     {this.props.modalType === 'WITHDRAW_CURRENCY'           && <WithdrawCurrency          closeModal={this.closeModal}/>}
-                    {this.props.modalType === 'CONFIRM_CREATE_OFFER'        && <ConfirmCreateOffer          closeModal={this.closeModal}/>}
+                    {this.props.modalType === 'CONFIRM_CREATE_OFFER'        && <ConfirmCreateOffer        closeModal={this.closeModal}/>}
                 </ModalProvider>
             </div>
         );

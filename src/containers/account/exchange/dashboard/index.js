@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import SiteHeader from '../../components/site-header';
-import InfoBox from '../../components/info-box';
+import SiteHeader from '../../../components/site-header';
+import InfoBox from '../../../components/info-box';
 
 import ExchangeHeader from './exchange-header';
 import ExchangeBuy from './exchange-buy';
@@ -9,11 +9,11 @@ import ExchangeSell from './exchange-sell';
 import SellOrders from './sell-orders';
 import BuyOrders from './buy-orders';
 import Plot from './plot';
-import TradeHistoryEchanger from './trade-history';
+import TradeHistoryExchange from './trade-history';
 import OpenOrders from './open-orders';
-import {setCurrentCurrencyAction} from "../../../modules/exchange";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getMyOpenOffers} from "../../../actions/wallet";
+import {setCurrentCurrencyAction} from "../../../../modules/exchange";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getMyOpenOffers} from "../../../../actions/wallet";
 
 class Exchange extends React.Component {
     state = {
@@ -118,7 +118,7 @@ class Exchange extends React.Component {
                             </div>
                         </div>
                         <div className={'col-md-6 mb-3 pr-0'}>
-                            <TradeHistoryEchanger
+                            <TradeHistoryExchange
                                 currentCurrency={currentCurrency}
                                 wallet={wallet}
                                 handleLoginModal={this.handleLoginModal}

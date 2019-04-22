@@ -1,10 +1,42 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {NotificationManager} from "react-notifications";
-import CustomTable from '../../../components/tables/table';
-import {formatDivision} from "../../../../helpers/format";
+import CustomTable from '../../../../components/tables/table';
 
-class TradeHistoryEchanger extends React.Component {
+const buyOrders = [
+    {
+        price: '0.000011',
+        amount: '44971',
+        total: '44971'
+    },
+    {
+        price: '0.000011',
+        amount: '44971',
+        total: '44971'
+    },
+    {
+        price: '0.000011',
+        amount: '44971',
+        total: '44971'
+    },
+    {
+        price: '0.000011',
+        amount: '44971',
+        total: '44971'
+    },
+    {
+        price: '0.000011',
+        amount: '44971',
+        total: '44971'
+    },
+    {
+        price: '0.000011',
+        amount: '44971',
+        total: '44971'
+    },
+];
+
+class TradeHistoryExchange extends React.Component {
     handleFormSubmit = () => {
         if (this.props.wallet) {
             NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
@@ -14,11 +46,11 @@ class TradeHistoryEchanger extends React.Component {
     };
 
     render() {
-        const {currentCurrency: {currency}, myOrders} = this.props;
+        const {currency} = this.props.currentCurrency;
         return (
             <div className={'card-block form-group-app p-0 h-400'}>
-                <div className={'form-title d-flex justify-content-between'}>
-                    <p>My Open Orders</p>
+                <div className={'form-title white d-flex justify-content-between'}>
+                    <p>Trade history</p>
                     <button
                         type={'button'}
                         className={'btn btn-sm'}
@@ -41,24 +73,19 @@ class TradeHistoryEchanger extends React.Component {
                         }
                     ]}
                     className={'pt-0 no-min-height pb-4'}
-                    tableData={myOrders}
-                    emptyMessage={'No open orders found.'}
-                    TableRowComponent={(props) => {
-                        const pairRate = formatDivision(props.pairRate, 100000000, 9);
-                        const offerAmount = formatDivision(props.offerAmount, 100000000, 3);
-                        const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
-                        return (
-                            <tr>
-                                <td className={`${props.type === 0 ? 'green-text' : 'red-text'}`}>{pairRate}</td>
-                                <td>{offerAmount}</td>
-                                <td className={'align-right'}>{total}</td>
-                            </tr>
-                        )
-                    }}
+                    tableData={buyOrders}
+                    emptyMessage={'No account propertes found .'}
+                    TableRowComponent={(props) => (
+                        <tr className={''}>
+                            <td>{props.price}</td>
+                            <td>{props.amount}</td>
+                            <td className={'align-right'}>{props.total}</td>
+                        </tr>
+                    )}
                 />
             </div>
         );
     }
 }
 
-export default withRouter(TradeHistoryEchanger);
+export default withRouter(TradeHistoryExchange);
