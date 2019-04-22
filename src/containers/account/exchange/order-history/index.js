@@ -30,6 +30,10 @@ class OrderHistory extends React.Component {
         }
     }
 
+    handleCancel = () => {
+        this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {});
+    };
+
     render() {
         const {myOrderHistory, currentCurrency} = this.props;
         return (
@@ -62,6 +66,9 @@ class OrderHistory extends React.Component {
                                         alignRight: false
                                     }, {
                                         name: 'Status',
+                                        alignRight: false
+                                    }, {
+                                        name: ``,
                                         alignRight: true
                                     }
                                 ]}
@@ -81,7 +88,18 @@ class OrderHistory extends React.Component {
                                             <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                             <td>{offerAmount}</td>
                                             <td>{total}</td>
-                                            <td className={'align-right'}>{props.status === 0 ? 'Active' : 'Expired'}</td>
+                                            <td>{props.status === 0 ? 'Active' : 'Expired'}</td>
+                                            <td className={'align-right'}>
+                                                {props.status === 0 && (
+                                                    <button
+                                                        type={'button'}
+                                                        className="btn btn-sm"
+                                                        onClick={this.handleCancel}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                )}
+                                            </td>
                                         </tr>
                                     )
                                 }}

@@ -50,8 +50,8 @@ class TradeHistoryExchange extends React.Component {
                             <tr>
                                 <td className={`${props.type === 0 ? 'green-text' : 'red-text'}`}>{pairRate}</td>
                                 <td>{offerAmount}</td>
-                                <td className={'align-right'}>{total}</td>
-                                <td>
+                                <td>{total}</td>
+                                <td className={'align-right'}>
                                     <button
                                         type={'button'}
                                         className="btn btn-sm"
