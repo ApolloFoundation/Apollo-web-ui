@@ -21,10 +21,8 @@ const InfoBox = (props) => (
             'no-padding-top': props.onPaddingTop,
             'no-padding-on-the-sides': props.noPaddingOnTheSides
         }) + ` ${props.className}`}>
-        <p>
-            {props.children}
-        </p>
+        {props.children}
     </div>
-)
+);
 
 export default InfoBox;

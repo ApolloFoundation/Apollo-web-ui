@@ -33,11 +33,10 @@ const CustomTable = (props) => {
                                             {
                                                 header && 
                                                 header.map((el) => 
-                                                    <>
+                                                    <React.Fragment key={uuid()}>
                                                         {
-                                                            !el.isRender && 
+                                                            !el.isRender &&
                                                             <td
-                                                                key={uuid()}
                                                                 className={classNames({
                                                                     'align-right': el.alignRight
                                                                 })}
@@ -45,8 +44,7 @@ const CustomTable = (props) => {
                                                                 {el.name}
                                                             </td>
                                                         }
-                                                    </>
-                                                    
+                                                    </React.Fragment>
                                                 )
                                             }
                                             
@@ -57,7 +55,7 @@ const CustomTable = (props) => {
                                         tableData.map((el, index) => {
                                             return (
                                                 <TableRowComponent
-                                                    key={el[keyField]}
+                                                    key={index}
                                                     {...el}
                                                     {...passProps}
                                                 />

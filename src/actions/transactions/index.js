@@ -19,21 +19,17 @@ export function getTransactionsAction(requestParams) {
         if (!params.requestType) {
             delete params.requestType;
         }
-        if (requestParams.account) {
-            return axios.get(config.api.serverUrl, {
-                params : {
-                    requestType: requestType,
-                    ...requestParams
-                }
-            })
-                .then((res) => {
-                    return res.data
-                })
-                .catch(() => {
 
-                })
-        }
+        return axios.get(config.api.serverUrl, {
+            params : {
+                requestType: requestType,
+                ...requestParams
+            }
+        }).then((res) => {
+            return res.data
+        }).catch(() => {
 
+        })
     }
 }
 
