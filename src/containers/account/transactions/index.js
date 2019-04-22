@@ -7,18 +7,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Transaction from './transaction'
 import {getTransactionsAction, getTransactionAction, getPrivateTransactionAction} from "../../../actions/transactions";
 import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
-import curve25519 from "../../../helpers/crypto/curve25519";
-import converters from "../../../helpers/converters";
-import crypto from "../../../helpers/crypto/crypto";
-import InfoBox from "../../components/info-box";
 import {BlockUpdater} from "../../block-subscriber/index";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 import {NotificationManager} from "react-notifications";
 
 import CustomTable from '../../components/tables/table';
@@ -50,7 +43,6 @@ class Transactions extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex,
             requestType: this.state.requestType
-
         });
         this.props.setModalCallbackAction(this.getPrivateTransactions);
         BlockUpdater.on("data", data => {
@@ -120,7 +112,7 @@ class Transactions extends React.Component {
 
 
         this.setState(reqParams, () => {
-            this.getTransactions(reqParams, this.state.isUnconfirmed, this.state.isAll)
+            this.getTransactions(reqParams, this.state.isAll)
         });
 
     };
@@ -176,7 +168,7 @@ class Transactions extends React.Component {
     }
 
     getUnconfirmedTransactionsTransactions  = async (requestParams) => {
-        var params = requestParams;
+        let params = requestParams;
         if (this.state.isAll) {
             delete params.account;
         }
@@ -221,7 +213,7 @@ class Transactions extends React.Component {
         }
     }
 
-    handleTransactinonFilters = (type, subtype, requestType, all) => {
+    handleTransactionFilters = (type, subtype, requestType, all) => {
         if (requestType === 'getUnconfirmedTransactions') {
             if (all) {
                 this.setState({
@@ -282,7 +274,7 @@ class Transactions extends React.Component {
                     lastIndex:  14,
                     requestType: requestType,
                     ...this.state.passphrase
-                }, requestType, all);
+                }, all);
             });
         }
     };
@@ -294,11 +286,11 @@ class Transactions extends React.Component {
                 "filter" : true,
                 "active": activeCondition
             })}
-            onClick={() => this.handleTransactinonFilters(handler, null)}
+            onClick={() => this.handleTransactionFilters(handler, null)}
         >
             {label}
         </div>
-    )
+    );
 
     AboveTabeComponent = () => (
         <div className="transactions-filters">
@@ -322,7 +314,7 @@ class Transactions extends React.Component {
                         "active": this.state.isUnconfirmed && !this.state.isAll
                     })}
                     onClick={() => {
-                        this.handleTransactinonFilters(null, null, 'getUnconfirmedTransactions', false)
+                        this.handleTransactionFilters(null, null, 'getUnconfirmedTransactions', false)
                     }}
                 >
                     Unconfirmed (account)
@@ -333,7 +325,7 @@ class Transactions extends React.Component {
                         "filter" : true,
                         "active": this.state.isPhassing
                     })}
-                    onClick={() => this.handleTransactinonFilters(null, null, 'getAccountPhasedTransactions')}
+                    onClick={() => this.handleTransactionFilters(null, null, 'getAccountPhasedTransactions')}
                 >
                     Phasing
                 </div>
@@ -343,26 +335,14 @@ class Transactions extends React.Component {
                         "filter" : true,
                         "active": this.state.isUnconfirmed && this.state.isAll
                     })}
-                    onClick={() => this.handleTransactinonFilters(null, null, 'getUnconfirmedTransactions', true)}
+                    onClick={() => this.handleTransactionFilters(null, null, 'getUnconfirmedTransactions', true)}
                 >
                     All Unconfirmed
                 </div>
 
             </div>
-            {/*<div className="bottom-bar">
-                <div
-                    className={classNames({
-                        "btn" : true,
-                        "filter" : true,
-                        "active": this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isUnconfirmed && !this.state.isPhassing
-                    })}
-                    onClick={() => this.handleTransactinonFilters(null, null)}
-                >
-                    All types
-                </div>
-            </div>*/}
         </div>
-    )
+    );
 
     render () {
 
@@ -420,7 +400,10 @@ class Transactions extends React.Component {
                             className={'no-min-height mb-3'}
                             emptyMessage={'No active polls.'}
                             TableRowComponent={Transaction}
-                            passProps={{secretPhrase: this.state.secretPhrase || this.state.passphrase}}
+                            passProps={{
+                                secretPhrase: this.state.secretPhrase || this.state.passphrase,
+                                isUnconfirmed: this.state.isUnconfirmed
+                            }}
                             tableData={this.state.transactions}
                             isPaginate
                             page={this.state.page}

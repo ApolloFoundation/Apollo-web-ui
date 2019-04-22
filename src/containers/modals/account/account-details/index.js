@@ -208,64 +208,6 @@ class AccountDetails extends React.Component {
                             </div>
                         </div>
                     </TabContaier>
-                    <TabContaier sectionName={'Account Control'}>
-                        {
-                            !isAccountControl && 
-                            <div className="transaction-table no-min-height transparent">
-                                <div className="transaction-table-body transparent padding-vertical-padding">
-                                    <a
-                                        onClick={() => this.props.setBodyModalParamsAction('MANDATORY_APPROVAL', {})}
-                                        data-blue-link-text
-                                    >
-                                        Setup Mandatory Approval.
-                                    </a>
-                                </div>
-                            </div> ||
-                            <div className="transaction-table no-min-height transparent">
-                                <div className="transaction-table-body transparent">
-                                    <table>
-                                        <tbody className="with-padding">
-                                            <tr>
-                                                <td  className="no-brake">Voting Model:</td>
-                                                <td className="">{votingModel}</td>
-                                            </tr>
-                                            <tr>
-                                                <td  className="no-brake">Quorum:</td>
-                                                <td>{phasingControl.quorum}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="no-brake">Minimum Balance:</td>
-                                                <td>{phasingControl.minBalance}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="no-brake">Minimum Balance Model:</td>
-                                                <td>{phasingControl.minBalanceModel}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="no-brake">Whitelist:</td>
-                                                <td>{phasingControl.quorum}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="no-brake">Max fees:</td>
-                                                <td>{phasingControl.maxFees / Math.pow(10, 8)}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="no-brake"></td>
-                                                <td>
-                                                    <a className="btn primary hide-media"
-                                                    onClick={() => this.props.setBodyModalParamsAction('MANDATORY_APPROVAL', {})}
-                                                    >
-                                                        Change
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        }
-                        
-                    </TabContaier>
                 </TabulationBody>
             </ModalBody>
         );
