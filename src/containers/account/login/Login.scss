@@ -361,7 +361,6 @@
             }
 
             .info-box {
-              p {
                 padding: 0;
                 color: #7E8691;
                 font-size: 11px;
@@ -373,9 +372,11 @@
                   line-height: 13px;
                   margin-bottom: 10px;
                   padding-left: 30px;
+
                   &:last-of-type {
                     margin-bottom: 0;
                   }
+
                   &.check-icon:before {
                     top: 3px;
                     content: '';
@@ -384,6 +385,7 @@
                     background: url(../../../assets/check-icon.png) center no-repeat;
                     background-size: contain;
                   }
+
                   &.minus-icon:before {
                     top: 6px;
                     content: '';
@@ -392,6 +394,7 @@
                     background: url(../../../assets/minus-icon.png) center no-repeat;
                     background-size: contain;
                   }
+
                   &.danger-icon:before {
                     top: 3px;
                     content: '';
@@ -401,8 +404,7 @@
                     background-size: contain;
                   }
                 }
-              }
-              &.green-text p {
+              &.green-text {
                 color: #00f64e;
               }
               &.dark-info {
