@@ -94,7 +94,7 @@ class OrderHistory extends React.Component {
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"
-                                                        onClick={this.handleCancel}
+                                                        onClick={() => this.handleCancel({currency: type, pairRate, offerAmount, total})}
                                                     >
                                                         Cancel
                                                     </button>

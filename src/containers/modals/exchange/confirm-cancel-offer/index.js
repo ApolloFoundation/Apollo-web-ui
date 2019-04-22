@@ -28,6 +28,7 @@ class ConfirmCancelOffer extends React.Component {
     };
 
     render() {
+        const {currency, pairRate, offerAmount, total} = this.props.modalData;
         return (
             <ModalBody
                 loadForm={this.loadForm}
@@ -40,6 +41,17 @@ class ConfirmCancelOffer extends React.Component {
             >
                 <InfoBox default>
                     If you are sure you want to cancel your order, type your passphrase to confirm.
+                </InfoBox>
+                <InfoBox attentionLeft>
+                <p>
+                    Price {currency.toUpperCase()}: <span>{pairRate}</span>
+                </p>
+                <p>
+                    Amount APL: <span>{offerAmount}</span>
+                </p>
+                <p>
+                    Total {currency.toUpperCase()}: <span>{total}</span>
+                </p>
                 </InfoBox>
                 <TextualInputComponent
                     field={'passphrase'}

@@ -6,8 +6,8 @@ import {formatDivision} from '../../../../../helpers/format';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
 
 class TradeHistoryExchange extends React.Component {
-    handleCancel = () => {
-        this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {});
+    handleCancel = (props) => {
+        this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {...props});
     };
 
     render() {
@@ -55,7 +55,7 @@ class TradeHistoryExchange extends React.Component {
                                     <button
                                         type={'button'}
                                         className="btn btn-sm"
-                                        onClick={this.handleCancel}
+                                        onClick={() => this.handleCancel({currency, pairRate, offerAmount, total})}
                                     >
                                         Cancel
                                     </button>
