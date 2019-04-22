@@ -333,30 +333,7 @@ class AssetExchange extends React.Component {
 		                                                >
 			                                                View Account Distribution
 		                                                </a>
-		                                                <a
-			                                                className={"btn static blue"}
-			                                                onClick={() => {
-				                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DIVIDEND_HISTORY', {
-					                                                asset: this.props.match.params.asset,
-				                                                })
-			                                                }}>
-			                                                View Asset Dividend History
-		                                                </a>
-		                                                <br/>
-		                                                {this.state.asset &&
-		                                                this.state.asset.account === this.props.account ?
-			                                                <a
-				                                                className={"btn static blue"}
-				                                                onClick={() => {
-					                                                this.props.setBodyModalParamsAction('PAY_DIVIDENDS', {
-						                                                asset: this.props.match.params.asset,
-					                                                })
-				                                                }}>
-				                                                Pay Dividends
-			                                                </a> : null
-		                                                }
 	                                                </div>
-
                                                 </div>
                                             </div>
                                         </div>
