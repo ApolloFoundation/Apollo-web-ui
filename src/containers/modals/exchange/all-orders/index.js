@@ -28,7 +28,7 @@ class MyAllOrders extends React.Component {
     render() {
         return (
             <ModalBody
-                modalTitle={'My all orders'}
+                modalTitle={'All my orders'}
                 closeModal={this.props.closeModal}
                 isDisableFormFooter
                 isDisableSecretPhrase
@@ -57,7 +57,7 @@ class MyAllOrders extends React.Component {
                         const pairRate = formatDivision(props.pairRate, 100000000, 9);
                         const offerAmount = formatDivision(props.offerAmount, 100000000, 3);
                         const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
-                        const currentTime = new Date();
+                        const currentTime = Date.now();
                         console.log('-------', currentTime, props.finishTime)
                         return (
                             <tr>
