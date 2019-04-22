@@ -166,6 +166,14 @@ class Sidebar extends React.Component {
                                         <li>
                                             <NavLink
                                                 activeClassName="active"
+                                                to="/exchange"
+                                            >
+												Dashboard
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                activeClassName="active"
                                                 to="/choose-wallet"
                                             >
                                                 Wallets
