@@ -1,8 +1,8 @@
 import React from 'react';
 import Chart from 'chart.js';
 
-import EthIcon from '../../../../assets/ETH.png';
-import {formatDivision} from "../../../../helpers/format";
+import EthIcon from '../../../../../assets/ETH.png';
+import {formatDivision} from "../../../../../helpers/format";
 
 const chartJsOption = {
     type: 'bar',
@@ -30,6 +30,7 @@ const chartJsOption = {
                     color: '#CFDAE8',
                 },
                 ticks: {
+                    min: 0,
                     fontColor: '#8AA5C7',
                     fontFamily: 'BBRollerMonoProST, sans-serif',
                     fontSize: '11',
@@ -41,6 +42,7 @@ const chartJsOption = {
                     color: '#CFDAE8',
                 },
                 ticks: {
+                    min: 0,
                     fontColor: '#8AA5C7',
                     fontFamily: 'BBRollerMonoProST, sans-serif',
                     fontSize: '11',

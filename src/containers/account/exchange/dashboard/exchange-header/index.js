@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from "classnames";
 import {NotificationManager} from "react-notifications";
 
-import BtcIcon from '../../../../assets/BTC.png';
-import EthIcon from '../../../../assets/ETH.png';
-import PaxIcon from '../../../../assets/PAX.png';
+import BtcIcon from '../../../../../assets/BTC.png';
+import EthIcon from '../../../../../assets/ETH.png';
+import PaxIcon from '../../../../../assets/PAX.png';
 const currencyIcons = {btc: BtcIcon, eth: EthIcon, pax: PaxIcon};
 
 const ExchangeHeader = ({currencies, currentCurrency, switchCurrency, wallet, handleLoginModal}) => (

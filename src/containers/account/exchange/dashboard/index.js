@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import SiteHeader from '../../components/site-header';
-import InfoBox from '../../components/info-box';
+import SiteHeader from '../../../components/site-header';
+import InfoBox from '../../../components/info-box';
 
 import ExchangeHeader from './exchange-header';
 import ExchangeBuy from './exchange-buy';
@@ -11,9 +11,9 @@ import BuyOrders from './buy-orders';
 import Plot from './plot';
 import TradeHistoryExchange from './trade-history';
 import OpenOrders from './open-orders';
-import {setCurrentCurrencyAction} from "../../../modules/exchange";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getMyOpenOffers} from "../../../actions/wallet";
+import {setCurrentCurrencyAction} from "../../../../modules/exchange";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getMyOpenOffers} from "../../../../actions/wallet";
 
 class Exchange extends React.Component {
     state = {

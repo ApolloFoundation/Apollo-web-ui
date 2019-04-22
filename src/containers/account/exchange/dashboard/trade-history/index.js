@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {NotificationManager} from "react-notifications";
-import CustomTable from '../../../components/tables/table';
+import CustomTable from '../../../../components/tables/table';
 
 const buyOrders = [
     {

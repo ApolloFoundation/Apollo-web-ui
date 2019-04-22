@@ -121,7 +121,6 @@ import PayDividends from "./assets/pay-dividends";
 import LoginToExchange from './exchange/login';
 import WithdrawCurrency from './exchange/withdraw-currency';
 import ConfirmCreateOffer from './exchange/confirm-create-offer';
-import MyAllOrders from './exchange/all-orders';
 
 class ModalWindow extends React.Component {
     constructor(props) {
@@ -329,7 +328,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'LOGIN_EXCHANGE'              && <LoginToExchange           closeModal={this.closeModal}/>}
                     {this.props.modalType === 'WITHDRAW_CURRENCY'           && <WithdrawCurrency          closeModal={this.closeModal}/>}
                     {this.props.modalType === 'CONFIRM_CREATE_OFFER'        && <ConfirmCreateOffer        closeModal={this.closeModal}/>}
-                    {this.props.modalType === 'MY_ALL_ORDERS'               && <MyAllOrders               closeModal={this.closeModal}/>}
                 </ModalProvider>
             </div>
         );

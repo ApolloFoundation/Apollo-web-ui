@@ -150,7 +150,7 @@ class Sidebar extends React.Component {
                                 <NavLink
                                     style={{background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'}}
                                     exact={true}
-                                    className={`text ${this.getNavLinkClass(["/exchange", "/choose-wallet"])}`}
+                                    className={`text ${this.getNavLinkClass(["/exchange", "/choose-wallet", "/order-history"])}`}
                                     activeClassName="active"
                                     to="/exchange"
                                 >
@@ -169,6 +169,14 @@ class Sidebar extends React.Component {
                                                 to="/choose-wallet"
                                             >
                                                 Wallets
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                activeClassName="active"
+                                                to="/order-history"
+                                            >
+                                                Order History
                                             </NavLink>
                                         </li>
                                     </ul>
