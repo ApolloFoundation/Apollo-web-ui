@@ -92,6 +92,12 @@ export function createOffer(requestParams) {
     }
 }
 
+export function cancelOffer(requestParams) {
+    return dispatch => {
+        NotificationManager.error('No functionality on backend', 'Error', 5000);
+    }
+}
+
 export function getOpenOrders(requestParams) {
     return dispatch => {
         return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams)
