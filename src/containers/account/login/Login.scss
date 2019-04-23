@@ -52,6 +52,7 @@
           padding: 5vh 0;
           justify-content: center;
           align-items: flex-start;
+          margin: auto;
           @media(max-width: 760px) {
             flex-direction: column;
           }
@@ -79,10 +80,11 @@
 
         .left-section {
           max-height: 488px;
-          min-height: 100%;
+          height: 100%;
           @media(max-width: 425px) {
             min-height: auto;
             margin-bottom: 15px;
+            height: auto;
           }
           .logo {
             max-height: 242.21px;
