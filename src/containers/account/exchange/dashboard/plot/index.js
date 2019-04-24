@@ -232,8 +232,8 @@ export default class Plot extends React.Component {
                     <div className={'card-content'}>
                         <div className={'chart-options'}>
                             <div className={'time-section'}>
-                                <button className={'btn btn-sm active'}>1h</button>
-                                <button className={'btn btn-sm ml-3'}>1d</button>
+                                <button className={'btn btn-sm'}>1h</button>
+                                <button className={'btn btn-sm ml-3 active'}>1d</button>
                                 <button className={'btn btn-sm ml-3'}>1w</button>
                             </div>
                             <div className={'info-section'}>
