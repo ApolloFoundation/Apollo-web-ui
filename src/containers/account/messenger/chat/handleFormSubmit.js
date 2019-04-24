@@ -12,7 +12,12 @@ export const handleSendMessageFormSubmit = (values, formApi) => {
             NotificationManager.error('Please write your message.', 'Error', 5000);
             return;
         }
-    
+
+        if (values.message.length > 100) {
+            NotificationManager.error('Message length should not be grater than 100 symbols.', 'Error', 5000);
+            return;
+        }
+
         if (values.messageToEncrypt) {
             values = {
                 ...values,
