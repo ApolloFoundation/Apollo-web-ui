@@ -167,6 +167,6 @@ export const getMyOfferHistory = () => async (dispatch, getState) => {
         accountId: account,
     };
     const orders = await dispatch(getOpenOrders(params));
-    const ordersRes = orders ? orders.sort((a, b) => a.finishTime - b.finishTime) : [];
+    const ordersRes = orders ? orders.sort((a, b) => b.finishTime - a.finishTime) : [];
     dispatch(setMyOrderHistoryAction(ordersRes));
 };
