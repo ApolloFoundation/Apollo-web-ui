@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {NotificationManager} from 'react-notifications';
 import CustomTable from '../../../../components/tables/table';
 import {formatDivision} from '../../../../../helpers/format';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
 
 class TradeHistoryExchange extends React.Component {
     handleCancel = (props) => {
-        this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {...props});
+        NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
+        // this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {...props});
     };
 
     render() {

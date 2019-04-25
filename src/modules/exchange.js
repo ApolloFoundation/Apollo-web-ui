@@ -56,10 +56,7 @@ export default (state = initState, {type, payload}) => {
         case SET_MY_ORDER_HISTORY:
             return {
                 ...state,
-                myOrderHistory: {
-                    ...state.myOrderHistory,
-                    [payload.currency]: payload.orders,
-                }
+                myOrderHistory: payload.orders,
             };
         default:
             return state;
@@ -103,11 +100,10 @@ export const setMyOrdersAction = (currency, orders) => dispatch => {
     })
 };
 
-export const setMyOrderHistoryAction = (currency, orders) => dispatch => {
+export const setMyOrderHistoryAction = (orders) => dispatch => {
     dispatch({
         type: SET_MY_ORDER_HISTORY,
         payload: {
-            currency,
             orders,
         }
     })

@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {NotificationManager} from 'react-notifications';
 import SiteHeader from '../../../components/site-header';
-import CustomTable from "../../../components/tables/table";
-import {setCurrentCurrencyAction} from "../../../../modules/exchange";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {getMyOfferHistory} from "../../../../actions/wallet";
-import {formatDivision, currencyTypes} from "../../../../helpers/format";
-import InfoBox from "../../../components/info-box";
+import CustomTable from '../../../components/tables/table';
+import {setCurrentCurrencyAction} from '../../../../modules/exchange';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {getMyOfferHistory} from '../../../../actions/wallet';
+import {formatDivision, currencyTypes} from '../../../../helpers/format';
+import InfoBox from '../../../components/info-box';
 
 class OrderHistory extends React.Component {
     state = {
@@ -31,11 +32,12 @@ class OrderHistory extends React.Component {
     }
 
     handleCancel = () => {
-        this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {});
+        NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
+        // this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {});
     };
 
     render() {
-        const {myOrderHistory, currentCurrency} = this.props;
+        const {myOrderHistory} = this.props;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -74,7 +76,7 @@ class OrderHistory extends React.Component {
                                 ]}
                                 className={'no-min-height transparent'}
                                 emptyMessage={'No created orders.'}
-                                tableData={myOrderHistory[currentCurrency.currency]}
+                                tableData={myOrderHistory}
                                 TableRowComponent={(props) => {
                                     const pairRate = formatDivision(props.pairRate, 100000000, 9);
                                     const offerAmount = formatDivision(props.offerAmount, 100000000, 3);
@@ -88,7 +90,7 @@ class OrderHistory extends React.Component {
                                             <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                             <td>{offerAmount}</td>
                                             <td>{total}</td>
-                                            <td>{props.status === 0 ? 'Active' : 'Expired'}</td>
+                                            <td className={`${props.status !== 0 ?'red-text' : ''}`}>{props.status === 0 ? 'Active' : 'Expired'}</td>
                                             <td className={'align-right'}>
                                                 {props.status === 0 && (
                                                     <button

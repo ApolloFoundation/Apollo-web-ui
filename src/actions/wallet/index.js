@@ -157,25 +157,16 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     };
     const sellOrders = await dispatch(getOpenOrders(paramsSell));
     const buyOrders = await dispatch(getOpenOrders(paramsBuy));
-    const orders = [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
+    const orders = sellOrders && buyOrders ? [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime) : [];
     dispatch(setMyOrdersAction(currency, orders));
 };
 
-export const getMyOfferHistory = (currency) => async (dispatch, getState) => {
-    if (!currency) currency = getState().exchange.currentCurrency.currency;
+export const getMyOfferHistory = () => async (dispatch, getState) => {
     const {account} = getState().account;
-    const paramsSell = {
-        offerCurrency: 0,
+    const params = {
         accountId: account,
-        orderType: 1,
     };
-    const paramsBuy = {
-        pairCurrency: 0,
-        accountId: account,
-        orderType: 0,
-    };
-    const sellOrders = await dispatch(getOpenOrders(paramsSell));
-    const buyOrders = await dispatch(getOpenOrders(paramsBuy));
-    const orders = [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
-    dispatch(setMyOrderHistoryAction(currency, orders));
+    const orders = await dispatch(getOpenOrders(params));
+    const ordersRes = orders ? orders.sort((a, b) => b.finishTime - a.finishTime) : [];
+    dispatch(setMyOrderHistoryAction(ordersRes));
 };
