@@ -8,6 +8,7 @@ import config from '../../config';
 import axios from 'axios';
 import store from "../../store";
 import {getAssetAction} from "../assets";
+import {processElGamalEncryption} from "../crypto";
 
 export function getDGSGoodsAction(reqParams) {
     return dispatch => {
@@ -149,11 +150,14 @@ export function getDGSPurchasesAction(reqParams) {
 }
 
 export function getDGSPurchaseAction(reqParams) {
-    return dispatch => {
+    return async () => {
+        let data = reqParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getDGSPurchase',
-                ...reqParams
+                ...data
             }
         })
             .then((res) => {

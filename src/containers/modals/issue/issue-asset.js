@@ -63,7 +63,7 @@ class IssueAsset extends React.Component {
 
         // Todo: finish form validating
         this.props.processForm(values, 'issueAsset', 'Transaction has been submitted!', (res) => {
-            this.props.issueAssetAction(values);
+            // this.props.issueAssetAction(values);
             this.props.setBodyModalParamsAction(null, {});
 
             NotificationManager.success('Asset has been submitted!', null, 5000);

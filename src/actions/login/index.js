@@ -189,16 +189,15 @@ export function makeLoginReq(dispatch, requestParams) {
 export function getForging(isPassphrase) {
     return async (dispatch, getState) => {
         const account = getState().account;
-        let passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
-        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
-
-        passpPhrase = passpPhrase ? await processElGamalEncryption(passpPhrase) : null;
+        let passpPhraseOrigin = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
+        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhraseOrigin));
+        const passpPhrase = passpPhraseOrigin ? await processElGamalEncryption(passpPhraseOrigin) : null;
 
         Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
                 dispatch({
                     type: 'SET_PASSPHRASE',
-                    payload: passpPhrase
+                    payload: passpPhraseOrigin
                 });
 
                 let requestParams;
