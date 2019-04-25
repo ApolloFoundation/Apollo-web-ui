@@ -90,7 +90,7 @@ class OrderHistory extends React.Component {
                                             <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                             <td>{offerAmount}</td>
                                             <td>{total}</td>
-                                            <td>{props.status === 0 ? 'Active' : 'Expired'}</td>
+                                            <td className={`${props.status !== 0 ?'red-text' : ''}`}>{props.status === 0 ? 'Active' : 'Expired'}</td>
                                             <td className={'align-right'}>
                                                 {props.status === 0 && (
                                                     <button
