@@ -17,7 +17,9 @@ class ConfirmCancelOffer extends React.Component {
         }
 
         const params = {
-            ...this.props.modalData.params,
+            orderId: this.props.modalData.orderId,
+            feeATM: 100000000,
+            sender: this.props.account,
             passphrase
         };
         const offer = await this.props.cancelOffer(params);
@@ -65,6 +67,7 @@ class ConfirmCancelOffer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    account: state.account.account,
     modalData: state.modals.modalData,
 });
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {NotificationManager} from 'react-notifications';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table';
 import {setCurrentCurrencyAction} from '../../../../modules/exchange';
@@ -31,9 +30,8 @@ class OrderHistory extends React.Component {
         }
     }
 
-    handleCancel = () => {
-        NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
-        // this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {});
+    handleCancel = (data) => {
+        this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data);
     };
 
     render() {
@@ -82,6 +80,7 @@ class OrderHistory extends React.Component {
                                     const offerAmount = formatDivision(props.offerAmount, 100000000, 3);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
                                     const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
+                                    console.log('--props---', props)
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                     return (
                                         <tr>
@@ -96,7 +95,13 @@ class OrderHistory extends React.Component {
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"
-                                                        onClick={() => this.handleCancel({currency: type, pairRate, offerAmount, total})}
+                                                        onClick={() => this.handleCancel({
+                                                            currency: type,
+                                                            pairRate,
+                                                            offerAmount,
+                                                            total,
+                                                            orderId: props.id,
+                                                        })}
                                                     >
                                                         Cancel
                                                     </button>
