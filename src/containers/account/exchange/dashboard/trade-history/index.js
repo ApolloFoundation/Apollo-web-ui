@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {NotificationManager} from "react-notifications";
-import CustomTable from '../../../components/tables/table';
+import CustomTable from '../../../../components/tables/table';
 
 const buyOrders = [
     {
@@ -36,7 +36,7 @@ const buyOrders = [
     },
 ];
 
-class TradeHistoryEchanger extends React.Component {
+class TradeHistoryExchange extends React.Component {
     handleFormSubmit = () => {
         if (this.props.wallet) {
             NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
@@ -88,4 +88,4 @@ class TradeHistoryEchanger extends React.Component {
     }
 }
 
-export default withRouter(TradeHistoryEchanger);
+export default withRouter(TradeHistoryExchange);

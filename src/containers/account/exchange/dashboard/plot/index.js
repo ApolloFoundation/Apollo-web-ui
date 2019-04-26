@@ -1,8 +1,8 @@
 import React from 'react';
 import Chart from 'chart.js';
 
-import EthIcon from '../../../../assets/ETH.png';
-import {formatDivision} from "../../../../helpers/format";
+import EthIcon from '../../../../../assets/ETH.png';
+import {formatDivision} from "../../../../../helpers/format";
 
 const chartJsOption = {
     type: 'bar',
@@ -30,6 +30,7 @@ const chartJsOption = {
                     color: '#CFDAE8',
                 },
                 ticks: {
+                    min: 0,
                     fontColor: '#8AA5C7',
                     fontFamily: 'BBRollerMonoProST, sans-serif',
                     fontSize: '11',
@@ -41,6 +42,7 @@ const chartJsOption = {
                     color: '#CFDAE8',
                 },
                 ticks: {
+                    min: 0,
                     fontColor: '#8AA5C7',
                     fontFamily: 'BBRollerMonoProST, sans-serif',
                     fontSize: '11',
@@ -230,8 +232,8 @@ export default class Plot extends React.Component {
                     <div className={'card-content'}>
                         <div className={'chart-options'}>
                             <div className={'time-section'}>
-                                <button className={'btn btn-sm active'}>1h</button>
-                                <button className={'btn btn-sm ml-3'}>1d</button>
+                                <button className={'btn btn-sm'}>1h</button>
+                                <button className={'btn btn-sm ml-3 active'}>1d</button>
                                 <button className={'btn btn-sm ml-3'}>1w</button>
                             </div>
                             <div className={'info-section'}>

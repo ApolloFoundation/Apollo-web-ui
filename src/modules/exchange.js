@@ -7,6 +7,7 @@ export const SET_CURRENT_CURRENCY = "SET_CURRENT_CURRENCY";
 export const SET_BUY_ORDERS = "SET_BUY_ORDERS";
 export const SET_SELL_ORDERS = "SET_SELL_ORDERS";
 export const SET_MY_ORDERS = "SET_MY_ORDERS";
+export const SET_MY_ORDER_HISTORY = "SET_MY_ORDER_HISTORY";
 
 const initState = {
     currencies: ['btc', 'eth', 'pax'],
@@ -16,6 +17,7 @@ const initState = {
     buyOrders: {},
     sellOrders: {},
     myOrders: {},
+    myOrderHistory: {},
 };
 
 export default (state = initState, {type, payload}) => {
@@ -50,6 +52,11 @@ export default (state = initState, {type, payload}) => {
                     ...state.myOrders,
                     [payload.currency]: payload.orders,
                 }
+            };
+        case SET_MY_ORDER_HISTORY:
+            return {
+                ...state,
+                myOrderHistory: payload.orders,
             };
         default:
             return state;
@@ -88,6 +95,15 @@ export const setMyOrdersAction = (currency, orders) => dispatch => {
         type: SET_MY_ORDERS,
         payload: {
             currency,
+            orders,
+        }
+    })
+};
+
+export const setMyOrderHistoryAction = (orders) => dispatch => {
+    dispatch({
+        type: SET_MY_ORDER_HISTORY,
+        payload: {
             orders,
         }
     })

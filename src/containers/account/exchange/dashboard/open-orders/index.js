@@ -1,16 +1,15 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
-import {NotificationManager} from "react-notifications";
-import CustomTable from '../../../components/tables/table';
-import {formatDivision} from "../../../../helpers/format";
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {NotificationManager} from 'react-notifications';
+import CustomTable from '../../../../components/tables/table';
+import {formatDivision} from '../../../../../helpers/format';
+import {setBodyModalParamsAction} from '../../../../../modules/modals';
 
-class TradeHistoryEchanger extends React.Component {
-    handleFormSubmit = () => {
-        if (this.props.wallet) {
-            NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
-        } else {
-            this.props.handleLoginModal();
-        }
+class TradeHistoryExchange extends React.Component {
+    handleCancel = (props) => {
+        NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
+        // this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {...props});
     };
 
     render() {
@@ -19,13 +18,12 @@ class TradeHistoryEchanger extends React.Component {
             <div className={'card-block form-group-app p-0 h-400'}>
                 <div className={'form-title d-flex justify-content-between'}>
                     <p>My Open Orders</p>
-                    <button
-                        type={'button'}
-                        className={'btn btn-sm'}
-                        onClick={this.handleFormSubmit}
+                    <Link
+                        to={'/order-history'}
+                        className="btn btn-sm"
                     >
                         View All
-                    </button>
+                    </Link>
                 </div>
                 <CustomTable
                     header={[
@@ -37,6 +35,9 @@ class TradeHistoryEchanger extends React.Component {
                             alignRight: false
                         }, {
                             name: `Total ${currency.toUpperCase()}`,
+                            alignRight: false
+                        }, {
+                            name: ``,
                             alignRight: true
                         }
                     ]}
@@ -51,7 +52,16 @@ class TradeHistoryEchanger extends React.Component {
                             <tr>
                                 <td className={`${props.type === 0 ? 'green-text' : 'red-text'}`}>{pairRate}</td>
                                 <td>{offerAmount}</td>
-                                <td className={'align-right'}>{total}</td>
+                                <td>{total}</td>
+                                <td className={'align-right'}>
+                                    <button
+                                        type={'button'}
+                                        className="btn btn-sm"
+                                        onClick={() => this.handleCancel({currency, pairRate, offerAmount, total})}
+                                    >
+                                        Cancel
+                                    </button>
+                                </td>
                             </tr>
                         )
                     }}
@@ -61,4 +71,8 @@ class TradeHistoryEchanger extends React.Component {
     }
 }
 
-export default withRouter(TradeHistoryEchanger);
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+});
+
+export default connect(null, mapDispatchToProps)(TradeHistoryExchange);

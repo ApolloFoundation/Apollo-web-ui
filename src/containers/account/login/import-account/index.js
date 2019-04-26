@@ -7,8 +7,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import classNames from "classnames";
-import {CopyToClipboard} from "react-copy-to-clipboard";
+import classNames from 'classnames';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {Form, Text, TextArea} from 'react-form';
 import {
     openPrevModal,
@@ -18,12 +18,12 @@ import {
     setModalData
 } from '../../../../modules/modals';
 import InfoBox from '../../../components/info-box';
-import InputForm from "../../../components/input-form";
+import InputForm from '../../../components/input-form';
+import InputUpload from '../../../components/input-upload';
 import crypto from '../../../../helpers/crypto/crypto';
-import submitForm from "../../../../helpers/forms/forms";
-import {getAccountDataAction} from "../../../../actions/login";
-import {importAccountAction, importAccountActionViaFile} from "../../../../actions/account";
-import dangerIcon from "../../../../assets/danger-icon.png";
+import submitForm from '../../../../helpers/forms/forms';
+import {getAccountDataAction} from '../../../../actions/login';
+import {importAccountAction, importAccountActionViaFile} from '../../../../actions/account';
 
 const mapStateToProps = state => ({
     account: state.account.account,
@@ -197,11 +197,7 @@ class ImportAccount extends React.Component {
                                                     <label>
                                                         Your account secret file
                                                     </label>
-                                                    <input
-                                                        id="file"
-                                                        type="file"
-                                                        className={'upload-file'}
-                                                    />
+                                                    <InputUpload id="file"/>
                                                 </div>
                                             </React.Fragment>
                                         )}

@@ -1,9 +1,8 @@
 import React from 'react';
 import {Form, TextArea, Checkbox, Text} from 'react-form';
-import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-
+import {handleSendMessageFormSubmit} from './handleFormSubmit';
 
 class ChatForm extends React.PureComponent {
     state = {
@@ -20,13 +19,13 @@ class ChatForm extends React.PureComponent {
         this.setState({
             textareaCount: 0
         })
-    }
+    };
 
     getFormApi = (form) => {
         this.setState({
             form 
         })
-    }
+    };
 
     render () {
         return (
@@ -95,6 +94,6 @@ class ChatForm extends React.PureComponent {
 
 const mapDispatchToProps = {
     handleSendMessageFormSubmit
-}
+};
 
 export default connect(null, mapDispatchToProps)(withRouter(ChatForm));

@@ -190,10 +190,8 @@
 
 		.info-box {
 			background: transparent;
-			p {
-				color: #2dd043;
-				padding: 18px 15px;
-			}
+			color: #2dd043;
+			padding: 18px 15px;
 		}
 
 		.form-group-app {
@@ -325,7 +323,7 @@
 				line-height: 12px;
 				min-width: 35px;
 				min-height: auto;
-				padding: 2px;
+				padding: 2px 4px;
 				&.active {
 					border-radius: 2px;
 					background-color: rgba(147,169,195,0.24);

@@ -8,7 +8,12 @@ import config from '../../config';
 import {writeToLocalStorage} from "../localStorage";
 import {getAccountInfoAction} from "../account";
 import {setWallets} from "../../modules/account";
-import {setBuyOrdersAction, setSellOrdersAction, setMyOrdersAction} from "../../modules/exchange";
+import {
+    setBuyOrdersAction,
+    setSellOrdersAction,
+    setMyOrdersAction,
+    setMyOrderHistoryAction
+} from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
 import {currencyTypes} from "../../helpers/format";
 
@@ -87,6 +92,12 @@ export function createOffer(requestParams) {
     }
 }
 
+export function cancelOffer(requestParams) {
+    return dispatch => {
+        NotificationManager.error('No functionality on backend', 'Error', 5000);
+    }
+}
+
 export function getOpenOrders(requestParams) {
     return dispatch => {
         return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams)
@@ -146,6 +157,16 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     };
     const sellOrders = await dispatch(getOpenOrders(paramsSell));
     const buyOrders = await dispatch(getOpenOrders(paramsBuy));
-    const orders = [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime);
+    const orders = sellOrders && buyOrders ? [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime) : [];
     dispatch(setMyOrdersAction(currency, orders));
+};
+
+export const getMyOfferHistory = () => async (dispatch, getState) => {
+    const {account} = getState().account;
+    const params = {
+        accountId: account,
+    };
+    const orders = await dispatch(getOpenOrders(params));
+    const ordersRes = orders ? orders.sort((a, b) => b.finishTime - a.finishTime) : [];
+    dispatch(setMyOrderHistoryAction(ordersRes));
 };

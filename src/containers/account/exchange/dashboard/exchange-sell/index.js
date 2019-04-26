@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Form} from "react-form";
 import {NotificationManager} from "react-notifications";
-import InputForm from '../../../components/input-form';
-import {currencyTypes, formatCrypto, multiply} from "../../../../helpers/format";
-import {createOffer} from "../../../../actions/wallet";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import InputForm from '../../../../components/input-form';
+import {currencyTypes, formatDivision, multiply} from "../../../../../helpers/format";
+import {createOffer} from "../../../../../actions/wallet";
+import {setBodyModalParamsAction} from "../../../../../modules/modals";
 
-class ExchangeBuy extends React.Component {
+class ExchangeSell extends React.Component {
     feeATM = 200000000;
     state = {
         form: null,
@@ -30,31 +30,27 @@ class ExchangeBuy extends React.Component {
             if (values.offerAmount > 0 && values.pairRate > 0) {
                 const pairRate = multiply(values.pairRate, 100000000);
                 const offerAmount = multiply(values.offerAmount, 100000000);
-                const balanceETH = this.props.wallet.wallets[0].balance / Math.pow(10, 18);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                     :
                     parseFloat(this.props.balanceAPL);
 
-                if (balanceETH === 0 || balanceETH < values.total) {
-                    NotificationManager.error(`Not enough founds on your ${this.props.wallet.currency.toUpperCase()} balance.`, 'Error', 5000);
-                    return;
-                }
-                if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < this.feeATM) {
-                    NotificationManager.error('Not enough founds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
+                if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < (offerAmount + this.feeATM)) {
+                    NotificationManager.error('Not enough founds on your APL balance.', 'Error', 5000);
                     return;
                 }
 
                 const params = {
-                    offerType: 0, // BUY
-                    pairCurrency: currencyTypes['apl'],
+                    offerType: 1, // SELL
+                    pairCurrency: currencyTypes[this.props.currentCurrency.currency],
                     pairRate,
                     offerAmount,
-                    offerCurrency: currencyTypes[this.props.currentCurrency.currency],
+                    offerCurrency: currencyTypes['apl'],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
-                    feeATM: this.feeATM,
+                    feeATM: this.feeATM
                 };
+
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
                     if (this.state.form) this.state.form.resetAll();
@@ -77,8 +73,9 @@ class ExchangeBuy extends React.Component {
     };
 
     render() {
-        const {currentCurrency: {currency}, wallet} = this.props;
-        const balanceFormat = wallet && wallet.wallets && wallet.wallets[0].balance !== "null" && formatCrypto(wallet.wallets[0].balance);
+        const {currentCurrency: {currency}, wallet, balanceAPL, dashboardAccoountInfo} = this.props;
+        const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
+        const balanceFormat = balance ? formatDivision(balance, 100000000, 3) : 0;
         const currencyName = currency.toUpperCase();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
@@ -90,7 +87,7 @@ class ExchangeBuy extends React.Component {
                              }) => (
                         <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title d-flex justify-content-between align-items-center">
-                                <p>Buy APL</p>
+                                <p>Sell APL</p>
                                 <span>Fee: {this.feeATM/100000000} APL</span>
                             </div>
                             <div className="form-group row form-group-white mb-15">
@@ -110,7 +107,7 @@ class ExchangeBuy extends React.Component {
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>
-                                    I want to Buy
+                                    I want to Sell
                                 </label>
                                 <div
                                     className="input-group input-group-text-transparent">
@@ -122,11 +119,12 @@ class ExchangeBuy extends React.Component {
                                     <div className="input-group-append">
                                         <span className="input-group-text">APL</span>
                                     </div>
+                                    <small className={'text-note'}>Will be frozen on your balance during 24 hours.</small>
                                 </div>
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>
-                                    I will pay
+                                    I will receive
                                 </label>
                                 <div
                                     className="input-group input-group-text-transparent">
@@ -143,7 +141,7 @@ class ExchangeBuy extends React.Component {
                             {wallet && wallet.wallets && balanceFormat !== false && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
-                                    className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;{currencyName}</span>
+                                    className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;APL</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">
@@ -152,7 +150,7 @@ class ExchangeBuy extends React.Component {
                                     name={'closeModal'}
                                     className={'btn btn-lg btn-green submit-button'}
                                 >
-                                    <span className={'button-text'}>Buy APL</span>
+                                    <span className={'button-text'}>Sell APL</span>
                                 </button>
                             </div>
                         </form>
@@ -174,4 +172,4 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExchangeBuy);
+export default connect(mapStateToProps, mapDispatchToProps)(ExchangeSell);

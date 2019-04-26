@@ -89,69 +89,62 @@
   &.mt {
     margin-top: 25px;
   }
+
   &.info {
     background: #666666;
-
-    p {
-      color: #fff;
-    }
+    color: #fff;
   }
+
   &.danger {
     background-color: #e74c3c;
-
-    p {
-      color: #fff;
-    }
+    color: #fff;
   }
+
   &.success {
 
   }
+
   &.warning {
     background: #f39c12;
-
-    p {
-      color: #fff;
-    }
+    color: #fff;
   }
+
   &.no-padding-on-the-sides {
     padding-left: 0;
     padding-right: 0;
   }
+
   &.simple {
     background: transparent;
-
-    p {
-      padding-left: 0;
-      padding-right: 0;
-      color: #000;
-
-    }
-  }
-  p {
-    padding: 18px 40px;
+    padding-left: 0;
+    padding-right: 0;
     color: #000;
+  }
 
-    a {
-      color: #00C8FF;
-    }
-    ul {
-      li {
-        padding: 0 0 0 15px;
-        display: block;
-        position: relative;
-        color: #fff;
-        line-height: 1.6;
+  padding: 18px 40px;
+  color: #000;
 
-        &:before {
-          content: '';
-          position: absolute;
-          top: 7px;
-          left: 0;
-          height: 6px;
-          width: 6px;
-          background: white;
-          border-radius: 100%;
-        }
+  a {
+    color: #00C8FF;
+  }
+
+  ul {
+    li {
+      padding: 0 0 0 15px;
+      display: block;
+      position: relative;
+      color: #fff;
+      line-height: 1.6;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 7px;
+        left: 0;
+        height: 6px;
+        width: 6px;
+        background: white;
+        border-radius: 100%;
       }
     }
   }

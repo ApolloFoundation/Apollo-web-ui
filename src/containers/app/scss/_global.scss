@@ -643,73 +643,48 @@ input[type="file"] {
 	&.attention-left {
 		border-left: 4px solid #00C8FF;
 		border-radius: 0;
-		
-		p {
-			span {
-				color: #00C8FF;
-			}
+
+		span {
+			color: #00C8FF;
 		}
 	}
 	&.blue-info {
 		background-color: #00C8FF;
-		
-		p {
-			color: #fff;
-		}
+		color: #fff;
 	}
 	&.info {
 		background: #666666;
-		
-		p {
-			color: #fff;
-		}
+		color: #fff;
 	}
 	&.success {
 		background-color: #2ecc71;
-		
-		p {
-			color: #fff;
-		}
+		color: #fff;
 	}
 	&.warning {
 		background: #f39c12;
-	
-		p {
-		  color: #fff;
-		}
+		color: #fff;
 	}
 	&.simple {
 		background: transparent;
-		
-		p {
-			padding-left: 0;
-			padding-right: 0;
-		}
+		padding-left: 0;
+		padding-right: 0;
 	}
 	&.no-padding-on-the-sides {
-		p {
-			padding-left: 0;
-			padding-right: 0;
-		}
+		padding-left: 0;
+		padding-right: 0;
 	}
 	&.no-padding-top {
-		p {
-			padding-top: 0;
-		}
+		padding-top: 0;
 	}
 	&.nowrap {
-		p {
-			word-break: unset;
-		}
+		word-break: unset;
 	}
-	p {
-		word-wrap: break-word;
-		word-break: break-word;
-		color: #000;
-		padding-left: 40px;
-		padding-right: 40px;
-		line-height: 1.6;
-	}
+	word-wrap: break-word;
+	word-break: break-word;
+	color: #000;
+	padding-left: 40px;
+	padding-right: 40px;
+	line-height: 1.6;
 }
 
 .no-margin {
@@ -1456,9 +1431,7 @@ table {
 	}
 	.info-box.simple {
 		margin-bottom: 0;
-		p {
-			padding-bottom: 0;
-		}
+		padding-bottom: 0;
 	}
 	.full-box-item {
 		display: block !important;
