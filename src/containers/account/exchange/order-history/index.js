@@ -80,7 +80,6 @@ class OrderHistory extends React.Component {
                                     const offerAmount = formatDivision(props.offerAmount, 100000000, 3);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
                                     const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
-                                    console.log('--props---', props)
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                     return (
                                         <tr>
