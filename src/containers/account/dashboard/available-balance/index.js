@@ -6,7 +6,7 @@ import { setBodyModalParamsAction } from '../../../../modules/modals';
 
 class AvailableBalance extends Component {
     render () {
-        const {dashboardAccoountInfo, actualBlock, setBodyModalParamsAction, blockchainStatus, positionState1, position1, formatTimestamp} = this.props;
+        const {dashboardAccoountInfo, actualBlock, setBodyModalParamsAction, blockchainStatus, positionState1, position1, timestamp, formatTimestamp} = this.props;
         
         return (
             <div
@@ -40,7 +40,7 @@ class AvailableBalance extends Component {
                             {
                                 actualBlock &&
                                 <div className="account-sub-titles">
-                                    Block:&nbsp;{actualBlock.height}&nbsp;/&nbsp;{actualBlock}
+                                    Block:&nbsp;{actualBlock}&nbsp;/&nbsp;{formatTimestamp(timestamp)}
                                 </div>
                             }
                             {
@@ -61,7 +61,8 @@ class AvailableBalance extends Component {
 
 const mapStateToProps = state => ({
     dashboardAccoountInfo: state.dashboard.dashboardAccoountInfo,
-    actualBlock: state.account.actualBlock,    
+    actualBlock: state.account.actualBlock,
+    timestamp: state.account.timestamp,
     blockchainStatus: state.account.blockchainStatus,
 })
 
