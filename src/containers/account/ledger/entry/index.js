@@ -7,14 +7,13 @@
 import React from 'react';
 import uuid from 'uuid';
 import i18n from 'i18next';
-import crypto from "../../../../helpers/crypto/crypto";
-import converters from "../../../../helpers/converters";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {formatTimestamp} from "../../../../helpers/util/time";
-import {getLedgerEntryAction} from "../../../../actions/ledger";
-import {getTransactionAction} from "../../../../actions/transactions/";
-import {getBlockAction} from "../../../../actions/blocks";
+import {withTranslation} from 'react-i18next';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {formatTimestamp} from '../../../../helpers/util/time';
+import {getTransactionAction} from '../../../../actions/transactions/';
+import {getBlockAction} from '../../../../actions/blocks';
 
 class Entry extends React.Component {
     constructor(props) {
@@ -25,13 +24,13 @@ class Entry extends React.Component {
         }
     }
 
-	showInfo = () => {
-		if (this.state.entry.eventType === "BLOCK_GENERATED") {
-			this.props.setBodyModalParamsAction('INFO_BLOCK', this.state.entry.height);
-		} else {
-			this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT');
-		}
-	};
+    showInfo = () => {
+        if (this.state.entry.eventType === "BLOCK_GENERATED") {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', this.state.entry.height);
+        } else {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT');
+        }
+    };
 
     render () {
         const {setBodyModalParamsAction, formatTimestamp} = this.props;
@@ -51,10 +50,12 @@ class Entry extends React.Component {
                             </a>
                         </td>
                         <td>
-                            {this.state.entry && this.state.entry.eventType && this.state.entry.eventType.toLowerCase()}
+                            {this.state.entry && this.state.entry.eventType && (
+                                i18n.t(this.state.entry.eventType.toLowerCase())
+                            )}
                             &nbsp;&nbsp;
                             <a
-	                            onClick={this.showInfo}
+                                onClick={this.showInfo}
                             >
                             <span
                                 className="zmdi zmdi-info"
@@ -100,4 +101,7 @@ const mapDispatchToProps = dispatch => ({
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
 });
 
-export default connect(null, mapDispatchToProps)(Entry);
+export default compose(
+    withTranslation(),
+    connect(null, mapDispatchToProps),
+)(Entry);

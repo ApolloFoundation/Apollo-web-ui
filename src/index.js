@@ -31,7 +31,7 @@ render(
     <Provider store={store}>
         <BlockSubscriber>
             <ConnectedRouter history={history}>
-                <I18nextProvider  i18n={ i18n }>
+                <I18nextProvider i18n={i18n}>
                     <BrowserRouter>
                         <Switch>
                             <Route path="/" component={App}/>
