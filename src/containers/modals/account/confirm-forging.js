@@ -67,7 +67,6 @@ class ConfirmForging extends React.Component {
         const forgingAction = action && action.getStatus === 'startForging' ? 'start' : 'stop';
         const passphrase = this.checkPassphrase();
 
-        console.log('------is2FA', is2FA);
         return (
             <ModalBody
                 loadForm={this.loadForm}
