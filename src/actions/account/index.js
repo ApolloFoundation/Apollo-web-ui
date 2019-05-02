@@ -21,7 +21,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from '../../helpers/forms/forms'
 import store from '../../store'
 import {makeLoginReq} from "../login";
-import {setShareMessage} from "../../modules/account";
+import {login, setShareMessage} from "../../modules/account";
 import { setBodyModalParamsAction } from '../../modules/modals';
 
 import QRCode from 'qrcode';
@@ -58,7 +58,8 @@ export function getAccountInfoAction(account) {
         })
             .then((res) => {
                 if (res.data || (res.data && res.data.errorCode === 5)) {
-                    return res.data
+                    dispatch(login(res.data));
+                    return res.data;
                 }
             })
     }

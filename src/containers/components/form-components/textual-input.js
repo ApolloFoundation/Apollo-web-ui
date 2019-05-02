@@ -8,12 +8,12 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
             {
                 type === 'button' ?
                 <>
-                    <div class="form-group-grey row mb-15">
-                        <div class="col-sm-9 offset-sm-3">
+                    <div className="form-group-grey row mb-15">
+                        <div className="col-sm-9 offset-sm-3">
                             <a 
                                 id={idGroup}
                                 onClick={() => hendler()}
-                                class="no-margin btn static blue"
+                                className="no-margin btn static blue"
                             >
                                 {label}
                             </a>
@@ -52,7 +52,7 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
                         <div className={"form-group row form-group-white mb-15"}>   
                             <div className={"row w-100"}>
                                 <div className="col-md-9 offset-sm-0 offset-md-3">
-                                    <div class="pl-4 form-sub-title no-margin d-block">{inputHint}</div>
+                                    <div className="pl-4 form-sub-title no-margin d-block">{inputHint}</div>
                                 </div>
                             </div>
                         </div>

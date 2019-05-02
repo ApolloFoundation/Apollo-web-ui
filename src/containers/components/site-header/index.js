@@ -119,25 +119,37 @@ class SiteHeader extends React.Component {
         }
     }
 
-    setForgingWith2FA = (action) => {
+    setForgingData = (action) => {
         return {
             getStatus: action,
-            confirmStatus: (res) => {
-                this.setState({forgingStatus: res});
+            handleSuccess: (forgingStatus) => {
+                this.setState({forgingStatus});
             }
         }
-    }
+    };
 
     setForging = async (action) => {
-        const forging = await this.props.setForging({requestType: action.requestType});
-        if (forging) {
-            if (forging.errorCode === 3) {
-                this.props.setBodyModalParamsAction('CONFIRM_2FA_FORGING', this.setForgingWith2FA(action.requestType))
-            } else {
-                const forgingStatus = await this.props.getForging();
+        if (!this.props.effectiveBalanceAPL || this.props.effectiveBalanceAPL < 1000) {
+            NotificationManager.error('You can start forging only if your effective balance exceed 1000 APL.', 'Error', 5000);
+            return;
+        }
+        const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || this.props.secretPhrase;
+        if (!passPhrase || this.props.is2FA) {
+            this.props.setBodyModalParamsAction('CONFIRM_FORGING', this.setForgingData(action.requestType));
+        } else {
+            const forging = await this.props.setForging({requestType: action.requestType});
 
-                if (forgingStatus) {
-                    this.setState({forgingStatus: forgingStatus});
+            if (forging) {
+                if (!forging.errorCode) {
+                    const forgingStatus = await this.props.getForging();
+
+                    if (!forgingStatus.errorCode || forgingStatus.errorCode === 5) {
+                        this.setState({forgingStatus: forgingStatus});
+                    } else {
+                        NotificationManager.error('Something went wrong. Please, try again later', 'Error', 5000);
+                    }
+                } else {
+                    NotificationManager.error(forging.errorDescription, 'Error', 5000);
                 }
             }
         }
@@ -180,7 +192,7 @@ class SiteHeader extends React.Component {
                                 />
                             </div>
                             <div className="col-md-6">
-                                <UserBox 
+                                <UserBox
                                     showMenu={this.showMenu}
                                     setBodyModalType={this.setBodyModalType}
                                     menuShow={this.state.menuShow}
@@ -218,7 +230,9 @@ const mapStateToProps = state => ({
     secretPhrase: state.account.passPhrase,
     settings: state.accountSettings,
     appState: state.account.blockchainStatus,
-    isLocalhost: state.account.isLocalhost
+    isLocalhost: state.account.isLocalhost,
+    is2FA: state.account.is2FA,
+    effectiveBalanceAPL: state.account.effectiveBalanceAPL,
 });
 
 const mapDispatchToProps = dispatch => ({

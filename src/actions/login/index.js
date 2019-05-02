@@ -164,7 +164,6 @@ export function makeLoginReq(dispatch, requestParams) {
                 dispatch(endLoad());
                 writeToLocalStorage('APLUserRS', res.data.accountRS);
                 dispatch(updateNotifications())(res.data.accountRS);
-                dispatch(getForging());
                 dispatch(getConstantsAction());
                 dispatch({
                     type: 'SET_PASSPHRASE',
@@ -172,6 +171,7 @@ export function makeLoginReq(dispatch, requestParams) {
                 });
 
                 dispatch(login(res.data));
+                dispatch(getForging());
 
                 return res.data;
             } else {
@@ -186,44 +186,25 @@ export function makeLoginReq(dispatch, requestParams) {
         });
 }
 
-export function getForging(isPassphrase) {
-    return async (dispatch, getState) => {
+export function getForging() {
+    return (dispatch, getState) => {
         const account = getState().account;
-        let passpPhraseOrigin = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
-        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhraseOrigin));
-        const passpPhrase = passpPhraseOrigin ? await processElGamalEncryption(passpPhraseOrigin) : null;
 
-        Promise.resolve(forgingStatus)
-            .then((isPassphrase) => {
+        const requestParams = {
+            requestType: 'getForging',
+            account: account.account,
+            publicKey: account.publicKey,
+        };
+
+        return axios.get(config.api.serverUrl, {
+            params: requestParams
+        })
+            .then((res) => {
                 dispatch({
-                    type: 'SET_PASSPHRASE',
-                    payload: passpPhraseOrigin
+                    type: 'GET_FORGING',
+                    payload: res.data
                 });
-
-                let requestParams;
-
-                if (isPassphrase) {
-                    requestParams = {
-                        requestType: 'getForging',
-                        secretPhrase: passpPhrase
-                    };
-                } else {
-                    requestParams = {
-                        requestType: 'getForging',
-                        passphrase: passpPhrase,
-                        account: account.account
-                    };
-                }
-
-                return axios.get(config.api.serverUrl, {
-                    params: requestParams
-                })
-                    .then((res) => {
-                        dispatch({
-                            type: 'GET_FORGING',
-                            payload: res.data
-                        })
-                    })
+                return res.data;
             })
     }
 }
@@ -281,10 +262,19 @@ export async function logOutAction(action, history) {
             return;
         case('logOutStopForging'):
             localStorage.removeItem("wallets");
-            const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
             const {account} = store.getState();
+            const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
+            if (account.forgingStatus && !account.forgingStatus.errorCode && (!passPhrase || account.is2FA)) {
+                store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
+                    getStatus: 'stopForging',
+                    handleSuccess: () => logOutAction(action, history)
+                }));
+                return;
+            }
 
-            if (!account.balanceATM || (account.balanceATM / 100000000) < 1000) {
+            const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
+
+            if (!account.effectiveBalanceAPL || account.effectiveBalanceAPL < 1000) {
                 localStorage.removeItem("APLUserRS");
                 localStorage.removeItem("secretPhrase");
                 localStorage.removeItem("wallets");
@@ -294,27 +284,11 @@ export async function logOutAction(action, history) {
                 return;
             }
 
-            const setForgingWith2FA = (action) => {
-                return {
-                    getStatus: action,
-                    confirmStatus: (res) => {
-                        localStorage.removeItem("APLUserRS");
-                        localStorage.removeItem("secretPhrase");
-                        localStorage.removeItem("wallets");
-                        dispatch(logout());
-
-                        history.push('/login');
-                    }
-                }
-            };
-
-            if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8) {
-                store.dispatch(setBodyModalParamsAction('CHECK_FORGING_STATUS', {
-                    modalSubmit: () => logOutAction(action, history)
+            if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8 || forging.errorCode === 3) {
+                store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
+                    getStatus: 'stopForging',
+                    handleSuccess: () => logOutAction(action, history)
                 }));
-            }
-            if (forging.errorCode === 3) {
-                store.dispatch(setBodyModalParamsAction('CONFIRM_2FA_FORGING', setForgingWith2FA('stopForging')));
             }
             
             if (!forging.errorCode){
