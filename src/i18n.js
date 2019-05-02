@@ -22,7 +22,7 @@ i18n
                 crossDomain: false,
                 withCredentials: false,
             },
-            debug: true,
+            debug: false,
             react: {
                 wait: true,
                 bindI18n: 'languageChanged loaded',
