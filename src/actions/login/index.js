@@ -8,6 +8,8 @@ import axios from "axios/index";
 import config from "../../config";
 import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';
+import {processElGamalEncryption} from '../../actions/crypto';
+
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
 import {login, logout, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PASSPHRASE} from '../../modules/account';
@@ -185,15 +187,17 @@ export function makeLoginReq(dispatch, requestParams) {
 }
 
 export function getForging(isPassphrase) {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
         const account = getState().account;
-        const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
-        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
+        let passpPhraseOrigin = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
+        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhraseOrigin));
+        const passpPhrase = passpPhraseOrigin ? await processElGamalEncryption(passpPhraseOrigin) : null;
+
         Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
                 dispatch({
                     type: 'SET_PASSPHRASE',
-                    payload: passpPhrase
+                    payload: passpPhraseOrigin
                 });
 
                 let requestParams;
