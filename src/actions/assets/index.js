@@ -6,6 +6,7 @@
 
 import config from '../../config';
 import axios from 'axios';
+import {processElGamalEncryption} from "../crypto";
 
 export function getAssetsAction(reqParams) {
     return dispatch => {
@@ -186,47 +187,55 @@ export function getAccountAssetsAction(reqParams) {
 }
 
 export function buyAssetAction(requestParams) {
-    return dispatch => {
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return fetch(config.api.serverUrl + "requestType=placeBidOrder", {
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            body: JSON.stringify(data)
         })
     }
 }
 
 export function sellAssetAction(requestParams) {
-    return dispatch => {
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return fetch(config.api.serverUrl + "requestType=placeAskOrder", {
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            body: JSON.stringify(data)
         })
     }
 }
 
 export function issueAssetAction(requestParams) {
-    return dispatch => {
-
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return fetch(config.api.serverUrl + "requestType=issueAsset", {
             method: 'POST',
             headers: {
                 "Content-Type": "contentType:application/x-www-form-urlencoded; charset=UTF-8"
             },
-            body: "name=Test2Test&description=Test&decimals=0&deadline=1440&phased=false&phasingLinkedFullHash=&phasingHashedSecret=&phasingHashedSecretAlgorithm=2&publicKey=ffbc7ba2e4c43be03f8a7f020d0651f582ad1901c254eebb4ec2ecb73148e50d&quantityATU=100&feeATM=100000000000&ecBlockId=11255812614937856744&ecBlockHeight=0"
+            body: JSON.stringify(data)
         })
     }
 }
 
 export function transferAssetAction(requestParams) {
-    return dispatch => {
-
-        const formData  = new FormData(requestParams);
-
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return fetch(config.api.serverUrl + "requestType=transferAsset", {
             method: 'POST',
             headers: {
                 "Content-Type": "contentType:application/x-www-form-urlencoded; charset=UTF-8"
             },
-            body: requestParams
+            body: data
         })
     }
 }

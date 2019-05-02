@@ -9,12 +9,15 @@ import axios from 'axios/index';
 import config from '../../config';
 import queryString from 'query-string';
 import {NotificationManager} from "react-notifications";
+import {processElGamalEncryption} from "../crypto";
 
 export function getTransactionsAction(requestParams) {
-    return dispatch => {
+    return async (dispatch) => {
         const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
 
         let params = requestParams;
+        if (params.passphrase) params.passphrase = await processElGamalEncryption(params.passphrase);
+        else if (params.secretPhrase) params.secretPhrase = await processElGamalEncryption(params.secretPhrase);
 
         if (!params.requestType) {
             delete params.requestType;
@@ -23,7 +26,7 @@ export function getTransactionsAction(requestParams) {
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: requestType,
-                ...requestParams
+                ...params
             }
         }).then((res) => {
             return res.data
@@ -34,12 +37,14 @@ export function getTransactionsAction(requestParams) {
 }
 
 export const getTransactionsID = (requestParams) => {
-
-	return dispatch => {
+	return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 		return axios.get(config.api.serverUrl, {
 			params: {
 				requestType: 'getAccountId',
-				...requestParams
+				...data
 			}
 		})
 			.then((res) => {
@@ -53,13 +58,16 @@ export const getTransactionsID = (requestParams) => {
 	}
 }
 
-export const getPrivateTransactions = (requestParams) => {
-    const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
+export const getPrivateTransactions = async (requestParams) => {
+    let data = requestParams;
+    const requestType = (data.passphrase || data.secretPhrase) ? 'getPrivateBlockchainTransactions' : 'getBlockchainTransactions';
+    if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+    else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 
     return axios.get(config.api.serverUrl, {
         params : {
             requestType: requestType,
-            ...requestParams
+            ...data
         }
     })
         .then((res) => {
@@ -71,13 +79,16 @@ export const getPrivateTransactions = (requestParams) => {
 }
 
 export function getTransactionAction(requestParams) {
-    return dispatch => {
-        const requestType = (requestParams.passphrase || requestParams.secretPhrase) ? 'getPrivateTransaction' : 'getTransaction';
+    return async () => {
+        let data = requestParams;
+        const requestType = (data.passphrase || data.secretPhrase) ? 'getPrivateTransaction' : 'getTransaction';
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: requestType,
-                ...requestParams
+                ...data
             }
         })
             .then((res) => {
@@ -108,11 +119,14 @@ export const getMixerAccount = () => {
 }
 
 export function getPrivateTransactionAction(requestParams) {
-    return dispatch => {
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return axios.get(config.api.serverUrl, {
             params : {
                 requestType: 'getPrivateTransaction',
-                ...requestParams
+                ...data
             }
         })
             .then((res) => {
@@ -126,18 +140,20 @@ export function getPrivateTransactionAction(requestParams) {
     }
 }
 export function sendTransactionAction(requestParams) {
-    return (dispatch) => {
-        requestParams = {
+    return async () => {
+        let data = {
             ...requestParams,
             requestType: 'sendMoney',
             deadline: '1440',
             amountATM: requestParams.amountATM * 100000000,
             feeATM: requestParams.feeATM * 100000000,
         };
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 
         fetch(config.api.serverUrl + "requestType=sendMoney",{
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            body: JSON.stringify(data)
         })
 
             .then((res) => {
@@ -153,18 +169,18 @@ export function sendTransactionAction(requestParams) {
 }
 
 export function sendPrivateTransaction(requestParams) {
-    return (dispatch) => {
-        requestParams = {
+    return async () => {
+        let data = {
             ...requestParams,
             requestType: 'sendMoneyPrivate',
             deadline: '1440',
             amountATM: requestParams.amountATM * 100000000,
             feeATM: requestParams.feeATM * 100000000,
         };
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 
-
-
-        return axios.post(config.api.serverUrl + queryString.stringify(requestParams))
+        return axios.post(config.api.serverUrl + queryString.stringify(data))
                 .then((res) => {
                     return res.data;
                 })

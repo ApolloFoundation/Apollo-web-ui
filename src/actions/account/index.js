@@ -27,6 +27,7 @@ import { setBodyModalParamsAction } from '../../modules/modals';
 import QRCode from 'qrcode';
 
 import jsPDF from 'jspdf';
+import {processElGamalEncryption} from "../crypto";
 
 export function getAccountAction(reqParams) {
     return dispatch => {
@@ -81,13 +82,13 @@ export function logOutAction(account) {
 }
 
 export function sendLeaseBalance(reqParams) {
-    return (dispatch) => {
-        reqParams = {
-            requestType: 'sendMoneyPrivate',
-            ...reqParams,
-        };
+    return async () => {
+        let data = reqParams;
+        data.requestType = 'sendMoneyPrivate';
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 
-        return axios.post(config.api.serverUrl + queryString.stringify(reqParams))
+        return axios.post(config.api.serverUrl + queryString.stringify(data))
             .then((res) => {
                 if (!res.data.errorCode) {
                     return res.data;
@@ -177,9 +178,13 @@ export const getPhasingOnlyControl = (reqParams) => {
 }
 
 export function exportAccount(requestParams) {
-    return dispatch => {
-        const body = Object.keys(requestParams).map((key) => {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(requestParams[key]);
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
+
+        const body = Object.keys(data).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
         }).join('&');
         return fetch(`${config.api.server}/rest/keyStore/download`, {
             method: 'POST',

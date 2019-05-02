@@ -7,6 +7,7 @@
 import config from '../../config';
 import axios from 'axios';
 import {login} from "../../modules/account";
+import {processElGamalEncryption} from "../crypto";
 
 export function getAliasesAction(reqParams) {
     return dispatch => {
@@ -70,37 +71,49 @@ export function getAliasAction(requestParams) {
 }
 
 export function buyAliasAction(requestParams) {
-    return dispatch => {
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return fetch(config.api.serverUrl + "requestType=buyAlias", {
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            body: JSON.stringify(data)
         })
     }
 }
 
 export function deleteAliasAction(requestParams) {
-    return dispatch => {
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return fetch(config.api.serverUrl + "requestType=deleteAlias", {
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            body: JSON.stringify(data)
         })
     }
 }
 
 export function sellAliasAction(requestParams) {
-    return dispatch => {
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return fetch(config.api.serverUrl + "requestType=buyAlias", {
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            body: JSON.stringify(data)
         })
     }
 }
 
 export function setAliasAction(requestParams) {
-    return dispatch => {
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return fetch(config.api.serverUrl + "requestType=buyAlias", {
             method: 'POST',
-            body: JSON.stringify(requestParams)
+            body: JSON.stringify(data)
         })
     }
 }

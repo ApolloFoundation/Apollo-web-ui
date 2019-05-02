@@ -8,6 +8,8 @@ import axios from "axios/index";
 import config from "../../config";
 import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';
+import {processElGamalEncryption} from '../../actions/crypto';
+
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
 import {login, logout, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PASSPHRASE} from '../../modules/account';

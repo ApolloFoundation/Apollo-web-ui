@@ -11,6 +11,7 @@ import config from '../../config';
 import converters from '../converters'
 import BigInteger from 'big-integer';
 import AplAddress from '../util/apladres'
+import {processElGamalEncryption} from '../../actions/crypto';
 import store from '../../store';
 import {NotificationManager} from "react-notifications";
 import {SET_AMOUNT_WARNING, SET_ASSET_WARNING, SET_CURRENCY_WARNING, SET_FEE_WARNING} from "../../modules/modals";
@@ -32,27 +33,25 @@ function submitForm(data, requestType) {
                 isPassphrase = isPassphrase.join('-');
         
             if (account.accountRS !== isPassphrase) {
-                data.passphrase = data.secretPhrase;
+                data.passphrase = await processElGamalEncryption(data.secretPhrase);
 
                 delete data.secretPhrase;
             } else {
-                data.secretPhrase = data.secretPhrase;
+                data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
                 delete data.passphrase;
             }
-        }
-
-        if (data.passphrase) {
+        } else if (data.passphrase) {
             let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.passphrase)));
                 isPassphrase = isPassphrase.split('-');
                 isPassphrase[0] = account.constants.accountPrefix;
                 isPassphrase = isPassphrase.join('-');
 
             if (account.accountRS !== isPassphrase) {
-                data.passphrase = data.passphrase;
+                data.passphrase = await processElGamalEncryption(data.passphrase);
 
                 delete data.secretPhrase;
             } else {
-                data.secretPhrase = data.passphrase;
+                data.secretPhrase = await processElGamalEncryption(data.passphrase);
 
                 delete data.passphrase;
             }

@@ -143,7 +143,7 @@ class SiteHeader extends React.Component {
                 if (!forging.errorCode) {
                     const forgingStatus = await this.props.getForging();
 
-                    if (!forgingStatus.errorCode) {
+                    if (!forgingStatus.errorCode || forgingStatus.errorCode === 5) {
                         this.setState({forgingStatus: forgingStatus});
                     } else {
                         NotificationManager.error('Something went wrong. Please, try again later', 'Error', 5000);

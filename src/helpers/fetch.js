@@ -1,11 +1,12 @@
 import fetch from 'isomorphic-fetch';
 import qs from "query-string";
+import {processElGamalEncryption} from "../actions/crypto";
 
 export const GET = 'GET';
 export const POST = 'POST';
 export const DELETE = 'DELETE';
 
-export const handleFetch = (url, method, value = null) => {
+export const handleFetch = async (url, method, value = null) => {
     let queryPath = url;
     const options =  {
         method,
@@ -14,6 +15,9 @@ export const handleFetch = (url, method, value = null) => {
         },
     };
     if (value !== null) {
+        if (value.passphrase) value.passphrase = await processElGamalEncryption(value.passphrase);
+        else if (value.secretPhrase) value.secretPhrase = await processElGamalEncryption(value.secretPhrase);
+
         if (method === GET) {
             queryPath += `?${qs.stringify(value)}`;
         } else {
