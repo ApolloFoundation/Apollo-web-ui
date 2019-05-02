@@ -274,7 +274,7 @@ export async function logOutAction(action, history) {
 
             const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
 
-            if (!account.balanceATM || (account.balanceATM / 100000000) < 1000) {
+            if (!account.effectiveBalanceAPL || account.effectiveBalanceAPL < 1000) {
                 localStorage.removeItem("APLUserRS");
                 localStorage.removeItem("secretPhrase");
                 localStorage.removeItem("wallets");

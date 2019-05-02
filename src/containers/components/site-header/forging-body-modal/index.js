@@ -18,7 +18,7 @@ class ForgingBodyModalWindow extends Component {
     };
     
     setForging = async (action) => {
-        if (!this.props.balanceATM || (this.props.balanceATM / 100000000) < 1000) {
+        if (!this.props.effectiveBalanceAPL || this.props.effectiveBalanceAPL < 1000) {
             NotificationManager.error('You can start forging only if your effective balance exceed 1000 APL.', 'Error', 5000);
             return;
         }
@@ -137,7 +137,7 @@ const mapStateToProps = state => ({
     actualBlock: state.account.actualBlock,
     secretPhrase: state.account.passPhrase,
     is2FA: state.account.is2FA,
-    balanceATM: state.account.balanceATM,
+    effectiveBalanceAPL: state.account.effectiveBalanceAPL,
 });
 
 const mapDispatchToProps = dispatch =>({
