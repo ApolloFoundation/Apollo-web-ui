@@ -17,9 +17,9 @@ export const CheckboxFormInput = (props) => {
             <div className={`col-md-9 ${label ? '' : 'offset-md-3'}`}>
                 {
                     checkboxes &&
-                    checkboxes.map(el => {
+                    checkboxes.map((el, index) => {
                         return (
-                            <div className="form-check custom-checkbox mb-15">
+                            <div className="form-check custom-checkbox mb-15" key={index}>
                                 <Checkbox className="form-check-input custom-control-input"
                                     type="checkbox"
                                     onChange={() => {

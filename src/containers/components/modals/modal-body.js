@@ -99,7 +99,7 @@ class ModalBody extends React.Component {
                                             {
                                                 !isDisabledBackArrow && 
                                                 modalsHistory.length > 1 &&
-                                                <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
+                                                <div className={"backMy"} onClick={() => {openPrevModal()}}/>
                                             }
                                             <p>{modalTitle}</p>
                                         </div>
@@ -111,7 +111,7 @@ class ModalBody extends React.Component {
                                             {
                                                 !isDisabledBackArrow && 
                                                 modalsHistory.length > 1 &&
-                                                <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
+                                                <div className={"backMy"} onClick={() => {openPrevModal()}}/>
                                             }
                                             <p>{marketplace.name}</p>
                                         </div>
@@ -128,7 +128,7 @@ class ModalBody extends React.Component {
 
                                     {
                                         modalSubTitle && 
-                                        <div class="form-sub-title mb-4">{modalSubTitle}</div>
+                                        <div className="form-sub-title mb-4">{modalSubTitle}</div>
                                     }
         
                                     

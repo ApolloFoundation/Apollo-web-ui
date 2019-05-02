@@ -20,9 +20,10 @@ class InputForm extends React.Component {
     };
 
     handleChange = (value) => {
-        const {setValue, field, isPlain} = this.props;
-
-        setValue(field, this.validateInput(value));
+        const {setValue, field} = this.props;
+        if (setValue && field) {
+            setValue(field, this.validateInput(value));
+        }
     };
 
     validateInput = (value) => {
@@ -113,8 +114,9 @@ class InputForm extends React.Component {
             if (this.props.maxValue !== undefined && value > parseFloat(this.props.maxValue)) {
                 value = this.props.maxValue;
             }
-
-            this.props.setValue(this.props.field, value);
+            if (this.props.setValue && this.props.field) {
+                this.props.setValue(this.props.field, value);
+            }
             this.setState({value});
             if (this.props.onChange) this.props.onChange(value);
         }
@@ -131,8 +133,9 @@ class InputForm extends React.Component {
                 if (this.props.minValue !== undefined && value < parseFloat(this.props.minValue)) {
                     value = this.props.minValue;
                 }
-
-                this.props.setValue(this.props.field, value);
+                if (this.props.setValue && this.props.field) {
+                    this.props.setValue(this.props.field, value);
+                }
                 this.setState({value});
                 if (this.props.onChange) this.props.onChange(value);
             }

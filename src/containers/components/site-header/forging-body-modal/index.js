@@ -3,36 +3,49 @@ import classNames from 'classnames';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {setForging, getForging} from '../../../../actions/login';
+import {NotificationManager} from "react-notifications";
 
 
 class ForgingBodyModalWindow extends Component {
 
-    setForgingWith2FA = (action) => {
+    setForgingData= (action) => {
         return {
             getStatus: action,
-            confirmStatus: (res) => {
+            handleSuccess: (res) => {
                 this.setState({forgingStatus: res});
             }
         }
-    }
+    };
     
     setForging = async (action) => {
-        const forging = await this.props.setForging({requestType: action.requestType});
-        if (forging) {
-            if (forging.errorCode === 3) {
-                this.props.setBodyModalParamsAction('CONFIRM_2FA_FORGING', this.setForgingWith2FA(action.requestType))
-            } else {
-                const forgingStatus = await this.props.getForging();
+        if (!this.props.balanceATM || (this.props.balanceATM / 100000000) < 1000) {
+            NotificationManager.error('You can start forging only if your effective balance exceed 1000 APL.', 'Error', 5000);
+            return;
+        }
+        const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || this.props.secretPhrase;
+        if (!passPhrase || this.props.is2FA) {
+            this.props.setBodyModalParamsAction('CONFIRM_FORGING', this.setForgingData(action.requestType))
+        } else {
+            const forging = await this.props.setForging({requestType: action.requestType});
 
-                if (forgingStatus) {
-                    this.setState({forgingStatus: forgingStatus});
+            if (forging) {
+                if (!forging.errorCode) {
+                    const forgingStatus = await this.props.getForging();
+
+                    if (!forgingStatus.errorCode) {
+                        this.setState({forgingStatus: forgingStatus});
+                    } else {
+                        NotificationManager.error('Something went wrong. Please, try again later', 'Error', 5000);
+                    }
+                } else {
+                    NotificationManager.error(forging.errorDescription, 'Error', 5000);
                 }
             }
         }
     };
 
     render() {
-        const {forgingStatus, forgedBalanceATM, isActive, setBodyModalParamsAction, actualBlock, closeMenu} = this.props;
+        const {forgingStatus, forgedBalanceATM, isActive, actualBlock, closeMenu} = this.props;
 
         return (
             <div className={classNames({
@@ -74,61 +87,20 @@ class ForgingBodyModalWindow extends Component {
                                     <label>Forging</label>
                                 </a>
                             }
-                            {
-                                forgingStatus &&
-                                forgingStatus.errorCode === 8 &&
+                            {forgingStatus &&
+                            (
+                                forgingStatus.errorCode === 8 || forgingStatus.errorCode === 4 ||
+                                forgingStatus.errorCode === 3 || forgingStatus.errorCode === 2 ||
+                                forgingStatus.errorCode === 1
+                            ) && (
                                 <a
-                                    onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
+                                    onClick={() => this.setForging({requestType: 'startForging'})}
                                     className="image-button danger"
                                 >
                                     <i className="zmdi zmdi-help"/>
                                     <label>Unknown forging status</label>
                                 </a>
-                            }
-                            {
-                                forgingStatus &&
-                                forgingStatus.errorCode === 4 &&
-                                <a
-                                    onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                    className="image-button danger"
-                                >
-                                    <i className="zmdi zmdi-help"/>
-                                    <label>Unknown forging status</label>
-                                </a>
-                            }
-                            {
-                                forgingStatus &&
-                                forgingStatus.errorCode === 3 &&
-                                <a
-                                    onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                    className="image-button danger"
-                                >
-                                    <i className="zmdi zmdi-help"/>
-                                    <label>Unknown forging status</label>
-                                </a>
-                            }
-                            {
-                                forgingStatus &&
-                                forgingStatus.errorCode === 2 &&
-                                <a
-                                    onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                    className="image-button danger"
-                                >
-                                    <i className="zmdi zmdi-help"/>
-                                    <label>Unknown forging status</label>
-                                </a>
-                            }
-                            {
-                                forgingStatus &&
-                                forgingStatus.errorCode === 1 &&
-                                <a
-                                    onClick={() => setBodyModalParamsAction('ENTER_SECRET_PHRASE', null)}
-                                    className="image-button danger"
-                                >
-                                    <i className="zmdi zmdi-help"/>
-                                    <label>Unknown forging status</label>
-                                </a>
-                            }
+                            )}
         
                             <p className="mb-2">
                                 {
@@ -162,13 +134,16 @@ const mapStateToProps = state => ({
     forgedBalanceATM: state.account.forgedBalanceATM,
     moalTtype: state.modals.modalType,
     modalData: state.modals.modalData,
-    actualBlock: state.account.actualBlock
+    actualBlock: state.account.actualBlock,
+    secretPhrase: state.account.passPhrase,
+    is2FA: state.account.is2FA,
+    balanceATM: state.account.balanceATM,
 });
 
 const mapDispatchToProps = dispatch =>({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
     setForging: (reqParams) => dispatch(setForging(reqParams)),
     getForging: (reqParams) => dispatch(getForging(reqParams)),
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgingBodyModalWindow);

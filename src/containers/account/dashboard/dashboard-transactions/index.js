@@ -17,6 +17,7 @@ class DashboardTransactions extends Component {
                         dashboardTransactions.map((el, index) => {
                             return (
                                 <Transaction
+                                    key={index}
                                     getTransaction={this.getTransaction}
                                     {...el}
                                 />
