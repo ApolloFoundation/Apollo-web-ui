@@ -4,23 +4,16 @@
  ******************************************************************************/
 
 
-import React from 'react';
+import React, {Suspense} from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import uuid from 'uuid';
 import SiteHeader from  '../../components/site-header'
 import Entry from './entry'
 import {getBlockAction} from "../../../actions/blocks";
 import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
 import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions/";
-import curve25519 from "../../../helpers/crypto/curve25519";
-import converters from "../../../helpers/converters";
-import crypto from "../../../helpers/crypto/crypto";
 import {BlockUpdater} from "../../block-subscriber";
-import ContentLoader from '../../components/content-loader'
-import InfoBox from '../../components/info-box';
-import ContentHendler from '../../components/content-hendler'
 import {NotificationManager} from "react-notifications";
 
 import CustomTable from '../../components/tables/table';
@@ -202,78 +195,79 @@ class Ledger extends React.Component {
     }
 
     getBlock = async (type, blockHeight) => {
-		const requestParams = {
-			height: blockHeight
-		};
+        const requestParams = {
+            height: blockHeight
+        };
 
-		const block = await this.props.getBlockAction(requestParams);
+        const block = await this.props.getBlockAction(requestParams);
 
-		if (block) {
-			this.props.setBodyModalParamsAction('INFO_BLOCK', block)
-		}
-	}
+        if (block) {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+        }
+    }
 
     render () {
         return (
-            <div className="page-content">
-                <SiteHeader
-                    pageTitle={'Account ledger'}
-                >
-
-                    <a
-                        className={classNames({
-                            'btn': true,
-                            'primary': true,
-                            'disabled' : this.state.isPrivate
-                        })}
-                        onClick={() => {
-                            this.props.setModalType('PrivateTransactions')
-
-                        }}
+            <Suspense fallback="loading">
+                <div className="page-content">
+                    <SiteHeader
+                        pageTitle={'Account ledger'}
                     >
-                        Show private transactions
-                    </a>
 
-                </SiteHeader>
-                
-                <div className="page-body container-fluid">
-                   
-                    <CustomTable 
-                        header={[
-                            {
-                                name: 'Date',
-                                alignRight: false
-                            },{
-                                name: 'Type',
-                                alignRight: false
-                            },{
-                                name: 'Change',
-                                alignRight: true
-                            },{
-                                name: 'Balance',
-                                alignRight: true
-                            },{
-                                name: 'Holding',
-                                alignRight: true
-                            },{
-                                name: 'Change',
-                                alignRight: true
-                            },{
-                                name: 'Balance',
-                                alignRight: true
-                            }
-                        ]}
-                        keyField={'ledgerId'}
-                        className={'no-min-height mb-3'}
-                        emptyMessage={'No active polls.'}
-                        TableRowComponent={Entry}
-                        tableData={this.state.ledger}
-                        isPaginate
-                        page={this.state.page}
-                        previousHendler={() => this.onPaginate(this.state.page - 1)}
-                        nextHendler={() => this.onPaginate(this.state.page + 1)}
-                    />
-                    {/* 
+                        <a
+                            className={classNames({
+                                'btn': true,
+                                'primary': true,
+                                'disabled' : this.state.isPrivate
+                            })}
+                            onClick={() => {
+                                this.props.setModalType('PrivateTransactions')
+
+                            }}
+                        >
+                            Show private transactions
+                        </a>
+
+                    </SiteHeader>
+
+                    <div className="page-body container-fluid">
+
+                        <CustomTable
+                            header={[
+                                {
+                                    name: 'Date',
+                                    alignRight: false
+                                },{
+                                    name: 'Type',
+                                    alignRight: false
+                                },{
+                                    name: 'Change',
+                                    alignRight: true
+                                },{
+                                    name: 'Balance',
+                                    alignRight: true
+                                },{
+                                    name: 'Holding',
+                                    alignRight: true
+                                },{
+                                    name: 'Change',
+                                    alignRight: true
+                                },{
+                                    name: 'Balance',
+                                    alignRight: true
+                                }
+                            ]}
+                            keyField={'ledgerId'}
+                            className={'no-min-height mb-3'}
+                            emptyMessage={'No active polls.'}
+                            TableRowComponent={Entry}
+                            tableData={this.state.ledger}
+                            isPaginate
+                            page={this.state.page}
+                            previousHendler={() => this.onPaginate(this.state.page - 1)}
+                            nextHendler={() => this.onPaginate(this.state.page + 1)}
+                        />
+                        {/*
                     onClick={this.onPaginate.bind(this, this.state.page + 1)}
                     <Entry
                         key={uuid()}
@@ -285,9 +279,10 @@ class Ledger extends React.Component {
                         setTransactionInfo={this.getTransaction}
                         setBlockInfo={this.getBlock}
                     /> */}
+                    </div>
+
                 </div>
-            
-            </div>
+            </Suspense>
         );
     }
 }
@@ -302,7 +297,7 @@ const mapStateToProps = state => ({
 
 const initMapDispatchToProps = dispatch => ({
     setModalType: (prevent) => dispatch(setModalType(prevent)),
-	getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
+    getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     getAccountLedgerAction: (requestParams) => dispatch(getAccountLedgerAction(requestParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
