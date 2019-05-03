@@ -5,18 +5,12 @@
 
 
 import React from 'react';
-import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
-import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
 import {setModalData, setModalType, setBodyModalParamsAction, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import {setAccountPassphrase} from '../../../modules/account';
-import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
-import InputForm from '../../components/input-form'
-import InfoBox from '../../components/info-box';
 
 import ModalBody from '../../components/modals/modal-body';
-import BackForm from '../modal-form/modal-form-container';
 
 const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
@@ -34,39 +28,22 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class DecryptMessage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            passphraseStatus: false
-        };
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
+    state = {
+        passphraseStatus: false
+    };
 
     async validatePassphrase(passphrase) {
         return await this.props.validatePassphrase(passphrase);
     }
 
-    async handleFormSubmit(params) {
-        let passphrase = params.passphrase;
-        if (params.passphrase) {
-            delete params.secretPhrase;
-            if (params.isRememberPassphrase) {
-                localStorage.setItem('secretPhrase', JSON.stringify(params.passphrase))
-            }
-            this.props.setAccountPassphrase(params.passphrase);
-            this.closeModal();
+    handleFormSubmit = async (params) => {
+        let passphrase = params.passphrase || params.secretPhrase;
+        if (params.isRememberPassphrase) {
+            localStorage.setItem('secretPhrase', JSON.stringify(passphrase))
         }
-        if (params.secretPhrase) {
-            delete params.passphrase;
-            if (params.isRememberPassphrase) {
-                localStorage.setItem('secretPhrase', JSON.stringify(params.secretPhrase))
-            }
-            this.props.setAccountPassphrase(params.secretPhrase);
-            this.closeModal();
-        }
-    }
+        this.props.setAccountPassphrase(passphrase);
+        this.closeModal();
+    };
 
     closeModal = () => {
         const modalWindow = document.querySelector('.modal-window');

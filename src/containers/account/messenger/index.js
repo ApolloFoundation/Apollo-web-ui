@@ -11,10 +11,7 @@ import './Messenger.scss';
 import {BlockUpdater} from "../../block-subscriber/index";
 import {getChatsPerPage, getChatHistory} from "../../../actions/messager";
 
-import crypto from "../../../helpers/crypto/crypto";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import equals from 'array-equal';
-import SidebarContent from '../../components/sidebar-list';
 import Chat from './chat';
 import SidebarMessages from './sidebar-messenger/';
 import SidebarContentPage from '../../components/sidebar-content-page';
@@ -25,10 +22,11 @@ class Messenger extends React.PureComponent {
     componentDidMount () {
         this.props.getChatHistory({account2: this.props.match.params.chat});
         this.props.getChatsPerPage();
-
-        BlockUpdater.on("data", data => {
-            this.listener();
-        });
+        if (!BlockUpdater.listeners('data').length) {
+            BlockUpdater.on("data", data => {
+                this.listener();
+            });
+        }
     };
 
     componentWillUnmount() {

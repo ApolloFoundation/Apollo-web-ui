@@ -1,7 +1,5 @@
 import React from 'react';
 import ChatItem from '../chat-item';
-import uuid from 'uuid';
-import {Form, Text, TextArea, Checkbox} from 'react-form';
 import {connect} from 'react-redux';
 import ContentLoader from '../../../components/content-loader';
 import InfoBox from '../../../components/info-box';
@@ -32,7 +30,7 @@ class Chat extends React.Component {
                             chatMessages.map((el, index) => {
                                 return (
                                     <ChatItem
-                                        key={uuid()}
+                                        key={index}
                                         {...el}
                                     />
                                 );
@@ -59,7 +57,7 @@ class Chat extends React.Component {
 
 const mapStateToProps = state => ({
     chatMessages: state.messages.chatMessages
-})
+});
 
 
 export default connect(mapStateToProps)(withRouter(Chat));
