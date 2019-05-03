@@ -267,18 +267,6 @@ class Ledger extends React.Component {
                             previousHendler={() => this.onPaginate(this.state.page - 1)}
                             nextHendler={() => this.onPaginate(this.state.page + 1)}
                         />
-                        {/*
-                    onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                    <Entry
-                        key={uuid()}
-                        entry={el}
-                        publicKey= {this.state.serverPublicKey}
-                        privateKey={this.state.privateKey}
-                        sharedKey= {this.state.sharedKey}
-                        setLedgerEntryInfo={this.getLedgerEntry}
-                        setTransactionInfo={this.getTransaction}
-                        setBlockInfo={this.getBlock}
-                    /> */}
                     </div>
 
                 </div>
