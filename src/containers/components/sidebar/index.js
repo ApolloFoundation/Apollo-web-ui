@@ -8,7 +8,6 @@ import React from 'react';
 import { NavLink, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import classNames from 'classnames'
-import {Scrollbars} from 'react-custom-scrollbars';
 import {setModalType} from "../../../modules/modals";
 
 import './Sidebar.scss';
@@ -58,10 +57,7 @@ class Sidebar extends React.Component {
 
 	render() {
 		return (
-			<Scrollbars
-				renderView={props => <div {...props} className="track-content-view"/>}
-				renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
-				renderTrackVertical={props => <div {...props} className="track-vertical"/>}
+			<div
 				className={classNames({
 					"menu-bar": true,
 					"collapsed": this.state.isMenuCollapsed,
@@ -86,7 +82,6 @@ class Sidebar extends React.Component {
 
 					<nav
 						className={"header-nav"}
-						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
 					>
 						<ul
@@ -498,7 +493,7 @@ class Sidebar extends React.Component {
 						<i className="zmdi zmdi-chevron-right left"/>
 					</a>
 				</div>
-			</Scrollbars>
+			</div>
 		);
 	}
 }
