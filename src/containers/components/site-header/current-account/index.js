@@ -28,7 +28,7 @@ const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, is
             {
                 !publicKey &&
                 <div className="form-sub-title">
-                    Not verified profile
+                    Not verified profile<br/>
                     <CopyToClipboard
                         text={accountRS}
                         onCopy={() => {
@@ -46,7 +46,7 @@ const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, is
             {
                 publicKey &&
                 <div className="form-sub-title">
-                    Verified profile
+                    Verified profile<br/>
                     <CopyToClipboard
                         text={accountRS}
                         onCopy={() => {
@@ -176,15 +176,16 @@ const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, is
             </div>
         </div>
     </div>
-)
+);
 
 const mapStateToProps = state => ({
     account: state.account.account,
-    accountRS: state.account.accountRS
-})
+    accountRS: state.account.accountRS,
+    publicKey: state.account.publicKey,
+});
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CurrentAccount));
