@@ -102,12 +102,6 @@ class AccountInfo extends React.Component {
 			                                <Text className={"form-control"} placeholder={'Amount'} type="tel" field={'feeATM'}/>
 		                                </div>
 	                                </div>
-                                    
-                                    <FeeCalc 
-                                        values={getFormState().values}
-                                        setValue={setValue}
-                                        requestType={'setAccountInfo'}
-                                    />
 
                                     <ModalFooter
                                         setValue={setValue}
