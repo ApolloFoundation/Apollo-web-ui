@@ -8,13 +8,13 @@ import React from 'react';
 import {connect} from 'react-redux'
 import classNames from 'classnames';
 import crypto from "../../../../helpers/crypto/crypto";
-import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp, toEpochTime} from "../../../../helpers/util/time";
+import {formatTimestamp} from "../../../../helpers/util/time";
 import submitForm from "../../../../helpers/forms/forms";
 
 const mapStateToProps = state => ({
-    account: state.account
+    account: state.account,
+    messages: state.messages.chatMessages,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,28 +26,20 @@ const mapDispatchToProps = dispatch => ({
 
 
 class ChatItem extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     state = {
         message: null
     };
 
-    componentWillReceiveProps(newState) {
-        this.tryToDecrypt(newState);
-    };
-
-    componentDidMount() {
-        this.tryToDecrypt(this.props);
+    componentWillReceiveProps(newProps) {
+        if (newProps.account.passPhrase !== this.props.account.passPhrase) {
+            this.tryToDecrypt(newProps);
+        }
     }
 
     tryToDecrypt = (newState) => {
-        this.decryptMessage(this.props, newState.account.passPhrase)
-
-        // if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
-        //     this.decryptMessage(this.props, newState.account.passPhrase)
-        // }
+        if (newState.account.passPhrase) {
+            this.decryptMessage(this.props, newState.account.passPhrase);
+        }
     };
 
     decryptMessage = async (data, passPhrase) => {
@@ -56,7 +48,7 @@ class ChatItem extends React.Component {
             secretPhrase: passPhrase,
             transaction: this.props.transaction,
             createNoneTransactionMethod: true
-        }, 'readMessage')
+        }, 'readMessage');
 
         if (message) {
             this.setState({
@@ -116,7 +108,6 @@ class ChatItem extends React.Component {
                                 <span className="message-text">&nbsp;&nbsp;Message is encrypted</span>
                             </>
                         }
-                        
                     </p>
                 </div>
             </div>

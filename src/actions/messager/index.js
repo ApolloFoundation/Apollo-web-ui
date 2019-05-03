@@ -6,7 +6,6 @@
 
 import axios from 'axios';
 import config from '../../config'
-import crypto from '../../helpers/crypto/crypto';
 import converters from '../../helpers/converters';
 import submitForm from '../../helpers/forms/forms'
 import state from '../../store'
@@ -243,7 +242,6 @@ const isTextMessage = function(transaction) {
 
 const decryptMessage = (data, passPhrase) => {
     return async(dispatch) => {
-        passPhrase = passPhrase ? await processElGamalEncryption(passPhrase) : null;
         return dispatch(submitForm.submitForm({
             requestType: 'readMessage',
             secretPhrase: passPhrase,
@@ -260,11 +258,11 @@ const formatMessages = transactionMessages => {
         
         const messages = transactionMessages.map(el => {
             return dispatch(decryptMessage(el, account.passPhrase))
-        })
+        });
 
         return Promise.all(messages)
             .then(resolved => {return resolved.map((el, index) => {
-                    const transactionData = transactionMessages[index]
+                    const transactionData = transactionMessages[index];
                     const publicMessage = 
                         transactionData.attachment.message && transactionData.attachment.message !== 'undefined' ? transactionData.attachment.message : 
                         null;
