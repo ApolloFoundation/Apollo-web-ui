@@ -10,7 +10,7 @@ import {NotificationManager} from "react-notifications";
 import {logOutAction} from "../../../../actions/login";
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 
-const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, isActive, setBodyModalParamsAction, history}) => (
+const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, isActive, setBodyModalParamsAction, history, forgingStatus}) => (
     <div
         className={classNames({
             "no-padding": true,
@@ -156,14 +156,16 @@ const CurrentAccount = ({accountRS, account, publicKey, contacts, isContacts, is
                         <i className="zmdi zmdi-power"/>
                         <label style={{cursor: 'pointer'}}>Logout</label>
                     </div>
-                    <div
-                        onClick={() => logOutAction('logOutStopForging', history)}
-                        className="image-button"
-                    >
-                        <i className="zmdi zmdi-pause-circle"/>
-                        <label style={{cursor: 'pointer'}}>Logout and stop
-                            forging</label>
-                    </div>
+                    {forgingStatus &&
+                    !forgingStatus.errorCode &&(
+                        <div
+                            onClick={() => logOutAction('logOutStopForging', history)}
+                            className="image-button"
+                        >
+                            <i className="zmdi zmdi-pause-circle"/>
+                            <label style={{cursor: 'pointer'}}>Logout and stop forging</label>
+                        </div>
+                    )}
                     <div
                         onClick={() => logOutAction('logoutClearUserData', history)}
                         className="image-button"
@@ -182,6 +184,7 @@ const mapStateToProps = state => ({
     account: state.account.account,
     accountRS: state.account.accountRS,
     publicKey: state.account.publicKey,
+    forgingStatus: state.account.forgingStatus,
 });
 
 const mapDispatchToProps = dispatch => ({

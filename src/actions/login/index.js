@@ -261,13 +261,22 @@ export async function logOutAction(action, history) {
             history.push('/login');
             return;
         case('logOutStopForging'):
+            const handleLogout = () => {
+                localStorage.removeItem("APLUserRS");
+                localStorage.removeItem("secretPhrase");
+                localStorage.removeItem("wallets");
+                dispatch(logout());
+
+                history.push('/login');
+            };
+
             localStorage.removeItem("wallets");
             const {account} = store.getState();
             const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
             if (account.forgingStatus && !account.forgingStatus.errorCode && (!passPhrase || account.is2FA)) {
                 store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
                     getStatus: 'stopForging',
-                    handleSuccess: () => logOutAction(action, history)
+                    handleSuccess: () => handleLogout()
                 }));
                 return;
             }
@@ -275,30 +284,20 @@ export async function logOutAction(action, history) {
             const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
 
             if (!account.effectiveBalanceAPL || account.effectiveBalanceAPL < 1000) {
-                localStorage.removeItem("APLUserRS");
-                localStorage.removeItem("secretPhrase");
-                localStorage.removeItem("wallets");
-                dispatch(logout());
-
-                history.push('/login');
+                handleLogout();
                 return;
             }
 
             if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8 || forging.errorCode === 3) {
                 store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
                     getStatus: 'stopForging',
-                    handleSuccess: () => logOutAction(action, history)
+                    handleSuccess: () => handleLogout()
                 }));
             }
             
             if (!forging.errorCode){
                 if (forging) {
-                    localStorage.removeItem("APLUserRS");
-                    localStorage.removeItem("secretPhrase");
-                    localStorage.removeItem("wallets");
-                    dispatch(logout());
-
-                    history.push('/login');
+                    handleLogout();
                 }
                 return;
             }
