@@ -93,15 +93,17 @@ class ConfirmForging extends React.Component {
                             placeholder={'Secret Phrase'}
                         />
 
-                        <CheckboxFormInput
-                            checkboxes={[
-                                {
-                                    field: 'isSavePassphrase',
-                                    handler: null,
-                                    label: 'Keep forging?'
-                                }
-                            ]}
-                        />
+                        {forgingAction === 'start' && (
+                            <CheckboxFormInput
+                                checkboxes={[
+                                    {
+                                        field: 'isSavePassphrase',
+                                        handler: null,
+                                        label: 'Keep forging?'
+                                    }
+                                ]}
+                            />
+                        )}
                     </div>
                 )}
                 {is2FA && (
