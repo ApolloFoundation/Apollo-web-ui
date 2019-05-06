@@ -488,11 +488,11 @@ class CreateUser extends React.Component {
                                                             </p>
                                                             <p className={'mb-3'}>
                                                                 Secret Phrase: <span
-                                                                className={'itatic'}>{this.state.generatedPassphrase}</span>
+                                                                className={'itatic notranslate'}>{this.state.generatedPassphrase}</span>
                                                             </p>
                                                             <p className={'mb-3'}>
                                                                 Account ID: <span
-                                                                className={'itatic'}>{this.state.generatedAccount}</span>
+                                                                className={'itatic notranslate'}>{this.state.generatedAccount}</span>
                                                             </p>
                                                             <CopyToClipboard
                                                                 text={
