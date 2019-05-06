@@ -214,8 +214,8 @@
   .form-group-app .form-sub-title {
     color: #BBBBBB;
     font-size: 12px;
-    line-height: 19px;
-    margin-top: -12px; }
+    line-height: normal;
+    margin-top: 5px; }
     .form-group-app .form-sub-title.align-padding-bottom {
       padding-bottom: 15px; }
     .form-group-app .form-sub-title.align-margin-top {
@@ -239,9 +239,10 @@
     border-radius: 5px;
     border-color: #e5e5e5;
     background-color: transparent; }
-  .form-group-app .input-group-app .input-group-text-transparent .form-control {
-    border-right: none; }
-  .form-group-app .input-group-app .input-group-text-transparent .input-group-text {
+  .form-group-app .input-group-text-transparent .form-control {
+    border-right: none;
+    border-right-color: transparent; }
+  .form-group-app .input-group-text-transparent .input-group-text {
     background-color: transparent;
     color: #a6a6a6;
     border-left: none;
@@ -393,8 +394,7 @@
           padding-left: 0;
           padding-right: 0; } }
   .form-group-app .form-group-white {
-    align-items: center;
-    flex-wrap: nowrap; }
+    align-items: center; }
     .form-group-app .form-group-white.row {
       margin-left: 0 !important; }
     .form-group-app .form-group-white label {
@@ -482,3 +482,23 @@
     font-size: 11px; }
   .form-group-app .mb-15 {
     margin-bottom: 15px; }
+
+.upload-block {
+  border-radius: 3px;
+  background-color: rgba(13, 15, 17, 0.45);
+  box-shadow: 0 10px 20px 0 rgba(30, 30, 30, 0.1);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  position: relative; }
+  .upload-block p {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    padding-right: 15px; }
+  .upload-block img {
+    height: 30px;
+    width: 30px; }

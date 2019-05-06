@@ -3,7 +3,10 @@
   width: 100%;
   background-color: #FFFFFF;
   border-radius: 6px;
-  position: relative; }
+  position: relative;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden; }
   @media (max-width: 1200px) {
     .transaction-table {
       height: auto;
@@ -20,10 +23,11 @@
     position: static; }
   .transaction-table .transaction-table-body {
     min-height: 560px;
-    overflow-x: auto;
+    display: inline;
     width: 100%;
     border-radius: 3px;
-    position: relative; }
+    position: relative;
+    overflow-x: auto; }
     .transaction-table .transaction-table-body.wrap-collumns table tbody tr td {
       word-wrap: break-word;
       word-break: break-word;

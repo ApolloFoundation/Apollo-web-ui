@@ -1,3 +1,9 @@
+.media-site-header-buttons {
+  display: none; }
+  @media (max-width: 1024px) {
+    .media-site-header-buttons {
+      display: block; } }
+
 .page-header {
   display: flex;
   flex-wrap: nowrap;
@@ -12,6 +18,9 @@
     .page-header {
       padding-top: 30px;
       padding-bottom: 30px; } }
+  @media (max-width: 1000px) {
+    .page-header {
+      width: auto; } }
   @media (max-width: 760px) {
     .page-header {
       position: static;
@@ -315,40 +324,39 @@
             .page-header .user-search-box .user-box .user-avatar .zmdi {
               font-size: 20px;
               margin: 0; } }
-      .page-header .user-search-box .user-box .settings-bar {
-        position: absolute;
-        top: calc(100% + 26px);
-        right: 0;
-        display: flex;
-        justify-content: space-around;
-        background: #fff;
-        padding: 35px 0;
-        box-sizing: border-box;
-        border-bottom-right-radius: 6px;
-        border-bottom-left-radius: 6px;
-        width: 320px;
-        visibility: hidden;
-        opacity: 0;
-        transform: translateY(50px);
-        transition: all 0.3s ease-in-out;
-        z-index: 4;
-        overflow: auto;
-        max-height: calc(100vh - 120px); }
-        @media (max-width: 1024px) {
-          .page-header .user-search-box .user-box .settings-bar {
-            top: calc(100% + 26px); } }
-        @media (max-width: 760px) {
-          .page-header .user-search-box .user-box .settings-bar {
-            top: 50px; } }
-        .page-header .user-search-box .user-box .settings-bar.active {
-          opacity: 1;
-          transform: none;
-          visibility: visible; }
-        .page-header .user-search-box .user-box .settings-bar .options-col {
-          width: 100%;
-          border-right: 1px solid #E6E6E6; }
-          .page-header .user-search-box .user-box .settings-bar .options-col:last-child {
-            border: 0; }
+
+.settings-bar {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  padding: 35px 0;
+  box-sizing: border-box;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.3s ease-in-out;
+  z-index: 4;
+  overflow: auto;
+  max-height: calc(100vh - 120px);
+  top: 0; }
+  .settings-bar.active {
+    opacity: 1;
+    transform: none;
+    visibility: visible; }
+  .settings-bar .options-col {
+    width: 100%;
+    border-right: 1px solid #E6E6E6; }
+    .settings-bar .options-col a {
+      color: #333;
+      font-size: 12px;
+      line-height: 14px;
+      padding: 0 35px;
+      margin: 10px 0; }
+    .settings-bar .options-col:last-child {
+      border: 0; }
 
 .zmdi-balance-wallet {
   margin-top: 6px; }
@@ -412,6 +420,11 @@
       position: absolute;
       left: 0;
       top: calc(100% - 40px); }
+  .zmdi-balance-wallet .page-title-box .media-site-header-buttons {
+    display: none; }
+    @media (min-width: 1024px) {
+      .zmdi-balance-wallet .page-title-box .media-site-header-buttons {
+        display: block; } }
   .zmdi-balance-wallet .user-search-box {
     display: flex;
     margin: 0 -15px;
@@ -717,36 +730,41 @@
   .accordion__body--hidden {
     max-height: 0; }
 
-@media (max-width: 760px) {
-  .account-body-modal {
-    background-color: #333333 !important;
-    height: calc(100vh - 50px);
-    max-height: 100vh !important;
-    width: 100% !important; } }
-
-@media (max-width: 760px) {
+.account-body-modal {
+  position: absolute;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 132px;
+  transition: all 0.3s ease-in-out; }
   .account-body-modal .form-group-app {
-    padding-left: 55px !important;
-    padding-right: 55px !important; } }
-
-@media (max-width: 760px) {
-  .account-body-modal .input-section .row .col-md-6 {
-    max-width: 50%; } }
-
-@media (max-width: 760px) {
-  .account-body-modal .form-title p {
-    color: #ffffff !important; } }
-
-@media (max-width: 760px) {
-  .account-body-modal .image-button {
-    margin-left: -25px; } }
-
-@media (max-width: 760px) {
-  .account-body-modal .form-group-app {
-    background-color: #333333 !important; } }
+    border-top-left-radius: 0;
+    border-top-right-radius: 0; }
+  @media (max-width: 760px) {
+    .account-body-modal {
+      background-color: #333333 !important;
+      height: calc(100vh - 50px);
+      max-height: 100vh !important;
+      width: 100% !important; } }
+  @media (max-width: 760px) {
+    .account-body-modal .form-group-app {
+      padding-left: 55px !important;
+      padding-right: 55px !important; } }
+  @media (max-width: 760px) {
+    .account-body-modal .input-section .row .col-md-6 {
+      max-width: 50%; } }
+  @media (max-width: 760px) {
+    .account-body-modal .form-title p {
+      color: #ffffff !important; } }
+  @media (max-width: 760px) {
+    .account-body-modal .image-button {
+      margin-left: -25px; } }
+  @media (max-width: 760px) {
+    .account-body-modal .form-group-app {
+      background-color: #333333 !important; } }
 
 .network-overview {
-  text-align: right; }
+  text-align: right;
+  height: 28px; }
   .network-overview a {
     color: #00c8ff; }
   .network-overview .media-page-actions {
