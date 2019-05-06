@@ -8,6 +8,7 @@ import React from 'react';
 import { NavLink, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import classNames from 'classnames'
+import {Scrollbars} from 'react-custom-scrollbars';
 import {setModalType} from "../../../modules/modals";
 
 import './Sidebar.scss';
@@ -23,14 +24,20 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Sidebar extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
+	submenuRef = React.createRef();
+	menuRef = React.createRef();
 	state = {
 		isHover: false,
 		isMenuCollapsed: false
 	};
+
+	componentDidMount() {
+		document.addEventListener('touchstart', this.handleMenuMouseOut);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('touchstart', this.handleMenuMouseOut);
+	}
 
 	handleMenuMouseOver = () => {
 		this.setState({
@@ -38,10 +45,13 @@ class Sidebar extends React.Component {
 		});
 	};
 
-	handleMenuMouseOut = () => {
-		this.setState({
-			isHover: false
-		});
+	handleMenuMouseOut = (event) => {
+		if (this.menuRef && !this.menuRef.contains(event.target) &&
+			this.submenuRef && !this.submenuRef.contains(event.target)) {
+			this.setState({
+				isHover: false
+			});
+		}
 	};
 
 	handleMenuCollapse = () => {
@@ -57,7 +67,10 @@ class Sidebar extends React.Component {
 
 	render() {
 		return (
-			<div
+			<Scrollbars
+				renderView={props => <div {...props} className="track-content-view"/>}
+				renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
+				renderTrackVertical={props => <div {...props} className="track-vertical"/>}
 				className={classNames({
 					"menu-bar": true,
 					"collapsed": this.state.isMenuCollapsed,
@@ -67,6 +80,7 @@ class Sidebar extends React.Component {
 				<div
 					className="menu-bar-container"
 					id={'sidebar-menu'}
+					ref={(ref) => this.menuRef = ref}
 				>
 					<Link
 						onMouseOver={this.handleMenuMouseOver}
@@ -82,6 +96,7 @@ class Sidebar extends React.Component {
 
 					<nav
 						className={"header-nav"}
+						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
 					>
 						<ul
@@ -122,6 +137,7 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
 								<div
+									ref={(ref) => this.submenuRef = ref}
                                     style={{
                                         background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
                                     }}
@@ -493,7 +509,7 @@ class Sidebar extends React.Component {
 						<i className="zmdi zmdi-chevron-right left"/>
 					</a>
 				</div>
-			</div>
+			</Scrollbars>
 		);
 	}
 }
