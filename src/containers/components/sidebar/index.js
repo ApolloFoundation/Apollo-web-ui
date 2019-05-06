@@ -32,11 +32,11 @@ class Sidebar extends React.Component {
 	};
 
 	componentDidMount() {
-		document.addEventListener('touchstart', this.handleMenuMouseOut);
+		document.addEventListener('touchstart', this.handleMenuTouchOut);
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('touchstart', this.handleMenuMouseOut);
+		document.removeEventListener('touchstart', this.handleMenuTouchOut);
 	}
 
 	handleMenuMouseOver = () => {
@@ -46,6 +46,12 @@ class Sidebar extends React.Component {
 	};
 
 	handleMenuMouseOut = (event) => {
+		this.setState({
+			isHover: false
+		});
+	};
+
+	handleMenuTouchOut = (event) => {
 		if (this.menuRef && !this.menuRef.contains(event.target) &&
 			this.submenuRef && !this.submenuRef.contains(event.target)) {
 			this.setState({
