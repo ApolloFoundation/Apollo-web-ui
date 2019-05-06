@@ -8,18 +8,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 const mapStateToProps = state => ({
-    isLocalhost: state.account.isLocalhost
-})
-
-
-const mapDispatchToProps = dispatch => ({
-
-})
+    isLocalhost: state.account.isLocalhost,
+    modalData: state.modals.modalData,
+});
 
 const Peer = (props) => (
     <tr>
         <td className="blue-link-text">
-            <a onClick={props.onTransactionSelected}>
+            <a onClick={() => props.onTransactionSelected(props.address)}>
                 {props.address}&nbsp;
             </a>
             {
@@ -37,14 +33,15 @@ const Peer = (props) => (
         <td className="align-right">{props.application} {props.version}</td>
         <td className="blue-link-text">{props.platform}</td>
         <td className="align-right">{props.services.map((el, index) => {if (index !== 0) {return ', ' + el} else {return el}})}</td>
-        {
-            props.isLocalhost &&
-            <td className="align-right">
-                <a className="btn primary blue mt-0" onClick={props.onConnectClick}>Connect</a>
-                <a  onClick={props.onBlacklistClick} className="btn primary mt-0 ml-3">Blacklist</a>
-            </td>
-        }
+        <td className="align-right">
+            {props.isLocalhost && (
+                <>
+                    <a className="btn primary blue mt-0" onClick={() => props.onConnectClick(props.address)}>Connect</a>
+                    <a  onClick={() => props.onBlacklistClick(props.address)} className="btn primary mt-0 ml-3">Blacklist</a>
+                </>
+            )}
+        </td>
     </tr>
 );
 
-export default connect(mapStateToProps ,mapDispatchToProps)(Peer);
+export default connect(mapStateToProps)(Peer);
