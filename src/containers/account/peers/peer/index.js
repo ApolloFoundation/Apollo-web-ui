@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 
 const mapStateToProps = state => ({
     isLocalhost: state.account.isLocalhost,
-    modalData: state.modals.modalData,
 });
 
 const Peer = (props) => (
