@@ -291,7 +291,7 @@ export async function logOutAction(action, history) {
             if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8 || forging.errorCode === 3) {
                 store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
                     getStatus: 'stopForging',
-                    handleSuccess: () => logOutAction(action, history)
+                    handleSuccess: () => handleLogout()
                 }));
             }
             
