@@ -22,7 +22,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 html, body {
 	background-color: #F5F5F5;
 	word-break: break-word;
-	font-family: "Roboto", sans-serif;
+	font-family: "BBRollerMonoProST", sans-serif;
 	font-weight: 400;
 }
 
@@ -55,6 +55,7 @@ html, body {
 //}
 
 ::placeholder {
+	font-family: "BBRollerMonoProST", sans-serif;
 	color: #a6a6a6 !important;
 	font-size: 0.875rem;
 	opacity: 1;
@@ -481,14 +482,14 @@ input[type="file"] {
 		background-color: #00C8FF;
 		border-radius: 100%;
 		border: 3px solid #333;
-		font-family: 'Roboto', sans-serif;
+		font-family: "BBRollerMonoProST", sans-serif;
 	}
 	&.big-count {
 		&:after {
 			right: -20px;
 			width: auto;
 			padding: 0 2px;
-			font-family: 'Roboto', sans-serif;
+			font-family: "BBRollerMonoProST", sans-serif;
 		}
 	}
 }
