@@ -20,3 +20,8 @@ npm run build
 5. 
 - For Android `.apk` will be in `/platforms/android/app/build/outputs/apk/debug/app-debug.apk`
 - For IOS - open in Xcode project
+
+### Run desktop app (from backend Apollo repository)
+1. `mvn clean install -Pprod`
+2. `cd bin/`
+3. `java -jar ../apl-exec/target/lib/apl-desktop-1.30.16.jar`
