@@ -1,13 +1,14 @@
 .card {
-	height: calc(33.33vh - 55px);
-	min-height: 255px;
-	border-radius: 6px;
-	background-color: #FFFFFF;
+	height: 200px;
+	min-height: auto;
+	border-radius: 3px;
+	background-color: #FFF;
 	position: relative;
 	z-index: 3;
-	padding: 20px 30px;
+	padding: 0;
 	width: 100%;
-	
+	box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30,30,30,0.05);
+
 	&.scroll {
 		overflow-y: auto;
 	}
@@ -37,8 +38,7 @@
 		height: calc(100% - 15px);
 	}
 	&.card-tall {
-		height: calc(62.666vh - 55px);
-		min-height: 520px;
+		min-height: 514px;
 	}
 	&.card-tiny {
 		height: calc(25vh - 55px);
@@ -74,6 +74,9 @@
 			font-size: 16px;
 			line-height: 18px;
 			color: #fff;
+			background: transparent;
+			box-shadow: none;
+			padding: 0;
 			&.small {
 				font-size: 14px;
 				max-height: 125px;
@@ -327,16 +330,27 @@
 		}
 	}
 	.card-title {
-		color: #333333;
-		font-size: 16px;
-		line-height: 18px;
-		font-weight: 400;
+		color: #2547F4;
+		font-size: 14px;
+		line-height: 17px;
+		font-weight: 500;
+		word-break: normal;
+		border-radius: 3px 3px 0 0;
+		background: linear-gradient(90deg, #FFF 0%, #FFF 100%);
+		box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30,30,30,0.05);
+		padding: 10px 12px;
+		z-index: 1;
 	}
 	.card-title-date {
 		color: #FFFFFF;
 		font-size: 24px;
 		margin-top: 19px;
 		font-weight: 400;
+	}
+	.card-body {
+		padding: 12px;
+		height: 100%;
+		overflow-y: auto;
 	}
 	.amount {
 	
@@ -354,11 +368,6 @@
 	
 	}
 	.full-box {
-		position: absolute;
-		top: 38px;
-		left: 30px;
-		right: 30px;
-		bottom: 20px;
 		display: flex;
 		flex-wrap: nowrap;
 		flex-direction: column;
@@ -408,7 +417,46 @@
 		}
 	}
 	.form-group-app {
-		padding: 30px 0 15px;
+		padding: 0;
+		margin-bottom: 15px;
+		label {
+			color: #98B0CD;
+			font-size: 11px;
+			margin-bottom: 5px;
+			display: inline-block;
+		}
+		input {
+			border-radius: 2px 0 0 2px;
+			background-color: #FCFCFD;
+			border: 1px solid #E6EAEE;
+			color: #3D5A7E;
+			font-family: "BBRollerMonoProST", sans-serif;
+			font-size: 14px;
+			line-height: normal;
+			letter-spacing: -0.57px;
+			padding: 5px;
+			height: 40px !important;
+			opacity: 1;
+			font-weight: 400;
+		}
+		.input-group-text {
+			border-radius: 0 2px 2px 0;
+			background-color: #FCFCFD;
+			border: 1px solid #E6EAEE;
+			color: #98B0CD;
+			font-size: 14px;
+			letter-spacing: 0.35px;
+			line-height: normal;
+			text-align: right;
+			padding: 5px;
+			margin: 0;
+			height: 40px;
+		}
+		.text-note {
+			position: absolute;
+			top: 42px;
+			color: #98B0CD;
+		}
 	}
 	.input-group-app {
 		

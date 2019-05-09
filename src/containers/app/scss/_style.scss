@@ -116,23 +116,6 @@ input[type="number"] {
         &.transactions {
           justify-content: flex-start;
           .transactions-dashboard {
-            position: absolute;
-            top: 38px;
-            left: 30px;
-            right: 30px;
-            bottom: 20px;
-            @media (max-width: 760px) {
-              position: static;
-            }
-
-            &.scroll {
-              overflow-y: auto;
-              margin-right: -30px;
-              padding-right: 20px;
-              @media (max-width: 760px) {
-                // max-height: 300px;
-              }
-            }
             .transaction-item {
               height: 33.33%;
               padding: 20px 0;
@@ -197,7 +180,7 @@ input[type="number"] {
                   }
                 }
                 .transaction-amount {
-                  color: #333333;
+                  color: #3D5A7E;
                   font-family: "BBRollerMonoProST", sans-serif;
                   font-size: 13px;
                   line-height: 14px;
@@ -208,21 +191,10 @@ input[type="number"] {
           }
         }
         &.asset-portfolio {
-          .card-title {
-            margin-bottom: 30px;
-          }
+          height: 300px;
+
           .full-box {
-            position: absolute;
-            top: 65px;
-            left: 30px;
-            right: 30px;
-            display: flex;
-            justify-content: flex-start;
-            flex-direction: column;
-            bottom: 40px;
-
             .full-box-item {
-
               &.coin {
                 padding-left: 45px;
                 display: flex;
@@ -251,7 +223,7 @@ input[type="number"] {
                     }
                   }
                   .amount {
-                    color: #333333;
+                    color: #3D5A7E;
                     font-size: 17px;
                     margin-right: 15px;
                     min-width: 70px;
@@ -279,16 +251,6 @@ input[type="number"] {
         }
         &.decentralized-marketplace {
           .full-box {
-            position: absolute;
-            top: 58px;
-            left: 30px;
-            right: 30px;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            bottom: 20px;
-            padding-bottom: 50px;
-
             .full-box-item {
               display: flex;
               flex-direction: row;
@@ -302,13 +264,13 @@ input[type="number"] {
                 flex: 1;
 
                 .digit {
-                  color: #333333;
+                  color: #3D5A7E;
                   font-weight: 400;
                   font-size: 36px;
-                  line-height: 60px;
+                  line-height: normal;
                 }
                 .subtitle {
-                  color: #777777;
+                  color: #98B0CD;
                   font-weight: 400;
                   font-size: 12px;
                   line-height: 14px;
@@ -320,12 +282,10 @@ input[type="number"] {
           }
         }
         &.send-apollo {
-
+          height: 300px;
         }
         &.active-polls {
           .full-box {
-            margin-top: 30px;
-
             p {
               color: #777777;
               font-weight: 400;
@@ -338,19 +298,11 @@ input[type="number"] {
         &.apollo-news {
           padding-bottom: 45px !important;
           .card-news-content {
-            margin-top: 30px;
             color: #777777;
             font-weight: 400;
             font-size: 12px;
             line-height: 18px;
           }
-        }
-        .full-box {
-          position: absolute;
-          top: 38px;
-          left: 30px;
-          right: 30px;
-          bottom: 20px;
         }
       }
 
@@ -503,7 +455,7 @@ input[type="number"] {
         overflow: auto;
 
         .alert {
-          color: #333333;
+          color: #3D5A7E;
           font-weight: 400;
           font-size: 14px;
           line-height: 16px;

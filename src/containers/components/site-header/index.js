@@ -175,9 +175,6 @@ class SiteHeader extends React.Component {
         return (
             <>
                 <div
-                    style={{
-                        backgroundColor: this.props.settings.header !== '#F5F5F5' ? this.props.settings.header : '#F5F5F5'
-                    }}
                     className="page-header"
                     onClick={this.handleModal}
                 >
