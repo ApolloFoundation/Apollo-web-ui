@@ -151,6 +151,10 @@ class ModalWindow extends React.Component {
                 modalWindow.classList.remove('active');
                 setTimeout(() => {
                     this.props.setModalType(null);
+                    store.dispatch({
+                        type: SET_MODAL_DATA,
+                        payload: null
+                    });
                     this.props.closeModal();
                 }, 300);
             }

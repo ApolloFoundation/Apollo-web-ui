@@ -11,9 +11,9 @@ import CurrentAccountIcon from '../current-account/current-account-icon';
 import MobieMenu from '../mobile-menu/';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-
-import Settings from '../settings';
-import SettingsIcon from '../settings/settings-icon';
+import {getTransactionAction} from "../../../../actions/transactions";
+import {getBlockAction} from "../../../../actions/blocks";
+import {getAccountInfoAction} from "../../../../actions/account";
 
 
 class UserBox extends Component {
@@ -34,7 +34,7 @@ class UserBox extends Component {
         this.searchInterval = setTimeout(() => {
             this.setState({searching: false});
         }, 4000);
-    }
+    };
 
     handleSearchind = async (values) => {
         if (!this.state.isSearching) {
@@ -45,7 +45,6 @@ class UserBox extends Component {
             const transaction = this.props.getTransactionAction({transaction: values.value});
             const block = this.props.getBlockAction({block: values.value});
             const account = this.props.getAccountInfoAction({account: values.value});
-            this.props.setBodyModalParamsAction(null);
 
             Promise.all([transaction, block, account])
                 .then((data) => {
@@ -187,7 +186,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
+    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values)),
+    getTransactionAction: transaction => dispatch(getTransactionAction(transaction)),
+    getBlockAction: (data) => dispatch(getBlockAction(data)),
+    getAccountInfoAction: (account) => dispatch(getAccountInfoAction(account)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserBox)
