@@ -16,11 +16,11 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 	text-decoration: none;
 	list-style: none;
 	//color: #101010;
-	color: #333333;
+	color: #3D5A7E;
 }
 
 html, body {
-	background-color: #F5F5F5;
+	background-color: #F5F7FC;
 	word-break: break-word;
 	font-family: "BBRollerMonoProST", sans-serif;
 	font-weight: 400;
@@ -55,15 +55,16 @@ html, body {
 //}
 
 ::placeholder {
+	color: #98B0CD !important;
+	font-size: 14px;
+	line-height: 40px;
 	font-family: "BBRollerMonoProST", sans-serif;
-	color: #a6a6a6 !important;
-	font-size: 0.875rem;
 	opacity: 1;
 	font-weight: 400;
 }
 
 :-ms-input-placeholder {
-	color: #a6a6a6 !important;
+	color: #98B0CD !important;
 }
 
 .bg-gray {
@@ -1086,7 +1087,8 @@ input[type="file"] {
 		bottom: 10px;
 		padding: 0;
 		background: transparent;
-		margin: 0 0 12px 30px;
+		margin: 0 0 12px 12px;
+		min-height: auto;
 	}
 	&.btn-right {
 		float: right;
@@ -1272,8 +1274,6 @@ input[type="file"] {
 	.card {
 		//margin: 15px;
 		transition: 0.2s;
-		min-height: 252px;
-		//height: calc(100% - 15px);
 		
 		&.card-tall {
 			min-height: 520px;
@@ -1593,7 +1593,7 @@ table {
 	
 	label.custom-control-label {
 		padding-left: 10px;
-		color: #333333;
+		color: #3D5A7E;
 	}
 }
 

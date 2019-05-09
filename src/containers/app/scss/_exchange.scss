@@ -12,19 +12,6 @@
 		position: relative;
 	}
 
-	::placeholder {
-		color: #98B0CD !important;
-		font-size: 12px;
-		font-family: "BBRollerMonoProST", sans-serif;
-		line-height: normal;
-		opacity: 1;
-		font-weight: 400;
-	}
-
-	:-ms-input-placeholder {
-		color: #98B0CD !important;
-	}
-
 	.pb-3, .py-3 {
 		padding-bottom: 17px;
 	}

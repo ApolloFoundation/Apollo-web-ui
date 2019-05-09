@@ -14,59 +14,61 @@ class AssetsDistribution extends Component {
         return (
             <div className="card asset-portfolio mb-3">
                 <div className="card-title">Asset Portfolio</div>
-                {
-                    !dashboardAssets &&
-                    <ContentLoader noPaddingOnTheSides onPaddingTop/>
-                }
-                <div className="full-box align-start">
+                <div className="card-body">
                     {
-                        dashboardAssets &&
-                        dashboardAssets.distribution.map((el, index) => {
-                            if (index < 3) {
-                                return (
-                                    <div className="full-box-item coin align-self-center">
-                                        <div className="coin-data">
-                                            <CircleFigure
-                                                index={index}
-                                                percentage={((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)}
-                                                type={el.quantityATU}
-                                            />
-                                            <div
-                                                className="amount"
-                                            >
-                                                {((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)} %
+                        !dashboardAssets &&
+                        <ContentLoader noPaddingOnTheSides onPaddingTop/>
+                    }
+                    <div className="full-box align-start">
+                        {
+                            dashboardAssets &&
+                            dashboardAssets.distribution.map((el, index) => {
+                                if (index < 3) {
+                                    return (
+                                        <div className="full-box-item coin align-self-center">
+                                            <div className="coin-data">
+                                                <CircleFigure
+                                                    index={index}
+                                                    percentage={((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)}
+                                                    type={el.quantityATU}
+                                                />
+                                                <div
+                                                    className="amount"
+                                                >
+                                                    {((parseInt(el.quantityATU) / parseInt(el.initialQuantityATU)) * 100).toFixed(2)} %
+                                                </div>
+                                                <div className="coin-name">{el.name}</div>
+                                                <Link
+                                                    to={'/asset-exchange/' + el.asset}
+                                                    className="more"
+                                                >
+                                                    <i className="zmdi zmdi-more"/>
+                                                </Link>
                                             </div>
-                                            <div className="coin-name">{el.name}</div>
-                                            <Link
-                                                to={'/asset-exchange/' + el.asset}
-                                                className="more"
-                                            >
-                                                <i className="zmdi zmdi-more"/>
-                                            </Link>
                                         </div>
-                                    </div>
-                                );
-                            }
-                        })
-                    }
-                    {
-                        !!dashboardAssets &&
-                        dashboardAssets.count === 0 &&
-                        <p>No assets found.</p>
-                    }
+                                    );
+                                }
+                            })
+                        }
+                        {
+                            !!dashboardAssets &&
+                            dashboardAssets.count === 0 &&
+                            <p>No assets found.</p>
+                        }
+                    </div>
                 </div>
             </div>
-							
+
         )
     }
 }
 
 const mapStateToProps = state => ({
-	dashboardAssets: state.dashboard.dashboardAssets,
+    dashboardAssets: state.dashboard.dashboardAssets,
 })
 
 const mapDispatchToProps = dispatch => ({
-	getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
+    getAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssetsDistribution)
