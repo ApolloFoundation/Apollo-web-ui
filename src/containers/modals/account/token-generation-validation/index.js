@@ -34,19 +34,27 @@ class TokenGenerationValidation extends React.Component {
     }
 
     handleFormSubmit = async (values) => {
+        if (!values.data || values.data.length === 0) {
+            NotificationManager.error('Data is required.', 'Error', 5000);
+            return;
+        }
+        if (!values.secretPhrase || values.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
+        }
+
         const token = await this.props.generateTokenAPL(values.data, values.secretPhrase);
 
         this.setState({
-            ...this.state,
             generatedToken: token
-        })
+        });
     };
 
     handleValidateToken = async (values) => {
         const validateToken = await this.props.validateTokenAction({
             token: values.token,
             website: values.website
-        })
+        });
 
         if (validateToken) {
             if (validateToken.valid) {
@@ -57,14 +65,23 @@ class TokenGenerationValidation extends React.Component {
         }
     };
 
+    handleChangeTab = () => {
+        this.setState({
+            generatedToken: null
+        })
+    };
+
     render() {
         return (
             <ModalBody
                 modalTitle={'Token generation / validation'}
                 closeModal={this.props.closeModal}
+                isDisableFormFooter
+                isDisableSecretPhrase
             >
                 <TabulationBody
                     className={'p-0'}
+                    onChange={this.handleChangeTab}
                 >
                     <TabContaier sectionName={'Generate token'}>
                         <ModalBody

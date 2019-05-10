@@ -313,6 +313,10 @@ function resolverReservePerUnit(decimals, reserveSupply, amount) {
     }
 }
 
+function isDesktopApp() {
+    return navigator.userAgent.indexOf("JavaFX") >= 0;
+}
+
 export default {
     isNumericAccount,
     isRsAccount,
@@ -324,5 +328,6 @@ export default {
     escapeRespStr,
     isRequirePost,
     resolverReservePerUnit,
-    isRequireBlockchain
+    isRequireBlockchain,
+    isDesktopApp,
 }

@@ -1,8 +1,9 @@
 import React from 'react';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import util from '../../../../helpers/util/utils';
 
 const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) => (
     <div className={classNames({
@@ -69,14 +70,16 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                         {/*Device settings*/}
                     {/*</a>*/}
                 </li>
-                <li className={'hide-media'}>
-                    <a
-                        href='/test'
-                        className="option"
-                    >
-                        API Console
-                    </a>
-                </li>
+                {util.isDesktopApp() && (
+                    <li className={'hide-media'}>
+                        <a
+                            href='/test'
+                            className="option"
+                        >
+                            API Console
+                        </a>
+                    </li>
+                )}
                 
                 <li>
                     <NavLink
