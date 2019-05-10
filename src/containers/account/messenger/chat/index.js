@@ -37,8 +37,8 @@ class Chat extends React.Component {
                             })
                         }
                         {
-                            chatMessages && 
-                            !chatMessages.length && 
+                            chatMessages &&
+                            !chatMessages.length &&
                             <InfoBox>
                                 Please select the chat.
                             </InfoBox>
@@ -48,7 +48,9 @@ class Chat extends React.Component {
                             <ContentLoader/>
                         }
                     </div>
-                    <ChatForm />
+                    {chat && (
+                        <ChatForm/>
+                    )}
                 </div>
             </>
         )
