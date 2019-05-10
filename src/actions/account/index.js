@@ -71,7 +71,6 @@ export function getAccountInfoAction(account) {
 export function switchAccountAction(account, history) {
     return async (dispatch) => {
         const newAccount = await makeLoginReq(dispatch, {account});
-        console.log('----newAccount---', newAccount)
         if (history) history.push('/dashboard');
 
         // Closing current modal window
