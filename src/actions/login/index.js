@@ -169,14 +169,14 @@ export function makeLoginReq(dispatch, requestParams) {
                     type: 'SET_PASSPHRASE',
                     payload: JSON.parse(localStorage.getItem('secretPhrase'))
                 });
-
+                dispatch({
+                    type: 'SET_DASHBOARD_ACCOUNT_INFO',
+                    payload: res.data
+                });
                 dispatch(login(res.data));
                 dispatch(getForging());
-
-                return res.data;
-            } else {
-                return res.data;
             }
+            return res.data;
         })
         .catch(function (err) {
             dispatch({
