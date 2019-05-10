@@ -46,9 +46,8 @@ class TokenGenerationValidation extends React.Component {
         const token = await this.props.generateTokenAPL(values.data, values.secretPhrase);
 
         this.setState({
-            ...this.state,
             generatedToken: token
-        })
+        });
     };
 
     handleValidateToken = async (values) => {
@@ -66,6 +65,12 @@ class TokenGenerationValidation extends React.Component {
         }
     };
 
+    handleChangeTab = () => {
+        this.setState({
+            generatedToken: null
+        })
+    };
+
     render() {
         return (
             <ModalBody
@@ -76,6 +81,7 @@ class TokenGenerationValidation extends React.Component {
             >
                 <TabulationBody
                     className={'p-0'}
+                    onChange={this.handleChangeTab}
                 >
                     <TabContaier sectionName={'Generate token'}>
                         <ModalBody
