@@ -86,7 +86,6 @@ class MyProductsForSale extends React.Component {
 
     render() {
         const { getDGSGoods } = this.state;
-        console.log(getDGSGoods)
         return (
             <div className="page-content">
                 <SiteHeader
