@@ -6,11 +6,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import SiteHeader from  '../../components/site-header'
+import SiteHeader from '../../components/site-header'
 import { setBodyModalParamsAction } from "../../../modules/modals";
-
-import {getDGSGoodsAction} from "../../../actions/marketplace";
-import {BlockUpdater} from "../../block-subscriber/index";
+import InfoBox from "../../components/info-box"
+import { getDGSGoodsAction } from "../../../actions/marketplace";
+import { BlockUpdater } from "../../block-subscriber/index";
 
 import MarketplaceColumnTable from '../../components/marketplace-column-table/';
 
@@ -59,13 +59,13 @@ class MyProductsForSale extends React.Component {
         });
     }
 
-    onPaginate (page) {
+    onPaginate(page) {
         let reqParams = {
             page: page,
             requestType: 'getDGSPendingPurchases',
             account: this.props.account,
             firstIndex: page * 8 - 8,
-            lastIndex:  page * 8 - 1
+            lastIndex: page * 8 - 1
         };
 
         this.setState(reqParams, () => {
@@ -84,9 +84,8 @@ class MyProductsForSale extends React.Component {
         }
     };
 
-    render () {
-        const {getDGSGoods} = this.state;
-
+    render() {
+        const { getDGSGoods } = this.state;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -94,11 +93,16 @@ class MyProductsForSale extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="account-ledger p-0">
-                        <MarketplaceColumnTable
-                            data={getDGSGoods}
-                            page={this.state.page}
-                            deliver
-                        />
+                        {this.state.getDGSGoods && this.state.getDGSGoods.length ?
+                            (<MarketplaceColumnTable
+                                data={getDGSGoods}
+                                page={this.state.page}
+                                deliver
+                            />) :
+                            (<InfoBox default>
+                                No orders found.
+                            </InfoBox>)
+                        }
                     </div>
                 </div>
             </div>
