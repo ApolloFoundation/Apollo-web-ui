@@ -27,6 +27,7 @@ import Entry from './ledger-entry';
 import Trade from './trade';
 import Currency from './currency';
 import Alias from './alias';
+import Goods from './goods';
 
 class InfoAccount extends React.PureComponent {
     constructor(props) {
@@ -361,7 +362,7 @@ class InfoAccount extends React.PureComponent {
                                         ]}
                                         className={'no-min-height transparent pt-4'}
                                         emptyMessage={'This account doesn\'t have any goods.'}
-                                        TableRowComponent={Currency}
+                                        TableRowComponent={Goods}
                                         hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.goods ? this.state.goods.goods : null}
                                     />
