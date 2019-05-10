@@ -10,8 +10,9 @@ class TabulationBody extends React.Component {
         e.preventDefault();
         this.setState({
             activeTab: index
-        })
-    }
+        });
+        if (this.props.onChange) this.props.onChange();
+    };
 
     render () {
         const {children, className} = this.props;
