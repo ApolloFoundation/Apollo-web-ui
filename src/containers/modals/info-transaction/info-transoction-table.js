@@ -1,12 +1,12 @@
-import React, {Component} from "react";
-import {formatTransactionType} from "../../../actions/transactions";
-import {connect} from "react-redux";
-import {readMessageAction} from '../../../actions/messager/'
-import crypto from  '../../../helpers/crypto/crypto';
-import {setBodyModalParamsAction} from '../../../modules/modals';
-import {Form, Text} from 'react-form';
-import {NotificationManager} from 'react-notifications';
-import {setAccountPassphrase} from '../../../modules/account';
+import React, { Component } from "react";
+import { formatTransactionType } from "../../../actions/transactions";
+import { connect } from "react-redux";
+import { readMessageAction } from '../../../actions/messager/'
+import crypto from '../../../helpers/crypto/crypto';
+import { setBodyModalParamsAction } from '../../../modules/modals';
+import { Form, Text } from 'react-form';
+import { NotificationManager } from 'react-notifications';
+import { setAccountPassphrase } from '../../../modules/account';
 
 import CurrencyIssuance from "./table-content/currency-issuance";
 import BuyCurrency from "./table-content/exchange-buy";
@@ -49,13 +49,13 @@ import CriticalUpdate from "./table-content/critical-update";
 class InfoTransactionTable extends Component {
 
 	componentDidMount = async () => {
-		const {secretPhrase, transaction} = this.props;
+		const { secretPhrase, transaction } = this.props;
 		const isPassphrase = await this.validatePassphrase(secretPhrase);
 
 		this.readMessage({
-			transaction:  transaction.transaction,
-			passphrase:  !isPassphrase ? secretPhrase : null,
-			secretPhrase: isPassphrase  ? secretPhrase : null
+			transaction: transaction.transaction,
+			passphrase: !isPassphrase ? secretPhrase : null,
+			secretPhrase: isPassphrase ? secretPhrase : null
 		});
 	}
 
@@ -72,17 +72,17 @@ class InfoTransactionTable extends Component {
 			this.setState({
 				message: message
 			})
-		} 
+		}
 	}
 
-	showPrivateTransactions = async ({secretPhrase}) => {
-		const {transaction, account} = this.props;
+	showPrivateTransactions = async ({ secretPhrase }) => {
+		const { transaction, account } = this.props;
 
-        const isPassPhrease = await this.props.validatePassphrase(secretPhrase);
+		const isPassPhrease = await this.props.validatePassphrase(secretPhrase);
 
 		const message = await this.props.readMessageAction({
-			transaction:  transaction.transaction,
-			passphrase:  !isPassPhrease ? secretPhrase : null,
+			transaction: transaction.transaction,
+			passphrase: !isPassPhrease ? secretPhrase : null,
 			secretPhrase: isPassPhrease ? secretPhrase : null,
 			account
 		});
@@ -91,7 +91,7 @@ class InfoTransactionTable extends Component {
 
 			if (message.decryptedMessage) {
 				this.props.setAccountPassphrase(secretPhrase)
-	
+
 				this.setState({
 					message
 				})
@@ -99,9 +99,9 @@ class InfoTransactionTable extends Component {
 				NotificationManager.error('Incorrect Secret Phrase.', 'Error', 5000)
 			}
 		}
-    };
+	};
 
-	decryptMessageComponent = () => 
+	decryptMessageComponent = () =>
 		<div className="modal-form transparent">
 			<div className="transparent">
 				<div className="input-group-app">
@@ -111,25 +111,25 @@ class InfoTransactionTable extends Component {
 								<Form
 									onSubmit={(values) => this.showPrivateTransactions(values)}
 									render={({
-												submitForm, values, addValue, removeValue, setValue, getFormState
-											}) => (
-										<form
-											style={{
-												height: 33,
-												"word-break": "normal"
-											}}
-											className="iconned-input-field"
-											onSubmit={submitForm}
-										>
-											<Text field="secretPhrase" placeholder="Secret phrase" type="password"/>
-
-											<button
-												className="input-icon text btn blue static"
+										submitForm, values, addValue, removeValue, setValue, getFormState
+									}) => (
+											<form
+												style={{
+													height: 33,
+													"word-break": "normal"
+												}}
+												className="iconned-input-field"
+												onSubmit={submitForm}
 											>
-												Submit
+												<Text field="secretPhrase" placeholder="Secret phrase" type="password" />
+
+												<button
+													className="input-icon text btn blue static"
+												>
+													Submit
 											</button>
-										</form>
-									)}
+											</form>
+										)}
 								/>
 							</div>
 						</div>
@@ -140,7 +140,7 @@ class InfoTransactionTable extends Component {
 
 	render() {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
-		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase} = this.props; 
+		const { secretPhrase, transaction: { attachment: { message, encryptedMessage } }, passPhrase } = this.props;
 
 		return (
 			<div className="transaction-table-body transparent wrap-collumns">
@@ -148,113 +148,100 @@ class InfoTransactionTable extends Component {
 					this.props.transaction && this.props.constants.transactionTypes &&
 					<table>
 						<tbody>
-						<tr>
-							<td>Type:</td>
-							<td>{formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)}</td>
-						</tr>
-
-						{modalTypeName === "CURRENCY ISSUANCE" && <CurrencyIssuance transaction={this.props.transaction}/>}
-
-						{modalTypeName === "EXCHANGE BUY" && <BuyCurrency transaction={this.props.transaction}/>}
-
-						{modalTypeName === "EXCHANGE SELL" && <SellCurrency transaction={this.props.transaction}/>}
-
-						{modalTypeName === "CURRENCY TRANSFER" && <CurrencyTransfer transaction={this.props.transaction}/>}
-
-						{modalTypeName === "PUBLISH EXCHANGE OFFER" && <CurrencyExchangeOffer transaction={this.props.transaction}/>}
-
-						{modalTypeName === "SHUFFLING CREATION" && <ShufflingCreation transaction={this.props.transaction}/>}
-
-						{modalTypeName === "SHUFFLING REGISTRATION" && <ShufflingRegistarion transaction={this.props.transaction}/>}
-
-						{modalTypeName === "SHUFFLING VERIFICATION" && <ShufflingVerification transaction={this.props.transaction}/>}
-
-						{modalTypeName === "SHUFFLING PROCESSING" && <ShufflingProcessing transaction={this.props.transaction}/>}
-
-						{modalTypeName === "SHUFFLING RECIPIENTS" && <ShufflingRecipients transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ORDINARY PAYMENT" && <OrdinaryPayment transaction={this.props.transaction}/>}
-
-						{modalTypeName === "PRIVATE PAYMENT" && <PrivatePayment transaction={this.props.transaction}/>}
-
-						{modalTypeName === "TAGGED DATA UPLOAD" && <TargetDataUpload transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ACCOUNT PROPERTY" && <AccountProperty transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ACCOUNT PROPERTY DELETE" && <AccountPropertyDelete transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ALIAS DELETE" && <AliasDelete transaction={this.props.transaction}/>}
-
-						{modalTypeName === "VOTE CASTING" && <VoteCasting transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ARBITRARY MESSAGE" && <ArbitraryMessage transaction={this.props.transaction}/>}
-
-						{modalTypeName === "EFFECTIVE BALANCE LEASING" && <EffectiveBalanceLeasing transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ALIAS ASSIGNMENT" && <AliasAssignment transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ACCOUNT INFO" && <AccountInfo transaction={this.props.transaction}/>}
-
-						{modalTypeName === "POLL CREATION" && <PollCreation transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ALIAS SELL" && <AliasSell transaction={this.props.transaction}/>}
-
-						{modalTypeName === "PHASING VOTE CASTING" && <PhasingVoteCasting transaction={this.props.transaction}/>}
-
-						{modalTypeName === "DIGITAL GOODS DELISTING" && <DigitalGoodsDelisting transaction={this.props.transaction}/>}
-
-						{modalTypeName === "DIGITAL GOODS PURCHASE" && <DigitalGoodsPurchase transaction={this.props.transaction}/>}
-
-						{modalTypeName === "DIGITAL GOODS PRICE CHANGE" && <DigitalGoodsPriceChange transaction={this.props.transaction}/>}
-
-						{modalTypeName === "DIGITAL GOODS LISTING" && <DigitalGoodsListing transaction={this.props.transaction}/>}
-
-						{modalTypeName === "DIGITAL GOODS QUANTITY CHANGE" && <DigitalGoodsQuantityChange transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ASSET DELETE" && <AssetDelete transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ASSET TRANSFER" && <AssetTransfer transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ASSET ISSUANCE" && <AssetIssuance transaction={this.props.transaction}/>}
-
-						{modalTypeName === "BID ORDER PLACEMENT" && <BigOrderPlacement transaction={this.props.transaction}/>}
-
-						{modalTypeName === "ASK ORDER PLACEMENT" && <AskOrderPlacement transaction={this.props.transaction}/>}
-
-
-						{modalTypeName === "CRITICAL UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
-
-						{modalTypeName === "IMPORTANT UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
-
-						{modalTypeName === "MINOR UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
-
-						{
-							message && 
-							message !== 'undefined' && 
 							<tr>
-								<td>Public Message:</td>
-								<td>{message}</td>
+								<td>Type:</td>
+								<td>{formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)}</td>
 							</tr>
-						} 
-						{
-							encryptedMessage && 
-							this.state.message && 
-							<tr>
-								<td>Decrypted Messgae:</td>
-								<td>{this.state.message.decryptedMessage}</td>
-							</tr>
-						}
-						{
-							encryptedMessage && 
-							!this.state.message && 
-							<tr>
-								<td>Encrypted Message:</td>
-								<td>
-									{this.decryptMessageComponent()}
-								</td>
-							</tr>
-						}
 
+							{modalTypeName === "CURRENCY ISSUANCE" && <CurrencyIssuance transaction={this.props.transaction} />}
+
+							{modalTypeName === "EXCHANGE BUY" && <BuyCurrency transaction={this.props.transaction} />}
+
+							{modalTypeName === "EXCHANGE SELL" && <SellCurrency transaction={this.props.transaction} />}
+
+							{modalTypeName === "CURRENCY TRANSFER" && <CurrencyTransfer transaction={this.props.transaction} />}
+
+							{modalTypeName === "PUBLISH EXCHANGE OFFER" && <CurrencyExchangeOffer transaction={this.props.transaction} />}
+
+							{modalTypeName === "SHUFFLING CREATION" && <ShufflingCreation transaction={this.props.transaction} />}
+
+							{modalTypeName === "SHUFFLING REGISTRATION" && <ShufflingRegistarion transaction={this.props.transaction} />}
+
+							{modalTypeName === "SHUFFLING VERIFICATION" && <ShufflingVerification transaction={this.props.transaction} />}
+
+							{modalTypeName === "SHUFFLING PROCESSING" && <ShufflingProcessing transaction={this.props.transaction} />}
+
+							{modalTypeName === "SHUFFLING RECIPIENTS" && <ShufflingRecipients transaction={this.props.transaction} />}
+
+							{modalTypeName === "ORDINARY PAYMENT" && <OrdinaryPayment transaction={this.props.transaction} />}
+
+							{modalTypeName === "PRIVATE PAYMENT" && <PrivatePayment transaction={this.props.transaction} />}
+
+							{modalTypeName === "TAGGED DATA UPLOAD" && <TargetDataUpload transaction={this.props.transaction} />}
+
+							{modalTypeName === "ACCOUNT PROPERTY" && <AccountProperty transaction={this.props.transaction} />}
+
+							{modalTypeName === "ACCOUNT PROPERTY DELETE" && <AccountPropertyDelete transaction={this.props.transaction} />}
+
+							{modalTypeName === "ALIAS DELETE" && <AliasDelete transaction={this.props.transaction} />}
+
+							{modalTypeName === "VOTE CASTING" && <VoteCasting transaction={this.props.transaction} />}
+
+							{modalTypeName === "ARBITRARY MESSAGE" && <ArbitraryMessage transaction={this.props.transaction} />}
+
+							{modalTypeName === "EFFECTIVE BALANCE LEASING" && <EffectiveBalanceLeasing transaction={this.props.transaction} />}
+
+							{modalTypeName === "ALIAS ASSIGNMENT" && <AliasAssignment transaction={this.props.transaction} />}
+
+							{modalTypeName === "ACCOUNT INFO" && <AccountInfo transaction={this.props.transaction} />}
+
+							{modalTypeName === "POLL CREATION" && <PollCreation transaction={this.props.transaction} />}
+
+							{modalTypeName === "ALIAS SELL" && <AliasSell transaction={this.props.transaction} />}
+
+							{modalTypeName === "PHASING VOTE CASTING" && <PhasingVoteCasting transaction={this.props.transaction} />}
+
+							{modalTypeName === "DIGITAL GOODS DELISTING" && <DigitalGoodsDelisting transaction={this.props.transaction} />}
+
+							{modalTypeName === "DIGITAL GOODS PURCHASE" && <DigitalGoodsPurchase transaction={this.props.transaction} />}
+
+							{modalTypeName === "DIGITAL GOODS PRICE CHANGE" && <DigitalGoodsPriceChange transaction={this.props.transaction} />}
+
+							{modalTypeName === "DIGITAL GOODS LISTING" && <DigitalGoodsListing transaction={this.props.transaction} />}
+
+							{modalTypeName === "DIGITAL GOODS QUANTITY CHANGE" && <DigitalGoodsQuantityChange transaction={this.props.transaction} />}
+
+							{modalTypeName === "ASSET DELETE" && <AssetDelete transaction={this.props.transaction} />}
+
+							{modalTypeName === "ASSET TRANSFER" && <AssetTransfer transaction={this.props.transaction} />}
+
+							{modalTypeName === "ASSET ISSUANCE" && <AssetIssuance transaction={this.props.transaction} />}
+
+							{modalTypeName === "BID ORDER PLACEMENT" && <BigOrderPlacement transaction={this.props.transaction} />}
+
+							{modalTypeName === "ASK ORDER PLACEMENT" && <AskOrderPlacement transaction={this.props.transaction} />}
+
+
+							{modalTypeName === "CRITICAL UPDATE" && <CriticalUpdate transaction={this.props.transaction} />}
+
+							{modalTypeName === "IMPORTANT UPDATE" && <CriticalUpdate transaction={this.props.transaction} />}
+
+							{modalTypeName === "MINOR UPDATE" && <CriticalUpdate transaction={this.props.transaction} />}
+
+							{
+								message &&
+									message !== 'undefined' ?
+									<tr>
+										<td>Public Message:</td>
+										<td>{message}</td>
+									</tr> :
+									encryptedMessage &&
+									this.state.message &&
+									<tr>
+										<td>{this.state.message.decryptedMessage ? 'Decrypted Message:' : 'Encrypted Message:'}</td>
+										<td>{this.state.message.decryptedMessage || this.decryptMessageComponent()}</td>
+									</tr>
+							}
 						</tbody>
 					</table>
 				}
@@ -269,10 +256,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	readMessageAction : (requestParams) => dispatch(readMessageAction(requestParams)),
+	readMessageAction: (requestParams) => dispatch(readMessageAction(requestParams)),
 	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),	
+	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoTransactionTable);
