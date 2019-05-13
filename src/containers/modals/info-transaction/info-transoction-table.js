@@ -230,17 +230,31 @@ class InfoTransactionTable extends Component {
 
 							{
 								message &&
-									message !== 'undefined' ?
-									<tr>
-										<td>Public Message:</td>
-										<td>{message}</td>
-									</tr> :
-									encryptedMessage &&
-									this.state.message &&
-									<tr>
-										<td>{this.state.message.decryptedMessage ? 'Decrypted Message:' : 'Encrypted Message:'}</td>
-										<td>{this.state.message.decryptedMessage || this.decryptMessageComponent()}</td>
-									</tr>
+								message !== 'undefined' &&
+								<tr>
+									<td>Public Message:</td>
+									<td>{message}</td>
+								</tr>
+							}
+							{
+								encryptedMessage &&
+								this.state.message &&
+								(!message || message === 'undefined') &&
+								<tr>
+									<td>Decrypted Messgae:</td>
+									<td>{this.state.message.decryptedMessage}</td>
+								</tr>
+							}
+							{
+								encryptedMessage &&
+								!this.state.message &&
+								(!message || message === 'undefined') &&
+								<tr>
+									<td>Encrypted Message:</td>
+									<td>
+										{this.decryptMessageComponent()}
+									</td>
+								</tr>
 							}
 						</tbody>
 					</table>
