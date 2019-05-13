@@ -453,16 +453,7 @@ class Sidebar extends React.Component {
 									className={`text ${this.getNavLinkClass(["/messenger"])}`}
 								>
 									Messages
-									{
-										this.props.notifications && this.props.notifications[1].subTypes[0].notificationCount === 0 &&
-										<i className="zmdi zmdi-comments left"/>
-									}
-									{
-										this.props.notifications && this.props.notifications[1].subTypes[0].notificationCount > 0 &&
-										<i className={`zmdi zmdi-comments left ${this.props.notifications[1].subTypes[0].notificationCount > 99 && 'big-count'}`}
-										   data-notification={this.props.notifications[1].subTypes[0].notificationCount}/>
-									}
-
+									<i className="zmdi zmdi-comments left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
 								<div
