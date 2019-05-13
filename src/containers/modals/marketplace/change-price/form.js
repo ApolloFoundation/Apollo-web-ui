@@ -7,45 +7,46 @@ import NummericInput from '../../../components/form-components/numeric-input';
 import TextualInput from '../../../components/form-components/textual-input';
 
 
-const Form = ({setValue, goods}) => (
+const Form = ({setValue, goods, formatTimestamp}) => (
     <>
         {
-            goods &&  
+            goods &&
             <>
                 <TextualInput
                     setValue={setValue}
-                    label="Date:" 
+                    label="Date:"
                     text={formatTimestamp(goods.timestamp)}
                 />
                 <TextualInput
                     setValue={setValue}
-                    label="Seller:" 
+                    label="Seller:"
                     text={goods.sellerRS}
                 />
                 <TextualInput
                     setValue={setValue}
-                    label="Quantity:" 
+                    label="Quantity:"
                     text={goods.quantity}
                 />
                 <TextualInput
                     setValue={setValue}
-                    label="Current price:" 
+                    label="Current price:"
                     text={`${(goods.priceATM / 100000000).toLocaleString('en')} APL`}
                 />
                 <NummericInput
                     setValue={setValue}
-                    label="Quantity:"
+                    label="New price"
                     field="priceATM"
-                    placeholder="Quantity"
+                    placeholder="Price"
                     defaultValue={1}
+                    countingTtile={'Apollo'}
                 />
             </>
         }
     </>
-)
+);
 
-const md2p = {
-    formatTimestamp
-}
+const mapDispatchToProps = dispatch => ({
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
+});
 
-export default connect(null, md2p)(Form)
+export default connect(null, mapDispatchToProps)(Form)
