@@ -20,7 +20,9 @@ const mapDispatchToProps = dispatch => ({
 	formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
-const MarketplaceItem = (props, history) => (
+const MarketplaceItem = (props, history) => {
+const tagsArr = utils.parseStringBySpace(props.tags);
+    return (
     <div className={`${props.tall || props.fluid || props.fullHeight ? '' : 'pl-3'}  pb-3 w-100 position-relative`}>
         <div
             className={classNames({
@@ -142,7 +144,7 @@ const MarketplaceItem = (props, history) => (
                                     'tags': true,
                                 })}
                             >
-                                tags: {utils.parseStringBySpace(props.tags).map((el, index) => {
+                                tags: {tagsArr.map((el, index) => {
                                 return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
                                             className="btn static primary">{el}</Link>
                             })}
@@ -303,7 +305,7 @@ const MarketplaceItem = (props, history) => (
                                             <div className="tags">
                                                 {
                                                     props.tags &&
-                                                    utils.parseStringBySpace(props.tags).map((el, index) => {
+                                                    tagsArr.map((el, index) => {
                                                         return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
                                                                     className="btn static primary">{el}</Link>
                                                     })}
@@ -329,6 +331,6 @@ const MarketplaceItem = (props, history) => (
             }
         </div>
     </div>
-);
+);}
 
 export default connect(null, mapDispatchToProps)(MarketplaceItem);
