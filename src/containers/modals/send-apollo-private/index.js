@@ -301,7 +301,7 @@ class SendApolloPrivate extends React.Component {
                                         <InputForm
                                             defaultValue={''}
                                             field="feeATM"
-                                            placeholder="Amount"
+                                            placeholder="Fee"
                                             type={"float"}
                                             setValue={setValue}
                                         />

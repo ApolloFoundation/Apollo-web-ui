@@ -153,10 +153,10 @@ class ModalBody extends React.Component {
                                             <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                                 <InputForm
                                                     field="feeATM"
-                                                    placeholder="Amount"
+                                                    placeholder="Fee"
                                                     type={"float"}
                                                     setValue={setValue}
-                                                    defaultValue={''}
+                                                    defaultValue={'1'}
                                                     id={`${idGroup}feeAPL-field`}
                                                 />
                                                 <div className="input-group-append">
