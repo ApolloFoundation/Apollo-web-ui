@@ -5,13 +5,13 @@
 
 
 import React, {Suspense} from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import classNames from 'classnames';
-import SiteHeader from  '../../components/site-header'
+import SiteHeader from '../../components/site-header'
 import Entry from './entry'
 import {getBlockAction} from "../../../actions/blocks";
-import { getAccountLedgerAction, getLedgerEntryAction } from "../../../actions/ledger";
-import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
+import {getAccountLedgerAction, getLedgerEntryAction} from "../../../actions/ledger";
+import {setBodyModalParamsAction, setModalCallback, setModalType} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions/";
 import {BlockUpdater} from "../../block-subscriber";
 import {NotificationManager} from "react-notifications";
@@ -63,7 +63,7 @@ class Ledger extends React.Component {
     componentWillReceiveProps(newState) {
         this.setState({
             ...newState,
-            passphrase:  this.state.passphrase,
+            passphrase: this.state.passphrase,
         }, () => {
             this.getAccountLedger({
                 ...this.state.passphrase,
@@ -88,20 +88,20 @@ class Ledger extends React.Component {
         if (data) {
 
             this.setState({
-                passphrase:  data,
+                passphrase: data,
             });
         }
 
         this.getAccountLedger(reqParams);
     };
 
-    onPaginate (page) {
+    onPaginate(page) {
 
         let reqParams = {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1,
+            lastIndex: page * 15 - 1,
             includeHoldingInfo: true,
             ...this.state.passphrase,
         };
@@ -145,7 +145,7 @@ class Ledger extends React.Component {
         });
     }
 
-    async getLedgerEntry (modaltype, ledgerId, isPrivate) {
+    async getLedgerEntry(modaltype, ledgerId, isPrivate) {
         const requestParams = {
             ledgerId: ledgerId
         };
@@ -170,7 +170,7 @@ class Ledger extends React.Component {
         }
     }
 
-    getTransaction  = async (modaltype, ledgerId, isPrivate) => {
+    getTransaction = async (modaltype, ledgerId, isPrivate) => {
 
         let requestParams = {
             transaction: ledgerId
@@ -178,7 +178,7 @@ class Ledger extends React.Component {
 
         if (isPrivate) {
             requestParams.passphrase = this.state.passphrase;
-            requestParams.account    = this.props.account;
+            requestParams.account = this.props.account;
 
             const privateLedgerEntry = await this.props.getTransactionAction(requestParams);
 
@@ -206,7 +206,7 @@ class Ledger extends React.Component {
         }
     }
 
-    render () {
+    render() {
         return (
             <Suspense fallback="loading">
                 <div className="page-content">
@@ -218,7 +218,7 @@ class Ledger extends React.Component {
                             className={classNames({
                                 'btn': true,
                                 'primary': true,
-                                'disabled' : this.state.isPrivate
+                                'disabled': this.state.isPrivate
                             })}
                             onClick={() => {
                                 this.props.setModalType('PrivateTransactions')
@@ -231,44 +231,49 @@ class Ledger extends React.Component {
                     </SiteHeader>
 
                     <div className="page-body container-fluid">
-
-                        <CustomTable
-                            header={[
-                                {
-                                    name: 'Date',
-                                    alignRight: false
-                                },{
-                                    name: 'Type',
-                                    alignRight: false
-                                },{
-                                    name: 'Change',
-                                    alignRight: true
-                                },{
-                                    name: 'Balance',
-                                    alignRight: true
-                                },{
-                                    name: 'Holding',
-                                    alignRight: true
-                                },{
-                                    name: 'Change',
-                                    alignRight: true
-                                },{
-                                    name: 'Balance',
-                                    alignRight: true
-                                }
-                            ]}
-                            keyField={'ledgerId'}
-                            className={'no-min-height mb-3'}
-                            emptyMessage={'No active polls.'}
-                            TableRowComponent={Entry}
-                            tableData={this.state.ledger}
-                            isPaginate
-                            page={this.state.page}
-                            previousHendler={() => this.onPaginate(this.state.page - 1)}
-                            nextHendler={() => this.onPaginate(this.state.page + 1)}
-                        />
+                        <div>
+                            {this.props.blockchainStatus && (
+                                <div className="info-box info">
+                                    <span>Only ledger entries created during the last {this.props.blockchainStatus.ledgerTrimKeep} blocks are displayed</span>
+                                </div>
+                            )}
+                            <CustomTable
+                                header={[
+                                    {
+                                        name: 'Date',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Type',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Change',
+                                        alignRight: true
+                                    }, {
+                                        name: 'Balance',
+                                        alignRight: true
+                                    }, {
+                                        name: 'Holding',
+                                        alignRight: true
+                                    }, {
+                                        name: 'Change',
+                                        alignRight: true
+                                    }, {
+                                        name: 'Balance',
+                                        alignRight: true
+                                    }
+                                ]}
+                                keyField={'ledgerId'}
+                                className={'no-min-height mb-3'}
+                                emptyMessage={'No ledger found.'}
+                                TableRowComponent={Entry}
+                                tableData={this.state.ledger}
+                                isPaginate
+                                page={this.state.page}
+                                previousHendler={() => this.onPaginate(this.state.page - 1)}
+                                nextHendler={() => this.onPaginate(this.state.page + 1)}
+                            />
+                        </div>
                     </div>
-
                 </div>
             </Suspense>
         );
@@ -277,7 +282,8 @@ class Ledger extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
-    publicKey : state.account.publicKey,
+    publicKey: state.account.publicKey,
+    blockchainStatus: state.account.blockchainStatus,
 
     // modals
     modalData: state.modals.modalData
