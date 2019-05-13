@@ -10,6 +10,8 @@ import {Link} from 'react-router-dom'
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
+import utils from "../../../../helpers/util/utils";
+
 import uuid from 'uuid';
 import config from '../../../../config';
 
@@ -17,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
-const getTags = (tags) => tags.replace(/\W/g, ' ').toLowerCase().split(' ');
+
 const MarketplaceItem = (props, history) => (
     <div className={`${props.tall || props.fluid || props.fullHeight ? '' : 'pl-3'}  pb-3 w-100 position-relative`}>
         <div
@@ -140,7 +142,7 @@ const MarketplaceItem = (props, history) => (
                                     'tags': true,
                                 })}
                             >
-                                tags: {getTags(props.tags).map((el, index) => {
+                                tags: {utils.parseStringBySpace(props.tags).map((el, index) => {
                                 return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
                                             className="btn static primary">{el}</Link>
                             })}
@@ -301,7 +303,7 @@ const MarketplaceItem = (props, history) => (
                                             <div className="tags">
                                                 {
                                                     props.tags &&
-                                                    getTags(props.tags).map((el, index) => {
+                                                    utils.parseStringBySpace(props.tags).map((el, index) => {
                                                         return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
                                                                     className="btn static primary">{el}</Link>
                                                     })}

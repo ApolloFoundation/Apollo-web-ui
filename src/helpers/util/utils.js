@@ -317,6 +317,11 @@ function isDesktopApp() {
     return navigator.userAgent.indexOf("JavaFX") >= 0;
 }
 
+function parseStringBySpace(str){
+    const parsedStr = str.replace(/\W/g, ' ').toLowerCase().split(' ');
+    return parsedStr;
+}
+
 export default {
     isNumericAccount,
     isRsAccount,
@@ -330,4 +335,5 @@ export default {
     resolverReservePerUnit,
     isRequireBlockchain,
     isDesktopApp,
+    parseStringBySpace
 }
