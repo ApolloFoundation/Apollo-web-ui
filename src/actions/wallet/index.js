@@ -140,6 +140,8 @@ export const getBuyOpenOffers = (currency) => async (dispatch, getState) => {
         pairCurrency: 0,
         isAvailableForNow: true,
         status: 0,
+        firstIndex: 0,
+        lastIndex: 9,
     };
     const buyOrders = await dispatch(getOpenOrders(params));
     dispatch(setBuyOrdersAction(currency, buyOrders));
@@ -153,6 +155,8 @@ export const getSellOpenOffers = (currency) => async (dispatch, getState) => {
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
+        firstIndex: 0,
+        lastIndex: 9,
     };
     const sellOrders = await dispatch(getOpenOrders(params));
     dispatch(setSellOrdersAction(currency, sellOrders));
@@ -183,10 +187,11 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     dispatch(setMyOrdersAction(currency, orders));
 };
 
-export const getMyOfferHistory = () => async (dispatch, getState) => {
+export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     const {account} = getState().account;
     const params = {
         accountId: account,
+        ...options
     };
     const orders = await dispatch(getOpenOrders(params));
     const ordersRes = orders ? orders.sort((a, b) => b.finishTime - a.finishTime) : [];
