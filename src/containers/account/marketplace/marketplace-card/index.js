@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
-
+const getTags = (tags) => tags.replace(/\W/g, ' ').toLowerCase().split(' ');
 const MarketplaceItem = (props, history) => (
     <div className={`${props.tall || props.fluid || props.fullHeight ? '' : 'pl-3'}  pb-3 w-100 position-relative`}>
         <div
@@ -134,13 +134,13 @@ const MarketplaceItem = (props, history) => (
                             </div>
                         </div>
                         {
-                            props.parsedTags &&
+                            props.tags &&
                             <div
                                 className={classNames({
                                     'tags': true,
                                 })}
                             >
-                                tags: {props.parsedTags.map((el, index) => {
+                                tags: {getTags(props.tags).map((el, index) => {
                                 return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
                                             className="btn static primary">{el}</Link>
                             })}
@@ -270,10 +270,10 @@ const MarketplaceItem = (props, history) => (
                                     </div>
                                     <div className="t-cell"></div>
                                 </div>
-                            </div> 
-                            
+                            </div>
+
                         }{
-                            !props.deliver && !props.completedOrders && 
+                            !props.deliver && !props.completedOrders &&
                             <div className="item tags-links">
                                 <div className="top">
                                     <div className="seller">
@@ -295,13 +295,13 @@ const MarketplaceItem = (props, history) => (
                                 </div>
                                 <div className="bottom">
                                     {
-                                        props.parsedTags &&
+                                        props.tags &&
                                         <div className="seller">
                                             <div className="name">Tags:</div>
                                             <div className="tags">
                                                 {
-                                                    props.parsedTags &&
-                                                    props.parsedTags.map((el, index) => {
+                                                    props.tags &&
+                                                    getTags(props.tags).map((el, index) => {
                                                         return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
                                                                     className="btn static primary">{el}</Link>
                                                     })}
