@@ -305,6 +305,18 @@
 		.btn-box {
 			height: auto;
 			padding: 12px;
+			&.pagination {
+				position: relative;
+				justify-content: space-between;
+				display: flex;
+				.btn {
+					float: none;
+				}
+				.pagination-nav {
+					font-size: 12px;
+					font-weight: normal;
+				}
+			}
 		}
 		.btn {
 			border-radius: 2px;
