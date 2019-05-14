@@ -94,7 +94,7 @@ export function isLoggedIn(history) {
                 account: account
             });
         } else {
-            if (document.location.pathname !== '/login')
+            if (document.location.pathname !== '/login' && document.location.pathname !== '/faucet')
                 history.push('/login');
         }
     };
