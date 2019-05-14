@@ -141,7 +141,7 @@ class InfoTransactionTable extends Component {
 	render() {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
 		const { secretPhrase, transaction: { attachment: { message, encryptedMessage } }, passPhrase } = this.props;
-
+		const transactionType = this.props.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.props.transaction.type];
 		return (
 			<div className="transaction-table-body transparent wrap-collumns">
 				{
@@ -150,7 +150,15 @@ class InfoTransactionTable extends Component {
 						<tbody>
 							<tr>
 								<td>Type:</td>
-								<td>{formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name)}</td>
+								<td>
+									{
+										!!transactionType &&
+										(transactionType.subtypes[this.props.transaction.subtype].name === "AliasSell" && this.props.transaction.amountATM === "0") ?
+											formatTransactionType("AliasTransfer")
+											:
+											formatTransactionType(transactionType.subtypes[this.props.transaction.subtype].name)
+									}
+								</td>
 							</tr>
 
 							{modalTypeName === "CURRENCY ISSUANCE" && <CurrencyIssuance transaction={this.props.transaction} />}
