@@ -146,11 +146,11 @@ class ModalBody extends React.Component {
                                     {/** Rendering of fee calculation */}
                                     {
                                         isFee &&
-                                        <div className="form-group row form-group-white mb-15">
-                                            <label className="col-sm-3 col-form-label">
+                                        <div className="form-group mb-15">
+                                            <label>
                                                 Fee   
                                             </label>
-                                            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                            <div className="input-group">
                                                 <InputForm
                                                     field="feeATM"
                                                     placeholder="Fee"

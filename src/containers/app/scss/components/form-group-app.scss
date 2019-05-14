@@ -1,21 +1,18 @@
 .form-group-app {
-	//display: table;
-	padding: 35px;
+	padding: 0 !important;
 	box-sizing: border-box;
 	width: 100%;
 	background: #fff;
 	border-radius: 7px;
 	height: calc(100% - 15px);
-	//overflow: hidden;
+	margin-bottom: 15px;
 
 	&.is-double {
-
 		padding: 0;
-
-
 	}
 	.form-control:focus {
 		box-shadow: none;
+		background-color: #FCFCFD;
 	}
 	&.media-tab {
 		@media(max-width: 768px) {
@@ -465,7 +462,7 @@
 			}
 		}
 	}
-	.form-group-grey {
+	/*.form-group-grey {
 		align-items: center;
 		&.row {
 			margin-left: 0 !important;
@@ -507,7 +504,7 @@
 					display: none;
 				}
 			}
-			/*&::after {
+			!*&::after {
 				content: "\f2f9";
 				color: #727272;
 				position: absolute;
@@ -515,7 +512,7 @@
 				right: 25px;
 				font: normal normal normal 20px/1 'Material-Design-Iconic-Font';
 				cursor: pointer;
-			}*/
+			}*!
 		}
 		.input-group-text {
 			background-color: #e5e5e5;
@@ -579,8 +576,8 @@
 				padding-right: 0;
 			}
 		}
-	}
-	.form-group-white {
+	}*/
+	/*.form-group-white {
 		align-items: center;
 		&.row {
 			margin-left: 0 !important;
@@ -699,12 +696,87 @@
 				padding-right: 0;
 			}
 		}
-	}
+	}*/
 	.btn {
 		font-size: 11px;
 	}
 	.mb-15 {
 		margin-bottom: 15px;
+	}
+
+	label {
+		color: #98B0CD;
+		font-size: 11px;
+		margin-bottom: 5px;
+		display: inline-block;
+	}
+	input {
+		color: #3D5A7E;
+		border-radius: 2px 0 0 2px;
+		background-color: #FCFCFD;
+		border: 1px solid #E6EAEE;
+		font-family: "BBRollerMonoProST", sans-serif;
+		font-size: 14px;
+		line-height: normal;
+		letter-spacing: -0.57px;
+		padding: 5px;
+		height: 40px !important;
+		opacity: 1;
+		font-weight: 400;
+		&:focus {
+			border-color: #E6EAEE;
+		}
+	}
+	.input-group-text {
+		border-radius: 0 2px 2px 0;
+		background-color: #FCFCFD;
+		border: 1px solid #E6EAEE;
+		color: #98B0CD;
+		font-size: 14px;
+		letter-spacing: 0.35px;
+		line-height: normal;
+		text-align: right;
+		padding: 5px;
+		margin: 0;
+		height: 40px;
+	}
+	.iconned-input-field {
+		position: relative;
+		.input-group-text {
+			color: #3D5A7E;
+			background-color: #FCFCFD !important;
+			font-size: 24px;
+			padding: 0 15px 0 10px !important;
+		}
+		.contacts-list {
+			margin: -1px 0 0 0;
+			border-radius: 0 0 5px 5px;
+			border: 1px solid #E6EAEE;
+			ul {
+				background-color: #FCFCFD;
+				box-shadow: 0 10px 20px 0 rgba(255, 255, 255, 0.26);
+				li {
+					border-color: #E6EAEE;
+					transition: 0.3s;
+					&:hover {
+						background-color: #E6EAEE;
+					}
+				}
+			}
+		}
+	}
+	.input-group {
+		input {
+			border-right: none;
+		}
+		.input-group-text {
+			border-left: none;
+		}
+	}
+	.text-note {
+		position: absolute;
+		top: 42px;
+		color: #98B0CD;
 	}
 }
 
