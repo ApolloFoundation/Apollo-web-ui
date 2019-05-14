@@ -6,13 +6,13 @@ import InputForm from '../../../components/input-form';
 import {setBodyModalParamsAction, clearDashboardForm} from '../../../../modules/modals';
 
 class SendApolloCard extends Component {
-    
+
     submitForm = ({recipient, amountATM, feeAPL}) => {
         this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM , feeAPL})
     };
 
     opnePrivateTransactionModalWindow = ({recipient, amountATM, feeAPL}) => {
-        this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {recipient, amountATM ,feeAPL}) 
+        this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {recipient, amountATM ,feeAPL})
     };
 
     getApi = (form) => {
@@ -27,19 +27,20 @@ class SendApolloCard extends Component {
                     getApi={(form) => this.getApi(form)}
                     onSubmit={(values) => this.submitForm(values)}
                     render={({
-                            submitForm, setValue, values
-                        }) => (
-                            <form onSubmit={submitForm} className="card send-apollo mb-3">
-                                <div className="card-title">Send Apollo</div>
+                                 submitForm, setValue, values
+                             }) => (
+                        <form onSubmit={submitForm} className="card send-apollo mb-3">
+                            <div className="card-title">Send Apollo</div>
+                            <div className="card-body">
                                 <div className="full-box">
                                     <div className="form-group-app offset">
-                                        <div className="input-group-app lighten">
+                                        <div className="form-group">
                                             <label
                                                 style={{"word-break": 'normal'}}
                                             >
                                                 Recipient
                                             </label>
-                                            <AccountRS 
+                                            <AccountRS
                                                 field={'recipient'}
                                                 setValue={setValue}
                                                 plsceholder="Account ID"
@@ -47,58 +48,58 @@ class SendApolloCard extends Component {
                                                 value={values.recipient}
                                             />
                                         </div>
-                                        <div className="input-group-app lighten">
+                                        <div className="form-group">
                                             <label
                                                 style={{"word-break": 'normal'}}
                                             >
                                                 Amount
                                             </label>
                                             <div>
-                                            <div  style={{position: 'relative'}}>
-                                                <InputForm
-                                                    field={'amountATM'}
-                                                    placeholder={'Amount'}
-                                                    type={'float'}
-                                                    setValue={setValue}
-                                                />
+                                                <div  style={{position: 'relative'}}>
+                                                    <InputForm
+                                                        field={'amountATM'}
+                                                        placeholder={'Amount'}
+                                                        type={'float'}
+                                                        setValue={setValue}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="input-group-app lighten">
+                                        <div className="form-group">
                                             <label
                                                 style={{"word-break": 'normal'}}
                                             >
                                                 Fee
                                             </label>
                                             <div>
-                                            <div  style={{position: 'relative'}}>
-                                                <InputForm
-                                                    field={'feeAPL'}
-                                                    placeholder={'Amount'}
-                                                    type={'float'}
-                                                    setValue={setValue}
-                                                />
+                                                <div  style={{position: 'relative'}}>
+                                                    <InputForm
+                                                        field={'feeAPL'}
+                                                        placeholder={'Amount'}
+                                                        type={'float'}
+                                                        setValue={setValue}
+                                                    />
                                                 </div>
                                             </div>
-                                        </div> 
-                                    </div>                                   
+                                        </div>
+                                    </div>
                                 </div>
                                 <a
                                     onClick={() => this.opnePrivateTransactionModalWindow(values)}
                                     className="btn absolute btn-left btn-simple"
-                                    style={{margin: '0 0 -7px 35px'}}
                                 >
                                     Private APL
                                 </a>
                                 <button
                                     className="btn btn-right gray round round-bottom-right round-top-left absolute"
                                     data-modal="sendMoney"
-                                    >
-                                        Send&nbsp;
+                                >
+                                    Send&nbsp;
                                     <i className="arrow zmdi zmdi-chevron-right"/>
                                 </button>
-                            </form>
-                        )}
+                            </div>
+                        </form>
+                    )}
                 />
             </div>
         )

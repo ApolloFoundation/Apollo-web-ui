@@ -7,7 +7,7 @@ class ShortDescription extends Component {
         const {dashboardMessagesCount, dashboardActiveSuffling, dashboardAliasesCount, dashboardTaggedData} = this.props;
 
         return (
-            <div className="card header header-values coins flex chart-sprite position-4">
+            <div className="card header header-values bg-green">
                 <div className="general-info h-100">
                     <Link
                         to={'/messenger'}
@@ -18,9 +18,8 @@ class ShortDescription extends Component {
                                 dashboardMessagesCount === '100' ? '100+' : dashboardMessagesCount
                             }
                         </div>
-                        <div className="bottom-bar">
-                            Secure
-                            messages
+                        <div>
+                            Secure messages
                         </div>
                     </Link>
                     <Link
@@ -30,9 +29,8 @@ class ShortDescription extends Component {
                         <div className="top-bar">
                             {dashboardActiveSuffling}
                         </div>
-                        <div className="bottom-bar">
-                            Coin
-                            shuffling
+                        <div>
+                            Coin shuffling
                         </div>
                     </Link>
                     <Link
@@ -42,7 +40,7 @@ class ShortDescription extends Component {
                         <div className="top-bar">
                             {dashboardAliasesCount}
                         </div>
-                        <div className="bottom-bar">
+                        <div>
                             Aliases
                         </div>
                     </Link>
@@ -53,9 +51,8 @@ class ShortDescription extends Component {
                         <div className="top-bar">
                             {dashboardTaggedData}
                         </div>
-                        <div className="bottom-bar">
-                            Data
-                            storage
+                        <div>
+                            Data storage
                         </div>
                     </Link>
                 </div>

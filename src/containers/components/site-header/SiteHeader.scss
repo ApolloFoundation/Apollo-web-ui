@@ -12,7 +12,7 @@
 	justify-content: space-between;
 	position: fixed;
 	z-index: 2;
-	background-color: #F5F5F5;
+	background-color: #F5F7FC;
 	padding: 27px 40px 26px 40px;
 	width: calc(100% - 220px);
 	top: 0;
@@ -100,10 +100,11 @@
 				//}
 			}
 			.title {
-				color: #333333;
-				font-size: 36px;
+				color: #3D5A7E;
+				font-size: 28px;
 				font-weight: 300;
-				line-height: 1.2;
+				line-height: 34px;
+				letter-spacing: -0.93px;
 				display: inline-block;
 				margin-right: 15px;
 				@media (max-width: 1024px) {
@@ -114,19 +115,18 @@
 					
 				}
 			}
+			.btn.icon-button i {
+				color: #3D5A7E;
+			}
 			.breadcrumbs {
-				//position: absolute;
-				//top: calc(100% + -2px);
-				//left: 3px;
-				//@media (max-width: 760px) {
-				//	position: static;
-				//	display: block;
-				//}
+				padding-top: 5px;
 				a {
-					color: #BBBBBB;
+					color: #98B0CD;
+					font-size: 12px;
+					line-height: 14px;
 				}
 				strong a {
-					font-weight: 700;
+					font-weight: 600;
 				}
 			}
 		}
@@ -253,7 +253,7 @@
 				}
 				.user-account-action {
 					position: relative;
-					color: #333333;
+					color: #3D5A7E;
 					font-size: 18px;
 					line-height: 30px;
 					margin-right: 40px;
@@ -352,7 +352,7 @@
 										}
 									}
 									.option {
-										color: #333333;
+										color: #3D5A7E;
 										font-size: 12px;
 										line-height: 14px;
 										padding: 0 35px;
@@ -547,7 +547,7 @@
 				vertical-align: middle;
 			}
 			.title {
-				color: #333333;
+				color: #3D5A7E;
 				font-size: 36px;
 				font-weight: 300;
 				line-height: 60px;
@@ -652,7 +652,7 @@
 				}
 				.user-account-action {
 					position: relative;
-					color: #333333;
+					color: #3D5A7E;
 					font-size: 18px;
 					line-height: 30px;
 					margin-right: 40px;
@@ -702,7 +702,7 @@
 										}
 									}
 									.option {
-										color: #333333;
+										color: #3D5A7E;
 										font-size: 12px;
 										line-height: 14px;
 										padding: 0 35px;
