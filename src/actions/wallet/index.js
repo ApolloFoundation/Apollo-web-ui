@@ -132,7 +132,7 @@ export function getOpenOrders(requestParams) {
     }
 }
 
-export const getBuyOpenOffers = (currency) => async (dispatch, getState) => {
+export const getBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 0,
@@ -140,12 +140,16 @@ export const getBuyOpenOffers = (currency) => async (dispatch, getState) => {
         pairCurrency: 0,
         isAvailableForNow: true,
         status: 0,
+
+        firstIndex: 0,
+        lastIndex: 14,
+        ...options,
     };
     const buyOrders = await dispatch(getOpenOrders(params));
     dispatch(setBuyOrdersAction(currency, buyOrders));
 };
 
-export const getSellOpenOffers = (currency) => async (dispatch, getState) => {
+export const getSellOpenOffers = (currency, options) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 1,
@@ -153,6 +157,10 @@ export const getSellOpenOffers = (currency) => async (dispatch, getState) => {
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
+
+        firstIndex: 0,
+        lastIndex: 14,
+        ...options,
     };
     const sellOrders = await dispatch(getOpenOrders(params));
     dispatch(setSellOrdersAction(currency, sellOrders));
@@ -183,12 +191,12 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     dispatch(setMyOrdersAction(currency, orders));
 };
 
-export const getMyOfferHistory = () => async (dispatch, getState) => {
+export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     const {account} = getState().account;
     const params = {
         accountId: account,
+        ...options
     };
     const orders = await dispatch(getOpenOrders(params));
-    const ordersRes = orders ? orders.sort((a, b) => b.finishTime - a.finishTime) : [];
-    dispatch(setMyOrderHistoryAction(ordersRes));
+    dispatch(setMyOrderHistoryAction(orders));
 };

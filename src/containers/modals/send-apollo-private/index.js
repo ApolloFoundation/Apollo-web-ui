@@ -299,9 +299,9 @@ class SendApolloPrivate extends React.Component {
                                     </label>
                                     <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                         <InputForm
-                                            defaultValue={''}
+                                            defaultValue={'5'}
                                             field="feeATM"
-                                            placeholder="Amount"
+                                            placeholder="Fee"
                                             type={"float"}
                                             setValue={setValue}
                                         />

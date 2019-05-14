@@ -10,6 +10,8 @@ import {Link} from 'react-router-dom'
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
+import utils from "../../../../helpers/util/utils";
+
 import uuid from 'uuid';
 import config from '../../../../config';
 
@@ -18,7 +20,9 @@ const mapDispatchToProps = dispatch => ({
 	formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
-const MarketplaceItem = (props, history) => (
+const MarketplaceItem = (props, history) => {
+const tagsArr = utils.parseStringBySpace(props.tags);
+    return (
     <div className={`${props.tall || props.fluid || props.fullHeight ? '' : 'pl-3'}  pb-3 w-100 position-relative`}>
         <div
             className={classNames({
@@ -134,13 +138,13 @@ const MarketplaceItem = (props, history) => (
                             </div>
                         </div>
                         {
-                            props.parsedTags &&
+                            props.tags &&
                             <div
                                 className={classNames({
                                     'tags': true,
                                 })}
                             >
-                                tags: {props.parsedTags.map((el, index) => {
+                                tags: {tagsArr.map((el, index) => {
                                 return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
                                             className="btn static primary">{el}</Link>
                             })}
@@ -270,10 +274,10 @@ const MarketplaceItem = (props, history) => (
                                     </div>
                                     <div className="t-cell"></div>
                                 </div>
-                            </div> 
-                            
+                            </div>
+
                         }{
-                            !props.deliver && !props.completedOrders && 
+                            !props.deliver && !props.completedOrders &&
                             <div className="item tags-links">
                                 <div className="top">
                                     <div className="seller">
@@ -295,13 +299,13 @@ const MarketplaceItem = (props, history) => (
                                 </div>
                                 <div className="bottom">
                                     {
-                                        props.parsedTags &&
+                                        props.tags &&
                                         <div className="seller">
                                             <div className="name">Tags:</div>
                                             <div className="tags">
                                                 {
-                                                    props.parsedTags &&
-                                                    props.parsedTags.map((el, index) => {
+                                                    props.tags &&
+                                                    tagsArr.map((el, index) => {
                                                         return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
                                                                     className="btn static primary">{el}</Link>
                                                     })}
@@ -327,6 +331,6 @@ const MarketplaceItem = (props, history) => (
             }
         </div>
     </div>
-);
+);}
 
 export default connect(null, mapDispatchToProps)(MarketplaceItem);

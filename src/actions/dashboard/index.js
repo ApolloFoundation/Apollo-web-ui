@@ -17,6 +17,7 @@ import {getAllTaggedDataAction} from "../../actions/datastorage";
 import {getActiveShfflings, getShufflingAction} from "../../actions/shuffling";
 import {getpollsAction} from "../../actions/polls";
 import {getAccountInfoAction} from "../../actions/account";
+import {LOAD_ACCOUNT} from "../../modules/account";
 
 export const getDashboardData = () => (dispatch, getState, subscribe) => {
 
@@ -97,7 +98,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
         accountInfo       
     ])
         .then(async (resolved) => {
-            const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, news, taggetData, activeShuffling, finishedShuffling, activePolls] = resolved;
+            const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, news, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
             
             if (transactions) 
@@ -109,15 +110,15 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             dispatch({
                 type: 'SET_DASHBOARD_ASSETS',
                 payload: await dispatch(calculateAssets(accountAssets.accountAssets))
-            })
+            });
             dispatch({
                 type: 'SET_DASHBOARD_CURRENCIES',
                 payload: calculateCurrencies(currencies.accountCurrencies)
-            })
+            });
             dispatch({
                 type: 'SET_DASHBOARD_ALIASES_COUNT',
                 payload: aliaseesCount.numberOfAliases
-            })
+            });
             dispatch({
                 type: 'SET_DASHBOARD_DGS_GOODS',
                 payload: {
@@ -125,34 +126,38 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
                     numberOfPurchases : numberOfPurchases.purchases ? numberOfPurchases.purchases.length : null,
                     totalPurchases : totalPurchases.purchases ? totalPurchases.purchases.length : null
                 }
-            })
+            });
             dispatch({
                 type: 'SET_DASHBOARD_MESSAGES_COUNT',
                 payload: messages.transactions.length
-            })
+            });
             dispatch({
                 type: 'SET_DASHBOARD_NEWS',
                 payload: news ? news.tweets : []
-            })
+            });
             dispatch({
                 type: 'SET_DASHBOARD_TAGGEDDATA',
                 payload: taggetData.data.length
-            })
+            });
             dispatch({
                 type: 'SET_DASHBOARD_ACTIVE_SHUFFLING',
                 payload: activeShuffling.shufflings.length
-            })
+            });
             // console.log(dashboardAliasesCount)
             dispatch({
                 type: 'SET_DASHBOARD_POSSL',
                 payload: activePolls.polls
-            })
+            });
             dispatch({
                 type: 'SET_DASHBOARD_ACCOUNT_INFO',
                 payload: await accountInfo
-            })
+            });
+            dispatch({
+                type: 'LOAD_ACCOUNT',
+                payload: await accountInfo
+            });
         })       
-}
+};
 
 var calculateCurrencies = (currencies) => {
     return {

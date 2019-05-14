@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
     actualBlock: state.account.actualBlock,
     account: state.account.account,
     propsTypes: state
-})
+});
 
 const mapDispatchToProps = dispatch => ({
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),

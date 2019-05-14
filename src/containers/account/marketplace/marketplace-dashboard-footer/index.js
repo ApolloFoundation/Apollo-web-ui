@@ -102,7 +102,7 @@ class MarketplaceDashboardFooter extends Component {
                         <div className="form-title padding-left pb-5">
                             <p>
                                 Recent purchases&nbsp;&nbsp;
-                                <Link to="/recent-listing" className="btn primary static">View more</Link>
+                                <Link to="/purchased-products" className="btn primary static">View more</Link>
                             </p>
                         </div>
                         <div className="row marketplace-row">
@@ -128,7 +128,7 @@ class MarketplaceDashboardFooter extends Component {
                     </div> ||
                     <ContentLoader/>
                 }
-                
+
             </>
         )
     }

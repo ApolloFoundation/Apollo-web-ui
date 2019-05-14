@@ -88,7 +88,7 @@ class MarketplaceChangePrice extends React.Component {
                 closeModal={this.props.closeModal}
                 isAdvanced
                 isFee
-                isWide
+                isXWide
                 marketplace={{
                     priceATM: goods ? goods.priceATM : null,
                     name: goods ? goods.name : null,
@@ -98,7 +98,7 @@ class MarketplaceChangePrice extends React.Component {
                 }}
                 submitButtonName="Change price"
             >
-                <Form goods={this.state.goods}/>
+                <Form goods={this.state.goods} formatTimestamp={formatTimestamp}/>
             </ModalBody>
         );
     }

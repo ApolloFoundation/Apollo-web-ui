@@ -45,7 +45,7 @@ export function getAccountAction(reqParams) {
 }
 
 export function getAccountInfoAction(account) {
-    return dispatch => {
+    return (dispatch, getStore) => {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getAccount',
@@ -57,8 +57,11 @@ export function getAccountInfoAction(account) {
             }
         })
             .then((res) => {
-                if (res.data || (res.data && res.data.errorCode === 5)) {
-                    dispatch(login(res.data));
+                if (res.data && !res.data.errorCode) {
+                    const {account} = getStore().account;
+                    if (account === res.data.account) {
+                        dispatch(login(res.data));
+                    }
                     return res.data;
                 }
             })
@@ -66,9 +69,9 @@ export function getAccountInfoAction(account) {
 }
 
 export function switchAccountAction(account, history) {
-    return dispatch => {
-        makeLoginReq(dispatch, {account})
-        if (history) history.push('/dashboard')
+    return async (dispatch) => {
+        const newAccount = await makeLoginReq(dispatch, {account});
+        if (history) history.push('/dashboard');
 
         // Closing current modal window
         dispatch(setBodyModalParamsAction())

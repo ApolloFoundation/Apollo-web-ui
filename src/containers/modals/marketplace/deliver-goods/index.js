@@ -85,10 +85,10 @@ class MarketplaceDeliver extends React.Component {
     }
 
     render() {
-        
+
         const {formatTimestamp} = this.props;
         const {goods} = this.state;
-        
+
         return (
             <ModalBody
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
@@ -103,7 +103,7 @@ class MarketplaceDeliver extends React.Component {
                     image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
                     description: goods ? goods.description : null
                 }}
-                submitButtonName="Change price"
+                submitButtonName="Deliver Goods"
             >
                 <Form goods={this.state.goods}/>
             </ModalBody>
