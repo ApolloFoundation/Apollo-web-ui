@@ -79,10 +79,12 @@ const Transaction = (props) => (
                     <i className="zmdi zmdi-circle-o left"/>
                 }
             </div>
-            
             {
-                props.constants.transactionTypes &&
-                <div className="transaction-rs">{formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name)}</div>  
+                !!props.constants.transactionTypes &&
+                (props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "AliasSell" && props.amountATM === "0") ?
+                    <div className="transaction-rs">{formatTransactionType("AliasTransfer")}</div>
+                    :
+                    <div className="transaction-rs">{formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name)}</div>
             }
             <div className={'loader-container'}>
                     <span>
